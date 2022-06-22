@@ -1,21 +1,23 @@
 # edp-headlamp
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.7.0](https://img.shields.io/badge/AppVersion-0.7.0-informational?style=flat-square)
+![Version: 0.1.0-SNAPSHOT](https://img.shields.io/badge/Version-0.1.0--SNAPSHOT-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0-SNAPSHOT](https://img.shields.io/badge/AppVersion-0.1.0--SNAPSHOT-informational?style=flat-square)
 
-Headlamp is an easy-to-use and extensible Kubernetes web UI.
+A Helm chart for EDP Headlamp
 
-**Homepage:** <https://github.com/kinvolk/headlamp/tree/main/deploy/helm>
+**Homepage:** <https://epam.github.io/edp-install/>
 
 ## Maintainers
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| kinvolk |  | <https://kinvolk.io/> |
+| epmd-edp | <SupportEPMD-EDP@epam.com> | <https://solutionshub.epam.com/solution/epam-delivery-platform> |
+| sergk |  | <https://github.com/SergK> |
 
 ## Source Code
 
 * <https://github.com/kinvolk/headlamp>
 * <https://kinvolk.io/>
+* <https://github.com/epam/edp-headlamp>
 
 ## Values
 
@@ -29,9 +31,9 @@ Headlamp is an easy-to-use and extensible Kubernetes web UI.
 | config.oidc.scopes | string | `""` | OIDC scopes to be used |
 | fullnameOverride | string | `""` | Overrides the full name of the chart |
 | global.dnsWildCard | string | `"example.com"` |  |
-| global.edpName | string | `""` |  |
-| image.name | string | `"epamedp/edp-headlamp"` |  |
-| image.version | string | `nil` |  |
+| global.edpName | string | `""` | Target namespace |
+| image.name | string | `"epamedp/edp-headlamp"` | Image to deploy |
+| image.version | string | `nil` | If not defined then .Chart.AppVersion is used |
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |
 | ingress.annotations | object | `{}` | Annotations for Ingress resource |
 | ingress.enabled | bool | `true` | Enable ingress controller resource |

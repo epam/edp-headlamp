@@ -1,19 +1,36 @@
 apiVersion: v2
+description: A Helm chart for EDP Headlamp
+home: https://epam.github.io/edp-install/
 name: edp-headlamp
-description: Headlamp is an easy-to-use and extensible Kubernetes web UI.
-icon: https://raw.githubusercontent.com/kinvolk/headlamp/main/docs/headlamp_light.svg
-home: https://github.com/kinvolk/headlamp/tree/main/deploy/helm
 type: application
+version: 0.1.0-SNAPSHOT
+appVersion: 0.1.0-SNAPSHOT
+icon: https://raw.githubusercontent.com/kinvolk/headlamp/main/docs/headlamp_light.svg
 keywords:
+  - edp
   - kubernetes
   - plugins
   - kinvolk
   - headlamp
+maintainers:
+  - name: epmd-edp
+    email: SupportEPMD-EDP@epam.com
+    url: https://solutionshub.epam.com/solution/epam-delivery-platform
+  - name: sergk
+    url: https://github.com/SergK
 sources:
   - https://github.com/kinvolk/headlamp
   - https://kinvolk.io/
-maintainers:
-  - name: kinvolk
-    url: https://kinvolk.io/
-version: 0.2.0
-appVersion: 0.7.0
+  - https://github.com/epam/edp-headlamp
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/operator: "true"
+  artifacthub.io/images: |
+    - name: ghcr.io/kinvolk/headlamp:v0.10.0
+      image: ghcr.io/kinvolk/headlamp:v0.10.0
+  artifacthub.io/operatorCapabilities: Full Lifecycle
+  artifacthub.io/links: |
+    - name: EDP Documentation
+      url: https://epam.github.io/edp-install/
+    - name: EPAM SolutionHub
+      url: https://solutionshub.epam.com/solution/epam-delivery-platform

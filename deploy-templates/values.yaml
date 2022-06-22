@@ -6,12 +6,14 @@
 replicaCount: 1
 
 global:
+  # -- Target namespace
   edpName: ""
   dnsWildCard: "example.com"
 
 image:
+  # -- Image to deploy
   name: epamedp/edp-headlamp
-  # if not defined then .Chart.AppVersion is used
+  # -- If not defined then .Chart.AppVersion is used
   version:
 
 # -- An optional list of references to secrets in the same namespace to use for pulling any of the images used
