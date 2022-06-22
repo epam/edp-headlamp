@@ -1,0 +1,52 @@
+{
+  "name": "headlamp-edp",
+  "version": "0.0.1",
+  "description": "Your Headlamp plugin",
+  "scripts": {
+    "start": "headlamp-plugin start",
+    "build": "headlamp-plugin build",
+    "build:clean": "headlamp-plugin build",
+    "build:prod": "headlamp-plugin build",
+    "format": "headlamp-plugin format",
+    "lint": "headlamp-plugin lint && tsc --noemit",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "tsc": "tsc"
+  },
+  "keywords": [
+    "headlamp",
+    "headlamp-plugin",
+    "kubernetes",
+    "plugins"
+  ],
+  "prettier": "./.prettierrc.js",
+  "eslintConfig": {
+    "extends": [
+      "@kinvolk",
+      "prettier",
+      "plugin:jsx-a11y/recommended"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.16",
+    "@babel/preset-typescript": "^7.17.12",
+    "@iconify/icons-codicon": "^1.2.4",
+    "@iconify/icons-ep": "^1.2.4",
+    "@iconify/icons-mdi": "^1.2.8",
+    "@iconify/icons-mi": "^1.2.1",
+    "@iconify/icons-ph": "^1.2.1",
+    "@iconify/react": "^3.2.1",
+    "@kinvolk/headlamp-plugin": "^0.4.5",
+    "@types/jest": "^28.1.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.2"
+  },
+  "dependencies": {
+    "clsx": "^1.1.1",
+    "react-json-view": "^1.21.3"
+  }
+}

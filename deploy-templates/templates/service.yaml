@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "edp-headlamp.fullname" . }}
+  name: {{ include "headlamp.fullname" . }}
   labels:
-    {{- include "edp-headlamp.labels" . | nindent 4 }}
+    {{- include "headlamp.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "edp-headlamp.selectorLabels" . | nindent 4 }}
+    {{- include "headlamp.selectorLabels" . | nindent 4 }}

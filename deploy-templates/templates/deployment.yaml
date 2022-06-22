@@ -1,67 +1,66 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "edp-headlamp.fullname" . }}
+  name: {{ include "headlamp.fullname" . }}
   labels:
-    {{- include "edp-headlamp.labels" . | nindent 4 }}
+    {{- include "headlamp.labels" . | nindent 4 }}
 spec:
-{{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-{{- end }}
   selector:
     matchLabels:
-      {{- include "edp-headlamp.selectorLabels" . | nindent 6 }}
+      {{- include "headlamp.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-    {{- with .Values.podAnnotations }}
+      {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       labels:
-        {{- include "edp-headlamp.selectorLabels" . | nindent 8 }}
+        {{- include "headlamp.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "edp-headlamp.serviceAccountName" . }}
+      serviceAccountName: {{ include "headlamp.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.name}}:{{ .Values.image.version}}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if .Values.framework }}
-          {{- if eq .Values.framework "operator-sdk" }}
-          env:
-            - name: WATCH_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.namespace
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.name
-          {{- end}}
-          {{- end}}
+          args:
+            - "-in-cluster"
+            - "-plugins-dir=/headlamp/plugins"
+            {{- with .Values.config.oidc.clientID }}
+            - "-oidc-client-id={{ . }}"
+            {{- end }}
+            {{- with .Values.config.oidc.clientSecret }}
+            - "-oidc-client-secret={{ . }}"
+            {{- end }}
+            {{- with .Values.config.oidc.issuerURL }}
+            - "-oidc-idp-issuer-url={{ . }}"
+            {{- end }}
+            {{- with .Values.config.oidc.scopes }}
+            - "-oidc-scopes={{ . }}"
+            {{- end }}
+            {{- with .Values.config.baseURL }}
+            - "-base-url={{ . }}"
+            {{- end }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 4466
               protocol: TCP
-{{- if .Values.framework }}
-{{- if ne .Values.framework "operator-sdk" }}
           livenessProbe:
-            tcpSocket:
+            httpGet:
+              path: /
               port: http
           readinessProbe:
-            tcpSocket:
+            httpGet:
+              path: /
               port: http
-{{- end}}
-{{- end}}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
