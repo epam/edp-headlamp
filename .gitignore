@@ -14,3 +14,7 @@ yarn-error.log*
 package-lock.json
 /.changelog
 .npm/
+
+bin/*
+
+coverage/*
