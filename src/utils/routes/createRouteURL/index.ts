@@ -3,7 +3,7 @@ import { RouteURLProps } from '../../../routes/types';
 
 const {
     pluginLib: { Utils, ReactRouter, ReactRedux },
-} = window;
+} = globalThis;
 
 export function createRouteURL(routeName: string, params: RouteURLProps = {}) {
     const store = ReactRedux.useStore();

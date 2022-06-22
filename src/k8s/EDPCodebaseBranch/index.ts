@@ -1,11 +1,15 @@
 import { makeKubeObject } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { EDPCodebaseBranchKubeObjectConfig } from './config';
-import { EDPCodebaseBranchKubeObjectInterface } from './types';
+import {
+    EDPCodebaseBranchKubeObjectInterface,
+    EDPCodebaseBranchSpecInterface,
+    EDPCodebaseBranchStatusInterface,
+} from './types';
 
 const {
     pluginLib: { ApiProxy },
-} = window;
+} = globalThis;
 
 const {
     name: { singularForm, pluralForm },
@@ -26,11 +30,11 @@ export class EDPCodebaseBranchKubeObject extends makeKubeObject<EDPCodebaseBranc
         return pluralForm;
     }
 
-    get spec(): EDPCodebaseBranchKubeObjectInterface['spec'] {
+    get spec(): EDPCodebaseBranchSpecInterface {
         return this.jsonData!.spec;
     }
 
-    get status(): EDPCodebaseBranchKubeObjectInterface['status'] {
+    get status(): EDPCodebaseBranchStatusInterface {
         return this.jsonData!.status;
     }
 

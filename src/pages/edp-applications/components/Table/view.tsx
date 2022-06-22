@@ -4,7 +4,7 @@ import { TableProps } from './types';
 
 const {
     pluginLib: { React, CommonComponents, Utils },
-} = window;
+} = globalThis;
 const { SimpleTable } = CommonComponents;
 const { useFilterFunc } = Utils;
 
@@ -19,7 +19,6 @@ export const Table: React.FC<TableProps> = ({ data }): React.ReactElement => {
             columns={columns}
             rowsPerPage={[15, 25, 50]}
             filterFunction={filterFunc}
-            defaultSortingColumn={5}
         />
     );
 };

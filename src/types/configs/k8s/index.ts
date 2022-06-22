@@ -5,4 +5,12 @@ export interface KubeObjectConfig {
     };
     group: string;
     version: string;
+    types?: {
+        [key: string]: {
+            name: {
+                singularForm: string;
+                pluralForm: string;
+            };
+        };
+    };
 }

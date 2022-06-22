@@ -4,7 +4,7 @@ import { CreateKubeObjectProps } from './types';
 
 const {
     pluginLib: { React, ReactRedux, CommonComponents },
-} = window;
+} = globalThis;
 const { EditorDialog } = CommonComponents;
 const { useDispatch } = ReactRedux;
 
@@ -33,15 +33,17 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
     };
 
     const handleSave = async (data: KubeObjectInterface): Promise<void> => {
+        const {
+            metadata: { name },
+        } = data;
         const cancelUrl = location.pathname;
-        const newItemName = data.metadata.name;
 
         dispatch(
             clusterAction(() => applyFunc(data), {
-                startMessage: `Applying ${newItemName}`,
-                cancelledMessage: `Cancelled applying ${newItemName}`,
-                successMessage: `Applied ${newItemName}`,
-                errorMessage: `Failed to apply ${newItemName}`,
+                startMessage: `Applying ${name}`,
+                cancelledMessage: `Cancelled applying ${name}`,
+                successMessage: `Applied ${name}`,
+                errorMessage: `Failed to apply ${name}`,
                 cancelUrl,
             })
         );
@@ -49,6 +51,7 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
 
     return (
         <EditorDialog
+            data-testid={'CreateKubeObject.EditorDialog'}
             item={kubeObjectExample}
             title={`Create ${kubeObjectExample.kind}`}
             open={editorOpen}

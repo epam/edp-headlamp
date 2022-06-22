@@ -4,7 +4,7 @@ import { EditKubeObjectProps } from './types';
 
 const {
     pluginLib: { React, ReactRedux, CommonComponents },
-} = window;
+} = globalThis;
 const { useDispatch } = ReactRedux;
 const { EditorDialog } = CommonComponents;
 
@@ -32,16 +32,18 @@ export const EditKubeObject: React.FC<EditKubeObjectProps> = ({
         }
     };
 
-    const handleSave = async ({ jsonData }: KubeObjectInterface): Promise<void> => {
+    const handleSave = async (jsonData: KubeObjectInterface): Promise<void> => {
+        const {
+            metadata: { name },
+        } = jsonData;
         const cancelUrl = location.pathname;
-        const itemName = jsonData.metadata.name;
 
         dispatch(
             clusterAction(() => applyFunc(jsonData), {
-                startMessage: `Applying changes to ${itemName}`,
-                cancelledMessage: `Cancelled changes to ${itemName}`,
-                successMessage: `Applied changes to ${itemName}`,
-                errorMessage: `Failed to apply changes to ${itemName}`,
+                startMessage: `Applying changes to ${name}`,
+                cancelledMessage: `Cancelled changes to ${name}`,
+                successMessage: `Applied changes to ${name}`,
+                errorMessage: `Failed to apply changes to ${name}`,
                 cancelUrl,
             })
         );

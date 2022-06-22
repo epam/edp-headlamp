@@ -2,7 +2,7 @@ import { rem } from '../../../../utils/styling/rem';
 
 const {
     pluginLib: { MuiCore },
-} = window;
+} = globalThis;
 const { makeStyles } = MuiCore;
 
 export const useStyles = makeStyles(() => ({

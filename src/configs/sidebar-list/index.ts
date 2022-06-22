@@ -1,30 +1,40 @@
-import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
-import { EDPComponentKubeObjectConfig } from '../../k8s/EDPComponent/config';
+import {
+    APPLICATIONS_ROUTE_NAME,
+    COMPONENTS_ROUTE_NAME,
+    EDP_ROOT_ROUTE_NAME,
+    LIBRARIES_ROUTE_NAME,
+} from '../../routes/names';
 import { SidebarItem } from '../../routes/types';
 import { createNewSidebarItem } from '../../utils/routes/createNewSidebarItem';
-import { createRouteItemName } from '../../utils/routes/createRouteItemName'
-import { createSidebarRouteURLBasedOnName } from '../../utils/routes/createSidebarRouteURLBasedOnName'
+import { createRouteName } from '../../utils/routes/createRouteName';
+import { createSidebarItemName } from '../../utils/routes/createSidebarItemName';
 
 export const SIDEBAR_LIST: SidebarItem[] = [
     {
         parentName: null,
         itemLabel: 'EDP',
-        itemName: createRouteItemName('root'),
-        url: createSidebarRouteURLBasedOnName(EDPComponentKubeObjectConfig.name.pluralForm),
+        itemName: createSidebarItemName(EDP_ROOT_ROUTE_NAME),
+        url: createRouteName(COMPONENTS_ROUTE_NAME),
         opts: {
             icon: 'ion:rocket-outline',
         },
     },
     createNewSidebarItem(
         'Overview',
-        EDPComponentKubeObjectConfig.name.pluralForm,
-        'mdi:application-cog',
-        'edp-root'
+        COMPONENTS_ROUTE_NAME,
+        'material-symbols:view-quilt-outline-rounded',
+        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'Applications',
-        EDPCodebaseKubeObjectConfig.name.pluralForm,
-        'mdi:application-brackets',
-        'edp-root'
+        APPLICATIONS_ROUTE_NAME,
+        'fluent:app-generic-24-regular',
+        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
+    ),
+    createNewSidebarItem(
+        'Libraries',
+        LIBRARIES_ROUTE_NAME,
+        'fluent:library-16-regular',
+        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
 ];

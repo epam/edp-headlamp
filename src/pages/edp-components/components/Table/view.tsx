@@ -4,7 +4,7 @@ import { TableProps } from './types';
 
 const {
     pluginLib: { React, CommonComponents, Utils },
-} = window;
+} = globalThis;
 const { SimpleTable } = CommonComponents;
 
 export const Table: React.FC<TableProps> = ({ data }): React.ReactElement => {

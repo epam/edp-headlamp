@@ -1,47 +1,60 @@
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
-import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
+import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { rem } from '../../utils/styling/rem';
 import { AdvancedInfoTable } from './components/AdvancedInfoTable';
 import { CodebaseBranchesTable } from './components/CodebaseBranchesTable';
 import { GeneralInfoTable } from './components/GeneralInfoTable';
-import { EDPCodebaseProps } from './types';
+import { PageHeaderActions } from './components/PageHeaderActions';
+import { useStyles } from './styles';
+import { EDPApplicationProps } from './types';
 
 const {
     pluginLib: { React, ReactRouter, MuiCore, Iconify },
-} = window;
+} = globalThis;
 const { useParams } = ReactRouter;
 const { Link } = ReactRouter;
 const { Typography, Button } = MuiCore;
 const { Icon } = Iconify;
 
-export const EDPApplication: React.FC<EDPCodebaseProps> = (): React.ReactElement => {
+export const EDPApplication: React.FC<EDPApplicationProps> = (): React.ReactElement => {
+    const classes = useStyles();
     const { namespace, name } = useParams();
-    const [codebase, setCodebase] = React.useState(null);
+    const [application, setApplication] = React.useState(null);
     const [, setError] = React.useState(null);
 
-    EDPCodebaseKubeObject.useApiGet(setCodebase, name, namespace, setError);
+    EDPCodebaseKubeObject.useApiGet(setApplication, name, namespace, setError);
 
     return (
         <>
-            <Button
-                startIcon={<Icon icon={'ep:arrow-left'} />}
-                size="small"
-                component={Link}
-                to={createRouteURL(EDPCodebaseKubeObjectConfig.name.pluralForm)}
-            >
-                <Typography style={{ paddingTop: rem(3) }}>Back</Typography>
-            </Button>
-            {codebase && (
+            <div className={classes.pageHeading}>
+                <Button
+                    startIcon={<Icon icon={'ep:arrow-left'} />}
+                    size="small"
+                    component={Link}
+                    to={createRouteURL(APPLICATIONS_ROUTE_NAME)}
+                >
+                    <Typography style={{ paddingTop: rem(3) }}>Back</Typography>
+                </Button>
+                <Typography variant={'h1'} component={'span'}>
+                    {name}
+                </Typography>
+                {application && (
+                    <div style={{ marginLeft: 'auto' }}>
+                        <PageHeaderActions
+                            kubeObject={EDPCodebaseKubeObject}
+                            kubeObjectData={application}
+                        />
+                    </div>
+                )}
+            </div>
+            {application && (
                 <>
-                    <GeneralInfoTable
-                        kubeObject={EDPCodebaseKubeObject}
-                        kubeObjectData={codebase}
-                    />
-                    <AdvancedInfoTable kubeObjectData={codebase} />
+                    <GeneralInfoTable kubeObjectData={application} />
+                    <AdvancedInfoTable kubeObjectData={application} />
                     <CodebaseBranchesTable
                         kubeObject={EDPCodebaseKubeObject}
-                        kubeObjectData={codebase}
+                        kubeObjectData={application}
                     />
                 </>
             )}

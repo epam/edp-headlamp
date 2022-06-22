@@ -4,7 +4,7 @@ import { EDPComponentKubeObjectInterface } from './types';
 
 const {
     pluginLib: { ApiProxy },
-} = window;
+} = globalThis;
 
 const {
     name: { singularForm, pluralForm },

@@ -1,0 +1,20 @@
+[
+    {
+        "kind": "Codebase",
+        "spec": {
+            "type": "application"
+        }
+    },
+    {
+        "kind": "Codebase",
+        "spec": {
+            "type": "library"
+        }
+    },
+    {
+        "kind": "Codebase",
+        "spec": {
+            "type": "autotest"
+        }
+    }
+]

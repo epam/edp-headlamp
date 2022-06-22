@@ -1,1 +1,1 @@
-export interface EDPCodebaseProps {}
+export interface EDPApplicationProps {}

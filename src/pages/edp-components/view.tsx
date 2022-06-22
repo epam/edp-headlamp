@@ -5,7 +5,7 @@ import { EDPComponentsProps } from './types';
 
 const {
     pluginLib: { React, CommonComponents },
-} = window;
+} = globalThis;
 const { SectionBox, SectionFilterHeader } = CommonComponents;
 
 export const EDPComponents: React.FC<EDPComponentsProps> = (): React.ReactElement => {

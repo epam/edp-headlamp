@@ -1,12 +1,12 @@
 import { SidebarItem } from '../../../routes/types';
-import { createRouteItemName } from '../createRouteItemName';
-import { createSidebarRouteURLBasedOnName } from '../createSidebarRouteURLBasedOnName';
+import { createRouteName } from '../createRouteName';
+import { createSidebarItemName } from '../createSidebarItemName';
 
 export const createNewSidebarItem = (itemLabel, name, icon, parentName = null): SidebarItem => ({
     parentName,
     itemLabel,
-    itemName: createRouteItemName(name),
-    url: createSidebarRouteURLBasedOnName(name),
+    itemName: createSidebarItemName(name),
+    url: createRouteName(name),
     opts: {
         icon,
     },

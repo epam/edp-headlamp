@@ -26,11 +26,12 @@
       ],
     },
     "rootDirs": ["node_modules/@kinvolk/headlamp-plugin/"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": ["./src/**/*"],
   "extends": "./node_modules/@kinvolk/headlamp-plugin/config/plugins-tsconfig.json",
   "files": [
     "./src/types/global.d.ts"
-  ]
+  ],
 }

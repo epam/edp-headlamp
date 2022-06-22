@@ -2,7 +2,7 @@ import { EDPComponentKubeObject } from '../../../../../k8s/EDPComponent';
 
 const {
     pluginLib: { React, MuiCore },
-} = window;
+} = globalThis;
 const { Link } = MuiCore;
 
 export const useColumns = (classes: { [key: string]: any }) =>

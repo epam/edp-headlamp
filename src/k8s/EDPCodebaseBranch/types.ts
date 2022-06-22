@@ -25,7 +25,13 @@ interface EDPCodebaseBranchStatusInterface {
     versionHistory: string[];
 }
 
-export interface EDPCodebaseBranchKubeObjectInterface extends KubeObjectInterface {
+interface EDPCodebaseBranchKubeObjectInterface extends KubeObjectInterface {
     spec: EDPCodebaseBranchSpecInterface;
     status: EDPCodebaseBranchStatusInterface;
 }
+
+export {
+    EDPCodebaseBranchSpecInterface,
+    EDPCodebaseBranchStatusInterface,
+    EDPCodebaseBranchKubeObjectInterface,
+};
