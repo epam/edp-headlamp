@@ -1,0 +1,55 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "edp-headlamp.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
+{{- $ingressApiIsStable := eq (include "edp-headlamp.ingress.isStable" .) "true" -}}
+{{- $ingressSupportsIngressClassName := eq (include "edp-headlamp.ingress.supportsIngressClassName" .) "true" -}}
+{{- $ingressSupportsPathType := eq (include "edp-headlamp.ingress.supportsPathType" .) "true" -}}
+{{- $ingressPathType := .Values.ingress.pathType -}}
+kind: Ingress
+apiVersion: {{ include "edp-headlamp.ingress.apiVersion" . }}
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "edp-headlamp.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if and $ingressSupportsIngressClassName .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- end }}
+  {{- if .Values.ingress.tls }}
+  tls:
+    {{- range .Values.ingress.tls }}
+    {{- if .Values.ingress.host }}
+    - host: {{ .Values.ingress.host }}
+    {{else}}
+    - host: {{ $fullName }}-{{ .Release.Namespace}}.{{ .Values.ingress.dnsWildcard}}
+    {{end}}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- if .Values.ingress.host }}
+    - host: {{ .Values.ingress.host }}
+    {{else}}
+    - host: {{ $fullName }}-{{ .Release.Namespace}}.{{ .Values.ingress.dnsWildcard}}
+    {{end}}
+      http:
+        paths:
+          - path: {{ .Values.ingress.path }}
+            {{- if $ingressSupportsPathType }}
+            pathType: {{ $ingressPathType }}
+            {{- end }}
+            backend:
+              {{- if $ingressApiIsStable }}
+              service:
+                name: {{ $fullName }}
+                port: 
+                  number: {{ $svcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}
+              servicePort: {{ $svcPort }}
+              {{- end }}
+  {{- end }}
