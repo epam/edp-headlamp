@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../k8s/EDPCodebaseBranch/types';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getStatusIconByStatusName } from '../../../../../utils/styling/getStatusIconByStatusName';
@@ -9,19 +10,21 @@ const {
 const { Icon } = Iconify;
 const { Tooltip } = MuiCore;
 
-export const useColumns = (classes: { [key: string]: any }) =>
+export const useColumns = (classes: {
+    [key: string]: any;
+}): HeadlampSimpleTableGetterColumn<EDPCodebaseBranchKubeObjectInterface>[] =>
     React.useMemo(() => {
         return [
             {
                 label: 'Status',
-                getter: ({ status: { status } }: EDPCodebaseBranchKubeObjectInterface) => {
+                getter: ({ status: { status } }) => {
                     const [icon, color, animate] = getStatusIconByStatusName(status);
                     return (
                         <Tooltip title={capitalizeFirstLetter(status)}>
                             <Icon
                                 icon={icon}
                                 color={color}
-                                width="30"
+                                width="25"
                                 className={clsx({
                                     [classes.icon]: animate,
                                     [classes.rotateIcon]: animate,
@@ -33,13 +36,11 @@ export const useColumns = (classes: { [key: string]: any }) =>
             },
             {
                 label: 'Branch Name',
-                getter: ({ spec: { branchName } }: EDPCodebaseBranchKubeObjectInterface) =>
-                    branchName,
+                getter: ({ spec: { branchName } }) => branchName,
             },
             {
                 label: 'Last Time Updated',
-                getter: ({ status: { lastTimeUpdated } }: EDPCodebaseBranchKubeObjectInterface) =>
-                    lastTimeUpdated,
+                getter: ({ status: { lastTimeUpdated } }) => lastTimeUpdated,
             },
         ];
     }, []);

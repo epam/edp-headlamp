@@ -10,8 +10,7 @@
     "format": "headlamp-plugin format",
     "lint": "headlamp-plugin lint && tsc --noemit",
     "test": "jest",
-    "test:coverage": "jest --coverage",
-    "tsc": "tsc"
+    "test:coverage": "jest --coverage"
   },
   "keywords": [
     "headlamp",

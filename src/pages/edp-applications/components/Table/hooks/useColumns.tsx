@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { APPLICATION_ROUTE_NAME } from '../../../../../routes/names';
@@ -12,31 +13,35 @@ const { Icon } = Iconify;
 const { Link } = CommonComponents;
 const { Tooltip } = MuiCore;
 
-export const useColumns = (classes: { [key: string]: any }) =>
+export const useColumns = (classes: {
+    [key: string]: any;
+}): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObjectInterface>[] =>
     React.useMemo(() => {
         return [
             {
                 label: 'Status',
-                getter: ({ status: { status } }: EDPCodebaseKubeObjectInterface) => {
+                getter: ({ status: { status } }) => {
                     const [icon, color, animate] = getStatusIconByStatusName(status);
                     return (
-                        <Tooltip title={capitalizeFirstLetter(status)}>
-                            <Icon
-                                icon={icon}
-                                color={color}
-                                width="30"
-                                className={clsx({
-                                    [classes.icon]: animate,
-                                    [classes.rotateIcon]: animate,
-                                })}
-                            />
-                        </Tooltip>
+                        <div className={classes.iconWrapper}>
+                            <Tooltip title={capitalizeFirstLetter(status)}>
+                                <Icon
+                                    icon={icon}
+                                    color={color}
+                                    width="25"
+                                    className={clsx({
+                                        [classes.icon]: animate,
+                                        [classes.rotateIcon]: animate,
+                                    })}
+                                />
+                            </Tooltip>
+                        </div>
                     );
                 },
             },
             {
                 label: 'Application',
-                getter: (data: EDPCodebaseKubeObjectInterface) => {
+                getter: data => {
                     const kubeObjectBasedOnData = new EDPCodebaseKubeObject(data);
                     return (
                         <Link to={kubeObjectBasedOnData.getDetailsLink(APPLICATION_ROUTE_NAME)}>
@@ -47,19 +52,19 @@ export const useColumns = (classes: { [key: string]: any }) =>
             },
             {
                 label: 'Language',
-                getter: ({ spec: { lang } }: EDPCodebaseKubeObjectInterface) => lang,
+                getter: ({ spec: { lang } }) => lang,
             },
             {
                 label: 'Build Tool',
-                getter: ({ spec: { buildTool } }: EDPCodebaseKubeObjectInterface) => buildTool,
+                getter: ({ spec: { buildTool } }) => buildTool,
             },
             {
                 label: 'Framework',
-                getter: ({ spec: { framework } }: EDPCodebaseKubeObjectInterface) => framework,
+                getter: ({ spec: { framework } }) => framework,
             },
             {
                 label: 'CI Tool',
-                getter: ({ spec: { ciTool } }: EDPCodebaseKubeObjectInterface) => ciTool,
+                getter: ({ spec: { ciTool } }) => ciTool,
             },
         ];
     }, [classes]);

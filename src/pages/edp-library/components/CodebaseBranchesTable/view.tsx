@@ -1,3 +1,4 @@
+import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { selectCodebaseBranchesByCodebaseLabel } from '../../../../k8s/EDPCodebaseBranch';
 import { TableHeaderActions } from './components/TableHeaderActions';
 import { useColumns } from './hooks/useColumns';
@@ -7,7 +8,7 @@ import { CodebaseBranchesTableProps } from './types';
 const {
     pluginLib: { React, CommonComponents, MuiCore },
 } = globalThis;
-const { SimpleTable, SectionBox, SectionHeader } = CommonComponents;
+const { SectionBox, SectionHeader } = CommonComponents;
 const { Box } = MuiCore;
 
 export const CodebaseBranchesTable: React.FC<CodebaseBranchesTableProps> = ({
@@ -36,7 +37,7 @@ export const CodebaseBranchesTable: React.FC<CodebaseBranchesTableProps> = ({
             }
         >
             <Box>
-                <SimpleTable
+                <HeadlampSimpleTable
                     rowsPerPage={[15, 25, 50]}
                     columns={columns}
                     data={currentCodebaseBranches.items}

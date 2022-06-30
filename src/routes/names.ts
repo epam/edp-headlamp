@@ -8,4 +8,6 @@ export const APPLICATIONS_ROUTE_NAME =
     EDPCodebaseKubeObjectConfig.types.application.name.pluralForm;
 export const APPLICATION_ROUTE_NAME =
     EDPCodebaseKubeObjectConfig.types.application.name.singularForm;
+export const AUTOTESTS_ROUTE_NAME = EDPCodebaseKubeObjectConfig.types.autotest.name.pluralForm;
+export const AUTOTEST_ROUTE_NAME = EDPCodebaseKubeObjectConfig.types.autotest.name.singularForm;
 export const COMPONENTS_ROUTE_NAME = EDPComponentKubeObjectConfig.name.pluralForm;

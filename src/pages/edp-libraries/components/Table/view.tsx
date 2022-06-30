@@ -1,11 +1,11 @@
+import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
 import { TableProps } from './types';
 
 const {
-    pluginLib: { React, CommonComponents, Utils },
+    pluginLib: { React, Utils },
 } = globalThis;
-const { SimpleTable } = CommonComponents;
 const { useFilterFunc } = Utils;
 
 export const Table: React.FC<TableProps> = ({ data }): React.ReactElement => {
@@ -14,7 +14,7 @@ export const Table: React.FC<TableProps> = ({ data }): React.ReactElement => {
 
     const filterFunc = useFilterFunc();
     return (
-        <SimpleTable
+        <HeadlampSimpleTable
             data={data}
             columns={columns}
             rowsPerPage={[15, 25, 50]}

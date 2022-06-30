@@ -1,3 +1,4 @@
+import { HeadlampNameValueTable } from '../../../../components/HeadlampNameValueTable';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
 import { GeneralInfoTableProps } from './types';
@@ -5,7 +6,7 @@ import { GeneralInfoTableProps } from './types';
 const {
     pluginLib: { React, MuiCore, CommonComponents },
 } = globalThis;
-const { NameValueTable, SectionBox, SectionHeader } = CommonComponents;
+const { SectionBox, SectionHeader } = CommonComponents;
 const { useTheme, Box } = MuiCore;
 
 export const GeneralInfoTable: React.FC<GeneralInfoTableProps> = ({
@@ -22,7 +23,7 @@ export const GeneralInfoTable: React.FC<GeneralInfoTableProps> = ({
             title={<SectionHeader title={'General Info'} noNamespaceFilter headerStyle="main" />}
         >
             <Box>
-                <NameValueTable rows={columns} />
+                <HeadlampNameValueTable rows={columns} />
             </Box>
         </SectionBox>
     );

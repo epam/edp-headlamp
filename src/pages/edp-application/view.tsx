@@ -1,7 +1,6 @@
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
-import { rem } from '../../utils/styling/rem';
 import { AdvancedInfoTable } from './components/AdvancedInfoTable';
 import { CodebaseBranchesTable } from './components/CodebaseBranchesTable';
 import { GeneralInfoTable } from './components/GeneralInfoTable';
@@ -29,13 +28,11 @@ export const EDPApplication: React.FC<EDPApplicationProps> = (): React.ReactElem
         <>
             <div className={classes.pageHeading}>
                 <Button
-                    startIcon={<Icon icon={'ep:arrow-left'} />}
+                    startIcon={<Icon icon={'eva:arrow-back-outline'} />}
                     size="small"
                     component={Link}
                     to={createRouteURL(APPLICATIONS_ROUTE_NAME)}
-                >
-                    <Typography style={{ paddingTop: rem(3) }}>Back</Typography>
-                </Button>
+                />
                 <Typography variant={'h1'} component={'span'}>
                     {name}
                 </Typography>

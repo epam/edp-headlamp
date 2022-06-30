@@ -1,3 +1,4 @@
+import { HeadlampNameValueTable } from '../../../../components/HeadlampNameValueTable';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
 import { AdvancedInfoTableProps } from './types';
@@ -5,7 +6,7 @@ import { AdvancedInfoTableProps } from './types';
 const {
     pluginLib: { React, MuiCore, CommonComponents },
 } = globalThis;
-const { NameValueTable, SectionBox, SectionHeader } = CommonComponents;
+const { SectionBox, SectionHeader } = CommonComponents;
 const { useTheme, Box } = MuiCore;
 
 export const AdvancedInfoTable: React.FC<AdvancedInfoTableProps> = ({
@@ -24,7 +25,7 @@ export const AdvancedInfoTable: React.FC<AdvancedInfoTableProps> = ({
             }
         >
             <Box>
-                <NameValueTable rows={columns} />
+                <HeadlampNameValueTable rows={columns} />
             </Box>
         </SectionBox>
     );
