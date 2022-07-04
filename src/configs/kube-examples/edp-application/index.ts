@@ -1,6 +1,6 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
 import { EDPCodebaseKubeObjectConfig } from '../../../k8s/EDPCodebase/config';
 import { DeepPartial } from '../../../types/global';
+import { EDPKubeObjectInterface } from '../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../utils/format/capitalizeFirstLetter';
 
 const {
@@ -9,7 +9,7 @@ const {
     version,
 } = EDPCodebaseKubeObjectConfig;
 
-export const ApplicationExample: DeepPartial<KubeObjectInterface> = {
+export const ApplicationExample: DeepPartial<EDPKubeObjectInterface> = {
     apiVersion: `${group}/${version}`,
     kind: capitalizeFirstLetter(singularForm),
     metadata: {

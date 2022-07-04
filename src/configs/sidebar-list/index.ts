@@ -1,6 +1,7 @@
 import {
     APPLICATIONS_ROUTE_NAME,
     AUTOTESTS_ROUTE_NAME,
+    CDPIPELINES_ROUTE_NAME,
     COMPONENTS_ROUTE_NAME,
     EDP_ROOT_ROUTE_NAME,
     LIBRARIES_ROUTE_NAME,
@@ -27,21 +28,27 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
+        'CD Pipelines',
+        CDPIPELINES_ROUTE_NAME,
+        'ion:infinite-outline',
+        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
+    ),
+    createNewSidebarItem(
         'Applications',
         APPLICATIONS_ROUTE_NAME,
         'fluent:app-generic-24-regular',
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
-        'Libraries',
-        LIBRARIES_ROUTE_NAME,
-        'fluent:library-16-regular',
-        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
-    ),
-    createNewSidebarItem(
         'Autotests',
         AUTOTESTS_ROUTE_NAME,
         'file-icons:test-generic',
+        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
+    ),
+    createNewSidebarItem(
+        'Libraries',
+        LIBRARIES_ROUTE_NAME,
+        'fluent:library-16-regular',
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
 ];

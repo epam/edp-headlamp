@@ -1,4 +1,6 @@
 import { EDPCodebaseBranchKubeObjectConfig } from '../../../k8s/EDPCodebaseBranch/config';
+import { DeepPartial } from '../../../types/global';
+import { EDPKubeObjectInterface } from '../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../utils/format/capitalizeFirstLetter';
 
 const {
@@ -7,7 +9,9 @@ const {
     version,
 } = EDPCodebaseBranchKubeObjectConfig;
 
-export const createCodebaseBranchExample = (codebaseName: string): any => ({
+export const createCodebaseBranchExample = (
+    codebaseName: string
+): DeepPartial<EDPKubeObjectInterface> => ({
     apiVersion: `${group}/${version}`,
     kind: capitalizeFirstLetter(singularForm),
     metadata: {
