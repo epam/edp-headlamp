@@ -1,7 +1,6 @@
 import { ApplicationExample } from '../../configs/kube-examples/edp-application';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
-import { filterCodebasesByType } from '../../k8s/EDPCodebase/utils/filterCodebasesByType';
 import { FloatingActions } from './components/FloatingActions';
 import { Table } from './components/Table';
 import { EDPApplicationListProps } from './types';
@@ -16,13 +15,10 @@ export const EDPApplicationList: React.FC<EDPApplicationListProps> = (): React.R
     const [applications, setApplications] = React.useState([]);
 
     React.useEffect(() => {
-        EDPCodebaseKubeObject.getList(data => {
-            const filteredApplications = filterCodebasesByType(
-                data,
-                EDPCodebaseKubeObjectConfig.types.application.name.singularForm
-            );
-            setApplications(filteredApplications);
-        });
+        EDPCodebaseKubeObject.getCodebasesByTypeLabel(
+            EDPCodebaseKubeObjectConfig.types.application.name.singularForm,
+            ({ items }) => setApplications(items)
+        );
     }, []);
 
     return (

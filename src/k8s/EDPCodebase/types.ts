@@ -1,4 +1,4 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
+import { EDPKubeObjectInterface } from '../../types/k8s';
 
 interface EDPCodebaseSpecInterface {
     branchToCopyInDefaultBranch: string;
@@ -48,7 +48,7 @@ interface EDPCodebaseStatusInterface {
     value: string;
 }
 
-interface EDPCodebaseKubeObjectInterface extends KubeObjectInterface {
+interface EDPCodebaseKubeObjectInterface extends EDPKubeObjectInterface {
     spec: EDPCodebaseSpecInterface;
     status: EDPCodebaseStatusInterface;
 }

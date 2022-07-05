@@ -1,7 +1,6 @@
 import { LibraryExample } from '../../configs/kube-examples/edp-library';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
-import { filterCodebasesByType } from '../../k8s/EDPCodebase/utils/filterCodebasesByType';
 import { FloatingActions } from './components/FloatingActions';
 import { Table } from './components/Table';
 import { EDPLibraryListProps } from './types';
@@ -15,13 +14,10 @@ export const EDPLibraryList: React.FC<EDPLibraryListProps> = (): React.ReactElem
     const [libraries, setLibraries] = React.useState([]);
 
     React.useEffect(() => {
-        EDPCodebaseKubeObject.getList(data => {
-            const filteredLibraries = filterCodebasesByType(
-                data,
-                EDPCodebaseKubeObjectConfig.types.library.name.singularForm
-            );
-            setLibraries(filteredLibraries);
-        });
+        EDPCodebaseKubeObject.getCodebasesByTypeLabel(
+            EDPCodebaseKubeObjectConfig.types.library.name.singularForm,
+            ({ items }) => setLibraries(items)
+        );
     }, []);
 
     return (

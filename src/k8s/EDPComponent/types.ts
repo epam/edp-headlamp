@@ -1,4 +1,4 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
+import { EDPKubeObjectInterface } from '../../types/k8s';
 
 interface EDPComponentSpec {
     icon: string;
@@ -7,7 +7,7 @@ interface EDPComponentSpec {
     visible: boolean;
 }
 
-export interface EDPComponentKubeObjectInterface extends KubeObjectInterface {
+export interface EDPComponentKubeObjectInterface extends EDPKubeObjectInterface {
     spec: EDPComponentSpec;
     status: string;
 }

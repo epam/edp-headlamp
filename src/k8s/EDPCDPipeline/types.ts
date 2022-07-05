@@ -1,4 +1,4 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
+import { EDPKubeObjectInterface } from '../../types/k8s';
 
 export interface EDPCDPipelineSpec {
     applications: string[];
@@ -19,7 +19,7 @@ export interface EDPCDPipelineStatus {
     value: string;
 }
 
-export interface EDPCDPipelineKubeObjectInterface extends KubeObjectInterface {
+export interface EDPCDPipelineKubeObjectInterface extends EDPKubeObjectInterface {
     spec: EDPCDPipelineSpec;
     status: EDPCDPipelineStatus;
 }

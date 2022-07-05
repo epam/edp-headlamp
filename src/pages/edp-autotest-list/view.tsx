@@ -1,7 +1,6 @@
 import { AutotestExample } from '../../configs/kube-examples/edp-autotest';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
-import { filterCodebasesByType } from '../../k8s/EDPCodebase/utils/filterCodebasesByType';
 import { FloatingActions } from './components/FloatingActions';
 import { Table } from './components/Table';
 import { EDPAutotestListProps } from './types';
@@ -16,13 +15,10 @@ export const EDPAutotestList: React.FC<EDPAutotestListProps> = (): React.ReactEl
     const [autotests, setAutotests] = React.useState([]);
 
     React.useEffect(() => {
-        EDPCodebaseKubeObject.getList(data => {
-            const filteredAutotests = filterCodebasesByType(
-                data,
-                EDPCodebaseKubeObjectConfig.types.autotest.name.pluralForm
-            );
-            setAutotests(filteredAutotests);
-        });
+        EDPCodebaseKubeObject.getCodebasesByTypeLabel(
+            EDPCodebaseKubeObjectConfig.types.autotest.name.pluralForm,
+            ({ items }) => setAutotests(items)
+        );
     }, []);
 
     return (
