@@ -26,7 +26,7 @@ export const useColumns = (
                 value: codebaseSpec.deploymentScript,
             },
             {
-                name: 'Jenkins Slave',
+                name: 'Jenkins Agent',
                 value: codebaseSpec.jenkinsSlave,
             },
             {

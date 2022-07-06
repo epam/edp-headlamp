@@ -1,5 +1,6 @@
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { selectCodebaseBranchesByCodebaseLabel } from '../../../../k8s/EDPCodebaseBranch';
+import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { TableHeaderActions } from './components/TableHeaderActions';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
@@ -19,9 +20,10 @@ export const CodebaseBranchesTable: React.FC<CodebaseBranchesTableProps> = ({
         metadata: { name },
     } = kubeObjectData;
 
-    const [currentCodebaseBranches, setCurrentCodebaseBranches] = React.useState(name);
+    const [currentCodebaseBranches, setCurrentCodebaseBranches] =
+        React.useState<EDPCodebaseBranchKubeObjectInterface>([]);
     const classes = useStyles();
-    const columns = useColumns(classes);
+    const columns = useColumns();
 
     React.useEffect(() => {
         selectCodebaseBranchesByCodebaseLabel(name, data => setCurrentCodebaseBranches(data));

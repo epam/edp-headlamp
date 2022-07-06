@@ -1,6 +1,7 @@
 import { AutotestExample } from '../../configs/kube-examples/edp-autotest';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
+import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { FloatingActions } from './components/FloatingActions';
 import { Table } from './components/Table';
 import { EDPAutotestListProps } from './types';
@@ -12,7 +13,7 @@ const {
 const { SectionBox, SectionFilterHeader } = CommonComponents;
 
 export const EDPAutotestList: React.FC<EDPAutotestListProps> = (): React.ReactElement => {
-    const [autotests, setAutotests] = React.useState([]);
+    const [autotests, setAutotests] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
 
     React.useEffect(() => {
         EDPCodebaseKubeObject.getCodebasesByTypeLabel(

@@ -1,4 +1,5 @@
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { AUTOTESTS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { rem } from '../../utils/styling/rem';
@@ -21,8 +22,8 @@ const { Icon } = Iconify;
 export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
-    const [autotest, setAutotest] = React.useState(null);
-    const [, setError] = React.useState(null);
+    const [autotest, setAutotest] = React.useState<EDPCodebaseKubeObjectInterface | null>(null);
+    const [, setError] = React.useState<string | null>(null);
 
     EDPCodebaseKubeObject.useApiGet(setAutotest, name, namespace, setError);
 

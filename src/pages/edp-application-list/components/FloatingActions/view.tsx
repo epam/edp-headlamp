@@ -13,7 +13,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
     kubeObjectExample,
 }): React.ReactElement => {
     const classes = useStyles();
-    const [editorOpen, setEditorOpen] = React.useState(false);
+    const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
     return (
         <>
             <Fab

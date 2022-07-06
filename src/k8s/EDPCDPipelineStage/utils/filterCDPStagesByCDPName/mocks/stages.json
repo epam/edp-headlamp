@@ -1,0 +1,20 @@
+[
+    {
+        "kind": "Stage",
+        "spec": {
+            "cdPipeline": "deploy-pipe-1"
+        }
+    },
+    {
+        "kind": "Stage",
+        "spec": {
+            "cdPipeline": "deploy-pipe-2"
+        }
+    },
+    {
+        "kind": "Stage",
+        "spec": {
+            "cdPipeline": "deploy-pipe-3"
+        }
+    }
+]

@@ -1,6 +1,7 @@
 import { ApplicationExample } from '../../configs/kube-examples/edp-application';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
+import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { FloatingActions } from './components/FloatingActions';
 import { Table } from './components/Table';
 import { EDPApplicationListProps } from './types';
@@ -12,7 +13,7 @@ const {
 const { SectionBox, SectionFilterHeader } = CommonComponents;
 
 export const EDPApplicationList: React.FC<EDPApplicationListProps> = (): React.ReactElement => {
-    const [applications, setApplications] = React.useState([]);
+    const [applications, setApplications] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
 
     React.useEffect(() => {
         EDPCodebaseKubeObject.getCodebasesByTypeLabel(

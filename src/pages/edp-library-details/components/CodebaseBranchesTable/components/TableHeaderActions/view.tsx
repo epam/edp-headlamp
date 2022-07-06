@@ -12,7 +12,7 @@ export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
     kubeObject,
     codebaseName,
 }): React.ReactElement => {
-    const [editorOpen, setEditorOpen] = React.useState(false);
+    const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
 
     return (
         <>

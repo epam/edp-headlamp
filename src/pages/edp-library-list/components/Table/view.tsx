@@ -1,6 +1,5 @@
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { useColumns } from './hooks/useColumns';
-import { useStyles } from './styles';
 import { TableProps } from './types';
 
 const {
@@ -9,8 +8,7 @@ const {
 const { useFilterFunc } = Utils;
 
 export const Table: React.FC<TableProps> = ({ data }): React.ReactElement => {
-    const classes = useStyles();
-    const columns = useColumns(classes);
+    const columns = useColumns();
 
     const filterFunc = useFilterFunc();
     return (

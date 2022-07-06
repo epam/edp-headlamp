@@ -11,7 +11,7 @@ export const PageHeaderActions: React.FC<PageHeaderActionsProps> = ({
     kubeObject,
     kubeObjectData,
 }): React.ReactElement => {
-    const [editorOpen, setEditorOpen] = React.useState(false);
+    const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
 
     return (
         <>

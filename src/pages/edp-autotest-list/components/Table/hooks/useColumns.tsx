@@ -1,41 +1,20 @@
-import clsx from 'clsx';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
+import { StatusIcon } from '../../../../../components/StatusIcon/view';
 import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { AUTOTEST_ROUTE_NAME } from '../../../../../routes/names';
-import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
-import { getStatusIconByStatusName } from '../../../../../utils/styling/getStatusIconByStatusName';
 
 const {
-    pluginLib: { React, CommonComponents, Iconify, MuiCore },
+    pluginLib: { React, CommonComponents },
 } = globalThis;
-const { Icon } = Iconify;
 const { Link } = CommonComponents;
-const { Tooltip } = MuiCore;
 
-export const useColumns = (classes: {
-    [key: string]: string;
-}): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObjectInterface>[] =>
+export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObjectInterface>[] =>
     React.useMemo(() => {
         return [
             {
                 label: 'Status',
-                getter: ({ status: { status } }) => {
-                    const [icon, color, animate] = getStatusIconByStatusName(status);
-                    return (
-                        <Tooltip title={capitalizeFirstLetter(status)}>
-                            <Icon
-                                icon={icon}
-                                color={color}
-                                width="25"
-                                className={clsx({
-                                    [classes.icon]: animate,
-                                    [classes.rotateIcon]: animate,
-                                })}
-                            />
-                        </Tooltip>
-                    );
-                },
+                getter: ({ status: { status } }) => <StatusIcon status={status} />,
             },
             {
                 label: 'Autotest',
@@ -65,4 +44,4 @@ export const useColumns = (classes: {
                 getter: ({ spec: { ciTool } }) => ciTool,
             },
         ];
-    }, [classes]);
+    }, []);

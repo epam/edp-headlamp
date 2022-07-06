@@ -1,3 +1,4 @@
+import { useStyles } from './styles';
 import { HeadlampNameValueTableProps } from './types';
 
 const {
@@ -8,5 +9,10 @@ const { NameValueTable } = CommonComponents;
 export const HeadlampNameValueTable: React.FC<HeadlampNameValueTableProps> = (
     props
 ): React.ReactElement => {
-    return <NameValueTable {...props} />;
+    const classes = useStyles();
+    return (
+        <div className={classes.root}>
+            <NameValueTable {...props} />
+        </div>
+    );
 };

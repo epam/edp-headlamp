@@ -11,19 +11,6 @@ export const useStyles = makeStyles(() => ({
         justifyContent: 'space-between',
         gap: rem(20),
         alignItems: 'center',
-    },
-    icon: {
-        willChange: 'transform',
-    },
-    rotateIcon: {
-        animation: '$spin 2s linear infinite',
-    },
-    '@keyframes spin': {
-        '0%': {
-            transform: 'rotate(360deg)',
-        },
-        '100%': {
-            transform: 'rotate(0deg)',
-        },
+        paddingRight: rem(20),
     },
 }));

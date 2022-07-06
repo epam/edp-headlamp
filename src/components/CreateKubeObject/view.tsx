@@ -14,7 +14,7 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
     kubeObject,
     kubeObjectExample,
 }): React.ReactElement => {
-    const [errorMessage, setErrorMessage] = React.useState('');
+    const [errorMessage, setErrorMessage] = React.useState<string>('');
     const dispatch = useDispatch();
 
     const applyFunc = async (newItem: KubeObjectInterface): Promise<void> => {

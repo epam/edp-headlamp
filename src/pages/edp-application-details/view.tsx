@@ -1,4 +1,5 @@
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { AdvancedInfoTable } from './components/AdvancedInfoTable';
@@ -22,8 +23,10 @@ export const EDPApplicationDetails: React.FC<
 > = (): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
-    const [application, setApplication] = React.useState(null);
-    const [, setError] = React.useState(null);
+    const [application, setApplication] = React.useState<EDPCodebaseKubeObjectInterface | null>(
+        null
+    );
+    const [, setError] = React.useState<string | null>(null);
 
     EDPCodebaseKubeObject.useApiGet(setApplication, name, namespace, setError);
 

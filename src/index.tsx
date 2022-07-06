@@ -1,3 +1,4 @@
+import './override.css';
 import { Headlamp, Plugin, Registry } from '@kinvolk/headlamp-plugin/lib';
 import { SIDEBAR_LIST } from './configs/sidebar-list';
 import { List } from './routes';

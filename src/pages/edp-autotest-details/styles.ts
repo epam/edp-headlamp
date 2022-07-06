@@ -10,5 +10,6 @@ export const useStyles = makeStyles(() => ({
         display: 'flex',
         gap: rem(20),
         alignItems: 'center',
+        paddingRight: rem(20),
     },
 }));
