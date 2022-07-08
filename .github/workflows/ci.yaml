@@ -41,5 +41,4 @@ jobs:
         files: ./coverage-final.json
         flags: unittests
         name: codecov-umbrella
-        path_to_write_report: ./analysis/coverage/codecov_report.txt
         verbose: true
