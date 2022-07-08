@@ -36,9 +36,8 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
-        directory: ./analysis/coverage/
         fail_ci_if_error: true
-        files: ./coverage-final.json
+        files: ./analysis/coverage/coverage-final.json
         flags: unittests
         name: codecov-umbrella
         verbose: true
