@@ -6,12 +6,11 @@
 </p>
 <p align="center">
     <img alt="Licence" src="https://img.shields.io/github/license/epam/edp-headlamp">
-    <a href="https://codecov.io/gh/epam/edp-headlamp"><img alt="Coverage" src="https://codecov.io/gh/epam/edp-headlamp/branch/main/graph/badge.svg?token=14I4A446VF"></a>
+    <a href="https://codecov.io/gh/epam/edp-headlamp"><img alt="Coverage" src="https://codecov.io/gh/epam/edp-headlamp/branch/master/graph/badge.svg?token=14I4A446VF"></a>
 </p>
 
 | :heavy_exclamation_mark: Please refer to [EDP documentation](https://epam.github.io/edp-install/) to get the notion of the main concepts and guidelines. |
 | --- |
-
 
 ## Overview
 
