@@ -12,9 +12,28 @@ SHELL=/bin/bash -o pipefail -o errexit
 help:  ## Display this help
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
-.PHONY: clean
-clean:  ## clean up
+.PHONY: clean-all
+clean-all: clean-node ## clean up all
 	-rm -rf ${DIST_DIR} ${BIN_DIR}
+
+.PHONY: clean-node
+clean-node: ## clean node
+	-rm -rf ${CURRENT_DIR}/node_modules
+
+node_modules: package.json
+	@npm install
+
+.PHONY: lint
+lint: node_modules	## run lint
+	@npm run lint
+
+.PHONY: build
+build: node_modules	## build code
+	@npm run build
+
+.PHONY: test
+test: node_modules	## test code
+	@npm run test:coverage
 
 # use https://github.com/git-chglog/git-chglog/
 .PHONY: changelog
