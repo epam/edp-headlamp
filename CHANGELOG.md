@@ -3,7 +3,7 @@
 
 
 <a name="v0.1.0"></a>
-## v0.1.0 - 2022-07-08
+## v0.1.0 - 2022-07-09
 ### Features
 
 - Adds libraries module, create/edit library actions, create library codebasebranch. Refactors code, adds tests [EPMDEDP-10073](https://jiraeu.epam.com/browse/EPMDEDP-10073)
