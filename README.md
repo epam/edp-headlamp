@@ -14,8 +14,37 @@
 
 ## Overview
 
-Soon
+EDP Admin Console v2.0 is new version of [EDP Admin Console](https://github.com/epam/edp-admin-console), build on top of [Headlamp](https://github.com/kinvolk/headlamp). All functionally specific to EDP written as plugins for a Headlamp.
+
+https://user-images.githubusercontent.com/4813007/178267935-1a87d0dc-d015-4184-8109-d375030671d4.mp4
+
+### Screenshots
+
+<table>
+    <tr>
+        <td>
+            <img alt="EDP overview page screenshot" src="docs/assets/headlamp_edp_overview_page.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="EDP CD pipelines page screenshot" src="docs/assets/headlamp_edp_cd_pipelines_page.png">
+        </td>
+        <td>
+            <img alt="EDP applications page screenshot" src="docs/assets/headlamp_edp_applications_page.png">
+        </td>
+    </tr>
+</table>
 
 ## Local Development
 
-Soon
+### Requirements
+
+* NodeJS LTS v16.16.0 or higher. [Install](https://nodejs.org)
+* Headlamp Desktop App v0.10 or higher. [Install](https://kinvolk.github.io/headlamp/docs/latest/installation/desktop)
+* make sure [environment variable `KUBECONFIG` is configured](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig)
+
+### Start development locally
+
+* run `npm run start`
+* open Headlamp desktop application
