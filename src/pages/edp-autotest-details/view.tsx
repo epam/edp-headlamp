@@ -54,11 +54,11 @@ export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.R
                 <>
                     <GeneralInfoTable kubeObjectData={autotest} />
                     <AdvancedInfoTable kubeObjectData={autotest} />
+                    <MetadataTable kubeObjectData={autotest} />
                     <CodebaseBranchesTable
                         kubeObject={EDPCodebaseKubeObject}
                         kubeObjectData={autotest}
                     />
-                    <MetadataTable kubeObjectData={autotest} />
                 </>
             )}
         </>

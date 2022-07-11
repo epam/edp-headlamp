@@ -3,6 +3,7 @@ import { StatusIcon } from '../../../../../components/StatusIcon/view';
 import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { AUTOTEST_ROUTE_NAME } from '../../../../../routes/names';
+import { RowActions } from '../components/RowActions';
 
 const {
     pluginLib: { React, CommonComponents },
@@ -42,6 +43,15 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
             {
                 label: 'CI Tool',
                 getter: ({ spec: { ciTool } }) => ciTool,
+            },
+            {
+                label: '',
+                getter: kubeObjectData => (
+                    <RowActions
+                        kubeObject={EDPCodebaseKubeObject}
+                        kubeObjectData={kubeObjectData}
+                    />
+                ),
             },
         ];
     }, []);

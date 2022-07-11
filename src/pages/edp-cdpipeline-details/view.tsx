@@ -52,11 +52,11 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
             {cdpipeline && (
                 <>
                     <GeneralInfoTable kubeObjectData={cdpipeline} />
+                    <MetadataTable kubeObjectData={cdpipeline} />
                     <CDPipelineStagesTable
                         kubeObject={EDPCDPipelineStageKubeObject}
                         kubeObjectData={cdpipeline}
                     />
-                    <MetadataTable kubeObjectData={cdpipeline} />
                 </>
             )}
         </>

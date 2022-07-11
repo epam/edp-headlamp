@@ -4,6 +4,7 @@ import { StatusIcon } from '../../../../../components/StatusIcon/view';
 import { EDPCDPipelineKubeObject } from '../../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
 import { CDPIPELINE_ROUTE_NAME } from '../../../../../routes/names';
+import { RowActions } from '../components/RowActions';
 
 const {
     pluginLib: { React, CommonComponents, MuiCore },
@@ -49,6 +50,15 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
             {
                 label: 'Applications',
                 getter: ({ spec: { applications } }) => <MapProperties properties={applications} />,
+            },
+            {
+                label: '',
+                getter: kubeObjectData => (
+                    <RowActions
+                        kubeObject={EDPCDPipelineKubeObject}
+                        kubeObjectData={kubeObjectData.jsonData}
+                    />
+                ),
             },
         ],
         []

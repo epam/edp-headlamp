@@ -24,7 +24,7 @@ export const PageHeaderActions: React.FC<PageHeaderActionsProps> = ({
                 editorOpen={editorOpen}
                 setEditorOpen={setEditorOpen}
                 kubeObject={kubeObject}
-                kubeObjectData={kubeObjectData}
+                kubeObjectData={kubeObjectData.jsonData}
             />
         </>
     );

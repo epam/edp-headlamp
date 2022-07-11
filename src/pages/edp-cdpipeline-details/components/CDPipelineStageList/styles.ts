@@ -18,5 +18,6 @@ export const useStyles = makeStyles(() => ({
         alignItems: 'center',
         gap: rem(20),
         lineHeight: 0,
+        width: '100%',
     },
 }));

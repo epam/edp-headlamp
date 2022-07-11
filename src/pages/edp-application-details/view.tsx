@@ -55,11 +55,11 @@ export const EDPApplicationDetails: React.FC<
                 <>
                     <GeneralInfoTable kubeObjectData={application} />
                     <AdvancedInfoTable kubeObjectData={application} />
+                    <MetadataTable kubeObjectData={application} />
                     <CodebaseBranchesTable
                         kubeObject={EDPCodebaseKubeObject}
                         kubeObjectData={application}
                     />
-                    <MetadataTable kubeObjectData={application} />
                 </>
             )}
         </>

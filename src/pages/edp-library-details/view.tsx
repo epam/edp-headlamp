@@ -54,11 +54,11 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
                 <>
                     <GeneralInfoTable kubeObjectData={library} />
                     <AdvancedInfoTable kubeObjectData={library} />
+                    <MetadataTable kubeObjectData={library} />
                     <CodebaseBranchesTable
                         kubeObject={EDPCodebaseKubeObject}
                         kubeObjectData={library}
                     />
-                    <MetadataTable kubeObjectData={library} />
                 </>
             )}
         </>

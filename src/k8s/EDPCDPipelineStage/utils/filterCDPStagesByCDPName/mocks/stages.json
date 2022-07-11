@@ -1,20 +1,23 @@
 [
-    {
-        "kind": "Stage",
-        "spec": {
-            "cdPipeline": "deploy-pipe-1"
-        }
-    },
-    {
-        "kind": "Stage",
-        "spec": {
-            "cdPipeline": "deploy-pipe-2"
-        }
-    },
-    {
-        "kind": "Stage",
-        "spec": {
-            "cdPipeline": "deploy-pipe-3"
-        }
+  {
+    "kind": "Stage",
+    "spec": {
+      "cdPipeline": "deploy-pipe-1",
+      "order": 0
     }
+  },
+  {
+    "kind": "Stage",
+    "spec": {
+      "cdPipeline": "deploy-pipe-2",
+      "order":  1
+    }
+  },
+  {
+    "kind": "Stage",
+    "spec": {
+      "cdPipeline": "deploy-pipe-3",
+      "order":  2
+    }
+  }
 ]

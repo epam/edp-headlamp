@@ -4,6 +4,7 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipe
 import { filterCDPStagesByCDPName } from '../../../../k8s/EDPCDPipelineStage/utils/filterCDPStagesByCDPName';
 import { rem } from '../../../../utils/styling/rem';
 import { CDPipelineStage } from './components/CDPipelineStage';
+import { CDPipelineStageActions } from './components/CDPipelineStageActions';
 import { TableHeaderActions } from './components/TableHeaderActions';
 import { useStyles } from './styles';
 import { CDPipelineStagesTableProps } from './types';
@@ -72,6 +73,12 @@ export const CDPipelineStagesTable: React.FC<CDPipelineStagesTableProps> = ({
                                 <div className={classes.stageHeading}>
                                     {el.status && <StatusIcon status={el.status.status} />}
                                     <Typography variant={'h5'}>{el.spec.name}</Typography>
+                                    <div style={{ marginLeft: 'auto' }}>
+                                        <CDPipelineStageActions
+                                            kubeObject={EDPCDPipelineStageKubeObject}
+                                            kubeObjectData={el}
+                                        />
+                                    </div>
                                 </div>
                             </AccordionSummary>
                             <AccordionDetails>
