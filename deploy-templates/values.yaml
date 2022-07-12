@@ -9,6 +9,7 @@ global:
   # -- Target namespace
   edpName: ""
   dnsWildCard: "example.com"
+  platform: "openshift"
 
 image:
   # -- Image to deploy
@@ -69,8 +70,6 @@ service:
   port: 80
 
 ingress:
-  # -- Enable ingress controller resource
-  enabled: true
   # -- Annotations for Ingress resource
   annotations:
     {}

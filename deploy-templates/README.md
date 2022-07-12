@@ -32,11 +32,11 @@ A Helm chart for EDP Headlamp
 | fullnameOverride | string | `""` | Overrides the full name of the chart |
 | global.dnsWildCard | string | `"example.com"` |  |
 | global.edpName | string | `""` | Target namespace |
+| global.platform | string | `"openshift"` |  |
 | image.name | string | `"epamedp/edp-headlamp"` | Image to deploy |
 | image.version | string | `nil` | If not defined then .Chart.AppVersion is used |
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |
 | ingress.annotations | object | `{}` | Annotations for Ingress resource |
-| ingress.enabled | bool | `true` | Enable ingress controller resource |
 | ingress.tls | list | `[]` | Ingress TLS configuration |
 | nameOverride | string | `""` | Overrides the name of the chart |
 | nodeSelector | object | `{}` | Node labels for pod assignment |

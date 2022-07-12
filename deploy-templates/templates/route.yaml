@@ -1,0 +1,29 @@
+{{- if eq .Values.global.platform "openshift" -}}
+{{- $fullName := include "headlamp.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "headlamp.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+    host: edp-headlamp-{{ .Values.global.edpName }}.{{ .Values.global.dnsWildCard }}
+    path: /
+    port:
+        targetPort: {{ $svcPort }}
+    tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+    to:
+        kind: Service
+        name: {{ $fullName }}
+        weight: 100
+    wildcardPolicy: None
+status:
+    ingress: []
+{{- end -}}

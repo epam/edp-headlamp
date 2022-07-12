@@ -1,4 +1,4 @@
-{{- if .Values.ingress.enabled -}}
+{{ if eq .Values.global.platform "kubernetes" }}
 {{- $fullName := include "headlamp.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -35,6 +35,6 @@ spec:
             backend:
               service:
                 name: {{ $fullName }}
-                port: 
+                port:
                   number: {{ $svcPort }}
 {{- end }}
