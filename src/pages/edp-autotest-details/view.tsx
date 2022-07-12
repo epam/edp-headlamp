@@ -1,8 +1,8 @@
+import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { AUTOTESTS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
-import { rem } from '../../utils/styling/rem';
 import { AdvancedInfoTable } from './components/AdvancedInfoTable';
 import { CodebaseBranchesTable } from './components/CodebaseBranchesTable';
 import { GeneralInfoTable } from './components/GeneralInfoTable';
@@ -31,13 +31,11 @@ export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.R
         <>
             <div className={classes.pageHeading}>
                 <Button
-                    startIcon={<Icon icon={'ep:arrow-left'} />}
+                    startIcon={<Icon icon={ICON_ARROW_LEFT} />}
                     size="small"
                     component={Link}
                     to={createRouteURL(AUTOTESTS_ROUTE_NAME)}
-                >
-                    <Typography style={{ paddingTop: rem(3) }}>Back</Typography>
-                </Button>
+                />
                 <Typography variant={'h1'} component={'span'}>
                     {name}
                 </Typography>

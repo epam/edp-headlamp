@@ -1,3 +1,4 @@
+import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
@@ -34,7 +35,7 @@ export const EDPApplicationDetails: React.FC<
         <>
             <div className={classes.pageHeading}>
                 <Button
-                    startIcon={<Icon icon={'eva:arrow-back-outline'} />}
+                    startIcon={<Icon icon={ICON_ARROW_LEFT} />}
                     size="small"
                     component={Link}
                     to={createRouteURL(APPLICATIONS_ROUTE_NAME)}

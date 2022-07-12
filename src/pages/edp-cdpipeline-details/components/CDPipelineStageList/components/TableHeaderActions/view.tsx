@@ -1,5 +1,6 @@
 import { CreateKubeObject } from '../../../../../../components/CreateKubeObject';
 import { createCDPipelineStageExample } from '../../../../../../configs/kube-examples/edp-cdpipeline-stage';
+import { ICON_DOCUMENT_ADD } from '../../../../../../constants/icons';
 import { TableHeaderActionsProps } from './types';
 
 const {
@@ -18,7 +19,7 @@ export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
         <>
             <Tooltip title={'Create stage'}>
                 <Button
-                    startIcon={<Icon icon={'carbon:document-add'} />}
+                    startIcon={<Icon icon={ICON_DOCUMENT_ADD} />}
                     onClick={() => setEditorOpen(true)}
                 >
                     <Typography>Create</Typography>

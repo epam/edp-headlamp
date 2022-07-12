@@ -1,6 +1,7 @@
 import { Theme } from '@material-ui/core/styles/createStyles';
 import { Render } from '../../../../../../../../../components/Render';
 import { EDPKubeMetadata } from '../../../../../../../../../types/k8s';
+import { formatDateUTCToLocal } from '../../../../../../../../../utils/format/formatDateUTCToLocal';
 
 const {
     pluginLib: { React, MuiCore },
@@ -13,14 +14,22 @@ const MapProperties: React.FC<{
 }> = ({ properties }): React.ReactElement => {
     return (
         <>
-            {properties.map((el, idx) => (
-                <>
-                    <Render condition={idx !== 0}>
-                        <Typography component="span">, </Typography>
-                    </Render>
-                    <Typography component="span">{el}</Typography>
-                </>
-            ))}
+            {properties.map((el, idx) => {
+                const propertyId = `${el}:${idx}`;
+
+                return (
+                    <>
+                        <Render condition={idx !== 0}>
+                            <Typography component="span" key={propertyId}>
+                                ,{' '}
+                            </Typography>
+                        </Render>
+                        <Typography component="span" key={propertyId}>
+                            {el}
+                        </Typography>
+                    </>
+                );
+            })}
         </>
     );
 };
@@ -42,7 +51,7 @@ export const useColumns = (
             },
             {
                 name: 'Created',
-                value: metadata.creationTimestamp,
+                value: formatDateUTCToLocal(metadata.creationTimestamp),
             },
             {
                 name: 'Finalizers',

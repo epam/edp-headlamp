@@ -4,6 +4,8 @@ import { StatusIcon } from '../../../../../components/StatusIcon/view';
 import { EDPCDPipelineKubeObject } from '../../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
 import { CDPIPELINE_ROUTE_NAME } from '../../../../../routes/names';
+import { sortByName } from '../../../../../utils/sort/sortByName';
+import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 import { RowActions } from '../components/RowActions';
 
 const {
@@ -17,14 +19,22 @@ const MapProperties: React.FC<{
 }> = ({ properties }): React.ReactElement => {
     return (
         <>
-            {properties.map((el, idx) => (
-                <>
-                    <Render condition={idx !== 0}>
-                        <Typography component="span">, </Typography>
-                    </Render>
-                    <Typography component="span">{el}</Typography>
-                </>
-            ))}
+            {properties.map((el, idx) => {
+                const propertyId = `${el}:${idx}`;
+
+                return (
+                    <>
+                        <Render condition={idx !== 0}>
+                            <Typography component="span" key={propertyId}>
+                                ,{' '}
+                            </Typography>
+                        </Render>
+                        <Typography component="span" key={propertyId}>
+                            {el}
+                        </Typography>
+                    </>
+                );
+            })}
         </>
     );
 };
@@ -35,6 +45,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
             {
                 label: 'Status',
                 getter: ({ status: { status } }) => <StatusIcon status={status} />,
+                sort: (a, b) => sortByStatus(a.status.status, b.status.status),
             },
             {
                 label: 'CD Pipeline',
@@ -46,6 +57,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
                         </Link>
                     );
                 },
+                sort: (a, b) => sortByName(a.metadata.name, b.metadata.name),
             },
             {
                 label: 'Applications',

@@ -1,3 +1,4 @@
+import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
@@ -32,7 +33,7 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
         <>
             <div className={classes.pageHeading}>
                 <Button
-                    startIcon={<Icon icon={'eva:arrow-back-outline'} />}
+                    startIcon={<Icon icon={ICON_ARROW_LEFT} />}
                     size="small"
                     component={Link}
                     to={createRouteURL(CDPIPELINES_ROUTE_NAME)}

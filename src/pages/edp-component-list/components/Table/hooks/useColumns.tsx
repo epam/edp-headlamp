@@ -1,5 +1,6 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { EDPComponentKubeObjectInterface } from '../../../../../k8s/EDPComponent/types';
+import { sortByName } from '../../../../../utils/sort/sortByName';
 
 const {
     pluginLib: { React, MuiCore },
@@ -28,10 +29,12 @@ export const useColumns = (classes: {
                         {type}
                     </Link>
                 ),
+                sort: (a, b) => sortByName(a.spec.type, b.spec.type),
             },
             {
                 label: 'Namespace',
                 getter: ({ metadata: { namespace } }) => <>{namespace}</>,
+                sort: (a, b) => sortByName(a.metadata.namespace, b.metadata.namespace),
             },
         ],
         [classes]

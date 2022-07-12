@@ -10,10 +10,10 @@ const { Tooltip, List, ListItem, ListItemText, ClickAwayListener } = MuiCore;
 const ActionsList = ({ actions }: { actions: KubeObjectAction[] }) => (
     <List component="nav">
         {actions.map(({ name, label, action, disabled = false }, idx) => {
-            const key = `${name}:${idx}`;
+            const actionId = `${name}:${idx}`;
 
             return (
-                <ListItem key={key} button disabled={disabled} onClick={action}>
+                <ListItem key={actionId} button disabled={disabled} onClick={action}>
                     <ListItemText primary={label} />
                 </ListItem>
             );

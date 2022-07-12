@@ -1,6 +1,7 @@
 import { EditKubeObject } from '../../../../../../components/EditKubeObject';
 import { KubeObjectActions } from '../../../../../../components/KubeObjectActions';
 import { KubeObjectAction } from '../../../../../../components/KubeObjectActions/types';
+import { ICON_THREE_DOTS } from '../../../../../../constants/icons';
 import { RowActionsProps } from './types';
 
 const {
@@ -50,7 +51,7 @@ export const RowActions: React.FC<RowActionsProps> = ({
         >
             <div>
                 <IconButton aria-label={'Options'} onClick={handleTooltipToggle}>
-                    <Icon icon={'mi:options-vertical'} color={'grey'} width="20" />
+                    <Icon icon={ICON_THREE_DOTS} color={'grey'} width="20" />
                 </IconButton>
                 <EditKubeObject
                     editorOpen={editorOpen}

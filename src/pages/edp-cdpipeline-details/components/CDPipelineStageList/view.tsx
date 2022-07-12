@@ -1,4 +1,5 @@
 import { StatusIcon } from '../../../../components/StatusIcon/view';
+import { ICON_ARROW_DOWN } from '../../../../constants/icons';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { filterCDPStagesByCDPName } from '../../../../k8s/EDPCDPipelineStage/utils/filterCDPStagesByCDPName';
@@ -50,22 +51,12 @@ export const CDPipelineStagesTable: React.FC<CDPipelineStagesTableProps> = ({
                 const stageId = `${el.spec.name}:${idx}`;
 
                 return (
-                    <div style={{ paddingBottom: rem(16) }}>
+                    <div style={{ paddingBottom: rem(16) }} key={stageId}>
                         <Accordion
                             expanded={expandedPanel === stageId}
                             onChange={handleChange(stageId)}
                         >
-                            <AccordionSummary
-                                expandIcon={
-                                    <Icon
-                                        icon={
-                                            expandedPanel
-                                                ? 'dashicons:arrow-down-alt2'
-                                                : 'dashicons:arrow-down-alt2'
-                                        }
-                                    />
-                                }
-                            >
+                            <AccordionSummary expandIcon={<Icon icon={ICON_ARROW_DOWN} />}>
                                 <div className={classes.stageHeading}>
                                     {el.status && <StatusIcon status={el.status.status} />}
                                     <Typography variant={'h5'}>{el.spec.name}</Typography>

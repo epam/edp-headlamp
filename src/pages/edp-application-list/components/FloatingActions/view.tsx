@@ -1,4 +1,5 @@
 import { CreateKubeObject } from '../../../../components/CreateKubeObject';
+import { ICON_PLUS } from '../../../../constants/icons';
 import { useStyles } from './styles';
 import { FloatingActionsProps } from './types';
 
@@ -21,7 +22,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
                 onClick={() => setEditorOpen(true)}
                 className={classes.floatingAddButton}
             >
-                <Icon icon="akar-icons:plus" className={classes.floatingAddButtonIcon} />
+                <Icon icon={ICON_PLUS} className={classes.floatingAddButtonIcon} />
             </Fab>
             <CreateKubeObject
                 editorOpen={editorOpen}

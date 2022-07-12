@@ -1,3 +1,4 @@
+import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { LIBRARIES_ROUTE_NAME } from '../../routes/names';
@@ -31,7 +32,7 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
         <>
             <div className={classes.pageHeading}>
                 <Button
-                    startIcon={<Icon icon={'ep:arrow-left'} />}
+                    startIcon={<Icon icon={ICON_ARROW_LEFT} />}
                     size="small"
                     component={Link}
                     to={createRouteURL(LIBRARIES_ROUTE_NAME)}

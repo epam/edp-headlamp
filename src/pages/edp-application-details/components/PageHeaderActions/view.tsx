@@ -1,4 +1,5 @@
 import { EditKubeObject } from '../../../../components/EditKubeObject';
+import { ICON_PENCIL } from '../../../../constants/icons';
 import { PageHeaderActionsProps } from './types';
 
 const {
@@ -17,7 +18,7 @@ export const PageHeaderActions: React.FC<PageHeaderActionsProps> = ({
         <>
             <Tooltip title="Edit Application">
                 <IconButton aria-label="Edit Application" onClick={() => setEditorOpen(true)}>
-                    <Icon icon="ci:edit" />
+                    <Icon icon={ICON_PENCIL} />
                 </IconButton>
             </Tooltip>
             <EditKubeObject

@@ -1,4 +1,12 @@
 import {
+    ICON_APPLICATION,
+    ICON_BOOKS,
+    ICON_INFINITY,
+    ICON_PANEL,
+    ICON_ROCKET,
+    ICON_TEST_APPLICATION,
+} from '../../constants/icons';
+import {
     APPLICATIONS_ROUTE_NAME,
     AUTOTESTS_ROUTE_NAME,
     CDPIPELINES_ROUTE_NAME,
@@ -18,37 +26,37 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         itemName: createSidebarItemName(EDP_ROOT_ROUTE_NAME),
         url: createRouteName(COMPONENTS_ROUTE_NAME),
         opts: {
-            icon: 'ion:rocket-outline',
+            icon: ICON_ROCKET,
         },
     },
     createNewSidebarItem(
         'Overview',
         COMPONENTS_ROUTE_NAME,
-        'material-symbols:view-quilt-outline-rounded',
+        ICON_PANEL,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'CD Pipelines',
         CDPIPELINES_ROUTE_NAME,
-        'ion:infinite-outline',
+        ICON_INFINITY,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'Applications',
         APPLICATIONS_ROUTE_NAME,
-        'fluent:app-generic-24-regular',
+        ICON_APPLICATION,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'Autotests',
         AUTOTESTS_ROUTE_NAME,
-        'file-icons:test-generic',
+        ICON_TEST_APPLICATION,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'Libraries',
         LIBRARIES_ROUTE_NAME,
-        'fluent:library-16-regular',
+        ICON_BOOKS,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
 ];
