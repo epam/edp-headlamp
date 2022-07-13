@@ -10,7 +10,7 @@ const { Icon } = Iconify;
 
 export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
     kubeObject,
-    cdPipelineName,
+    kubeObjectData,
 }): React.ReactElement => {
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
 
@@ -28,7 +28,7 @@ export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
                 editorOpen={editorOpen}
                 setEditorOpen={setEditorOpen}
                 kubeObject={kubeObject}
-                kubeObjectExample={createCDPipelineStageExample(cdPipelineName)}
+                kubeObjectExample={createCDPipelineStageExample(kubeObjectData)}
             />
         </>
     );

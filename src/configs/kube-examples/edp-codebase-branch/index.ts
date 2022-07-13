@@ -1,3 +1,4 @@
+import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
 import { EDPCodebaseBranchKubeObjectConfig } from '../../../k8s/EDPCodebaseBranch/config';
 import { DeepPartial } from '../../../types/global';
 import { EDPKubeObjectInterface } from '../../../types/k8s';
@@ -10,18 +11,18 @@ const {
 } = EDPCodebaseBranchKubeObjectConfig;
 
 export const createCodebaseBranchExample = (
-    codebaseName: string
+    kubeObjectData: EDPCodebaseKubeObjectInterface
 ): DeepPartial<EDPKubeObjectInterface> => ({
     apiVersion: `${group}/${version}`,
     kind: capitalizeFirstLetter(singularForm),
     metadata: {
         name: 'your codebase branch name',
-        namespace: 'your codebase branch namespace',
+        namespace: kubeObjectData.metadata.namespace,
     },
     labels: {
-        'app.edp.epam.com/codebaseName': codebaseName,
+        'app.edp.epam.com/codebaseName': kubeObjectData.metadata.name,
     },
     spec: {
-        codebaseName,
+        codebaseName: kubeObjectData.metadata.name,
     },
 });

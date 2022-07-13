@@ -1,3 +1,4 @@
+import { EDPCDPipelineKubeObjectInterface } from '../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectConfig } from '../../../k8s/EDPCDPipelineStage/config';
 import { DeepPartial } from '../../../types/global';
 import { EDPKubeObjectInterface } from '../../../types/k8s';
@@ -10,15 +11,15 @@ const {
 } = EDPCDPipelineStageKubeObjectConfig;
 
 export const createCDPipelineStageExample = (
-    cdpipelineName: string
+    kubeObjectData: EDPCDPipelineKubeObjectInterface
 ): DeepPartial<EDPKubeObjectInterface> => ({
     apiVersion: `${group}/${version}`,
     kind: capitalizeFirstLetter(singularForm),
     metadata: {
         name: 'your cd pipeline stage name',
-        namespace: 'your cd pipeline stage namespace',
+        namespace: kubeObjectData.metadata.namespace,
     },
     spec: {
-        cdPipeline: cdpipelineName,
+        cdPipeline: kubeObjectData.metadata.name,
     },
 });

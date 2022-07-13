@@ -22,6 +22,18 @@ export class EDPCodebaseBranchKubeObject extends makeKubeObject<EDPCodebaseBranc
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
+    static getCodebaseBranchesByCodebaseLabel(
+        codebaseName: string,
+        cb: (data: EDPCodebaseBranchKubeObjectInterface) => void
+    ) {
+        const url = `/apis/${group}/${version}/${pluralForm}?labelSelector=${encodeURIComponent(
+            `app.edp.epam.com/codebaseName=${codebaseName}`
+        )}`;
+        return (ApiProxy.request(url) as Promise<EDPCodebaseBranchKubeObjectInterface>).then(data =>
+            cb(data)
+        );
+    }
+
     static get className(): string {
         return singularForm;
     }
@@ -44,14 +56,4 @@ export class EDPCodebaseBranchKubeObject extends makeKubeObject<EDPCodebaseBranc
             name: this.jsonData!.metadata.name,
         });
     }
-}
-
-export function selectCodebaseBranchesByCodebaseLabel(
-    codebaseName: string,
-    cb: (data: any) => void
-) {
-    const url = `/apis/${group}/${version}/${pluralForm}?labelSelector=${encodeURIComponent(
-        `app.edp.epam.com/codebaseName=${codebaseName}`
-    )}`;
-    return (ApiProxy.request(url) as Promise<any>).then(data => cb(data));
 }

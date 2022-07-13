@@ -20,10 +20,6 @@ export const CDPipelineStagesTable: React.FC<CDPipelineStagesTableProps> = ({
     kubeObject,
     kubeObjectData,
 }): React.ReactElement => {
-    const {
-        metadata: { name },
-    } = kubeObjectData;
-
     const classes = useStyles();
     const [currentCDPipelineStages, setCurrentCDPipelineStages] = React.useState<
         EDPCDPipelineStageKubeObjectInterface[]
@@ -48,7 +44,7 @@ export const CDPipelineStagesTable: React.FC<CDPipelineStagesTableProps> = ({
         <>
             <div className={classes.tableHeaderActions}>
                 <SectionHeader title="CD Pipeline Stages" noNamespaceFilter headerStyle="main" />
-                <TableHeaderActions kubeObject={kubeObject} cdPipelineName={name} />
+                <TableHeaderActions kubeObject={kubeObject} kubeObjectData={kubeObjectData} />
             </div>
             {currentCDPipelineStages.map((el, idx) => {
                 const stageId = `${el.spec.name}:${idx}`;
