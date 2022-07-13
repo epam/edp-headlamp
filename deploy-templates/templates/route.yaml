@@ -13,9 +13,6 @@ metadata:
   {{- end }}
 spec:
     host: edp-headlamp-{{ .Values.global.edpName }}.{{ .Values.global.dnsWildCard }}
-    path: /
-    port:
-        targetPort: {{ $svcPort }}
     tls:
         insecureEdgeTerminationPolicy: Redirect
         termination: edge
