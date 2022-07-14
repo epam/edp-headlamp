@@ -1,40 +1,11 @@
 import { Theme } from '@material-ui/core/styles/createStyles';
-import { Render } from '../../../../../components/Render';
+import { MappedProperties } from '../../../../../components/MappedProperties';
 import { EDPKubeMetadata } from '../../../../../types/k8s';
 import { formatDateUTCToLocal } from '../../../../../utils/format/formatDateUTCToLocal';
 
 const {
-    pluginLib: { React, MuiCore },
+    pluginLib: { React },
 } = globalThis;
-
-const { Typography } = MuiCore;
-
-const MapProperties: React.FC<{
-    properties: string[];
-}> = ({ properties }): React.ReactElement => {
-    return (
-        properties && (
-            <>
-                {properties.map((el, idx) => {
-                    const propertyId = `${el}:${idx}`;
-
-                    return (
-                        <>
-                            <Render condition={idx !== 0}>
-                                <Typography component="span" key={propertyId}>
-                                    ,{' '}
-                                </Typography>
-                            </Render>
-                            <Typography component="span" key={propertyId}>
-                                {el}
-                            </Typography>
-                        </>
-                    );
-                })}
-            </>
-        )
-    );
-};
 
 export const useColumns = (
     metadata: EDPKubeMetadata,
@@ -57,7 +28,7 @@ export const useColumns = (
             },
             {
                 name: 'Finalizers',
-                value: <MapProperties properties={metadata.finalizers} />,
+                value: <MappedProperties properties={metadata.finalizers} />,
             },
             {
                 name: 'Generation',

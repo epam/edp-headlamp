@@ -1,5 +1,10 @@
 import './override.css';
-import { Headlamp, Plugin, registerRoute,registerSidebarEntry } from '@kinvolk/headlamp-plugin/lib';
+import {
+    Headlamp,
+    Plugin,
+    registerRoute,
+    registerSidebarEntry,
+} from '@kinvolk/headlamp-plugin/lib';
 import { SIDEBAR_LIST } from './configs/sidebar-list';
 import { List } from './routes';
 
@@ -13,11 +18,11 @@ class EDPHeadlampPlugin extends Plugin {
                 url,
                 icon: opts.icon,
                 useClusterURL: opts.useClusterURL,
-            })
+            });
         }
 
         for (const route of Object.values(List)) {
-            registerRoute(route)
+            registerRoute(route);
         }
 
         return true;

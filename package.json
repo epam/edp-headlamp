@@ -46,7 +46,9 @@
   },
   "dependencies": {
     "clsx": "^1.2.1",
-    "react-hook-form": "^7.33.1",
-    "react-json-view": "^1.21.3"
+    "leaky-bucket": "^4.1.4",
+    "react-json-view": "^1.21.3",
+    "react-use": "^17.4.0",
+    "react-hook-form": "^7.33.1"
   }
 }

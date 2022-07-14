@@ -1,11 +1,9 @@
-import { HeadlampNameValueTable } from '../../../../../../components/HeadlampNameValueTable';
-import { HeadlampSimpleTable } from '../../../../../../components/HeadlampSimpleTable';
-import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
+import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
+import { HeadlampNameValueTable } from '../../../HeadlampNameValueTable';
 import { MetadataTable } from './components/MetadataTable';
-import { useColumns } from './hooks/useColumns';
 import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
-import { CDPipelineStageProps } from './types';
+import { CodebaseBranchProps } from './types';
 
 const {
     pluginLib: { React, MuiCore, Notistack },
@@ -14,30 +12,30 @@ const {
 const { Box, Typography, Paper } = MuiCore;
 const { useSnackbar } = Notistack;
 
-export const CDPipelineStage: React.FC<CDPipelineStageProps> = ({ stage }): React.ReactElement => {
+export const CodebaseBranch: React.FC<CodebaseBranchProps> = ({
+    codebaseBranch,
+}): React.ReactElement => {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
-    const rows = useRows(stage);
-    const columns = useColumns();
-
-    const [stageStatus, setStageStatus] = React.useState<{
+    const rows = useRows(codebaseBranch);
+    const [codebaseBranchStatus, setCodebaseBranchStatus] = React.useState<{
         lastStatus: string;
         currentStatus: string;
     }>({
         lastStatus: null,
-        currentStatus: stage.status.status,
+        currentStatus: codebaseBranch.status.status,
     });
 
     React.useEffect(() => {
-        const { currentStatus } = stageStatus;
+        const { currentStatus } = codebaseBranchStatus;
         const {
             status: { status },
             metadata: { name },
-        } = stage;
+        } = codebaseBranch;
 
         if (currentStatus !== status) {
             enqueueSnackbar(
-                `Stage ${name} status has been changed to ${capitalizeFirstLetter(status)}`,
+                `Branch ${name} status has been changed to ${capitalizeFirstLetter(status)}`,
                 {
                     autoHideDuration: 5000,
                     variant: 'info',
@@ -48,12 +46,12 @@ export const CDPipelineStage: React.FC<CDPipelineStageProps> = ({ stage }): Reac
                 }
             );
 
-            setStageStatus(prev => ({
+            setCodebaseBranchStatus(prev => ({
                 lastStatus: prev.currentStatus,
                 currentStatus: status,
             }));
         }
-    }, [stage.status.status]);
+    }, [codebaseBranch.status.status]);
 
     return (
         <Box className={classes.tablesGrid}>
@@ -67,22 +65,10 @@ export const CDPipelineStage: React.FC<CDPipelineStageProps> = ({ stage }): Reac
             </div>
             <div className={classes.tablesGridItem}>
                 <div className={classes.tablesGridItemHeading}>
-                    <Typography variant={'h5'}>Quality gates</Typography>
-                </div>
-                <Paper className={classes.tablesGridItemInner}>
-                    <HeadlampSimpleTable
-                        columns={columns}
-                        rowsPerPage={[15, 25, 50]}
-                        data={stage.spec.qualityGates}
-                    />
-                </Paper>
-            </div>
-            <div className={classes.tablesGridItem}>
-                <div className={classes.tablesGridItemHeading}>
                     <Typography variant={'h5'}>Metadata</Typography>
                 </div>
                 <Paper className={classes.tablesGridItemInner}>
-                    <MetadataTable kubeObjectData={stage} />
+                    <MetadataTable kubeObjectData={codebaseBranch} />
                 </Paper>
             </div>
         </Box>

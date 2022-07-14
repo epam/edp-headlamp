@@ -1,12 +1,12 @@
+import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
+import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
+import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
+import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { AUTOTESTS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
-import { AdvancedInfoTable } from './components/AdvancedInfoTable';
-import { CodebaseBranchesTable } from './components/CodebaseBranchesTable';
-import { GeneralInfoTable } from './components/GeneralInfoTable';
-import { MetadataTable } from './components/MetadataTable';
 import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPAutotestDetailsProps } from './types';
@@ -50,10 +50,10 @@ export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.R
             </div>
             {autotest && (
                 <>
-                    <GeneralInfoTable kubeObjectData={autotest} />
-                    <AdvancedInfoTable kubeObjectData={autotest} />
-                    <MetadataTable kubeObjectData={autotest} />
-                    <CodebaseBranchesTable
+                    <CodebaseGeneralInfoTable kubeObjectData={autotest} />
+                    <CodebaseAdvancedInfoTable kubeObjectData={autotest} />
+                    <CodebaseMetadataTable kubeObjectData={autotest} />
+                    <CodebaseBranchesList
                         kubeObject={EDPCodebaseKubeObject}
                         kubeObjectData={autotest}
                     />

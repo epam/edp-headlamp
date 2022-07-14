@@ -1,4 +1,4 @@
-import { StatusIcon } from '../../../../components/StatusIcon/view';
+import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICON_ARROW_DOWN } from '../../../../constants/icons';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';

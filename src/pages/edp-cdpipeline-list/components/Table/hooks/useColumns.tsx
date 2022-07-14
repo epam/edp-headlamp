@@ -1,6 +1,6 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
-import { Render } from '../../../../../components/Render';
-import { StatusIcon } from '../../../../../components/StatusIcon/view';
+import { MappedProperties } from '../../../../../components/MappedProperties';
+import { StatusIcon } from '../../../../../components/StatusIcon';
 import { EDPCDPipelineKubeObject } from '../../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
 import { CDPIPELINE_ROUTE_NAME } from '../../../../../routes/names';
@@ -9,35 +9,9 @@ import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 import { RowActions } from '../components/RowActions';
 
 const {
-    pluginLib: { React, CommonComponents, MuiCore },
+    pluginLib: { React, CommonComponents },
 } = globalThis;
 const { Link } = CommonComponents;
-const { Typography } = MuiCore;
-
-const MapProperties: React.FC<{
-    properties: string[];
-}> = ({ properties }): React.ReactElement => {
-    return (
-        <>
-            {properties.map((el, idx) => {
-                const propertyId = `${el}:${idx}`;
-
-                return (
-                    <>
-                        <Render condition={idx !== 0}>
-                            <Typography component="span" key={propertyId}>
-                                ,{' '}
-                            </Typography>
-                        </Render>
-                        <Typography component="span" key={propertyId}>
-                            {el}
-                        </Typography>
-                    </>
-                );
-            })}
-        </>
-    );
-};
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeObjectInterface>[] =>
     React.useMemo(
@@ -61,7 +35,9 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
             },
             {
                 label: 'Applications',
-                getter: ({ spec: { applications } }) => <MapProperties properties={applications} />,
+                getter: ({ spec: { applications } }) => (
+                    <MappedProperties properties={applications} />
+                ),
             },
             {
                 label: '',

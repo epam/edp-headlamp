@@ -26,16 +26,11 @@ export class EDPCodebaseKubeObject extends makeKubeObject<EDPCodebaseKubeObjectI
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
-    static getCodebasesByTypeLabel(
-        codebaseType: string,
-        cb: (data: EDPCodebaseKubeObjectInterface) => void
-    ) {
+    static getCodebasesByTypeLabel(codebaseType: string) {
         const url = `/apis/${group}/${version}/${pluralForm}?labelSelector=${encodeURIComponent(
             `app.edp.epam.com/codebaseType=${codebaseType}`
         )}`;
-        return (ApiProxy.request(url) as Promise<EDPCodebaseKubeObjectInterface>).then(data =>
-            cb(data)
-        );
+        return ApiProxy.request(url) as Promise<EDPCodebaseKubeObjectInterface>;
     }
 
     getDetailsLink(type: string): string {

@@ -1,13 +1,13 @@
+import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
+import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
+import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
+import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { LIBRARIES_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { rem } from '../../utils/styling/rem';
-import { AdvancedInfoTable } from './components/AdvancedInfoTable';
-import { CodebaseBranchesTable } from './components/CodebaseBranchesTable';
-import { GeneralInfoTable } from './components/GeneralInfoTable';
-import { MetadataTable } from './components/MetadataTable';
 import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPLibraryDetailsProps } from './types';
@@ -53,10 +53,10 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
             </div>
             {library && (
                 <>
-                    <GeneralInfoTable kubeObjectData={library} />
-                    <AdvancedInfoTable kubeObjectData={library} />
-                    <MetadataTable kubeObjectData={library} />
-                    <CodebaseBranchesTable
+                    <CodebaseGeneralInfoTable kubeObjectData={library} />
+                    <CodebaseAdvancedInfoTable kubeObjectData={library} />
+                    <CodebaseMetadataTable kubeObjectData={library} />
+                    <CodebaseBranchesList
                         kubeObject={EDPCodebaseKubeObject}
                         kubeObjectData={library}
                     />

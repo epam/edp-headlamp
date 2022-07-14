@@ -22,16 +22,11 @@ export class EDPCodebaseBranchKubeObject extends makeKubeObject<EDPCodebaseBranc
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
-    static getCodebaseBranchesByCodebaseLabel(
-        codebaseName: string,
-        cb: (data: EDPCodebaseBranchKubeObjectInterface) => void
-    ) {
+    static getCodebaseBranchesByCodebaseLabel(codebaseName: string) {
         const url = `/apis/${group}/${version}/${pluralForm}?labelSelector=${encodeURIComponent(
             `app.edp.epam.com/codebaseName=${codebaseName}`
         )}`;
-        return (ApiProxy.request(url) as Promise<EDPCodebaseBranchKubeObjectInterface>).then(data =>
-            cb(data)
-        );
+        return ApiProxy.request(url) as Promise<EDPCodebaseBranchKubeObjectInterface>;
     }
 
     static get className(): string {

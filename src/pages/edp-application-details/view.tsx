@@ -1,12 +1,12 @@
+import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
+import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
+import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
+import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
-import { AdvancedInfoTable } from './components/AdvancedInfoTable';
-import { CodebaseBranchesTable } from './components/CodebaseBranchesTable';
-import { GeneralInfoTable } from './components/GeneralInfoTable';
-import { MetadataTable } from './components/MetadataTable';
 import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPApplicationDetailsProps } from './types';
@@ -54,10 +54,10 @@ export const EDPApplicationDetails: React.FC<
             </div>
             {application && (
                 <>
-                    <GeneralInfoTable kubeObjectData={application} />
-                    <AdvancedInfoTable kubeObjectData={application} />
-                    <MetadataTable kubeObjectData={application} />
-                    <CodebaseBranchesTable
+                    <CodebaseGeneralInfoTable kubeObjectData={application} />
+                    <CodebaseAdvancedInfoTable kubeObjectData={application} />
+                    <CodebaseMetadataTable kubeObjectData={application} />
+                    <CodebaseBranchesList
                         kubeObject={EDPCodebaseKubeObject}
                         kubeObjectData={application}
                     />

@@ -1,6 +1,6 @@
 import { CodebaseListRowActions } from '../../../../../components/CodebaseListRowActions';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
-import { StatusIcon } from '../../../../../components/StatusIcon/view';
+import { StatusIcon } from '../../../../../components/StatusIcon';
 import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { APPLICATION_ROUTE_NAME } from '../../../../../routes/names';

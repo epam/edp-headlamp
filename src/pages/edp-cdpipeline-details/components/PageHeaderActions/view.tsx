@@ -16,8 +16,8 @@ export const PageHeaderActions: React.FC<PageHeaderActionsProps> = ({
 
     return (
         <>
-            <Tooltip title="Edit Application">
-                <IconButton aria-label="Edit Application" onClick={() => setEditorOpen(true)}>
+            <Tooltip title="Edit CD Pipeline">
+                <IconButton aria-label="Edit CD Pipeline" onClick={() => setEditorOpen(true)}>
                     <Icon icon={ICON_PENCIL} />
                 </IconButton>
             </Tooltip>

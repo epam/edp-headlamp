@@ -1,7 +1,7 @@
 import { Theme } from '@material-ui/core/styles/createStyles';
-import { MappedProperties } from '../../../../../../../../../components/MappedProperties';
-import { EDPKubeMetadata } from '../../../../../../../../../types/k8s';
-import { formatDateUTCToLocal } from '../../../../../../../../../utils/format/formatDateUTCToLocal';
+import { EDPKubeMetadata } from '../../../../../../../types/k8s';
+import { formatDateUTCToLocal } from '../../../../../../../utils/format/formatDateUTCToLocal';
+import { MappedProperties } from '../../../../../../MappedProperties';
 
 const {
     pluginLib: { React },
