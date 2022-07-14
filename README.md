@@ -14,11 +14,11 @@
 
 ## Overview
 
-EDP Admin Console v2.0 is new version of [EDP Admin Console](https://github.com/epam/edp-admin-console), build on top of [Headlamp](https://github.com/kinvolk/headlamp). All functionally specific to EDP written as plugins for a Headlamp.
+EDP Admin Console v2.0 is a new version of [EDP Admin Console](https://github.com/epam/edp-admin-console), built on the top of [Headlamp](https://github.com/kinvolk/headlamp). All EDP-specific functionality is written as Headlamp plugins.
 
 https://user-images.githubusercontent.com/4813007/178267935-1a87d0dc-d015-4184-8109-d375030671d4.mp4
 
-### Screenshots
+### Assets
 
 <table>
     <tr>
@@ -40,11 +40,11 @@ https://user-images.githubusercontent.com/4813007/178267935-1a87d0dc-d015-4184-8
 
 ### Requirements
 
-* NodeJS LTS v16.16.0 or higher. [Install](https://nodejs.org)
-* Headlamp Desktop App v0.10 or higher. [Install](https://kinvolk.github.io/headlamp/docs/latest/installation/desktop)
-* make sure [environment variable `KUBECONFIG` is configured](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig)
+* [NodeJS LTS v16.16.0](https://nodejs.org) or higher.
+* [Headlamp Desktop App v0.10](https://kinvolk.github.io/headlamp/docs/latest/installation/desktop) or higher.
+* [`KUBECONFIG` environment variable](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig) is configured.
 
-### Start development locally
+### Start Local Development
 
-* run `npm run start`
-* open Headlamp desktop application
+* Run the `npm run start` command.
+* Open the Headlamp desktop application.
