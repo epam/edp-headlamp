@@ -1,14 +1,24 @@
 import './override.css';
-import { Headlamp, Plugin, Registry } from '@kinvolk/headlamp-plugin/lib';
+import { Headlamp, Plugin, registerRoute,registerSidebarEntry } from '@kinvolk/headlamp-plugin/lib';
 import { SIDEBAR_LIST } from './configs/sidebar-list';
 import { List } from './routes';
 
 class EDPHeadlampPlugin extends Plugin {
-    initialize(registry: Registry) {
-        SIDEBAR_LIST.forEach(({ parentName, itemName, itemLabel, url, opts }) =>
-            registry.registerSidebarItem(parentName, itemName, itemLabel, url, opts)
-        );
-        Object.keys(List).forEach(routeName => registry.registerRoute(List[routeName]));
+    initialize() {
+        for (const { parentName, itemName, itemLabel, url, opts } of SIDEBAR_LIST) {
+            registerSidebarEntry({
+                parent: parentName,
+                name: itemName,
+                label: itemLabel,
+                url,
+                icon: opts.icon,
+                useClusterURL: opts.useClusterURL,
+            })
+        }
+
+        for (const route of Object.values(List)) {
+            registerRoute(route)
+        }
 
         return true;
     }

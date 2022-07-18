@@ -1,11 +1,11 @@
-import { SidebarEntry } from '@kinvolk/headlamp-plugin/types/redux/reducers/ui';
+import { SidebarEntryProps } from '@kinvolk/headlamp-plugin/types/components/Sidebar'
 
 export interface SidebarItem {
     parentName: string;
     itemName: string;
     itemLabel: string;
     url: string;
-    opts?: Pick<SidebarEntry, 'useClusterURL' | 'icon'>;
+    opts?: Pick<SidebarEntryProps, 'useClusterURL' | 'icon'>;
 }
 
 export interface RouteURLProps {
