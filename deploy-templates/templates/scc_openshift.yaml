@@ -1,0 +1,26 @@
+{{- if eq .Values.global.platform "openshift" -}}
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  labels:
+    {{- include "headlamp.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install"
+  name: edp-headlamp-{{ .Values.global.edpName }}
+runAsUser:
+  type: MustRunAs
+  uid: 65534
+seLinuxContext:
+  type: MustRunAs
+users:
+  - system:serviceaccount:{{ .Values.global.edpName }}:{{ include "headlamp.serviceAccountName" . }}
+allowHostDirVolumePlugin: false
+allowHostIPC: true
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegedContainer: false
+allowedCapabilities: []
+allowedFlexVolumes: []
+readOnlyRootFilesystem: false
+{{- end -}}
