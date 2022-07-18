@@ -13,24 +13,26 @@ const MapProperties: React.FC<{
     properties: string[];
 }> = ({ properties }): React.ReactElement => {
     return (
-        <>
-            {properties.map((el, idx) => {
-                const propertyId = `${el}:${idx}`;
+        properties && (
+            <>
+                {properties.map((el, idx) => {
+                    const propertyId = `${el}:${idx}`;
 
-                return (
-                    <>
-                        <Render condition={idx !== 0}>
+                    return (
+                        <>
+                            <Render condition={idx !== 0}>
+                                <Typography component="span" key={propertyId}>
+                                    ,{' '}
+                                </Typography>
+                            </Render>
                             <Typography component="span" key={propertyId}>
-                                ,{' '}
+                                {el}
                             </Typography>
-                        </Render>
-                        <Typography component="span" key={propertyId}>
-                            {el}
-                        </Typography>
-                    </>
-                );
-            })}
-        </>
+                        </>
+                    );
+                })}
+            </>
+        )
     );
 };
 

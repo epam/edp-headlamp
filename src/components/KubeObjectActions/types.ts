@@ -1,12 +1,7 @@
-export interface KubeObjectAction {
-    name: string;
-    label: string;
-    disabled?: boolean;
-    action: (any) => void;
-}
+import { KubeObjectAction } from '../../types/actions';
 
 export interface KubeObjectActionsProps {
     actions: KubeObjectAction[];
-    tooltipOpen: boolean;
-    setTooltipOpen(boolean): void;
+    anchorEl: any;
+    handleCloseActionsMenu(): void;
 }

@@ -10,3 +10,4 @@ export const ICON_INFINITY = 'ion:infinite-outline';
 export const ICON_APPLICATION = 'fluent:app-generic-24-regular';
 export const ICON_TEST_APPLICATION = 'file-icons:test-generic';
 export const ICON_BOOKS = 'fluent:library-16-regular';
+export const ICON_BUCKET = 'mdi:delete';

@@ -64,6 +64,7 @@ export const CDPipelineStagesTable: React.FC<CDPipelineStagesTableProps> = ({
                                         <CDPipelineStageActions
                                             kubeObject={EDPCDPipelineStageKubeObject}
                                             kubeObjectData={el}
+                                            cdpipelineStages={currentCDPipelineStages}
                                         />
                                     </div>
                                 </div>

@@ -1,3 +1,4 @@
+import { CodebaseListRowActions } from '../../../../../components/CodebaseListRowActions';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../components/StatusIcon/view';
 import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
@@ -5,7 +6,6 @@ import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/t
 import { LIBRARY_ROUTE_NAME } from '../../../../../routes/names';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
-import { RowActions } from '../components/RowActions';
 
 const {
     pluginLib: { React, CommonComponents },
@@ -52,7 +52,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
             {
                 label: '',
                 getter: kubeObjectData => (
-                    <RowActions
+                    <CodebaseListRowActions
                         kubeObject={EDPCodebaseKubeObject}
                         kubeObjectData={kubeObjectData}
                     />

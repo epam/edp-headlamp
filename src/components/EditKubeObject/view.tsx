@@ -8,8 +8,6 @@ const {
 const { useDispatch } = ReactRedux;
 const { EditorDialog } = CommonComponents;
 
-const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation();
-
 export const EditKubeObject: React.FC<EditKubeObjectProps> = ({
     editorOpen,
     setEditorOpen,
@@ -52,16 +50,13 @@ export const EditKubeObject: React.FC<EditKubeObjectProps> = ({
     };
 
     return (
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
-        <div onClick={stopPropagation}>
-            <EditorDialog
-                item={kubeObjectData}
-                open={editorOpen}
-                onClose={() => setEditorOpen(false)}
-                onSave={handleSave}
-                errorMessage={errorMessage}
-                onEditorChanged={() => setErrorMessage('')}
-            />
-        </div>
+        <EditorDialog
+            item={kubeObjectData}
+            open={editorOpen}
+            onClose={() => setEditorOpen(false)}
+            onSave={handleSave}
+            errorMessage={errorMessage}
+            onEditorChanged={() => setErrorMessage('')}
+        />
     );
 };

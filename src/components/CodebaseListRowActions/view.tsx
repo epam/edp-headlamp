@@ -1,10 +1,10 @@
-import { EditKubeObject } from '../../../../../../components/EditKubeObject';
-import { KubeObjectActions } from '../../../../../../components/KubeObjectActions';
-import { ICON_PENCIL, ICON_THREE_DOTS } from '../../../../../../constants/icons';
-import { KUBE_OBJECT_ACTION_EDIT } from '../../../../../../constants/kubeObjectActions';
-import { KubeObjectAction } from '../../../../../../types/actions';
-import { createKubeAction } from '../../../../../../utils/actions/createKubeAction';
-import { RowActionsProps } from './types';
+import { ICON_PENCIL, ICON_THREE_DOTS } from '../../constants/icons';
+import { KUBE_OBJECT_ACTION_EDIT } from '../../constants/kubeObjectActions';
+import { KubeObjectAction } from '../../types/actions';
+import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { EditKubeObject } from '../EditKubeObject';
+import { KubeObjectActions } from '../KubeObjectActions';
+import { CodebaseListRowActionsProps } from './types';
 
 const {
     pluginLib: { React, MuiCore, Iconify },
@@ -13,7 +13,7 @@ const {
 const { IconButton } = MuiCore;
 const { Icon } = Iconify;
 
-export const RowActions: React.FC<RowActionsProps> = ({
+export const CodebaseListRowActions: React.FC<CodebaseListRowActionsProps> = ({
     kubeObject,
     kubeObjectData,
 }): React.ReactElement => {
@@ -48,7 +48,7 @@ export const RowActions: React.FC<RowActionsProps> = ({
             handleCloseActionsMenu={handleCloseActionsMenu}
             actions={actions}
         >
-            <>
+            <div>
                 <IconButton aria-label={'Options'} onClick={toggleActionsMenu}>
                     <Icon icon={ICON_THREE_DOTS} color={'grey'} width="20" />
                 </IconButton>
@@ -58,7 +58,7 @@ export const RowActions: React.FC<RowActionsProps> = ({
                     kubeObject={kubeObject}
                     kubeObjectData={kubeObjectData}
                 />
-            </>
+            </div>
         </KubeObjectActions>
     );
 };
