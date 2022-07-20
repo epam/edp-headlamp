@@ -1,8 +1,12 @@
 import { pluginLib } from '../../plugin.globals';
+import { streamResults } from '../common';
 import { EDPComponentKubeObjectConfig } from './config';
-import { EDPComponentKubeObjectInterface } from './types';
+import { EDPComponentKubeObjectInterface, EDPComponentSpec } from './types';
 
-const { ApiProxy, Cluster: { makeKubeObject } } = pluginLib;
+const {
+    ApiProxy,
+    Cluster: { makeKubeObject },
+} = pluginLib;
 
 const {
     name: { singularForm, pluralForm },
@@ -23,11 +27,26 @@ export class EDPComponentKubeObject extends makeKubeObject<EDPComponentKubeObjec
         return pluralForm;
     }
 
-    get spec(): EDPComponentKubeObjectInterface['spec'] {
+    get spec(): EDPComponentSpec {
         return this.jsonData!.spec;
     }
 
-    get status(): EDPComponentKubeObjectInterface['status'] {
+    get status(): string {
         return this.jsonData!.status;
     }
 }
+
+export const streamEDPComponents = (
+    cb: (data: EDPComponentKubeObjectInterface[]) => void,
+    errCb: (err: Error) => void,
+    namespace?: string
+) => {
+    const url = namespace
+        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
+        : `/apis/${group}/${version}/${pluralForm}`;
+    return streamResults(
+        url,
+        data => cb(data),
+        error => errCb(error)
+    );
+};

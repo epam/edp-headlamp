@@ -7,16 +7,15 @@ import { CodebaseGeneralInfoTableProps } from './types';
 const {
     CommonComponents: { SectionBox, SectionHeader },
 } = pluginLib;
-const { useTheme, Box } = MuiCore;
+const { Box } = MuiCore;
 
 export const CodebaseGeneralInfoTable: React.FC<CodebaseGeneralInfoTableProps> = ({
     kubeObjectData,
 }): React.ReactElement => {
     const { spec } = kubeObjectData;
 
-    const classes = React.useMemo(() => useStyles(spec), [spec]);
-    const theme = useTheme();
-    const columns = useColumns(spec, classes, theme);
+    const classes = useStyles(spec);
+    const columns = useColumns(spec, classes);
 
     return (
         <SectionBox title={<SectionHeader title={'General Info'} headerStyle="main" />}>

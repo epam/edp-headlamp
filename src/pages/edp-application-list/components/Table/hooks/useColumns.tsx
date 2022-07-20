@@ -1,6 +1,7 @@
-import { CodebaseListRowActions } from '../../../../../components/CodebaseListRowActions';
+import { CodebaseActions } from '../../../../../components/CodebaseActions';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
+import { STATUS_UNKNOWN } from '../../../../../constants/statuses';
 import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { pluginLib, React } from '../../../../../plugin.globals';
@@ -17,7 +18,9 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
         () => [
             {
                 label: 'Status',
-                getter: ({ status: { status } }) => <StatusIcon status={status} />,
+                getter: ({ status }) => (
+                    <StatusIcon status={status ? status.status : STATUS_UNKNOWN} />
+                ),
                 sort: (a, b) => sortByStatus(a.status.status, b.status.status),
             },
             {
@@ -54,10 +57,10 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
             },
             {
                 label: '',
-                getter: kubeObject => (
-                    <CodebaseListRowActions
+                getter: kubeObjectData => (
+                    <CodebaseActions
                         kubeObject={EDPCodebaseKubeObject}
-                        kubeObjectData={kubeObject}
+                        kubeObjectData={kubeObjectData}
                     />
                 ),
             },

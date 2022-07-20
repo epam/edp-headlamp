@@ -8,7 +8,9 @@ describe('checking expected input', () => {
             true,
         ]);
         expect(getStatusIconByStatusName('created')).toEqual(['bi:check-circle', '#327335']);
+        expect(getStatusIconByStatusName('initialized')).toEqual(['bi:check-circle', '#327335']);
         expect(getStatusIconByStatusName('failed')).toEqual(['uiw:circle-close-o', '#ba3329']);
+        expect(getStatusIconByStatusName('unknown')).toEqual(['akar-icons:circle', 'grey']);
     });
 });
 

@@ -13,16 +13,12 @@ export const MappedProperties: React.FC<MappedPropertiesProps> = ({
                 const propertyId = `${el}:${idx}`;
 
                 return (
-                    <>
+                    <React.Fragment key={propertyId}>
                         <Render condition={idx !== 0}>
-                            <Typography component="span" key={propertyId}>
-                                ,{' '}
-                            </Typography>
+                            <Typography component="span">, </Typography>
                         </Render>
-                        <Typography component="span" key={propertyId}>
-                            {el}
-                        </Typography>
-                    </>
+                        <Typography component="span">{el}</Typography>
+                    </React.Fragment>
                 );
             })}
         </>

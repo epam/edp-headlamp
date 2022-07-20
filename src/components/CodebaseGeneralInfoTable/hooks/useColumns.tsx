@@ -1,4 +1,3 @@
-import { Theme } from '@material-ui/core/styles/createTheme';
 import { EDPCodebaseSpecInterface } from '../../../k8s/EDPCodebase/types';
 import { MuiCore, React } from '../../../plugin.globals';
 
@@ -6,8 +5,7 @@ const { Typography } = MuiCore;
 
 export const useColumns = (
     codebaseSpec: EDPCodebaseSpecInterface,
-    classes: { [key: string]: string },
-    theme: Theme
+    classes: { [key: string]: string }
 ) =>
     React.useMemo(
         () => [
@@ -40,5 +38,5 @@ export const useColumns = (
                 value: codebaseSpec.defaultBranch,
             },
         ],
-        [codebaseSpec, classes, theme]
+        [codebaseSpec, classes]
     );

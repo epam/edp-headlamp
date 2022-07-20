@@ -30,8 +30,9 @@ describe('DeleteKubeObject', () => {
                     selfLink: '',
                 },
             },
+            objectName: 'super-cool-object-name',
             description: 'Confirmation message for test action',
-            onDelete: () => {},
+            onBeforeSubmit: () => Promise.resolve(),
         };
         const store = configureStore({
             reducer: () => ({}),

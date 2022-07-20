@@ -1,7 +1,7 @@
+import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { k8s } from '../../../../plugin.types';
-import { EDPKubeObjectInterface } from '../../../../types/k8s';
 
 export interface PageHeaderActionsProps {
     kubeObject: k8s.cluster.KubeObject;
-    kubeObjectData: EDPKubeObjectInterface;
+    kubeObjectData: EDPCodebaseKubeObjectInterface;
 }

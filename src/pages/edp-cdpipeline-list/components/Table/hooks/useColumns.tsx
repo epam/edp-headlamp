@@ -1,3 +1,4 @@
+import { CDPipelineActions } from '../../../../../components/CDPipelineActions';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { MappedProperties } from '../../../../../components/MappedProperties';
 import { StatusIcon } from '../../../../../components/StatusIcon';
@@ -7,7 +8,6 @@ import { pluginLib, React } from '../../../../../plugin.globals';
 import { CDPIPELINE_ROUTE_NAME } from '../../../../../routes/names';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
-import { RowActions } from '../components/RowActions';
 
 const {
     CommonComponents: { Link },
@@ -42,9 +42,9 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
             {
                 label: '',
                 getter: kubeObjectData => (
-                    <RowActions
+                    <CDPipelineActions
                         kubeObject={EDPCDPipelineKubeObject}
-                        kubeObjectData={kubeObjectData.jsonData}
+                        kubeObjectData={kubeObjectData}
                     />
                 ),
             },

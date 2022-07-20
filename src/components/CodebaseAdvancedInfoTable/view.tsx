@@ -7,7 +7,7 @@ import { CodebaseAdvancedInfoTableProps } from './types';
 const {
     CommonComponents: { SectionBox, SectionHeader },
 } = pluginLib;
-const { useTheme, Box } = MuiCore;
+const { Box } = MuiCore;
 
 export const CodebaseAdvancedInfoTable: React.FC<CodebaseAdvancedInfoTableProps> = ({
     kubeObjectData,
@@ -15,8 +15,7 @@ export const CodebaseAdvancedInfoTable: React.FC<CodebaseAdvancedInfoTableProps>
     const { spec } = kubeObjectData;
 
     const classes = useStyles();
-    const theme = useTheme();
-    const columns = useColumns(spec, classes, theme);
+    const columns = useColumns(spec, classes);
 
     return (
         <SectionBox title={<SectionHeader title={'Advanced Settings'} headerStyle="main" />}>

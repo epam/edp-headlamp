@@ -1,7 +1,7 @@
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { k8s } from '../../../../plugin.types';
 
-export interface CDPipelineStagesTableProps {
+export interface CDPipelineStagesListProps {
     kubeObject: k8s.cluster.KubeObject;
     kubeObjectData: EDPCDPipelineKubeObjectInterface;
 }

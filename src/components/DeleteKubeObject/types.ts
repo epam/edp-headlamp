@@ -6,6 +6,10 @@ export interface DeleteKubeObjectProps {
     setPopupOpen(boolean): void;
     kubeObject: k8s.cluster.KubeObject;
     kubeObjectData: EDPKubeObjectInterface;
+    objectName: string;
     description: string;
-    onDelete?(): void;
+    onBeforeSubmit?(
+        setErrorTemplate: () => React.ReactElement,
+        setLoadingActive: () => void
+    ): Promise<void>;
 }

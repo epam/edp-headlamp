@@ -1,12 +1,9 @@
-import LeakyBucket from 'leaky-bucket';
-import { useInterval } from 'react-use';
+import { FloatingActions } from '../../components/FloatingActions';
 import { ApplicationExample } from '../../configs/kube-examples/edp-application';
-import { REFETCH_DELAY } from '../../constants/delays';
-import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObject, streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { pluginLib, React } from '../../plugin.globals';
-import { FloatingActions } from './components/FloatingActions';
+import { pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { Table } from './components/Table';
 import { EDPApplicationListProps } from './types';
 
@@ -14,33 +11,34 @@ const {
     CommonComponents: { SectionBox, SectionFilterHeader },
 } = pluginLib;
 
+const { useParams } = ReactRouter;
+
 export const EDPApplicationList: React.FC<EDPApplicationListProps> = (): React.ReactElement => {
+    const { namespace } = useParams();
     const [applications, setApplications] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
+    const [, setError] = React.useState<string>('');
 
-    const reqErrorCost = 1;
-    const reqErrorsBucket = new LeakyBucket({
-        capacity: 10,
-    });
-    const updateApplications = React.useCallback(async () => {
-        try {
-            const { items } = await EDPCodebaseKubeObject.getCodebasesByTypeLabel(
-                EDPCodebaseKubeObjectConfig.types.application.name.singularForm
-            );
+    const handleStoreApplications = React.useCallback(
+        (applications: EDPCodebaseKubeObjectInterface[]) => {
+            setApplications(applications);
+        },
+        []
+    );
 
-            setApplications(items);
-        } catch (err: any) {
-            reqErrorsBucket.pay(reqErrorCost);
-            const { message } = err;
-            const { status } = JSON.parse(JSON.stringify(err));
-            throw new Error(`${message}. Status: ${status}`);
-        }
-    }, [EDPCodebaseKubeObject, setApplications]);
-
-    React.useEffect(() => {
-        updateApplications().catch(console.error);
+    const handleError = React.useCallback((error: Error) => {
+        setError(error);
     }, []);
 
-    useInterval(updateApplications, REFETCH_DELAY);
+    React.useEffect(() => {
+        const cancelStream = streamCodebasesByTypeLabel(
+            EDPCodebaseKubeObjectConfig.types.application.name.singularForm,
+            handleStoreApplications,
+            handleError,
+            namespace
+        );
+
+        return () => cancelStream();
+    }, [handleError, handleStoreApplications, namespace]);
 
     return (
         <SectionBox title={<SectionFilterHeader title="Applications" headerStyle="main" />}>

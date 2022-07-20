@@ -3,7 +3,7 @@ import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
 import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
-import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { EDPCodebaseBranchKubeObject } from '../../k8s/EDPCodebaseBranch';
 import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
@@ -25,7 +25,27 @@ export const EDPApplicationDetails: React.FC<
     const [application, setApplication] = React.useState<EDPCodebaseKubeObjectInterface>(null);
     const [, setError] = React.useState<string>(null);
 
-    EDPCodebaseKubeObject.useApiGet(setApplication, name, namespace, setError);
+    const handleStoreApplication = React.useCallback(
+        (application: EDPCodebaseKubeObjectInterface) => {
+            setApplication(application);
+        },
+        []
+    );
+
+    const handleError = React.useCallback((error: Error) => {
+        setError(error);
+    }, []);
+
+    React.useEffect(() => {
+        const cancelStream = streamCodebase(
+            name,
+            namespace,
+            handleStoreApplication,
+            handleError
+        ).catch(console.error);
+
+        return () => cancelStream();
+    }, [handleError, handleStoreApplication, name, namespace]);
 
     return (
         <>

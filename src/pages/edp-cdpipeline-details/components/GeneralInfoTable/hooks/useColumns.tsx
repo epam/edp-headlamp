@@ -1,13 +1,8 @@
-import { Theme } from '@material-ui/core/styles/createStyles';
 import { MappedProperties } from '../../../../../components/MappedProperties';
 import { EDPCDPipelineSpec } from '../../../../../k8s/EDPCDPipeline/types';
 import { React } from '../../../../../plugin.globals';
 
-export const useColumns = (
-    cdpipelineSpec: EDPCDPipelineSpec,
-    classes: { [key: string]: string },
-    theme: Theme
-) =>
+export const useColumns = (cdpipelineSpec: EDPCDPipelineSpec) =>
     React.useMemo(
         () => [
             {
@@ -31,5 +26,5 @@ export const useColumns = (
                 value: <MappedProperties properties={cdpipelineSpec.inputDockerStreams} />,
             },
         ],
-        [cdpipelineSpec, classes, theme]
+        [cdpipelineSpec]
     );

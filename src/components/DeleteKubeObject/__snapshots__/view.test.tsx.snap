@@ -2,7 +2,7 @@
 
 exports[`DeleteKubeObject renders correctly 1`] = `
 <div
-  class="MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiPaper-elevation24 MuiPaper-rounded"
+  class="MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded"
   role="dialog"
 >
   <div
@@ -11,7 +11,7 @@ exports[`DeleteKubeObject renders correctly 1`] = `
     <h2
       class="MuiTypography-root MuiTypography-h6"
     >
-      Confirm deletion of TestCustomResourceDefinition
+      Confirm deletion of super-cool-object-name
     </h2>
   </div>
   <div
@@ -43,31 +43,35 @@ exports[`DeleteKubeObject renders correctly 1`] = `
                 class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
               >
                 <label
-                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-filled"
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
                   data-shrink="false"
                 >
                   Enter CustomResourceDefinition name to delete
                 </label>
                 <div
-                  class="MuiInputBase-root MuiFilledInput-root MuiFilledInput-underline MuiInputBase-fullWidth MuiInputBase-formControl"
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
                 >
                   <input
                     aria-invalid="false"
-                    class="MuiInputBase-input MuiFilledInput-input"
+                    class="MuiInputBase-input MuiOutlinedInput-input"
                     name="name"
                     type="text"
                     value=""
                   />
+                  <fieldset
+                    aria-hidden="true"
+                    class="PrivateNotchedOutline-root-1 MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="PrivateNotchedOutline-legendLabelled-3"
+                    >
+                      <span>
+                        Enter CustomResourceDefinition name to delete
+                      </span>
+                    </legend>
+                  </fieldset>
                 </div>
               </div>
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body1 MuiTypography-colorError"
-                hidden=""
-              />
             </div>
             <div
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"

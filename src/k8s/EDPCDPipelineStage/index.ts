@@ -1,4 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
+import { streamResults } from '../common';
 import { EDPCDPipelineStageKubeObjectConfig } from './config';
 import {
     EDPCDPipelineStageKubeObjectInterface,
@@ -21,13 +22,6 @@ export class EDPCDPipelineStageKubeObject extends makeKubeObject<EDPCDPipelineSt
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
-    static getCDPipelineStagesByCDPipelineName(CDPipelineName: string) {
-        const url = `/apis/${group}/${version}/${pluralForm}?labelSelector=${encodeURIComponent(
-            `app.edp.epam.com/cdPipelineName=${CDPipelineName}`
-        )}`;
-        return ApiProxy.request(url) as Promise<EDPCDPipelineStageKubeObjectInterface>;
-    }
-
     static get className(): string {
         return singularForm;
     }
@@ -44,3 +38,23 @@ export class EDPCDPipelineStageKubeObject extends makeKubeObject<EDPCDPipelineSt
         return this.jsonData!.status;
     }
 }
+
+export const streamCDPipelineStagesByCDPipelineName = (
+    CDPipelineName: string,
+    cb: (data: EDPCDPipelineStageKubeObjectInterface[]) => void,
+    errCb: (err: Error) => void,
+    namespace?: string
+) => {
+    const url = namespace
+        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
+        : `/apis/${group}/${version}/${pluralForm}`;
+    return streamResults(
+        url,
+
+        data => cb(data),
+        error => errCb(error),
+        {
+            labelSelector: `app.edp.epam.com/cdPipelineName=${CDPipelineName}`,
+        }
+    );
+};

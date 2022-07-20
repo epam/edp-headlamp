@@ -1,5 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
-import { createRouteURL } from '../../utils/routes/createRouteURL';
+import { streamResults } from '../common';
 import { EDPCodebaseBranchKubeObjectConfig } from './config';
 import {
     EDPCodebaseBranchKubeObjectInterface,
@@ -11,6 +11,7 @@ const {
     ApiProxy,
     Cluster: { makeKubeObject },
 } = pluginLib;
+
 const {
     name: { singularForm, pluralForm },
     group,
@@ -22,19 +23,8 @@ export class EDPCodebaseBranchKubeObject extends makeKubeObject<EDPCodebaseBranc
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
-    static getCodebaseBranchesByCodebaseLabel(codebaseName: string) {
-        const url = `/apis/${group}/${version}/${pluralForm}?labelSelector=${encodeURIComponent(
-            `app.edp.epam.com/codebaseName=${codebaseName}`
-        )}`;
-        return ApiProxy.request(url) as Promise<EDPCodebaseBranchKubeObjectInterface>;
-    }
-
     static get className(): string {
         return singularForm;
-    }
-
-    get listRoute(): string {
-        return pluralForm;
     }
 
     get spec(): EDPCodebaseBranchSpecInterface {
@@ -44,11 +34,21 @@ export class EDPCodebaseBranchKubeObject extends makeKubeObject<EDPCodebaseBranc
     get status(): EDPCodebaseBranchStatusInterface {
         return this.jsonData!.status;
     }
-
-    getDetailsLink(): string {
-        return createRouteURL(singularForm, {
-            namespace: this.jsonData!.metadata.namespace,
-            name: this.jsonData!.metadata.name,
-        });
-    }
 }
+
+export const streamCodebaseBranchesByCodebaseLabel = (
+    codebaseName: string,
+    cb: (data: EDPCodebaseBranchKubeObjectInterface[]) => void,
+    errCb: (err: Error) => void,
+    namespace: string
+): (() => any) => {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+    return streamResults(
+        url,
+        data => cb(data),
+        error => errCb(error),
+        {
+            labelSelector: `app.edp.epam.com/codebaseName=${codebaseName}`,
+        }
+    );
+};

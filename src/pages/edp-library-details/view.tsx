@@ -3,12 +3,11 @@ import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
 import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
-import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { LIBRARIES_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
-import { rem } from '../../utils/styling/rem';
 import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPLibraryDetailsProps } from './types';
@@ -23,7 +22,19 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
     const [library, setLibrary] = React.useState<EDPCodebaseKubeObjectInterface>(null);
     const [, setError] = React.useState<string>(null);
 
-    EDPCodebaseKubeObject.useApiGet(setLibrary, name, namespace, setError);
+    const handleStoreLibrary = React.useCallback((library: EDPCodebaseKubeObjectInterface) => {
+        setLibrary(library);
+    }, []);
+
+    const handleError = React.useCallback((error: Error) => {
+        setError(error);
+    }, []);
+
+    React.useEffect(() => {
+        const cancelStream = streamCodebase(name, namespace, handleStoreLibrary, handleError);
+
+        return () => cancelStream();
+    }, [handleError, handleStoreLibrary, name, namespace]);
 
     return (
         <>
@@ -33,9 +44,7 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
                     size="small"
                     component={Link}
                     to={createRouteURL(LIBRARIES_ROUTE_NAME)}
-                >
-                    <Typography style={{ paddingTop: rem(3) }}>Back</Typography>
-                </Button>
+                />
                 <Typography variant={'h1'} component={'span'}>
                     {name}
                 </Typography>

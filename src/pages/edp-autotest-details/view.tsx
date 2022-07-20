@@ -3,7 +3,7 @@ import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
 import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
-import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { AUTOTESTS_ROUTE_NAME } from '../../routes/names';
@@ -22,7 +22,19 @@ export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.R
     const [autotest, setAutotest] = React.useState<EDPCodebaseKubeObjectInterface>(null);
     const [, setError] = React.useState<string>(null);
 
-    EDPCodebaseKubeObject.useApiGet(setAutotest, name, namespace, setError);
+    const handleStoreAutotest = React.useCallback((autotest: EDPCodebaseKubeObjectInterface) => {
+        setAutotest(autotest);
+    }, []);
+
+    const handleError = React.useCallback((error: Error) => {
+        setError(error);
+    }, []);
+
+    React.useEffect(() => {
+        const cancelStream = streamCodebase(name, namespace, handleStoreAutotest, handleError);
+
+        return () => cancelStream();
+    }, [handleError, handleStoreAutotest, name, namespace]);
 
     return (
         <>

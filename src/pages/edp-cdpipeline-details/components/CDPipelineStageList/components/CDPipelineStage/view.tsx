@@ -16,29 +16,29 @@ export const CDPipelineStage: React.FC<CDPipelineStageProps> = ({ stage }): Reac
     const { enqueueSnackbar } = useSnackbar();
     const rows = useRows(stage);
     const columns = useColumns();
+    const stageStatus = stage.status && stage.status.status;
 
-    const [stageStatus, setStageStatus] = React.useState<{
+    const [currentStageStatus, setCurrentStageStatus] = React.useState<{
         lastStatus: string;
         currentStatus: string;
     }>({
         lastStatus: null,
-        currentStatus: stage.status && stage.status.status,
+        currentStatus: stageStatus,
     });
 
     React.useEffect(() => {
-        const { currentStatus } = stageStatus;
+        const { currentStatus } = currentStageStatus;
         const {
-            status,
             metadata: { name },
         } = stage;
 
         // eslint-disable-next-line eqeqeq
-        if (status == null || currentStatus === status.status) {
+        if (stageStatus == null || currentStatus === stageStatus) {
             return;
         }
 
         enqueueSnackbar(
-            `Stage ${name} status has been changed to ${capitalizeFirstLetter(status.status)}`,
+            `Stage ${name} status has been changed to ${capitalizeFirstLetter(stageStatus)}`,
             {
                 autoHideDuration: 5000,
                 variant: 'info',
@@ -49,11 +49,11 @@ export const CDPipelineStage: React.FC<CDPipelineStageProps> = ({ stage }): Reac
             }
         );
 
-        setStageStatus(prev => ({
+        setCurrentStageStatus(prev => ({
             lastStatus: prev.currentStatus,
-            currentStatus: status.status,
+            currentStatus: stageStatus,
         }));
-    }, [stage.status && stage.status.status]);
+    }, [stageStatus, enqueueSnackbar, currentStageStatus, stage]);
 
     return (
         <Box className={classes.tablesGrid}>

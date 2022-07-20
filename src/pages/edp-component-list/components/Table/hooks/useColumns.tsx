@@ -1,9 +1,11 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
+import { Render } from '../../../../../components/Render';
 import { EDPComponentKubeObjectInterface } from '../../../../../k8s/EDPComponent/types';
-import { MuiCore, React } from "../../../../../plugin.globals";
+import { Iconify, MuiCore, React } from '../../../../../plugin.globals';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 
-const { Link } = MuiCore;
+const { Link, Typography } = MuiCore;
+const { Icon } = Iconify;
 
 export const useColumns = (classes: {
     [key: string]: string;
@@ -12,20 +14,37 @@ export const useColumns = (classes: {
         () => [
             {
                 label: 'Icon',
-                getter: ({ spec: { icon, url } }) => (
-                    <Link href={url} target="_blank" rel="noopener">
-                        <span className={classes.serviceItemIcon}>
-                            <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
-                        </span>
-                    </Link>
+                getter: ({ spec: { icon, url, visible } }) => (
+                    <>
+                        <Render condition={!!visible}>
+                            <Link href={url} target="_blank" rel="noopener">
+                                <span className={classes.serviceItemIcon}>
+                                    <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
+                                </span>
+                            </Link>
+                        </Render>
+                        <Render condition={!visible}>
+                            <Icon
+                                icon={'ph:placeholder-light'}
+                                className={classes.serviceItemIcon}
+                            />
+                        </Render>
+                    </>
                 ),
             },
             {
                 label: 'Name',
-                getter: ({ spec: { url, type } }) => (
-                    <Link href={url} target="_blank" rel="noopener">
-                        {type}
-                    </Link>
+                getter: ({ spec: { url, type, visible } }) => (
+                    <>
+                        <Render condition={!!visible}>
+                            <Link href={url} target="_blank" rel="noopener">
+                                {type}
+                            </Link>
+                        </Render>
+                        <Render condition={!visible}>
+                            <Typography>{type}</Typography>
+                        </Render>
+                    </>
                 ),
                 sort: (a, b) => sortByName(a.spec.type, b.spec.type),
             },

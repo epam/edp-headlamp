@@ -1,14 +1,9 @@
-import { Theme } from '@material-ui/core/styles/createStyles';
 import { React } from '../../../plugin.globals';
 import { EDPKubeMetadata } from '../../../types/k8s';
 import { formatDateUTCToLocal } from '../../../utils/format/formatDateUTCToLocal';
 import { MappedProperties } from '../../MappedProperties';
 
-export const useColumns = (
-    metadata: EDPKubeMetadata,
-    classes: { [key: string]: string },
-    theme: Theme
-) =>
+export const useColumns = (metadata: EDPKubeMetadata) =>
     React.useMemo(
         () => [
             {
@@ -40,5 +35,5 @@ export const useColumns = (
                 value: metadata.uid,
             },
         ],
-        [metadata, classes, theme]
+        [metadata]
     );

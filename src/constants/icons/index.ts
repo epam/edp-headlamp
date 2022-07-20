@@ -11,3 +11,7 @@ export const ICON_APPLICATION = 'fluent:app-generic-24-regular';
 export const ICON_TEST_APPLICATION = 'file-icons:test-generic';
 export const ICON_BOOKS = 'fluent:library-16-regular';
 export const ICON_BUCKET = 'mdi:delete';
+export const ICON_EMPTY_CIRCLE = 'akar-icons:circle';
+export const ICON_CHECK_CIRCLE = 'bi:check-circle';
+export const ICON_CROSS_CIRCLE = 'uiw:circle-close-o';
+export const ICON_LOADER_CIRCLE = 'lucide:loader-2';

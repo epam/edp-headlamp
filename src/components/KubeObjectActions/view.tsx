@@ -89,7 +89,11 @@ export const KubeObjectActions = ({
                     </div>
                 </ClickAwayListener>
                 {/*eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events*/}
-                <div onClick={stopPropagation} onFocus={stopPropagation}>
+                <div
+                    onClick={stopPropagation}
+                    onFocus={stopPropagation}
+                    className={classes.childrenWrapper}
+                >
                     {children}
                 </div>
             </>

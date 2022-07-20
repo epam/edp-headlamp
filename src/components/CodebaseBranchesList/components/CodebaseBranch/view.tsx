@@ -12,27 +12,30 @@ const { Box, Typography, Paper } = MuiCore;
 export const CodebaseBranch: React.FC<CodebaseBranchProps> = ({
     codebaseBranch,
 }): React.ReactElement => {
-    const classes = useStyles();
-    const { enqueueSnackbar } = useSnackbar();
-    const rows = useRows(codebaseBranch);
-    const [codebaseBranchStatus, setCodebaseBranchStatus] = React.useState<{
+    const {
+        spec: { branchName },
+    } = codebaseBranch;
+    const codebaseBranchStatus = codebaseBranch.status ? codebaseBranch.status.status : '';
+
+    const [currentCodebaseBranchStatus, setCurrentCodebaseBranchStatus] = React.useState<{
         lastStatus: string;
         currentStatus: string;
     }>({
         lastStatus: null,
-        currentStatus: codebaseBranch.status.status,
+        currentStatus: codebaseBranchStatus,
     });
+    const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
+    const rows = useRows(codebaseBranch);
 
     React.useEffect(() => {
-        const { currentStatus } = codebaseBranchStatus;
-        const {
-            status: { status },
-            metadata: { name },
-        } = codebaseBranch;
+        const { currentStatus } = currentCodebaseBranchStatus;
 
-        if (currentStatus !== status) {
+        if (currentStatus !== codebaseBranchStatus) {
             enqueueSnackbar(
-                `Branch ${name} status has been changed to ${capitalizeFirstLetter(status)}`,
+                `Branch ${branchName} status has been changed to ${capitalizeFirstLetter(
+                    codebaseBranchStatus
+                )}`,
                 {
                     autoHideDuration: 5000,
                     variant: 'info',
@@ -43,12 +46,18 @@ export const CodebaseBranch: React.FC<CodebaseBranchProps> = ({
                 }
             );
 
-            setCodebaseBranchStatus(prev => ({
+            setCurrentCodebaseBranchStatus(prev => ({
                 lastStatus: prev.currentStatus,
-                currentStatus: status,
+                currentStatus: codebaseBranchStatus,
             }));
         }
-    }, [codebaseBranch.status.status]);
+    }, [
+        codebaseBranch,
+        currentCodebaseBranchStatus,
+        enqueueSnackbar,
+        codebaseBranchStatus,
+        branchName,
+    ]);
 
     return (
         <Box className={classes.tablesGrid}>

@@ -1,46 +1,32 @@
-import LeakyBucket from 'leaky-bucket';
-import { useInterval } from 'react-use';
+import { FloatingActions } from '../../components/FloatingActions';
 import { LibraryExample } from '../../configs/kube-examples/edp-library';
-import { REFETCH_DELAY } from '../../constants/delays';
-import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObject, streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { pluginLib, React } from '../../plugin.globals';
-import { FloatingActions } from './components/FloatingActions';
+import { pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { Table } from './components/Table';
 import { EDPLibraryListProps } from './types';
 
 const {
     CommonComponents: { SectionBox, SectionFilterHeader },
 } = pluginLib;
+const { useParams } = ReactRouter;
 
 export const EDPLibraryList: React.FC<EDPLibraryListProps> = (): React.ReactElement => {
+    const { namespace } = useParams();
     const [libraries, setLibraries] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
-    const reqErrorCost = 1;
-    const reqErrorsBucket = new LeakyBucket({
-        capacity: 10,
-    });
-
-    const updateLibraries = React.useCallback(async () => {
-        try {
-            const { items } = await EDPCodebaseKubeObject.getCodebasesByTypeLabel(
-                EDPCodebaseKubeObjectConfig.types.library.name.singularForm
-            );
-
-            setLibraries(items);
-        } catch (err: any) {
-            reqErrorsBucket.pay(reqErrorCost);
-            const { message } = err;
-            const { status } = JSON.parse(JSON.stringify(err));
-            throw new Error(`${message}. Status: ${status}`);
-        }
-    }, [EDPCodebaseKubeObject, setLibraries]);
+    const [, setError] = React.useState<string>('');
 
     React.useEffect(() => {
-        updateLibraries().catch(console.error);
-    }, []);
+        const cancelStream = streamCodebasesByTypeLabel(
+            EDPCodebaseKubeObjectConfig.types.library.name.singularForm,
+            setLibraries,
+            setError,
+            namespace
+        );
 
-    useInterval(updateLibraries, REFETCH_DELAY);
+        return () => cancelStream();
+    }, [namespace]);
 
     return (
         <SectionBox title={<SectionFilterHeader title="Libraries" headerStyle="main" />}>

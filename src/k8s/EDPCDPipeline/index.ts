@@ -22,10 +22,6 @@ export class EDPCDPipelineKubeObject extends makeKubeObject<EDPCDPipelineKubeObj
         return singularForm;
     }
 
-    get listRoute(): string {
-        return pluralForm;
-    }
-
     getDetailsLink(type: string): string {
         return createRouteURL(type, {
             namespace: this.jsonData!.metadata.namespace,

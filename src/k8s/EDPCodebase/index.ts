@@ -1,5 +1,6 @@
 import { pluginLib } from '../../plugin.globals';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
+import { streamResult, streamResults } from '../common';
 import { EDPCodebaseKubeObjectConfig } from './config';
 import {
     EDPCodebaseKubeObjectInterface,
@@ -22,13 +23,6 @@ export class EDPCodebaseKubeObject extends makeKubeObject<EDPCodebaseKubeObjectI
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
-    static getCodebasesByTypeLabel(codebaseType: string) {
-        const url = `/apis/${group}/${version}/${pluralForm}?labelSelector=${encodeURIComponent(
-            `app.edp.epam.com/codebaseType=${codebaseType}`
-        )}`;
-        return ApiProxy.request(url) as Promise<EDPCodebaseKubeObjectInterface>;
-    }
-
     getDetailsLink(type: string): string {
         return createRouteURL(type, {
             namespace: this.jsonData!.metadata.namespace,
@@ -40,10 +34,6 @@ export class EDPCodebaseKubeObject extends makeKubeObject<EDPCodebaseKubeObjectI
         return singularForm;
     }
 
-    get listRoute(): string {
-        return pluralForm;
-    }
-
     get spec(): EDPCodebaseSpecInterface {
         return this.jsonData!.spec;
     }
@@ -52,3 +42,37 @@ export class EDPCodebaseKubeObject extends makeKubeObject<EDPCodebaseKubeObjectI
         return this.jsonData!.status;
     }
 }
+
+export const streamCodebase = (
+    name: string,
+    namespace: string,
+    cb: (data: EDPCodebaseKubeObjectInterface[]) => void,
+    errCb: (err: Error) => void
+): any => {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+    return streamResult(
+        url,
+        name,
+        data => cb(data),
+        error => errCb(error)
+    );
+};
+
+export const streamCodebasesByTypeLabel = (
+    codebaseType: string,
+    cb: (data: EDPCodebaseKubeObjectInterface[]) => void,
+    errCb: (err: Error) => void,
+    namespace?: string
+) => {
+    const url = namespace
+        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
+        : `/apis/${group}/${version}/${pluralForm}`;
+    return streamResults(
+        url,
+        data => cb(data),
+        error => errCb(error),
+        {
+            labelSelector: `app.edp.epam.com/codebaseType=${codebaseType}`,
+        }
+    );
+};

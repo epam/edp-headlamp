@@ -1,30 +1,10 @@
-import { EditKubeObject } from '../../../../components/EditKubeObject';
-import { ICON_PENCIL } from '../../../../constants/icons';
-import { Iconify, MuiCore, React } from '../../../../plugin.globals';
+import { CDPipelineActions } from '../../../../components/CDPipelineActions';
+import { React } from '../../../../plugin.globals';
 import { PageHeaderActionsProps } from './types';
-
-const { Icon } = Iconify;
-const { Tooltip, IconButton } = MuiCore;
 
 export const PageHeaderActions: React.FC<PageHeaderActionsProps> = ({
     kubeObject,
     kubeObjectData,
 }): React.ReactElement => {
-    const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
-
-    return (
-        <>
-            <Tooltip title="Edit CD Pipeline">
-                <IconButton aria-label="Edit CD Pipeline" onClick={() => setEditorOpen(true)}>
-                    <Icon icon={ICON_PENCIL} />
-                </IconButton>
-            </Tooltip>
-            <EditKubeObject
-                editorOpen={editorOpen}
-                setEditorOpen={setEditorOpen}
-                kubeObject={kubeObject}
-                kubeObjectData={kubeObjectData.jsonData}
-            />
-        </>
-    );
+    return <CDPipelineActions kubeObject={kubeObject} kubeObjectData={kubeObjectData} />;
 };

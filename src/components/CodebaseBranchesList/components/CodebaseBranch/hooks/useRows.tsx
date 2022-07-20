@@ -29,7 +29,7 @@ export const useRows = (codebaseBranch: EDPCodebaseBranchKubeObjectInterface) =>
             },
             {
                 name: 'Last time updated',
-                value: formatDateUTCToLocal(status.lastTimeUpdated),
+                value: status && formatDateUTCToLocal(status.lastTimeUpdated),
             },
         ];
     }, [codebaseBranch]);
