@@ -12,6 +12,7 @@ const { Icon } = Iconify;
 export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
     kubeObject,
     kubeObjectData,
+    onCreate,
 }): React.ReactElement => {
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
 
@@ -30,6 +31,7 @@ export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
                 setEditorOpen={setEditorOpen}
                 kubeObject={kubeObject}
                 kubeObjectExample={createCodebaseBranchExample(kubeObjectData)}
+                onCreate={onCreate}
             />
         </>
     );

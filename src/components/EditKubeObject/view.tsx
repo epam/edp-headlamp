@@ -13,6 +13,7 @@ export const EditKubeObject: React.FC<EditKubeObjectProps> = ({
     setEditorOpen,
     kubeObject,
     kubeObjectData,
+    onEdit,
 }): React.ReactElement => {
     const [errorMessage, setErrorMessage] = React.useState<string>('');
     const dispatch = useDispatch();
@@ -29,6 +30,10 @@ export const EditKubeObject: React.FC<EditKubeObjectProps> = ({
             setErrorMessage(msg);
             setEditorOpen(true);
             throw err;
+        }
+
+        if (onEdit) {
+            onEdit();
         }
     };
 

@@ -9,17 +9,22 @@ const { Grid, Dialog, DialogActions, DialogContent, DialogTitle, Button, Typogra
     MuiCore;
 const { useDispatch } = ReactRedux;
 
+const NAMES = {
+    name: 'name',
+};
+
 export const DeleteKubeObject: React.FC<DeleteKubeObjectProps> = ({
     popupOpen,
     setPopupOpen,
     kubeObject,
     kubeObjectData,
     description,
+    onDelete,
 }): React.ReactElement => {
     const [errorMessage, setErrorMessage] = React.useState<string>('');
     const dispatch = useDispatch();
     const { register, handleSubmit, watch } = useForm();
-    const kubeObjectNameFieldValue = watch('name');
+    const kubeObjectNameFieldValue = watch(NAMES.name);
 
     const applyFunc = async (): Promise<void> => {
         try {
@@ -36,6 +41,10 @@ export const DeleteKubeObject: React.FC<DeleteKubeObjectProps> = ({
             setErrorMessage(msg);
             setPopupOpen(true);
             throw err;
+        }
+
+        if (onDelete) {
+            onDelete();
         }
     };
 
@@ -70,7 +79,7 @@ export const DeleteKubeObject: React.FC<DeleteKubeObjectProps> = ({
                             <Grid container spacing={1}>
                                 <Grid item xs={12}>
                                     <TextField
-                                        {...register('name', { required: true })}
+                                        {...register(NAMES.name, { required: true })}
                                         label={`Enter ${kubeObjectData.kind} name to delete`}
                                         variant="filled"
                                         fullWidth

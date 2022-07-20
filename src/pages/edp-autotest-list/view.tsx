@@ -29,8 +29,7 @@ export const EDPAutotestList: React.FC<EDPAutotestListProps> = (): React.ReactEl
             );
 
             setAutotests(items);
-            //@ts-ignore
-        } catch (err: Error) {
+        } catch (err: any) {
             reqErrorsBucket.pay(reqErrorCost);
             const { message } = err;
             const { status } = JSON.parse(JSON.stringify(err));

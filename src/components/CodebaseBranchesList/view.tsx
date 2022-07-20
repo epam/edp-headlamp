@@ -30,7 +30,7 @@ export const CodebaseBranchesList: React.FC<CodebaseBranchesListProps> = ({
     const [currentCodebaseBranches, setCurrentCodebaseBranches] = React.useState<
         EDPCodebaseBranchKubeObjectInterface[]
     >([]);
-    const [expandedPanel, setExpandedPanel] = React.useState<string | null>(null);
+    const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
 
     const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpandedPanel(isExpanded ? panel : null);
@@ -66,7 +66,11 @@ export const CodebaseBranchesList: React.FC<CodebaseBranchesListProps> = ({
         <>
             <div className={classes.tableHeaderActions}>
                 <SectionHeader title="Branches" noNamespaceFilter headerStyle="main" />
-                <TableHeaderActions kubeObject={kubeObject} kubeObjectData={kubeObjectData} />
+                <TableHeaderActions
+                    kubeObject={kubeObject}
+                    kubeObjectData={kubeObjectData}
+                    onCreate={updateCodebaseBranches}
+                />
             </div>
             {currentCodebaseBranches.map((el, idx) => {
                 const stageId = `${el.metadata.name}:${idx}`;

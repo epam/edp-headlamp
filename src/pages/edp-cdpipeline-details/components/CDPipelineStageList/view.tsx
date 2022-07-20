@@ -1,8 +1,8 @@
+import LeakyBucket from 'leaky-bucket';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICON_ARROW_DOWN } from '../../../../constants/icons';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
-import { filterCDPStagesByCDPName } from '../../../../k8s/EDPCDPipelineStage/utils/filterCDPStagesByCDPName';
 import { rem } from '../../../../utils/styling/rem';
 import { CDPipelineStage } from './components/CDPipelineStage';
 import { CDPipelineStageActions } from './components/CDPipelineStageActions';
@@ -21,6 +21,10 @@ export const CDPipelineStagesTable: React.FC<CDPipelineStagesTableProps> = ({
     kubeObject,
     kubeObjectData,
 }): React.ReactElement => {
+    const {
+        metadata: { name },
+    } = kubeObjectData;
+
     const classes = useStyles();
     const [currentCDPipelineStages, setCurrentCDPipelineStages] = React.useState<
         EDPCDPipelineStageKubeObjectInterface[]
@@ -31,14 +35,29 @@ export const CDPipelineStagesTable: React.FC<CDPipelineStagesTableProps> = ({
         setExpandedPanel(isExpanded ? panel : null);
     };
 
+    const reqErrorCost = 1;
+    const reqErrorsBucket = new LeakyBucket({
+        capacity: 10,
+    });
+
+    const updateCDPipelineStages = React.useCallback(async () => {
+        if (reqErrorsBucket.getCurrentCapacity()) {
+            try {
+                const { items } =
+                    await EDPCDPipelineStageKubeObject.getCDPipelineStagesByCDPipelineName(name);
+                const sortedItems = items.sort((a, b) => a.spec.order - b.spec.order);
+                setCurrentCDPipelineStages(sortedItems);
+            } catch (err: any) {
+                reqErrorsBucket.pay(reqErrorCost);
+                const { message } = err;
+                const { status } = JSON.parse(JSON.stringify(err));
+                throw new Error(`${message}. Status: ${status}`);
+            }
+        }
+    }, [EDPCDPipelineStageKubeObject, setCurrentCDPipelineStages]);
+
     React.useEffect(() => {
-        EDPCDPipelineStageKubeObject.getList(data => {
-            const filteredCDPipelineStages = filterCDPStagesByCDPName(
-                data,
-                kubeObjectData.metadata.name
-            );
-            setCurrentCDPipelineStages(filteredCDPipelineStages);
-        });
+        updateCDPipelineStages().catch(console.error);
     }, []);
 
     return (

@@ -22,10 +22,8 @@ const { Icon } = Iconify;
 export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
-    const [cdpipeline, setCdpipeline] = React.useState<EDPCDPipelineKubeObjectInterface | null>(
-        null
-    );
-    const [, setError] = React.useState<string | null>(null);
+    const [cdpipeline, setCdpipeline] = React.useState<EDPCDPipelineKubeObjectInterface>(null);
+    const [, setError] = React.useState<string>(null);
 
     EDPCDPipelineKubeObject.useApiGet(setCdpipeline, name, namespace, setError);
 

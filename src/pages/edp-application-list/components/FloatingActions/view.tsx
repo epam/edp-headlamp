@@ -12,6 +12,7 @@ const { Icon } = Iconify;
 export const FloatingActions: React.FC<FloatingActionsProps> = ({
     kubeObject,
     kubeObjectExample,
+    onCreate,
 }): React.ReactElement => {
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
@@ -29,6 +30,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
                 setEditorOpen={setEditorOpen}
                 kubeObject={kubeObject}
                 kubeObjectExample={kubeObjectExample}
+                onCreate={onCreate}
             />
         </>
     );

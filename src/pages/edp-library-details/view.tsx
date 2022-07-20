@@ -23,8 +23,8 @@ const { Icon } = Iconify;
 export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
-    const [library, setLibrary] = React.useState<EDPCodebaseKubeObjectInterface | null>(null);
-    const [, setError] = React.useState<string | null>(null);
+    const [library, setLibrary] = React.useState<EDPCodebaseKubeObjectInterface>(null);
+    const [, setError] = React.useState<string>(null);
 
     EDPCodebaseKubeObject.useApiGet(setLibrary, name, namespace, setError);
 

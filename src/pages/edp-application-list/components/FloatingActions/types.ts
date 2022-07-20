@@ -5,4 +5,5 @@ import { EDPKubeObjectInterface } from '../../../../types/k8s';
 export interface FloatingActionsProps {
     kubeObject: KubeObject;
     kubeObjectExample: DeepPartial<EDPKubeObjectInterface>;
+    onCreate?(): void;
 }

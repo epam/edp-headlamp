@@ -70,6 +70,8 @@ export const CDPipelineStageActions: React.FC<CDPipelineStageActionsProps> = ({
     kubeObject,
     kubeObjectData,
     cdpipelineStages = [],
+    onEdit,
+    onDelete,
 }): React.ReactElement => {
     const [editActionEditorOpen, setEditActionEditorOpen] = React.useState<boolean>(false);
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
@@ -124,6 +126,7 @@ export const CDPipelineStageActions: React.FC<CDPipelineStageActionsProps> = ({
                     setEditorOpen={setEditActionEditorOpen}
                     kubeObject={kubeObject}
                     kubeObjectData={kubeObjectData}
+                    onEdit={onEdit}
                 />
                 <DeleteKubeObject
                     popupOpen={deleteActionPopupOpen}
@@ -132,6 +135,7 @@ export const CDPipelineStageActions: React.FC<CDPipelineStageActionsProps> = ({
                     kubeObjectData={kubeObjectData}
                     description={`Please confirm the deletion of the CD stage with all its components
                             (Record in database, Jenkins pipeline, cluster namespace).`}
+                    onDelete={onDelete}
                 />
             </div>
         </KubeObjectActions>

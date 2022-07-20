@@ -25,35 +25,38 @@ export const CDPipelineStage: React.FC<CDPipelineStageProps> = ({ stage }): Reac
         currentStatus: string;
     }>({
         lastStatus: null,
-        currentStatus: stage.status.status,
+        currentStatus: stage.status && stage.status.status,
     });
 
     React.useEffect(() => {
         const { currentStatus } = stageStatus;
         const {
-            status: { status },
+            status,
             metadata: { name },
         } = stage;
 
-        if (currentStatus !== status) {
-            enqueueSnackbar(
-                `Stage ${name} status has been changed to ${capitalizeFirstLetter(status)}`,
-                {
-                    autoHideDuration: 5000,
-                    variant: 'info',
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'right',
-                    },
-                }
-            );
-
-            setStageStatus(prev => ({
-                lastStatus: prev.currentStatus,
-                currentStatus: status,
-            }));
+        // eslint-disable-next-line eqeqeq
+        if (status == null || currentStatus === status.status) {
+            return;
         }
-    }, [stage.status.status]);
+
+        enqueueSnackbar(
+            `Stage ${name} status has been changed to ${capitalizeFirstLetter(status.status)}`,
+            {
+                autoHideDuration: 5000,
+                variant: 'info',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            }
+        );
+
+        setStageStatus(prev => ({
+            lastStatus: prev.currentStatus,
+            currentStatus: status.status,
+        }));
+    }, [stage.status && stage.status.status]);
 
     return (
         <Box className={classes.tablesGrid}>

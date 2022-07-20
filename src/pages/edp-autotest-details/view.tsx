@@ -22,8 +22,8 @@ const { Icon } = Iconify;
 export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
-    const [autotest, setAutotest] = React.useState<EDPCodebaseKubeObjectInterface | null>(null);
-    const [, setError] = React.useState<string | null>(null);
+    const [autotest, setAutotest] = React.useState<EDPCodebaseKubeObjectInterface>(null);
+    const [, setError] = React.useState<string>(null);
 
     EDPCodebaseKubeObject.useApiGet(setAutotest, name, namespace, setError);
 

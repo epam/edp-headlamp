@@ -7,4 +7,5 @@ export interface DeleteKubeObjectProps {
     kubeObject: KubeObject;
     kubeObjectData: EDPKubeObjectInterface;
     description: string;
+    onDelete?(): void;
 }

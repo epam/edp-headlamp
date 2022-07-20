@@ -29,8 +29,7 @@ export const EDPApplicationList: React.FC<EDPApplicationListProps> = (): React.R
             );
 
             setApplications(items);
-            //@ts-ignore
-        } catch (err: Error) {
+        } catch (err: any) {
             reqErrorsBucket.pay(reqErrorCost);
             const { message } = err;
             const { status } = JSON.parse(JSON.stringify(err));

@@ -1,6 +1,7 @@
 import { KubeObjectConfig } from '../../types/configs/k8s';
 
 export const EDPCDPipelineKubeObjectConfig: KubeObjectConfig = {
+    kind: 'CDPipeline',
     name: {
         singularForm: 'cdpipeline',
         pluralForm: 'cdpipelines',

@@ -5,6 +5,7 @@ import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { EDPCodebaseBranchKubeObject } from '../../k8s/EDPCodebaseBranch';
 import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { PageHeaderActions } from './components/PageHeaderActions';
@@ -24,10 +25,8 @@ export const EDPApplicationDetails: React.FC<
 > = (): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
-    const [application, setApplication] = React.useState<EDPCodebaseKubeObjectInterface | null>(
-        null
-    );
-    const [, setError] = React.useState<string | null>(null);
+    const [application, setApplication] = React.useState<EDPCodebaseKubeObjectInterface>(null);
+    const [, setError] = React.useState<string>(null);
 
     EDPCodebaseKubeObject.useApiGet(setApplication, name, namespace, setError);
 
@@ -58,7 +57,7 @@ export const EDPApplicationDetails: React.FC<
                     <CodebaseAdvancedInfoTable kubeObjectData={application} />
                     <CodebaseMetadataTable kubeObjectData={application} />
                     <CodebaseBranchesList
-                        kubeObject={EDPCodebaseKubeObject}
+                        kubeObject={EDPCodebaseBranchKubeObject}
                         kubeObjectData={application}
                     />
                 </>

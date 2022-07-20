@@ -6,4 +6,5 @@ export interface EditKubeObjectProps {
     setEditorOpen(boolean): void;
     kubeObject: KubeObject;
     kubeObjectData: EDPKubeObjectInterface;
+    onEdit?(): void;
 }

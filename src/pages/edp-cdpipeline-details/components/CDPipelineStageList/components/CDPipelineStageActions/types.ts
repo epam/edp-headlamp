@@ -5,4 +5,6 @@ export interface CDPipelineStageActionsProps {
     kubeObject: KubeObject;
     kubeObjectData: EDPCDPipelineStageKubeObjectInterface;
     cdpipelineStages: EDPCDPipelineStageKubeObjectInterface[];
+    onEdit?(): void;
+    onDelete?(): void;
 }

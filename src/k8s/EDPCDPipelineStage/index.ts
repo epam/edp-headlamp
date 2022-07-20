@@ -25,10 +25,11 @@ export class EDPCDPipelineStageKubeObject extends makeKubeObject<EDPCDPipelineSt
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
-    static getList(cb: (data: EDPCDPipelineStageKubeObjectInterface[]) => void) {
-        return this.apiEndpoint.list('', (data: EDPCDPipelineStageKubeObjectInterface[]) => {
-            cb(data);
-        });
+    static getCDPipelineStagesByCDPipelineName(CDPipelineName: string) {
+        const url = `/apis/${group}/${version}/${pluralForm}?labelSelector=${encodeURIComponent(
+            `app.edp.epam.com/cdPipelineName=${CDPipelineName}`
+        )}`;
+        return ApiProxy.request(url) as Promise<EDPCDPipelineStageKubeObjectInterface>;
     }
 
     static get className(): string {

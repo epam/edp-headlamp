@@ -13,6 +13,7 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
     setEditorOpen,
     kubeObject,
     kubeObjectExample,
+    onCreate,
 }): React.ReactElement => {
     const [errorMessage, setErrorMessage] = React.useState<string>('');
     const dispatch = useDispatch();
@@ -29,6 +30,10 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
             setErrorMessage(msg);
             setEditorOpen(true);
             throw err;
+        }
+
+        if (onCreate) {
+            onCreate();
         }
     };
 
@@ -51,7 +56,6 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
 
     return (
         <EditorDialog
-            data-testid={'CreateKubeObject.EditorDialog'}
             item={kubeObjectExample}
             title={`Create ${kubeObjectExample.kind}`}
             open={editorOpen}

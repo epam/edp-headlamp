@@ -2,19 +2,14 @@ import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
 import { EDPCodebaseBranchKubeObjectConfig } from '../../../k8s/EDPCodebaseBranch/config';
 import { DeepPartial } from '../../../types/global';
 import { EDPKubeObjectInterface } from '../../../types/k8s';
-import { capitalizeFirstLetter } from '../../../utils/format/capitalizeFirstLetter';
 
-const {
-    name: { singularForm },
-    group,
-    version,
-} = EDPCodebaseBranchKubeObjectConfig;
+const { kind, group, version } = EDPCodebaseBranchKubeObjectConfig;
 
 export const createCodebaseBranchExample = (
     kubeObjectData: EDPCodebaseKubeObjectInterface
 ): DeepPartial<EDPKubeObjectInterface> => ({
     apiVersion: `${group}/${version}`,
-    kind: capitalizeFirstLetter(singularForm),
+    kind,
     metadata: {
         name: 'your codebase branch name',
         namespace: kubeObjectData.metadata.namespace,

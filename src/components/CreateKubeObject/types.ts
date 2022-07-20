@@ -7,4 +7,5 @@ export interface CreateKubeObjectProps {
     setEditorOpen(boolean): void;
     kubeObject: KubeObject;
     kubeObjectExample: DeepPartial<EDPKubeObjectInterface>;
+    onCreate?(): void;
 }

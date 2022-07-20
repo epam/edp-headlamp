@@ -4,4 +4,5 @@ import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/type
 export interface TableHeaderActionsProps {
     kubeObject: KubeObject;
     kubeObjectData: EDPCodebaseKubeObjectInterface;
+    onCreate?(): void;
 }
