@@ -1,11 +1,9 @@
 import { CreateKubeObject } from '../../../../components/CreateKubeObject';
 import { ICON_PLUS } from '../../../../constants/icons';
+import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { useStyles } from './styles';
 import { FloatingActionsProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Iconify },
-} = globalThis;
 const { Fab } = MuiCore;
 const { Icon } = Iconify;
 

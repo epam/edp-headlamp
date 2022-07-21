@@ -5,19 +5,16 @@ import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { AUTOTESTS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPAutotestDetailsProps } from './types';
 
-const {
-    pluginLib: { React, ReactRouter, MuiCore, Iconify },
-} = globalThis;
-const { useParams } = ReactRouter;
-const { Link } = ReactRouter;
-const { Typography, Button } = MuiCore;
 const { Icon } = Iconify;
+const { Typography, Button } = MuiCore;
+const { useParams, Link } = ReactRouter;
 
 export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();

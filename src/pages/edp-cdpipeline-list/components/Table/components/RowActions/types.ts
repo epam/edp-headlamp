@@ -1,7 +1,7 @@
-import { KubeObject } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
+import type { k8s } from '../../../../../../plugin.types';
 import { EDPKubeObjectInterface } from '../../../../../../types/k8s';
 
 export interface RowActionsProps {
-    kubeObject: KubeObject;
+    kubeObject: k8s.cluster.KubeObject;
     kubeObjectData: EDPKubeObjectInterface;
 }

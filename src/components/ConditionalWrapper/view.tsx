@@ -1,8 +1,5 @@
+import { React } from '../../plugin.globals';
 import { ConditionalWrapperProps } from './types';
-
-const {
-    pluginLib: { React },
-} = globalThis;
 
 export const ConditionalWrapper: React.FC<ConditionalWrapperProps> = ({
     condition,

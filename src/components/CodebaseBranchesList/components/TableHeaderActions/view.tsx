@@ -1,13 +1,11 @@
 import { createCodebaseBranchExample } from '../../../../configs/kube-examples/edp-codebase-branch';
 import { ICON_DOCUMENT_ADD } from '../../../../constants/icons';
+import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { CreateKubeObject } from '../../../CreateKubeObject';
 import { TableHeaderActionsProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Iconify },
-} = globalThis;
-const { Tooltip, Button, Typography } = MuiCore;
 const { Icon } = Iconify;
+const { Tooltip, Button, Typography } = MuiCore;
 
 export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
     kubeObject,

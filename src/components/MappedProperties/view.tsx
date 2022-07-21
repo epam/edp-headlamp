@@ -1,9 +1,6 @@
+import { MuiCore, React } from '../../plugin.globals';
 import { Render } from '../Render';
 import { MappedPropertiesProps } from './types';
-
-const {
-    pluginLib: { React, MuiCore },
-} = globalThis;
 
 const { Typography } = MuiCore;
 

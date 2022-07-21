@@ -3,14 +3,14 @@ import { HeadlampSimpleTableGetterColumn } from '../../../../../components/Headl
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
+import { pluginLib, React } from '../../../../../plugin.globals';
 import { AUTOTEST_ROUTE_NAME } from '../../../../../routes/names';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 
 const {
-    pluginLib: { React, CommonComponents },
-} = globalThis;
-const { Link } = CommonComponents;
+    CommonComponents: { Link },
+} = pluginLib;
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObjectInterface>[] =>
     React.useMemo(() => {

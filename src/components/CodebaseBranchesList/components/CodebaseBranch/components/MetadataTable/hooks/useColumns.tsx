@@ -1,11 +1,8 @@
 import { Theme } from '@material-ui/core/styles/createStyles';
+import { React } from '../../../../../../../plugin.globals';
 import { EDPKubeMetadata } from '../../../../../../../types/k8s';
 import { formatDateUTCToLocal } from '../../../../../../../utils/format/formatDateUTCToLocal';
 import { MappedProperties } from '../../../../../../MappedProperties';
-
-const {
-    pluginLib: { React },
-} = globalThis;
 
 export const useColumns = (
     metadata: EDPKubeMetadata,

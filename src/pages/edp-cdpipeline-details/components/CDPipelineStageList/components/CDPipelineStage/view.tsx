@@ -1,5 +1,6 @@
 import { HeadlampNameValueTable } from '../../../../../../components/HeadlampNameValueTable';
 import { HeadlampSimpleTable } from '../../../../../../components/HeadlampSimpleTable';
+import { MuiCore, Notistack, React } from '../../../../../../plugin.globals';
 import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
 import { MetadataTable } from './components/MetadataTable';
 import { useColumns } from './hooks/useColumns';
@@ -7,12 +8,8 @@ import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
 import { CDPipelineStageProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Notistack },
-} = globalThis;
-
-const { Box, Typography, Paper } = MuiCore;
 const { useSnackbar } = Notistack;
+const { Box, Typography, Paper } = MuiCore;
 
 export const CDPipelineStage: React.FC<CDPipelineStageProps> = ({ stage }): React.ReactElement => {
     const classes = useStyles();

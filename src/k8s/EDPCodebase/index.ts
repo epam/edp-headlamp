@@ -1,4 +1,4 @@
-import { K8s } from '@kinvolk/headlamp-plugin/lib';
+import { pluginLib } from '../../plugin.globals';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { EDPCodebaseKubeObjectConfig } from './config';
 import {
@@ -8,13 +8,9 @@ import {
 } from './types';
 
 const {
-    cluster: { makeKubeObject },
-} = K8s;
-
-const {
-    pluginLib: { ApiProxy },
-} = globalThis;
-
+    ApiProxy,
+    Cluster: { makeKubeObject },
+} = pluginLib;
 const {
     name: { singularForm, pluralForm },
     group,

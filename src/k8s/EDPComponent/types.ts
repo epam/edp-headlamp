@@ -1,6 +1,6 @@
 import { EDPKubeObjectInterface } from '../../types/k8s';
 
-interface EDPComponentSpec {
+export interface EDPComponentSpec {
     icon: string;
     type: string;
     url: string;

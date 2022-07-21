@@ -1,11 +1,10 @@
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
+import { pluginLib, React }  from "../../../../plugin.globals";
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
 import { TableProps } from './types';
 
-const {
-    pluginLib: { React, Utils },
-} = globalThis;
+const { Utils } = pluginLib;
 
 export const Table: React.FC<TableProps> = ({ data }): React.ReactElement => {
     const classes = useStyles();

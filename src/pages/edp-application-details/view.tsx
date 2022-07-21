@@ -6,19 +6,16 @@ import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { EDPCodebaseBranchKubeObject } from '../../k8s/EDPCodebaseBranch';
+import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPApplicationDetailsProps } from './types';
 
-const {
-    pluginLib: { React, ReactRouter, MuiCore, Iconify },
-} = globalThis;
-const { useParams } = ReactRouter;
-const { Link } = ReactRouter;
-const { Typography, Button } = MuiCore;
 const { Icon } = Iconify;
+const { Typography, Button } = MuiCore;
+const { useParams, Link } = ReactRouter;
 
 export const EDPApplicationDetails: React.FC<
     EDPApplicationDetailsProps

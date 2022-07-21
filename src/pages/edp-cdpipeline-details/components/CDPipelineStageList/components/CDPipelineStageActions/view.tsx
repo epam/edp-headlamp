@@ -7,16 +7,13 @@ import {
     KUBE_OBJECT_ACTION_EDIT,
 } from '../../../../../../constants/kubeObjectActions';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDPCDPipelineStage/types';
+import { Iconify, MuiCore, React } from '../../../../../../plugin.globals';
 import { KubeObjectAction } from '../../../../../../types/actions';
 import { createKubeAction } from '../../../../../../utils/actions/createKubeAction';
 import { CDPipelineStageActionsProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Iconify },
-} = globalThis;
-
-const { IconButton } = MuiCore;
 const { Icon } = Iconify;
+const { IconButton } = MuiCore;
 
 const getStageOrder = (stage: EDPCDPipelineStageKubeObjectInterface): number => stage.spec.order;
 

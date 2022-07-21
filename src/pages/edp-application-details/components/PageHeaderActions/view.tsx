@@ -1,12 +1,10 @@
 import { EditKubeObject } from '../../../../components/EditKubeObject';
 import { ICON_PENCIL } from '../../../../constants/icons';
+import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { PageHeaderActionsProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Iconify },
-} = globalThis;
-const { Tooltip, IconButton } = MuiCore;
 const { Icon } = Iconify;
+const { Tooltip, IconButton } = MuiCore;
 
 export const PageHeaderActions: React.FC<PageHeaderActionsProps> = ({
     kubeObject,

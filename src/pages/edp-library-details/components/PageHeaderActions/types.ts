@@ -1,7 +1,7 @@
-import { KubeObject } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
+import { k8s } from '../../../../plugin.types';
 
 export interface PageHeaderActionsProps {
-    kubeObject: KubeObject;
+    kubeObject: k8s.cluster.KubeObject;
     kubeObjectData: EDPCodebaseKubeObjectInterface;
 }

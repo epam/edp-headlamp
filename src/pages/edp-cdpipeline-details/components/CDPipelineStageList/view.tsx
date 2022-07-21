@@ -3,6 +3,7 @@ import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICON_ARROW_DOWN } from '../../../../constants/icons';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
+import { Iconify, MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { rem } from '../../../../utils/styling/rem';
 import { CDPipelineStage } from './components/CDPipelineStage';
 import { CDPipelineStageActions } from './components/CDPipelineStageActions';
@@ -11,11 +12,10 @@ import { useStyles } from './styles';
 import { CDPipelineStagesTableProps } from './types';
 
 const {
-    pluginLib: { React, CommonComponents, MuiCore, Iconify },
-} = globalThis;
-const { SectionHeader } = CommonComponents;
-const { Accordion, AccordionSummary, AccordionDetails, Typography } = MuiCore;
+    CommonComponents: { SectionHeader },
+} = pluginLib;
 const { Icon } = Iconify;
+const { Accordion, AccordionSummary, AccordionDetails, Typography } = MuiCore;
 
 export const CDPipelineStagesTable: React.FC<CDPipelineStagesTableProps> = ({
     kubeObject,
@@ -63,7 +63,7 @@ export const CDPipelineStagesTable: React.FC<CDPipelineStagesTableProps> = ({
     return (
         <>
             <div className={classes.tableHeaderActions}>
-                <SectionHeader title="CD Pipeline Stages" noNamespaceFilter headerStyle="main" />
+                <SectionHeader title="CD Pipeline Stages" headerStyle="main" />
                 <TableHeaderActions kubeObject={kubeObject} kubeObjectData={kubeObjectData} />
             </div>
             {currentCDPipelineStages.map((el, idx) => {

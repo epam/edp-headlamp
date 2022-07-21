@@ -1,10 +1,7 @@
 import { Theme } from '@material-ui/core/styles/createStyles';
 import { MappedProperties } from '../../../../../components/MappedProperties';
 import { EDPCDPipelineSpec } from '../../../../../k8s/EDPCDPipeline/types';
-
-const {
-    pluginLib: { React },
-} = globalThis;
+import { React } from '../../../../../plugin.globals';
 
 export const useColumns = (
     cdpipelineSpec: EDPCDPipelineSpec,

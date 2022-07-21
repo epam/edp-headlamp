@@ -1,9 +1,6 @@
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../k8s/EDPCodebaseBranch/types';
+import { React } from '../../../../../plugin.globals';
 import { formatDateUTCToLocal } from '../../../../../utils/format/formatDateUTCToLocal';
-
-const {
-    pluginLib: { React },
-} = globalThis;
 
 export const useRows = (codebaseBranch: EDPCodebaseBranchKubeObjectInterface) =>
     React.useMemo(() => {

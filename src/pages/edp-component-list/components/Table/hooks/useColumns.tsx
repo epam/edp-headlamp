@@ -1,10 +1,8 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { EDPComponentKubeObjectInterface } from '../../../../../k8s/EDPComponent/types';
+import { MuiCore, React } from "../../../../../plugin.globals";
 import { sortByName } from '../../../../../utils/sort/sortByName';
 
-const {
-    pluginLib: { React, MuiCore },
-} = globalThis;
 const { Link } = MuiCore;
 
 export const useColumns = (classes: {

@@ -2,6 +2,7 @@ import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
+import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { CDPIPELINES_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { CDPipelineStagesTable } from './components/CDPipelineStageList';
@@ -11,13 +12,9 @@ import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPCDPipelineDetailsProps } from './types';
 
-const {
-    pluginLib: { React, ReactRouter, MuiCore, Iconify },
-} = globalThis;
-const { useParams } = ReactRouter;
-const { Link } = ReactRouter;
-const { Typography, Button } = MuiCore;
 const { Icon } = Iconify;
+const { Typography, Button } = MuiCore;
+const { useParams, Link } = ReactRouter;
 
 export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();

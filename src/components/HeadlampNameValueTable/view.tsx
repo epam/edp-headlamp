@@ -1,10 +1,10 @@
+import { pluginLib, React } from '../../plugin.globals';
 import { useStyles } from './styles';
 import { HeadlampNameValueTableProps } from './types';
 
 const {
-    pluginLib: { React, CommonComponents },
-} = globalThis;
-const { NameValueTable } = CommonComponents;
+    CommonComponents: { NameValueTable },
+} = pluginLib;
 
 export const HeadlampNameValueTable: React.FC<HeadlampNameValueTableProps> = (
     props

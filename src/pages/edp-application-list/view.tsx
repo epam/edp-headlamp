@@ -5,15 +5,14 @@ import { REFETCH_DELAY } from '../../constants/delays';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { pluginLib, React } from '../../plugin.globals';
 import { FloatingActions } from './components/FloatingActions';
 import { Table } from './components/Table';
 import { EDPApplicationListProps } from './types';
 
 const {
-    pluginLib: { React, CommonComponents },
-} = globalThis;
-
-const { SectionBox, SectionFilterHeader } = CommonComponents;
+    CommonComponents: { SectionBox, SectionFilterHeader },
+} = pluginLib;
 
 export const EDPApplicationList: React.FC<EDPApplicationListProps> = (): React.ReactElement => {
     const [applications, setApplications] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);

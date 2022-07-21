@@ -1,8 +1,5 @@
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../../k8s/EDPCDPipelineStage/types';
-
-const {
-    pluginLib: { React },
-} = globalThis;
+import { React } from '../../../../../../../plugin.globals';
 
 export const useRows = (stage: EDPCDPipelineStageKubeObjectInterface) =>
     React.useMemo(() => {

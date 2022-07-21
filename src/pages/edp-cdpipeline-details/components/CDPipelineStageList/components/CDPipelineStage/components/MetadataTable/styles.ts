@@ -1,6 +1,5 @@
-const {
-    pluginLib: { MuiCore },
-} = globalThis;
+import { MuiCore } from '../../../../../../../../plugin.globals';
+
 const { makeStyles } = MuiCore;
 
 export const useStyles = () => makeStyles(() => ({}));

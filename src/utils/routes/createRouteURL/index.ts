@@ -1,12 +1,20 @@
+import { pluginLib, ReactRedux, ReactRouter } from '../../../plugin.globals';
+import type { Router } from '../../../plugin.types';
 import { List } from '../../../routes';
 import { RouteURLProps } from '../../../routes/types';
 
-const {
-    pluginLib: { Utils, ReactRouter, ReactRedux },
-} = globalThis;
+const { Utils } = pluginLib;
+
+type HeadlampState = {
+    ui: {
+        routes: {
+            [path: string]: Router.Route;
+        };
+    };
+};
 
 export function createRouteURL(routeName: string, params: RouteURLProps = {}) {
-    const store = ReactRedux.useStore();
+    const store = ReactRedux.useStore<HeadlampState>();
     const storeRoutes = store.getState().ui.routes;
     const route = (storeRoutes && storeRoutes[routeName]) || List[routeName];
 

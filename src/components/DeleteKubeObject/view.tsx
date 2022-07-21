@@ -1,10 +1,8 @@
 import { useForm } from 'react-hook-form';
+import { MuiCore, React, ReactRedux } from '../../plugin.globals';
 import { clusterAction } from '../../redux/actions';
 import { DeleteKubeObjectProps } from './types';
 
-const {
-    pluginLib: { React, ReactRedux, MuiCore },
-} = globalThis;
 const { Grid, Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, TextField } =
     MuiCore;
 const { useDispatch } = ReactRedux;

@@ -1,3 +1,4 @@
+import { MuiCore, Notistack, React } from '../../../../plugin.globals';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { HeadlampNameValueTable } from '../../../HeadlampNameValueTable';
 import { MetadataTable } from './components/MetadataTable';
@@ -5,12 +6,8 @@ import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
 import { CodebaseBranchProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Notistack },
-} = globalThis;
-
-const { Box, Typography, Paper } = MuiCore;
 const { useSnackbar } = Notistack;
+const { Box, Typography, Paper } = MuiCore;
 
 export const CodebaseBranch: React.FC<CodebaseBranchProps> = ({
     codebaseBranch,

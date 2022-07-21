@@ -1,24 +1,25 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
+import type { DialogProps } from '@material-ui/core/Dialog';
+import { pluginLib, React, ReactRedux } from '../../plugin.globals';
+import { k8s } from '../../plugin.types';
 import { clusterAction } from '../../redux/actions';
 import { EditKubeObjectProps } from './types';
 
 const {
-    pluginLib: { React, ReactRedux, CommonComponents },
-} = globalThis;
+    CommonComponents: { EditorDialog },
+} = pluginLib;
 const { useDispatch } = ReactRedux;
-const { EditorDialog } = CommonComponents;
 
-export const EditKubeObject: React.FC<EditKubeObjectProps> = ({
+export const EditKubeObject = ({
     editorOpen,
     setEditorOpen,
     kubeObject,
     kubeObjectData,
     onEdit,
-}): React.ReactElement => {
+}: EditKubeObjectProps): React.ReactElement => {
     const [errorMessage, setErrorMessage] = React.useState<string>('');
     const dispatch = useDispatch();
 
-    const applyFunc = async (newItem: KubeObjectInterface): Promise<void> => {
+    const applyFunc = async (newItem: k8s.cluster.KubeObjectInterface): Promise<void> => {
         try {
             await kubeObject.apiEndpoint.put(newItem);
             setEditorOpen(false);
@@ -37,7 +38,7 @@ export const EditKubeObject: React.FC<EditKubeObjectProps> = ({
         }
     };
 
-    const handleSave = async (jsonData: KubeObjectInterface): Promise<void> => {
+    const handleSave = async (jsonData: k8s.cluster.KubeObjectInterface): Promise<void> => {
         const {
             metadata: { name },
         } = jsonData;
@@ -54,10 +55,14 @@ export const EditKubeObject: React.FC<EditKubeObjectProps> = ({
         );
     };
 
+    const muDialogProps: DialogProps = {
+        open: editorOpen,
+    };
+
     return (
         <EditorDialog
+            {...muDialogProps}
             item={kubeObjectData}
-            open={editorOpen}
             onClose={() => setEditorOpen(false)}
             onSave={handleSave}
             errorMessage={errorMessage}

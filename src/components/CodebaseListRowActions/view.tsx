@@ -1,17 +1,14 @@
 import { ICON_PENCIL, ICON_THREE_DOTS } from '../../constants/icons';
 import { KUBE_OBJECT_ACTION_EDIT } from '../../constants/kubeObjectActions';
+import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { KubeObjectAction } from '../../types/actions';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { EditKubeObject } from '../EditKubeObject';
 import { KubeObjectActions } from '../KubeObjectActions';
 import { CodebaseListRowActionsProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Iconify },
-} = globalThis;
-
-const { IconButton } = MuiCore;
 const { Icon } = Iconify;
+const { IconButton } = MuiCore;
 
 export const CodebaseListRowActions: React.FC<CodebaseListRowActionsProps> = ({
     kubeObject,

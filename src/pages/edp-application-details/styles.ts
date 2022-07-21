@@ -1,8 +1,6 @@
+import { MuiCore } from '../../plugin.globals';
 import { rem } from '../../utils/styling/rem';
 
-const {
-    pluginLib: { MuiCore },
-} = globalThis;
 const { makeStyles } = MuiCore;
 
 export const useStyles = makeStyles(() => ({

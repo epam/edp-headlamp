@@ -1,12 +1,12 @@
 import { HeadlampNameValueTable } from '../../../../components/HeadlampNameValueTable';
+import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
 import { MetadataTableProps } from './types';
 
 const {
-    pluginLib: { React, MuiCore, CommonComponents },
-} = globalThis;
-const { SectionBox, SectionHeader } = CommonComponents;
+    CommonComponents: { SectionBox, SectionHeader },
+} = pluginLib;
 const { useTheme, Box } = MuiCore;
 
 export const MetadataTable: React.FC<MetadataTableProps> = ({
@@ -18,9 +18,7 @@ export const MetadataTable: React.FC<MetadataTableProps> = ({
     const columns = useColumns(metadata, classes, theme);
 
     return (
-        <SectionBox
-            title={<SectionHeader title={'Metadata'} noNamespaceFilter headerStyle="main" />}
-        >
+        <SectionBox title={<SectionHeader title={'Metadata'} headerStyle="main" />}>
             <Box>
                 <HeadlampNameValueTable rows={columns} />
             </Box>

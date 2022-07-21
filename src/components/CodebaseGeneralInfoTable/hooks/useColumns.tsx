@@ -1,9 +1,7 @@
 import { Theme } from '@material-ui/core/styles/createTheme';
 import { EDPCodebaseSpecInterface } from '../../../k8s/EDPCodebase/types';
+import { MuiCore, React } from '../../../plugin.globals';
 
-const {
-    pluginLib: { React, MuiCore },
-} = globalThis;
 const { Typography } = MuiCore;
 
 export const useColumns = (

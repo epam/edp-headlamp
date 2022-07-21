@@ -1,9 +1,6 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../../../components/HeadlampSimpleTable/types';
 import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../../../k8s/EDPCDPipelineStage/types';
-
-const {
-    pluginLib: { React },
-} = globalThis;
+import { React } from '../../../../../../../plugin.globals';
 
 export const useColumns =
     (): HeadlampSimpleTableGetterColumn<EDPCDPipelineStageSpecQualityGatesInterface>[] =>

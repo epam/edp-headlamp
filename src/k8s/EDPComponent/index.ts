@@ -1,10 +1,8 @@
-import { makeKubeObject } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
+import { pluginLib } from '../../plugin.globals';
 import { EDPComponentKubeObjectConfig } from './config';
 import { EDPComponentKubeObjectInterface } from './types';
 
-const {
-    pluginLib: { ApiProxy },
-} = globalThis;
+const { ApiProxy, Cluster: { makeKubeObject } } = pluginLib;
 
 const {
     name: { singularForm, pluralForm },

@@ -1,12 +1,13 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
+import type { DialogProps } from '@material-ui/core/Dialog';
+import { pluginLib, React, ReactRedux } from '../../plugin.globals';
+import { k8s } from '../../plugin.types';
 import { clusterAction } from '../../redux/actions';
 import { CreateKubeObjectProps } from './types';
 
-const {
-    pluginLib: { React, ReactRedux, CommonComponents },
-} = globalThis;
-const { EditorDialog } = CommonComponents;
 const { useDispatch } = ReactRedux;
+const {
+    CommonComponents: { EditorDialog },
+} = pluginLib;
 
 export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
     editorOpen,
@@ -18,7 +19,7 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
     const [errorMessage, setErrorMessage] = React.useState<string>('');
     const dispatch = useDispatch();
 
-    const applyFunc = async (newItem: KubeObjectInterface): Promise<void> => {
+    const applyFunc = async (newItem: k8s.cluster.KubeObjectInterface): Promise<void> => {
         try {
             await kubeObject.apiEndpoint.post(newItem);
             setEditorOpen(false);
@@ -37,7 +38,7 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
         }
     };
 
-    const handleSave = async (data: KubeObjectInterface): Promise<void> => {
+    const handleSave = async (data: k8s.cluster.KubeObjectInterface): Promise<void> => {
         const {
             metadata: { name },
         } = data;
@@ -54,11 +55,16 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
         );
     };
 
+    const muDialogProps: DialogProps = {
+        open: editorOpen,
+    };
+
     return (
         <EditorDialog
+            {...muDialogProps}
+            data-testid={'CreateKubeObject.EditorDialog'}
             item={kubeObjectExample}
             title={`Create ${kubeObjectExample.kind}`}
-            open={editorOpen}
             onClose={() => setEditorOpen(false)}
             onSave={handleSave}
             errorMessage={errorMessage}

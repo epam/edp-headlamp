@@ -2,16 +2,13 @@ import { EditKubeObject } from '../../../../../../components/EditKubeObject';
 import { KubeObjectActions } from '../../../../../../components/KubeObjectActions';
 import { ICON_PENCIL, ICON_THREE_DOTS } from '../../../../../../constants/icons';
 import { KUBE_OBJECT_ACTION_EDIT } from '../../../../../../constants/kubeObjectActions';
+import { Iconify, MuiCore, React } from '../../../../../../plugin.globals';
 import { KubeObjectAction } from '../../../../../../types/actions';
 import { createKubeAction } from '../../../../../../utils/actions/createKubeAction';
 import { RowActionsProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Iconify },
-} = globalThis;
-
-const { IconButton } = MuiCore;
 const { Icon } = Iconify;
+const { IconButton } = MuiCore;
 
 export const RowActions: React.FC<RowActionsProps> = ({
     kubeObject,

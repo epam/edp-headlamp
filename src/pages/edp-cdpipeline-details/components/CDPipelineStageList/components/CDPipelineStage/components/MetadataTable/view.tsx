@@ -1,11 +1,9 @@
 import { HeadlampNameValueTable } from '../../../../../../../../components/HeadlampNameValueTable';
+import { MuiCore, React } from '../../../../../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
 import { MetadataTableProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore },
-} = globalThis;
 const { useTheme } = MuiCore;
 
 export const MetadataTable: React.FC<MetadataTableProps> = ({

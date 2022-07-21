@@ -4,6 +4,7 @@ import { REFETCH_DELAY } from '../../constants/delays';
 import { ICON_ARROW_DOWN } from '../../constants/icons';
 import { EDPCodebaseBranchKubeObject } from '../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
+import { Iconify, MuiCore, pluginLib, React } from '../../plugin.globals';
 import { rem } from '../../utils/styling/rem';
 import { StatusIcon } from '../StatusIcon';
 import { CodebaseBranch } from './components/CodebaseBranch';
@@ -12,9 +13,8 @@ import { useStyles } from './styles';
 import { CodebaseBranchesListProps } from './types';
 
 const {
-    pluginLib: { React, CommonComponents, MuiCore, Iconify },
-} = globalThis;
-const { SectionHeader } = CommonComponents;
+    CommonComponents: { SectionHeader },
+} = pluginLib;
 const { Accordion, AccordionSummary, AccordionDetails, Typography } = MuiCore;
 const { Icon } = Iconify;
 
@@ -65,7 +65,7 @@ export const CodebaseBranchesList: React.FC<CodebaseBranchesListProps> = ({
     return (
         <>
             <div className={classes.tableHeaderActions}>
-                <SectionHeader title="Branches" noNamespaceFilter headerStyle="main" />
+                <SectionHeader title="Branches" headerStyle="main" />
                 <TableHeaderActions
                     kubeObject={kubeObject}
                     kubeObjectData={kubeObjectData}

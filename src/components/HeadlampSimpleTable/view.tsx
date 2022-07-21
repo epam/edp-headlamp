@@ -1,8 +1,7 @@
+import { pluginLib, React } from '../../plugin.globals';
 import { HeadlampSimpleTableProps } from './types';
 
-const {
-    pluginLib: { React, CommonComponents },
-} = globalThis;
+const { CommonComponents } = pluginLib;
 const { SimpleTable } = CommonComponents;
 
 export const HeadlampSimpleTable: React.FC<HeadlampSimpleTableProps> = (

@@ -1,11 +1,10 @@
 import { EDPComponentKubeObject } from '../../k8s/EDPComponent';
+import { pluginLib,React } from "../../plugin.globals";
 import { rem } from '../../utils/styling/rem';
 import { Table } from './components/Table';
 import { EDPComponentListProps } from './types';
 
-const {
-    pluginLib: { React, CommonComponents },
-} = globalThis;
+const { CommonComponents } = pluginLib;
 const { SectionBox, SectionFilterHeader } = CommonComponents;
 
 export const EDPComponentList: React.FC<EDPComponentListProps> = (): React.ReactElement => {

@@ -1,4 +1,4 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
+import { k8s } from '../../plugin.types';
 
 type EDPCodebaseImageStreamSpecTag = {
     created: string;
@@ -16,7 +16,7 @@ interface EDPCodebaseImageStreamStatusInterface {
     failureCount: number;
 }
 
-interface EDPCodebaseImageStreamKubeObjectInterface extends KubeObjectInterface {
+interface EDPCodebaseImageStreamKubeObjectInterface extends k8s.cluster.KubeObjectInterface {
     spec: EDPCodebaseImageStreamSpecInterface;
     status: EDPCodebaseImageStreamStatusInterface;
 }

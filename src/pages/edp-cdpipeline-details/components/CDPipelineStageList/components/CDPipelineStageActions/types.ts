@@ -1,8 +1,8 @@
-import { KubeObject } from '@kinvolk/headlamp-plugin/lib/K8s/cluster';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDPCDPipelineStage/types';
+import type { k8s } from '../../../../../../plugin.types';
 
 export interface CDPipelineStageActionsProps {
-    kubeObject: KubeObject;
+    kubeObject: k8s.cluster.KubeObject;
     kubeObjectData: EDPCDPipelineStageKubeObjectInterface;
     cdpipelineStages: EDPCDPipelineStageKubeObjectInterface[];
     onEdit?(): void;

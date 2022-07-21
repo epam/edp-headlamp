@@ -7,6 +7,7 @@ import { EDPCDPipelineList } from '../pages/edp-cdpipeline-list';
 import { EDPComponentList } from '../pages/edp-component-list';
 import { EDPLibraryDetails } from '../pages/edp-library-details';
 import { EDPLibraryList } from '../pages/edp-library-list';
+import { React } from '../plugin.globals';
 import {
     createRouteName,
     createRouteNameBasedOnNameAndNamespace,
@@ -23,10 +24,6 @@ import {
     LIBRARIES_ROUTE_NAME,
     LIBRARY_ROUTE_NAME,
 } from './names';
-
-const {
-    pluginLib: { React },
-} = globalThis;
 
 export const List: {
     [routeName: string]: any;

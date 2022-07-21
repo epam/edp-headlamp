@@ -1,14 +1,12 @@
 import clsx from 'clsx';
+import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { getStatusIconByStatusName } from '../../utils/styling/getStatusIconByStatusName';
 import { useStyles } from './styles';
 import { StatusIconProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Iconify },
-} = globalThis;
-const { Tooltip } = MuiCore;
 const { Icon } = Iconify;
+const { Tooltip } = MuiCore;
 
 export const StatusIcon: React.FC<StatusIconProps> = ({ status }): React.ReactElement => {
     const classes = useStyles();

@@ -1,14 +1,12 @@
+import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { KubeObjectAction } from '../../types/actions';
 import { ConditionalWrapper } from '../ConditionalWrapper';
 import { Render } from '../Render';
 import { useStyles } from './styles';
 import { KubeObjectActionsProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Iconify },
-} = globalThis;
-const { Tooltip, Popper, ListItem, ListItemIcon, ListItemText, ClickAwayListener } = MuiCore;
 const { Icon } = Iconify;
+const { Tooltip, Popper, ListItem, ListItemIcon, ListItemText, ClickAwayListener } = MuiCore;
 
 const ActionsList = ({
     actions,

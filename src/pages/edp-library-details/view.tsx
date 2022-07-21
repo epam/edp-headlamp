@@ -5,6 +5,7 @@ import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { LIBRARIES_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { rem } from '../../utils/styling/rem';
@@ -12,13 +13,9 @@ import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPLibraryDetailsProps } from './types';
 
-const {
-    pluginLib: { React, ReactRouter, MuiCore, Iconify },
-} = globalThis;
-const { useParams } = ReactRouter;
-const { Link } = ReactRouter;
-const { Typography, Button } = MuiCore;
 const { Icon } = Iconify;
+const { Typography, Button } = MuiCore;
+const { useParams, Link } = ReactRouter;
 
 export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();

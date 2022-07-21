@@ -1,13 +1,11 @@
 import { CreateKubeObject } from '../../../../../../components/CreateKubeObject';
 import { createCDPipelineStageExample } from '../../../../../../configs/kube-examples/edp-cdpipeline-stage';
 import { ICON_DOCUMENT_ADD } from '../../../../../../constants/icons';
+import { Iconify, MuiCore, React } from '../../../../../../plugin.globals';
 import { TableHeaderActionsProps } from './types';
 
-const {
-    pluginLib: { React, MuiCore, Iconify },
-} = globalThis;
-const { Tooltip, Button, Typography } = MuiCore;
 const { Icon } = Iconify;
+const { Tooltip, Button, Typography } = MuiCore;
 
 export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
     kubeObject,

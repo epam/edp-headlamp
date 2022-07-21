@@ -1,7 +1,6 @@
 import { EDPCodebaseSpecInterface } from '../../k8s/EDPCodebase/types';
-const {
-    pluginLib: { MuiCore },
-} = globalThis;
+import { MuiCore } from '../../plugin.globals';
+
 const { makeStyles } = MuiCore;
 
 export const useStyles = (codebaseSpec: EDPCodebaseSpecInterface) =>

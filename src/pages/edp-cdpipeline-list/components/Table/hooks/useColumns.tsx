@@ -3,15 +3,15 @@ import { MappedProperties } from '../../../../../components/MappedProperties';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { EDPCDPipelineKubeObject } from '../../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
+import { pluginLib, React } from '../../../../../plugin.globals';
 import { CDPIPELINE_ROUTE_NAME } from '../../../../../routes/names';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 import { RowActions } from '../components/RowActions';
 
 const {
-    pluginLib: { React, CommonComponents },
-} = globalThis;
-const { Link } = CommonComponents;
+    CommonComponents: { Link },
+} = pluginLib;
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeObjectInterface>[] =>
     React.useMemo(
