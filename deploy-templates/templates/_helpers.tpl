@@ -55,7 +55,7 @@ Create the name of the service account to use
 */}}
 {{- define "headlamp.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "headlamp.fullname" .) .Values.serviceAccount.name }}
+{{- default .Chart.Name .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

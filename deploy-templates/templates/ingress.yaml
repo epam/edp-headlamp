@@ -1,5 +1,4 @@
 {{ if eq .Values.global.platform "kubernetes" }}
-{{- $fullName := include "headlamp.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
@@ -8,7 +7,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ .Chart.Name }}
   labels:
     {{- include "headlamp.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -34,7 +33,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ $fullName }}
+                name: {{ .Chart.Name }}
                 port:
                   number: {{ $svcPort }}
 {{- end }}

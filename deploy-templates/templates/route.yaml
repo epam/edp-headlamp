@@ -1,10 +1,9 @@
 {{- if eq .Values.global.platform "openshift" -}}
-{{- $fullName := include "headlamp.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ $fullName }}
+  name: {{ .Chart.Name }}
   labels:
     {{- include "headlamp.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -18,7 +17,7 @@ spec:
         termination: edge
     to:
         kind: Service
-        name: {{ $fullName }}
+        name: {{ .Chart.Name }}
         weight: 100
     wildcardPolicy: None
 status:
