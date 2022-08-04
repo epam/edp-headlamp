@@ -7,9 +7,10 @@ import React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as ReactRouter from 'react-router';
 
+const { cluster } = K8s;
 export const pluginLib = {
     ApiProxy,
-    Cluster: K8s.cluster,
+    Cluster: cluster,
     Router,
     Utils,
     CommonComponents,

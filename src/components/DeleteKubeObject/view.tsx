@@ -11,14 +11,14 @@ const NAMES = {
     name: 'name',
 };
 
-export const DeleteKubeObject: React.FC<DeleteKubeObjectProps> = ({
+export const DeleteKubeObject = ({
     popupOpen,
     setPopupOpen,
     kubeObject,
     kubeObjectData,
     description,
     onDelete,
-}): React.ReactElement => {
+}: DeleteKubeObjectProps): React.ReactElement => {
     const [errorMessage, setErrorMessage] = React.useState<string>('');
     const dispatch = useDispatch();
     const { register, handleSubmit, watch } = useForm();

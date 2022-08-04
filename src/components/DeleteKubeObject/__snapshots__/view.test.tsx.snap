@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeleteKubeObject renders correctly 1`] = `
+<div
+  class="MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiPaper-elevation24 MuiPaper-rounded"
+  role="dialog"
+>
+  <div
+    class="MuiDialogTitle-root"
+  >
+    <h2
+      class="MuiTypography-root MuiTypography-h6"
+    >
+      Confirm deletion of TestCustomResourceDefinition
+    </h2>
+  </div>
+  <div
+    class="MuiDialogContent-root"
+  >
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1"
+        >
+          Confirmation message for test action
+        </p>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      >
+        <form>
+          <div
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <div
+                class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-filled"
+                  data-shrink="false"
+                >
+                  Enter CustomResourceDefinition name to delete
+                </label>
+                <div
+                  class="MuiInputBase-root MuiFilledInput-root MuiFilledInput-underline MuiInputBase-fullWidth MuiInputBase-formControl"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="MuiInputBase-input MuiFilledInput-input"
+                    name="name"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1 MuiTypography-colorError"
+                hidden=""
+              />
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <div
+                class="MuiDialogActions-root MuiDialogActions-spacing"
+              >
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-text"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="MuiButton-label"
+                  >
+                    Cancel
+                  </span>
+                  <span
+                    class="MuiTouchRipple-root"
+                  />
+                </button>
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-text Mui-disabled Mui-disabled"
+                  disabled=""
+                  tabindex="-1"
+                  type="submit"
+                >
+                  <span
+                    class="MuiButton-label"
+                  >
+                    Confirm
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

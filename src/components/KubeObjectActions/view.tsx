@@ -8,17 +8,19 @@ import { KubeObjectActionsProps } from './types';
 const { Icon } = Iconify;
 const { Tooltip, Popper, ListItem, ListItemIcon, ListItemText, ClickAwayListener } = MuiCore;
 
+type ActionsListProps = {
+    actions: KubeObjectAction[];
+    menuOpen: boolean;
+    handleClose: () => void;
+    anchorEl: HTMLElement | null;
+};
+
 const ActionsList = ({
     actions,
     menuOpen,
     handleClose,
     anchorEl,
-}: {
-    actions: KubeObjectAction[];
-    menuOpen: boolean;
-    handleClose: () => void;
-    anchorEl: any;
-}) => {
+}: ActionsListProps): React.ReactElement => {
     const classes = useStyles();
 
     return (
@@ -31,7 +33,7 @@ const ActionsList = ({
                 className={classes.popper}
                 placement={'bottom-end'}
             >
-                <div className={classes.actionList}>
+                <div role="list" className={classes.actionList}>
                     {actions.map(({ name, label, action, disabled, icon }, idx) => {
                         const actionId = `${name}:${idx}`;
 
@@ -61,12 +63,12 @@ const ActionsList = ({
 
 const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
 
-export const KubeObjectActions: React.FC<KubeObjectActionsProps> = ({
+export const KubeObjectActions = ({
     children,
     actions = [],
     anchorEl,
     handleCloseActionsMenu,
-}): React.ReactElement => {
+}: React.PropsWithChildren<KubeObjectActionsProps>): React.ReactElement => {
     const classes = useStyles();
 
     return (

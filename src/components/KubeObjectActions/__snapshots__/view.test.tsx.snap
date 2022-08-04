@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KubeObjectActions renders correctly 1`] = `
+<div
+  class="makeStyles-actionList-2"
+  role="list"
+>
+  <div>
+    <div
+      aria-disabled="false"
+      class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-button"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiListItemIcon-root"
+      >
+        <span />
+      </div>
+      <div
+        class="MuiListItemText-root"
+      >
+        <span
+          class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+        >
+          Testkubeaction
+        </span>
+      </div>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      aria-disabled="true"
+      class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters Mui-disabled MuiListItem-button Mui-disabled"
+      role="button"
+      tabindex="-1"
+      title="For testing"
+    >
+      <div
+        class="MuiListItemIcon-root"
+      >
+        <span />
+      </div>
+      <div
+        class="MuiListItemText-root"
+      >
+        <span
+          class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+        >
+          Testdisabledkubeaction
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
