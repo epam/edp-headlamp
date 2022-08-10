@@ -33,8 +33,8 @@ A Helm chart for EDP Headlamp
 | global.dnsWildCard | string | `"example.com"` |  |
 | global.edpName | string | `""` | Target namespace |
 | global.platform | string | `"openshift"` |  |
-| image.name | string | `"epamedp/edp-headlamp"` | Image to deploy |
-| image.version | string | `nil` | If not defined then .Chart.AppVersion is used |
+| image.repository | string | `"epamedp/edp-headlamp"` | Image to deploy |
+| image.tag | string | `nil` | If not defined then .Chart.AppVersion is used |
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |
 | ingress.annotations | object | `{}` | Annotations for Ingress resource |
 | ingress.tls | list | `[]` | Ingress TLS configuration |
