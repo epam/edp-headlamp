@@ -1,3 +1,5 @@
+import { CDPipelineActions } from '../../components/CDPipelineActions';
+import { MetadataTable } from '../../components/MetadataTable';
 import { Render } from '../../components/Render';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
@@ -9,8 +11,6 @@ import { CDPIPELINES_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { CDPipelineStagesList } from './components/CDPipelineStageList';
 import { GeneralInfoTable } from './components/GeneralInfoTable';
-import { MetadataTable } from './components/MetadataTable';
-import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPCDPipelineDetailsProps } from './types';
 
@@ -55,7 +55,7 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
                 </Typography>
                 <Render condition={!!CDPipeline}>
                     <div style={{ marginLeft: 'auto' }}>
-                        <PageHeaderActions
+                        <CDPipelineActions
                             kubeObject={EDPCDPipelineKubeObject}
                             kubeObjectData={CDPipeline}
                         />

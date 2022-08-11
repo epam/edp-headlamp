@@ -15,3 +15,4 @@ export const ICON_EMPTY_CIRCLE = 'akar-icons:circle';
 export const ICON_CHECK_CIRCLE = 'bi:check-circle';
 export const ICON_CROSS_CIRCLE = 'uiw:circle-close-o';
 export const ICON_LOADER_CIRCLE = 'lucide:loader-2';
+export const ICON_INFO_CIRCLE = 'ant-design:info-circle-outlined';

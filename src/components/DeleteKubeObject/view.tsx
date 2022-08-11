@@ -51,7 +51,7 @@ export const DeleteKubeObject = ({
                 kubeObjectData.metadata.name
             );
         } catch (err) {
-            let msg = 'Something went wrong…';
+            let msg = `Oops! Something went wrong! Couldn't delete ${kubeObjectData.metadata.name}`;
             if (err instanceof Error) {
                 msg = err.message;
             }

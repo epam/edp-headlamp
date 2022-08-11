@@ -1,10 +1,9 @@
-import { FloatingActions } from '../../components/FloatingActions';
-import { ApplicationExample } from '../../configs/kube-examples/edp-application';
-import { EDPCodebaseKubeObject, streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
+import { ApplicationList } from '../../components/ApplicationList';
+import { streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { pluginLib, React, ReactRouter } from '../../plugin.globals';
-import { Table } from './components/Table';
+import { FloatingActions } from './components/FloatingActions';
 import { EDPApplicationListProps } from './types';
 
 const {
@@ -42,11 +41,8 @@ export const EDPApplicationList: React.FC<EDPApplicationListProps> = (): React.R
 
     return (
         <SectionBox title={<SectionFilterHeader title="Applications" headerStyle="main" />}>
-            <FloatingActions
-                kubeObject={EDPCodebaseKubeObject}
-                kubeObjectExample={ApplicationExample}
-            />
-            <Table data={applications} />
+            <FloatingActions namespace={namespace} />
+            <ApplicationList applications={applications} />
         </SectionBox>
     );
 };

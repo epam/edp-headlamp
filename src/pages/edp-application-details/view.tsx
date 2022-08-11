@@ -1,7 +1,8 @@
+import { CodebaseActions } from '../../components/CodebaseActions';
 import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
 import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
-import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
+import { MetadataTable } from '../../components/MetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
@@ -9,7 +10,6 @@ import { EDPCodebaseBranchKubeObject } from '../../k8s/EDPCodebaseBranch';
 import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
-import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPApplicationDetailsProps } from './types';
 
@@ -37,12 +37,7 @@ export const EDPApplicationDetails: React.FC<
     }, []);
 
     React.useEffect(() => {
-        const cancelStream = streamCodebase(
-            name,
-            namespace,
-            handleStoreApplication,
-            handleError
-        ).catch(console.error);
+        const cancelStream = streamCodebase(name, namespace, handleStoreApplication, handleError);
 
         return () => cancelStream();
     }, [handleError, handleStoreApplication, name, namespace]);
@@ -61,7 +56,7 @@ export const EDPApplicationDetails: React.FC<
                 </Typography>
                 {application && (
                     <div style={{ marginLeft: 'auto' }}>
-                        <PageHeaderActions
+                        <CodebaseActions
                             kubeObject={EDPCodebaseKubeObject}
                             kubeObjectData={application}
                         />
@@ -72,7 +67,7 @@ export const EDPApplicationDetails: React.FC<
                 <>
                     <CodebaseGeneralInfoTable kubeObjectData={application} />
                     <CodebaseAdvancedInfoTable kubeObjectData={application} />
-                    <CodebaseMetadataTable kubeObjectData={application} />
+                    <MetadataTable kubeObjectData={application} />
                     <CodebaseBranchesList
                         kubeObject={EDPCodebaseBranchKubeObject}
                         kubeObjectData={application}

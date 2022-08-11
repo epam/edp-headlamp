@@ -1,14 +1,14 @@
+import { CodebaseActions } from '../../components/CodebaseActions';
 import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
 import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
-import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
+import { MetadataTable } from '../../components/MetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { AUTOTESTS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
-import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPAutotestDetailsProps } from './types';
 
@@ -50,7 +50,7 @@ export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.R
                 </Typography>
                 {autotest && (
                     <div style={{ marginLeft: 'auto' }}>
-                        <PageHeaderActions
+                        <CodebaseActions
                             kubeObject={EDPCodebaseKubeObject}
                             kubeObjectData={autotest}
                         />
@@ -61,7 +61,7 @@ export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.R
                 <>
                     <CodebaseGeneralInfoTable kubeObjectData={autotest} />
                     <CodebaseAdvancedInfoTable kubeObjectData={autotest} />
-                    <CodebaseMetadataTable kubeObjectData={autotest} />
+                    <MetadataTable kubeObjectData={autotest} />
                     <CodebaseBranchesList
                         kubeObject={EDPCodebaseKubeObject}
                         kubeObjectData={autotest}

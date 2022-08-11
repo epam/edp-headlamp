@@ -1,5 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
-import { streamResults } from '../common';
+import { streamResults } from '../common/streamResults';
 import { EDPCDPipelineStageKubeObjectConfig } from './config';
 import {
     EDPCDPipelineStageKubeObjectInterface,
@@ -9,7 +9,9 @@ import {
 
 const {
     ApiProxy,
-    Cluster: { makeKubeObject },
+    K8s: {
+        cluster: { makeKubeObject },
+    },
 } = pluginLib;
 const {
     name: { singularForm, pluralForm },
@@ -48,13 +50,7 @@ export const streamCDPipelineStagesByCDPipelineName = (
     const url = namespace
         ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
         : `/apis/${group}/${version}/${pluralForm}`;
-    return streamResults(
-        url,
-
-        data => cb(data),
-        error => errCb(error),
-        {
-            labelSelector: `app.edp.epam.com/cdPipelineName=${CDPipelineName}`,
-        }
-    );
+    return streamResults(url, cb, errCb, {
+        labelSelector: `app.edp.epam.com/cdPipelineName=${CDPipelineName}`,
+    });
 };

@@ -24,7 +24,7 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
             await kubeObject.apiEndpoint.post(newItem);
             setEditorOpen(false);
         } catch (err) {
-            let msg = 'Something went wrong…';
+            let msg = `Oops! Something went wrong! Couldn't apply ${newItem.metadata.name}`;
             if (err instanceof Error) {
                 msg = err.message;
             }

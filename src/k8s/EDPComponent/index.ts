@@ -1,11 +1,13 @@
 import { pluginLib } from '../../plugin.globals';
-import { streamResults } from '../common';
+import { streamResults } from '../common/streamResults';
 import { EDPComponentKubeObjectConfig } from './config';
 import { EDPComponentKubeObjectInterface, EDPComponentSpec } from './types';
 
 const {
     ApiProxy,
-    Cluster: { makeKubeObject },
+    K8s: {
+        cluster: { makeKubeObject },
+    },
 } = pluginLib;
 
 const {
@@ -44,9 +46,5 @@ export const streamEDPComponents = (
     const url = namespace
         ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
         : `/apis/${group}/${version}/${pluralForm}`;
-    return streamResults(
-        url,
-        data => cb(data),
-        error => errCb(error)
-    );
+    return streamResults(url, cb, errCb);
 };

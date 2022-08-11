@@ -1,5 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
-import { streamResults } from '../common';
+import { streamResults } from '../common/streamResults';
 import { EDPCodebaseBranchKubeObjectConfig } from './config';
 import {
     EDPCodebaseBranchKubeObjectInterface,
@@ -9,7 +9,9 @@ import {
 
 const {
     ApiProxy,
-    Cluster: { makeKubeObject },
+    K8s: {
+        cluster: { makeKubeObject },
+    },
 } = pluginLib;
 
 const {
@@ -43,12 +45,7 @@ export const streamCodebaseBranchesByCodebaseLabel = (
     namespace: string
 ): (() => any) => {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResults(
-        url,
-        data => cb(data),
-        error => errCb(error),
-        {
-            labelSelector: `app.edp.epam.com/codebaseName=${codebaseName}`,
-        }
-    );
+    return streamResults(url, cb, errCb, {
+        labelSelector: `app.edp.epam.com/codebaseName=${codebaseName}`,
+    });
 };

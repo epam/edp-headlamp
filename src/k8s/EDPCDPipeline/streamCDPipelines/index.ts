@@ -1,4 +1,4 @@
-import { streamResults } from '../../common';
+import { streamResults } from '../../common/streamResults';
 import { EDPCDPipelineKubeObjectConfig } from '../config';
 import { EDPCDPipelineKubeObjectInterface } from '../types';
 const {

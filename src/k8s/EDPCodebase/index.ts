@@ -1,6 +1,7 @@
 import { pluginLib } from '../../plugin.globals';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
-import { streamResult, streamResults } from '../common';
+import { streamResult } from '../common/streamResult';
+import { streamResults } from '../common/streamResults';
 import { EDPCodebaseKubeObjectConfig } from './config';
 import {
     EDPCodebaseKubeObjectInterface,
@@ -10,7 +11,9 @@ import {
 
 const {
     ApiProxy,
-    Cluster: { makeKubeObject },
+    K8s: {
+        cluster: { makeKubeObject },
+    },
 } = pluginLib;
 const {
     name: { singularForm, pluralForm },
@@ -50,12 +53,7 @@ export const streamCodebase = (
     errCb: (err: Error) => void
 ): any => {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResult(
-        url,
-        name,
-        data => cb(data),
-        error => errCb(error)
-    );
+    return streamResult(url, name, cb, errCb);
 };
 
 export const streamCodebasesByTypeLabel = (
@@ -67,12 +65,7 @@ export const streamCodebasesByTypeLabel = (
     const url = namespace
         ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
         : `/apis/${group}/${version}/${pluralForm}`;
-    return streamResults(
-        url,
-        data => cb(data),
-        error => errCb(error),
-        {
-            labelSelector: `app.edp.epam.com/codebaseType=${codebaseType}`,
-        }
-    );
+    return streamResults(url, cb, errCb, {
+        labelSelector: `app.edp.epam.com/codebaseType=${codebaseType}`,
+    });
 };

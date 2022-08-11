@@ -9,7 +9,9 @@ import {
 
 const {
     ApiProxy,
-    Cluster: { makeKubeObject },
+    K8s: {
+        cluster: { makeKubeObject },
+    },
 } = pluginLib;
 const {
     name: { singularForm, pluralForm },

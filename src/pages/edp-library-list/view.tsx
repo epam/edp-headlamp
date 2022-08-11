@@ -1,10 +1,9 @@
-import { FloatingActions } from '../../components/FloatingActions';
-import { LibraryExample } from '../../configs/kube-examples/edp-library';
-import { EDPCodebaseKubeObject, streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
+import { LibraryList } from '../../components/LibraryList';
+import { streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { pluginLib, React, ReactRouter } from '../../plugin.globals';
-import { Table } from './components/Table';
+import { FloatingActions } from './components/FloatingActions';
 import { EDPLibraryListProps } from './types';
 
 const {
@@ -30,11 +29,8 @@ export const EDPLibraryList: React.FC<EDPLibraryListProps> = (): React.ReactElem
 
     return (
         <SectionBox title={<SectionFilterHeader title="Libraries" headerStyle="main" />}>
-            <FloatingActions
-                kubeObject={EDPCodebaseKubeObject}
-                kubeObjectExample={LibraryExample}
-            />
-            <Table data={libraries} />
+            <FloatingActions />
+            <LibraryList data={libraries} />
         </SectionBox>
     );
 };

@@ -1,10 +1,10 @@
+import { CDPipelineList } from '../../components/CDPipelineList';
 import { FloatingActions } from '../../components/FloatingActions';
 import { CDPipelineExample } from '../../configs/kube-examples/edp-cdpipeline';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { streamCDPipelines } from '../../k8s/EDPCDPipeline/streamCDPipelines';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
 import { pluginLib, React, ReactRouter } from '../../plugin.globals';
-import { Table } from './components/Table';
 import { EDPCDPipelineListProps } from './types';
 
 const {
@@ -40,7 +40,7 @@ export const EDPCDPipelineList: React.FC<EDPCDPipelineListProps> = (): React.Rea
                 kubeObject={EDPCDPipelineKubeObject}
                 kubeObjectExample={CDPipelineExample}
             />
-            <Table data={CDPipelines} />
+            <CDPipelineList CDPipelines={CDPipelines} />
         </SectionBox>
     );
 };

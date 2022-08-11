@@ -1,10 +1,9 @@
-import { FloatingActions } from '../../components/FloatingActions';
-import { AutotestExample } from '../../configs/kube-examples/edp-autotest';
-import { EDPCodebaseKubeObject, streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
+import { AutotestList } from '../../components/AutotestList';
+import { streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { pluginLib, React, ReactRouter } from '../../plugin.globals';
-import { Table } from './components/Table';
+import { FloatingActions } from './components/FloatingActions';
 import { EDPAutotestListProps } from './types';
 
 const {
@@ -30,11 +29,8 @@ export const EDPAutotestList: React.FC<EDPAutotestListProps> = (): React.ReactEl
 
     return (
         <SectionBox title={<SectionFilterHeader title="Autotests" headerStyle="main" />}>
-            <FloatingActions
-                kubeObject={EDPCodebaseKubeObject}
-                kubeObjectExample={AutotestExample}
-            />
-            <Table data={autotests} />
+            <FloatingActions />
+            <AutotestList autotests={autotests} />
         </SectionBox>
     );
 };
