@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/epam/edp-headlamp/branch/master/graph/badge.svg?token=14I4A446VF)](https://codecov.io/gh/epam/edp-headlamp)
+
 # EDP Admin Console v2.0
 
 <p align="center">
