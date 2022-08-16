@@ -30,11 +30,11 @@ A Helm chart for EDP Headlamp
 | config.oidc.issuerURL | string | `""` | OIDC issuer URL |
 | config.oidc.scopes | string | `""` | OIDC scopes to be used |
 | fullnameOverride | string | `""` | Overrides the full name of the chart |
-| global.dnsWildCard | string | `"example.com"` |  |
-| global.edpName | string | `""` | Target namespace |
-| global.platform | string | `"openshift"` |  |
-| image.repository | string | `"epamedp/edp-headlamp"` | Image to deploy |
-| image.tag | string | `nil` | If not defined then .Chart.AppVersion is used |
+| global.dnsWildCard | string | `nil` | a cluster DNS wildcard name |
+| global.edpName | string | `""` | namespace or a project name (in case of OpenShift) |
+| global.platform | string | `"openshift"` | platform type that can be "kubernetes" or "openshift" |
+| image.repository | string | `"epamedp/edp-headlamp"` | EDP headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp) |
+| image.tag | string | `nil` | EDP headlamp Docker image tag. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp/tags) |
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |
 | ingress.annotations | object | `{}` | Annotations for Ingress resource |
 | ingress.tls | list | `[]` | Ingress TLS configuration |
