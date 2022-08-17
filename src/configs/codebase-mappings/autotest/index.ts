@@ -1,3 +1,4 @@
+import { APPLICATION_MAPPING } from '../application';
 import { CodebaseInterface } from '../types';
 
 const LANGUAGE_JAVA = 'Java';
@@ -33,4 +34,45 @@ export const AUTOTEST_MAPPING: CodebaseInterface = {
             allure: { name: 'allure', value: 'allure' },
         },
     },
+};
+
+export const getAutotestRecommendedJenkinsAgent = (
+    lang: string,
+    framework: string,
+    buildTool: string
+): string | undefined => {
+    if (
+        lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
+        framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java8.value &&
+        buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.gradle.value
+    ) {
+        return 'gradle-java8';
+    }
+
+    if (
+        (lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
+            framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java8.value &&
+            buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.maven.value) ||
+        lang === APPLICATION_MAPPING[LANGUAGE_OTHER].language.value
+    ) {
+        return 'maven-java8';
+    }
+
+    if (
+        lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
+        framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java11.value &&
+        buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.gradle.value
+    ) {
+        return 'gradle-java11';
+    }
+
+    if (
+        lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
+        framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java11.value &&
+        buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.maven.value
+    ) {
+        return 'maven-java11';
+    }
+
+    return undefined;
 };

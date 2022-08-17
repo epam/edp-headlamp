@@ -1,20 +1,9 @@
 import { useFormContext } from 'react-hook-form';
-import {
-    APPLICATION_MAPPING,
-    getApplicationRecommendedJenkinsAgent,
-} from '../../../../../../../configs/codebase-mappings/application';
-import { AUTOTEST_MAPPING } from '../../../../../../../configs/codebase-mappings/autotest';
-import {
-    getLibraryRecommendedJenkinsAgent,
-    LIBRARY_MAPPING,
-} from '../../../../../../../configs/codebase-mappings/library';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { SelectOption } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
-import {
-    CODEBASE_TYPE_APPLICATION,
-    CODEBASE_TYPE_AUTOTEST,
-    CODEBASE_TYPE_LIBRARY,
-} from '../../../../../constants';
+import { useChosenCodebaseLanguage } from '../../../hooks/useChosenCodebaseLanguage';
+import { getRecommendedJenkinsAgent } from '../../../utils';
 import { BuildToolProps } from './types';
 
 const { Grid } = MuiCore;
@@ -34,52 +23,24 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
     const onBuildToolChange = React.useCallback(
         event => {
             handleFormFieldChange(event);
-            const recommendedJenkinsAgent =
-                type === CODEBASE_TYPE_APPLICATION
-                    ? getApplicationRecommendedJenkinsAgent(
-                          langValue,
-                          frameworkValue,
-                          event.target.value
-                      )
-                    : type === CODEBASE_TYPE_LIBRARY
-                    ? getLibraryRecommendedJenkinsAgent(
-                          langValue,
-                          frameworkValue,
-                          event.target.value
-                      )
-                    : type === CODEBASE_TYPE_AUTOTEST
-                    ? null
-                    : null;
-            const jenkinsSlaveFakeTarget = {
+            const recommendedJenkinsAgent = getRecommendedJenkinsAgent(type, {
+                lang: langValue,
+                framework: frameworkValue,
+                buildTool: event.target.value,
+            });
+
+            setValue(names.jenkinsSlave.name, recommendedJenkinsAgent);
+            handleFormFieldChange({
                 target: {
                     name: names.jenkinsSlave.name,
                     value: recommendedJenkinsAgent,
                 },
-            };
-            setValue(names.jenkinsSlave.name, recommendedJenkinsAgent);
-            handleFormFieldChange(jenkinsSlaveFakeTarget);
+            });
         },
         [frameworkValue, handleFormFieldChange, langValue, names.jenkinsSlave.name, setValue, type]
     );
 
-    const codebaseMapping = React.useMemo(() => {
-        if (type === CODEBASE_TYPE_APPLICATION) {
-            return APPLICATION_MAPPING;
-        }
-
-        if (type === CODEBASE_TYPE_LIBRARY) {
-            return LIBRARY_MAPPING;
-        }
-
-        if (type === CODEBASE_TYPE_AUTOTEST) {
-            return AUTOTEST_MAPPING;
-        }
-    }, [type]);
-
-    const chosenLang = React.useMemo(
-        () => codebaseMapping[langValue],
-        [codebaseMapping, langValue]
-    );
+    const { chosenLang } = useChosenCodebaseLanguage({ watch, names, type });
 
     return (
         <Grid item xs={12}>
@@ -97,7 +58,7 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
                     return {
                         label: name,
                         value,
-                    };
+                    } as SelectOption;
                 })}
             />
         </Grid>

@@ -36,6 +36,7 @@ export const FormTextField = ({
                                 <TextField
                                     error={hasError}
                                     placeholder={placeholder}
+                                    inputRef={field.ref}
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment

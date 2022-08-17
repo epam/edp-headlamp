@@ -15,6 +15,11 @@ interface CodebaseBuildToolsInterface {
     value: string;
 }
 
+interface CodebaseAutoTestReportFrameworksInterface {
+    name: string;
+    value: string;
+}
+
 export interface CodebaseInterface {
     [key: string]: {
         language: CodebaseLangInterface;
@@ -25,10 +30,7 @@ export interface CodebaseInterface {
             [key: string]: CodebaseBuildToolsInterface;
         };
         autoTestReportFrameworks?: {
-            [key: string]: {
-                name: string;
-                value: string;
-            };
+            [key: string]: CodebaseAutoTestReportFrameworksInterface;
         };
     };
 }

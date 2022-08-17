@@ -11,6 +11,7 @@ export const FormCheckbox = ({
     label,
     control,
     errors,
+    disabled,
     ...props
 }: FormCheckboxProps): React.ReactElement => {
     const hasError = errors[name];
@@ -31,6 +32,7 @@ export const FormCheckbox = ({
                                             checked={!!field.value}
                                             inputRef={field.ref}
                                             onChange={e => field.onChange(e.target.checked)}
+                                            disabled={disabled}
                                         />
                                     }
                                     label={

@@ -15,7 +15,7 @@ export const Description = ({ names, handleFormFieldChange, type }: DescriptionP
     return (
         <Grid item xs={12}>
             <FormTextField
-                {...register(names.defaultBranch.name, {
+                {...register(names.description.name, {
                     required: `Enter ${type} description`,
                     onBlur: handleFormFieldChange,
                 })}

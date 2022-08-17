@@ -68,14 +68,14 @@ export const CreateCodebase = ({
     );
 
     return (
-        <>
-            <Dialog
-                open={open}
-                onClose={onClose}
-                maxWidth={'md'}
-                fullWidth
-                className={classes.dialogRoot}
-            >
+        <Dialog
+            open={open}
+            onClose={onClose}
+            maxWidth={'md'}
+            fullWidth
+            className={classes.dialogRoot}
+        >
+            <div className={classes.dialog} data-testid={'create-codebase'}>
                 <div className={classes.dialogTitle}>
                     <Typography variant={'h5'}>{`Create ${capitalizeFirstLetter(
                         type
@@ -98,7 +98,7 @@ export const CreateCodebase = ({
                         setDialogOpen={setOpen}
                     />
                 </DialogContent>
-            </Dialog>
-        </>
+            </div>
+        </Dialog>
     );
 };

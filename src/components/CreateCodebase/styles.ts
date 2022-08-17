@@ -9,6 +9,11 @@ export const useStyles = makeStyles(() => ({
             height: '100%',
         },
     },
+    dialog: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+    },
     dialogTitle: {
         display: 'flex',
         justifyContent: 'space-between',

@@ -1,13 +1,7 @@
 import { useFormContext } from 'react-hook-form';
-import { getApplicationRecommendedJenkinsAgent } from '../../../../../../../configs/codebase-mappings/application';
-import { getLibraryRecommendedJenkinsAgent } from '../../../../../../../configs/codebase-mappings/library';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
 import { FormSelect } from '../../../../../../FormComponents';
-import {
-    CODEBASE_TYPE_APPLICATION,
-    CODEBASE_TYPE_AUTOTEST,
-    CODEBASE_TYPE_LIBRARY,
-} from '../../../../../constants';
+import { getRecommendedJenkinsAgent } from '../../../utils';
 import { NamespaceProps } from './types';
 
 const { Grid } = MuiCore;
@@ -28,13 +22,11 @@ export const Namespace = ({ names, handleFormFieldChange, namespaces, type }: Na
     const buildToolValue = watch(names.buildTool.name);
     const recommendedJenkinsAgent = React.useMemo(() => {
         if (namespaceFieldValue) {
-            return type === CODEBASE_TYPE_APPLICATION
-                ? getApplicationRecommendedJenkinsAgent(langValue, frameworkValue, buildToolValue)
-                : type === CODEBASE_TYPE_LIBRARY
-                ? getLibraryRecommendedJenkinsAgent(langValue, frameworkValue, buildToolValue)
-                : type === CODEBASE_TYPE_AUTOTEST
-                ? null
-                : null;
+            return getRecommendedJenkinsAgent(type, {
+                lang: langValue,
+                framework: frameworkValue,
+                buildTool: buildToolValue,
+            });
         }
     }, [buildToolValue, frameworkValue, langValue, namespaceFieldValue, type]);
 

@@ -1,13 +1,7 @@
 import { useFormContext } from 'react-hook-form';
-import {
-    APPLICATION_MAPPING,
-    getApplicationRecommendedJenkinsAgent,
-} from '../../../../../../../configs/codebase-mappings/application';
+import { APPLICATION_MAPPING } from '../../../../../../../configs/codebase-mappings/application';
 import { AUTOTEST_MAPPING } from '../../../../../../../configs/codebase-mappings/autotest';
-import {
-    getLibraryRecommendedJenkinsAgent,
-    LIBRARY_MAPPING,
-} from '../../../../../../../configs/codebase-mappings/library';
+import { LIBRARY_MAPPING } from '../../../../../../../configs/codebase-mappings/library';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
 import { capitalizeFirstLetter } from '../../../../../../../utils/format/capitalizeFirstLetter';
 import { FormRadio } from '../../../../../../FormComponents/FormRadio';
@@ -16,6 +10,7 @@ import {
     CODEBASE_TYPE_AUTOTEST,
     CODEBASE_TYPE_LIBRARY,
 } from '../../../../../constants';
+import { getRecommendedJenkinsAgent } from '../../../utils';
 import { LangProps } from './types';
 
 const { Grid } = MuiCore;
@@ -64,54 +59,44 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
     const onLangChange = React.useCallback(
         event => {
             handleFormFieldChange(event);
+
             resetField(names.jenkinsSlave.name);
-            const jenkinsSlaveUndefinedFakeTarget = {
+            handleFormFieldChange({
                 target: {
                     name: names.jenkinsSlave.name,
                     value: undefined,
                 },
-            };
-            handleFormFieldChange(jenkinsSlaveUndefinedFakeTarget);
-            const frameworkFakeTarget = {
+            });
+
+            resetField(names.framework.name);
+            handleFormFieldChange({
                 target: {
                     name: names.framework.name,
                     value: undefined,
                 },
-            };
-            resetField(names.framework.name);
-            handleFormFieldChange(frameworkFakeTarget);
-            const buildToolFakeTarget = {
+            });
+
+            resetField(names.buildTool.name);
+            handleFormFieldChange({
                 target: {
                     name: names.buildTool.name,
                     value: undefined,
                 },
-            };
-            resetField(names.buildTool.name);
-            handleFormFieldChange(buildToolFakeTarget);
-            const recommendedJenkinsAgent =
-                type === CODEBASE_TYPE_APPLICATION
-                    ? getApplicationRecommendedJenkinsAgent(
-                          event.target.value,
-                          frameworkValue,
-                          buildToolValue
-                      )
-                    : type === CODEBASE_TYPE_LIBRARY
-                    ? getLibraryRecommendedJenkinsAgent(
-                          event.target.value,
-                          frameworkValue,
-                          buildToolValue
-                      )
-                    : type === CODEBASE_TYPE_AUTOTEST
-                    ? null
-                    : null;
-            const jenkinsSlaveFakeTarget = {
+            });
+
+            const recommendedJenkinsAgent = getRecommendedJenkinsAgent(type, {
+                lang: event.target.value,
+                framework: frameworkValue,
+                buildTool: buildToolValue,
+            });
+
+            setValue(names.jenkinsSlave.name, recommendedJenkinsAgent);
+            handleFormFieldChange({
                 target: {
                     name: names.jenkinsSlave.name,
                     value: recommendedJenkinsAgent,
                 },
-            };
-            setValue(names.jenkinsSlave.name, recommendedJenkinsAgent);
-            handleFormFieldChange(jenkinsSlaveFakeTarget);
+            });
         },
         [
             buildToolValue,

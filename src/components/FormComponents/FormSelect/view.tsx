@@ -52,6 +52,7 @@ export const FormSelect = ({
                                     return (
                                         <Select
                                             {...field}
+                                            inputRef={field.ref}
                                             error={hasError}
                                             displayEmpty
                                             disabled={disabled}

@@ -1,0 +1,3887 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateCodebase codebase type - application should render correctly 1`] = `
+<div
+  class="makeStyles-dialog-2"
+  data-testid="create-codebase"
+>
+  <div
+    class="makeStyles-dialogTitle-3"
+  >
+    <h5
+      class="MuiTypography-root MuiTypography-h5"
+    >
+      Create Application
+    </h5>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        <span
+          class="MuiButton-startIcon MuiButton-iconSizeSmall"
+        >
+          <span />
+        </span>
+        Edit YAML
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+  <div
+    class="MuiDialogContent-root makeStyles-dialogContent-4"
+  >
+    <div
+      class="MuiTabs-root makeStyles-tabs-7 MuiTabs-vertical"
+    >
+      <div
+        class="MuiTabs-scroller MuiTabs-fixed"
+        style="overflow: hidden;"
+      >
+        <div
+          aria-label="simple tabs example"
+          class="MuiTabs-flexContainer MuiTabs-flexContainerVertical"
+          role="tablist"
+        >
+          <button
+            aria-controls="simple-tabpanel-0"
+            aria-selected="true"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected"
+            id="simple-tab-0"
+            role="tab"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Codebase info
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-controls="simple-tabpanel-1"
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary"
+            id="simple-tab-1"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Application info
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-controls="simple-tabpanel-2"
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary"
+            id="simple-tab-2"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Advanced settings
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+        <span
+          class="PrivateTabIndicator-root-11 PrivateTabIndicator-colorPrimary-12 MuiTabs-indicator PrivateTabIndicator-vertical-14"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+    </div>
+    <div
+      class="makeStyles-form-5"
+    >
+      <form>
+        <div
+          class="makeStyles-formInner-6"
+        >
+          <div
+            aria-labelledby="simple-tab-0"
+            class="makeStyles-tabPanel-8"
+            id="simple-tabpanel-0"
+            role="tabpanel"
+          >
+            <div
+              class="makeStyles-tabPanelInner-9"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-16"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                            >
+                              Namespace
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-15 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-namespace"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-namespace"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Namespace
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="namespace"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-16"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                            >
+                              Codebase Integration Strategy
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-strategy"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-strategy"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Create
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="strategy"
+                                tabindex="-1"
+                                value="create"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="simple-tab-1"
+            class="makeStyles-tabPanel-8"
+            hidden=""
+            id="simple-tabpanel-1"
+            role="tabpanel"
+          >
+            <div
+              class="makeStyles-tabPanelInner-9"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-16"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                            >
+                              Application Name
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiTextField-root"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            >
+                              <div
+                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                style="margin-right: 0px;"
+                              />
+                              <input
+                                aria-invalid="false"
+                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                name="name"
+                                placeholder="Type your application name"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-16"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                            >
+                              Default branch
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiTextField-root"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            >
+                              <div
+                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                style="margin-right: 0px;"
+                              />
+                              <input
+                                aria-invalid="false"
+                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                name="defaultBranch"
+                                placeholder="Type default branch name"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiFormControl-root"
+                      >
+                        <label
+                          class="MuiFormControlLabel-root"
+                        >
+                          <span
+                            aria-disabled="false"
+                            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-18 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
+                          >
+                            <span
+                              class="MuiIconButton-label"
+                            >
+                              <input
+                                class="PrivateSwitchBase-input-21"
+                                data-indeterminate="false"
+                                name="emptyProject"
+                                type="checkbox"
+                                value="false"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="MuiTouchRipple-root"
+                            />
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                          >
+                            <span
+                              style="display: inline-block; margin-top: 0.125rem;"
+                            >
+                              <span
+                                class="makeStyles-labelWrap-16"
+                              >
+                                <span
+                                  class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                                >
+                                  Empty project
+                                </span>
+                                <span />
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiFormControl-root"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                        >
+                          <div
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                          >
+                            <span
+                              class="makeStyles-labelWrap-16"
+                            >
+                              <span
+                                class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                              >
+                                Application Code Language
+                              </span>
+                              <span />
+                            </span>
+                          </div>
+                          <div
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                          >
+                            <div
+                              class="MuiFormGroup-root makeStyles-radioGroup-22 MuiFormGroup-row"
+                              role="radiogroup"
+                            >
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-23"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-25"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-18 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-21"
+                                        name="lang"
+                                        type="radio"
+                                        value="Java"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Java
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-23"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-25"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-18 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-21"
+                                        name="lang"
+                                        type="radio"
+                                        value="JavaScript"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    JavaScript
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-23"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-25"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-18 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-21"
+                                        name="lang"
+                                        type="radio"
+                                        value="DotNet"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    DotNet
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-23"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-25"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-18 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-21"
+                                        name="lang"
+                                        type="radio"
+                                        value="Python"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Python
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-23"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-25"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-18 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-21"
+                                        name="lang"
+                                        type="radio"
+                                        value="Go"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Go
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-23"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-25"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-18 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-21"
+                                        name="lang"
+                                        type="radio"
+                                        value="other"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Other
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="simple-tab-2"
+            class="makeStyles-tabPanel-8"
+            hidden=""
+            id="simple-tabpanel-2"
+            role="tabpanel"
+          >
+            <div
+              class="makeStyles-tabPanelInner-9"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-16"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                            >
+                              CI pipeline provisioner
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-15 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-jobProvisioning"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-jobProvisioning"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Select CI pipeline provisioner
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="jobProvisioning"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-16"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                            >
+                              Jenkins Agent
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-15 Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-disabled="true"
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-jenkinsSlave"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled Mui-disabled"
+                                id="mui-component-select-jenkinsSlave"
+                                role="button"
+                              >
+                                Select namespace first
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="jenkinsSlave"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon Mui-disabled"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-16"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                            >
+                              Codebase Versioning Type
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-15 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-versioningType"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-versioningType"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Select codebase Versioning Type
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="versioningType"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-16"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                            >
+                              Deployment Script
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-15 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-deploymentScript"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-deploymentScript"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Select deployment Script
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="deploymentScript"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-16"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                            >
+                              Select CI tool
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-ciTool"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-ciTool"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Jenkins
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="ciTool"
+                                tabindex="-1"
+                                value="jenkins"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiFormControl-root"
+                      >
+                        <label
+                          class="MuiFormControlLabel-root Mui-disabled"
+                        >
+                          <span
+                            aria-disabled="true"
+                            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-18 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-disabled-20 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled"
+                            tabindex="-1"
+                          >
+                            <span
+                              class="MuiIconButton-label"
+                            >
+                              <input
+                                class="PrivateSwitchBase-input-21"
+                                data-indeterminate="false"
+                                disabled=""
+                                name="hasJiraServerIntegration"
+                                type="checkbox"
+                                value="false"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
+                          >
+                            <span
+                              style="display: inline-block; margin-top: 0.125rem;"
+                            >
+                              <span
+                                class="makeStyles-labelWrap-16"
+                              >
+                                <span
+                                  class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                                >
+                                  Integrate with Jira server
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="makeStyles-tabPanelActions-10"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              undo changes
+            </span>
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+            style="margin-left: auto;"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              cancel
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              proceed
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
+<div
+  class="makeStyles-dialog-52"
+  data-testid="create-codebase"
+>
+  <div
+    class="makeStyles-dialogTitle-53"
+  >
+    <h5
+      class="MuiTypography-root MuiTypography-h5"
+    >
+      Create Autotest
+    </h5>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        <span
+          class="MuiButton-startIcon MuiButton-iconSizeSmall"
+        >
+          <span />
+        </span>
+        Edit YAML
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+  <div
+    class="MuiDialogContent-root makeStyles-dialogContent-54"
+  >
+    <div
+      class="MuiTabs-root makeStyles-tabs-57 MuiTabs-vertical"
+    >
+      <div
+        class="MuiTabs-scroller MuiTabs-fixed"
+        style="overflow: hidden;"
+      >
+        <div
+          aria-label="simple tabs example"
+          class="MuiTabs-flexContainer MuiTabs-flexContainerVertical"
+          role="tablist"
+        >
+          <button
+            aria-controls="simple-tabpanel-0"
+            aria-selected="true"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected"
+            id="simple-tab-0"
+            role="tab"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Codebase info
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-controls="simple-tabpanel-1"
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary"
+            id="simple-tab-1"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Autotest info
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-controls="simple-tabpanel-2"
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary"
+            id="simple-tab-2"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Advanced settings
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+        <span
+          class="PrivateTabIndicator-root-61 PrivateTabIndicator-colorPrimary-62 MuiTabs-indicator PrivateTabIndicator-vertical-64"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+    </div>
+    <div
+      class="makeStyles-form-55"
+    >
+      <form>
+        <div
+          class="makeStyles-formInner-56"
+        >
+          <div
+            aria-labelledby="simple-tab-0"
+            class="makeStyles-tabPanel-58"
+            id="simple-tabpanel-0"
+            role="tabpanel"
+          >
+            <div
+              class="makeStyles-tabPanelInner-59"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              Namespace
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-65 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-namespace"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-namespace"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Namespace
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="namespace"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              Codebase Integration Strategy
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-strategy"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-strategy"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Clone
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="strategy"
+                                tabindex="-1"
+                                value="clone"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              Git Repository URL
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiTextField-root"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            >
+                              <div
+                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                style="margin-right: 0px;"
+                              />
+                              <input
+                                aria-invalid="false"
+                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                name="repositoryUrl"
+                                placeholder="http(s)://git.sample.com/sample.git"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiFormControl-root"
+                      >
+                        <label
+                          class="MuiFormControlLabel-root"
+                        >
+                          <span
+                            aria-disabled="false"
+                            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-68 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
+                          >
+                            <span
+                              class="MuiIconButton-label"
+                            >
+                              <input
+                                class="PrivateSwitchBase-input-71"
+                                data-indeterminate="false"
+                                name="hasCodebaseAuth"
+                                type="checkbox"
+                                value="false"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="MuiTouchRipple-root"
+                            />
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                          >
+                            <span
+                              style="display: inline-block; margin-top: 0.125rem;"
+                            >
+                              <span
+                                class="makeStyles-labelWrap-66"
+                              >
+                                <span
+                                  class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                                >
+                                  Codebase Authentication
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="simple-tab-1"
+            class="makeStyles-tabPanel-58"
+            hidden=""
+            id="simple-tabpanel-1"
+            role="tabpanel"
+          >
+            <div
+              class="makeStyles-tabPanelInner-59"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              Autotest Name
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiTextField-root"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            >
+                              <div
+                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                style="margin-right: 0px;"
+                              />
+                              <input
+                                aria-invalid="false"
+                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                name="name"
+                                placeholder="Type your autotest name"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              Default branch
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiTextField-root"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            >
+                              <div
+                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                style="margin-right: 0px;"
+                              />
+                              <input
+                                aria-invalid="false"
+                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                name="defaultBranch"
+                                placeholder="Type default branch name"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              Description
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiTextField-root"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            >
+                              <div
+                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                style="margin-right: 0px;"
+                              />
+                              <input
+                                aria-invalid="false"
+                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                name="description"
+                                placeholder="Enter autotest description"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiFormControl-root"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                        >
+                          <div
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                          >
+                            <span
+                              class="makeStyles-labelWrap-66"
+                            >
+                              <span
+                                class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                              >
+                                Autotest Code Language
+                              </span>
+                              <span />
+                            </span>
+                          </div>
+                          <div
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                          >
+                            <div
+                              class="MuiFormGroup-root makeStyles-radioGroup-72 MuiFormGroup-row"
+                              role="radiogroup"
+                            >
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-73"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-75"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-68 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-71"
+                                        name="lang"
+                                        type="radio"
+                                        value="Java"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Java
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-73"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-75"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-68 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-71"
+                                        name="lang"
+                                        type="radio"
+                                        value="other"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Other
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              Autotest Report Framework
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-65 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-testReportFramework"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-testReportFramework"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Autotest Report Framework
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="testReportFramework"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="simple-tab-2"
+            class="makeStyles-tabPanel-58"
+            hidden=""
+            id="simple-tabpanel-2"
+            role="tabpanel"
+          >
+            <div
+              class="makeStyles-tabPanelInner-59"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              CI pipeline provisioner
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-65 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-jobProvisioning"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-jobProvisioning"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Select CI pipeline provisioner
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="jobProvisioning"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              Jenkins Agent
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-65 Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-disabled="true"
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-jenkinsSlave"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled Mui-disabled"
+                                id="mui-component-select-jenkinsSlave"
+                                role="button"
+                              >
+                                Select namespace first
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="jenkinsSlave"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon Mui-disabled"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              Codebase Versioning Type
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-65 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-versioningType"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-versioningType"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Select codebase Versioning Type
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="versioningType"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-66"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                            >
+                              Select CI tool
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-ciTool"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-ciTool"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Jenkins
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="ciTool"
+                                tabindex="-1"
+                                value="jenkins"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiFormControl-root"
+                      >
+                        <label
+                          class="MuiFormControlLabel-root Mui-disabled"
+                        >
+                          <span
+                            aria-disabled="true"
+                            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-68 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-disabled-70 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled"
+                            tabindex="-1"
+                          >
+                            <span
+                              class="MuiIconButton-label"
+                            >
+                              <input
+                                class="PrivateSwitchBase-input-71"
+                                data-indeterminate="false"
+                                disabled=""
+                                name="hasJiraServerIntegration"
+                                type="checkbox"
+                                value="false"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
+                          >
+                            <span
+                              style="display: inline-block; margin-top: 0.125rem;"
+                            >
+                              <span
+                                class="makeStyles-labelWrap-66"
+                              >
+                                <span
+                                  class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
+                                >
+                                  Integrate with Jira server
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="makeStyles-tabPanelActions-60"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              undo changes
+            </span>
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+            style="margin-left: auto;"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              cancel
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              proceed
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CreateCodebase codebase type - library should render correctly 1`] = `
+<div
+  class="makeStyles-dialog-27"
+  data-testid="create-codebase"
+>
+  <div
+    class="makeStyles-dialogTitle-28"
+  >
+    <h5
+      class="MuiTypography-root MuiTypography-h5"
+    >
+      Create Library
+    </h5>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        <span
+          class="MuiButton-startIcon MuiButton-iconSizeSmall"
+        >
+          <span />
+        </span>
+        Edit YAML
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+  <div
+    class="MuiDialogContent-root makeStyles-dialogContent-29"
+  >
+    <div
+      class="MuiTabs-root makeStyles-tabs-32 MuiTabs-vertical"
+    >
+      <div
+        class="MuiTabs-scroller MuiTabs-fixed"
+        style="overflow: hidden;"
+      >
+        <div
+          aria-label="simple tabs example"
+          class="MuiTabs-flexContainer MuiTabs-flexContainerVertical"
+          role="tablist"
+        >
+          <button
+            aria-controls="simple-tabpanel-0"
+            aria-selected="true"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected"
+            id="simple-tab-0"
+            role="tab"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Codebase info
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-controls="simple-tabpanel-1"
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary"
+            id="simple-tab-1"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Library info
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            aria-controls="simple-tabpanel-2"
+            aria-selected="false"
+            class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary"
+            id="simple-tab-2"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiTab-wrapper"
+            >
+              Advanced settings
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+        <span
+          class="PrivateTabIndicator-root-36 PrivateTabIndicator-colorPrimary-37 MuiTabs-indicator PrivateTabIndicator-vertical-39"
+          style="top: 0px; height: 0px;"
+        />
+      </div>
+    </div>
+    <div
+      class="makeStyles-form-30"
+    >
+      <form>
+        <div
+          class="makeStyles-formInner-31"
+        >
+          <div
+            aria-labelledby="simple-tab-0"
+            class="makeStyles-tabPanel-33"
+            id="simple-tabpanel-0"
+            role="tabpanel"
+          >
+            <div
+              class="makeStyles-tabPanelInner-34"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-41"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                            >
+                              Namespace
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-40 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-namespace"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-namespace"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Namespace
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="namespace"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-41"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                            >
+                              Codebase Integration Strategy
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-strategy"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-strategy"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Create
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="strategy"
+                                tabindex="-1"
+                                value="create"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="simple-tab-1"
+            class="makeStyles-tabPanel-33"
+            hidden=""
+            id="simple-tabpanel-1"
+            role="tabpanel"
+          >
+            <div
+              class="makeStyles-tabPanelInner-34"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-41"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                            >
+                              Library Name
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiTextField-root"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            >
+                              <div
+                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                style="margin-right: 0px;"
+                              />
+                              <input
+                                aria-invalid="false"
+                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                name="name"
+                                placeholder="Type your library name"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-41"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                            >
+                              Default branch
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiTextField-root"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            >
+                              <div
+                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                style="margin-right: 0px;"
+                              />
+                              <input
+                                aria-invalid="false"
+                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                name="defaultBranch"
+                                placeholder="Type default branch name"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiFormControl-root"
+                      >
+                        <label
+                          class="MuiFormControlLabel-root"
+                        >
+                          <span
+                            aria-disabled="false"
+                            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
+                          >
+                            <span
+                              class="MuiIconButton-label"
+                            >
+                              <input
+                                class="PrivateSwitchBase-input-46"
+                                data-indeterminate="false"
+                                name="emptyProject"
+                                type="checkbox"
+                                value="false"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="MuiTouchRipple-root"
+                            />
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                          >
+                            <span
+                              style="display: inline-block; margin-top: 0.125rem;"
+                            >
+                              <span
+                                class="makeStyles-labelWrap-41"
+                              >
+                                <span
+                                  class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                                >
+                                  Empty project
+                                </span>
+                                <span />
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiFormControl-root"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                        >
+                          <div
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                          >
+                            <span
+                              class="makeStyles-labelWrap-41"
+                            >
+                              <span
+                                class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                              >
+                                Library Code Language
+                              </span>
+                              <span />
+                            </span>
+                          </div>
+                          <div
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                          >
+                            <div
+                              class="MuiFormGroup-root makeStyles-radioGroup-47 MuiFormGroup-row"
+                              role="radiogroup"
+                            >
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="Java"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Java
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="JavaScript"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    JavaScript
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="DotNet"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    DotNet
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="Python"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Python
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="groovy-pipeline"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Groovy-pipeline
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="terraform"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Terraform
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="rego"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Rego
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="container"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Container
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="kubernetes"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Kubernetes
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="gitops"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    GitOps
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
+                                tabindex="0"
+                                type="button"
+                              >
+                                <label
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                >
+                                  <span
+                                    aria-disabled="false"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                  >
+                                    <span
+                                      class="MuiIconButton-label"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input-46"
+                                        name="lang"
+                                        type="radio"
+                                        value="other"
+                                      />
+                                      <img
+                                        alt=""
+                                        height="20"
+                                        style="object-fit: contain;"
+                                        width="20"
+                                      />
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                  >
+                                    Other
+                                  </span>
+                                </label>
+                                <span
+                                  class="MuiTouchRipple-root"
+                                />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-labelledby="simple-tab-2"
+            class="makeStyles-tabPanel-33"
+            hidden=""
+            id="simple-tabpanel-2"
+            role="tabpanel"
+          >
+            <div
+              class="makeStyles-tabPanelInner-34"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-41"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                            >
+                              CI pipeline provisioner
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-40 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-jobProvisioning"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-jobProvisioning"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Select CI pipeline provisioner
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="jobProvisioning"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-41"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                            >
+                              Jenkins Agent
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-40 Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-disabled="true"
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-jenkinsSlave"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled Mui-disabled"
+                                id="mui-component-select-jenkinsSlave"
+                                role="button"
+                              >
+                                Select namespace first
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="jenkinsSlave"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon Mui-disabled"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-41"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                            >
+                              Codebase Versioning Type
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-40 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-versioningType"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-versioningType"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Select codebase Versioning Type
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="versioningType"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-41"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                            >
+                              Deployment Script
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-40 MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-deploymentScript"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-deploymentScript"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Select deployment Script
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="deploymentScript"
+                                tabindex="-1"
+                                value=""
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <span
+                            class="makeStyles-labelWrap-41"
+                          >
+                            <span
+                              class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                            >
+                              Select CI tool
+                            </span>
+                            <span />
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        >
+                          <div
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                          >
+                            <div
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                            >
+                              <div
+                                aria-haspopup="listbox"
+                                aria-labelledby="mui-component-select-ciTool"
+                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                id="mui-component-select-ciTool"
+                                role="button"
+                                tabindex="0"
+                              >
+                                Jenkins
+                              </div>
+                              <input
+                                aria-hidden="true"
+                                class="MuiSelect-nativeInput"
+                                name="ciTool"
+                                tabindex="-1"
+                                value="jenkins"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSelect-icon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <div
+                        class="MuiFormControl-root"
+                      >
+                        <label
+                          class="MuiFormControlLabel-root Mui-disabled"
+                        >
+                          <span
+                            aria-disabled="true"
+                            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-disabled-45 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled"
+                            tabindex="-1"
+                          >
+                            <span
+                              class="MuiIconButton-label"
+                            >
+                              <input
+                                class="PrivateSwitchBase-input-46"
+                                data-indeterminate="false"
+                                disabled=""
+                                name="hasJiraServerIntegration"
+                                type="checkbox"
+                                value="false"
+                              />
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
+                          >
+                            <span
+                              style="display: inline-block; margin-top: 0.125rem;"
+                            >
+                              <span
+                                class="makeStyles-labelWrap-41"
+                              >
+                                <span
+                                  class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
+                                >
+                                  Integrate with Jira server
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="makeStyles-tabPanelActions-35"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              undo changes
+            </span>
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+            style="margin-left: auto;"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              cancel
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              proceed
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

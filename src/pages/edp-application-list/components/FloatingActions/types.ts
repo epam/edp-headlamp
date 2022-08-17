@@ -1,3 +1,1 @@
-export interface FloatingActionsProps {
-    namespace: string;
-}
+export interface FloatingActionsProps {}

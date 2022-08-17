@@ -1,17 +1,11 @@
 import type { DialogProps } from '@material-ui/core/Dialog';
-import hasLodash from 'lodash.has';
 import { FormProvider, useForm } from 'react-hook-form';
-import { creationStrategies } from '../../../../configs/creationStrategies';
-import { createApplicationExample } from '../../../../configs/kube-examples/edp-application';
-import { createAutotestExample } from '../../../../configs/kube-examples/edp-autotest';
-import { createLibraryExample } from '../../../../configs/kube-examples/edp-library';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { DeepPartial } from '../../../../types/global';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { Render } from '../../../Render';
 import {
-    BACKWARDS_NAME_MAPPING,
     CODEBASE_TYPE_APPLICATION,
     CODEBASE_TYPE_AUTOTEST,
     CODEBASE_TYPE_LIBRARY,
@@ -29,7 +23,11 @@ import { LibraryAdvancedSettingsFormPart } from './components/LibraryAdvancedSet
 import { LibraryCodebaseInfoFormPart } from './components/LibraryCodebaseInfoFormPart';
 import { LibraryCodebaseTypeInfoFormPart } from './components/LibraryCodebaseTypeInfoFormPart';
 import { TabPanel } from './components/TabPanel';
-import { APPLICATION_NAMES, AUTOTEST_NAMES, LIBRARY_NAMES, TAB_INDEXES } from './constants';
+import { TAB_INDEXES } from './constants';
+import { useDefaultValues } from './hooks/useDefaultValues';
+import { useEditorCode } from './hooks/useEditorCode';
+import { useHandleEditorSave } from './hooks/useHandleEditorSave';
+import { useNames } from './hooks/useNames';
 import { useStyles } from './styles';
 import { CreateCodebasenFormProps } from './types';
 
@@ -61,47 +59,8 @@ export const CreateCodebaseForm = ({
         TAB_INDEXES[FORM_PART_CODEBASE_INFO]
     );
 
-    const names = React.useMemo(() => {
-        if (type === CODEBASE_TYPE_APPLICATION) {
-            return APPLICATION_NAMES;
-        }
-
-        if (type === CODEBASE_TYPE_LIBRARY) {
-            return LIBRARY_NAMES;
-        }
-
-        if (type === CODEBASE_TYPE_AUTOTEST) {
-            return AUTOTEST_NAMES;
-        }
-    }, [type]);
-
-    const baseDefaultValues = React.useMemo(() => {
-        if (type === CODEBASE_TYPE_APPLICATION) {
-            return {
-                [names.strategy.name]: creationStrategies.create.value,
-                [names.gitServer.name]: 'gerrit',
-                [names.ciTool.name]: 'jenkins',
-                [names.emptyProject.name]: false,
-            };
-        }
-
-        if (type === CODEBASE_TYPE_LIBRARY) {
-            return {
-                [names.strategy.name]: creationStrategies.create.value,
-                [names.gitServer.name]: 'gerrit',
-                [names.ciTool.name]: 'jenkins',
-                [names.emptyProject.name]: false,
-            };
-        }
-
-        if (type === CODEBASE_TYPE_AUTOTEST) {
-            return {
-                [names.strategy.name]: creationStrategies.clone.value,
-                [names.gitServer.name]: 'gerrit',
-                [names.ciTool.name]: 'jenkins',
-            };
-        }
-    }, [names, type]);
+    const { names } = useNames({ type });
+    const { baseDefaultValues } = useDefaultValues({ names, type });
 
     const [formValues, setFormValues] =
         React.useState<DeepPartial<EDPCodebaseKubeObjectInterface>>(baseDefaultValues);
@@ -154,98 +113,22 @@ export const CreateCodebaseForm = ({
         reset();
     }, [baseDefaultValues, reset]);
 
-    const handleEditorSave = React.useCallback(
-        editorPropsObject => {
-            /*
-            This is the example of values we get on editorSave
+    const { handleEditorSave } = useHandleEditorSave({
+        names,
+        setValue,
+        handleFormFieldChange,
+        formValues,
+        resetField,
+    });
 
-                {
-                    "apiVersion": "v2.edp.epam.com/v1",
-                    "kind": "Codebase",
-                    "spec": {
-                        "type": "application",
-                        "versioning": {
-                            "type": "default"
-                        },
-                    },
-                    "metadata": {
-                        "name": "app-test",
-                        "namespace": "edp-delivery-vp-delivery-dev"
-                    }
-                }
+    const { editorCode } = useEditorCode({ names, formValues, type });
 
-            The value objects like versioning have to be mapped to form names in order to setValues in form state and so on
-            for example value object versioning: {type: 'default'} have to be mapped to versioningType form name value
-
-
-             */
-            for (const editorPropsObjectKey in editorPropsObject) {
-                if (editorPropsObjectKey === 'spec' || editorPropsObjectKey === 'metadata') {
-                    // we don't have to handle any other values except spec and metadata for now
-                    const editorRootProp = editorPropsObject[editorPropsObjectKey]; // spec or metadata object
-                    for (const editorRootPropKey in editorRootProp) {
-                        if (editorRootPropKey in BACKWARDS_NAME_MAPPING) {
-                            // if spec prop is a complex object like versioning that has children i.e. type, startFrom
-                            const complexNameObject = BACKWARDS_NAME_MAPPING[editorRootPropKey];
-                            const complexObject = editorRootProp[editorRootPropKey];
-
-                            for (const complexObjectKey in complexObject) {
-                                //loop through complex object mapping to setValue based on children name
-                                if (complexObjectKey in complexNameObject.children) {
-                                    const { formItemName } =
-                                        complexNameObject.children[complexObjectKey];
-
-                                    setValue(
-                                        names[formItemName].name,
-                                        complexObject[complexObjectKey]
-                                    );
-                                    handleFormFieldChange({
-                                        target: {
-                                            name: names[formItemName].name,
-                                            value: complexObject[complexObjectKey],
-                                        },
-                                    });
-                                }
-                            }
-                        } else {
-                            // for simple flat values
-                            setValue(
-                                names[editorRootPropKey].name,
-                                editorRootProp[editorRootPropKey]
-                            );
-                            handleFormFieldChange({
-                                target: {
-                                    name: names[editorRootPropKey].name,
-                                    value: editorRootProp[editorRootPropKey],
-                                },
-                            });
-                        }
-                    }
-                }
-            }
-            /*
-                Deletion process
-
-                When comparing formValues from state and the values we get on editorSave
-                we check if formValue still exists in those values and if not we delete it from form state
-
-            */
-            for (const prop in formValues) {
-                const propNameObjectPath = names[prop].path;
-                if (!hasLodash(editorPropsObject, propNameObjectPath)) {
-                    resetField(names[prop].name);
-                    const propTargetObject = {
-                        target: {
-                            name: names[prop].name,
-                            value: undefined,
-                        },
-                    };
-                    handleFormFieldChange(propTargetObject);
-                }
-            }
+    const onEditorSave = React.useCallback(
+        (editorPropsObject: EDPCodebaseKubeObjectInterface) => {
+            handleEditorSave(editorPropsObject);
             setEditorOpen(false);
         },
-        [formValues, handleFormFieldChange, names, resetField, setEditorOpen, setValue]
+        [handleEditorSave, setEditorOpen]
     );
 
     const handleValidationError = React.useCallback(
@@ -262,23 +145,9 @@ export const CreateCodebaseForm = ({
         open: editorOpen,
     };
 
-    const editorDialogCode = React.useMemo(() => {
-        if (type === CODEBASE_TYPE_APPLICATION) {
-            return createApplicationExample(names, formValues);
-        }
-
-        if (type === CODEBASE_TYPE_LIBRARY) {
-            return createLibraryExample(names, formValues);
-        }
-
-        if (type === CODEBASE_TYPE_AUTOTEST) {
-            return createAutotestExample(names, formValues);
-        }
-    }, [formValues, names, type]);
-
     const onSubmit = React.useCallback(() => {
-        handleApply(editorDialogCode);
-    }, [editorDialogCode, handleApply]);
+        handleApply(editorCode);
+    }, [editorCode, handleApply]);
 
     return (
         <FormProvider {...methods}>
@@ -433,9 +302,9 @@ export const CreateCodebaseForm = ({
             <Render condition={!!editorOpen}>
                 <EditorDialog
                     {...muDialogProps}
-                    item={editorDialogCode}
+                    item={editorCode}
                     onClose={() => setEditorOpen(false)}
-                    onSave={handleEditorSave}
+                    onSave={onEditorSave}
                 />
             </Render>
         </FormProvider>

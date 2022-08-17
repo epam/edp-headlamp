@@ -9,6 +9,7 @@ const { Grid } = MuiCore;
 export const JiraServerIntegration = ({
     names,
     handleFormFieldChange,
+    isDisabled,
 }: JiraServerIntegrationProps) => {
     const {
         register,
@@ -25,6 +26,7 @@ export const JiraServerIntegration = ({
                 label={<FormControlLabelWithTooltip label={'Integrate with Jira server'} />}
                 control={control}
                 errors={errors}
+                disabled={isDisabled}
             />
         </Grid>
     );

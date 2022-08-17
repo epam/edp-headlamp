@@ -1,14 +1,7 @@
 import { useFormContext } from 'react-hook-form';
-import { APPLICATION_MAPPING } from '../../../../../../configs/codebase-mappings/application';
-import { AUTOTEST_MAPPING } from '../../../../../../configs/codebase-mappings/autotest';
-import { LIBRARY_MAPPING } from '../../../../../../configs/codebase-mappings/library';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
-import {
-    CODEBASE_TYPE_APPLICATION,
-    CODEBASE_TYPE_AUTOTEST,
-    CODEBASE_TYPE_LIBRARY,
-} from '../../../../constants';
+import { useChosenCodebaseLanguage } from '../../hooks/useChosenCodebaseLanguage';
 import { BuildTool, DefaultBranch, EmptyProject, Framework, Lang, Name } from '../fields';
 import { LibraryCodebaseTypeInfoFormPartProps } from './types';
 
@@ -21,26 +14,9 @@ export const LibraryCodebaseTypeInfoFormPart = ({
 }: LibraryCodebaseTypeInfoFormPartProps): React.ReactElement => {
     const { watch } = useFormContext();
 
-    const codebaseMapping = React.useMemo(() => {
-        if (type === CODEBASE_TYPE_APPLICATION) {
-            return APPLICATION_MAPPING;
-        }
-
-        if (type === CODEBASE_TYPE_LIBRARY) {
-            return LIBRARY_MAPPING;
-        }
-
-        if (type === CODEBASE_TYPE_AUTOTEST) {
-            return AUTOTEST_MAPPING;
-        }
-    }, [type]);
-
     const langValue = watch(names.lang.name);
 
-    const chosenLang = React.useMemo(
-        () => codebaseMapping[langValue],
-        [codebaseMapping, langValue]
-    );
+    const { chosenLang } = useChosenCodebaseLanguage({ watch, names, type });
 
     return (
         <ErrorBoundary>

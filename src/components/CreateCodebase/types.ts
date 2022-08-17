@@ -3,5 +3,4 @@ export interface CreateCodebaseProps {
     open: boolean;
     onClose(): void;
     setOpen(boolean): void;
-    namespace: string;
 }

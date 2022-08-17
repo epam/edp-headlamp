@@ -1,23 +1,25 @@
 import lodashSet from 'lodash.set';
+import { CODEBASE_TYPE_AUTOTEST } from '../../../components/CreateCodebase/constants';
 import { EDPCodebaseKubeObjectConfig } from '../../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
 import { DeepPartial } from '../../../types/global';
 
 const { kind, group, version } = EDPCodebaseKubeObjectConfig;
 
-export const createApplicationExample: any = (
+export const createCodebaseExample: any = (
     names,
-    { name = 'your application name', namespace = 'your namespace', ...restProps }
-) => {
+    type,
+    { name, namespace, ...restProps }
+): DeepPartial<EDPCodebaseKubeObjectInterface> => {
     const base: DeepPartial<EDPCodebaseKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,
         kind,
         spec: {
-            type: 'application',
+            type: type === CODEBASE_TYPE_AUTOTEST ? 'autotests' : type,
         },
         metadata: {
-            name,
-            namespace,
+            name: name || `your ${type} name`,
+            namespace: namespace || 'your namespace',
         },
     };
 

@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
-import { APPLICATION_MAPPING } from '../../../../../../configs/codebase-mappings/application';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
+import { useChosenCodebaseLanguage } from '../../hooks/useChosenCodebaseLanguage';
 import { BuildTool, DefaultBranch, Framework, Lang, Name } from '../fields';
 import { Description } from '../fields/Description';
 import { TestReportFramework } from '../fields/TestReportFramework';
@@ -18,7 +18,7 @@ export const AutotestCodebaseTypeInfoFormPart = ({
 
     const langValue = watch(names.lang.name);
 
-    const chosenLang = React.useMemo(() => APPLICATION_MAPPING[langValue], [langValue]);
+    const { chosenLang } = useChosenCodebaseLanguage({ watch, names, type });
 
     return (
         <ErrorBoundary>
