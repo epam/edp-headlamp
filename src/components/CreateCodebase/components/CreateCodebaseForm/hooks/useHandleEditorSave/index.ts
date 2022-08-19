@@ -8,7 +8,9 @@ interface useHandleEditorSaveProps {
     names: { [key: string]: FormNameObject };
     setValue: (name: string, value: any) => void;
     handleFormFieldChange: ({ target: { name, value } }) => void;
-    formValues: any;
+    formValues: {
+        [key: string]: any;
+    };
     resetField: (name: string) => void;
 }
 
@@ -97,7 +99,7 @@ export const useHandleEditorSave = ({
 				we check if formValue still exists in those values and if not we delete it from form state
 
 			*/
-            for (const [formValueKey] of Object.entries(formValues)) {
+            for (const formValueKey of Object.keys(formValues)) {
                 const propNameObjectPath = names[formValueKey].path;
 
                 if (hasLodash(editorPropsObject, propNameObjectPath)) {

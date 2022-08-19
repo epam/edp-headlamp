@@ -11,7 +11,7 @@ exports[`DeleteKubeObject renders correctly 1`] = `
     <h2
       class="MuiTypography-root MuiTypography-h6"
     >
-      Confirm deletion of super-cool-object-name
+      Confirm deletion of "super-cool-object-name"
     </h2>
   </div>
   <div

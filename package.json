@@ -70,6 +70,7 @@
     "@hookform/error-message": "^2.0.0",
     "clsx": "^1.2.1",
     "lodash.has": "^4.5.2",
+    "lodash.omit": "^4.5.0",
     "lodash.set": "^4.3.2",
     "react-hook-form": "^7.34.0",
     "react-json-view": "^1.21.3"

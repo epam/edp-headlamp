@@ -24,7 +24,7 @@ export const EditKubeObject = ({
             await kubeObject.apiEndpoint.put(newItem);
             setEditorOpen(false);
         } catch (err) {
-            let msg = `Oops! Something went wrong! Couldn't apply ${newItem.metadata.name}`;
+            let msg = `Oops! Something went wrong! Couldn't apply "${newItem.metadata.name}"`;
             if (err instanceof Error) {
                 msg = err.message;
             }
@@ -46,10 +46,10 @@ export const EditKubeObject = ({
 
         dispatch(
             clusterAction(() => applyFunc(jsonData), {
-                startMessage: `Applying changes to ${name}`,
-                cancelledMessage: `Cancelled changes to ${name}`,
-                successMessage: `Applied changes to ${name}`,
-                errorMessage: `Failed to apply changes to ${name}`,
+                startMessage: `Applying changes to "${name}"`,
+                cancelledMessage: `Cancelled changes to "${name}"`,
+                successMessage: `Applied changes to "${name}"`,
+                errorMessage: `Failed to apply changes to "${name}"`,
                 cancelUrl,
             })
         );

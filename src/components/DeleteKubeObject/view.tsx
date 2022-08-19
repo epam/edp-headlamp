@@ -51,7 +51,7 @@ export const DeleteKubeObject = ({
                 kubeObjectData.metadata.name
             );
         } catch (err) {
-            let msg = `Oops! Something went wrong! Couldn't delete ${kubeObjectData.metadata.name}`;
+            let msg = `Oops! Something went wrong! Couldn't delete "${kubeObjectData.metadata.name}"`;
             if (err instanceof Error) {
                 msg = err.message;
             }
@@ -77,10 +77,10 @@ export const DeleteKubeObject = ({
                 handleClosePopup();
                 dispatch(
                     clusterAction(() => applyFunc(), {
-                        startMessage: `Deleting ${objectName}`,
-                        cancelledMessage: `Cancelled deleting ${objectName}`,
-                        successMessage: `Deleted ${objectName}`,
-                        errorMessage: `Failed to delete ${objectName}`,
+                        startMessage: `Deleting "${objectName}"`,
+                        cancelledMessage: `Cancelled deleting "${objectName}"`,
+                        successMessage: `Deleted "${objectName}"`,
+                        errorMessage: `Failed to delete "${objectName}"`,
                     })
                 );
             }
@@ -98,8 +98,8 @@ export const DeleteKubeObject = ({
         <Dialog open={popupOpen} onClose={handleClosePopup} fullWidth>
             <DialogTitle>
                 {!errorTemplate
-                    ? `Confirm deletion of ${objectName}`
-                    : `Cannot start deleting ${objectName}`}
+                    ? `Confirm deletion of "${objectName}"`
+                    : `Cannot start deleting "${objectName}"`}
             </DialogTitle>
             <DialogContent>
                 <Grid container spacing={1}>

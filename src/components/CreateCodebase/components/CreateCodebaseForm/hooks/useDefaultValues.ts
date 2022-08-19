@@ -40,6 +40,7 @@ export const useDefaultValues = ({
                 [names.strategy.name]: creationStrategies.clone.value,
                 [names.gitServer.name]: 'gerrit',
                 [names.ciTool.name]: 'jenkins',
+                [names.emptyProject.name]: false,
             };
         }
     }, [names, type]);

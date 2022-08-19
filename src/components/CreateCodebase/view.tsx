@@ -1,17 +1,17 @@
 import { ICON_PENCIL } from '../../constants/icons';
-import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
-import { Iconify, MuiCore, Notistack, React, ReactRedux } from '../../plugin.globals';
-import { k8s } from '../../plugin.types';
+import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { Iconify, MuiCore, React, ReactRedux } from '../../plugin.globals';
 import { clusterAction } from '../../redux/actions';
+import { EDPKubeObjectInterface } from '../../types/k8s';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { CreateCodebaseForm } from './components/CreateCodebaseForm';
+import { useCreateCodebase } from './hooks/useCreateCodebase';
 import { useStyles } from './styles';
-import { CreateCodebaseProps } from './types';
+import { CodebaseAuthData, CreateCodebaseProps } from './types';
 
 const { Dialog, DialogContent, Typography, Button } = MuiCore;
 const { Icon } = Iconify;
 const { useDispatch } = ReactRedux;
-const { useSnackbar } = Notistack;
 
 export const CreateCodebase = ({
     type,
@@ -19,43 +19,35 @@ export const CreateCodebase = ({
     setOpen,
     onClose,
 }: CreateCodebaseProps): React.ReactElement => {
-    const { enqueueSnackbar } = useSnackbar();
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
     const dispatch = useDispatch();
+
+    const { createCodebase } = useCreateCodebase(
+        () => setOpen(false),
+        () => setOpen(true)
+    );
+
     const applyFunc = React.useCallback(
-        async (newItem: k8s.cluster.KubeObjectInterface): Promise<void> => {
-            try {
-                await EDPCodebaseKubeObject.apiEndpoint.post(newItem);
-                setOpen(false);
-            } catch (err) {
-                let msg = `Oops! Something went wrong! Couldn't apply ${newItem.metadata.name}`;
-                if (err instanceof Error) {
-                    msg = err.message;
-                }
-                enqueueSnackbar(msg, {
-                    autoHideDuration: 10000,
-                    variant: 'error',
-                    anchorOrigin: {
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    },
-                });
-                setOpen(true);
-                throw err;
-            }
-        },
-        [enqueueSnackbar, setOpen]
+        async (
+            newCodebaseData: EDPKubeObjectInterface,
+            codebaseAuthData: CodebaseAuthData | null
+        ): Promise<EDPCodebaseKubeObjectInterface | undefined> =>
+            createCodebase(newCodebaseData, codebaseAuthData),
+        [createCodebase]
     );
     const handleApply = React.useCallback(
-        async (data: k8s.cluster.KubeObjectInterface): Promise<void> => {
+        async (
+            newCodebaseData: EDPKubeObjectInterface,
+            codebaseAuthData: CodebaseAuthData | null
+        ): Promise<void> => {
             const {
                 metadata: { name },
-            } = data;
+            } = newCodebaseData;
             const cancelUrl = location.pathname;
 
             dispatch(
-                clusterAction(() => applyFunc(data), {
+                clusterAction(() => applyFunc(newCodebaseData, codebaseAuthData), {
                     startMessage: `Applying ${name}`,
                     cancelledMessage: `Cancelled applying ${name}`,
                     successMessage: `Applied ${name}`,

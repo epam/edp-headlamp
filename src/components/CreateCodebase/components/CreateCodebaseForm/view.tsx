@@ -1,4 +1,5 @@
 import type { DialogProps } from '@material-ui/core/Dialog';
+import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
@@ -64,6 +65,13 @@ export const CreateCodebaseForm = ({
 
     const [formValues, setFormValues] =
         React.useState<DeepPartial<EDPCodebaseKubeObjectInterface>>(baseDefaultValues);
+    const [codebaseAuthData, setCodebaseAuthData] = React.useState<{
+        repositoryLogin: string;
+        repositoryPasswordOrApiToken: string;
+    }>({
+        repositoryLogin: '',
+        repositoryPasswordOrApiToken: '',
+    });
 
     const handleChangeTab = React.useCallback(
         (event: React.ChangeEvent<{}>, newActiveTabIdx: number) => {
@@ -94,9 +102,33 @@ export const CreateCodebaseForm = ({
 
     const handleFormFieldChange = React.useCallback(
         ({ target: { name, value } }) => {
+            setCodebaseAuthData(prev => {
+                if (Object.hasOwn(names[name], 'notUsedInFormData') && name === 'repositoryLogin') {
+                    return {
+                        ...prev,
+                        repositoryLogin: value,
+                    };
+                }
+
+                if (
+                    Object.hasOwn(names[name], 'notUsedInFormData') &&
+                    name === 'repositoryPasswordOrApiToken'
+                ) {
+                    return {
+                        ...prev,
+                        repositoryPasswordOrApiToken: value,
+                    };
+                }
+
+                return prev;
+            });
             setFormValues(prev => {
-                if ('notUsedInFormData' in names[name]) {
+                if (Object.hasOwn(names[name], 'notUsedInFormData')) {
                     return prev;
+                }
+
+                if (value === undefined) {
+                    return lodashOmit(prev, name);
                 }
 
                 return {
@@ -146,8 +178,14 @@ export const CreateCodebaseForm = ({
     };
 
     const onSubmit = React.useCallback(() => {
-        handleApply(editorCode);
-    }, [editorCode, handleApply]);
+        const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;
+
+        if (repositoryLogin && repositoryPasswordOrApiToken) {
+            handleApply(editorCode, codebaseAuthData);
+        } else {
+            handleApply(editorCode, null);
+        }
+    }, [codebaseAuthData, editorCode, handleApply]);
 
     return (
         <FormProvider {...methods}>

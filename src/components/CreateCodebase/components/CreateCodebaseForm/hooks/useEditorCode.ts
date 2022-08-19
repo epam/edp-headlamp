@@ -1,12 +1,13 @@
-import { createCodebaseExample } from '../../../../../configs/kube-examples/edp-codebase';
+import { createCodebaseExample } from '../../../../../configs/k8s-resource-examples/custom-resources/codebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
-import { DeepPartial } from '../../../../../types/global';
 
 interface useEditorCodeProps {
     names: { [key: string]: FormNameObject };
-    formValues: any;
+    formValues: {
+        [key: string]: any;
+    };
     type: string;
 }
 
@@ -14,7 +15,7 @@ export const useEditorCode = ({
     names,
     formValues,
     type,
-}: useEditorCodeProps): { editorCode: DeepPartial<EDPCodebaseKubeObjectInterface> } => {
+}: useEditorCodeProps): { editorCode: EDPCodebaseKubeObjectInterface } => {
     const editorCode = React.useMemo(() => {
         return createCodebaseExample(names, type, formValues);
     }, [formValues, names, type]);

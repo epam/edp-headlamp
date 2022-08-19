@@ -24,7 +24,7 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
             await kubeObject.apiEndpoint.post(newItem);
             setEditorOpen(false);
         } catch (err) {
-            let msg = `Oops! Something went wrong! Couldn't apply ${newItem.metadata.name}`;
+            let msg = `Oops! Something went wrong! Couldn't apply "${newItem.metadata.name}"`;
             if (err instanceof Error) {
                 msg = err.message;
             }
@@ -46,10 +46,10 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
 
         dispatch(
             clusterAction(() => applyFunc(data), {
-                startMessage: `Applying ${name}`,
-                cancelledMessage: `Cancelled applying ${name}`,
-                successMessage: `Applied ${name}`,
-                errorMessage: `Failed to apply ${name}`,
+                startMessage: `Applying "${name}"`,
+                cancelledMessage: `Cancelled applying "${name}"`,
+                successMessage: `Applied "${name}"`,
+                errorMessage: `Failed to apply "${name}"`,
                 cancelUrl,
             })
         );

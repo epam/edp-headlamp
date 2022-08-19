@@ -1,4 +1,4 @@
-import { createCodebaseBranchExample } from '../../../../configs/kube-examples/edp-codebase-branch';
+import { createCodebaseBranchExample } from '../../../../configs/k8s-resource-examples/custom-resources/codebase-branch';
 import { ICON_DOCUMENT_ADD } from '../../../../constants/icons';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { CreateKubeObject } from '../../../CreateKubeObject';

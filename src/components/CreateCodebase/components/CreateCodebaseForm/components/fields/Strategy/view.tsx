@@ -1,5 +1,8 @@
 import { useFormContext } from 'react-hook-form';
-import { getCreationStrategies } from '../../../../../../../configs/creationStrategies';
+import {
+    creationStrategies,
+    getCreationStrategies,
+} from '../../../../../../../configs/creationStrategies';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
 import { FormSelect } from '../../../../../../FormComponents';
 import { StrategyProps } from './types';
@@ -11,6 +14,7 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
         register,
         control,
         formState: { errors },
+        resetField,
     } = useFormContext();
 
     return (
@@ -18,7 +22,32 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
             <FormSelect
                 {...register(names.strategy.name, {
                     required: 'Select the existing codebase creation strategy',
-                    onBlur: handleFormFieldChange,
+                    onBlur: event => {
+                        const {
+                            target: { value },
+                        } = event;
+                        if (value === creationStrategies.clone.value) {
+                            resetField(names.gitUrlPath.name);
+                            handleFormFieldChange({
+                                target: {
+                                    name: names.gitUrlPath.name,
+                                    value: undefined,
+                                },
+                            });
+                        }
+
+                        if (value === creationStrategies.import.value) {
+                            resetField(names.repositoryUrl.name);
+                            handleFormFieldChange({
+                                target: {
+                                    name: names.repositoryUrl.name,
+                                    value: undefined,
+                                },
+                            });
+                        }
+
+                        handleFormFieldChange(event);
+                    },
                 })}
                 label={'Codebase Integration Strategy'}
                 placeholder={'Codebase Integration Strategy'}

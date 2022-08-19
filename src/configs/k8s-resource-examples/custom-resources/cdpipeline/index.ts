@@ -1,6 +1,6 @@
-import { EDPCDPipelineKubeObjectConfig } from '../../../k8s/EDPCDPipeline/config';
-import { DeepPartial } from '../../../types/global';
-import { EDPKubeObjectInterface } from '../../../types/k8s';
+import { EDPCDPipelineKubeObjectConfig } from '../../../../k8s/EDPCDPipeline/config';
+import { DeepPartial } from '../../../../types/global';
+import { EDPKubeObjectInterface } from '../../../../types/k8s';
 
 const { kind, group, version } = EDPCDPipelineKubeObjectConfig;
 

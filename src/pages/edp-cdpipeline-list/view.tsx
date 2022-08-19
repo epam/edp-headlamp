@@ -1,6 +1,6 @@
 import { CDPipelineList } from '../../components/CDPipelineList';
 import { FloatingActions } from '../../components/FloatingActions';
-import { CDPipelineExample } from '../../configs/kube-examples/edp-cdpipeline';
+import { CDPipelineExample } from '../../configs/k8s-resource-examples/custom-resources/cdpipeline';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { streamCDPipelines } from '../../k8s/EDPCDPipeline/streamCDPipelines';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';

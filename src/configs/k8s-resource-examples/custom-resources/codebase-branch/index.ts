@@ -1,7 +1,7 @@
-import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
-import { EDPCodebaseBranchKubeObjectConfig } from '../../../k8s/EDPCodebaseBranch/config';
-import { DeepPartial } from '../../../types/global';
-import { EDPKubeObjectInterface } from '../../../types/k8s';
+import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
+import { EDPCodebaseBranchKubeObjectConfig } from '../../../../k8s/EDPCodebaseBranch/config';
+import { DeepPartial } from '../../../../types/global';
+import { EDPKubeObjectInterface } from '../../../../types/k8s';
 
 const { kind, group, version } = EDPCodebaseBranchKubeObjectConfig;
 

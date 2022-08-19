@@ -4,3 +4,8 @@ export interface CreateCodebaseProps {
     onClose(): void;
     setOpen(boolean): void;
 }
+
+export interface CodebaseAuthData {
+    repositoryLogin: string;
+    repositoryPasswordOrApiToken: string;
+}
