@@ -1,3 +1,5 @@
-import { CodebaseFieldInterface } from '../../../types';
+import { CreationFormFieldInterface } from '../../../../../../../types/forms';
 
-export interface GitServerProps extends CodebaseFieldInterface {}
+export interface GitServerProps extends CreationFormFieldInterface {
+    gitServers: string[];
+}

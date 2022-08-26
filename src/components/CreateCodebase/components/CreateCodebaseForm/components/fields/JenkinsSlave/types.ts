@@ -1,5 +1,5 @@
-import { CodebaseFieldInterface } from '../../../types';
+import { CreationFormFieldInterface } from '../../../../../../../types/forms';
 
-export interface JenkinsSlaveProps extends CodebaseFieldInterface {
+export interface JenkinsSlaveProps extends CreationFormFieldInterface {
     jenkinsSlaves: string[];
 }

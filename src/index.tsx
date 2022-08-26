@@ -5,8 +5,8 @@ import {
     registerRoute,
     registerSidebarEntry,
 } from '@kinvolk/headlamp-plugin/lib';
-import { SIDEBAR_LIST } from './configs/sidebar-list';
 import { List } from './routes';
+import { SIDEBAR_LIST } from './routes/sidebar-list';
 
 class EDPHeadlampPlugin extends Plugin {
     initialize() {

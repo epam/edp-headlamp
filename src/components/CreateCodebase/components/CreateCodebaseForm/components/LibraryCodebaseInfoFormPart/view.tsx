@@ -1,7 +1,8 @@
 import { useFormContext } from 'react-hook-form';
+import { useGitServers } from '../../../../../../hooks/useGitServers';
+import { useNamespaces } from '../../../../../../hooks/useNamespaces';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
-import { useNamespaces } from '../../hooks/useNamespaces';
 import { isCloneStrategy, isImportStrategy } from '../../utils';
 import {
     CodebaseAuth,
@@ -25,8 +26,10 @@ export const LibraryCodebaseInfoFormPart = ({
     const { watch } = useFormContext();
     const { namespaces } = useNamespaces();
 
-    const strategyValue = watch(names.strategy.name);
-    const hasCodebaseAuthValue = watch(names.hasCodebaseAuth.name);
+    const strategyFieldValue = watch(names.strategy.name);
+    const hasCodebaseAuthFieldValue = watch(names.hasCodebaseAuth.name);
+    const namespaceFieldValue = watch(names.namespace.name);
+    const { gitServers } = useGitServers({ namespace: namespaceFieldValue });
 
     return (
         <ErrorBoundary>
@@ -38,14 +41,14 @@ export const LibraryCodebaseInfoFormPart = ({
                     namespaces={namespaces}
                 />
                 <Strategy type={type} names={names} handleFormFieldChange={handleFormFieldChange} />
-                {isCloneStrategy(strategyValue) ? (
+                {isCloneStrategy(strategyFieldValue) ? (
                     <>
                         <RepositoryUrl
                             names={names}
                             handleFormFieldChange={handleFormFieldChange}
                         />
                         <CodebaseAuth names={names} handleFormFieldChange={handleFormFieldChange} />
-                        {hasCodebaseAuthValue ? (
+                        {hasCodebaseAuthFieldValue ? (
                             <>
                                 <RepositoryLogin
                                     names={names}
@@ -59,9 +62,13 @@ export const LibraryCodebaseInfoFormPart = ({
                         ) : null}
                     </>
                 ) : null}
-                {isImportStrategy(strategyValue) ? (
+                {isImportStrategy(strategyFieldValue) ? (
                     <>
-                        <GitServer names={names} handleFormFieldChange={handleFormFieldChange} />
+                        <GitServer
+                            names={names}
+                            handleFormFieldChange={handleFormFieldChange}
+                            gitServers={gitServers}
+                        />
                         <GitUrlPath names={names} handleFormFieldChange={handleFormFieldChange} />
                     </>
                 ) : null}

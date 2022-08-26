@@ -6,7 +6,7 @@ import {
     CODEBASE_TYPE_APPLICATION,
     CODEBASE_TYPE_AUTOTEST,
     CODEBASE_TYPE_LIBRARY,
-} from '../../constants';
+} from '../../../../constants/codebaseTypes';
 
 export const isCloneStrategy = strategyValue => strategyValue === creationStrategies.clone.value;
 export const isImportStrategy = strategyValue => strategyValue === creationStrategies.import.value;

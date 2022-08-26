@@ -1,5 +1,5 @@
-import { CodebaseFieldInterface } from '../../../types';
+import { CreationFormFieldInterface } from '../../../../../../../types/forms';
 
-export interface NameProps extends CodebaseFieldInterface {
+export interface NameProps extends CreationFormFieldInterface {
     type: string;
 }

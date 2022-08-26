@@ -1,35 +1,31 @@
-import { createCodebaseBranchExample } from '../../../../configs/k8s-resource-examples/custom-resources/codebase-branch';
 import { ICON_DOCUMENT_ADD } from '../../../../constants/icons';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
-import { CreateKubeObject } from '../../../CreateKubeObject';
+import { CreateCodebaseBranch } from '../../../CreateCodebaseBranch';
 import { TableHeaderActionsProps } from './types';
 
 const { Icon } = Iconify;
 const { Tooltip, Button, Typography } = MuiCore;
 
 export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
-    kubeObject,
     kubeObjectData,
-    onCreate,
 }): React.ReactElement => {
-    const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
+    const [createFormOpen, setCreateFormOpen] = React.useState<boolean>(false);
 
     return (
         <>
             <Tooltip title={'Create branch'}>
                 <Button
                     startIcon={<Icon icon={ICON_DOCUMENT_ADD} />}
-                    onClick={() => setEditorOpen(true)}
+                    onClick={() => setCreateFormOpen(true)}
                 >
                     <Typography>Create</Typography>
                 </Button>
             </Tooltip>
-            <CreateKubeObject
-                editorOpen={editorOpen}
-                setEditorOpen={setEditorOpen}
-                kubeObject={kubeObject}
-                kubeObjectExample={createCodebaseBranchExample(kubeObjectData)}
-                onCreate={onCreate}
+            <CreateCodebaseBranch
+                codebaseData={kubeObjectData}
+                open={createFormOpen}
+                onClose={() => setCreateFormOpen(false)}
+                setOpen={setCreateFormOpen}
             />
         </>
     );

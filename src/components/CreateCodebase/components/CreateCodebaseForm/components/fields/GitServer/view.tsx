@@ -1,20 +1,16 @@
 import { useFormContext } from 'react-hook-form';
-import { getGitServers } from '../../../../../../../configs/gitServers';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
 import { FormSelect } from '../../../../../../FormComponents';
 import { GitServerProps } from './types';
 
 const { Grid } = MuiCore;
 
-export const GitServer = ({ names, handleFormFieldChange }: GitServerProps) => {
+export const GitServer = ({ names, handleFormFieldChange, gitServers }: GitServerProps) => {
     const {
         register,
         control,
         formState: { errors },
-        watch,
     } = useFormContext();
-
-    const namespaceFieldValue = watch(names.namespace.name);
 
     return (
         <Grid item xs={12}>
@@ -28,7 +24,7 @@ export const GitServer = ({ names, handleFormFieldChange }: GitServerProps) => {
                 title={'Select the existing Git Server.'}
                 control={control}
                 errors={errors}
-                options={getGitServers(namespaceFieldValue)}
+                options={gitServers.map(el => ({ label: el, value: el }))}
             />
         </Grid>
     );

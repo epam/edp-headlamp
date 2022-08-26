@@ -2,14 +2,14 @@ import { useFormContext } from 'react-hook-form';
 import { APPLICATION_MAPPING } from '../../../../../../../configs/codebase-mappings/application';
 import { AUTOTEST_MAPPING } from '../../../../../../../configs/codebase-mappings/autotest';
 import { LIBRARY_MAPPING } from '../../../../../../../configs/codebase-mappings/library';
-import { MuiCore, React } from '../../../../../../../plugin.globals';
-import { capitalizeFirstLetter } from '../../../../../../../utils/format/capitalizeFirstLetter';
-import { FormRadio } from '../../../../../../FormComponents/FormRadio';
 import {
     CODEBASE_TYPE_APPLICATION,
     CODEBASE_TYPE_AUTOTEST,
     CODEBASE_TYPE_LIBRARY,
-} from '../../../../../constants';
+} from '../../../../../../../constants/codebaseTypes';
+import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { capitalizeFirstLetter } from '../../../../../../../utils/format/capitalizeFirstLetter';
+import { FormRadio } from '../../../../../../FormComponents/FormRadio';
 import { getRecommendedJenkinsAgent } from '../../../utils';
 import { LangProps } from './types';
 

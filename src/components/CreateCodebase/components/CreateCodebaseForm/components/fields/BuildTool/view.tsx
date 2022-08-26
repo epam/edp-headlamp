@@ -40,7 +40,7 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
         [frameworkValue, handleFormFieldChange, langValue, names.jenkinsSlave.name, setValue, type]
     );
 
-    const { chosenLang } = useChosenCodebaseLanguage({ watch, names, type });
+    const { chosenLang } = useChosenCodebaseLanguage({ type, langValue });
 
     return (
         <Grid item xs={12}>

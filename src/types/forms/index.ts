@@ -1,8 +1,17 @@
+import { SyntheticEvent } from 'react';
+
 export interface FormNameObject {
     name: string;
-    formPart: string;
+    formPart?: string;
     notUsedInFormData?: boolean;
-    path?: string;
+    path?: string[];
+}
+
+export interface CreationFormFieldInterface {
+    names: {
+        [key: string]: FormNameObject;
+    };
+    handleFormFieldChange(event: SyntheticEvent): void;
 }
 
 export interface SelectOption {

@@ -1,5 +1,4 @@
 import lodashSet from 'lodash.set';
-import { CODEBASE_TYPE_AUTOTEST } from '../../../../components/CreateCodebase/constants';
 import { EDPCodebaseKubeObjectConfig } from '../../../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { FormNameObject } from '../../../../types/forms';
@@ -22,7 +21,7 @@ export const createCodebaseExample = (
         apiVersion: `${group}/${version}`,
         kind,
         spec: {
-            type: type === CODEBASE_TYPE_AUTOTEST ? 'autotests' : type,
+            type: type === 'autotest' ? 'autotests' : type,
         },
         metadata: {
             name: name || `your ${type} name`,

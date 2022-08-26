@@ -1,4 +1,5 @@
 import { ICON_ARROW_DOWN } from '../../constants/icons';
+import { STATUS_UNKNOWN } from '../../constants/statuses';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import {
     EDPCodebaseBranchKubeObject,
@@ -88,7 +89,9 @@ export const CodebaseBranchesList: React.FC<CodebaseBranchesListProps> = ({
                             >
                                 <AccordionSummary expandIcon={<Icon icon={ICON_ARROW_DOWN} />}>
                                     <div className={classes.stageHeading}>
-                                        {el.status && <StatusIcon status={el.status.status} />}
+                                        <StatusIcon
+                                            status={el.status ? el.status.status : STATUS_UNKNOWN}
+                                        />
                                         <Typography variant={'h6'} style={{ lineHeight: 1 }}>
                                             {el.spec.branchName}
                                         </Typography>

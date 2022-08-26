@@ -16,7 +16,7 @@ export const LibraryCodebaseTypeInfoFormPart = ({
 
     const langValue = watch(names.lang.name);
 
-    const { chosenLang } = useChosenCodebaseLanguage({ watch, names, type });
+    const { chosenLang } = useChosenCodebaseLanguage({ type, langValue });
 
     return (
         <ErrorBoundary>

@@ -1,5 +1,5 @@
 import { CreateCodebase } from '../../../../components/CreateCodebase';
-import { CODEBASE_TYPE_LIBRARY } from '../../../../components/CreateCodebase/constants';
+import { CODEBASE_TYPE_LIBRARY } from '../../../../constants/codebaseTypes';
 import { ICON_PLUS } from '../../../../constants/icons';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { useStyles } from './styles';

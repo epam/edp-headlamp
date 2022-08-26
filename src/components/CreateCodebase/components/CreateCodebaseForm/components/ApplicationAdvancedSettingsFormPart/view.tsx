@@ -1,8 +1,8 @@
 import { useFormContext } from 'react-hook-form';
+import { useJenkinsSlaves } from '../../../../../../hooks/useJenkinsSlaves';
+import { useJiraServers } from '../../../../../../hooks/useJiraServers';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
-import { useJenkinsSlaves } from '../../hooks/useJenkinsSlaves';
-import { useJiraServers } from '../../hooks/useJiraServers';
 import { useUpdateJiraServerIntegrationValue } from '../../hooks/useUpdateJiraServerIntegrationValue';
 import { useUpdateVersioningFields } from '../../hooks/useUpdateVersioningFields';
 import {
@@ -28,9 +28,9 @@ export const ApplicationAdvancedSettingsFormPart = ({
     const { watch, setValue } = useFormContext();
 
     const hasJiraServerIntegrationFieldValue = watch(names.hasJiraServerIntegration.name);
-
-    const { jiraServers } = useJiraServers({ watch, names });
-    const { jenkinsSlaves } = useJenkinsSlaves({ watch, names });
+    const namespaceFieldValue = watch(names.namespace.name);
+    const { jiraServers } = useJiraServers({ namespace: namespaceFieldValue });
+    const { jenkinsSlaves } = useJenkinsSlaves({ namespace: namespaceFieldValue });
 
     useUpdateJiraServerIntegrationValue({ watch, setValue, names });
     useUpdateVersioningFields({ watch, setValue, names });

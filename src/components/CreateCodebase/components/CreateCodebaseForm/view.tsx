@@ -1,19 +1,17 @@
 import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
+import {
+    CODEBASE_TYPE_APPLICATION,
+    CODEBASE_TYPE_AUTOTEST,
+    CODEBASE_TYPE_LIBRARY,
+} from '../../../../constants/codebaseTypes';
+import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { DeepPartial } from '../../../../types/global';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { Render } from '../../../Render';
-import {
-    CODEBASE_TYPE_APPLICATION,
-    CODEBASE_TYPE_AUTOTEST,
-    CODEBASE_TYPE_LIBRARY,
-    FORM_PART_ADVANCED_SETTINGS,
-    FORM_PART_CODEBASE_INFO,
-    FORM_PART_CODEBASE_TYPE_INFO,
-} from '../../constants';
 import { ApplicationAdvancedSettingsFormPart } from './components/ApplicationAdvancedSettingsFormPart';
 import { ApplicationCodebaseInfoFormPart } from './components/ApplicationCodebaseInfoFormPart';
 import { ApplicationCodebaseTypeInfoFormPart } from './components/ApplicationCodebaseTypeInfoFormPart';
@@ -24,11 +22,16 @@ import { LibraryAdvancedSettingsFormPart } from './components/LibraryAdvancedSet
 import { LibraryCodebaseInfoFormPart } from './components/LibraryCodebaseInfoFormPart';
 import { LibraryCodebaseTypeInfoFormPart } from './components/LibraryCodebaseTypeInfoFormPart';
 import { TabPanel } from './components/TabPanel';
+import {
+    FORM_PART_ADVANCED_SETTINGS,
+    FORM_PART_CODEBASE_INFO,
+    FORM_PART_CODEBASE_TYPE_INFO,
+} from './constants';
 import { TAB_INDEXES } from './constants';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
-import { useHandleEditorSave } from './hooks/useHandleEditorSave';
 import { useNames } from './hooks/useNames';
+import { CODEBASE_BACKWARDS_NAME_MAPPING } from './names';
 import { useStyles } from './styles';
 import { CreateCodebasenFormProps } from './types';
 
@@ -89,6 +92,7 @@ export const CreateCodebaseForm = ({
         reset,
         resetField,
         formState: { isDirty },
+        trigger,
         setValue,
     } = methods;
 
@@ -147,6 +151,7 @@ export const CreateCodebaseForm = ({
 
     const { handleEditorSave } = useHandleEditorSave({
         names,
+        backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
         setValue,
         handleFormFieldChange,
         formValues,
@@ -176,6 +181,14 @@ export const CreateCodebaseForm = ({
     const muDialogProps: DialogProps = {
         open: editorOpen,
     };
+
+    const handleProceed = React.useCallback(async () => {
+        const hasNoErrors = await trigger();
+
+        if (hasNoErrors) {
+            setActiveTabIdx(activeTabIdx + 1);
+        }
+    }, [activeTabIdx, trigger]);
 
     const onSubmit = React.useCallback(() => {
         const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;
@@ -315,7 +328,7 @@ export const CreateCodebaseForm = ({
                         </Button>
                         <Render condition={activeTabIdx < TAB_INDEXES_LAST_INDEX}>
                             <Button
-                                onClick={() => setActiveTabIdx(activeTabIdx + 1)}
+                                onClick={handleProceed}
                                 variant={'contained'}
                                 color={'primary'}
                                 size="small"

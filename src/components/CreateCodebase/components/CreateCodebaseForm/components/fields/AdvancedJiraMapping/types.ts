@@ -1,6 +1,6 @@
-import { CodebaseFieldInterface } from '../../../types';
+import { CreationFormFieldInterface } from '../../../../../../../types/forms';
 
-export interface AdvancedJiraMappingProps extends CodebaseFieldInterface {}
+export interface AdvancedJiraMappingProps extends CreationFormFieldInterface {}
 
 export interface AdvancedMappingRow {
     label: string;

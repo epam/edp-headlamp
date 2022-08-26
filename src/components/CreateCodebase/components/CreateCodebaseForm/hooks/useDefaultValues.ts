@@ -1,11 +1,11 @@
 import { creationStrategies } from '../../../../../configs/creationStrategies';
-import { React } from '../../../../../plugin.globals';
-import { FormNameObject } from '../../../../../types/forms';
 import {
     CODEBASE_TYPE_APPLICATION,
     CODEBASE_TYPE_AUTOTEST,
     CODEBASE_TYPE_LIBRARY,
-} from '../../../constants';
+} from '../../../../../constants/codebaseTypes';
+import { React } from '../../../../../plugin.globals';
+import { FormNameObject } from '../../../../../types/forms';
 
 interface useDefaultValuesProps {
     names: { [key: string]: FormNameObject };

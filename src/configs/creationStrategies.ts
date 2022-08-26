@@ -2,7 +2,7 @@ import {
     CODEBASE_TYPE_APPLICATION,
     CODEBASE_TYPE_AUTOTEST,
     CODEBASE_TYPE_LIBRARY,
-} from '../components/CreateCodebase/constants';
+} from '../constants/codebaseTypes';
 import { SelectOption } from '../types/forms';
 
 export const creationStrategies: { [key: string]: SelectOption } = {

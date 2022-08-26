@@ -1,3 +1,3 @@
-import { CodebaseFieldInterface } from '../../../types';
+import { CreationFormFieldInterface } from '../../../../../../../types/forms';
 
-export interface CodebaseAuthProps extends CodebaseFieldInterface {}
+export interface CodebaseAuthProps extends CreationFormFieldInterface {}

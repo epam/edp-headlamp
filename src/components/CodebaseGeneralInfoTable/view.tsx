@@ -14,7 +14,7 @@ export const CodebaseGeneralInfoTable: React.FC<CodebaseGeneralInfoTableProps> =
 }): React.ReactElement => {
     const { spec } = kubeObjectData;
 
-    const classes = useStyles(spec);
+    const classes = useStyles();
     const columns = useColumns(spec, classes);
 
     return (

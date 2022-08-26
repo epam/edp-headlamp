@@ -1,3 +1,3 @@
-import { CodebaseFieldInterface } from '../../../types';
+import { CreationFormFieldInterface } from '../../../../../../../types/forms';
 
-export interface CIToolProps extends CodebaseFieldInterface {}
+export interface CIToolProps extends CreationFormFieldInterface {}

@@ -1,9 +1,3 @@
-import { SyntheticEvent } from 'react';
-import { FormNameObject } from '../../../../../../../types/forms';
+import { CreationFormFieldInterface } from '../../../../../../../types/forms';
 
-export interface TicketNamePatternProps {
-    names: {
-        [key: string]: FormNameObject;
-    };
-    handleFormFieldChange(event: SyntheticEvent): void;
-}
+export interface TicketNamePatternProps extends CreationFormFieldInterface {}

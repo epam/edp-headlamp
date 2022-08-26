@@ -1,5 +1,5 @@
-import { CodebaseFieldInterface } from '../../../types';
+import { CreationFormFieldInterface } from '../../../../../../../types/forms';
 
-export interface JiraServerProps extends CodebaseFieldInterface {
+export interface JiraServerProps extends CreationFormFieldInterface {
     jiraServers: string[];
 }

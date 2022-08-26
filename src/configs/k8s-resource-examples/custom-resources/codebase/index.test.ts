@@ -2,12 +2,12 @@ import {
     APPLICATION_NAMES,
     AUTOTEST_NAMES,
     LIBRARY_NAMES,
-} from '../../../../components/CreateCodebase/components/CreateCodebaseForm/constants';
+} from '../../../../components/CreateCodebase/components/CreateCodebaseForm/names';
 import {
     CODEBASE_TYPE_APPLICATION,
     CODEBASE_TYPE_AUTOTEST,
     CODEBASE_TYPE_LIBRARY,
-} from '../../../../components/CreateCodebase/constants';
+} from '../../../../constants/codebaseTypes';
 import { createCodebaseExample } from './index';
 
 describe('testing createCodebaseExample', () => {

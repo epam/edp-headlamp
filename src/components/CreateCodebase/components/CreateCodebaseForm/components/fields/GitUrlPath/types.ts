@@ -1,3 +1,3 @@
-import { CodebaseFieldInterface } from '../../../types';
+import { CreationFormFieldInterface } from '../../../../../../../types/forms';
 
-export interface GitUrlPathProps extends CodebaseFieldInterface {}
+export interface GitUrlPathProps extends CreationFormFieldInterface {}
