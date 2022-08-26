@@ -7,6 +7,7 @@ import { Render } from '../../../../../../Render';
 import { AdvancedJiraMappingRow } from './components/AdvancedJiraMappingRow';
 import { advancedMappingBase, createAdvancedMappingRowName } from './constants';
 import { AdvancedJiraMappingProps, AdvancedMappingItem, AdvancedMappingRow } from './types';
+import { getJiraIssueMetadataPayload, getJiraIssueMetadataPayloadDefaultValue } from './utils';
 
 const { Grid, Button } = MuiCore;
 const { Icon } = Iconify;
@@ -48,39 +49,6 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
             .filter(Boolean);
     }, [advancedMapping]);
 
-    const getJiraIssueMetadataPayloadDefaultValue = React.useCallback(
-        (jsonFieldValue: string | undefined): AdvancedMappingRow[] => {
-            if (!jsonFieldValue) {
-                return [];
-            }
-
-            const fieldValues: { [key: string]: string } = JSON.parse(jsonFieldValue);
-            const buffer: AdvancedMappingRow[] = [];
-            const labelsMap = advancedMappingBase.reduce(
-                (acc, cur) => acc.set(cur.value, cur),
-                new Map<string, AdvancedMappingItem>()
-            );
-            for (const [field, value] of Object.entries(fieldValues)) {
-                buffer.push({
-                    label: labelsMap.has(field) ? labelsMap.get(field).label : '',
-                    value: field,
-                    jiraPattern: value,
-                });
-            }
-            return buffer;
-        },
-        []
-    );
-
-    const getJiraIssueMetadataPayload = React.useCallback((rows: AdvancedMappingRow[]): string => {
-        const buffer = rows.reduce((acc, { value, jiraPattern }) => {
-            acc[value] = jiraPattern;
-            return acc;
-        }, {});
-
-        return JSON.stringify(buffer);
-    }, []);
-
     const advancedMappingFieldNameIsDisabled: boolean = React.useMemo(() => {
         return !advancedMapping.filter(({ isUsed }) => isUsed === false).length;
     }, [advancedMapping]);
@@ -113,12 +81,7 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
                 return newRows;
             });
         },
-        [
-            getJiraIssueMetadataPayload,
-            handleFormFieldChange,
-            names.jiraIssueMetadataPayload.name,
-            setValue,
-        ]
+        [handleFormFieldChange, names.jiraIssueMetadataPayload.name, setValue]
     );
 
     const handleDeleteMappingRow = React.useCallback(
@@ -149,13 +112,7 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
             });
             resetField(createAdvancedMappingRowName(value));
         },
-        [
-            getJiraIssueMetadataPayload,
-            handleFormFieldChange,
-            names.jiraIssueMetadataPayload.name,
-            resetField,
-            setValue,
-        ]
+        [handleFormFieldChange, names.jiraIssueMetadataPayload.name, resetField, setValue]
     );
 
     const handleAddMappingRow = React.useCallback(() => {
@@ -210,12 +167,7 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
             });
         });
         setAdvancedMappingRows(newRows);
-    }, [
-        enqueueSnackbar,
-        getJiraIssueMetadataPayloadDefaultValue,
-        jiraIssueMetadataPayloadFieldValue,
-        setValue,
-    ]);
+    }, [enqueueSnackbar, jiraIssueMetadataPayloadFieldValue, setValue]);
 
     return (
         <>
