@@ -163,91 +163,82 @@ export const LIBRARY_MAPPING: CodebaseInterface = {
     },
 };
 
+const mapJavaBasedAgent = (framework: string, buildTool: string): string | undefined => {
+    let result = '';
+    const mapping = LIBRARY_MAPPING[LANGUAGE_JAVA];
+
+    switch (buildTool) {
+        case mapping.buildTools.gradle.value:
+            result += 'gradle';
+            break;
+        case mapping.buildTools.maven.value:
+            result += 'maven';
+            break;
+        default:
+            return undefined;
+    }
+
+    result += '-';
+
+    switch (framework) {
+        case mapping.frameworks.java8.value:
+            result += 'java8';
+            break;
+        case mapping.frameworks.java11.value:
+            result += 'java11';
+            break;
+        default:
+            return undefined;
+    }
+
+    return result;
+};
+
+const mapDotNetBasedAgent = (framework: string): string | undefined => {
+    let result = 'dotnet-';
+    const mapping = LIBRARY_MAPPING[LANGUAGE_DOTNET];
+
+    switch (framework) {
+        case mapping.frameworks['dotnet-2.1'].value:
+            result += 'dotnet-2.1';
+            break;
+        case mapping.frameworks['dotnet-3.1'].value:
+            result += 'dotnet-3.1';
+            break;
+        default:
+            return undefined;
+    }
+
+    return result;
+};
+
 export const getLibraryRecommendedJenkinsAgent = (
     lang: string,
-    framework: string,
-    buildTool: string
+    framework?: string,
+    buildTool?: string
 ): string | undefined => {
-    if (
-        lang === LIBRARY_MAPPING[LANGUAGE_JAVA].language.value &&
-        framework === LIBRARY_MAPPING[LANGUAGE_JAVA].frameworks.java8.value &&
-        buildTool === LIBRARY_MAPPING[LANGUAGE_JAVA].buildTools.gradle.value
-    ) {
-        return 'gradle-java8';
-    }
-
-    if (
-        (lang === LIBRARY_MAPPING[LANGUAGE_JAVA].language.value &&
-            framework === LIBRARY_MAPPING[LANGUAGE_JAVA].frameworks.java8.value &&
-            buildTool === LIBRARY_MAPPING[LANGUAGE_JAVA].buildTools.maven.value) ||
-        lang === LIBRARY_MAPPING[LANGUAGE_OTHER].language.value
-    ) {
-        return 'maven-java8';
-    }
-
-    if (
-        lang === LIBRARY_MAPPING[LANGUAGE_JAVA].language.value &&
-        framework === LIBRARY_MAPPING[LANGUAGE_JAVA].frameworks.java11.value &&
-        buildTool === LIBRARY_MAPPING[LANGUAGE_JAVA].buildTools.gradle.value
-    ) {
-        return 'gradle-java11';
-    }
-
-    if (
-        lang === LIBRARY_MAPPING[LANGUAGE_JAVA].language.value &&
-        framework === LIBRARY_MAPPING[LANGUAGE_JAVA].frameworks.java11.value &&
-        buildTool === LIBRARY_MAPPING[LANGUAGE_JAVA].buildTools.maven.value
-    ) {
-        return 'maven-java11';
-    }
-
-    if (lang === LIBRARY_MAPPING[LANGUAGE_JAVASCRIPT].language.value) {
-        return 'npm';
-    }
-
-    if (
-        lang === LIBRARY_MAPPING[LANGUAGE_DOTNET].language.value &&
-        framework === LIBRARY_MAPPING[LANGUAGE_DOTNET].frameworks['dotnet-2.1'].value
-    ) {
-        return 'dotnet-dotnet-2.1';
-    }
-
-    if (
-        lang === LIBRARY_MAPPING[LANGUAGE_DOTNET].language.value &&
-        framework === LIBRARY_MAPPING[LANGUAGE_DOTNET].frameworks['dotnet-3.1'].value
-    ) {
-        return 'dotnet-dotnet-3.1';
-    }
-
-    if (lang === LIBRARY_MAPPING[LANGUAGE_PYTHON].language.value) {
-        return 'python-3.8';
-    }
-
-    if (
-        lang === LIBRARY_MAPPING[LANGUAGE_GROOVY_PIPELINE].language.value ||
-        lang === LIBRARY_MAPPING[LANGUAGE_GITOPS].language.value
-    ) {
-        return 'codenarc';
-    }
-
-    if (lang === LIBRARY_MAPPING[LANGUAGE_TERRAFORM].language.value) {
-        return 'terraform';
-    }
-
-    if (lang === LIBRARY_MAPPING[LANGUAGE_REGO].language.value) {
-        return 'opa';
-    }
-
-    if (lang === LIBRARY_MAPPING[LANGUAGE_CONTAINER].language.value) {
-        return 'kaniko-docker';
-    }
-
-    if (lang === LIBRARY_MAPPING[LANGUAGE_KUBERNETES].language.value) {
-        return 'edp-helm';
-    }
-
-    if (lang === LIBRARY_MAPPING[LANGUAGE_KUBERNETES].language.value) {
-        return 'edp-helm';
+    switch (lang) {
+        case LIBRARY_MAPPING[LANGUAGE_JAVA].language.value:
+            return mapJavaBasedAgent(framework, buildTool);
+        case LIBRARY_MAPPING[LANGUAGE_OTHER].language.value:
+            return 'maven-java8';
+        case LIBRARY_MAPPING[LANGUAGE_JAVASCRIPT].language.value:
+            return 'npm';
+        case LIBRARY_MAPPING[LANGUAGE_DOTNET].language.value:
+            return mapDotNetBasedAgent(framework);
+        case LIBRARY_MAPPING[LANGUAGE_PYTHON].language.value:
+            return 'python-3.8';
+        case LIBRARY_MAPPING[LANGUAGE_GROOVY_PIPELINE].language.value:
+        case LIBRARY_MAPPING[LANGUAGE_GITOPS].language.value:
+            return 'codenarc';
+        case LIBRARY_MAPPING[LANGUAGE_TERRAFORM].language.value:
+            return 'terraform';
+        case LIBRARY_MAPPING[LANGUAGE_REGO].language.value:
+            return 'opa';
+        case LIBRARY_MAPPING[LANGUAGE_CONTAINER].language.value:
+            return 'kaniko-docker';
+        case LIBRARY_MAPPING[LANGUAGE_KUBERNETES].language.value:
+            return 'edp-helm';
     }
 
     return undefined;
