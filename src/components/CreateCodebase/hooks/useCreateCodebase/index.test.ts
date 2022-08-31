@@ -4,7 +4,7 @@
 
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react-hooks';
-import { createSecretExample } from '../../../../configs/k8s-resource-examples/resources/secret';
+import { createSecretExample } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { pluginLib } from '../../../../plugin.globals';
 import { useCreateCodebase } from './index';

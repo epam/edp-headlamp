@@ -2,6 +2,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { Controller } from 'react-hook-form';
 import { MuiCore, React } from '../../../plugin.globals';
 import { rem } from '../../../utils/styling/rem';
+import { Render } from '../../Render';
 import { FormCheckboxProps } from './types';
 
 const { FormControl, Checkbox, Typography, Grid, FormControlLabel } = MuiCore;
@@ -52,11 +53,13 @@ export const FormCheckbox = ({
                     />
                 </FormControl>
             </Grid>
-            <Grid item xs={12}>
-                <Typography component={'span'} variant={'subtitle2'} color={'error'}>
-                    <ErrorMessage errors={errors} name={name} />
-                </Typography>
-            </Grid>
+            <Render condition={!!hasError}>
+                <Grid item xs={12}>
+                    <Typography component={'span'} variant={'subtitle2'} color={'error'}>
+                        <ErrorMessage errors={errors} name={name} />
+                    </Typography>
+                </Grid>
+            </Render>
         </Grid>
     );
 };

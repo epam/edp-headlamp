@@ -1,5 +1,5 @@
 import { CreateKubeObject } from '../../../../../../components/CreateKubeObject';
-import { createCDPipelineStageExample } from '../../../../../../configs/k8s-resource-examples/custom-resources/stage';
+import { createCDPipelineStageExample } from '../../../../../../configs/k8s-resource-instances/custom-resources/stage';
 import { ICON_DOCUMENT_ADD } from '../../../../../../constants/icons';
 import { Iconify, MuiCore, React } from '../../../../../../plugin.globals';
 import { TableHeaderActionsProps } from './types';

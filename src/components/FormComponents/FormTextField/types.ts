@@ -8,5 +8,6 @@ export interface FormTextFieldProps {
     control: Control;
     defaultValue?: string;
     placeholder?: string;
+    disabled?: boolean;
     errors: FieldErrors;
 }

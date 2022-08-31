@@ -1,3 +1,4 @@
+import { STATUS_UNKNOWN } from '../../../constants/statuses';
 import { EDPCDPipelineKubeObject } from '../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../k8s/EDPCDPipeline/types';
 import { pluginLib, React } from '../../../plugin.globals';
@@ -18,7 +19,9 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
         () => [
             {
                 label: 'Status',
-                getter: ({ status: { status } }) => <StatusIcon status={status} />,
+                getter: ({ status }) => (
+                    <StatusIcon status={status ? status.status : STATUS_UNKNOWN} />
+                ),
                 sort: (a, b) => sortByStatus(a.status.status, b.status.status),
             },
             {

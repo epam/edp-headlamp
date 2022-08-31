@@ -1,4 +1,4 @@
-import { createSecretExample } from '../../../../configs/k8s-resource-examples/resources/secret';
+import { createSecretExample } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { Notistack, pluginLib, React } from '../../../../plugin.globals';

@@ -15,6 +15,7 @@ export const FormTextField = ({
     defaultValue = '',
     errors,
     placeholder,
+    disabled = false,
     ...props
 }: FormTextFieldProps): React.ReactElement => {
     const hasError = errors[name];
@@ -22,38 +23,39 @@ export const FormTextField = ({
     return (
         <Grid container spacing={1}>
             <Grid item xs={12}>
-                <Render condition={!!label && !!title}>
-                    <Grid container spacing={1}>
+                <Grid container spacing={1}>
+                    <Render condition={!!label && !!title}>
                         <Grid item xs={12}>
                             <FormControlLabelWithTooltip label={label} title={title} />
                         </Grid>
+                    </Render>
+                    <Grid item xs={12}>
+                        <FormControl fullWidth>
+                            <Controller
+                                render={({ field }) => (
+                                    <TextField
+                                        error={hasError}
+                                        placeholder={placeholder}
+                                        inputRef={field.ref}
+                                        disabled={disabled}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment
+                                                    position="start"
+                                                    style={{ marginRight: 0 }}
+                                                />
+                                            ),
+                                        }}
+                                        {...field}
+                                    />
+                                )}
+                                name={name}
+                                defaultValue={defaultValue}
+                                control={control}
+                                {...props}
+                            />
+                        </FormControl>
                     </Grid>
-                </Render>
-                <Grid item xs={12}>
-                    <FormControl fullWidth>
-                        <Controller
-                            render={({ field }) => (
-                                <TextField
-                                    error={hasError}
-                                    placeholder={placeholder}
-                                    inputRef={field.ref}
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment
-                                                position="start"
-                                                style={{ marginRight: 0 }}
-                                            />
-                                        ),
-                                    }}
-                                    {...field}
-                                />
-                            )}
-                            name={name}
-                            defaultValue={defaultValue}
-                            control={control}
-                            {...props}
-                        />
-                    </FormControl>
                 </Grid>
             </Grid>
             <Render condition={!!hasError}>

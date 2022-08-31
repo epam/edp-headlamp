@@ -308,31 +308,31 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             <span />
                           </span>
                         </div>
-                      </div>
-                      <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      >
                         <div
-                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <div
-                            class="MuiFormControl-root MuiTextField-root"
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                style="margin-right: 0px;"
-                              />
-                              <input
-                                aria-invalid="false"
-                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                name="name"
-                                placeholder="Type your application name"
-                                type="text"
-                                value=""
-                              />
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              >
+                                <div
+                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                  style="margin-right: 0px;"
+                                />
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  name="name"
+                                  placeholder="Type your application name"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -366,31 +366,31 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             <span />
                           </span>
                         </div>
-                      </div>
-                      <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      >
                         <div
-                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <div
-                            class="MuiFormControl-root MuiTextField-root"
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                style="margin-right: 0px;"
-                              />
-                              <input
-                                aria-invalid="false"
-                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                name="defaultBranch"
-                                placeholder="Type default branch name"
-                                type="text"
-                                value=""
-                              />
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              >
+                                <div
+                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                  style="margin-right: 0px;"
+                                />
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  name="defaultBranch"
+                                  placeholder="Type default branch name"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -462,13 +462,6 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                           </span>
                         </label>
                       </div>
-                    </div>
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    >
-                      <span
-                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
-                      />
                     </div>
                   </div>
                 </div>
@@ -805,7 +798,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-15 MuiInputBase-formControl MuiInput-formControl"
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                             >
                               <div
                                 aria-haspopup="listbox"
@@ -815,14 +808,14 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                 role="button"
                                 tabindex="0"
                               >
-                                Select CI pipeline provisioner
+                                default
                               </div>
                               <input
                                 aria-hidden="true"
                                 class="MuiSelect-nativeInput"
                                 name="jobProvisioning"
                                 tabindex="-1"
-                                value=""
+                                value="default"
                               />
                               <svg
                                 aria-hidden="true"
@@ -943,7 +936,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-15 MuiInputBase-formControl MuiInput-formControl"
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                             >
                               <div
                                 aria-haspopup="listbox"
@@ -953,14 +946,14 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                 role="button"
                                 tabindex="0"
                               >
-                                Select codebase Versioning Type
+                                default
                               </div>
                               <input
                                 aria-hidden="true"
                                 class="MuiSelect-nativeInput"
                                 name="versioningType"
                                 tabindex="-1"
-                                value=""
+                                value="default"
                               />
                               <svg
                                 aria-hidden="true"
@@ -1012,7 +1005,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-15 MuiInputBase-formControl MuiInput-formControl"
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                             >
                               <div
                                 aria-haspopup="listbox"
@@ -1022,14 +1015,14 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                 role="button"
                                 tabindex="0"
                               >
-                                Select deployment Script
+                                helm-chart
                               </div>
                               <input
                                 aria-hidden="true"
                                 class="MuiSelect-nativeInput"
                                 name="deploymentScript"
                                 tabindex="-1"
-                                value=""
+                                value="helm-chart"
                               />
                               <svg
                                 aria-hidden="true"
@@ -1179,13 +1172,6 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                           </span>
                         </label>
                       </div>
-                    </div>
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    >
-                      <span
-                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
-                      />
                     </div>
                   </div>
                 </div>
@@ -1536,31 +1522,31 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span />
                           </span>
                         </div>
-                      </div>
-                      <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      >
                         <div
-                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <div
-                            class="MuiFormControl-root MuiTextField-root"
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                style="margin-right: 0px;"
-                              />
-                              <input
-                                aria-invalid="false"
-                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                name="repositoryUrl"
-                                placeholder="http(s)://git.sample.com/sample.git"
-                                type="text"
-                                value=""
-                              />
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              >
+                                <div
+                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                  style="margin-right: 0px;"
+                                />
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  name="repositoryUrl"
+                                  placeholder="http(s)://git.sample.com/sample.git"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1632,13 +1618,6 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                         </label>
                       </div>
                     </div>
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    >
-                      <span
-                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
-                      />
-                    </div>
                   </div>
                 </div>
               </div>
@@ -1683,31 +1662,31 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span />
                           </span>
                         </div>
-                      </div>
-                      <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      >
                         <div
-                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <div
-                            class="MuiFormControl-root MuiTextField-root"
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                style="margin-right: 0px;"
-                              />
-                              <input
-                                aria-invalid="false"
-                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                name="name"
-                                placeholder="Type your autotest name"
-                                type="text"
-                                value=""
-                              />
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              >
+                                <div
+                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                  style="margin-right: 0px;"
+                                />
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  name="name"
+                                  placeholder="Type your autotest name"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1741,31 +1720,31 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span />
                           </span>
                         </div>
-                      </div>
-                      <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      >
                         <div
-                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <div
-                            class="MuiFormControl-root MuiTextField-root"
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                style="margin-right: 0px;"
-                              />
-                              <input
-                                aria-invalid="false"
-                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                name="defaultBranch"
-                                placeholder="Type default branch name"
-                                type="text"
-                                value=""
-                              />
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              >
+                                <div
+                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                  style="margin-right: 0px;"
+                                />
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  name="defaultBranch"
+                                  placeholder="Type default branch name"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1799,31 +1778,31 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span />
                           </span>
                         </div>
-                      </div>
-                      <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      >
                         <div
-                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <div
-                            class="MuiFormControl-root MuiTextField-root"
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                style="margin-right: 0px;"
-                              />
-                              <input
-                                aria-invalid="false"
-                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                name="description"
-                                placeholder="Enter autotest description"
-                                type="text"
-                                value=""
-                              />
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              >
+                                <div
+                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                  style="margin-right: 0px;"
+                                />
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  name="description"
+                                  placeholder="Enter autotest description"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -2077,7 +2056,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-65 MuiInputBase-formControl MuiInput-formControl"
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                             >
                               <div
                                 aria-haspopup="listbox"
@@ -2087,14 +2066,14 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                 role="button"
                                 tabindex="0"
                               >
-                                Select CI pipeline provisioner
+                                default
                               </div>
                               <input
                                 aria-hidden="true"
                                 class="MuiSelect-nativeInput"
                                 name="jobProvisioning"
                                 tabindex="-1"
-                                value=""
+                                value="default"
                               />
                               <svg
                                 aria-hidden="true"
@@ -2215,7 +2194,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-65 MuiInputBase-formControl MuiInput-formControl"
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                             >
                               <div
                                 aria-haspopup="listbox"
@@ -2225,14 +2204,14 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                 role="button"
                                 tabindex="0"
                               >
-                                Select codebase Versioning Type
+                                default
                               </div>
                               <input
                                 aria-hidden="true"
                                 class="MuiSelect-nativeInput"
                                 name="versioningType"
                                 tabindex="-1"
-                                value=""
+                                value="default"
                               />
                               <svg
                                 aria-hidden="true"
@@ -2382,13 +2361,6 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                           </span>
                         </label>
                       </div>
-                    </div>
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    >
-                      <span
-                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
-                      />
                     </div>
                   </div>
                 </div>
@@ -2755,31 +2727,31 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             <span />
                           </span>
                         </div>
-                      </div>
-                      <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      >
                         <div
-                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <div
-                            class="MuiFormControl-root MuiTextField-root"
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                style="margin-right: 0px;"
-                              />
-                              <input
-                                aria-invalid="false"
-                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                name="name"
-                                placeholder="Type your library name"
-                                type="text"
-                                value=""
-                              />
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              >
+                                <div
+                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                  style="margin-right: 0px;"
+                                />
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  name="name"
+                                  placeholder="Type your library name"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -2813,31 +2785,31 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             <span />
                           </span>
                         </div>
-                      </div>
-                      <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      >
                         <div
-                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <div
-                            class="MuiFormControl-root MuiTextField-root"
+                            class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                style="margin-right: 0px;"
-                              />
-                              <input
-                                aria-invalid="false"
-                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                name="defaultBranch"
-                                placeholder="Type default branch name"
-                                type="text"
-                                value=""
-                              />
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                              >
+                                <div
+                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                  style="margin-right: 0px;"
+                                />
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  name="defaultBranch"
+                                  placeholder="Type default branch name"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -2909,13 +2881,6 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                           </span>
                         </label>
                       </div>
-                    </div>
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    >
-                      <span
-                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
-                      />
                     </div>
                   </div>
                 </div>
@@ -3447,7 +3412,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-40 MuiInputBase-formControl MuiInput-formControl"
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                             >
                               <div
                                 aria-haspopup="listbox"
@@ -3457,14 +3422,14 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                 role="button"
                                 tabindex="0"
                               >
-                                Select CI pipeline provisioner
+                                default
                               </div>
                               <input
                                 aria-hidden="true"
                                 class="MuiSelect-nativeInput"
                                 name="jobProvisioning"
                                 tabindex="-1"
-                                value=""
+                                value="default"
                               />
                               <svg
                                 aria-hidden="true"
@@ -3585,7 +3550,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-40 MuiInputBase-formControl MuiInput-formControl"
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                             >
                               <div
                                 aria-haspopup="listbox"
@@ -3595,14 +3560,14 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                 role="button"
                                 tabindex="0"
                               >
-                                Select codebase Versioning Type
+                                default
                               </div>
                               <input
                                 aria-hidden="true"
                                 class="MuiSelect-nativeInput"
                                 name="versioningType"
                                 tabindex="-1"
-                                value=""
+                                value="default"
                               />
                               <svg
                                 aria-hidden="true"
@@ -3654,7 +3619,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-40 MuiInputBase-formControl MuiInput-formControl"
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                             >
                               <div
                                 aria-haspopup="listbox"
@@ -3664,14 +3629,14 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                 role="button"
                                 tabindex="0"
                               >
-                                Select deployment Script
+                                helm-chart
                               </div>
                               <input
                                 aria-hidden="true"
                                 class="MuiSelect-nativeInput"
                                 name="deploymentScript"
                                 tabindex="-1"
-                                value=""
+                                value="helm-chart"
                               />
                               <svg
                                 aria-hidden="true"
@@ -3821,13 +3786,6 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                           </span>
                         </label>
                       </div>
-                    </div>
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    >
-                      <span
-                        class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
-                      />
                     </div>
                   </div>
                 </div>

@@ -1,31 +1,30 @@
 import lodashSet from 'lodash.set';
-import { EDPCodebaseKubeObjectConfig } from '../../../../k8s/EDPCodebase/config';
-import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
+import { EDPCDPipelineKubeObjectConfig } from '../../../../k8s/EDPCDPipeline/config';
+import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { FormNameObject } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 
-const { kind, group, version } = EDPCodebaseKubeObjectConfig;
+const { kind, group, version } = EDPCDPipelineKubeObjectConfig;
 
-export const createCodebaseExample = (
+export const createCDPipelineInstance = (
     names: {
         [key: string]: FormNameObject;
     },
-    type: string,
     formValues: {
         [key: string]: any;
     }
-): DeepPartial<EDPCodebaseKubeObjectInterface> => {
+): DeepPartial<EDPCDPipelineKubeObjectInterface> => {
     const { name, namespace, ...restProps } = formValues;
 
-    const base: DeepPartial<EDPCodebaseKubeObjectInterface> = {
+    const base: DeepPartial<EDPCDPipelineKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,
         kind,
-        spec: {
-            type: type === 'autotest' ? 'autotests' : type,
-        },
         metadata: {
-            name: name || `your ${type} name`,
+            name: name || `your pipeline name`,
             namespace: namespace || 'your namespace',
+        },
+        spec: {
+            name: name || `your pipeline name`,
         },
     };
 

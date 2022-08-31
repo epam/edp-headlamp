@@ -4,8 +4,8 @@ import { SelectOption } from '../../../types/forms';
 
 export interface FormSelectProps {
     name: string;
-    label: string;
-    title: string;
+    label?: string;
+    title?: string;
     placeholder?: string;
     control: Control;
     defaultValue?: string;

@@ -1,10 +1,8 @@
 import { CDPipelineList } from '../../components/CDPipelineList';
-import { FloatingActions } from '../../components/FloatingActions';
-import { CDPipelineExample } from '../../configs/k8s-resource-examples/custom-resources/cdpipeline';
-import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { streamCDPipelines } from '../../k8s/EDPCDPipeline/streamCDPipelines';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
 import { pluginLib, React, ReactRouter } from '../../plugin.globals';
+import { FloatingActions } from './components/FloatingActions';
 import { EDPCDPipelineListProps } from './types';
 
 const {
@@ -36,10 +34,7 @@ export const EDPCDPipelineList: React.FC<EDPCDPipelineListProps> = (): React.Rea
 
     return (
         <SectionBox title={<SectionFilterHeader title="CD Pipelines" headerStyle="main" />}>
-            <FloatingActions
-                kubeObject={EDPCDPipelineKubeObject}
-                kubeObjectExample={CDPipelineExample}
-            />
+            <FloatingActions namespace={namespace} />
             <CDPipelineList CDPipelines={CDPipelines} />
         </SectionBox>
     );

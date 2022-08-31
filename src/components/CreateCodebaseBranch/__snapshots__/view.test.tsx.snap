@@ -75,31 +75,31 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
                           <span />
                         </span>
                       </div>
-                    </div>
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    >
                       <div
-                        class="MuiFormControl-root MuiFormControl-fullWidth"
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                       >
                         <div
-                          class="MuiFormControl-root MuiTextField-root"
+                          class="MuiFormControl-root MuiFormControl-fullWidth"
                         >
                           <div
-                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            class="MuiFormControl-root MuiTextField-root"
                           >
                             <div
-                              class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                              style="margin-right: 0px;"
-                            />
-                            <input
-                              aria-invalid="false"
-                              class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                              name="branchName"
-                              placeholder="Enter Branch Name"
-                              type="text"
-                              value=""
-                            />
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            >
+                              <div
+                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                style="margin-right: 0px;"
+                              />
+                              <input
+                                aria-invalid="false"
+                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                name="branchName"
+                                placeholder="Enter Branch Name"
+                                type="text"
+                                value=""
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -137,31 +137,31 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
                           <span />
                         </span>
                       </div>
-                    </div>
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    >
                       <div
-                        class="MuiFormControl-root MuiFormControl-fullWidth"
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                       >
                         <div
-                          class="MuiFormControl-root MuiTextField-root"
+                          class="MuiFormControl-root MuiFormControl-fullWidth"
                         >
                           <div
-                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            class="MuiFormControl-root MuiTextField-root"
                           >
                             <div
-                              class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                              style="margin-right: 0px;"
-                            />
-                            <input
-                              aria-invalid="false"
-                              class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                              name="fromCommit"
-                              placeholder="Enter Commit"
-                              type="text"
-                              value=""
-                            />
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            >
+                              <div
+                                class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                style="margin-right: 0px;"
+                              />
+                              <input
+                                aria-invalid="false"
+                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                name="fromCommit"
+                                placeholder="Enter Commit"
+                                type="text"
+                                value=""
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>

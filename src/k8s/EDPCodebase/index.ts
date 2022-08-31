@@ -69,3 +69,13 @@ export const streamCodebasesByTypeLabel = (
         labelSelector: `app.edp.epam.com/codebaseType=${codebaseType}`,
     });
 };
+
+export const getCodebasesByTypeLabel = async (
+    namespace: string,
+    codebaseType: string
+): Promise<EDPCodebaseKubeObjectInterface[]> => {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=app.edp.epam.com/codebaseType=${codebaseType}`;
+
+    const { items } = await ApiProxy.request(url);
+    return items;
+};

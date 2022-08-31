@@ -23,6 +23,9 @@ export const useDefaultValues = ({
                 [names.gitServer.name]: 'gerrit',
                 [names.ciTool.name]: 'jenkins',
                 [names.emptyProject.name]: false,
+                [names.jobProvisioning.name]: 'default',
+                [names.versioningType.name]: 'default',
+                [names.deploymentScript.name]: 'helm-chart',
             };
         }
 
@@ -32,6 +35,9 @@ export const useDefaultValues = ({
                 [names.gitServer.name]: 'gerrit',
                 [names.ciTool.name]: 'jenkins',
                 [names.emptyProject.name]: false,
+                [names.jobProvisioning.name]: 'default',
+                [names.versioningType.name]: 'default',
+                [names.deploymentScript.name]: 'helm-chart',
             };
         }
 
@@ -41,6 +47,8 @@ export const useDefaultValues = ({
                 [names.gitServer.name]: 'gerrit',
                 [names.ciTool.name]: 'jenkins',
                 [names.emptyProject.name]: false,
+                [names.jobProvisioning.name]: 'default',
+                [names.versioningType.name]: 'default',
             };
         }
     }, [names, type]);

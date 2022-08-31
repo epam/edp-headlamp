@@ -1,4 +1,4 @@
-import { createCodebaseBranchExample } from '../../../../../configs/k8s-resource-examples/custom-resources/codebase-branch';
+import { createCodebaseBranchExample } from '../../../../../configs/k8s-resource-instances/custom-resources/codebase-branch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../k8s/EDPCodebaseBranch/types';
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
