@@ -26,7 +26,9 @@ A Helm chart for EDP Headlamp
 | affinity | object | `{}` | Affinity settings for pod assignment |
 | config.baseURL | string | `""` | base url path at which headlamp should run |
 | config.oidc.clientID | string | `""` | OIDC client ID |
-| config.oidc.clientSecret | string | `""` | OIDC client secret |
+| config.oidc.clientSecretKey | string | `""` | OIDC client secret key |
+| config.oidc.clientSecretName | string | `""` | OIDC client secret name |
+| config.oidc.enabled | bool | `false` |  |
 | config.oidc.issuerURL | string | `""` | OIDC issuer URL |
 | config.oidc.scopes | string | `""` | OIDC scopes to be used |
 | fullnameOverride | string | `""` | Overrides the full name of the chart |

@@ -31,10 +31,13 @@ config:
   # -- base url path at which headlamp should run
   baseURL: ""
   oidc:
+    enabled: false
     # -- OIDC client ID
     clientID: ""
-    # -- OIDC client secret
-    clientSecret: ""
+    # -- OIDC client secret name
+    clientSecretName: ""
+    # -- OIDC client secret key
+    clientSecretKey: ""
     # -- OIDC issuer URL
     issuerURL: ""
     # -- OIDC scopes to be used

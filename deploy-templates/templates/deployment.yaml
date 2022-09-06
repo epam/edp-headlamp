@@ -31,21 +31,29 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{ if .Values.config.oidc.enabled }}
+          env:
+          - name: CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.config.oidc.clientSecretName }}
+                key: {{ .Values.config.oidc.clientSecretKey }}
+          {{ end }}
           args:
             - "-in-cluster"
             - "-plugins-dir=/headlamp/plugins"
+            {{ if .Values.config.oidc.enabled }}
             {{- with .Values.config.oidc.clientID }}
             - "-oidc-client-id={{ . }}"
             {{- end }}
-            {{- with .Values.config.oidc.clientSecret }}
-            - "-oidc-client-secret={{ . }}"
-            {{- end }}
+            - "-oidc-client-secret=$(CLIENT_SECRET)"
             {{- with .Values.config.oidc.issuerURL }}
             - "-oidc-idp-issuer-url={{ . }}"
             {{- end }}
             {{- with .Values.config.oidc.scopes }}
             - "-oidc-scopes={{ . }}"
             {{- end }}
+            {{ end }}
             {{- with .Values.config.baseURL }}
             - "-base-url={{ . }}"
             {{- end }}
