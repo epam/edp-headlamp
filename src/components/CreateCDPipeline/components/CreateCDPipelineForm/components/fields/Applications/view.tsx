@@ -33,8 +33,19 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
 
     const namespaceFieldValue = watch(names.namespace.name);
     const applicationsToAddChooserFieldValue = watch(names.applicationsToAddChooser.name);
+    const applicationsFieldValue = watch(names.applications.name);
+    const applicationsToPromoteValue = watch(names.applicationsToPromote.name);
+    const applicationsBranchesFieldValue = watch(names.inputDockerStreams.name);
 
-    const [applications, setApplications] = useUpdatedApplications({ watch, names, setValue });
+    const [applications, setApplications] = useUpdatedApplications({
+        values: {
+            namespaceFieldValue,
+            applicationsFieldValue,
+            applicationsToPromoteValue,
+            applicationsBranchesFieldValue,
+        },
+        setValue,
+    });
 
     const handleAddApplicationRow = React.useCallback(async () => {
         setApplications(prev => {
@@ -82,14 +93,21 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
     }, [applications]);
 
     const applicationsOptionsListIsDisabled = React.useMemo(() => {
-        return !namespaceFieldValue || usedApplications.length;
-    }, [namespaceFieldValue, usedApplications.length]);
+        return !namespaceFieldValue || usedApplications.length === applications.length;
+    }, [applications.length, namespaceFieldValue, usedApplications.length]);
 
     const applicationsAddingButtonIsDisabled = React.useMemo(() => {
         return (
-            !namespaceFieldValue || !applicationsToAddChooserFieldValue || usedApplications.length
+            !namespaceFieldValue ||
+            !applicationsToAddChooserFieldValue ||
+            usedApplications.length === applications.length
         );
-    }, [applicationsToAddChooserFieldValue, namespaceFieldValue, usedApplications.length]);
+    }, [
+        applications.length,
+        applicationsToAddChooserFieldValue,
+        namespaceFieldValue,
+        usedApplications.length,
+    ]);
 
     return (
         <>
@@ -127,11 +145,11 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                         >
                             <Icon
                                 icon={ICON_PLUS}
-                                width={20}
+                                width={15}
                                 color={
                                     applicationsAddingButtonIsDisabled
                                         ? 'white'
-                                        : theme.palette.primary.main
+                                        : theme.palette.text.primary
                                 }
                             />
                         </Button>

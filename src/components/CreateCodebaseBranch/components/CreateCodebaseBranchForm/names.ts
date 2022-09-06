@@ -1,12 +1,10 @@
-import { FormNameObject } from '../../../../types/forms';
+import { BackwardNameMapping, FormNameObject } from '../../../../types/forms';
 import { FORM_PART_CODEBASE_INFO } from '../../../CreateCodebase/components/CreateCodebaseForm/constants';
 
-export const CODEBASE_BRANCH_BACKWARDS_NAME_MAPPING = {
+export const CODEBASE_BRANCH_BACKWARDS_NAME_MAPPING: BackwardNameMapping = {
     labels: {
-        name: 'labels',
         children: {
             'app.edp.epam.com/codebaseName': {
-                name: 'app.edp.epam.com/codebaseName',
                 formItemName: 'codebaseNameLabel',
             },
         },

@@ -18,7 +18,7 @@ export const JobProvisioning = ({ names, handleFormFieldChange }: JobProvisionin
             <FormSelect
                 {...register(names.jobProvisioning.name, {
                     required: 'Select Job Provisioner which will be used to handle codebase.',
-                    onBlur: handleFormFieldChange,
+                    onChange: handleFormFieldChange,
                 })}
                 label={'CI pipeline provisioner'}
                 placeholder={'Select CI pipeline provisioner'}

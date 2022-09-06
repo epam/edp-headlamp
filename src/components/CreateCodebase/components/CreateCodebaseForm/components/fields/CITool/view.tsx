@@ -18,7 +18,7 @@ export const CITool = ({ names, handleFormFieldChange }: CIToolProps) => {
             <FormSelect
                 {...register(names.ciTool.name, {
                     required: 'Select CI tool which will be used for building your codebase',
-                    onBlur: handleFormFieldChange,
+                    onChange: handleFormFieldChange,
                 })}
                 label={'Select CI tool'}
                 placeholder={'Select CI tool'}

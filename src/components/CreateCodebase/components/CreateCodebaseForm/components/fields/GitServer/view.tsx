@@ -17,7 +17,7 @@ export const GitServer = ({ names, handleFormFieldChange, gitServers }: GitServe
             <FormSelect
                 {...register(names.gitServer.name, {
                     required: 'Select the existing Git Server.',
-                    onBlur: handleFormFieldChange,
+                    onChange: handleFormFieldChange,
                 })}
                 label={'Git Server'}
                 placeholder={'Git Server'}

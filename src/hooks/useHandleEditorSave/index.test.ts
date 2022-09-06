@@ -18,39 +18,39 @@ import { useHandleEditorSave } from './index';
 import {
     applicationCloneStrategyEditorPropsObjectMock,
     applicationCloneStrategyEditorPropsObjectMockExpectedOutput,
-} from './mocks/applicationCloneStrategyEditorPropsObjectMock';
+} from './mocks/applicationCloneStrategyEditorPropsObject.mock';
 import {
     applicationCreateStrategyEditorPropsObjectMock,
     applicationCreateStrategyEditorPropsObjectMockExpectedOutput,
-} from './mocks/applicationCreateStrategyEditorPropsObjectMock';
+} from './mocks/applicationCreateStrategyEditorPropsObject.mock';
 import {
     applicationImportStrategyEditorPropsObjectMock,
     applicationImportStrategyEditorPropsObjectMockExpectedOutput,
-} from './mocks/applicationImportStrategyEditorPropsObjectMock';
+} from './mocks/applicationImportStrategyEditorPropsObject.mock';
 import {
     autotestCloneStrategyEditorPropsObjectMock,
     autotestCloneStrategyEditorPropsObjectMockExpectedOutput,
-} from './mocks/autotestCloneStrategyEditorPropsObjectMock';
+} from './mocks/autotestCloneStrategyEditorPropsObject.mock';
 import {
     autotestImportStrategyEditorPropsObjectMock,
     autotestImportStrategyEditorPropsObjectMockExpectedOutput,
-} from './mocks/autotestImportStrategyEditorPropsObjectMock';
+} from './mocks/autotestImportStrategyEditorPropsObject.mock';
 import {
     codebaseBranchEditorPropsObjectMock,
     codebaseBranchEditorPropsObjectMockExpectedOutput,
-} from './mocks/codebaseBranchEditorPropsObjectMock';
+} from './mocks/codebaseBranchEditorPropsObject.mock';
 import {
     libraryCloneStrategyEditorPropsObjectMock,
     libraryCloneStrategyEditorPropsObjectMockExpectedOutput,
-} from './mocks/libraryCloneStrategyEditorPropsObjectMock';
+} from './mocks/libraryCloneStrategyEditorPropsObject.mock';
 import {
     libraryCreateStrategyEditorPropsObjectMock,
     libraryCreateStrategyEditorPropsObjectMockExpectedOutput,
-} from './mocks/libraryCreateStrategyEditorPropsObjectMock';
+} from './mocks/libraryCreateStrategyEditorPropsObject.mock';
 import {
     libraryImportStrategyEditorPropsObjectMock,
     libraryImportStrategyEditorPropsObjectMockExpectedOutput,
-} from './mocks/libraryImportStrategyEditorPropsObjectMock';
+} from './mocks/libraryImportStrategyEditorPropsObject.mock';
 
 const executeMockState = () => {
     const formState = {}; // react-hook-form state

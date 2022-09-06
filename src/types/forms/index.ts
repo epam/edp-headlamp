@@ -7,6 +7,21 @@ export interface FormNameObject {
     path?: string[];
 }
 
+interface BackwardNameMappingChildren {
+    formItemName?: string;
+    children?: {
+        [key: string]: BackwardNameMappingChildren;
+    };
+}
+
+export interface BackwardNameMapping {
+    [key: string]: {
+        children?: {
+            [key: string]: BackwardNameMappingChildren;
+        };
+    };
+}
+
 export interface CreationFormFieldInterface {
     names: {
         [key: string]: FormNameObject;

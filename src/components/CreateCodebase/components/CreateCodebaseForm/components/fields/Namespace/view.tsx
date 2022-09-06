@@ -50,7 +50,7 @@ export const Namespace = ({ names, handleFormFieldChange, namespaces, type }: Na
             <FormSelect
                 {...register(names.namespace.name, {
                     required: 'Select the existing namespace',
-                    onBlur: onNamespaceChange,
+                    onChange: onNamespaceChange,
                 })}
                 label={'Namespace'}
                 placeholder={'Namespace'}

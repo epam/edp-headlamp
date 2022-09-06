@@ -1,6 +1,6 @@
 import { describe, it, jest } from '@jest/globals';
 import { pluginLib } from '../../../plugin.globals';
-import { emptyCDPipelinesStagesListMock } from '../../EDPCDPipeline/__mocks__/cdPipelinesStagesMock';
+import { emptyCDPipelinesStagesListMock } from '../../EDPCDPipeline/mocks/cdPipelinesStages.mock';
 import { getCDPipelinesStages } from './index';
 
 const { ApiProxy } = pluginLib;

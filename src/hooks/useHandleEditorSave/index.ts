@@ -25,6 +25,40 @@ export const useHandleEditorSave = ({
 }: useHandleEditorSaveProps): {
     handleEditorSave: (editorPropsObject: DeepPartial<EDPKubeObjectInterface>) => void;
 } => {
+    const setFormStateFieldValue = React.useCallback(
+        (name: string, value: string): void => {
+            setValue(name, value);
+            handleFormFieldChange({
+                target: {
+                    name: name,
+                    value: value,
+                },
+            });
+        },
+        [handleFormFieldChange, setValue]
+    );
+
+    const cleanFormStateFromUnusedProps = React.useCallback(
+        editorPropsObject => {
+            for (const formValueKey of Object.keys(formValues)) {
+                const propNameObjectPath = names[formValueKey].path;
+
+                if (hasLodash(editorPropsObject, propNameObjectPath)) {
+                    continue;
+                }
+
+                resetField(names[formValueKey].name);
+                handleFormFieldChange({
+                    target: {
+                        name: names[formValueKey].name,
+                        value: undefined,
+                    },
+                });
+            }
+        },
+        [formValues, handleFormFieldChange, names, resetField]
+    );
+
     const handleEditorSave = React.useCallback(
         (editorPropsObject: DeepPartial<EDPKubeObjectInterface>) => {
             /*
@@ -50,48 +84,53 @@ export const useHandleEditorSave = ({
 
 
 			 */
-            for (const [editorPropsObjectKey, editorPropsObjectValue] of Object.entries(
-                editorPropsObject
+
+            // we need to process only spec and metadata as createInstance function already has apiVersion and kind in its config
+            const { spec, metadata } = editorPropsObject;
+            const specAndMetadata = { ...spec, ...metadata };
+
+            // we don't have to handle any other values except spec and metadata for now
+            for (const [editorRootPropKey, editorRootPropValue] of Object.entries(
+                specAndMetadata
             )) {
-                if (editorPropsObjectKey !== 'spec' && editorPropsObjectKey !== 'metadata') {
-                    continue;
-                }
+                if (Object.hasOwn(backwardNames, editorRootPropKey)) {
+                    const backwardNamesObject = backwardNames[editorRootPropKey];
+                    for (const [complexObjectKey, complexObjectValue] of Object.entries(
+                        editorRootPropValue
+                    )) {
+                        const { children } = backwardNamesObject;
 
-                // we don't have to handle any other values except spec and metadata for now
-                for (const [editorRootPropKey, editorRootPropValue] of Object.entries(
-                    editorPropsObjectValue
-                )) {
-                    if (Object.hasOwn(backwardNames, editorRootPropKey)) {
-                        // if spec prop is a complex object like versioning that has children i.e. type, startFrom
-                        const complexNameObject = backwardNames[editorRootPropKey];
-
-                        for (const [complexObjectKey, complexObjectValue] of Object.entries(
-                            editorRootPropValue
-                        )) {
-                            const { children } = complexNameObject;
+                        if (
+                            typeof complexObjectValue === 'object' &&
+                            !Array.isArray(complexObjectValue)
+                        ) {
+                            for (const [
+                                complexObjectValueKey,
+                                complexObjectValueValue,
+                            ] of Object.entries(complexObjectValue)) {
+                                const { formItemName } =
+                                    children[complexObjectKey].children[complexObjectValueKey];
+                                setFormStateFieldValue(
+                                    names[formItemName].name,
+                                    complexObjectValueValue
+                                );
+                            }
+                        } else {
                             //loop through complex object mapping to setValue based on children name
                             if (Object.hasOwn(children, complexObjectKey)) {
-                                const { formItemName } = children[complexObjectKey];
+                                const complexObjectChild = children[complexObjectKey];
 
-                                setValue(names[formItemName].name, complexObjectValue);
-                                handleFormFieldChange({
-                                    target: {
-                                        name: names[formItemName].name,
-                                        value: complexObjectValue,
-                                    },
-                                });
+                                const { formItemName } = complexObjectChild;
+                                setFormStateFieldValue(
+                                    names[formItemName].name,
+                                    complexObjectValue
+                                );
                             }
                         }
-                    } else {
-                        // for simple flat values
-                        setValue(names[editorRootPropKey].name, editorRootPropValue);
-                        handleFormFieldChange({
-                            target: {
-                                name: names[editorRootPropKey].name,
-                                value: editorRootPropValue,
-                            },
-                        });
                     }
+                } else {
+                    // for simple flat values or arrays
+                    setFormStateFieldValue(names[editorRootPropKey].name, editorRootPropValue);
                 }
             }
             /*
@@ -101,24 +140,9 @@ export const useHandleEditorSave = ({
 				we check if formValue still exists in those values and if not we delete it from form state
 
 			*/
-            for (const formValueKey of Object.keys(formValues)) {
-                const propNameObjectPath = names[formValueKey].path;
-
-                if (hasLodash(editorPropsObject, propNameObjectPath)) {
-                    continue;
-                }
-
-                resetField(names[formValueKey].name);
-                const propTargetObject = {
-                    target: {
-                        name: names[formValueKey].name,
-                        value: undefined,
-                    },
-                };
-                handleFormFieldChange(propTargetObject);
-            }
+            cleanFormStateFromUnusedProps(editorPropsObject);
         },
-        [backwardNames, formValues, handleFormFieldChange, names, resetField, setValue]
+        [backwardNames, cleanFormStateFromUnusedProps, names, setFormStateFieldValue]
     );
 
     return { handleEditorSave };

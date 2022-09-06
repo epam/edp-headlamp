@@ -18,7 +18,7 @@ export const DeploymentType = ({ names, handleFormFieldChange }: DeploymentTypeP
             <FormSelect
                 {...register(names.deploymentType.name, {
                     required: 'Select CI tool which will be used for building your codebase',
-                    onBlur: handleFormFieldChange,
+                    onChange: handleFormFieldChange,
                 })}
                 label={'Deployment Type'}
                 placeholder={'Choose deployment type'}

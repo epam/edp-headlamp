@@ -172,7 +172,7 @@ export const ApplicationRow = ({
                 <Grid item xs={4}>
                     <FormSelect
                         {...register(`${createApplicationRowName(value)}-application-branch`, {
-                            onBlur: handleChangeApplicationBranch,
+                            onChange: handleChangeApplicationBranch,
                         })}
                         placeholder={'Choose application branch'}
                         control={control}

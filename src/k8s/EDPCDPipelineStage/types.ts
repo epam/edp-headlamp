@@ -13,7 +13,7 @@ interface EDPCDPipelineStageSpecInterface {
     jobProvisioning: string;
     name: string;
     order: number;
-    qualityGates: EDPCDPipelineStageSpecQualityGatesInterface;
+    qualityGates: EDPCDPipelineStageSpecQualityGatesInterface[];
     source: {
         library: {
             branch: string;

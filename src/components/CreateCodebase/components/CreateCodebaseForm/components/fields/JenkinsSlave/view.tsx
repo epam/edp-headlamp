@@ -24,7 +24,7 @@ export const JenkinsSlave = ({
             <FormSelect
                 {...register(names.jenkinsSlave.name, {
                     required: 'Select Jenkins Agent which will be used to handle codebase.',
-                    onBlur: handleFormFieldChange,
+                    onChange: handleFormFieldChange,
                 })}
                 label={'Jenkins Agent'}
                 placeholder={

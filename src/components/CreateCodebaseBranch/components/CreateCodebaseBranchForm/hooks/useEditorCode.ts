@@ -1,4 +1,4 @@
-import { createCodebaseBranchExample } from '../../../../../configs/k8s-resource-instances/custom-resources/codebase-branch';
+import { createCodebaseBranchInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/codebase-branch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../k8s/EDPCodebaseBranch/types';
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
@@ -19,7 +19,7 @@ export const useEditorCode = ({
     namespace,
 }: useEditorCodeProps): { editorCode: EDPCodebaseBranchKubeObjectInterface } => {
     const editorCode = React.useMemo(() => {
-        return createCodebaseBranchExample(names, formValues, codebaseName, namespace);
+        return createCodebaseBranchInstance(names, formValues, codebaseName, namespace);
     }, [names, formValues, codebaseName, namespace]);
 
     return { editorCode };

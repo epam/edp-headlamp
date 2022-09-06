@@ -9,9 +9,9 @@ const {
 const { Box } = MuiCore;
 
 export const GeneralInfoTable: React.FC<GeneralInfoTableProps> = ({
-    kubeObjectData,
+    CDPipelineData,
 }): React.ReactElement => {
-    const { spec } = kubeObjectData;
+    const { spec } = CDPipelineData;
     const columns = useColumns(spec);
 
     return (

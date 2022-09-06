@@ -18,7 +18,7 @@ export const TestReportFramework = ({ names, handleFormFieldChange }: TestReport
             <FormSelect
                 {...register(names.testReportFramework.name, {
                     required: 'Select Autotest Report Framework',
-                    onBlur: handleFormFieldChange,
+                    onChange: handleFormFieldChange,
                 })}
                 label={'Autotest Report Framework'}
                 placeholder={'Autotest Report Framework'}

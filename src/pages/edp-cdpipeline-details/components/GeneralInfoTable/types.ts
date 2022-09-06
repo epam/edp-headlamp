@@ -1,5 +1,5 @@
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 
 export interface GeneralInfoTableProps {
-    kubeObjectData: EDPKubeObjectInterface;
+    CDPipelineData: EDPKubeObjectInterface;
 }

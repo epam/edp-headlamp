@@ -21,7 +21,7 @@ export const JiraServer = ({ names, handleFormFieldChange, jiraServers }: JiraSe
                 {...register(names.jiraServer.name, {
                     required:
                         'Select Jira server that will be integrated with the codebase (application, library, autotest).',
-                    onBlur: handleFormFieldChange,
+                    onChange: handleFormFieldChange,
                 })}
                 label={'Jira Server'}
                 placeholder={!namespaceFieldValue ? 'Select namespace first' : 'Select Jira Server'}

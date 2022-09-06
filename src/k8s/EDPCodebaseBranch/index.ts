@@ -50,12 +50,11 @@ export const streamCodebaseBranchesByCodebaseLabel = (
     });
 };
 
-export const getCodebaseBranchesByCodebaseLabel = async (
+export const getCodebaseBranchesByCodebaseLabel = (
     namespace: string,
     codebaseName: string
-): Promise<EDPCodebaseBranchKubeObjectInterface[]> => {
+): Promise<{ items: EDPCodebaseBranchKubeObjectInterface[] }> => {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=app.edp.epam.com/codebaseName=${codebaseName}`;
 
-    const { items } = await ApiProxy.request(url);
-    return items;
+    return ApiProxy.request(url);
 };

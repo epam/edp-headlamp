@@ -18,7 +18,7 @@ export const DeploymentScript = ({ names, handleFormFieldChange }: DeploymentScr
             <FormSelect
                 {...register(names.deploymentScript.name, {
                     required: 'Select Deployment Script which will be used for deploy',
-                    onBlur: handleFormFieldChange,
+                    onChange: handleFormFieldChange,
                 })}
                 label={'Deployment Script'}
                 placeholder={'Select deployment Script'}

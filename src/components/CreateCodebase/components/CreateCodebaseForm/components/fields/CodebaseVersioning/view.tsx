@@ -59,7 +59,7 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
                     {...register(names.versioningType.name, {
                         required:
                             'Select codebase versioning type which will be used to handle codebase versioning flow.',
-                        onBlur: handleFormFieldChange,
+                        onChange: handleFormFieldChange,
                     })}
                     label={'Codebase Versioning Type'}
                     placeholder={'Select codebase Versioning Type'}

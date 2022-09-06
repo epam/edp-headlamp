@@ -1,7 +1,7 @@
-import { FormNameObject } from '../../../../types/forms';
+import { BackwardNameMapping, FormNameObject } from '../../../../types/forms';
 import { FORM_PART_APPLICATIONS, FORM_PART_PIPELINE } from './constants';
 
-export const CDPIPELINE_BACKWARDS_NAME_MAPPING = {};
+export const CDPIPELINE_BACKWARDS_NAME_MAPPING: BackwardNameMapping = {};
 
 export const CDPIPELINE_CREATION_NAME_NAME: FormNameObject = {
     name: 'name',

@@ -1,5 +1,6 @@
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICON_ARROW_DOWN } from '../../../../constants/icons';
+import { STATUS_UNKNOWN } from '../../../../constants/statuses';
 import {
     EDPCDPipelineStageKubeObject,
     streamCDPipelineStagesByCDPipelineName,
@@ -20,12 +21,11 @@ const { Icon } = Iconify;
 const { Accordion, AccordionSummary, AccordionDetails, Typography } = MuiCore;
 
 export const CDPipelineStagesList: React.FC<CDPipelineStagesListProps> = ({
-    kubeObject,
-    kubeObjectData,
+    CDPipelineData,
 }): React.ReactElement => {
     const {
         metadata: { name, namespace },
-    } = kubeObjectData;
+    } = CDPipelineData;
 
     const classes = useStyles();
     const [currentCDPipelineStages, setCurrentCDPipelineStages] = React.useState<
@@ -65,7 +65,10 @@ export const CDPipelineStagesList: React.FC<CDPipelineStagesListProps> = ({
         <>
             <div className={classes.tableHeaderActions}>
                 <SectionHeader title="Stages" headerStyle="main" />
-                <TableHeaderActions kubeObject={kubeObject} kubeObjectData={kubeObjectData} />
+                <TableHeaderActions
+                    currentCDPipelineStages={currentCDPipelineStages}
+                    CDPipelineData={CDPipelineData}
+                />
             </div>
             {currentCDPipelineStages.map((el, idx) => {
                 const stageId = `${el.spec.name}:${idx}`;
@@ -78,7 +81,9 @@ export const CDPipelineStagesList: React.FC<CDPipelineStagesListProps> = ({
                         >
                             <AccordionSummary expandIcon={<Icon icon={ICON_ARROW_DOWN} />}>
                                 <div className={classes.stageHeading}>
-                                    {el.status && <StatusIcon status={el.status.status} />}
+                                    <StatusIcon
+                                        status={el.status ? el.status.status : STATUS_UNKNOWN}
+                                    />
                                     <Typography variant={'h6'} style={{ lineHeight: 1 }}>
                                         {el.spec.name}
                                     </Typography>

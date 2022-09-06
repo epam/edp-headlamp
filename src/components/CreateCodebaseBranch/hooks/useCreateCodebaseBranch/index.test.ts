@@ -6,7 +6,7 @@ import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react-hooks';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
 import { useCreateCodebaseBranch } from './index';
-import { branchDataMock } from './mocks/branchDataMock';
+import { branchDataMock } from './mocks/branchData.mock';
 
 jest.mock('notistack', () => ({
     useSnackbar: () => ({

@@ -209,11 +209,11 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
                         >
                             <Icon
                                 icon={ICON_PLUS}
-                                width={20}
+                                width={15}
                                 color={
                                     !advancedMappingFieldNameValue
                                         ? 'white'
-                                        : theme.palette.primary.main
+                                        : theme.palette.text.primary
                                 }
                             />
                         </Button>

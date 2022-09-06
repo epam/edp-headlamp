@@ -21,12 +21,13 @@ const { useParams, Link } = ReactRouter;
 export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
-    const [CDPipeline, setCDPipeline] = React.useState<EDPCDPipelineKubeObjectInterface>(null);
+    const [CDPipelineData, setCDPipelineData] =
+        React.useState<EDPCDPipelineKubeObjectInterface>(null);
     const [, setError] = React.useState<string>(null);
 
     const handleStoreCDPipeline = React.useCallback(
-        (CDPipeline: EDPCDPipelineKubeObjectInterface) => {
-            setCDPipeline(CDPipeline);
+        (CDPipelineData: EDPCDPipelineKubeObjectInterface) => {
+            setCDPipelineData(CDPipelineData);
         },
         []
     );
@@ -53,22 +54,22 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
                 <Typography variant={'h1'} component={'span'}>
                     {name}
                 </Typography>
-                <Render condition={!!CDPipeline}>
+                <Render condition={!!CDPipelineData}>
                     <div style={{ marginLeft: 'auto' }}>
                         <CDPipelineActions
                             kubeObject={EDPCDPipelineKubeObject}
-                            kubeObjectData={CDPipeline}
+                            kubeObjectData={CDPipelineData}
                         />
                     </div>
                 </Render>
             </div>
-            <Render condition={!!CDPipeline}>
+            <Render condition={!!CDPipelineData}>
                 <>
-                    <GeneralInfoTable kubeObjectData={CDPipeline} />
-                    <MetadataTable kubeObjectData={CDPipeline} />
+                    <GeneralInfoTable CDPipelineData={CDPipelineData} />
+                    <MetadataTable kubeObjectData={CDPipelineData} />
                     <CDPipelineStagesList
                         kubeObject={EDPCDPipelineStageKubeObject}
-                        kubeObjectData={CDPipeline}
+                        CDPipelineData={CDPipelineData}
                     />
                 </>
             </Render>

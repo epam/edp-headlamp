@@ -15,6 +15,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = (): React.ReactEl
     const onClose = React.useCallback(() => {
         setCreateDialogOpen(false);
     }, [setCreateDialogOpen]);
+
     return (
         <>
             <Fab

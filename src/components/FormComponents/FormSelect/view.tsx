@@ -16,7 +16,7 @@ export const FormSelect = ({
     title,
     control,
     defaultValue = '',
-    options,
+    options = [],
     errors,
     placeholder,
     disabled,
@@ -64,15 +64,21 @@ export const FormSelect = ({
                                                     field.value === '',
                                             })}
                                         >
-                                            {options.map(({ label, value }, idx) => {
-                                                const key = `${label}::${idx}`;
+                                            {options.map(
+                                                ({ label, value, disabled = false }, idx) => {
+                                                    const key = `${label}::${idx}`;
 
-                                                return (
-                                                    <MenuItem value={value} key={key}>
-                                                        {label}
-                                                    </MenuItem>
-                                                );
-                                            })}
+                                                    return (
+                                                        <MenuItem
+                                                            value={value}
+                                                            key={key}
+                                                            disabled={disabled}
+                                                        >
+                                                            {label}
+                                                        </MenuItem>
+                                                    );
+                                                }
+                                            )}
                                         </Select>
                                     );
                                 }}

@@ -1,9 +1,8 @@
-import { SyntheticEvent } from 'react';
-import { FormNameObject } from '../../../../../../types/forms';
+import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDPCDPipelineStage/types';
+import { DeepPartial } from '../../../../../../types/global';
 
 export interface StagesFormPartProps {
-    names: {
-        [key: string]: FormNameObject;
-    };
-    handleFormFieldChange(event: SyntheticEvent): void;
+    setCreateStageDialogOpen: () => void;
+    stages: DeepPartial<EDPCDPipelineStageKubeObjectInterface>;
+    onStageDelete: (idx: number) => void;
 }

@@ -1,29 +1,24 @@
-import { FormNameObject } from '../../../../types/forms';
+import { BackwardNameMapping, FormNameObject } from '../../../../types/forms';
 import {
     FORM_PART_ADVANCED_SETTINGS,
     FORM_PART_CODEBASE_INFO,
     FORM_PART_CODEBASE_TYPE_INFO,
 } from './constants';
 
-export const CODEBASE_BACKWARDS_NAME_MAPPING = {
+export const CODEBASE_BACKWARDS_NAME_MAPPING: BackwardNameMapping = {
     repository: {
-        name: 'repository',
         children: {
             url: {
-                name: 'url',
                 formItemName: 'repositoryUrl',
             },
         },
     },
     versioning: {
-        name: 'versioning',
         children: {
             startFrom: {
-                name: 'startFrom',
                 formItemName: 'versioningStartFrom',
             },
             type: {
-                name: 'type',
                 formItemName: 'versioningType',
             },
         },

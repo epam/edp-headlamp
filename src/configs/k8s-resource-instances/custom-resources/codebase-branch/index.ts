@@ -6,7 +6,7 @@ import { DeepPartial } from '../../../../types/global';
 
 const { kind, group, version } = EDPCodebaseBranchKubeObjectConfig;
 
-export const createCodebaseBranchExample = (
+export const createCodebaseBranchInstance = (
     names: {
         [key: string]: FormNameObject;
     },

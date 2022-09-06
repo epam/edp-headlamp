@@ -70,12 +70,11 @@ export const streamCodebasesByTypeLabel = (
     });
 };
 
-export const getCodebasesByTypeLabel = async (
+export const getCodebasesByTypeLabel = (
     namespace: string,
     codebaseType: string
-): Promise<EDPCodebaseKubeObjectInterface[]> => {
+): Promise<{ items: EDPCodebaseKubeObjectInterface[] }> => {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=app.edp.epam.com/codebaseType=${codebaseType}`;
 
-    const { items } = await ApiProxy.request(url);
-    return items;
+    return ApiProxy.request(url);
 };

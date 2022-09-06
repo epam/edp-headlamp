@@ -3,11 +3,11 @@ import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
+import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { DeepPartial } from '../../../../types/global';
+import { CreateCDPipelineStage } from '../../../CreateCDPipelineStage';
 import { Render } from '../../../Render';
-import { stageQAMock } from '../../hooks/mocks/stageQA.mock';
-import { stageSitMock } from '../../hooks/mocks/stageSit.mock';
 import { ApplicationsFormPart } from './components/ApplicationsFormPart';
 import { PipelineInfoFormPart } from './components/PipelineFormPart';
 import { StagesFormPart } from './components/StagesFormPart';
@@ -49,6 +49,9 @@ export const CreateCDPipelineForm = ({
 
     const [formValues, setFormValues] =
         React.useState<DeepPartial<EDPCDPipelineKubeObjectInterface>>(baseDefaultValues);
+    const [stages, setStages] = React.useState<DeepPartial<EDPCDPipelineStageKubeObjectInterface>>(
+        []
+    );
 
     const handleChangeTab = React.useCallback(
         (event: React.ChangeEvent<{}>, newActiveTabIdx: number) => {
@@ -95,6 +98,7 @@ export const CreateCDPipelineForm = ({
     const handleResetFields = React.useCallback(() => {
         setFormValues(baseDefaultValues);
         reset();
+        setStages([]);
     }, [baseDefaultValues, reset]);
 
     const { handleEditorSave } = useHandleEditorSave({
@@ -142,8 +146,34 @@ export const CreateCDPipelineForm = ({
     }, [activeTabIdx, trigger]);
 
     const onSubmit = React.useCallback(() => {
-        handleApply(editorReturnValues, [stageSitMock, stageQAMock]);
-    }, [editorReturnValues, handleApply]);
+        handleApply(editorReturnValues, stages);
+    }, [editorReturnValues, handleApply, stages]);
+
+    const [createStageDialogOpen, setCreateStageDialogOpen] = React.useState<boolean>(false);
+
+    const onClose = React.useCallback(() => {
+        setCreateStageDialogOpen(false);
+    }, [setCreateStageDialogOpen]);
+
+    const handleCreateNewStage = React.useCallback(
+        (stage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>) => {
+            setStages(prev => [...prev, stage]);
+            onClose();
+        },
+        [onClose]
+    );
+
+    const onStageDelete = React.useCallback((idx: number) => {
+        setStages(prev =>
+            prev
+                .map((el, prevElIndex) => {
+                    if (idx !== prevElIndex) {
+                        return el;
+                    }
+                })
+                .filter(Boolean)
+        );
+    }, []);
 
     return (
         <FormProvider {...methods}>
@@ -194,8 +224,9 @@ export const CreateCDPipelineForm = ({
                         >
                             <div className={classes.tabPanelInner}>
                                 <StagesFormPart
-                                    names={CDPIPELINE_CREATION_FORM_NAMES}
-                                    handleFormFieldChange={handleFormFieldChange}
+                                    setCreateStageDialogOpen={setCreateStageDialogOpen}
+                                    stages={stages}
+                                    onStageDelete={onStageDelete}
                                 />
                             </div>
                         </TabPanel>
@@ -240,6 +271,14 @@ export const CreateCDPipelineForm = ({
                         </Render>
                     </div>
                 </form>
+                <CreateCDPipelineStage
+                    CDPipelineData={editorReturnValues}
+                    stagesQuantity={stages.length}
+                    open={createStageDialogOpen}
+                    onClose={onClose}
+                    setOpen={setCreateStageDialogOpen}
+                    handleApply={handleCreateNewStage}
+                />
             </div>
             <Render condition={!!editorOpen}>
                 <EditorDialog

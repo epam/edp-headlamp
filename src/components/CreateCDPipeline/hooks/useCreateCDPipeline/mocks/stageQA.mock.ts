@@ -1,7 +1,7 @@
-import { DeepPartial } from '../../../../types/global';
-import { EDPKubeObjectInterface } from '../../../../types/k8s';
+import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
+import { DeepPartial } from '../../../../../types/global';
 
-export const stageQAMock: DeepPartial<EDPKubeObjectInterface> = {
+export const stageQAMock: DeepPartial<EDPCDPipelineStageKubeObjectInterface> = {
     kind: 'Stage',
     apiVersion: 'v2.edp.epam.com/v1',
     metadata: {

@@ -22,7 +22,7 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
             <FormSelect
                 {...register(names.strategy.name, {
                     required: 'Select the existing codebase creation strategy',
-                    onBlur: event => {
+                    onChange: event => {
                         const {
                             target: { value },
                         } = event;

@@ -1,4 +1,5 @@
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
 import { DeepPartial } from '../../types/global';
 
 export interface CreateCodebaseBranchProps {
@@ -6,4 +7,5 @@ export interface CreateCodebaseBranchProps {
     open: boolean;
     onClose(): void;
     setOpen(boolean): void;
+    handleApply(newCodebaseBranchData: EDPCodebaseBranchKubeObjectInterface): void;
 }

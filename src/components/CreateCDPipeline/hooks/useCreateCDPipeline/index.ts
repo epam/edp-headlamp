@@ -1,11 +1,11 @@
-import { EDPCDPipelineKubeObject } from '../../../k8s/EDPCDPipeline';
-import { EDPCDPipelineKubeObjectInterface } from '../../../k8s/EDPCDPipeline/types';
-import { EDPCDPipelineStageKubeObject } from '../../../k8s/EDPCDPipelineStage';
-import { EDPCDPipelineStageKubeObjectInterface } from '../../../k8s/EDPCDPipelineStage/types';
-import { Notistack, React } from '../../../plugin.globals';
-import { DeepPartial } from '../../../types/global';
-import { createErrorMessage } from '../../../utils/createErrorMessage';
-import { throwErrorNoty } from '../../../utils/throwErrorNoty';
+import { EDPCDPipelineKubeObject } from '../../../../k8s/EDPCDPipeline';
+import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
+import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
+import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
+import { Notistack, React } from '../../../../plugin.globals';
+import { DeepPartial } from '../../../../types/global';
+import { createErrorMessage } from '../../../../utils/createErrorMessage';
+import { throwErrorNoty } from '../../../../utils/throwErrorNoty';
 
 const { useSnackbar } = Notistack;
 
@@ -15,7 +15,7 @@ export const useCreateCDPipeline = (
 ): {
     createCDPipeline: (
         newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>,
-        stages: EDPCDPipelineStageKubeObjectInterface[]
+        stages: DeepPartial<EDPCDPipelineStageKubeObjectInterface>[]
     ) => Promise<EDPCDPipelineKubeObjectInterface | undefined>;
 } => {
     const { enqueueSnackbar } = useSnackbar();
@@ -23,20 +23,21 @@ export const useCreateCDPipeline = (
     const createCDPipeline = React.useCallback(
         async (
             newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>,
-            stages: EDPCDPipelineStageKubeObjectInterface[]
-        ): Promise<void> => {
+            stages: DeepPartial<EDPCDPipelineStageKubeObjectInterface>[]
+        ): Promise<EDPCDPipelineKubeObjectInterface> => {
             const {
                 metadata: { name },
             } = newCDPipelineData;
 
             try {
-                await EDPCDPipelineKubeObject.apiEndpoint.post(newCDPipelineData);
+                const result = await EDPCDPipelineKubeObject.apiEndpoint.post(newCDPipelineData);
 
                 for (const stage of stages) {
                     await EDPCDPipelineStageKubeObject.apiEndpoint.post(stage);
                 }
 
                 onSuccess();
+                return result; // return statement only for testing purposes
             } catch (err: any) {
                 const errorMessage = createErrorMessage(err, name);
                 throwErrorNoty(enqueueSnackbar, errorMessage);

@@ -47,7 +47,7 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
             <FormSelect
                 {...register(names.buildTool.name, {
                     required: `Select ${type} build tool.`,
-                    onBlur: onBuildToolChange,
+                    onChange: onBuildToolChange,
                 })}
                 label={'Select Build Tool'}
                 placeholder={'Select Build Tool'}
