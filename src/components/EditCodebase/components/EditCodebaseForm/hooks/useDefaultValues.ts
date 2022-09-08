@@ -1,0 +1,27 @@
+import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
+import { React } from '../../../../../plugin.globals';
+import { FormNameObject } from '../../../../../types/forms';
+import { DeepPartial } from '../../../../../types/global';
+
+interface useDefaultValuesProps {
+    names: { [key: string]: FormNameObject };
+    codebaseData: DeepPartial<EDPCodebaseKubeObjectInterface>;
+}
+
+export const useDefaultValues = ({
+    names,
+    codebaseData,
+}: useDefaultValuesProps): { [key: string]: any } => {
+    const baseDefaultValues = React.useMemo(() => {
+        return {
+            [names.hasJiraServerIntegration.name]: !!codebaseData.spec.jiraServer,
+            [names.namespace.name]: codebaseData.metadata.namespace,
+            [names.jiraServer.name]: codebaseData.spec.jiraServer,
+            [names.commitMessagePattern.name]: codebaseData.spec.commitMessagePattern,
+            [names.ticketNamePattern.name]: codebaseData.spec.ticketNamePattern,
+            [names.jiraIssueMetadataPayload.name]: codebaseData.spec.jiraIssueMetadataPayload,
+        };
+    }, [codebaseData, names]);
+
+    return { baseDefaultValues };
+};

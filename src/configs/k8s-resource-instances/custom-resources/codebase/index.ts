@@ -36,3 +36,26 @@ export const createCodebaseInstance = (
 
     return base;
 };
+
+export const editCodebaseInstance = (
+    names: {
+        [key: string]: FormNameObject;
+    },
+    kubeObjectData: DeepPartial<EDPCodebaseKubeObjectInterface>,
+    formValues: {
+        [key: string]: any;
+    }
+): DeepPartial<EDPCodebaseKubeObjectInterface> => {
+    const base = { ...kubeObjectData };
+
+    for (const [propKey, propValue] of Object.entries(formValues)) {
+        if (names[propKey].notUsedInFormData) {
+            continue;
+        }
+
+        const propPath = names[propKey].path;
+        lodashSet(base, propPath, propValue);
+    }
+
+    return base;
+};

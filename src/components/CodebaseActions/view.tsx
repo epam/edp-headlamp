@@ -7,7 +7,7 @@ import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { KubeObjectAction } from '../../types/actions';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { DeleteKubeObject } from '../DeleteKubeObject';
-import { EditKubeObject } from '../EditKubeObject';
+import { EditCodebase } from '../EditCodebase';
 import { KubeObjectActions } from '../KubeObjectActions';
 import { CodebaseCDPipelineConflictError } from './components/CodebaseCDPipelineConflictError';
 import { CodebaseActionsProps } from './types';
@@ -24,7 +24,7 @@ export const CodebaseActions = ({
         metadata: { name },
     } = kubeObjectData;
 
-    const [editActionEditorOpen, setEditActionEditorOpen] = React.useState<boolean>(false);
+    const [editActionPopupOpen, setEditActionPopupOpen] = React.useState<boolean>(false);
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
@@ -46,7 +46,7 @@ export const CodebaseActions = ({
                 icon: ICON_PENCIL,
                 action: () => {
                     handleCloseActionsMenu();
-                    setEditActionEditorOpen(true);
+                    setEditActionPopupOpen(true);
                 },
             }),
             createKubeAction({
@@ -58,7 +58,7 @@ export const CodebaseActions = ({
                 },
             }),
         ];
-    }, [handleCloseActionsMenu, setEditActionEditorOpen, setDeleteActionPopupOpen]);
+    }, [handleCloseActionsMenu, setEditActionPopupOpen, setDeleteActionPopupOpen]);
 
     const onBeforeSubmit = React.useCallback(
         async (setErrorTemplate, setLoadingActive) => {
@@ -90,11 +90,11 @@ export const CodebaseActions = ({
                 <IconButton aria-label={'Options'} onClick={toggleActionsMenu}>
                     <Icon icon={ICON_THREE_DOTS} color={'grey'} width="20" />
                 </IconButton>
-                <EditKubeObject
-                    editorOpen={editActionEditorOpen}
-                    setEditorOpen={setEditActionEditorOpen}
-                    kubeObject={kubeObject}
-                    kubeObjectData={kubeObjectData}
+                <EditCodebase
+                    open={editActionPopupOpen}
+                    onClose={() => setEditActionPopupOpen(false)}
+                    setOpen={setEditActionPopupOpen}
+                    codebaseData={kubeObjectData}
                 />
                 <DeleteKubeObject
                     popupOpen={deleteActionPopupOpen}
