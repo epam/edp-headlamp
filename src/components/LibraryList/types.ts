@@ -1,5 +1,5 @@
-import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 
 export interface LibraryListProps {
-    data: EDPCodebaseKubeObject[];
+    data: EDPCodebaseKubeObjectInterface[];
 }

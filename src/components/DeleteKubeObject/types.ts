@@ -1,3 +1,4 @@
+import { React } from '../../plugin.globals';
 import type { k8s } from '../../plugin.types';
 import { EDPKubeObjectInterface } from '../../types/k8s';
 
@@ -9,7 +10,7 @@ export interface DeleteKubeObjectProps {
     objectName: string;
     description: string;
     onBeforeSubmit?(
-        setErrorTemplate: () => React.ReactElement,
-        setLoadingActive: () => void
+        setErrorTemplate: React.Dispatch<React.SetStateAction<React.ReactNode>>,
+        setLoadingActive: React.Dispatch<React.SetStateAction<boolean>>
     ): Promise<void>;
 }

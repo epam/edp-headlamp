@@ -31,7 +31,7 @@ export const CDPipelineStagesList: React.FC<CDPipelineStagesListProps> = ({
     const [currentCDPipelineStages, setCurrentCDPipelineStages] = React.useState<
         EDPCDPipelineStageKubeObjectInterface[]
     >([]);
-    const [, setError] = React.useState<string>('');
+    const [, setError] = React.useState<Error>(null);
     const [expandedPanel, setExpandedPanel] = React.useState<string | null>(null);
 
     const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {

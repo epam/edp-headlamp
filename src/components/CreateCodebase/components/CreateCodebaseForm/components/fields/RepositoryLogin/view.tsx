@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormTextField } from '../../../../../../FormComponents/FormTextField';
 import { RepositoryLoginProps } from './types';
 
@@ -17,7 +18,8 @@ export const RepositoryLogin = ({ names, handleFormFieldChange }: RepositoryLogi
             <FormTextField
                 {...register(names.repositoryLogin.name, {
                     required: 'Please specify repository login',
-                    onBlur: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Repository Login'}
                 title={'Please specify repository login'}

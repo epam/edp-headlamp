@@ -29,7 +29,11 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
                 getter: data => {
                     const kubeObjectBasedOnData = new EDPCDPipelineKubeObject(data);
                     return (
-                        <Link to={kubeObjectBasedOnData.getDetailsLink(CDPIPELINE_ROUTE_NAME)}>
+                        <Link
+                            to={kubeObjectBasedOnData.getDetailsLink(CDPIPELINE_ROUTE_NAME)}
+                            kubeOject={null}
+                            routeName={null}
+                        >
                             {data.metadata.name}
                         </Link>
                     );

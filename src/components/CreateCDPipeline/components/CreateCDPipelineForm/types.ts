@@ -1,6 +1,6 @@
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
+import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { DeepPartial } from '../../../../types/global';
-import { EDPKubeObjectInterface } from '../../../../types/k8s';
 
 export interface CreateCDPipelineFormProps {
     editorOpen: boolean;
@@ -8,6 +8,6 @@ export interface CreateCDPipelineFormProps {
     setDialogOpen(boolean): void;
     handleApply(
         newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>,
-        stages: DeepPartial<EDPKubeObjectInterface>[]
+        stages: DeepPartial<EDPCDPipelineStageKubeObjectInterface>[]
     ): void;
 }

@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { ciPipelineProvisioners } from '../../../../../../../configs/ciPipelineProvisioners';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { JobProvisioningProps } from './types';
 
@@ -18,7 +19,8 @@ export const JobProvisioning = ({ names, handleFormFieldChange }: JobProvisionin
             <FormSelect
                 {...register(names.jobProvisioning.name, {
                     required: 'Select Job Provisioner which will be used to handle codebase.',
-                    onChange: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'CI pipeline provisioner'}
                 placeholder={'Select CI pipeline provisioner'}

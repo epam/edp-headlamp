@@ -11,10 +11,10 @@ const {
 } = pluginLib;
 const { useParams } = ReactRouter;
 
-export const EDPAutotestList: React.FC<EDPAutotestListProps> = (): React.ReactElement => {
+export const EDPAutotestList = ({}: EDPAutotestListProps): React.ReactElement => {
     const { namespace } = useParams();
     const [autotests, setAutotests] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
-    const [, setError] = React.useState<string>('');
+    const [, setError] = React.useState<Error>(null);
 
     React.useEffect(() => {
         const cancelStream = streamCodebasesByTypeLabel(

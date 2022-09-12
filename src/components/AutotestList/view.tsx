@@ -7,7 +7,7 @@ const {
     Utils: { useFilterFunc },
 } = pluginLib;
 
-export const AutotestList: React.FC<AutotestListProps> = ({ autotests }): React.ReactElement => {
+export const AutotestList = ({ autotests }: AutotestListProps): React.ReactElement => {
     const columns = useColumns();
     const filterFunc = useFilterFunc();
 

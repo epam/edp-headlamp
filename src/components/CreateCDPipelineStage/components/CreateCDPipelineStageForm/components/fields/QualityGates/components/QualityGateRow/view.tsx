@@ -214,44 +214,48 @@ export const QualityGateRow = ({
                             !!autotests.length && currentQualityGateTypeFieldValue === 'autotests'
                         }
                     >
-                        <Grid item xs={3}>
-                            <FormSelect
-                                {...register(
-                                    createQualityGateAutotestFieldName(currentQualityGateData.id),
-                                    {
-                                        onChange: handleChangeQualityGateAutotestName,
-                                    }
-                                )}
-                                label={'Autotests'}
-                                placeholder={'Choose autotest'}
-                                title={'Choose autotest'}
-                                control={control}
-                                errors={errors}
-                                options={autotests.map(({ name }) => ({
-                                    label: name,
-                                    value: name,
-                                }))}
-                            />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <FormSelect
-                                {...register(
-                                    createQualityGateTypeAutotestsBranchFieldName(
-                                        currentQualityGateData.id
-                                    ),
-                                    {
-                                        onChange: handleChangeQualityGateAutotestBranchName,
-                                    }
-                                )}
-                                label={'Autotests branch'}
-                                placeholder={'Choose autotests branch'}
-                                title={'Choose autotests branch'}
-                                control={control}
-                                errors={errors}
-                                disabled={!currentQualityGateBranchesOptions.length}
-                                options={currentQualityGateBranchesOptions}
-                            />
-                        </Grid>
+                        <>
+                            <Grid item xs={3}>
+                                <FormSelect
+                                    {...register(
+                                        createQualityGateAutotestFieldName(
+                                            currentQualityGateData.id
+                                        ),
+                                        {
+                                            onChange: handleChangeQualityGateAutotestName,
+                                        }
+                                    )}
+                                    label={'Autotests'}
+                                    placeholder={'Choose autotest'}
+                                    title={'Choose autotest'}
+                                    control={control}
+                                    errors={errors}
+                                    options={autotests.map(({ name }) => ({
+                                        label: name,
+                                        value: name,
+                                    }))}
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <FormSelect
+                                    {...register(
+                                        createQualityGateTypeAutotestsBranchFieldName(
+                                            currentQualityGateData.id
+                                        ),
+                                        {
+                                            onChange: handleChangeQualityGateAutotestBranchName,
+                                        }
+                                    )}
+                                    label={'Autotests branch'}
+                                    placeholder={'Choose autotests branch'}
+                                    title={'Choose autotests branch'}
+                                    control={control}
+                                    errors={errors}
+                                    disabled={!currentQualityGateBranchesOptions.length}
+                                    options={currentQualityGateBranchesOptions}
+                                />
+                            </Grid>
+                        </>
                     </Render>
                 </Grid>
             </Grid>

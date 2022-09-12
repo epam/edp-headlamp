@@ -11,7 +11,7 @@ import { CDPipelineStageProps } from './types';
 const { useSnackbar } = Notistack;
 const { Box, Typography, Paper } = MuiCore;
 
-export const CDPipelineStage: React.FC<CDPipelineStageProps> = ({ stage }): React.ReactElement => {
+export const CDPipelineStage = ({ stage }: CDPipelineStageProps): React.ReactElement => {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
     const rows = useRows(stage);

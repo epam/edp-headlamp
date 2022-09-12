@@ -16,10 +16,10 @@ import { getConflictedCDPipeline } from './utils';
 const { IconButton } = MuiCore;
 const { Icon } = Iconify;
 
-export const CodebaseActions: React.FC<CodebaseActionsProps> = ({
+export const CodebaseActions = ({
     kubeObject,
     kubeObjectData,
-}): React.ReactElement => {
+}: CodebaseActionsProps): React.ReactElement => {
     const {
         metadata: { name },
     } = kubeObjectData;
@@ -61,7 +61,7 @@ export const CodebaseActions: React.FC<CodebaseActionsProps> = ({
     }, [handleCloseActionsMenu, setEditActionEditorOpen, setDeleteActionPopupOpen]);
 
     const onBeforeSubmit = React.useCallback(
-        async (handleError, setLoadingActive) => {
+        async (setErrorTemplate, setLoadingActive) => {
             setLoadingActive(true);
             const conflictedCDPipeline = await getConflictedCDPipeline(kubeObjectData);
             if (!conflictedCDPipeline) {
@@ -69,7 +69,7 @@ export const CodebaseActions: React.FC<CodebaseActionsProps> = ({
                 return;
             }
 
-            handleError(
+            setErrorTemplate(
                 <CodebaseCDPipelineConflictError
                     conflictedCDPipeline={conflictedCDPipeline}
                     codebase={kubeObjectData}

@@ -10,7 +10,7 @@ const {
 export const streamCDPipeline = (
     name: string,
     namespace: string,
-    cb: (data: EDPCDPipelineKubeObjectInterface[]) => void,
+    cb: (data: EDPCDPipelineKubeObjectInterface | EDPCDPipelineKubeObjectInterface[]) => void,
     errCb: (err: Error) => void
 ): any => {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;

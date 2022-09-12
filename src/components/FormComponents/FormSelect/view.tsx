@@ -22,7 +22,7 @@ export const FormSelect = ({
     disabled,
     ...props
 }: FormSelectProps): React.ReactElement => {
-    const hasError = errors[name];
+    const hasError = !!errors[name];
     const classes = useStyles();
 
     const getOptionValue = React.useCallback(
@@ -91,7 +91,7 @@ export const FormSelect = ({
                     </Grid>
                 </Grid>
             </Grid>
-            <Render condition={!!hasError}>
+            <Render condition={hasError}>
                 <Grid item xs={12}>
                     <Typography component={'span'} variant={'subtitle2'} color={'error'}>
                         <ErrorMessage errors={errors} name={name} />

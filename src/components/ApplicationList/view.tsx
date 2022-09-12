@@ -7,9 +7,7 @@ const {
     Utils: { useFilterFunc },
 } = pluginLib;
 
-export const ApplicationList: React.FC<ApplicationListProps> = ({
-    applications,
-}): React.ReactElement => {
+export const ApplicationList = ({ applications }: ApplicationListProps): React.ReactElement => {
     const columns = useColumns();
     const filterFunc = useFilterFunc();
 

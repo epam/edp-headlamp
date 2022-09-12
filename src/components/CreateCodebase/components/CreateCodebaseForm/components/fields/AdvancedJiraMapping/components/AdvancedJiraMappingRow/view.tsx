@@ -21,7 +21,7 @@ export const AdvancedJiraMappingRow = ({
         formState: { errors },
     } = useFormContext();
 
-    const theme = useTheme();
+    const theme: DefaultTheme = useTheme();
 
     return (
         <Grid item xs={12}>

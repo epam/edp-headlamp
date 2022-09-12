@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { Render } from '../../../Render';
 import { BranchName } from './components/fields';
@@ -44,7 +45,7 @@ export const CreateCodebaseBranchForm = ({
         setValue,
     } = methods;
 
-    const handleFormFieldChange = React.useCallback(({ target: { name, value } }) => {
+    const handleFormFieldChange = React.useCallback(({ name, value }: FieldEventTarget) => {
         setFormValues(prev => {
             if (Object.hasOwn(CODEBASE_BRANCH_NAMES[name], 'notUsedInFormData')) {
                 return prev;
@@ -75,7 +76,7 @@ export const CreateCodebaseBranchForm = ({
         resetField,
     });
 
-    const { editorCode } = useEditorCode({
+    const { editorReturnValues } = useEditorCode({
         names: CODEBASE_BRANCH_NAMES,
         formValues,
         codebaseName: codebaseData.metadata.name,
@@ -95,8 +96,8 @@ export const CreateCodebaseBranchForm = ({
     };
 
     const onSubmit = React.useCallback(() => {
-        handleApply(editorCode);
-    }, [editorCode, handleApply]);
+        handleApply(editorReturnValues);
+    }, [editorReturnValues, handleApply]);
 
     return (
         <FormProvider {...methods}>
@@ -150,7 +151,7 @@ export const CreateCodebaseBranchForm = ({
             <Render condition={!!editorOpen}>
                 <EditorDialog
                     {...muDialogProps}
-                    item={editorCode}
+                    item={editorReturnValues}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}
                 />

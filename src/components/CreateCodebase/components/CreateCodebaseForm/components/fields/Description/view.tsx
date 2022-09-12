@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormTextField } from '../../../../../../FormComponents/FormTextField';
 import { DescriptionProps } from './types';
 
@@ -17,7 +18,8 @@ export const Description = ({ names, handleFormFieldChange, type }: DescriptionP
             <FormTextField
                 {...register(names.description.name, {
                     required: `Enter ${type} description`,
-                    onBlur: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Description'}
                 title={'Description'}

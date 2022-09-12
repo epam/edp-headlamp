@@ -25,7 +25,7 @@ const createQualityGateBase = (idx: number): QualityGate => ({
 });
 
 export const QualityGates = ({ namespace, names, handleFormFieldChange }: QualityGatesProps) => {
-    const theme = useTheme();
+    const theme: DefaultTheme = useTheme();
 
     const { resetField, watch, setValue } = useFormContext();
 
@@ -40,17 +40,15 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
     const setNewQualityGates = React.useCallback(
         (newQualityGates: QualityGate[]): void => {
             handleFormFieldChange({
-                target: {
-                    name: names.qualityGates.name,
-                    value: newQualityGates.map(
-                        ({ qualityGateType, stepName, autotestName, branchName }) => ({
-                            qualityGateType,
-                            stepName,
-                            autotestName,
-                            branchName,
-                        })
-                    ),
-                },
+                name: names.qualityGates.name,
+                value: newQualityGates.map(
+                    ({ qualityGateType, stepName, autotestName, branchName }) => ({
+                        qualityGateType,
+                        stepName,
+                        autotestName,
+                        branchName,
+                    })
+                ),
             });
         },
         [handleFormFieldChange, names.qualityGates.name]

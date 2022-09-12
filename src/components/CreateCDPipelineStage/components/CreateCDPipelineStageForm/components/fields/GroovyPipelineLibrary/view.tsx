@@ -63,10 +63,8 @@ export const GroovyPipelineLibrary = ({
         event => {
             resetField(names.sourceLibraryBranch.name);
             handleFormFieldChange({
-                target: {
-                    name: names.sourceLibraryBranch.name,
-                    value: undefined,
-                },
+                name: names.sourceLibraryBranch.name,
+                value: undefined,
             });
             handleFormFieldChange(event);
         },

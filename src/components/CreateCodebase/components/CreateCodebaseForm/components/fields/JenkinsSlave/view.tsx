@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { JenkinsSlaveProps } from './types';
 
@@ -24,7 +25,8 @@ export const JenkinsSlave = ({
             <FormSelect
                 {...register(names.jenkinsSlave.name, {
                     required: 'Select Jenkins Agent which will be used to handle codebase.',
-                    onChange: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Jenkins Agent'}
                 placeholder={

@@ -14,7 +14,7 @@ const { useParams } = ReactRouter;
 export const EDPLibraryList: React.FC<EDPLibraryListProps> = (): React.ReactElement => {
     const { namespace } = useParams();
     const [libraries, setLibraries] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
-    const [, setError] = React.useState<string>('');
+    const [, setError] = React.useState<Error>(null);
 
     React.useEffect(() => {
         const cancelStream = streamCodebasesByTypeLabel(

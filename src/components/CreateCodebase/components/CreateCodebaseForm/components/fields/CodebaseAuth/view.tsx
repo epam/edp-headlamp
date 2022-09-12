@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormCheckbox } from '../../../../../../FormComponents/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../../FormComponents/FormControlLabelWithTooltip';
 import { CodebaseAuthProps } from './types';
@@ -17,7 +18,8 @@ export const CodebaseAuth = ({ names, handleFormFieldChange }: CodebaseAuthProps
         <Grid item xs={12}>
             <FormCheckbox
                 {...register(names.hasCodebaseAuth.name, {
-                    onChange: handleFormFieldChange,
+                    onChange: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={<FormControlLabelWithTooltip label={'Codebase Authentication'} />}
                 control={control}

@@ -12,7 +12,7 @@ const LANGUAGE_KUBERNETES = 'kubernetes';
 const LANGUAGE_GITOPS = 'gitops';
 const LANGUAGE_OTHER = 'other';
 
-export const LIBRARY_MAPPING: CodebaseInterface = {
+export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
     [LANGUAGE_JAVA]: {
         language: {
             name: 'Java',

@@ -1,9 +1,8 @@
-import { SyntheticEvent } from 'react';
-import { FormNameObject } from '../../../../../../types/forms';
+import { FieldEventTarget, FormNameObject } from '../../../../../../types/forms';
 
 export interface PipelineInfoFormPartProps {
     names: {
         [key: string]: FormNameObject;
     };
-    handleFormFieldChange(event: SyntheticEvent): void;
+    handleFormFieldChange(eventTarget: FieldEventTarget): void;
 }

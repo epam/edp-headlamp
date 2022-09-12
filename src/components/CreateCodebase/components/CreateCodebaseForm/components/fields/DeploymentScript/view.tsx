@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { deploymentScripts } from '../../../../../../../configs/deploymentScripts';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { DeploymentScriptProps } from './types';
 
@@ -18,7 +19,8 @@ export const DeploymentScript = ({ names, handleFormFieldChange }: DeploymentScr
             <FormSelect
                 {...register(names.deploymentScript.name, {
                     required: 'Select Deployment Script which will be used for deploy',
-                    onChange: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Deployment Script'}
                 placeholder={'Select deployment Script'}

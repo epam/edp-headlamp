@@ -14,10 +14,10 @@ import { CDPipelineActionsProps } from './types';
 const { IconButton } = MuiCore;
 const { Icon } = Iconify;
 
-export const CDPipelineActions: React.FC<CDPipelineActionsProps> = ({
+export const CDPipelineActions = ({
     kubeObject,
     kubeObjectData,
-}): React.ReactElement => {
+}: CDPipelineActionsProps): React.ReactElement => {
     const {
         metadata: { name },
     } = kubeObjectData;

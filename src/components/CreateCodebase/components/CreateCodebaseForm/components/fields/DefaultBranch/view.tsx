@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormTextField } from '../../../../../../FormComponents/FormTextField';
 import { DefaultBranchProps } from './types';
 
@@ -17,7 +18,8 @@ export const DefaultBranch = ({ names, handleFormFieldChange }: DefaultBranchPro
             <FormTextField
                 {...register(names.defaultBranch.name, {
                     required: 'Default branch to create/use',
-                    onBlur: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Default branch'}
                 title={'Default branch to create/use'}

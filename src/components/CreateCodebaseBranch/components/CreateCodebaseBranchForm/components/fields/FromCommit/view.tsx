@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormTextField } from '../../../../../../FormComponents/FormTextField';
 import { FromCommitProps } from './types';
 
@@ -16,7 +17,8 @@ export const FromCommit = ({ names, handleFormFieldChange }: FromCommitProps) =>
         <Grid item xs={12}>
             <FormTextField
                 {...register(names.fromCommit.name, {
-                    onBlur: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'From Commit Hash '}
                 title={

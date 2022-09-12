@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { ICON_BUCKET } from '../../../../../../../../../constants/icons';
 import { Iconify, MuiCore, MuiStyles, React } from '../../../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../../../FormComponents';
 import { FormCheckbox } from '../../../../../../../../FormComponents/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../../../../FormComponents/FormControlLabelWithTooltip';
@@ -30,16 +31,16 @@ export const ApplicationRow = ({
 
     const { value, availableBranches } = application;
 
-    const theme = useTheme();
+    const theme: DefaultTheme = useTheme();
 
     const handleChangeApplicationBranch = React.useCallback(
-        event => {
+        ({ target: { value: targetValue } }: FieldEvent) => {
             setApplications(prev => {
                 const newApplications = prev.map(application => {
                     if (application.value === value) {
                         return {
                             ...application,
-                            chosenBranch: event.target.value,
+                            chosenBranch: targetValue,
                         };
                     }
                     return application;
@@ -50,10 +51,8 @@ export const ApplicationRow = ({
                     .map(el => el.chosenBranch);
 
                 handleFormFieldChange({
-                    target: {
-                        name: names.inputDockerStreams.name,
-                        value: pipelineApplicationBranches,
-                    },
+                    name: names.inputDockerStreams.name,
+                    value: pipelineApplicationBranches,
                 });
 
                 return newApplications;
@@ -63,13 +62,13 @@ export const ApplicationRow = ({
     );
 
     const handleChangeApplicationToPromote = React.useCallback(
-        event => {
+        ({ target: { value: targetValue } }: FieldEvent) => {
             setApplications(prev => {
                 const newApplications = prev.map(application => {
                     if (application.value === value) {
                         return {
                             ...application,
-                            toPromote: event.target.value,
+                            toPromote: targetValue,
                         };
                     }
                     return application;
@@ -80,10 +79,8 @@ export const ApplicationRow = ({
                     .map(el => el.value);
 
                 handleFormFieldChange({
-                    target: {
-                        name: names.applicationsToPromote.name,
-                        value: pipelineApplicationsToPromote,
-                    },
+                    name: names.applicationsToPromote.name,
+                    value: pipelineApplicationsToPromote,
                 });
 
                 return newApplications;
@@ -113,10 +110,8 @@ export const ApplicationRow = ({
                 .map(el => el.value);
 
             handleFormFieldChange({
-                target: {
-                    name: names.applications.name,
-                    value: pipelineApplications,
-                },
+                name: names.applications.name,
+                value: pipelineApplications,
             });
 
             const pipelineApplicationBranches = newApplications
@@ -124,10 +119,8 @@ export const ApplicationRow = ({
                 .map(el => el.chosenBranch);
 
             handleFormFieldChange({
-                target: {
-                    name: names.inputDockerStreams.name,
-                    value: pipelineApplicationBranches,
-                },
+                name: names.inputDockerStreams.name,
+                value: pipelineApplicationBranches,
             });
 
             const pipelineApplicationsToPromote = newApplications
@@ -135,10 +128,8 @@ export const ApplicationRow = ({
                 .map(el => el.value);
 
             handleFormFieldChange({
-                target: {
-                    name: names.applicationsToPromote.name,
-                    value: pipelineApplicationsToPromote,
-                },
+                name: names.applicationsToPromote.name,
+                value: pipelineApplicationsToPromote,
             });
 
             return newApplications;

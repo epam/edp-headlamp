@@ -9,7 +9,7 @@ export const streamResults = (
     cb: StreamResultsCb,
     errCb: StreamErrCb,
     urlParams?: { [name: string]: string }
-) => {
+): (() => void) => {
     const results: {
         [uid: string]: EDPKubeObjectInterface;
     } = {};

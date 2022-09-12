@@ -49,9 +49,9 @@ export class EDPCodebaseKubeObject extends makeKubeObject<EDPCodebaseKubeObjectI
 export const streamCodebase = (
     name: string,
     namespace: string,
-    cb: (data: EDPCodebaseKubeObjectInterface[]) => void,
+    cb: (data: EDPCodebaseKubeObjectInterface | EDPCodebaseKubeObjectInterface[]) => void,
     errCb: (err: Error) => void
-): any => {
+): (() => void) => {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResult(url, name, cb, errCb);
 };
@@ -61,7 +61,7 @@ export const streamCodebasesByTypeLabel = (
     cb: (data: EDPCodebaseKubeObjectInterface[]) => void,
     errCb: (err: Error) => void,
     namespace?: string
-) => {
+): (() => void) => {
     const url = namespace
         ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
         : `/apis/${group}/${version}/${pluralForm}`;

@@ -1,6 +1,6 @@
 import { React } from '../../../../../../plugin.globals';
 
-export interface TabPanelProps extends React {
+export interface TabPanelProps {
     children?: React.ReactNode;
     index: any;
     value: any;

@@ -11,10 +11,10 @@ const { Icon } = Iconify;
 const { Tooltip, Button, Typography } = MuiCore;
 const { useDispatch } = ReactRedux;
 
-export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
+export const TableHeaderActions = ({
     CDPipelineData,
     currentCDPipelineStages,
-}): React.ReactElement => {
+}: TableHeaderActionsProps): React.ReactElement => {
     const dispatch = useDispatch();
 
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
@@ -31,7 +31,7 @@ export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
     const applyFunc = React.useCallback(
         async (
             newCDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
-        ): Promise<EDPCDPipelineStageKubeObjectInterface | undefined> =>
+        ): Promise<DeepPartial<EDPCDPipelineStageKubeObjectInterface> | undefined> =>
             createCDPipelineStage(newCDPipelineStageData),
         [createCDPipelineStage]
     );

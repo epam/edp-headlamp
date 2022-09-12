@@ -18,7 +18,9 @@ export const CodebaseBranchCDPipelineConflictError = ({
     return (
         <>
             <Typography component={'span'}>Branch {name} is used in </Typography>
-            <Link to={conflictedCDPipelineRoute}>{conflictedCDPipeline.metadata.name}</Link>
+            <Link to={conflictedCDPipelineRoute} routeName={null} kubeObject={null}>
+                {conflictedCDPipeline.metadata.name}
+            </Link>
             <Typography component={'span'}> CD Pipeline</Typography>
         </>
     );

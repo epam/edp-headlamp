@@ -26,7 +26,7 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
         resetField,
     } = useFormContext();
 
-    const theme = useTheme();
+    const theme = useTheme<DefaultTheme>();
 
     const advancedMappingFieldNameValue = watch(names.advancedMappingFieldName.name);
     const jiraIssueMetadataPayloadFieldValue = watch(names.jiraIssueMetadataPayload.name);
@@ -69,14 +69,11 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
                 const newJiraIssueMetadataPayload = getJiraIssueMetadataPayload(newRows);
 
                 if (newJiraIssueMetadataPayload) {
-                    const jiraIssueMetadataPayloadTarget = {
-                        target: {
-                            name: names.jiraIssueMetadataPayload.name,
-                            value: newJiraIssueMetadataPayload,
-                        },
-                    };
                     setValue(names.jiraIssueMetadataPayload.name, newJiraIssueMetadataPayload);
-                    handleFormFieldChange(jiraIssueMetadataPayloadTarget);
+                    handleFormFieldChange({
+                        name: names.jiraIssueMetadataPayload.name,
+                        value: newJiraIssueMetadataPayload,
+                    });
                 }
                 return newRows;
             });
@@ -91,10 +88,8 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
                 const newJiraIssueMetadataPayload = getJiraIssueMetadataPayload(newRows);
                 setValue(names.jiraIssueMetadataPayload.name, newJiraIssueMetadataPayload);
                 handleFormFieldChange({
-                    target: {
-                        name: names.jiraIssueMetadataPayload.name,
-                        value: newJiraIssueMetadataPayload,
-                    },
+                    name: names.jiraIssueMetadataPayload.name,
+                    value: newJiraIssueMetadataPayload,
                 });
                 return newRows;
             });
@@ -222,7 +217,7 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={2}>
-                    <Render condition={advancedMappingRows.length}>
+                    <Render condition={!!advancedMappingRows.length}>
                         <>
                             {advancedMappingRows.map(({ label, value }, idx) => {
                                 const key = `${value}::${idx}`;

@@ -26,10 +26,9 @@ const isDefaultBranch = (
     codebaseBranch: EDPCodebaseBranchKubeObjectInterface
 ) => codebase.spec.defaultBranch === codebaseBranch.spec.branchName;
 
-export const CodebaseBranchesList: React.FC<CodebaseBranchesListProps> = ({
-    kubeObject,
+export const CodebaseBranchesList = ({
     kubeObjectData,
-}): React.ReactElement => {
+}: CodebaseBranchesListProps): React.ReactElement => {
     const {
         metadata: { name, namespace },
         spec: { defaultBranch },
@@ -39,7 +38,7 @@ export const CodebaseBranchesList: React.FC<CodebaseBranchesListProps> = ({
     const [currentCodebaseBranches, setCurrentCodebaseBranches] = React.useState<
         EDPCodebaseBranchKubeObjectInterface[]
     >([]);
-    const [, setError] = React.useState<string>('');
+    const [, setError] = React.useState<Error>(null);
     const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
 
     const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -75,7 +74,7 @@ export const CodebaseBranchesList: React.FC<CodebaseBranchesListProps> = ({
         <>
             <div className={classes.tableHeaderActions}>
                 <SectionHeader title="Branches" headerStyle="main" />
-                <TableHeaderActions kubeObject={kubeObject} kubeObjectData={kubeObjectData} />
+                <TableHeaderActions kubeObjectData={kubeObjectData} />
             </div>
             {currentCodebaseBranches.map(
                 (el: EDPCodebaseBranchKubeObjectInterface, idx: number) => {

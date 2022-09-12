@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../../../../utils/format/capitalizeFirstLetter';
 import { FormTextField } from '../../../../../../FormComponents/FormTextField';
 import { NameProps } from './types';
@@ -20,7 +21,8 @@ export const Name = ({ names, handleFormFieldChange, type }: NameProps) => {
             <FormTextField
                 {...register(names.name.name, {
                     required: `${capitalizedCodebaseType} name may contain only: lower-case letters, numbers and dashes and cannot start and end with dash. Minimum 2 characters.`,
-                    onBlur: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={`${capitalizedCodebaseType} Name`}
                 title={`${capitalizedCodebaseType} name may contain only: lower-case letters, numbers and dashes and cannot start and end with dash. Minimum 2 characters.`}

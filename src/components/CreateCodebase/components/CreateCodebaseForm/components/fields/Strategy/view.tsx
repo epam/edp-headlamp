@@ -4,6 +4,7 @@ import {
     getCreationStrategies,
 } from '../../../../../../../configs/creationStrategies';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { StrategyProps } from './types';
 
@@ -22,31 +23,24 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
             <FormSelect
                 {...register(names.strategy.name, {
                     required: 'Select the existing codebase creation strategy',
-                    onChange: event => {
-                        const {
-                            target: { value },
-                        } = event;
+                    onBlur: ({ target: { name, value } }: FieldEvent) => {
                         if (value === creationStrategies.clone.value) {
                             resetField(names.gitUrlPath.name);
                             handleFormFieldChange({
-                                target: {
-                                    name: names.gitUrlPath.name,
-                                    value: undefined,
-                                },
+                                name: names.gitUrlPath.name,
+                                value: undefined,
                             });
                         }
 
                         if (value === creationStrategies.import.value) {
                             resetField(names.repositoryUrl.name);
                             handleFormFieldChange({
-                                target: {
-                                    name: names.repositoryUrl.name,
-                                    value: undefined,
-                                },
+                                name: names.repositoryUrl.name,
+                                value: undefined,
                             });
                         }
 
-                        handleFormFieldChange(event);
+                        handleFormFieldChange({ name, value });
                     },
                 })}
                 label={'Codebase Integration Strategy'}

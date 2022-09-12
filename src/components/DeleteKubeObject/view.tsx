@@ -30,7 +30,7 @@ export const DeleteKubeObject = ({
     description,
     onBeforeSubmit,
 }: DeleteKubeObjectProps): React.ReactElement => {
-    const [errorTemplate, setErrorTemplate] = React.useState<React.ReactElement>(null);
+    const [errorTemplate, setErrorTemplate] = React.useState<React.ReactNode | string>(null);
     const [loadingActive, setLoadingActive] = React.useState<boolean>(false);
     const dispatch = useDispatch();
     const { register, handleSubmit, watch } = useForm();

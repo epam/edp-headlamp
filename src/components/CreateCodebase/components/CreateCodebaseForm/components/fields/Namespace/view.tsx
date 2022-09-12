@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { getRecommendedJenkinsAgent } from '../../../utils';
 import { NamespaceProps } from './types';
@@ -31,16 +32,13 @@ export const Namespace = ({ names, handleFormFieldChange, namespaces, type }: Na
     }, [buildToolValue, frameworkValue, langValue, namespaceFieldValue, type]);
 
     const onNamespaceChange = React.useCallback(
-        event => {
-            const jenkinsSlaveFakeTarget = {
-                target: {
-                    name: names.jenkinsSlave.name,
-                    value: recommendedJenkinsAgent,
-                },
-            };
+        ({ target: { name, value } }: FieldEvent) => {
             setValue(names.jenkinsSlave.name, recommendedJenkinsAgent);
-            handleFormFieldChange(jenkinsSlaveFakeTarget);
-            handleFormFieldChange(event);
+            handleFormFieldChange({
+                name: names.jenkinsSlave.name,
+                value: recommendedJenkinsAgent,
+            });
+            handleFormFieldChange({ name, value });
         },
         [handleFormFieldChange, names.jenkinsSlave.name, recommendedJenkinsAgent, setValue]
     );

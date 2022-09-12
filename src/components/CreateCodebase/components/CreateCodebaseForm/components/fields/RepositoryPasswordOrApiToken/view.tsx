@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormTextField } from '../../../../../../FormComponents/FormTextField';
 import { RepositoryPasswordOrApiTokenProps } from './types';
 
@@ -20,7 +21,8 @@ export const RepositoryPasswordOrApiToken = ({
             <FormTextField
                 {...register(names.repositoryPasswordOrApiToken.name, {
                     required: 'Provide repository password or API Token',
-                    onBlur: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Repository password (or API Token)'}
                 title={'Provide repository password or API Token'}

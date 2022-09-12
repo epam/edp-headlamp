@@ -57,7 +57,7 @@ describe('testing useGroovyLibrariesWithTheirBranches hook', () => {
 
         await expect(requestSpy).rejects.toEqual({ status: 'Failure' });
         await expect(result.current.groovyLibraries).toEqual([
-            { label: 'test-label', value: 'test-value' },
+            { option: { label: 'test-label', value: 'test-value' }, branches: [] },
         ]);
     });
 });

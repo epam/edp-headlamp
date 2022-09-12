@@ -1,5 +1,5 @@
-import { EDPComponentKubeObject } from '../../../../k8s/EDPComponent';
+import { EDPComponentKubeObjectInterface } from '../../../../k8s/EDPComponent/types';
 
 export interface TableProps {
-    data: EDPComponentKubeObject[];
+    data: EDPComponentKubeObjectInterface[];
 }

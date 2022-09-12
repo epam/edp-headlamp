@@ -7,7 +7,7 @@ const {
     Utils: { useFilterFunc },
 } = pluginLib;
 
-export const LibraryList: React.FC<LibraryListProps> = ({ data }): React.ReactElement => {
+export const LibraryList = ({ data }: LibraryListProps): React.ReactElement => {
     const columns = useColumns();
 
     const filterFunc = useFilterFunc();

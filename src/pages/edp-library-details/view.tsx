@@ -1,11 +1,13 @@
 import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
 import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
+import ErrorBoundary from '../../components/ErrorBoundary/view';
 import { MetadataTable } from '../../components/MetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
+import { pluginLib } from '../../plugin.globals';
 import { LIBRARIES_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { PageHeaderActions } from './components/PageHeaderActions';
@@ -14,13 +16,16 @@ import { EDPLibraryDetailsProps } from './types';
 
 const { Icon } = Iconify;
 const { Typography, Button } = MuiCore;
-const { useParams, Link } = ReactRouter;
+const { useParams } = ReactRouter;
+const {
+    CommonComponents: { Link },
+} = pluginLib;
 
 export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
     const [library, setLibrary] = React.useState<EDPCodebaseKubeObjectInterface>(null);
-    const [, setError] = React.useState<string>(null);
+    const [, setError] = React.useState<Error>(null);
 
     const handleStoreLibrary = React.useCallback((library: EDPCodebaseKubeObjectInterface) => {
         setLibrary(library);
@@ -37,7 +42,7 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
     }, [handleError, handleStoreLibrary, name, namespace]);
 
     return (
-        <>
+        <ErrorBoundary>
             <div className={classes.pageHeading}>
                 <Button
                     startIcon={<Icon icon={ICON_ARROW_LEFT} />}
@@ -62,12 +67,9 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
                     <CodebaseGeneralInfoTable kubeObjectData={library} />
                     <CodebaseAdvancedInfoTable kubeObjectData={library} />
                     <MetadataTable kubeObjectData={library} />
-                    <CodebaseBranchesList
-                        kubeObject={EDPCodebaseKubeObject}
-                        kubeObjectData={library}
-                    />
+                    <CodebaseBranchesList kubeObjectData={library} />
                 </>
             )}
-        </>
+        </ErrorBoundary>
     );
 };

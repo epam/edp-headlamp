@@ -8,7 +8,7 @@ import { FloatingActionsProps } from './types';
 const { Fab } = MuiCore;
 const { Icon } = Iconify;
 
-export const FloatingActions: React.FC<FloatingActionsProps> = (): React.ReactElement => {
+export const FloatingActions = ({}: FloatingActionsProps): React.ReactElement => {
     const classes = useStyles();
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
 

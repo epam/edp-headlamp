@@ -1,3 +1,4 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
 import type { DialogProps } from '@material-ui/core/Dialog';
 import { pluginLib, React, ReactRedux } from '../../plugin.globals';
 import { k8s } from '../../plugin.types';
@@ -9,13 +10,13 @@ const {
     CommonComponents: { EditorDialog },
 } = pluginLib;
 
-export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
+export const CreateKubeObject = ({
     editorOpen,
     setEditorOpen,
     kubeObject,
     kubeObjectExample,
     onCreate,
-}): React.ReactElement => {
+}: CreateKubeObjectProps): React.ReactElement => {
     const [errorMessage, setErrorMessage] = React.useState<string>('');
     const dispatch = useDispatch();
 
@@ -63,7 +64,7 @@ export const CreateKubeObject: React.FC<CreateKubeObjectProps> = ({
         <EditorDialog
             {...muDialogProps}
             data-testid={'CreateKubeObject.EditorDialog'}
-            item={kubeObjectExample}
+            item={kubeObjectExample as KubeObjectInterface}
             title={`Create ${kubeObjectExample.kind}`}
             onClose={() => setEditorOpen(false)}
             onSave={handleSave}

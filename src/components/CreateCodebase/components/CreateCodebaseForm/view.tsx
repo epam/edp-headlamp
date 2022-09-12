@@ -9,6 +9,7 @@ import {
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { Render } from '../../../Render';
@@ -33,7 +34,7 @@ import { useEditorCode } from './hooks/useEditorCode';
 import { useNames } from './hooks/useNames';
 import { CODEBASE_BACKWARDS_NAME_MAPPING } from './names';
 import { useStyles } from './styles';
-import { CreateCodebasenFormProps } from './types';
+import { CreateCodebaseFormProps } from './types';
 
 const { Tabs, Tab, Button } = MuiCore;
 
@@ -56,10 +57,10 @@ export const CreateCodebaseForm = ({
     setEditorOpen,
     handleApply,
     setDialogOpen,
-}: CreateCodebasenFormProps): React.ReactElement => {
+}: CreateCodebaseFormProps): React.ReactElement => {
     const classes = useStyles();
 
-    const [activeTabIdx, setActiveTabIdx] = React.useState<string>(
+    const [activeTabIdx, setActiveTabIdx] = React.useState<number>(
         TAB_INDEXES[FORM_PART_CODEBASE_INFO]
     );
 
@@ -105,7 +106,7 @@ export const CreateCodebaseForm = ({
     );
 
     const handleFormFieldChange = React.useCallback(
-        ({ target: { name, value } }) => {
+        ({ name, value }: FieldEventTarget) => {
             setCodebaseAuthData(prev => {
                 if (Object.hasOwn(names[name], 'notUsedInFormData') && name === 'repositoryLogin') {
                     return {
@@ -158,7 +159,7 @@ export const CreateCodebaseForm = ({
         resetField,
     });
 
-    const { editorCode } = useEditorCode({ names, formValues, type });
+    const { editorReturnValues } = useEditorCode({ names, formValues, type });
 
     const onEditorSave = React.useCallback(
         (editorPropsObject: EDPCodebaseKubeObjectInterface) => {
@@ -194,11 +195,11 @@ export const CreateCodebaseForm = ({
         const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;
 
         if (repositoryLogin && repositoryPasswordOrApiToken) {
-            handleApply(editorCode, codebaseAuthData);
+            handleApply(editorReturnValues, codebaseAuthData);
         } else {
-            handleApply(editorCode, null);
+            handleApply(editorReturnValues, null);
         }
-    }, [codebaseAuthData, editorCode, handleApply]);
+    }, [codebaseAuthData, editorReturnValues, handleApply]);
 
     return (
         <FormProvider {...methods}>
@@ -353,7 +354,7 @@ export const CreateCodebaseForm = ({
             <Render condition={!!editorOpen}>
                 <EditorDialog
                     {...muDialogProps}
-                    item={editorCode}
+                    item={editorReturnValues}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}
                 />

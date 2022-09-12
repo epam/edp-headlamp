@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { ciTools } from '../../../../../../../configs/ciTools';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { CIToolProps } from './types';
 
@@ -18,7 +19,8 @@ export const CITool = ({ names, handleFormFieldChange }: CIToolProps) => {
             <FormSelect
                 {...register(names.ciTool.name, {
                     required: 'Select CI tool which will be used for building your codebase',
-                    onChange: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Select CI tool'}
                 placeholder={'Select CI tool'}

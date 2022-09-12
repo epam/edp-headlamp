@@ -2,12 +2,12 @@ import { pluginLib } from '../../plugin.globals';
 import { ApiError, StreamErrCb, StreamResultsCb } from '../../plugin.types';
 const { ApiProxy } = pluginLib;
 
-export async function streamResult(
+export const streamResult = (
     url: string,
     name: string,
     cb: StreamResultsCb,
     errCb: StreamErrCb
-) {
+): (() => void) => {
     let isCancelled = false;
     let socket: ReturnType<typeof ApiProxy.stream>;
     run();
@@ -37,4 +37,4 @@ export async function streamResult(
 
         if (socket) socket.cancel();
     }
-}
+};

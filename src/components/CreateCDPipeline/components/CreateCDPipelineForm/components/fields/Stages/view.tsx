@@ -12,7 +12,7 @@ export const Stages = ({
     setCreateStageDialogOpen,
     onStageDelete,
 }: StagesProps): React.ReactElement => {
-    const theme = useTheme();
+    const theme: DefaultTheme = useTheme();
 
     return (
         <>
@@ -67,7 +67,7 @@ export const Stages = ({
                         style={{ minWidth: 0 }}
                         variant={'contained'}
                         color={'default'}
-                        onClick={setCreateStageDialogOpen}
+                        onClick={() => setCreateStageDialogOpen(true)}
                     >
                         <Icon icon={ICON_PLUS} width={15} color={theme.palette.text.primary} />
                     </Button>

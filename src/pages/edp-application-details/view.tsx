@@ -6,8 +6,7 @@ import { MetadataTable } from '../../components/MetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { EDPCodebaseBranchKubeObject } from '../../k8s/EDPCodebaseBranch';
-import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
+import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { useStyles } from './styles';
@@ -15,15 +14,16 @@ import { EDPApplicationDetailsProps } from './types';
 
 const { Icon } = Iconify;
 const { Typography, Button } = MuiCore;
-const { useParams, Link } = ReactRouter;
+const { useParams } = ReactRouter;
+const {
+    CommonComponents: { Link },
+} = pluginLib;
 
-export const EDPApplicationDetails: React.FC<
-    EDPApplicationDetailsProps
-> = (): React.ReactElement => {
+export const EDPApplicationDetails = ({}: EDPApplicationDetailsProps): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
     const [application, setApplication] = React.useState<EDPCodebaseKubeObjectInterface>(null);
-    const [, setError] = React.useState<string>(null);
+    const [, setError] = React.useState<Error>(null);
 
     const handleStoreApplication = React.useCallback(
         (application: EDPCodebaseKubeObjectInterface) => {
@@ -68,10 +68,7 @@ export const EDPApplicationDetails: React.FC<
                     <CodebaseGeneralInfoTable kubeObjectData={application} />
                     <CodebaseAdvancedInfoTable kubeObjectData={application} />
                     <MetadataTable kubeObjectData={application} />
-                    <CodebaseBranchesList
-                        kubeObject={EDPCodebaseBranchKubeObject}
-                        kubeObjectData={application}
-                    />
+                    <CodebaseBranchesList kubeObjectData={application} />
                 </>
             )}
         </>

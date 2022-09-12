@@ -1,5 +1,5 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
 import { createCDPipelineInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/cdpipeline';
-import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
@@ -13,9 +13,9 @@ interface useEditorCodeProps {
 export const useEditorReturnValues = ({
     names,
     formValues,
-}: useEditorCodeProps): { editorReturnValues: EDPCDPipelineKubeObjectInterface } => {
+}: useEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
     const editorReturnValues = React.useMemo(() => {
-        return createCDPipelineInstance(names, formValues);
+        return createCDPipelineInstance(names, formValues) as KubeObjectInterface;
     }, [formValues, names]);
 
     return { editorReturnValues };

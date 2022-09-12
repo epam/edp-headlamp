@@ -3,7 +3,7 @@ import { rem } from '../../../../utils/styling/rem';
 
 const { makeStyles } = MuiCore;
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme: DefaultTheme) => ({
     form: {
         width: '100%',
         position: 'relative',

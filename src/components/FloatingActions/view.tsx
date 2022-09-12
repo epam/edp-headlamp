@@ -7,11 +7,11 @@ import { FloatingActionsProps } from './types';
 const { Fab } = MuiCore;
 const { Icon } = Iconify;
 
-export const FloatingActions: React.FC<FloatingActionsProps> = ({
+export const FloatingActions = ({
     kubeObject,
     kubeObjectExample,
     onCreate,
-}): React.ReactElement => {
+}: FloatingActionsProps): React.ReactElement => {
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
     return (

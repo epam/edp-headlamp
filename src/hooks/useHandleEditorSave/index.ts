@@ -1,6 +1,6 @@
 import hasLodash from 'lodash.has';
 import { React } from '../../plugin.globals';
-import { FormNameObject } from '../../types/forms';
+import { FieldEventTarget, FormNameObject } from '../../types/forms';
 import { DeepPartial } from '../../types/global';
 import { EDPKubeObjectInterface } from '../../types/k8s';
 
@@ -8,7 +8,7 @@ interface useHandleEditorSaveProps {
     names: { [key: string]: FormNameObject };
     backwardNames?: {};
     setValue: (name: string, value: any) => void;
-    handleFormFieldChange: ({ target: { name, value } }) => void;
+    handleFormFieldChange: ({ name, value }: FieldEventTarget) => void;
     formValues: {
         [key: string]: any;
     };
@@ -26,13 +26,11 @@ export const useHandleEditorSave = ({
     handleEditorSave: (editorPropsObject: DeepPartial<EDPKubeObjectInterface>) => void;
 } => {
     const setFormStateFieldValue = React.useCallback(
-        (name: string, value: string): void => {
+        (name: string, value: any): void => {
             setValue(name, value);
             handleFormFieldChange({
-                target: {
-                    name: name,
-                    value: value,
-                },
+                name: name,
+                value: value,
             });
         },
         [handleFormFieldChange, setValue]
@@ -49,10 +47,8 @@ export const useHandleEditorSave = ({
 
                 resetField(names[formValueKey].name);
                 handleFormFieldChange({
-                    target: {
-                        name: names[formValueKey].name,
-                        value: undefined,
-                    },
+                    name: names[formValueKey].name,
+                    value: undefined,
                 });
             }
         },

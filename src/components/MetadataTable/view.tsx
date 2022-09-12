@@ -8,9 +8,7 @@ const {
 } = pluginLib;
 const { Box } = MuiCore;
 
-export const MetadataTable: React.FC<MetadataTableProps> = ({
-    kubeObjectData,
-}): React.ReactElement => {
+export const MetadataTable = ({ kubeObjectData }: MetadataTableProps): React.ReactElement => {
     const { metadata } = kubeObjectData;
     const columns = useColumns(metadata);
 

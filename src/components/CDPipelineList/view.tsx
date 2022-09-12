@@ -7,9 +7,7 @@ const {
     Utils: { useFilterFunc },
 } = pluginLib;
 
-export const CDPipelineList: React.FC<CDPipelineListProps> = ({
-    CDPipelines,
-}): React.ReactElement => {
+export const CDPipelineList = ({ CDPipelines }: CDPipelineListProps): React.ReactElement => {
     const columns = useColumns();
     const filterFunc = useFilterFunc();
 

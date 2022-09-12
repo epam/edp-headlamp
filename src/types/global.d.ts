@@ -1,7 +1,9 @@
-import { SnackbarProvider as SnackbarProviderBase } from 'notistack';
+import { PaletteColorOptions, Theme } from '@material-ui/core';
+import { PaletteColor } from '@material-ui/core/styles/createPalette';
 
 export declare global {
     var pluginLib = any;
+    interface DefaultTheme extends Theme {}
 }
 
 declare module '*.json' {
@@ -9,20 +11,25 @@ declare module '*.json' {
     export default dataValue;
 }
 
-declare module 'notistack' {
-    export interface SnackbarProvider extends SnackbarProviderBase {
-        render: any;
-        context: any;
-        setState: any;
-        forceUpdate: any;
-        props: any;
-        state: any;
-        refs: any;
-    }
-}
-
 type DeepPartial<T> = T extends object
     ? {
           [P in keyof T]?: DeepPartial<T[P]>;
       }
     : T;
+
+declare module '@material-ui/core/styles/createPalette.d' {
+    interface Palette {
+        success: PaletteColor;
+        sidebarLink: {
+            [propName: string]: string;
+        };
+        [propName: string]: any;
+    }
+    interface PaletteOptions {
+        success?: PaletteColorOptions;
+        sidebarLink: {
+            [propName: string]: string;
+        };
+        [propName: string]: any;
+    }
+}

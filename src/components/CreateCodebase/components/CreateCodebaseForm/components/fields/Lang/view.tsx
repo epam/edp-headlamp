@@ -8,6 +8,7 @@ import {
     CODEBASE_TYPE_LIBRARY,
 } from '../../../../../../../constants/codebaseTypes';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../../../../utils/format/capitalizeFirstLetter';
 import { FormRadio } from '../../../../../../FormComponents/FormRadio';
 import { getRecommendedJenkinsAgent } from '../../../utils';
@@ -57,45 +58,37 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
     const buildToolValue = watch(names.buildTool.name);
 
     const onLangChange = React.useCallback(
-        event => {
-            handleFormFieldChange(event);
+        ({ target: { name, value } }: FieldEvent) => {
+            handleFormFieldChange({ name, value });
 
             resetField(names.jenkinsSlave.name);
             handleFormFieldChange({
-                target: {
-                    name: names.jenkinsSlave.name,
-                    value: undefined,
-                },
+                name: names.jenkinsSlave.name,
+                value: undefined,
             });
 
             resetField(names.framework.name);
             handleFormFieldChange({
-                target: {
-                    name: names.framework.name,
-                    value: undefined,
-                },
+                name: names.framework.name,
+                value: undefined,
             });
 
             resetField(names.buildTool.name);
             handleFormFieldChange({
-                target: {
-                    name: names.buildTool.name,
-                    value: undefined,
-                },
+                name: names.buildTool.name,
+                value: undefined,
             });
 
             const recommendedJenkinsAgent = getRecommendedJenkinsAgent(type, {
-                lang: event.target.value,
+                lang: value,
                 framework: frameworkValue,
                 buildTool: buildToolValue,
             });
 
             setValue(names.jenkinsSlave.name, recommendedJenkinsAgent);
             handleFormFieldChange({
-                target: {
-                    name: names.jenkinsSlave.name,
-                    value: recommendedJenkinsAgent,
-                },
+                name: names.jenkinsSlave.name,
+                value: recommendedJenkinsAgent,
             });
         },
         [

@@ -9,9 +9,7 @@ import { CodebaseBranchProps } from './types';
 const { useSnackbar } = Notistack;
 const { Box, Typography, Paper } = MuiCore;
 
-export const CodebaseBranch: React.FC<CodebaseBranchProps> = ({
-    codebaseBranch,
-}): React.ReactElement => {
+export const CodebaseBranch = ({ codebaseBranch }: CodebaseBranchProps): React.ReactElement => {
     const {
         spec: { branchName },
     } = codebaseBranch;

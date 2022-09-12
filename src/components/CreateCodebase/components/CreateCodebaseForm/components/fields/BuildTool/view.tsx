@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
-import { SelectOption } from '../../../../../../../types/forms';
+import { FieldEvent, SelectOption } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { useChosenCodebaseLanguage } from '../../../hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../utils';
@@ -21,20 +21,18 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
     const langValue = watch(names.lang.name);
 
     const onBuildToolChange = React.useCallback(
-        event => {
-            handleFormFieldChange(event);
+        ({ target: { name, value } }: FieldEvent) => {
+            handleFormFieldChange({ name, value });
             const recommendedJenkinsAgent = getRecommendedJenkinsAgent(type, {
                 lang: langValue,
                 framework: frameworkValue,
-                buildTool: event.target.value,
+                buildTool: value,
             });
 
             setValue(names.jenkinsSlave.name, recommendedJenkinsAgent);
             handleFormFieldChange({
-                target: {
-                    name: names.jenkinsSlave.name,
-                    value: recommendedJenkinsAgent,
-                },
+                name: names.jenkinsSlave.name,
+                value: recommendedJenkinsAgent,
             });
         },
         [frameworkValue, handleFormFieldChange, langValue, names.jenkinsSlave.name, setValue, type]

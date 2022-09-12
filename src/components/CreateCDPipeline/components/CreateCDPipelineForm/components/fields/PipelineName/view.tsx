@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormTextField } from '../../../../../../FormComponents/FormTextField';
 import { PipelineNameProps } from './types';
 
@@ -21,7 +22,8 @@ export const PipelineName = ({ names, handleFormFieldChange }: PipelineNameProps
                                         cannot start
                                         and end with dash and dot. Minimum 2 characters.
                                     `,
-                    onBlur: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 title={'Enter pipeline name'}
                 label={'Pipeline name'}

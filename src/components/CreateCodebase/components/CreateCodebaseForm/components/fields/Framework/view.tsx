@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../../../../utils/format/capitalizeFirstLetter';
 import { FormRadio } from '../../../../../../FormComponents/FormRadio';
 import { FormRadioOption } from '../../../../../../FormComponents/FormRadio/types';
@@ -36,19 +37,17 @@ export const Framework = ({ names, handleFormFieldChange, type }: FrameworkProps
     const langValue = watch(names.lang.name);
 
     const onFrameworkChange = React.useCallback(
-        event => {
-            handleFormFieldChange(event);
+        ({ target: { name, value } }: FieldEvent) => {
+            handleFormFieldChange({ name, value });
             const recommendedJenkinsAgent = getRecommendedJenkinsAgent(type, {
                 lang: langValue,
-                framework: event.target.value,
+                framework: value,
                 buildTool: buildToolValue,
             });
             setValue(names.jenkinsSlave.name, recommendedJenkinsAgent);
             handleFormFieldChange({
-                target: {
-                    name: names.jenkinsSlave.name,
-                    value: recommendedJenkinsAgent,
-                },
+                name: names.jenkinsSlave.name,
+                value: recommendedJenkinsAgent,
             });
         },
         [buildToolValue, handleFormFieldChange, langValue, names.jenkinsSlave.name, setValue, type]

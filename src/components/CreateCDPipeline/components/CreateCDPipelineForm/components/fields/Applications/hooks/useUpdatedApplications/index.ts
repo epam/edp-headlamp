@@ -15,7 +15,10 @@ interface useUpdatedApplicationsProps {
 export const useUpdatedApplications = ({
     setValue,
     values,
-}: useUpdatedApplicationsProps): [Application[], (prev: any) => Application[]] => {
+}: useUpdatedApplicationsProps): [
+    Application[],
+    React.Dispatch<React.SetStateAction<Application[]>>
+] => {
     const {
         namespaceFieldValue,
         applicationsFieldValue,

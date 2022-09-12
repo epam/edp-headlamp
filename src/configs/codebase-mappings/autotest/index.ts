@@ -4,7 +4,7 @@ import { CodebaseInterface } from '../types';
 const LANGUAGE_JAVA = 'Java';
 const LANGUAGE_OTHER = 'other';
 
-export const AUTOTEST_MAPPING: CodebaseInterface = {
+export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
     [LANGUAGE_JAVA]: {
         language: {
             name: 'Java',

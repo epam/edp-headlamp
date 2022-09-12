@@ -6,7 +6,7 @@ import { MetadataTable } from '../../components/MetadataTable';
 import { ICON_ARROW_LEFT } from '../../constants/icons';
 import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
+import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { AUTOTESTS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { useStyles } from './styles';
@@ -14,13 +14,16 @@ import { EDPAutotestDetailsProps } from './types';
 
 const { Icon } = Iconify;
 const { Typography, Button } = MuiCore;
-const { useParams, Link } = ReactRouter;
+const { useParams } = ReactRouter;
+const {
+    CommonComponents: { Link },
+} = pluginLib;
 
-export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.ReactElement => {
+export const EDPAutotestDetails = ({}: EDPAutotestDetailsProps): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
     const [autotest, setAutotest] = React.useState<EDPCodebaseKubeObjectInterface>(null);
-    const [, setError] = React.useState<string>(null);
+    const [, setError] = React.useState<Error>(null);
 
     const handleStoreAutotest = React.useCallback((autotest: EDPCodebaseKubeObjectInterface) => {
         setAutotest(autotest);
@@ -62,10 +65,7 @@ export const EDPAutotestDetails: React.FC<EDPAutotestDetailsProps> = (): React.R
                     <CodebaseGeneralInfoTable kubeObjectData={autotest} />
                     <CodebaseAdvancedInfoTable kubeObjectData={autotest} />
                     <MetadataTable kubeObjectData={autotest} />
-                    <CodebaseBranchesList
-                        kubeObject={EDPCodebaseKubeObject}
-                        kubeObjectData={autotest}
-                    />
+                    <CodebaseBranchesList kubeObjectData={autotest} />
                 </>
             )}
         </>

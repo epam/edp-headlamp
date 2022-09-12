@@ -18,7 +18,7 @@ export const CreateCodebaseBranch = ({
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
 
     return (
-        <Dialog open={open} onClose={onClose} fullWidth className={classes.dialogRoot}>
+        <Dialog open={open} onClose={onClose} fullWidth>
             <div className={classes.dialog} data-testid={'create-codebase-branch'}>
                 <div className={classes.dialogTitle}>
                     <Typography variant={'h5'}>{`Create new branch`}</Typography>

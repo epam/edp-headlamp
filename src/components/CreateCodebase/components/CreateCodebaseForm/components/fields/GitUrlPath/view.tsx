@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormTextField } from '../../../../../../FormComponents/FormTextField';
 import { GitUrlPathProps } from './types';
 
@@ -17,7 +18,8 @@ export const GitUrlPath = ({ names, handleFormFieldChange }: GitUrlPathProps) =>
             <FormTextField
                 {...register(names.gitUrlPath.name, {
                     required: 'Specify relative path to repository.',
-                    onBlur: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Relative path'}
                 title={'Specify relative path to repository.'}

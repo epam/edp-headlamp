@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { codebaseVersioningTypes } from '../../../../../../../configs/codebaseVersioningTypes';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { FormTextField } from '../../../../../../FormComponents/FormTextField';
 import { CodebaseVersioningProps } from './types';
@@ -19,14 +20,11 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
     const versioningStartFromVersionFieldValue = watch(names.versioningStartFromVersion.name);
     const versioningStartFromSnapshotFieldValue = watch(names.versioningStartFromSnapshot.name);
     const onStartVersionFromSnapshotStaticFieldChange = React.useCallback(
-        (event: React.SyntheticEvent): void => {
-            const newVersioningStartFromValueTarget = {
-                target: {
-                    name: names.versioningStartFrom.name,
-                    value: `${versioningStartFromVersionFieldValue || ''}-${event.target.value}`,
-                },
-            };
-            handleFormFieldChange(newVersioningStartFromValueTarget);
+        ({ target: { value } }: FieldEvent): void => {
+            handleFormFieldChange({
+                name: names.versioningStartFrom.name,
+                value: `${versioningStartFromVersionFieldValue || ''}-${value}`,
+            });
         },
         [
             handleFormFieldChange,
@@ -36,14 +34,11 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
     );
 
     const onStartVersionFromVersionChange = React.useCallback(
-        (event: React.SyntheticEvent): void => {
-            const newVersioningStartFromValueTarget = {
-                target: {
-                    name: names.versioningStartFrom.name,
-                    value: `${event.target.value}-${versioningStartFromSnapshotFieldValue || ''}`,
-                },
-            };
-            handleFormFieldChange(newVersioningStartFromValueTarget);
+        ({ target: { value } }: FieldEvent): void => {
+            handleFormFieldChange({
+                name: names.versioningStartFrom.name,
+                value: `${value}-${versioningStartFromSnapshotFieldValue || ''}`,
+            });
         },
         [
             handleFormFieldChange,
@@ -59,7 +54,8 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
                     {...register(names.versioningType.name, {
                         required:
                             'Select codebase versioning type which will be used to handle codebase versioning flow.',
-                        onChange: handleFormFieldChange,
+                        onBlur: ({ target: { name, value } }: FieldEvent) =>
+                            handleFormFieldChange({ name, value }),
                     })}
                     label={'Codebase Versioning Type'}
                     placeholder={'Select codebase Versioning Type'}

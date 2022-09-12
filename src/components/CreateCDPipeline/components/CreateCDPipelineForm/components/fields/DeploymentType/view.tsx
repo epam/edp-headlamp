@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { deploymentTypes } from '../../../../../../../configs/deploymentTypes';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { DeploymentTypeProps } from './types';
 
@@ -18,7 +19,8 @@ export const DeploymentType = ({ names, handleFormFieldChange }: DeploymentTypeP
             <FormSelect
                 {...register(names.deploymentType.name, {
                     required: 'Select CI tool which will be used for building your codebase',
-                    onChange: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Deployment Type'}
                 placeholder={'Choose deployment type'}

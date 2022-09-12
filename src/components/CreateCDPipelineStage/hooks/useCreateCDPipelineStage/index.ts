@@ -13,14 +13,14 @@ export const useCreateCDPipelineStage = (
 ): {
     createCDPipelineStage: (
         newCDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
-    ) => Promise<EDPCDPipelineStageKubeObjectInterface | undefined>;
+    ) => Promise<DeepPartial<EDPCDPipelineStageKubeObjectInterface> | undefined>;
 } => {
     const { enqueueSnackbar } = useSnackbar();
 
     const createCDPipelineStage = React.useCallback(
         async (
             newCDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
-        ): Promise<void> => {
+        ): Promise<DeepPartial<EDPCDPipelineStageKubeObjectInterface> | undefined> => {
             const {
                 metadata: { name },
             } = newCDPipelineStageData;

@@ -21,16 +21,14 @@ interface CodebaseAutoTestReportFrameworksInterface {
 }
 
 export interface CodebaseInterface {
-    [key: string]: {
-        language: CodebaseLangInterface;
-        frameworks: {
-            [key: string]: CodebaseFrameworkInterface;
-        };
-        buildTools: {
-            [key: string]: CodebaseBuildToolsInterface;
-        };
-        autoTestReportFrameworks?: {
-            [key: string]: CodebaseAutoTestReportFrameworksInterface;
-        };
+    language: CodebaseLangInterface;
+    frameworks: {
+        [key: string]: CodebaseFrameworkInterface;
+    };
+    buildTools: {
+        [key: string]: CodebaseBuildToolsInterface;
+    };
+    autoTestReportFrameworks?: {
+        [key: string]: CodebaseAutoTestReportFrameworksInterface;
     };
 }

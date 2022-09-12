@@ -1,26 +1,26 @@
-import { Notistack, React } from '../../plugin.globals';
+import { Notistack } from '../../plugin.globals';
 const { withSnackbar } = Notistack;
+import { OptionsObject, SnackbarKey, SnackbarMessage } from 'notistack';
+import * as React from 'react';
 
 interface State {
-    error: '';
+    error: string;
 }
 
 interface Props {
-    enqueueSnackbar: (errormessage: string, options: {}) => void;
+    enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject) => SnackbarKey;
+    closeSnackbar: (key?: SnackbarKey) => void;
 }
 
 class ErrorBoundary extends React.Component<Props, State> {
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
-        // @ts-ignore
         this.state = { error: '' };
     }
 
     componentDidCatch(error) {
         const errorMessage = `${error.name}: ${error.message}`;
-        // @ts-ignore
         this.setState({ error: errorMessage });
-        // @ts-ignore
         this.props.enqueueSnackbar(errorMessage, {
             autoHideDuration: 5000,
             variant: 'error',
@@ -32,7 +32,6 @@ class ErrorBoundary extends React.Component<Props, State> {
     }
 
     render() {
-        // @ts-ignore
         const { error } = this.state;
         if (error) {
             return (
@@ -42,7 +41,6 @@ class ErrorBoundary extends React.Component<Props, State> {
                 </>
             );
         } else {
-            // @ts-ignore
             return <>{this.props.children}</>;
         }
     }

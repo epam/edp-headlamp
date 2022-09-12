@@ -15,7 +15,7 @@ export const EDPCDPipelineList: React.FC<EDPCDPipelineListProps> = (): React.Rea
     const { namespace } = useParams();
 
     const [CDPipelines, setCDPipelines] = React.useState<EDPCDPipelineKubeObjectInterface[]>([]);
-    const [, setError] = React.useState<string>('');
+    const [, setError] = React.useState<Error>(null);
 
     const handleStoreCDPipelines = React.useCallback(
         (cdpipelines: EDPCDPipelineKubeObjectInterface[]) => {
@@ -34,7 +34,7 @@ export const EDPCDPipelineList: React.FC<EDPCDPipelineListProps> = (): React.Rea
 
     return (
         <SectionBox title={<SectionFilterHeader title="CD Pipelines" headerStyle="main" />}>
-            <FloatingActions namespace={namespace} />
+            <FloatingActions />
             <CDPipelineList CDPipelines={CDPipelines} />
         </SectionBox>
     );

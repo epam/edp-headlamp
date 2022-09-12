@@ -9,9 +9,9 @@ const {
 } = pluginLib;
 const { Box } = MuiCore;
 
-export const CodebaseGeneralInfoTable: React.FC<CodebaseGeneralInfoTableProps> = ({
+export const CodebaseGeneralInfoTable = ({
     kubeObjectData,
-}): React.ReactElement => {
+}: CodebaseGeneralInfoTableProps): React.ReactElement => {
     const { spec } = kubeObjectData;
 
     const classes = useStyles();

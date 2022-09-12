@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormCheckbox } from '../../../../../../FormComponents/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../../FormComponents/FormControlLabelWithTooltip';
 import { JiraServerIntegrationProps } from './types';
@@ -21,7 +22,8 @@ export const JiraServerIntegration = ({
         <Grid item xs={12}>
             <FormCheckbox
                 {...register(names.hasJiraServerIntegration.name, {
-                    onChange: handleFormFieldChange,
+                    onChange: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={<FormControlLabelWithTooltip label={'Integrate with Jira server'} />}
                 control={control}

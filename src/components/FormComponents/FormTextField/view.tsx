@@ -18,7 +18,7 @@ export const FormTextField = ({
     disabled = false,
     ...props
 }: FormTextFieldProps): React.ReactElement => {
-    const hasError = errors[name];
+    const hasError = !!errors[name];
 
     return (
         <Grid container spacing={1}>

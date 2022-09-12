@@ -28,7 +28,11 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                 getter: data => {
                     const kubeObjectBasedOnData = new EDPCodebaseKubeObject(data);
                     return (
-                        <Link to={kubeObjectBasedOnData.getDetailsLink(APPLICATION_ROUTE_NAME)}>
+                        <Link
+                            to={kubeObjectBasedOnData.getDetailsLink(APPLICATION_ROUTE_NAME)}
+                            kubeOject={null}
+                            routeName={null}
+                        >
                             {data.metadata.name}
                         </Link>
                     );

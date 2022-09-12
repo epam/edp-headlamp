@@ -5,6 +5,7 @@ import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { CreateCDPipelineStage } from '../../../CreateCDPipelineStage';
 import { Render } from '../../../Render';
@@ -43,15 +44,15 @@ export const CreateCDPipelineForm = ({
 }: CreateCDPipelineFormProps): React.ReactElement => {
     const classes = useStyles();
 
-    const [activeTabIdx, setActiveTabIdx] = React.useState<string>(TAB_INDEXES[FORM_PART_PIPELINE]);
+    const [activeTabIdx, setActiveTabIdx] = React.useState<number>(TAB_INDEXES[FORM_PART_PIPELINE]);
 
     const { baseDefaultValues } = useDefaultValues({ names: CDPIPELINE_CREATION_FORM_NAMES });
 
     const [formValues, setFormValues] =
         React.useState<DeepPartial<EDPCDPipelineKubeObjectInterface>>(baseDefaultValues);
-    const [stages, setStages] = React.useState<DeepPartial<EDPCDPipelineStageKubeObjectInterface>>(
-        []
-    );
+    const [stages, setStages] = React.useState<
+        DeepPartial<EDPCDPipelineStageKubeObjectInterface>[]
+    >([]);
 
     const handleChangeTab = React.useCallback(
         (event: React.ChangeEvent<{}>, newActiveTabIdx: number) => {
@@ -78,7 +79,7 @@ export const CreateCDPipelineForm = ({
         return CDPIPELINE_CREATION_FORM_NAMES[firstErrorFieldName].formPart;
     }, []);
 
-    const handleFormFieldChange = React.useCallback(({ target: { name, value } }) => {
+    const handleFormFieldChange = React.useCallback(({ name, value }: FieldEventTarget) => {
         setFormValues(prev => {
             if (Object.hasOwn(CDPIPELINE_CREATION_FORM_NAMES[name], 'notUsedInFormData')) {
                 return prev;

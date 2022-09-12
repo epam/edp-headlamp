@@ -13,7 +13,7 @@ export const EDPComponentList: React.FC<EDPComponentListProps> = (): React.React
     const { namespace } = useParams();
 
     const [EDPComponents, setEDPComponents] = React.useState<EDPComponentKubeObjectInterface[]>([]);
-    const [, setError] = React.useState<string>('');
+    const [, setError] = React.useState<Error>(null);
 
     const handleStoreEDPComponents = React.useCallback(
         (EDPComponents: EDPComponentKubeObjectInterface[]) => {

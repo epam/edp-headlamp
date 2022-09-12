@@ -6,7 +6,7 @@ import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { streamCDPipeline } from '../../k8s/EDPCDPipeline/streamCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
-import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
+import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { CDPIPELINES_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { CDPipelineStagesList } from './components/CDPipelineStageList';
@@ -16,14 +16,17 @@ import { EDPCDPipelineDetailsProps } from './types';
 
 const { Icon } = Iconify;
 const { Typography, Button } = MuiCore;
-const { useParams, Link } = ReactRouter;
+const { useParams } = ReactRouter;
+const {
+    CommonComponents: { Link },
+} = pluginLib;
 
 export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
     const [CDPipelineData, setCDPipelineData] =
         React.useState<EDPCDPipelineKubeObjectInterface>(null);
-    const [, setError] = React.useState<string>(null);
+    const [, setError] = React.useState<Error>(null);
 
     const handleStoreCDPipeline = React.useCallback(
         (CDPipelineData: EDPCDPipelineKubeObjectInterface) => {

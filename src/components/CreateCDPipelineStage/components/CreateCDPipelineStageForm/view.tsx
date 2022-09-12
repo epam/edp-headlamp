@@ -92,7 +92,7 @@ export const CreateCDPipelineStageForm = ({
         resetField,
     });
 
-    const { editorCode } = useEditorCode({
+    const { editorReturnValues } = useEditorCode({
         names: CDPIPELINE_STAGE_NAMES,
         formValues,
         CDPipelineData,
@@ -111,8 +111,8 @@ export const CreateCDPipelineStageForm = ({
     };
 
     const onSubmit = React.useCallback(() => {
-        handleApply(editorCode);
-    }, [editorCode, handleApply]);
+        handleApply(editorReturnValues);
+    }, [editorReturnValues, handleApply]);
 
     return (
         <FormProvider {...methods}>
@@ -192,7 +192,7 @@ export const CreateCDPipelineStageForm = ({
             <Render condition={!!editorOpen}>
                 <EditorDialog
                     {...muDialogProps}
-                    item={editorCode}
+                    item={editorReturnValues}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}
                 />

@@ -24,7 +24,7 @@ export const useRows = (stage: EDPCDPipelineStageKubeObjectInterface) =>
             },
             {
                 name: 'Order',
-                value: spec.order,
+                value: String(spec.order),
             },
             {
                 name: 'Trigger type',

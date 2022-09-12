@@ -11,23 +11,16 @@ const { Tooltip, Popper, ListItem, ListItemIcon, ListItemText, ClickAwayListener
 type ActionsListProps = {
     actions: KubeObjectAction[];
     menuOpen: boolean;
-    handleClose: () => void;
     anchorEl: HTMLElement | null;
 };
 
-const ActionsList = ({
-    actions,
-    menuOpen,
-    handleClose,
-    anchorEl,
-}: ActionsListProps): React.ReactElement => {
+const ActionsList = ({ actions, menuOpen, anchorEl }: ActionsListProps): React.ReactElement => {
     const classes = useStyles();
 
     return (
         <Render condition={Boolean(anchorEl)}>
             <Popper
                 open={menuOpen}
-                onClose={handleClose}
                 anchorEl={anchorEl}
                 disablePortal
                 className={classes.popper}
@@ -84,7 +77,6 @@ export const KubeObjectActions = ({
                             actions={actions}
                             menuOpen={Boolean(anchorEl)}
                             anchorEl={anchorEl}
-                            handleClose={handleCloseActionsMenu}
                         />
                     </div>
                 </ClickAwayListener>

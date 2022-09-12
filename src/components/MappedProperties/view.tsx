@@ -4,9 +4,7 @@ import { MappedPropertiesProps } from './types';
 
 const { Typography } = MuiCore;
 
-export const MappedProperties: React.FC<MappedPropertiesProps> = ({
-    properties,
-}): React.ReactElement => {
+export const MappedProperties = ({ properties }: MappedPropertiesProps): React.ReactElement => {
     return properties && properties.length ? (
         <>
             {properties.map((el, idx) => {

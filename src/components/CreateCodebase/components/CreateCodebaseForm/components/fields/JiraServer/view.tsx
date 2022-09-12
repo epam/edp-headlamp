@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { JiraServerProps } from './types';
 
@@ -21,7 +22,8 @@ export const JiraServer = ({ names, handleFormFieldChange, jiraServers }: JiraSe
                 {...register(names.jiraServer.name, {
                     required:
                         'Select Jira server that will be integrated with the codebase (application, library, autotest).',
-                    onChange: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Jira Server'}
                 placeholder={!namespaceFieldValue ? 'Select namespace first' : 'Select Jira Server'}

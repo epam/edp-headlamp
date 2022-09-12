@@ -34,7 +34,7 @@ describe('CreateCDPipelineStage', () => {
             reducer: () => ({}),
         });
 
-        const theme = createTheme();
+        const theme: DefaultTheme = createTheme();
 
         render(
             <Provider store={store}>

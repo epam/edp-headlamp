@@ -1,6 +1,5 @@
 import { getCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { getCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBranch';
 import { React } from '../../plugin.globals';
 import { SelectOption } from '../../types/forms';
@@ -11,14 +10,19 @@ interface useGroovyLibrariesWithTheirBranchesProps {
     defaultOption: SelectOption;
 }
 
+interface GroovyLibraryWithBranches {
+    option: SelectOption;
+    branches: SelectOption[];
+}
+
 export const useGroovyLibrariesWithTheirBranches = ({
     namespace,
     defaultOption,
 }: useGroovyLibrariesWithTheirBranchesProps): {
-    groovyLibraries: EDPCodebaseKubeObjectInterface;
+    groovyLibraries: { option: SelectOption; branches: SelectOption[] }[];
 } => {
-    const [groovyLibraries, setGroovyLibraries] = React.useState<EDPCodebaseKubeObjectInterface>([
-        defaultOption,
+    const [groovyLibraries, setGroovyLibraries] = React.useState<GroovyLibraryWithBranches[]>([
+        { option: defaultOption, branches: [] },
     ]);
 
     React.useEffect(() => {

@@ -7,7 +7,7 @@ const LANGUAGE_PYTHON = 'Python';
 const LANGUAGE_GO = 'Go';
 const LANGUAGE_OTHER = 'other';
 
-export const APPLICATION_MAPPING: CodebaseInterface = {
+export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
     [LANGUAGE_JAVA]: {
         language: {
             name: 'Java',

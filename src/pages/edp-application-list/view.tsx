@@ -12,10 +12,10 @@ const {
 
 const { useParams } = ReactRouter;
 
-export const EDPApplicationList: React.FC<EDPApplicationListProps> = (): React.ReactElement => {
+export const EDPApplicationList = ({}: EDPApplicationListProps): React.ReactElement => {
     const { namespace } = useParams();
     const [applications, setApplications] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
-    const [, setError] = React.useState<string>('');
+    const [, setError] = React.useState<Error>(null);
 
     const handleStoreApplications = React.useCallback(
         (applications: EDPCodebaseKubeObjectInterface[]) => {
@@ -41,7 +41,7 @@ export const EDPApplicationList: React.FC<EDPApplicationListProps> = (): React.R
 
     return (
         <SectionBox title={<SectionFilterHeader title="Applications" headerStyle="main" />}>
-            <FloatingActions namespace={namespace} />
+            <FloatingActions />
             <ApplicationList applications={applications} />
         </SectionBox>
     );

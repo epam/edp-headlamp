@@ -10,9 +10,9 @@ const { Icon } = Iconify;
 const { Tooltip, Button, Typography } = MuiCore;
 const { useDispatch } = ReactRedux;
 
-export const TableHeaderActions: React.FC<TableHeaderActionsProps> = ({
+export const TableHeaderActions = ({
     kubeObjectData,
-}): React.ReactElement => {
+}: TableHeaderActionsProps): React.ReactElement => {
     const [createFormOpen, setCreateFormOpen] = React.useState<boolean>(false);
     const dispatch = useDispatch();
 

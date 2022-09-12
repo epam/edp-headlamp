@@ -1,5 +1,5 @@
 import { EDPCDPipelineKubeObject } from '../../../../k8s/EDPCDPipeline';
-import { MuiCore, pluginLib } from '../../../../plugin.globals';
+import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { CDPIPELINE_ROUTE_NAME } from '../../../../routes/names';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { CodebaseCDPipelineConflictErrorProps } from './types';
@@ -21,7 +21,9 @@ export const CodebaseCDPipelineConflictError = ({
             <Typography component={'span'}>
                 {capitalizeFirstLetter(codebase.spec.type)} {codebase.metadata.name} is used in
             </Typography>
-            <Link to={conflictedCDPipelineRoute}> {conflictedCDPipeline.metadata.name}</Link>
+            <Link to={conflictedCDPipelineRoute} routeName={null} kubeObject={null}>
+                {conflictedCDPipeline.metadata.name}
+            </Link>
             <Typography component={'span'}> CD Pipeline</Typography>
         </>
     );

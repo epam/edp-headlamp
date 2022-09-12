@@ -8,12 +8,12 @@ import { StatusIconProps } from './types';
 const { Icon } = Iconify;
 const { Tooltip } = MuiCore;
 
-export const StatusIcon: React.FC<StatusIconProps> = ({ status }): React.ReactElement => {
+export const StatusIcon = ({ status }: StatusIconProps): React.ReactElement => {
     const classes = useStyles();
 
     const [icon, color, animate] = getStatusIconByStatusName(status);
     return (
-        <div className={classes.iconWrapper}>
+        <div>
             <Tooltip title={capitalizeFirstLetter(status)}>
                 <Icon
                     icon={icon}

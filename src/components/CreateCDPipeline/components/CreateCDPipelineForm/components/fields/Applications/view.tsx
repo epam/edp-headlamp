@@ -20,7 +20,7 @@ const getUnusedApplications = (applications: Application[]) => {
 };
 
 export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps) => {
-    const theme = useTheme();
+    const theme: DefaultTheme = useTheme();
 
     const {
         register,
@@ -66,10 +66,8 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
             const pipelineApplications = getUsedApplications(newApplications).map(el => el.value);
 
             handleFormFieldChange({
-                target: {
-                    name: names.applications.name,
-                    value: pipelineApplications,
-                },
+                name: names.applications.name,
+                value: pipelineApplications,
             });
 
             return newApplications;

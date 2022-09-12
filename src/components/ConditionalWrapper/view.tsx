@@ -1,10 +1,10 @@
 import { React } from '../../plugin.globals';
 import { ConditionalWrapperProps } from './types';
 
-export const ConditionalWrapper: React.FC<ConditionalWrapperProps> = ({
+export const ConditionalWrapper = ({
     condition,
     wrapper,
     children,
-}): JSX.Element => {
+}: ConditionalWrapperProps): JSX.Element => {
     return <>{condition ? wrapper(children) : children}</>;
 };

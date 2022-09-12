@@ -1,12 +1,10 @@
+import { ClassNameMap } from '@material-ui/styles';
 import { EDPCodebaseSpecInterface } from '../../../k8s/EDPCodebase/types';
 import { MuiCore, React } from '../../../plugin.globals';
 
 const { Typography } = MuiCore;
 
-export const useColumns = (
-    codebaseSpec: EDPCodebaseSpecInterface,
-    classes: { [key: string]: string }
-) =>
+export const useColumns = (codebaseSpec: EDPCodebaseSpecInterface, classes: ClassNameMap) =>
     React.useMemo(
         () => [
             {

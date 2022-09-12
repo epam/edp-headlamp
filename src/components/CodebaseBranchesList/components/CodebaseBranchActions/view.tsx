@@ -13,12 +13,12 @@ import { createDeleteAction, getConflictedCDPipeline } from './utils';
 const { IconButton } = MuiCore;
 const { Icon } = Iconify;
 
-export const CodebaseBranchActions: React.FC<CodebaseBranchActionsProps> = ({
+export const CodebaseBranchActions = ({
     kubeObject,
     kubeObjectData,
     defaultBranch,
     codebase,
-}): React.ReactElement => {
+}: CodebaseBranchActionsProps): React.ReactElement => {
     const {
         metadata: { namespace },
         spec: { branchName },

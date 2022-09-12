@@ -3,7 +3,7 @@ import { rem } from '../../utils/styling/rem';
 
 const { makeStyles } = MuiCore;
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme: DefaultTheme) => ({
     statusLabel: {
         color: theme.palette.text.primary,
         backgroundColor: theme.palette.metadataBgColor,

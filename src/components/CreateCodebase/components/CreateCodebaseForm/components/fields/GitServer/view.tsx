@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { GitServerProps } from './types';
 
@@ -17,7 +18,8 @@ export const GitServer = ({ names, handleFormFieldChange, gitServers }: GitServe
             <FormSelect
                 {...register(names.gitServer.name, {
                     required: 'Select the existing Git Server.',
-                    onChange: handleFormFieldChange,
+                    onBlur: ({ target: { name, value } }: FieldEvent) =>
+                        handleFormFieldChange({ name, value }),
                 })}
                 label={'Git Server'}
                 placeholder={'Git Server'}

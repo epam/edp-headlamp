@@ -15,7 +15,7 @@ export const FormCheckbox = ({
     disabled,
     ...props
 }: FormCheckboxProps): React.ReactElement => {
-    const hasError = errors[name];
+    const hasError = !!errors[name];
 
     return (
         <Grid container spacing={1}>
@@ -28,7 +28,6 @@ export const FormCheckbox = ({
                                     control={
                                         <Checkbox
                                             {...field}
-                                            error={hasError}
                                             color={'primary'}
                                             checked={!!field.value}
                                             inputRef={field.ref}
@@ -53,7 +52,7 @@ export const FormCheckbox = ({
                     />
                 </FormControl>
             </Grid>
-            <Render condition={!!hasError}>
+            <Render condition={hasError}>
                 <Grid item xs={12}>
                     <Typography component={'span'} variant={'subtitle2'} color={'error'}>
                         <ErrorMessage errors={errors} name={name} />

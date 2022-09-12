@@ -14,6 +14,7 @@ import {
     CODEBASE_BRANCH_NAMES,
 } from '../../components/CreateCodebaseBranch/components/CreateCodebaseBranchForm/names';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { FieldEventTarget } from '../../types/forms';
 import { useHandleEditorSave } from './index';
 import {
     applicationCloneStrategyEditorPropsObjectMock,
@@ -55,7 +56,7 @@ import {
 const executeMockState = () => {
     const formState = {}; // react-hook-form state
     const formValues = {}; // form&editor state
-    const handleFormFieldChange = ({ target: { name, value } }): void => {
+    const handleFormFieldChange = ({ name, value }: FieldEventTarget): void => {
         formValues[name] = value;
     };
     const setValue = (name: string, value: any): void => {
