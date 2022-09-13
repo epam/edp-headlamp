@@ -1,9 +1,9 @@
 import { CODEBASE_BRANCH_NAMES } from '../../../../components/CreateCodebaseBranch/components/CreateCodebaseBranchForm/names';
-import { createCodebaseBranchInstance } from './index';
+import { createCodebaseBranchInstanceBasedOnFormValues } from './index';
 
-describe('testing createCodebaseBranchInstance', () => {
+describe('testing createCodebaseBranchInstanceBasedOnFormValues', () => {
     it('should return valid kube object', () => {
-        const object = createCodebaseBranchInstance(
+        const object = createCodebaseBranchInstanceBasedOnFormValues(
             CODEBASE_BRANCH_NAMES,
             {
                 fromCommit: 'com',

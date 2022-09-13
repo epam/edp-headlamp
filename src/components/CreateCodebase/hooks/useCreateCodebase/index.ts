@@ -1,6 +1,8 @@
+import { createDefaultCodebaseBranchInstance } from '../../../../configs/k8s-resource-instances/custom-resources/codebase-branch';
 import { createSecretExample } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
+import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
 import { Notistack, pluginLib, React } from '../../../../plugin.globals';
 import { DeepPartial } from '../../../../types/global';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
@@ -21,6 +23,11 @@ const deleteSecret = async (secretExample: DeepPartial<EDPKubeObjectInterface>):
         secretExample.metadata.namespace,
         secretExample.metadata.name
     );
+};
+
+const applyDefaultBranch = async (newCodebaseData: DeepPartial<EDPCodebaseKubeObjectInterface>) => {
+    const defaultBranchData = createDefaultCodebaseBranchInstance(newCodebaseData);
+    await EDPCodebaseBranchKubeObject.apiEndpoint.post(defaultBranchData);
 };
 
 export const useCreateCodebase = (
@@ -49,6 +56,7 @@ export const useCreateCodebase = (
             try {
                 if (codebaseAuthData === null) {
                     const result = await EDPCodebaseKubeObject.apiEndpoint.post(newCodebaseData);
+                    await applyDefaultBranch(newCodebaseData);
                     onSuccess();
                     return result; // return statement is used only for testing purposes, it's not used anywhere except test
                 }
@@ -80,6 +88,8 @@ export const useCreateCodebase = (
                     await deleteSecret(secretExample);
                     secretCreated = false;
                 }
+
+                await applyDefaultBranch(newCodebaseData);
 
                 if (secretCreated && codebasePostRequestResult) {
                     onSuccess();

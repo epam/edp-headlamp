@@ -4,8 +4,10 @@
 
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react-hooks';
+import { createDefaultCodebaseBranchInstance } from '../../../../configs/k8s-resource-instances/custom-resources/codebase-branch';
 import { createSecretExample } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
+import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
 import { pluginLib } from '../../../../plugin.globals';
 import { useCreateCodebase } from './index';
 import {
@@ -27,13 +29,14 @@ jest.mock('notistack', () => ({
 }));
 
 EDPCodebaseKubeObject.apiEndpoint.post = jest.fn().mockImplementation(() => {});
+EDPCodebaseBranchKubeObject.apiEndpoint.post = jest.fn().mockImplementation(() => {});
 
 afterEach(() => {
     jest.clearAllMocks();
 });
 
 describe('testing useCreateCodebase hook', () => {
-    it(`should successfully create codebase, shouldn't create secret`, async () => {
+    it(`should successfully create codebase and default branch, shouldn't create secret`, async () => {
         let codebaseCreated: boolean = false;
         let hasError: boolean = false;
 
@@ -43,10 +46,15 @@ describe('testing useCreateCodebase hook', () => {
         const onError = (): void => {
             hasError = true;
         };
+
         const requestSpy = jest.spyOn(EDPCodebaseKubeObject.apiEndpoint, 'post').mockResolvedValue({
             codebase: createStrategyCodebaseDataMock,
             secretCreated: false,
         });
+
+        const codebaseBranchRequestSpy = jest
+            .spyOn(EDPCodebaseBranchKubeObject.apiEndpoint, 'post')
+            .mockResolvedValue(createDefaultCodebaseBranchInstance(createStrategyCodebaseDataMock));
 
         const {
             result: {
@@ -61,6 +69,9 @@ describe('testing useCreateCodebase hook', () => {
         });
 
         await expect(requestSpy).toHaveBeenCalledWith(createStrategyCodebaseDataMock);
+        await expect(codebaseBranchRequestSpy).toHaveBeenCalledWith(
+            createDefaultCodebaseBranchInstance(createStrategyCodebaseDataMock)
+        );
 
         expect(codebaseCreated).toBe(true);
         expect(hasError).toBe(false);
@@ -85,6 +96,10 @@ describe('testing useCreateCodebase hook', () => {
             .spyOn(SecretKubeObject.default.apiEndpoint, 'post')
             .mockReturnValue(cloneStrategySecret);
 
+        const codebaseBranchRequestSpy = jest
+            .spyOn(EDPCodebaseBranchKubeObject.apiEndpoint, 'post')
+            .mockResolvedValue(createDefaultCodebaseBranchInstance(createStrategyCodebaseDataMock));
+
         const {
             result: {
                 current: { createCodebase },
@@ -100,6 +115,9 @@ describe('testing useCreateCodebase hook', () => {
             secretCreated: true,
         });
         await expect(codebaseRequestSpy).toHaveBeenCalledWith(cloneStrategyCodebaseDataMock);
+        await expect(codebaseBranchRequestSpy).toHaveBeenCalledWith(
+            createDefaultCodebaseBranchInstance(cloneStrategyCodebaseDataMock)
+        );
 
         const {
             metadata: { name, namespace },
@@ -129,6 +147,9 @@ describe('testing useCreateCodebase hook', () => {
         const secretRequestSpy = jest
             .spyOn(SecretKubeObject.default.apiEndpoint, 'post')
             .mockRejectedValue({ status: 'Failure', secretCreated: false });
+        const codebaseBranchRequestSpy = jest
+            .spyOn(EDPCodebaseBranchKubeObject.apiEndpoint, 'post')
+            .mockResolvedValue(createDefaultCodebaseBranchInstance(createStrategyCodebaseDataMock));
 
         const {
             result: {
@@ -156,6 +177,7 @@ describe('testing useCreateCodebase hook', () => {
             createSecretExample(name, namespace, repositoryLogin, repositoryPasswordOrApiToken)
         );
         await expect(codebaseRequestSpy).not.toHaveBeenCalled();
+        await expect(codebaseBranchRequestSpy).not.toHaveBeenCalled();
         expect(codebaseCreated).toBe(false);
         expect(hasError).toBe(true);
     });
@@ -176,6 +198,9 @@ describe('testing useCreateCodebase hook', () => {
             .spyOn(SecretKubeObject.default.apiEndpoint, 'post')
             .mockReturnValue(cloneStrategySecret);
         const secretRequestDeleteSpy = jest.spyOn(SecretKubeObject.default.apiEndpoint, 'delete');
+        const codebaseBranchRequestSpy = jest
+            .spyOn(EDPCodebaseBranchKubeObject.apiEndpoint, 'post')
+            .mockResolvedValue(createDefaultCodebaseBranchInstance(cloneStrategyCodebaseDataMock));
 
         const {
             result: {
@@ -204,6 +229,7 @@ describe('testing useCreateCodebase hook', () => {
         );
         await expect(codebaseRequestSpy).toHaveBeenCalledWith(cloneStrategyCodebaseDataMock);
         await expect(secretRequestDeleteSpy).toHaveBeenCalled();
+        await expect(codebaseBranchRequestSpy).not.toHaveBeenCalled();
         expect(codebaseCreated).toBe(false);
         expect(hasError).toBe(true);
     });
