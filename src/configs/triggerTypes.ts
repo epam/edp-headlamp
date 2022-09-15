@@ -3,10 +3,10 @@ import { SelectOption } from '../types/forms';
 export const triggerTypes: SelectOption[] = [
     {
         label: 'Manual',
-        value: 'manual',
+        value: 'Manual',
     },
     {
         label: 'Auto',
-        value: 'auto',
+        value: 'Auto',
     },
 ];

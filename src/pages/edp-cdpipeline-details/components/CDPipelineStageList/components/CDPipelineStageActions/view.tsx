@@ -1,5 +1,5 @@
 import { DeleteKubeObject } from '../../../../../../components/DeleteKubeObject';
-import { EditKubeObject } from '../../../../../../components/EditKubeObject';
+import { EditCDPipelineStage } from '../../../../../../components/EditCDPipelineStage';
 import { KubeObjectActions } from '../../../../../../components/KubeObjectActions';
 import { ICON_PENCIL, ICON_THREE_DOTS } from '../../../../../../constants/icons';
 import { KUBE_OBJECT_ACTION_EDIT } from '../../../../../../constants/kubeObjectActions';
@@ -12,12 +12,11 @@ import { createDeleteAction } from './utils';
 const { Icon } = Iconify;
 const { IconButton } = MuiCore;
 
-export const CDPipelineStageActions: React.FC<CDPipelineStageActionsProps> = ({
+export const CDPipelineStageActions = ({
     kubeObject,
     kubeObjectData,
-    cdpipelineStages = [],
-    onEdit,
-}): React.ReactElement => {
+    CDPipelineStages = [],
+}: CDPipelineStageActionsProps): React.ReactElement => {
     const {
         spec: { name },
     } = kubeObjectData;
@@ -47,12 +46,12 @@ export const CDPipelineStageActions: React.FC<CDPipelineStageActionsProps> = ({
                     setEditActionEditorOpen(true);
                 },
             }),
-            createDeleteAction(cdpipelineStages, kubeObjectData, () => {
+            createDeleteAction(CDPipelineStages, kubeObjectData, () => {
                 handleCloseActionsMenu();
                 setDeleteActionPopupOpen(true);
             }),
         ];
-    }, [handleCloseActionsMenu, setEditActionEditorOpen, cdpipelineStages, kubeObjectData]);
+    }, [handleCloseActionsMenu, setEditActionEditorOpen, CDPipelineStages, kubeObjectData]);
 
     return (
         <KubeObjectActions
@@ -64,12 +63,11 @@ export const CDPipelineStageActions: React.FC<CDPipelineStageActionsProps> = ({
                 <IconButton aria-label={'Options'} onClick={toggleActionsMenu}>
                     <Icon icon={ICON_THREE_DOTS} color={'grey'} width="20" />
                 </IconButton>
-                <EditKubeObject
-                    editorOpen={editActionEditorOpen}
-                    setEditorOpen={setEditActionEditorOpen}
-                    kubeObject={kubeObject}
-                    kubeObjectData={kubeObjectData}
-                    onEdit={onEdit}
+                <EditCDPipelineStage
+                    open={editActionEditorOpen}
+                    onClose={() => setEditActionEditorOpen(false)}
+                    setOpen={setEditActionEditorOpen}
+                    CDPipelineStageData={kubeObjectData}
                 />
                 <DeleteKubeObject
                     popupOpen={deleteActionPopupOpen}

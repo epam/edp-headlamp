@@ -203,7 +203,7 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                             class="MuiSelect-nativeInput"
                             name="triggerType"
                             tabindex="-1"
-                            value="manual"
+                            value="Manual"
                           />
                           <svg
                             aria-hidden="true"

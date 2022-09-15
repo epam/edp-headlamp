@@ -38,6 +38,17 @@ describe('CreateCDPipelineStage', () => {
             reducer: () => ({}),
         });
 
+        jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
+            if (url.includes('/api/v1/namespaces')) {
+                return Promise.resolve({
+                    items: [
+                        { kind: 'Namespace', metadata: { name: 'namespace-1' } },
+                        { kind: 'Namespace', metadata: { name: 'namespace-2' } },
+                    ],
+                });
+            }
+        });
+
         const theme: DefaultTheme = createTheme();
 
         jest.spyOn(ApiProxy, 'request').mockImplementation(url => {

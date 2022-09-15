@@ -22,7 +22,7 @@ export const useDefaultValues = ({
         return {
             [names.namespace.name]: namespace,
             [names.order.name]: stagesQuantity,
-            [names.triggerType.name]: 'manual',
+            [names.triggerType.name]: 'Manual',
             [names.jobProvisioning.name]: 'default',
             [names.sourceLibraryName.name]: 'default',
             [names.sourceType.name]: 'default',
