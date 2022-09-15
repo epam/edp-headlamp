@@ -89,9 +89,11 @@ export const DeleteKubeObject = ({
     );
 
     React.useEffect(() => {
-        if (!!onBeforeSubmit && !!popupOpen) {
-            onBeforeSubmit(setErrorTemplate, setLoadingActive).catch(console.error);
-        }
+        (async () => {
+            if (!!onBeforeSubmit && !!popupOpen) {
+                await onBeforeSubmit(setErrorTemplate, setLoadingActive);
+            }
+        })();
     }, [onBeforeSubmit, popupOpen, setErrorTemplate]);
 
     return (

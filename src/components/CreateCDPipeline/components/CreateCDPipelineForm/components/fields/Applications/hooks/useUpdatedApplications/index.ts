@@ -15,10 +15,11 @@ interface useUpdatedApplicationsProps {
 export const useUpdatedApplications = ({
     setValue,
     values,
-}: useUpdatedApplicationsProps): [
-    Application[],
-    React.Dispatch<React.SetStateAction<Application[]>>
-] => {
+}: useUpdatedApplicationsProps): {
+    applications: Application[];
+    setApplications: React.Dispatch<React.SetStateAction<Application[]>>;
+    error: Error;
+} => {
     const {
         namespaceFieldValue,
         applicationsFieldValue,
@@ -27,6 +28,7 @@ export const useUpdatedApplications = ({
     } = values;
 
     const [applications, setApplications] = React.useState<Application[]>([]);
+    const [error, setError] = React.useState<Error>(null);
 
     React.useEffect(() => {
         if (!namespaceFieldValue) {
@@ -112,8 +114,9 @@ export const useUpdatedApplications = ({
                 }
 
                 setApplications(filteredApplications);
+                setError(null);
             } catch (error: any) {
-                console.error(error);
+                setError(error);
             }
         })();
     }, [
@@ -124,5 +127,5 @@ export const useUpdatedApplications = ({
         applicationsToPromoteValue,
     ]);
 
-    return [applications, setApplications];
+    return { applications, setApplications, error };
 };

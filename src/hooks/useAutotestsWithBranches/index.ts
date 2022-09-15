@@ -10,8 +10,9 @@ interface useAutotestsWithBranchesProps {
 
 export const useAutotestsWithBranches = ({
     namespace,
-}: useAutotestsWithBranchesProps): { autotests: Autotest[] } => {
+}: useAutotestsWithBranchesProps): { autotests: Autotest[]; error: Error } => {
     const [autotests, setAutotests] = React.useState<Autotest[]>([]);
+    const [error, setError] = React.useState<Error>(null);
 
     React.useEffect(() => {
         (async () => {
@@ -36,13 +37,13 @@ export const useAutotestsWithBranches = ({
                         };
                     })
                 );
-
                 setAutotests(autotestsWithBranches);
+                setError(null);
             } catch (error: any) {
-                console.error(error);
+                setError(error);
             }
         })();
     }, [namespace]);
 
-    return { autotests };
+    return { autotests, error };
 };

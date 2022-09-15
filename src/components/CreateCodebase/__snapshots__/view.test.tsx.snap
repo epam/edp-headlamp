@@ -318,15 +318,11 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                               class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                               >
-                                <div
-                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                  style="margin-right: 0px;"
-                                />
                                 <input
                                   aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  class="MuiInputBase-input MuiInput-input"
                                   name="name"
                                   placeholder="Type your application name"
                                   type="text"
@@ -376,15 +372,11 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                               class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                               >
-                                <div
-                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                  style="margin-right: 0px;"
-                                />
                                 <input
                                   aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  class="MuiInputBase-input MuiInput-input"
                                   name="defaultBranch"
                                   placeholder="Type default branch name"
                                   type="text"
@@ -1532,15 +1524,11 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                               class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                               >
-                                <div
-                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                  style="margin-right: 0px;"
-                                />
                                 <input
                                   aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  class="MuiInputBase-input MuiInput-input"
                                   name="repositoryUrl"
                                   placeholder="http(s)://git.sample.com/sample.git"
                                   type="text"
@@ -1672,15 +1660,11 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                               class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                               >
-                                <div
-                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                  style="margin-right: 0px;"
-                                />
                                 <input
                                   aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  class="MuiInputBase-input MuiInput-input"
                                   name="name"
                                   placeholder="Type your autotest name"
                                   type="text"
@@ -1730,15 +1714,11 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                               class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                               >
-                                <div
-                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                  style="margin-right: 0px;"
-                                />
                                 <input
                                   aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  class="MuiInputBase-input MuiInput-input"
                                   name="defaultBranch"
                                   placeholder="Type default branch name"
                                   type="text"
@@ -1788,15 +1768,11 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                               class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                               >
-                                <div
-                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                  style="margin-right: 0px;"
-                                />
                                 <input
                                   aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  class="MuiInputBase-input MuiInput-input"
                                   name="description"
                                   placeholder="Enter autotest description"
                                   type="text"
@@ -2737,15 +2713,11 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                               class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                               >
-                                <div
-                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                  style="margin-right: 0px;"
-                                />
                                 <input
                                   aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  class="MuiInputBase-input MuiInput-input"
                                   name="name"
                                   placeholder="Type your library name"
                                   type="text"
@@ -2795,15 +2767,11 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                               class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                               >
-                                <div
-                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                  style="margin-right: 0px;"
-                                />
                                 <input
                                   aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  class="MuiInputBase-input MuiInput-input"
                                   name="defaultBranch"
                                   placeholder="Type default branch name"
                                   type="text"

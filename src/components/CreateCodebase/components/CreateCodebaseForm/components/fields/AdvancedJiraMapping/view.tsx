@@ -187,10 +187,12 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
                     <Grid
                         item
                         xs={2}
-                        direction={'column'}
-                        justifyContent={'flex-end'}
-                        alignItems={'center'}
-                        style={{ display: 'flex' }}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            flexDirection: 'column',
+                        }}
                     >
                         <Button
                             type={'button'}

@@ -1,10 +1,10 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
 import { pluginLib } from '../../plugin.globals';
 
 const { ApiProxy } = pluginLib;
 
-export const getGitServers = async (namespace: string): Promise<string[]> => {
+export const getGitServers = (namespace: string): Promise<{ items: KubeObjectInterface[] }> => {
     const url = `/apis/v2.edp.epam.com/v1/namespaces/${namespace}/gitservers`;
 
-    const { items } = await ApiProxy.request(url);
-    return items.map(gitServer => gitServer.metadata.name);
+    return ApiProxy.request(url);
 };

@@ -1,10 +1,10 @@
 import { pluginLib } from '../../plugin.globals';
+import { EDPKubeObjectInterface } from '../../types/k8s';
 
 const { ApiProxy } = pluginLib;
 
-export const getNamespaces = async (): Promise<string[]> => {
+export const getNamespaces = (): Promise<{ items: EDPKubeObjectInterface[] }> => {
     const url = `/api/v1/namespaces`;
 
-    const { items } = await ApiProxy.request(url);
-    return items.map(namespace => namespace.metadata.name);
+    return ApiProxy.request(url);
 };

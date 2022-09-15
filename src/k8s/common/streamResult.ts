@@ -26,8 +26,8 @@ export const streamResult = (
 
             socket = ApiProxy.stream(watchUrl, x => cb(x.object), { isJson: true });
         } catch (err) {
-            console.error('Error in api request', { err, url });
             if (errCb) errCb(err as ApiError, cancel);
+            throw new Error(`Error in api request ${{ err, url }}`);
         }
     }
 

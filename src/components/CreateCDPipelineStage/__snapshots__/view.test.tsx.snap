@@ -82,15 +82,11 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                           class="MuiFormControl-root MuiTextField-root"
                         >
                           <div
-                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                           >
-                            <div
-                              class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                              style="margin-right: 0px;"
-                            />
                             <input
                               aria-invalid="false"
-                              class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                              class="MuiInputBase-input MuiInput-input"
                               name="name"
                               placeholder="Enter stage name"
                               type="text"
@@ -140,15 +136,11 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                           class="MuiFormControl-root MuiTextField-root"
                         >
                           <div
-                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                           >
-                            <div
-                              class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                              style="margin-right: 0px;"
-                            />
                             <input
                               aria-invalid="false"
-                              class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                              class="MuiInputBase-input MuiInput-input"
                               name="description"
                               placeholder="Enter stage description"
                               type="text"

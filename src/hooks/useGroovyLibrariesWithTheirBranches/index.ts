@@ -20,10 +20,12 @@ export const useGroovyLibrariesWithTheirBranches = ({
     defaultOption,
 }: useGroovyLibrariesWithTheirBranchesProps): {
     groovyLibraries: { option: SelectOption; branches: SelectOption[] }[];
+    error: Error;
 } => {
     const [groovyLibraries, setGroovyLibraries] = React.useState<GroovyLibraryWithBranches[]>([
         { option: defaultOption, branches: [] },
     ]);
+    const [error, setError] = React.useState<Error>(null);
 
     React.useEffect(() => {
         (async () => {
@@ -59,11 +61,12 @@ export const useGroovyLibrariesWithTheirBranches = ({
                     })
                 );
                 setGroovyLibraries(groovyLibrariesWithBranches.filter(Boolean));
+                setError(null);
             } catch (error: any) {
-                console.error(error);
+                setError(error);
             }
         })();
     }, [namespace]);
 
-    return { groovyLibraries };
+    return { groovyLibraries, error };
 };

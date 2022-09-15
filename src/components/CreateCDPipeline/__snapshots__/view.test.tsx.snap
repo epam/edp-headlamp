@@ -233,15 +233,11 @@ exports[`CreateCDPipeline should render correctly 1`] = `
                               class="MuiFormControl-root MuiTextField-root"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
                               >
-                                <div
-                                  class="MuiInputAdornment-root MuiInputAdornment-positionStart"
-                                  style="margin-right: 0px;"
-                                />
                                 <input
                                   aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                  class="MuiInputBase-input MuiInput-input"
                                   name="name"
                                   placeholder="Enter pipeline name"
                                   type="text"
@@ -415,8 +411,8 @@ exports[`CreateCDPipeline should render correctly 1`] = `
                       </div>
                     </div>
                     <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-content-xs-flex-end MuiGrid-grid-xs-1"
-                      style="display: flex;"
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
+                      style="display: flex; align-items: center; justify-content: flex-end; flex-direction: column;"
                     >
                       <button
                         class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"

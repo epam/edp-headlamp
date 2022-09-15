@@ -37,7 +37,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
     const applicationsToPromoteValue = watch(names.applicationsToPromote.name);
     const applicationsBranchesFieldValue = watch(names.inputDockerStreams.name);
 
-    const [applications, setApplications] = useUpdatedApplications({
+    const { applications, setApplications } = useUpdatedApplications({
         values: {
             namespaceFieldValue,
             applicationsFieldValue,
@@ -126,10 +126,12 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                     <Grid
                         item
                         xs={1}
-                        direction={'column'}
-                        justifyContent={'flex-end'}
-                        alignItems={'center'}
-                        style={{ display: 'flex' }}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            flexDirection: 'column',
+                        }}
                     >
                         <Button
                             type={'button'}

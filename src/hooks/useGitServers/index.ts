@@ -5,19 +5,28 @@ interface useGitServerProps {
     namespace: string;
 }
 
-export const useGitServers = ({ namespace }: useGitServerProps): { gitServers: string[] } => {
+export const useGitServers = ({
+    namespace,
+}: useGitServerProps): { gitServers: string[]; error: Error } => {
     const [gitServers, setGitServers] = React.useState<string[]>([]);
-
-    const fetchGitServers = React.useCallback(async (namespace: string) => {
-        const gitServers = await getGitServers(namespace);
-        setGitServers(gitServers);
-    }, []);
+    const [error, setError] = React.useState<Error>(null);
 
     React.useEffect(() => {
-        if (namespace) {
-            fetchGitServers(namespace).catch(console.error);
-        }
-    }, [fetchGitServers, namespace]);
+        (async () => {
+            if (!namespace) {
+                return;
+            }
 
-    return { gitServers };
+            try {
+                const { items } = await getGitServers(namespace);
+                const gitServers = items.map(el => el.metadata.name);
+                setGitServers(gitServers);
+                setError(null);
+            } catch (error: any) {
+                setError(error);
+            }
+        })();
+    }, [namespace]);
+
+    return { gitServers, error };
 };

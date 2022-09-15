@@ -184,10 +184,12 @@ export const ApplicationRow = ({
                 <Grid
                     item
                     xs={1}
-                    direction={'column'}
-                    justifyContent={'flex-end'}
-                    alignItems={'center'}
-                    style={{ display: 'flex' }}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        flexDirection: 'column',
+                    }}
                 >
                     <Button
                         type={'button'}

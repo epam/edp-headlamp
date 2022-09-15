@@ -54,13 +54,14 @@ describe('testing useUpdatedApplications hook', () => {
         );
 
         await waitForNextUpdate();
-        await expect(result.current[0]).toEqual(expectedUpdatedApplicationsMock);
+        await expect(result.current.applications).toEqual(expectedUpdatedApplicationsMock);
+        await expect(result.current.error).toBeNull();
         expect(formState).toEqual(expectedFormStateFieldsMock);
     });
     it('should throw an error after async request if something goes wrong', async () => {
         const { formState, setValue } = executeMockState();
 
-        const requestSpy = jest.spyOn(ApiProxy, 'request').mockRejectedValue({ status: 'Failure' });
+        jest.spyOn(ApiProxy, 'request').mockRejectedValue({ status: 'Failure' });
 
         const useUpdatedApplicationsProps = {
             setValue,
@@ -72,10 +73,13 @@ describe('testing useUpdatedApplications hook', () => {
             },
         };
 
-        const { result } = renderHook(() => useUpdatedApplications(useUpdatedApplicationsProps));
+        const { result, waitForNextUpdate } = renderHook(() =>
+            useUpdatedApplications(useUpdatedApplicationsProps)
+        );
 
-        await expect(requestSpy).rejects.toEqual({ status: 'Failure' });
-        await expect(result.current[0]).toHaveLength(0);
+        await waitForNextUpdate();
+        await expect(result.current.applications).toHaveLength(0);
+        await expect(result.current.error).toEqual({ status: 'Failure' });
         await expect(Object.keys(formState)).toHaveLength(0);
     });
 });

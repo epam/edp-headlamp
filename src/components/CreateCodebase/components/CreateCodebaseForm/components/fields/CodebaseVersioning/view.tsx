@@ -88,9 +88,11 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
                         <Grid
                             item
                             xs={6}
-                            direction={'column'}
-                            justifyContent={'flex-end'}
-                            style={{ display: 'flex' }}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                flexDirection: 'column',
+                            }}
                         >
                             <FormTextField
                                 {...register(names.versioningStartFromSnapshot.name, {

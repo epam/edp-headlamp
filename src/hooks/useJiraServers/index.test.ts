@@ -5,30 +5,31 @@
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react-hooks';
 import { pluginLib } from '../../plugin.globals';
-import * as hookModule from './index';
+import { useJiraServers } from './index';
+import { jiraServersMock } from './mocks/jiraServers.mock';
 
 const { ApiProxy } = pluginLib;
 
 describe('testing useJiraServers hook', () => {
     it(`should render with no problems`, async () => {
-        jest.spyOn(hookModule, 'useJiraServers').mockImplementation(() => ({
-            jiraServers: ['jira-server-1', 'jira-server-2'],
-        }));
+        jest.spyOn(ApiProxy, 'request').mockResolvedValue(jiraServersMock);
 
-        const {
-            result: {
-                current: { jiraServers },
-            },
-        } = renderHook(() => hookModule.useJiraServers({ namespace: 'test-namespace' }));
+        const useJiraServersProps = { namespace: 'test-namespace' };
+        const { result, waitForNextUpdate } = renderHook(() => useJiraServers(useJiraServersProps));
 
-        expect(jiraServers).toEqual(['jira-server-1', 'jira-server-2']);
+        await waitForNextUpdate();
+        await expect(result.current.jiraServers).toEqual(['jira-server-1', 'jira-server-2']);
+        await expect(result.current.error).toBeNull();
     });
 
     it(`should throw an error if something goes wrong`, async () => {
-        const requestSpy = jest.spyOn(ApiProxy, 'request').mockRejectedValue({ status: 'Failure' });
+        jest.spyOn(ApiProxy, 'request').mockRejectedValue({ status: 'Failure' });
 
-        renderHook(() => hookModule.useJiraServers({ namespace: 'test-namespace' }));
+        const useJiraServersProps = { namespace: 'test-namespace' };
+        const { result, waitForNextUpdate } = renderHook(() => useJiraServers(useJiraServersProps));
 
-        await expect(requestSpy).rejects.toEqual({ status: 'Failure' });
+        await waitForNextUpdate();
+        await expect(result.current.jiraServers).toHaveLength(0);
+        await expect(result.current.error).toEqual({ status: 'Failure' });
     });
 });

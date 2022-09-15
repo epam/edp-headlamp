@@ -35,19 +35,21 @@ describe('testing useAutotestsWithBranches hook', () => {
             { name: 'autotest-autotest', branches: ['test-autotest-master'] },
             { name: 'test-autotest', branches: ['test-autotest-master'] },
         ]);
+        await expect(result.current.error).toBeNull();
     });
     it('should throw an error after async request if something goes wrong', async () => {
-        const requestSpy = jest.spyOn(ApiProxy, 'request').mockRejectedValue({ status: 'Failure' });
+        jest.spyOn(ApiProxy, 'request').mockRejectedValue({ status: 'Failure' });
 
         const useAutotestsWithBranchesProps = {
             namespace: 'test-namespace',
         };
 
-        const { result } = renderHook(() =>
+        const { result, waitForNextUpdate } = renderHook(() =>
             useAutotestsWithBranches(useAutotestsWithBranchesProps)
         );
 
-        await expect(requestSpy).rejects.toEqual({ status: 'Failure' });
+        await waitForNextUpdate();
         await expect(result.current.autotests).toHaveLength(0);
+        await expect(result.current.error).toEqual({ status: 'Failure' });
     });
 });

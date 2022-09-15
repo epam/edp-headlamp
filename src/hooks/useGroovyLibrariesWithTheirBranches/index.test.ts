@@ -42,22 +42,23 @@ describe('testing useGroovyLibrariesWithTheirBranches hook', () => {
                 branches: [{ value: 'test-groovy-master', label: 'test-groovy-master' }],
             },
         ]);
+        await expect(result.current.error).toBeNull();
     });
     it('should throw an error after async request if something goes wrong', async () => {
-        const requestSpy = jest.spyOn(ApiProxy, 'request').mockRejectedValue({ status: 'Failure' });
+        jest.spyOn(ApiProxy, 'request').mockRejectedValue({ status: 'Failure' });
 
         const useGroovyLibrariesWithTheirBranchesProps = {
             namespace: 'test-namespace',
             defaultOption: { label: 'test-label', value: 'test-value' },
         };
 
-        const { result } = renderHook(() =>
+        const { result, waitForNextUpdate } = renderHook(() =>
             useGroovyLibrariesWithTheirBranches(useGroovyLibrariesWithTheirBranchesProps)
         );
-
-        await expect(requestSpy).rejects.toEqual({ status: 'Failure' });
+        await waitForNextUpdate();
         await expect(result.current.groovyLibraries).toEqual([
             { option: { label: 'test-label', value: 'test-value' }, branches: [] },
         ]);
+        await expect(result.current.error).toEqual({ status: 'Failure' });
     });
 });

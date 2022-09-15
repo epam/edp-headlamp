@@ -24,7 +24,11 @@ const getIconSrc = (icon: string) => {
     try {
         return require(`../../../../../../../assets/applications/${icon}`).default;
     } catch (e) {
-        console.error(`Couldn't find an icon in ../../../../../../../assets/applications/${icon}`);
+        if (process.env.NODE_ENV !== 'test') {
+            throw new Error(
+                `Couldn't find an icon in ../../../../../../../assets/applications/${name}`
+            );
+        }
     }
 };
 

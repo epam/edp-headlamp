@@ -7,19 +7,27 @@ interface useJenkinsSlavesProps {
 
 export const useJenkinsSlaves = ({
     namespace,
-}: useJenkinsSlavesProps): { jenkinsSlaves: string[] } => {
+}: useJenkinsSlavesProps): { jenkinsSlaves: string[]; error: Error } => {
     const [jenkinsSlaves, setJenkinsSlaves] = React.useState<string[]>([]);
-
-    const fetchJenkinsSlaves = React.useCallback(async (namespace: string) => {
-        const slavesArray = await getJenkinsSlaves(namespace);
-        setJenkinsSlaves(slavesArray);
-    }, []);
+    const [error, setError] = React.useState<Error>(null);
 
     React.useEffect(() => {
-        if (namespace) {
-            fetchJenkinsSlaves(namespace).catch(console.error);
-        }
-    }, [fetchJenkinsSlaves, namespace]);
+        (async () => {
+            if (!namespace) {
+                return;
+            }
 
-    return { jenkinsSlaves };
+            try {
+                const { items } = await getJenkinsSlaves(namespace);
+                const [firstJenkinsSlave] = items;
+                const jenkinsSlaves = firstJenkinsSlave.status.slaves.map(el => el.name);
+                setJenkinsSlaves(jenkinsSlaves);
+                setError(null);
+            } catch (error: any) {
+                setError(error);
+            }
+        })();
+    }, [namespace]);
+
+    return { jenkinsSlaves, error };
 };
