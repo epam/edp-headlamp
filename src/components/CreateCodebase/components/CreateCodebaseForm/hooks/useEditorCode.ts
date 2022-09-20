@@ -3,7 +3,7 @@ import { createCodebaseInstance } from '../../../../../configs/k8s-resource-inst
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
-interface useEditorCodeProps {
+interface UseEditorCodeProps {
     names: { [key: string]: FormNameObject };
     formValues: {
         [key: string]: any;
@@ -15,7 +15,7 @@ export const useEditorCode = ({
     names,
     formValues,
     type,
-}: useEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
+}: UseEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
     const editorReturnValues = React.useMemo(() => {
         return createCodebaseInstance(names, type, formValues) as KubeObjectInterface;
     }, [formValues, names, type]);

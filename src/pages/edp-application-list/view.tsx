@@ -4,7 +4,6 @@ import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { FloatingActions } from './components/FloatingActions';
-import { EDPApplicationListProps } from './types';
 
 const {
     CommonComponents: { SectionBox, SectionFilterHeader },
@@ -12,7 +11,7 @@ const {
 
 const { useParams } = ReactRouter;
 
-export const EDPApplicationList = ({}: EDPApplicationListProps): React.ReactElement => {
+export const EDPApplicationList = (): React.ReactElement => {
     const { namespace } = useParams();
     const [applications, setApplications] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
     const [, setError] = React.useState<Error>(null);

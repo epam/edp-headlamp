@@ -3,7 +3,7 @@ import { createCDPipelineInstance } from '../../../../../configs/k8s-resource-in
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
-interface useEditorCodeProps {
+interface UseEditorCodeProps {
     names: { [key: string]: FormNameObject };
     formValues: {
         [key: string]: any;
@@ -13,7 +13,7 @@ interface useEditorCodeProps {
 export const useEditorReturnValues = ({
     names,
     formValues,
-}: useEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
+}: UseEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
     const editorReturnValues = React.useMemo(() => {
         return createCDPipelineInstance(names, formValues) as KubeObjectInterface;
     }, [formValues, names]);

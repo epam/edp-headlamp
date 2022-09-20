@@ -5,7 +5,7 @@ import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 import { DeepPartial } from '../../../../../types/global';
 
-interface useEditorCodeProps {
+interface UseEditorCodeProps {
     names: { [key: string]: FormNameObject };
     formValues: {
         [key: string]: any;
@@ -17,7 +17,7 @@ export const useEditorCode = ({
     names,
     formValues,
     kubeObjectData,
-}: useEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
+}: UseEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
     const editorReturnValues = React.useMemo(() => {
         return editCDPipelineStageInstance(
             names,

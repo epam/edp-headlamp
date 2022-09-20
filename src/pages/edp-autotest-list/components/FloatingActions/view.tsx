@@ -3,12 +3,11 @@ import { CODEBASE_TYPE_AUTOTEST } from '../../../../constants/codebaseTypes';
 import { ICON_PLUS } from '../../../../constants/icons';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { useStyles } from './styles';
-import { FloatingActionsProps } from './types';
 
 const { Fab } = MuiCore;
 const { Icon } = Iconify;
 
-export const FloatingActions = ({}: FloatingActionsProps): React.ReactElement => {
+export const FloatingActions = (): React.ReactElement => {
     const classes = useStyles();
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
 

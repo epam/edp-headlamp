@@ -1,13 +1,13 @@
 import { getGitServers } from '../../k8s/common/getGitServers';
 import { React } from '../../plugin.globals';
 
-interface useGitServerProps {
+interface UseGitServerProps {
     namespace: string;
 }
 
 export const useGitServers = ({
     namespace,
-}: useGitServerProps): { gitServers: string[]; error: Error } => {
+}: UseGitServerProps): { gitServers: string[]; error: Error } => {
     const [gitServers, setGitServers] = React.useState<string[]>([]);
     const [error, setError] = React.useState<Error>(null);
 
@@ -19,11 +19,11 @@ export const useGitServers = ({
 
             try {
                 const { items } = await getGitServers(namespace);
-                const gitServers = items.map(el => el.metadata.name);
-                setGitServers(gitServers);
+                const gitServersNames = items.map(el => el.metadata.name);
+                setGitServers(gitServersNames);
                 setError(null);
-            } catch (error: any) {
-                setError(error);
+            } catch (err: any) {
+                setError(err);
             }
         })();
     }, [namespace]);

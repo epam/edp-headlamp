@@ -4,7 +4,7 @@ import { FieldEventTarget, FormNameObject } from '../../types/forms';
 import { DeepPartial } from '../../types/global';
 import { EDPKubeObjectInterface } from '../../types/k8s';
 
-interface useHandleEditorSaveProps {
+interface UseHandleEditorSaveProps {
     names: { [key: string]: FormNameObject };
     backwardNames?: {};
     setValue: (name: string, value: any) => void;
@@ -22,7 +22,7 @@ export const useHandleEditorSave = ({
     handleFormFieldChange,
     formValues,
     resetField,
-}: useHandleEditorSaveProps): {
+}: UseHandleEditorSaveProps): {
     handleEditorSave: (editorPropsObject: DeepPartial<EDPKubeObjectInterface>) => void;
 } => {
     const setFormStateFieldValue = React.useCallback(
@@ -89,44 +89,42 @@ export const useHandleEditorSave = ({
             for (const [editorRootPropKey, editorRootPropValue] of Object.entries(
                 specAndMetadata
             )) {
-                if (Object.hasOwn(backwardNames, editorRootPropKey)) {
-                    const backwardNamesObject = backwardNames[editorRootPropKey];
-                    for (const [complexObjectKey, complexObjectValue] of Object.entries(
-                        editorRootPropValue
-                    )) {
-                        const { children } = backwardNamesObject;
-
-                        if (
-                            typeof complexObjectValue === 'object' &&
-                            !Array.isArray(complexObjectValue)
-                        ) {
-                            for (const [
-                                complexObjectValueKey,
-                                complexObjectValueValue,
-                            ] of Object.entries(complexObjectValue)) {
-                                const { formItemName } =
-                                    children[complexObjectKey].children[complexObjectValueKey];
-                                setFormStateFieldValue(
-                                    names[formItemName].name,
-                                    complexObjectValueValue
-                                );
-                            }
-                        } else {
-                            //loop through complex object mapping to setValue based on children name
-                            if (Object.hasOwn(children, complexObjectKey)) {
-                                const complexObjectChild = children[complexObjectKey];
-
-                                const { formItemName } = complexObjectChild;
-                                setFormStateFieldValue(
-                                    names[formItemName].name,
-                                    complexObjectValue
-                                );
-                            }
-                        }
-                    }
-                } else {
+                if (!Object.hasOwn(backwardNames, editorRootPropKey)) {
                     // for simple flat values or arrays
                     setFormStateFieldValue(names[editorRootPropKey].name, editorRootPropValue);
+
+                    continue;
+                }
+
+                const backwardNamesObject = backwardNames[editorRootPropKey];
+                for (const [complexObjectKey, complexObjectValue] of Object.entries(
+                    editorRootPropValue
+                )) {
+                    const { children } = backwardNamesObject;
+
+                    if (isPlainObject(complexObjectValue)) {
+                        for (const [
+                            complexObjectValueKey,
+                            complexObjectValueValue,
+                        ] of Object.entries(complexObjectValue)) {
+                            const { formItemName } =
+                                children[complexObjectKey].children[complexObjectValueKey];
+                            setFormStateFieldValue(
+                                names[formItemName].name,
+                                complexObjectValueValue
+                            );
+                        }
+
+                        continue;
+                    }
+
+                    // loop through complex object mapping to setValue based on children name
+                    if (Object.hasOwn(children, complexObjectKey)) {
+                        const complexObjectChild = children[complexObjectKey];
+
+                        const { formItemName } = complexObjectChild;
+                        setFormStateFieldValue(names[formItemName].name, complexObjectValue);
+                    }
                 }
             }
             /*
@@ -142,4 +140,8 @@ export const useHandleEditorSave = ({
     );
 
     return { handleEditorSave };
+};
+
+const isPlainObject = (obj: unknown): boolean => {
+    return typeof obj === 'object' && !Array.isArray(obj);
 };

@@ -3,7 +3,7 @@ import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 import { DeepPartial } from '../../../../../types/global';
 
-interface useDefaultValuesProps {
+interface UseDefaultValuesProps {
     names: { [key: string]: FormNameObject };
     CDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>;
 }
@@ -11,7 +11,7 @@ interface useDefaultValuesProps {
 export const useDefaultValues = ({
     names,
     CDPipelineStageData,
-}: useDefaultValuesProps): { [key: string]: any } => {
+}: UseDefaultValuesProps): { [key: string]: any } => {
     const baseDefaultValues = React.useMemo(() => {
         return {
             [names.triggerType.name]: CDPipelineStageData.spec.triggerType,

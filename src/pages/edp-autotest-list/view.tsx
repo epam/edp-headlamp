@@ -4,14 +4,13 @@ import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { FloatingActions } from './components/FloatingActions';
-import { EDPAutotestListProps } from './types';
 
 const {
     CommonComponents: { SectionBox, SectionFilterHeader },
 } = pluginLib;
 const { useParams } = ReactRouter;
 
-export const EDPAutotestList = ({}: EDPAutotestListProps): React.ReactElement => {
+export const EDPAutotestList = (): React.ReactElement => {
     const { namespace } = useParams();
     const [autotests, setAutotests] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
     const [, setError] = React.useState<Error>(null);

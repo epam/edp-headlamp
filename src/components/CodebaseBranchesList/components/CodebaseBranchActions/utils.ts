@@ -10,7 +10,7 @@ import { createKubeAction } from '../../../../utils/actions/createKubeAction';
 import { isAutotest } from '../../../../utils/checks/isAutotest';
 import { isGroovyLibrary } from '../../../../utils/checks/isGroovyLibrary';
 
-export const getConflictedCDPipeline = async (
+export const getConflictedCDPipeline = (
     namespace: string,
     codebaseBranch: EDPCodebaseBranchKubeObjectInterface,
     codebase: EDPCodebaseKubeObjectInterface
@@ -21,17 +21,14 @@ export const getConflictedCDPipeline = async (
     } = codebaseBranch;
 
     if (isGroovyLibrary(codebase)) {
-        return await getCDPipelineByGroovyLibraryItUsesInItsStages(
-            namespace,
-            codebase.metadata.name
-        );
+        return getCDPipelineByGroovyLibraryItUsesInItsStages(namespace, codebase.metadata.name);
     }
 
     if (isAutotest(codebase)) {
-        return await getCDPipelineByAutotestBranchItUsesInItsStages(namespace, branchName);
+        return getCDPipelineByAutotestBranchItUsesInItsStages(namespace, branchName);
     }
 
-    return await getCDPipelineByCodebaseBranchItUses(namespace, name);
+    return getCDPipelineByCodebaseBranchItUses(namespace, name);
 };
 
 export const createDeleteAction = (

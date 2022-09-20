@@ -27,8 +27,8 @@ import {
     FORM_PART_ADVANCED_SETTINGS,
     FORM_PART_CODEBASE_INFO,
     FORM_PART_CODEBASE_TYPE_INFO,
+    TAB_INDEXES,
 } from './constants';
-import { TAB_INDEXES } from './constants';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
 import { useNames } from './hooks/useNames';

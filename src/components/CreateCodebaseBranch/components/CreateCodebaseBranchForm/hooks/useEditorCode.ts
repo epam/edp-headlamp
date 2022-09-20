@@ -3,7 +3,7 @@ import { createCodebaseBranchInstanceBasedOnFormValues } from '../../../../../co
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
-interface useEditorCodeProps {
+interface UseEditorCodeProps {
     names: { [key: string]: FormNameObject };
     formValues: {
         [key: string]: any;
@@ -17,7 +17,7 @@ export const useEditorCode = ({
     formValues,
     codebaseName,
     namespace,
-}: useEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
+}: UseEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
     const editorReturnValues = React.useMemo(() => {
         return createCodebaseBranchInstanceBasedOnFormValues(
             names,

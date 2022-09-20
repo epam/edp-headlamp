@@ -13,8 +13,12 @@ import { ApplicationsFormPart } from './components/ApplicationsFormPart';
 import { PipelineInfoFormPart } from './components/PipelineFormPart';
 import { StagesFormPart } from './components/StagesFormPart';
 import { TabPanel } from './components/TabPanel';
-import { FORM_PART_APPLICATIONS, FORM_PART_PIPELINE, FORM_PART_STAGES } from './constants';
-import { TAB_INDEXES } from './constants';
+import {
+    FORM_PART_APPLICATIONS,
+    FORM_PART_PIPELINE,
+    FORM_PART_STAGES,
+    TAB_INDEXES,
+} from './constants';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorReturnValues } from './hooks/useEditorCode';
 import { CDPIPELINE_BACKWARDS_NAME_MAPPING, CDPIPELINE_CREATION_FORM_NAMES } from './names';

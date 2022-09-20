@@ -10,7 +10,6 @@ import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.gl
 import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { useStyles } from './styles';
-import { EDPApplicationDetailsProps } from './types';
 
 const { Icon } = Iconify;
 const { Typography, Button } = MuiCore;
@@ -19,7 +18,7 @@ const {
     CommonComponents: { Link },
 } = pluginLib;
 
-export const EDPApplicationDetails = ({}: EDPApplicationDetailsProps): React.ReactElement => {
+export const EDPApplicationDetails = (): React.ReactElement => {
     const classes = useStyles();
     const { namespace, name } = useParams();
     const [application, setApplication] = React.useState<EDPCodebaseKubeObjectInterface>(null);

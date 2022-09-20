@@ -58,7 +58,7 @@ $(GITCHGLOG): ## Download git-chglog locally if necessary.
 
 $(HELMDOCS):
 	@mkdir -p $@
-	wget https://github.com/norwoodj/helm-docs/releases/download/v1.10.0/helm-docs_1.10.0_${OS}_x86_64.tar.gz -O $@.tar.gz
+	wget https://github.com/norwoodj/helm-docs/releases/download/v1.11.0/helm-docs_1.11.0_${OS}_x86_64.tar.gz -O $@.tar.gz
 	tar xf $@.tar.gz -C ${BIN_DIR}
 
 # go-get-tool will 'go install' any package $2 and install it to $1.

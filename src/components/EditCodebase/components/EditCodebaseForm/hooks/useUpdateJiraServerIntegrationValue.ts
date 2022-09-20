@@ -1,7 +1,7 @@
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
-interface useUpdateJiraServerIntegrationValueProps {
+interface UseUpdateJiraServerIntegrationValueProps {
     watch: (name: string) => string;
     setValue: (name: string, value: any) => void;
     names: { [key: string]: FormNameObject };
@@ -11,7 +11,7 @@ export const useUpdateJiraServerIntegrationValue = ({
     watch,
     setValue,
     names,
-}: useUpdateJiraServerIntegrationValueProps): void => {
+}: UseUpdateJiraServerIntegrationValueProps): void => {
     const jiraServerFieldValue = watch(names.jiraServer.name);
 
     React.useEffect(() => {

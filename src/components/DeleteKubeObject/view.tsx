@@ -21,6 +21,13 @@ const NAMES = {
     name: 'name',
 };
 
+const getErrorMessage = (name: string, error: unknown): string => {
+    if (error instanceof Error) {
+        return error.message;
+    }
+    return `Oops! Something went wrong! Couldn't delete "${name}"`;
+};
+
 export const DeleteKubeObject = ({
     popupOpen,
     setPopupOpen,
@@ -50,14 +57,11 @@ export const DeleteKubeObject = ({
                 kubeObjectData.metadata.namespace,
                 kubeObjectData.metadata.name
             );
-        } catch (err) {
-            let msg = `Oops! Something went wrong! Couldn't delete "${kubeObjectData.metadata.name}"`;
-            if (err instanceof Error) {
-                msg = err.message;
-            }
+        } catch (error: unknown) {
+            const msg = getErrorMessage(kubeObjectData.metadata.name, error);
             setErrorTemplate(msg);
             handleOpenPopup();
-            throw err;
+            throw error;
         }
     }, [
         kubeObject,
@@ -76,7 +80,7 @@ export const DeleteKubeObject = ({
             if (objectName === name) {
                 handleClosePopup();
                 dispatch(
-                    clusterAction(() => applyFunc(), {
+                    clusterAction(applyFunc, {
                         startMessage: `Deleting "${objectName}"`,
                         cancelledMessage: `Cancelled deleting "${objectName}"`,
                         successMessage: `Deleted "${objectName}"`,
@@ -89,20 +93,23 @@ export const DeleteKubeObject = ({
     );
 
     React.useEffect(() => {
-        (async () => {
-            if (!!onBeforeSubmit && !!popupOpen) {
+        const validateObject = async () => {
+            if (onBeforeSubmit !== undefined && popupOpen) {
                 await onBeforeSubmit(setErrorTemplate, setLoadingActive);
             }
-        })();
-    }, [onBeforeSubmit, popupOpen, setErrorTemplate]);
+        };
+
+        validateObject();
+    }, [onBeforeSubmit, popupOpen]);
+
+    const dialogTitle = !errorTemplate
+        ? `Confirm deletion of "${objectName}"`
+        : `Cannot start deleting "${objectName}"`;
+    const isSubmitNotAllowed = kubeObjectNameFieldValue !== objectName || !!errorTemplate;
 
     return (
         <Dialog open={popupOpen} onClose={handleClosePopup} fullWidth>
-            <DialogTitle>
-                {!errorTemplate
-                    ? `Confirm deletion of "${objectName}"`
-                    : `Cannot start deleting "${objectName}"`}
-            </DialogTitle>
+            <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
                 <Grid container spacing={1}>
                     <Render condition={!loadingActive}>
@@ -144,13 +151,7 @@ export const DeleteKubeObject = ({
                                         <Button type={'button'} onClick={handleClosePopup}>
                                             Cancel
                                         </Button>
-                                        <Button
-                                            type={'submit'}
-                                            disabled={
-                                                kubeObjectNameFieldValue !== objectName ||
-                                                !!errorTemplate
-                                            }
-                                        >
+                                        <Button type={'submit'} disabled={isSubmitNotAllowed}>
                                             Confirm
                                         </Button>
                                     </DialogActions>

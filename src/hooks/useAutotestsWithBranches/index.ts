@@ -4,13 +4,13 @@ import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { getCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBranch';
 import { React } from '../../plugin.globals';
 
-interface useAutotestsWithBranchesProps {
+interface UseAutotestsWithBranchesProps {
     namespace: string;
 }
 
 export const useAutotestsWithBranches = ({
     namespace,
-}: useAutotestsWithBranchesProps): { autotests: Autotest[]; error: Error } => {
+}: UseAutotestsWithBranchesProps): { autotests: Autotest[]; error: Error } => {
     const [autotests, setAutotests] = React.useState<Autotest[]>([]);
     const [error, setError] = React.useState<Error>(null);
 
@@ -39,8 +39,8 @@ export const useAutotestsWithBranches = ({
                 );
                 setAutotests(autotestsWithBranches);
                 setError(null);
-            } catch (error: any) {
-                setError(error);
+            } catch (err: any) {
+                setError(err);
             }
         })();
     }, [namespace]);

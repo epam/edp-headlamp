@@ -36,14 +36,14 @@ export const ApplicationRow = ({
     const handleChangeApplicationBranch = React.useCallback(
         ({ target: { value: targetValue } }: FieldEvent) => {
             setApplications(prev => {
-                const newApplications = prev.map(application => {
-                    if (application.value === value) {
+                const newApplications = prev.map(app => {
+                    if (app.value === value) {
                         return {
-                            ...application,
+                            ...app,
                             chosenBranch: targetValue,
                         };
                     }
-                    return application;
+                    return app;
                 });
 
                 const pipelineApplicationBranches = newApplications
@@ -64,14 +64,14 @@ export const ApplicationRow = ({
     const handleChangeApplicationToPromote = React.useCallback(
         ({ target: { value: targetValue } }: FieldEvent) => {
             setApplications(prev => {
-                const newApplications = prev.map(application => {
-                    if (application.value === value) {
+                const newApplications = prev.map(app => {
+                    if (app.value === value) {
                         return {
-                            ...application,
+                            ...app,
                             toPromote: targetValue,
                         };
                     }
-                    return application;
+                    return app;
                 });
 
                 const pipelineApplicationsToPromote = newApplications
@@ -91,18 +91,18 @@ export const ApplicationRow = ({
 
     const handleDeleteApplicationRow = React.useCallback(() => {
         setApplications(prev => {
-            const newApplications = prev.map(application => {
-                if (application.value === value) {
+            const newApplications = prev.map(app => {
+                if (app.value === value) {
                     return {
-                        label: application.label,
-                        value: application.value,
-                        availableBranches: application.availableBranches,
+                        label: app.label,
+                        value: app.value,
+                        availableBranches: app.availableBranches,
                         isUsed: false,
                         chosenBranch: null,
                         toPromote: false,
                     };
                 }
-                return application;
+                return app;
             });
 
             const pipelineApplications = newApplications

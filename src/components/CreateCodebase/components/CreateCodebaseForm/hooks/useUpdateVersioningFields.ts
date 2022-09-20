@@ -1,7 +1,7 @@
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
-interface useUpdateVersioningFieldsProps {
+interface UseUpdateVersioningFieldsProps {
     watch: (name: string) => string;
     names: { [key: string]: FormNameObject };
     setValue: (name: string, value: any) => void;
@@ -11,7 +11,7 @@ export const useUpdateVersioningFields = ({
     watch,
     names,
     setValue,
-}: useUpdateVersioningFieldsProps): void => {
+}: UseUpdateVersioningFieldsProps): void => {
     const versioningStartFromFieldValue = watch(names.versioningStartFrom.name);
 
     React.useEffect(() => {

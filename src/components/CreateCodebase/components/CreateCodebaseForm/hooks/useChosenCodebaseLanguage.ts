@@ -9,7 +9,7 @@ import {
 } from '../../../../../constants/codebaseTypes';
 import { React } from '../../../../../plugin.globals';
 
-interface useChosenCodebaseLanguageProps {
+interface UseChosenCodebaseLanguageProps {
     type: string;
     langValue: string;
 }
@@ -17,7 +17,7 @@ interface useChosenCodebaseLanguageProps {
 export const useChosenCodebaseLanguage = ({
     type,
     langValue,
-}: useChosenCodebaseLanguageProps): { chosenLang: CodebaseInterface } => {
+}: UseChosenCodebaseLanguageProps): { chosenLang: CodebaseInterface } => {
     const chosenLang = React.useMemo(() => {
         if (type === CODEBASE_TYPE_APPLICATION) {
             return APPLICATION_MAPPING[langValue];

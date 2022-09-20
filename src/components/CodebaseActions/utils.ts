@@ -8,7 +8,7 @@ import { isAutotest } from '../../utils/checks/isAutotest';
 import { isGroovyLibrary } from '../../utils/checks/isGroovyLibrary';
 import { isLibrary } from '../../utils/checks/isLibrary';
 
-export const getConflictedCDPipeline = async (
+export const getConflictedCDPipeline = (
     codebase: EDPCodebaseKubeObjectInterface
 ): Promise<EDPCDPipelineKubeObjectInterface | null> => {
     const {
@@ -16,10 +16,10 @@ export const getConflictedCDPipeline = async (
     } = codebase;
 
     if (isLibrary(codebase) && isGroovyLibrary(codebase)) {
-        return await getCDPipelineByGroovyLibraryItUsesInItsStages(namespace, name);
+        return getCDPipelineByGroovyLibraryItUsesInItsStages(namespace, name);
     } else if (isAutotest(codebase)) {
-        return await getCDPipelineByAutotestItUsesInItsStages(namespace, name);
+        return getCDPipelineByAutotestItUsesInItsStages(namespace, name);
     } else if (isApplication(codebase)) {
-        return await getCDPipelineByApplicationItUses(namespace, name);
+        return getCDPipelineByApplicationItUses(namespace, name);
     }
 };

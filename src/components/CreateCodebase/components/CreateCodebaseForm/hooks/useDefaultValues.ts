@@ -7,7 +7,7 @@ import {
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
-interface useDefaultValuesProps {
+interface UseDefaultValuesProps {
     names: { [key: string]: FormNameObject };
     type: string;
 }
@@ -15,7 +15,7 @@ interface useDefaultValuesProps {
 export const useDefaultValues = ({
     names,
     type,
-}: useDefaultValuesProps): { [key: string]: any } => {
+}: UseDefaultValuesProps): { [key: string]: any } => {
     const baseDefaultValues = React.useMemo(() => {
         if (type === CODEBASE_TYPE_APPLICATION) {
             return {
