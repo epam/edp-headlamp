@@ -24,6 +24,14 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
         backgroundColor: theme.palette.background.default,
         borderRadius: rem(5),
         width: '20%',
+
+        '& .MuiTab-wrapper': {
+            alignItems: 'flex-start',
+        },
+
+        '& .MuiTab-root': {
+            padding: `${rem(6)} ${rem(12)} ${rem(6)} ${rem(20)}`,
+        },
     },
     tabPanel: {
         height: '100%',
