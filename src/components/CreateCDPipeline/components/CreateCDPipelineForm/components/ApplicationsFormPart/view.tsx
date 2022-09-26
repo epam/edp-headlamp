@@ -1,6 +1,6 @@
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
-import { Applications } from '../fields';
+import { Applications } from '../../../../../FormFields/CDPipelineFields';
 import { ApplicationsFormPartProps } from './types';
 
 const { Grid } = MuiCore;

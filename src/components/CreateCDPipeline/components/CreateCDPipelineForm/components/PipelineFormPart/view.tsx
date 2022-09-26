@@ -1,7 +1,11 @@
 import { useNamespaces } from '../../../../../../hooks/useNamespaces';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
-import { DeploymentType, Namespace, PipelineName } from '../fields';
+import {
+    DeploymentType,
+    Namespace,
+    PipelineName,
+} from '../../../../../FormFields/CDPipelineFields';
 import { PipelineInfoFormPartProps } from './types';
 
 const { Grid } = MuiCore;

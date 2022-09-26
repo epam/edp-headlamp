@@ -1,10 +1,10 @@
 import hasLodash from 'lodash.has';
 import { React } from '../../plugin.globals';
-import { FieldEventTarget, FormNameObject } from '../../types/forms';
+import { BackwardNameMappingChildren, FieldEventTarget, FormNameObject } from '../../types/forms';
 import { DeepPartial } from '../../types/global';
 import { EDPKubeObjectInterface } from '../../types/k8s';
 
-interface UseHandleEditorSaveProps {
+interface useHandleEditorSaveProps {
     names: { [key: string]: FormNameObject };
     backwardNames?: {};
     setValue: (name: string, value: any) => void;
@@ -22,7 +22,7 @@ export const useHandleEditorSave = ({
     handleFormFieldChange,
     formValues,
     resetField,
-}: UseHandleEditorSaveProps): {
+}: useHandleEditorSaveProps): {
     handleEditorSave: (editorPropsObject: DeepPartial<EDPKubeObjectInterface>) => void;
 } => {
     const setFormStateFieldValue = React.useCallback(
@@ -55,6 +55,21 @@ export const useHandleEditorSave = ({
         [formValues, handleFormFieldChange, names, resetField]
     );
 
+    const recursiveSetFieldValueBasedOnBackwardsMappingName = React.useCallback(
+        (children: BackwardNameMappingChildren, value: any): void => {
+            if (Object.hasOwn(children, 'formItemName')) {
+                setFormStateFieldValue(names[children['formItemName']].name, value);
+            }
+
+            if (Object.hasOwn(children, 'children')) {
+                for (const [childKey, childValue] of Object.entries(children.children)) {
+                    recursiveSetFieldValueBasedOnBackwardsMappingName(childValue, value[childKey]);
+                }
+            }
+        },
+        [names, setFormStateFieldValue]
+    );
+
     const handleEditorSave = React.useCallback(
         (editorPropsObject: DeepPartial<EDPKubeObjectInterface>) => {
             /*
@@ -81,7 +96,7 @@ export const useHandleEditorSave = ({
 
 			 */
 
-            // we need to process only spec and metadata as createInstance function already has apiVersion and kind in its config
+            // we need to process only spec and metadata since createInstance function already has apiVersion and kind in its config
             const { spec, metadata } = editorPropsObject;
             const specAndMetadata = { ...spec, ...metadata };
 
@@ -89,42 +104,16 @@ export const useHandleEditorSave = ({
             for (const [editorRootPropKey, editorRootPropValue] of Object.entries(
                 specAndMetadata
             )) {
-                if (!Object.hasOwn(backwardNames, editorRootPropKey)) {
+                if (Object.hasOwn(backwardNames, editorRootPropKey)) {
+                    const backwardNamesObject = backwardNames[editorRootPropKey];
+
+                    recursiveSetFieldValueBasedOnBackwardsMappingName(
+                        backwardNamesObject,
+                        editorRootPropValue
+                    );
+                } else {
                     // for simple flat values or arrays
                     setFormStateFieldValue(names[editorRootPropKey].name, editorRootPropValue);
-
-                    continue;
-                }
-
-                const backwardNamesObject = backwardNames[editorRootPropKey];
-                for (const [complexObjectKey, complexObjectValue] of Object.entries(
-                    editorRootPropValue
-                )) {
-                    const { children } = backwardNamesObject;
-
-                    if (isPlainObject(complexObjectValue)) {
-                        for (const [
-                            complexObjectValueKey,
-                            complexObjectValueValue,
-                        ] of Object.entries(complexObjectValue)) {
-                            const { formItemName } =
-                                children[complexObjectKey].children[complexObjectValueKey];
-                            setFormStateFieldValue(
-                                names[formItemName].name,
-                                complexObjectValueValue
-                            );
-                        }
-
-                        continue;
-                    }
-
-                    // loop through complex object mapping to setValue based on children name
-                    if (Object.hasOwn(children, complexObjectKey)) {
-                        const complexObjectChild = children[complexObjectKey];
-
-                        const { formItemName } = complexObjectChild;
-                        setFormStateFieldValue(names[formItemName].name, complexObjectValue);
-                    }
                 }
             }
             /*
@@ -136,12 +125,14 @@ export const useHandleEditorSave = ({
 			*/
             cleanFormStateFromUnusedProps(editorPropsObject);
         },
-        [backwardNames, cleanFormStateFromUnusedProps, names, setFormStateFieldValue]
+        [
+            backwardNames,
+            cleanFormStateFromUnusedProps,
+            names,
+            recursiveSetFieldValueBasedOnBackwardsMappingName,
+            setFormStateFieldValue,
+        ]
     );
 
     return { handleEditorSave };
-};
-
-const isPlainObject = (obj: unknown): boolean => {
-    return typeof obj === 'object' && !Array.isArray(obj);
 };

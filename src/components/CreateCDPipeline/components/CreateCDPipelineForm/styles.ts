@@ -18,6 +18,7 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
     },
     formInner: {
         flex: `1 0 calc(100% - ${rem(75)})`,
+        minHeight: rem(100),
         overflowY: 'auto',
     },
     tabs: {

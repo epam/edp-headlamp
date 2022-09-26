@@ -5,7 +5,7 @@ export interface FormNameObject {
     path?: string[];
 }
 
-interface BackwardNameMappingChildren {
+export interface BackwardNameMappingChildren {
     formItemName?: string;
     children?: {
         [key: string]: BackwardNameMappingChildren;

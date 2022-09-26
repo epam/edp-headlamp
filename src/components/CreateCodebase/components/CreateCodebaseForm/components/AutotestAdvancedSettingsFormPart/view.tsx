@@ -3,8 +3,6 @@ import { useJenkinsSlaves } from '../../../../../../hooks/useJenkinsSlaves';
 import { useJiraServers } from '../../../../../../hooks/useJiraServers';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
-import { useUpdateJiraServerIntegrationValue } from '../../hooks/useUpdateJiraServerIntegrationValue';
-import { useUpdateVersioningFields } from '../../hooks/useUpdateVersioningFields';
 import {
     AdvancedJiraMapping,
     CITool,
@@ -15,7 +13,9 @@ import {
     JiraServerIntegration,
     JobProvisioning,
     TicketNamePattern,
-} from '../fields';
+} from '../../../../../FormFields/CodebaseFields';
+import { useUpdateJiraServerIntegrationValue } from '../../hooks/useUpdateJiraServerIntegrationValue';
+import { useUpdateVersioningFields } from '../../hooks/useUpdateVersioningFields';
 import { AutotestAdvancedSettingsFormPartProps } from './types';
 
 const { Grid } = MuiCore;

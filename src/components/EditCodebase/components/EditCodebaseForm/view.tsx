@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useJiraServers } from '../../../../hooks/useJiraServers';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { MuiCore, React } from '../../../../plugin.globals';
+import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import {
     AdvancedJiraMapping,
@@ -10,7 +11,7 @@ import {
     JiraServer,
     JiraServerIntegration,
     TicketNamePattern,
-} from '../../../CreateCodebase/components/CreateCodebaseForm/components/fields';
+} from '../../../FormFields/CodebaseFields';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
 import { useNames } from './hooks/useNames';
@@ -44,7 +45,7 @@ export const EditCodebaseForm = ({
     } = methods;
 
     const handleFormFieldChange = React.useCallback(
-        ({ target: { name, value } }) => {
+        ({ name, value }: FieldEventTarget) => {
             setFormValues(prev => {
                 if (Object.hasOwn(names[name], 'notUsedInFormData')) {
                     return prev;

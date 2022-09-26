@@ -1,8 +1,15 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
+import {
+    BuildTool,
+    DefaultBranch,
+    EmptyProject,
+    Framework,
+    Lang,
+    Name,
+} from '../../../../../FormFields/CodebaseFields';
 import { useChosenCodebaseLanguage } from '../../hooks/useChosenCodebaseLanguage';
-import { BuildTool, DefaultBranch, EmptyProject, Framework, Lang, Name } from '../fields';
 import { LibraryCodebaseTypeInfoFormPartProps } from './types';
 
 const { Grid } = MuiCore;

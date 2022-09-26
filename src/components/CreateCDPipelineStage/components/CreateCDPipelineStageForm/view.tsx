@@ -5,6 +5,7 @@ import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { Render } from '../../../Render';
 import {
@@ -61,7 +62,7 @@ export const CreateCDPipelineStageForm = ({
         setValue,
     } = methods;
 
-    const handleFormFieldChange = React.useCallback(({ target: { name, value } }) => {
+    const handleFormFieldChange = React.useCallback(({ name, value }: FieldEventTarget) => {
         setFormValues(prev => {
             if (Object.hasOwn(CDPIPELINE_STAGE_NAMES[name], 'notUsedInFormData')) {
                 return prev;

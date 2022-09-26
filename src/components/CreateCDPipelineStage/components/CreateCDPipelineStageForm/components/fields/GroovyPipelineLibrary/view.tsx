@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { useGroovyLibrariesWithTheirBranches } from '../../../../../../../hooks/useGroovyLibrariesWithTheirBranches';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
-import { SelectOption } from '../../../../../../../types/forms';
+import { FieldEvent, SelectOption } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { Render } from '../../../../../../Render';
 import { GroovyPipelineLibraryProps } from './types';
@@ -60,13 +60,13 @@ export const GroovyPipelineLibrary = ({
     }, [sourceLibraryNameFieldValue]);
 
     const handleChangeSourceLibraryName = React.useCallback(
-        event => {
+        ({ target: { name, value } }: FieldEvent) => {
             resetField(names.sourceLibraryBranch.name);
             handleFormFieldChange({
                 name: names.sourceLibraryBranch.name,
                 value: undefined,
             });
-            handleFormFieldChange(event);
+            handleFormFieldChange({ name, value });
         },
         [handleFormFieldChange, names.sourceLibraryBranch.name, resetField]
     );
@@ -89,7 +89,8 @@ export const GroovyPipelineLibrary = ({
                 <Render condition={!!sourceLibraryNameFieldValue}>
                     <FormSelect
                         {...register(names.sourceLibraryBranch.name, {
-                            onChange: handleFormFieldChange,
+                            onChange: ({ target: { name, value } }: FieldEvent) =>
+                                handleFormFieldChange({ name, value }),
                         })}
                         label={'Branch'}
                         placeholder={

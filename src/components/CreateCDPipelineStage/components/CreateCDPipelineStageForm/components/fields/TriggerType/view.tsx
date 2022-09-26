@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { triggerTypes } from '../../../../../../../configs/triggerTypes';
 import { React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { TriggerTypeProps } from './types';
 
@@ -15,7 +16,8 @@ export const TriggerType = ({ names, handleFormFieldChange }: TriggerTypeProps) 
         <FormSelect
             {...register(names.triggerType.name, {
                 required: 'Stage provisioning trigger type',
-                onChange: handleFormFieldChange,
+                onChange: ({ target: { name, value } }: FieldEvent) =>
+                    handleFormFieldChange({ name, value }),
             })}
             label={'Trigger type'}
             placeholder={'Choose trigger type'}

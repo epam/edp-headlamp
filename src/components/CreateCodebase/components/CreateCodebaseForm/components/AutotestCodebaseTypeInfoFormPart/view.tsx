@@ -1,10 +1,16 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
+import {
+    BuildTool,
+    DefaultBranch,
+    Framework,
+    Lang,
+    Name,
+} from '../../../../../FormFields/CodebaseFields';
+import { Description } from '../../../../../FormFields/CodebaseFields/Description';
+import { TestReportFramework } from '../../../../../FormFields/CodebaseFields/TestReportFramework';
 import { useChosenCodebaseLanguage } from '../../hooks/useChosenCodebaseLanguage';
-import { BuildTool, DefaultBranch, Framework, Lang, Name } from '../fields';
-import { Description } from '../fields/Description';
-import { TestReportFramework } from '../fields/TestReportFramework';
 import { AutotestCodebaseTypeInfoFormPartProps } from './types';
 
 const { Grid } = MuiCore;

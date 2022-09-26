@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { jobProvisioners } from '../../../../../../../configs/jobProvisioners';
 import { React } from '../../../../../../../plugin.globals';
+import { FieldEvent } from '../../../../../../../types/forms';
 import { FormSelect } from '../../../../../../FormComponents';
 import { JobProvisionerProps } from './types';
 
@@ -14,7 +15,8 @@ export const JobProvisioner = ({ names, handleFormFieldChange }: JobProvisionerP
     return (
         <FormSelect
             {...register(names.jobProvisioning.name, {
-                onChange: handleFormFieldChange,
+                onChange: ({ target: { name, value } }: FieldEvent) =>
+                    handleFormFieldChange({ name, value }),
             })}
             label={'Job provisioner'}
             placeholder={'Choose job provisioner'}

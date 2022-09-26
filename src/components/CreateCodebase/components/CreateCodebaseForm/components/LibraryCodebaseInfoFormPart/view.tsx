@@ -3,7 +3,6 @@ import { useGitServers } from '../../../../../../hooks/useGitServers';
 import { useNamespaces } from '../../../../../../hooks/useNamespaces';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
-import { isCloneStrategy, isImportStrategy } from '../../utils';
 import {
     CodebaseAuth,
     GitServer,
@@ -13,7 +12,8 @@ import {
     RepositoryPasswordOrApiToken,
     RepositoryUrl,
     Strategy,
-} from '../fields';
+} from '../../../../../FormFields/CodebaseFields';
+import { isCloneStrategy, isImportStrategy } from '../../utils';
 import { LibraryCodebaseInfoFormPartProps } from './types';
 
 const { Grid } = MuiCore;
