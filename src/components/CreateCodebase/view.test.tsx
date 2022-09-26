@@ -23,6 +23,8 @@ describe('CreateCodebase', () => {
                 open: true,
                 setOpen: () => {},
                 onClose: () => {},
+                handleApply: () => {},
+                isApplying: false,
             };
             const store = configureStore({
                 reducer: () => ({}),
@@ -55,6 +57,8 @@ describe('CreateCodebase', () => {
                 open: true,
                 setOpen: () => {},
                 onClose: () => {},
+                handleApply: () => {},
+                isApplying: false,
             };
             const store = configureStore({
                 reducer: () => ({}),
@@ -87,6 +91,8 @@ describe('CreateCodebase', () => {
                 open: true,
                 setOpen: () => {},
                 onClose: () => {},
+                handleApply: () => {},
+                isApplying: false,
             };
             const store = configureStore({
                 reducer: () => ({}),

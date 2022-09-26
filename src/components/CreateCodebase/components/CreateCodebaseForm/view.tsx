@@ -57,6 +57,7 @@ export const CreateCodebaseForm = ({
     setEditorOpen,
     handleApply,
     setDialogOpen,
+    isApplying,
 }: CreateCodebaseFormProps): React.ReactElement => {
     const classes = useStyles();
     const muDialogProps: DialogProps = {
@@ -351,7 +352,7 @@ export const CreateCodebaseForm = ({
                                 variant={'contained'}
                                 color={'primary'}
                                 size="small"
-                                disabled={!isDirty}
+                                disabled={!isDirty || isApplying}
                             >
                                 apply
                             </Button>

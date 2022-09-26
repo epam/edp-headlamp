@@ -33,6 +33,7 @@ describe('CreateCDPipelineStage', () => {
             setOpen: () => {},
             onClose: () => {},
             handleApply: () => {},
+            isApplying: false,
         };
         const store = configureStore({
             reducer: () => ({}),

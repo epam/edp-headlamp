@@ -1,63 +1,23 @@
 import { ICON_PENCIL } from '../../constants/icons';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { Iconify, MuiCore, React, ReactRedux } from '../../plugin.globals';
-import { clusterAction } from '../../redux/actions';
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { CreateCodebaseForm } from './components/CreateCodebaseForm';
-import { useCreateCodebase } from './hooks/useCreateCodebase';
 import { useStyles } from './styles';
-import { CodebaseAuthData, CreateCodebaseProps } from './types';
+import { CreateCodebaseProps } from './types';
 
 const { Dialog, DialogContent, Typography, Button } = MuiCore;
 const { Icon } = Iconify;
-const { useDispatch } = ReactRedux;
 
 export const CreateCodebase = ({
     type,
     open,
     setOpen,
     onClose,
+    handleApply,
+    isApplying,
 }: CreateCodebaseProps): React.ReactElement => {
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
-    const dispatch = useDispatch();
-
-    const { createCodebase } = useCreateCodebase(
-        () => setOpen(false),
-        () => setOpen(true)
-    );
-
-    const applyFunc = React.useCallback(
-        async (
-            newCodebaseData: EDPKubeObjectInterface,
-            codebaseAuthData: CodebaseAuthData | null
-        ): Promise<EDPCodebaseKubeObjectInterface | undefined> =>
-            createCodebase(newCodebaseData, codebaseAuthData),
-        [createCodebase]
-    );
-    const handleApply = React.useCallback(
-        async (
-            newCodebaseData: EDPKubeObjectInterface,
-            codebaseAuthData: CodebaseAuthData | null
-        ): Promise<void> => {
-            const {
-                metadata: { name },
-            } = newCodebaseData;
-            const cancelUrl = location.pathname;
-
-            dispatch(
-                clusterAction(() => applyFunc(newCodebaseData, codebaseAuthData), {
-                    startMessage: `Applying ${name}`,
-                    cancelledMessage: `Cancelled applying ${name}`,
-                    successMessage: `Applied ${name}`,
-                    errorMessage: `Failed to apply ${name}`,
-                    cancelUrl,
-                })
-            );
-        },
-        [applyFunc, dispatch]
-    );
 
     return (
         <Dialog
@@ -88,6 +48,7 @@ export const CreateCodebase = ({
                         setEditorOpen={setEditorOpen}
                         handleApply={handleApply}
                         setDialogOpen={setOpen}
+                        isApplying={isApplying}
                     />
                 </DialogContent>
             </div>

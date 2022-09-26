@@ -9,4 +9,5 @@ export interface CreateCDPipelineStageFormProps {
     setEditorOpen(boolean): void;
     setDialogOpen(boolean): void;
     handleApply: (stage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>) => void;
+    isApplying: boolean;
 }

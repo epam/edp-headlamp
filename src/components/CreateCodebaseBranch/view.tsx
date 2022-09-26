@@ -13,6 +13,7 @@ export const CreateCodebaseBranch = ({
     setOpen,
     onClose,
     handleApply,
+    isApplying,
 }: CreateCodebaseBranchProps): React.ReactElement => {
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
@@ -38,6 +39,7 @@ export const CreateCodebaseBranch = ({
                         setEditorOpen={setEditorOpen}
                         handleApply={handleApply}
                         setDialogOpen={setOpen}
+                        isApplying={isApplying}
                     />
                 </DialogContent>
             </div>

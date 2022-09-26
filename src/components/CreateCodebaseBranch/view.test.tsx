@@ -26,6 +26,7 @@ describe('CreateCodebaseBranch', () => {
             setOpen: () => {},
             onClose: () => {},
             handleApply: () => {},
+            isApplying: false,
         };
         const store = configureStore({
             reducer: () => ({}),

@@ -13,12 +13,20 @@ const { useDispatch } = ReactRedux;
 export const TableHeaderActions = ({
     kubeObjectData,
 }: TableHeaderActionsProps): React.ReactElement => {
-    const [createFormOpen, setCreateFormOpen] = React.useState<boolean>(false);
+    const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
     const dispatch = useDispatch();
 
+    const [isApplying, setIsApplying] = React.useState<boolean>(false);
+
     const { createCodebaseBranch } = useCreateCodebaseBranch(
-        () => setCreateFormOpen(false),
-        () => setCreateFormOpen(true)
+        () => {
+            setCreateDialogOpen(false);
+            setIsApplying(false);
+        },
+        () => {
+            setCreateDialogOpen(true);
+            setIsApplying(false);
+        }
     );
 
     const applyFunc = React.useCallback(
@@ -30,10 +38,12 @@ export const TableHeaderActions = ({
     );
     const handleApply = React.useCallback(
         async (newCodebaseBranchData: EDPCodebaseBranchKubeObjectInterface): Promise<void> => {
-            const cancelUrl = location.pathname;
             const {
                 spec: { branchName },
             } = newCodebaseBranchData;
+            const cancelUrl = location.pathname;
+
+            setIsApplying(true);
 
             dispatch(
                 clusterAction(() => applyFunc(newCodebaseBranchData), {
@@ -44,6 +54,9 @@ export const TableHeaderActions = ({
                     cancelUrl,
                 })
             );
+
+            // temporary solution, since we cannot pass any callbacks for action cancelling
+            setTimeout(() => setIsApplying(false), 3000);
         },
         [applyFunc, dispatch]
     );
@@ -53,17 +66,18 @@ export const TableHeaderActions = ({
             <Tooltip title={'Create branch'}>
                 <Button
                     startIcon={<Icon icon={ICON_DOCUMENT_ADD} />}
-                    onClick={() => setCreateFormOpen(true)}
+                    onClick={() => setCreateDialogOpen(true)}
                 >
                     <Typography>Create</Typography>
                 </Button>
             </Tooltip>
             <CreateCodebaseBranch
                 codebaseData={kubeObjectData}
-                open={createFormOpen}
-                onClose={() => setCreateFormOpen(false)}
-                setOpen={setCreateFormOpen}
+                open={createDialogOpen}
+                onClose={() => setCreateDialogOpen(false)}
+                setOpen={setCreateDialogOpen}
                 handleApply={handleApply}
+                isApplying={isApplying}
             />
         </>
     );

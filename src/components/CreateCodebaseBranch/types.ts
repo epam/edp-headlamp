@@ -8,4 +8,5 @@ export interface CreateCodebaseBranchProps {
     onClose(): void;
     setOpen(boolean): void;
     handleApply(newCodebaseBranchData: EDPCodebaseBranchKubeObjectInterface): void;
+    isApplying: boolean;
 }

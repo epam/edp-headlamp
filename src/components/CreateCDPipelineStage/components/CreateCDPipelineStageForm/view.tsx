@@ -35,6 +35,7 @@ export const CreateCDPipelineStageForm = ({
     setEditorOpen,
     handleApply,
     setDialogOpen,
+    isApplying,
 }: CreateCDPipelineStageFormProps): React.ReactElement => {
     const classes = useStyles();
     const {
@@ -183,7 +184,7 @@ export const CreateCDPipelineStageForm = ({
                             variant={'contained'}
                             color={'primary'}
                             size="small"
-                            disabled={!isDirty}
+                            disabled={!isDirty || isApplying}
                         >
                             apply
                         </Button>

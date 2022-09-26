@@ -23,9 +23,17 @@ export const TableHeaderActions = ({
         setCreateDialogOpen(false);
     }, [setCreateDialogOpen]);
 
+    const [isApplying, setIsApplying] = React.useState<boolean>(false);
+
     const { createCDPipelineStage } = useCreateCDPipelineStage(
-        () => setCreateDialogOpen(false),
-        () => setCreateDialogOpen(true)
+        () => {
+            setCreateDialogOpen(false);
+            setIsApplying(false);
+        },
+        () => {
+            setCreateDialogOpen(true);
+            setIsApplying(false);
+        }
     );
 
     const applyFunc = React.useCallback(
@@ -44,6 +52,8 @@ export const TableHeaderActions = ({
             } = newCDPipelineStageData;
             const cancelUrl = location.pathname;
 
+            setIsApplying(true);
+
             dispatch(
                 clusterAction(() => applyFunc(newCDPipelineStageData), {
                     startMessage: `Applying ${name}`,
@@ -53,6 +63,9 @@ export const TableHeaderActions = ({
                     cancelUrl,
                 })
             );
+
+            // temporary solution, since we cannot pass any callbacks for action cancelling
+            setTimeout(() => setIsApplying(false), 3000);
         },
         [applyFunc, dispatch]
     );
@@ -74,6 +87,7 @@ export const TableHeaderActions = ({
                 onClose={onClose}
                 setOpen={setCreateDialogOpen}
                 handleApply={handleApply}
+                isApplying={isApplying}
             />
         </>
     );

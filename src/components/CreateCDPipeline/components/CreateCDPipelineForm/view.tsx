@@ -45,6 +45,7 @@ export const CreateCDPipelineForm = ({
     setEditorOpen,
     handleApply,
     setDialogOpen,
+    isApplying,
 }: CreateCDPipelineFormProps): React.ReactElement => {
     const classes = useStyles();
 
@@ -278,7 +279,7 @@ export const CreateCDPipelineForm = ({
                                 variant={'contained'}
                                 color={'primary'}
                                 size="small"
-                                disabled={!isDirty}
+                                disabled={!isDirty || isApplying}
                             >
                                 apply
                             </Button>
@@ -292,6 +293,7 @@ export const CreateCDPipelineForm = ({
                     onClose={onClose}
                     setOpen={setCreateStageDialogOpen}
                     handleApply={handleCreateNewStage}
+                    isApplying={isApplying}
                 />
             </div>
             <Render condition={!!editorOpen}>

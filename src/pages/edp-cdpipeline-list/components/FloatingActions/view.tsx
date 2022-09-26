@@ -23,9 +23,17 @@ export const FloatingActions: React.FC<FloatingActionsProps> = (): React.ReactEl
         setCreateDialogOpen(false);
     }, [setCreateDialogOpen]);
 
+    const [isApplying, setIsApplying] = React.useState<boolean>(false);
+
     const { createCDPipeline } = useCreateCDPipeline(
-        () => setCreateDialogOpen(false),
-        () => setCreateDialogOpen(true)
+        () => {
+            setCreateDialogOpen(false);
+            setIsApplying(false);
+        },
+        () => {
+            setCreateDialogOpen(true);
+            setIsApplying(false);
+        }
     );
 
     const applyFunc = React.useCallback(
@@ -46,6 +54,8 @@ export const FloatingActions: React.FC<FloatingActionsProps> = (): React.ReactEl
             } = newCDPipelineData;
             const cancelUrl = location.pathname;
 
+            setIsApplying(true);
+
             dispatch(
                 clusterAction(() => applyFunc(newCDPipelineData, stages), {
                     startMessage: `Applying ${name}`,
@@ -55,6 +65,9 @@ export const FloatingActions: React.FC<FloatingActionsProps> = (): React.ReactEl
                     cancelUrl,
                 })
             );
+
+            // temporary solution, since we cannot pass any callbacks for action cancelling
+            setTimeout(() => setIsApplying(false), 3000);
         },
         [applyFunc, dispatch]
     );
@@ -72,6 +85,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = (): React.ReactEl
                 setOpen={setCreateDialogOpen}
                 onClose={onClose}
                 handleApply={handleApply}
+                isApplying={isApplying}
             />
         </>
     );

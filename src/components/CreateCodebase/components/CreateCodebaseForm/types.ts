@@ -11,4 +11,5 @@ export interface CreateCodebaseFormProps {
         data: DeepPartial<EDPCodebaseKubeObjectInterface>,
         codebaseAuthData: CodebaseAuthData | null
     ): void;
+    isApplying: boolean;
 }

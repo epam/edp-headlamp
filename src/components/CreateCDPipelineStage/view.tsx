@@ -14,6 +14,7 @@ export const CreateCDPipelineStage = ({
     setOpen,
     onClose,
     handleApply,
+    isApplying,
 }: CreateCDPipelineStageProps): React.ReactElement => {
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
@@ -42,6 +43,7 @@ export const CreateCDPipelineStage = ({
                         setEditorOpen={setEditorOpen}
                         setDialogOpen={setOpen}
                         handleApply={handleApply}
+                        isApplying={isApplying}
                     />
                 </DialogContent>
             </div>

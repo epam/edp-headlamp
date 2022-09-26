@@ -27,6 +27,7 @@ export const CreateCodebaseBranchForm = ({
     setEditorOpen,
     handleApply,
     setDialogOpen,
+    isApplying,
 }: CreateCodebaseBranchFormProps): React.ReactElement => {
     const classes = useStyles();
 
@@ -141,7 +142,7 @@ export const CreateCodebaseBranchForm = ({
                             variant={'contained'}
                             color={'primary'}
                             size="small"
-                            disabled={!isDirty}
+                            disabled={!isDirty || isApplying}
                         >
                             apply
                         </Button>

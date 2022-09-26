@@ -10,4 +10,5 @@ export interface CreateCDPipelineFormProps {
         newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>,
         stages: DeepPartial<EDPCDPipelineStageKubeObjectInterface>[]
     ): void;
+    isApplying: boolean;
 }
