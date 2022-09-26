@@ -35,3 +35,26 @@ export const createCDPipelineInstance = (
 
     return base;
 };
+
+export const editCDPipelineInstance = (
+    names: {
+        [key: string]: FormNameObject;
+    },
+    kubeObjectData: DeepPartial<EDPCDPipelineKubeObjectInterface>,
+    formValues: {
+        [key: string]: any;
+    }
+): DeepPartial<EDPCDPipelineKubeObjectInterface> => {
+    const base = { ...kubeObjectData };
+
+    for (const [propKey, propValue] of Object.entries(formValues)) {
+        if (names[propKey].notUsedInFormData) {
+            continue;
+        }
+
+        const propPath = names[propKey].path;
+        lodashSet(base, propPath, propValue);
+    }
+
+    return base;
+};

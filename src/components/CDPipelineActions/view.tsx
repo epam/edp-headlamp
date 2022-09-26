@@ -7,7 +7,7 @@ import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { KubeObjectAction } from '../../types/actions';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { DeleteKubeObject } from '../DeleteKubeObject';
-import { EditKubeObject } from '../EditKubeObject';
+import { EditCDPipeline } from '../EditCDPipeline';
 import { KubeObjectActions } from '../KubeObjectActions';
 import { CDPipelineActionsProps } from './types';
 
@@ -68,11 +68,11 @@ export const CDPipelineActions = ({
                 <IconButton aria-label={'Options'} onClick={toggleActionsMenu}>
                     <Icon icon={ICON_THREE_DOTS} color={'grey'} width="20" />
                 </IconButton>
-                <EditKubeObject
-                    editorOpen={editActionEditorOpen}
-                    setEditorOpen={setEditActionEditorOpen}
-                    kubeObject={kubeObject}
-                    kubeObjectData={kubeObjectData}
+                <EditCDPipeline
+                    CDPipelineData={kubeObjectData}
+                    onClose={() => setEditActionEditorOpen(false)}
+                    open={editActionEditorOpen}
+                    setOpen={setEditActionEditorOpen}
                 />
                 <DeleteKubeObject
                     popupOpen={deleteActionPopupOpen}
