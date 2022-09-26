@@ -10,7 +10,7 @@ import {
 import { MuiCore, React } from '../../../../../../../plugin.globals';
 import { FieldEvent } from '../../../../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../../../../utils/format/capitalizeFirstLetter';
-import { FormRadio } from '../../../../../../FormComponents/FormRadio';
+import { FormRadioGroup } from '../../../../../../FormComponents/FormRadio';
 import { getRecommendedJenkinsAgent } from '../../../utils';
 import { LangProps } from './types';
 
@@ -110,8 +110,9 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
 
     return (
         <Grid item xs={12}>
-            <FormRadio
+            <FormRadioGroup
                 {...register(names.lang.name, {
+                    required: `Choose codebase language`,
                     onChange: onLangChange,
                 })}
                 control={control}

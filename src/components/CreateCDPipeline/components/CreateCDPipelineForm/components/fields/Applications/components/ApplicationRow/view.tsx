@@ -27,6 +27,7 @@ export const ApplicationRow = ({
         control,
         formState: { errors },
         resetField,
+        setValue,
     } = useFormContext();
 
     const { value, availableBranches } = application;
@@ -55,10 +56,14 @@ export const ApplicationRow = ({
                     value: pipelineApplicationBranches,
                 });
 
+                setValue(names.inputDockerStreams.name, pipelineApplicationBranches, {
+                    shouldDirty: true,
+                });
+
                 return newApplications;
             });
         },
-        [handleFormFieldChange, names.inputDockerStreams.name, setApplications, value]
+        [handleFormFieldChange, names.inputDockerStreams.name, setApplications, setValue, value]
     );
 
     const handleChangeApplicationToPromote = React.useCallback(
@@ -83,10 +88,14 @@ export const ApplicationRow = ({
                     value: pipelineApplicationsToPromote,
                 });
 
+                setValue(names.applicationsToPromote.name, pipelineApplicationsToPromote, {
+                    shouldDirty: true,
+                });
+
                 return newApplications;
             });
         },
-        [handleFormFieldChange, names.applicationsToPromote.name, setApplications, value]
+        [handleFormFieldChange, names.applicationsToPromote.name, setApplications, setValue, value]
     );
 
     const handleDeleteApplicationRow = React.useCallback(() => {
@@ -114,6 +123,10 @@ export const ApplicationRow = ({
                 value: pipelineApplications,
             });
 
+            setValue(names.applications.name, pipelineApplications, {
+                shouldDirty: true,
+            });
+
             const pipelineApplicationBranches = newApplications
                 .filter(el => el.isUsed)
                 .map(el => el.chosenBranch);
@@ -123,6 +136,10 @@ export const ApplicationRow = ({
                 value: pipelineApplicationBranches,
             });
 
+            setValue(names.inputDockerStreams.name, pipelineApplicationBranches, {
+                shouldDirty: true,
+            });
+
             const pipelineApplicationsToPromote = newApplications
                 .filter(el => el.isUsed && el.toPromote)
                 .map(el => el.value);
@@ -130,6 +147,10 @@ export const ApplicationRow = ({
             handleFormFieldChange({
                 name: names.applicationsToPromote.name,
                 value: pipelineApplicationsToPromote,
+            });
+
+            setValue(names.applicationsToPromote.name, pipelineApplicationsToPromote, {
+                shouldDirty: true,
             });
 
             return newApplications;
@@ -145,6 +166,7 @@ export const ApplicationRow = ({
         names.inputDockerStreams.name,
         resetField,
         setApplications,
+        setValue,
         value,
     ]);
 

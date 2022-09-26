@@ -2,7 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../../../../plugin.globals';
 import { FieldEvent } from '../../../../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../../../../utils/format/capitalizeFirstLetter';
-import { FormRadio } from '../../../../../../FormComponents/FormRadio';
+import { FormRadioGroup } from '../../../../../../FormComponents/FormRadio';
 import { FormRadioOption } from '../../../../../../FormComponents/FormRadio/types';
 import { useChosenCodebaseLanguage } from '../../../hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../utils';
@@ -61,8 +61,9 @@ export const Framework = ({ names, handleFormFieldChange, type }: FrameworkProps
 
     return (
         <Grid item xs={12}>
-            <FormRadio
+            <FormRadioGroup
                 {...register(names.framework.name, {
+                    required: `Choose codebase framework`,
                     onChange: onFrameworkChange,
                 })}
                 control={control}

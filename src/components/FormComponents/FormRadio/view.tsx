@@ -8,7 +8,7 @@ import { FormRadioProps } from './types';
 
 const { FormControl, Radio, ButtonBase, RadioGroup, Typography, Grid, FormControlLabel } = MuiCore;
 
-export const FormRadio = React.forwardRef(
+export const FormRadioGroup = React.forwardRef(
     (
         { name, control, errors, label, title, options, ...props }: FormRadioProps,
         ref: React.RefObject<HTMLInputElement>

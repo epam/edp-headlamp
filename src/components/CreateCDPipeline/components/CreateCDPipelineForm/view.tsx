@@ -142,13 +142,22 @@ export const CreateCDPipelineForm = ({
         open: editorOpen,
     };
 
-    const handleProceed = React.useCallback(async () => {
-        const hasNoErrors = await trigger();
+    const activeTabFormPartName = React.useMemo(() => {
+        const [validEntry] = Object.entries(TAB_INDEXES).filter(([, idx]) => idx === activeTabIdx);
+        const [activeTabName] = validEntry;
 
+        return activeTabName;
+    }, [activeTabIdx]);
+
+    const handleProceed = React.useCallback(async () => {
+        const activeTabFormPartNames = Object.values(CDPIPELINE_CREATION_FORM_NAMES)
+            .filter(({ formPart }) => formPart === activeTabFormPartName)
+            .map(({ name }) => name);
+        const hasNoErrors = await trigger(activeTabFormPartNames);
         if (hasNoErrors) {
             setActiveTabIdx(activeTabIdx + 1);
         }
-    }, [activeTabIdx, trigger]);
+    }, [activeTabFormPartName, activeTabIdx, trigger]);
 
     const onSubmit = React.useCallback(() => {
         handleApply(editorReturnValues, stages);

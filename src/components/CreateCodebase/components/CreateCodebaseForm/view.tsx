@@ -59,6 +59,9 @@ export const CreateCodebaseForm = ({
     setDialogOpen,
 }: CreateCodebaseFormProps): React.ReactElement => {
     const classes = useStyles();
+    const muDialogProps: DialogProps = {
+        open: editorOpen,
+    };
 
     const [activeTabIdx, setActiveTabIdx] = React.useState<number>(
         TAB_INDEXES[FORM_PART_CODEBASE_INFO]
@@ -179,17 +182,22 @@ export const CreateCodebaseForm = ({
         [getFirstErrorTabName]
     );
 
-    const muDialogProps: DialogProps = {
-        open: editorOpen,
-    };
+    const activeTabFormPartName = React.useMemo(() => {
+        const [validEntry] = Object.entries(TAB_INDEXES).filter(([, idx]) => idx === activeTabIdx);
+        const [activeTabName] = validEntry;
+
+        return activeTabName;
+    }, [activeTabIdx]);
 
     const handleProceed = React.useCallback(async () => {
-        const hasNoErrors = await trigger();
-
+        const activeTabFormPartNames = Object.values(names)
+            .filter(({ formPart }) => formPart === activeTabFormPartName)
+            .map(({ name }) => name);
+        const hasNoErrors = await trigger(activeTabFormPartNames);
         if (hasNoErrors) {
             setActiveTabIdx(activeTabIdx + 1);
         }
-    }, [activeTabIdx, trigger]);
+    }, [activeTabFormPartName, activeTabIdx, names, trigger]);
 
     const onSubmit = React.useCallback(() => {
         const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;

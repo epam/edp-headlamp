@@ -1,3 +1,4 @@
+import { ErrorMessage } from '@hookform/error-message';
 import { useFormContext } from 'react-hook-form';
 import { ICON_PLUS } from '../../../../../../../constants/icons';
 import { Iconify, MuiCore, MuiStyles, React } from '../../../../../../../plugin.globals';
@@ -7,7 +8,7 @@ import { ApplicationRow } from './components/ApplicationRow';
 import { useUpdatedApplications } from './hooks/useUpdatedApplications';
 import { Application, ApplicationsProps } from './types';
 
-const { Grid, Button } = MuiCore;
+const { Grid, Button, Typography } = MuiCore;
 const { Icon } = Iconify;
 const { useTheme } = MuiStyles;
 
@@ -29,7 +30,16 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
         watch,
         resetField,
         setValue,
+        trigger,
     } = useFormContext();
+
+    register(names.applications.name, {
+        required: 'Choose applications',
+    });
+
+    register(names.applicationsToPromote.name);
+
+    register(names.inputDockerStreams.name);
 
     const namespaceFieldValue = watch(names.namespace.name);
     const applicationsToAddChooserFieldValue = watch(names.applicationsToAddChooser.name);
@@ -70,6 +80,12 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                 value: pipelineApplications,
             });
 
+            setValue(names.applications.name, pipelineApplications, {
+                shouldDirty: true,
+            });
+
+            trigger(names.applications.name);
+
             return newApplications;
         });
         resetField(names.applicationsToAddChooser.name);
@@ -80,6 +96,8 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
         names.applicationsToAddChooser.name,
         resetField,
         setApplications,
+        setValue,
+        trigger,
     ]);
 
     const usedApplications = React.useMemo(() => {
@@ -106,6 +124,8 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
         namespaceFieldValue,
         usedApplications.length,
     ]);
+
+    const hasError = !!errors;
 
     return (
         <>
@@ -177,6 +197,13 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                     </Render>
                 </Grid>
             </Grid>
+            <Render condition={hasError}>
+                <Grid item xs={12}>
+                    <Typography component={'span'} variant={'subtitle2'} color={'error'}>
+                        <ErrorMessage errors={errors} name={names.applications.name} />
+                    </Typography>
+                </Grid>
+            </Render>
         </>
     );
 };
