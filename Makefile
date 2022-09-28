@@ -44,6 +44,10 @@ else
 	$(GITCHGLOG) -o CHANGELOG.md v0.1.0..
 endif
 
+.PHONY: validate-docs
+validate-docs: helm-docs  ## Validate helm docs
+	@git diff -s --exit-code deploy-templates/README.md || (echo "Run 'make helm-docs' to address the issue." && git diff && exit 1)
+
 .PHONY: helm-docs
 helm-docs: $(HELMDOCS) ## generate helm docs
 	$(HELMDOCS)
