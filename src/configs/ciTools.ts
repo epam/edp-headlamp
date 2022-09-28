@@ -9,4 +9,8 @@ export const ciTools: SelectOption[] = [
         label: 'Gitlab',
         value: 'gitlab',
     },
+    {
+        label: 'Tekton',
+        value: 'tekton',
+    },
 ];
