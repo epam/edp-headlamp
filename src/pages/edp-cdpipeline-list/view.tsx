@@ -29,7 +29,11 @@ export const EDPCDPipelineList = (): React.ReactElement => {
     }, []);
 
     React.useEffect(() => {
-        streamCDPipelines(handleStoreCDPipelines, handleError, namespace);
+        const cancelStream = streamCDPipelines(handleStoreCDPipelines, handleError, namespace);
+
+        return () => {
+            cancelStream();
+        };
     }, [handleError, handleStoreCDPipelines, namespace]);
 
     return (

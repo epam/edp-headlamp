@@ -1,5 +1,5 @@
-import { pluginLib } from '../../plugin.globals';
-import { ApiError, StreamErrCb, StreamResultsCb } from '../../plugin.types';
+import { pluginLib } from '../../../plugin.globals';
+import { ApiError, StreamErrCb, StreamResultsCb } from '../../../plugin.types';
 const { ApiProxy } = pluginLib;
 
 export const streamResult = (
@@ -17,7 +17,6 @@ export const streamResult = (
     async function run() {
         try {
             const item = await ApiProxy.request(`${url}/${name}`);
-
             if (isCancelled) return;
             cb(item);
 
@@ -27,7 +26,6 @@ export const streamResult = (
             socket = ApiProxy.stream(watchUrl, x => cb(x.object), { isJson: true });
         } catch (err) {
             if (errCb) errCb(err as ApiError, cancel);
-            throw new Error(`Error in api request ${{ err, url }}`);
         }
     }
 

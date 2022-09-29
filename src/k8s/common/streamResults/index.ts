@@ -1,6 +1,6 @@
-import { pluginLib } from '../../plugin.globals';
-import { ApiError, StreamErrCb, StreamResultsCb } from '../../plugin.types';
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { pluginLib } from '../../../plugin.globals';
+import { ApiError, StreamErrCb, StreamResultsCb } from '../../../plugin.types';
+import { EDPKubeObjectInterface } from '../../../types/k8s';
 
 const { ApiProxy } = pluginLib;
 
@@ -37,11 +37,9 @@ export const streamResults = (
                 resourceVersion: metadata.resourceVersion,
             });
             const watchUrl = `${url}?${watchParams.toString()}`;
-
             socket = ApiProxy.stream(watchUrl, update, { isJson: true });
         } catch (err) {
             if (errCb) errCb(err as ApiError, cancel);
-            throw new Error(`Error in api request ${{ err, url }}`);
         }
     }
 
@@ -77,7 +75,6 @@ export const streamResults = (
                 break;
             case 'MODIFIED': {
                 const existing = results[object.metadata.uid];
-
                 if (existing) {
                     const currentVersion = parseInt(existing.metadata.resourceVersion, 10);
                     const newVersion = parseInt(object.metadata.resourceVersion, 10);
