@@ -44,28 +44,39 @@ export const createCodebaseBranchInstanceBasedOnFormValues = (
 };
 
 export const createDefaultCodebaseBranchInstance = (
-    codebase: DeepPartial<EDPCodebaseKubeObjectInterface>
+    codebaseData: DeepPartial<EDPCodebaseKubeObjectInterface>
 ): DeepPartial<EDPCodebaseBranchKubeObjectInterface> => {
     const {
-        spec: { defaultBranch },
-        metadata: { name, namespace },
-    } = codebase;
+        spec: { defaultBranch, versioning },
+        metadata: { name: codebaseName, namespace },
+    } = codebaseData;
 
-    return {
+    const isEDPVersioning = versioning.type === 'edp';
+
+    const base: DeepPartial<EDPCodebaseBranchKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,
         kind,
         spec: {
-            codebaseName: name,
+            codebaseName,
             branchName: defaultBranch,
             fromCommit: '',
             release: false,
         },
         metadata: {
-            name: `${name}-${defaultBranch}`,
+            name: `${codebaseName}-${defaultBranch}`,
             namespace,
             labels: {
-                'app.edp.epam.com/codebaseName': name,
+                'app.edp.epam.com/codebaseName': codebaseName,
             },
         },
     };
+
+    if (isEDPVersioning) {
+        base.status = {
+            versionHistory: [versioning.startFrom],
+        };
+        base.spec.version = versioning.startFrom;
+    }
+
+    return base;
 };
