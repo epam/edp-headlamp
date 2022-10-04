@@ -15,10 +15,11 @@ import {
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
 import { useNames } from './hooks/useNames';
+import { useUpdateJiraServerIntegrationValue } from './hooks/useUpdateJiraServerIntegrationValue';
 import { useStyles } from './styles';
 import { EditCodebaseFormProps } from './types';
 
-const { Button } = MuiCore;
+const { Button, Grid } = MuiCore;
 
 export const EditCodebaseForm = ({
     handleApply,
@@ -42,6 +43,7 @@ export const EditCodebaseForm = ({
         reset,
         watch,
         formState: { isDirty },
+        setValue,
     } = methods;
 
     const handleFormFieldChange = React.useCallback(
@@ -83,37 +85,41 @@ export const EditCodebaseForm = ({
 
     const { jiraServers } = useJiraServers({ namespace: codebaseData.metadata.namespace });
 
+    useUpdateJiraServerIntegrationValue({ watch, setValue, names });
+
     return (
         <FormProvider {...methods}>
             <div className={classes.form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.formInner}>
-                        <JiraServerIntegration
-                            names={names}
-                            handleFormFieldChange={handleFormFieldChange}
-                            isDisabled={!jiraServers.length}
-                        />
-                        {jiraServers.length && hasJiraServerIntegrationFieldValue ? (
-                            <>
-                                <JiraServer
-                                    names={names}
-                                    handleFormFieldChange={handleFormFieldChange}
-                                    jiraServers={jiraServers}
-                                />
-                                <CommitMessagePattern
-                                    names={names}
-                                    handleFormFieldChange={handleFormFieldChange}
-                                />
-                                <TicketNamePattern
-                                    names={names}
-                                    handleFormFieldChange={handleFormFieldChange}
-                                />
-                                <AdvancedJiraMapping
-                                    names={names}
-                                    handleFormFieldChange={handleFormFieldChange}
-                                />
-                            </>
-                        ) : null}
+                        <Grid container spacing={1}>
+                            <JiraServerIntegration
+                                names={names}
+                                handleFormFieldChange={handleFormFieldChange}
+                                jiraServers={jiraServers}
+                            />
+                            {jiraServers.length && hasJiraServerIntegrationFieldValue ? (
+                                <>
+                                    <JiraServer
+                                        names={names}
+                                        handleFormFieldChange={handleFormFieldChange}
+                                        jiraServers={jiraServers}
+                                    />
+                                    <CommitMessagePattern
+                                        names={names}
+                                        handleFormFieldChange={handleFormFieldChange}
+                                    />
+                                    <TicketNamePattern
+                                        names={names}
+                                        handleFormFieldChange={handleFormFieldChange}
+                                    />
+                                    <AdvancedJiraMapping
+                                        names={names}
+                                        handleFormFieldChange={handleFormFieldChange}
+                                    />
+                                </>
+                            ) : null}
+                        </Grid>
                     </div>
                     <div className={classes.actions}>
                         <Button

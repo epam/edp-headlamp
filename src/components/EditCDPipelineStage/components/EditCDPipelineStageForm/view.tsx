@@ -3,7 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { DeepPartial } from '../../../../types/global';
-import { TriggerType } from './components/fields';
+import { TriggerType } from '../../../FormFields/CDPipelineStageFields';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
 import { useNames } from './hooks/useNames';

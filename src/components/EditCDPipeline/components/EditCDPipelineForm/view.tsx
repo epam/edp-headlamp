@@ -4,7 +4,7 @@ import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
-import { Applications } from './components/fields';
+import { Applications } from '../../../FormFields/CDPipelineFields';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
 import { useNames } from './hooks/useNames';

@@ -6,9 +6,9 @@ import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebas
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
+import { BranchName } from '../../../FormFields/CodebaseBranchFields';
+import { FromCommit } from '../../../FormFields/CodebaseBranchFields/FromCommit';
 import { Render } from '../../../Render';
-import { BranchName } from './components/fields';
-import { FromCommit } from './components/fields/FromCommit';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
 import { CODEBASE_BRANCH_BACKWARDS_NAME_MAPPING, CODEBASE_BRANCH_NAMES } from './names';

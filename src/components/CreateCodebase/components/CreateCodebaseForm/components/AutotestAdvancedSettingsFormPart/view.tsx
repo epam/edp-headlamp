@@ -48,7 +48,7 @@ export const AutotestAdvancedSettingsFormPart = ({
                 <JiraServerIntegration
                     names={names}
                     handleFormFieldChange={handleFormFieldChange}
-                    isDisabled={!jiraServers.length}
+                    jiraServers={jiraServers}
                 />
                 {jiraServers.length && hasJiraServerIntegrationFieldValue ? (
                     <>

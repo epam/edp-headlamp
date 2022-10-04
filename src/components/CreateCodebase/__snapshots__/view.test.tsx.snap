@@ -1106,6 +1106,34 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                 >
                   <div
+                    class="MuiPaper-root MuiAlert-root MuiAlert-filledInfo MuiPaper-elevation2"
+                    role="alert"
+                  >
+                    <div
+                      class="MuiAlert-icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="MuiAlert-message"
+                    >
+                      You don't have jira servers on your namespace for jira integration creation
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
                   >
                     <div
@@ -2272,6 +2300,34 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                           </div>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiPaper-root MuiAlert-root MuiAlert-filledInfo MuiPaper-elevation2"
+                    role="alert"
+                  >
+                    <div
+                      class="MuiAlert-icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="MuiAlert-message"
+                    >
+                      You don't have jira servers on your namespace for jira integration creation
                     </div>
                   </div>
                 </div>
@@ -3689,6 +3745,34 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                           </div>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                >
+                  <div
+                    class="MuiPaper-root MuiAlert-root MuiAlert-filledInfo MuiPaper-elevation2"
+                    role="alert"
+                  >
+                    <div
+                      class="MuiAlert-icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="MuiAlert-message"
+                    >
+                      You don't have jira servers on your namespace for jira integration creation
                     </div>
                   </div>
                 </div>

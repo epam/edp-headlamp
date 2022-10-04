@@ -1,16 +1,18 @@
 import { useFormContext } from 'react-hook-form';
-import { MuiCore, React } from '../../../../plugin.globals';
+import { MuiCore, MuiLab, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormCheckbox } from '../../../FormComponents/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../FormComponents/FormControlLabelWithTooltip';
+import { Render } from '../../../Render';
 import { JiraServerIntegrationProps } from './types';
 
 const { Grid } = MuiCore;
+const { Alert } = MuiLab;
 
 export const JiraServerIntegration = ({
     names,
     handleFormFieldChange,
-    isDisabled,
+    jiraServers,
 }: JiraServerIntegrationProps) => {
     const {
         register,
@@ -19,17 +21,26 @@ export const JiraServerIntegration = ({
     } = useFormContext();
 
     return (
-        <Grid item xs={12}>
-            <FormCheckbox
-                {...register(names.hasJiraServerIntegration.name, {
-                    onChange: ({ target: { name, value } }: FieldEvent) =>
-                        handleFormFieldChange({ name, value }),
-                })}
-                label={<FormControlLabelWithTooltip label={'Integrate with Jira server'} />}
-                control={control}
-                errors={errors}
-                disabled={isDisabled}
-            />
-        </Grid>
+        <>
+            <Render condition={jiraServers && !jiraServers.length}>
+                <Grid item xs={12}>
+                    <Alert severity="info" elevation={2} variant="filled">
+                        You don't have jira servers on your namespace for jira integration creation
+                    </Alert>
+                </Grid>
+            </Render>
+            <Grid item xs={12}>
+                <FormCheckbox
+                    {...register(names.hasJiraServerIntegration.name, {
+                        onChange: ({ target: { name, value } }: FieldEvent) =>
+                            handleFormFieldChange({ name, value }),
+                    })}
+                    label={<FormControlLabelWithTooltip label={'Integrate with Jira server'} />}
+                    control={control}
+                    errors={errors}
+                    disabled={!jiraServers.length}
+                />
+            </Grid>
+        </>
     );
 };

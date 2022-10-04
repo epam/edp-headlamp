@@ -1,4 +1,4 @@
-import { Autotest } from '../../components/CreateCDPipelineStage/components/CreateCDPipelineStageForm/components/fields/QualityGates/types';
+import { Autotest } from '../../components/FormFields/CDPipelineStageFields/QualityGates/types';
 import { getCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { getCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBranch';

@@ -7,7 +7,6 @@ import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebas
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
-import { Render } from '../../../Render';
 import {
     Description,
     GroovyPipelineLibrary,
@@ -15,7 +14,8 @@ import {
     QualityGates,
     StageName,
     TriggerType,
-} from './components/fields';
+} from '../../../FormFields/CDPipelineStageFields';
+import { Render } from '../../../Render';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
 import { CDPIPELINE_STAGE_BACKWARDS_NAME_MAPPING, CDPIPELINE_STAGE_NAMES } from './names';

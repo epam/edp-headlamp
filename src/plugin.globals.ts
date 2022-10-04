@@ -2,6 +2,7 @@ import * as Iconify from '@iconify/react';
 import { ApiProxy, K8s, Router, Utils } from '@kinvolk/headlamp-plugin/lib';
 import * as CommonComponents from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import * as MuiCore from '@material-ui/core';
+import * as MuiLab from '@material-ui/lab';
 import * as MuiStyles from '@material-ui/styles';
 import * as Notistack from 'notistack';
 import React from 'react';
@@ -16,4 +17,4 @@ export const pluginLib = {
     CommonComponents,
 };
 
-export { React, ReactRouter, ReactRedux, MuiCore, MuiStyles, Iconify, Notistack };
+export { React, ReactRouter, ReactRedux, MuiCore, MuiLab, MuiStyles, Iconify, Notistack };
