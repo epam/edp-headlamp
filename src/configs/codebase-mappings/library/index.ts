@@ -8,8 +8,6 @@ const LANGUAGE_GROOVY_PIPELINE = 'groovy-pipeline';
 const LANGUAGE_TERRAFORM = 'terraform';
 const LANGUAGE_REGO = 'rego';
 const LANGUAGE_CONTAINER = 'container';
-const LANGUAGE_KUBERNETES = 'kubernetes';
-const LANGUAGE_GITOPS = 'gitops';
 const LANGUAGE_OTHER = 'other';
 
 export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
@@ -120,36 +118,6 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             kaniko: { name: 'Kaniko', value: 'kaniko' },
         },
     },
-    [LANGUAGE_KUBERNETES]: {
-        language: {
-            name: 'Kubernetes',
-            value: 'kubernetes',
-            icon: 'kubernetes-logo.png',
-        },
-        frameworks: {
-            helm: { name: 'Helm', value: 'helm', icon: 'helm-logo.png' },
-            kustomize: { name: 'Kustomize', value: 'kustomize', icon: 'kustomize-logo.png' },
-        },
-        buildTools: {
-            helm: { name: 'Helm', value: 'helm' },
-            kustomize: { name: 'Kustomize', value: 'kustomize' },
-        },
-    },
-    [LANGUAGE_GITOPS]: {
-        language: {
-            name: 'GitOps',
-            value: 'gitops',
-            icon: 'gitops-logo.png',
-        },
-        frameworks: {
-            argocd: { name: 'ArgoCD', value: 'argocd', icon: 'argocd-logo.png' },
-            flux: { name: 'Flux', value: 'flux', icon: 'flux-logo.png' },
-        },
-        buildTools: {
-            argocd: { name: 'ArgoCD', value: 'argocd' },
-            flux: { name: 'Flux', value: 'flux' },
-        },
-    },
     [LANGUAGE_OTHER]: {
         language: {
             name: 'Other',
@@ -229,7 +197,6 @@ export const getLibraryRecommendedJenkinsAgent = (
         case LIBRARY_MAPPING[LANGUAGE_PYTHON].language.value:
             return 'python-3.8';
         case LIBRARY_MAPPING[LANGUAGE_GROOVY_PIPELINE].language.value:
-        case LIBRARY_MAPPING[LANGUAGE_GITOPS].language.value:
             return 'codenarc';
         case LIBRARY_MAPPING[LANGUAGE_TERRAFORM].language.value:
             return 'terraform';
@@ -237,8 +204,6 @@ export const getLibraryRecommendedJenkinsAgent = (
             return 'opa';
         case LIBRARY_MAPPING[LANGUAGE_CONTAINER].language.value:
             return 'kaniko-docker';
-        case LIBRARY_MAPPING[LANGUAGE_KUBERNETES].language.value:
-            return 'edp-helm';
     }
 
     return undefined;

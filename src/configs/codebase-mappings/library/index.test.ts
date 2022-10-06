@@ -70,11 +70,6 @@ describe('getLibraryRecommendedJenkinsAgent', () => {
             expected: 'codenarc',
         },
         {
-            testName: 'should map gitops to codenarc',
-            args: ['gitops'],
-            expected: 'codenarc',
-        },
-        {
             testName: 'should map rego to opa',
             args: ['rego'],
             expected: 'opa',
