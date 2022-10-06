@@ -35,7 +35,6 @@ export const CODEBASE_BRANCH_CREATION_NAME_FROM_COMMIT: FormNameObject = {
 export const CODEBASE_BRANCH_CREATION_NAME_RELEASE: FormNameObject = {
     name: 'release',
     path: ['spec', 'release'],
-    notUsedInFormData: true,
 };
 
 export const CODEBASE_BRANCH_CREATION_NAME_CODEBASE_NAME: FormNameObject = {
@@ -50,6 +49,31 @@ export const CODEBASE_CREATION_NAME_CODEBASE_NAME_LABEL: FormNameObject = {
     path: ['metadata', 'labels', 'app.edp.epam.com/codebaseName'],
 };
 
+export const CODEBASE_BRANCH_CREATION_NAME_BRANCH_VERSION: FormNameObject = {
+    name: 'version',
+    path: ['spec', 'version'],
+};
+
+export const CODEBASE_BRANCH_CREATION_NAME_BRANCH_VERSION_START: FormNameObject = {
+    name: 'branchVersionStart',
+    notUsedInFormData: true,
+};
+
+export const CODEBASE_BRANCH_CREATION_NAME_BRANCH_VERSION_POSTFIX: FormNameObject = {
+    name: 'branchVersionPostfix',
+    notUsedInFormData: true,
+};
+
+export const CODEBASE_BRANCH_CREATION_NAME_DEFAULT_BRANCH_VERSION_START: FormNameObject = {
+    name: 'defaultBranchVersionStart',
+    notUsedInFormData: true,
+};
+
+export const CODEBASE_BRANCH_CREATION_NAME_DEFAULT_BRANCH_VERSION_POSTFIX: FormNameObject = {
+    name: 'defaultBranchVersionPostfix',
+    notUsedInFormData: true,
+};
+
 export const CODEBASE_BRANCH_NAMES: { [key: string]: FormNameObject } = {
     branchName: CODEBASE_BRANCH_CREATION_NAME_BRANCH_NAME,
     fromCommit: CODEBASE_BRANCH_CREATION_NAME_FROM_COMMIT,
@@ -58,4 +82,9 @@ export const CODEBASE_BRANCH_NAMES: { [key: string]: FormNameObject } = {
     release: CODEBASE_BRANCH_CREATION_NAME_RELEASE,
     codebaseName: CODEBASE_BRANCH_CREATION_NAME_CODEBASE_NAME,
     codebaseNameLabel: CODEBASE_CREATION_NAME_CODEBASE_NAME_LABEL,
+    version: CODEBASE_BRANCH_CREATION_NAME_BRANCH_VERSION,
+    branchVersionStart: CODEBASE_BRANCH_CREATION_NAME_BRANCH_VERSION_START,
+    branchVersionPostfix: CODEBASE_BRANCH_CREATION_NAME_BRANCH_VERSION_POSTFIX,
+    defaultBranchVersionStart: CODEBASE_BRANCH_CREATION_NAME_DEFAULT_BRANCH_VERSION_START,
+    defaultBranchVersionPostfix: CODEBASE_BRANCH_CREATION_NAME_DEFAULT_BRANCH_VERSION_POSTFIX,
 };

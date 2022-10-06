@@ -1,11 +1,7 @@
 import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
-import {
-    CODEBASE_TYPE_APPLICATION,
-    CODEBASE_TYPE_AUTOTEST,
-    CODEBASE_TYPE_LIBRARY,
-} from '../../../../constants/codebaseTypes';
+import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
@@ -240,21 +236,21 @@ export const CreateCodebaseForm = ({
                             className={classes.tabPanel}
                         >
                             <div className={classes.tabPanelInner}>
-                                <Render condition={type === CODEBASE_TYPE_APPLICATION}>
+                                <Render condition={type === CODEBASE_TYPES['APPLICATION']}>
                                     <ApplicationCodebaseInfoFormPart
                                         type={type}
                                         names={names}
                                         handleFormFieldChange={handleFormFieldChange}
                                     />
                                 </Render>
-                                <Render condition={type === CODEBASE_TYPE_LIBRARY}>
+                                <Render condition={type === CODEBASE_TYPES['LIBRARY']}>
                                     <LibraryCodebaseInfoFormPart
                                         type={type}
                                         names={names}
                                         handleFormFieldChange={handleFormFieldChange}
                                     />
                                 </Render>
-                                <Render condition={type === CODEBASE_TYPE_AUTOTEST}>
+                                <Render condition={type === CODEBASE_TYPES['AUTOTEST']}>
                                     <AutotestCodebaseInfoFormPart
                                         type={type}
                                         names={names}
@@ -269,21 +265,21 @@ export const CreateCodebaseForm = ({
                             className={classes.tabPanel}
                         >
                             <div className={classes.tabPanelInner}>
-                                <Render condition={type === CODEBASE_TYPE_APPLICATION}>
+                                <Render condition={type === CODEBASE_TYPES['APPLICATION']}>
                                     <ApplicationCodebaseTypeInfoFormPart
                                         names={names}
                                         handleFormFieldChange={handleFormFieldChange}
                                         type={type}
                                     />
                                 </Render>
-                                <Render condition={type === CODEBASE_TYPE_LIBRARY}>
+                                <Render condition={type === CODEBASE_TYPES['LIBRARY']}>
                                     <LibraryCodebaseTypeInfoFormPart
                                         names={names}
                                         handleFormFieldChange={handleFormFieldChange}
                                         type={type}
                                     />
                                 </Render>
-                                <Render condition={type === CODEBASE_TYPE_AUTOTEST}>
+                                <Render condition={type === CODEBASE_TYPES['AUTOTEST']}>
                                     <AutotestCodebaseTypeInfoFormPart
                                         names={names}
                                         handleFormFieldChange={handleFormFieldChange}
@@ -298,19 +294,19 @@ export const CreateCodebaseForm = ({
                             className={classes.tabPanel}
                         >
                             <div className={classes.tabPanelInner}>
-                                <Render condition={type === CODEBASE_TYPE_APPLICATION}>
+                                <Render condition={type === CODEBASE_TYPES['APPLICATION']}>
                                     <ApplicationAdvancedSettingsFormPart
                                         names={names}
                                         handleFormFieldChange={handleFormFieldChange}
                                     />
                                 </Render>
-                                <Render condition={type === CODEBASE_TYPE_LIBRARY}>
+                                <Render condition={type === CODEBASE_TYPES['LIBRARY']}>
                                     <LibraryAdvancedSettingsFormPart
                                         names={names}
                                         handleFormFieldChange={handleFormFieldChange}
                                     />
                                 </Render>
-                                <Render condition={type === CODEBASE_TYPE_AUTOTEST}>
+                                <Render condition={type === CODEBASE_TYPES['AUTOTEST']}>
                                     <AutotestAdvancedSettingsFormPart
                                         names={names}
                                         handleFormFieldChange={handleFormFieldChange}

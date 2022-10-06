@@ -1,5 +1,5 @@
-import { ICON_ARROW_DOWN } from '../../constants/icons';
-import { STATUS_UNKNOWN } from '../../constants/statuses';
+import { ICONS } from '../../constants/icons';
+import { CUSTOM_RESOURCE_STATUSES } from '../../constants/statuses';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import {
     EDPCodebaseBranchKubeObject,
@@ -86,10 +86,14 @@ export const CodebaseBranchesList = ({
                                 expanded={expandedPanel === stageId}
                                 onChange={handleChange(stageId)}
                             >
-                                <AccordionSummary expandIcon={<Icon icon={ICON_ARROW_DOWN} />}>
+                                <AccordionSummary expandIcon={<Icon icon={ICONS['ARROW_DOWN']} />}>
                                     <div className={classes.stageHeading}>
                                         <StatusIcon
-                                            status={el.status ? el.status.status : STATUS_UNKNOWN}
+                                            status={
+                                                el.status
+                                                    ? el.status.status
+                                                    : CUSTOM_RESOURCE_STATUSES['UNKNOWN']
+                                            }
                                         />
                                         <Typography variant={'h6'} style={{ lineHeight: 1 }}>
                                             {el.spec.branchName}

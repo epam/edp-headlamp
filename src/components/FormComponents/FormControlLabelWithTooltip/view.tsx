@@ -1,4 +1,4 @@
-import { ICON_INFO_CIRCLE } from '../../../constants/icons';
+import { ICONS } from '../../../constants/icons';
 import { Iconify, MuiCore, React } from '../../../plugin.globals';
 import { Render } from '../../Render';
 import { useStyles } from './styles';
@@ -19,7 +19,7 @@ export const FormControlLabelWithTooltip = ({
             </Typography>
             <Render condition={!!title}>
                 <Tooltip title={title}>
-                    <Icon icon={ICON_INFO_CIRCLE} width={20} />
+                    <Icon icon={ICONS['INFO_CIRCLE']} width={20} />
                 </Tooltip>
             </Render>
         </span>

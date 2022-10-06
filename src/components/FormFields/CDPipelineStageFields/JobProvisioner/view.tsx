@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { jobProvisioners } from '../../../../configs/jobProvisioners';
+import { jobProvisionerSelectOptions } from '../../../../configs/select-options/jobProvisioners';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -22,7 +22,7 @@ export const JobProvisioner = ({ names, handleFormFieldChange }: JobProvisionerP
             placeholder={'Choose job provisioner'}
             control={control}
             errors={errors}
-            options={jobProvisioners}
+            options={jobProvisionerSelectOptions}
         />
     );
 };

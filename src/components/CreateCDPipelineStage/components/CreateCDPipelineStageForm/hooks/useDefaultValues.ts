@@ -1,3 +1,5 @@
+import { JOB_PROVISIONERS } from '../../../../../constants/jobProvisioners';
+import { TRIGGER_TYPES } from '../../../../../constants/triggerTypes';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
@@ -22,8 +24,8 @@ export const useDefaultValues = ({
         return {
             [names.namespace.name]: namespace,
             [names.order.name]: stagesQuantity,
-            [names.triggerType.name]: 'Manual',
-            [names.jobProvisioning.name]: 'default',
+            [names.triggerType.name]: TRIGGER_TYPES['MANUAL'],
+            [names.jobProvisioning.name]: JOB_PROVISIONERS['DEFAULT'],
             [names.sourceLibraryName.name]: 'default',
             [names.sourceType.name]: 'default',
         };

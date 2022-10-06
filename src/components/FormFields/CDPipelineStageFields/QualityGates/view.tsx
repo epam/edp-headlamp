@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { ICON_BUCKET, ICON_PLUS } from '../../../../constants/icons';
+import { ICONS } from '../../../../constants/icons';
 import { useAutotestsWithBranches } from '../../../../hooks/useAutotestsWithBranches';
 import { Iconify, MuiCore, MuiStyles, React } from '../../../../plugin.globals';
 import { Render } from '../../../Render';
@@ -143,7 +143,7 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
                                                         }
                                                     >
                                                         <Icon
-                                                            icon={ICON_BUCKET}
+                                                            icon={ICONS['BUCKET']}
                                                             width={20}
                                                             color={theme.palette.grey['500']}
                                                         />
@@ -167,7 +167,7 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
                         color={'default'}
                         onClick={handleAddApplicationRow}
                     >
-                        <Icon icon={ICON_PLUS} width={15} color={theme.palette.text.primary} />
+                        <Icon icon={ICONS['PLUS']} width={15} color={theme.palette.text.primary} />
                     </Button>
                 </Grid>
             </Grid>

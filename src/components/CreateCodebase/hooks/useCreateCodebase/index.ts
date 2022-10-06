@@ -1,5 +1,5 @@
 import { createDefaultCodebaseBranchInstance } from '../../../../configs/k8s-resource-instances/custom-resources/codebase-branch';
-import { createSecretExample } from '../../../../configs/k8s-resource-instances/resources/secret';
+import { createSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
@@ -62,7 +62,7 @@ export const useCreateCodebase = (
                 }
 
                 const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;
-                secretExample = createSecretExample(
+                secretExample = createSecretInstance(
                     name,
                     namespace,
                     repositoryLogin,

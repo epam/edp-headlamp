@@ -1,6 +1,7 @@
 import { CreateCDPipelineStage } from '../../../../../../components/CreateCDPipelineStage';
 import { useCreateCDPipelineStage } from '../../../../../../components/CreateCDPipelineStage/hooks/useCreateCDPipelineStage';
-import { ICON_DOCUMENT_ADD } from '../../../../../../constants/icons';
+import { DELAYS } from '../../../../../../constants/delays';
+import { ICONS } from '../../../../../../constants/icons';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDPCDPipelineStage/types';
 import { Iconify, MuiCore, React, ReactRedux } from '../../../../../../plugin.globals';
 import { clusterAction } from '../../../../../../redux/actions';
@@ -65,7 +66,7 @@ export const TableHeaderActions = ({
             );
 
             // temporary solution, since we cannot pass any callbacks for action cancelling
-            setTimeout(() => setIsApplying(false), 3000);
+            setTimeout(() => setIsApplying(false), DELAYS['CANCEL_ACTION_FALLBACK']);
         },
         [applyFunc, dispatch]
     );
@@ -74,7 +75,7 @@ export const TableHeaderActions = ({
         <>
             <Tooltip title={'Create stage'}>
                 <Button
-                    startIcon={<Icon icon={ICON_DOCUMENT_ADD} />}
+                    startIcon={<Icon icon={ICONS['DOCUMENT_ADD']} />}
                     onClick={() => setCreateDialogOpen(true)}
                 >
                     <Typography>Create</Typography>

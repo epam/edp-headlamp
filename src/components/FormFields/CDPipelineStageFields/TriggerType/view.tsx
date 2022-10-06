@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { triggerTypes } from '../../../../configs/triggerTypes';
+import { triggerTypeSelectOptions } from '../../../../configs/select-options/triggerTypes';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -23,7 +23,7 @@ export const TriggerType = ({ names, handleFormFieldChange }: TriggerTypeProps) 
             placeholder={'Choose trigger type'}
             control={control}
             errors={errors}
-            options={triggerTypes}
+            options={triggerTypeSelectOptions}
         />
     );
 };

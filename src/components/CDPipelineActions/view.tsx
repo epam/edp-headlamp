@@ -1,8 +1,5 @@
-import { ICON_BUCKET, ICON_PENCIL, ICON_THREE_DOTS } from '../../constants/icons';
-import {
-    KUBE_OBJECT_ACTION_DELETE,
-    KUBE_OBJECT_ACTION_EDIT,
-} from '../../constants/kubeObjectActions';
+import { ICONS } from '../../constants/icons';
+import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { KubeObjectAction } from '../../types/actions';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
@@ -40,16 +37,16 @@ export const CDPipelineActions = ({
     const actions: KubeObjectAction[] = React.useMemo(() => {
         return [
             createKubeAction({
-                name: KUBE_OBJECT_ACTION_EDIT,
-                icon: ICON_PENCIL,
+                name: RESOURCE_ACTIONS['EDIT'],
+                icon: ICONS['PENCIL'],
                 action: () => {
                     handleCloseActionsMenu();
                     setEditActionEditorOpen(true);
                 },
             }),
             createKubeAction({
-                name: KUBE_OBJECT_ACTION_DELETE,
-                icon: ICON_BUCKET,
+                name: RESOURCE_ACTIONS['DELETE'],
+                icon: ICONS['BUCKET'],
                 action: () => {
                     handleCloseActionsMenu();
                     setDeleteActionPopupOpen(true);
@@ -66,7 +63,7 @@ export const CDPipelineActions = ({
         >
             <>
                 <IconButton aria-label={'Options'} onClick={toggleActionsMenu}>
-                    <Icon icon={ICON_THREE_DOTS} color={'grey'} width="20" />
+                    <Icon icon={ICONS['THREE_DOTS']} color={'grey'} width="20" />
                 </IconButton>
                 <EditCDPipeline
                     CDPipelineData={kubeObjectData}

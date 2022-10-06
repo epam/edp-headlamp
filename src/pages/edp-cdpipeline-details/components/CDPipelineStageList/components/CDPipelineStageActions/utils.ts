@@ -1,5 +1,5 @@
-import { ICON_BUCKET } from '../../../../../../constants/icons';
-import { KUBE_OBJECT_ACTION_DELETE } from '../../../../../../constants/kubeObjectActions';
+import { ICONS } from '../../../../../../constants/icons';
+import { RESOURCE_ACTIONS } from '../../../../../../constants/resourceActions';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDPCDPipelineStage/types';
 import { KubeObjectAction } from '../../../../../../types/actions';
 import { createKubeAction } from '../../../../../../utils/actions/createKubeAction';
@@ -21,12 +21,12 @@ export const createDeleteAction = (
     // we don't let user remove last stage
     if (allStages.length === 1) {
         return createKubeAction({
-            name: KUBE_OBJECT_ACTION_DELETE,
+            name: RESOURCE_ACTIONS['DELETE'],
             disabled: {
                 status: true,
                 reason: 'CD pipeline should have at least one stage',
             },
-            icon: ICON_BUCKET,
+            icon: ICONS['BUCKET'],
         });
     }
 
@@ -36,18 +36,18 @@ export const createDeleteAction = (
 
     if (currentStageOrder > highestOtherStagesOrder) {
         return createKubeAction({
-            name: KUBE_OBJECT_ACTION_DELETE,
-            icon: ICON_BUCKET,
+            name: RESOURCE_ACTIONS['DELETE'],
+            icon: ICONS['BUCKET'],
             action: action,
         });
     }
 
     return createKubeAction({
-        name: KUBE_OBJECT_ACTION_DELETE,
+        name: RESOURCE_ACTIONS['DELETE'],
         disabled: {
             status: true,
             reason: 'You are able to delete only the last stage',
         },
-        icon: ICON_BUCKET,
+        icon: ICONS['BUCKET'],
     });
 };

@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
-import { creationStrategies, getCreationStrategies } from '../../../../configs/creationStrategies';
+import { getCreationStrategySelectOptionsByCodebaseType } from '../../../../configs/select-options/creationStrategies';
+import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -21,7 +22,7 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
                 {...register(names.strategy.name, {
                     required: 'Select the existing codebase creation strategy',
                     onBlur: ({ target: { name, value } }: FieldEvent) => {
-                        if (value === creationStrategies.clone.value) {
+                        if (value === CODEBASE_CREATION_STRATEGIES['CLONE']) {
                             resetField(names.gitUrlPath.name);
                             handleFormFieldChange({
                                 name: names.gitUrlPath.name,
@@ -29,7 +30,7 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
                             });
                         }
 
-                        if (value === creationStrategies.import.value) {
+                        if (value === CODEBASE_CREATION_STRATEGIES['IMPORT']) {
                             resetField(names.repositoryUrl.name);
                             handleFormFieldChange({
                                 name: names.repositoryUrl.name,
@@ -45,7 +46,7 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
                 title={'Select the existing codebase for reproduction or create new codebase.'}
                 control={control}
                 errors={errors}
-                options={getCreationStrategies(type)}
+                options={getCreationStrategySelectOptionsByCodebaseType(type)}
             />
         </Grid>
     );

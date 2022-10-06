@@ -3,7 +3,7 @@ import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfo
 import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
 import { MetadataTable } from '../../components/MetadataTable';
-import { ICON_ARROW_LEFT } from '../../constants/icons';
+import { ICONS } from '../../constants/icons';
 import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
@@ -42,7 +42,7 @@ export const EDPAutotestDetails = (): React.ReactElement => {
         <>
             <div className={classes.pageHeading}>
                 <Button
-                    startIcon={<Icon icon={ICON_ARROW_LEFT} />}
+                    startIcon={<Icon icon={ICONS['ARROW_LEFT']} />}
                     size="small"
                     component={Link}
                     to={createRouteURL(AUTOTESTS_ROUTE_NAME)}

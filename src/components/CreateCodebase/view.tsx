@@ -1,4 +1,4 @@
-import { ICON_PENCIL } from '../../constants/icons';
+import { ICONS } from '../../constants/icons';
 import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { CreateCodebaseForm } from './components/CreateCodebaseForm';
@@ -33,7 +33,7 @@ export const CreateCodebase = ({
                         type
                     )}`}</Typography>
                     <Button
-                        startIcon={<Icon icon={ICON_PENCIL} />}
+                        startIcon={<Icon icon={ICONS['PENCIL']} />}
                         size="small"
                         component={'button'}
                         onClick={() => setEditorOpen(true)}

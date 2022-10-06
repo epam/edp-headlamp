@@ -3,7 +3,7 @@ import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
 import ErrorBoundary from '../../components/ErrorBoundary/view';
 import { MetadataTable } from '../../components/MetadataTable';
-import { ICON_ARROW_LEFT } from '../../constants/icons';
+import { ICONS } from '../../constants/icons';
 import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
@@ -45,7 +45,7 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
         <ErrorBoundary>
             <div className={classes.pageHeading}>
                 <Button
-                    startIcon={<Icon icon={ICON_ARROW_LEFT} />}
+                    startIcon={<Icon icon={ICONS['ARROW_LEFT']} />}
                     size="small"
                     component={Link}
                     to={createRouteURL(LIBRARIES_ROUTE_NAME)}

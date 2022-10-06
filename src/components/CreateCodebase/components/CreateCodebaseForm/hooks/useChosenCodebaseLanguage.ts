@@ -2,11 +2,7 @@ import { APPLICATION_MAPPING } from '../../../../../configs/codebase-mappings/ap
 import { AUTOTEST_MAPPING } from '../../../../../configs/codebase-mappings/autotest';
 import { LIBRARY_MAPPING } from '../../../../../configs/codebase-mappings/library';
 import { CodebaseInterface } from '../../../../../configs/codebase-mappings/types';
-import {
-    CODEBASE_TYPE_APPLICATION,
-    CODEBASE_TYPE_AUTOTEST,
-    CODEBASE_TYPE_LIBRARY,
-} from '../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { React } from '../../../../../plugin.globals';
 
 interface UseChosenCodebaseLanguageProps {
@@ -19,15 +15,15 @@ export const useChosenCodebaseLanguage = ({
     langValue,
 }: UseChosenCodebaseLanguageProps): { chosenLang: CodebaseInterface } => {
     const chosenLang = React.useMemo(() => {
-        if (type === CODEBASE_TYPE_APPLICATION) {
+        if (type === CODEBASE_TYPES['APPLICATION']) {
             return APPLICATION_MAPPING[langValue];
         }
 
-        if (type === CODEBASE_TYPE_LIBRARY) {
+        if (type === CODEBASE_TYPES['LIBRARY']) {
             return LIBRARY_MAPPING[langValue];
         }
 
-        if (type === CODEBASE_TYPE_AUTOTEST) {
+        if (type === CODEBASE_TYPES['AUTOTEST']) {
             return AUTOTEST_MAPPING[langValue];
         }
     }, [langValue, type]);

@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
-import { codebaseVersioningTypes } from '../../../../configs/codebaseVersioningTypes';
+import { codebaseVersioningTypeSelectOptions } from '../../../../configs/select-options/codebaseVersioningTypes';
+import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -64,10 +65,10 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
                     }
                     control={control}
                     errors={errors}
-                    options={codebaseVersioningTypes}
+                    options={codebaseVersioningTypeSelectOptions}
                 />
             </Grid>
-            {codebaseVersioningTypeFieldValue === 'edp' ? (
+            {codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPES['EDP'] ? (
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>

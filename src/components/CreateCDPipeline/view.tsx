@@ -1,4 +1,4 @@
-import { ICON_PENCIL } from '../../constants/icons';
+import { ICONS } from '../../constants/icons';
 import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { CreateCDPipelineForm } from './components/CreateCDPipelineForm';
 import { useStyles } from './styles';
@@ -29,7 +29,7 @@ export const CreateCDPipeline = ({
                 <div className={classes.dialogTitle}>
                     <Typography variant={'h5'}>{`Create CD Pipeline`}</Typography>
                     <Button
-                        startIcon={<Icon icon={ICON_PENCIL} />}
+                        startIcon={<Icon icon={ICONS['PENCIL']} />}
                         size="small"
                         component={'button'}
                         onClick={() => setEditorOpen(true)}

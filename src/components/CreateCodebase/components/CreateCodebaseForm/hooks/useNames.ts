@@ -1,8 +1,4 @@
-import {
-    CODEBASE_TYPE_APPLICATION,
-    CODEBASE_TYPE_AUTOTEST,
-    CODEBASE_TYPE_LIBRARY,
-} from '../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 import { APPLICATION_NAMES, AUTOTEST_NAMES, LIBRARY_NAMES } from '../names';
@@ -17,15 +13,15 @@ export const useNames = ({
     };
 } => {
     const names = React.useMemo(() => {
-        if (type === CODEBASE_TYPE_APPLICATION) {
+        if (type === CODEBASE_TYPES['APPLICATION']) {
             return APPLICATION_NAMES;
         }
 
-        if (type === CODEBASE_TYPE_LIBRARY) {
+        if (type === CODEBASE_TYPES['LIBRARY']) {
             return LIBRARY_NAMES;
         }
 
-        if (type === CODEBASE_TYPE_AUTOTEST) {
+        if (type === CODEBASE_TYPES['AUTOTEST']) {
             return AUTOTEST_NAMES;
         }
     }, [type]);

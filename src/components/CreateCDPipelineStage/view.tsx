@@ -1,4 +1,4 @@
-import { ICON_PENCIL } from '../../constants/icons';
+import { ICONS } from '../../constants/icons';
 import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { CreateCDPipelineStageForm } from './components/CreateCDPipelineStageForm';
 import { useStyles } from './styles';
@@ -27,7 +27,7 @@ export const CreateCDPipelineStage = ({
                         variant={'h5'}
                     >{`Create stage for "${CDPipelineData.metadata.name}"`}</Typography>
                     <Button
-                        startIcon={<Icon icon={ICON_PENCIL} />}
+                        startIcon={<Icon icon={ICONS['PENCIL']} />}
                         size="small"
                         component={'button'}
                         onClick={() => setEditorOpen(true)}

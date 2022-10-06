@@ -1,4 +1,4 @@
-import { ICON_PENCIL } from '../../constants/icons';
+import { ICONS } from '../../constants/icons';
 import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { CreateCodebaseBranchForm } from './components/CreateCodebaseBranchForm';
 import { useStyles } from './styles';
@@ -24,7 +24,7 @@ export const CreateCodebaseBranch = ({
                 <div className={classes.dialogTitle}>
                     <Typography variant={'h5'}>{`Create new branch`}</Typography>
                     <Button
-                        startIcon={<Icon icon={ICON_PENCIL} />}
+                        startIcon={<Icon icon={ICONS['PENCIL']} />}
                         size="small"
                         component={'button'}
                         onClick={() => setEditorOpen(true)}

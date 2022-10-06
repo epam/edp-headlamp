@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { ICON_PLUS } from '../../../../constants/icons';
+import { ICONS } from '../../../../constants/icons';
 import { Iconify, MuiCore, MuiStyles, React } from '../../../../plugin.globals';
 import { SelectOption } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -103,7 +103,7 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
                             onClick={handleAddMappingRow}
                         >
                             <Icon
-                                icon={ICON_PLUS}
+                                icon={ICONS['PLUS']}
                                 width={15}
                                 color={
                                     !advancedMappingFieldNameValue

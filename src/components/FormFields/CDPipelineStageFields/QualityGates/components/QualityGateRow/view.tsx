@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { qualityGateTypes } from '../../../../../../configs/qualityGateTypes';
+import { qualityGateTypeSelectOptions } from '../../../../../../configs/select-options/qualityGateTypes';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import { FormSelect } from '../../../../../FormComponents';
 import { FormTextField } from '../../../../../FormComponents/FormTextField';
@@ -35,8 +35,8 @@ export const QualityGateRow = ({
         createQualityGateAutotestFieldName(currentQualityGateData.id)
     );
 
-    const availableQualityGatesTypes = React.useMemo(() => {
-        return qualityGateTypes.map(el => {
+    const availableQualityGateTypeSelectOptions = React.useMemo(() => {
+        return qualityGateTypeSelectOptions.map(el => {
             if (el.value === 'autotests' && !autotests.length) {
                 return {
                     ...el,
@@ -191,7 +191,7 @@ export const QualityGateRow = ({
                             control={control}
                             errors={errors}
                             defaultValue={'manual'}
-                            options={availableQualityGatesTypes}
+                            options={availableQualityGateTypeSelectOptions}
                         />
                     </Grid>
                     <Grid item xs={3}>

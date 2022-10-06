@@ -1,11 +1,4 @@
-import {
-    ICON_APPLICATION,
-    ICON_BOOKS,
-    ICON_INFINITY,
-    ICON_PANEL,
-    ICON_ROCKET,
-    ICON_TEST_APPLICATION,
-} from '../constants/icons';
+import { ICONS } from '../constants/icons';
 import { createNewSidebarItem } from '../utils/routes/createNewSidebarItem';
 import { createRouteName } from '../utils/routes/createRouteName';
 import { createSidebarItemName } from '../utils/routes/createSidebarItemName';
@@ -26,37 +19,37 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         itemName: createSidebarItemName(EDP_ROOT_ROUTE_NAME),
         url: createRouteName(COMPONENTS_ROUTE_NAME),
         opts: {
-            icon: ICON_ROCKET,
+            icon: ICONS['ROCKET'],
         },
     },
     createNewSidebarItem(
         'Overview',
         COMPONENTS_ROUTE_NAME,
-        ICON_PANEL,
+        ICONS['PANEL'],
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'CD Pipelines',
         CDPIPELINES_ROUTE_NAME,
-        ICON_INFINITY,
+        ICONS['INFINITY'],
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'Applications',
         APPLICATIONS_ROUTE_NAME,
-        ICON_APPLICATION,
+        ICONS['APPLICATION'],
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'Autotests',
         AUTOTESTS_ROUTE_NAME,
-        ICON_TEST_APPLICATION,
+        ICONS['TEST_APPLICATION'],
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'Libraries',
         LIBRARIES_ROUTE_NAME,
-        ICON_BOOKS,
+        ICONS['BOOKS'],
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
 ];

@@ -2,11 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { APPLICATION_MAPPING } from '../../../../configs/codebase-mappings/application';
 import { AUTOTEST_MAPPING } from '../../../../configs/codebase-mappings/autotest';
 import { LIBRARY_MAPPING } from '../../../../configs/codebase-mappings/library';
-import {
-    CODEBASE_TYPE_APPLICATION,
-    CODEBASE_TYPE_AUTOTEST,
-    CODEBASE_TYPE_LIBRARY,
-} from '../../../../constants/codebaseTypes';
+import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
@@ -41,15 +37,15 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
     } = useFormContext();
 
     const codebaseMapping = React.useMemo(() => {
-        if (type === CODEBASE_TYPE_APPLICATION) {
+        if (type === CODEBASE_TYPES['APPLICATION']) {
             return APPLICATION_MAPPING;
         }
 
-        if (type === CODEBASE_TYPE_LIBRARY) {
+        if (type === CODEBASE_TYPES['LIBRARY']) {
             return LIBRARY_MAPPING;
         }
 
-        if (type === CODEBASE_TYPE_AUTOTEST) {
+        if (type === CODEBASE_TYPES['AUTOTEST']) {
             return AUTOTEST_MAPPING;
         }
     }, [type]);

@@ -7,6 +7,9 @@ export interface CreateCodebaseBranchProps {
     open: boolean;
     onClose(): void;
     setOpen(boolean): void;
-    handleApply(newCodebaseBranchData: EDPCodebaseBranchKubeObjectInterface): void;
+    handleApply(
+        newCodebaseBranchData: DeepPartial<EDPCodebaseBranchKubeObjectInterface>,
+        newDefaultCodebaseBranchData?: DeepPartial<EDPCodebaseBranchKubeObjectInterface>
+    ): void;
     isApplying: boolean;
 }

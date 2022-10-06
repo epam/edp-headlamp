@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { testReportFrameworks } from '../../../../configs/testReportFrameworks';
+import { testReportFrameworkSelectOptions } from '../../../../configs/select-options/testReportFrameworks';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -27,7 +27,7 @@ export const TestReportFramework = ({ names, handleFormFieldChange }: TestReport
                 title={`Select Autotest Report Framework`}
                 control={control}
                 errors={errors}
-                options={testReportFrameworks}
+                options={testReportFrameworkSelectOptions}
             />
         </Grid>
     );

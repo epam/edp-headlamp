@@ -1,3 +1,7 @@
 // Delay value used for polling status value of CR.
 // The value is represented in milliseconds.
-export const REFETCH_DELAY = 10000;
+
+export enum DELAYS {
+    REFETCH = 10000,
+    CANCEL_ACTION_FALLBACK = 3000,
+}

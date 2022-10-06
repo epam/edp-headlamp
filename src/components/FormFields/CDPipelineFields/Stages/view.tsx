@@ -1,4 +1,4 @@
-import { ICON_BUCKET, ICON_PLUS } from '../../../../constants/icons';
+import { ICONS } from '../../../../constants/icons';
 import { Iconify, MuiCore, MuiStyles, React } from '../../../../plugin.globals';
 import { Render } from '../../../Render';
 import { StagesProps } from './types';
@@ -46,7 +46,7 @@ export const Stages = ({
                                                     onClick={() => onStageDelete(idx)}
                                                 >
                                                     <Icon
-                                                        icon={ICON_BUCKET}
+                                                        icon={ICONS['BUCKET']}
                                                         width={20}
                                                         color={theme.palette.grey['500']}
                                                     />
@@ -69,7 +69,7 @@ export const Stages = ({
                         color={'default'}
                         onClick={() => setCreateStageDialogOpen(true)}
                     >
-                        <Icon icon={ICON_PLUS} width={15} color={theme.palette.text.primary} />
+                        <Icon icon={ICONS['PLUS']} width={15} color={theme.palette.text.primary} />
                     </Button>
                 </Grid>
             </Grid>

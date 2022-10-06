@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { ICON_BUCKET } from '../../../../../../constants/icons';
+import { ICONS } from '../../../../../../constants/icons';
 import { Iconify, MuiCore, MuiStyles, React } from '../../../../../../plugin.globals';
 import { FormTextField } from '../../../../../FormComponents/FormTextField';
 import { createAdvancedMappingRowName } from '../../constants';
@@ -59,7 +59,7 @@ export const AdvancedJiraMappingRow = ({
                         style={{ minWidth: 0 }}
                         onClick={() => handleDeleteMappingRow(value)}
                     >
-                        <Icon icon={ICON_BUCKET} width={20} color={theme.palette.grey['500']} />
+                        <Icon icon={ICONS['BUCKET']} width={20} color={theme.palette.grey['500']} />
                     </Button>
                 </Grid>
             </Grid>

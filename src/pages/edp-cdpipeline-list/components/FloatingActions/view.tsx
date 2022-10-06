@@ -1,6 +1,7 @@
 import { CreateCDPipeline } from '../../../../components/CreateCDPipeline';
 import { useCreateCDPipeline } from '../../../../components/CreateCDPipeline/hooks/useCreateCDPipeline';
-import { ICON_PLUS } from '../../../../constants/icons';
+import { DELAYS } from '../../../../constants/delays';
+import { ICONS } from '../../../../constants/icons';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { Iconify, MuiCore, React, ReactRedux } from '../../../../plugin.globals';
@@ -67,7 +68,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = (): React.ReactEl
             );
 
             // temporary solution, since we cannot pass any callbacks for action cancelling
-            setTimeout(() => setIsApplying(false), 3000);
+            setTimeout(() => setIsApplying(false), DELAYS['CANCEL_ACTION_FALLBACK']);
         },
         [applyFunc, dispatch]
     );
@@ -78,7 +79,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = (): React.ReactEl
                 onClick={() => setCreateDialogOpen(true)}
                 className={classes.floatingAddButton}
             >
-                <Icon icon={ICON_PLUS} className={classes.floatingAddButtonIcon} />
+                <Icon icon={ICONS['PLUS']} className={classes.floatingAddButtonIcon} />
             </Fab>
             <CreateCDPipeline
                 open={createDialogOpen}

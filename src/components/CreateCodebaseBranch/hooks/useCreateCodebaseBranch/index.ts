@@ -12,17 +12,26 @@ export const useCreateCodebaseBranch = (
     onError
 ): {
     createCodebaseBranch: (
-        newCodebaseBranchData: DeepPartial<EDPCodebaseBranchKubeObjectInterface>
+        newCodebaseBranchData: DeepPartial<EDPCodebaseBranchKubeObjectInterface>,
+        newDefaultCodebaseBranchData?: DeepPartial<EDPCodebaseBranchKubeObjectInterface>
     ) => Promise<EDPCodebaseBranchKubeObjectInterface | undefined>;
 } => {
     const { enqueueSnackbar } = useSnackbar();
 
     const createCodebaseBranch = React.useCallback(
-        async (newCodebaseBranchData: DeepPartial<EDPCodebaseBranchKubeObjectInterface>) => {
+        async (
+            newCodebaseBranchData: DeepPartial<EDPCodebaseBranchKubeObjectInterface>,
+            newDefaultCodebaseBranchData?: DeepPartial<EDPCodebaseBranchKubeObjectInterface>
+        ) => {
             try {
                 const result = await EDPCodebaseBranchKubeObject.apiEndpoint.post(
                     newCodebaseBranchData
                 );
+
+                if (newDefaultCodebaseBranchData) {
+                    await EDPCodebaseBranchKubeObject.apiEndpoint.put(newDefaultCodebaseBranchData);
+                }
+
                 onSuccess();
                 return result; // return statement only for testing purposes
             } catch (err) {

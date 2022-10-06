@@ -1,6 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message';
 import { useFormContext } from 'react-hook-form';
-import { ICON_PLUS } from '../../../../constants/icons';
+import { ICONS } from '../../../../constants/icons';
 import { Iconify, MuiCore, MuiStyles, React } from '../../../../plugin.globals';
 import { FormSelect } from '../../../FormComponents';
 import { Render } from '../../../Render';
@@ -164,7 +164,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                             onClick={handleAddApplicationRow}
                         >
                             <Icon
-                                icon={ICON_PLUS}
+                                icon={ICONS['PLUS']}
                                 width={15}
                                 color={
                                     applicationsAddingButtonIsDisabled

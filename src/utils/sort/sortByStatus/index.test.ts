@@ -1,19 +1,19 @@
-import {
-    STATUS_CREATED,
-    STATUS_FAILED,
-    STATUS_IN_PROGRESS,
-    STATUS_INITIALIZED,
-} from '../../../constants/statuses';
+import { CUSTOM_RESOURCE_STATUSES } from '../../../constants/statuses';
 import { sortByStatus } from './index';
 
 test('checking sortByStatus', () => {
-    const testArray = [STATUS_IN_PROGRESS, STATUS_FAILED, STATUS_CREATED, STATUS_INITIALIZED];
+    const testArray = [
+        CUSTOM_RESOURCE_STATUSES['IN_PROGRESS'],
+        CUSTOM_RESOURCE_STATUSES['FAILED'],
+        CUSTOM_RESOURCE_STATUSES['CREATED'],
+        CUSTOM_RESOURCE_STATUSES['INITIALIZED'],
+    ];
     const sortedArray = testArray.sort(sortByStatus);
 
     const [item1, item2, item3, item4] = sortedArray;
 
-    expect(item1).toMatch(STATUS_CREATED);
-    expect(item2).toMatch(STATUS_INITIALIZED);
-    expect(item3).toMatch(STATUS_IN_PROGRESS);
-    expect(item4).toMatch(STATUS_FAILED);
+    expect(item1).toMatch(CUSTOM_RESOURCE_STATUSES['CREATED']);
+    expect(item2).toMatch(CUSTOM_RESOURCE_STATUSES['INITIALIZED']);
+    expect(item3).toMatch(CUSTOM_RESOURCE_STATUSES['IN_PROGRESS']);
+    expect(item4).toMatch(CUSTOM_RESOURCE_STATUSES['FAILED']);
 });

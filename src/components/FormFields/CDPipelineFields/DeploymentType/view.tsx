@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { deploymentTypes } from '../../../../configs/deploymentTypes';
+import { deploymentTypeSelectOptions } from '../../../../configs/select-options/deploymentTypes';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -26,7 +26,7 @@ export const DeploymentType = ({ names, handleFormFieldChange }: DeploymentTypeP
                 placeholder={'Choose deployment type'}
                 control={control}
                 errors={errors}
-                options={deploymentTypes}
+                options={deploymentTypeSelectOptions}
             />
         </Grid>
     );

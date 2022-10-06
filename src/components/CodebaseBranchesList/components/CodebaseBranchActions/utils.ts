@@ -1,5 +1,5 @@
-import { ICON_BUCKET } from '../../../../constants/icons';
-import { KUBE_OBJECT_ACTION_DELETE } from '../../../../constants/kubeObjectActions';
+import { ICONS } from '../../../../constants/icons';
+import { RESOURCE_ACTIONS } from '../../../../constants/resourceActions';
 import { getCDPipelineByAutotestBranchItUsesInItsStages } from '../../../../k8s/EDPCDPipeline/getCDPipelineByAutotestBranchItUsesInItsStages';
 import { getCDPipelineByCodebaseBranchItUses } from '../../../../k8s/EDPCDPipeline/getCDPipelineByCodebaseBranchItUses';
 import { getCDPipelineByGroovyLibraryItUsesInItsStages } from '../../../../k8s/EDPCDPipeline/getCDPipelineByGroovyLibraryItUsesInItsStages';
@@ -38,18 +38,18 @@ export const createDeleteAction = (
 ) => {
     if (kubeObjectData.spec.branchName === defaultBranch) {
         return createKubeAction({
-            name: KUBE_OBJECT_ACTION_DELETE,
+            name: RESOURCE_ACTIONS['DELETE'],
             disabled: {
                 status: true,
                 reason: 'You cannot delete the default branch',
             },
-            icon: ICON_BUCKET,
+            icon: ICONS['BUCKET'],
         });
     }
 
     return createKubeAction({
-        name: KUBE_OBJECT_ACTION_DELETE,
-        icon: ICON_BUCKET,
+        name: RESOURCE_ACTIONS['DELETE'],
+        icon: ICONS['BUCKET'],
         action: action,
     });
 };

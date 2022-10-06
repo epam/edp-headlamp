@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { deploymentScripts } from '../../../../configs/deploymentScripts';
+import { deploymentScriptSelectOptions } from '../../../../configs/select-options/deploymentScripts';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -27,7 +27,7 @@ export const DeploymentScript = ({ names, handleFormFieldChange }: DeploymentScr
                 title={'Select Deployment Script which will be used for deploy'}
                 control={control}
                 errors={errors}
-                options={deploymentScripts}
+                options={deploymentScriptSelectOptions}
             />
         </Grid>
     );

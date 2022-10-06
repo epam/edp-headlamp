@@ -17,6 +17,10 @@ export const FromCommit = ({ names, handleFormFieldChange }: FromCommitProps) =>
         <Grid item xs={12}>
             <FormTextField
                 {...register(names.fromCommit.name, {
+                    pattern: {
+                        value: /\b([a-f0-9]{40})\b/,
+                        message: 'Enter valid commit hash',
+                    },
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}

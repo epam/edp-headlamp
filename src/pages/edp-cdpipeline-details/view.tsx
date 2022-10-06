@@ -1,7 +1,7 @@
 import { CDPipelineActions } from '../../components/CDPipelineActions';
 import { MetadataTable } from '../../components/MetadataTable';
 import { Render } from '../../components/Render';
-import { ICON_ARROW_LEFT } from '../../constants/icons';
+import { ICONS } from '../../constants/icons';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { streamCDPipeline } from '../../k8s/EDPCDPipeline/streamCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
@@ -49,7 +49,7 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
         <>
             <div className={classes.pageHeading}>
                 <Button
-                    startIcon={<Icon icon={ICON_ARROW_LEFT} />}
+                    startIcon={<Icon icon={ICONS['ARROW_LEFT']} />}
                     size="small"
                     component={Link}
                     to={createRouteURL(CDPIPELINES_ROUTE_NAME)}

@@ -1,8 +1,9 @@
 import { CreateCodebase } from '../../../../components/CreateCodebase';
 import { useCreateCodebase } from '../../../../components/CreateCodebase/hooks/useCreateCodebase';
 import { CodebaseAuthData } from '../../../../components/CreateCodebase/types';
-import { CODEBASE_TYPE_AUTOTEST } from '../../../../constants/codebaseTypes';
-import { ICON_PLUS } from '../../../../constants/icons';
+import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { DELAYS } from '../../../../constants/delays';
+import { ICONS } from '../../../../constants/icons';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, React, ReactRedux } from '../../../../plugin.globals';
 import { clusterAction } from '../../../../redux/actions';
@@ -67,7 +68,7 @@ export const FloatingActions = (): React.ReactElement => {
             );
 
             // temporary solution, since we cannot pass any callbacks for action cancelling
-            setTimeout(() => setIsApplying(false), 3000);
+            setTimeout(() => setIsApplying(false), DELAYS['CANCEL_ACTION_FALLBACK']);
         },
         [applyFunc, dispatch]
     );
@@ -79,10 +80,10 @@ export const FloatingActions = (): React.ReactElement => {
                 onClick={() => setCreateDialogOpen(true)}
                 className={classes.floatingAddButton}
             >
-                <Icon icon={ICON_PLUS} className={classes.floatingAddButtonIcon} />
+                <Icon icon={ICONS['PLUS']} className={classes.floatingAddButtonIcon} />
             </Fab>
             <CreateCodebase
-                type={CODEBASE_TYPE_AUTOTEST}
+                type={CODEBASE_TYPES['AUTOTEST']}
                 open={createDialogOpen}
                 setOpen={setCreateDialogOpen}
                 onClose={onClose}

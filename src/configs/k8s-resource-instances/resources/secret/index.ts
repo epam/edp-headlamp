@@ -1,7 +1,7 @@
 import { DeepPartial } from '../../../../types/global';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 
-export const createSecretExample = (
+export const createSecretInstance = (
     codebaseName: string,
     namespace: string,
     repositoryLogin: string,

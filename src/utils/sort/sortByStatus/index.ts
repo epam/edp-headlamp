@@ -1,9 +1,9 @@
-import { STATUS_SORT } from '../../../configs/statusSort';
+import { CUSTOM_RESOURCE_STATUS_SORT_ORDER } from '../../../constants/statuses';
 
 export const sortByStatus = (a: string, b: string): number => {
-    if (STATUS_SORT[a] < STATUS_SORT[b]) {
+    if (CUSTOM_RESOURCE_STATUS_SORT_ORDER[a] < CUSTOM_RESOURCE_STATUS_SORT_ORDER[b]) {
         return -1;
-    } else if (STATUS_SORT[a] > STATUS_SORT[b]) {
+    } else if (CUSTOM_RESOURCE_STATUS_SORT_ORDER[a] > CUSTOM_RESOURCE_STATUS_SORT_ORDER[b]) {
         return 1;
     }
     return 0;

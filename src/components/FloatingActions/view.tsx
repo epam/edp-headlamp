@@ -1,4 +1,4 @@
-import { ICON_PLUS } from '../../constants/icons';
+import { ICONS } from '../../constants/icons';
 import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { CreateKubeObject } from '../CreateKubeObject';
 import { useStyles } from './styles';
@@ -21,7 +21,7 @@ export const FloatingActions = ({
                 onClick={() => setEditorOpen(true)}
                 className={classes.floatingAddButton}
             >
-                <Icon icon={ICON_PLUS} className={classes.floatingAddButtonIcon} />
+                <Icon icon={ICONS['PLUS']} className={classes.floatingAddButtonIcon} />
             </Fab>
             <CreateKubeObject
                 editorOpen={editorOpen}

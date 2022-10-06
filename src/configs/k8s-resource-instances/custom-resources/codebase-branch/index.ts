@@ -18,6 +18,7 @@ export const createCodebaseBranchInstanceBasedOnFormValues = (
     namespace: string
 ): DeepPartial<EDPCodebaseBranchKubeObjectInterface> => {
     const { branchName, ...restProps } = formValues;
+    const transformedBranchName = branchName ? branchName.replaceAll('/', '-') : '';
 
     const base: DeepPartial<EDPCodebaseBranchKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,
@@ -27,7 +28,7 @@ export const createCodebaseBranchInstanceBasedOnFormValues = (
             branchName: branchName || 'your branch name',
         },
         metadata: {
-            name: `${codebaseName}-${branchName || 'your branch name'}`,
+            name: `${codebaseName}-${transformedBranchName || 'your branch name'}`,
             namespace: namespace,
             labels: {
                 'app.edp.epam.com/codebaseName': codebaseName,
@@ -76,6 +77,29 @@ export const createDefaultCodebaseBranchInstance = (
             versionHistory: [versioning.startFrom],
         };
         base.spec.version = versioning.startFrom;
+    }
+
+    return base;
+};
+
+export const editCodebaseBranchInstance = (
+    names: {
+        [key: string]: FormNameObject;
+    },
+    kubeObjectData: DeepPartial<EDPCodebaseBranchKubeObjectInterface>,
+    formValues: {
+        [key: string]: any;
+    }
+): DeepPartial<EDPCodebaseBranchKubeObjectInterface> => {
+    const base = { ...kubeObjectData };
+
+    for (const [propKey, propValue] of Object.entries(formValues)) {
+        if (names[propKey].notUsedInFormData) {
+            continue;
+        }
+
+        const propPath = names[propKey].path;
+        lodashSet(base, propPath, propValue);
     }
 
     return base;

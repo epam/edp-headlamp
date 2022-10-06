@@ -16,10 +16,17 @@ describe('CreateCodebaseBranch', () => {
         const props: CreateCodebaseBranchProps = {
             codebaseData: {
                 apiVersion: 'apiVersion',
-                kind: 'CodebaseBranch',
+                kind: 'Codebase',
                 metadata: {
                     name: 'test-app-name',
                     namespace: 'test-namespace',
+                },
+                spec: {
+                    defaultBranch: 'test-default-branch',
+                    versioning: {
+                        type: 'edp',
+                        startFrom: '0.0.0-SNAPSHOT',
+                    },
                 },
             },
             open: true,

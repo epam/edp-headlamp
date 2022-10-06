@@ -1,2 +1,0 @@
-export const KUBE_OBJECT_ACTION_EDIT = 'EDIT';
-export const KUBE_OBJECT_ACTION_DELETE = 'DELETE';
