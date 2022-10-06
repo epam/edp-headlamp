@@ -1,5 +1,4 @@
 import lodashSet from 'lodash.set';
-import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { EDPCodebaseBranchKubeObjectConfig } from '../../../../k8s/EDPCodebaseBranch/config';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { FormNameObject } from '../../../../types/forms';
@@ -39,44 +38,6 @@ export const createCodebaseBranchInstanceBasedOnFormValues = (
     for (const [propKey, propValue] of Object.entries(restProps)) {
         const propPath = names[propKey].path;
         lodashSet(base, propPath, propValue);
-    }
-
-    return base;
-};
-
-export const createDefaultCodebaseBranchInstance = (
-    codebaseData: DeepPartial<EDPCodebaseKubeObjectInterface>
-): DeepPartial<EDPCodebaseBranchKubeObjectInterface> => {
-    const {
-        spec: { defaultBranch, versioning },
-        metadata: { name: codebaseName, namespace },
-    } = codebaseData;
-
-    const isEDPVersioning = versioning.type === 'edp';
-
-    const base: DeepPartial<EDPCodebaseBranchKubeObjectInterface> = {
-        apiVersion: `${group}/${version}`,
-        kind,
-        spec: {
-            codebaseName,
-            branchName: defaultBranch,
-            fromCommit: '',
-            release: false,
-        },
-        metadata: {
-            name: `${codebaseName}-${defaultBranch}`,
-            namespace,
-            labels: {
-                'app.edp.epam.com/codebaseName': codebaseName,
-            },
-        },
-    };
-
-    if (isEDPVersioning) {
-        base.status = {
-            versionHistory: [versioning.startFrom],
-        };
-        base.spec.version = versioning.startFrom;
     }
 
     return base;
