@@ -58,45 +58,72 @@ export const useUpdatedApplications = ({
     const [applications, setApplications] = React.useState<Application[]>([]);
     const [error, setError] = React.useState<Error>(null);
 
-    const enrichApplication = React.useCallback(
-        (applications: Application[]) => {
-            const applicationsFieldValueSet = new Set<string>(applicationsFieldValue);
-            const applicationsToPromoteValueSet = new Set<string>(applicationsToPromoteValue);
+    const updateUsedApp = React.useCallback(
+        (applicationsFieldValueSet: Set<string>, applications: Application[]) => {
+            if (!applicationsFieldValueSet.size) {
+                return;
+            }
 
             for (const app of applications) {
-                const appRowName = createApplicationRowName(app.value);
-                if (applicationsFieldValueSet.has(app.value)) {
-                    const usedAppRowName = `${appRowName}-application-name`;
-
-                    setValue(usedAppRowName, app.value);
-                    app.isUsed = true;
+                if (!applicationsFieldValueSet.has(app.value)) {
+                    continue;
                 }
 
-                if (applicationsToPromoteValueSet.has(app.value)) {
-                    const appToPromoteRowName = `${appRowName}-application-promote`;
+                const appRowName = `${createApplicationRowName(app.value)}-application-name`;
 
-                    setValue(appToPromoteRowName, true);
-                    app.toPromote = true;
-                }
+                setValue(appRowName, app.value);
+                app.isUsed = true;
+            }
+        },
+        [setValue]
+    );
 
+    const updateAppChosenBranch = React.useCallback(
+        (applications: Application[]) => {
+            if (!applicationsBranchesFieldValue || !applicationsBranchesFieldValue.length) {
+                return;
+            }
+
+            for (const app of applications) {
                 const applicationAvailableBranches = new Set(app.availableBranches);
 
                 for (const applicationBranch of applicationsBranchesFieldValue) {
-                    if (applicationAvailableBranches.has(applicationBranch)) {
-                        const appBranchRowName = `${appRowName}-application-branch`;
-
-                        setValue(appBranchRowName, applicationBranch);
-                        app.chosenBranch = applicationBranch;
+                    if (!applicationAvailableBranches.has(applicationBranch)) {
+                        continue;
                     }
+
+                    const appBranchRowName = `${createApplicationRowName(
+                        app.value
+                    )}-application-branch`;
+
+                    setValue(appBranchRowName, applicationBranch);
+                    app.chosenBranch = applicationBranch;
                 }
             }
         },
-        [
-            applicationsFieldValue,
-            applicationsToPromoteValue,
-            applicationsBranchesFieldValue,
-            setValue,
-        ]
+        [applicationsBranchesFieldValue, setValue]
+    );
+
+    const updatePromotedApp = React.useCallback(
+        (applicationsToPromoteValueSet: Set<string>, applications: Application[]) => {
+            if (!applicationsToPromoteValueSet.size) {
+                return;
+            }
+
+            for (const app of applications) {
+                if (!applicationsToPromoteValueSet.has(app.value)) {
+                    continue;
+                }
+
+                const appToPromoteRowName = `${createApplicationRowName(
+                    app.value
+                )}-application-promote`;
+
+                setValue(appToPromoteRowName, true);
+                app.toPromote = true;
+            }
+        },
+        [setValue]
     );
 
     React.useEffect(() => {
@@ -110,18 +137,32 @@ export const useUpdatedApplications = ({
                 EDPCodebaseKubeObjectConfig.types.application.name.singularForm
             );
 
-            const applications = (
+            const filteredApplications = (
                 await Promise.all(getCodebaseWithBranchesList(codebaseList, namespaceFieldValue))
             ).filter(app => app !== null);
 
-            enrichApplication(applications);
+            const applicationsFieldValueSet = new Set<string>(applicationsFieldValue);
+            const applicationsToPromoteValueSet = new Set<string>(applicationsToPromoteValue);
 
-            setApplications(applications);
+            updateUsedApp(applicationsFieldValueSet, filteredApplications);
+            updateAppChosenBranch(filteredApplications);
+            updatePromotedApp(applicationsToPromoteValueSet, filteredApplications);
+
+            setApplications(filteredApplications);
             setError(null);
         };
 
         fetchApplications().catch(setError);
-    }, [namespaceFieldValue, enrichApplication]);
+    }, [
+        applicationsBranchesFieldValue,
+        applicationsFieldValue,
+        applicationsToPromoteValue,
+        namespaceFieldValue,
+        setValue,
+        updateAppChosenBranch,
+        updatePromotedApp,
+        updateUsedApp,
+    ]);
 
     return { applications, setApplications, error };
 };

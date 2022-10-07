@@ -58,6 +58,76 @@ describe('testing useUpdatedApplications hook', () => {
         await expect(result.current.error).toBeNull();
         expect(formState).toEqual(expectedFormStateFieldsMock);
     });
+    it(`shouldn't crash if some of the parameters provided are empty`, async () => {
+        const { formState, setValue } = executeMockState();
+
+        jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
+            if (url.includes('codebases')) {
+                return Promise.resolve(codebasesMock);
+            }
+
+            if (url.includes('codebasebranches')) {
+                return Promise.resolve(codebaseBranchesMock);
+            }
+        });
+
+        const useUpdatedApplicationsProps = {
+            setValue,
+            values: {
+                namespaceFieldValue: 'edp-delivery-vp-delivery-dev',
+                applicationsFieldValue: [],
+                applicationsToPromoteValue: [],
+                applicationsBranchesFieldValue: [],
+            },
+        };
+
+        const { result, waitForNextUpdate } = renderHook(() =>
+            useUpdatedApplications(useUpdatedApplicationsProps)
+        );
+
+        await waitForNextUpdate();
+
+        await expect(result.current.applications).toEqual([
+            {
+                label: 'test-app-2',
+                value: 'test-app-2',
+                isUsed: false,
+                availableBranches: [
+                    'test-application-develop',
+                    'test-application-master',
+                    'test-application-test-branch',
+                ],
+                chosenBranch: null,
+                toPromote: false,
+            },
+            {
+                label: 'test-application',
+                value: 'test-application',
+                isUsed: false,
+                availableBranches: [
+                    'test-application-develop',
+                    'test-application-master',
+                    'test-application-test-branch',
+                ],
+                chosenBranch: null,
+                toPromote: false,
+            },
+            {
+                label: 'test-edp-gerrit-operator',
+                value: 'test-edp-gerrit-operator',
+                isUsed: false,
+                availableBranches: [
+                    'test-application-develop',
+                    'test-application-master',
+                    'test-application-test-branch',
+                ],
+                chosenBranch: null,
+                toPromote: false,
+            },
+        ]);
+        await expect(result.current.error).toBeNull();
+        await expect(Object.keys(formState)).toHaveLength(0);
+    });
     it('should throw an error after async request if something goes wrong', async () => {
         const { formState, setValue } = executeMockState();
 
