@@ -15,15 +15,27 @@ export const useColumns = (cdpipelineSpec: EDPCDPipelineSpec) =>
             },
             {
                 name: 'Applications',
-                value: <MappedProperties properties={cdpipelineSpec.applications} />,
+                value: (
+                    <MappedProperties properties={cdpipelineSpec.applications} variant={'block'} />
+                ),
             },
             {
                 name: 'Applications to promote',
-                value: <MappedProperties properties={cdpipelineSpec.applicationsToPromote} />,
+                value: (
+                    <MappedProperties
+                        properties={cdpipelineSpec.applicationsToPromote}
+                        variant={'block'}
+                    />
+                ),
             },
             {
                 name: 'Input docker streams',
-                value: <MappedProperties properties={cdpipelineSpec.inputDockerStreams} />,
+                value: (
+                    <MappedProperties
+                        properties={cdpipelineSpec.inputDockerStreams}
+                        variant={'block'}
+                    />
+                ),
             },
         ],
         [cdpipelineSpec]

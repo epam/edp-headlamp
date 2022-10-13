@@ -2,7 +2,7 @@ import { CodebaseActions } from '../../components/CodebaseActions';
 import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
 import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
-import { MetadataTable } from '../../components/MetadataTable';
+import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICONS } from '../../constants/icons';
 import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
@@ -63,7 +63,7 @@ export const EDPAutotestDetails = (): React.ReactElement => {
                 <>
                     <CodebaseGeneralInfoTable kubeObjectData={autotest} />
                     <CodebaseAdvancedInfoTable kubeObjectData={autotest} />
-                    <MetadataTable kubeObjectData={autotest} />
+                    <CodebaseMetadataTable codebaseData={autotest} />
                     <CodebaseBranchesList kubeObjectData={autotest} />
                 </>
             )}

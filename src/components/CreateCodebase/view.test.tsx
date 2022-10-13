@@ -20,10 +20,9 @@ describe('CreateCodebase', () => {
         it('should render correctly', async () => {
             const props: CreateCodebaseProps = {
                 type: 'application',
-                open: true,
-                setOpen: () => {},
+                createDialogOpen: true,
+                setCreateDialogOpen: () => {},
                 onClose: () => {},
-                handleApply: () => {},
                 isApplying: false,
             };
             const store = configureStore({
@@ -54,10 +53,9 @@ describe('CreateCodebase', () => {
         it('should render correctly', async () => {
             const props: CreateCodebaseProps = {
                 type: 'library',
-                open: true,
-                setOpen: () => {},
+                createDialogOpen: true,
+                setCreateDialogOpen: () => {},
                 onClose: () => {},
-                handleApply: () => {},
                 isApplying: false,
             };
             const store = configureStore({
@@ -88,10 +86,9 @@ describe('CreateCodebase', () => {
         it('should render correctly', async () => {
             const props: CreateCodebaseProps = {
                 type: 'autotest',
-                open: true,
-                setOpen: () => {},
+                createDialogOpen: true,
+                setCreateDialogOpen: () => {},
                 onClose: () => {},
-                handleApply: () => {},
                 isApplying: false,
             };
             const store = configureStore({

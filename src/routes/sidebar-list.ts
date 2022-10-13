@@ -8,6 +8,7 @@ import {
     CDPIPELINES_ROUTE_NAME,
     COMPONENTS_ROUTE_NAME,
     EDP_ROOT_ROUTE_NAME,
+    GIT_SERVERS_ROUTE_NAME,
     LIBRARIES_ROUTE_NAME,
 } from './names';
 import { SidebarItem } from './types';
@@ -50,6 +51,12 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         'Libraries',
         LIBRARIES_ROUTE_NAME,
         ICONS['BOOKS'],
+        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
+    ),
+    createNewSidebarItem(
+        'Git Servers',
+        GIT_SERVERS_ROUTE_NAME,
+        ICONS['REPOSITORY'],
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
 ];

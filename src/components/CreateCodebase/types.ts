@@ -1,16 +1,10 @@
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { DeepPartial } from '../../types/global';
-
 export interface CreateCodebaseProps {
     type: string;
-    open: boolean;
-    onClose(): void;
-    setOpen(boolean): void;
-    handleApply(
-        data: DeepPartial<EDPCodebaseKubeObjectInterface>,
-        codebaseAuthData: CodebaseAuthData | null
-    ): void;
-    isApplying: boolean;
+    createDialogOpen?: boolean;
+    onClose?(): void;
+    setCreateDialogOpen?(boolean): void;
+    setIsApplying?(boolean): void;
+    isApplying?: boolean;
 }
 
 export interface CodebaseAuthData {

@@ -1,75 +1,37 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
-import type { DialogProps } from '@material-ui/core/Dialog';
-import { pluginLib, React, ReactRedux } from '../../plugin.globals';
-import { k8s } from '../../plugin.types';
-import { clusterAction } from '../../redux/actions';
-import { CreateKubeObjectProps } from './types';
+import { ICONS } from '../../constants/icons';
+import { Iconify, MuiCore, React } from '../../plugin.globals';
+import { useStyles } from './styles';
 
-const { useDispatch } = ReactRedux;
-const {
-    CommonComponents: { EditorDialog },
-} = pluginLib;
+const { Fab } = MuiCore;
+const { Icon } = Iconify;
 
-export const CreateKubeObject = ({
-    editorOpen,
-    setEditorOpen,
-    kubeObject,
-    kubeObjectExample,
-    onCreate,
-}: CreateKubeObjectProps): React.ReactElement => {
-    const [errorMessage, setErrorMessage] = React.useState<string>('');
-    const dispatch = useDispatch();
+export const CreateKubeObject: React.FC = ({ children }): React.ReactElement => {
+    const classes = useStyles();
 
-    const applyFunc = async (newItem: k8s.cluster.KubeObjectInterface): Promise<void> => {
-        try {
-            await kubeObject.apiEndpoint.post(newItem);
-            setEditorOpen(false);
-        } catch (err) {
-            let msg = `Oops! Something went wrong! Couldn't apply "${newItem.metadata.name}"`;
-            if (err instanceof Error) {
-                msg = err.message;
-            }
-            setErrorMessage(msg);
-            setEditorOpen(true);
-            throw err;
-        }
+    const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
 
-        if (onCreate) {
-            onCreate();
-        }
-    };
+    const onClose = React.useCallback(() => {
+        setCreateDialogOpen(false);
+    }, [setCreateDialogOpen]);
 
-    const handleSave = async (data: k8s.cluster.KubeObjectInterface): Promise<void> => {
-        const {
-            metadata: { name },
-        } = data;
-        const cancelUrl = location.pathname;
-
-        dispatch(
-            clusterAction(() => applyFunc(data), {
-                startMessage: `Applying "${name}"`,
-                cancelledMessage: `Cancelled applying "${name}"`,
-                successMessage: `Applied "${name}"`,
-                errorMessage: `Failed to apply "${name}"`,
-                cancelUrl,
-            })
-        );
-    };
-
-    const muDialogProps: DialogProps = {
-        open: editorOpen,
-    };
+    const [isApplying, setIsApplying] = React.useState<boolean>(false);
 
     return (
-        <EditorDialog
-            {...muDialogProps}
-            data-testid={'CreateKubeObject.EditorDialog'}
-            item={kubeObjectExample as KubeObjectInterface}
-            title={`Create ${kubeObjectExample.kind}`}
-            onClose={() => setEditorOpen(false)}
-            onSave={handleSave}
-            errorMessage={errorMessage}
-            onEditorChanged={() => setErrorMessage('')}
-        />
+        <>
+            <Fab
+                aria-label="add"
+                onClick={() => setCreateDialogOpen(true)}
+                className={classes.button}
+            >
+                <Icon icon={ICONS['PLUS']} className={classes.buttonIcon} />
+            </Fab>
+            {React.cloneElement(children as React.ReactElement, {
+                createDialogOpen,
+                onClose,
+                isApplying,
+                setCreateDialogOpen,
+                setIsApplying,
+            })}
+        </>
     );
 };

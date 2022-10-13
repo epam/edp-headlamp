@@ -19,6 +19,7 @@ export const FormTextField = React.forwardRef(
             placeholder,
             disabled = false,
             InputProps,
+            TextFieldProps,
             ...props
         }: FormTextFieldProps,
         ref: React.RefObject<HTMLInputElement>
@@ -29,7 +30,7 @@ export const FormTextField = React.forwardRef(
             <Grid container spacing={1}>
                 <Grid item xs={12}>
                     <Grid container spacing={1}>
-                        <Render condition={!!label && !!title}>
+                        <Render condition={!!label || !!title}>
                             <Grid item xs={12}>
                                 <FormControlLabelWithTooltip label={label} title={title} />
                             </Grid>
@@ -44,6 +45,7 @@ export const FormTextField = React.forwardRef(
                                             inputRef={ref}
                                             disabled={disabled}
                                             InputProps={InputProps}
+                                            {...TextFieldProps}
                                             {...field}
                                         />
                                     )}

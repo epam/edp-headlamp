@@ -1,9 +1,9 @@
 import { CDPipelineList } from '../../components/CDPipelineList';
+import { CreateCDPipeline } from '../../components/CreateCDPipeline';
+import { CreateKubeObject } from '../../components/CreateKubeObject';
 import { streamCDPipelines } from '../../k8s/EDPCDPipeline/streamCDPipelines';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
 import { pluginLib, React, ReactRouter } from '../../plugin.globals';
-import { FloatingActions } from './components/FloatingActions';
-import { EDPCDPipelineListProps } from './types';
 
 const {
     CommonComponents: { SectionBox, SectionFilterHeader },
@@ -11,7 +11,7 @@ const {
 
 const { useParams } = ReactRouter;
 
-export const EDPCDPipelineList: React.FC<EDPCDPipelineListProps> = (): React.ReactElement => {
+export const EDPCDPipelineList = (): React.ReactElement => {
     const { namespace } = useParams();
 
     const [CDPipelines, setCDPipelines] = React.useState<EDPCDPipelineKubeObjectInterface[]>([]);
@@ -34,7 +34,9 @@ export const EDPCDPipelineList: React.FC<EDPCDPipelineListProps> = (): React.Rea
 
     return (
         <SectionBox title={<SectionFilterHeader title="CD Pipelines" headerStyle="main" />}>
-            <FloatingActions />
+            <CreateKubeObject>
+                <CreateCDPipeline />
+            </CreateKubeObject>
             <CDPipelineList CDPipelines={CDPipelines} />
         </SectionBox>
     );

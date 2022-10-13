@@ -1,9 +1,11 @@
 import { AutotestList } from '../../components/AutotestList';
+import { CreateCodebase } from '../../components/CreateCodebase';
+import { CreateKubeObject } from '../../components/CreateKubeObject';
+import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { pluginLib, React, ReactRouter } from '../../plugin.globals';
-import { FloatingActions } from './components/FloatingActions';
 
 const {
     CommonComponents: { SectionBox, SectionFilterHeader },
@@ -28,7 +30,9 @@ export const EDPAutotestList = (): React.ReactElement => {
 
     return (
         <SectionBox title={<SectionFilterHeader title="Autotests" headerStyle="main" />}>
-            <FloatingActions />
+            <CreateKubeObject>
+                <CreateCodebase type={CODEBASE_TYPES['AUTOTEST']} />
+            </CreateKubeObject>
             <AutotestList autotests={autotests} />
         </SectionBox>
     );

@@ -5,6 +5,8 @@ import { EDPAutotestList } from '../pages/edp-autotest-list';
 import { EDPCDPipelineDetails } from '../pages/edp-cdpipeline-details';
 import { EDPCDPipelineList } from '../pages/edp-cdpipeline-list';
 import { EDPComponentList } from '../pages/edp-component-list';
+import { EDPGitServerDetails } from '../pages/edp-gitserver-details';
+import { EDPGitServerList } from '../pages/edp-gitserver-list';
 import { EDPLibraryDetails } from '../pages/edp-library-details';
 import { EDPLibraryList } from '../pages/edp-library-list';
 import { React } from '../plugin.globals';
@@ -21,6 +23,8 @@ import {
     CDPIPELINE_ROUTE_NAME,
     CDPIPELINES_ROUTE_NAME,
     COMPONENTS_ROUTE_NAME,
+    GIT_SERVER_ROUTE_NAME,
+    GIT_SERVERS_ROUTE_NAME,
     LIBRARIES_ROUTE_NAME,
     LIBRARY_ROUTE_NAME,
 } from './names';
@@ -86,5 +90,19 @@ export const List: {
         path: createRouteNameBasedOnNameAndNamespace(CDPIPELINES_ROUTE_NAME),
         sidebar: createSidebarItemName(CDPIPELINES_ROUTE_NAME),
         component: () => <EDPCDPipelineDetails />,
+    },
+    [GIT_SERVERS_ROUTE_NAME]: {
+        name: 'EDP CD Pipelines',
+        path: createRouteName(GIT_SERVERS_ROUTE_NAME),
+        sidebar: createSidebarItemName(GIT_SERVERS_ROUTE_NAME),
+        exact: true,
+        component: () => <EDPGitServerList />,
+    },
+    [GIT_SERVER_ROUTE_NAME]: {
+        name: 'EDP CD Pipelines',
+        path: createRouteNameBasedOnNameAndNamespace(GIT_SERVERS_ROUTE_NAME),
+        sidebar: createSidebarItemName(GIT_SERVERS_ROUTE_NAME),
+        exact: true,
+        component: () => <EDPGitServerDetails />,
     },
 };

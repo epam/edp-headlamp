@@ -1,5 +1,5 @@
-import { EDPKubeObjectInterface } from '../../../../../../../../types/k8s';
+import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../../../k8s/EDPCDPipelineStage/types';
 
 export interface MetadataTableProps {
-    kubeObjectData: EDPKubeObjectInterface;
+    CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface;
 }

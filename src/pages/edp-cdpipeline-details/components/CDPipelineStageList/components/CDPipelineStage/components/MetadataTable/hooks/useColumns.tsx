@@ -20,7 +20,7 @@ export const useColumns = (metadata: EDPKubeMetadata) =>
             },
             {
                 name: 'Finalizers',
-                value: <MappedProperties properties={metadata.finalizers} />,
+                value: <MappedProperties properties={metadata.finalizers} variant={'block'} />,
             },
             {
                 name: 'Generation',

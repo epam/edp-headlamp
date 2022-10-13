@@ -15,7 +15,7 @@ import { DefaultBranchVersion } from '../../../FormFields/CodebaseBranchFields/D
 import { FromCommit } from '../../../FormFields/CodebaseBranchFields/FromCommit';
 import { ReleaseBranch } from '../../../FormFields/CodebaseBranchFields/ReleaseBranch';
 import { Render } from '../../../Render';
-import { useDefaultBranchVersion } from './hooks/useDefaultBranchVersion';
+import { useDefaultBranch } from './hooks/useDefaultBranch';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
 import { useUpdateBranchVersionFields } from './hooks/useUpdateBranchVersionFields';
@@ -39,7 +39,7 @@ export const CreateCodebaseBranchForm = ({
 }: CreateCodebaseBranchFormProps): React.ReactElement => {
     const classes = useStyles();
 
-    const { defaultBranch } = useDefaultBranchVersion({ codebaseData });
+    const { defaultBranch } = useDefaultBranch({ codebaseData });
     const defaultBranchVersion = React.useMemo(
         () => (defaultBranch ? defaultBranch.spec.version : undefined),
         [defaultBranch]

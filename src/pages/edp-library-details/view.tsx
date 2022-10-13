@@ -1,8 +1,8 @@
 import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
 import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
+import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import ErrorBoundary from '../../components/ErrorBoundary/view';
-import { MetadataTable } from '../../components/MetadataTable';
 import { ICONS } from '../../constants/icons';
 import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
@@ -66,7 +66,7 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
                 <>
                     <CodebaseGeneralInfoTable kubeObjectData={library} />
                     <CodebaseAdvancedInfoTable kubeObjectData={library} />
-                    <MetadataTable kubeObjectData={library} />
+                    <CodebaseMetadataTable codebaseData={library} />
                     <CodebaseBranchesList kubeObjectData={library} />
                 </>
             )}

@@ -20,10 +20,9 @@ const { ApiProxy } = pluginLib;
 describe('CreateCDPipeline', () => {
     it('should render correctly', async () => {
         const props: CreateCDPipelineProps = {
-            open: true,
-            setOpen: () => {},
+            createDialogOpen: true,
+            setCreateDialogOpen: () => {},
             onClose: () => {},
-            handleApply: () => {},
             isApplying: false,
         };
         const store = configureStore({

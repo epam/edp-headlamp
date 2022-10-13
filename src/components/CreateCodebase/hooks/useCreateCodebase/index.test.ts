@@ -4,7 +4,7 @@
 
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react-hooks';
-import { createSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
+import { createCodebaseSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
 import { pluginLib } from '../../../../plugin.globals';
@@ -110,7 +110,12 @@ describe('testing useCreateCodebase hook', () => {
         const { repositoryLogin, repositoryPasswordOrApiToken } = cloneStrategyCodebaseAuthDataMock;
 
         await expect(secretRequestSpy).toHaveBeenCalledWith(
-            createSecretInstance(name, namespace, repositoryLogin, repositoryPasswordOrApiToken)
+            createCodebaseSecretInstance(
+                name,
+                namespace,
+                repositoryLogin,
+                repositoryPasswordOrApiToken
+            )
         );
 
         expect(codebaseCreated).toBe(true);
@@ -156,7 +161,12 @@ describe('testing useCreateCodebase hook', () => {
         });
 
         await expect(secretRequestSpy).toHaveBeenCalledWith(
-            createSecretInstance(name, namespace, repositoryLogin, repositoryPasswordOrApiToken)
+            createCodebaseSecretInstance(
+                name,
+                namespace,
+                repositoryLogin,
+                repositoryPasswordOrApiToken
+            )
         );
         await expect(codebaseRequestSpy).not.toHaveBeenCalled();
         expect(codebaseCreated).toBe(false);
@@ -203,7 +213,12 @@ describe('testing useCreateCodebase hook', () => {
         });
 
         await expect(secretRequestSpy).toHaveBeenCalledWith(
-            createSecretInstance(name, namespace, repositoryLogin, repositoryPasswordOrApiToken)
+            createCodebaseSecretInstance(
+                name,
+                namespace,
+                repositoryLogin,
+                repositoryPasswordOrApiToken
+            )
         );
         await expect(codebaseRequestSpy).toHaveBeenCalledWith(cloneStrategyCodebaseDataMock);
         await expect(secretRequestDeleteSpy).toHaveBeenCalled();

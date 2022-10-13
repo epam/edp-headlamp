@@ -49,7 +49,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
             {
                 label: 'Applications',
                 getter: ({ spec: { applications } }) => (
-                    <MappedProperties properties={applications} />
+                    <MappedProperties properties={applications} variant={'block'} />
                 ),
             },
             {

@@ -1,5 +1,4 @@
 import { CDPipelineActions } from '../../components/CDPipelineActions';
-import { MetadataTable } from '../../components/MetadataTable';
 import { Render } from '../../components/Render';
 import { ICONS } from '../../constants/icons';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
@@ -9,6 +8,7 @@ import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
 import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { CDPIPELINES_ROUTE_NAME } from '../../routes/names';
 import { createRouteName } from '../../utils/routes/createRouteName';
+import { CDPipelineMetadataTable } from './components/CDPipelineMetadataTable';
 import { CDPipelineStagesList } from './components/CDPipelineStageList';
 import { GeneralInfoTable } from './components/GeneralInfoTable';
 import { useStyles } from './styles';
@@ -69,7 +69,7 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
             <Render condition={!!CDPipelineData}>
                 <>
                     <GeneralInfoTable CDPipelineData={CDPipelineData} />
-                    <MetadataTable kubeObjectData={CDPipelineData} />
+                    <CDPipelineMetadataTable CDPipelineData={CDPipelineData} />
                     <CDPipelineStagesList
                         kubeObject={EDPCDPipelineStageKubeObject}
                         CDPipelineData={CDPipelineData}

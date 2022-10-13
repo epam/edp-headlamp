@@ -82,7 +82,7 @@ export const CDPipelineStage = ({ stage }: CDPipelineStageProps): React.ReactEle
                     <Typography variant={'h5'}>Metadata</Typography>
                 </div>
                 <Paper className={classes.tablesGridItemInner}>
-                    <MetadataTable kubeObjectData={stage} />
+                    <MetadataTable CDPipelineStageData={stage} />
                 </Paper>
             </div>
         </Box>

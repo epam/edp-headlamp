@@ -1,4 +1,4 @@
-import { createSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
+import { createCodebaseSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { Notistack, pluginLib, React } from '../../../../plugin.globals';
@@ -54,7 +54,7 @@ export const useCreateCodebase = (
                 }
 
                 const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;
-                secretExample = createSecretInstance(
+                secretExample = createCodebaseSecretInstance(
                     name,
                     namespace,
                     repositoryLogin,

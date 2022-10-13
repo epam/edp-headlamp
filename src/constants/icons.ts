@@ -17,4 +17,5 @@ export enum ICONS {
     CROSS_CIRCLE = 'uiw:circle-close-o',
     LOADER_CIRCLE = 'lucide:loader-2',
     INFO_CIRCLE = 'ant-design:info-circle-outlined',
+    REPOSITORY = 'mdi:source-repository-multiple',
 }
