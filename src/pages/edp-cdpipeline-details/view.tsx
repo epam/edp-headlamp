@@ -8,7 +8,7 @@ import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types'
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
 import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { CDPIPELINES_ROUTE_NAME } from '../../routes/names';
-import { createRouteURL } from '../../utils/routes/createRouteURL';
+import { createRouteName } from '../../utils/routes/createRouteName';
 import { CDPipelineStagesList } from './components/CDPipelineStageList';
 import { GeneralInfoTable } from './components/GeneralInfoTable';
 import { useStyles } from './styles';
@@ -52,7 +52,7 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
                     startIcon={<Icon icon={ICONS['ARROW_LEFT']} />}
                     size="small"
                     component={Link}
-                    to={createRouteURL(CDPIPELINES_ROUTE_NAME)}
+                    routeName={createRouteName(CDPIPELINES_ROUTE_NAME)}
                 />
                 <Typography variant={'h1'} component={'span'}>
                     {name}

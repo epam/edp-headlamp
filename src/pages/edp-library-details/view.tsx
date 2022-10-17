@@ -9,7 +9,7 @@ import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { pluginLib } from '../../plugin.globals';
 import { LIBRARIES_ROUTE_NAME } from '../../routes/names';
-import { createRouteURL } from '../../utils/routes/createRouteURL';
+import { createRouteName } from '../../utils/routes/createRouteName';
 import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPLibraryDetailsProps } from './types';
@@ -48,7 +48,7 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
                     startIcon={<Icon icon={ICONS['ARROW_LEFT']} />}
                     size="small"
                     component={Link}
-                    to={createRouteURL(LIBRARIES_ROUTE_NAME)}
+                    routeName={createRouteName(LIBRARIES_ROUTE_NAME)}
                 />
                 <Typography variant={'h1'} component={'span'}>
                     {name}

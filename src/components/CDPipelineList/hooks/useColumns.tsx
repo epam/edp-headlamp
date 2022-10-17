@@ -2,7 +2,8 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../constants/statuses';
 import { EDPCDPipelineKubeObject } from '../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../k8s/EDPCDPipeline/types';
 import { pluginLib, React } from '../../../plugin.globals';
-import { CDPIPELINE_ROUTE_NAME } from '../../../routes/names';
+import { CDPIPELINES_ROUTE_NAME } from '../../../routes/names';
+import { createRouteNameBasedOnNameAndNamespace } from '../../../utils/routes/createRouteName';
 import { sortByName } from '../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../utils/sort/sortByStatus';
 import { CDPipelineActions } from '../../CDPipelineActions';
@@ -28,15 +29,18 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
             },
             {
                 label: 'CD Pipeline',
-                getter: data => {
-                    const kubeObjectBasedOnData = new EDPCDPipelineKubeObject(data);
+                getter: ({ metadata: { name, namespace } }) => {
                     return (
                         <Link
-                            to={kubeObjectBasedOnData.getDetailsLink(CDPIPELINE_ROUTE_NAME)}
-                            kubeOject={null}
-                            routeName={null}
+                            routeName={createRouteNameBasedOnNameAndNamespace(
+                                CDPIPELINES_ROUTE_NAME
+                            )}
+                            params={{
+                                name,
+                                namespace,
+                            }}
                         >
-                            {data.metadata.name}
+                            {name}
                         </Link>
                     );
                 },

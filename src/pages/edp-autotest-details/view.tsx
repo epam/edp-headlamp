@@ -8,7 +8,7 @@ import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { AUTOTESTS_ROUTE_NAME } from '../../routes/names';
-import { createRouteURL } from '../../utils/routes/createRouteURL';
+import { createRouteName } from '../../utils/routes/createRouteName';
 import { useStyles } from './styles';
 
 const { Icon } = Iconify;
@@ -45,7 +45,7 @@ export const EDPAutotestDetails = (): React.ReactElement => {
                     startIcon={<Icon icon={ICONS['ARROW_LEFT']} />}
                     size="small"
                     component={Link}
-                    to={createRouteURL(AUTOTESTS_ROUTE_NAME)}
+                    routeName={createRouteName(AUTOTESTS_ROUTE_NAME)}
                 />
                 <Typography variant={'h1'} component={'span'}>
                     {name}

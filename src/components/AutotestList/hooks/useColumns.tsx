@@ -2,7 +2,8 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../constants/statuses';
 import { EDPCodebaseKubeObject } from '../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
 import { pluginLib, React } from '../../../plugin.globals';
-import { AUTOTEST_ROUTE_NAME } from '../../../routes/names';
+import { AUTOTESTS_ROUTE_NAME } from '../../../routes/names';
+import { createRouteNameBasedOnNameAndNamespace } from '../../../utils/routes/createRouteName';
 import { sortByName } from '../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../utils/sort/sortByStatus';
 import { CodebaseActions } from '../../CodebaseActions';
@@ -27,15 +28,16 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
             },
             {
                 label: 'Autotest',
-                getter: data => {
-                    const kubeObjectBasedOnData = new EDPCodebaseKubeObject(data);
+                getter: ({ metadata: { name, namespace } }) => {
                     return (
                         <Link
-                            to={kubeObjectBasedOnData.getDetailsLink(AUTOTEST_ROUTE_NAME)}
-                            kubeOject={null}
-                            routeName={null}
+                            routeName={createRouteNameBasedOnNameAndNamespace(AUTOTESTS_ROUTE_NAME)}
+                            params={{
+                                name,
+                                namespace,
+                            }}
                         >
-                            {data.metadata.name}
+                            {name}
                         </Link>
                     );
                 },

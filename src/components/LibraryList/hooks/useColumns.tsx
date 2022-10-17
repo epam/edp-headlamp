@@ -2,7 +2,8 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../constants/statuses';
 import { EDPCodebaseKubeObject } from '../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
 import { pluginLib, React } from '../../../plugin.globals';
-import { LIBRARY_ROUTE_NAME } from '../../../routes/names';
+import { LIBRARIES_ROUTE_NAME } from '../../../routes/names';
+import { createRouteNameBasedOnNameAndNamespace } from '../../../utils/routes/createRouteName';
 import { sortByName } from '../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../utils/sort/sortByStatus';
 import { CodebaseActions } from '../../CodebaseActions';
@@ -27,15 +28,19 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
             },
             {
                 label: 'Library',
-                getter: data => (
-                    <Link
-                        to={new EDPCodebaseKubeObject(data).getDetailsLink(LIBRARY_ROUTE_NAME)}
-                        kubeObject={null}
-                        routeName={null}
-                    >
-                        {data.metadata.name}
-                    </Link>
-                ),
+                getter: ({ metadata: { name, namespace } }) => {
+                    return (
+                        <Link
+                            routeName={createRouteNameBasedOnNameAndNamespace(LIBRARIES_ROUTE_NAME)}
+                            params={{
+                                name,
+                                namespace,
+                            }}
+                        >
+                            {name}
+                        </Link>
+                    );
+                },
                 sort: (a, b) => sortByName(a.metadata.name, b.metadata.name),
             },
             {
