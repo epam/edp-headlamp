@@ -4,7 +4,11 @@ import { FieldEvent } from '../../../../types/forms';
 import { FormTextField } from '../../../FormComponents/FormTextField';
 import { GitUrlPathProps } from './types';
 
-const { Grid } = MuiCore;
+const { Grid, InputAdornment } = MuiCore;
+
+// relative path should always start with slash
+
+const slashSymbol = '/';
 
 export const GitUrlPath = ({ names, handleFormFieldChange }: GitUrlPathProps) => {
     const {
@@ -19,13 +23,19 @@ export const GitUrlPath = ({ names, handleFormFieldChange }: GitUrlPathProps) =>
                 {...register(names.gitUrlPath.name, {
                     required: 'Specify relative path to repository.',
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
-                        handleFormFieldChange({ name, value }),
+                        handleFormFieldChange({
+                            name,
+                            value: value ? `${slashSymbol}${value}` : undefined,
+                        }),
                 })}
                 label={'Relative path'}
                 title={'Specify relative path to repository.'}
                 placeholder={'Enter repository path'}
                 control={control}
                 errors={errors}
+                InputProps={{
+                    startAdornment: <InputAdornment position="start">{slashSymbol}</InputAdornment>,
+                }}
             />
         </Grid>
     );

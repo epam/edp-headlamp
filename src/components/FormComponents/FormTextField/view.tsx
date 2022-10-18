@@ -18,6 +18,7 @@ export const FormTextField = React.forwardRef(
             errors,
             placeholder,
             disabled = false,
+            InputProps,
             ...props
         }: FormTextFieldProps,
         ref: React.RefObject<HTMLInputElement>
@@ -42,6 +43,7 @@ export const FormTextField = React.forwardRef(
                                             placeholder={placeholder}
                                             inputRef={ref}
                                             disabled={disabled}
+                                            InputProps={InputProps}
                                             {...field}
                                         />
                                     )}
