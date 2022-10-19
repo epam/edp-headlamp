@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { useJenkinsSlaves } from '../../../../../../hooks/useJenkinsSlaves';
 import { useJiraServers } from '../../../../../../hooks/useJiraServers';
 import { MuiCore, React } from '../../../../../../plugin.globals';
@@ -8,13 +9,14 @@ import {
     CITool,
     CodebaseVersioning,
     CommitMessagePattern,
-    DeploymentScript,
     JenkinsSlave,
     JiraServer,
     JiraServerIntegration,
     JobProvisioning,
     TicketNamePattern,
 } from '../../../../../FormFields/CodebaseFields';
+import { Render } from '../../../../../Render';
+import { useUpdateFieldsDependingOnChosenCITool } from '../../hooks/useUpdateFieldsDependingOnChosenCITool';
 import { useUpdateJiraServerIntegrationValue } from '../../hooks/useUpdateJiraServerIntegrationValue';
 import { useUpdateVersioningFields } from '../../hooks/useUpdateVersioningFields';
 import { LibraryAdvancedSettingsFormPartProps } from './types';
@@ -26,27 +28,35 @@ export const LibraryAdvancedSettingsFormPart = ({
     handleFormFieldChange,
 }: LibraryAdvancedSettingsFormPartProps): React.ReactElement => {
     const { watch, setValue } = useFormContext();
-    const hasJiraServerIntegrationFieldValue = watch(names.hasJiraServerIntegration.name);
 
+    const hasJiraServerIntegrationFieldValue = watch(names.hasJiraServerIntegration.name);
     const namespaceFieldValue = watch(names.namespace.name);
+    const chosenCiToolFieldValue = watch(names.ciTool.name);
     const { jiraServers } = useJiraServers({ namespace: namespaceFieldValue });
     const { jenkinsSlaves } = useJenkinsSlaves({ namespace: namespaceFieldValue });
 
     useUpdateJiraServerIntegrationValue({ watch, setValue, names });
     useUpdateVersioningFields({ watch, setValue, names });
+    useUpdateFieldsDependingOnChosenCITool({ watch, names, handleFormFieldChange });
 
     return (
         <ErrorBoundary>
             <Grid container spacing={2}>
-                <JobProvisioning names={names} handleFormFieldChange={handleFormFieldChange} />
-                <JenkinsSlave
-                    names={names}
-                    handleFormFieldChange={handleFormFieldChange}
-                    jenkinsSlaves={jenkinsSlaves}
-                />
-                <CodebaseVersioning names={names} handleFormFieldChange={handleFormFieldChange} />
-                <DeploymentScript names={names} handleFormFieldChange={handleFormFieldChange} />
                 <CITool names={names} handleFormFieldChange={handleFormFieldChange} />
+                <Render condition={chosenCiToolFieldValue === CI_TOOLS['JENKINS']}>
+                    <>
+                        <JenkinsSlave
+                            names={names}
+                            handleFormFieldChange={handleFormFieldChange}
+                            jenkinsSlaves={jenkinsSlaves}
+                        />
+                        <JobProvisioning
+                            names={names}
+                            handleFormFieldChange={handleFormFieldChange}
+                        />
+                    </>
+                </Render>
+                <CodebaseVersioning names={names} handleFormFieldChange={handleFormFieldChange} />
                 <JiraServerIntegration
                     names={names}
                     handleFormFieldChange={handleFormFieldChange}

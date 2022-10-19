@@ -82,6 +82,7 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
                                     'Version may contain only: numbers and dashes and cannot start and end with dash.'
                                 }
                                 placeholder={'0.0.0'}
+                                defaultValue={'0.0.0'}
                                 control={control}
                                 errors={errors}
                             />
@@ -101,6 +102,7 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
                                     onBlur: onStartVersionFromSnapshotStaticFieldChange,
                                 })}
                                 placeholder={'SNAPSHOT'}
+                                defaultValue={'SNAPSHOT'}
                                 control={control}
                                 errors={errors}
                             />

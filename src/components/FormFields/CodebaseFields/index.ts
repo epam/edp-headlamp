@@ -5,7 +5,6 @@ export * from './CodebaseAuth';
 export * from './CodebaseVersioning';
 export * from './CommitMessagePattern';
 export * from './DefaultBranch';
-export * from './DeploymentScript';
 export * from './EmptyProject';
 export * from './Framework';
 export * from './GitServer';

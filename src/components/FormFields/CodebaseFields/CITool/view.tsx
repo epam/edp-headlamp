@@ -1,7 +1,8 @@
 import { useFormContext } from 'react-hook-form';
-import { ciToolSelectOptions } from '../../../../configs/select-options/ciTools';
+import { useAvailableCITools } from '../../../../hooks/useAvailableCITools';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
+import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { FormSelect } from '../../../FormComponents';
 import { CIToolProps } from './types';
 
@@ -12,7 +13,11 @@ export const CITool = ({ names, handleFormFieldChange }: CIToolProps) => {
         register,
         control,
         formState: { errors },
+        watch,
     } = useFormContext();
+    const namespaceFieldValue = watch(names.namespace.name);
+
+    const { availableCITools } = useAvailableCITools({ namespace: namespaceFieldValue });
 
     return (
         <Grid item xs={12}>
@@ -27,7 +32,10 @@ export const CITool = ({ names, handleFormFieldChange }: CIToolProps) => {
                 title={'Select CI tool which will be used for building your codebase'}
                 control={control}
                 errors={errors}
-                options={ciToolSelectOptions}
+                options={availableCITools.map(el => ({
+                    label: capitalizeFirstLetter(el),
+                    value: el,
+                }))}
             />
         </Grid>
     );

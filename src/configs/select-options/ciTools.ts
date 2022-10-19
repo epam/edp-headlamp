@@ -8,10 +8,6 @@ export const ciToolSelectOptions: SelectOption[] = [
         value: CI_TOOLS['JENKINS'],
     },
     {
-        label: capitalizeFirstLetter(CI_TOOLS['GITLAB']),
-        value: CI_TOOLS['GITLAB'],
-    },
-    {
         label: capitalizeFirstLetter(CI_TOOLS['TEKTON']),
         value: CI_TOOLS['TEKTON'],
     },
