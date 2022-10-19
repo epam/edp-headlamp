@@ -1,6 +1,8 @@
 import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
+import { CI_TOOLS } from '../../../../constants/ciTools';
+import { useAvailableCITools } from '../../../../hooks/useAvailableCITools';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
@@ -116,6 +118,13 @@ export const CreateCDPipelineStageForm = ({
         handleApply(editorReturnValues);
     }, [editorReturnValues, handleApply]);
 
+    const { availableCITools } = useAvailableCITools({ namespace });
+
+    const hasJenkinsCITool = React.useMemo(
+        () => availableCITools.includes(CI_TOOLS['JENKINS']),
+        [availableCITools]
+    );
+
     return (
         <FormProvider {...methods}>
             <div className={classes.form}>
@@ -140,19 +149,23 @@ export const CreateCDPipelineStageForm = ({
                                     handleFormFieldChange={handleFormFieldChange}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
-                                <JobProvisioner
-                                    names={CDPIPELINE_STAGE_NAMES}
-                                    handleFormFieldChange={handleFormFieldChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <GroovyPipelineLibrary
-                                    names={CDPIPELINE_STAGE_NAMES}
-                                    namespace={namespace}
-                                    handleFormFieldChange={handleFormFieldChange}
-                                />
-                            </Grid>
+                            <Render condition={hasJenkinsCITool}>
+                                <>
+                                    <Grid item xs={6}>
+                                        <JobProvisioner
+                                            names={CDPIPELINE_STAGE_NAMES}
+                                            handleFormFieldChange={handleFormFieldChange}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <GroovyPipelineLibrary
+                                            names={CDPIPELINE_STAGE_NAMES}
+                                            namespace={namespace}
+                                            handleFormFieldChange={handleFormFieldChange}
+                                        />
+                                    </Grid>
+                                </>
+                            </Render>
                             <Grid item xs={12}>
                                 <QualityGates
                                     namespace={namespace}
