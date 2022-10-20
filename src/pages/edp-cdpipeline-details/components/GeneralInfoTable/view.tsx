@@ -1,5 +1,5 @@
 import { HeadlampNameValueTable } from '../../../../components/HeadlampNameValueTable';
-import { MuiCore, pluginLib } from '../../../../plugin.globals';
+import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
 import { GeneralInfoTableProps } from './types';
 

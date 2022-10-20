@@ -18,4 +18,5 @@ export enum ICONS {
     LOADER_CIRCLE = 'lucide:loader-2',
     INFO_CIRCLE = 'ant-design:info-circle-outlined',
     REPOSITORY = 'mdi:source-repository-multiple',
+    INFO = 'fe:info',
 }

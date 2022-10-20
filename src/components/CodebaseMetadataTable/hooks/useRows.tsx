@@ -3,7 +3,7 @@ import { EDPKubeMetadata } from '../../../types/k8s';
 import { formatDateUTCToLocal } from '../../../utils/format/formatDateUTCToLocal';
 import { MappedProperties } from '../../MappedProperties';
 
-export const useColumns = (metadata: EDPKubeMetadata) =>
+export const useRows = (metadata: EDPKubeMetadata) =>
     React.useMemo(
         () => [
             {

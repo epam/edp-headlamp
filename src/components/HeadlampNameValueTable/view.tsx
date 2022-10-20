@@ -11,7 +11,7 @@ export const HeadlampNameValueTable: React.FC<HeadlampNameValueTableProps> = (
 ): React.ReactElement => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className={classes.tableWrapper}>
             <NameValueTable {...props} />
         </div>
     );

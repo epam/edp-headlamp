@@ -12,7 +12,7 @@ import { createRouteName } from '../../utils/routes/createRouteName';
 import { useStyles } from './styles';
 
 const { Icon } = Iconify;
-const { Typography, Button } = MuiCore;
+const { Typography, Button, Grid } = MuiCore;
 const { useParams } = ReactRouter;
 const {
     CommonComponents: { Link },
@@ -55,10 +55,17 @@ export const EDPApplicationDetails = (): React.ReactElement => {
                 </Typography>
                 {application && (
                     <div style={{ marginLeft: 'auto' }}>
-                        <CodebaseActions
-                            kubeObject={EDPCodebaseKubeObject}
-                            kubeObjectData={application}
-                        />
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <CodebaseMetadataTable codebaseData={application} />
+                            </Grid>
+                            <Grid item>
+                                <CodebaseActions
+                                    kubeObject={EDPCodebaseKubeObject}
+                                    kubeObjectData={application}
+                                />
+                            </Grid>
+                        </Grid>
                     </div>
                 )}
             </div>
@@ -66,7 +73,6 @@ export const EDPApplicationDetails = (): React.ReactElement => {
                 <>
                     <CodebaseGeneralInfoTable kubeObjectData={application} />
                     <CodebaseAdvancedInfoTable kubeObjectData={application} />
-                    <CodebaseMetadataTable codebaseData={application} />
                     <CodebaseBranchesList kubeObjectData={application} />
                 </>
             )}

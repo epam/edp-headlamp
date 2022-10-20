@@ -1,24 +1,13 @@
-import { MuiCore, pluginLib, React } from '../../plugin.globals';
-import { HeadlampNameValueTable } from '../HeadlampNameValueTable';
-import { useColumns } from './hooks/useColumns';
+import { React } from '../../plugin.globals';
+import { MetadataTable } from '../MetadataTable';
+import { useRows } from './hooks/useRows';
 import { CodebaseMetadataTableProps } from './types';
-
-const {
-    CommonComponents: { SectionBox, SectionHeader },
-} = pluginLib;
-const { Box } = MuiCore;
 
 export const CodebaseMetadataTable = ({
     codebaseData,
 }: CodebaseMetadataTableProps): React.ReactElement => {
     const { metadata } = codebaseData;
-    const columns = useColumns(metadata);
+    const rows = useRows(metadata);
 
-    return (
-        <SectionBox title={<SectionHeader title={'Metadata'} headerStyle="main" />}>
-            <Box>
-                <HeadlampNameValueTable rows={columns} />
-            </Box>
-        </SectionBox>
-    );
+    return <MetadataTable rows={rows} />;
 };

@@ -1,12 +1,12 @@
 import { MetadataTable } from '../../../../components/MetadataTable';
 import { React } from '../../../../plugin.globals';
 import { useRows } from './hooks/useRows';
-import { CDPipelineMetadataTableProps } from './types';
+import { MetadataTableProps } from './types';
 
-export const CDPipelineMetadataTable = ({
-    CDPipelineData,
-}: CDPipelineMetadataTableProps): React.ReactElement => {
-    const { metadata } = CDPipelineData;
+export const GitServerMetadataTable = ({
+    gitServerData,
+}: MetadataTableProps): React.ReactElement => {
+    const { metadata } = gitServerData;
     const rows = useRows(metadata);
 
     return <MetadataTable rows={rows} />;

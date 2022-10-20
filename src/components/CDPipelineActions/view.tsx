@@ -8,7 +8,7 @@ import { EditCDPipeline } from '../EditCDPipeline';
 import { KubeObjectActions } from '../KubeObjectActions';
 import { CDPipelineActionsProps } from './types';
 
-const { IconButton } = MuiCore;
+const { IconButton, Tooltip } = MuiCore;
 const { Icon } = Iconify;
 
 export const CDPipelineActions = ({
@@ -62,9 +62,11 @@ export const CDPipelineActions = ({
             actions={actions}
         >
             <>
-                <IconButton aria-label={'Options'} onClick={toggleActionsMenu}>
-                    <Icon icon={ICONS['THREE_DOTS']} color={'grey'} width="20" />
-                </IconButton>
+                <Tooltip title={'Actions'}>
+                    <IconButton aria-label={'Options'} onClick={toggleActionsMenu}>
+                        <Icon icon={ICONS['THREE_DOTS']} color={'grey'} width="20" />
+                    </IconButton>
+                </Tooltip>
                 <EditCDPipeline
                     CDPipelineData={kubeObjectData}
                     onClose={() => setEditActionEditorOpen(false)}

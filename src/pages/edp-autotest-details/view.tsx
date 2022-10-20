@@ -12,7 +12,7 @@ import { createRouteName } from '../../utils/routes/createRouteName';
 import { useStyles } from './styles';
 
 const { Icon } = Iconify;
-const { Typography, Button } = MuiCore;
+const { Typography, Button, Grid } = MuiCore;
 const { useParams } = ReactRouter;
 const {
     CommonComponents: { Link },
@@ -52,10 +52,17 @@ export const EDPAutotestDetails = (): React.ReactElement => {
                 </Typography>
                 {autotest && (
                     <div style={{ marginLeft: 'auto' }}>
-                        <CodebaseActions
-                            kubeObject={EDPCodebaseKubeObject}
-                            kubeObjectData={autotest}
-                        />
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <CodebaseMetadataTable codebaseData={autotest} />
+                            </Grid>
+                            <Grid item>
+                                <CodebaseActions
+                                    kubeObject={EDPCodebaseKubeObject}
+                                    kubeObjectData={autotest}
+                                />
+                            </Grid>
+                        </Grid>
                     </div>
                 )}
             </div>
@@ -63,7 +70,6 @@ export const EDPAutotestDetails = (): React.ReactElement => {
                 <>
                     <CodebaseGeneralInfoTable kubeObjectData={autotest} />
                     <CodebaseAdvancedInfoTable kubeObjectData={autotest} />
-                    <CodebaseMetadataTable codebaseData={autotest} />
                     <CodebaseBranchesList kubeObjectData={autotest} />
                 </>
             )}

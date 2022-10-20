@@ -15,7 +15,7 @@ import { useStyles } from './styles';
 import { EDPCDPipelineDetailsProps } from './types';
 
 const { Icon } = Iconify;
-const { Typography, Button } = MuiCore;
+const { Typography, Button, Grid } = MuiCore;
 const { useParams } = ReactRouter;
 const {
     CommonComponents: { Link },
@@ -59,17 +59,23 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
                 </Typography>
                 <Render condition={!!CDPipelineData}>
                     <div style={{ marginLeft: 'auto' }}>
-                        <CDPipelineActions
-                            kubeObject={EDPCDPipelineKubeObject}
-                            kubeObjectData={CDPipelineData}
-                        />
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <CDPipelineMetadataTable CDPipelineData={CDPipelineData} />
+                            </Grid>
+                            <Grid item>
+                                <CDPipelineActions
+                                    kubeObject={EDPCDPipelineKubeObject}
+                                    kubeObjectData={CDPipelineData}
+                                />
+                            </Grid>
+                        </Grid>
                     </div>
                 </Render>
             </div>
             <Render condition={!!CDPipelineData}>
                 <>
                     <GeneralInfoTable CDPipelineData={CDPipelineData} />
-                    <CDPipelineMetadataTable CDPipelineData={CDPipelineData} />
                     <CDPipelineStagesList
                         kubeObject={EDPCDPipelineStageKubeObject}
                         CDPipelineData={CDPipelineData}

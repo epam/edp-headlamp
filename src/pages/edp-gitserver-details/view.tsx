@@ -3,13 +3,13 @@ import { streamGitServer } from '../../k8s/EDPGitServer';
 import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
 import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { GIT_SERVERS_ROUTE_NAME } from '../../routes/names';
-import { createRouteURL } from '../../utils/routes/createRouteURL';
+import { createRouteName } from '../../utils/routes/createRouteName';
 import { GeneralInfoTable } from './components/GeneralInfoTable';
-import { MetadataTable } from './components/MetadataTable';
+import { GitServerMetadataTable } from './components/GItServerMetadataTable';
 import { useStyles } from './styles';
 
 const { Icon } = Iconify;
-const { Typography, Button } = MuiCore;
+const { Typography, Button, Grid } = MuiCore;
 const { useParams } = ReactRouter;
 const {
     CommonComponents: { Link },
@@ -45,16 +45,24 @@ export const EDPGitServerDetails = (): React.ReactElement => {
                     startIcon={<Icon icon={ICONS['ARROW_LEFT']} />}
                     size="small"
                     component={Link}
-                    to={createRouteURL(GIT_SERVERS_ROUTE_NAME)}
+                    routeName={createRouteName(GIT_SERVERS_ROUTE_NAME)}
                 />
                 <Typography variant={'h1'} component={'span'}>
                     {name}
                 </Typography>
+                {gitServer && (
+                    <div style={{ marginLeft: 'auto' }}>
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <GitServerMetadataTable gitServerData={gitServer} />
+                            </Grid>
+                        </Grid>
+                    </div>
+                )}
             </div>
             {gitServer && (
                 <>
                     <GeneralInfoTable gitServerData={gitServer} />
-                    <MetadataTable gitServerData={gitServer} />
                 </>
             )}
         </>

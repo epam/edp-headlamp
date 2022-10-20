@@ -1,10 +1,10 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
-import { EDPGitServerKubeObject } from '../../../../../k8s/EDPGitServer';
 import { EDPGitServerKubeObjectInterface } from '../../../../../k8s/EDPGitServer/types';
 import { pluginLib, React } from '../../../../../plugin.globals';
-import { GIT_SERVER_ROUTE_NAME } from '../../../../../routes/names';
+import { GIT_SERVERS_ROUTE_NAME } from '../../../../../routes/names';
+import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 
@@ -26,16 +26,18 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPGitServerKubeOb
             },
             {
                 label: 'gitHost',
-                getter: data => {
-                    const kubeObjectBasedOnData = new EDPGitServerKubeObject(data);
-
+                getter: ({ metadata: { name, namespace } }) => {
                     return (
                         <Link
-                            to={kubeObjectBasedOnData.getDetailsLink(GIT_SERVER_ROUTE_NAME)}
-                            kubeObject={null}
-                            routeName={null}
+                            routeName={createRouteNameBasedOnNameAndNamespace(
+                                GIT_SERVERS_ROUTE_NAME
+                            )}
+                            params={{
+                                name,
+                                namespace,
+                            }}
                         >
-                            {data.spec.gitHost}
+                            {name}
                         </Link>
                     );
                 },

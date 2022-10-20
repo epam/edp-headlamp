@@ -1,3 +1,4 @@
+import { CodebaseActions } from '../../components/CodebaseActions';
 import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
 import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
@@ -10,12 +11,11 @@ import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { pluginLib } from '../../plugin.globals';
 import { LIBRARIES_ROUTE_NAME } from '../../routes/names';
 import { createRouteName } from '../../utils/routes/createRouteName';
-import { PageHeaderActions } from './components/PageHeaderActions';
 import { useStyles } from './styles';
 import { EDPLibraryDetailsProps } from './types';
 
 const { Icon } = Iconify;
-const { Typography, Button } = MuiCore;
+const { Typography, Button, Grid } = MuiCore;
 const { useParams } = ReactRouter;
 const {
     CommonComponents: { Link },
@@ -55,10 +55,17 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
                 </Typography>
                 {library && (
                     <div style={{ marginLeft: 'auto' }}>
-                        <PageHeaderActions
-                            kubeObject={EDPCodebaseKubeObject}
-                            kubeObjectData={library}
-                        />
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <CodebaseMetadataTable codebaseData={library} />
+                            </Grid>
+                            <Grid item>
+                                <CodebaseActions
+                                    kubeObject={EDPCodebaseKubeObject}
+                                    kubeObjectData={library}
+                                />
+                            </Grid>
+                        </Grid>
                     </div>
                 )}
             </div>
@@ -66,7 +73,6 @@ export const EDPLibraryDetails: React.FC<EDPLibraryDetailsProps> = (): React.Rea
                 <>
                     <CodebaseGeneralInfoTable kubeObjectData={library} />
                     <CodebaseAdvancedInfoTable kubeObjectData={library} />
-                    <CodebaseMetadataTable codebaseData={library} />
                     <CodebaseBranchesList kubeObjectData={library} />
                 </>
             )}
