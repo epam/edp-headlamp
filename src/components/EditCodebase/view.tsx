@@ -51,13 +51,7 @@ export const EditCodebase = ({
     );
 
     return (
-        <Dialog
-            open={open}
-            onClose={onClose}
-            maxWidth={'md'}
-            fullWidth
-            className={classes.dialogRoot}
-        >
+        <Dialog open={open} onClose={onClose}>
             <div className={classes.dialog} data-testid={'edit-codebase'}>
                 <div className={classes.dialogTitle}>
                     <Typography variant={'h5'}>{`Edit ${codebaseData.metadata.name}`}</Typography>

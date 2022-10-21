@@ -14,7 +14,7 @@ export const GeneralInfoTable = ({ gitServerData }: GeneralInfoTableProps): Reac
     const columns = useColumns(spec);
 
     return (
-        <SectionBox title={<SectionHeader title={'General Info'} headerStyle="main" />}>
+        <SectionBox title={<SectionHeader title={'General Info'} headerStyle="label" />}>
             <Box>
                 <HeadlampNameValueTable rows={columns} />
             </Box>

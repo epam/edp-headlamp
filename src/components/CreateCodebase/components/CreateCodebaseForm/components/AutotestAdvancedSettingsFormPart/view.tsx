@@ -36,7 +36,7 @@ export const AutotestAdvancedSettingsFormPart = ({
     const { jenkinsSlaves } = useJenkinsSlaves({ namespace: namespaceFieldValue });
 
     useUpdateJiraServerIntegrationValue({ watch, setValue, names });
-    useUpdateVersioningFields({ watch, setValue, names });
+    useUpdateVersioningFields({ watch, setValue, names, handleFormFieldChange });
     useUpdateFieldsDependingOnChosenCITool({ watch, names, handleFormFieldChange });
 
     return (

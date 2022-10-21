@@ -35,7 +35,7 @@ export const EDPComponentList: React.FC<EDPComponentListProps> = (): React.React
 
     return (
         <SectionBox
-            title={<SectionFilterHeader title="Overview" headerStyle="main" />}
+            title={<SectionFilterHeader title="Overview" headerStyle="label" />}
             sx={{ paddingTop: rem(20) }}
         >
             <Table data={EDPComponents} />

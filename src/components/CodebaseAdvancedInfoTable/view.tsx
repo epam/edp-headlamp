@@ -18,7 +18,7 @@ export const CodebaseAdvancedInfoTable = ({
     const columns = useColumns(spec, classes);
 
     return (
-        <SectionBox title={<SectionHeader title={'Advanced Settings'} headerStyle="main" />}>
+        <SectionBox title={<SectionHeader title={'Advanced Settings'} headerStyle="label" />}>
             <Box>
                 <HeadlampNameValueTable rows={columns} />
             </Box>

@@ -73,7 +73,7 @@ export const CodebaseBranchesList = ({
     return (
         <>
             <div className={classes.tableHeaderActions}>
-                <SectionHeader title="Branches" headerStyle="main" />
+                <SectionHeader title="Branches" headerStyle="label" />
                 <TableHeaderActions kubeObjectData={kubeObjectData} />
             </div>
             {currentCodebaseBranches.map(

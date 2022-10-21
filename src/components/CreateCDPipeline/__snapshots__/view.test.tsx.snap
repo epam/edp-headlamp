@@ -362,7 +362,7 @@ exports[`CreateCDPipeline should render correctly 1`] = `
                                 <span
                                   class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
                                 >
-                                  Mapping field name
+                                  Applications
                                 </span>
                                 <span />
                               </span>

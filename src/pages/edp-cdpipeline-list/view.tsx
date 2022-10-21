@@ -37,7 +37,7 @@ export const EDPCDPipelineList = (): React.ReactElement => {
     }, [handleError, handleStoreCDPipelines, namespace]);
 
     return (
-        <SectionBox title={<SectionFilterHeader title="CD Pipelines" headerStyle="main" />}>
+        <SectionBox title={<SectionFilterHeader title="CD Pipelines" headerStyle="label" />}>
             <CreateKubeObject>
                 <CreateCDPipeline />
             </CreateKubeObject>

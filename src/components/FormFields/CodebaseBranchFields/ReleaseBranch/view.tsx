@@ -26,17 +26,21 @@ export const ReleaseBranch = ({
     const versionStartFieldValue = watch(names.branchVersionStart.name);
 
     const releaseName = React.useMemo(() => {
-        if (!versionFieldValue) {
+        if (!versionFieldValue || !defaultBranchVersion) {
             return;
         }
         const { version } = getVersionAndPostfixFromVersioningString(versionFieldValue);
         const { major, minor } = getMajorMinorPatchOfVersion(version);
 
         return createReleaseNameString(major, minor);
-    }, [versionFieldValue]);
+    }, [defaultBranchVersion, versionFieldValue]);
 
     const handleReleaseValueChange = React.useCallback(
         ({ target: { name, value } }: FieldEvent) => {
+            if (!versionFieldValue || !defaultBranchVersion) {
+                return;
+            }
+
             const { postfix } = getVersionAndPostfixFromVersioningString(defaultBranchVersion);
 
             const newPostfix = 'RC';
@@ -69,6 +73,7 @@ export const ReleaseBranch = ({
             names,
             releaseName,
             setValue,
+            versionFieldValue,
             versionStartFieldValue,
         ]
     );

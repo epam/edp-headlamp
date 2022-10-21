@@ -15,7 +15,7 @@ export const GeneralInfoTable: React.FC<GeneralInfoTableProps> = ({
     const columns = useColumns(spec);
 
     return (
-        <SectionBox title={<SectionHeader title={'General Info'} headerStyle="main" />}>
+        <SectionBox title={<SectionHeader title={'General Info'} headerStyle="label" />}>
             <Box>
                 <HeadlampNameValueTable rows={columns} />
             </Box>

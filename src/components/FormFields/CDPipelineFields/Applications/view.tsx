@@ -134,7 +134,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                     <Grid item xs={11}>
                         <FormSelect
                             {...register(names.applicationsToAddChooser.name)}
-                            label={'Mapping field name'}
+                            label={'Applications'}
                             placeholder={'Choose applications'}
                             title={'Choose applications'}
                             control={control}

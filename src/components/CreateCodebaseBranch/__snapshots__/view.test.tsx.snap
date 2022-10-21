@@ -50,72 +50,6 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-              >
-                <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                >
-                  <div
-                    class="MuiFormControl-root"
-                  >
-                    <label
-                      class="MuiFormControlLabel-root"
-                    >
-                      <span
-                        aria-disabled="false"
-                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
-                      >
-                        <span
-                          class="MuiIconButton-label"
-                        >
-                          <input
-                            class="PrivateSwitchBase-input-10"
-                            data-indeterminate="false"
-                            name="release"
-                            type="checkbox"
-                            value="false"
-                          />
-                          <svg
-                            aria-hidden="true"
-                            class="MuiSvgIcon-root"
-                            focusable="false"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                            />
-                          </svg>
-                        </span>
-                        <span
-                          class="MuiTouchRipple-root"
-                        />
-                      </span>
-                      <span
-                        class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
-                      >
-                        <span
-                          style="display: inline-block; margin-top: 0.125rem;"
-                        >
-                          <span
-                            class="makeStyles-labelWrap-11"
-                          >
-                            <span
-                              class="MuiTypography-root makeStyles-label-12 MuiTypography-body1"
-                            >
-                              Release branch
-                            </span>
-                          </span>
-                        </span>
-                      </span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-            >
-              <div
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
                 <div
@@ -131,10 +65,10 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                       >
                         <span
-                          class="makeStyles-labelWrap-11"
+                          class="makeStyles-labelWrap-7"
                         >
                           <span
-                            class="MuiTypography-root makeStyles-label-12 MuiTypography-body1"
+                            class="MuiTypography-root makeStyles-label-8 MuiTypography-body1"
                           >
                             Branch Name
                           </span>
@@ -189,10 +123,10 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                       >
                         <span
-                          class="makeStyles-labelWrap-11"
+                          class="makeStyles-labelWrap-7"
                         >
                           <span
-                            class="MuiTypography-root makeStyles-label-12 MuiTypography-body1"
+                            class="MuiTypography-root makeStyles-label-8 MuiTypography-body1"
                           >
                             From Commit Hash 
                           </span>
@@ -219,109 +153,6 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
                                 type="text"
                                 value=""
                               />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-            >
-              <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
-              >
-                <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
-                >
-                  <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                  >
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    >
-                      <div
-                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                      >
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                        >
-                          <span
-                            class="makeStyles-labelWrap-11"
-                          >
-                            <span
-                              class="MuiTypography-root makeStyles-label-12 MuiTypography-body1"
-                            >
-                              Branch version
-                            </span>
-                            <span />
-                          </span>
-                        </div>
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                        >
-                          <div
-                            class="MuiFormControl-root MuiFormControl-fullWidth"
-                          >
-                            <div
-                              class="MuiFormControl-root MuiTextField-root"
-                            >
-                              <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-                              >
-                                <input
-                                  aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input"
-                                  name="branchVersionStart"
-                                  placeholder="0.0.0"
-                                  type="text"
-                                  value=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
-                  style="display: flex; justify-content: flex-end; flex-direction: column;"
-                >
-                  <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                  >
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    >
-                      <div
-                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                      >
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                        >
-                          <div
-                            class="MuiFormControl-root MuiFormControl-fullWidth"
-                          >
-                            <div
-                              class="MuiFormControl-root MuiTextField-root"
-                            >
-                              <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-                              >
-                                <input
-                                  aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input"
-                                  name="branchVersionPostfix"
-                                  placeholder="SNAPSHOT"
-                                  type="text"
-                                  value=""
-                                />
-                              </div>
                             </div>
                           </div>
                         </div>

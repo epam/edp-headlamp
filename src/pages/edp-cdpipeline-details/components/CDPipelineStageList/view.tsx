@@ -64,7 +64,7 @@ export const CDPipelineStagesList: React.FC<CDPipelineStagesListProps> = ({
     return (
         <>
             <div className={classes.tableHeaderActions}>
-                <SectionHeader title="Stages" headerStyle="main" />
+                <SectionHeader title="Stages" headerStyle="label" />
                 <TableHeaderActions
                     currentCDPipelineStages={currentCDPipelineStages}
                     CDPipelineData={CDPipelineData}

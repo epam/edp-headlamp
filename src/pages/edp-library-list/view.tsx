@@ -29,7 +29,7 @@ export const EDPLibraryList = (): React.ReactElement => {
     }, [namespace]);
 
     return (
-        <SectionBox title={<SectionFilterHeader title="Libraries" headerStyle="main" />}>
+        <SectionBox title={<SectionFilterHeader title="Libraries" headerStyle="label" />}>
             <CreateKubeObject>
                 <CreateCodebase type={CODEBASE_TYPES['AUTOTEST']} />
             </CreateKubeObject>

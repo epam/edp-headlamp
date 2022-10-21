@@ -29,7 +29,7 @@ export const EDPAutotestList = (): React.ReactElement => {
     }, [namespace]);
 
     return (
-        <SectionBox title={<SectionFilterHeader title="Autotests" headerStyle="main" />}>
+        <SectionBox title={<SectionFilterHeader title="Autotests" headerStyle="label" />}>
             <CreateKubeObject>
                 <CreateCodebase type={CODEBASE_TYPES['AUTOTEST']} />
             </CreateKubeObject>

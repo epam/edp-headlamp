@@ -28,7 +28,7 @@ export const BranchName = ({
         ({ target: { name, value } }: FieldEvent) => {
             handleFormFieldChange({ name, value });
 
-            if (releaseFieldValue) {
+            if (releaseFieldValue || !defaultBranchVersion) {
                 return;
             }
 

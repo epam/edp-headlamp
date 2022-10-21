@@ -3,7 +3,7 @@ import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { HeadlampNameValueTable } from '../HeadlampNameValueTable';
 import { MetadataTableProps } from './types';
 
-const { IconButton, Dialog, DialogContent, DialogActions, Button, Tooltip } = MuiCore;
+const { IconButton, Dialog, DialogContent, DialogActions, DialogTitle, Button, Tooltip } = MuiCore;
 const { Icon } = Iconify;
 
 export const MetadataTable = ({ rows }: MetadataTableProps): React.ReactElement => {
@@ -25,6 +25,7 @@ export const MetadataTable = ({ rows }: MetadataTableProps): React.ReactElement 
                 </IconButton>
             </Tooltip>
             <Dialog open={dialogOpen} onClose={handleDialogClose}>
+                <DialogTitle>Metadata</DialogTitle>
                 <DialogContent>
                     <HeadlampNameValueTable rows={rows} />
                 </DialogContent>

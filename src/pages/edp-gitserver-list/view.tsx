@@ -34,7 +34,7 @@ export const EDPGitServerList = (): React.ReactElement => {
     }, [handleError, handleStoreGitServers, namespace]);
 
     return (
-        <SectionBox title={<SectionFilterHeader title="Git Servers" headerStyle="main" />}>
+        <SectionBox title={<SectionFilterHeader title="Git Servers" headerStyle="label" />}>
             <CreateKubeObject>
                 <CreateGitServer />
             </CreateKubeObject>

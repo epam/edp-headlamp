@@ -13,7 +13,7 @@ export const MetadataTable = ({ CDPipelineStageData }: MetadataTableProps): Reac
     const columns = useColumns(metadata);
 
     return (
-        <SectionBox title={<SectionHeader title={'Metadata'} headerStyle="main" />}>
+        <SectionBox title={<SectionHeader title={'Metadata'} headerStyle="label" />}>
             <Box>
                 <HeadlampNameValueTable rows={columns} />
             </Box>

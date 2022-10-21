@@ -3,6 +3,7 @@ import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { editCodebaseBranchInstance } from '../../../../configs/k8s-resource-instances/custom-resources/codebase-branch';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
+import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
@@ -163,8 +164,13 @@ export const CreateCodebaseBranchForm = ({
         handleFormFieldChange,
     });
 
-    const codebaseHasEDPVersioningType =
-        codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES['EDP'];
+    const canCreateReleaseBranch = React.useMemo(
+        () =>
+            codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES['EDP'] &&
+            defaultBranch &&
+            defaultBranch.status.status === CUSTOM_RESOURCE_STATUSES['CREATED'],
+        [codebaseData.spec.versioning.type, defaultBranch]
+    );
 
     return (
         <FormProvider {...methods}>
@@ -172,7 +178,7 @@ export const CreateCodebaseBranchForm = ({
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.formInner}>
                         <Grid container spacing={2}>
-                            <Render condition={!!codebaseHasEDPVersioningType}>
+                            <Render condition={canCreateReleaseBranch}>
                                 <Grid item xs={12}>
                                     <ReleaseBranch
                                         names={CODEBASE_BRANCH_NAMES}
@@ -194,7 +200,7 @@ export const CreateCodebaseBranchForm = ({
                                     handleFormFieldChange={handleFormFieldChange}
                                 />
                             </Grid>
-                            <Render condition={!!codebaseHasEDPVersioningType}>
+                            <Render condition={canCreateReleaseBranch}>
                                 <>
                                     <Grid item xs={12}>
                                         <BranchVersion

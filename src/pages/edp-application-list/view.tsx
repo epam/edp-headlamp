@@ -41,7 +41,7 @@ export const EDPApplicationList = (): React.ReactElement => {
     }, [handleError, handleStoreApplications, namespace]);
 
     return (
-        <SectionBox title={<SectionFilterHeader title="Applications" headerStyle="main" />}>
+        <SectionBox title={<SectionFilterHeader title="Applications" headerStyle="label" />}>
             <CreateKubeObject>
                 <CreateCodebase type={CODEBASE_TYPES['APPLICATION']} />
             </CreateKubeObject>
