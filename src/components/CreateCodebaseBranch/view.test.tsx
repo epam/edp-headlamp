@@ -4,7 +4,7 @@
 
 import { describe } from '@jest/globals';
 import { configureStore } from '@reduxjs/toolkit';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -12,7 +12,7 @@ import { CreateCodebaseBranchProps } from './types';
 import { CreateCodebaseBranch } from './view';
 
 describe('CreateCodebaseBranch', () => {
-    it('should render correctly', () => {
+    it('should render correctly', async () => {
         const props: CreateCodebaseBranchProps = {
             codebaseData: {
                 apiVersion: 'apiVersion',
@@ -46,7 +46,8 @@ describe('CreateCodebaseBranch', () => {
                 </SnackbarProvider>
             </Provider>
         );
-
-        expect(screen.getByTestId('create-codebase-branch')).toMatchSnapshot();
+        await waitFor(() => {
+            expect(screen.getByTestId('create-codebase-branch')).toMatchSnapshot();
+        });
     });
 });

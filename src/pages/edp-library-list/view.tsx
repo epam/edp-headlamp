@@ -31,7 +31,7 @@ export const EDPLibraryList = (): React.ReactElement => {
     return (
         <SectionBox title={<SectionFilterHeader title="Libraries" headerStyle="label" />}>
             <CreateKubeObject>
-                <CreateCodebase type={CODEBASE_TYPES['AUTOTEST']} />
+                <CreateCodebase type={CODEBASE_TYPES['LIBRARY']} />
             </CreateKubeObject>
             <LibraryList data={libraries} />
         </SectionBox>
