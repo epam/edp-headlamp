@@ -12,13 +12,14 @@ import { Render } from '../Render';
 import { StatusIcon } from '../StatusIcon';
 import { CodebaseBranch } from './components/CodebaseBranch';
 import { CodebaseBranchActions } from './components/CodebaseBranchActions';
+import { CodebaseBranchMetadataTable } from './components/CodebaseBranchMetadataTable';
 import { TableHeaderActions } from './components/TableHeaderActions';
 import { useStyles } from './styles';
 import { CodebaseBranchesListProps } from './types';
 const {
     CommonComponents: { SectionHeader },
 } = pluginLib;
-const { Accordion, AccordionSummary, AccordionDetails, Typography } = MuiCore;
+const { Accordion, AccordionSummary, AccordionDetails, Typography, Grid } = MuiCore;
 const { Icon } = Iconify;
 
 const isDefaultBranch = (
@@ -104,12 +105,21 @@ export const CodebaseBranchesList = ({
                                             </Typography>
                                         </Render>
                                         <div style={{ marginLeft: 'auto' }}>
-                                            <CodebaseBranchActions
-                                                kubeObject={EDPCodebaseBranchKubeObject}
-                                                kubeObjectData={el}
-                                                defaultBranch={defaultBranch}
-                                                codebase={kubeObjectData}
-                                            />
+                                            <Grid container spacing={1}>
+                                                <Grid item>
+                                                    <CodebaseBranchMetadataTable
+                                                        codebaseBranchData={el}
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    <CodebaseBranchActions
+                                                        kubeObject={EDPCodebaseBranchKubeObject}
+                                                        kubeObjectData={el}
+                                                        defaultBranch={defaultBranch}
+                                                        codebase={kubeObjectData}
+                                                    />
+                                                </Grid>
+                                            </Grid>
                                         </div>
                                     </div>
                                 </AccordionSummary>

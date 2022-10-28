@@ -2,13 +2,15 @@ import { ICONS } from '../../../../../../constants/icons';
 import { RESOURCE_ACTIONS } from '../../../../../../constants/resourceActions';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDPCDPipelineStage/types';
 import { KubeObjectAction } from '../../../../../../types/actions';
+import { DeepPartial } from '../../../../../../types/global';
 import { createKubeAction } from '../../../../../../utils/actions/createKubeAction';
 
-const getStageOrder = (stage: EDPCDPipelineStageKubeObjectInterface): number => stage.spec.order;
+const getStageOrder = (stage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>): number =>
+    stage.spec.order;
 
 export const createDeleteAction = (
-    allStages: EDPCDPipelineStageKubeObjectInterface[],
-    currentStage: EDPCDPipelineStageKubeObjectInterface,
+    allStages: DeepPartial<EDPCDPipelineStageKubeObjectInterface>[],
+    currentStage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>,
     action: () => void
 ): KubeObjectAction => {
     // CD pipeline could publish artifacts without any stage

@@ -1,7 +1,8 @@
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../../k8s/EDPCDPipelineStage/types';
 import { React } from '../../../../../../../plugin.globals';
+import { DeepPartial } from '../../../../../../../types/global';
 
-export const useRows = (stage: EDPCDPipelineStageKubeObjectInterface) =>
+export const useRows = (stage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>) =>
     React.useMemo(() => {
         const { spec, status } = stage;
 

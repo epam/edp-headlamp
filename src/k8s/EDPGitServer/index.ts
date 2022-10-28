@@ -1,5 +1,4 @@
 import { pluginLib } from '../../plugin.globals';
-import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { streamResult } from '../common/streamResult';
 import { streamResults } from '../common/streamResults';
 import { EDPGitServerKubeObjectConfig } from './config';
@@ -18,24 +17,14 @@ const {
     version,
 } = EDPGitServerKubeObjectConfig;
 
+// @ts-ignore
 export class EDPGitServerKubeObject extends makeKubeObject<EDPGitServerKubeObjectInterface>(
     singularForm
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
-    getDetailsLink(type: string): string {
-        return createRouteURL(type, {
-            namespace: this.jsonData!.metadata.namespace,
-            name: this.jsonData!.metadata.name,
-        });
-    }
-
     static get className(): string {
         return singularForm;
-    }
-
-    get listRoute(): string {
-        return pluralForm;
     }
 
     get spec(): EDPGitServerSpec {
@@ -46,6 +35,14 @@ export class EDPGitServerKubeObject extends makeKubeObject<EDPGitServerKubeObjec
         return this.jsonData!.status;
     }
 }
+
+export const getGitServers = (
+    namespace: string
+): Promise<{ items: EDPGitServerKubeObjectInterface[] }> => {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+
+    return ApiProxy.request(url);
+};
 
 export const streamGitServers = (
     cb: (data: EDPGitServerKubeObjectInterface[]) => void,

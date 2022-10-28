@@ -23,7 +23,7 @@ describe('DeleteKubeObject', () => {
                     name: 'TestCustomResourceDefinition',
                     namespace: 'best-namespace-ever',
                     finalizers: [],
-                    generation: '1',
+                    generation: 1,
                     uid: '',
                     creationTimestamp: new Date().toISOString(),
                     resourceVersion: 'unknown',

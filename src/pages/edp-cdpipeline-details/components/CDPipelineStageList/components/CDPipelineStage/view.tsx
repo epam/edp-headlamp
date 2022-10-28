@@ -2,21 +2,27 @@ import { HeadlampNameValueTable } from '../../../../../../components/HeadlampNam
 import { HeadlampSimpleTable } from '../../../../../../components/HeadlampSimpleTable';
 import { MuiCore, Notistack, React } from '../../../../../../plugin.globals';
 import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
-import { MetadataTable } from './components/MetadataTable';
+import { CurrentCDPipelineStageDataContext } from '../../view';
+import { CDPipelineStageApplicationsTable } from './components/CDPipelineStageApplicationsTable';
 import { useColumns } from './hooks/useColumns';
 import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
-import { CDPipelineStageProps } from './types';
 
 const { useSnackbar } = Notistack;
-const { Box, Typography, Paper } = MuiCore;
+const { Grid, Typography, Paper } = MuiCore;
 
-export const CDPipelineStage = ({ stage }: CDPipelineStageProps): React.ReactElement => {
+export const CDPipelineStage = (): React.ReactElement => {
+    const CurrentCDPipelineStageDataContextValue = React.useContext(
+        CurrentCDPipelineStageDataContext
+    );
+
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
-    const rows = useRows(stage);
-    const columns = useColumns();
-    const stageStatus = stage.status && stage.status.status;
+    const generalInfoRows = useRows(CurrentCDPipelineStageDataContextValue);
+    const qualityGatesColumns = useColumns();
+    const stageStatus =
+        CurrentCDPipelineStageDataContextValue.status &&
+        CurrentCDPipelineStageDataContextValue.status.status;
 
     const [currentStageStatus, setCurrentStageStatus] = React.useState<{
         lastStatus: string;
@@ -30,7 +36,7 @@ export const CDPipelineStage = ({ stage }: CDPipelineStageProps): React.ReactEle
         const { currentStatus } = currentStageStatus;
         const {
             metadata: { name },
-        } = stage;
+        } = CurrentCDPipelineStageDataContextValue;
 
         // eslint-disable-next-line eqeqeq
         if (stageStatus == null || currentStatus === stageStatus) {
@@ -53,38 +59,38 @@ export const CDPipelineStage = ({ stage }: CDPipelineStageProps): React.ReactEle
             lastStatus: prev.currentStatus,
             currentStatus: stageStatus,
         }));
-    }, [stageStatus, enqueueSnackbar, currentStageStatus, stage]);
+    }, [stageStatus, enqueueSnackbar, currentStageStatus, CurrentCDPipelineStageDataContextValue]);
 
     return (
-        <Box className={classes.tablesGrid}>
-            <div className={classes.tablesGridItem}>
-                <div className={classes.tablesGridItemHeading}>
+        <Grid container spacing={3}>
+            <Grid item xs={12}>
+                <div className={classes.tableItemTitle}>
+                    <Typography variant={'h5'}>Applications</Typography>
+                </div>
+                <Paper className={classes.tableItemInner}>
+                    <CDPipelineStageApplicationsTable />
+                </Paper>
+            </Grid>
+            <Grid item xs={12} lg={6}>
+                <div className={classes.tableItemTitle}>
                     <Typography variant={'h5'}>General info</Typography>
                 </div>
-                <Paper className={classes.tablesGridItemInner}>
-                    <HeadlampNameValueTable rows={rows} />
+                <Paper className={classes.tableItemInner}>
+                    <HeadlampNameValueTable rows={generalInfoRows} />
                 </Paper>
-            </div>
-            <div className={classes.tablesGridItem}>
-                <div className={classes.tablesGridItemHeading}>
+            </Grid>
+            <Grid item xs={12} lg={6}>
+                <div className={classes.tableItemTitle}>
                     <Typography variant={'h5'}>Quality gates</Typography>
                 </div>
-                <Paper className={classes.tablesGridItemInner}>
+                <Paper className={classes.tableItemInner}>
                     <HeadlampSimpleTable
-                        columns={columns}
+                        columns={qualityGatesColumns}
                         rowsPerPage={[15, 25, 50]}
-                        data={stage.spec.qualityGates}
+                        data={CurrentCDPipelineStageDataContextValue.spec.qualityGates}
                     />
                 </Paper>
-            </div>
-            <div className={classes.tablesGridItem}>
-                <div className={classes.tablesGridItemHeading}>
-                    <Typography variant={'h5'}>Metadata</Typography>
-                </div>
-                <Paper className={classes.tablesGridItemInner}>
-                    <MetadataTable CDPipelineStageData={stage} />
-                </Paper>
-            </div>
-        </Box>
+            </Grid>
+        </Grid>
     );
 };

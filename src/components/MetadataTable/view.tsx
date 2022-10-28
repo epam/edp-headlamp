@@ -6,6 +6,8 @@ import { MetadataTableProps } from './types';
 const { IconButton, Dialog, DialogContent, DialogActions, DialogTitle, Button, Tooltip } = MuiCore;
 const { Icon } = Iconify;
 
+const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
+
 export const MetadataTable = ({ rows }: MetadataTableProps): React.ReactElement => {
     const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
@@ -18,7 +20,8 @@ export const MetadataTable = ({ rows }: MetadataTableProps): React.ReactElement 
     }, []);
 
     return (
-        <>
+        //eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
+        <div onClick={stopPropagation} onFocus={stopPropagation}>
             <Tooltip title={'Metadata'}>
                 <IconButton aria-label={'Options'} onClick={handleDialogOpen}>
                     <Icon icon={ICONS['INFO']} color={'grey'} width="20" />
@@ -35,6 +38,6 @@ export const MetadataTable = ({ rows }: MetadataTableProps): React.ReactElement 
                     </Button>
                 </DialogActions>
             </Dialog>
-        </>
+        </div>
     );
 };

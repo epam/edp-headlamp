@@ -19,6 +19,7 @@ const {
     version,
 } = EDPCDPipelineStageKubeObjectConfig;
 
+// @ts-ignore
 export class EDPCDPipelineStageKubeObject extends makeKubeObject<EDPCDPipelineStageKubeObjectInterface>(
     singularForm
 ) {

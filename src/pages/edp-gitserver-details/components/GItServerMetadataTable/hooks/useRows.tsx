@@ -19,7 +19,7 @@ export const useRows = (metadata: EDPKubeMetadata) =>
             },
             {
                 name: 'Generation',
-                value: metadata.generation,
+                value: String(metadata.generation),
             },
             {
                 name: 'Resource version',

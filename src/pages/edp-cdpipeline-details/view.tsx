@@ -1,13 +1,17 @@
 import { CDPipelineActions } from '../../components/CDPipelineActions';
 import { Render } from '../../components/Render';
 import { ICONS } from '../../constants/icons';
+import {
+    EnrichedApplication,
+    useApplicationsInCDPipeline,
+} from '../../hooks/useApplicationsInCDPipeline';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { streamCDPipeline } from '../../k8s/EDPCDPipeline/streamCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
-import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
 import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { CDPIPELINES_ROUTE_NAME } from '../../routes/names';
 import { createRouteName } from '../../utils/routes/createRouteName';
+import { CDPipelineApplicationsTable } from './components/CDPipelineApplicationsTable';
 import { CDPipelineMetadataTable } from './components/CDPipelineMetadataTable';
 import { CDPipelineStagesList } from './components/CDPipelineStageList';
 import { GeneralInfoTable } from './components/GeneralInfoTable';
@@ -20,6 +24,9 @@ const { useParams } = ReactRouter;
 const {
     CommonComponents: { Link },
 } = pluginLib;
+
+export const ApplicationsContext = React.createContext<EnrichedApplication[]>(null);
+export const CDPipelineDataContext = React.createContext<EDPCDPipelineKubeObjectInterface>(null);
 
 export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();
@@ -38,6 +45,10 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
     const handleError = React.useCallback((error: Error) => {
         setError(error);
     }, []);
+
+    const { applications } = useApplicationsInCDPipeline({
+        CDPipelineData,
+    });
 
     React.useEffect(() => {
         const cancelStream = streamCDPipeline(name, namespace, handleStoreCDPipeline, handleError);
@@ -75,11 +86,13 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
             </div>
             <Render condition={!!CDPipelineData}>
                 <>
-                    <GeneralInfoTable CDPipelineData={CDPipelineData} />
-                    <CDPipelineStagesList
-                        kubeObject={EDPCDPipelineStageKubeObject}
-                        CDPipelineData={CDPipelineData}
-                    />
+                    <CDPipelineDataContext.Provider value={CDPipelineData}>
+                        <ApplicationsContext.Provider value={applications}>
+                            <GeneralInfoTable CDPipelineData={CDPipelineData} />
+                            <CDPipelineApplicationsTable />
+                            <CDPipelineStagesList />
+                        </ApplicationsContext.Provider>
+                    </CDPipelineDataContext.Provider>
                 </>
             </Render>
         </>

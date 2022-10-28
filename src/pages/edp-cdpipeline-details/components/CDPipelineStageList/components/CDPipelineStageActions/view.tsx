@@ -3,23 +3,25 @@ import { EditCDPipelineStage } from '../../../../../../components/EditCDPipeline
 import { KubeObjectActions } from '../../../../../../components/KubeObjectActions';
 import { ICONS } from '../../../../../../constants/icons';
 import { RESOURCE_ACTIONS } from '../../../../../../constants/resourceActions';
+import { EDPCDPipelineStageKubeObject } from '../../../../../../k8s/EDPCDPipelineStage';
 import { Iconify, MuiCore, React } from '../../../../../../plugin.globals';
 import { KubeObjectAction } from '../../../../../../types/actions';
 import { createKubeAction } from '../../../../../../utils/actions/createKubeAction';
-import { CDPipelineStageActionsProps } from './types';
+import { CDPipelineStagesDataContext, CurrentCDPipelineStageDataContext } from '../../view';
 import { createDeleteAction } from './utils';
 
 const { Icon } = Iconify;
 const { IconButton } = MuiCore;
 
-export const CDPipelineStageActions = ({
-    kubeObject,
-    kubeObjectData,
-    CDPipelineStages = [],
-}: CDPipelineStageActionsProps): React.ReactElement => {
+export const CDPipelineStageActions = (): React.ReactElement => {
+    const CurrentCDPipelineStageDataContextValue = React.useContext(
+        CurrentCDPipelineStageDataContext
+    );
+    const CDPipelineStagesDataContextValue = React.useContext(CDPipelineStagesDataContext);
+
     const {
         spec: { name },
-    } = kubeObjectData;
+    } = CurrentCDPipelineStageDataContextValue;
 
     const [editActionEditorOpen, setEditActionEditorOpen] = React.useState<boolean>(false);
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
@@ -46,12 +48,21 @@ export const CDPipelineStageActions = ({
                     setEditActionEditorOpen(true);
                 },
             }),
-            createDeleteAction(CDPipelineStages, kubeObjectData, () => {
-                handleCloseActionsMenu();
-                setDeleteActionPopupOpen(true);
-            }),
+            createDeleteAction(
+                CDPipelineStagesDataContextValue,
+                CurrentCDPipelineStageDataContextValue,
+                () => {
+                    handleCloseActionsMenu();
+                    setDeleteActionPopupOpen(true);
+                }
+            ),
         ];
-    }, [handleCloseActionsMenu, setEditActionEditorOpen, CDPipelineStages, kubeObjectData]);
+    }, [
+        handleCloseActionsMenu,
+        setEditActionEditorOpen,
+        CDPipelineStagesDataContextValue,
+        CurrentCDPipelineStageDataContextValue,
+    ]);
 
     return (
         <KubeObjectActions
@@ -67,13 +78,13 @@ export const CDPipelineStageActions = ({
                     open={editActionEditorOpen}
                     onClose={() => setEditActionEditorOpen(false)}
                     setOpen={setEditActionEditorOpen}
-                    CDPipelineStageData={kubeObjectData}
+                    CDPipelineStageData={CurrentCDPipelineStageDataContextValue}
                 />
                 <DeleteKubeObject
                     popupOpen={deleteActionPopupOpen}
                     setPopupOpen={setDeleteActionPopupOpen}
-                    kubeObject={kubeObject}
-                    kubeObjectData={kubeObjectData}
+                    kubeObject={EDPCDPipelineStageKubeObject}
+                    kubeObjectData={CurrentCDPipelineStageDataContextValue}
                     objectName={name}
                     description={`Please confirm the deletion of the CD stage with all its components
                             (Record in database, Jenkins pipeline, cluster namespace).`}

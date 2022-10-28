@@ -1,3 +1,4 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
 import type { DialogProps } from '@material-ui/core/Dialog';
 import { pluginLib, React, ReactRedux } from '../../plugin.globals';
 import { k8s } from '../../plugin.types';
@@ -62,7 +63,7 @@ export const EditKubeObject = ({
     return (
         <EditorDialog
             {...muDialogProps}
-            item={kubeObjectData}
+            item={kubeObjectData as Partial<KubeObjectInterface>}
             onClose={() => setEditorOpen(false)}
             onSave={handleSave}
             errorMessage={errorMessage}

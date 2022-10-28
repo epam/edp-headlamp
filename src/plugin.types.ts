@@ -6,6 +6,7 @@ import type {
     StreamResultsCb,
 } from '@kinvolk/headlamp-plugin/types/lib/k8s/apiProxy';
 import type {
+    KubeMetadata,
     KubeObject,
     KubeObjectInterface,
     StringDict,
@@ -14,6 +15,6 @@ import type { OptionsObject, SnackbarKey, SnackbarMessage } from 'notistack';
 
 export type { Router, k8s, CommonComponents };
 export type { SidebarEntryProps };
-export type { KubeObject, KubeObjectInterface, StringDict };
+export type { KubeObject, KubeObjectInterface, KubeMetadata, StringDict };
 export type { ApiError, StreamErrCb, StreamResultsCb };
 export type { SnackbarMessage, OptionsObject, SnackbarKey };

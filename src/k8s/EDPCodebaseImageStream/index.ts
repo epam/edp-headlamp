@@ -1,5 +1,4 @@
 import { pluginLib } from '../../plugin.globals';
-import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { EDPCodebaseImageStreamKubeObjectConfig } from './config';
 import {
     EDPCodebaseImageStreamKubeObjectInterface,
@@ -19,6 +18,7 @@ const {
     version,
 } = EDPCodebaseImageStreamKubeObjectConfig;
 
+// @ts-ignore
 export class EDPCodebaseImageStreamKubeObject extends makeKubeObject<EDPCodebaseImageStreamKubeObjectInterface>(
     singularForm
 ) {
@@ -28,10 +28,6 @@ export class EDPCodebaseImageStreamKubeObject extends makeKubeObject<EDPCodebase
         return singularForm;
     }
 
-    get listRoute(): string {
-        return pluralForm;
-    }
-
     get spec(): EDPCodebaseImageStreamSpecInterface {
         return this.jsonData!.spec;
     }
@@ -39,11 +35,12 @@ export class EDPCodebaseImageStreamKubeObject extends makeKubeObject<EDPCodebase
     get status(): EDPCodebaseImageStreamStatusInterface {
         return this.jsonData!.status;
     }
-
-    getDetailsLink(): string {
-        return createRouteURL(singularForm, {
-            namespace: this.jsonData!.metadata.namespace,
-            name: this.jsonData!.metadata.name,
-        });
-    }
 }
+
+export const getCodebaseImageStreams = (
+    namespace: string
+): Promise<{ items: EDPCodebaseImageStreamKubeObjectInterface[] }> => {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+
+    return ApiProxy.request(url);
+};

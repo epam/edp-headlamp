@@ -2,7 +2,6 @@ import { PaletteColorOptions, Theme } from '@material-ui/core';
 import { PaletteColor } from '@material-ui/core/styles/createPalette';
 
 export declare global {
-    var pluginLib = any;
     interface DefaultTheme extends Theme {}
 }
 

@@ -1,4 +1,4 @@
-import { getGitServers } from '../../k8s/common/getGitServers';
+import { getGitServers } from '../../k8s/EDPGitServer';
 import { React } from '../../plugin.globals';
 
 interface UseGitServerProps {

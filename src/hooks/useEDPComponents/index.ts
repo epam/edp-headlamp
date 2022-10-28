@@ -1,4 +1,4 @@
-import { getEDPComponents } from '../../k8s/common/getEDPComponents';
+import { getEDPComponents } from '../../k8s/EDPComponent';
 import { React } from '../../plugin.globals';
 
 interface UseEDPComponentsProps {

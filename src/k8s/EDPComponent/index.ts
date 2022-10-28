@@ -1,3 +1,4 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
 import { pluginLib } from '../../plugin.globals';
 import { streamResults } from '../common/streamResults';
 import { EDPComponentKubeObjectConfig } from './config';
@@ -16,6 +17,7 @@ const {
     version,
 } = EDPComponentKubeObjectConfig;
 
+// @ts-ignore
 export class EDPComponentKubeObject extends makeKubeObject<EDPComponentKubeObjectInterface>(
     singularForm
 ) {
@@ -37,6 +39,12 @@ export class EDPComponentKubeObject extends makeKubeObject<EDPComponentKubeObjec
         return this.jsonData!.status;
     }
 }
+
+export const getEDPComponents = (namespace: string): Promise<{ items: KubeObjectInterface[] }> => {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+
+    return ApiProxy.request(url);
+};
 
 export const streamEDPComponents = (
     cb: (data: EDPComponentKubeObjectInterface[]) => void,

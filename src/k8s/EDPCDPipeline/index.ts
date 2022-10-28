@@ -15,6 +15,7 @@ const {
     version,
 } = EDPCDPipelineKubeObjectConfig;
 
+// @ts-ignore
 export class EDPCDPipelineKubeObject extends makeKubeObject<EDPCDPipelineKubeObjectInterface>(
     singularForm
 ) {

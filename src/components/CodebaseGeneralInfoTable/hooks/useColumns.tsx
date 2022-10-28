@@ -1,40 +1,49 @@
 import { ClassNameMap } from '@material-ui/styles';
-import { EDPCodebaseSpecInterface } from '../../../k8s/EDPCodebase/types';
+import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
 import { MuiCore, React } from '../../../plugin.globals';
+import { DeepPartial } from '../../../types/global';
 
 const { Typography } = MuiCore;
 
-export const useColumns = (codebaseSpec: EDPCodebaseSpecInterface, classes: ClassNameMap) =>
-    React.useMemo(
-        () => [
+export const useColumns = (
+    kubeObjectData: DeepPartial<EDPCodebaseKubeObjectInterface>,
+    classes: ClassNameMap
+) =>
+    React.useMemo(() => {
+        const { spec, status } = kubeObjectData;
+
+        return [
+            {
+                name: 'Status',
+                value: status.status,
+            },
             {
                 name: 'Language',
-                value: codebaseSpec.lang,
+                value: spec.lang,
             },
             {
                 name: 'Empty Project',
                 value: (
                     <Typography className={classes.statusLabel} component="span">
-                        {codebaseSpec.emptyProject ? 'Yes' : 'No'}
+                        {spec.emptyProject ? 'Yes' : 'No'}
                     </Typography>
                 ),
             },
             {
                 name: 'Build tool',
-                value: codebaseSpec.buildTool,
+                value: spec.buildTool,
             },
             {
                 name: 'Framework',
-                value: codebaseSpec.framework,
+                value: spec.framework,
             },
             {
                 name: 'Strategy',
-                value: codebaseSpec.strategy,
+                value: spec.strategy,
             },
             {
                 name: 'Default Branch',
-                value: codebaseSpec.defaultBranch,
+                value: spec.defaultBranch,
             },
-        ],
-        [codebaseSpec, classes]
-    );
+        ];
+    }, [kubeObjectData, classes.statusLabel]);

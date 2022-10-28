@@ -1,13 +1,12 @@
 import { MuiCore, Notistack, React } from '../../../../plugin.globals';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { HeadlampNameValueTable } from '../../../HeadlampNameValueTable';
-import { MetadataTable } from './components/MetadataTable';
 import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
 import { CodebaseBranchProps } from './types';
 
 const { useSnackbar } = Notistack;
-const { Box, Typography, Paper } = MuiCore;
+const { Grid, Typography, Paper } = MuiCore;
 
 export const CodebaseBranch = ({ codebaseBranch }: CodebaseBranchProps): React.ReactElement => {
     const {
@@ -58,23 +57,15 @@ export const CodebaseBranch = ({ codebaseBranch }: CodebaseBranchProps): React.R
     ]);
 
     return (
-        <Box className={classes.tablesGrid}>
-            <div className={classes.tablesGridItem}>
-                <div className={classes.tablesGridItemHeading}>
+        <Grid container spacing={1}>
+            <Grid item xs={12}>
+                <div className={classes.tableItemTitle}>
                     <Typography variant={'h5'}>General info</Typography>
                 </div>
-                <Paper className={classes.tablesGridItemInner}>
+                <Paper className={classes.tableItemInner}>
                     <HeadlampNameValueTable rows={rows} />
                 </Paper>
-            </div>
-            <div className={classes.tablesGridItem}>
-                <div className={classes.tablesGridItemHeading}>
-                    <Typography variant={'h5'}>Metadata</Typography>
-                </div>
-                <Paper className={classes.tablesGridItemInner}>
-                    <MetadataTable kubeObjectData={codebaseBranch} />
-                </Paper>
-            </div>
-        </Box>
+            </Grid>
+        </Grid>
     );
 };

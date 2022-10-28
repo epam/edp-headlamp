@@ -1,10 +1,16 @@
-import { k8s } from '../../plugin.types';
+import { KubeMetadata } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
+import { KubeObjectInterface } from '../../plugin.types';
 
-export interface EDPKubeMetadata extends k8s.cluster.KubeMetadata {
+export interface EDPKubeMetadata
+    extends Omit<KubeMetadata, 'uid' | 'creationTimestamp' | 'resourceVersion' | 'selfLink'> {
     finalizers?: string[];
-    generation?: string;
+    generation?: number;
+    uid?: string;
+    creationTimestamp?: string;
+    resourceVersion?: string;
+    selfLink?: string;
 }
 
-export interface EDPKubeObjectInterface extends k8s.cluster.KubeObjectInterface {
+export interface EDPKubeObjectInterface extends Omit<KubeObjectInterface, 'metadata'> {
     metadata: EDPKubeMetadata;
 }

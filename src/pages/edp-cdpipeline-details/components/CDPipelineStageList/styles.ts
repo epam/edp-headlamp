@@ -18,4 +18,7 @@ export const useStyles = makeStyles(() => ({
         lineHeight: 0,
         width: '100%',
     },
+    accordionSummary: {
+        padding: `0 ${rem(26)}`,
+    },
 }));

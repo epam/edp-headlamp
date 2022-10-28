@@ -12,10 +12,8 @@ const { Box } = MuiCore;
 export const CodebaseGeneralInfoTable = ({
     kubeObjectData,
 }: CodebaseGeneralInfoTableProps): React.ReactElement => {
-    const { spec } = kubeObjectData;
-
     const classes = useStyles();
-    const columns = useColumns(spec, classes);
+    const columns = useColumns(kubeObjectData, classes);
 
     return (
         <SectionBox title={<SectionHeader title={'General Info'} headerStyle="label" />}>

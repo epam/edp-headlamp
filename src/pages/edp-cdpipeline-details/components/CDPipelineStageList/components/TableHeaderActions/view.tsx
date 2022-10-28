@@ -7,6 +7,7 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDP
 import { Iconify, MuiCore, React, ReactRedux } from '../../../../../../plugin.globals';
 import { clusterAction } from '../../../../../../redux/actions';
 import { DeepPartial } from '../../../../../../types/global';
+import { CDPipelineDataContext } from '../../../../view';
 import { TableHeaderActionsProps } from './types';
 
 const { Icon } = Iconify;
@@ -14,11 +15,11 @@ const { Tooltip, Button, Typography } = MuiCore;
 const { useDispatch } = ReactRedux;
 
 export const TableHeaderActions = ({
-    CDPipelineData,
-    currentCDPipelineStages,
+    CDPipelineStages,
 }: TableHeaderActionsProps): React.ReactElement => {
     const dispatch = useDispatch();
 
+    const CDPipelineData = React.useContext(CDPipelineDataContext);
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
 
     const onClose = React.useCallback(() => {
@@ -89,7 +90,7 @@ export const TableHeaderActions = ({
             <CreateCDPipelineStage
                 availableCITools={availableCITools}
                 CDPipelineData={CDPipelineData}
-                stagesQuantity={currentCDPipelineStages.length}
+                stagesQuantity={CDPipelineStages.length}
                 open={createDialogOpen}
                 onClose={onClose}
                 setOpen={setCreateDialogOpen}

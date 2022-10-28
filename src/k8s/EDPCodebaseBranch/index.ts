@@ -20,6 +20,7 @@ const {
     version,
 } = EDPCodebaseBranchKubeObjectConfig;
 
+// @ts-ignore
 export class EDPCodebaseBranchKubeObject extends makeKubeObject<EDPCodebaseBranchKubeObjectInterface>(
     singularForm
 ) {

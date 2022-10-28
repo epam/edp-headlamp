@@ -19,4 +19,6 @@ export enum ICONS {
     INFO_CIRCLE = 'ant-design:info-circle-outlined',
     REPOSITORY = 'mdi:source-repository-multiple',
     INFO = 'fe:info',
+    ACCEPT_ARROW = 'fluent-mdl2:accept',
+    CROSS = 'fluent-mdl2:cancel',
 }
