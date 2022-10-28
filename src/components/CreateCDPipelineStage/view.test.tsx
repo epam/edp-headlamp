@@ -20,6 +20,7 @@ const { ApiProxy } = pluginLib;
 describe('CreateCDPipelineStage', () => {
     it('should render correctly', async () => {
         const props: CreateCDPipelineStageProps = {
+            availableCITools: ['jenkins', 'tekton'],
             CDPipelineData: {
                 apiVersion: 'apiVersion',
                 kind: 'Stage',

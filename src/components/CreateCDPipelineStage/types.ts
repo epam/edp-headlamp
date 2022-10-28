@@ -3,6 +3,7 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineSt
 import { DeepPartial } from '../../types/global';
 
 export interface CreateCDPipelineStageProps {
+    availableCITools: string[];
     CDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>;
     stagesQuantity: number;
     open: boolean;

@@ -1,6 +1,7 @@
 import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useAvailableCITools } from '../../../../hooks/useAvailableCITools';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
@@ -77,6 +78,7 @@ export const CreateCDPipelineForm = ({
         formState: { isDirty },
         trigger,
         setValue,
+        watch,
     } = methods;
 
     const getFirstErrorTabName = React.useCallback(errors => {
@@ -190,6 +192,10 @@ export const CreateCDPipelineForm = ({
         );
     }, []);
 
+    const namespaceFieldValue = watch(CDPIPELINE_CREATION_FORM_NAMES.namespace.name);
+
+    const { availableCITools } = useAvailableCITools({ namespace: namespaceFieldValue });
+
     return (
         <FormProvider {...methods}>
             <Tabs
@@ -287,6 +293,7 @@ export const CreateCDPipelineForm = ({
                     </div>
                 </form>
                 <CreateCDPipelineStage
+                    availableCITools={availableCITools}
                     CDPipelineData={editorReturnValues}
                     stagesQuantity={stages.length}
                     open={createStageDialogOpen}

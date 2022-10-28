@@ -2,6 +2,7 @@ import { CreateCDPipelineStage } from '../../../../../../components/CreateCDPipe
 import { useCreateCDPipelineStage } from '../../../../../../components/CreateCDPipelineStage/hooks/useCreateCDPipelineStage';
 import { DELAYS } from '../../../../../../constants/delays';
 import { ICONS } from '../../../../../../constants/icons';
+import { useAvailableCITools } from '../../../../../../hooks/useAvailableCITools';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDPCDPipelineStage/types';
 import { Iconify, MuiCore, React, ReactRedux } from '../../../../../../plugin.globals';
 import { clusterAction } from '../../../../../../redux/actions';
@@ -71,6 +72,10 @@ export const TableHeaderActions = ({
         [applyFunc, dispatch]
     );
 
+    const { availableCITools } = useAvailableCITools({
+        namespace: CDPipelineData.metadata.namespace,
+    });
+
     return (
         <>
             <Tooltip title={'Create stage'}>
@@ -82,6 +87,7 @@ export const TableHeaderActions = ({
                 </Button>
             </Tooltip>
             <CreateCDPipelineStage
+                availableCITools={availableCITools}
                 CDPipelineData={CDPipelineData}
                 stagesQuantity={currentCDPipelineStages.length}
                 open={createDialogOpen}
