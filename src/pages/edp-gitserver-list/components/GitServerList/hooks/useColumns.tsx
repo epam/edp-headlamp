@@ -5,8 +5,8 @@ import { EDPGitServerKubeObjectInterface } from '../../../../../k8s/EDPGitServer
 import { pluginLib, React } from '../../../../../plugin.globals';
 import { GIT_SERVERS_ROUTE_NAME } from '../../../../../routes/names';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
+import { sortByActiveStatus } from '../../../../../utils/sort/sortByActiveStatus';
 import { sortByName } from '../../../../../utils/sort/sortByName';
-import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 
 const {
     CommonComponents: { Link },
@@ -19,10 +19,10 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPGitServerKubeOb
                 label: 'Status',
                 getter: ({ status }) => (
                     <StatusIcon
-                        status={status ? status.status : CUSTOM_RESOURCE_STATUSES['UNKNOWN']}
+                        status={status ? status.value : CUSTOM_RESOURCE_STATUSES['UNKNOWN']}
                     />
                 ),
-                sort: (a, b) => sortByStatus(a.status.status, b.status.status),
+                sort: (a, b) => sortByActiveStatus(a.status.value, b.status.value),
             },
             {
                 label: 'gitHost',

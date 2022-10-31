@@ -1,3 +1,7 @@
+interface StatusType {
+    [key: string]: number;
+}
+
 export enum CUSTOM_RESOURCE_STATUSES {
     // K8s Custom Resources statuses
 
@@ -10,13 +14,20 @@ export enum CUSTOM_RESOURCE_STATUSES {
     UNKNOWN = 'unknown',
 }
 
-interface StatusType {
-    [key: string]: number;
+export enum CUSTOM_RESOURCE_ACTIVE_STATUSES {
+    ACTIVE = 'active',
+    INACTIVE = 'inactive',
 }
+
 export const CUSTOM_RESOURCE_STATUS_SORT_ORDER: StatusType = {
     [CUSTOM_RESOURCE_STATUSES['CREATED']]: 0,
     [CUSTOM_RESOURCE_STATUSES['INITIALIZED']]: 0,
     [CUSTOM_RESOURCE_STATUSES['IN_PROGRESS']]: 1,
     [CUSTOM_RESOURCE_STATUSES['FAILED']]: 2,
     [CUSTOM_RESOURCE_STATUSES['UNKNOWN']]: 3,
+};
+
+export const CUSTOM_RESOURCE_ACTIVE_STATUS_SORT_ORDER: StatusType = {
+    [CUSTOM_RESOURCE_ACTIVE_STATUSES['ACTIVE']]: 0,
+    [CUSTOM_RESOURCE_ACTIVE_STATUSES['INACTIVE']]: 1,
 };

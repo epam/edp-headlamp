@@ -14,7 +14,6 @@ export const SecretString = ({ names, handleFormFieldChange }: SecretStringProps
     return (
         <FormTextField
             {...register(names.secretString.name, {
-                required: 'Please enter your secret string',
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}
