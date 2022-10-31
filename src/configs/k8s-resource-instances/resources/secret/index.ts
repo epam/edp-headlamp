@@ -31,13 +31,13 @@ export const createGitServerSecretInstance = (
         [key: string]: any;
     }
 ): DeepPartial<EDPKubeObjectInterface> => {
-    const { gitHost, namespace, ...restProps } = formValues;
+    const { name, namespace, ...restProps } = formValues;
 
     const base: DeepPartial<EDPKubeObjectInterface> = {
         apiVersion: 'v1',
         kind: 'Secret',
         metadata: {
-            name: `${gitHost}-config`,
+            name: `${name}-config`,
             namespace,
         },
     };

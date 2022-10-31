@@ -108,10 +108,13 @@ export const CreateGitServerForm = ({
     };
 
     const onSubmit = React.useCallback(
-        ({ namespace, gitHost, gitUser, sshPrivateKey, sshPublicKey, token, secretString }) => {
+        ({ namespace, gitUser, sshPrivateKey, sshPublicKey, token, secretString }) => {
+            const {
+                metadata: { name },
+            } = editorReturnValues;
             const gitServerSecretInstance = createGitServerSecretInstance(GIT_SERVER_SECRET_NAMES, {
                 namespace,
-                gitHost,
+                name,
                 gitUser: btoa(unescape(gitUser)),
                 sshPrivateKey: btoa(unescape(sshPrivateKey)),
                 sshPublicKey: btoa(unescape(sshPublicKey)),

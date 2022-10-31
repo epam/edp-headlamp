@@ -12,20 +12,22 @@ export const createGitServerInstance = (
     },
     formValues: {
         [key: string]: any;
-    }
+    },
+    randomPostfix: string
 ): DeepPartial<EDPGitServerKubeObjectInterface> => {
     const { namespace, gitHost, ...restProps } = formValues;
+    const gitServerName = `${gitHost}-${randomPostfix}`;
 
     const base: DeepPartial<EDPGitServerKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
-            name: gitHost,
+            name: gitServerName,
             namespace: namespace || 'your namespace',
         },
         spec: {
             gitHost,
-            nameSshKeySecret: `${gitHost}-config`,
+            nameSshKeySecret: `${gitServerName}-config`,
         },
     };
 

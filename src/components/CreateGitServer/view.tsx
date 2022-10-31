@@ -50,7 +50,7 @@ export const CreateGitServer = ({
             gitServerSecretData: DeepPartial<EDPKubeObjectInterface>
         ): Promise<void> => {
             const {
-                spec: { gitHost: name },
+                metadata: { name },
             } = gitServerData;
             const cancelUrl = location.pathname;
 
