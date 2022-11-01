@@ -19,7 +19,7 @@ export const HostName = ({ names, handleFormFieldChange }: HostNameProps) => {
                     handleFormFieldChange({ name, value }),
             })}
             label={'Host'}
-            placeholder={'Your host name'}
+            placeholder={'host-name.com'}
             control={control}
             errors={errors}
         />

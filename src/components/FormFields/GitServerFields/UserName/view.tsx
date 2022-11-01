@@ -19,7 +19,6 @@ export const UserName = ({ names, handleFormFieldChange }: UserNameProps) => {
                     handleFormFieldChange({ name, value }),
             })}
             label={'User'}
-            placeholder={'Your user name'}
             control={control}
             errors={errors}
         />

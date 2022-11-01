@@ -1,3 +1,4 @@
+export * from './GitProvider';
 export * from './HostName';
 export * from './SecretString';
 export * from './SSHPrivateKey';

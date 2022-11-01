@@ -19,7 +19,7 @@ export const SSHPublicKey = ({ names, handleFormFieldChange }: SSHPublicKeyProps
                     handleFormFieldChange({ name, value }),
             })}
             label={'Public SSH key'}
-            placeholder={'Your public SSH key'}
+            placeholder={'ssh-rsa *'}
             control={control}
             errors={errors}
             TextFieldProps={{

@@ -9,6 +9,7 @@ import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import {
+    GitProvider,
     HostName,
     HTTPSPort,
     Namespace,
@@ -138,6 +139,12 @@ export const CreateGitServerForm = ({
                                     handleFormFieldChange={handleFormFieldChange}
                                     names={GIT_SERVER_NAMES}
                                     namespaces={namespaces}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <GitProvider
+                                    handleFormFieldChange={handleFormFieldChange}
+                                    names={GIT_SERVER_NAMES}
                                 />
                             </Grid>
                             <Grid item xs={12}>

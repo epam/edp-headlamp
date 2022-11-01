@@ -19,7 +19,6 @@ export const Token = ({ names, handleFormFieldChange }: TokenProps) => {
                     handleFormFieldChange({ name, value }),
             })}
             label={'Token'}
-            placeholder={'Your Token'}
             control={control}
             errors={errors}
             TextFieldProps={{

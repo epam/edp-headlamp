@@ -19,7 +19,11 @@ export const SSHPrivateKey = ({ names, handleFormFieldChange }: SSHPrivateKeyPro
                     handleFormFieldChange({ name, value }),
             })}
             label={'Private SSH key'}
-            placeholder={'Your private SSH key'}
+            placeholder={
+                '-----BEGIN OPENSSH PRIVATE KEY-----\n' +
+                '                PRIVATE KEY   \n' +
+                '-----END OPENSSH PRIVATE KEY-----'
+            }
             control={control}
             errors={errors}
             TextFieldProps={{

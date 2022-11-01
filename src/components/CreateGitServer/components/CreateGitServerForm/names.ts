@@ -15,6 +15,11 @@ export const GIT_SERVER_CREATION_NAME_GIT_HOST: FormNameObject = {
     path: ['spec', 'gitHost'],
 };
 
+export const GIT_SERVER_CREATION_NAME_GIT_PROVIDER: FormNameObject = {
+    name: 'gitProvider',
+    path: ['spec', 'gitProvider'],
+};
+
 export const GIT_SERVER_CREATION_NAME_GIT_USER: FormNameObject = {
     name: 'gitUser',
     path: ['spec', 'gitUser'],
@@ -59,6 +64,7 @@ export const GIT_SERVER_NAMES: { [key: string]: FormNameObject } = {
     name: GIT_SERVER_CREATION_NAME_NAME,
     namespace: GIT_SERVER_CREATION_NAME_NAMESPACE,
     gitHost: GIT_SERVER_CREATION_NAME_GIT_HOST,
+    gitProvider: GIT_SERVER_CREATION_NAME_GIT_PROVIDER,
     gitUser: GIT_SERVER_CREATION_NAME_GIT_USER,
     sshPrivateKey: GIT_SERVER_CREATION_NAME_SSH_PRIVATE_KEY,
     sshPublicKey: GIT_SERVER_CREATION_NAME_SSH_PUBLIC_KEY,

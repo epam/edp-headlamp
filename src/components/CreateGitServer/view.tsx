@@ -82,7 +82,7 @@ export const CreateGitServer = ({
         >
             <div className={classes.dialog} data-testid={'create-git-server'}>
                 <div className={classes.dialogTitle}>
-                    <Typography variant={'h5'}>{`Create git server`}</Typography>
+                    <Typography variant={'h5'}>{`Create Git Server`}</Typography>
                     <Button
                         startIcon={<Icon icon={ICONS['PENCIL']} />}
                         size="small"

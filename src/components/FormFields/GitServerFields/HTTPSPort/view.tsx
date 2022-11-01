@@ -19,7 +19,7 @@ export const HTTPSPort = ({ names, handleFormFieldChange }: HTTPSPortProps) => {
                     handleFormFieldChange({ name, value }),
             })}
             label={'HTTPS port'}
-            placeholder={'Your HTTPS port'}
+            placeholder={'HTTPS port'}
             control={control}
             errors={errors}
             TextFieldProps={{

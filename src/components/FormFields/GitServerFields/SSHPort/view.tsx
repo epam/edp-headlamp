@@ -19,7 +19,7 @@ export const SSHPort = ({ names, handleFormFieldChange }: SSHPortProps) => {
                     handleFormFieldChange({ name, value }),
             })}
             label={'SSH port'}
-            placeholder={'Your SSH port'}
+            placeholder={'SSH port'}
             control={control}
             errors={errors}
             TextFieldProps={{

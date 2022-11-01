@@ -19,7 +19,6 @@ export const SecretString = ({ names, handleFormFieldChange }: SecretStringProps
             })}
             label={'Secret string'}
             title={'Enter the secret token to validate payloads'}
-            placeholder={'Your secret string'}
             control={control}
             errors={errors}
             TextFieldProps={{
