@@ -15,11 +15,11 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Java',
             value: 'Java',
-            icon: 'java-logo.png',
+            icon: 'java',
         },
         frameworks: {
-            java8: { name: 'Java 8', value: 'java8', icon: 'java-logo.png' },
-            java11: { name: 'Java 11', value: 'java11', icon: 'java-logo.png' },
+            java8: { name: 'Java 8', value: 'java8', icon: 'java' },
+            java11: { name: 'Java 11', value: 'java11', icon: 'java' },
         },
         buildTools: {
             gradle: { name: 'Gradle', value: 'gradle' },
@@ -30,10 +30,10 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'JavaScript',
             value: 'JavaScript',
-            icon: 'javascript-logo.png',
+            icon: 'javascript',
         },
         frameworks: {
-            react: { name: 'React', value: 'React', icon: 'react-logo.png' },
+            react: { name: 'React', value: 'React', icon: 'react' },
         },
         buildTools: {
             npm: { name: 'NPM', value: 'npm' },
@@ -43,11 +43,11 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'DotNet',
             value: 'DotNet',
-            icon: 'dotnet-logo.png',
+            icon: 'dotnet',
         },
         frameworks: {
-            'dotnet-2.1': { name: 'Dotnet 2.1', value: 'dotnet-2.1', icon: 'dotnet-core-logo.png' },
-            'dotnet-3.1': { name: 'Dotnet 3.1', value: 'dotnet-3.1', icon: 'dotnet-core-logo.png' },
+            'dotnet-2.1': { name: 'Dotnet 2.1', value: 'dotnet-2.1', icon: 'dotnetcore' },
+            'dotnet-3.1': { name: 'Dotnet 3.1', value: 'dotnet-3.1', icon: 'dotnetcore' },
         },
         buildTools: {
             dotnet: { name: 'dotnet', value: 'dotnet' },
@@ -57,10 +57,10 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Python',
             value: 'Python',
-            icon: 'python-logo.png',
+            icon: 'python',
         },
         frameworks: {
-            'python-3.8': { name: 'Python 3.8', value: 'python-3.8', icon: 'python-logo.png' },
+            'python-3.8': { name: 'Python 3.8', value: 'python-3.8', icon: 'python' },
         },
         buildTools: {
             python: { name: 'Python', value: 'python' },
@@ -70,10 +70,10 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Groovy-pipeline',
             value: 'groovy-pipeline',
-            icon: 'groovy-logo.png',
+            icon: 'groovy',
         },
         frameworks: {
-            codenarc: { name: 'Codenarc', value: 'codenarc', icon: 'codenarc-logo.png' },
+            codenarc: { name: 'Codenarc', value: 'codenarc', icon: 'codenarc' },
         },
         buildTools: {
             codenarc: { name: 'Codenarc', value: 'codenarc' },
@@ -83,10 +83,10 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Terraform',
             value: 'terraform',
-            icon: 'terraform-logo.png',
+            icon: 'terraform',
         },
         frameworks: {
-            terraform: { name: 'Terraform', value: 'terraform', icon: 'terraform-logo.png' },
+            terraform: { name: 'Terraform', value: 'terraform', icon: 'terraform' },
         },
         buildTools: {
             terraform: { name: 'Terraform', value: 'terraform' },
@@ -96,10 +96,10 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Rego',
             value: 'rego',
-            icon: 'opa-logo.png',
+            icon: 'opa',
         },
         frameworks: {
-            opa: { name: 'OPA', value: 'opa', icon: 'opa-logo.png' },
+            opa: { name: 'OPA', value: 'opa', icon: 'opa' },
         },
         buildTools: {
             opa: { name: 'OPA', value: 'opa' },
@@ -109,10 +109,10 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Container',
             value: 'container',
-            icon: 'container-logo.png',
+            icon: 'container',
         },
         frameworks: {
-            docker: { name: 'Docker', value: 'docker', icon: 'docker-logo.png' },
+            docker: { name: 'Docker', value: 'docker', icon: 'docker' },
         },
         buildTools: {
             kaniko: { name: 'Kaniko', value: 'kaniko' },
@@ -122,7 +122,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Other',
             value: 'other',
-            icon: 'other-logo.png',
+            icon: 'otherapps',
         },
         frameworks: {},
         buildTools: {

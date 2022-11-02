@@ -9,11 +9,11 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Java',
             value: 'Java',
-            icon: 'java-logo.png',
+            icon: 'java',
         },
         frameworks: {
-            java8: { name: 'Java 8', value: 'java8', icon: 'java-logo.png' },
-            java11: { name: 'Java 11', value: 'java11', icon: 'java-logo.png' },
+            java8: { name: 'Java 8', value: 'java8', icon: 'java' },
+            java11: { name: 'Java 11', value: 'java11', icon: 'java' },
         },
         buildTools: {
             gradle: { name: 'Gradle', value: 'gradle' },
@@ -24,7 +24,7 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Other',
             value: 'other',
-            icon: 'other-logo.png',
+            icon: 'otherapps',
         },
         frameworks: {},
         buildTools: {

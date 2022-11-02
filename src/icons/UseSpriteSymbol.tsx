@@ -7,7 +7,7 @@ interface UseSpriteSymbolProps {
 
 export const UseSpriteSymbol = ({ name, ...props }: UseSpriteSymbolProps): React.ReactElement => {
     return (
-        <span style={{ lineHeight: 0 }}>
+        <span style={{ display: 'block', lineHeight: 0 }}>
             <svg {...props}>
                 <use xlinkHref={`#${name}`} />
             </svg>

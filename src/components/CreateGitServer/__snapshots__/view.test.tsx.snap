@@ -330,7 +330,7 @@ exports[`CreateGitServer should render correctly 1`] = `
                                       value="gerrit"
                                     />
                                     <span
-                                      style="line-height: 0;"
+                                      style="display: block; line-height: 0;"
                                     >
                                       <svg
                                         height="20"
@@ -375,7 +375,7 @@ exports[`CreateGitServer should render correctly 1`] = `
                                       value="gitlab"
                                     />
                                     <span
-                                      style="line-height: 0;"
+                                      style="display: block; line-height: 0;"
                                     >
                                       <svg
                                         height="20"
@@ -420,7 +420,7 @@ exports[`CreateGitServer should render correctly 1`] = `
                                       value="github"
                                     />
                                     <span
-                                      style="line-height: 0;"
+                                      style="display: block; line-height: 0;"
                                     >
                                       <svg
                                         height="20"

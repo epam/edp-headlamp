@@ -1,28 +1,14 @@
 import { useFormContext } from 'react-hook-form';
+import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
 import { FormRadioGroup } from '../../../FormComponents/FormRadioGroup';
-import { FormRadioOption } from '../../../FormComponents/FormRadioGroup/types';
 import { FrameworkProps } from './types';
 
 const { Grid } = MuiCore;
-
-const LangFrameworkImage = ({ src }: { src: string }): React.ReactElement => {
-    return <img src={src} alt={''} width={20} height={20} style={{ objectFit: 'contain' }} />;
-};
-
-const getIconSrc = (icon: string) => {
-    try {
-        return require(`../../../../assets/applications/${icon}`).default;
-    } catch (e) {
-        if (process.env.NODE_ENV !== 'test') {
-            throw new Error(`Couldn't find an icon in ../../../../assets/applications/${name}`);
-        }
-    }
-};
 
 export const Framework = ({ names, handleFormFieldChange, type }: FrameworkProps) => {
     const {
@@ -68,15 +54,12 @@ export const Framework = ({ names, handleFormFieldChange, type }: FrameworkProps
                 errors={errors}
                 label={`${capitalizedCodebaseType} Code Framework`}
                 title={`Select ${type} language/framework and build tool.`}
-                options={Object.values(chosenLang.frameworks).map(({ name, value, icon }) => {
-                    const src = getIconSrc(String(icon));
-                    return {
-                        value,
-                        label: name,
-                        icon: <LangFrameworkImage src={src} />,
-                        checkedIcon: <LangFrameworkImage src={src} />,
-                    } as FormRadioOption;
-                })}
+                options={Object.values(chosenLang.frameworks).map(({ name, value, icon }) => ({
+                    value,
+                    label: name,
+                    icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                    checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                }))}
             />
         </Grid>
     );

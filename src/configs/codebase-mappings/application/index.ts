@@ -12,11 +12,11 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Java',
             value: 'Java',
-            icon: 'java-logo.png',
+            icon: 'java',
         },
         frameworks: {
-            java8: { name: 'Java 8', value: 'java8', icon: 'java-logo.png' },
-            java11: { name: 'Java 11', value: 'java11', icon: 'java-logo.png' },
+            java8: { name: 'Java 8', value: 'java8', icon: 'java' },
+            java11: { name: 'Java 11', value: 'java11', icon: 'java' },
         },
         buildTools: {
             gradle: {
@@ -33,13 +33,13 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'JavaScript',
             value: 'JavaScript',
-            icon: 'javascript-logo.png',
+            icon: 'javascript',
         },
         frameworks: {
             react: {
                 name: 'React',
                 value: 'React',
-                icon: 'react-logo.png',
+                icon: 'react',
             },
         },
         buildTools: {
@@ -50,11 +50,11 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'DotNet',
             value: 'DotNet',
-            icon: 'dotnet-logo.png',
+            icon: 'dotnet',
         },
         frameworks: {
-            'dotnet-2.1': { name: 'Dotnet 2.1', value: 'dotnet-2.1', icon: 'dotnet-core-logo.png' },
-            'dotnet-3.1': { name: 'Dotnet 3.1', value: 'dotnet-3.1', icon: 'dotnet-core-logo.png' },
+            'dotnet-2.1': { name: 'Dotnet 2.1', value: 'dotnet-2.1', icon: 'dotnetcore' },
+            'dotnet-3.1': { name: 'Dotnet 3.1', value: 'dotnet-3.1', icon: 'dotnetcore' },
         },
         buildTools: {
             dotnet: { name: 'dotnet', value: 'dotnet' },
@@ -64,10 +64,10 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Python',
             value: 'Python',
-            icon: 'python-logo.png',
+            icon: 'python',
         },
         frameworks: {
-            'python-3.8': { name: 'Python 3.8', value: 'python-3.8', icon: 'python-logo.png' },
+            'python-3.8': { name: 'Python 3.8', value: 'python-3.8', icon: 'python' },
         },
         buildTools: {
             python: { name: 'Python', value: 'python' },
@@ -77,14 +77,14 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Go',
             value: 'Go',
-            icon: 'go-logo.png',
+            icon: 'go',
         },
         frameworks: {
-            beego: { name: 'Beego', value: 'beego', icon: 'beego-logo.png' },
+            beego: { name: 'Beego', value: 'beego', icon: 'beego' },
             'operator-sdk': {
                 name: 'Operator SDK',
                 value: 'operator-sdk',
-                icon: 'operator-sdk-logo.png',
+                icon: 'operatorsdk',
             },
         },
         buildTools: {
@@ -95,7 +95,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
         language: {
             name: 'Other',
             value: 'other',
-            icon: 'other-logo.png',
+            icon: 'otherapps',
         },
         frameworks: {},
         buildTools: {

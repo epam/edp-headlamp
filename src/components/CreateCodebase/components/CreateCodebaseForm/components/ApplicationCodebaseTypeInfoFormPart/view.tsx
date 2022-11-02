@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { Applications } from '../../../../../../icons/sprites/Applications';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
 import {
@@ -27,6 +28,7 @@ export const ApplicationCodebaseTypeInfoFormPart = ({
 
     return (
         <ErrorBoundary>
+            <Applications />
             <Grid container spacing={2}>
                 <Name names={names} handleFormFieldChange={handleFormFieldChange} type={type} />
                 <DefaultBranch names={names} handleFormFieldChange={handleFormFieldChange} />

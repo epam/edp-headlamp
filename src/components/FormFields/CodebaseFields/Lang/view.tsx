@@ -3,6 +3,7 @@ import { APPLICATION_MAPPING } from '../../../../configs/codebase-mappings/appli
 import { AUTOTEST_MAPPING } from '../../../../configs/codebase-mappings/autotest';
 import { LIBRARY_MAPPING } from '../../../../configs/codebase-mappings/library';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
@@ -11,20 +12,6 @@ import { FormRadioGroup } from '../../../FormComponents/FormRadioGroup';
 import { LangProps } from './types';
 
 const { Grid } = MuiCore;
-
-const LangFrameworkImage = ({ src }: { src: string }): React.ReactElement => {
-    return <img src={src} alt={''} width={20} height={20} style={{ objectFit: 'contain' }} />;
-};
-
-const getIconSrc = (icon: string) => {
-    try {
-        return require(`../../../../assets/applications/${icon}`).default;
-    } catch (e) {
-        if (process.env.NODE_ENV !== 'test') {
-            throw new Error(`Couldn't find an icon in ../../../../assets/applications/${name}`);
-        }
-    }
-};
 
 export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
     const {
@@ -114,15 +101,12 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
                 label={`${capitalizedCodebaseType} Code Language`}
                 title={`Select ${type} language/framework and build tool.`}
                 options={Object.values(codebaseMapping).map(
-                    ({ language: { name, value, icon } }) => {
-                        const src = getIconSrc(icon);
-                        return {
-                            value,
-                            label: name,
-                            icon: <LangFrameworkImage src={src} />,
-                            checkedIcon: <LangFrameworkImage src={src} />,
-                        };
-                    }
+                    ({ language: { name, value, icon } }) => ({
+                        value,
+                        label: name,
+                        icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                        checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                    })
                 )}
             />
         </Grid>
