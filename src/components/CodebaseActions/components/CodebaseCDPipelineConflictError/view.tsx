@@ -1,7 +1,7 @@
-import { EDPCDPipelineKubeObject } from '../../../../k8s/EDPCDPipeline';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
-import { CDPIPELINE_ROUTE_NAME } from '../../../../routes/names';
+import { CDPIPELINES_ROUTE_NAME } from '../../../../routes/names';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
+import { createRouteNameBasedOnNameAndNamespace } from '../../../../utils/routes/createRouteName';
 import { useStyles } from './styles';
 import { CodebaseCDPipelineConflictErrorProps } from './types';
 
@@ -14,9 +14,6 @@ export const CodebaseCDPipelineConflictError = ({
     codebase,
 }: CodebaseCDPipelineConflictErrorProps): React.ReactElement => {
     const classes = useStyles();
-    const conflictedCDPipelineKubeObject = new EDPCDPipelineKubeObject(conflictedCDPipeline);
-    const conflictedCDPipelineRoute =
-        conflictedCDPipelineKubeObject.getDetailsLink(CDPIPELINE_ROUTE_NAME);
 
     return (
         <div className={classes.message}>
@@ -24,7 +21,13 @@ export const CodebaseCDPipelineConflictError = ({
                 {capitalizeFirstLetter(codebase.spec.type)} {codebase.metadata.name} is used in
             </Typography>
             <div className={classes.conflictEntityName}>
-                <Link to={conflictedCDPipelineRoute} routeName={null} kubeObject={null}>
+                <Link
+                    routeName={createRouteNameBasedOnNameAndNamespace(CDPIPELINES_ROUTE_NAME)}
+                    params={{
+                        name: conflictedCDPipeline.metadata.name,
+                        namespace: conflictedCDPipeline.metadata.namespace,
+                    }}
+                >
                     {conflictedCDPipeline.metadata.name}
                 </Link>
             </div>

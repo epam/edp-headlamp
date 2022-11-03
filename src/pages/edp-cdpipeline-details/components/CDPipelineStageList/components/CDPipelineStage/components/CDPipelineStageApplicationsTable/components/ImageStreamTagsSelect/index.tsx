@@ -39,12 +39,13 @@ export const ImageStreamTagsSelect = ({ application }: { application: EnrichedAp
         CDPipelineStages,
     });
 
-    const imageStreamTagsOptions = imageStream
-        ? imageStream.spec.tags.map(({ name }) => ({
-              label: name,
-              value: name,
-          }))
-        : [];
+    const imageStreamTagsOptions =
+        imageStream && imageStream.spec.tags
+            ? imageStream.spec.tags.map(({ name }) => ({
+                  label: name,
+                  value: name,
+              }))
+            : [];
 
     const { createArgoApplication } = useCreateArgoApplication(
         () => {

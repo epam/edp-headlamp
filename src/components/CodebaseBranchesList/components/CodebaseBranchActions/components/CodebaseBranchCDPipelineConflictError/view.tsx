@@ -1,6 +1,6 @@
-import { EDPCDPipelineKubeObject } from '../../../../../../k8s/EDPCDPipeline';
 import { MuiCore, pluginLib, React } from '../../../../../../plugin.globals';
-import { CDPIPELINE_ROUTE_NAME } from '../../../../../../routes/names';
+import { CDPIPELINES_ROUTE_NAME } from '../../../../../../routes/names';
+import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../utils/routes/createRouteName';
 import { useStyles } from './styles';
 import { CodebaseBranchCDPipelineConflictErrorProps } from './types';
 
@@ -13,15 +13,18 @@ export const CodebaseBranchCDPipelineConflictError = ({
     name,
 }: CodebaseBranchCDPipelineConflictErrorProps): React.ReactElement => {
     const classes = useStyles();
-    const conflictedCDPipelineKubeObject = new EDPCDPipelineKubeObject(conflictedCDPipeline);
-    const conflictedCDPipelineRoute =
-        conflictedCDPipelineKubeObject.getDetailsLink(CDPIPELINE_ROUTE_NAME);
 
     return (
         <div className={classes.message}>
             <Typography component={'span'}>Branch {name} is used in </Typography>
             <div className={classes.conflictEntityName}>
-                <Link to={conflictedCDPipelineRoute} routeName={null} kubeObject={null}>
+                <Link
+                    routeName={createRouteNameBasedOnNameAndNamespace(CDPIPELINES_ROUTE_NAME)}
+                    params={{
+                        name: conflictedCDPipeline.metadata.name,
+                        namespace: conflictedCDPipeline.metadata.namespace,
+                    }}
+                >
                     {conflictedCDPipeline.metadata.name}
                 </Link>
             </div>
