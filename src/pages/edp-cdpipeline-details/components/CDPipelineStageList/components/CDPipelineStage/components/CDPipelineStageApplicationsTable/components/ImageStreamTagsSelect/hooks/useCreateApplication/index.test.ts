@@ -4,10 +4,10 @@
 
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react-hooks';
-import { ArgoApplicationKubeObject } from '../../../../../../../../../../../../k8s/ArgoApplication';
+import { ApplicationKubeObject } from '../../../../../../../../../../../../k8s/Application';
 import { pluginLib } from '../../../../../../../../../../../../plugin.globals';
-import { useCreateArgoApplication } from './index';
-import { argoApplicationMock } from './mocks/argoApplication.mock';
+import { useCreateApplication } from './index';
+import { applicationMock } from './mocks/application.mock';
 import { gerritsMock } from './mocks/gerrits.mock';
 
 const { ApiProxy } = pluginLib;
@@ -19,7 +19,7 @@ jest.mock('notistack', () => ({
     withSnackbar: () => ({}),
 }));
 
-ArgoApplicationKubeObject.apiEndpoint.post = jest.fn().mockImplementation(() => {});
+ApplicationKubeObject.apiEndpoint.post = jest.fn().mockImplementation(() => {});
 
 beforeEach(() => {
     jest.spyOn(global.Math, 'random').mockReturnValue(0.123456789);
@@ -30,13 +30,13 @@ afterEach(() => {
     jest.spyOn(global.Math, 'random').mockRestore();
 });
 
-describe('testing useCreateArgoApplication hook', () => {
-    it('should successfully create ArgoApplication resource', async () => {
-        let argoApplicationCreated: boolean = false;
+describe('testing useCreateApplication hook', () => {
+    it('should successfully create Application resource', async () => {
+        let applicationCreated: boolean = false;
         let hasError: boolean = false;
 
         const onCreate = (): void => {
-            argoApplicationCreated = true;
+            applicationCreated = true;
         };
         const onError = (): void => {
             hasError = true;
@@ -48,17 +48,17 @@ describe('testing useCreateArgoApplication hook', () => {
             }
         });
 
-        const argoApplicationPostRequestSpy = jest
-            .spyOn(ArgoApplicationKubeObject.apiEndpoint, 'post')
-            .mockResolvedValue(argoApplicationMock);
+        const applicationPostRequestSpy = jest
+            .spyOn(ApplicationKubeObject.apiEndpoint, 'post')
+            .mockResolvedValue(applicationMock);
 
         const {
             result: {
-                current: { createArgoApplication },
+                current: { createApplication },
             },
-        } = renderHook(() => useCreateArgoApplication(onCreate, onError));
+        } = renderHook(() => useCreateApplication(onCreate, onError));
 
-        const createArgoApplicationPromise = createArgoApplication({
+        const createApplicationPromise = createApplication({
             pipelineName: 'test-pipeline-name',
             stageName: 'test-stage-name',
             appName: 'test-app-name',
@@ -67,18 +67,18 @@ describe('testing useCreateArgoApplication hook', () => {
             namespace: 'test-namespace',
         });
 
-        await expect(createArgoApplicationPromise).resolves.toEqual(argoApplicationMock);
-        expect(argoApplicationPostRequestSpy).toHaveBeenCalledWith(argoApplicationMock);
+        await expect(createApplicationPromise).resolves.toEqual(applicationMock);
+        expect(applicationPostRequestSpy).toHaveBeenCalledWith(applicationMock);
 
-        expect(argoApplicationCreated).toBe(true);
+        expect(applicationCreated).toBe(true);
         expect(hasError).toBe(false);
     });
-    it(`shouldn't create ArgoApplication if something goes wrong`, async () => {
-        let argoApplicationCreated: boolean = false;
+    it(`shouldn't create Application if something goes wrong`, async () => {
+        let applicationCreated: boolean = false;
         let hasError: boolean = false;
 
         const onCreate = (): void => {
-            argoApplicationCreated = true;
+            applicationCreated = true;
         };
         const onError = (): void => {
             hasError = true;
@@ -90,17 +90,17 @@ describe('testing useCreateArgoApplication hook', () => {
             }
         });
 
-        const argoApplicationPostRequestSpy = jest
-            .spyOn(ArgoApplicationKubeObject.apiEndpoint, 'post')
+        const applicationPostRequestSpy = jest
+            .spyOn(ApplicationKubeObject.apiEndpoint, 'post')
             .mockRejectedValue({ status: 'Failure' });
 
         const {
             result: {
-                current: { createArgoApplication },
+                current: { createApplication },
             },
-        } = renderHook(() => useCreateArgoApplication(onCreate, onError));
+        } = renderHook(() => useCreateApplication(onCreate, onError));
 
-        const createArgoApplicationPromise = createArgoApplication({
+        const createApplicationPromise = createApplication({
             pipelineName: 'test-pipeline-name',
             stageName: 'test-stage-name',
             appName: 'test-app-name',
@@ -109,10 +109,10 @@ describe('testing useCreateArgoApplication hook', () => {
             namespace: 'test-namespace',
         });
 
-        await expect(createArgoApplicationPromise).rejects.toEqual({ status: 'Failure' });
-        expect(argoApplicationPostRequestSpy).toHaveBeenCalledWith(argoApplicationMock);
+        await expect(createApplicationPromise).rejects.toEqual({ status: 'Failure' });
+        expect(applicationPostRequestSpy).toHaveBeenCalledWith(applicationMock);
 
-        expect(argoApplicationCreated).toBe(false);
+        expect(applicationCreated).toBe(false);
         expect(hasError).toBe(true);
     });
 });

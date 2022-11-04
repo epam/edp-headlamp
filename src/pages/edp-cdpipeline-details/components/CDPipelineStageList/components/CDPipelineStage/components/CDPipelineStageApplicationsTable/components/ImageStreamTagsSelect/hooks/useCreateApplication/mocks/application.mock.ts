@@ -1,9 +1,9 @@
-import { ArgoApplicationKubeObjectInterface } from '../../../../../../../../../../../../../k8s/ArgoApplication/types';
+import { ApplicationKubeObjectInterface } from '../../../../../../../../../../../../../k8s/Application/types';
 import { DeepPartial } from '../../../../../../../../../../../../../types/global';
 
-export const argoApplicationMock: DeepPartial<ArgoApplicationKubeObjectInterface> = {
-    apiVersion: 'v1.edp.epam.com/v1alpha1',
-    kind: 'ArgoApplication',
+export const applicationMock: DeepPartial<ApplicationKubeObjectInterface> = {
+    apiVersion: 'argoproj.io/v1alpha1',
+    kind: 'Application',
     metadata: {
         name: `test-pipeline-name-test-stage-name-test-app-name-4fzzz`,
         namespace: 'test-namespace',

@@ -1,6 +1,6 @@
-import { createArgoApplicationInstance } from '../../../../../../../../../../../../configs/k8s-resource-instances/custom-resources/argo-application';
-import { ArgoApplicationKubeObject } from '../../../../../../../../../../../../k8s/ArgoApplication';
-import { ArgoApplicationKubeObjectInterface } from '../../../../../../../../../../../../k8s/ArgoApplication/types';
+import { createApplicationInstance } from '../../../../../../../../../../../../configs/k8s-resource-instances/custom-resources/application';
+import { ApplicationKubeObject } from '../../../../../../../../../../../../k8s/Application';
+import { ApplicationKubeObjectInterface } from '../../../../../../../../../../../../k8s/Application/types';
 import { getGerritList } from '../../../../../../../../../../../../k8s/Gerrit';
 import { Notistack, React } from '../../../../../../../../../../../../plugin.globals';
 import { createErrorMessage } from '../../../../../../../../../../../../utils/createErrorMessage';
@@ -8,7 +8,7 @@ import { throwErrorNoty } from '../../../../../../../../../../../../utils/throwE
 
 const { useSnackbar } = Notistack;
 
-interface createArgoApplicationInterface {
+interface createApplicationInterface {
     pipelineName: string;
     stageName: string;
     appName: string;
@@ -17,22 +17,22 @@ interface createArgoApplicationInterface {
     namespace: string;
 }
 
-export const useCreateArgoApplication = (
+export const useCreateApplication = (
     onSuccess,
     onError
 ): {
-    createArgoApplication: ({
+    createApplication: ({
         pipelineName,
         stageName,
         appName,
         imageName,
         imageTag,
         namespace,
-    }: createArgoApplicationInterface) => Promise<ArgoApplicationKubeObjectInterface>;
+    }: createApplicationInterface) => Promise<ApplicationKubeObjectInterface>;
 } => {
     const { enqueueSnackbar } = useSnackbar();
 
-    const createArgoApplication = React.useCallback(
+    const createApplication = React.useCallback(
         async ({
             pipelineName,
             stageName,
@@ -40,8 +40,8 @@ export const useCreateArgoApplication = (
             imageName,
             imageTag,
             namespace,
-        }: createArgoApplicationInterface): Promise<ArgoApplicationKubeObjectInterface> => {
-            let newArgoApplicationData: ArgoApplicationKubeObjectInterface;
+        }: createApplicationInterface): Promise<ApplicationKubeObjectInterface> => {
+            let newApplicationData: ApplicationKubeObjectInterface;
 
             try {
                 const { items } = await getGerritList(namespace);
@@ -50,7 +50,7 @@ export const useCreateArgoApplication = (
                     spec: { sshPort },
                 } = gerrit;
 
-                newArgoApplicationData = createArgoApplicationInstance({
+                newApplicationData = createApplicationInstance({
                     pipelineName,
                     stageName,
                     appName,
@@ -60,13 +60,14 @@ export const useCreateArgoApplication = (
                     namespace,
                 });
 
-                const argoApplicationPostRequestResult =
-                    await ArgoApplicationKubeObject.apiEndpoint.post(newArgoApplicationData);
+                const applicationPostRequestResult = await ApplicationKubeObject.apiEndpoint.post(
+                    newApplicationData
+                );
 
                 onSuccess();
-                return argoApplicationPostRequestResult;
+                return applicationPostRequestResult;
             } catch (err) {
-                const errorMessage = createErrorMessage(err, newArgoApplicationData.metadata.name);
+                const errorMessage = createErrorMessage(err, newApplicationData.metadata.name);
                 throwErrorNoty(enqueueSnackbar, errorMessage);
                 onError();
                 throw err;
@@ -75,5 +76,5 @@ export const useCreateArgoApplication = (
         [enqueueSnackbar, onError, onSuccess]
     );
 
-    return { createArgoApplication };
+    return { createApplication };
 };

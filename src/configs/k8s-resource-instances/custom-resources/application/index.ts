@@ -1,10 +1,10 @@
-import { ArgoApplicationKubeObjectConfig } from '../../../../k8s/ArgoApplication/config';
-import { ArgoApplicationKubeObjectInterface } from '../../../../k8s/ArgoApplication/types';
+import { ApplicationKubeObjectConfig } from '../../../../k8s/Application/config';
+import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
 import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
 
-const { kind, group, version } = ArgoApplicationKubeObjectConfig;
+const { kind, group, version } = ApplicationKubeObjectConfig;
 
-export const createArgoApplicationInstance = ({
+export const createApplicationInstance = ({
     pipelineName,
     stageName,
     appName,
@@ -12,7 +12,7 @@ export const createArgoApplicationInstance = ({
     imageTag,
     port,
     namespace,
-}): ArgoApplicationKubeObjectInterface => {
+}): ApplicationKubeObjectInterface => {
     return {
         apiVersion: `${group}/${version}`,
         kind,

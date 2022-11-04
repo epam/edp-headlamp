@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { FormSelect } from '../../../../../../../../../../components/FormComponents';
 import { EnrichedApplication } from '../../../../../../../../../../hooks/useApplicationsInCDPipeline';
-import { ArgoApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/ArgoApplication/types';
+import { ApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/Application/types';
 import { MuiCore, React, ReactRedux } from '../../../../../../../../../../plugin.globals';
 import { clusterAction } from '../../../../../../../../../../redux/actions';
 import { CDPipelineDataContext } from '../../../../../../../../view';
@@ -9,7 +9,7 @@ import {
     CDPipelineStagesDataContext,
     CurrentCDPipelineStageDataContext,
 } from '../../../../../../view';
-import { useCreateArgoApplication } from './hooks/useCreateArgoApplication';
+import { useCreateApplication } from './hooks/useCreateApplication';
 import { useImageStreamBasedOnResources } from './hooks/useImageStreamBasedOnResources';
 
 const { Grid, Button } = MuiCore;
@@ -47,7 +47,7 @@ export const ImageStreamTagsSelect = ({ application }: { application: EnrichedAp
               }))
             : [];
 
-    const { createArgoApplication } = useCreateArgoApplication(
+    const { createApplication } = useCreateApplication(
         () => {
             setIsApplying(false);
         },
@@ -64,8 +64,8 @@ export const ImageStreamTagsSelect = ({ application }: { application: EnrichedAp
             imageName,
             imageTag,
             namespace,
-        }): Promise<ArgoApplicationKubeObjectInterface> =>
-            createArgoApplication({
+        }): Promise<ApplicationKubeObjectInterface> =>
+            createApplication({
                 pipelineName,
                 stageName,
                 appName,
@@ -73,7 +73,7 @@ export const ImageStreamTagsSelect = ({ application }: { application: EnrichedAp
                 imageTag,
                 namespace,
             }),
-        [createArgoApplication]
+        [createApplication]
     );
     const handleApply = React.useCallback(
         async ({

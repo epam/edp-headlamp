@@ -16,7 +16,7 @@ const {
 } = GerritKubeObjectConfig;
 
 // @ts-ignore
-export class ArgoApplication extends makeKubeObject<GerritKubeObjectInterface>(singularForm) {
+export class Application extends makeKubeObject<GerritKubeObjectInterface>(singularForm) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
     static get className(): string {

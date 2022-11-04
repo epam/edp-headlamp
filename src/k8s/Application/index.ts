@@ -1,10 +1,6 @@
 import { pluginLib } from '../../plugin.globals';
-import { ArgoApplicationKubeObjectConfig } from './config';
-import {
-    ArgoApplicationKubeObjectInterface,
-    ArgoApplicationSpec,
-    ArgoApplicationStatus,
-} from './types';
+import { ApplicationKubeObjectConfig } from './config';
+import { ApplicationKubeObjectInterface, ApplicationSpec, ApplicationStatus } from './types';
 
 const {
     ApiProxy,
@@ -17,10 +13,10 @@ const {
     name: { singularForm, pluralForm },
     group,
     version,
-} = ArgoApplicationKubeObjectConfig;
+} = ApplicationKubeObjectConfig;
 
 // @ts-ignore
-export class ArgoApplicationKubeObject extends makeKubeObject<ArgoApplicationKubeObjectInterface>(
+export class ApplicationKubeObject extends makeKubeObject<ApplicationKubeObjectInterface>(
     singularForm
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
@@ -29,11 +25,11 @@ export class ArgoApplicationKubeObject extends makeKubeObject<ArgoApplicationKub
         return singularForm;
     }
 
-    get spec(): ArgoApplicationSpec {
+    get spec(): ApplicationSpec {
         return this.jsonData!.spec;
     }
 
-    get status(): ArgoApplicationStatus {
+    get status(): ApplicationStatus {
         return this.jsonData!.status;
     }
 }
