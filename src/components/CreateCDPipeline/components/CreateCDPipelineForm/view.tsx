@@ -285,7 +285,7 @@ export const CreateCDPipelineForm = ({
                                 variant={'contained'}
                                 color={'primary'}
                                 size="small"
-                                disabled={!isDirty || isApplying}
+                                disabled={!isDirty || isApplying || !stages.length}
                             >
                                 apply
                             </Button>

@@ -41,7 +41,7 @@ export const CreateCDPipeline = ({
         async (
             newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>,
             stages: EDPCDPipelineStageKubeObjectInterface[]
-        ): Promise<EDPCDPipelineKubeObjectInterface | undefined> =>
+        ): Promise<DeepPartial<EDPCDPipelineKubeObjectInterface> | undefined> =>
             createCDPipeline(newCDPipelineData, stages),
         [createCDPipeline]
     );

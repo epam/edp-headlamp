@@ -19,11 +19,15 @@ jest.mock('notistack', () => ({
 }));
 
 EDPCDPipelineKubeObject.apiEndpoint.post = jest.fn().mockImplementation(() => {});
+EDPCDPipelineKubeObject.apiEndpoint.delete = jest.fn().mockImplementation(() => {});
 EDPCDPipelineStageKubeObject.apiEndpoint.post = jest.fn().mockImplementation(() => {});
+EDPCDPipelineStageKubeObject.apiEndpoint.delete = jest.fn().mockImplementation(() => {});
 
 afterEach(() => {
     jest.clearAllMocks();
 });
+
+const stages = [stageSitMock, stageQAMock];
 
 describe('testing useCreateCDPipeline hook', () => {
     it(`should successfully create cd pipeline and stages`, async () => {
@@ -36,7 +40,6 @@ describe('testing useCreateCDPipeline hook', () => {
         const onError = (): void => {
             hasError = true;
         };
-        const stages = [stageSitMock, stageQAMock];
 
         const CDPipelineRequestSpy = jest
             .spyOn(EDPCDPipelineKubeObject.apiEndpoint, 'post')
@@ -63,35 +66,101 @@ describe('testing useCreateCDPipeline hook', () => {
         expect(cdPipelineCreated).toBe(true);
         expect(hasError).toBe(false);
     });
-    it(`should throw an error if something goes wrong`, async () => {
+    it(`should delete created cd pipeline if some of the stages were failed to create`, async () => {
         let cdPipelineCreated: boolean = false;
+        let stagesCreated: boolean = false;
         let hasError: boolean = false;
 
         const onCreate = (): void => {
             cdPipelineCreated = true;
+            stagesCreated = true;
         };
         const onError = (): void => {
             hasError = true;
+            stagesCreated = false;
         };
-        const requestSpy = jest
+        const CDPipelinePostRequestSpy = jest
             .spyOn(EDPCDPipelineKubeObject.apiEndpoint, 'post')
-            .mockRejectedValue({ status: 'Failure' });
+            .mockReturnValue(cdPipelineMock);
+        const CDPipelineDeleteRequestSpy = jest.spyOn(
+            EDPCDPipelineKubeObject.apiEndpoint,
+            'delete'
+        );
+        jest.spyOn(EDPCDPipelineStageKubeObject.apiEndpoint, 'post').mockRejectedValueOnce({
+            status: 'Failure',
+            stagesFailed: true,
+        });
 
         const {
             result: {
                 current: { createCDPipeline },
             },
+            waitForNextUpdate,
         } = renderHook(() => useCreateCDPipeline(onCreate, onError));
 
-        const createCDPipelinePromise = createCDPipeline(cdPipelineMock, [
-            stageSitMock,
-            stageQAMock,
-        ]);
-        await expect(createCDPipelinePromise).rejects.toEqual({ status: 'Failure' });
+        createCDPipeline(cdPipelineMock, stages);
+        await waitForNextUpdate();
 
-        await expect(requestSpy).toHaveBeenCalledWith(cdPipelineMock);
+        expect(CDPipelinePostRequestSpy).toHaveBeenCalled();
+
+        expect(CDPipelineDeleteRequestSpy).toHaveBeenCalled();
 
         expect(cdPipelineCreated).toBe(false);
         expect(hasError).toBe(true);
+        expect(stagesCreated).toBe(false);
+    });
+    it(`should delete created cd pipeline and created stages if some of the stages were failed to create`, async () => {
+        let cdPipelineCreated: boolean = false;
+        let stagesCreated: boolean = false;
+        let hasError: boolean = false;
+
+        const onCreate = (): void => {
+            cdPipelineCreated = true;
+            stagesCreated = true;
+        };
+        const onError = (): void => {
+            hasError = true;
+            stagesCreated = false;
+        };
+        const CDPipelinePostRequestSpy = jest
+            .spyOn(EDPCDPipelineKubeObject.apiEndpoint, 'post')
+            .mockReturnValue(cdPipelineMock);
+        const CDPipelineDeleteRequestSpy = jest.spyOn(
+            EDPCDPipelineKubeObject.apiEndpoint,
+            'delete'
+        );
+        jest.spyOn(EDPCDPipelineStageKubeObject.apiEndpoint, 'post').mockResolvedValueOnce(
+            stages[0]
+        );
+        jest.spyOn(EDPCDPipelineStageKubeObject.apiEndpoint, 'post').mockRejectedValueOnce({
+            status: 'Failure',
+            stagesFailed: true,
+        });
+        const CDPipelineStageDeleteRequestSpy = jest.spyOn(
+            EDPCDPipelineStageKubeObject.apiEndpoint,
+            'delete'
+        );
+
+        const {
+            result: {
+                current: { createCDPipeline },
+            },
+            waitForNextUpdate,
+        } = renderHook(() => useCreateCDPipeline(onCreate, onError));
+
+        createCDPipeline(cdPipelineMock, stages);
+        await waitForNextUpdate();
+
+        expect(CDPipelinePostRequestSpy).toHaveBeenCalled();
+
+        expect(CDPipelineDeleteRequestSpy).toHaveBeenCalled();
+        expect(CDPipelineStageDeleteRequestSpy).toHaveBeenCalledWith(
+            stages[0].metadata.namespace,
+            stages[0].metadata.name
+        );
+
+        expect(cdPipelineCreated).toBe(false);
+        expect(hasError).toBe(true);
+        expect(stagesCreated).toBe(false);
     });
 });
