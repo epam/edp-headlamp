@@ -13,6 +13,7 @@ import {
     RepositoryUrl,
     Strategy,
 } from '../../../../../FormFields/CodebaseFields';
+import { useUpdateFieldsDependingOnChosenIntegrationStrategy } from '../../hooks/useUpdateFieldsDependingOnChosenIntegrationStrategy';
 import { isCloneStrategy, isImportStrategy } from '../../utils';
 import { ApplicationCodebaseInfoFormPartProps } from './types';
 
@@ -23,13 +24,20 @@ export const ApplicationCodebaseInfoFormPart = ({
     handleFormFieldChange,
     type,
 }: ApplicationCodebaseInfoFormPartProps): React.ReactElement => {
-    const { watch } = useFormContext();
+    const { watch, resetField } = useFormContext();
     const { namespaces } = useNamespaces();
 
     const strategyFieldValue = watch(names.strategy.name);
     const hasCodebaseAuthFieldValue = watch(names.hasCodebaseAuth.name);
     const namespaceFieldValue = watch(names.namespace.name);
     const { gitServers } = useGitServers({ namespace: namespaceFieldValue });
+
+    useUpdateFieldsDependingOnChosenIntegrationStrategy({
+        watch,
+        handleFormFieldChange,
+        resetField,
+        names,
+    });
 
     return (
         <ErrorBoundary>
