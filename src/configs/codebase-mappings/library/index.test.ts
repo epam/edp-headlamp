@@ -15,11 +15,6 @@ describe('getLibraryRecommendedJenkinsAgent', () => {
             expected: undefined,
         },
         {
-            testName: 'should map to java8 if lang is other',
-            args: ['other'],
-            expected: 'maven-java8',
-        },
-        {
             testName: 'should map java 8 library with maven',
             args: ['Java', 'java8', 'maven'],
             expected: 'maven-java8',

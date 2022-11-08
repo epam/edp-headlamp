@@ -41,7 +41,7 @@ export const ApplicationCodebaseTypeInfoFormPart = ({
                         type={type}
                     />
                 ) : null}
-                {langValue && Object.values(chosenLang.buildTools).length ? (
+                {langValue ? (
                     <BuildTool
                         names={names}
                         handleFormFieldChange={handleFormFieldChange}

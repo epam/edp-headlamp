@@ -5,7 +5,7 @@ const LANGUAGE_JAVASCRIPT = 'JavaScript';
 const LANGUAGE_DOTNET = 'DotNet';
 const LANGUAGE_PYTHON = 'Python';
 const LANGUAGE_GO = 'Go';
-const LANGUAGE_OTHER = 'other';
+export const LANGUAGE_OTHER = 'other';
 
 export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
     [LANGUAGE_JAVA]: {
@@ -98,74 +98,75 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             icon: 'otherapps',
         },
         frameworks: {},
-        buildTools: {
-            maven: { name: 'Maven', value: 'maven' },
-        },
+        buildTools: {},
     },
+};
+
+const mapJavaBasedAgent = (framework: string, buildTool: string): string | undefined => {
+    let result = '';
+    const mapping = APPLICATION_MAPPING[LANGUAGE_JAVA];
+
+    switch (buildTool) {
+        case mapping.buildTools.gradle.value:
+            result += 'gradle';
+            break;
+        case mapping.buildTools.maven.value:
+            result += 'maven';
+            break;
+        default:
+            return undefined;
+    }
+
+    result += '-';
+
+    switch (framework) {
+        case mapping.frameworks.java8.value:
+            result += 'java8';
+            break;
+        case mapping.frameworks.java11.value:
+            result += 'java11';
+            break;
+        default:
+            return undefined;
+    }
+
+    return result;
+};
+
+const mapDotNetBasedAgent = (framework: string): string | undefined => {
+    let result = 'dotnet-';
+    const mapping = APPLICATION_MAPPING[LANGUAGE_DOTNET];
+
+    switch (framework) {
+        case mapping.frameworks['dotnet-2.1'].value:
+            result += 'dotnet-2.1';
+            break;
+        case mapping.frameworks['dotnet-3.1'].value:
+            result += 'dotnet-3.1';
+            break;
+        default:
+            return undefined;
+    }
+
+    return result;
 };
 
 export const getApplicationRecommendedJenkinsAgent = (
     lang: string,
-    framework: string,
-    buildTool: string
+    framework?: string,
+    buildTool?: string
 ): string | undefined => {
-    if (
-        lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
-        framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java8.value &&
-        buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.gradle.value
-    ) {
-        return 'gradle-java8';
-    }
-
-    if (
-        (lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
-            framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java8.value &&
-            buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.maven.value) ||
-        lang === APPLICATION_MAPPING[LANGUAGE_OTHER].language.value
-    ) {
-        return 'maven-java8';
-    }
-
-    if (
-        lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
-        framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java11.value &&
-        buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.gradle.value
-    ) {
-        return 'gradle-java11';
-    }
-
-    if (
-        lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
-        framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java11.value &&
-        buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.maven.value
-    ) {
-        return 'maven-java11';
-    }
-
-    if (lang === APPLICATION_MAPPING[LANGUAGE_JAVASCRIPT].language.value) {
-        return 'npm';
-    }
-
-    if (
-        lang === APPLICATION_MAPPING[LANGUAGE_DOTNET].language.value &&
-        framework === APPLICATION_MAPPING[LANGUAGE_DOTNET].frameworks['dotnet-2.1'].value
-    ) {
-        return 'dotnet-dotnet-2.1';
-    }
-
-    if (
-        lang === APPLICATION_MAPPING[LANGUAGE_DOTNET].language.value &&
-        framework === APPLICATION_MAPPING[LANGUAGE_DOTNET].frameworks['dotnet-3.1'].value
-    ) {
-        return 'dotnet-dotnet-3.1';
-    }
-
-    if (lang === APPLICATION_MAPPING[LANGUAGE_PYTHON].language.value) {
-        return 'python-3.8';
-    }
-
-    if (lang === APPLICATION_MAPPING[LANGUAGE_GO].language.value) {
-        return 'go';
+    switch (lang) {
+        case APPLICATION_MAPPING[LANGUAGE_JAVA].language.value:
+            return mapJavaBasedAgent(framework, buildTool);
+        case APPLICATION_MAPPING[LANGUAGE_JAVASCRIPT].language.value:
+            return 'npm';
+        case APPLICATION_MAPPING[LANGUAGE_DOTNET].language.value:
+            return mapDotNetBasedAgent(framework);
+        case APPLICATION_MAPPING[LANGUAGE_PYTHON].language.value:
+            return 'python-3.8';
+        case APPLICATION_MAPPING[LANGUAGE_GO].language.value:
+            return 'go';
     }
 
     return undefined;

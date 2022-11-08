@@ -1,9 +1,12 @@
 import { useFormContext } from 'react-hook-form';
+import { LANGUAGE_OTHER } from '../../../../configs/codebase-mappings/application';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent, SelectOption } from '../../../../types/forms';
 import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
 import { FormSelect } from '../../../FormComponents';
+import { FormTextField } from '../../../FormComponents/FormTextField';
+import { Render } from '../../../Render';
 import { BuildToolProps } from './types';
 
 const { Grid } = MuiCore;
@@ -42,23 +45,47 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
 
     return (
         <Grid item xs={12}>
-            <FormSelect
-                {...register(names.buildTool.name, {
-                    required: `Select ${type} build tool.`,
-                    onChange: onBuildToolChange,
-                })}
-                label={'Select Build Tool'}
-                placeholder={'Select Build Tool'}
-                title={`Select ${type} build tool.`}
-                control={control}
-                errors={errors}
-                options={Object.values(chosenLang.buildTools).map(({ name, value }) => {
-                    return {
-                        label: name,
-                        value,
-                    } as SelectOption;
-                })}
-            />
+            <Render condition={langValue === LANGUAGE_OTHER}>
+                <FormTextField
+                    {...register(names.buildTool.name, {
+                        required: `Select ${type} build tool.`,
+                        maxLength: {
+                            value: 8,
+                            message: 'You exceeded the maximum length of 8',
+                        },
+                        pattern: {
+                            value: /[a-z]/,
+                            message: 'Invalid build tool name: [a-z]',
+                        },
+                        onBlur: ({ target: { name, value } }: FieldEvent) =>
+                            handleFormFieldChange({ name, value }),
+                    })}
+                    label={'Build Tool'}
+                    title={`Select ${type} build tool.`}
+                    placeholder={`Enter build tool`}
+                    control={control}
+                    errors={errors}
+                />
+            </Render>
+            <Render condition={langValue !== LANGUAGE_OTHER}>
+                <FormSelect
+                    {...register(names.buildTool.name, {
+                        required: `Select ${type} build tool.`,
+                        onChange: onBuildToolChange,
+                    })}
+                    label={'Select Build Tool'}
+                    placeholder={'Select Build Tool'}
+                    title={`Select ${type} build tool.`}
+                    control={control}
+                    errors={errors}
+                    options={Object.values(chosenLang.buildTools).map(({ name, value }) => {
+                        return {
+                            label: name,
+                            value,
+                        } as SelectOption;
+                    })}
+                />
+            </Render>
         </Grid>
     );
 };

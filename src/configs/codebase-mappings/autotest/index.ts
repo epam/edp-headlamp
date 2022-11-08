@@ -27,51 +27,52 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
             icon: 'otherapps',
         },
         frameworks: {},
-        buildTools: {
-            maven: { name: 'Maven', value: 'maven' },
-        },
+        buildTools: {},
         autoTestReportFrameworks: {
             allure: { name: 'allure', value: 'allure' },
         },
     },
 };
 
+const mapJavaBasedAgent = (framework: string, buildTool: string): string | undefined => {
+    let result = '';
+    const mapping = AUTOTEST_MAPPING[LANGUAGE_JAVA];
+
+    switch (buildTool) {
+        case mapping.buildTools.gradle.value:
+            result += 'gradle';
+            break;
+        case mapping.buildTools.maven.value:
+            result += 'maven';
+            break;
+        default:
+            return undefined;
+    }
+
+    result += '-';
+
+    switch (framework) {
+        case mapping.frameworks.java8.value:
+            result += 'java8';
+            break;
+        case mapping.frameworks.java11.value:
+            result += 'java11';
+            break;
+        default:
+            return undefined;
+    }
+
+    return result;
+};
+
 export const getAutotestRecommendedJenkinsAgent = (
     lang: string,
-    framework: string,
-    buildTool: string
+    framework?: string,
+    buildTool?: string
 ): string | undefined => {
-    if (
-        lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
-        framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java8.value &&
-        buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.gradle.value
-    ) {
-        return 'gradle-java8';
-    }
-
-    if (
-        (lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
-            framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java8.value &&
-            buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.maven.value) ||
-        lang === APPLICATION_MAPPING[LANGUAGE_OTHER].language.value
-    ) {
-        return 'maven-java8';
-    }
-
-    if (
-        lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
-        framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java11.value &&
-        buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.gradle.value
-    ) {
-        return 'gradle-java11';
-    }
-
-    if (
-        lang === APPLICATION_MAPPING[LANGUAGE_JAVA].language.value &&
-        framework === APPLICATION_MAPPING[LANGUAGE_JAVA].frameworks.java11.value &&
-        buildTool === APPLICATION_MAPPING[LANGUAGE_JAVA].buildTools.maven.value
-    ) {
-        return 'maven-java11';
+    switch (lang) {
+        case APPLICATION_MAPPING[LANGUAGE_JAVA].language.value:
+            return mapJavaBasedAgent(framework, buildTool);
     }
 
     return undefined;

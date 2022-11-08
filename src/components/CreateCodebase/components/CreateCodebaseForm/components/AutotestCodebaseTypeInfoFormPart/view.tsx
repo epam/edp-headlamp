@@ -46,7 +46,7 @@ export const AutotestCodebaseTypeInfoFormPart = ({
                         type={type}
                     />
                 ) : null}
-                {langValue && Object.values(chosenLang.buildTools).length ? (
+                {langValue ? (
                     <BuildTool
                         names={names}
                         handleFormFieldChange={handleFormFieldChange}

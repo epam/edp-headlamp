@@ -125,9 +125,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             icon: 'otherapps',
         },
         frameworks: {},
-        buildTools: {
-            maven: { name: 'Maven', value: 'maven' },
-        },
+        buildTools: {},
     },
 };
 
@@ -188,8 +186,6 @@ export const getLibraryRecommendedJenkinsAgent = (
     switch (lang) {
         case LIBRARY_MAPPING[LANGUAGE_JAVA].language.value:
             return mapJavaBasedAgent(framework, buildTool);
-        case LIBRARY_MAPPING[LANGUAGE_OTHER].language.value:
-            return 'maven-java8';
         case LIBRARY_MAPPING[LANGUAGE_JAVASCRIPT].language.value:
             return 'npm';
         case LIBRARY_MAPPING[LANGUAGE_DOTNET].language.value:
