@@ -25,6 +25,7 @@ describe('CreateCDPipeline', () => {
             onClose: () => {},
             isApplying: false,
         };
+
         const store = configureStore({
             reducer: () => ({}),
         });
