@@ -59,9 +59,5 @@ export const useImageStreamBasedOnResources = ({
 
     const imageStreamByStageOrder = getImageStreamByStageOrder(applicationImageStreams, order);
 
-    if (imageStreamByStageOrder) {
-        return { imageStream: imageStreamByStageOrder };
-    }
-
-    return undefined;
+    return { imageStream: imageStreamByStageOrder ?? null };
 };

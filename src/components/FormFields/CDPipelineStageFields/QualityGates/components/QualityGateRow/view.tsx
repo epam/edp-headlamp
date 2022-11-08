@@ -199,6 +199,7 @@ export const QualityGateRow = ({
                             {...register(
                                 createQualityGateStepNameFieldName(currentQualityGateData.id),
                                 {
+                                    required: 'Please enter step name',
                                     onBlur: handleChangeQualityGateStepName,
                                 }
                             )}

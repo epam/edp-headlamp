@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../../../constants/icons';
 import { Iconify, MuiCore, MuiStyles, React } from '../../../../../../plugin.globals';
-import { FieldEvent } from '../../../../../../types/forms';
+import { FieldEvent, FieldEventTarget } from '../../../../../../types/forms';
 import { FormSelect } from '../../../../../FormComponents';
 import { FormCheckbox } from '../../../../../FormComponents/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../FormComponents/FormControlLabelWithTooltip';
@@ -28,6 +28,7 @@ export const ApplicationRow = ({
         formState: { errors },
         resetField,
         setValue,
+        watch,
     } = useFormContext();
 
     const { value, availableBranches } = application;
@@ -35,7 +36,7 @@ export const ApplicationRow = ({
     const theme: DefaultTheme = useTheme();
 
     const handleChangeApplicationBranch = React.useCallback(
-        ({ target: { value: targetValue } }: FieldEvent) => {
+        ({ value: targetValue }: FieldEventTarget) => {
             setApplications(prev => {
                 const newApplications = prev.map(app => {
                     if (app.value === value) {
@@ -67,7 +68,7 @@ export const ApplicationRow = ({
     );
 
     const handleChangeApplicationToPromote = React.useCallback(
-        ({ target: { value: targetValue } }: FieldEvent) => {
+        ({ value: targetValue }: FieldEventTarget) => {
             setApplications(prev => {
                 const newApplications = prev.map(app => {
                     if (app.value === value) {
@@ -170,6 +171,25 @@ export const ApplicationRow = ({
         value,
     ]);
 
+    const currentApplicationBranchFieldValue = watch(
+        `${createApplicationRowName(value)}-application-branch`
+    );
+
+    React.useEffect(() => {
+        if (availableBranches.length !== 1) {
+            return;
+        }
+
+        if (currentApplicationBranchFieldValue) {
+            return;
+        }
+
+        handleChangeApplicationBranch({
+            name: availableBranches[0],
+            value: availableBranches[0],
+        });
+    }, [availableBranches, currentApplicationBranchFieldValue, handleChangeApplicationBranch]);
+
     return (
         <Grid item xs={12} className={classes.application}>
             <Grid container spacing={1} alignItems={'flex-end'}>
@@ -185,7 +205,8 @@ export const ApplicationRow = ({
                 <Grid item xs={4}>
                     <FormSelect
                         {...register(`${createApplicationRowName(value)}-application-branch`, {
-                            onChange: handleChangeApplicationBranch,
+                            onChange: ({ target: { name, value } }: FieldEvent) =>
+                                handleChangeApplicationBranch({ name, value }),
                         })}
                         placeholder={'Choose application branch'}
                         control={control}
@@ -196,7 +217,8 @@ export const ApplicationRow = ({
                 <Grid item xs={3}>
                     <FormCheckbox
                         {...register(`${createApplicationRowName(value)}-application-promote`, {
-                            onChange: handleChangeApplicationToPromote,
+                            onChange: ({ target: { name, value } }: FieldEvent) =>
+                                handleChangeApplicationToPromote({ name, value }),
                         })}
                         label={<FormControlLabelWithTooltip label={'Promote in pipeline'} />}
                         control={control}

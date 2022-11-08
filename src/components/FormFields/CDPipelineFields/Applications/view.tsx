@@ -1,16 +1,13 @@
-import { ErrorMessage } from '@hookform/error-message';
 import { useFormContext } from 'react-hook-form';
-import { ICONS } from '../../../../constants/icons';
-import { Iconify, MuiCore, MuiStyles, React } from '../../../../plugin.globals';
+import { MuiCore, MuiLab, React } from '../../../../plugin.globals';
 import { FormSelect } from '../../../FormComponents';
 import { Render } from '../../../Render';
 import { ApplicationRow } from './components/ApplicationRow';
 import { useUpdatedApplications } from './hooks/useUpdatedApplications';
 import { Application, ApplicationsProps } from './types';
 
-const { Grid, Button, Typography } = MuiCore;
-const { Icon } = Iconify;
-const { useTheme } = MuiStyles;
+const { Grid, Button } = MuiCore;
+const { Alert } = MuiLab;
 
 const getUsedApplications = (applications: Application[]) => {
     return applications.filter(el => el.isUsed);
@@ -21,8 +18,6 @@ const getUnusedApplications = (applications: Application[]) => {
 };
 
 export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps) => {
-    const theme: DefaultTheme = useTheme();
-
     const {
         register,
         formState: { errors },
@@ -125,8 +120,6 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
         usedApplications.length,
     ]);
 
-    const hasError = !!errors;
-
     return (
         <>
             <Grid item xs={12}>
@@ -163,15 +156,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                             disabled={applicationsAddingButtonIsDisabled}
                             onClick={handleAddApplicationRow}
                         >
-                            <Icon
-                                icon={ICONS['PLUS']}
-                                width={15}
-                                color={
-                                    applicationsAddingButtonIsDisabled
-                                        ? 'white'
-                                        : theme.palette.text.primary
-                                }
-                            />
+                            add
                         </Button>
                     </Grid>
                 </Grid>
@@ -197,11 +182,11 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                     </Render>
                 </Grid>
             </Grid>
-            <Render condition={hasError}>
+            <Render condition={!applicationsFieldValue || !applicationsFieldValue.length}>
                 <Grid item xs={12}>
-                    <Typography component={'span'} variant={'subtitle2'} color={'error'}>
-                        <ErrorMessage errors={errors} name={names.applications.name} />
-                    </Typography>
+                    <Alert severity="info" elevation={2} variant="filled">
+                        Please, add at least one application
+                    </Alert>
                 </Grid>
             </Render>
         </>

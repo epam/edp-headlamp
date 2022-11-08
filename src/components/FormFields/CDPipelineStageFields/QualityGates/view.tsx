@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../constants/icons';
 import { useAutotestsWithBranches } from '../../../../hooks/useAutotestsWithBranches';
-import { Iconify, MuiCore, MuiStyles, React } from '../../../../plugin.globals';
+import { Iconify, MuiCore, MuiLab, MuiStyles, React } from '../../../../plugin.globals';
 import { Render } from '../../../Render';
 import { QualityGateRow } from './components/QualityGateRow';
 import { QualityGate, QualityGatesProps } from './types';
@@ -15,6 +15,7 @@ import {
 const { Grid, Typography, Button } = MuiCore;
 const { useTheme } = MuiStyles;
 const { Icon } = Iconify;
+const { Alert } = MuiLab;
 
 const createQualityGateBase = (idx: number): QualityGate => ({
     id: idx,
@@ -39,19 +40,22 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
 
     const setNewQualityGates = React.useCallback(
         (newQualityGates: QualityGate[]): void => {
+            const newQualityGatesValue = newQualityGates.map(
+                ({ qualityGateType, stepName, autotestName, branchName }) => ({
+                    qualityGateType,
+                    stepName,
+                    autotestName,
+                    branchName,
+                })
+            );
+
             handleFormFieldChange({
                 name: names.qualityGates.name,
-                value: newQualityGates.map(
-                    ({ qualityGateType, stepName, autotestName, branchName }) => ({
-                        qualityGateType,
-                        stepName,
-                        autotestName,
-                        branchName,
-                    })
-                ),
+                value: newQualityGatesValue,
             });
+            setValue(names.qualityGates.name, newQualityGatesValue);
         },
-        [handleFormFieldChange, names.qualityGates.name]
+        [handleFormFieldChange, names.qualityGates.name, setValue]
     );
 
     const handleAddApplicationRow = React.useCallback(() => {
@@ -170,6 +174,13 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
                         <Icon icon={ICONS['PLUS']} width={15} color={theme.palette.text.primary} />
                     </Button>
                 </Grid>
+                <Render condition={!qualityGatesFieldValue || !qualityGatesFieldValue.length}>
+                    <Grid item xs={12}>
+                        <Alert severity="info" elevation={2} variant="filled">
+                            Please, add at least one quality gate
+                        </Alert>
+                    </Grid>
+                </Render>
             </Grid>
         </>
     );

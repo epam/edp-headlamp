@@ -63,6 +63,7 @@ export const CreateCDPipelineStageForm = ({
         resetField,
         formState: { isDirty },
         setValue,
+        watch,
     } = methods;
 
     const handleFormFieldChange = React.useCallback(({ name, value }: FieldEventTarget) => {
@@ -122,6 +123,8 @@ export const CreateCDPipelineStageForm = ({
         () => availableCITools.includes(CI_TOOLS['JENKINS']),
         [availableCITools]
     );
+
+    const qualityGatesFieldValue = watch(CDPIPELINE_STAGE_NAMES.qualityGates.name);
 
     return (
         <FormProvider {...methods}>
@@ -195,7 +198,12 @@ export const CreateCDPipelineStageForm = ({
                             variant={'contained'}
                             color={'primary'}
                             size="small"
-                            disabled={!isDirty || isApplying}
+                            disabled={
+                                !isDirty ||
+                                isApplying ||
+                                !qualityGatesFieldValue ||
+                                !qualityGatesFieldValue.length
+                            }
                         >
                             apply
                         </Button>
