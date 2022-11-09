@@ -1,30 +1,30 @@
 import { useForm } from 'react-hook-form';
 import { FormSelect } from '../../../../../../../../../../components/FormComponents';
 import { EnrichedApplication } from '../../../../../../../../../../hooks/useApplicationsInCDPipeline';
+import { useRequest } from '../../../../../../../../../../hooks/useRequest';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/Application/types';
-import { MuiCore, React, ReactRedux } from '../../../../../../../../../../plugin.globals';
-import { clusterAction } from '../../../../../../../../../../redux/actions';
+import { MuiCore, React } from '../../../../../../../../../../plugin.globals';
 import { CDPipelineDataContext } from '../../../../../../../../view';
 import {
     CDPipelineStagesDataContext,
     CurrentCDPipelineStageDataContext,
 } from '../../../../../../view';
-import { useCreateApplication } from './hooks/useCreateApplication';
+import { createApplicationInterface, useCreateApplication } from './hooks/useCreateApplication';
 import { useImageStreamBasedOnResources } from './hooks/useImageStreamBasedOnResources';
 
 const { Grid, Button } = MuiCore;
-const { useDispatch } = ReactRedux;
 
 export const ImageStreamTagsSelect = ({ application }: { application: EnrichedApplication }) => {
-    const dispatch = useDispatch();
-    const [isApplying, setIsApplying] = React.useState<boolean>(false);
-
     const {
         control,
         formState: { errors },
         handleSubmit,
         watch,
+        resetField,
     } = useForm();
+
+    const streamTagFieldName = 'imageTag';
+    const streamTagFieldValue = watch(streamTagFieldName);
 
     const CDPipeline = React.useContext(CDPipelineDataContext);
 
@@ -49,68 +49,40 @@ export const ImageStreamTagsSelect = ({ application }: { application: EnrichedAp
 
     const { createApplication } = useCreateApplication(
         () => {
-            setIsApplying(false);
+            resetField(streamTagFieldName);
         },
         () => {
-            setIsApplying(false);
+            resetField(streamTagFieldName);
         }
     );
 
     const applyFunc = React.useCallback(
-        async ({
-            pipelineName,
-            stageName,
-            appName,
-            imageName,
-            imageTag,
-            namespace,
-        }): Promise<ApplicationKubeObjectInterface> =>
-            createApplication({
-                pipelineName,
-                stageName,
-                appName,
-                imageName,
-                imageTag,
-                namespace,
-            }),
+        async (data: createApplicationInterface): Promise<ApplicationKubeObjectInterface> =>
+            createApplication(data),
         [createApplication]
     );
-    const handleApply = React.useCallback(
-        async ({
-            pipelineName,
-            stageName,
-            appName,
-            imageName,
-            imageTag,
-            namespace,
-        }): Promise<void> => {
-            const name = `${pipelineName}-${stageName}-${appName}`;
-            setIsApplying(true);
 
-            dispatch(
-                clusterAction(
-                    () =>
-                        applyFunc({
-                            pipelineName,
-                            stageName,
-                            appName,
-                            imageName,
-                            imageTag,
-                            namespace,
-                        }),
-                    {
-                        startMessage: `Applying ${name}`,
-                        cancelledMessage: `Cancelled applying ${name}`,
-                        successMessage: `Applied ${name}`,
-                        errorMessage: `Failed to apply ${name}`,
-                    }
-                )
-            );
-
-            // temporary solution, since we cannot pass any callbacks for action cancelling
-            setTimeout(() => setIsApplying(false), 3000);
+    const {
+        state: { isLoading },
+        fireRequest,
+    } = useRequest({
+        requestFn: applyFunc,
+        options: {
+            mode: 'create',
         },
-        [applyFunc, dispatch, setIsApplying]
+    });
+
+    const handleApply = React.useCallback(
+        async (data: createApplicationInterface): Promise<void> => {
+            const { pipelineName, stageName, appName } = data;
+            const name = `${pipelineName}-${stageName}-${appName}`;
+
+            await fireRequest({
+                objectName: name,
+                args: [data],
+            });
+        },
+        [fireRequest]
     );
 
     const onSubmit = async ({ imageTag }) => {
@@ -123,9 +95,6 @@ export const ImageStreamTagsSelect = ({ application }: { application: EnrichedAp
             namespace: CDPipeline.metadata.namespace,
         });
     };
-
-    const streamTagFieldName = 'imageTag';
-    const streamTagFieldValue = watch(streamTagFieldName);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -147,7 +116,7 @@ export const ImageStreamTagsSelect = ({ application }: { application: EnrichedAp
                         variant={'contained'}
                         color={'primary'}
                         size={'small'}
-                        disabled={!streamTagFieldValue || isApplying}
+                        disabled={!streamTagFieldValue || isLoading}
                     >
                         Deploy
                     </Button>

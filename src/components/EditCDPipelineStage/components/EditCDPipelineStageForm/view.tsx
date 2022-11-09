@@ -2,6 +2,7 @@ import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { MuiCore, React } from '../../../../plugin.globals';
+import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { TriggerType } from '../../../FormFields/CDPipelineStageFields';
 import { useDefaultValues } from './hooks/useDefaultValues';
@@ -36,7 +37,7 @@ export const EditCDPipelineStageForm = ({
     } = methods;
 
     const handleFormFieldChange = React.useCallback(
-        ({ target: { name, value } }) => {
+        ({ name, value }: FieldEventTarget) => {
             setFormValues(prev => {
                 if (Object.hasOwn(names[name], 'notUsedInFormData')) {
                     return prev;

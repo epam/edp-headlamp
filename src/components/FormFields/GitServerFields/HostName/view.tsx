@@ -15,7 +15,7 @@ export const HostName = ({ names, handleFormFieldChange }: HostNameProps) => {
         <FormTextField
             {...register(names.gitHost.name, {
                 required: 'Please enter host name',
-                onBlur: ({ target: { name, value } }: FieldEvent) =>
+                onChange: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}
             label={'Host'}

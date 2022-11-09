@@ -1,14 +1,13 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
 import type { DialogProps } from '@material-ui/core/Dialog';
-import { pluginLib, React, ReactRedux } from '../../plugin.globals';
-import { k8s } from '../../plugin.types';
-import { clusterAction } from '../../redux/actions';
+import { useRequest } from '../../hooks/useRequest';
+import { pluginLib, React } from '../../plugin.globals';
+import { EDPKubeObjectInterface } from '../../types/k8s';
 import { EditKubeObjectProps } from './types';
 
 const {
     CommonComponents: { EditorDialog },
 } = pluginLib;
-const { useDispatch } = ReactRedux;
 
 export const EditKubeObject = ({
     editorOpen,
@@ -18,9 +17,8 @@ export const EditKubeObject = ({
     onEdit,
 }: EditKubeObjectProps): React.ReactElement => {
     const [errorMessage, setErrorMessage] = React.useState<string>('');
-    const dispatch = useDispatch();
 
-    const applyFunc = async (newItem: k8s.cluster.KubeObjectInterface): Promise<void> => {
+    const applyFunc = async (newItem: EDPKubeObjectInterface): Promise<void> => {
         try {
             await kubeObject.apiEndpoint.put(newItem);
             setEditorOpen(false);
@@ -39,21 +37,18 @@ export const EditKubeObject = ({
         }
     };
 
-    const handleSave = async (jsonData: k8s.cluster.KubeObjectInterface): Promise<void> => {
-        const {
-            metadata: { name },
-        } = jsonData;
-        const cancelUrl = location.pathname;
+    const { fireRequest } = useRequest({
+        requestFn: applyFunc,
+        options: {
+            mode: 'edit',
+        },
+    });
 
-        dispatch(
-            clusterAction(() => applyFunc(jsonData), {
-                startMessage: `Applying changes to "${name}"`,
-                cancelledMessage: `Cancelled changes to "${name}"`,
-                successMessage: `Applied changes to "${name}"`,
-                errorMessage: `Failed to apply changes to "${name}"`,
-                cancelUrl,
-            })
-        );
+    const handleSave = async (kubeObjectData: EDPKubeObjectInterface): Promise<void> => {
+        await fireRequest({
+            objectName: kubeObjectData.metadata.name,
+            args: [kubeObjectData],
+        });
     };
 
     const muDialogProps: DialogProps = {

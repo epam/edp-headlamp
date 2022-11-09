@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { MuiCore, React, ReactRedux } from '../../plugin.globals';
-import { clusterAction } from '../../redux/actions';
+import { useRequest } from '../../hooks/useRequest';
+import { MuiCore, React } from '../../plugin.globals';
 import { Render } from '../Render';
 import { DeleteKubeObjectProps } from './types';
 
@@ -15,7 +15,6 @@ const {
     TextField,
     CircularProgress,
 } = MuiCore;
-const { useDispatch } = ReactRedux;
 
 const NAMES = {
     name: 'name',
@@ -39,7 +38,6 @@ export const DeleteKubeObject = ({
 }: DeleteKubeObjectProps): React.ReactElement => {
     const [errorTemplate, setErrorTemplate] = React.useState<React.ReactNode | string>(null);
     const [loadingActive, setLoadingActive] = React.useState<boolean>(false);
-    const dispatch = useDispatch();
     const { register, handleSubmit, watch } = useForm();
     const kubeObjectNameFieldValue = watch(NAMES.name);
 
@@ -71,25 +69,25 @@ export const DeleteKubeObject = ({
         handleOpenPopup,
     ]);
 
+    const { fireRequest } = useRequest({
+        requestFn: applyFunc,
+        options: {
+            mode: 'delete',
+        },
+    });
+
     const onSubmit = React.useCallback(
-        ({ name }) => {
+        async ({ name }) => {
             if (errorTemplate) {
                 return;
             }
 
             if (objectName === name) {
                 handleClosePopup();
-                dispatch(
-                    clusterAction(applyFunc, {
-                        startMessage: `Deleting "${objectName}"`,
-                        cancelledMessage: `Cancelled deleting "${objectName}"`,
-                        successMessage: `Deleted "${objectName}"`,
-                        errorMessage: `Failed to delete "${objectName}"`,
-                    })
-                );
+                await fireRequest({ objectName: kubeObjectData.metadata.name });
             }
         },
-        [errorTemplate, objectName, handleClosePopup, dispatch, applyFunc]
+        [errorTemplate, objectName, handleClosePopup, fireRequest, kubeObjectData.metadata.name]
     );
 
     React.useEffect(() => {

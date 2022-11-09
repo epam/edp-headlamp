@@ -1,9 +1,8 @@
-import { DELAYS } from '../../constants/delays';
 import { ICONS } from '../../constants/icons';
+import { useRequest } from '../../hooks/useRequest';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
-import { Iconify, MuiCore, React, ReactRedux } from '../../plugin.globals';
-import { clusterAction } from '../../redux/actions';
+import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { DeepPartial } from '../../types/global';
 import { CreateCDPipelineForm } from './components/CreateCDPipelineForm';
 import { useCreateCDPipeline } from './hooks/useCreateCDPipeline';
@@ -12,28 +11,22 @@ import { CreateCDPipelineProps } from './types';
 
 const { Dialog, DialogContent, Typography, Button } = MuiCore;
 const { Icon } = Iconify;
-const { useDispatch } = ReactRedux;
 
 export const CreateCDPipeline = ({
     createDialogOpen,
     onClose,
-    isApplying,
     setCreateDialogOpen,
-    setIsApplying,
 }: CreateCDPipelineProps): React.ReactElement => {
     const classes = useStyles();
-    const dispatch = useDispatch();
 
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
 
     const { createCDPipeline } = useCreateCDPipeline(
         () => {
             setCreateDialogOpen(false);
-            setIsApplying(false);
         },
         () => {
             setCreateDialogOpen(true);
-            setIsApplying(false);
         }
     );
 
@@ -45,32 +38,28 @@ export const CreateCDPipeline = ({
             createCDPipeline(newCDPipelineData, stages),
         [createCDPipeline]
     );
+
+    const {
+        state: { isLoading },
+        fireRequest,
+    } = useRequest({
+        requestFn: applyFunc,
+        options: {
+            mode: 'create',
+        },
+    });
+
     const handleApply = React.useCallback(
         async (
             newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>,
             stages: EDPCDPipelineStageKubeObjectInterface[]
         ): Promise<void> => {
-            const {
-                metadata: { name },
-            } = newCDPipelineData;
-            const cancelUrl = location.pathname;
-
-            setIsApplying(true);
-
-            dispatch(
-                clusterAction(() => applyFunc(newCDPipelineData, stages), {
-                    startMessage: `Applying ${name}`,
-                    cancelledMessage: `Cancelled applying ${name}`,
-                    successMessage: `Applied ${name}`,
-                    errorMessage: `Failed to apply ${name}`,
-                    cancelUrl,
-                })
-            );
-
-            // temporary solution, since we cannot pass any callbacks for action cancelling
-            setTimeout(() => setIsApplying(false), DELAYS['CANCEL_ACTION_FALLBACK']);
+            await fireRequest({
+                objectName: newCDPipelineData.metadata.name,
+                args: [newCDPipelineData, stages],
+            });
         },
-        [applyFunc, dispatch, setIsApplying]
+        [fireRequest]
     );
 
     return (
@@ -99,7 +88,7 @@ export const CreateCDPipeline = ({
                         setEditorOpen={setEditorOpen}
                         handleApply={handleApply}
                         setDialogOpen={setCreateDialogOpen}
-                        isApplying={isApplying}
+                        isApplying={isLoading}
                     />
                 </DialogContent>
             </div>

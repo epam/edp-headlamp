@@ -1,8 +1,7 @@
-import { DELAYS } from '../../../../constants/delays';
 import { ICONS } from '../../../../constants/icons';
+import { useRequest } from '../../../../hooks/useRequest';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
-import { Iconify, MuiCore, React, ReactRedux } from '../../../../plugin.globals';
-import { clusterAction } from '../../../../redux/actions';
+import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { DeepPartial } from '../../../../types/global';
 import { CreateCodebaseBranch } from '../../../CreateCodebaseBranch';
 import { useCreateCodebaseBranch } from '../../../CreateCodebaseBranch/hooks/useCreateCodebaseBranch';
@@ -10,24 +9,18 @@ import { TableHeaderActionsProps } from './types';
 
 const { Icon } = Iconify;
 const { Tooltip, Button, Typography } = MuiCore;
-const { useDispatch } = ReactRedux;
 
 export const TableHeaderActions = ({
     kubeObjectData,
 }: TableHeaderActionsProps): React.ReactElement => {
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
-    const dispatch = useDispatch();
-
-    const [isApplying, setIsApplying] = React.useState<boolean>(false);
 
     const { createCodebaseBranch } = useCreateCodebaseBranch(
         () => {
             setCreateDialogOpen(false);
-            setIsApplying(false);
         },
         () => {
             setCreateDialogOpen(true);
-            setIsApplying(false);
         }
     );
 
@@ -39,35 +32,28 @@ export const TableHeaderActions = ({
             createCodebaseBranch(newCodebaseBranchData, newDefaultCodebaseBranchData),
         [createCodebaseBranch]
     );
+
+    const {
+        state: { isLoading },
+        fireRequest,
+    } = useRequest({
+        requestFn: applyFunc,
+        options: {
+            mode: 'create',
+        },
+    });
+
     const handleApply = React.useCallback(
         async (
             newCodebaseBranchData: EDPCodebaseBranchKubeObjectInterface,
             newDefaultCodebaseBranchData?: DeepPartial<EDPCodebaseBranchKubeObjectInterface>
         ): Promise<void> => {
-            const {
-                spec: { branchName },
-            } = newCodebaseBranchData;
-            const cancelUrl = location.pathname;
-
-            setIsApplying(true);
-
-            dispatch(
-                clusterAction(
-                    () => applyFunc(newCodebaseBranchData, newDefaultCodebaseBranchData),
-                    {
-                        startMessage: `Applying ${branchName}`,
-                        cancelledMessage: `Cancelled applying ${branchName}`,
-                        successMessage: `Applied ${branchName}`,
-                        errorMessage: `Failed to apply ${branchName}`,
-                        cancelUrl,
-                    }
-                )
-            );
-
-            // temporary solution, since we cannot pass any callbacks for action cancelling
-            setTimeout(() => setIsApplying(false), DELAYS['CANCEL_ACTION_FALLBACK']);
+            await fireRequest({
+                objectName: newCodebaseBranchData.spec.branchName,
+                args: [newCodebaseBranchData, newDefaultCodebaseBranchData],
+            });
         },
-        [applyFunc, dispatch]
+        [fireRequest]
     );
 
     return (
@@ -86,7 +72,7 @@ export const TableHeaderActions = ({
                 onClose={() => setCreateDialogOpen(false)}
                 setOpen={setCreateDialogOpen}
                 handleApply={handleApply}
-                isApplying={isApplying}
+                isApplying={isLoading}
             />
         </>
     );

@@ -1,6 +1,6 @@
+import { useRequest } from '../../hooks/useRequest';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
-import { MuiCore, React, ReactRedux } from '../../plugin.globals';
-import { clusterAction } from '../../redux/actions';
+import { MuiCore, React } from '../../plugin.globals';
 import { DeepPartial } from '../../types/global';
 import { EditCDPipelineForm } from './components/EditCDPipelineForm';
 import { useEditCDPipeline } from './hooks/useEditCDPipeline';
@@ -8,7 +8,6 @@ import { useStyles } from './styles';
 import { EditCDPipelineProps } from './types';
 
 const { Dialog, DialogContent, Typography } = MuiCore;
-const { useDispatch } = ReactRedux;
 
 export const EditCDPipeline = ({
     open,
@@ -17,7 +16,6 @@ export const EditCDPipeline = ({
     CDPipelineData,
 }: EditCDPipelineProps): React.ReactElement => {
     const classes = useStyles();
-    const dispatch = useDispatch();
 
     const { editCDPipeline } = useEditCDPipeline(
         () => setOpen(false),
@@ -31,24 +29,22 @@ export const EditCDPipeline = ({
             editCDPipeline(newCDPipelineData),
         [editCDPipeline]
     );
+
+    const { fireRequest } = useRequest({
+        requestFn: applyFunc,
+        options: {
+            mode: 'edit',
+        },
+    });
+
     const handleApply = React.useCallback(
         async (newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>): Promise<void> => {
-            const {
-                metadata: { name },
-            } = newCDPipelineData;
-            const cancelUrl = location.pathname;
-
-            dispatch(
-                clusterAction(() => applyFunc(newCDPipelineData), {
-                    startMessage: `Applying changes to "${name}"`,
-                    cancelledMessage: `Cancelled changes to "${name}"`,
-                    successMessage: `Applied changes to "${name}"`,
-                    errorMessage: `Failed to apply changes to "${name}"`,
-                    cancelUrl,
-                })
-            );
+            await fireRequest({
+                objectName: newCDPipelineData.metadata.name,
+                args: [newCDPipelineData],
+            });
         },
-        [applyFunc, dispatch]
+        [fireRequest]
     );
 
     return (

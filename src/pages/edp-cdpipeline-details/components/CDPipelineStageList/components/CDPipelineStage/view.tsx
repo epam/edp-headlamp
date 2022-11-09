@@ -1,14 +1,12 @@
 import { HeadlampNameValueTable } from '../../../../../../components/HeadlampNameValueTable';
 import { HeadlampSimpleTable } from '../../../../../../components/HeadlampSimpleTable';
-import { MuiCore, Notistack, React } from '../../../../../../plugin.globals';
-import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
+import { MuiCore, React } from '../../../../../../plugin.globals';
 import { CurrentCDPipelineStageDataContext } from '../../view';
 import { CDPipelineStageApplicationsTable } from './components/CDPipelineStageApplicationsTable';
 import { useColumns } from './hooks/useColumns';
 import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
 
-const { useSnackbar } = Notistack;
 const { Grid, Typography, Paper } = MuiCore;
 
 export const CDPipelineStage = (): React.ReactElement => {
@@ -17,49 +15,8 @@ export const CDPipelineStage = (): React.ReactElement => {
     );
 
     const classes = useStyles();
-    const { enqueueSnackbar } = useSnackbar();
     const generalInfoRows = useRows(CurrentCDPipelineStageDataContextValue);
     const qualityGatesColumns = useColumns();
-    const stageStatus =
-        CurrentCDPipelineStageDataContextValue.status &&
-        CurrentCDPipelineStageDataContextValue.status.status;
-
-    const [currentStageStatus, setCurrentStageStatus] = React.useState<{
-        lastStatus: string;
-        currentStatus: string;
-    }>({
-        lastStatus: null,
-        currentStatus: stageStatus,
-    });
-
-    React.useEffect(() => {
-        const { currentStatus } = currentStageStatus;
-        const {
-            metadata: { name },
-        } = CurrentCDPipelineStageDataContextValue;
-
-        // eslint-disable-next-line eqeqeq
-        if (stageStatus == null || currentStatus === stageStatus) {
-            return;
-        }
-
-        enqueueSnackbar(
-            `Stage ${name} status has been changed to ${capitalizeFirstLetter(stageStatus)}`,
-            {
-                autoHideDuration: 5000,
-                variant: 'info',
-                anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'right',
-                },
-            }
-        );
-
-        setCurrentStageStatus(prev => ({
-            lastStatus: prev.currentStatus,
-            currentStatus: stageStatus,
-        }));
-    }, [stageStatus, enqueueSnackbar, currentStageStatus, CurrentCDPipelineStageDataContextValue]);
 
     return (
         <Grid container spacing={3}>

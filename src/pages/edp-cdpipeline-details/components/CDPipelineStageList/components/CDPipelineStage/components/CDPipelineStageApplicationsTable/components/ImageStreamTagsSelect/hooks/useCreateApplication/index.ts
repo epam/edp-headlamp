@@ -8,7 +8,7 @@ import { throwErrorNoty } from '../../../../../../../../../../../../utils/throwE
 
 const { useSnackbar } = Notistack;
 
-interface createApplicationInterface {
+export interface createApplicationInterface {
     pipelineName: string;
     stageName: string;
     appName: string;

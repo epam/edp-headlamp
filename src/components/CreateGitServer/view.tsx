@@ -1,7 +1,7 @@
 import { ICONS } from '../../constants/icons';
+import { useRequest } from '../../hooks/useRequest';
 import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
-import { Iconify, MuiCore, React, ReactRedux } from '../../plugin.globals';
-import { clusterAction } from '../../redux/actions';
+import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { DeepPartial } from '../../types/global';
 import { EDPKubeObjectInterface } from '../../types/k8s';
 import { CreateGitServerForm } from './components/CreateGitServerForm';
@@ -11,28 +11,22 @@ import { CreateGitServerProps } from './types';
 
 const { Dialog, DialogContent, Typography, Button } = MuiCore;
 const { Icon } = Iconify;
-const { useDispatch } = ReactRedux;
 
 export const CreateGitServer = ({
     createDialogOpen,
     onClose,
-    isApplying,
     setCreateDialogOpen,
-    setIsApplying,
 }: CreateGitServerProps): React.ReactElement => {
     const classes = useStyles();
-    const dispatch = useDispatch();
 
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
 
     const { createGitServer } = useCreateGitServer(
         () => {
             setCreateDialogOpen(false);
-            setIsApplying(false);
         },
         () => {
             setCreateDialogOpen(true);
-            setIsApplying(false);
         }
     );
 
@@ -44,32 +38,28 @@ export const CreateGitServer = ({
             createGitServer(gitServerData, gitServerSecretData),
         [createGitServer]
     );
+
+    const {
+        state: { isLoading },
+        fireRequest,
+    } = useRequest({
+        requestFn: applyFunc,
+        options: {
+            mode: 'create',
+        },
+    });
+
     const handleApply = React.useCallback(
         async (
             gitServerData: DeepPartial<EDPGitServerKubeObjectInterface>,
             gitServerSecretData: DeepPartial<EDPKubeObjectInterface>
         ): Promise<void> => {
-            const {
-                metadata: { name },
-            } = gitServerData;
-            const cancelUrl = location.pathname;
-
-            setIsApplying(true);
-
-            dispatch(
-                clusterAction(() => applyFunc(gitServerData, gitServerSecretData), {
-                    startMessage: `Applying ${name}`,
-                    cancelledMessage: `Cancelled applying ${name}`,
-                    successMessage: `Applied ${name}`,
-                    errorMessage: `Failed to apply ${name}`,
-                    cancelUrl,
-                })
-            );
-
-            // temporary solution, since we cannot pass any callbacks for action cancelling
-            setTimeout(() => setIsApplying(false), 3000);
+            await fireRequest({
+                objectName: gitServerData.metadata.name,
+                args: [gitServerData, gitServerSecretData],
+            });
         },
-        [applyFunc, dispatch, setIsApplying]
+        [fireRequest]
     );
 
     return (
@@ -98,7 +88,7 @@ export const CreateGitServer = ({
                         setEditorOpen={setEditorOpen}
                         handleApply={handleApply}
                         setDialogOpen={setCreateDialogOpen}
-                        isApplying={isApplying}
+                        isApplying={isLoading}
                     />
                 </DialogContent>
             </div>

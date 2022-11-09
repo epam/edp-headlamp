@@ -5,6 +5,7 @@
 import { describe, test } from '@jest/globals';
 import { configureStore } from '@reduxjs/toolkit';
 import { render, screen } from '@testing-library/react';
+import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { DeleteKubeObjectProps } from './types';
@@ -40,7 +41,9 @@ describe('DeleteKubeObject', () => {
 
         render(
             <Provider store={store}>
-                <DeleteKubeObject {...props} />
+                <SnackbarProvider>
+                    <DeleteKubeObject {...props} />
+                </SnackbarProvider>
             </Provider>
         );
 

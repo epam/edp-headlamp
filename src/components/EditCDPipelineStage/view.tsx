@@ -1,6 +1,6 @@
+import { useRequest } from '../../hooks/useRequest';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
-import { MuiCore, React, ReactRedux } from '../../plugin.globals';
-import { clusterAction } from '../../redux/actions';
+import { MuiCore, React } from '../../plugin.globals';
 import { DeepPartial } from '../../types/global';
 import { EditCDPipelineStageForm } from './components/EditCDPipelineStageForm';
 import { useEditCDPipelineStage } from './hooks/useEditCDPipelineStage';
@@ -8,7 +8,6 @@ import { useStyles } from './styles';
 import { EditCodebaseProps } from './types';
 
 const { Dialog, DialogContent, Typography } = MuiCore;
-const { useDispatch } = ReactRedux;
 
 export const EditCDPipelineStage = ({
     open,
@@ -17,7 +16,6 @@ export const EditCDPipelineStage = ({
     CDPipelineStageData,
 }: EditCodebaseProps): React.ReactElement => {
     const classes = useStyles();
-    const dispatch = useDispatch();
 
     const { editCDPipelineStage } = useEditCDPipelineStage(
         () => setOpen(false),
@@ -31,26 +29,24 @@ export const EditCDPipelineStage = ({
             editCDPipelineStage(newCDPipelineStageData),
         [editCDPipelineStage]
     );
+
+    const { fireRequest } = useRequest({
+        requestFn: applyFunc,
+        options: {
+            mode: 'edit',
+        },
+    });
+
     const handleApply = React.useCallback(
         async (
             newCDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
         ): Promise<void> => {
-            const {
-                metadata: { name },
-            } = newCDPipelineStageData;
-            const cancelUrl = location.pathname;
-
-            dispatch(
-                clusterAction(() => applyFunc(newCDPipelineStageData), {
-                    startMessage: `Applying changes to "${name}"`,
-                    cancelledMessage: `Cancelled changes to "${name}"`,
-                    successMessage: `Applied changes to "${name}"`,
-                    errorMessage: `Failed to apply changes to "${name}"`,
-                    cancelUrl,
-                })
-            );
+            await fireRequest({
+                objectName: newCDPipelineStageData.spec.name,
+                args: [newCDPipelineStageData],
+            });
         },
-        [applyFunc, dispatch]
+        [fireRequest]
     );
 
     return (

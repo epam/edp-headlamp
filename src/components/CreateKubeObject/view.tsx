@@ -14,8 +14,6 @@ export const CreateKubeObject: React.FC = ({ children }): React.ReactElement => 
         setCreateDialogOpen(false);
     }, [setCreateDialogOpen]);
 
-    const [isApplying, setIsApplying] = React.useState<boolean>(false);
-
     return (
         <>
             <Fab
@@ -28,9 +26,7 @@ export const CreateKubeObject: React.FC = ({ children }): React.ReactElement => 
             {React.cloneElement(children as React.ReactElement, {
                 createDialogOpen,
                 onClose,
-                isApplying,
                 setCreateDialogOpen,
-                setIsApplying,
             })}
         </>
     );

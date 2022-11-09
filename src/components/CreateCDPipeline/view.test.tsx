@@ -23,7 +23,6 @@ describe('CreateCDPipeline', () => {
             createDialogOpen: true,
             setCreateDialogOpen: () => {},
             onClose: () => {},
-            isApplying: false,
         };
 
         const store = configureStore({

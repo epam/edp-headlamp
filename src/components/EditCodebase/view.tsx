@@ -1,6 +1,6 @@
+import { useRequest } from '../../hooks/useRequest';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { MuiCore, React, ReactRedux } from '../../plugin.globals';
-import { clusterAction } from '../../redux/actions';
+import { MuiCore, React } from '../../plugin.globals';
 import { EDPKubeObjectInterface } from '../../types/k8s';
 import { EditCodebaseForm } from './components/EditCodebaseForm';
 import { useEditCodebase } from './hooks/useEditCodebase';
@@ -8,7 +8,6 @@ import { useStyles } from './styles';
 import { EditCodebaseProps } from './types';
 
 const { Dialog, DialogContent, Typography } = MuiCore;
-const { useDispatch } = ReactRedux;
 
 export const EditCodebase = ({
     open,
@@ -17,7 +16,6 @@ export const EditCodebase = ({
     codebaseData,
 }: EditCodebaseProps): React.ReactElement => {
     const classes = useStyles();
-    const dispatch = useDispatch();
 
     const { editCodebase } = useEditCodebase(
         () => setOpen(false),
@@ -30,24 +28,22 @@ export const EditCodebase = ({
         ): Promise<EDPCodebaseKubeObjectInterface | undefined> => editCodebase(newCodebaseData),
         [editCodebase]
     );
+
+    const { fireRequest } = useRequest({
+        requestFn: applyFunc,
+        options: {
+            mode: 'edit',
+        },
+    });
+
     const handleApply = React.useCallback(
         async (newCodebaseData: EDPKubeObjectInterface): Promise<void> => {
-            const {
-                metadata: { name },
-            } = newCodebaseData;
-            const cancelUrl = location.pathname;
-
-            dispatch(
-                clusterAction(() => applyFunc(newCodebaseData), {
-                    startMessage: `Applying changes to "${name}"`,
-                    cancelledMessage: `Cancelled changes to "${name}"`,
-                    successMessage: `Applied changes to "${name}"`,
-                    errorMessage: `Failed to apply changes to "${name}"`,
-                    cancelUrl,
-                })
-            );
+            await fireRequest({
+                objectName: newCodebaseData.metadata.name,
+                args: [newCodebaseData],
+            });
         },
-        [applyFunc, dispatch]
+        [fireRequest]
     );
 
     return (

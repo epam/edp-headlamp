@@ -23,7 +23,6 @@ describe('CreateCodebase', () => {
                 createDialogOpen: true,
                 setCreateDialogOpen: () => {},
                 onClose: () => {},
-                isApplying: false,
             };
             const store = configureStore({
                 reducer: () => ({}),
@@ -56,7 +55,6 @@ describe('CreateCodebase', () => {
                 createDialogOpen: true,
                 setCreateDialogOpen: () => {},
                 onClose: () => {},
-                isApplying: false,
             };
             const store = configureStore({
                 reducer: () => ({}),
@@ -89,7 +87,6 @@ describe('CreateCodebase', () => {
                 createDialogOpen: true,
                 setCreateDialogOpen: () => {},
                 onClose: () => {},
-                isApplying: false,
             };
             const store = configureStore({
                 reducer: () => ({}),
