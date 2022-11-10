@@ -1,12 +1,10 @@
 import { useFormContext } from 'react-hook-form';
-import { LANGUAGE_OTHER } from '../../../../configs/codebase-mappings/application';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent, SelectOption } from '../../../../types/forms';
 import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
 import { FormSelect } from '../../../FormComponents';
 import { FormTextField } from '../../../FormComponents/FormTextField';
-import { Render } from '../../../Render';
 import { BuildToolProps } from './types';
 
 const { Grid } = MuiCore;
@@ -45,10 +43,10 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
 
     return (
         <Grid item xs={12}>
-            <Render condition={langValue === LANGUAGE_OTHER}>
+            {langValue === 'other' ? (
                 <FormTextField
                     {...register(names.buildTool.name, {
-                        required: `Select ${type} build tool.`,
+                        required: `Enter ${type} build tool.`,
                         maxLength: {
                             value: 8,
                             message: 'You exceeded the maximum length of 8',
@@ -61,16 +59,17 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
                             handleFormFieldChange({ name, value }),
                     })}
                     label={'Build Tool'}
-                    title={`Select ${type} build tool.`}
+                    title={`Enter ${type} build tool.`}
                     placeholder={`Enter build tool`}
                     control={control}
                     errors={errors}
                 />
-            </Render>
-            <Render condition={langValue !== LANGUAGE_OTHER}>
+            ) : (
                 <FormSelect
                     {...register(names.buildTool.name, {
                         required: `Select ${type} build tool.`,
+                        maxLength: null,
+                        pattern: null,
                         onChange: onBuildToolChange,
                     })}
                     label={'Select Build Tool'}
@@ -85,7 +84,7 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
                         } as SelectOption;
                     })}
                 />
-            </Render>
+            )}
         </Grid>
     );
 };
