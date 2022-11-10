@@ -1,1 +1,8 @@
-export const createRandomFiveSymbolString = (): string => Math.random().toString(36).slice(2, 7);
+export const createRandomFiveSymbolString = (
+    stringLength: number = 5,
+    stringChars: string = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+): string =>
+    [...window.crypto.getRandomValues(new Uint32Array(stringLength))]
+        .map(x => stringChars[x % stringChars.length])
+        .join('')
+        .toLowerCase();

@@ -22,12 +22,14 @@ jest.mock('notistack', () => ({
 ApplicationKubeObject.apiEndpoint.post = jest.fn().mockImplementation(() => {});
 
 beforeEach(() => {
-    jest.spyOn(global.Math, 'random').mockReturnValue(0.123456789);
+    jest.spyOn(global.window.crypto, 'getRandomValues').mockReturnValue(
+        new Uint32Array([2736861854, 4288701136, 612580786, 3178865852, 3429947584])
+    );
 });
 
 afterEach(() => {
     jest.clearAllMocks();
-    jest.spyOn(global.Math, 'random').mockRestore();
+    jest.spyOn(global.window.crypto, 'getRandomValues').mockRestore();
 });
 
 describe('testing useCreateApplication hook', () => {

@@ -5,7 +5,7 @@ export const applicationMock: DeepPartial<ApplicationKubeObjectInterface> = {
     apiVersion: 'argoproj.io/v1alpha1',
     kind: 'Application',
     metadata: {
-        name: `test-pipeline-name-test-stage-name-test-app-name-4fzzz`,
+        name: `test-pipeline-name-test-stage-name-test-app-name-8ygse`,
         namespace: 'test-namespace',
     },
     spec: {
