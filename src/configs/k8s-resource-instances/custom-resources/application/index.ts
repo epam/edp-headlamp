@@ -40,7 +40,7 @@ export const createApplicationInstance = ({
                     ],
                 },
                 path: 'deploy-templates',
-                repoURL: `ssh://admin@gerrit.${namespace}:${port}/${appName}.git`,
+                repoURL: `ssh://argocd@gerrit.${namespace}:${port}/${appName}.git`,
                 targetRevision: imageTag,
             },
             syncPolicy: {
