@@ -9,7 +9,6 @@ export const useStyles = makeStyles(() => ({
         justifyContent: 'space-between',
         gap: rem(20),
         alignItems: 'center',
-        paddingRight: rem(20),
     },
     stageHeading: {
         display: 'flex',

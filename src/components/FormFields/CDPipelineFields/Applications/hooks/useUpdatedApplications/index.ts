@@ -154,7 +154,6 @@ export const useUpdatedApplications = ({
 
         fetchApplications().catch(setError);
     }, [
-        applicationsBranchesFieldValue,
         applicationsFieldValue,
         applicationsToPromoteValue,
         namespaceFieldValue,

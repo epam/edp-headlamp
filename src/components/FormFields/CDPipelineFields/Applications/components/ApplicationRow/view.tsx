@@ -28,7 +28,6 @@ export const ApplicationRow = ({
         formState: { errors },
         resetField,
         setValue,
-        watch,
     } = useFormContext();
 
     const { value, availableBranches } = application;
@@ -171,25 +170,6 @@ export const ApplicationRow = ({
         value,
     ]);
 
-    const currentApplicationBranchFieldValue = watch(
-        `${createApplicationRowName(value)}-application-branch`
-    );
-
-    React.useEffect(() => {
-        if (availableBranches.length !== 1) {
-            return;
-        }
-
-        if (currentApplicationBranchFieldValue) {
-            return;
-        }
-
-        handleChangeApplicationBranch({
-            name: availableBranches[0],
-            value: availableBranches[0],
-        });
-    }, [availableBranches, currentApplicationBranchFieldValue, handleChangeApplicationBranch]);
-
     return (
         <Grid item xs={12} className={classes.application}>
             <Grid container spacing={1} alignItems={'flex-end'}>
@@ -211,7 +191,10 @@ export const ApplicationRow = ({
                         placeholder={'Choose application branch'}
                         control={control}
                         errors={errors}
-                        options={availableBranches.map(el => ({ label: el, value: el }))}
+                        options={availableBranches.map(el => ({
+                            label: el.split('-').slice(-1)[0],
+                            value: el,
+                        }))}
                     />
                 </Grid>
                 <Grid item xs={3}>

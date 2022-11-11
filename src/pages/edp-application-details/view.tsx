@@ -71,9 +71,15 @@ export const EDPApplicationDetails = (): React.ReactElement => {
             </div>
             {application && (
                 <>
-                    <CodebaseGeneralInfoTable kubeObjectData={application} />
-                    <CodebaseAdvancedInfoTable kubeObjectData={application} />
-                    <CodebaseBranchesList kubeObjectData={application} />
+                    <Grid container spacing={2}>
+                        <Grid item xs={8}>
+                            <CodebaseBranchesList kubeObjectData={application} />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <CodebaseGeneralInfoTable kubeObjectData={application} />
+                            <CodebaseAdvancedInfoTable kubeObjectData={application} />
+                        </Grid>
+                    </Grid>
                 </>
             )}
         </>

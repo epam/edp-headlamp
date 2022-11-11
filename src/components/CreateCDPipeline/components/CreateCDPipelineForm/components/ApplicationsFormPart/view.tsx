@@ -11,7 +11,7 @@ export const ApplicationsFormPart = ({
 }: ApplicationsFormPartProps): React.ReactElement => {
     return (
         <ErrorBoundary>
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
                 <Applications names={names} handleFormFieldChange={handleFormFieldChange} />
             </Grid>
         </ErrorBoundary>

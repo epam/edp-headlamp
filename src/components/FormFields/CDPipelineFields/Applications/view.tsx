@@ -6,7 +6,7 @@ import { ApplicationRow } from './components/ApplicationRow';
 import { useUpdatedApplications } from './hooks/useUpdatedApplications';
 import { Application, ApplicationsProps } from './types';
 
-const { Grid, Button } = MuiCore;
+const { Grid, Button, Typography } = MuiCore;
 const { Alert } = MuiLab;
 
 const getUsedApplications = (applications: Application[]) => {
@@ -87,8 +87,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
     }, [
         applicationsToAddChooserFieldValue,
         handleFormFieldChange,
-        names.applications.name,
-        names.applicationsToAddChooser.name,
+        names,
         resetField,
         setApplications,
         setValue,
@@ -165,6 +164,23 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                 <Grid container spacing={2}>
                     <Render condition={!!applications.length}>
                         <>
+                            <Render condition={!!usedApplications.length}>
+                                <>
+                                    <Grid item xs={4}>
+                                        <Typography>Application</Typography>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Typography>Branch</Typography>
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <Typography>To promote</Typography>
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                        <Typography>Delete</Typography>
+                                    </Grid>
+                                </>
+                            </Render>
+
                             {usedApplications.map((application, idx) => {
                                 const key = `${application.value}::${idx}`;
 
