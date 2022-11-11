@@ -6,6 +6,7 @@ import {
 import { AUTOTEST_MAPPING } from '../../../../configs/codebase-mappings/autotest';
 import { LIBRARY_MAPPING } from '../../../../configs/codebase-mappings/library';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
@@ -44,6 +45,7 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
 
     const frameworkValue = watch(names.framework.name);
     const buildToolValue = watch(names.buildTool.name);
+    const strategyValue = watch(names.strategy.name);
 
     const onLangChange = React.useCallback(
         ({ target: { name, value } }: FieldEvent) => {
@@ -118,6 +120,9 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
                         label: name,
                         icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
                         checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                        disabled:
+                            value === 'other' &&
+                            strategyValue === CODEBASE_CREATION_STRATEGIES['CREATE'],
                     })
                 )}
             />

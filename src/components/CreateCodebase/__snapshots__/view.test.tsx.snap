@@ -1557,22 +1557,25 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                 />
                               </button>
                               <button
-                                class="MuiButtonBase-root makeStyles-radioControlButton-23"
-                                tabindex="0"
+                                class="MuiButtonBase-root makeStyles-radioControlButton-23 Mui-disabled"
+                                disabled=""
+                                tabindex="-1"
                                 type="button"
                               >
                                 <label
-                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-25"
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-25 Mui-disabled"
                                 >
                                   <span
-                                    aria-disabled="false"
-                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-18 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                    aria-disabled="true"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-18 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-disabled-20 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                                    tabindex="-1"
                                   >
                                     <span
                                       class="MuiIconButton-label"
                                     >
                                       <input
                                         class="PrivateSwitchBase-input-21"
+                                        disabled=""
                                         name="lang"
                                         type="radio"
                                         value="other"
@@ -1592,14 +1595,11 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                     </span>
                                   </span>
                                   <span
-                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                    class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
                                   >
                                     Other
                                   </span>
                                 </label>
-                                <span
-                                  class="MuiTouchRipple-root"
-                                />
                               </button>
                             </div>
                           </div>
@@ -5522,22 +5522,25 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                 />
                               </button>
                               <button
-                                class="MuiButtonBase-root makeStyles-radioControlButton-48"
-                                tabindex="0"
+                                class="MuiButtonBase-root makeStyles-radioControlButton-48 Mui-disabled"
+                                disabled=""
+                                tabindex="-1"
                                 type="button"
                               >
                                 <label
-                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50"
+                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-50 Mui-disabled"
                                 >
                                   <span
-                                    aria-disabled="false"
-                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                    aria-disabled="true"
+                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-43 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-disabled-45 Mui-disabled MuiIconButton-colorSecondary Mui-disabled Mui-disabled"
+                                    tabindex="-1"
                                   >
                                     <span
                                       class="MuiIconButton-label"
                                     >
                                       <input
                                         class="PrivateSwitchBase-input-46"
+                                        disabled=""
                                         name="lang"
                                         type="radio"
                                         value="other"
@@ -5557,14 +5560,11 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                     </span>
                                   </span>
                                   <span
-                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                    class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
                                   >
                                     Other
                                   </span>
                                 </label>
-                                <span
-                                  class="MuiTouchRipple-root"
-                                />
                               </button>
                             </div>
                           </div>
