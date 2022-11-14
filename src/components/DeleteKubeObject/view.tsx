@@ -38,7 +38,7 @@ export const DeleteKubeObject = ({
 }: DeleteKubeObjectProps): React.ReactElement => {
     const [errorTemplate, setErrorTemplate] = React.useState<React.ReactNode | string>(null);
     const [loadingActive, setLoadingActive] = React.useState<boolean>(false);
-    const { register, handleSubmit, watch } = useForm();
+    const { register, handleSubmit, watch, reset } = useForm();
     const kubeObjectNameFieldValue = watch(NAMES.name);
 
     const handleClosePopup = React.useCallback(() => {
@@ -86,8 +86,17 @@ export const DeleteKubeObject = ({
                 handleClosePopup();
                 await fireRequest({ objectName: kubeObjectData.metadata.name });
             }
+
+            reset();
         },
-        [errorTemplate, objectName, handleClosePopup, fireRequest, kubeObjectData.metadata.name]
+        [
+            errorTemplate,
+            objectName,
+            reset,
+            handleClosePopup,
+            fireRequest,
+            kubeObjectData.metadata.name,
+        ]
     );
 
     React.useEffect(() => {
