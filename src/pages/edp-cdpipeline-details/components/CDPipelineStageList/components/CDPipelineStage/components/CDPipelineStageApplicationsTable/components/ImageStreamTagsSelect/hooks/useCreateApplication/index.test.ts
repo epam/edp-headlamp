@@ -67,6 +67,7 @@ describe('testing useCreateApplication hook', () => {
             imageName: 'test-image-name',
             imageTag: 'test-image-tag',
             namespace: 'test-namespace',
+            versioningType: 'edp',
         });
 
         await expect(createApplicationPromise).resolves.toEqual(applicationMock);
@@ -109,6 +110,7 @@ describe('testing useCreateApplication hook', () => {
             imageName: 'test-image-name',
             imageTag: 'test-image-tag',
             namespace: 'test-namespace',
+            versioningType: 'edp',
         });
 
         await expect(createApplicationPromise).rejects.toEqual({ status: 'Failure' });

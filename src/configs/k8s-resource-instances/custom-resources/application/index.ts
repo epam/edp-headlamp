@@ -1,3 +1,4 @@
+import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { ApplicationKubeObjectConfig } from '../../../../k8s/Application/config';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
 import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
@@ -12,7 +13,10 @@ export const createApplicationInstance = ({
     imageTag,
     port,
     namespace,
+    versioningType,
 }): ApplicationKubeObjectInterface => {
+    const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
+
     return {
         apiVersion: `${group}/${version}`,
         kind,
@@ -41,7 +45,7 @@ export const createApplicationInstance = ({
                 },
                 path: 'deploy-templates',
                 repoURL: `ssh://argocd@gerrit.${namespace}:${port}/${appName}.git`,
-                targetRevision: imageTag,
+                targetRevision: isEDPVersioning ? `build/${imageTag}` : imageTag,
             },
             syncPolicy: {
                 syncOptions: ['CreateNamespace=true'],

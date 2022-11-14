@@ -23,7 +23,7 @@ export const applicationMock: DeepPartial<ApplicationKubeObjectInterface> = {
             },
             path: 'deploy-templates',
             repoURL: 'ssh://argocd@gerrit.test-namespace:30005/test-app-name.git',
-            targetRevision: 'test-image-tag',
+            targetRevision: 'build/test-image-tag',
         },
         syncPolicy: {
             syncOptions: ['CreateNamespace=true'],

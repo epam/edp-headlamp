@@ -15,6 +15,7 @@ export interface createApplicationInterface {
     imageName: string;
     imageTag: string;
     namespace: string;
+    versioningType: string;
 }
 
 export const useCreateApplication = (
@@ -40,6 +41,7 @@ export const useCreateApplication = (
             imageName,
             imageTag,
             namespace,
+            versioningType,
         }: createApplicationInterface): Promise<ApplicationKubeObjectInterface> => {
             let newApplicationData: ApplicationKubeObjectInterface;
 
@@ -58,6 +60,7 @@ export const useCreateApplication = (
                     imageTag,
                     port: sshPort,
                     namespace,
+                    versioningType,
                 });
 
                 const applicationPostRequestResult = await ApplicationKubeObject.apiEndpoint.post(

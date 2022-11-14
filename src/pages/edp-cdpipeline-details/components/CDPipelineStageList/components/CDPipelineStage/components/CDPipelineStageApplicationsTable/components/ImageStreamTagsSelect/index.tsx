@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { FormSelect } from '../../../../../../../../../../components/FormComponents';
-import { CODEBASE_VERSIONING_TYPES } from '../../../../../../../../../../constants/codebaseVersioningTypes';
 import { EnrichedApplication } from '../../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { useRequest } from '../../../../../../../../../../hooks/useRequest';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/Application/types';
@@ -87,18 +86,14 @@ export const ImageStreamTagsSelect = ({ application }: { application: EnrichedAp
     );
 
     const onSubmit = async ({ imageTag }) => {
-        const isEDPVersioning =
-            application.application.spec.versioning.type === CODEBASE_VERSIONING_TYPES['EDP'];
-
-        const imageTagName = isEDPVersioning ? `build/${imageTag}` : imageTag;
-
         await handleApply({
             pipelineName: CDPipeline.metadata.name,
             stageName: currentCDPipelineStage.spec.name,
             appName: application.application.metadata.name,
             imageName: imageStream.spec.imageName,
-            imageTag: imageTagName,
             namespace: CDPipeline.metadata.namespace,
+            versioningType: application.application.spec.versioning.type,
+            imageTag,
         });
     };
 
