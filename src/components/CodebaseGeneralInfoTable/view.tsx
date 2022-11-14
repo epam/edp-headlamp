@@ -1,7 +1,6 @@
 import { MuiCore, pluginLib, React } from '../../plugin.globals';
 import { HeadlampNameValueTable } from '../HeadlampNameValueTable';
-import { useColumns } from './hooks/useColumns';
-import { useStyles } from './styles';
+import { useRows } from './hooks/useRows';
 import { CodebaseGeneralInfoTableProps } from './types';
 
 const {
@@ -12,8 +11,7 @@ const { Box } = MuiCore;
 export const CodebaseGeneralInfoTable = ({
     kubeObjectData,
 }: CodebaseGeneralInfoTableProps): React.ReactElement => {
-    const classes = useStyles();
-    const columns = useColumns(kubeObjectData, classes);
+    const columns = useRows(kubeObjectData);
 
     return (
         <SectionBox title={<SectionHeader title={'General Info'} headerStyle="label" />}>

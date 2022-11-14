@@ -356,14 +356,12 @@ export const CreateCodebaseForm = ({
                     </div>
                 </form>
             </div>
-            <Render condition={!!editorOpen}>
-                <EditorDialog
-                    {...muDialogProps}
-                    item={editorReturnValues}
-                    onClose={() => setEditorOpen(false)}
-                    onSave={onEditorSave}
-                />
-            </Render>
+            <EditorDialog
+                {...muDialogProps}
+                item={editorReturnValues}
+                onClose={() => setEditorOpen(false)}
+                onSave={onEditorSave}
+            />
         </FormProvider>
     );
 };

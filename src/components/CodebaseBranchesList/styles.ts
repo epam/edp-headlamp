@@ -4,13 +4,16 @@ import { rem } from '../../utils/styling/rem';
 const { makeStyles } = MuiCore;
 
 export const useStyles = makeStyles(() => ({
-    tableHeaderActions: {
+    tableHeader: {
         display: 'flex',
         justifyContent: 'space-between',
         gap: rem(20),
         alignItems: 'center',
     },
-    stageHeading: {
+    tableHeaderActions: {
+        marginTop: rem(20),
+    },
+    branchHeader: {
         display: 'flex',
         alignItems: 'center',
         gap: rem(20),

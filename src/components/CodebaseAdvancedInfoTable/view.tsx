@@ -1,6 +1,6 @@
 import { MuiCore, pluginLib, React } from '../../plugin.globals';
 import { HeadlampNameValueTable } from '../HeadlampNameValueTable';
-import { useColumns } from './hooks/useColumns';
+import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
 import { CodebaseAdvancedInfoTableProps } from './types';
 
@@ -15,7 +15,7 @@ export const CodebaseAdvancedInfoTable = ({
     const { spec } = kubeObjectData;
 
     const classes = useStyles();
-    const columns = useColumns(spec, classes);
+    const columns = useRows(spec, classes);
 
     return (
         <SectionBox title={<SectionHeader title={'Advanced Settings'} headerStyle="label" />}>
