@@ -53,7 +53,6 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             icon: 'dotnet',
         },
         frameworks: {
-            'dotnet-2.1': { name: 'Dotnet 2.1', value: 'dotnet-2.1', icon: 'dotnetcore' },
             'dotnet-3.1': { name: 'Dotnet 3.1', value: 'dotnet-3.1', icon: 'dotnetcore' },
         },
         buildTools: {
@@ -138,9 +137,6 @@ const mapDotNetBasedAgent = (framework: string): string | undefined => {
     const mapping = APPLICATION_MAPPING[LANGUAGE_DOTNET];
 
     switch (framework) {
-        case mapping.frameworks['dotnet-2.1'].value:
-            result += 'dotnet-2.1';
-            break;
         case mapping.frameworks['dotnet-3.1'].value:
             result += 'dotnet-3.1';
             break;

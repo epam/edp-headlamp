@@ -40,11 +40,6 @@ describe('getLibraryRecommendedJenkinsAgent', () => {
             expected: 'npm',
         },
         {
-            testName: 'should map DotNet 2.1 library',
-            args: ['DotNet', 'dotnet-2.1'],
-            expected: 'dotnet-dotnet-2.1',
-        },
-        {
             testName: 'should map DotNet 3.1 library',
             args: ['DotNet', 'dotnet-3.1'],
             expected: 'dotnet-dotnet-3.1',
