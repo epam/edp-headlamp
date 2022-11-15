@@ -23,7 +23,10 @@ const getCodebaseWithBranchesList = (
             name
         );
 
-        const branchesNames = codebaseBranches.map(el => el.metadata.name);
+        const branchesNames = codebaseBranches.map(el => ({
+            specBranchName: el.spec.branchName,
+            metadataBranchName: el.metadata.name,
+        }));
 
         if (branchesNames.length) {
             return {
@@ -85,10 +88,12 @@ export const useUpdatedApplications = ({
             }
 
             for (const app of applications) {
-                const applicationAvailableBranches = new Set(app.availableBranches);
+                const applicationAvailableBranchesSet = new Set(
+                    app.availableBranches.map(({ metadataBranchName }) => metadataBranchName)
+                );
 
                 for (const applicationBranch of applicationsBranchesFieldValue) {
-                    if (!applicationAvailableBranches.has(applicationBranch)) {
+                    if (!applicationAvailableBranchesSet.has(applicationBranch)) {
                         continue;
                     }
 

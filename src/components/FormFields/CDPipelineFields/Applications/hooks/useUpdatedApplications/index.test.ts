@@ -9,7 +9,10 @@ import { useUpdatedApplications } from './index';
 import { codebaseBranchesMock } from './mocks/codebaseBranches.mock';
 import { codebasesMock } from './mocks/codebases.mock';
 import { expectedFormStateFieldsMock } from './mocks/expectedFormStateFields.mock';
-import { expectedUpdatedApplicationsMock } from './mocks/expectedUpdatedApplications.mock';
+import {
+    expectedUpdatedApplicationsMock,
+    expectedUpdatedApplicationsWithEmptyValuesMock,
+} from './mocks/expectedUpdatedApplications.mock';
 const { ApiProxy } = pluginLib;
 
 const executeMockState = () => {
@@ -87,44 +90,9 @@ describe('testing useUpdatedApplications hook', () => {
 
         await waitForNextUpdate();
 
-        await expect(result.current.applications).toEqual([
-            {
-                label: 'test-app-2',
-                value: 'test-app-2',
-                isUsed: false,
-                availableBranches: [
-                    'test-application-develop',
-                    'test-application-master',
-                    'test-application-test-branch',
-                ],
-                chosenBranch: null,
-                toPromote: false,
-            },
-            {
-                label: 'test-application',
-                value: 'test-application',
-                isUsed: false,
-                availableBranches: [
-                    'test-application-develop',
-                    'test-application-master',
-                    'test-application-test-branch',
-                ],
-                chosenBranch: null,
-                toPromote: false,
-            },
-            {
-                label: 'test-edp-gerrit-operator',
-                value: 'test-edp-gerrit-operator',
-                isUsed: false,
-                availableBranches: [
-                    'test-application-develop',
-                    'test-application-master',
-                    'test-application-test-branch',
-                ],
-                chosenBranch: null,
-                toPromote: false,
-            },
-        ]);
+        await expect(result.current.applications).toEqual(
+            expectedUpdatedApplicationsWithEmptyValuesMock
+        );
         await expect(result.current.error).toBeNull();
         await expect(Object.keys(formState)).toHaveLength(0);
     });

@@ -185,6 +185,7 @@ export const ApplicationRow = ({
                 <Grid item xs={4}>
                     <FormSelect
                         {...register(`${createApplicationRowName(value)}-application-branch`, {
+                            required: 'Please choose branch',
                             onChange: ({ target: { name, value } }: FieldEvent) =>
                                 handleChangeApplicationBranch({ name, value }),
                         })}
@@ -192,8 +193,8 @@ export const ApplicationRow = ({
                         control={control}
                         errors={errors}
                         options={availableBranches.map(el => ({
-                            label: el.split('-').slice(-1)[0],
-                            value: el,
+                            label: el.specBranchName,
+                            value: el.metadataBranchName,
                         }))}
                     />
                 </Grid>
