@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { ciPipelineProvisionerSelectOptions } from '../../../../configs/select-options/ciPipelineProvisioners';
+import { useCIPipelineProvisioners } from '../../../../hooks/useCIPipelineProvisioners';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -12,7 +12,14 @@ export const JobProvisioning = ({ names, handleFormFieldChange }: JobProvisionin
         register,
         control,
         formState: { errors },
+        watch,
     } = useFormContext();
+
+    const namespaceFieldValue = watch(names.namespace.name);
+
+    const { CIPipelineProvisioners } = useCIPipelineProvisioners({
+        namespace: namespaceFieldValue,
+    });
 
     return (
         <Grid item xs={12}>
@@ -27,7 +34,10 @@ export const JobProvisioning = ({ names, handleFormFieldChange }: JobProvisionin
                 title={'Select Job Provisioner which will be used to handle codebase.'}
                 control={control}
                 errors={errors}
-                options={ciPipelineProvisionerSelectOptions}
+                options={CIPipelineProvisioners.map(el => ({
+                    label: el,
+                    value: el,
+                }))}
             />
         </Grid>
     );
