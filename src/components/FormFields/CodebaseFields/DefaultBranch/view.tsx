@@ -18,6 +18,10 @@ export const DefaultBranch = ({ names, handleFormFieldChange }: DefaultBranchPro
             <FormTextField
                 {...register(names.defaultBranch.name, {
                     required: 'Default branch to create/use',
+                    pattern: {
+                        value: /^[a-z0-9][a-z0-9\/\-\.]*[a-z0-9]$/,
+                        message: 'Please enter valid default branch name',
+                    },
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}

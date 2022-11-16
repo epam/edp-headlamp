@@ -22,6 +22,10 @@ export const GitUrlPath = ({ names, handleFormFieldChange }: GitUrlPathProps) =>
             <FormTextField
                 {...register(names.gitUrlPath.name, {
                     required: 'Specify relative path to repository.',
+                    pattern: {
+                        value: /^.*$/,
+                        message: 'Please enter valid relative path to repository',
+                    },
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({
                             name,

@@ -13,19 +13,23 @@ export const RepositoryUrl = ({ names, handleFormFieldChange }: RepositoryUrlPro
         formState: { errors },
     } = useFormContext();
 
+    const fieldRequirementLabel =
+        'Please specify URL to Codebase in the following format: http(s)://git.sample.com/sample.git';
+
     return (
         <Grid item xs={12}>
             <FormTextField
                 {...register(names.repositoryUrl.name, {
-                    required:
-                        'Please specify URL to Codebase in the following format: http(s)://git.sample.com/sample.git',
+                    required: fieldRequirementLabel,
+                    pattern: {
+                        value: /(?:^git|^ssh|^https?|^git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/,
+                        message: fieldRequirementLabel,
+                    },
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
                 label={'Git Repository URL'}
-                title={
-                    'Please specify URL to Codebase in the following format: http(s)://git.sample.com/sample.git'
-                }
+                title={fieldRequirementLabel}
                 placeholder={'http(s)://git.sample.com/sample.git'}
                 control={control}
                 errors={errors}

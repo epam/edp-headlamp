@@ -92,14 +92,6 @@ export const useRequest = ({ requestFn, options: { mode } }: UseRequestProps): U
                         horizontal: 'left',
                     },
                 });
-                enqueueSnackbar(error, {
-                    autoHideDuration: 5000,
-                    variant: 'error',
-                    anchorOrigin: {
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    },
-                });
                 setIsLoading(false);
                 setError(error);
             }

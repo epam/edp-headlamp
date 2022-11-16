@@ -21,6 +21,10 @@ export const RepositoryPasswordOrApiToken = ({
             <FormTextField
                 {...register(names.repositoryPasswordOrApiToken.name, {
                     required: 'Provide repository password or API Token',
+                    pattern: {
+                        value: /\w/,
+                        message: 'Please enter valid repository password or api token',
+                    },
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
