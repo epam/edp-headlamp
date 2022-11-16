@@ -264,7 +264,9 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                             role="button"
                             tabindex="0"
                           >
-                            Default
+                            <span>
+                              ​
+                            </span>
                           </div>
                           <input
                             aria-hidden="true"

@@ -1,7 +1,7 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
 import { DeepPartial } from '../../../types/global';
 
-export const CIPipelineProvisionersMock: DeepPartial<KubeObjectInterface> = {
+export const JenkinsMock: DeepPartial<KubeObjectInterface> = {
     items: [
         {
             apiVersion: 'v2.edp.epam.com/v1',

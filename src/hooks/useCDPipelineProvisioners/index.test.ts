@@ -5,35 +5,35 @@
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react-hooks';
 import { pluginLib } from '../../plugin.globals';
-import { useCIPipelineProvisioners } from './index';
+import { useCDPipelineProvisioners } from './index';
 import { JenkinsMock } from './mocks/jenkins.mock';
 
 const { ApiProxy } = pluginLib;
 
-describe('testing useCIPipelineProvisioners hook', () => {
+describe('testing useCDPipelineProvisioners hook', () => {
     it(`should render with no problems`, async () => {
         jest.spyOn(ApiProxy, 'request').mockResolvedValue(JenkinsMock);
 
-        const useCIPipelineProvisionersProps = { namespace: 'test-namespace' };
+        const useCDPipelineProvisionersProps = { namespace: 'test-namespace' };
         const { result, waitForNextUpdate } = renderHook(() =>
-            useCIPipelineProvisioners(useCIPipelineProvisionersProps)
+            useCDPipelineProvisioners(useCDPipelineProvisionersProps)
         );
 
         await waitForNextUpdate();
-        await expect(result.current.CIPipelineProvisioners).toEqual(['default']);
+        await expect(result.current.CDPipelineProvisioners).toEqual(['default']);
         await expect(result.current.error).toBeNull();
     });
 
     it(`should throw an error if something goes wrong`, async () => {
         jest.spyOn(ApiProxy, 'request').mockRejectedValue({ status: 'Failure' });
 
-        const useCIPipelineProvisionersProps = { namespace: 'test-namespace' };
+        const useCDPipelineProvisionersProps = { namespace: 'test-namespace' };
         const { result, waitForNextUpdate } = renderHook(() =>
-            useCIPipelineProvisioners(useCIPipelineProvisionersProps)
+            useCDPipelineProvisioners(useCDPipelineProvisionersProps)
         );
 
         await waitForNextUpdate();
-        await expect(result.current.CIPipelineProvisioners).toHaveLength(0);
+        await expect(result.current.CDPipelineProvisioners).toHaveLength(0);
         await expect(result.current.error).toEqual({ status: 'Failure' });
     });
 });

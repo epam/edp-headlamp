@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { jobProvisionerSelectOptions } from '../../../../configs/select-options/jobProvisioners';
+import { useCDPipelineProvisioners } from '../../../../hooks/useCDPipelineProvisioners';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -10,7 +10,14 @@ export const JobProvisioner = ({ names, handleFormFieldChange }: JobProvisionerP
         register,
         control,
         formState: { errors },
+        watch,
     } = useFormContext();
+
+    const namespaceFieldValue = watch(names.namespace.name);
+
+    const { CDPipelineProvisioners } = useCDPipelineProvisioners({
+        namespace: namespaceFieldValue,
+    });
 
     return (
         <FormSelect
@@ -22,7 +29,10 @@ export const JobProvisioner = ({ names, handleFormFieldChange }: JobProvisionerP
             placeholder={'Choose job provisioner'}
             control={control}
             errors={errors}
-            options={jobProvisionerSelectOptions}
+            options={CDPipelineProvisioners.map(el => ({
+                label: el,
+                value: el,
+            }))}
         />
     );
 };
