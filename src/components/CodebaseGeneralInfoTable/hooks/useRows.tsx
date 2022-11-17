@@ -27,5 +27,9 @@ export const useRows = (kubeObjectData: DeepPartial<EDPCodebaseKubeObjectInterfa
                 name: 'Strategy',
                 value: spec.strategy,
             },
+            {
+                name: 'Versioning type',
+                value: spec.versioning.type,
+            },
         ];
     }, [kubeObjectData]);
