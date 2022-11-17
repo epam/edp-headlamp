@@ -10,8 +10,9 @@ export const useDefaultValues = ({ names }: useDefaultValuesProps): { [key: stri
         return {
             [names.sshPort.name]: 22,
             [names.httpsPort.name]: 443,
+            [names.gitUser.name]: 'git',
         };
-    }, [names.httpsPort.name, names.sshPort.name]);
+    }, [names]);
 
     return { baseDefaultValues };
 };

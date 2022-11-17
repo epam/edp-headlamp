@@ -1,5 +1,6 @@
 import { ICONS } from '../../../constants/icons';
 import { Iconify, MuiCore, React } from '../../../plugin.globals';
+import { rem } from '../../../utils/styling/rem';
 import { Render } from '../../Render';
 import { useStyles } from './styles';
 import { FormControlLabelWithTooltipProps } from './types';
@@ -21,6 +22,9 @@ export const FormControlLabelWithTooltip = ({
                 <Tooltip title={title}>
                     <Icon icon={ICONS['INFO_CIRCLE']} width={20} />
                 </Tooltip>
+            </Render>
+            <Render condition={!title}>
+                <div style={{ width: rem(25), height: rem(25) }} />
             </Render>
         </span>
     );

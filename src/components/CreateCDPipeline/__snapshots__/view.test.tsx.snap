@@ -274,6 +274,9 @@ exports[`CreateCDPipeline should render correctly 1`] = `
                             >
                               Deployment Type
                             </span>
+                            <div
+                              style="width: 1.5625rem; height: 1.5625rem;"
+                            />
                           </span>
                         </div>
                         <div

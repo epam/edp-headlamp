@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
 
         '& svg': {
             pointerEvents: 'auto',
-            marginBottom: rem(2),
+            marginBottom: rem(5),
         },
     },
     label: {

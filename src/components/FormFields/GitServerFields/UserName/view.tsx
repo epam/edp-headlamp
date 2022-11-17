@@ -14,11 +14,11 @@ export const UserName = ({ names, handleFormFieldChange }: UserNameProps) => {
     return (
         <FormTextField
             {...register(names.gitUser.name, {
-                required: 'Please enter user name',
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}
             label={'User'}
+            title={`Git user name, usually "git"`}
             control={control}
             errors={errors}
         />

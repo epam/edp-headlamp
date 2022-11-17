@@ -177,6 +177,9 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                         >
                           Trigger type
                         </span>
+                        <div
+                          style="width: 1.5625rem; height: 1.5625rem;"
+                        />
                       </span>
                     </div>
                     <div
@@ -245,6 +248,9 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                         >
                           Job provisioner
                         </span>
+                        <div
+                          style="width: 1.5625rem; height: 1.5625rem;"
+                        />
                       </span>
                     </div>
                     <div
@@ -321,6 +327,9 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                             >
                               Groovy-pipeline library
                             </span>
+                            <div
+                              style="width: 1.5625rem; height: 1.5625rem;"
+                            />
                           </span>
                         </div>
                         <div
@@ -389,6 +398,9 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                             >
                               Branch
                             </span>
+                            <div
+                              style="width: 1.5625rem; height: 1.5625rem;"
+                            />
                           </span>
                         </div>
                         <div

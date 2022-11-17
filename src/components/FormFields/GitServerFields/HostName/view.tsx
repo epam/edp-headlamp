@@ -15,6 +15,10 @@ export const HostName = ({ names, handleFormFieldChange }: HostNameProps) => {
         <FormTextField
             {...register(names.gitHost.name, {
                 required: 'Please enter host name',
+                pattern: {
+                    value: /^([a-z\d]+(-[a-z\d]+)*\.)+[a-z]{2,}$/,
+                    message: 'Please enter correct host name',
+                },
                 onChange: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}

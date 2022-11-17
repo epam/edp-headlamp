@@ -134,21 +134,25 @@ export const CreateGitServerForm = ({
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.formInner}>
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>
-                                <Namespace
-                                    handleFormFieldChange={handleFormFieldChange}
-                                    names={GIT_SERVER_NAMES}
-                                    namespaces={namespaces}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <GitProvider
-                                    handleFormFieldChange={handleFormFieldChange}
-                                    names={GIT_SERVER_NAMES}
-                                />
+                            <Grid item xs={12}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={6}>
+                                        <Namespace
+                                            handleFormFieldChange={handleFormFieldChange}
+                                            names={GIT_SERVER_NAMES}
+                                            namespaces={namespaces}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <GitProvider
+                                            handleFormFieldChange={handleFormFieldChange}
+                                            names={GIT_SERVER_NAMES}
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item xs={12}>
-                                <Grid container spacing={1}>
+                                <Grid container spacing={2}>
                                     <Grid item xs={6}>
                                         <HostName
                                             handleFormFieldChange={handleFormFieldChange}
@@ -164,7 +168,7 @@ export const CreateGitServerForm = ({
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
-                                <Grid container spacing={1}>
+                                <Grid container spacing={2}>
                                     <Grid item xs={6}>
                                         <SSHPort
                                             handleFormFieldChange={handleFormFieldChange}
@@ -180,7 +184,7 @@ export const CreateGitServerForm = ({
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
-                                <Grid container spacing={1}>
+                                <Grid container spacing={2}>
                                     <Grid item xs={6}>
                                         <SSHPrivateKey
                                             handleFormFieldChange={handleFormFieldChange}
@@ -196,7 +200,7 @@ export const CreateGitServerForm = ({
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
-                                <Grid container spacing={1} alignItems={'flex-end'}>
+                                <Grid container spacing={2}>
                                     <Grid item xs={6}>
                                         <Token
                                             handleFormFieldChange={handleFormFieldChange}
