@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../../../constants/ciTools';
-import { useJenkinsSlaves } from '../../../../../../hooks/useJenkinsSlaves';
+import { useJenkinsAgents } from '../../../../../../hooks/useJenkinsAgents';
 import { useJiraServers } from '../../../../../../hooks/useJiraServers';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
@@ -33,7 +33,7 @@ export const ApplicationAdvancedSettingsFormPart = ({
     const namespaceFieldValue = watch(names.namespace.name);
     const chosenCiToolFieldValue = watch(names.ciTool.name);
     const { jiraServers } = useJiraServers({ namespace: namespaceFieldValue });
-    const { jenkinsSlaves } = useJenkinsSlaves({ namespace: namespaceFieldValue });
+    const { jenkinsAgents } = useJenkinsAgents({ namespace: namespaceFieldValue });
 
     useUpdateJiraServerIntegrationValue({ watch, setValue, names });
     useUpdateVersioningFields({ watch, setValue, names, handleFormFieldChange });
@@ -48,7 +48,7 @@ export const ApplicationAdvancedSettingsFormPart = ({
                         <JenkinsSlave
                             names={names}
                             handleFormFieldChange={handleFormFieldChange}
-                            jenkinsSlaves={jenkinsSlaves}
+                            jenkinsAgents={jenkinsAgents}
                         />
                         <JobProvisioning
                             names={names}

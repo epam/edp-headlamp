@@ -73,7 +73,7 @@ export const EDPApplicationDetails = (): React.ReactElement => {
                 <>
                     <Grid container spacing={2}>
                         <Grid item xs={12} lg={8}>
-                            <CodebaseBranchesList kubeObjectData={application} />
+                            <CodebaseBranchesList codebaseData={application} />
                         </Grid>
                         <Grid item xs={12} lg={4}>
                             <CodebaseGeneralInfoTable kubeObjectData={application} />

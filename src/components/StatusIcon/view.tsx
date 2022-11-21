@@ -1,24 +1,29 @@
 import clsx from 'clsx';
 import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
-import { getStatusIconByStatusName } from '../../utils/styling/getStatusIconByStatusName';
+import { getCustomResourceStatusIconByStatusName } from '../../utils/styling/getCustomResourceStatusIconByStatusName';
 import { useStyles } from './styles';
 import { StatusIconProps } from './types';
 
 const { Icon } = Iconify;
 const { Tooltip } = MuiCore;
 
-export const StatusIcon = ({ status }: StatusIconProps): React.ReactElement => {
+export const StatusIcon = ({
+    status,
+    customTitle,
+    width = 25,
+}: StatusIconProps): React.ReactElement => {
     const classes = useStyles();
 
-    const [icon, color, animate] = getStatusIconByStatusName(status);
+    const [icon, color, animate] = getCustomResourceStatusIconByStatusName(status);
+
     return (
         <div>
-            <Tooltip title={capitalizeFirstLetter(status)}>
+            <Tooltip title={customTitle ?? capitalizeFirstLetter(status)}>
                 <Icon
                     icon={icon}
                     color={color}
-                    width="25"
+                    width={width}
                     className={clsx({
                         [classes.icon]: animate,
                         [classes.rotateIcon]: animate,

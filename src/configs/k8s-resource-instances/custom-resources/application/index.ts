@@ -5,6 +5,17 @@ import { createRandomFiveSymbolString } from '../../../../utils/createRandomFive
 
 const { kind, group, version } = ApplicationKubeObjectConfig;
 
+interface createApplicationInstanceProps {
+    pipelineName: string;
+    stageName: string;
+    appName: string;
+    imageName: string;
+    imageTag: string;
+    port: number;
+    namespace: string;
+    versioningType: string;
+}
+
 export const createApplicationInstance = ({
     pipelineName,
     stageName,
@@ -14,7 +25,7 @@ export const createApplicationInstance = ({
     port,
     namespace,
     versioningType,
-}): ApplicationKubeObjectInterface => {
+}: createApplicationInstanceProps): ApplicationKubeObjectInterface => {
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
 
     return {

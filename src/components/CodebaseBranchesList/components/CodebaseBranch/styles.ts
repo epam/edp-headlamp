@@ -4,10 +4,17 @@ import { rem } from '../../../../utils/styling/rem';
 const { makeStyles } = MuiCore;
 
 export const useStyles = makeStyles(() => ({
-    tableItemTitle: {
-        marginBottom: rem(12),
+    branchHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: rem(20),
+        lineHeight: 0,
+        width: '100%',
     },
-    tableItemInner: {
-        padding: rem(12),
+    pipelineRunStatus: {
+        paddingTop: rem(1),
+        display: 'flex',
+        justifyContent: 'center',
+        width: rem(44),
     },
 }));

@@ -21,4 +21,5 @@ export enum ICONS {
     INFO = 'fe:info',
     ACCEPT_ARROW = 'fluent-mdl2:accept',
     CROSS = 'fluent-mdl2:cancel',
+    PLAY = 'material-symbols:play-arrow-outline-rounded',
 }

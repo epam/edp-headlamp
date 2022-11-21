@@ -69,7 +69,7 @@ export const EDPAutotestDetails = (): React.ReactElement => {
             {autotest && (
                 <Grid container spacing={2}>
                     <Grid item xs={12} lg={8}>
-                        <CodebaseBranchesList kubeObjectData={autotest} />
+                        <CodebaseBranchesList codebaseData={autotest} />
                     </Grid>
                     <Grid item xs={12} lg={4}>
                         <CodebaseGeneralInfoTable kubeObjectData={autotest} />

@@ -1,4 +1,5 @@
 import { getGitServers } from '../../k8s/EDPGitServer';
+import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
 import { React } from '../../plugin.globals';
 
 interface UseGitServerProps {
@@ -7,8 +8,8 @@ interface UseGitServerProps {
 
 export const useGitServers = ({
     namespace,
-}: UseGitServerProps): { gitServers: string[]; error: Error } => {
-    const [gitServers, setGitServers] = React.useState<string[]>([]);
+}: UseGitServerProps): { gitServers: EDPGitServerKubeObjectInterface[]; error: Error } => {
+    const [gitServers, setGitServers] = React.useState<EDPGitServerKubeObjectInterface[]>([]);
     const [error, setError] = React.useState<Error>(null);
 
     React.useEffect(() => {
@@ -19,8 +20,7 @@ export const useGitServers = ({
 
             try {
                 const { items } = await getGitServers(namespace);
-                const gitServersNames = items.map(el => el.metadata.name);
-                setGitServers(gitServersNames);
+                setGitServers(items);
                 setError(null);
             } catch (err: any) {
                 setError(err);

@@ -18,7 +18,22 @@ describe('testing useGitServers hook', () => {
         const { result, waitForNextUpdate } = renderHook(() => useGitServers(useGitServersProps));
 
         await waitForNextUpdate();
-        await expect(result.current.gitServers).toEqual(['git-server-1', 'git-server-2']);
+        await expect(result.current.gitServers).toEqual([
+            {
+                apiVersion: 'v2.edp.epam.com/v1',
+                kind: 'GitServer',
+                metadata: {
+                    name: 'git-server-1',
+                },
+            },
+            {
+                apiVersion: 'v2.edp.epam.com/v1',
+                kind: 'GitServer',
+                metadata: {
+                    name: 'git-server-2',
+                },
+            },
+        ]);
         await expect(result.current.error).toBeNull();
     });
 

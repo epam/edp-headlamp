@@ -1,39 +1,22 @@
-import { ICONS } from '../../constants/icons';
-import { CUSTOM_RESOURCE_STATUSES } from '../../constants/statuses';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import {
-    EDPCodebaseBranchKubeObject,
-    streamCodebaseBranchesByCodebaseLabel,
-} from '../../k8s/EDPCodebaseBranch';
+import { streamCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
-import { Iconify, MuiCore, pluginLib, React } from '../../plugin.globals';
-import { rem } from '../../utils/styling/rem';
-import { Render } from '../Render';
-import { StatusIcon } from '../StatusIcon';
+import { pluginLib, React } from '../../plugin.globals';
 import { CodebaseBranch } from './components/CodebaseBranch';
-import { CodebaseBranchActions } from './components/CodebaseBranchActions';
-import { CodebaseBranchMetadataTable } from './components/CodebaseBranchMetadataTable';
 import { TableHeaderActions } from './components/TableHeaderActions';
 import { useStyles } from './styles';
 import { CodebaseBranchesListProps } from './types';
+import { isDefaultBranch } from './utils';
 const {
     CommonComponents: { SectionHeader, EmptyContent },
 } = pluginLib;
-const { Accordion, AccordionSummary, AccordionDetails, Typography, Grid } = MuiCore;
-const { Icon } = Iconify;
-
-const isDefaultBranch = (
-    codebase: EDPCodebaseKubeObjectInterface,
-    codebaseBranch: EDPCodebaseBranchKubeObjectInterface
-) => codebase.spec.defaultBranch === codebaseBranch.spec.branchName;
 
 export const CodebaseBranchesList = ({
-    kubeObjectData,
+    codebaseData,
 }: CodebaseBranchesListProps): React.ReactElement => {
     const {
         metadata: { name, namespace },
         spec: { defaultBranch },
-    } = kubeObjectData;
+    } = codebaseData;
 
     const classes = useStyles();
     const [currentCodebaseBranches, setCurrentCodebaseBranches] = React.useState<
@@ -49,11 +32,11 @@ export const CodebaseBranchesList = ({
     const handleStoreCodebaseBranches = React.useCallback(
         (data: EDPCodebaseBranchKubeObjectInterface[]) => {
             const sortedCodebaseBranches = data.sort(a =>
-                isDefaultBranch(kubeObjectData, a) ? -1 : 1
+                isDefaultBranch(codebaseData, a) ? -1 : 1
             );
             setCurrentCodebaseBranches(sortedCodebaseBranches);
         },
-        [setCurrentCodebaseBranches, kubeObjectData]
+        [setCurrentCodebaseBranches, codebaseData]
     );
 
     const handleError = React.useCallback((error: Error) => {
@@ -76,63 +59,23 @@ export const CodebaseBranchesList = ({
             <div className={classes.tableHeader}>
                 <SectionHeader title="Branches" headerStyle="label" />
                 <div className={classes.tableHeaderActions}>
-                    <TableHeaderActions kubeObjectData={kubeObjectData} />
+                    <TableHeaderActions kubeObjectData={codebaseData} />
                 </div>
             </div>
             {currentCodebaseBranches.length ? (
                 currentCodebaseBranches.map(
-                    (el: EDPCodebaseBranchKubeObjectInterface, idx: number) => {
-                        const stageId = `${el.spec.branchName}:${idx}`;
+                    (codebaseBranchData: EDPCodebaseBranchKubeObjectInterface, idx: number) => {
+                        const branchId = `${codebaseBranchData.spec.branchName}:${idx}`;
 
                         return (
-                            <div style={{ paddingBottom: rem(16) }} key={stageId}>
-                                <Accordion
-                                    expanded={expandedPanel === stageId}
-                                    onChange={handleChange(stageId)}
-                                >
-                                    <AccordionSummary
-                                        expandIcon={<Icon icon={ICONS['ARROW_DOWN']} />}
-                                    >
-                                        <div className={classes.branchHeader}>
-                                            <StatusIcon
-                                                status={
-                                                    el.status
-                                                        ? el.status.status
-                                                        : CUSTOM_RESOURCE_STATUSES['UNKNOWN']
-                                                }
-                                            />
-                                            <Typography variant={'h6'} style={{ lineHeight: 1 }}>
-                                                {el.spec.branchName}
-                                            </Typography>
-                                            <Render condition={isDefaultBranch(kubeObjectData, el)}>
-                                                <Typography variant={'subtitle2'}>
-                                                    default branch
-                                                </Typography>
-                                            </Render>
-                                            <div style={{ marginLeft: 'auto' }}>
-                                                <Grid container spacing={1}>
-                                                    <Grid item>
-                                                        <CodebaseBranchMetadataTable
-                                                            codebaseBranchData={el}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <CodebaseBranchActions
-                                                            kubeObject={EDPCodebaseBranchKubeObject}
-                                                            kubeObjectData={el}
-                                                            defaultBranch={defaultBranch}
-                                                            codebase={kubeObjectData}
-                                                        />
-                                                    </Grid>
-                                                </Grid>
-                                            </div>
-                                        </div>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <CodebaseBranch codebaseBranch={el} />
-                                    </AccordionDetails>
-                                </Accordion>
-                            </div>
+                            <CodebaseBranch
+                                key={branchId}
+                                codebaseBranchData={codebaseBranchData}
+                                defaultBranch={defaultBranch}
+                                expandedPanel={expandedPanel}
+                                codebaseData={codebaseData}
+                                handlePanelChange={handleChange}
+                            />
                         );
                     }
                 )

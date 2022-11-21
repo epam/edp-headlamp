@@ -9,7 +9,7 @@ const { Grid } = MuiCore;
 export const JenkinsSlave = ({
     names,
     handleFormFieldChange,
-    jenkinsSlaves,
+    jenkinsAgents,
 }: JenkinsSlaveProps) => {
     const {
         register,
@@ -36,7 +36,7 @@ export const JenkinsSlave = ({
                 control={control}
                 errors={errors}
                 disabled={!namespaceFieldValue}
-                options={jenkinsSlaves.map(el => ({
+                options={jenkinsAgents.map(el => ({
                     label: el,
                     value: el,
                 }))}

@@ -32,6 +32,11 @@ export const AutotestCodebaseInfoFormPart = ({
     const namespaceFieldValue = watch(names.namespace.name);
     const { gitServers } = useGitServers({ namespace: namespaceFieldValue });
 
+    const gitServersNames = React.useMemo(
+        () => gitServers.map(({ metadata: { name } }) => name),
+        [gitServers]
+    );
+
     useUpdateFieldsDependingOnChosenIntegrationStrategy({
         watch,
         handleFormFieldChange,
@@ -75,7 +80,7 @@ export const AutotestCodebaseInfoFormPart = ({
                         <GitServer
                             names={names}
                             handleFormFieldChange={handleFormFieldChange}
-                            gitServers={gitServers}
+                            gitServers={gitServersNames}
                         />
                         <GitUrlPath names={names} handleFormFieldChange={handleFormFieldChange} />
                     </>
