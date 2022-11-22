@@ -46,22 +46,12 @@ export const useUpdateFieldsDependingOnChosenIntegrationStrategy = ({
                         name: names.repositoryPasswordOrApiToken.name,
                         value: undefined,
                     });
-                    resetField(names.gitServer.name);
-                    handleFormFieldChange({
-                        name: names.gitServer.name,
-                        value: undefined,
-                    });
                     break;
 
                 case CODEBASE_CREATION_STRATEGIES['CLONE']:
                     resetField(names.gitUrlPath.name);
                     handleFormFieldChange({
                         name: names.gitUrlPath.name,
-                        value: undefined,
-                    });
-                    resetField(names.gitServer.name);
-                    handleFormFieldChange({
-                        name: names.gitServer.name,
                         value: undefined,
                     });
                     break;
