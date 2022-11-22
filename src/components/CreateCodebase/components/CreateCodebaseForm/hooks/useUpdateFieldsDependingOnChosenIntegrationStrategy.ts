@@ -31,6 +31,26 @@ export const useUpdateFieldsDependingOnChosenIntegrationStrategy = ({
                         name: names.repositoryUrl.name,
                         value: undefined,
                     });
+                    resetField(names.hasCodebaseAuth.name);
+                    handleFormFieldChange({
+                        name: names.hasCodebaseAuth.name,
+                        value: undefined,
+                    });
+                    resetField(names.repositoryLogin.name);
+                    handleFormFieldChange({
+                        name: names.repositoryLogin.name,
+                        value: undefined,
+                    });
+                    resetField(names.repositoryPasswordOrApiToken.name);
+                    handleFormFieldChange({
+                        name: names.repositoryPasswordOrApiToken.name,
+                        value: undefined,
+                    });
+                    resetField(names.gitServer.name);
+                    handleFormFieldChange({
+                        name: names.gitServer.name,
+                        value: undefined,
+                    });
                     break;
 
                 case CODEBASE_CREATION_STRATEGIES['CLONE']:
@@ -39,12 +59,32 @@ export const useUpdateFieldsDependingOnChosenIntegrationStrategy = ({
                         name: names.gitUrlPath.name,
                         value: undefined,
                     });
+                    resetField(names.gitServer.name);
+                    handleFormFieldChange({
+                        name: names.gitServer.name,
+                        value: undefined,
+                    });
                     break;
 
                 case CODEBASE_CREATION_STRATEGIES['IMPORT']:
                     resetField(names.repositoryUrl.name);
                     handleFormFieldChange({
                         name: names.repositoryUrl.name,
+                        value: undefined,
+                    });
+                    resetField(names.hasCodebaseAuth.name);
+                    handleFormFieldChange({
+                        name: names.hasCodebaseAuth.name,
+                        value: undefined,
+                    });
+                    resetField(names.repositoryLogin.name);
+                    handleFormFieldChange({
+                        name: names.repositoryLogin.name,
+                        value: undefined,
+                    });
+                    resetField(names.repositoryPasswordOrApiToken.name);
+                    handleFormFieldChange({
+                        name: names.repositoryPasswordOrApiToken.name,
                         value: undefined,
                     });
                     break;
