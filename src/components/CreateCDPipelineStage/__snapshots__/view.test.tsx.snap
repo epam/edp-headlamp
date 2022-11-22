@@ -482,7 +482,7 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                     <span
                       class="MuiButton-label"
                     >
-                      <span />
+                      add
                     </span>
                     <span
                       class="MuiTouchRipple-root"

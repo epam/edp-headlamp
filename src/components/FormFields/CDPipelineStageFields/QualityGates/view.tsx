@@ -171,7 +171,7 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
                         color={'default'}
                         onClick={handleAddApplicationRow}
                     >
-                        <Icon icon={ICONS['PLUS']} width={15} color={theme.palette.text.primary} />
+                        add
                     </Button>
                 </Grid>
                 <Render condition={!qualityGatesFieldValue || !qualityGatesFieldValue.length}>

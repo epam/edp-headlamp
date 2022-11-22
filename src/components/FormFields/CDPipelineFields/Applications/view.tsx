@@ -34,7 +34,9 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
 
     register(names.applicationsToPromote.name);
 
-    register(names.inputDockerStreams.name);
+    register(names.inputDockerStreams.name, {
+        required: 'Choose branch',
+    });
 
     const namespaceFieldValue = watch(names.namespace.name);
     const applicationsToAddChooserFieldValue = watch(names.applicationsToAddChooser.name);
@@ -202,6 +204,18 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                 <Grid item xs={12}>
                     <Alert severity="info" elevation={2} variant="filled">
                         Please, add at least one application
+                    </Alert>
+                </Grid>
+            </Render>
+            <Render
+                condition={
+                    (!applicationsBranchesFieldValue || !applicationsBranchesFieldValue.length) &&
+                    applicationsFieldValue
+                }
+            >
+                <Grid item xs={12}>
+                    <Alert severity="info" elevation={2} variant="filled">
+                        Please, choose application branch
                     </Alert>
                 </Grid>
             </Render>
