@@ -6,7 +6,7 @@ export interface CodebaseBranchProps {
     codebaseBranchData: EDPCodebaseBranchKubeObjectInterface;
     defaultBranch: string;
     expandedPanel: string;
-    key: string;
+    id: string;
     codebaseData: EDPCodebaseKubeObjectInterface;
     handlePanelChange: (
         panel: string

@@ -25,6 +25,20 @@ export enum PIPELINE_RUN_STATUSES {
     FAILED = 'failed',
 }
 
+export enum ARGO_APPLICATION_HEALTH_STATUSES {
+    HEALTHY = 'healthy',
+    PROGRESSING = 'progressing',
+    DEGRADED = 'degraded',
+    SUSPENDED = 'suspended',
+    MISSING = 'missing',
+    UNKNOWN = 'unknown',
+}
+
+export enum ARGO_APPLICATION_SYNC_STATUSES {
+    SYNCED = 'synced',
+    OUT_OF_SYNC = 'outofsync',
+}
+
 export const CUSTOM_RESOURCE_STATUS_SORT_ORDER: StatusType = {
     [CUSTOM_RESOURCE_STATUSES['CREATED']]: 0,
     [CUSTOM_RESOURCE_STATUSES['INITIALIZED']]: 0,
@@ -36,10 +50,4 @@ export const CUSTOM_RESOURCE_STATUS_SORT_ORDER: StatusType = {
 export const CUSTOM_RESOURCE_ACTIVE_STATUS_SORT_ORDER: StatusType = {
     [CUSTOM_RESOURCE_ACTIVE_STATUSES['ACTIVE']]: 0,
     [CUSTOM_RESOURCE_ACTIVE_STATUSES['INACTIVE']]: 1,
-};
-
-export const PIPELINE_RUN_STATUS_SORT_ORDER: StatusType = {
-    [PIPELINE_RUN_STATUSES['SUCCEEDED']]: 0,
-    [PIPELINE_RUN_STATUSES['RUNNING']]: 1,
-    [PIPELINE_RUN_STATUSES['FAILED']]: 2,
 };

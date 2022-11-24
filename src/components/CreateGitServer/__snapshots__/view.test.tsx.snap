@@ -487,9 +487,6 @@ exports[`CreateGitServer should render correctly 1`] = `
                             >
                               Host
                             </span>
-                            <div
-                              style="width: 1.5625rem; height: 1.5625rem;"
-                            />
                           </span>
                         </div>
                         <div
@@ -604,9 +601,6 @@ exports[`CreateGitServer should render correctly 1`] = `
                             >
                               SSH port
                             </span>
-                            <div
-                              style="width: 1.5625rem; height: 1.5625rem;"
-                            />
                           </span>
                         </div>
                         <div
@@ -660,9 +654,6 @@ exports[`CreateGitServer should render correctly 1`] = `
                             >
                               HTTPS port
                             </span>
-                            <div
-                              style="width: 1.5625rem; height: 1.5625rem;"
-                            />
                           </span>
                         </div>
                         <div
@@ -724,9 +715,6 @@ exports[`CreateGitServer should render correctly 1`] = `
                             >
                               Private SSH key
                             </span>
-                            <div
-                              style="width: 1.5625rem; height: 1.5625rem;"
-                            />
                           </span>
                         </div>
                         <div
@@ -789,9 +777,6 @@ exports[`CreateGitServer should render correctly 1`] = `
                             >
                               Public SSH key
                             </span>
-                            <div
-                              style="width: 1.5625rem; height: 1.5625rem;"
-                            />
                           </span>
                         </div>
                         <div
@@ -860,9 +845,6 @@ exports[`CreateGitServer should render correctly 1`] = `
                             >
                               Token
                             </span>
-                            <div
-                              style="width: 1.5625rem; height: 1.5625rem;"
-                            />
                           </span>
                         </div>
                         <div

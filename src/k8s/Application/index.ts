@@ -1,4 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
+import { streamResults } from '../common/streamResults';
 import { ApplicationKubeObjectConfig } from './config';
 import { ApplicationKubeObjectInterface, ApplicationSpec, ApplicationStatus } from './types';
 
@@ -33,3 +34,17 @@ export class ApplicationKubeObject extends makeKubeObject<ApplicationKubeObjectI
         return this.jsonData!.status;
     }
 }
+
+export const streamApplicationListByPipelineStageLabel = (
+    pipelineStageLabel: string,
+    cb: (data: ApplicationKubeObjectInterface[]) => void,
+    errCb: (err: Error) => void,
+    namespace?: string
+): (() => void) => {
+    const url = namespace
+        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
+        : `/apis/${group}/${version}/${pluralForm}`;
+    return streamResults(url, cb, errCb, {
+        labelSelector: `app.edp.epam.com/pipeline-stage=${pipelineStageLabel}`,
+    });
+};

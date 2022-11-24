@@ -5,8 +5,13 @@ export const applicationMock: DeepPartial<ApplicationKubeObjectInterface> = {
     apiVersion: 'argoproj.io/v1alpha1',
     kind: 'Application',
     metadata: {
-        name: `test-pipeline-name-test-stage-name-test-app-name-8ygse`,
+        name: `test-pipeline-name-test-stage-name-test-app-name`,
         namespace: 'test-namespace',
+        labels: {
+            'app.edp.epam.com/pipeline-stage': `test-pipeline-name-test-stage-name`,
+            'app.edp.epam.com/app-name': 'test-app-name',
+        },
+        finalizers: ['resources-finalizer.argocd.argoproj.io'],
     },
     spec: {
         project: 'test-namespace',

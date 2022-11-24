@@ -69,7 +69,7 @@ export const CodebaseBranchesList = ({
 
                         return (
                             <CodebaseBranch
-                                key={branchId}
+                                id={branchId}
                                 codebaseBranchData={codebaseBranchData}
                                 defaultBranch={defaultBranch}
                                 expandedPanel={expandedPanel}

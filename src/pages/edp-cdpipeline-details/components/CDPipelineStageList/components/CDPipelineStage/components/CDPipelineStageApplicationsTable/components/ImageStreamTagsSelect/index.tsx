@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { FormSelect } from '../../../../../../../../../../components/FormComponents';
+import { Render } from '../../../../../../../../../../components/Render';
 import { EnrichedApplication } from '../../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { useRequest } from '../../../../../../../../../../hooks/useRequest';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/Application/types';
@@ -9,18 +10,22 @@ import {
     CDPipelineStagesDataContext,
     CurrentCDPipelineStageDataContext,
 } from '../../../../../../view';
-import { createApplicationInterface, useCreateApplication } from './hooks/useCreateApplication';
+import { useApplicationCRUD } from './hooks/useApplicationCRUD';
 import { useImageStreamBasedOnResources } from './hooks/useImageStreamBasedOnResources';
 
 const { Grid, Button } = MuiCore;
 
-export const ImageStreamTagsSelect = ({ application }: { application: EnrichedApplication }) => {
+export const ImageStreamTagsSelect = ({
+    application,
+    argoApplication,
+}: {
+    application: EnrichedApplication;
+    argoApplication: ApplicationKubeObjectInterface;
+}) => {
     const {
         control,
         formState: { errors },
-        handleSubmit,
         watch,
-        resetField,
     } = useForm();
 
     const streamTagFieldName = 'imageTag';
@@ -29,7 +34,7 @@ export const ImageStreamTagsSelect = ({ application }: { application: EnrichedAp
     const CDPipeline = React.useContext(CDPipelineDataContext);
 
     const currentCDPipelineStage = React.useContext(CurrentCDPipelineStageDataContext);
-
+    const currentArgoAppName = `${CDPipeline.metadata.name}-${currentCDPipelineStage.spec.name}-${application.application.metadata.name}`;
     const CDPipelineStages = React.useContext(CDPipelineStagesDataContext);
 
     const { imageStream } = useImageStreamBasedOnResources({
@@ -47,79 +52,145 @@ export const ImageStreamTagsSelect = ({ application }: { application: EnrichedAp
               }))
             : [];
 
-    const { createApplication } = useCreateApplication(
-        () => {
-            resetField(streamTagFieldName);
-        },
-        () => {
-            resetField(streamTagFieldName);
-        }
-    );
-
-    const applyFunc = React.useCallback(
-        async (data: createApplicationInterface): Promise<ApplicationKubeObjectInterface> =>
-            createApplication(data),
-        [createApplication]
-    );
+    const { createApplication, editApplication, deleteApplication } = useApplicationCRUD();
 
     const {
-        state: { isLoading },
-        fireRequest,
+        state: { isLoading: isApplying },
+        fireRequest: fireCreateApplicationRequest,
     } = useRequest({
-        requestFn: applyFunc,
+        requestFn: createApplication,
         options: {
             mode: 'create',
         },
     });
 
-    const handleApply = React.useCallback(
-        async (data: createApplicationInterface): Promise<void> => {
-            const { pipelineName, stageName, appName } = data;
-            const name = `${pipelineName}-${stageName}-${appName}`;
-
-            await fireRequest({
-                objectName: name,
-                args: [data],
-            });
+    const {
+        state: { isLoading: isUpdating },
+        fireRequest: fireEditApplicationRequest,
+    } = useRequest({
+        requestFn: editApplication,
+        options: {
+            mode: 'edit',
         },
-        [fireRequest]
-    );
+    });
 
-    const onSubmit = async ({ imageTag }) => {
-        await handleApply({
-            pipelineName: CDPipeline.metadata.name,
-            stageName: currentCDPipelineStage.spec.name,
-            appName: application.application.metadata.name,
-            imageName: imageStream.spec.imageName,
-            namespace: CDPipeline.metadata.namespace,
-            versioningType: application.application.spec.versioning.type,
-            imageTag,
+    const {
+        state: { isLoading: isDeleting },
+        fireRequest: fireDeleteApplicationRequest,
+    } = useRequest({
+        requestFn: deleteApplication,
+        options: {
+            mode: 'delete',
+        },
+    });
+
+    const handleCreateRequest = React.useCallback(async (): Promise<void> => {
+        await fireCreateApplicationRequest({
+            objectName: currentArgoAppName,
+            args: [
+                {
+                    pipelineName: CDPipeline.metadata.name,
+                    stageName: currentCDPipelineStage.spec.name,
+                    appName: application.application.metadata.name,
+                    imageName: imageStream.spec.imageName,
+                    namespace: CDPipeline.metadata.namespace,
+                    versioningType: application.application.spec.versioning.type,
+                    imageTag: streamTagFieldValue,
+                },
+            ],
         });
-    };
+    }, [
+        CDPipeline,
+        application,
+        currentArgoAppName,
+        currentCDPipelineStage,
+        fireCreateApplicationRequest,
+        imageStream,
+        streamTagFieldValue,
+    ]);
+
+    const handleEditRequest = React.useCallback(async (): Promise<void> => {
+        await fireEditApplicationRequest({
+            objectName: currentArgoAppName,
+            args: [
+                {
+                    deployedVersion: streamTagFieldValue,
+                    argoApplication,
+                    versioningType: application.application.spec.versioning.type,
+                },
+            ],
+        });
+    }, [
+        application,
+        argoApplication,
+        currentArgoAppName,
+        fireEditApplicationRequest,
+        streamTagFieldValue,
+    ]);
+
+    const handleDeleteRequest = React.useCallback(async (): Promise<void> => {
+        await fireDeleteApplicationRequest({
+            objectName: currentArgoAppName,
+            args: [
+                {
+                    argoApplication,
+                },
+            ],
+        });
+    }, [argoApplication, currentArgoAppName, fireDeleteApplicationRequest]);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form>
             <Grid container spacing={2} alignItems={'center'}>
-                <Grid item xs={10}>
+                <Grid item style={{ flexGrow: 1 }}>
                     <FormSelect
                         control={control}
                         errors={errors}
                         name={streamTagFieldName}
                         options={imageStreamTagsOptions}
                         disabled={!imageStreamTagsOptions.length}
-                        placeholder={'Choose image stream version'}
+                        placeholder={'Image stream version'}
                     />
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item>
+                    <Render condition={!argoApplication}>
+                        <Button
+                            component={'button'}
+                            type={'button'}
+                            variant={'contained'}
+                            color={'primary'}
+                            size={'small'}
+                            disabled={!streamTagFieldValue || isApplying || isUpdating}
+                            onClick={handleCreateRequest}
+                        >
+                            Deploy
+                        </Button>
+                    </Render>
+                    <Render condition={!!argoApplication}>
+                        <Button
+                            component={'button'}
+                            type={'button'}
+                            variant={'contained'}
+                            color={'primary'}
+                            size={'small'}
+                            disabled={!streamTagFieldValue || isApplying || isUpdating}
+                            onClick={handleEditRequest}
+                        >
+                            Update
+                        </Button>
+                    </Render>
+                </Grid>
+                <Grid item>
                     <Button
                         component={'button'}
-                        type={'submit'}
+                        type={'button'}
                         variant={'contained'}
-                        color={'primary'}
+                        color={'default'}
                         size={'small'}
-                        disabled={!streamTagFieldValue || isLoading}
+                        disabled={!argoApplication || isDeleting}
+                        onClick={handleDeleteRequest}
                     >
-                        Deploy
+                        Uninstall
                     </Button>
                 </Grid>
             </Grid>

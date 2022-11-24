@@ -2,6 +2,7 @@ import { HeadlampSimpleTableGetterColumn } from '../../../../../../../../../comp
 import { StatusIcon } from '../../../../../../../../../components/StatusIcon';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../../constants/statuses';
 import { EnrichedApplication } from '../../../../../../../../../hooks/useApplicationsInCDPipeline';
+import { ApplicationKubeObjectInterface } from '../../../../../../../../../k8s/Application/types';
 import { pluginLib, React } from '../../../../../../../../../plugin.globals';
 import { APPLICATIONS_ROUTE_NAME } from '../../../../../../../../../routes/names';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../../../../utils/routes/createRouteName';
@@ -11,22 +12,53 @@ const {
     CommonComponents: { Link },
 } = pluginLib;
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<EnrichedApplication>[] =>
+export const useColumns = (): HeadlampSimpleTableGetterColumn<{
+    application: EnrichedApplication;
+    argoApplication: ApplicationKubeObjectInterface;
+}>[] =>
     React.useMemo(
         () => [
             {
-                label: 'Status',
-                getter: ({ application: { status } }) => (
-                    <StatusIcon
-                        status={status ? status.status : CUSTOM_RESOURCE_STATUSES['UNKNOWN']}
-                    />
-                ),
+                label: 'Health',
+                getter: ({ argoApplication }) =>
+                    argoApplication &&
+                    argoApplication.status &&
+                    //@ts-ignore
+                    argoApplication.status.health &&
+                    //@ts-ignore
+                    argoApplication.status.health.status ? (
+                        <StatusIcon
+                            //@ts-ignore
+                            status={argoApplication.status.health.status.toLowerCase()}
+                        />
+                    ) : (
+                        <StatusIcon status={CUSTOM_RESOURCE_STATUSES['UNKNOWN']} />
+                    ),
+            },
+            {
+                label: 'Sync',
+                getter: ({ argoApplication }) =>
+                    argoApplication &&
+                    argoApplication.status &&
+                    //@ts-ignore
+                    argoApplication.status.sync &&
+                    //@ts-ignore
+                    argoApplication.status.sync.status ? (
+                        <StatusIcon
+                            //@ts-ignore
+                            status={argoApplication.status.sync.status.toLowerCase()}
+                        />
+                    ) : (
+                        <StatusIcon status={CUSTOM_RESOURCE_STATUSES['UNKNOWN']} />
+                    ),
             },
             {
                 label: 'Application',
                 getter: ({
                     application: {
-                        metadata: { name, namespace },
+                        application: {
+                            metadata: { name, namespace },
+                        },
                     },
                 }) => {
                     return (
@@ -45,8 +77,22 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EnrichedApplicatio
                 },
             },
             {
+                label: 'Deployed version',
+                getter: ({ argoApplication }) =>
+                    argoApplication
+                        ? argoApplication.spec.source.helm.parameters.find(
+                              el => el.name === 'image.tag'
+                          ).value
+                        : 'No deploy',
+            },
+            {
                 label: 'Image stream version',
-                getter: application => <ImageStreamTagsSelect application={application} />,
+                getter: ({ application, argoApplication }) => (
+                    <ImageStreamTagsSelect
+                        application={application}
+                        argoApplication={argoApplication}
+                    />
+                ),
             },
         ],
         []

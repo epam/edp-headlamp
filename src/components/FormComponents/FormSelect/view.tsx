@@ -48,9 +48,11 @@ export const FormSelect = React.forwardRef(
             <Grid container spacing={1}>
                 <Grid item xs={12}>
                     <Grid container spacing={1}>
-                        <Grid item xs={12}>
-                            <FormControlLabelWithTooltip label={label} title={title} />
-                        </Grid>
+                        <Render condition={!!label || !!title}>
+                            <Grid item xs={12}>
+                                <FormControlLabelWithTooltip label={label} title={title} />
+                            </Grid>
+                        </Render>
                         <Grid item xs={12}>
                             <FormControl fullWidth>
                                 <Controller

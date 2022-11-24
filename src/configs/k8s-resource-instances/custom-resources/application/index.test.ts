@@ -2,19 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { jest } from '@jest/globals';
 import { createApplicationInstance } from './index';
-
-beforeEach(() => {
-    jest.spyOn(global.window.crypto, 'getRandomValues').mockReturnValue(
-        new Uint32Array([2736861854, 4288701136, 612580786, 3178865852, 3429947584])
-    );
-});
-
-afterEach(() => {
-    jest.clearAllMocks();
-    jest.spyOn(global.window.crypto, 'getRandomValues').mockRestore();
-});
 
 describe('testing createApplicationInstance', () => {
     it('should return valid kube object', () => {
@@ -33,8 +21,13 @@ describe('testing createApplicationInstance', () => {
             apiVersion: 'argoproj.io/v1alpha1',
             kind: 'Application',
             metadata: {
-                name: 'test-pipeline-name-test-stage-name-test-application-name-8ygse',
+                name: 'test-pipeline-name-test-stage-name-test-application-name',
                 namespace: 'test-namespace',
+                labels: {
+                    'app.edp.epam.com/pipeline-stage': `test-pipeline-name-test-stage-name`,
+                    'app.edp.epam.com/app-name': 'test-application-name',
+                },
+                finalizers: ['resources-finalizer.argocd.argoproj.io'],
             },
             spec: {
                 project: 'test-namespace',

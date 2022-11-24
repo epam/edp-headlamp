@@ -1,20 +1,9 @@
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { ApplicationKubeObjectConfig } from '../../../../k8s/Application/config';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
-import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
+import { createApplicationInstanceProps, editApplicationInstanceProps } from './types';
 
 const { kind, group, version } = ApplicationKubeObjectConfig;
-
-interface createApplicationInstanceProps {
-    pipelineName: string;
-    stageName: string;
-    appName: string;
-    imageName: string;
-    imageTag: string;
-    port: number;
-    namespace: string;
-    versioningType: string;
-}
 
 export const createApplicationInstance = ({
     pipelineName,
@@ -32,8 +21,13 @@ export const createApplicationInstance = ({
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
-            name: `${pipelineName}-${stageName}-${appName}-${createRandomFiveSymbolString()}`,
+            name: `${pipelineName}-${stageName}-${appName}`,
             namespace,
+            labels: {
+                'app.edp.epam.com/pipeline-stage': `${pipelineName}-${stageName}`,
+                'app.edp.epam.com/app-name': appName,
+            },
+            finalizers: ['resources-finalizer.argocd.argoproj.io'],
         },
         spec: {
             project: namespace,
@@ -67,4 +61,31 @@ export const createApplicationInstance = ({
             },
         },
     };
+};
+
+export const editApplicationInstance = ({
+    argoApplication,
+    versioningType,
+    deployedVersion,
+}: editApplicationInstanceProps): ApplicationKubeObjectInterface => {
+    const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
+    const base = { ...argoApplication };
+
+    const newParameters = base.spec.source.helm.parameters.map(el => {
+        if (el.name === 'image.tag') {
+            return {
+                ...el,
+                value: deployedVersion,
+            };
+        }
+
+        return el;
+    });
+
+    const newTargetRevision = isEDPVersioning ? `build/${deployedVersion}` : deployedVersion;
+
+    base.spec.source.helm.parameters = newParameters;
+    base.spec.source.targetRevision = newTargetRevision;
+
+    return base;
 };

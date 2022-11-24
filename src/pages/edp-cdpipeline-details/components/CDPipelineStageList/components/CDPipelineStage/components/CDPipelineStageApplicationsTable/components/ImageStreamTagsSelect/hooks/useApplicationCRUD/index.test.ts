@@ -6,7 +6,7 @@ import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react-hooks';
 import { ApplicationKubeObject } from '../../../../../../../../../../../../k8s/Application';
 import { pluginLib } from '../../../../../../../../../../../../plugin.globals';
-import { useCreateApplication } from './index';
+import { useApplicationCRUD } from './index';
 import { applicationMock } from './mocks/application.mock';
 import { gerritsMock } from './mocks/gerrits.mock';
 
@@ -32,18 +32,8 @@ afterEach(() => {
     jest.spyOn(global.window.crypto, 'getRandomValues').mockRestore();
 });
 
-describe('testing useCreateApplication hook', () => {
+describe('testing useApplicationCRUD hook', () => {
     it('should successfully create Application resource', async () => {
-        let applicationCreated: boolean = false;
-        let hasError: boolean = false;
-
-        const onCreate = (): void => {
-            applicationCreated = true;
-        };
-        const onError = (): void => {
-            hasError = true;
-        };
-
         jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
             if (url.includes('gerrits')) {
                 return Promise.resolve(gerritsMock);
@@ -58,7 +48,7 @@ describe('testing useCreateApplication hook', () => {
             result: {
                 current: { createApplication },
             },
-        } = renderHook(() => useCreateApplication(onCreate, onError));
+        } = renderHook(() => useApplicationCRUD());
 
         const createApplicationPromise = createApplication({
             pipelineName: 'test-pipeline-name',
@@ -72,21 +62,8 @@ describe('testing useCreateApplication hook', () => {
 
         await expect(createApplicationPromise).resolves.toEqual(applicationMock);
         expect(applicationPostRequestSpy).toHaveBeenCalledWith(applicationMock);
-
-        expect(applicationCreated).toBe(true);
-        expect(hasError).toBe(false);
     });
     it(`shouldn't create Application if something goes wrong`, async () => {
-        let applicationCreated: boolean = false;
-        let hasError: boolean = false;
-
-        const onCreate = (): void => {
-            applicationCreated = true;
-        };
-        const onError = (): void => {
-            hasError = true;
-        };
-
         jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
             if (url.includes('gerrits')) {
                 return Promise.resolve(gerritsMock);
@@ -101,7 +78,7 @@ describe('testing useCreateApplication hook', () => {
             result: {
                 current: { createApplication },
             },
-        } = renderHook(() => useCreateApplication(onCreate, onError));
+        } = renderHook(() => useApplicationCRUD());
 
         const createApplicationPromise = createApplication({
             pipelineName: 'test-pipeline-name',
@@ -115,8 +92,5 @@ describe('testing useCreateApplication hook', () => {
 
         await expect(createApplicationPromise).rejects.toEqual({ status: 'Failure' });
         expect(applicationPostRequestSpy).toHaveBeenCalledWith(applicationMock);
-
-        expect(applicationCreated).toBe(false);
-        expect(hasError).toBe(true);
     });
 });

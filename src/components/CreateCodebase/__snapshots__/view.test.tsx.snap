@@ -1854,9 +1854,6 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                 >
                                   Integrate with Jira server
                                 </span>
-                                <div
-                                  style="width: 1.5625rem; height: 1.5625rem;"
-                                />
                               </span>
                             </span>
                           </span>
@@ -2298,9 +2295,6 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                 >
                                   Codebase Authentication
                                 </span>
-                                <div
-                                  style="width: 1.5625rem; height: 1.5625rem;"
-                                />
                               </span>
                             </span>
                           </span>
@@ -3773,9 +3767,6 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                 >
                                   Integrate with Jira server
                                 </span>
-                                <div
-                                  style="width: 1.5625rem; height: 1.5625rem;"
-                                />
                               </span>
                             </span>
                           </span>
@@ -5828,9 +5819,6 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                 >
                                   Integrate with Jira server
                                 </span>
-                                <div
-                                  style="width: 1.5625rem; height: 1.5625rem;"
-                                />
                               </span>
                             </span>
                           </span>

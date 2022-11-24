@@ -24,9 +24,7 @@ export const CDPipelineStage = (): React.ReactElement => {
                 <div className={classes.tableItemTitle}>
                     <Typography variant={'h5'}>Applications</Typography>
                 </div>
-                <Paper className={classes.tableItemInner}>
-                    <CDPipelineStageApplicationsTable />
-                </Paper>
+                <CDPipelineStageApplicationsTable />
             </Grid>
             <Grid item xs={12} lg={6}>
                 <div className={classes.tableItemTitle}>

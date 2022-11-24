@@ -22,7 +22,7 @@ export const CodebaseBranch = ({
     defaultBranch,
     codebaseBranchData,
     expandedPanel,
-    key,
+    id,
     handlePanelChange,
     codebaseData,
 }: CodebaseBranchProps): React.ReactElement => {
@@ -89,8 +89,8 @@ export const CodebaseBranch = ({
     ]);
 
     return (
-        <div style={{ paddingBottom: rem(16) }}>
-            <Accordion expanded={expandedPanel === key} onChange={handlePanelChange(key)}>
+        <div style={{ paddingBottom: rem(16) }} key={id}>
+            <Accordion expanded={expandedPanel === id} onChange={handlePanelChange(id)}>
                 <AccordionSummary expandIcon={<Icon icon={ICONS['ARROW_DOWN']} />}>
                     <div className={classes.branchHeader}>
                         <StatusIcon
