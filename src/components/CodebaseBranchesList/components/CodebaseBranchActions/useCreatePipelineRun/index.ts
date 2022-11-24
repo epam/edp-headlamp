@@ -16,10 +16,14 @@ export interface createPipelineRunInterface {
         codebaseType: string;
         codebaseFramework: string;
     };
-    codebaseBranchName: string;
+    codebaseBranchData: {
+        codebaseBranchMetadataName: string;
+        codebaseBranchName: string;
+    };
     gitServerData: {
         gitUser: string;
         gitHost: string;
+        gitProvider: string;
         sshPort: number;
         nameSshKeySecret: string;
     };
@@ -32,29 +36,18 @@ export const useCreatePipelineRun = (
 ): {
     createPipelineRun: ({
         namespace,
-        codebaseBranchName,
+        codebaseBranchData,
     }: createPipelineRunInterface) => Promise<PipelineRunKubeObjectInterface>;
 } => {
     const { enqueueSnackbar } = useSnackbar();
 
     const createPipelineRun = React.useCallback(
-        async ({
-            namespace,
-            codebaseBranchName,
-            codebaseData,
-            gitServerData,
-            randomPostfix,
-        }: createPipelineRunInterface): Promise<PipelineRunKubeObjectInterface> => {
+        async (data: createPipelineRunInterface): Promise<PipelineRunKubeObjectInterface> => {
+            const { codebaseData, randomPostfix } = data;
             let newPipelineRunData: PipelineRunKubeObjectInterface;
 
             try {
-                newPipelineRunData = createPipelineRunInstance({
-                    namespace,
-                    codebaseBranchName,
-                    codebaseData,
-                    gitServerData,
-                    randomPostfix,
-                });
+                newPipelineRunData = createPipelineRunInstance(data);
 
                 const pipelineRunPostRequestResult = await PipelineRun.apiEndpoint.post(
                     newPipelineRunData

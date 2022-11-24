@@ -2,6 +2,7 @@ import { EDPKubeObjectInterface } from '../../types/k8s';
 
 export interface EDPGitServerSpec {
     gitHost: string;
+    gitProvider: string;
     gitUser: string;
     httpsPort: number;
     nameSshKeySecret: string;

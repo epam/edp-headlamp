@@ -28,7 +28,6 @@ export const CodebaseBranchActions = ({
 }: CodebaseBranchActionsProps): React.ReactElement => {
     const {
         metadata: { namespace },
-        spec: { branchName },
     } = codebaseBranchData;
     const [editActionEditorOpen, setEditActionEditorOpen] = React.useState<boolean>(false);
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
@@ -87,7 +86,10 @@ export const CodebaseBranchActions = ({
                     handleCloseActionsMenu();
                     await handleApply({
                         namespace,
-                        codebaseBranchName: branchName,
+                        codebaseBranchData: {
+                            codebaseBranchName: codebaseBranchData.spec.branchName,
+                            codebaseBranchMetadataName: codebaseBranchData.metadata.name,
+                        },
                         codebaseData: {
                             codebaseName: codebase.metadata.name,
                             codebaseBuildTool: codebase.spec.buildTool,
@@ -98,6 +100,7 @@ export const CodebaseBranchActions = ({
                         gitServerData: {
                             gitUser: gitServerByCodebase.spec.gitUser,
                             gitHost: gitServerByCodebase.spec.gitHost,
+                            gitProvider: gitServerByCodebase.spec.gitProvider,
                             sshPort: gitServerByCodebase.spec.sshPort,
                             nameSshKeySecret: gitServerByCodebase.spec.nameSshKeySecret,
                         },
@@ -123,7 +126,6 @@ export const CodebaseBranchActions = ({
         defaultBranch,
         handleApply,
         namespace,
-        branchName,
         codebase,
         gitServerByCodebase,
         handleCloseActionsMenu,
@@ -145,12 +147,12 @@ export const CodebaseBranchActions = ({
             handleError(
                 <CodebaseBranchCDPipelineConflictError
                     conflictedCDPipeline={conflictedCDPipeline}
-                    name={branchName}
+                    name={codebaseBranchData.spec.branchName}
                 />
             );
             setLoadingActive(false);
         },
-        [branchName, codebase, codebaseBranchData, namespace]
+        [codebase, codebaseBranchData, namespace]
     );
 
     return (
@@ -174,7 +176,7 @@ export const CodebaseBranchActions = ({
                     setPopupOpen={setDeleteActionPopupOpen}
                     kubeObject={EDPCodebaseBranchKubeObject}
                     kubeObjectData={codebaseBranchData}
-                    objectName={branchName}
+                    objectName={codebaseBranchData.spec.branchName}
                     description={`Please confirm the deletion of the codebase branch with all its components
                             (Record in database, Jenkins pipeline, cluster namespace).`}
                     onBeforeSubmit={onBeforeSubmit}

@@ -62,10 +62,14 @@ describe('testing useCreatePipelineRun hook', () => {
                 codebaseType: 'test-codebase-type',
                 codebaseFramework: 'test-framework',
             },
-            codebaseBranchName: 'test-codebase-branch-name',
+            codebaseBranchData: {
+                codebaseBranchMetadataName: 'test-codebase-name-test-codebase-branch-name',
+                codebaseBranchName: 'test-codebase-branch-name',
+            },
             gitServerData: {
                 gitHost: 'test-git-host',
                 gitUser: 'test-git-user',
+                gitProvider: 'test-git-provider',
                 sshPort: 123,
                 nameSshKeySecret: 'test-ssh-key-secret',
             },
@@ -109,10 +113,14 @@ describe('testing useCreatePipelineRun hook', () => {
                 codebaseType: 'test-codebase-type',
                 codebaseFramework: 'test-framework',
             },
-            codebaseBranchName: 'test-codebase-branch-name',
+            codebaseBranchData: {
+                codebaseBranchMetadataName: 'test-codebase-name-test-codebase-branch-name',
+                codebaseBranchName: 'test-codebase-branch-name',
+            },
             gitServerData: {
                 gitHost: 'test-git-host',
                 gitUser: 'test-git-user',
+                gitProvider: 'test-git-provider',
                 sshPort: 123,
                 nameSshKeySecret: 'test-ssh-key-secret',
             },

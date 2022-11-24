@@ -20,12 +20,16 @@ export const pipelineRunMock: PipelineRunKubeObjectInterface = {
                 name: 'git-source-revision',
                 value: 'test-codebase-branch-name',
             },
+            {
+                name: 'CODEBASEBRANCH_NAME',
+                value: 'test-codebase-name-test-codebase-branch-name',
+            },
             { name: 'CODEBASE_NAME', value: 'test-codebase-name' },
             { name: 'changeNumber', value: '1' },
             { name: 'patchsetNumber', value: '1' },
         ],
         pipelineRef: {
-            name: 'gerrit-test-build-tool-test-framework-tes-build-test-versioning-type',
+            name: 'test-git-provider-test-build-tool-test-framework-tes-build-test-versioning-type',
         },
         serviceAccountName: 'tekton',
         taskRunSpecs: [

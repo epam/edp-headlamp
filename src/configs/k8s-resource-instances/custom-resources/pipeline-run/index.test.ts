@@ -30,10 +30,14 @@ describe('testing createPipelineRunInstance', () => {
                 codebaseType: 'test-codebase-type',
                 codebaseFramework: 'test-framework',
             },
-            codebaseBranchName: 'test-codebase-branch-name',
+            codebaseBranchData: {
+                codebaseBranchMetadataName: 'test-codebase-name-test-codebase-branch-name',
+                codebaseBranchName: 'test-codebase-branch-name',
+            },
             gitServerData: {
                 gitHost: 'test-git-host',
                 gitUser: 'test-git-user',
+                gitProvider: 'test-git-provider',
                 sshPort: 123,
                 nameSshKeySecret: 'test-ssh-key-secret',
             },
@@ -61,12 +65,16 @@ describe('testing createPipelineRunInstance', () => {
                         name: 'git-source-revision',
                         value: 'test-codebase-branch-name',
                     },
+                    {
+                        name: 'CODEBASEBRANCH_NAME',
+                        value: 'test-codebase-name-test-codebase-branch-name',
+                    },
                     { name: 'CODEBASE_NAME', value: 'test-codebase-name' },
                     { name: 'changeNumber', value: '1' },
                     { name: 'patchsetNumber', value: '1' },
                 ],
                 pipelineRef: {
-                    name: 'gerrit-test-build-tool-test-framework-tes-build-test-versioning-type',
+                    name: 'test-git-provider-test-build-tool-test-framework-tes-build-test-versioning-type',
                 },
                 serviceAccountName: 'tekton',
                 taskRunSpecs: [

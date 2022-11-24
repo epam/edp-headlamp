@@ -12,10 +12,14 @@ interface createPipelineRunInstanceProps {
         codebaseType: string;
         codebaseFramework: string;
     };
-    codebaseBranchName: string;
+    codebaseBranchData: {
+        codebaseBranchMetadataName: string;
+        codebaseBranchName: string;
+    };
     gitServerData: {
         gitUser: string;
         gitHost: string;
+        gitProvider: string;
         sshPort: number;
         nameSshKeySecret: string;
     };
@@ -31,8 +35,8 @@ export const createPipelineRunInstance = ({
         codebaseType,
         codebaseFramework,
     },
-    codebaseBranchName,
-    gitServerData: { gitUser, gitHost, sshPort, nameSshKeySecret },
+    codebaseBranchData: { codebaseBranchMetadataName, codebaseBranchName },
+    gitServerData: { gitUser, gitHost, gitProvider, sshPort, nameSshKeySecret },
     randomPostfix,
 }: createPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
     const truncatedCodebaseType = codebaseType.slice(0, 3);
@@ -44,7 +48,7 @@ export const createPipelineRunInstance = ({
             namespace,
             name: `${codebaseName}-build-${randomPostfix}`,
             labels: {
-                'app.edp.epam.com/codebasebranch': `${codebaseName}-${codebaseBranchName}`,
+                'app.edp.epam.com/codebasebranch': codebaseBranchMetadataName,
             },
         },
         spec: {
@@ -56,6 +60,10 @@ export const createPipelineRunInstance = ({
                 {
                     name: 'git-source-revision',
                     value: codebaseBranchName,
+                },
+                {
+                    name: 'CODEBASEBRANCH_NAME',
+                    value: codebaseBranchMetadataName,
                 },
                 {
                     name: 'CODEBASE_NAME',
@@ -71,7 +79,7 @@ export const createPipelineRunInstance = ({
                 },
             ],
             pipelineRef: {
-                name: `gerrit-${codebaseBuildTool}-${codebaseFramework}-${truncatedCodebaseType}-build-${codebaseVersioningType}`,
+                name: `${gitProvider}-${codebaseBuildTool}-${codebaseFramework}-${truncatedCodebaseType}-build-${codebaseVersioningType}`,
             },
             serviceAccountName: 'tekton',
             taskRunSpecs: [
