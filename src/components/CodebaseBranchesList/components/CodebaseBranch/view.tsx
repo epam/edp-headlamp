@@ -1,5 +1,5 @@
 import { ICONS } from '../../../../constants/icons';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
+import { CUSTOM_RESOURCE_STATUSES, PIPELINE_RUN_STATUSES } from '../../../../constants/statuses';
 import { streamPipelineRunListByCodebaseBranchLabel } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
@@ -39,19 +39,31 @@ export const CodebaseBranch = ({
         (data: PipelineRunKubeObjectInterface[]) => {
             const [latestPipelineRun] = data.sort(sortKubeObjectByCreationTimestamp);
 
-            if (
-                latestPipelineRun &&
-                latestPipelineRun.status &&
-                latestPipelineRun.status.conditions &&
-                latestPipelineRun.status.conditions.length &&
-                latestPipelineRun.status.conditions[0].reason !== latestPipelineRunStatus
-            ) {
-                setLatestPipelineRunStatus(
-                    latestPipelineRun.status.conditions[0].reason.toLowerCase()
-                );
-            } else {
-                setLatestPipelineRunStatus(CUSTOM_RESOURCE_STATUSES['UNKNOWN']);
+            if (latestPipelineRun.status.conditions[0].reason === latestPipelineRunStatus) {
+                return;
             }
+
+            if (
+                !latestPipelineRun ||
+                !latestPipelineRun.status ||
+                !latestPipelineRun.status.conditions ||
+                !latestPipelineRun.status.conditions.length
+            ) {
+                setLatestPipelineRunStatus(CUSTOM_RESOURCE_STATUSES['UNKNOWN']);
+                return;
+            }
+
+            const reasonValue = latestPipelineRun.status.conditions[0].reason.toLowerCase();
+            const statusValue = latestPipelineRun.status.conditions[0].status.toLowerCase();
+
+            const currentPipelineRunStatus =
+                reasonValue === PIPELINE_RUN_STATUSES['RUNNING']
+                    ? reasonValue
+                    : statusValue === 'true'
+                    ? PIPELINE_RUN_STATUSES['SUCCEEDED']
+                    : PIPELINE_RUN_STATUSES['FAILED'];
+
+            setLatestPipelineRunStatus(currentPipelineRunStatus);
         },
         [latestPipelineRunStatus]
     );
