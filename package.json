@@ -44,7 +44,7 @@
     "@iconify/icons-ph": "^1.2.2",
     "@iconify/react": "^3.2.2",
     "@jest/globals": "^29.0.1",
-    "@kinvolk/headlamp-plugin": "^0.5.3",
+    "@kinvolk/headlamp-plugin": "^0.5.4",
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@material-ui/styles": "^4.11.5",
