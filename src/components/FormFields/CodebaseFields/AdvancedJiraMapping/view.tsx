@@ -1,6 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { ICONS } from '../../../../constants/icons';
-import { Iconify, MuiCore, MuiStyles, React } from '../../../../plugin.globals';
+import { MuiCore, React } from '../../../../plugin.globals';
 import { SelectOption } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
 import { Render } from '../../../Render';
@@ -14,8 +13,6 @@ import { AdvancedJiraMappingProps, AdvancedMappingItem, AdvancedMappingRow } fro
 import { getAdvancedMappingOptions } from './utils';
 
 const { Grid, Button } = MuiCore;
-const { Icon } = Iconify;
-const { useTheme } = MuiStyles;
 
 export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJiraMappingProps) => {
     const {
@@ -25,7 +22,6 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
         watch,
     } = useFormContext();
 
-    const theme = useTheme<DefaultTheme>();
     const advancedMappingFieldNameValue = watch(names.advancedMappingFieldName.name);
 
     const [advancedMapping, setAdvancedMapping] =
@@ -102,15 +98,7 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
                             disabled={!advancedMappingFieldNameValue}
                             onClick={handleAddMappingRow}
                         >
-                            <Icon
-                                icon={ICONS['PLUS']}
-                                width={15}
-                                color={
-                                    !advancedMappingFieldNameValue
-                                        ? 'white'
-                                        : theme.palette.text.primary
-                                }
-                            />
+                            add
                         </Button>
                     </Grid>
                 </Grid>
