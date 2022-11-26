@@ -16,7 +16,7 @@ export const FormCheckbox = React.forwardRef(
 
         return (
             <Grid container spacing={1}>
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{ display: 'flex' }}>
                     <FormControl>
                         <Controller
                             render={({ field }) => {

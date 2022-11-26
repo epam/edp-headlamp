@@ -17,7 +17,7 @@ export const FormRadioGroup = React.forwardRef(
 
         return (
             <Grid container spacing={1}>
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{ display: 'flex' }}>
                     <FormControl>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>

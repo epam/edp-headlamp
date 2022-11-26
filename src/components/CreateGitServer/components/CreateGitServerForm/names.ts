@@ -30,11 +30,6 @@ export const GIT_SERVER_CREATION_NAME_SSH_PRIVATE_KEY: FormNameObject = {
     notUsedInFormData: true,
 };
 
-export const GIT_SERVER_CREATION_NAME_SSH_PUBLIC_KEY: FormNameObject = {
-    name: 'sshPublicKey',
-    notUsedInFormData: true,
-};
-
 export const GIT_SERVER_CREATION_NAME_TOKEN: FormNameObject = {
     name: 'token',
     notUsedInFormData: true,
@@ -67,7 +62,6 @@ export const GIT_SERVER_NAMES: { [key: string]: FormNameObject } = {
     gitProvider: GIT_SERVER_CREATION_NAME_GIT_PROVIDER,
     gitUser: GIT_SERVER_CREATION_NAME_GIT_USER,
     sshPrivateKey: GIT_SERVER_CREATION_NAME_SSH_PRIVATE_KEY,
-    sshPublicKey: GIT_SERVER_CREATION_NAME_SSH_PUBLIC_KEY,
     token: GIT_SERVER_CREATION_NAME_TOKEN,
     secretString: GIT_SERVER_CREATION_NAME_SECRET_STRING,
     httpsPort: GIT_SERVER_CREATION_NAME_HTTPS_PORT,
@@ -95,11 +89,6 @@ export const GIT_SERVER_SECRET_CREATION_NAME_SSH_PRIVATE_KEY: FormNameObject = {
     path: ['data', 'id_rsa'],
 };
 
-export const GIT_SERVER_SECRET_CREATION_NAME_SSH_PUBLIC_KEY: FormNameObject = {
-    name: 'sshPublicKey',
-    path: ['data', 'id_rsa.pub'],
-};
-
 export const GIT_SERVER_SECRET_CREATION_NAME_TOKEN: FormNameObject = {
     name: 'token',
     path: ['data', 'token'],
@@ -115,7 +104,6 @@ export const GIT_SERVER_SECRET_NAMES: { [key: string]: FormNameObject } = {
     namespace: GIT_SERVER_SECRET_CREATION_NAME_NAMESPACE,
     gitUser: GIT_SERVER_SECRET_CREATION_NAME_USER,
     sshPrivateKey: GIT_SERVER_SECRET_CREATION_NAME_SSH_PRIVATE_KEY,
-    sshPublicKey: GIT_SERVER_SECRET_CREATION_NAME_SSH_PUBLIC_KEY,
     token: GIT_SERVER_SECRET_CREATION_NAME_TOKEN,
     secretString: GIT_SERVER_SECRET_CREATION_NAME_SECRET_STRING,
 };

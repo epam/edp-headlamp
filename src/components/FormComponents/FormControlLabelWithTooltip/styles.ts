@@ -8,6 +8,7 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
         display: 'flex',
         alignItems: 'center',
         gap: rem(7),
+        height: '100%',
 
         '& svg': {
             pointerEvents: 'auto',

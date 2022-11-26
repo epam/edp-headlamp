@@ -2,7 +2,6 @@ export * from './GitProvider';
 export * from './HostName';
 export * from './SecretString';
 export * from './SSHPrivateKey';
-export * from './SSHPublicKey';
 export * from './Token';
 export * from './UserName';
 export * from './SSHPort';

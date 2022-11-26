@@ -16,7 +16,6 @@ import {
     SecretString,
     SSHPort,
     SSHPrivateKey,
-    SSHPublicKey,
     Token,
     UserName,
 } from '../../../FormFields/GitServerFields';
@@ -109,7 +108,7 @@ export const CreateGitServerForm = ({
     };
 
     const onSubmit = React.useCallback(
-        ({ namespace, gitUser, sshPrivateKey, sshPublicKey, token, secretString }) => {
+        ({ namespace, gitUser, sshPrivateKey, token, secretString }) => {
             const {
                 metadata: { name },
             } = editorReturnValues;
@@ -118,7 +117,6 @@ export const CreateGitServerForm = ({
                 name,
                 gitUser: btoa(unescape(gitUser)),
                 sshPrivateKey: btoa(unescape(sshPrivateKey)),
-                sshPublicKey: btoa(unescape(sshPublicKey)),
                 token: btoa(unescape(token)),
                 secretString: btoa(unescape(secretString)),
             });
@@ -134,16 +132,16 @@ export const CreateGitServerForm = ({
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.formInner}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex' }}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} style={{ display: 'flex' }}>
                                         <Namespace
                                             handleFormFieldChange={handleFormFieldChange}
                                             names={GIT_SERVER_NAMES}
                                             namespaces={namespaces}
                                         />
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} style={{ display: 'flex' }}>
                                         <GitProvider
                                             handleFormFieldChange={handleFormFieldChange}
                                             names={GIT_SERVER_NAMES}
@@ -151,15 +149,15 @@ export const CreateGitServerForm = ({
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex' }}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} style={{ display: 'flex' }}>
                                         <HostName
                                             handleFormFieldChange={handleFormFieldChange}
                                             names={GIT_SERVER_NAMES}
                                         />
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} style={{ display: 'flex' }}>
                                         <UserName
                                             handleFormFieldChange={handleFormFieldChange}
                                             names={GIT_SERVER_NAMES}
@@ -167,15 +165,15 @@ export const CreateGitServerForm = ({
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex' }}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} style={{ display: 'flex' }}>
                                         <SSHPort
                                             handleFormFieldChange={handleFormFieldChange}
                                             names={GIT_SERVER_NAMES}
                                         />
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} style={{ display: 'flex' }}>
                                         <HTTPSPort
                                             handleFormFieldChange={handleFormFieldChange}
                                             names={GIT_SERVER_NAMES}
@@ -183,32 +181,26 @@ export const CreateGitServerForm = ({
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex' }}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={6}>
-                                        <SSHPrivateKey
+                                    <Grid item xs={6} style={{ display: 'flex' }}>
+                                        <Token
                                             handleFormFieldChange={handleFormFieldChange}
                                             names={GIT_SERVER_NAMES}
                                         />
                                     </Grid>
-                                    <Grid item xs={6}>
-                                        <SSHPublicKey
+                                    <Grid item xs={6} style={{ display: 'flex' }}>
+                                        <SecretString
                                             handleFormFieldChange={handleFormFieldChange}
                                             names={GIT_SERVER_NAMES}
                                         />
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex' }}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={6}>
-                                        <Token
-                                            handleFormFieldChange={handleFormFieldChange}
-                                            names={GIT_SERVER_NAMES}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <SecretString
+                                    <Grid item xs={12} style={{ display: 'flex' }}>
+                                        <SSHPrivateKey
                                             handleFormFieldChange={handleFormFieldChange}
                                             names={GIT_SERVER_NAMES}
                                         />

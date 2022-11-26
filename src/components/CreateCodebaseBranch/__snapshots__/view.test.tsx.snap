@@ -57,6 +57,7 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
                 >
                   <div
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    style="display: flex;"
                   >
                     <div
                       class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -77,6 +78,7 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
                       </div>
                       <div
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        style="display: flex; align-items: flex-end;"
                       >
                         <div
                           class="MuiFormControl-root MuiFormControl-fullWidth"
@@ -115,6 +117,7 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
                 >
                   <div
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    style="display: flex;"
                   >
                     <div
                       class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -135,6 +138,7 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
                       </div>
                       <div
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        style="display: flex; align-items: flex-end;"
                       >
                         <div
                           class="MuiFormControl-root MuiFormControl-fullWidth"

@@ -46,7 +46,7 @@ export const FormSelect = React.forwardRef(
 
         return (
             <Grid container spacing={1}>
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{ display: 'flex' }}>
                     <Grid container spacing={1}>
                         <Render condition={!!label || !!title}>
                             <Grid item xs={12}>
