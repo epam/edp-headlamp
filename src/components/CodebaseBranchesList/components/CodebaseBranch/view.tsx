@@ -1,4 +1,5 @@
 import { ICONS } from '../../../../constants/icons';
+import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { CUSTOM_RESOURCE_STATUSES, PIPELINE_RUN_STATUSES } from '../../../../constants/statuses';
 import { streamPipelineRunListByCodebaseBranchLabel } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
@@ -30,31 +31,38 @@ export const CodebaseBranch = ({
     const rows = useRows(codebaseBranchData);
     const codebaseBranchLabel = `${codebaseData.metadata.name}-${codebaseBranchData.spec.branchName}`;
 
-    const [latestPipelineRunStatus, setLatestPipelineRunStatus] = React.useState<string>(
+    const [latestBuildPipelineRunStatus, setLatestPipelineRunStatus] = React.useState<string>(
         CUSTOM_RESOURCE_STATUSES['UNKNOWN']
     );
     const [, setError] = React.useState<Error>(null);
 
     const handleStoreLatestPipelineRun = React.useCallback(
         (data: PipelineRunKubeObjectInterface[]) => {
-            const [latestPipelineRun] = data.sort(sortKubeObjectByCreationTimestamp);
+            const [latestBuildPipelineRun] = data
+                .filter(
+                    ({ metadata: { labels } }) =>
+                        labels['app.edp.epam.com/pipelinetype'] === PIPELINE_TYPES['BUILD']
+                )
+                .sort(sortKubeObjectByCreationTimestamp);
 
-            if (latestPipelineRun.status.conditions[0].reason === latestPipelineRunStatus) {
+            if (
+                latestBuildPipelineRun.status.conditions[0].reason === latestBuildPipelineRunStatus
+            ) {
                 return;
             }
 
             if (
-                !latestPipelineRun ||
-                !latestPipelineRun.status ||
-                !latestPipelineRun.status.conditions ||
-                !latestPipelineRun.status.conditions.length
+                !latestBuildPipelineRun ||
+                !latestBuildPipelineRun.status ||
+                !latestBuildPipelineRun.status.conditions ||
+                !latestBuildPipelineRun.status.conditions.length
             ) {
                 setLatestPipelineRunStatus(CUSTOM_RESOURCE_STATUSES['UNKNOWN']);
                 return;
             }
 
-            const reasonValue = latestPipelineRun.status.conditions[0].reason.toLowerCase();
-            const statusValue = latestPipelineRun.status.conditions[0].status.toLowerCase();
+            const reasonValue = latestBuildPipelineRun.status.conditions[0].reason.toLowerCase();
+            const statusValue = latestBuildPipelineRun.status.conditions[0].status.toLowerCase();
 
             const currentPipelineRunStatus =
                 reasonValue === PIPELINE_RUN_STATUSES['RUNNING']
@@ -65,7 +73,7 @@ export const CodebaseBranch = ({
 
             setLatestPipelineRunStatus(currentPipelineRunStatus);
         },
-        [latestPipelineRunStatus]
+        [latestBuildPipelineRunStatus]
     );
 
     const handleError = React.useCallback((error: Error) => {
@@ -111,8 +119,8 @@ export const CodebaseBranch = ({
                                 <Grid item>
                                     <div className={classes.pipelineRunStatus}>
                                         <StatusIcon
-                                            status={latestPipelineRunStatus}
-                                            customTitle={`Last pipeline run status: ${latestPipelineRunStatus}`}
+                                            status={latestBuildPipelineRunStatus}
+                                            customTitle={`Last pipeline run status: ${latestBuildPipelineRunStatus}`}
                                             width={18}
                                         />
                                     </div>

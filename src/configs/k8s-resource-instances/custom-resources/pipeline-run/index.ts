@@ -49,6 +49,8 @@ export const createPipelineRunInstance = ({
             name: `${codebaseName}-build-${randomPostfix}`,
             labels: {
                 'app.edp.epam.com/codebasebranch': codebaseBranchMetadataName,
+                'app.edp.epam.com/codebase': codebaseName,
+                'app.edp.epam.com/pipelinetype': 'build',
             },
         },
         spec: {

@@ -53,6 +53,8 @@ describe('testing createPipelineRunInstance', () => {
                 labels: {
                     'app.edp.epam.com/codebasebranch':
                         'test-codebase-name-test-codebase-branch-name',
+                    'app.edp.epam.com/codebase': 'test-codebase-name',
+                    'app.edp.epam.com/pipelinetype': 'build',
                 },
             },
             spec: {
