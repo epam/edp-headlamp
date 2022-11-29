@@ -1,3 +1,4 @@
+import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
 import { RESOURCE_ACTIONS } from '../../../../constants/resourceActions';
 import { useGitServers } from '../../../../hooks/useGitServers';
@@ -29,6 +30,10 @@ export const CodebaseBranchActions = ({
     const {
         metadata: { namespace },
     } = codebaseBranchData;
+
+    const {
+        spec: { ciTool },
+    } = codebase;
     const [editActionEditorOpen, setEditActionEditorOpen] = React.useState<boolean>(false);
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -77,37 +82,53 @@ export const CodebaseBranchActions = ({
         [fireRequest]
     );
 
+    const buildAction = React.useMemo(() => {
+        if (ciTool === CI_TOOLS['JENKINS']) {
+            return null;
+        }
+
+        return createKubeAction({
+            name: 'Build',
+            icon: ICONS['PLAY'],
+            action: async () => {
+                handleCloseActionsMenu();
+                await handleApply({
+                    namespace,
+                    codebaseBranchData: {
+                        codebaseBranchName: codebaseBranchData.spec.branchName,
+                        codebaseBranchMetadataName: codebaseBranchData.metadata.name,
+                    },
+                    codebaseData: {
+                        codebaseName: codebase.metadata.name,
+                        codebaseBuildTool: codebase.spec.buildTool,
+                        codebaseVersioningType: codebase.spec.versioning.type,
+                        codebaseType: codebase.spec.type,
+                        codebaseFramework: codebase.spec.framework,
+                    },
+                    gitServerData: {
+                        gitUser: gitServerByCodebase.spec.gitUser,
+                        gitHost: gitServerByCodebase.spec.gitHost,
+                        gitProvider: gitServerByCodebase.spec.gitProvider,
+                        sshPort: gitServerByCodebase.spec.sshPort,
+                        nameSshKeySecret: gitServerByCodebase.spec.nameSshKeySecret,
+                    },
+                    randomPostfix,
+                });
+            },
+        });
+    }, [
+        ciTool,
+        codebase,
+        codebaseBranchData,
+        gitServerByCodebase,
+        handleApply,
+        handleCloseActionsMenu,
+        namespace,
+    ]);
+
     const actions: KubeObjectAction[] = React.useMemo(() => {
         return [
-            createKubeAction({
-                name: 'Build',
-                icon: ICONS['PLAY'],
-                action: async () => {
-                    handleCloseActionsMenu();
-                    await handleApply({
-                        namespace,
-                        codebaseBranchData: {
-                            codebaseBranchName: codebaseBranchData.spec.branchName,
-                            codebaseBranchMetadataName: codebaseBranchData.metadata.name,
-                        },
-                        codebaseData: {
-                            codebaseName: codebase.metadata.name,
-                            codebaseBuildTool: codebase.spec.buildTool,
-                            codebaseVersioningType: codebase.spec.versioning.type,
-                            codebaseType: codebase.spec.type,
-                            codebaseFramework: codebase.spec.framework,
-                        },
-                        gitServerData: {
-                            gitUser: gitServerByCodebase.spec.gitUser,
-                            gitHost: gitServerByCodebase.spec.gitHost,
-                            gitProvider: gitServerByCodebase.spec.gitProvider,
-                            sshPort: gitServerByCodebase.spec.sshPort,
-                            nameSshKeySecret: gitServerByCodebase.spec.nameSshKeySecret,
-                        },
-                        randomPostfix,
-                    });
-                },
-            }),
+            buildAction,
             createKubeAction({
                 name: RESOURCE_ACTIONS['EDIT'],
                 icon: ICONS['PENCIL'],
@@ -120,16 +141,8 @@ export const CodebaseBranchActions = ({
                 handleCloseActionsMenu();
                 setDeleteActionPopupOpen(true);
             }),
-        ];
-    }, [
-        codebaseBranchData,
-        defaultBranch,
-        handleApply,
-        namespace,
-        codebase,
-        gitServerByCodebase,
-        handleCloseActionsMenu,
-    ]);
+        ].filter(Boolean);
+    }, [buildAction, codebaseBranchData, defaultBranch, handleCloseActionsMenu]);
 
     const onBeforeSubmit = React.useCallback(
         async (handleError, setLoadingActive) => {
