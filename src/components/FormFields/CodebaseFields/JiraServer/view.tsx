@@ -25,11 +25,8 @@ export const JiraServer = ({ names, handleFormFieldChange, jiraServers }: JiraSe
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                label={'Jira Server'}
-                placeholder={!namespaceFieldValue ? 'Select namespace first' : 'Select Jira Server'}
-                title={
-                    'Select Jira server that will be integrated with the codebase (application, library, autotest).'
-                }
+                label={'Jira server'}
+                placeholder={!namespaceFieldValue ? 'Select namespace first' : 'Select Jira server'}
                 control={control}
                 errors={errors}
                 disabled={!namespaceFieldValue}

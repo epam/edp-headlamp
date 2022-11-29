@@ -17,12 +17,11 @@ export const Description = ({
     return (
         <FormTextField
             {...register(names.description.name, {
-                required: `Can not be empty.`,
+                required: `Enter stage description`,
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}
             label={'Description'}
-            title={'Pipeline stage description'}
             placeholder={'Enter stage description'}
             control={control}
             errors={errors}

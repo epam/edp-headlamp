@@ -17,16 +17,15 @@ export const RepositoryLogin = ({ names, handleFormFieldChange }: RepositoryLogi
         <Grid item xs={12}>
             <FormTextField
                 {...register(names.repositoryLogin.name, {
-                    required: 'Please specify repository login',
+                    required: 'Enter repository login',
                     pattern: {
                         value: /\w/,
-                        message: 'Please enter valid repository login',
+                        message: 'Enter valid repository login',
                     },
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                label={'Repository Login'}
-                title={'Please specify repository login'}
+                label={'Repository login'}
                 placeholder={'Enter repository login'}
                 control={control}
                 errors={errors}

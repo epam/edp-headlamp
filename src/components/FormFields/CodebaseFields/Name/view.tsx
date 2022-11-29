@@ -16,13 +16,13 @@ export const Name = ({ names, handleFormFieldChange, type }: NameProps) => {
 
     const capitalizedCodebaseType = capitalizeFirstLetter(type);
 
-    const nameRequirementLabel = `${capitalizedCodebaseType} name may contain only: lower-case letters, numbers and dashes and cannot start and end with dash. Minimum 2 characters.`;
+    const nameRequirementLabel = `${capitalizedCodebaseType} name must be not less than two characters long. It must contain only lowercase letters, numbers, and dashes. It cannot start or end with a dash, and cannot have whitespaces`;
 
     return (
         <Grid item xs={12}>
             <FormTextField
                 {...register(names.name.name, {
-                    required: 'Please, enter a codebase name',
+                    required: `Enter the ${type} name`,
                     pattern: {
                         value: /^[a-z][a-z0-9-]*[a-z0-9]$/,
                         message: nameRequirementLabel,
@@ -33,9 +33,9 @@ export const Name = ({ names, handleFormFieldChange, type }: NameProps) => {
                             value: typeof value === 'string' ? value.trim() : value,
                         }),
                 })}
-                label={`${capitalizedCodebaseType} Name`}
+                label={`${capitalizedCodebaseType} name`}
                 title={nameRequirementLabel}
-                placeholder={`Type your ${type} name`}
+                placeholder={`Enter the ${type} name`}
                 control={control}
                 errors={errors}
             />

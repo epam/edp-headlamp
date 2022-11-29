@@ -17,17 +17,17 @@ export const DefaultBranch = ({ names, handleFormFieldChange }: DefaultBranchPro
         <Grid item xs={12}>
             <FormTextField
                 {...register(names.defaultBranch.name, {
-                    required: 'Default branch to create/use',
+                    required: 'Enter a new or existing branch name',
                     pattern: {
                         value: /^[a-z0-9][a-z0-9\/\-\.]*[a-z0-9]$/,
-                        message: 'Please enter valid default branch name',
+                        message: 'Enter valid default branch name',
                     },
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
                 label={'Default branch'}
-                title={'Default branch to create/use'}
-                placeholder={'Type default branch name'}
+                title={'Enter a new or existing branch name'}
+                placeholder={'Enter the default branch name'}
                 control={control}
                 errors={errors}
             />

@@ -15,12 +15,12 @@ export const TriggerType = ({ names, handleFormFieldChange }: TriggerTypeProps) 
     return (
         <FormSelect
             {...register(names.triggerType.name, {
-                required: 'Stage provisioning trigger type',
+                required: 'Select trigger type',
                 onChange: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}
             label={'Trigger type'}
-            placeholder={'Choose trigger type'}
+            placeholder={'Select trigger type'}
             control={control}
             errors={errors}
             options={triggerTypeSelectOptions}

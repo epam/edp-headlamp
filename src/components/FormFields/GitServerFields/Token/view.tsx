@@ -14,11 +14,11 @@ export const Token = ({ names, handleFormFieldChange }: TokenProps) => {
     return (
         <FormTextField
             {...register(names.token.name, {
-                required: 'Please enter your token',
+                required: 'Enter your access token',
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}
-            label={'Token'}
+            label={'Access token'}
             control={control}
             errors={errors}
             TextFieldProps={{

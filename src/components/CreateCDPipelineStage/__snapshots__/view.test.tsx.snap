@@ -68,7 +68,7 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                         <span
                           class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
                         >
-                          Stage Name
+                          Stage name
                         </span>
                         <span />
                       </span>
@@ -126,7 +126,6 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                         >
                           Description
                         </span>
-                        <span />
                       </span>
                     </div>
                     <div
@@ -326,7 +325,7 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
                             >
-                              Groovy-pipeline library
+                              Groovy pipeline library
                             </span>
                           </span>
                         </div>
@@ -509,7 +508,7 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
                     <div
                       class="MuiAlert-message"
                     >
-                      Please, add at least one quality gate
+                      Add at least one quality gate
                     </div>
                   </div>
                 </div>

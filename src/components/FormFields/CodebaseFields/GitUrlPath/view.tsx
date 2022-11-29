@@ -21,10 +21,10 @@ export const GitUrlPath = ({ names, handleFormFieldChange }: GitUrlPathProps) =>
         <Grid item xs={12}>
             <FormTextField
                 {...register(names.gitUrlPath.name, {
-                    required: 'Specify relative path to repository.',
+                    required: 'Enter relative path to repository.',
                     pattern: {
                         value: /^.*$/,
-                        message: 'Please enter valid relative path to repository',
+                        message: 'Enter valid relative path to repository',
                     },
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({
@@ -33,8 +33,9 @@ export const GitUrlPath = ({ names, handleFormFieldChange }: GitUrlPathProps) =>
                         }),
                 })}
                 label={'Relative path'}
-                title={'Specify relative path to repository.'}
-                placeholder={'Enter repository path'}
+                placeholder={
+                    'First type a forward slash "/", then type the relative path to the repository'
+                }
                 control={control}
                 errors={errors}
                 InputProps={{

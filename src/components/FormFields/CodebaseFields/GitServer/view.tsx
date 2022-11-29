@@ -17,13 +17,12 @@ export const GitServer = ({ names, handleFormFieldChange, gitServers }: GitServe
         <Grid item xs={12}>
             <FormSelect
                 {...register(names.gitServer.name, {
-                    required: 'Select the existing Git Server.',
+                    required: 'Select an existing Git server',
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                label={'Git Server'}
-                placeholder={'Git Server'}
-                title={'Select the existing Git Server.'}
+                label={'Git server'}
+                title={'Select an existing Git server'}
                 control={control}
                 errors={errors}
                 options={gitServers.map(el => ({ label: el, value: el }))}

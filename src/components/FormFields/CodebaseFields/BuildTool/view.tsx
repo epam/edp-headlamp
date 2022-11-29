@@ -58,8 +58,7 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
                         onBlur: ({ target: { name, value } }: FieldEvent) =>
                             handleFormFieldChange({ name, value }),
                     })}
-                    label={'Build Tool'}
-                    title={`Enter ${type} build tool.`}
+                    label={'Build tool'}
                     placeholder={`Enter build tool`}
                     control={control}
                     errors={errors}
@@ -72,9 +71,8 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
                         pattern: null,
                         onChange: onBuildToolChange,
                     })}
-                    label={'Select Build Tool'}
-                    placeholder={'Select Build Tool'}
-                    title={`Select ${type} build tool.`}
+                    label={'Build tool'}
+                    placeholder={'Select build tool'}
                     control={control}
                     errors={errors}
                     options={Object.values(chosenLang.buildTools).map(({ name, value }) => {

@@ -18,13 +18,12 @@ export const TestReportFramework = ({ names, handleFormFieldChange }: TestReport
         <Grid item xs={12}>
             <FormSelect
                 {...register(names.testReportFramework.name, {
-                    required: 'Select Autotest Report Framework',
+                    required: 'Select autotest report framework',
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                label={'Autotest Report Framework'}
-                placeholder={'Autotest Report Framework'}
-                title={`Select Autotest Report Framework`}
+                label={'Autotest report framework'}
+                placeholder={'Select autotest report framework'}
                 control={control}
                 errors={errors}
                 options={testReportFrameworkSelectOptions}

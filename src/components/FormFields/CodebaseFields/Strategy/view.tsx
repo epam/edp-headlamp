@@ -22,9 +22,9 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                label={'Codebase Integration Strategy'}
-                placeholder={'Codebase Integration Strategy'}
-                title={'Select the existing codebase for reproduction or create new codebase.'}
+                label={'Repository onboarding strategy'}
+                placeholder={'Select the existing codebase creation strategy'}
+                title={'Create a new application or use an existing one'}
                 control={control}
                 errors={errors}
                 options={getCreationStrategySelectOptionsByCodebaseType(type)}

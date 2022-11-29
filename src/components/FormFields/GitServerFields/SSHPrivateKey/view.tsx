@@ -14,7 +14,7 @@ export const SSHPrivateKey = ({ names, handleFormFieldChange }: SSHPrivateKeyPro
     return (
         <FormTextField
             {...register(names.sshPrivateKey.name, {
-                required: 'Please enter your private SSH key',
+                required: 'Enter your private SSH key',
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}

@@ -23,7 +23,6 @@ export const TicketNamePattern = ({ names, handleFormFieldChange }: TicketNamePa
                         handleFormFieldChange({ name, value }),
                 })}
                 label={'Specify the pattern to find a Jira ticket number in a commit message'}
-                title={'Specify the pattern to find a Jira ticket number in a commit message'}
                 placeholder={`PROJECT_NAME-\d{4}`}
                 control={control}
                 errors={errors}

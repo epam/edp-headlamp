@@ -53,16 +53,13 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
             <Grid item xs={12}>
                 <FormSelect
                     {...register(names.versioningType.name, {
-                        required:
-                            'Select codebase versioning type which will be used to handle codebase versioning flow.',
+                        required: 'Select codebase versioning type',
                         onBlur: ({ target: { name, value } }: FieldEvent) =>
                             handleFormFieldChange({ name, value }),
                     })}
-                    label={'Codebase Versioning Type'}
-                    placeholder={'Select codebase Versioning Type'}
-                    title={
-                        'Select codebase versioning type which will be used to handle codebase versioning flow.'
-                    }
+                    label={'Codebase versioning type'}
+                    placeholder={'Select codebase versioning type'}
+                    title={'Define the versioning strategy for source code and artifacts'}
                     control={control}
                     errors={errors}
                     options={codebaseVersioningTypeSelectOptions}
@@ -74,12 +71,12 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
                         <Grid item xs={6}>
                             <FormTextField
                                 {...register(names.versioningStartFromVersion.name, {
-                                    required: 'Start Version From',
+                                    required: 'Enter start version from',
                                     onBlur: onStartVersionFromVersionChange,
                                 })}
-                                label={'Start Version From'}
+                                label={'Start version from'}
                                 title={
-                                    'Version may contain only: numbers and dashes and cannot start and end with dash.'
+                                    'Version name must contain only numbers and dashes. It cannot start or end with a dash'
                                 }
                                 placeholder={'0.0.0'}
                                 defaultValue={'0.0.0'}
@@ -98,7 +95,7 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
                         >
                             <FormTextField
                                 {...register(names.versioningStartFromSnapshot.name, {
-                                    required: 'Start Version From',
+                                    required: 'Enter start version from',
                                     onBlur: onStartVersionFromSnapshotStaticFieldChange,
                                 })}
                                 placeholder={'SNAPSHOT'}

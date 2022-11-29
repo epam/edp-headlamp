@@ -20,17 +20,16 @@ export const RepositoryPasswordOrApiToken = ({
         <Grid item xs={12}>
             <FormTextField
                 {...register(names.repositoryPasswordOrApiToken.name, {
-                    required: 'Provide repository password or API Token',
+                    required: 'Enter the repository password or access token',
                     pattern: {
                         value: /\w/,
-                        message: 'Please enter valid repository password or api token',
+                        message: 'Enter valid repository password or api token',
                     },
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                label={'Repository password (or API Token)'}
-                title={'Provide repository password or API Token'}
-                placeholder={'Enter repository password or API Token'}
+                label={'Repository password or access token'}
+                placeholder={'Enter the repository password or access token'}
                 control={control}
                 errors={errors}
             />

@@ -99,7 +99,7 @@ export const CodebaseActions = ({
                     kubeObject={kubeObject}
                     kubeObjectData={kubeObjectData}
                     objectName={name}
-                    description={`Please confirm the deletion of the codebase with all its components
+                    description={`Confirm the deletion of the codebase with all its components
                             (Record in database, Jenkins pipeline, cluster namespace).`}
                     onBeforeSubmit={onBeforeSubmit}
                 />

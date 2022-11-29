@@ -14,13 +14,12 @@ export const Namespace = ({ names, handleFormFieldChange, namespaces }: Namespac
     return (
         <FormSelect
             {...register(names.namespace.name, {
-                required: 'Select the existing namespace',
+                required: 'Select a namespace',
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}
             label={'Namespace'}
-            placeholder={'Namespace'}
-            title={'Select the existing namespace'}
+            placeholder={'Select a namespace'}
             control={control}
             errors={errors}
             options={namespaces.map(el => ({ label: el, value: el }))}

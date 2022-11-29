@@ -26,7 +26,7 @@ export const StagesFormPart = ({
                 <Render condition={stages && !stages.length}>
                     <Grid item xs={12}>
                         <Alert severity="info" elevation={2} variant="filled">
-                            Please, add at least one stage
+                            Add at least one stage
                         </Alert>
                     </Grid>
                 </Render>

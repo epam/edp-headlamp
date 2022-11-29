@@ -21,7 +21,7 @@ export const CodebaseAuth = ({ names, handleFormFieldChange }: CodebaseAuthProps
                     onChange: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                label={<FormControlLabelWithTooltip label={'Codebase Authentication'} />}
+                label={<FormControlLabelWithTooltip label={'Repository credentials'} />}
                 control={control}
                 errors={errors}
             />

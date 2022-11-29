@@ -25,13 +25,12 @@ export const JobProvisioning = ({ names, handleFormFieldChange }: JobProvisionin
         <Grid item xs={12}>
             <FormSelect
                 {...register(names.jobProvisioning.name, {
-                    required: 'Select Job Provisioner which will be used to handle codebase.',
+                    required: 'Select CI pipeline provisioner',
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
                 label={'CI pipeline provisioner'}
                 placeholder={'Select CI pipeline provisioner'}
-                title={'Select Job Provisioner which will be used to handle codebase.'}
                 control={control}
                 errors={errors}
                 options={CIPipelineProvisioners.map(el => ({

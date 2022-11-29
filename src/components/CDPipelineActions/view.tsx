@@ -79,7 +79,7 @@ export const CDPipelineActions = ({
                     kubeObject={kubeObject}
                     kubeObjectData={kubeObjectData}
                     objectName={name}
-                    description={`Please confirm the deletion of the CD Pipeline with all its components
+                    description={`Confirm the deletion of the CD Pipeline with all its components
                             (Record in database, Jenkins pipeline, cluster namespace).`}
                 />
             </>

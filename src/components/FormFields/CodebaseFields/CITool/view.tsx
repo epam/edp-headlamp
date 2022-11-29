@@ -23,13 +23,13 @@ export const CITool = ({ names, handleFormFieldChange }: CIToolProps) => {
         <Grid item xs={12}>
             <FormSelect
                 {...register(names.ciTool.name, {
-                    required: 'Select CI tool which will be used for building your codebase',
+                    required: 'Select CI tool',
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                label={'Select CI tool'}
+                label={'CI tool'}
                 placeholder={'Select CI tool'}
-                title={'Select CI tool which will be used for building your codebase'}
+                title={'Select CI tool for building the codebase'}
                 control={control}
                 errors={errors}
                 options={availableCITools.map(el => ({

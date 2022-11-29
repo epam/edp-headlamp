@@ -26,7 +26,7 @@ export const JobProvisioner = ({ names, handleFormFieldChange }: JobProvisionerP
                     handleFormFieldChange({ name, value }),
             })}
             label={'Job provisioner'}
-            placeholder={'Choose job provisioner'}
+            placeholder={'Select job provisioner'}
             control={control}
             errors={errors}
             options={CDPipelineProvisioners.map(el => ({

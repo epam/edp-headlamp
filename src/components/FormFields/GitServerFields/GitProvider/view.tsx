@@ -19,7 +19,7 @@ export const GitProvider = ({ names, handleFormFieldChange }: GitProviderProps) 
             <GitProviders />
             <FormRadioGroup
                 {...register(names.gitProvider.name, {
-                    required: `Choose git provider`,
+                    required: `Select Git provider`,
                     onChange: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}

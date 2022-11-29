@@ -152,7 +152,6 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             >
                               Namespace
                             </span>
-                            <span />
                           </span>
                         </div>
                         <div
@@ -172,7 +171,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                 role="button"
                                 tabindex="0"
                               >
-                                Namespace
+                                Select a namespace
                               </div>
                               <input
                                 aria-hidden="true"
@@ -220,7 +219,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             <span
                               class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
                             >
-                              Codebase Integration Strategy
+                              Repository onboarding strategy
                             </span>
                             <span />
                           </span>
@@ -1144,7 +1143,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             <span
                               class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
                             >
-                              Application Name
+                              Application name
                             </span>
                             <span />
                           </span>
@@ -1166,7 +1165,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
                                   name="name"
-                                  placeholder="Type your application name"
+                                  placeholder="Enter the application name"
                                   type="text"
                                   value=""
                                 />
@@ -1222,7 +1221,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
                                   name="defaultBranch"
-                                  placeholder="Type default branch name"
+                                  placeholder="Enter the default branch name"
                                   type="text"
                                   value=""
                                 />
@@ -1327,9 +1326,8 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                               <span
                                 class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
                               >
-                                Application Code Language
+                                Application code language
                               </span>
-                              <span />
                             </span>
                           </div>
                           <div
@@ -1661,7 +1659,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             <span
                               class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
                             >
-                              Select CI tool
+                              CI tool
                             </span>
                             <span />
                           </span>
@@ -1731,7 +1729,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             <span
                               class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
                             >
-                              Codebase Versioning Type
+                              Codebase versioning type
                             </span>
                             <span />
                           </span>
@@ -1803,7 +1801,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                     <div
                       class="MuiAlert-message"
                     >
-                      There are no available Jira servers in chosen namespace
+                      There are no available Jira servers
                     </div>
                   </div>
                 </div>
@@ -2080,7 +2078,6 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             >
                               Namespace
                             </span>
-                            <span />
                           </span>
                         </div>
                         <div
@@ -2100,7 +2097,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                 role="button"
                                 tabindex="0"
                               >
-                                Namespace
+                                Select a namespace
                               </div>
                               <input
                                 aria-hidden="true"
@@ -2148,7 +2145,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
                             >
-                              Codebase Integration Strategy
+                              Repository onboarding strategy
                             </span>
                             <span />
                           </span>
@@ -2218,7 +2215,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
                             >
-                              Git Repository URL
+                              Repository URL
                             </span>
                             <span />
                           </span>
@@ -2309,7 +2306,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                 <span
                                   class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
                                 >
-                                  Codebase Authentication
+                                  Repository credentials
                                 </span>
                               </span>
                             </span>
@@ -3195,7 +3192,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
                             >
-                              Autotest Name
+                              Autotest name
                             </span>
                             <span />
                           </span>
@@ -3217,7 +3214,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
                                   name="name"
-                                  placeholder="Type your autotest name"
+                                  placeholder="Enter the autotest name"
                                   type="text"
                                   value=""
                                 />
@@ -3273,7 +3270,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
                                   name="defaultBranch"
-                                  placeholder="Type default branch name"
+                                  placeholder="Enter the default branch name"
                                   type="text"
                                   value=""
                                 />
@@ -3366,9 +3363,8 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                               <span
                                 class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
                               >
-                                Autotest Code Language
+                                Autotest code language
                               </span>
-                              <span />
                             </span>
                           </div>
                           <div
@@ -3504,9 +3500,8 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
                             >
-                              Autotest Report Framework
+                              Autotest report framework
                             </span>
-                            <span />
                           </span>
                         </div>
                         <div
@@ -3526,7 +3521,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                 role="button"
                                 tabindex="0"
                               >
-                                Autotest Report Framework
+                                Select autotest report framework
                               </div>
                               <input
                                 aria-hidden="true"
@@ -3590,7 +3585,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
                             >
-                              Select CI tool
+                              CI tool
                             </span>
                             <span />
                           </span>
@@ -3660,7 +3655,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
                             >
-                              Codebase Versioning Type
+                              Codebase versioning type
                             </span>
                             <span />
                           </span>
@@ -3732,7 +3727,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                     <div
                       class="MuiAlert-message"
                     >
-                      There are no available Jira servers in chosen namespace
+                      There are no available Jira servers
                     </div>
                   </div>
                 </div>
@@ -4009,7 +4004,6 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             >
                               Namespace
                             </span>
-                            <span />
                           </span>
                         </div>
                         <div
@@ -4029,7 +4023,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                 role="button"
                                 tabindex="0"
                               >
-                                Namespace
+                                Select a namespace
                               </div>
                               <input
                                 aria-hidden="true"
@@ -4077,7 +4071,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
                             >
-                              Codebase Integration Strategy
+                              Repository onboarding strategy
                             </span>
                             <span />
                           </span>
@@ -5001,7 +4995,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
                             >
-                              Library Name
+                              Library name
                             </span>
                             <span />
                           </span>
@@ -5023,7 +5017,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
                                   name="name"
-                                  placeholder="Type your library name"
+                                  placeholder="Enter the library name"
                                   type="text"
                                   value=""
                                 />
@@ -5079,7 +5073,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
                                   name="defaultBranch"
-                                  placeholder="Type default branch name"
+                                  placeholder="Enter the default branch name"
                                   type="text"
                                   value=""
                                 />
@@ -5184,9 +5178,8 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                               <span
                                 class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
                               >
-                                Library Code Language
+                                Library code language
                               </span>
-                              <span />
                             </span>
                           </div>
                           <div
@@ -5653,7 +5646,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
                             >
-                              Select CI tool
+                              CI tool
                             </span>
                             <span />
                           </span>
@@ -5723,7 +5716,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
                             >
-                              Codebase Versioning Type
+                              Codebase versioning type
                             </span>
                             <span />
                           </span>
@@ -5795,7 +5788,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                     <div
                       class="MuiAlert-message"
                     >
-                      There are no available Jira servers in chosen namespace
+                      There are no available Jira servers
                     </div>
                   </div>
                 </div>

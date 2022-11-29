@@ -1,5 +1,6 @@
 import { Control } from 'react-hook-form/dist/types';
 import { FieldErrors } from 'react-hook-form/dist/types/errors';
+import { React } from '../../../plugin.globals';
 
 export interface FormRadioOption {
     value: string;
@@ -14,6 +15,6 @@ export interface FormRadioProps {
     control: Control;
     errors: FieldErrors;
     label: string;
-    title: string;
+    title?: string;
     options: FormRadioOption[];
 }

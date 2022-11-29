@@ -25,7 +25,7 @@ export const EmptyProject = ({ names, handleFormFieldChange }: EmptyProjectProps
                     <FormControlLabelWithTooltip
                         label={'Empty project'}
                         title={
-                            'An empty project will not contain any template code, besides EDP pipelines and deploy-templates.'
+                            'An empty project does not contain any template code. However, EDP pipelines and deployment templates will be created'
                         }
                     />
                 }

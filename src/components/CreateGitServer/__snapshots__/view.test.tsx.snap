@@ -78,7 +78,6 @@ exports[`CreateGitServer should render correctly 1`] = `
                             >
                               Namespace
                             </span>
-                            <span />
                           </span>
                         </div>
                         <div
@@ -98,7 +97,7 @@ exports[`CreateGitServer should render correctly 1`] = `
                                 role="button"
                                 tabindex="0"
                               >
-                                Namespace
+                                Select a namespace
                               </div>
                               <input
                                 aria-hidden="true"
@@ -635,7 +634,7 @@ exports[`CreateGitServer should render correctly 1`] = `
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
                                   name="sshPort"
-                                  placeholder="SSH port"
+                                  placeholder="Enter SSH port"
                                   type="number"
                                   value="22"
                                 />
@@ -691,7 +690,7 @@ exports[`CreateGitServer should render correctly 1`] = `
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
                                   name="httpsPort"
-                                  placeholder="HTTPS port"
+                                  placeholder="Enter HTTPS port"
                                   type="number"
                                   value="443"
                                 />
@@ -735,7 +734,7 @@ exports[`CreateGitServer should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
                             >
-                              Token
+                              Access token
                             </span>
                           </span>
                         </div>

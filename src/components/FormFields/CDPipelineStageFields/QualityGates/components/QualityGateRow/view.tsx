@@ -186,8 +186,7 @@ export const QualityGateRow = ({
                                 }
                             )}
                             label={'Quality gate type'}
-                            placeholder={'Choose quality gate type'}
-                            title={'Choose quality gate type'}
+                            placeholder={'Select quality gate type'}
                             control={control}
                             errors={errors}
                             defaultValue={'manual'}
@@ -199,12 +198,11 @@ export const QualityGateRow = ({
                             {...register(
                                 createQualityGateStepNameFieldName(currentQualityGateData.id),
                                 {
-                                    required: 'Please enter step name',
+                                    required: 'Enter step name',
                                     onBlur: handleChangeQualityGateStepName,
                                 }
                             )}
                             label={'Step name'}
-                            title={'Enter step name'}
                             placeholder={'Enter step name'}
                             control={control}
                             errors={errors}
@@ -227,8 +225,7 @@ export const QualityGateRow = ({
                                         }
                                     )}
                                     label={'Autotests'}
-                                    placeholder={'Choose autotest'}
-                                    title={'Choose autotest'}
+                                    placeholder={'Select autotest'}
                                     control={control}
                                     errors={errors}
                                     options={autotests.map(({ name }) => ({
@@ -248,8 +245,7 @@ export const QualityGateRow = ({
                                         }
                                     )}
                                     label={'Autotests branch'}
-                                    placeholder={'Choose autotests branch'}
-                                    title={'Choose autotests branch'}
+                                    placeholder={'Select autotests branch'}
                                     control={control}
                                     errors={errors}
                                     disabled={!currentQualityGateBranchesOptions.length}

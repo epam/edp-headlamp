@@ -86,7 +86,7 @@ export const CDPipelineStageActions = (): React.ReactElement => {
                     kubeObject={EDPCDPipelineStageKubeObject}
                     kubeObjectData={CurrentCDPipelineStageDataContextValue}
                     objectName={name}
-                    description={`Please confirm the deletion of the CD stage with all its components
+                    description={`Confirm the deletion of the CD stage with all its components
                             (Record in database, Jenkins pipeline, cluster namespace).`}
                 />
             </div>

@@ -107,13 +107,12 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
         <Grid item xs={12}>
             <FormRadioGroup
                 {...register(names.lang.name, {
-                    required: `Choose codebase language`,
+                    required: `Select codebase language`,
                     onChange: onLangChange,
                 })}
                 control={control}
                 errors={errors}
-                label={`${capitalizedCodebaseType} Code Language`}
-                title={`Select ${type} language/framework and build tool.`}
+                label={`${capitalizedCodebaseType} code language`}
                 options={Object.values(codebaseMapping).map(
                     ({ language: { name, value, icon } }) => ({
                         value,

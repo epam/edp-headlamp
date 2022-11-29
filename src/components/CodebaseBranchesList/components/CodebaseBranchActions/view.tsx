@@ -190,7 +190,7 @@ export const CodebaseBranchActions = ({
                     kubeObject={EDPCodebaseBranchKubeObject}
                     kubeObjectData={codebaseBranchData}
                     objectName={codebaseBranchData.spec.branchName}
-                    description={`Please confirm the deletion of the codebase branch with all its components
+                    description={`Confirm the deletion of the codebase branch with all its components
                             (Record in database, Jenkins pipeline, cluster namespace).`}
                     onBeforeSubmit={onBeforeSubmit}
                 />

@@ -78,8 +78,8 @@ export const GroovyPipelineLibrary = ({
                     {...register(names.sourceLibraryName.name, {
                         onChange: handleChangeSourceLibraryName,
                     })}
-                    label={'Groovy-pipeline library'}
-                    placeholder={'Groovy pipeline library for Stage'}
+                    label={'Groovy pipeline library'}
+                    placeholder={'Select Groovy pipeline library'}
                     control={control}
                     errors={errors}
                     options={groovyLibrariesOptions}
@@ -96,7 +96,7 @@ export const GroovyPipelineLibrary = ({
                         placeholder={
                             defaultAsLibrarySelected
                                 ? 'Default'
-                                : `Choose "${sourceLibraryNameFieldValue}'s" branch`
+                                : `Select "${sourceLibraryNameFieldValue}'s" branch`
                         }
                         control={control}
                         errors={errors}

@@ -25,7 +25,6 @@ export const PipelineName = ({ names, handleFormFieldChange }: PipelineNameProps
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                title={'Enter pipeline name'}
                 label={'Pipeline name'}
                 placeholder={'Enter pipeline name'}
                 control={control}

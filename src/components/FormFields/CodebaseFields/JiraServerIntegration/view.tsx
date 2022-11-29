@@ -25,7 +25,7 @@ export const JiraServerIntegration = ({
             <Render condition={jiraServers && !jiraServers.length}>
                 <Grid item xs={12}>
                     <Alert severity="info" elevation={2} variant="filled">
-                        There are no available Jira servers in chosen namespace
+                        There are no available Jira servers
                     </Alert>
                 </Grid>
             </Render>

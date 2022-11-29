@@ -18,12 +18,12 @@ export const DeploymentType = ({ names, handleFormFieldChange }: DeploymentTypeP
         <Grid item xs={12}>
             <FormSelect
                 {...register(names.deploymentType.name, {
-                    required: 'Select CI tool which will be used for building your codebase',
+                    required: 'Select deployment type',
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                label={'Deployment Type'}
-                placeholder={'Choose deployment type'}
+                label={'Deployment type'}
+                placeholder={'Select deployment type'}
                 control={control}
                 errors={errors}
                 options={deploymentTypeSelectOptions}

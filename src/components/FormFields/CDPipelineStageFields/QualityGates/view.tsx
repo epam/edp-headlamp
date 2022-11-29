@@ -177,7 +177,7 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
                 <Render condition={!qualityGatesFieldValue || !qualityGatesFieldValue.length}>
                     <Grid item xs={12}>
                         <Alert severity="info" elevation={2} variant="filled">
-                            Please, add at least one quality gate
+                            Add at least one quality gate
                         </Alert>
                     </Grid>
                 </Render>

@@ -2,7 +2,6 @@ import { useFormContext } from 'react-hook-form';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
-import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
 import { FormRadioGroup } from '../../../FormComponents/FormRadioGroup';
@@ -18,8 +17,6 @@ export const Framework = ({ names, handleFormFieldChange, type }: FrameworkProps
         setValue,
         watch,
     } = useFormContext();
-
-    const capitalizedCodebaseType = capitalizeFirstLetter(type);
 
     const buildToolValue = watch(names.buildTool.name);
     const langValue = watch(names.lang.name);
@@ -47,13 +44,12 @@ export const Framework = ({ names, handleFormFieldChange, type }: FrameworkProps
         <Grid item xs={12}>
             <FormRadioGroup
                 {...register(names.framework.name, {
-                    required: `Choose codebase framework`,
+                    required: `Select ${type} version/framework`,
                     onChange: onFrameworkChange,
                 })}
                 control={control}
                 errors={errors}
-                label={`${capitalizedCodebaseType} Code Framework`}
-                title={`Select ${type} language/framework and build tool.`}
+                label={`Language version/framework`}
                 options={Object.values(chosenLang.frameworks).map(({ name, value, icon }) => ({
                     value,
                     label: name,

@@ -14,14 +14,14 @@ export const StageName = ({ names, handleFormFieldChange }: StageNameProps): Rea
     return (
         <FormTextField
             {...register(names.name.name, {
-                required: `Stage name may contain only: lower-case letters, numbers and dashes and cannot start and end
-                            with dash. Minimum 2 characters.
-                        `,
+                required: `Enter stage name`,
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}
-            label={'Stage Name'}
-            title={'Pipeline stage name'}
+            label={'Stage name'}
+            title={`Stage name may contain only: lower-case letters, numbers and dashes and cannot start and end
+                            with dash. Minimum 2 characters.
+                        `}
             placeholder={'Enter stage name'}
             control={control}
             errors={errors}

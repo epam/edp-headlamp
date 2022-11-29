@@ -29,13 +29,13 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
     } = useFormContext();
 
     register(names.applications.name, {
-        required: 'Choose applications',
+        required: 'Select applications',
     });
 
     register(names.applicationsToPromote.name);
 
     register(names.inputDockerStreams.name, {
-        required: 'Choose branch',
+        required: 'Select branch',
     });
 
     const namespaceFieldValue = watch(names.namespace.name);
@@ -129,8 +129,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                         <FormSelect
                             {...register(names.applicationsToAddChooser.name)}
                             label={'Applications'}
-                            placeholder={'Choose applications'}
-                            title={'Choose applications'}
+                            placeholder={'Select applications'}
                             control={control}
                             errors={errors}
                             disabled={applicationsOptionsListIsDisabled}
@@ -203,7 +202,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
             <Render condition={!applicationsFieldValue || !applicationsFieldValue.length}>
                 <Grid item xs={12}>
                     <Alert severity="info" elevation={2} variant="filled">
-                        Please, add at least one application
+                        Add at least one application
                     </Alert>
                 </Grid>
             </Render>
@@ -215,7 +214,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
             >
                 <Grid item xs={12}>
                     <Alert severity="info" elevation={2} variant="filled">
-                        Please, choose application branch
+                        Select the application branch
                     </Alert>
                 </Grid>
             </Render>

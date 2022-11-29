@@ -24,15 +24,14 @@ export const JenkinsSlave = ({
         <Grid item xs={12}>
             <FormSelect
                 {...register(names.jenkinsSlave.name, {
-                    required: 'Select Jenkins Agent which will be used to handle codebase.',
+                    required: 'Select Jenkins agent',
                     onBlur: ({ target: { name, value } }: FieldEvent) =>
                         handleFormFieldChange({ name, value }),
                 })}
-                label={'Jenkins Agent'}
+                label={'Jenkins agent'}
                 placeholder={
-                    !namespaceFieldValue ? 'Select namespace first' : 'Select Jenkins Agent'
+                    !namespaceFieldValue ? 'Select namespace first' : 'Select Jenkins agent'
                 }
-                title={'Select Jenkins Agent which will be used to handle codebase.'}
                 control={control}
                 errors={errors}
                 disabled={!namespaceFieldValue}
