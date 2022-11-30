@@ -1,14 +1,16 @@
 import { APPLICATION_MAPPING } from '../application';
 import { CodebaseInterface } from '../types';
 
-const LANGUAGE_JAVA = 'Java';
-const LANGUAGE_OTHER = 'other';
+export enum AUTOTEST_LANGUAGES {
+    JAVA = 'java',
+    OTHER = 'other',
+}
 
 export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
-    [LANGUAGE_JAVA]: {
+    [AUTOTEST_LANGUAGES['JAVA']]: {
         language: {
             name: 'Java',
-            value: 'Java',
+            value: AUTOTEST_LANGUAGES['JAVA'],
             icon: 'java',
         },
         frameworks: {
@@ -20,10 +22,10 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
             maven: { name: 'Maven', value: 'maven' },
         },
     },
-    [LANGUAGE_OTHER]: {
+    [AUTOTEST_LANGUAGES['OTHER']]: {
         language: {
             name: 'Other',
-            value: 'other',
+            value: AUTOTEST_LANGUAGES['OTHER'],
             icon: 'otherapps',
         },
         frameworks: {},
@@ -36,7 +38,7 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
 
 const mapJavaBasedAgent = (framework: string, buildTool: string): string | undefined => {
     let result = '';
-    const mapping = AUTOTEST_MAPPING[LANGUAGE_JAVA];
+    const mapping = AUTOTEST_MAPPING[AUTOTEST_LANGUAGES['JAVA']];
 
     switch (buildTool) {
         case mapping.buildTools.gradle.value:
@@ -71,7 +73,7 @@ export const getAutotestRecommendedJenkinsAgent = (
     buildTool?: string
 ): string | undefined => {
     switch (lang) {
-        case APPLICATION_MAPPING[LANGUAGE_JAVA].language.value:
+        case APPLICATION_MAPPING[AUTOTEST_LANGUAGES['JAVA']].language.value:
             return mapJavaBasedAgent(framework, buildTool);
     }
 

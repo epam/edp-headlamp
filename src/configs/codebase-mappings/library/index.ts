@@ -1,100 +1,151 @@
 import { CodebaseInterface } from '../types';
 
-const LANGUAGE_JAVA = 'Java';
-const LANGUAGE_JAVASCRIPT = 'JavaScript';
-const LANGUAGE_DOTNET = 'DotNet';
-const LANGUAGE_PYTHON = 'Python';
-const LANGUAGE_GROOVY_PIPELINE = 'groovy-pipeline';
-const LANGUAGE_TERRAFORM = 'terraform';
-const LANGUAGE_REGO = 'rego';
-const LANGUAGE_CONTAINER = 'container';
-const LANGUAGE_OTHER = 'other';
+export enum LIBRARY_LANGUAGES {
+    JAVA = 'java',
+    JAVASCRIPT = 'javascript',
+    DOTNET = 'dotnet',
+    PYTHON = 'python',
+    GROOVY_PIPELINE = 'groovy-pipeline',
+    TERRAFORM = 'terraform',
+    REGO = 'rego',
+    CONTAINER = 'container',
+    OTHER = 'other',
+}
 
 export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
-    [LANGUAGE_JAVA]: {
+    [LIBRARY_LANGUAGES['JAVA']]: {
         language: {
             name: 'Java',
-            value: 'Java',
+            value: LIBRARY_LANGUAGES['JAVA'],
             icon: 'java',
         },
         frameworks: {
-            java8: { name: 'Java 8', value: 'java8', icon: 'java' },
-            java11: { name: 'Java 11', value: 'java11', icon: 'java' },
+            java8: {
+                name: 'Java 8',
+                value: 'java8',
+                icon: 'java',
+            },
+            java11: {
+                name: 'Java 11',
+                value: 'java11',
+                icon: 'java',
+            },
         },
         buildTools: {
-            gradle: { name: 'Gradle', value: 'gradle' },
-            maven: { name: 'Maven', value: 'maven' },
+            gradle: {
+                name: 'Gradle',
+                value: 'gradle',
+            },
+            maven: {
+                name: 'Maven',
+                value: 'maven',
+            },
         },
     },
-    [LANGUAGE_JAVASCRIPT]: {
+    [LIBRARY_LANGUAGES['JAVASCRIPT']]: {
         language: {
             name: 'JavaScript',
-            value: 'JavaScript',
+            value: LIBRARY_LANGUAGES['JAVASCRIPT'],
             icon: 'javascript',
         },
         frameworks: {
-            react: { name: 'React', value: 'React', icon: 'react' },
+            react: {
+                name: 'React',
+                value: 'react',
+                icon: 'react',
+            },
         },
         buildTools: {
-            npm: { name: 'NPM', value: 'npm' },
+            npm: {
+                name: 'NPM',
+                value: 'npm',
+            },
         },
     },
-    [LANGUAGE_DOTNET]: {
+    [LIBRARY_LANGUAGES['DOTNET']]: {
         language: {
             name: 'DotNet',
-            value: 'DotNet',
+            value: LIBRARY_LANGUAGES['DOTNET'],
             icon: 'dotnet',
         },
         frameworks: {
-            'dotnet-3.1': { name: 'Dotnet 3.1', value: 'dotnet-3.1', icon: 'dotnetcore' },
+            'dotnet-3.1': {
+                name: 'Dotnet 3.1',
+                value: 'dotnet-3.1',
+                icon: 'dotnetcore',
+            },
         },
         buildTools: {
-            dotnet: { name: 'dotnet', value: 'dotnet' },
+            dotnet: {
+                name: 'dotnet',
+                value: 'dotnet',
+            },
         },
     },
-    [LANGUAGE_PYTHON]: {
+    [LIBRARY_LANGUAGES['PYTHON']]: {
         language: {
             name: 'Python',
-            value: 'Python',
+            value: LIBRARY_LANGUAGES['PYTHON'],
             icon: 'python',
         },
         frameworks: {
-            'python-3.8': { name: 'Python 3.8', value: 'python-3.8', icon: 'python' },
+            'python-3.8': {
+                name: 'Python 3.8',
+                value: 'python-3.8',
+                icon: 'python',
+            },
         },
         buildTools: {
-            python: { name: 'Python', value: 'python' },
+            python: {
+                name: 'Python',
+                value: 'python',
+            },
         },
     },
-    [LANGUAGE_GROOVY_PIPELINE]: {
+    [LIBRARY_LANGUAGES['GROOVY_PIPELINE']]: {
         language: {
             name: 'Groovy-pipeline',
-            value: 'groovy-pipeline',
+            value: LIBRARY_LANGUAGES['GROOVY_PIPELINE'],
             icon: 'groovy',
         },
         frameworks: {
-            codenarc: { name: 'Codenarc', value: 'codenarc', icon: 'codenarc' },
+            codenarc: {
+                name: 'Codenarc',
+                value: 'codenarc',
+                icon: 'codenarc',
+            },
         },
         buildTools: {
-            codenarc: { name: 'Codenarc', value: 'codenarc' },
+            codenarc: {
+                name: 'Codenarc',
+                value: 'codenarc',
+            },
         },
     },
-    [LANGUAGE_TERRAFORM]: {
+    [LIBRARY_LANGUAGES['TERRAFORM']]: {
         language: {
             name: 'Terraform',
-            value: 'terraform',
+            value: LIBRARY_LANGUAGES['TERRAFORM'],
             icon: 'terraform',
         },
         frameworks: {
-            terraform: { name: 'Terraform', value: 'terraform', icon: 'terraform' },
+            terraform: {
+                name: 'Terraform',
+                value: 'terraform',
+                icon: 'terraform',
+            },
         },
         buildTools: {
-            terraform: { name: 'Terraform', value: 'terraform' },
+            terraform: {
+                name: 'Terraform',
+                value: 'terraform',
+            },
         },
     },
-    [LANGUAGE_REGO]: {
+    [LIBRARY_LANGUAGES['REGO']]: {
         language: {
             name: 'Rego',
-            value: 'rego',
+            value: LIBRARY_LANGUAGES['REGO'],
             icon: 'opa',
         },
         frameworks: {
@@ -104,23 +155,30 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             opa: { name: 'OPA', value: 'opa' },
         },
     },
-    [LANGUAGE_CONTAINER]: {
+    [LIBRARY_LANGUAGES['CONTAINER']]: {
         language: {
             name: 'Container',
-            value: 'container',
+            value: LIBRARY_LANGUAGES['CONTAINER'],
             icon: 'container',
         },
         frameworks: {
-            docker: { name: 'Docker', value: 'docker', icon: 'docker' },
+            docker: {
+                name: 'Docker',
+                value: 'docker',
+                icon: 'docker',
+            },
         },
         buildTools: {
-            kaniko: { name: 'Kaniko', value: 'kaniko' },
+            kaniko: {
+                name: 'Kaniko',
+                value: 'kaniko',
+            },
         },
     },
-    [LANGUAGE_OTHER]: {
+    [LIBRARY_LANGUAGES['OTHER']]: {
         language: {
             name: 'Other',
-            value: 'other',
+            value: LIBRARY_LANGUAGES['OTHER'],
             icon: 'otherapps',
         },
         frameworks: {},
@@ -130,7 +188,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
 
 const mapJavaBasedAgent = (framework: string, buildTool: string): string | undefined => {
     let result = '';
-    const mapping = LIBRARY_MAPPING[LANGUAGE_JAVA];
+    const mapping = LIBRARY_MAPPING[LIBRARY_LANGUAGES['JAVA']];
 
     switch (buildTool) {
         case mapping.buildTools.gradle.value:
@@ -161,7 +219,7 @@ const mapJavaBasedAgent = (framework: string, buildTool: string): string | undef
 
 const mapDotNetBasedAgent = (framework: string): string | undefined => {
     let result = 'dotnet-';
-    const mapping = LIBRARY_MAPPING[LANGUAGE_DOTNET];
+    const mapping = LIBRARY_MAPPING[LIBRARY_LANGUAGES['DOTNET']];
 
     switch (framework) {
         case mapping.frameworks['dotnet-3.1'].value:
@@ -180,21 +238,21 @@ export const getLibraryRecommendedJenkinsAgent = (
     buildTool?: string
 ): string | undefined => {
     switch (lang) {
-        case LIBRARY_MAPPING[LANGUAGE_JAVA].language.value:
+        case LIBRARY_MAPPING[LIBRARY_LANGUAGES['JAVA']].language.value:
             return mapJavaBasedAgent(framework, buildTool);
-        case LIBRARY_MAPPING[LANGUAGE_JAVASCRIPT].language.value:
+        case LIBRARY_MAPPING[LIBRARY_LANGUAGES['JAVASCRIPT']].language.value:
             return 'npm';
-        case LIBRARY_MAPPING[LANGUAGE_DOTNET].language.value:
+        case LIBRARY_MAPPING[LIBRARY_LANGUAGES['DOTNET']].language.value:
             return mapDotNetBasedAgent(framework);
-        case LIBRARY_MAPPING[LANGUAGE_PYTHON].language.value:
+        case LIBRARY_MAPPING[LIBRARY_LANGUAGES['PYTHON']].language.value:
             return 'python-3.8';
-        case LIBRARY_MAPPING[LANGUAGE_GROOVY_PIPELINE].language.value:
+        case LIBRARY_MAPPING[LIBRARY_LANGUAGES['GROOVY_PIPELINE']].language.value:
             return 'codenarc';
-        case LIBRARY_MAPPING[LANGUAGE_TERRAFORM].language.value:
+        case LIBRARY_MAPPING[LIBRARY_LANGUAGES['TERRAFORM']].language.value:
             return 'terraform';
-        case LIBRARY_MAPPING[LANGUAGE_REGO].language.value:
+        case LIBRARY_MAPPING[LIBRARY_LANGUAGES['REGO']].language.value:
             return 'opa';
-        case LIBRARY_MAPPING[LANGUAGE_CONTAINER].language.value:
+        case LIBRARY_MAPPING[LIBRARY_LANGUAGES['CONTAINER']].language.value:
             return 'kaniko-docker';
     }
 

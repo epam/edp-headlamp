@@ -1,8 +1,6 @@
 import { useFormContext } from 'react-hook-form';
-import {
-    APPLICATION_MAPPING,
-    LANGUAGE_OTHER,
-} from '../../../../configs/codebase-mappings/application';
+import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings';
+import { APPLICATION_MAPPING } from '../../../../configs/codebase-mappings/application';
 import { AUTOTEST_MAPPING } from '../../../../configs/codebase-mappings/autotest';
 import { LIBRARY_MAPPING } from '../../../../configs/codebase-mappings/library';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
@@ -69,13 +67,13 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
                 value: undefined,
             });
 
-            if (value === LANGUAGE_OTHER) {
-                setValue(names.framework.name, LANGUAGE_OTHER);
+            if (value === CODEBASE_COMMON_LANGUAGES['OTHER']) {
+                setValue(names.framework.name, CODEBASE_COMMON_LANGUAGES['OTHER']);
             }
 
             handleFormFieldChange({
                 name: names.framework.name,
-                value: LANGUAGE_OTHER,
+                value: CODEBASE_COMMON_LANGUAGES['OTHER'],
             });
 
             const recommendedJenkinsAgent = getRecommendedJenkinsAgent(type, {

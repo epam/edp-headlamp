@@ -16,22 +16,22 @@ describe('getAutotestRecommendedJenkinsAgent', () => {
         },
         {
             testName: 'should map java 8 library with maven',
-            args: ['Java', 'java8', 'maven'],
+            args: ['java', 'java8', 'maven'],
             expected: 'maven-java8',
         },
         {
             testName: 'should map java 11 library with maven',
-            args: ['Java', 'java11', 'maven'],
+            args: ['java', 'java11', 'maven'],
             expected: 'maven-java11',
         },
         {
             testName: 'should map java 11 library with gradle',
-            args: ['Java', 'java11', 'gradle'],
+            args: ['java', 'java11', 'gradle'],
             expected: 'gradle-java11',
         },
         {
             testName: 'should return undefined if java build tool is not specified',
-            args: ['Java', 'java11'],
+            args: ['java', 'java11'],
             expected: undefined,
         },
     ];
