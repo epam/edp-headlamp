@@ -25,6 +25,7 @@ export const createApplicationInstance = ({
             namespace,
             labels: {
                 'app.edp.epam.com/pipeline-stage': `${pipelineName}-${stageName}`,
+                'app.edp.epam.com/pipeline': pipelineName,
                 'app.edp.epam.com/app-name': appName,
             },
             finalizers: ['resources-finalizer.argocd.argoproj.io'],

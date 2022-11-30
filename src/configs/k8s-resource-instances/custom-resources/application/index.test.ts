@@ -25,6 +25,7 @@ describe('testing createApplicationInstance', () => {
                 namespace: 'test-namespace',
                 labels: {
                     'app.edp.epam.com/pipeline-stage': `test-pipeline-name-test-stage-name`,
+                    'app.edp.epam.com/pipeline': `test-pipeline-name`,
                     'app.edp.epam.com/app-name': 'test-application-name',
                 },
                 finalizers: ['resources-finalizer.argocd.argoproj.io'],
