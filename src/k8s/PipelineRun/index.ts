@@ -54,3 +54,18 @@ export const streamPipelineRunListByCodebaseBranchLabel = (
         labelSelector: `app.edp.epam.com/codebasebranch=${codebaseBranchLabel}`,
     });
 };
+
+export const streamPipelineRunListByTypeLabel = (
+    pipelineType: string,
+    pipelineName: string,
+    cb: (data: PipelineRunKubeObjectInterface[]) => void,
+    errCb: (err: Error) => void,
+    namespace?: string
+): (() => void) => {
+    const url = namespace
+        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
+        : `/apis/${group}/${version}/${pluralForm}`;
+    return streamResults(url, cb, errCb, {
+        labelSelector: `app.edp.epam.com/pipelinetype=${pipelineType},app.edp.epam.com/pipelinename=${pipelineName}`,
+    });
+};

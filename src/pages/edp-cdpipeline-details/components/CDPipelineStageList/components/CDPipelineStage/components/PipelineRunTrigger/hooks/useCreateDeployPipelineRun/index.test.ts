@@ -4,9 +4,9 @@
 
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react-hooks';
-import { PipelineRun } from '../../../../../k8s/PipelineRun';
-import { createRandomFiveSymbolString } from '../../../../../utils/createRandomFiveSymbolString';
-import { useCreatePipelineRun } from './index';
+import { PipelineRun } from '../../../../../../../../../../k8s/PipelineRun';
+import { createRandomFiveSymbolString } from '../../../../../../../../../../utils/createRandomFiveSymbolString';
+import { useCreateDeployPipelineRun } from './index';
 import { pipelineRunMock } from './mocks/pipelineRun.mock';
 
 jest.mock('notistack', () => ({
@@ -29,7 +29,7 @@ afterEach(() => {
     jest.spyOn(global.window.crypto, 'getRandomValues').mockRestore();
 });
 
-describe('testing useCreatePipelineRun hook', () => {
+describe('testing useCreateDeployPipelineRun hook', () => {
     it('should successfully create PipelineRun resource', async () => {
         let pipelineRunCreated: boolean = false;
         let hasError: boolean = false;
@@ -47,32 +47,18 @@ describe('testing useCreatePipelineRun hook', () => {
 
         const {
             result: {
-                current: { createPipelineRun },
+                current: { createDeployPipelineRun },
             },
-        } = renderHook(() => useCreatePipelineRun(onCreate, onError));
+        } = renderHook(() => useCreateDeployPipelineRun(onCreate, onError));
 
         const randomPostfix = createRandomFiveSymbolString();
 
-        const createPipelineRunPromise = createPipelineRun({
+        const createPipelineRunPromise = createDeployPipelineRun({
             namespace: 'test-namespace',
-            codebaseData: {
-                codebaseName: 'test-codebase-name',
-                codebaseBuildTool: 'test-build-tool',
-                codebaseVersioningType: 'test-versioning-type',
-                codebaseType: 'test-codebase-type',
-                codebaseFramework: 'test-framework',
-            },
-            codebaseBranchData: {
-                codebaseBranchMetadataName: 'test-codebase-name-test-codebase-branch-name',
-                codebaseBranchName: 'test-codebase-branch-name',
-            },
-            gitServerData: {
-                gitHost: 'test-git-host',
-                gitUser: 'test-git-user',
-                gitProvider: 'test-git-provider',
-                sshPort: 123,
-                nameSshKeySecret: 'test-ssh-key-secret',
-            },
+            pipelineName: 'test-pipeline-name',
+            stageName: 'test-stage-name',
+            CDPipelineName: 'test-cdpipeline-name',
+            codebaseTag: 'test-app-name=SNAPSHOT 0.0.0 test-app-2-name=SNAPSHOT 0.1.0',
             randomPostfix,
         });
 
@@ -99,31 +85,17 @@ describe('testing useCreatePipelineRun hook', () => {
 
         const {
             result: {
-                current: { createPipelineRun },
+                current: { createDeployPipelineRun },
             },
-        } = renderHook(() => useCreatePipelineRun(onCreate, onError));
+        } = renderHook(() => useCreateDeployPipelineRun(onCreate, onError));
 
         const randomPostfix = createRandomFiveSymbolString();
-        const createPipelineRunPromise = createPipelineRun({
+        const createPipelineRunPromise = createDeployPipelineRun({
             namespace: 'test-namespace',
-            codebaseData: {
-                codebaseName: 'test-codebase-name',
-                codebaseBuildTool: 'test-build-tool',
-                codebaseVersioningType: 'test-versioning-type',
-                codebaseType: 'test-codebase-type',
-                codebaseFramework: 'test-framework',
-            },
-            codebaseBranchData: {
-                codebaseBranchMetadataName: 'test-codebase-name-test-codebase-branch-name',
-                codebaseBranchName: 'test-codebase-branch-name',
-            },
-            gitServerData: {
-                gitHost: 'test-git-host',
-                gitUser: 'test-git-user',
-                gitProvider: 'test-git-provider',
-                sshPort: 123,
-                nameSshKeySecret: 'test-ssh-key-secret',
-            },
+            pipelineName: 'test-pipeline-name',
+            stageName: 'test-stage-name',
+            CDPipelineName: 'test-cdpipeline-name',
+            codebaseTag: 'test-app-name=SNAPSHOT 0.0.0 test-app-2-name=SNAPSHOT 0.1.0',
             randomPostfix,
         });
 

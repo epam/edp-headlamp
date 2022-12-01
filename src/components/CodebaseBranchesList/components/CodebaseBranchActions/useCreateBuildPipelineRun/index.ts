@@ -1,4 +1,4 @@
-import { createPipelineRunInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/pipeline-run';
+import { createBuildPipelineRunInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/pipeline-run';
 import { PipelineRun } from '../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
 import { Notistack, React } from '../../../../../plugin.globals';
@@ -7,7 +7,7 @@ import { throwErrorNoty } from '../../../../../utils/throwErrorNoty';
 
 const { useSnackbar } = Notistack;
 
-export interface createPipelineRunInterface {
+export interface createBuildPipelineRunProps {
     namespace: string;
     codebaseData: {
         codebaseName: string;
@@ -30,24 +30,23 @@ export interface createPipelineRunInterface {
     randomPostfix: string;
 }
 
-export const useCreatePipelineRun = (
+export const useCreateBuildPipelineRun = (
     onSuccess?: () => void,
     onError?: () => void
 ): {
-    createPipelineRun: ({
-        namespace,
-        codebaseBranchData,
-    }: createPipelineRunInterface) => Promise<PipelineRunKubeObjectInterface>;
+    createBuildPipelineRun: (
+        data: createBuildPipelineRunProps
+    ) => Promise<PipelineRunKubeObjectInterface>;
 } => {
     const { enqueueSnackbar } = useSnackbar();
 
-    const createPipelineRun = React.useCallback(
-        async (data: createPipelineRunInterface): Promise<PipelineRunKubeObjectInterface> => {
+    const createBuildPipelineRun = React.useCallback(
+        async (data: createBuildPipelineRunProps): Promise<PipelineRunKubeObjectInterface> => {
             const { codebaseData, randomPostfix } = data;
             let newPipelineRunData: PipelineRunKubeObjectInterface;
 
             try {
-                newPipelineRunData = createPipelineRunInstance(data);
+                newPipelineRunData = createBuildPipelineRunInstance(data);
 
                 const pipelineRunPostRequestResult = await PipelineRun.apiEndpoint.post(
                     newPipelineRunData
@@ -75,5 +74,5 @@ export const useCreatePipelineRun = (
         [enqueueSnackbar, onError, onSuccess]
     );
 
-    return { createPipelineRun };
+    return { createBuildPipelineRun };
 };

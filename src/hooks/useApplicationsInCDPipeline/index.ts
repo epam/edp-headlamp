@@ -35,7 +35,7 @@ export const useApplicationsInCDPipeline = ({
         // it shouldn't update applications if there's no CDPipeline data or CDPipeline data didn't change
         // we store CDPipeline version in CDPipelineResourceVersion ref
 
-        if (!CDPipelineData) {
+        if (!CDPipelineData || !applications.length) {
             return;
         }
 
@@ -81,6 +81,9 @@ export const useApplicationsInCDPipeline = ({
         (async () => {
             try {
                 const enrichedApplications = await getEnrichedApplications();
+                if (!enrichedApplications) {
+                    return;
+                }
                 setEnrichedApplications(enrichedApplications.filter(Boolean));
             } catch (err: any) {
                 setError(err);

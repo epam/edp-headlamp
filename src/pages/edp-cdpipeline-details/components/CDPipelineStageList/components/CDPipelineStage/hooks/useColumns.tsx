@@ -7,7 +7,7 @@ export const useColumns =
         React.useMemo(
             () => [
                 {
-                    label: 'Quality gate type',
+                    label: 'Type',
                     getter: ({ qualityGateType }) => qualityGateType,
                 },
                 {

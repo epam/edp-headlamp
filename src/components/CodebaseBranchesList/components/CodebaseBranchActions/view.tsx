@@ -14,7 +14,10 @@ import { EditKubeObject } from '../../../EditKubeObject';
 import { KubeObjectActions } from '../../../KubeObjectActions';
 import { CodebaseBranchCDPipelineConflictError } from './components/CodebaseBranchCDPipelineConflictError';
 import { CodebaseBranchActionsProps } from './types';
-import { createPipelineRunInterface, useCreatePipelineRun } from './useCreatePipelineRun';
+import {
+    createBuildPipelineRunProps,
+    useCreateBuildPipelineRun,
+} from './useCreateBuildPipelineRun';
 import { createDeleteAction, getConflictedCDPipeline } from './utils';
 
 const { IconButton } = MuiCore;
@@ -55,12 +58,12 @@ export const CodebaseBranchActions = ({
         el => el.metadata.name === codebase.spec.gitServer
     );
 
-    const { createPipelineRun } = useCreatePipelineRun();
+    const { createBuildPipelineRun } = useCreateBuildPipelineRun();
 
     const applyFunc = React.useCallback(
-        async (data: createPipelineRunInterface): Promise<PipelineRunKubeObjectInterface> =>
-            createPipelineRun(data),
-        [createPipelineRun]
+        async (data: createBuildPipelineRunProps): Promise<PipelineRunKubeObjectInterface> =>
+            createBuildPipelineRun(data),
+        [createBuildPipelineRun]
     );
 
     const { fireRequest } = useRequest({
@@ -71,7 +74,7 @@ export const CodebaseBranchActions = ({
     });
 
     const handleApply = React.useCallback(
-        async (data: createPipelineRunInterface): Promise<void> => {
+        async (data: createBuildPipelineRunProps): Promise<void> => {
             const name = `${data.codebaseData.codebaseName}-build-${randomPostfix}`;
 
             await fireRequest({

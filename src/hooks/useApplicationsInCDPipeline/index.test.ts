@@ -142,8 +142,14 @@ describe('testing useApplicationsInCDPipeline hook', () => {
         await expect(result.current.error).toBeNull();
     });
     it('should throw an error after async request if something goes wrong', async () => {
-        jest.spyOn(ApiProxy, 'request').mockRejectedValue({ status: 'Failure' });
-
+        jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
+            if (url.includes('codebases')) {
+                return Promise.resolve(codebasesMock);
+            }
+            if (url.includes('codebaseimagestreams')) {
+                return Promise.reject({ status: 'Failure' });
+            }
+        });
         const useApplicationsInCDPipelineProps = {
             CDPipelineData: CDPipelineMock as EDPCDPipelineKubeObjectInterface,
         };

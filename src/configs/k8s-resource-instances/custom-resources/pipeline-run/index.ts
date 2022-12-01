@@ -3,7 +3,7 @@ import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/type
 
 const { kind, group, version } = PipelineRunKubeObjectConfig;
 
-interface createPipelineRunInstanceProps {
+interface createBuildPipelineRunInstanceProps {
     namespace: string;
     codebaseData: {
         codebaseName: string;
@@ -26,7 +26,16 @@ interface createPipelineRunInstanceProps {
     randomPostfix: string;
 }
 
-export const createPipelineRunInstance = ({
+interface createDeployPipelineRunInstanceProps {
+    namespace: string;
+    pipelineName: string;
+    stageName: string;
+    CDPipelineName: string;
+    randomPostfix: string;
+    codebaseTag: string;
+}
+
+export const createBuildPipelineRunInstance = ({
     namespace,
     codebaseData: {
         codebaseName,
@@ -38,7 +47,7 @@ export const createPipelineRunInstance = ({
     codebaseBranchData: { codebaseBranchMetadataName, codebaseBranchName },
     gitServerData: { gitUser, gitHost, gitProvider, sshPort, nameSshKeySecret },
     randomPostfix,
-}: createPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
+}: createBuildPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
     const truncatedCodebaseType = codebaseType.slice(0, 3);
 
     return {
@@ -127,6 +136,48 @@ export const createPipelineRunInstance = ({
                     },
                 },
             ],
+        },
+    };
+};
+
+export const createDeployPipelineRunInstance = ({
+    namespace,
+    pipelineName,
+    stageName,
+    CDPipelineName,
+    randomPostfix,
+    codebaseTag,
+}: createDeployPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
+    return {
+        apiVersion: `${group}/${version}`,
+        kind,
+        metadata: {
+            namespace,
+            name: `${CDPipelineName}-${stageName}-${randomPostfix}`,
+            labels: {
+                'app.edp.epam.com/pipelinename': `${CDPipelineName}-${stageName}`,
+                'app.edp.epam.com/pipelinetype': 'deploy',
+            },
+        },
+        spec: {
+            serviceAccountName: 'tekton',
+            params: [
+                {
+                    name: 'CODEBASE_TAG',
+                    value: codebaseTag,
+                },
+                {
+                    name: 'CDPIPELINE_CR',
+                    value: CDPipelineName,
+                },
+                {
+                    name: 'CDPIPELINE_STAGE',
+                    value: stageName,
+                },
+            ],
+            pipelineRef: {
+                name: pipelineName,
+            },
         },
     };
 };

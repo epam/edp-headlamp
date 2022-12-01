@@ -4,7 +4,7 @@
 
 import { jest } from '@jest/globals';
 import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
-import { createPipelineRunInstance } from './index';
+import { createBuildPipelineRunInstance, createDeployPipelineRunInstance } from './index';
 
 beforeEach(() => {
     jest.spyOn(global.window.crypto, 'getRandomValues').mockReturnValue(
@@ -17,11 +17,11 @@ afterEach(() => {
     jest.spyOn(global.window.crypto, 'getRandomValues').mockRestore();
 });
 
-describe('testing createPipelineRunInstance', () => {
+describe('testing createBuildPipelineRunInstance', () => {
     it('should return valid kube object', () => {
         const randomPostfix = createRandomFiveSymbolString();
 
-        const object = createPipelineRunInstance({
+        const object = createBuildPipelineRunInstance({
             namespace: 'test-namespace',
             codebaseData: {
                 codebaseName: 'test-codebase-name',
@@ -112,6 +112,46 @@ describe('testing createPipelineRunInstance', () => {
                         secret: { secretName: 'test-ssh-key-secret' },
                     },
                 ],
+            },
+        });
+    });
+});
+
+describe('testing createDeployPipelineRunInstance', () => {
+    it('should return valid kube object', () => {
+        const randomPostfix = createRandomFiveSymbolString();
+
+        const object = createDeployPipelineRunInstance({
+            namespace: 'test-namespace',
+            pipelineName: 'test-pipeline-name',
+            stageName: 'test-stage-name',
+            CDPipelineName: 'test-cdpipeline-name',
+            codebaseTag: 'test-app-name=SNAPSHOT 0.0.0 test-app-2-name=SNAPSHOT 0.1.0',
+            randomPostfix,
+        });
+
+        expect(object).toEqual({
+            apiVersion: 'tekton.dev/v1beta1',
+            kind: 'PipelineRun',
+            metadata: {
+                namespace: 'test-namespace',
+                name: 'test-cdpipeline-name-test-stage-name-8ygse',
+                labels: {
+                    'app.edp.epam.com/pipelinename': 'test-cdpipeline-name-test-stage-name',
+                    'app.edp.epam.com/pipelinetype': 'deploy',
+                },
+            },
+            spec: {
+                serviceAccountName: 'tekton',
+                params: [
+                    {
+                        name: 'CODEBASE_TAG',
+                        value: 'test-app-name=SNAPSHOT 0.0.0 test-app-2-name=SNAPSHOT 0.1.0',
+                    },
+                    { name: 'CDPIPELINE_CR', value: 'test-cdpipeline-name' },
+                    { name: 'CDPIPELINE_STAGE', value: 'test-stage-name' },
+                ],
+                pipelineRef: { name: 'test-pipeline-name' },
             },
         });
     });
