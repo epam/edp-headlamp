@@ -1,3 +1,4 @@
+import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { CUSTOM_RESOURCE_STATUSES, PIPELINE_RUN_STATUSES } from '../../../../constants/statuses';
@@ -27,17 +28,25 @@ export const CodebaseBranch = ({
     handlePanelChange,
     codebaseData,
 }: CodebaseBranchProps): React.ReactElement => {
+    const {
+        spec: { ciTool },
+    } = codebaseData;
+
+    const jenkinsCiToolIsUsed = ciTool === CI_TOOLS['JENKINS'];
+
     const classes = useStyles();
     const rows = useRows(codebaseBranchData);
     const codebaseBranchLabel = `${codebaseData.metadata.name}-${codebaseBranchData.spec.branchName}`;
 
-    const [latestBuildPipelineRunStatus, setLatestPipelineRunStatus] = React.useState<string>(
-        CUSTOM_RESOURCE_STATUSES['UNKNOWN']
-    );
+    const [latestBuildPipelineRunStatus, setLatestPipelineRunStatus] = React.useState<string>(CUSTOM_RESOURCE_STATUSES['UNKNOWN']);
     const [, setError] = React.useState<Error>(null);
 
     const handleStoreLatestPipelineRun = React.useCallback(
         (data: PipelineRunKubeObjectInterface[]) => {
+            if (jenkinsCiToolIsUsed) {
+                return;
+            }
+
             const [latestBuildPipelineRun] = data
                 .filter(
                     ({ metadata: { labels } }) =>
@@ -73,7 +82,7 @@ export const CodebaseBranch = ({
 
             setLatestPipelineRunStatus(currentPipelineRunStatus);
         },
-        [latestBuildPipelineRunStatus]
+        [jenkinsCiToolIsUsed, latestBuildPipelineRunStatus]
     );
 
     const handleError = React.useCallback((error: Error) => {
@@ -81,6 +90,10 @@ export const CodebaseBranch = ({
     }, []);
 
     React.useEffect(() => {
+        if (jenkinsCiToolIsUsed) {
+            return;
+        }
+
         const cancelStream = streamPipelineRunListByCodebaseBranchLabel(
             codebaseBranchLabel,
             handleStoreLatestPipelineRun,
@@ -93,11 +106,12 @@ export const CodebaseBranch = ({
         codebaseBranchLabel,
         handleError,
         handleStoreLatestPipelineRun,
-        codebaseBranchData.metadata.namespace,
+        codebaseBranchData,
+        jenkinsCiToolIsUsed,
     ]);
 
     return (
-        <div style={{ paddingBottom: rem(16) }} key={id}>
+        <div style={{ paddingBottom: rem(16) }}>
             <Accordion expanded={expandedPanel === id} onChange={handlePanelChange(id)}>
                 <AccordionSummary expandIcon={<Icon icon={ICONS['ARROW_DOWN']} />}>
                     <div className={classes.branchHeader}>
@@ -116,15 +130,17 @@ export const CodebaseBranch = ({
                         </Render>
                         <div style={{ marginLeft: 'auto' }}>
                             <Grid container spacing={1} alignItems={'center'}>
-                                <Grid item>
-                                    <div className={classes.pipelineRunStatus}>
-                                        <StatusIcon
-                                            status={latestBuildPipelineRunStatus}
-                                            customTitle={`Last pipeline run status: ${latestBuildPipelineRunStatus}`}
-                                            width={18}
-                                        />
-                                    </div>
-                                </Grid>
+                                <Render condition={!jenkinsCiToolIsUsed}>
+                                    <Grid item>
+                                        <div className={classes.pipelineRunStatus}>
+                                            <StatusIcon
+                                                status={latestBuildPipelineRunStatus}
+                                                customTitle={`Last pipeline run status: ${latestBuildPipelineRunStatus}`}
+                                                width={18}
+                                            />
+                                        </div>
+                                    </Grid>
+                                </Render>
                                 <Grid item>
                                     <CodebaseBranchMetadataTable
                                         codebaseBranchData={codebaseBranchData}
