@@ -3,7 +3,7 @@ import { ApplicationKubeObjectInterface } from '../../../../../../../../k8s/Appl
 
 export interface PipelineRunTriggerProps {
     namespace: string;
-    runActionIsDisabled: boolean;
+    runActionIsEnabled: boolean;
     enrichedApplicationsWithArgoApplications: {
         application: EnrichedApplication;
         argoApplication: ApplicationKubeObjectInterface;

@@ -21,7 +21,7 @@ const randomPostfix = createRandomFiveSymbolString();
 
 export const PipelineRunTrigger = ({
     namespace,
-    runActionIsDisabled,
+    runActionIsEnabled,
     enrichedApplicationsWithArgoApplications,
 }: PipelineRunTriggerProps): React.ReactElement => {
     const CurrentCDPipelineStageDataContextValue = React.useContext(
@@ -125,7 +125,7 @@ export const PipelineRunTrigger = ({
                         variant={'contained'}
                         color={'primary'}
                         size={'small'}
-                        disabled={runActionIsDisabled || !pipelineNameFieldValue}
+                        disabled={!runActionIsEnabled || !pipelineNameFieldValue}
                         onClick={handleRunClick}
                     >
                         Run

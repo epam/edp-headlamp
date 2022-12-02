@@ -215,7 +215,9 @@ export interface ApplicationSpec {
 
 export interface ApplicationStatus {
     error?: string;
-    status?: string;
+    health?: {
+        status?: string;
+    };
 }
 
 export interface ApplicationKubeObjectInterface extends EDPKubeObjectInterface {

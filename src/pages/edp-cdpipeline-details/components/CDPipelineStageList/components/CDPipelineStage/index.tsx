@@ -109,26 +109,37 @@ export const CDPipelineStage = (): React.ReactElement => {
         handleStoreLatestTenPipelineRuns,
     ]);
 
-    const runActionIsDisabled = React.useMemo(() => {
+    const runActionIsEnabled = React.useMemo(() => {
         if (!argoApplications.length) {
-            return true;
+            return false;
         }
 
         if (
-            latestTenPipelineRuns &&
-            latestTenPipelineRuns[0]?.status?.conditions[0]?.reason.toLowerCase() ===
+            !latestTenPipelineRuns[0] ||
+            !latestTenPipelineRuns[0].status ||
+            !latestTenPipelineRuns[0].status.conditions ||
+            !latestTenPipelineRuns[0].status.conditions[0] ||
+            latestTenPipelineRuns[0].status.conditions[0].reason?.toLowerCase() ===
                 PIPELINE_RUN_STATUSES['RUNNING']
         ) {
-            return true;
+            return false;
         }
 
-        return argoApplications.some(
-            argoApplication =>
-                // @ts-ignore
-                argoApplication?.status?.health?.status.toLowerCase() !==
+        return enrichedApplicationsWithArgoApplications.every(({ argoApplication }) => {
+            if (
+                !argoApplication ||
+                !argoApplication.status ||
+                !argoApplication.status.health ||
+                !argoApplication.status.health.status
+            ) {
+                return false;
+            }
+            return (
+                argoApplication.status.health.status.toLowerCase() ===
                 ARGO_APPLICATION_HEALTH_STATUSES['HEALTHY']
-        );
-    }, [argoApplications, latestTenPipelineRuns]);
+            );
+        });
+    }, [argoApplications, enrichedApplicationsWithArgoApplications, latestTenPipelineRuns]);
 
     return (
         <Grid container spacing={5}>
@@ -165,7 +176,7 @@ export const CDPipelineStage = (): React.ReactElement => {
                                                     CurrentCDPipelineStageDataContextValue.metadata
                                                         .namespace
                                                 }
-                                                runActionIsDisabled={runActionIsDisabled}
+                                                runActionIsEnabled={runActionIsEnabled}
                                                 enrichedApplicationsWithArgoApplications={
                                                     enrichedApplicationsWithArgoApplications
                                                 }
