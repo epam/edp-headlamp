@@ -209,7 +209,8 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
             <Render
                 condition={
                     (!applicationsBranchesFieldValue || !applicationsBranchesFieldValue.length) &&
-                    applicationsFieldValue
+                    applicationsFieldValue &&
+                    applicationsFieldValue.length
                 }
             >
                 <Grid item xs={12}>
