@@ -114,6 +114,10 @@ export const CDPipelineStage = (): React.ReactElement => {
             return false;
         }
 
+        if (!latestTenPipelineRuns.length) {
+            return true;
+        }
+
         if (
             !latestTenPipelineRuns[0] ||
             !latestTenPipelineRuns[0].status ||
