@@ -27,7 +27,6 @@ export const gitServerSecretMock: DeepPartial<EDPKubeObjectInterface> = {
     },
     data: {
         id_rsa: 'test-ssh-private-key',
-        secretString: 'secret-string',
         token: 'token',
         username: 'username',
     },

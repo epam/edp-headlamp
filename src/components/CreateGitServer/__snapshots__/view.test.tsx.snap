@@ -709,10 +709,10 @@ exports[`CreateGitServer should render correctly 1`] = `
               style="display: flex;"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                   style="display: flex;"
                 >
                   <div
@@ -720,116 +720,44 @@ exports[`CreateGitServer should render correctly 1`] = `
                   >
                     <div
                       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      style="display: flex;"
                     >
-                      <div
-                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      <span
+                        class="makeStyles-labelWrap-9"
                       >
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        <span
+                          class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
                         >
-                          <span
-                            class="makeStyles-labelWrap-9"
-                          >
-                            <span
-                              class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
-                            >
-                              Access token
-                            </span>
-                          </span>
-                        </div>
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                          style="display: flex; align-items: flex-end;"
-                        >
-                          <div
-                            class="MuiFormControl-root MuiFormControl-fullWidth"
-                          >
-                            <div
-                              class="MuiFormControl-root MuiTextField-root"
-                            >
-                              <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
-                              >
-                                <textarea
-                                  aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                  name="token"
-                                  rows="4"
-                                  style="height: 0px; overflow: hidden;"
-                                />
-                                <textarea
-                                  aria-hidden="true"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                  readonly=""
-                                  style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
-                                  tabindex="-1"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                          Access token
+                        </span>
+                      </span>
                     </div>
-                  </div>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
-                  style="display: flex;"
-                >
-                  <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                  >
                     <div
                       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      style="display: flex;"
+                      style="display: flex; align-items: flex-end;"
                     >
                       <div
-                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                        class="MuiFormControl-root MuiFormControl-fullWidth"
                       >
                         <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                        >
-                          <span
-                            class="makeStyles-labelWrap-9"
-                          >
-                            <span
-                              class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
-                            >
-                              Secret string
-                            </span>
-                            <span />
-                          </span>
-                        </div>
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                          style="display: flex; align-items: flex-end;"
+                          class="MuiFormControl-root MuiTextField-root"
                         >
                           <div
-                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
                           >
-                            <div
-                              class="MuiFormControl-root MuiTextField-root"
-                            >
-                              <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
-                              >
-                                <textarea
-                                  aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                  name="secretString"
-                                  rows="4"
-                                  style="height: 0px; overflow: hidden;"
-                                />
-                                <textarea
-                                  aria-hidden="true"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                  readonly=""
-                                  style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
-                                  tabindex="-1"
-                                />
-                              </div>
-                            </div>
+                            <textarea
+                              aria-invalid="false"
+                              class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                              name="token"
+                              rows="4"
+                              style="height: 0px; overflow: hidden;"
+                            />
+                            <textarea
+                              aria-hidden="true"
+                              class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                              readonly=""
+                              style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
+                              tabindex="-1"
+                            />
                           </div>
                         </div>
                       </div>
@@ -843,7 +771,7 @@ exports[`CreateGitServer should render correctly 1`] = `
               style="display: flex;"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
               >
                 <div
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
@@ -854,56 +782,47 @@ exports[`CreateGitServer should render correctly 1`] = `
                   >
                     <div
                       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      style="display: flex;"
+                    >
+                      <span
+                        class="makeStyles-labelWrap-9"
+                      >
+                        <span
+                          class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
+                        >
+                          Private SSH key
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      style="display: flex; align-items: flex-end;"
                     >
                       <div
-                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                        class="MuiFormControl-root MuiFormControl-fullWidth"
                       >
                         <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                        >
-                          <span
-                            class="makeStyles-labelWrap-9"
-                          >
-                            <span
-                              class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
-                            >
-                              Private SSH key
-                            </span>
-                          </span>
-                        </div>
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                          style="display: flex; align-items: flex-end;"
+                          class="MuiFormControl-root MuiTextField-root"
                         >
                           <div
-                            class="MuiFormControl-root MuiFormControl-fullWidth"
+                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
                           >
-                            <div
-                              class="MuiFormControl-root MuiTextField-root"
-                            >
-                              <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
-                              >
-                                <textarea
-                                  aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                  name="sshPrivateKey"
-                                  placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
+                            <textarea
+                              aria-invalid="false"
+                              class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                              name="sshPrivateKey"
+                              placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
                 PRIVATE KEY   
 -----END OPENSSH PRIVATE KEY-----"
-                                  rows="4"
-                                  style="height: 0px; overflow: hidden;"
-                                />
-                                <textarea
-                                  aria-hidden="true"
-                                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                  readonly=""
-                                  style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
-                                  tabindex="-1"
-                                />
-                              </div>
-                            </div>
+                              rows="4"
+                              style="height: 0px; overflow: hidden;"
+                            />
+                            <textarea
+                              aria-hidden="true"
+                              class="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                              readonly=""
+                              style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
+                              tabindex="-1"
+                            />
                           </div>
                         </div>
                       </div>

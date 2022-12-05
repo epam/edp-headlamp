@@ -38,7 +38,9 @@ export const CodebaseBranch = ({
     const rows = useRows(codebaseBranchData);
     const codebaseBranchLabel = `${codebaseData.metadata.name}-${codebaseBranchData.spec.branchName}`;
 
-    const [latestBuildPipelineRunStatus, setLatestPipelineRunStatus] = React.useState<string>(CUSTOM_RESOURCE_STATUSES['UNKNOWN']);
+    const [latestBuildPipelineRunStatus, setLatestPipelineRunStatus] = React.useState<string>(
+        CUSTOM_RESOURCE_STATUSES['UNKNOWN']
+    );
     const [, setError] = React.useState<Error>(null);
 
     const handleStoreLatestPipelineRun = React.useCallback(
