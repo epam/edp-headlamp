@@ -5,7 +5,7 @@ import { DeepPartial } from '../../../../types/global';
 export interface CreateCDPipelineStageFormProps {
     availableCITools: string[];
     CDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>;
-    stagesQuantity: number;
+    otherStages: DeepPartial<EDPCDPipelineStageKubeObjectInterface>[];
     editorOpen: boolean;
     setEditorOpen(boolean): void;
     setDialogOpen(boolean): void;

@@ -295,7 +295,7 @@ export const CreateCDPipelineForm = ({
                 <CreateCDPipelineStage
                     availableCITools={availableCITools}
                     CDPipelineData={editorReturnValues}
-                    stagesQuantity={stages.length}
+                    otherStages={stages}
                     open={createStageDialogOpen}
                     onClose={onClose}
                     setOpen={setCreateStageDialogOpen}

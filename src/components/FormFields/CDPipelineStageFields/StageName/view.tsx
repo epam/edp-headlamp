@@ -4,7 +4,11 @@ import { FieldEvent } from '../../../../types/forms';
 import { FormTextField } from '../../../FormComponents/FormTextField';
 import { StageNameProps } from './types';
 
-export const StageName = ({ names, handleFormFieldChange }: StageNameProps): React.ReactElement => {
+export const StageName = ({
+    names,
+    handleFormFieldChange,
+    otherStagesNames,
+}: StageNameProps): React.ReactElement => {
     const {
         register,
         control,
@@ -17,6 +21,11 @@ export const StageName = ({ names, handleFormFieldChange }: StageNameProps): Rea
                 required: `Enter stage name`,
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
+                validate: name => {
+                    if (otherStagesNames.includes(name)) {
+                        return `"${name}" has been already added to the stages that will be created`;
+                    }
+                },
             })}
             label={'Stage name'}
             title={`Stage name may contain only: lower-case letters, numbers and dashes and cannot start and end

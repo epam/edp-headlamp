@@ -78,7 +78,7 @@ export const TableHeaderActions = ({
             <CreateCDPipelineStage
                 availableCITools={availableCITools}
                 CDPipelineData={CDPipelineData}
-                stagesQuantity={CDPipelineStages.length}
+                otherStages={CDPipelineStages}
                 open={createDialogOpen}
                 onClose={onClose}
                 setOpen={setCreateDialogOpen}

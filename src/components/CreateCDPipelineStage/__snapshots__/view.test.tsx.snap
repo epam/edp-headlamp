@@ -44,7 +44,7 @@ exports[`CreateCDPipelineStage should render correctly 1`] = `
           class="makeStyles-formInner-6"
         >
           <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-flex-end"
           >
             <div
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"

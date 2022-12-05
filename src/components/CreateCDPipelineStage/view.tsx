@@ -10,7 +10,7 @@ const { Icon } = Iconify;
 export const CreateCDPipelineStage = ({
     availableCITools,
     CDPipelineData,
-    stagesQuantity,
+    otherStages,
     open,
     setOpen,
     onClose,
@@ -40,7 +40,7 @@ export const CreateCDPipelineStage = ({
                     <CreateCDPipelineStageForm
                         availableCITools={availableCITools}
                         CDPipelineData={CDPipelineData}
-                        stagesQuantity={stagesQuantity}
+                        otherStages={otherStages}
                         editorOpen={editorOpen}
                         setEditorOpen={setEditorOpen}
                         setDialogOpen={setOpen}

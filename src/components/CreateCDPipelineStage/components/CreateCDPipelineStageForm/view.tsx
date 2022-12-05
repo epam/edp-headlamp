@@ -32,7 +32,7 @@ const {
 export const CreateCDPipelineStageForm = ({
     availableCITools,
     CDPipelineData,
-    stagesQuantity,
+    otherStages,
     editorOpen,
     setEditorOpen,
     handleApply,
@@ -47,7 +47,7 @@ export const CreateCDPipelineStageForm = ({
     const { baseDefaultValues } = useDefaultValues({
         names: CDPIPELINE_STAGE_NAMES,
         CDPipelineData,
-        stagesQuantity,
+        stagesQuantity: otherStages.length,
     });
 
     const [formValues, setFormValues] =
@@ -126,16 +126,22 @@ export const CreateCDPipelineStageForm = ({
 
     const qualityGatesFieldValue = watch(CDPIPELINE_STAGE_NAMES.qualityGates.name);
 
+    const otherStagesNames = React.useMemo(
+        () => otherStages.map(({ spec: { name } }) => name),
+        [otherStages]
+    );
+
     return (
         <FormProvider {...methods}>
             <div className={classes.form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.formInner}>
-                        <Grid container spacing={2}>
+                        <Grid container spacing={2} alignItems={'flex-end'}>
                             <Grid item xs={6}>
                                 <StageName
                                     names={CDPIPELINE_STAGE_NAMES}
                                     handleFormFieldChange={handleFormFieldChange}
+                                    otherStagesNames={otherStagesNames}
                                 />
                             </Grid>
                             <Grid item xs={6}>

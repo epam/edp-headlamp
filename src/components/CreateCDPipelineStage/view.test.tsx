@@ -23,13 +23,25 @@ describe('CreateCDPipelineStage', () => {
             availableCITools: ['jenkins', 'tekton'],
             CDPipelineData: {
                 apiVersion: 'apiVersion',
-                kind: 'Stage',
+                kind: 'CDPipeline',
                 metadata: {
                     name: 'test-app-name',
                     namespace: 'test-namespace',
                 },
             },
-            stagesQuantity: 2,
+            otherStages: [
+                {
+                    apiVersion: 'apiVersion',
+                    kind: 'Stage',
+                    spec: {
+                        name: 'sit',
+                    },
+                    metadata: {
+                        name: 'test-pipe-sit',
+                        namespace: 'test-namespace',
+                    },
+                },
+            ],
             open: true,
             setOpen: () => {},
             onClose: () => {},
