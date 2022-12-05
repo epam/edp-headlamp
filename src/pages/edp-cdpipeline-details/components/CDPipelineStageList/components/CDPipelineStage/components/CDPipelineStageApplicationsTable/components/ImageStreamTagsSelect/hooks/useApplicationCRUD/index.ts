@@ -30,7 +30,7 @@ export const useApplicationCRUD = (): {
     const createApplication = React.useCallback(
         async ({
             pipelineName,
-            stageName,
+            stageData,
             appName,
             imageName,
             imageTag,
@@ -48,7 +48,7 @@ export const useApplicationCRUD = (): {
 
                 newArgoApplicationData = createApplicationInstance({
                     pipelineName,
-                    stageName,
+                    stageData,
                     appName,
                     imageName,
                     imageTag,

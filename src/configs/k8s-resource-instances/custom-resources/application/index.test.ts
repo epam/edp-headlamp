@@ -2,13 +2,24 @@
  * @jest-environment jsdom
  */
 
+import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { createApplicationInstance } from './index';
 
 describe('testing createApplicationInstance', () => {
     it('should return valid kube object', () => {
         const object = createApplicationInstance({
             pipelineName: 'test-pipeline-name',
-            stageName: 'test-stage-name',
+            stageData: {
+                apiVersion: 'v2.edp.epam.com/v1',
+                kind: 'Stage',
+                metadata: {
+                    name: 'test-pipeline-name-test-stage-name',
+                    uid: '84dfeba1-bc42-4d1b-ab1f-473ebdf0fdf3',
+                },
+                spec: {
+                    name: 'test-stage-name',
+                },
+            } as unknown as EDPCDPipelineStageKubeObjectInterface,
             appName: 'test-application-name',
             imageName: 'test-image-name',
             imageTag: 'test-image-tag',
@@ -29,6 +40,16 @@ describe('testing createApplicationInstance', () => {
                     'app.edp.epam.com/app-name': 'test-application-name',
                 },
                 finalizers: ['resources-finalizer.argocd.argoproj.io'],
+                ownerReferences: [
+                    {
+                        apiVersion: 'v2.edp.epam.com/v1',
+                        blockOwnerDeletion: true,
+                        controller: true,
+                        kind: 'Stage',
+                        name: 'test-pipeline-name-test-stage-name',
+                        uid: '84dfeba1-bc42-4d1b-ab1f-473ebdf0fdf3',
+                    },
+                ],
             },
             spec: {
                 project: 'test-namespace',

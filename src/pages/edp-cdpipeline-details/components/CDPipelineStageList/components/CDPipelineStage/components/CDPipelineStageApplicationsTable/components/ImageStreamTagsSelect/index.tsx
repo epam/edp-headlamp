@@ -90,7 +90,7 @@ export const ImageStreamTagsSelect = ({
             args: [
                 {
                     pipelineName: CDPipeline.metadata.name,
-                    stageName: currentCDPipelineStage.spec.name,
+                    stageData: currentCDPipelineStage,
                     appName: application.application.metadata.name,
                     imageName: imageStream.spec.imageName,
                     namespace: CDPipeline.metadata.namespace,

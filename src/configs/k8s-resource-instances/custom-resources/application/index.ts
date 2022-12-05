@@ -7,7 +7,7 @@ const { kind, group, version } = ApplicationKubeObjectConfig;
 
 export const createApplicationInstance = ({
     pipelineName,
-    stageName,
+    stageData,
     appName,
     imageName,
     imageTag,
@@ -16,6 +16,9 @@ export const createApplicationInstance = ({
     versioningType,
 }: createApplicationInstanceProps): ApplicationKubeObjectInterface => {
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
+    const {
+        spec: { name: stageName },
+    } = stageData;
 
     return {
         apiVersion: `${group}/${version}`,
@@ -29,6 +32,16 @@ export const createApplicationInstance = ({
                 'app.edp.epam.com/app-name': appName,
             },
             finalizers: ['resources-finalizer.argocd.argoproj.io'],
+            ownerReferences: [
+                {
+                    apiVersion: stageData.apiVersion,
+                    blockOwnerDeletion: true,
+                    controller: true,
+                    kind: stageData.kind,
+                    name: stageData.metadata.name,
+                    uid: stageData.metadata.uid,
+                },
+            ],
         },
         spec: {
             project: namespace,

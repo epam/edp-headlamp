@@ -84,6 +84,7 @@ export const useRequest = ({ requestFn, options: { mode } }: UseRequestProps): U
                 });
                 setIsLoading(false);
             } catch (error: any) {
+                console.error(error);
                 enqueueSnackbar(errorMessage, {
                     autoHideDuration: 5000,
                     variant: 'error',

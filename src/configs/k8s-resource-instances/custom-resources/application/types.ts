@@ -1,8 +1,9 @@
 import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
+import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 
 export interface createApplicationInstanceProps {
     pipelineName: string;
-    stageName: string;
+    stageData: EDPCDPipelineStageKubeObjectInterface;
     appName: string;
     imageName: string;
     imageTag: string;

@@ -13,6 +13,16 @@ export const applicationMock: DeepPartial<ApplicationKubeObjectInterface> = {
             'app.edp.epam.com/app-name': 'test-app-name',
         },
         finalizers: ['resources-finalizer.argocd.argoproj.io'],
+        ownerReferences: [
+            {
+                apiVersion: 'v2.edp.epam.com/v1',
+                blockOwnerDeletion: true,
+                controller: true,
+                kind: 'Stage',
+                name: 'test-pipeline-name-test-stage-name',
+                uid: '84dfeba1-bc42-4d1b-ab1f-473ebdf0fdf3',
+            },
+        ],
     },
     spec: {
         project: 'test-namespace',
