@@ -114,19 +114,17 @@ export const CDPipelineStage = (): React.ReactElement => {
             return false;
         }
 
-        if (!latestTenPipelineRuns.length) {
-            return true;
-        }
-
-        if (
-            !latestTenPipelineRuns[0] ||
-            !latestTenPipelineRuns[0].status ||
-            !latestTenPipelineRuns[0].status.conditions ||
-            !latestTenPipelineRuns[0].status.conditions[0] ||
-            latestTenPipelineRuns[0].status.conditions[0].reason?.toLowerCase() ===
-                PIPELINE_RUN_STATUSES['RUNNING']
-        ) {
-            return false;
+        if (latestTenPipelineRuns.length) {
+            if (
+                !latestTenPipelineRuns[0] ||
+                !latestTenPipelineRuns[0].status ||
+                !latestTenPipelineRuns[0].status.conditions ||
+                !latestTenPipelineRuns[0].status.conditions[0] ||
+                latestTenPipelineRuns[0].status.conditions[0].reason?.toLowerCase() ===
+                    PIPELINE_RUN_STATUSES['RUNNING']
+            ) {
+                return false;
+            }
         }
 
         return enrichedApplicationsWithArgoApplications.every(({ argoApplication }) => {
