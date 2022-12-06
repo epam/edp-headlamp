@@ -4,4 +4,5 @@ import { KubeObject } from '../../plugin.types';
 export interface CDPipelineActionsProps {
     kubeObject: KubeObject;
     kubeObjectData: EDPCDPipelineKubeObjectInterface;
+    isDetailsPage?: boolean;
 }

@@ -14,6 +14,7 @@ const { Icon } = Iconify;
 export const CDPipelineActions = ({
     kubeObject,
     kubeObjectData,
+    isDetailsPage = false,
 }: CDPipelineActionsProps): React.ReactElement => {
     const {
         metadata: { name },
@@ -55,6 +56,18 @@ export const CDPipelineActions = ({
         ];
     }, [handleCloseActionsMenu, setEditActionEditorOpen, setDeleteActionPopupOpen]);
 
+    const onSuccess = React.useCallback(() => {
+        if (!isDetailsPage) {
+            return;
+        }
+
+        if (!window.navigation || !window.navigation.canGoBack) {
+            return;
+        }
+
+        window.navigation.back();
+    }, [isDetailsPage]);
+
     return (
         <KubeObjectActions
             anchorEl={anchorEl}
@@ -81,6 +94,7 @@ export const CDPipelineActions = ({
                     objectName={name}
                     description={`Confirm the deletion of the CD Pipeline with all its components
                             (Record in database, Jenkins pipeline, cluster namespace).`}
+                    onSuccess={onSuccess}
                 />
             </>
         </KubeObjectActions>

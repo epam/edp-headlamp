@@ -35,6 +35,7 @@ export const DeleteKubeObject = ({
     objectName,
     description,
     onBeforeSubmit,
+    onSuccess,
 }: DeleteKubeObjectProps): React.ReactElement => {
     const [errorTemplate, setErrorTemplate] = React.useState<React.ReactNode | string>(null);
     const [loadingActive, setLoadingActive] = React.useState<boolean>(false);
@@ -55,19 +56,19 @@ export const DeleteKubeObject = ({
                 kubeObjectData.metadata.namespace,
                 kubeObjectData.metadata.name
             );
+
+            if (!onSuccess) {
+                return;
+            }
+
+            onSuccess();
         } catch (error: unknown) {
             const msg = getErrorMessage(kubeObjectData.metadata.name, error);
             setErrorTemplate(msg);
             handleOpenPopup();
             throw error;
         }
-    }, [
-        kubeObject,
-        kubeObjectData.metadata.namespace,
-        kubeObjectData.metadata.name,
-        setErrorTemplate,
-        handleOpenPopup,
-    ]);
+    }, [kubeObject, kubeObjectData, onSuccess, handleOpenPopup]);
 
     const { fireRequest } = useRequest({
         requestFn: applyFunc,

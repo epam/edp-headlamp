@@ -87,6 +87,7 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
                                 <CDPipelineActions
                                     kubeObject={EDPCDPipelineKubeObject}
                                     kubeObjectData={CDPipelineData}
+                                    isDetailsPage
                                 />
                             </Grid>
                         </Grid>

@@ -63,6 +63,7 @@ export const EDPApplicationDetails = (): React.ReactElement => {
                                 <CodebaseActions
                                     kubeObject={EDPCodebaseKubeObject}
                                     kubeObjectData={application}
+                                    isDetailsPage
                                 />
                             </Grid>
                         </Grid>

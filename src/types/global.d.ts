@@ -3,6 +3,12 @@ import { PaletteColor } from '@material-ui/core/styles/createPalette';
 
 export declare global {
     interface DefaultTheme extends Theme {}
+    interface Window {
+        navigation: {
+            canGoBack: boolean;
+            back: () => Promise<void>;
+        };
+    }
 }
 
 declare module '*.json' {

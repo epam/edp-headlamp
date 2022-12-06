@@ -14,4 +14,5 @@ export interface DeleteKubeObjectProps {
         setErrorTemplate: React.Dispatch<React.SetStateAction<React.ReactNode>>,
         setLoadingActive: React.Dispatch<React.SetStateAction<boolean>>
     ): Promise<void>;
+    onSuccess?: () => void;
 }

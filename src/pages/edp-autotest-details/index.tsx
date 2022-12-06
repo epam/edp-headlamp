@@ -60,6 +60,7 @@ export const EDPAutotestDetails = (): React.ReactElement => {
                                 <CodebaseActions
                                     kubeObject={EDPCodebaseKubeObject}
                                     kubeObjectData={autotest}
+                                    isDetailsPage
                                 />
                             </Grid>
                         </Grid>

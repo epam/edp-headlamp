@@ -16,6 +16,7 @@ const { Icon } = Iconify;
 export const CodebaseActions = ({
     kubeObject,
     kubeObjectData,
+    isDetailsPage = false,
 }: CodebaseActionsProps): React.ReactElement => {
     const {
         metadata: { name },
@@ -77,6 +78,18 @@ export const CodebaseActions = ({
         [kubeObjectData]
     );
 
+    const onSuccess = React.useCallback(() => {
+        if (!isDetailsPage) {
+            return;
+        }
+
+        if (!window.navigation || !window.navigation.canGoBack) {
+            return;
+        }
+
+        window.navigation.back();
+    }, [isDetailsPage]);
+
     return (
         <KubeObjectActions
             anchorEl={anchorEl}
@@ -102,6 +115,7 @@ export const CodebaseActions = ({
                     description={`Confirm the deletion of the codebase with all its components
                             (Record in database, Jenkins pipeline, cluster namespace).`}
                     onBeforeSubmit={onBeforeSubmit}
+                    onSuccess={onSuccess}
                 />
             </div>
         </KubeObjectActions>
