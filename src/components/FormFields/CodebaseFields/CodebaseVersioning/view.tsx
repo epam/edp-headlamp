@@ -73,6 +73,10 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
                                 {...register(names.versioningStartFromVersion.name, {
                                     required: 'Enter start version from',
                                     onBlur: onStartVersionFromVersionChange,
+                                    pattern: {
+                                        value: /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/,
+                                        message: 'Enter valid version',
+                                    },
                                 })}
                                 label={'Start version from'}
                                 title={
