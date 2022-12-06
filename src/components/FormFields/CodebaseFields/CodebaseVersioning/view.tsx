@@ -75,13 +75,11 @@ export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVer
                                     onBlur: onStartVersionFromVersionChange,
                                     pattern: {
                                         value: /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/,
-                                        message: 'Enter valid version',
+                                        message: 'Enter valid semantic versioning format',
                                     },
                                 })}
                                 label={'Start version from'}
-                                title={
-                                    'Version name must contain only numbers and dashes. It cannot start or end with a dash'
-                                }
+                                title={'Valid identifiers are in the set [A-Za-z0-9]'}
                                 placeholder={'0.0.0'}
                                 defaultValue={'0.0.0'}
                                 control={control}

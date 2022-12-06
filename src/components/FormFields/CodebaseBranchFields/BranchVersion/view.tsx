@@ -80,9 +80,13 @@ export const BranchVersion = ({ names, handleFormFieldChange }: BranchVersionPro
                     {...register(names.branchVersionStart.name, {
                         required: 'Branch version',
                         onBlur: onBranchVersionStartFieldValueChange,
+                        pattern: {
+                            value: /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/,
+                            message: 'Enter valid semantic versioning format',
+                        },
                     })}
                     label={'Branch version'}
-                    title={'Enter the necessary branch version for the artifact.'}
+                    title={'Valid identifiers are in the set [A-Za-z0-9]'}
                     placeholder={'0.0.0'}
                     control={control}
                     errors={errors}
