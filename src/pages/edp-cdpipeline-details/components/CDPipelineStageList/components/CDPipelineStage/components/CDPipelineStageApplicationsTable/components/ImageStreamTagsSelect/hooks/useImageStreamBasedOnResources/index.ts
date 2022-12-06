@@ -26,7 +26,9 @@ export const useImageStreamBasedOnResources = ({
         spec: { order },
     } = currentCDPipelineStage;
 
-    const CDPipelineInputDockerStreamsSet = new Set<string>(inputDockerStreams);
+    const normalizedInputDockerStreamNames = inputDockerStreams.map(el => el.replaceAll('.', '-'));
+
+    const CDPipelineInputDockerStreamsSet = new Set<string>(normalizedInputDockerStreamNames);
 
     const { applicationImageStreams } = application;
 
