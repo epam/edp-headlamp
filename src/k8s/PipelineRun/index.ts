@@ -47,11 +47,13 @@ export const streamPipelineRunListByCodebaseBranchLabel = (
     errCb: (err: Error) => void,
     namespace?: string
 ): (() => void) => {
+    const normalizedCodebaseBranchLabel = codebaseBranchLabel.replaceAll('/', '-');
+
     const url = namespace
         ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
         : `/apis/${group}/${version}/${pluralForm}`;
     return streamResults(url, cb, errCb, {
-        labelSelector: `app.edp.epam.com/codebasebranch=${codebaseBranchLabel}`,
+        labelSelector: `app.edp.epam.com/codebasebranch=${normalizedCodebaseBranchLabel}`,
     });
 };
 
