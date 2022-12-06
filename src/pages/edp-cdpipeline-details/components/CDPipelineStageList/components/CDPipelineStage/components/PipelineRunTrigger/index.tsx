@@ -17,7 +17,6 @@ import { PipelineRunTriggerProps } from './types';
 const { Grid, Button } = MuiCore;
 
 const pipelineNameFieldName = 'pipelineName';
-const randomPostfix = createRandomFiveSymbolString();
 
 export const PipelineRunTrigger = ({
     namespace,
@@ -80,6 +79,8 @@ export const PipelineRunTrigger = ({
             .join(' ');
     }, [enrichedApplicationsWithArgoApplications]);
 
+    const randomPostfix = createRandomFiveSymbolString();
+
     const handleRunClick = React.useCallback(async (): Promise<void> => {
         const name = `${CDPipelineDataContextValue.metadata.name}-${CurrentCDPipelineStageDataContextValue.spec.name}-${randomPostfix}`;
 
@@ -103,6 +104,7 @@ export const PipelineRunTrigger = ({
         fireRequest,
         namespace,
         pipelineNameFieldValue,
+        randomPostfix,
     ]);
 
     return (

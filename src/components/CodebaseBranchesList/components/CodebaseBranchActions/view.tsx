@@ -23,8 +23,6 @@ import { createDeleteAction, getConflictedCDPipeline } from './utils';
 const { IconButton } = MuiCore;
 const { Icon } = Iconify;
 
-const randomPostfix = createRandomFiveSymbolString();
-
 export const CodebaseBranchActions = ({
     codebaseBranchData,
     defaultBranch,
@@ -73,6 +71,8 @@ export const CodebaseBranchActions = ({
         },
     });
 
+    const randomPostfix = createRandomFiveSymbolString();
+
     const handleApply = React.useCallback(
         async (data: createBuildPipelineRunProps): Promise<void> => {
             const name = `${data.codebaseData.codebaseName}-build-${randomPostfix}`;
@@ -82,7 +82,7 @@ export const CodebaseBranchActions = ({
                 args: [data],
             });
         },
-        [fireRequest]
+        [fireRequest, randomPostfix]
     );
 
     const buildAction = React.useMemo(() => {
@@ -127,6 +127,7 @@ export const CodebaseBranchActions = ({
         handleApply,
         handleCloseActionsMenu,
         namespace,
+        randomPostfix,
     ]);
 
     const actions: KubeObjectAction[] = React.useMemo(() => {
