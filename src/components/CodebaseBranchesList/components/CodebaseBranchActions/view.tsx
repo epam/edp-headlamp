@@ -1,6 +1,5 @@
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
-import { RESOURCE_ACTIONS } from '../../../../constants/resourceActions';
 import { useGitServers } from '../../../../hooks/useGitServers';
 import { useRequest } from '../../../../hooks/useRequest';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
@@ -10,7 +9,6 @@ import { KubeObjectAction } from '../../../../types/actions';
 import { createKubeAction } from '../../../../utils/actions/createKubeAction';
 import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
 import { DeleteKubeObject } from '../../../DeleteKubeObject';
-import { EditKubeObject } from '../../../EditKubeObject';
 import { KubeObjectActions } from '../../../KubeObjectActions';
 import { CodebaseBranchCDPipelineConflictError } from './components/CodebaseBranchCDPipelineConflictError';
 import { CodebaseBranchActionsProps } from './types';
@@ -35,7 +33,6 @@ export const CodebaseBranchActions = ({
     const {
         spec: { ciTool },
     } = codebase;
-    const [editActionEditorOpen, setEditActionEditorOpen] = React.useState<boolean>(false);
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
@@ -133,14 +130,6 @@ export const CodebaseBranchActions = ({
     const actions: KubeObjectAction[] = React.useMemo(() => {
         return [
             buildAction,
-            createKubeAction({
-                name: RESOURCE_ACTIONS['EDIT'],
-                icon: ICONS['PENCIL'],
-                action: () => {
-                    handleCloseActionsMenu();
-                    setEditActionEditorOpen(true);
-                },
-            }),
             createDeleteAction(codebaseBranchData, defaultBranch, () => {
                 handleCloseActionsMenu();
                 setDeleteActionPopupOpen(true);
@@ -182,12 +171,6 @@ export const CodebaseBranchActions = ({
                 <IconButton aria-label={'Options'} onClick={toggleActionsMenu}>
                     <Icon icon={ICONS['THREE_DOTS']} color={'grey'} width="20" />
                 </IconButton>
-                <EditKubeObject
-                    editorOpen={editActionEditorOpen}
-                    setEditorOpen={setEditActionEditorOpen}
-                    kubeObject={EDPCodebaseBranchKubeObject}
-                    kubeObjectData={codebaseBranchData}
-                />
                 <DeleteKubeObject
                     popupOpen={deleteActionPopupOpen}
                     setPopupOpen={setDeleteActionPopupOpen}

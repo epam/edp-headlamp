@@ -168,9 +168,16 @@ export const CreateCDPipelineForm = ({
 
     const [createStageDialogOpen, setCreateStageDialogOpen] = React.useState<boolean>(false);
 
-    const onClose = React.useCallback(() => {
-        setCreateStageDialogOpen(false);
-    }, [setCreateStageDialogOpen]);
+    const onClose = React.useCallback(
+        (_?, reason?: string) => {
+            if (reason === 'backdropClick') {
+                return;
+            }
+
+            setCreateStageDialogOpen(false);
+        },
+        [setCreateStageDialogOpen]
+    );
 
     const handleCreateNewStage = React.useCallback(
         (stage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>) => {

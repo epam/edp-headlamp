@@ -88,6 +88,17 @@ export const CodebaseActions = ({
         history.goBack();
     }, [history, isDetailsPage]);
 
+    const onClose = React.useCallback(
+        (_?, reason?: string) => {
+            if (reason === 'backdropClick') {
+                return;
+            }
+
+            setEditActionPopupOpen(false);
+        },
+        [setEditActionPopupOpen]
+    );
+
     return (
         <KubeObjectActions
             anchorEl={anchorEl}
@@ -100,7 +111,7 @@ export const CodebaseActions = ({
                 </IconButton>
                 <EditCodebase
                     open={editActionPopupOpen}
-                    onClose={() => setEditActionPopupOpen(false)}
+                    onClose={onClose}
                     setOpen={setEditActionPopupOpen}
                     codebaseData={kubeObjectData}
                 />
