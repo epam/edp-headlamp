@@ -2,7 +2,7 @@ import { HeadlampSimpleTableGetterColumn } from '../../../../../components/Headl
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { ICONS } from '../../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
-import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
+import { EnrichedApplication } from '../../../../../hooks/useApplicationsInCDPipeline';
 import { Iconify, pluginLib, React } from '../../../../../plugin.globals';
 import { APPLICATIONS_ROUTE_NAME } from '../../../../../routes/names';
 import { DeepPartial } from '../../../../../types/global';
@@ -13,9 +13,7 @@ const {
 } = pluginLib;
 const { Icon } = Iconify;
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<
-    DeepPartial<EDPCodebaseKubeObjectInterface>
->[] =>
+export const useColumns = (): HeadlampSimpleTableGetterColumn<DeepPartial<EnrichedApplication>>[] =>
     React.useMemo(
         () => [
             {
@@ -47,6 +45,10 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                         </Link>
                     );
                 },
+            },
+            {
+                label: 'Branch',
+                getter: ({ applicationBranch }) => applicationBranch,
             },
             {
                 label: 'To promote',

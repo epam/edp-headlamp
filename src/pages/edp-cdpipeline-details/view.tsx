@@ -14,7 +14,6 @@ import { createRouteName } from '../../utils/routes/createRouteName';
 import { CDPipelineApplicationsTable } from './components/CDPipelineApplicationsTable';
 import { CDPipelineMetadataTable } from './components/CDPipelineMetadataTable';
 import { CDPipelineStagesList } from './components/CDPipelineStageList';
-import { GeneralInfoTable } from './components/GeneralInfoTable';
 import { useStyles } from './styles';
 import { EDPCDPipelineDetailsProps } from './types';
 
@@ -98,7 +97,6 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
                 <>
                     <CDPipelineDataContext.Provider value={CDPipelineData}>
                         <ApplicationsContext.Provider value={applications}>
-                            <GeneralInfoTable CDPipelineData={CDPipelineData} />
                             <CDPipelineApplicationsTable />
                             <CDPipelineStagesList />
                         </ApplicationsContext.Provider>

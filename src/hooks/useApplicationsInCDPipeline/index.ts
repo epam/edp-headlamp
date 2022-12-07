@@ -12,6 +12,7 @@ interface useApplicationsInCDPipelineProps {
 
 export interface EnrichedApplication {
     application: EDPCodebaseKubeObjectInterface;
+    applicationBranch: string;
     applicationImageStreams: EDPCodebaseImageStreamKubeObjectInterface[];
     toPromote: boolean;
 }
@@ -68,8 +69,16 @@ export const useApplicationsInCDPipeline = ({
                     ({ spec: { codebase } }) => codebase === name
                 );
 
+                const CDPipelineSpecApplicationIndex = CDPipelineData.spec.applications.findIndex(
+                    appName => appName === name
+                );
+
+                const applicationBranch =
+                    CDPipelineData.spec.inputDockerStreams[CDPipelineSpecApplicationIndex];
+
                 return {
                     application: { ...el },
+                    applicationBranch,
                     toPromote: CDPipelineApplicationToPromoteListSet.has(name),
                     applicationImageStreams: codebaseImageStreamsByCodebaseName,
                 };

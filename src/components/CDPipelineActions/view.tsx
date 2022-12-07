@@ -1,6 +1,6 @@
 import { ICONS } from '../../constants/icons';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
-import { Iconify, MuiCore, React } from '../../plugin.globals';
+import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { KubeObjectAction } from '../../types/actions';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { DeleteKubeObject } from '../DeleteKubeObject';
@@ -10,12 +10,14 @@ import { CDPipelineActionsProps } from './types';
 
 const { IconButton, Tooltip } = MuiCore;
 const { Icon } = Iconify;
+const { useHistory } = ReactRouter;
 
 export const CDPipelineActions = ({
     kubeObject,
     kubeObjectData,
     isDetailsPage = false,
 }: CDPipelineActionsProps): React.ReactElement => {
+    const history = useHistory();
     const {
         metadata: { name },
     } = kubeObjectData;
@@ -61,12 +63,8 @@ export const CDPipelineActions = ({
             return;
         }
 
-        if (!window.navigation || !window.navigation.canGoBack) {
-            return;
-        }
-
-        window.navigation.back();
-    }, [isDetailsPage]);
+        history.goBack();
+    }, [history, isDetailsPage]);
 
     return (
         <KubeObjectActions

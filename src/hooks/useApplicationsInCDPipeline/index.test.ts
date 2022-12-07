@@ -45,6 +45,7 @@ describe('testing useApplicationsInCDPipeline hook', () => {
                     },
                 },
                 toPromote: true,
+                applicationBranch: 'test-python-2-main',
                 applicationImageStreams: [
                     {
                         apiVersion: 'v2.edp.epam.com/v1',
@@ -94,6 +95,7 @@ describe('testing useApplicationsInCDPipeline hook', () => {
                     kind: 'Codebase',
                     metadata: { name: 'vp-test-jenkins', namespace: 'edp-delivery-vp-dev' },
                 },
+                applicationBranch: 'vp-test-jenkins-master',
                 toPromote: true,
                 applicationImageStreams: [
                     {
