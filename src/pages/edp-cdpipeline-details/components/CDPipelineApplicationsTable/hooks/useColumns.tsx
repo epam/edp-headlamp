@@ -47,8 +47,8 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<DeepPartial<Enrich
                 },
             },
             {
-                label: 'Branch',
-                getter: ({ applicationBranch }) => applicationBranch,
+                label: 'Image stream',
+                getter: ({ applicationImageStream }) => applicationImageStream,
             },
             {
                 label: 'To promote',
