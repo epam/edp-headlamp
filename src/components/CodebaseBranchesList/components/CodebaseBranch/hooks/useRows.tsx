@@ -6,24 +6,7 @@ import { NameValueTableRow } from '../../../../HeadlampNameValueTable/types';
 export const useRows = (codebaseBranch: EDPCodebaseBranchKubeObjectInterface) =>
     React.useMemo(() => {
         const { spec, status } = codebaseBranch;
-
         const base: NameValueTableRow[] = [
-            {
-                name: 'Status',
-                value: status && status.status,
-            },
-            {
-                name: 'Branch name',
-                value: spec.branchName,
-            },
-            {
-                name: 'Codebase name',
-                value: spec.codebaseName,
-            },
-            {
-                name: 'Release',
-                value: String(spec.release),
-            },
             {
                 name: 'Last time updated',
                 value: status && formatDateUTCToLocal(status.lastTimeUpdated),
@@ -34,6 +17,27 @@ export const useRows = (codebaseBranch: EDPCodebaseBranchKubeObjectInterface) =>
             base.push({
                 name: 'From commit',
                 value: spec.fromCommit,
+            });
+        }
+
+        if (status.build) {
+            base.push({
+                name: 'Build number',
+                value: status.build,
+            });
+        }
+
+        if (status.lastSuccessfulBuild) {
+            base.push({
+                name: 'Last successful build',
+                value: status.lastSuccessfulBuild,
+            });
+        }
+
+        if (spec.version) {
+            base.push({
+                name: 'Version',
+                value: spec.version,
             });
         }
 

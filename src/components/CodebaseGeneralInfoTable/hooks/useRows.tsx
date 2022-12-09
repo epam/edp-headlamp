@@ -1,12 +1,13 @@
+import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
 import { React } from '../../../plugin.globals';
 import { DeepPartial } from '../../../types/global';
+import { NameValueTableRow } from '../../HeadlampNameValueTable/types';
 
 export const useRows = (kubeObjectData: DeepPartial<EDPCodebaseKubeObjectInterface>) =>
     React.useMemo(() => {
         const { spec, status } = kubeObjectData;
-
-        return [
+        const base: NameValueTableRow[] = [
             {
                 name: 'Status',
                 value: status.status,
@@ -32,4 +33,13 @@ export const useRows = (kubeObjectData: DeepPartial<EDPCodebaseKubeObjectInterfa
                 value: spec.versioning.type,
             },
         ];
+
+        if (spec.versioning.type === CODEBASE_VERSIONING_TYPES['EDP']) {
+            base.push({
+                name: 'Start versioning from',
+                value: spec.versioning.startFrom,
+            });
+        }
+
+        return base;
     }, [kubeObjectData]);

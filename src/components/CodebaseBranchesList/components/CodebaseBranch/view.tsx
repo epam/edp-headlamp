@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
@@ -17,7 +18,7 @@ import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
 import { CodebaseBranchProps } from './types';
 
-const { Grid, Typography, Accordion, AccordionSummary, AccordionDetails } = MuiCore;
+const { Grid, Typography, Accordion, AccordionSummary, AccordionDetails, Chip } = MuiCore;
 const { Icon } = Iconify;
 
 export const CodebaseBranch = ({
@@ -124,11 +125,20 @@ export const CodebaseBranch = ({
                                     : CUSTOM_RESOURCE_STATUSES['UNKNOWN']
                             }
                         />
-                        <Typography variant={'h6'} style={{ lineHeight: 1 }}>
+                        <Typography variant={'h6'} style={{ lineHeight: 1, marginTop: rem(2) }}>
                             {codebaseBranchData.spec.branchName}
                         </Typography>
                         <Render condition={isDefaultBranch(codebaseData, codebaseBranchData)}>
-                            <Typography variant={'subtitle2'}>default branch</Typography>
+                            <Chip
+                                label="default"
+                                className={clsx([classes.labelChip, classes.labelChipBlue])}
+                            />
+                        </Render>
+                        <Render condition={codebaseBranchData.spec.release}>
+                            <Chip
+                                label="release"
+                                className={clsx([classes.labelChip, classes.labelChipGreen])}
+                            />
                         </Render>
                         <div style={{ marginLeft: 'auto' }}>
                             <Grid container spacing={1} alignItems={'center'}>
