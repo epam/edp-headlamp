@@ -1,3 +1,6 @@
+import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
+import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { PipelineRunKubeObjectConfig } from '../../../../k8s/PipelineRun/config';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 
@@ -7,10 +10,13 @@ interface createBuildPipelineRunInstanceProps {
     namespace: string;
     codebaseData: {
         codebaseName: string;
+        codebaseType: string;
+        codebaseLanguage: string;
+        codebaseFramework: string;
         codebaseBuildTool: string;
         codebaseVersioningType: string;
-        codebaseType: string;
-        codebaseFramework: string;
+        codebaseStrategy: string;
+        codebaseGitUrlPath: string;
     };
     codebaseBranchData: {
         codebaseBranchMetadataName: string;
@@ -39,10 +45,13 @@ export const createBuildPipelineRunInstance = ({
     namespace,
     codebaseData: {
         codebaseName,
+        codebaseLanguage,
         codebaseBuildTool,
         codebaseVersioningType,
         codebaseType,
         codebaseFramework,
+        codebaseStrategy,
+        codebaseGitUrlPath,
     },
     codebaseBranchData: { codebaseBranchMetadataName, codebaseBranchName },
     gitServerData: { gitUser, gitHost, gitProvider, sshPort, nameSshKeySecret },
@@ -50,7 +59,7 @@ export const createBuildPipelineRunInstance = ({
 }: createBuildPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
     const truncatedCodebaseType = codebaseType.slice(0, 3);
 
-    return {
+    const base: any = {
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
@@ -66,7 +75,11 @@ export const createBuildPipelineRunInstance = ({
             params: [
                 {
                     name: 'git-source-url',
-                    value: `ssh://${gitUser}@${gitHost}:${sshPort}/${codebaseName}`,
+                    value: `ssh://${gitUser}@${gitHost}:${sshPort}/${
+                        codebaseStrategy === CODEBASE_CREATION_STRATEGIES['IMPORT']
+                            ? codebaseGitUrlPath
+                            : codebaseName
+                    }`,
                 },
                 {
                     name: 'git-source-revision',
@@ -80,29 +93,11 @@ export const createBuildPipelineRunInstance = ({
                     name: 'CODEBASE_NAME',
                     value: codebaseName,
                 },
-                {
-                    name: 'changeNumber',
-                    value: '1',
-                },
-                {
-                    name: 'patchsetNumber',
-                    value: '1',
-                },
             ],
             pipelineRef: {
                 name: `${gitProvider}-${codebaseBuildTool}-${codebaseFramework}-${truncatedCodebaseType}-build-${codebaseVersioningType}`,
             },
             serviceAccountName: 'tekton',
-            taskRunSpecs: [
-                {
-                    pipelineTaskName: 'create-ecr-repository',
-                    taskServiceAccountName: 'edp-kaniko',
-                },
-                {
-                    pipelineTaskName: 'kaniko-build',
-                    taskServiceAccountName: 'edp-kaniko',
-                },
-            ],
             timeout: '1h0m0s',
             workspaces: [
                 {
@@ -138,6 +133,37 @@ export const createBuildPipelineRunInstance = ({
             ],
         },
     };
+
+    if (gitProvider === GIT_PROVIDERS['GERRIT']) {
+        base.spec.params.push({
+            name: 'changeNumber',
+            value: '1',
+        });
+        base.spec.params.push({
+            name: 'patchsetNumber',
+            value: '1',
+        });
+    }
+
+    if (
+        codebaseType === CODEBASE_TYPES['APPLICATION'] ||
+        (codebaseType === CODEBASE_TYPES['LIBRARY'] &&
+            codebaseLanguage === 'container' &&
+            codebaseFramework === 'docker' &&
+            codebaseBuildTool === 'kaniko')
+    ) {
+        base.spec.taskRunSpecs = [
+            {
+                pipelineTaskName: 'create-ecr-repository',
+                taskServiceAccountName: 'edp-kaniko',
+            },
+            {
+                pipelineTaskName: 'kaniko-build',
+                taskServiceAccountName: 'edp-kaniko',
+            },
+        ];
+    }
+    return base;
 };
 
 export const createDeployPipelineRunInstance = ({

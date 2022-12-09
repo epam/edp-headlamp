@@ -100,10 +100,13 @@ export const CodebaseBranchActions = ({
                     },
                     codebaseData: {
                         codebaseName: codebase.metadata.name,
+                        codebaseLanguage: codebase.spec.lang,
                         codebaseBuildTool: codebase.spec.buildTool,
                         codebaseVersioningType: codebase.spec.versioning.type,
                         codebaseType: codebase.spec.type,
                         codebaseFramework: codebase.spec.framework,
+                        codebaseStrategy: codebase.spec.strategy,
+                        codebaseGitUrlPath: codebase.spec.gitUrlPath,
                     },
                     gitServerData: {
                         gitUser: gitServerByCodebase.spec.gitUser,

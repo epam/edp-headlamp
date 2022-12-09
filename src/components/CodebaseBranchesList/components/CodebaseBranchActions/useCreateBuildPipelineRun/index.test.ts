@@ -57,10 +57,13 @@ describe('testing useCreateBuildPipelineRun hook', () => {
             namespace: 'test-namespace',
             codebaseData: {
                 codebaseName: 'test-codebase-name',
+                codebaseLanguage: 'test-codebase-language',
                 codebaseBuildTool: 'test-build-tool',
                 codebaseVersioningType: 'test-versioning-type',
-                codebaseType: 'test-codebase-type',
+                codebaseType: 'application',
                 codebaseFramework: 'test-framework',
+                codebaseStrategy: 'create',
+                codebaseGitUrlPath: 'test-git-url-path',
             },
             codebaseBranchData: {
                 codebaseBranchMetadataName: 'test-codebase-name-test-codebase-branch-name',
@@ -108,10 +111,13 @@ describe('testing useCreateBuildPipelineRun hook', () => {
             namespace: 'test-namespace',
             codebaseData: {
                 codebaseName: 'test-codebase-name',
+                codebaseLanguage: 'test-codebase-language',
                 codebaseBuildTool: 'test-build-tool',
                 codebaseVersioningType: 'test-versioning-type',
-                codebaseType: 'test-codebase-type',
+                codebaseType: 'application',
                 codebaseFramework: 'test-framework',
+                codebaseStrategy: 'create',
+                codebaseGitUrlPath: 'test-git-url-path',
             },
             codebaseBranchData: {
                 codebaseBranchMetadataName: 'test-codebase-name-test-codebase-branch-name',

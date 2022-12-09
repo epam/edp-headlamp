@@ -11,10 +11,13 @@ export interface createBuildPipelineRunProps {
     namespace: string;
     codebaseData: {
         codebaseName: string;
+        codebaseType: string;
+        codebaseLanguage: string;
+        codebaseFramework: string;
         codebaseBuildTool: string;
         codebaseVersioningType: string;
-        codebaseType: string;
-        codebaseFramework: string;
+        codebaseStrategy: string;
+        codebaseGitUrlPath: string;
     };
     codebaseBranchData: {
         codebaseBranchMetadataName: string;

@@ -25,10 +25,13 @@ describe('testing createBuildPipelineRunInstance', () => {
             namespace: 'test-namespace',
             codebaseData: {
                 codebaseName: 'test-codebase-name',
+                codebaseLanguage: 'test-codebase-language',
                 codebaseBuildTool: 'test-build-tool',
                 codebaseVersioningType: 'test-versioning-type',
-                codebaseType: 'test-codebase-type',
+                codebaseType: 'application',
                 codebaseFramework: 'test-framework',
+                codebaseStrategy: 'create',
+                codebaseGitUrlPath: 'test-git-url-path',
             },
             codebaseBranchData: {
                 codebaseBranchMetadataName: 'test-codebase-name-test-codebase-branch-name',
@@ -72,11 +75,9 @@ describe('testing createBuildPipelineRunInstance', () => {
                         value: 'test-codebase-name-test-codebase-branch-name',
                     },
                     { name: 'CODEBASE_NAME', value: 'test-codebase-name' },
-                    { name: 'changeNumber', value: '1' },
-                    { name: 'patchsetNumber', value: '1' },
                 ],
                 pipelineRef: {
-                    name: 'test-git-provider-test-build-tool-test-framework-tes-build-test-versioning-type',
+                    name: 'test-git-provider-test-build-tool-test-framework-app-build-test-versioning-type',
                 },
                 serviceAccountName: 'tekton',
                 taskRunSpecs: [
