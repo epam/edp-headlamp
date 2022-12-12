@@ -30,14 +30,6 @@ export const useUpdateBranchVersionFields = ({
 
         const { version, postfix } = getVersionAndPostfixFromVersioningString(defaultBranchVersion);
 
-        if (!versionStartFieldValue) {
-            setValue(names.branchVersionStart.name, version); // just set initial value, doesn't update it
-        }
-
-        if (!versionPostfixFieldValue) {
-            setValue(names.branchVersionPostfix.name, postfix); // just set initial value, doesn't update it
-        }
-
         if (!versionFieldValue) {
             setValue(names.version.name, defaultBranchVersion); // just set initial value, doesn't update it
             handleFormFieldChange({

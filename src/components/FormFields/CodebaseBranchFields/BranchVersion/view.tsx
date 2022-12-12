@@ -53,15 +53,10 @@ export const BranchVersion = ({ names, handleFormFieldChange }: BranchVersionPro
     const onBranchVersionPostfixFieldValueChange = React.useCallback(
         ({ target: { value } }: FieldEvent): void => {
             const branchVersion = createVersioningString(branchVersionStartFieldValue, value);
-
             handleFormFieldChange({
                 name: names.branchVersionPostfix.name,
                 value: value,
             });
-
-            if (!releaseFieldValue) {
-                return;
-            }
 
             handleFormFieldChange({
                 name: names.version.name,
@@ -70,7 +65,7 @@ export const BranchVersion = ({ names, handleFormFieldChange }: BranchVersionPro
 
             setValue(names.version.name, branchVersion);
         },
-        [branchVersionStartFieldValue, handleFormFieldChange, names, releaseFieldValue, setValue]
+        [branchVersionStartFieldValue, handleFormFieldChange, names, setValue]
     );
 
     return (
@@ -88,6 +83,7 @@ export const BranchVersion = ({ names, handleFormFieldChange }: BranchVersionPro
                     label={'Branch version'}
                     title={'Valid identifiers are in the set [A-Za-z0-9]'}
                     placeholder={'0.0.0'}
+                    defaultValue={'0.0.0'}
                     control={control}
                     errors={errors}
                 />
@@ -107,6 +103,7 @@ export const BranchVersion = ({ names, handleFormFieldChange }: BranchVersionPro
                         onBlur: onBranchVersionPostfixFieldValueChange,
                     })}
                     placeholder={'SNAPSHOT'}
+                    defaultValue={'SNAPSHOT'}
                     control={control}
                     errors={errors}
                 />

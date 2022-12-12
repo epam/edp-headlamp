@@ -20,14 +20,14 @@ export const useRows = (codebaseBranch: EDPCodebaseBranchKubeObjectInterface) =>
             });
         }
 
-        if (status.build) {
+        if (status && status.build) {
             base.push({
                 name: 'Build number',
                 value: status.build,
             });
         }
 
-        if (status.lastSuccessfulBuild) {
+        if (status && status.lastSuccessfulBuild) {
             base.push({
                 name: 'Last successful build',
                 value: status.lastSuccessfulBuild,

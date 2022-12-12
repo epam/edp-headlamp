@@ -37,7 +37,7 @@ export const useDefaultValues = ({
         };
 
         return base;
-    }, [names.fromCommit.name, names.release.name, names.version.name, type, defaultBranchVersion]);
+    }, [names, type, defaultBranchVersion]);
 
     return { baseDefaultValues };
 };
