@@ -203,6 +203,29 @@ export const CreateCDPipelineForm = ({
 
     const { availableCITools } = useAvailableCITools({ namespace: namespaceFieldValue });
 
+    const onPipelineNameChange = React.useCallback(
+        pipelineNameFieldValue => {
+            if (!stages.length) {
+                return;
+            }
+
+            const updatedStagesWithNewPipelineName = stages.map(el => ({
+                ...el,
+                metadata: {
+                    ...el.metadata,
+                    name: `${pipelineNameFieldValue}-${el.spec.name}`,
+                },
+                spec: {
+                    ...el.spec,
+                    cdPipeline: pipelineNameFieldValue,
+                },
+            }));
+
+            setStages(updatedStagesWithNewPipelineName);
+        },
+        [stages]
+    );
+
     return (
         <FormProvider {...methods}>
             <Tabs
@@ -230,6 +253,7 @@ export const CreateCDPipelineForm = ({
                                 <PipelineInfoFormPart
                                     names={CDPIPELINE_CREATION_FORM_NAMES}
                                     handleFormFieldChange={handleFormFieldChange}
+                                    onPipelineNameChange={onPipelineNameChange}
                                 />
                             </div>
                         </TabPanel>

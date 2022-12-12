@@ -5,4 +5,5 @@ export interface PipelineInfoFormPartProps {
         [key: string]: FormNameObject;
     };
     handleFormFieldChange(eventTarget: FieldEventTarget): void;
+    onPipelineNameChange: (pipelineNameFieldValue: string) => void;
 }

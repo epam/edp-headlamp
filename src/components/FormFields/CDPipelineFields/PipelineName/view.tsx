@@ -6,7 +6,11 @@ import { PipelineNameProps } from './types';
 
 const { Grid } = MuiCore;
 
-export const PipelineName = ({ names, handleFormFieldChange }: PipelineNameProps) => {
+export const PipelineName = ({
+    names,
+    handleFormFieldChange,
+    onPipelineNameChange,
+}: PipelineNameProps) => {
     const {
         register,
         control,
@@ -22,8 +26,10 @@ export const PipelineName = ({ names, handleFormFieldChange }: PipelineNameProps
                                         cannot start
                                         and end with dash and dot. Minimum 2 characters.
                                     `,
-                    onBlur: ({ target: { name, value } }: FieldEvent) =>
-                        handleFormFieldChange({ name, value }),
+                    onBlur: ({ target: { name, value } }: FieldEvent) => {
+                        handleFormFieldChange({ name, value });
+                        onPipelineNameChange(value);
+                    },
                 })}
                 label={'Pipeline name'}
                 placeholder={'Enter pipeline name'}

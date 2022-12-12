@@ -13,6 +13,7 @@ const { Grid } = MuiCore;
 export const PipelineInfoFormPart = ({
     names,
     handleFormFieldChange,
+    onPipelineNameChange,
 }: PipelineInfoFormPartProps): React.ReactElement => {
     const { namespaces } = useNamespaces();
 
@@ -24,7 +25,11 @@ export const PipelineInfoFormPart = ({
                     handleFormFieldChange={handleFormFieldChange}
                     namespaces={namespaces}
                 />
-                <PipelineName names={names} handleFormFieldChange={handleFormFieldChange} />
+                <PipelineName
+                    names={names}
+                    handleFormFieldChange={handleFormFieldChange}
+                    onPipelineNameChange={onPipelineNameChange}
+                />
                 <DeploymentType names={names} handleFormFieldChange={handleFormFieldChange} />
             </Grid>
         </ErrorBoundary>
