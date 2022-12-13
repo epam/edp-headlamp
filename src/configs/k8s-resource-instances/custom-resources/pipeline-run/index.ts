@@ -75,10 +75,10 @@ export const createBuildPipelineRunInstance = ({
             params: [
                 {
                     name: 'git-source-url',
-                    value: `ssh://${gitUser}@${gitHost}:${sshPort}/${
+                    value: `ssh://${gitUser}@${gitHost}:${sshPort}${
                         codebaseStrategy === CODEBASE_CREATION_STRATEGIES['IMPORT']
                             ? codebaseGitUrlPath
-                            : codebaseName
+                            : `/${codebaseName}`
                     }`,
                 },
                 {
