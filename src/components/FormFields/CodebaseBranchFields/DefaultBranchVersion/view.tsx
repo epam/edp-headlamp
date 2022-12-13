@@ -24,6 +24,10 @@ export const DefaultBranchVersion = ({
                         required: 'Default branch version',
                         onBlur: ({ target: { name, value } }: FieldEvent) =>
                             handleFormFieldChange({ name, value }),
+                        pattern: {
+                            value: /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/,
+                            message: 'Enter valid semantic versioning format',
+                        },
                     })}
                     label={'Default branch version'}
                     title={'Enter the necessary branch version for the artifact.'}

@@ -21,6 +21,7 @@ export const useUpdateBranchVersionFields = ({
     const releaseFieldValue = watch(names.release.name);
     const versionStartFieldValue = watch(names.branchVersionStart.name);
     const versionPostfixFieldValue = watch(names.branchVersionPostfix.name);
+    const defaultVersionPostfixFieldValue = watch(names.defaultBranchVersionPostfix.name);
     const versionFieldValue = watch(names.version.name);
 
     React.useEffect(() => {
@@ -30,6 +31,14 @@ export const useUpdateBranchVersionFields = ({
 
         const { version, postfix } = getVersionAndPostfixFromVersioningString(defaultBranchVersion);
 
+        if (versionStartFieldValue === undefined) {
+            setValue(names.branchVersionStart.name, version);
+        }
+
+        if (versionPostfixFieldValue === undefined) {
+            setValue(names.branchVersionPostfix.name, postfix);
+        }
+
         if (!versionFieldValue) {
             setValue(names.version.name, defaultBranchVersion); // just set initial value, doesn't update it
             handleFormFieldChange({
@@ -38,12 +47,18 @@ export const useUpdateBranchVersionFields = ({
             });
         }
 
-        if (releaseFieldValue) {
-            const { major, minor, patch } = getMajorMinorPatchOfVersion(version);
-            const newDefaultBranchMinor = minor + 1;
-            const defaultBranchNewVersion = [major, newDefaultBranchMinor, patch].join('.');
+        if (!releaseFieldValue) {
+            return;
+        }
 
-            setValue(names.defaultBranchVersionStart.name, defaultBranchNewVersion);
+        const [currentBranchVersion] = versionFieldValue.split('-');
+        const { major, minor, patch } = getMajorMinorPatchOfVersion(currentBranchVersion);
+        const newDefaultBranchMinor = minor + 1;
+        const defaultBranchNewVersion = [major, newDefaultBranchMinor, patch].join('.');
+
+        setValue(names.defaultBranchVersionStart.name, defaultBranchNewVersion);
+
+        if (!defaultVersionPostfixFieldValue) {
             setValue(names.defaultBranchVersionPostfix.name, postfix);
         }
     }, [
@@ -55,5 +70,6 @@ export const useUpdateBranchVersionFields = ({
         versionStartFieldValue,
         versionPostfixFieldValue,
         versionFieldValue,
+        defaultVersionPostfixFieldValue,
     ]);
 };
