@@ -40,7 +40,7 @@ export const CODEBASE_EDIT_NAME_NAMESPACE: FormNameObject = {
     path: ['metadata', 'namespace'],
 };
 
-export const APPLICATION_NAMES: { [key: string]: FormNameObject } = {
+export const CODEBASE_EDIT_NAMES: { [key: string]: FormNameObject } = {
     jiraServer: CODEBASE_EDIT_NAME_JIRA_SERVER,
     commitMessagePattern: CODEBASE_EDIT_NAME_COMMIT_MESSAGE_PATTERN,
     ticketNamePattern: CODEBASE_EDIT_NAME_TICKET_NAME_PATTERN,

@@ -71,17 +71,35 @@ export const EditCodebaseForm = ({
         reset();
     }, [baseDefaultValues, reset]);
 
+    const hasJiraServerIntegrationFieldValue = watch(names.hasJiraServerIntegration.name);
+
     const { editorReturnValues } = useEditorCode({
         names,
-        formValues,
+        formValues: hasJiraServerIntegrationFieldValue
+            ? formValues
+            : {
+                  jiraIssueMetadataPayload: '',
+                  ticketNamePattern: '',
+                  commitMessagePattern: '',
+                  jiraServer: '',
+              },
         kubeObjectData: codebaseData,
     });
 
     const onSubmit = React.useCallback(() => {
-        handleApply(editorReturnValues);
-    }, [editorReturnValues, handleApply]);
+        const {
+            spec: { jiraServer, commitMessagePattern, ticketNamePattern, jiraIssueMetadataPayload },
+        } = codebaseData;
 
-    const hasJiraServerIntegrationFieldValue = watch(names.hasJiraServerIntegration.name);
+        handleApply(editorReturnValues);
+        reset();
+
+        setValue(names.hasJiraServerIntegration.name, !!jiraServer);
+        setValue(names.jiraServer.name, jiraServer);
+        setValue(names.commitMessagePattern.name, commitMessagePattern);
+        setValue(names.ticketNamePattern.name, ticketNamePattern);
+        setValue(names.jiraIssueMetadataPayload.name, jiraIssueMetadataPayload);
+    }, [codebaseData, editorReturnValues, handleApply, names, reset, setValue]);
 
     const { jiraServers } = useJiraServers({ namespace: codebaseData.metadata.namespace });
 
