@@ -3,6 +3,7 @@ import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useAvailableCITools } from '../../../../hooks/useAvailableCITools';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
@@ -78,7 +79,6 @@ export const CreateCDPipelineForm = ({
         formState: { isDirty },
         trigger,
         setValue,
-        watch,
     } = methods;
 
     const getFirstErrorTabName = React.useCallback(errors => {
@@ -199,9 +199,9 @@ export const CreateCDPipelineForm = ({
         );
     }, []);
 
-    const namespaceFieldValue = watch(CDPIPELINE_CREATION_FORM_NAMES.namespace.name);
+    const { namespace } = useNamespace();
 
-    const { availableCITools } = useAvailableCITools({ namespace: namespaceFieldValue });
+    const { availableCITools } = useAvailableCITools({ namespace });
 
     const onPipelineNameChange = React.useCallback(
         pipelineNameFieldValue => {

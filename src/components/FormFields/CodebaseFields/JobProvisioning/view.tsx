@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { useCIPipelineProvisioners } from '../../../../hooks/useCIPipelineProvisioners';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -12,13 +13,12 @@ export const JobProvisioning = ({ names, handleFormFieldChange }: JobProvisionin
         register,
         control,
         formState: { errors },
-        watch,
     } = useFormContext();
 
-    const namespaceFieldValue = watch(names.namespace.name);
+    const { namespace } = useNamespace();
 
     const { CIPipelineProvisioners } = useCIPipelineProvisioners({
-        namespace: namespaceFieldValue,
+        namespace,
     });
 
     return (

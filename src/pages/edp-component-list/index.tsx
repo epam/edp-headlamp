@@ -1,16 +1,15 @@
+import { useNamespace } from '../../hooks/useNamespace';
 import { streamEDPComponents } from '../../k8s/EDPComponent';
 import { EDPComponentKubeObjectInterface } from '../../k8s/EDPComponent/types';
-import { pluginLib, React, ReactRouter } from '../../plugin.globals';
+import { pluginLib, React } from '../../plugin.globals';
 import { rem } from '../../utils/styling/rem';
 import { Table } from './components/Table';
-import { EDPComponentListProps } from './types';
 
 const { CommonComponents } = pluginLib;
 const { SectionBox, SectionFilterHeader } = CommonComponents;
-const { useParams } = ReactRouter;
 
-export const EDPComponentList: React.FC<EDPComponentListProps> = (): React.ReactElement => {
-    const { namespace } = useParams();
+export const EDPComponentList = (): React.ReactElement => {
+    const { namespace } = useNamespace();
 
     const [EDPComponents, setEDPComponents] = React.useState<EDPComponentKubeObjectInterface[]>([]);
     const [, setError] = React.useState<Error>(null);
@@ -35,7 +34,7 @@ export const EDPComponentList: React.FC<EDPComponentListProps> = (): React.React
 
     return (
         <SectionBox
-            title={<SectionFilterHeader title="Overview" headerStyle="label" />}
+            title={<SectionFilterHeader title="Overview" headerStyle="label" noNamespaceFilter />}
             sx={{ paddingTop: rem(20) }}
         >
             <Table data={EDPComponents} />

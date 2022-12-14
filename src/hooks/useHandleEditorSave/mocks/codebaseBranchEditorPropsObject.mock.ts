@@ -13,7 +13,6 @@ export const codebaseBranchEditorPropsObjectMock: DeepPartial<EDPCodebaseBranchK
         },
         metadata: {
             name: 'test-java-app-develops',
-            namespace: 'edp-delivery-vp-delivery-dev',
             labels: {
                 'app.edp.epam.com/codebaseName': 'test-java-app',
             },
@@ -26,6 +25,5 @@ export const codebaseBranchEditorPropsObjectMockExpectedOutput = {
     fromCommit: '',
     release: false,
     name: 'test-java-app-develops',
-    namespace: 'edp-delivery-vp-delivery-dev',
     codebaseNameLabel: 'test-java-app',
 };

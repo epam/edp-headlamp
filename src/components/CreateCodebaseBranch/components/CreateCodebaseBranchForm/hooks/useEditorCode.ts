@@ -16,16 +16,14 @@ export const useEditorCode = ({
     names,
     formValues,
     codebaseName,
-    namespace,
 }: UseEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
     const editorReturnValues = React.useMemo(() => {
         return createCodebaseBranchInstanceBasedOnFormValues(
             names,
             formValues,
-            codebaseName,
-            namespace
+            codebaseName
         ) as KubeObjectInterface;
-    }, [names, formValues, codebaseName, namespace]);
+    }, [names, formValues, codebaseName]);
 
     return { editorReturnValues };
 };

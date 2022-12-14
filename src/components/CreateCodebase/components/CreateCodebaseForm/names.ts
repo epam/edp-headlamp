@@ -92,12 +92,6 @@ export const CODEBASE_CREATION_NAME_TYPE: FormNameObject = {
     path: ['spec', 'type'],
 };
 
-export const CODEBASE_CREATION_NAME_NAMESPACE: FormNameObject = {
-    name: 'namespace',
-    formPart: FORM_PART_CODEBASE_INFO,
-    path: ['metadata', 'namespace'],
-};
-
 export const CODEBASE_CREATION_NAME_STRATEGY: FormNameObject = {
     name: 'strategy',
     formPart: FORM_PART_CODEBASE_INFO,
@@ -245,7 +239,6 @@ export const APPLICATION_NAMES: { [key: string]: FormNameObject } = {
 
     // FORM PART CODEBASE INFO
     type: CODEBASE_CREATION_NAME_TYPE,
-    namespace: CODEBASE_CREATION_NAME_NAMESPACE,
     strategy: CODEBASE_CREATION_NAME_STRATEGY,
     repositoryUrl: CODEBASE_CREATION_NAME_REPOSITORY_URL,
     gitServer: CODEBASE_CREATION_NAME_GIT_SERVER,
@@ -287,7 +280,6 @@ export const LIBRARY_NAMES: { [key: string]: FormNameObject } = {
 
     // FORM PART CODEBASE INFO
     type: CODEBASE_CREATION_NAME_TYPE,
-    namespace: CODEBASE_CREATION_NAME_NAMESPACE,
     strategy: CODEBASE_CREATION_NAME_STRATEGY,
     repositoryUrl: CODEBASE_CREATION_NAME_REPOSITORY_URL,
     gitServer: CODEBASE_CREATION_NAME_GIT_SERVER,
@@ -329,7 +321,6 @@ export const AUTOTEST_NAMES: { [key: string]: FormNameObject } = {
 
     // FORM PART CODEBASE INFO
     type: CODEBASE_CREATION_NAME_TYPE,
-    namespace: CODEBASE_CREATION_NAME_NAMESPACE,
     strategy: CODEBASE_CREATION_NAME_STRATEGY,
     repositoryUrl: CODEBASE_CREATION_NAME_REPOSITORY_URL,
     gitServer: CODEBASE_CREATION_NAME_GIT_SERVER,

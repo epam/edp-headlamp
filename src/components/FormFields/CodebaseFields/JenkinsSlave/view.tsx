@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -15,10 +16,9 @@ export const JenkinsSlave = ({
         register,
         control,
         formState: { errors },
-        watch,
     } = useFormContext();
 
-    const namespaceFieldValue = watch(names.namespace.name);
+    const { namespace } = useNamespace();
 
     return (
         <Grid item xs={12}>
@@ -29,12 +29,10 @@ export const JenkinsSlave = ({
                         handleFormFieldChange({ name, value }),
                 })}
                 label={'Jenkins agent'}
-                placeholder={
-                    !namespaceFieldValue ? 'Select namespace first' : 'Select Jenkins agent'
-                }
+                placeholder={!namespace ? 'Select namespace first' : 'Select Jenkins agent'}
                 control={control}
                 errors={errors}
-                disabled={!namespaceFieldValue}
+                disabled={!namespace}
                 options={jenkinsAgents.map(el => ({
                     label: el,
                     value: el,

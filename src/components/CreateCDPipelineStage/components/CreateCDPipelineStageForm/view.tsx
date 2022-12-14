@@ -46,7 +46,6 @@ export const CreateCDPipelineStageForm = ({
 
     const { baseDefaultValues } = useDefaultValues({
         names: CDPIPELINE_STAGE_NAMES,
-        CDPipelineData,
         stagesQuantity: otherStages.length,
     });
 

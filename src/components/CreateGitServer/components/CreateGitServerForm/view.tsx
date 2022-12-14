@@ -3,7 +3,6 @@ import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { createGitServerSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
-import { useNamespaces } from '../../../../hooks/useNamespaces';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
@@ -12,7 +11,6 @@ import {
     GitProvider,
     HostName,
     HTTPSPort,
-    Namespace,
     SSHPort,
     SSHPrivateKey,
     Token,
@@ -41,8 +39,6 @@ export const CreateGitServerForm = ({
     const classes = useStyles();
 
     const { baseDefaultValues } = useDefaultValues({ names: GIT_SERVER_NAMES });
-
-    const { namespaces } = useNamespaces();
 
     const [formValues, setFormValues] =
         React.useState<DeepPartial<EDPGitServerKubeObjectInterface>>(baseDefaultValues);
@@ -107,12 +103,11 @@ export const CreateGitServerForm = ({
     };
 
     const onSubmit = React.useCallback(
-        ({ namespace, gitUser, sshPrivateKey, token }) => {
+        ({ gitUser, sshPrivateKey, token }) => {
             const {
                 metadata: { name },
             } = editorReturnValues;
             const gitServerSecretInstance = createGitServerSecretInstance(GIT_SERVER_SECRET_NAMES, {
-                namespace,
                 name,
                 gitUser: btoa(unescape(gitUser)),
                 sshPrivateKey: btoa(unescape(sshPrivateKey)),
@@ -131,21 +126,10 @@ export const CreateGitServerForm = ({
                     <div className={classes.formInner}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} style={{ display: 'flex' }}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={6} style={{ display: 'flex' }}>
-                                        <Namespace
-                                            handleFormFieldChange={handleFormFieldChange}
-                                            names={GIT_SERVER_NAMES}
-                                            namespaces={namespaces}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} style={{ display: 'flex' }}>
-                                        <GitProvider
-                                            handleFormFieldChange={handleFormFieldChange}
-                                            names={GIT_SERVER_NAMES}
-                                        />
-                                    </Grid>
-                                </Grid>
+                                <GitProvider
+                                    handleFormFieldChange={handleFormFieldChange}
+                                    names={GIT_SERVER_NAMES}
+                                />
                             </Grid>
                             <Grid item xs={12} style={{ display: 'flex' }}>
                                 <Grid container spacing={2}>

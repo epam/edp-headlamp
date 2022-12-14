@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { useAvailableCITools } from '../../../../hooks/useAvailableCITools';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
@@ -13,11 +14,10 @@ export const CITool = ({ names, handleFormFieldChange }: CIToolProps) => {
         register,
         control,
         formState: { errors },
-        watch,
     } = useFormContext();
-    const namespaceFieldValue = watch(names.namespace.name);
+    const { namespace } = useNamespace();
 
-    const { availableCITools } = useAvailableCITools({ namespace: namespaceFieldValue });
+    const { availableCITools } = useAvailableCITools({ namespace });
 
     return (
         <Grid item xs={12}>

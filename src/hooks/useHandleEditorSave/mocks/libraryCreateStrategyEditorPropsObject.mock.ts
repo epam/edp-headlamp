@@ -30,7 +30,6 @@ export const libraryCreateStrategyEditorPropsObjectMock: DeepPartial<EDPCodebase
         },
         metadata: {
             name: 'test',
-            namespace: 'edp-delivery-vp-delivery-dev',
         },
     };
 
@@ -54,5 +53,4 @@ export const libraryCreateStrategyEditorPropsObjectMockExpectedOutput = {
     ticketNamePattern: 'PROJECT_NAME-\\d{4}',
     jiraIssueMetadataPayload: '{"components":"test1","fixVersions":"test2","labels":"test3"}',
     name: 'test',
-    namespace: 'edp-delivery-vp-delivery-dev',
 };

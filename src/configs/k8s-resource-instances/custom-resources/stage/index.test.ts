@@ -6,7 +6,6 @@ describe('testing createCDPipelineStageInstance', () => {
         const object = createCDPipelineStageInstance(
             CDPIPELINE_STAGE_NAMES,
             {
-                namespace: 'edp-delivery-vp-dev',
                 order: 1,
                 triggerType: 'Manual',
                 jobProvisioning: 'default',
@@ -29,7 +28,6 @@ describe('testing createCDPipelineStageInstance', () => {
                 kind: 'CDPipeline',
                 metadata: {
                     name: 'vp-test-pipe-creation',
-                    namespace: 'edp-delivery-vp-dev',
                 },
                 spec: {
                     applications: ['vp-test-creation'],
@@ -45,7 +43,6 @@ describe('testing createCDPipelineStageInstance', () => {
             kind: 'Stage',
             metadata: {
                 name: 'vp-test-pipe-creation-test-stage-name',
-                namespace: 'edp-delivery-vp-dev',
             },
             spec: {
                 name: 'test-stage-name',

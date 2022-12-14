@@ -10,8 +10,7 @@ describe('testing createCodebaseBranchInstanceBasedOnFormValues', () => {
                 release: false,
                 branchName: 'test',
             },
-            'test-codebase-name',
-            'test-namespace'
+            'test-codebase-name'
         );
         expect(object).toEqual({
             apiVersion: 'v2.edp.epam.com/v1',
@@ -24,7 +23,6 @@ describe('testing createCodebaseBranchInstanceBasedOnFormValues', () => {
             },
             metadata: {
                 name: 'test-codebase-name-test',
-                namespace: 'test-namespace',
                 labels: { 'app.edp.epam.com/codebaseName': 'test-codebase-name' },
             },
         });

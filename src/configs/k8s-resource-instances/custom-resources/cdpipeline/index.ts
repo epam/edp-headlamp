@@ -14,14 +14,13 @@ export const createCDPipelineInstance = (
         [key: string]: any;
     }
 ): DeepPartial<EDPCDPipelineKubeObjectInterface> => {
-    const { name, namespace, ...restProps } = formValues;
+    const { name, ...restProps } = formValues;
 
     const base: DeepPartial<EDPCDPipelineKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
             name: name || `your pipeline name`,
-            namespace: namespace || 'your namespace',
         },
         spec: {
             name: name || `your pipeline name`,

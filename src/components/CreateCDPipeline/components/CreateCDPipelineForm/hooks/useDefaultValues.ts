@@ -11,7 +11,7 @@ export const useDefaultValues = ({ names }: UseDefaultValuesProps): { [key: stri
         return {
             [names.deploymentType.name]: DEPLOYMENT_TYPES['CONTAINER'],
         };
-    }, [names.deploymentType.name]);
+    }, [names]);
 
     return { baseDefaultValues };
 };

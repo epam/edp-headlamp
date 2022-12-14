@@ -33,7 +33,6 @@ export const libraryCloneStrategyEditorPropsObjectMock: DeepPartial<EDPCodebaseK
         },
         metadata: {
             name: 'test',
-            namespace: 'edp-delivery-vp-delivery-dev',
         },
     };
 
@@ -58,5 +57,4 @@ export const libraryCloneStrategyEditorPropsObjectMockExpectedOutput = {
     jiraIssueMetadataPayload: '{"components":"test1","fixVersions":"test2","labels":"test3"}',
     repositoryUrl: 'https://github.com/kinvolk/headlamp.git',
     name: 'test',
-    namespace: 'edp-delivery-vp-delivery-dev',
 };

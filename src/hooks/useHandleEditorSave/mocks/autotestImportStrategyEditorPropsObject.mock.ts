@@ -31,7 +31,6 @@ export const autotestImportStrategyEditorPropsObjectMock: DeepPartial<EDPCodebas
         },
         metadata: {
             name: 'test',
-            namespace: 'edp-delivery-vp-delivery-dev',
         },
     };
 
@@ -56,5 +55,4 @@ export const autotestImportStrategyEditorPropsObjectMockExpectedOutput = {
     jiraIssueMetadataPayload: '{"components":"test1","fixVersions":"test2","labels":"test3"}',
     gitUrlPath: 'https://git.epam.com/epmd-edp/examples/3tier/3-tier-app-be.git',
     name: 'test',
-    namespace: 'edp-delivery-vp-delivery-dev',
 };

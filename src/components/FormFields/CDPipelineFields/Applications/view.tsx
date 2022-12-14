@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { MuiCore, MuiLab, React } from '../../../../plugin.globals';
 import { FormSelect } from '../../../FormComponents';
 import { Render } from '../../../Render';
@@ -38,7 +39,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
         required: 'Select branch',
     });
 
-    const namespaceFieldValue = watch(names.namespace.name);
+    const { namespace } = useNamespace();
     const applicationsToAddChooserFieldValue = watch(names.applicationsToAddChooser.name);
     const applicationsFieldValue = watch(names.applications.name);
     const applicationsToPromoteValue = watch(names.applicationsToPromote.name);
@@ -46,7 +47,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
 
     const { applications, setApplications } = useUpdatedApplications({
         values: {
-            namespaceFieldValue,
+            namespace,
             applicationsFieldValue,
             applicationsToPromoteValue,
             applicationsBranchesFieldValue,
@@ -105,19 +106,19 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
     }, [applications]);
 
     const applicationsOptionsListIsDisabled = React.useMemo(() => {
-        return !namespaceFieldValue || usedApplications.length === applications.length;
-    }, [applications.length, namespaceFieldValue, usedApplications.length]);
+        return !namespace || usedApplications.length === applications.length;
+    }, [applications.length, namespace, usedApplications.length]);
 
     const applicationsAddingButtonIsDisabled = React.useMemo(() => {
         return (
-            !namespaceFieldValue ||
+            !namespace ||
             !applicationsToAddChooserFieldValue ||
             usedApplications.length === applications.length
         );
     }, [
         applications.length,
         applicationsToAddChooserFieldValue,
-        namespaceFieldValue,
+        namespace,
         usedApplications.length,
     ]);
 

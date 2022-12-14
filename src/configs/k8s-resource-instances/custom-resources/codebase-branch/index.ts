@@ -13,8 +13,7 @@ export const createCodebaseBranchInstanceBasedOnFormValues = (
     formValues: {
         [key: string]: any;
     },
-    codebaseName: string,
-    namespace: string
+    codebaseName: string
 ): DeepPartial<EDPCodebaseBranchKubeObjectInterface> => {
     const { branchName, ...restProps } = formValues;
     const transformedBranchName = branchName ? branchName.replaceAll('/', '-') : '';
@@ -28,7 +27,6 @@ export const createCodebaseBranchInstanceBasedOnFormValues = (
         },
         metadata: {
             name: `${codebaseName}-${transformedBranchName || 'your branch name'}`,
-            namespace: namespace,
             labels: {
                 'app.edp.epam.com/codebaseName': codebaseName,
             },

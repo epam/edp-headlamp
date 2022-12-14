@@ -27,7 +27,6 @@ describe('testing createCodebaseExample', () => {
                     versioningStartFrom: '0.0.0-SNAPSHOT',
                     deploymentScript: 'helm-chart',
                     name: 'test',
-                    namespace: 'edp-delivery-vp-delivery-dev',
                 }
             );
 
@@ -49,7 +48,7 @@ describe('testing createCodebaseExample', () => {
                     versioning: { type: 'edp', startFrom: '0.0.0-SNAPSHOT' },
                     deploymentScript: 'helm-chart',
                 },
-                metadata: { name: 'test', namespace: 'edp-delivery-vp-delivery-dev' },
+                metadata: { name: 'test' },
             });
         });
     });
@@ -70,7 +69,6 @@ describe('testing createCodebaseExample', () => {
                 versioningStartFrom: '0.0.0-SNAPSHOT',
                 deploymentScript: 'helm-chart',
                 name: 'test',
-                namespace: 'edp-delivery-vp-delivery-dev',
             });
 
             expect(object).toMatchObject({
@@ -91,7 +89,7 @@ describe('testing createCodebaseExample', () => {
                     versioning: { type: 'edp', startFrom: '0.0.0-SNAPSHOT' },
                     deploymentScript: 'helm-chart',
                 },
-                metadata: { name: 'test', namespace: 'edp-delivery-vp-delivery-dev' },
+                metadata: { name: 'test' },
             });
         });
     });
@@ -102,7 +100,6 @@ describe('testing createCodebaseExample', () => {
                 gitServer: 'gerrit',
                 ciTool: 'jenkins',
                 jenkinsSlave: 'maven-java11',
-                namespace: 'edp-delivery-vp-delivery-dev',
                 name: 'test',
                 repositoryUrl: 'https://github.com/kinvolk/headlamp.git',
                 defaultBranch: 'master',
@@ -142,7 +139,6 @@ describe('testing createCodebaseExample', () => {
                 },
                 metadata: {
                     name: 'test',
-                    namespace: 'edp-delivery-vp-delivery-dev',
                 },
             });
         });

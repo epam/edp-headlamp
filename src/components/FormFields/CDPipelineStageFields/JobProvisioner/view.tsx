@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { useCDPipelineProvisioners } from '../../../../hooks/useCDPipelineProvisioners';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -10,13 +11,12 @@ export const JobProvisioner = ({ names, handleFormFieldChange }: JobProvisionerP
         register,
         control,
         formState: { errors },
-        watch,
     } = useFormContext();
 
-    const namespaceFieldValue = watch(names.namespace.name);
+    const { namespace } = useNamespace();
 
     const { CDPipelineProvisioners } = useCDPipelineProvisioners({
-        namespace: namespaceFieldValue,
+        namespace,
     });
 
     return (

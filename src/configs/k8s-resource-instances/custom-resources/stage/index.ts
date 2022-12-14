@@ -16,14 +16,13 @@ export const createCDPipelineStageInstance = (
     },
     CDPipeline: DeepPartial<EDPCDPipelineKubeObjectInterface>
 ): DeepPartial<EDPCDPipelineStageKubeObjectInterface> => {
-    const { name, namespace, ...restProps } = formValues;
+    const { name, ...restProps } = formValues;
 
     const base: DeepPartial<EDPCDPipelineStageKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
             name: `${CDPipeline.metadata.name}-${name || 'your stage name'}`,
-            namespace: namespace || 'your namespace',
         },
         spec: {
             name: name || `your stage name`,

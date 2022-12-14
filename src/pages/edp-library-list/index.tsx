@@ -2,18 +2,19 @@ import { CreateCodebase } from '../../components/CreateCodebase';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
 import { LibraryList } from '../../components/LibraryList';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
+import { useNamespace } from '../../hooks/useNamespace';
 import { streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { pluginLib, React, ReactRouter } from '../../plugin.globals';
+import { pluginLib, React } from '../../plugin.globals';
 
 const {
     CommonComponents: { SectionBox, SectionFilterHeader },
 } = pluginLib;
-const { useParams } = ReactRouter;
 
 export const EDPLibraryList = (): React.ReactElement => {
-    const { namespace } = useParams();
+    const { namespace } = useNamespace();
+
     const [libraries, setLibraries] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
     const [, setError] = React.useState<Error>(null);
 
@@ -29,7 +30,9 @@ export const EDPLibraryList = (): React.ReactElement => {
     }, [namespace]);
 
     return (
-        <SectionBox title={<SectionFilterHeader title="Libraries" headerStyle="label" />}>
+        <SectionBox
+            title={<SectionFilterHeader title="Libraries" headerStyle="label" noNamespaceFilter />}
+        >
             <CreateKubeObject>
                 <CreateCodebase type={CODEBASE_TYPES['LIBRARY']} />
             </CreateKubeObject>

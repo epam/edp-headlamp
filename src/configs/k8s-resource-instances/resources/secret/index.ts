@@ -5,7 +5,6 @@ import { EDPKubeObjectInterface } from '../../../../types/k8s';
 
 export const createCodebaseSecretInstance = (
     codebaseName: string,
-    namespace: string,
     repositoryLogin: string,
     repositoryPassword: string
 ): DeepPartial<EDPKubeObjectInterface> => {
@@ -14,7 +13,6 @@ export const createCodebaseSecretInstance = (
         kind: 'Secret',
         metadata: {
             name: `repository-codebase-${codebaseName}-temp`,
-            namespace,
         },
         data: {
             username: btoa(unescape(repositoryLogin)),
@@ -31,14 +29,13 @@ export const createGitServerSecretInstance = (
         [key: string]: any;
     }
 ): DeepPartial<EDPKubeObjectInterface> => {
-    const { name, namespace, ...restProps } = formValues;
+    const { name, ...restProps } = formValues;
 
     const base: DeepPartial<EDPKubeObjectInterface> = {
         apiVersion: 'v1',
         kind: 'Secret',
         metadata: {
             name: `${name}-config`,
-            namespace,
         },
     };
 

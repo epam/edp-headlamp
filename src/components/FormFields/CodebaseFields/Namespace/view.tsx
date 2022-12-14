@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
@@ -16,20 +17,20 @@ export const Namespace = ({ names, handleFormFieldChange, namespaces, type }: Na
         setValue,
     } = useFormContext();
 
-    const namespaceFieldValue = watch(names.namespace.name);
+    const { namespace } = useNamespace();
 
     const langValue = watch(names.lang.name);
     const frameworkValue = watch(names.framework.name);
     const buildToolValue = watch(names.buildTool.name);
     const recommendedJenkinsAgent = React.useMemo(() => {
-        if (namespaceFieldValue) {
+        if (namespace) {
             return getRecommendedJenkinsAgent(type, {
                 lang: langValue,
                 framework: frameworkValue,
                 buildTool: buildToolValue,
             });
         }
-    }, [buildToolValue, frameworkValue, langValue, namespaceFieldValue, type]);
+    }, [buildToolValue, frameworkValue, langValue, namespace, type]);
 
     const onNamespaceChange = React.useCallback(
         ({ target: { name, value } }: FieldEvent) => {

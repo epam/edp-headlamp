@@ -1,13 +1,12 @@
 import { useFormContext } from 'react-hook-form';
 import { useGitServers } from '../../../../../../hooks/useGitServers';
-import { useNamespaces } from '../../../../../../hooks/useNamespaces';
+import { useNamespace } from '../../../../../../hooks/useNamespace';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
 import {
     CodebaseAuth,
     GitServer,
     GitUrlPath,
-    Namespace,
     RepositoryLogin,
     RepositoryPasswordOrApiToken,
     RepositoryUrl,
@@ -25,12 +24,11 @@ export const ApplicationCodebaseInfoFormPart = ({
     type,
 }: ApplicationCodebaseInfoFormPartProps): React.ReactElement => {
     const { watch, resetField } = useFormContext();
-    const { namespaces } = useNamespaces();
 
     const strategyFieldValue = watch(names.strategy.name);
     const hasCodebaseAuthFieldValue = watch(names.hasCodebaseAuth.name);
-    const namespaceFieldValue = watch(names.namespace.name);
-    const { gitServers } = useGitServers({ namespace: namespaceFieldValue });
+    const { namespace } = useNamespace();
+    const { gitServers } = useGitServers({ namespace });
 
     const gitServersNames = React.useMemo(
         () => gitServers.map(({ metadata: { name } }) => name),
@@ -47,12 +45,6 @@ export const ApplicationCodebaseInfoFormPart = ({
     return (
         <ErrorBoundary>
             <Grid container spacing={2}>
-                <Namespace
-                    names={names}
-                    type={type}
-                    handleFormFieldChange={handleFormFieldChange}
-                    namespaces={namespaces}
-                />
                 <Strategy type={type} names={names} handleFormFieldChange={handleFormFieldChange} />
                 {isCloneStrategy(strategyFieldValue) ? (
                     <>

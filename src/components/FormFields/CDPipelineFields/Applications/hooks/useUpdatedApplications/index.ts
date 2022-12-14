@@ -52,7 +52,7 @@ export const useUpdatedApplications = ({
     error: Error;
 } => {
     const {
-        namespaceFieldValue,
+        namespace,
         applicationsFieldValue,
         applicationsToPromoteValue,
         applicationsBranchesFieldValue,
@@ -132,18 +132,18 @@ export const useUpdatedApplications = ({
     );
 
     React.useEffect(() => {
-        if (!namespaceFieldValue) {
+        if (!namespace) {
             return;
         }
 
         const fetchApplications = async (): Promise<void> => {
             const { items: codebaseList } = await getCodebasesByTypeLabel(
-                namespaceFieldValue,
+                namespace,
                 EDPCodebaseKubeObjectConfig.types.application.name.singularForm
             );
 
             const filteredApplications = (
-                await Promise.all(getCodebaseWithBranchesList(codebaseList, namespaceFieldValue))
+                await Promise.all(getCodebaseWithBranchesList(codebaseList, namespace))
             ).filter(app => app !== null);
 
             const applicationsFieldValueSet = new Set<string>(applicationsFieldValue);
@@ -161,7 +161,7 @@ export const useUpdatedApplications = ({
     }, [
         applicationsFieldValue,
         applicationsToPromoteValue,
-        namespaceFieldValue,
+        namespace,
         setValue,
         updateAppChosenBranch,
         updatePromotedApp,

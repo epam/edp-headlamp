@@ -9,12 +9,6 @@ export const CDPIPELINE_CREATION_NAME_NAME: FormNameObject = {
     // path is not needed as name used in two places at the same time, check createCDPipelineInstance for reference
 };
 
-export const CDPIPELINE_CREATION_NAME_NAMESPACE: FormNameObject = {
-    name: 'namespace',
-    formPart: FORM_PART_PIPELINE,
-    path: ['metadata', 'namespace'],
-};
-
 export const CDPIPELINE_CREATION_NAME_DEPLOYMENT_TYPE: FormNameObject = {
     name: 'deploymentType',
     formPart: FORM_PART_PIPELINE,
@@ -50,7 +44,6 @@ export const CDPIPELINE_CREATION_FORM_NAMES: { [key: string]: FormNameObject } =
     applicationsToAddChooser: CDPIPELINE_CREATION_NAME_APPLICATIONS_TO_ADD_CHOOSER,
 
     // FORM PART PIPELINE
-    namespace: CDPIPELINE_CREATION_NAME_NAMESPACE,
     name: CDPIPELINE_CREATION_NAME_NAME,
     deploymentType: CDPIPELINE_CREATION_NAME_DEPLOYMENT_TYPE,
 

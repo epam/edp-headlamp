@@ -105,17 +105,12 @@ describe('testing useCreateCodebase hook', () => {
         await expect(codebaseRequestSpy).toHaveBeenCalledWith(cloneStrategyCodebaseDataMock);
 
         const {
-            metadata: { name, namespace },
+            metadata: { name },
         } = cloneStrategyCodebaseDataMock;
         const { repositoryLogin, repositoryPasswordOrApiToken } = cloneStrategyCodebaseAuthDataMock;
 
         await expect(secretRequestSpy).toHaveBeenCalledWith(
-            createCodebaseSecretInstance(
-                name,
-                namespace,
-                repositoryLogin,
-                repositoryPasswordOrApiToken
-            )
+            createCodebaseSecretInstance(name, repositoryLogin, repositoryPasswordOrApiToken)
         );
 
         expect(codebaseCreated).toBe(true);
@@ -145,7 +140,7 @@ describe('testing useCreateCodebase hook', () => {
         } = renderHook(() => useCreateCodebase(onCreate, onError));
 
         const {
-            metadata: { name, namespace },
+            metadata: { name },
         } = cloneStrategyCodebaseDataMock;
 
         const { repositoryLogin, repositoryPasswordOrApiToken } = cloneStrategyCodebaseAuthDataMock;
@@ -161,12 +156,7 @@ describe('testing useCreateCodebase hook', () => {
         });
 
         await expect(secretRequestSpy).toHaveBeenCalledWith(
-            createCodebaseSecretInstance(
-                name,
-                namespace,
-                repositoryLogin,
-                repositoryPasswordOrApiToken
-            )
+            createCodebaseSecretInstance(name, repositoryLogin, repositoryPasswordOrApiToken)
         );
         await expect(codebaseRequestSpy).not.toHaveBeenCalled();
         expect(codebaseCreated).toBe(false);
@@ -197,7 +187,7 @@ describe('testing useCreateCodebase hook', () => {
         } = renderHook(() => useCreateCodebase(onCreate, onError));
 
         const {
-            metadata: { name, namespace },
+            metadata: { name },
         } = cloneStrategyCodebaseDataMock;
 
         const { repositoryLogin, repositoryPasswordOrApiToken } = cloneStrategyCodebaseAuthDataMock;
@@ -213,12 +203,7 @@ describe('testing useCreateCodebase hook', () => {
         });
 
         await expect(secretRequestSpy).toHaveBeenCalledWith(
-            createCodebaseSecretInstance(
-                name,
-                namespace,
-                repositoryLogin,
-                repositoryPasswordOrApiToken
-            )
+            createCodebaseSecretInstance(name, repositoryLogin, repositoryPasswordOrApiToken)
         );
         await expect(codebaseRequestSpy).toHaveBeenCalledWith(cloneStrategyCodebaseDataMock);
         await expect(secretRequestDeleteSpy).toHaveBeenCalled();

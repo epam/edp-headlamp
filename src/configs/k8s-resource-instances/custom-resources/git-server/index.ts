@@ -15,7 +15,7 @@ export const createGitServerInstance = (
     },
     randomPostfix: string
 ): DeepPartial<EDPGitServerKubeObjectInterface> => {
-    const { namespace, gitHost, ...restProps } = formValues;
+    const { gitHost, ...restProps } = formValues;
     const gitServerName = `${gitHost}-${randomPostfix}`;
 
     const base: DeepPartial<EDPGitServerKubeObjectInterface> = {
@@ -23,7 +23,6 @@ export const createGitServerInstance = (
         kind,
         metadata: {
             name: gitServerName,
-            namespace: namespace || 'your namespace',
         },
         spec: {
             gitHost,

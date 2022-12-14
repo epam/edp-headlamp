@@ -43,7 +43,7 @@ export const useCreateCodebase = (
             let secretExample: DeepPartial<EDPKubeObjectInterface>;
 
             const {
-                metadata: { name, namespace },
+                metadata: { name },
             } = newCodebaseData;
 
             try {
@@ -56,7 +56,6 @@ export const useCreateCodebase = (
                 const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;
                 secretExample = createCodebaseSecretInstance(
                     name,
-                    namespace,
                     repositoryLogin,
                     repositoryPasswordOrApiToken
                 );

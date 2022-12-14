@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -11,10 +12,9 @@ export const JiraServer = ({ names, handleFormFieldChange, jiraServers }: JiraSe
         register,
         control,
         formState: { errors },
-        watch,
     } = useFormContext();
 
-    const namespaceFieldValue = watch(names.namespace.name);
+    const { namespace } = useNamespace();
 
     return (
         <Grid item xs={12}>
@@ -26,10 +26,10 @@ export const JiraServer = ({ names, handleFormFieldChange, jiraServers }: JiraSe
                         handleFormFieldChange({ name, value }),
                 })}
                 label={'Jira server'}
-                placeholder={!namespaceFieldValue ? 'Select namespace first' : 'Select Jira server'}
+                placeholder={!namespace ? 'Select namespace first' : 'Select Jira server'}
                 control={control}
                 errors={errors}
-                disabled={!namespaceFieldValue}
+                disabled={!namespace}
                 options={jiraServers.map(el => ({
                     label: el,
                     value: el,

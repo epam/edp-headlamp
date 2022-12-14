@@ -145,79 +145,10 @@ exports[`CreateCDPipeline should render correctly 1`] = `
                           class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <span
-                            class="makeStyles-labelWrap-16"
+                            class="makeStyles-labelWrap-15"
                           >
                             <span
-                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
-                            >
-                              Namespace
-                            </span>
-                          </span>
-                        </div>
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                        >
-                          <div
-                            class="MuiFormControl-root MuiFormControl-fullWidth"
-                          >
-                            <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-15 MuiInputBase-formControl MuiInput-formControl"
-                            >
-                              <div
-                                aria-haspopup="listbox"
-                                aria-labelledby="mui-component-select-namespace"
-                                class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
-                                id="mui-component-select-namespace"
-                                role="button"
-                                tabindex="0"
-                              >
-                                Select a namespace
-                              </div>
-                              <input
-                                aria-hidden="true"
-                                class="MuiSelect-nativeInput"
-                                name="namespace"
-                                tabindex="-1"
-                                value=""
-                              />
-                              <svg
-                                aria-hidden="true"
-                                class="MuiSvgIcon-root MuiSelect-icon"
-                                focusable="false"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  d="M7 10l5 5 5-5z"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                >
-                  <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                  >
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      style="display: flex;"
-                    >
-                      <div
-                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                      >
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                        >
-                          <span
-                            class="makeStyles-labelWrap-16"
-                          >
-                            <span
-                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                              class="MuiTypography-root makeStyles-label-16 MuiTypography-body1"
                             >
                               Pipeline name
                             </span>
@@ -269,10 +200,10 @@ exports[`CreateCDPipeline should render correctly 1`] = `
                           class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <span
-                            class="makeStyles-labelWrap-16"
+                            class="makeStyles-labelWrap-15"
                           >
                             <span
-                              class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                              class="MuiTypography-root makeStyles-label-16 MuiTypography-body1"
                             >
                               Deployment type
                             </span>
@@ -360,10 +291,10 @@ exports[`CreateCDPipeline should render correctly 1`] = `
                               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                             >
                               <span
-                                class="makeStyles-labelWrap-16"
+                                class="makeStyles-labelWrap-15"
                               >
                                 <span
-                                  class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
+                                  class="MuiTypography-root makeStyles-label-16 MuiTypography-body1"
                                 >
                                   Applications
                                 </span>
@@ -376,7 +307,7 @@ exports[`CreateCDPipeline should render correctly 1`] = `
                                 class="MuiFormControl-root MuiFormControl-fullWidth"
                               >
                                 <div
-                                  class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-15 Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl"
+                                  class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-17 Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl"
                                 >
                                   <div
                                     aria-disabled="true"

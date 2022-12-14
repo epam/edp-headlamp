@@ -1,4 +1,4 @@
-import { AutotestList } from '../../components/AutotestList';
+import { ApplicationList } from '../../components/ApplicationList';
 import { CreateCodebase } from '../../components/CreateCodebase';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
@@ -12,31 +12,43 @@ const {
     CommonComponents: { SectionBox, SectionFilterHeader },
 } = pluginLib;
 
-export const EDPAutotestList = (): React.ReactElement => {
+export const EDPApplicationList = (): React.ReactElement => {
     const { namespace } = useNamespace();
-
-    const [autotests, setAutotests] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
+    const [applications, setApplications] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
     const [, setError] = React.useState<Error>(null);
+
+    const handleStoreApplications = React.useCallback(
+        (applications: EDPCodebaseKubeObjectInterface[]) => {
+            setApplications(applications);
+        },
+        []
+    );
+
+    const handleError = React.useCallback((error: Error) => {
+        setError(error);
+    }, []);
 
     React.useEffect(() => {
         const cancelStream = streamCodebasesByTypeLabel(
-            EDPCodebaseKubeObjectConfig.types.autotest.name.pluralForm,
-            setAutotests,
-            setError,
+            EDPCodebaseKubeObjectConfig.types.application.name.singularForm,
+            handleStoreApplications,
+            handleError,
             namespace
         );
 
         return () => cancelStream();
-    }, [namespace]);
+    }, [handleError, handleStoreApplications, namespace]);
 
     return (
         <SectionBox
-            title={<SectionFilterHeader title="Autotests" headerStyle="label" noNamespaceFilter />}
+            title={
+                <SectionFilterHeader title="Applications" headerStyle="label" noNamespaceFilter />
+            }
         >
             <CreateKubeObject>
-                <CreateCodebase type={CODEBASE_TYPES['AUTOTEST']} />
+                <CreateCodebase type={CODEBASE_TYPES['APPLICATION']} />
             </CreateKubeObject>
-            <AutotestList autotests={autotests} />
+            <ApplicationList applications={applications} />
         </SectionBox>
     );
 };

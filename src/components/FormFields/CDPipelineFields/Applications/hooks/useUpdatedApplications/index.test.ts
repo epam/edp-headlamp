@@ -45,7 +45,7 @@ describe('testing useUpdatedApplications hook', () => {
         const useUpdatedApplicationsProps = {
             setValue,
             values: {
-                namespaceFieldValue: 'edp-delivery-vp-delivery-dev',
+                namespace: 'edp-delivery-vp-delivery-dev',
                 applicationsFieldValue: ['test-app-2', 'test-application'],
                 applicationsToPromoteValue: ['test-app-2', 'test-application'],
                 applicationsBranchesFieldValue: ['test-app-2-master', 'test-application-master'],
@@ -77,7 +77,7 @@ describe('testing useUpdatedApplications hook', () => {
         const useUpdatedApplicationsProps = {
             setValue,
             values: {
-                namespaceFieldValue: 'edp-delivery-vp-delivery-dev',
+                namespace: 'edp-delivery-vp-delivery-dev',
                 applicationsFieldValue: [],
                 applicationsToPromoteValue: [],
                 applicationsBranchesFieldValue: [],
@@ -104,7 +104,7 @@ describe('testing useUpdatedApplications hook', () => {
         const useUpdatedApplicationsProps = {
             setValue,
             values: {
-                namespaceFieldValue: 'edp-delivery-vp-delivery-dev',
+                namespace: 'edp-delivery-vp-delivery-dev',
                 applicationsFieldValue: ['test-app-2', 'test-application'],
                 applicationsToPromoteValue: ['test-app-2', 'test-application'],
                 applicationsBranchesFieldValue: ['test-app-2-master', 'test-application-master'],

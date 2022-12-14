@@ -1,10 +1,5 @@
 import { FormNameObject } from '../../../../types/forms';
 
-export const GIT_SERVER_CREATION_NAME_NAMESPACE: FormNameObject = {
-    name: 'namespace',
-    path: ['metadata', 'namespace'],
-};
-
 export const GIT_SERVER_CREATION_NAME_NAME: FormNameObject = {
     name: 'name',
     path: ['metadata', 'name'],
@@ -52,7 +47,6 @@ export const GIT_SERVER_CREATION_NAME_SSH_PORT: FormNameObject = {
 
 export const GIT_SERVER_NAMES: { [key: string]: FormNameObject } = {
     name: GIT_SERVER_CREATION_NAME_NAME,
-    namespace: GIT_SERVER_CREATION_NAME_NAMESPACE,
     gitHost: GIT_SERVER_CREATION_NAME_GIT_HOST,
     gitProvider: GIT_SERVER_CREATION_NAME_GIT_PROVIDER,
     gitUser: GIT_SERVER_CREATION_NAME_GIT_USER,

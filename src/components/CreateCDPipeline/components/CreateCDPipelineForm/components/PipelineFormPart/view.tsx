@@ -1,11 +1,6 @@
-import { useNamespaces } from '../../../../../../hooks/useNamespaces';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
-import {
-    DeploymentType,
-    Namespace,
-    PipelineName,
-} from '../../../../../FormFields/CDPipelineFields';
+import { DeploymentType, PipelineName } from '../../../../../FormFields/CDPipelineFields';
 import { PipelineInfoFormPartProps } from './types';
 
 const { Grid } = MuiCore;
@@ -15,16 +10,9 @@ export const PipelineInfoFormPart = ({
     handleFormFieldChange,
     onPipelineNameChange,
 }: PipelineInfoFormPartProps): React.ReactElement => {
-    const { namespaces } = useNamespaces();
-
     return (
         <ErrorBoundary>
             <Grid container spacing={2}>
-                <Namespace
-                    names={names}
-                    handleFormFieldChange={handleFormFieldChange}
-                    namespaces={namespaces}
-                />
                 <PipelineName
                     names={names}
                     handleFormFieldChange={handleFormFieldChange}

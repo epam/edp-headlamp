@@ -2,6 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { useJenkinsAgents } from '../../../../../../hooks/useJenkinsAgents';
 import { useJiraServers } from '../../../../../../hooks/useJiraServers';
+import { useNamespace } from '../../../../../../hooks/useNamespace';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary/view';
 import {
@@ -31,9 +32,9 @@ export const AutotestAdvancedSettingsFormPart = ({
 
     const hasJiraServerIntegrationFieldValue = watch(names.hasJiraServerIntegration.name);
     const chosenCiToolFieldValue = watch(names.ciTool.name);
-    const namespaceFieldValue = watch(names.namespace.name);
-    const { jiraServers } = useJiraServers({ namespace: namespaceFieldValue });
-    const { jenkinsAgents } = useJenkinsAgents({ namespace: namespaceFieldValue });
+    const { namespace } = useNamespace();
+    const { jiraServers } = useJiraServers({ namespace });
+    const { jenkinsAgents } = useJenkinsAgents({ namespace });
 
     useUpdateJiraServerIntegrationValue({ watch, setValue, names });
     useUpdateVersioningFields({ watch, setValue, names, handleFormFieldChange });

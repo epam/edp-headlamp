@@ -15,7 +15,7 @@ export const createCodebaseInstance = (
         [key: string]: any;
     }
 ): DeepPartial<EDPCodebaseKubeObjectInterface> => {
-    const { name, namespace, ...restProps } = formValues;
+    const { name, ...restProps } = formValues;
 
     const base: DeepPartial<EDPCodebaseKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,
@@ -25,7 +25,6 @@ export const createCodebaseInstance = (
         },
         metadata: {
             name: name || `your ${type} name`,
-            namespace: namespace || 'your namespace',
         },
     };
 
