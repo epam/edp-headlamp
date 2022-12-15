@@ -83,7 +83,8 @@ export const CDPipelineStage = (): React.ReactElement => {
 
     React.useEffect(() => {
         const cancelApplicationsStream = streamApplicationListByPipelineStageLabel(
-            `${CDPipelineDataContextValue.metadata.name}-${CurrentCDPipelineStageDataContextValue.spec.name}`,
+            CDPipelineDataContextValue.metadata.name,
+            CurrentCDPipelineStageDataContextValue.spec.name,
             handleStoreArgoApplications,
             handleError,
             CDPipelineDataContextValue.metadata.namespace

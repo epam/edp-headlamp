@@ -1,6 +1,7 @@
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { ApplicationKubeObjectConfig } from '../../../../k8s/Application/config';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
+import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
 import { createApplicationInstanceProps, editApplicationInstanceProps } from './types';
 
 const { kind, group, version } = ApplicationKubeObjectConfig;
@@ -16,6 +17,8 @@ export const createApplicationInstance = ({
     versioningType,
 }: createApplicationInstanceProps): ApplicationKubeObjectInterface => {
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
+    const randomPostfix = createRandomFiveSymbolString();
+
     const {
         spec: { name: stageName },
     } = stageData;
@@ -24,10 +27,10 @@ export const createApplicationInstance = ({
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
-            name: `${pipelineName}-${stageName}-${appName}`,
+            name: `${appName}-${randomPostfix}`,
             namespace,
             labels: {
-                'app.edp.epam.com/pipeline-stage': `${pipelineName}-${stageName}`,
+                'app.edp.epam.com/stage': stageName,
                 'app.edp.epam.com/pipeline': pipelineName,
                 'app.edp.epam.com/app-name': appName,
             },
