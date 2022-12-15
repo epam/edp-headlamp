@@ -2,6 +2,19 @@
 ## [Unreleased]
 
 
+<a name="v0.2.2"></a>
+## [v0.2.2] - 2022-12-15
+### Features
+
+- Updates argoApplication resource creation template [EPMDEDP-11121](https://jiraeu.epam.com/browse/EPMDEDP-11121)
+- Implements namespace scoping [EPMDEDP-11185](https://jiraeu.epam.com/browse/EPMDEDP-11185)
+- Improves component structures, gets rid of unnecessary index.ts files exporting views [EPMDEDP-11202](https://jiraeu.epam.com/browse/EPMDEDP-11202)
+
+### Routine
+
+- Updates headlamp docker tag [EPMDEDP-11185](https://jiraeu.epam.com/browse/EPMDEDP-11185)
+
+
 <a name="v0.2.1"></a>
 ## [v0.2.1] - 2022-12-13
 ### Features
@@ -208,6 +221,7 @@
 - Update changelog [EPMDEDP-10150](https://jiraeu.epam.com/browse/EPMDEDP-10150)
 
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.2.2...HEAD
+[v0.2.2]: https://github.com/epam/edp-headlamp/compare/v0.2.1...v0.2.2
 [v0.2.1]: https://github.com/epam/edp-headlamp/compare/v0.2.0...v0.2.1
 [v0.2.0]: https://github.com/epam/edp-headlamp/compare/v0.1.0...v0.2.0
