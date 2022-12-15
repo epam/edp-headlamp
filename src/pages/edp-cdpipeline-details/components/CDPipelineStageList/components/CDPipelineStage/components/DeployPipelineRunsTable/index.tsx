@@ -1,4 +1,4 @@
-import ErrorBoundary from '../../../../../../../../components/ErrorBoundary/view';
+import ErrorBoundary from '../../../../../../../../components/ErrorBoundary';
 import { HeadlampSimpleTable } from '../../../../../../../../components/HeadlampSimpleTable';
 import { React } from '../../../../../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';

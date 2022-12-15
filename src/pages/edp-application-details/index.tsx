@@ -4,7 +4,7 @@ import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
 import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICONS } from '../../constants/icons';
-import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
+import { streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { APPLICATIONS_ROUTE_NAME } from '../../routes/names';
@@ -60,11 +60,7 @@ export const EDPApplicationDetails = (): React.ReactElement => {
                                 <CodebaseMetadataTable codebaseData={application} />
                             </Grid>
                             <Grid item>
-                                <CodebaseActions
-                                    kubeObject={EDPCodebaseKubeObject}
-                                    kubeObjectData={application}
-                                    isDetailsPage
-                                />
+                                <CodebaseActions kubeObjectData={application} isDetailsPage />
                             </Grid>
                         </Grid>
                     </div>
@@ -77,7 +73,7 @@ export const EDPApplicationDetails = (): React.ReactElement => {
                             <CodebaseBranchesList codebaseData={application} />
                         </Grid>
                         <Grid item xs={12} lg={4}>
-                            <CodebaseGeneralInfoTable kubeObjectData={application} />
+                            <CodebaseGeneralInfoTable codebaseData={application} />
                             <CodebaseAdvancedInfoTable kubeObjectData={application} />
                         </Grid>
                     </Grid>

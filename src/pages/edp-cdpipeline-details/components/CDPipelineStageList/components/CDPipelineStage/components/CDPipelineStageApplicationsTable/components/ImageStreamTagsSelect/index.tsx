@@ -5,11 +5,11 @@ import { EnrichedApplication } from '../../../../../../../../../../hooks/useAppl
 import { useRequest } from '../../../../../../../../../../hooks/useRequest';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/Application/types';
 import { MuiCore, React } from '../../../../../../../../../../plugin.globals';
-import { CDPipelineDataContext } from '../../../../../../../../view';
+import { CDPipelineDataContext } from '../../../../../../../../index';
 import {
     CDPipelineStagesDataContext,
     CurrentCDPipelineStageDataContext,
-} from '../../../../../../view';
+} from '../../../../../../index';
 import { useApplicationCRUD } from './hooks/useApplicationCRUD';
 import { useImageStreamBasedOnResources } from './hooks/useImageStreamBasedOnResources';
 

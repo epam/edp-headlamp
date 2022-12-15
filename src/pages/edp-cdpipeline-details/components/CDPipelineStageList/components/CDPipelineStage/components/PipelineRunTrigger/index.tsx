@@ -6,8 +6,8 @@ import { useRequest } from '../../../../../../../../hooks/useRequest';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../../k8s/PipelineRun/types';
 import { MuiCore, React } from '../../../../../../../../plugin.globals';
 import { createRandomFiveSymbolString } from '../../../../../../../../utils/createRandomFiveSymbolString';
-import { CDPipelineDataContext } from '../../../../../../view';
-import { CurrentCDPipelineStageDataContext } from '../../../../view';
+import { CDPipelineDataContext } from '../../../../../../index';
+import { CurrentCDPipelineStageDataContext } from '../../../../index';
 import {
     createDeployPipelineRunProps,
     useCreateDeployPipelineRun,

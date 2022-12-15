@@ -1,5 +1,5 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 
 export interface CodebaseGeneralInfoTableProps {
-    kubeObjectData: EDPKubeObjectInterface;
+    codebaseData: EDPCodebaseKubeObjectInterface;
 }

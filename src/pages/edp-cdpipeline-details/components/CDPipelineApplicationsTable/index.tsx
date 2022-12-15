@@ -1,7 +1,7 @@
-import ErrorBoundary from '../../../../components/ErrorBoundary/view';
+import ErrorBoundary from '../../../../components/ErrorBoundary';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
-import { ApplicationsContext } from '../../view';
+import { ApplicationsContext } from '../../index';
 import { useColumns } from './hooks/useColumns';
 
 const { Box } = MuiCore;

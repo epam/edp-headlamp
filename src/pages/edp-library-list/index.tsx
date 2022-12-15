@@ -1,12 +1,12 @@
 import { CreateCodebase } from '../../components/CreateCodebase';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
-import { LibraryList } from '../../components/LibraryList';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { useNamespace } from '../../hooks/useNamespace';
 import { streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { pluginLib, React } from '../../plugin.globals';
+import { LibraryList } from './LibraryList';
 
 const {
     CommonComponents: { SectionBox, SectionFilterHeader },

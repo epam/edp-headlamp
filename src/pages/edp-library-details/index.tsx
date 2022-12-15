@@ -3,9 +3,9 @@ import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfo
 import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
 import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
-import ErrorBoundary from '../../components/ErrorBoundary/view';
+import ErrorBoundary from '../../components/ErrorBoundary';
 import { ICONS } from '../../constants/icons';
-import { EDPCodebaseKubeObject, streamCodebase } from '../../k8s/EDPCodebase';
+import { streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, React, ReactRouter } from '../../plugin.globals';
 import { pluginLib } from '../../plugin.globals';
@@ -59,11 +59,7 @@ export const EDPLibraryDetails = (): React.ReactElement => {
                                 <CodebaseMetadataTable codebaseData={library} />
                             </Grid>
                             <Grid item>
-                                <CodebaseActions
-                                    kubeObject={EDPCodebaseKubeObject}
-                                    kubeObjectData={library}
-                                    isDetailsPage
-                                />
+                                <CodebaseActions kubeObjectData={library} isDetailsPage />
                             </Grid>
                         </Grid>
                     </div>
@@ -75,7 +71,7 @@ export const EDPLibraryDetails = (): React.ReactElement => {
                         <CodebaseBranchesList codebaseData={library} />
                     </Grid>
                     <Grid item xs={12} lg={4}>
-                        <CodebaseGeneralInfoTable kubeObjectData={library} />
+                        <CodebaseGeneralInfoTable codebaseData={library} />
                         <CodebaseAdvancedInfoTable kubeObjectData={library} />
                     </Grid>
                 </Grid>

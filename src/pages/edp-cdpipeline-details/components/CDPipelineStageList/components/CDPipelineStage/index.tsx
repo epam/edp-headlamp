@@ -12,8 +12,8 @@ import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRu
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
-import { ApplicationsContext, CDPipelineDataContext } from '../../../../view';
-import { CurrentCDPipelineStageDataContext } from '../../view';
+import { ApplicationsContext, CDPipelineDataContext } from '../../../../index';
+import { CurrentCDPipelineStageDataContext } from '../../index';
 import { CDPipelineStageApplicationsTable } from './components/CDPipelineStageApplicationsTable';
 import { useColumns as useDeployPipelineRunsColumns } from './components/DeployPipelineRunsTable/hooks/useColumns';
 import { PipelineRunTrigger } from './components/PipelineRunTrigger';

@@ -1,5 +1,4 @@
 import { CUSTOM_RESOURCE_STATUSES } from '../../../constants/statuses';
-import { EDPCDPipelineKubeObject } from '../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../k8s/EDPCDPipeline/types';
 import { pluginLib, React } from '../../../plugin.globals';
 import { CDPIPELINES_ROUTE_NAME } from '../../../routes/names';
@@ -54,12 +53,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
             },
             {
                 label: '',
-                getter: kubeObjectData => (
-                    <CDPipelineActions
-                        kubeObject={EDPCDPipelineKubeObject}
-                        kubeObjectData={kubeObjectData}
-                    />
-                ),
+                getter: kubeObjectData => <CDPipelineActions kubeObjectData={kubeObjectData} />,
             },
         ],
         []
