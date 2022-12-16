@@ -2,6 +2,9 @@
 ## [Unreleased]
 
 
+<a name="v0.3.0"></a>
+## [v0.3.0] - 0001-01-01
+
 <a name="v0.2.2"></a>
 ## [v0.2.2] - 2022-12-15
 ### Features
@@ -221,7 +224,8 @@
 - Update changelog [EPMDEDP-10150](https://jiraeu.epam.com/browse/EPMDEDP-10150)
 
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.3.0...HEAD
+[v0.3.0]: https://github.com/epam/edp-headlamp/compare/v0.2.2...v0.3.0
 [v0.2.2]: https://github.com/epam/edp-headlamp/compare/v0.2.1...v0.2.2
 [v0.2.1]: https://github.com/epam/edp-headlamp/compare/v0.2.0...v0.2.1
 [v0.2.0]: https://github.com/epam/edp-headlamp/compare/v0.1.0...v0.2.0
