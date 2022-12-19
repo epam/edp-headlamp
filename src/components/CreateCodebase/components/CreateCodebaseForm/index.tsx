@@ -2,8 +2,11 @@ import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { useGitServers } from '../../../../hooks/useGitServers';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
+import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
@@ -47,6 +50,8 @@ const a11yProps = (index: any) => {
 
 const TAB_INDEXES_LAST_INDEX = Object.keys(TAB_INDEXES).length - 1;
 
+export const GitServersDataContext = React.createContext<EDPGitServerKubeObjectInterface[]>(null);
+
 export const CreateCodebaseForm = ({
     type,
     editorOpen,
@@ -65,7 +70,10 @@ export const CreateCodebaseForm = ({
     );
 
     const { names } = useNames({ type });
-    const { baseDefaultValues } = useDefaultValues({ names, type });
+    const { namespace } = useNamespace();
+    const { gitServers } = useGitServers({ namespace });
+
+    const { baseDefaultValues } = useDefaultValues({ names, type, gitServers });
 
     const [formValues, setFormValues] =
         React.useState<DeepPartial<EDPCodebaseKubeObjectInterface>>(baseDefaultValues);
@@ -236,27 +244,29 @@ export const CreateCodebaseForm = ({
                             className={classes.tabPanel}
                         >
                             <div className={classes.tabPanelInner}>
-                                <Render condition={type === CODEBASE_TYPES['APPLICATION']}>
-                                    <ApplicationCodebaseInfoFormPart
-                                        type={type}
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                    />
-                                </Render>
-                                <Render condition={type === CODEBASE_TYPES['LIBRARY']}>
-                                    <LibraryCodebaseInfoFormPart
-                                        type={type}
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                    />
-                                </Render>
-                                <Render condition={type === CODEBASE_TYPES['AUTOTEST']}>
-                                    <AutotestCodebaseInfoFormPart
-                                        type={type}
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                    />
-                                </Render>
+                                <GitServersDataContext.Provider value={gitServers}>
+                                    <Render condition={type === CODEBASE_TYPES['APPLICATION']}>
+                                        <ApplicationCodebaseInfoFormPart
+                                            type={type}
+                                            names={names}
+                                            handleFormFieldChange={handleFormFieldChange}
+                                        />
+                                    </Render>
+                                    <Render condition={type === CODEBASE_TYPES['LIBRARY']}>
+                                        <LibraryCodebaseInfoFormPart
+                                            type={type}
+                                            names={names}
+                                            handleFormFieldChange={handleFormFieldChange}
+                                        />
+                                    </Render>
+                                    <Render condition={type === CODEBASE_TYPES['AUTOTEST']}>
+                                        <AutotestCodebaseInfoFormPart
+                                            type={type}
+                                            names={names}
+                                            handleFormFieldChange={handleFormFieldChange}
+                                        />
+                                    </Render>
+                                </GitServersDataContext.Provider>
                             </div>
                         </TabPanel>
                         <TabPanel

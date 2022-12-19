@@ -1,7 +1,11 @@
 import { useFormContext } from 'react-hook-form';
 import { getCreationStrategySelectOptionsByCodebaseType } from '../../../../configs/select-options/creationStrategies';
+import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
+import { GIT_SERVERS } from '../../../../constants/gitServers';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
+import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
+import { GitServersDataContext } from '../../../CreateCodebase/components/CreateCodebaseForm';
 import { FormSelect } from '../../../FormComponents';
 import { StrategyProps } from './types';
 
@@ -12,7 +16,41 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
         register,
         control,
         formState: { errors },
+        setValue,
     } = useFormContext();
+
+    const gitServers = React.useContext(GitServersDataContext);
+
+    const hasGerritGitServer = React.useMemo(() => {
+        if (!gitServers) {
+            return true;
+        }
+
+        return !!gitServers.find(el => el.spec.gitProvider === GIT_SERVERS['GERRIT']);
+    }, [gitServers]);
+
+    const strategyOptions = React.useMemo(
+        () =>
+            hasGerritGitServer
+                ? getCreationStrategySelectOptionsByCodebaseType(type)
+                : [
+                      {
+                          label: capitalizeFirstLetter(CODEBASE_CREATION_STRATEGIES['IMPORT']),
+                          value: CODEBASE_CREATION_STRATEGIES['IMPORT'],
+                      },
+                  ],
+        [hasGerritGitServer, type]
+    );
+
+    React.useEffect(() => {
+        if (!hasGerritGitServer) {
+            setValue(names.strategy.name, CODEBASE_CREATION_STRATEGIES['IMPORT']);
+            handleFormFieldChange({
+                name: names.strategy.name,
+                value: CODEBASE_CREATION_STRATEGIES['IMPORT'],
+            });
+        }
+    }, [handleFormFieldChange, hasGerritGitServer, names, setValue]);
 
     return (
         <Grid item xs={12}>
@@ -27,7 +65,7 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
                 title={'Create a new application or use an existing one'}
                 control={control}
                 errors={errors}
-                options={getCreationStrategySelectOptionsByCodebaseType(type)}
+                options={strategyOptions}
             />
         </Grid>
     );

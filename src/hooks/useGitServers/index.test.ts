@@ -44,7 +44,7 @@ describe('testing useGitServers hook', () => {
         const { result, waitForNextUpdate } = renderHook(() => useGitServers(useGitServersProps));
 
         await waitForNextUpdate();
-        await expect(result.current.gitServers).toHaveLength(0);
+        await expect(result.current.gitServers).toBeNull();
         await expect(result.current.error).toEqual({ status: 'Failure' });
     });
 });

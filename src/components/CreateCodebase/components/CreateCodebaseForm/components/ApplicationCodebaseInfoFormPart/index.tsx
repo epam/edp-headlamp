@@ -1,6 +1,4 @@
 import { useFormContext } from 'react-hook-form';
-import { useGitServers } from '../../../../../../hooks/useGitServers';
-import { useNamespace } from '../../../../../../hooks/useNamespace';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary';
 import {
@@ -13,6 +11,7 @@ import {
     Strategy,
 } from '../../../../../FormFields/CodebaseFields';
 import { useUpdateFieldsDependingOnChosenIntegrationStrategy } from '../../hooks/useUpdateFieldsDependingOnChosenIntegrationStrategy';
+import { GitServersDataContext } from '../../index';
 import { isCloneStrategy, isImportStrategy } from '../../utils';
 import { ApplicationCodebaseInfoFormPartProps } from './types';
 
@@ -27,11 +26,10 @@ export const ApplicationCodebaseInfoFormPart = ({
 
     const strategyFieldValue = watch(names.strategy.name);
     const hasCodebaseAuthFieldValue = watch(names.hasCodebaseAuth.name);
-    const { namespace } = useNamespace();
-    const { gitServers } = useGitServers({ namespace });
+    const gitServers = React.useContext(GitServersDataContext);
 
     const gitServersNames = React.useMemo(
-        () => gitServers.map(({ metadata: { name } }) => name),
+        () => (gitServers ? gitServers.map(({ metadata: { name } }) => name) : []),
         [gitServers]
     );
 

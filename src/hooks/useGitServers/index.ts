@@ -9,7 +9,7 @@ interface UseGitServerProps {
 export const useGitServers = ({
     namespace,
 }: UseGitServerProps): { gitServers: EDPGitServerKubeObjectInterface[]; error: Error } => {
-    const [gitServers, setGitServers] = React.useState<EDPGitServerKubeObjectInterface[]>([]);
+    const [gitServers, setGitServers] = React.useState<EDPGitServerKubeObjectInterface[]>(null);
     const [error, setError] = React.useState<Error>(null);
 
     React.useEffect(() => {
