@@ -49,9 +49,9 @@ export const CodebaseBranchActions = ({
 
     const { gitServers } = useGitServers({ namespace });
 
-    const [gitServerByCodebase] = gitServers.filter(
-        el => el.metadata.name === codebase.spec.gitServer
-    );
+    const gitServerByCodebase = gitServers
+        ? gitServers.filter(el => el.metadata.name === codebase.spec.gitServer)?.[0]
+        : null;
 
     const { createBuildPipelineRun } = useCreateBuildPipelineRun();
 
