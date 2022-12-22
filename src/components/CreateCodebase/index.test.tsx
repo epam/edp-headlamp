@@ -19,7 +19,6 @@ describe('CreateCodebase', () => {
     describe('codebase type - application', () => {
         it('should render correctly', async () => {
             const props: CreateCodebaseProps = {
-                type: 'application',
                 createDialogOpen: true,
                 setCreateDialogOpen: () => {},
                 onClose: () => {},
@@ -51,7 +50,6 @@ describe('CreateCodebase', () => {
     describe('codebase type - library', () => {
         it('should render correctly', async () => {
             const props: CreateCodebaseProps = {
-                type: 'library',
                 createDialogOpen: true,
                 setCreateDialogOpen: () => {},
                 onClose: () => {},
@@ -83,7 +81,6 @@ describe('CreateCodebase', () => {
     describe('codebase type - autotest', () => {
         it('should render correctly', async () => {
             const props: CreateCodebaseProps = {
-                type: 'autotest',
                 createDialogOpen: true,
                 setCreateDialogOpen: () => {},
                 onClose: () => {},

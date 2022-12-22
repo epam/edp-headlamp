@@ -11,13 +11,16 @@ import { StrategyProps } from './types';
 
 const { Grid } = MuiCore;
 
-export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) => {
+export const Strategy = ({ names, handleFormFieldChange }: StrategyProps) => {
     const {
         register,
         control,
         formState: { errors },
         setValue,
+        watch,
     } = useFormContext();
+
+    const typeFieldValue = watch(names.type.name);
 
     const gitServers = React.useContext(GitServersDataContext);
 
@@ -32,14 +35,14 @@ export const Strategy = ({ names, handleFormFieldChange, type }: StrategyProps) 
     const strategyOptions = React.useMemo(
         () =>
             hasGerritGitServer
-                ? getCreationStrategySelectOptionsByCodebaseType(type)
+                ? getCreationStrategySelectOptionsByCodebaseType(typeFieldValue)
                 : [
                       {
                           label: capitalizeFirstLetter(CODEBASE_CREATION_STRATEGIES['IMPORT']),
                           value: CODEBASE_CREATION_STRATEGIES['IMPORT'],
                       },
                   ],
-        [hasGerritGitServer, type]
+        [hasGerritGitServer, typeFieldValue]
     );
 
     React.useEffect(() => {

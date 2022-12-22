@@ -2,25 +2,21 @@ import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { GIT_SERVERS } from '../../../../constants/gitServers';
 import { useGitServers } from '../../../../hooks/useGitServers';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
-import { FieldEventTarget } from '../../../../types/forms';
+import { FieldEventTarget, FormNameObject } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { Render } from '../../../Render';
-import { ApplicationAdvancedSettingsFormPart } from './components/ApplicationAdvancedSettingsFormPart';
-import { ApplicationCodebaseInfoFormPart } from './components/ApplicationCodebaseInfoFormPart';
-import { ApplicationCodebaseTypeInfoFormPart } from './components/ApplicationCodebaseTypeInfoFormPart';
-import { AutotestAdvancedSettingsFormPart } from './components/AutotestAdvancedSettingsFormPart';
-import { AutotestCodebaseInfoFormPart } from './components/AutotestCodebaseInfoFormPart';
-import { AutotestCodebaseTypeInfoFormPart } from './components/AutotestCodebaseTypeInfoFormPart';
-import { LibraryAdvancedSettingsFormPart } from './components/LibraryAdvancedSettingsFormPart';
-import { LibraryCodebaseInfoFormPart } from './components/LibraryCodebaseInfoFormPart';
-import { LibraryCodebaseTypeInfoFormPart } from './components/LibraryCodebaseTypeInfoFormPart';
+import { CodebaseAuthData } from '../../types';
+import { AdvancedSettings } from './components/AdvancedSettings';
+import { CodebaseInfo } from './components/CodebaseInfo';
+import { CodebaseTypeInfo } from './components/CodebaseTypeInfo';
 import { TabPanel } from './components/TabPanel';
 import {
     FORM_PART_ADVANCED_SETTINGS,
@@ -30,8 +26,8 @@ import {
 } from './constants';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
-import { useNames } from './hooks/useNames';
-import { CODEBASE_BACKWARDS_NAME_MAPPING } from './names';
+import { useUpdateFieldsDependingOnCodebaseType } from './hooks/useUpdateFieldsDependingOnCodebaseType';
+import { CODEBASE_BACKWARDS_NAME_MAPPING, CODEBASE_NAMES as names } from './names';
 import { useStyles } from './styles';
 import { CreateCodebaseFormProps } from './types';
 
@@ -51,9 +47,17 @@ const a11yProps = (index: any) => {
 const TAB_INDEXES_LAST_INDEX = Object.keys(TAB_INDEXES).length - 1;
 
 export const GitServersDataContext = React.createContext<EDPGitServerKubeObjectInterface[]>(null);
+export const FormDataContext = React.createContext<{
+    formValues: any;
+    names: {
+        [key: string]: FormNameObject;
+    };
+    handleFormFieldChange: ({ name, value }: FieldEventTarget) => void;
+    setType: React.Dispatch<React.SetStateAction<CODEBASE_TYPES>>;
+}>(null);
 
 export const CreateCodebaseForm = ({
-    type,
+    setType,
     editorOpen,
     setEditorOpen,
     handleApply,
@@ -69,18 +73,22 @@ export const CreateCodebaseForm = ({
         TAB_INDEXES[FORM_PART_CODEBASE_INFO]
     );
 
-    const { names } = useNames({ type });
     const { namespace } = useNamespace();
     const { gitServers } = useGitServers({ namespace });
+    const hasGerritGitServer = React.useMemo(() => {
+        if (!gitServers) {
+            return true;
+        }
 
-    const { baseDefaultValues } = useDefaultValues({ names, type, gitServers });
+        return !!gitServers.find(el => el.spec.gitProvider === GIT_SERVERS['GERRIT']);
+    }, [gitServers]);
+
+    const { baseDefaultValues } = useDefaultValues({ names, hasGerritGitServer });
 
     const [formValues, setFormValues] =
         React.useState<DeepPartial<EDPCodebaseKubeObjectInterface>>(baseDefaultValues);
-    const [codebaseAuthData, setCodebaseAuthData] = React.useState<{
-        repositoryLogin: string;
-        repositoryPasswordOrApiToken: string;
-    }>({
+
+    const [codebaseAuthData, setCodebaseAuthData] = React.useState<CodebaseAuthData>({
         repositoryLogin: '',
         repositoryPasswordOrApiToken: '',
     });
@@ -103,55 +111,52 @@ export const CreateCodebaseForm = ({
         formState: { isDirty },
         trigger,
         setValue,
+        watch,
     } = methods;
 
-    const getFirstErrorTabName = React.useCallback(
-        errors => {
-            const [firstErrorFieldName] = Object.keys(errors);
-            return names[firstErrorFieldName].formPart;
-        },
-        [names]
-    );
+    const typeFieldValue = watch(names.type.name);
 
-    const handleFormFieldChange = React.useCallback(
-        ({ name, value }: FieldEventTarget) => {
-            setCodebaseAuthData(prev => {
-                if (Object.hasOwn(names[name], 'notUsedInFormData') && name === 'repositoryLogin') {
-                    return {
-                        ...prev,
-                        repositoryLogin: value,
-                    };
-                }
+    const getFirstErrorTabName = React.useCallback(errors => {
+        const [firstErrorFieldName] = Object.keys(errors);
+        return names[firstErrorFieldName].formPart;
+    }, []);
 
-                if (
-                    Object.hasOwn(names[name], 'notUsedInFormData') &&
-                    name === 'repositoryPasswordOrApiToken'
-                ) {
-                    return {
-                        ...prev,
-                        repositoryPasswordOrApiToken: value,
-                    };
-                }
-
-                return prev;
-            });
-            setFormValues(prev => {
-                if (Object.hasOwn(names[name], 'notUsedInFormData')) {
-                    return prev;
-                }
-
-                if (value === undefined) {
-                    return lodashOmit(prev, name);
-                }
-
+    const handleFormFieldChange = React.useCallback(({ name, value }: FieldEventTarget) => {
+        setCodebaseAuthData(prev => {
+            if (Object.hasOwn(names[name], 'notUsedInFormData') && name === 'repositoryLogin') {
                 return {
                     ...prev,
-                    [name]: value,
+                    repositoryLogin: value,
                 };
-            });
-        },
-        [names]
-    );
+            }
+
+            if (
+                Object.hasOwn(names[name], 'notUsedInFormData') &&
+                name === 'repositoryPasswordOrApiToken'
+            ) {
+                return {
+                    ...prev,
+                    repositoryPasswordOrApiToken: value,
+                };
+            }
+
+            return prev;
+        });
+        setFormValues(prev => {
+            if (Object.hasOwn(names[name], 'notUsedInFormData')) {
+                return prev;
+            }
+
+            if (value === undefined) {
+                return lodashOmit(prev, name);
+            }
+
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }, []);
 
     const handleResetFields = React.useCallback(() => {
         setFormValues(baseDefaultValues);
@@ -167,7 +172,7 @@ export const CreateCodebaseForm = ({
         resetField,
     });
 
-    const { editorReturnValues } = useEditorCode({ names, formValues, type });
+    const { editorReturnValues } = useEditorCode({ names, formValues, type: typeFieldValue });
 
     const onEditorSave = React.useCallback(
         (editorPropsObject: EDPCodebaseKubeObjectInterface) => {
@@ -202,7 +207,15 @@ export const CreateCodebaseForm = ({
         if (hasNoErrors) {
             setActiveTabIdx(activeTabIdx + 1);
         }
-    }, [activeTabFormPartName, activeTabIdx, names, trigger]);
+    }, [activeTabFormPartName, activeTabIdx, trigger]);
+
+    useUpdateFieldsDependingOnCodebaseType({
+        watch,
+        names,
+        setValue,
+        handleFormFieldChange,
+        hasGerritGitServer,
+    });
 
     const onSubmit = React.useCallback(() => {
         const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;
@@ -227,7 +240,7 @@ export const CreateCodebaseForm = ({
             >
                 <Tab label="Codebase info" {...a11yProps(TAB_INDEXES[FORM_PART_CODEBASE_INFO])} />
                 <Tab
-                    label={`${capitalizeFirstLetter(type)} info`}
+                    label={`${capitalizeFirstLetter(typeFieldValue)} info`}
                     {...a11yProps(TAB_INDEXES[FORM_PART_CODEBASE_TYPE_INFO])}
                 />
                 <Tab
@@ -237,94 +250,41 @@ export const CreateCodebaseForm = ({
             </Tabs>
             <div className={classes.form}>
                 <form onSubmit={handleSubmit(onSubmit, handleValidationError)}>
-                    <div className={classes.formInner}>
-                        <TabPanel
-                            value={activeTabIdx}
-                            index={TAB_INDEXES[FORM_PART_CODEBASE_INFO]}
-                            className={classes.tabPanel}
-                        >
-                            <div className={classes.tabPanelInner}>
-                                <GitServersDataContext.Provider value={gitServers}>
-                                    <Render condition={type === CODEBASE_TYPES['APPLICATION']}>
-                                        <ApplicationCodebaseInfoFormPart
-                                            type={type}
-                                            names={names}
-                                            handleFormFieldChange={handleFormFieldChange}
-                                        />
-                                    </Render>
-                                    <Render condition={type === CODEBASE_TYPES['LIBRARY']}>
-                                        <LibraryCodebaseInfoFormPart
-                                            type={type}
-                                            names={names}
-                                            handleFormFieldChange={handleFormFieldChange}
-                                        />
-                                    </Render>
-                                    <Render condition={type === CODEBASE_TYPES['AUTOTEST']}>
-                                        <AutotestCodebaseInfoFormPart
-                                            type={type}
-                                            names={names}
-                                            handleFormFieldChange={handleFormFieldChange}
-                                        />
-                                    </Render>
-                                </GitServersDataContext.Provider>
-                            </div>
-                        </TabPanel>
-                        <TabPanel
-                            value={activeTabIdx}
-                            index={TAB_INDEXES[FORM_PART_CODEBASE_TYPE_INFO]}
-                            className={classes.tabPanel}
-                        >
-                            <div className={classes.tabPanelInner}>
-                                <Render condition={type === CODEBASE_TYPES['APPLICATION']}>
-                                    <ApplicationCodebaseTypeInfoFormPart
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                        type={type}
-                                    />
-                                </Render>
-                                <Render condition={type === CODEBASE_TYPES['LIBRARY']}>
-                                    <LibraryCodebaseTypeInfoFormPart
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                        type={type}
-                                    />
-                                </Render>
-                                <Render condition={type === CODEBASE_TYPES['AUTOTEST']}>
-                                    <AutotestCodebaseTypeInfoFormPart
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                        type={type}
-                                    />
-                                </Render>
-                            </div>
-                        </TabPanel>
-                        <TabPanel
-                            value={activeTabIdx}
-                            index={TAB_INDEXES[FORM_PART_ADVANCED_SETTINGS]}
-                            className={classes.tabPanel}
-                        >
-                            <div className={classes.tabPanelInner}>
-                                <Render condition={type === CODEBASE_TYPES['APPLICATION']}>
-                                    <ApplicationAdvancedSettingsFormPart
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                    />
-                                </Render>
-                                <Render condition={type === CODEBASE_TYPES['LIBRARY']}>
-                                    <LibraryAdvancedSettingsFormPart
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                    />
-                                </Render>
-                                <Render condition={type === CODEBASE_TYPES['AUTOTEST']}>
-                                    <AutotestAdvancedSettingsFormPart
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                    />
-                                </Render>
-                            </div>
-                        </TabPanel>
-                    </div>
+                    <FormDataContext.Provider
+                        value={{ formValues, names, handleFormFieldChange, setType }}
+                    >
+                        <div className={classes.formInner}>
+                            <TabPanel
+                                value={activeTabIdx}
+                                index={TAB_INDEXES[FORM_PART_CODEBASE_INFO]}
+                                className={classes.tabPanel}
+                            >
+                                <div className={classes.tabPanelInner}>
+                                    <GitServersDataContext.Provider value={gitServers}>
+                                        <CodebaseInfo />
+                                    </GitServersDataContext.Provider>
+                                </div>
+                            </TabPanel>
+                            <TabPanel
+                                value={activeTabIdx}
+                                index={TAB_INDEXES[FORM_PART_CODEBASE_TYPE_INFO]}
+                                className={classes.tabPanel}
+                            >
+                                <div className={classes.tabPanelInner}>
+                                    <CodebaseTypeInfo />
+                                </div>
+                            </TabPanel>
+                            <TabPanel
+                                value={activeTabIdx}
+                                index={TAB_INDEXES[FORM_PART_ADVANCED_SETTINGS]}
+                                className={classes.tabPanel}
+                            >
+                                <div className={classes.tabPanelInner}>
+                                    <AdvancedSettings />
+                                </div>
+                            </TabPanel>
+                        </div>
+                    </FormDataContext.Provider>
                     <div className={classes.tabPanelActions}>
                         <Button
                             onClick={handleResetFields}

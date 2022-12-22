@@ -1,14 +1,10 @@
-import { EDPApplicationDetails } from '../pages/edp-application-details';
-import { EDPApplicationList } from '../pages/edp-application-list';
-import { EDPAutotestDetails } from '../pages/edp-autotest-details';
-import { EDPAutotestList } from '../pages/edp-autotest-list';
 import { EDPCDPipelineDetails } from '../pages/edp-cdpipeline-details';
 import { EDPCDPipelineList } from '../pages/edp-cdpipeline-list';
+import { EDPComponentDetails } from '../pages/edp-component-details';
 import { EDPComponentList } from '../pages/edp-component-list';
 import { EDPGitServerDetails } from '../pages/edp-gitserver-details';
 import { EDPGitServerList } from '../pages/edp-gitserver-list';
-import { EDPLibraryDetails } from '../pages/edp-library-details';
-import { EDPLibraryList } from '../pages/edp-library-list';
+import { EDPOverviewList } from '../pages/edp-overview-list';
 import { React } from '../plugin.globals';
 import {
     createRouteName,
@@ -16,67 +12,37 @@ import {
 } from '../utils/routes/createRouteName';
 import { createSidebarItemName } from '../utils/routes/createSidebarItemName';
 import {
-    APPLICATION_ROUTE_NAME,
-    APPLICATIONS_ROUTE_NAME,
-    AUTOTEST_ROUTE_NAME,
-    AUTOTESTS_ROUTE_NAME,
     CDPIPELINE_ROUTE_NAME,
     CDPIPELINES_ROUTE_NAME,
+    COMPONENT_ROUTE_NAME,
     COMPONENTS_ROUTE_NAME,
     GIT_SERVER_ROUTE_NAME,
     GIT_SERVERS_ROUTE_NAME,
-    LIBRARIES_ROUTE_NAME,
-    LIBRARY_ROUTE_NAME,
+    OVERVIEW_ROUTE_NAME,
 } from './names';
 
 export const List: {
     [routeName: string]: any;
 } = {
-    [LIBRARIES_ROUTE_NAME]: {
-        name: 'EDP Libraries',
-        path: createRouteName(LIBRARIES_ROUTE_NAME),
-        sidebar: createSidebarItemName(LIBRARIES_ROUTE_NAME),
-        exact: true,
-        component: () => <EDPLibraryList />,
-    },
-    [LIBRARY_ROUTE_NAME]: {
-        name: 'EDP Library',
-        path: createRouteNameBasedOnNameAndNamespace(LIBRARIES_ROUTE_NAME),
-        sidebar: createSidebarItemName(LIBRARIES_ROUTE_NAME),
-        component: () => <EDPLibraryDetails />,
-    },
-    [APPLICATIONS_ROUTE_NAME]: {
-        name: 'EDP Applications',
-        path: createRouteName(APPLICATIONS_ROUTE_NAME),
-        sidebar: createSidebarItemName(APPLICATIONS_ROUTE_NAME),
-        exact: true,
-        component: () => <EDPApplicationList />,
-    },
-    [APPLICATION_ROUTE_NAME]: {
-        name: 'EDP Application',
-        path: createRouteNameBasedOnNameAndNamespace(APPLICATIONS_ROUTE_NAME),
-        sidebar: createSidebarItemName(APPLICATIONS_ROUTE_NAME),
-        component: () => <EDPApplicationDetails />,
-    },
-    [AUTOTESTS_ROUTE_NAME]: {
-        name: 'EDP Autotests',
-        path: createRouteName(AUTOTESTS_ROUTE_NAME),
-        sidebar: createSidebarItemName(AUTOTESTS_ROUTE_NAME),
-        exact: true,
-        component: () => <EDPAutotestList />,
-    },
-    [AUTOTEST_ROUTE_NAME]: {
-        name: 'EDP Autotest',
-        path: createRouteNameBasedOnNameAndNamespace(AUTOTESTS_ROUTE_NAME),
-        sidebar: createSidebarItemName(AUTOTESTS_ROUTE_NAME),
-        component: () => <EDPAutotestDetails />,
-    },
     [COMPONENTS_ROUTE_NAME]: {
         name: 'EDP Components',
         path: createRouteName(COMPONENTS_ROUTE_NAME),
         sidebar: createSidebarItemName(COMPONENTS_ROUTE_NAME),
         exact: true,
         component: () => <EDPComponentList />,
+    },
+    [COMPONENT_ROUTE_NAME]: {
+        name: 'EDP Component',
+        path: createRouteNameBasedOnNameAndNamespace(COMPONENTS_ROUTE_NAME),
+        sidebar: createSidebarItemName(COMPONENTS_ROUTE_NAME),
+        component: () => <EDPComponentDetails />,
+    },
+    [OVERVIEW_ROUTE_NAME]: {
+        name: 'EDP Overview',
+        path: createRouteName(OVERVIEW_ROUTE_NAME),
+        sidebar: createSidebarItemName(OVERVIEW_ROUTE_NAME),
+        exact: true,
+        component: () => <EDPOverviewList />,
     },
     [CDPIPELINES_ROUTE_NAME]: {
         name: 'EDP CD Pipelines',

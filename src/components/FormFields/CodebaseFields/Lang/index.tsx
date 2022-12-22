@@ -6,16 +6,14 @@ import { LIBRARY_MAPPING } from '../../../../configs/codebase-mappings/library';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
-import { MuiCore, React } from '../../../../plugin.globals';
+import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
 import { FormRadioGroup } from '../../../FormComponents';
 import { LangProps } from './types';
 
-const { Grid } = MuiCore;
-
-export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
+export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
     const {
         register,
         control,
@@ -25,21 +23,23 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
         watch,
     } = useFormContext();
 
+    const typeFieldValue = watch(names.type.name);
+
     const codebaseMapping = React.useMemo(() => {
-        if (type === CODEBASE_TYPES['APPLICATION']) {
+        if (typeFieldValue === CODEBASE_TYPES['APPLICATION']) {
             return APPLICATION_MAPPING;
         }
 
-        if (type === CODEBASE_TYPES['LIBRARY']) {
+        if (typeFieldValue === CODEBASE_TYPES['LIBRARY']) {
             return LIBRARY_MAPPING;
         }
 
-        if (type === CODEBASE_TYPES['AUTOTEST']) {
+        if (typeFieldValue === CODEBASE_TYPES['AUTOTEST']) {
             return AUTOTEST_MAPPING;
         }
-    }, [type]);
+    }, [typeFieldValue]);
 
-    const capitalizedCodebaseType = capitalizeFirstLetter(type);
+    const capitalizedCodebaseType = capitalizeFirstLetter(typeFieldValue);
 
     const frameworkValue = watch(names.framework.name);
     const buildToolValue = watch(names.buildTool.name);
@@ -76,7 +76,7 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
                 value: CODEBASE_COMMON_LANGUAGES['OTHER'],
             });
 
-            const recommendedJenkinsAgent = getRecommendedJenkinsAgent(type, {
+            const recommendedJenkinsAgent = getRecommendedJenkinsAgent(typeFieldValue, {
                 lang: value,
                 framework: frameworkValue,
                 buildTool: buildToolValue,
@@ -97,32 +97,27 @@ export const Lang = ({ names, handleFormFieldChange, type }: LangProps) => {
             names.jenkinsSlave.name,
             resetField,
             setValue,
-            type,
+            typeFieldValue,
         ]
     );
 
     return (
-        <Grid item xs={12}>
-            <FormRadioGroup
-                {...register(names.lang.name, {
-                    required: `Select codebase language`,
-                    onChange: onLangChange,
-                })}
-                control={control}
-                errors={errors}
-                label={`${capitalizedCodebaseType} code language`}
-                options={Object.values(codebaseMapping).map(
-                    ({ language: { name, value, icon } }) => ({
-                        value,
-                        label: name,
-                        icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                        checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                        disabled:
-                            value === 'other' &&
-                            strategyValue === CODEBASE_CREATION_STRATEGIES['CREATE'],
-                    })
-                )}
-            />
-        </Grid>
+        <FormRadioGroup
+            {...register(names.lang.name, {
+                required: `Select codebase language`,
+                onChange: onLangChange,
+            })}
+            control={control}
+            errors={errors}
+            label={`${capitalizedCodebaseType} code language`}
+            options={Object.values(codebaseMapping).map(({ language: { name, value, icon } }) => ({
+                value,
+                label: name,
+                icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                disabled:
+                    value === 'other' && strategyValue === CODEBASE_CREATION_STRATEGIES['CREATE'],
+            }))}
+        />
     );
 };

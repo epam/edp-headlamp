@@ -1,5 +1,3 @@
 import { CreationFormFieldInterface } from '../../../../types/forms';
 
-export interface FrameworkProps extends CreationFormFieldInterface {
-    type: string;
-}
+export interface FrameworkProps extends CreationFormFieldInterface {}

@@ -1,15 +1,13 @@
 import { useFormContext } from 'react-hook-form';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
-import { MuiCore, React } from '../../../../plugin.globals';
+import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
 import { FormRadioGroup } from '../../../FormComponents';
 import { FrameworkProps } from './types';
 
-const { Grid } = MuiCore;
-
-export const Framework = ({ names, handleFormFieldChange, type }: FrameworkProps) => {
+export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
     const {
         register,
         control,
@@ -18,16 +16,17 @@ export const Framework = ({ names, handleFormFieldChange, type }: FrameworkProps
         watch,
     } = useFormContext();
 
-    const buildToolValue = watch(names.buildTool.name);
-    const langValue = watch(names.lang.name);
+    const buildToolFieldValue = watch(names.buildTool.name);
+    const langFieldValue = watch(names.lang.name);
+    const typeFieldValue = watch(names.type.name);
 
     const onFrameworkChange = React.useCallback(
         ({ target: { name, value } }: FieldEvent) => {
             handleFormFieldChange({ name, value });
-            const recommendedJenkinsAgent = getRecommendedJenkinsAgent(type, {
-                lang: langValue,
+            const recommendedJenkinsAgent = getRecommendedJenkinsAgent(typeFieldValue, {
+                lang: langFieldValue,
                 framework: value,
-                buildTool: buildToolValue,
+                buildTool: buildToolFieldValue,
             });
             setValue(names.jenkinsSlave.name, recommendedJenkinsAgent);
             handleFormFieldChange({
@@ -35,28 +34,36 @@ export const Framework = ({ names, handleFormFieldChange, type }: FrameworkProps
                 value: recommendedJenkinsAgent,
             });
         },
-        [buildToolValue, handleFormFieldChange, langValue, names.jenkinsSlave.name, setValue, type]
+        [
+            buildToolFieldValue,
+            handleFormFieldChange,
+            langFieldValue,
+            names.jenkinsSlave.name,
+            setValue,
+            typeFieldValue,
+        ]
     );
 
-    const { chosenLang } = useChosenCodebaseLanguage({ type, langValue });
+    const { chosenLang } = useChosenCodebaseLanguage({
+        type: typeFieldValue,
+        lang: langFieldValue,
+    });
 
     return (
-        <Grid item xs={12}>
-            <FormRadioGroup
-                {...register(names.framework.name, {
-                    required: `Select ${type} version/framework`,
-                    onChange: onFrameworkChange,
-                })}
-                control={control}
-                errors={errors}
-                label={`Language version/framework`}
-                options={Object.values(chosenLang.frameworks).map(({ name, value, icon }) => ({
-                    value,
-                    label: name,
-                    icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                    checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                }))}
-            />
-        </Grid>
+        <FormRadioGroup
+            {...register(names.framework.name, {
+                required: `Select ${typeFieldValue} version/framework`,
+                onChange: onFrameworkChange,
+            })}
+            control={control}
+            errors={errors}
+            label={`Language version/framework`}
+            options={Object.values(chosenLang.frameworks).map(({ name, value, icon }) => ({
+                value,
+                label: name,
+                icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+            }))}
+        />
     );
 };

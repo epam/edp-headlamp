@@ -111,30 +111,40 @@ export const EditCodebaseForm = ({
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.formInner}>
                         <Grid container spacing={1}>
-                            <JiraServerIntegration
-                                names={names}
-                                handleFormFieldChange={handleFormFieldChange}
-                                jiraServers={jiraServers}
-                            />
+                            <Grid item xs={12}>
+                                <JiraServerIntegration
+                                    jiraServers={jiraServers}
+                                    names={names}
+                                    handleFormFieldChange={handleFormFieldChange}
+                                />
+                            </Grid>
                             {jiraServers.length && hasJiraServerIntegrationFieldValue ? (
                                 <>
-                                    <JiraServer
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                        jiraServers={jiraServers}
-                                    />
-                                    <CommitMessagePattern
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                    />
-                                    <TicketNamePattern
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                    />
-                                    <AdvancedJiraMapping
-                                        names={names}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                    />
+                                    <Grid item xs={12}>
+                                        <JiraServer
+                                            jiraServers={jiraServers}
+                                            names={names}
+                                            handleFormFieldChange={handleFormFieldChange}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CommitMessagePattern
+                                            names={names}
+                                            handleFormFieldChange={handleFormFieldChange}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TicketNamePattern
+                                            names={names}
+                                            handleFormFieldChange={handleFormFieldChange}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <AdvancedJiraMapping
+                                            names={names}
+                                            handleFormFieldChange={handleFormFieldChange}
+                                        />
+                                    </Grid>
                                 </>
                             ) : null}
                         </Grid>

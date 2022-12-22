@@ -64,6 +64,7 @@ export const FormSelect = React.forwardRef(
                                                 error={hasError}
                                                 displayEmpty
                                                 disabled={disabled}
+                                                fullWidth
                                                 renderValue={value =>
                                                     value !== ''
                                                         ? getOptionValue(value)

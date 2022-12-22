@@ -4,10 +4,8 @@
 
 import { renderHook } from '@testing-library/react-hooks';
 import {
-    APPLICATION_NAMES,
-    AUTOTEST_NAMES,
     CODEBASE_BACKWARDS_NAME_MAPPING,
-    LIBRARY_NAMES,
+    CODEBASE_NAMES,
 } from '../../components/CreateCodebase/components/CreateCodebaseForm/names';
 import {
     CODEBASE_BRANCH_BACKWARDS_NAME_MAPPING,
@@ -87,7 +85,7 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: APPLICATION_NAMES,
+                    names: CODEBASE_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
                     handleFormFieldChange,
@@ -119,7 +117,7 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: APPLICATION_NAMES,
+                    names: CODEBASE_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
                     handleFormFieldChange,
@@ -151,7 +149,7 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: APPLICATION_NAMES,
+                    names: CODEBASE_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
                     handleFormFieldChange,
@@ -184,7 +182,7 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: LIBRARY_NAMES,
+                    names: CODEBASE_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
                     handleFormFieldChange,
@@ -217,7 +215,7 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: LIBRARY_NAMES,
+                    names: CODEBASE_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
                     handleFormFieldChange,
@@ -250,7 +248,7 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: LIBRARY_NAMES,
+                    names: CODEBASE_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
                     handleFormFieldChange,
@@ -283,7 +281,7 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: AUTOTEST_NAMES,
+                    names: CODEBASE_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
                     handleFormFieldChange,
@@ -316,7 +314,7 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: AUTOTEST_NAMES,
+                    names: CODEBASE_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
                     handleFormFieldChange,

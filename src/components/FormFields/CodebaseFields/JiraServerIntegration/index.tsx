@@ -20,7 +20,7 @@ export const JiraServerIntegration = ({
     } = useFormContext();
 
     return (
-        <>
+        <Grid container spacing={2}>
             <Render condition={jiraServers && !jiraServers.length}>
                 <Grid item xs={12}>
                     <Alert severity="info" elevation={2} variant="filled">
@@ -40,6 +40,6 @@ export const JiraServerIntegration = ({
                     disabled={!jiraServers.length}
                 />
             </Grid>
-        </>
+        </Grid>
     );
 };

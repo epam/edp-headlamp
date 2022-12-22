@@ -4,7 +4,7 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../../constants/s
 import { EnrichedApplication } from '../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../k8s/Application/types';
 import { pluginLib, React } from '../../../../../../../../../plugin.globals';
-import { APPLICATIONS_ROUTE_NAME } from '../../../../../../../../../routes/names';
+import { COMPONENTS_ROUTE_NAME } from '../../../../../../../../../routes/names';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../../../../utils/routes/createRouteName';
 import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
 
@@ -64,7 +64,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
                     return (
                         <Link
                             routeName={createRouteNameBasedOnNameAndNamespace(
-                                APPLICATIONS_ROUTE_NAME
+                                COMPONENTS_ROUTE_NAME
                             )}
                             params={{
                                 name,

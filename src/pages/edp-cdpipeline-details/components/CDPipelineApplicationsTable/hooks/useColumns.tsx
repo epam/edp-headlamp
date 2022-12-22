@@ -4,7 +4,7 @@ import { ICONS } from '../../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { EnrichedApplication } from '../../../../../hooks/useApplicationsInCDPipeline';
 import { Iconify, pluginLib, React } from '../../../../../plugin.globals';
-import { APPLICATIONS_ROUTE_NAME } from '../../../../../routes/names';
+import { COMPONENTS_ROUTE_NAME } from '../../../../../routes/names';
 import { DeepPartial } from '../../../../../types/global';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 
@@ -34,7 +34,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<DeepPartial<Enrich
                     return (
                         <Link
                             routeName={createRouteNameBasedOnNameAndNamespace(
-                                APPLICATIONS_ROUTE_NAME
+                                COMPONENTS_ROUTE_NAME
                             )}
                             params={{
                                 name,

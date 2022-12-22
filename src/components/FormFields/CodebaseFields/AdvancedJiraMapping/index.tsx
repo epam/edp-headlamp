@@ -61,7 +61,7 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
     useUpdateJiraMapping({ names, setAdvancedMapping, setAdvancedMappingRows });
 
     return (
-        <>
+        <Grid container spacing={2}>
             <Grid item xs={12}>
                 <Grid container spacing={2}>
                     <Grid item xs={10}>
@@ -160,6 +160,6 @@ export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJi
                     </Render>
                 </Grid>
             </Grid>
-        </>
+        </Grid>
     );
 };

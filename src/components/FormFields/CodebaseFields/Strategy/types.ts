@@ -1,5 +1,3 @@
 import { CreationFormFieldInterface } from '../../../../types/forms';
 
-export interface StrategyProps extends CreationFormFieldInterface {
-    type: string;
-}
+export interface StrategyProps extends CreationFormFieldInterface {}

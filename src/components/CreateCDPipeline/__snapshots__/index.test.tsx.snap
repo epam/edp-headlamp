@@ -216,7 +216,7 @@ exports[`CreateCDPipeline should render correctly 1`] = `
                             class="MuiFormControl-root MuiFormControl-fullWidth"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
                             >
                               <div
                                 aria-haspopup="listbox"
@@ -307,7 +307,7 @@ exports[`CreateCDPipeline should render correctly 1`] = `
                                 class="MuiFormControl-root MuiFormControl-fullWidth"
                               >
                                 <div
-                                  class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-17 Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl"
+                                  class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-17 Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
                                 >
                                   <div
                                     aria-disabled="true"

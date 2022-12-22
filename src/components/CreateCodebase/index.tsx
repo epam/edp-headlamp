@@ -1,3 +1,4 @@
+import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { ICONS } from '../../constants/icons';
 import { useRequest } from '../../hooks/useRequest';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
@@ -13,13 +14,12 @@ const { Dialog, DialogContent, Typography, Button } = MuiCore;
 const { Icon } = Iconify;
 
 export const CreateCodebase = ({
-    type,
     createDialogOpen,
     onClose,
     setCreateDialogOpen,
 }: CreateCodebaseProps): React.ReactElement => {
     const classes = useStyles();
-
+    const [type, setType] = React.useState<CODEBASE_TYPES>(CODEBASE_TYPES['APPLICATION']);
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
 
     const { createCodebase } = useCreateCodebase(
@@ -87,7 +87,7 @@ export const CreateCodebase = ({
                 </div>
                 <DialogContent className={classes.dialogContent}>
                     <CreateCodebaseForm
-                        type={type}
+                        setType={setType}
                         editorOpen={editorOpen}
                         setEditorOpen={setEditorOpen}
                         handleApply={handleApply}

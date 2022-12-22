@@ -4,7 +4,7 @@ import { FieldEvent } from '../../../../types/forms';
 import { FormTextField } from '../../../FormComponents';
 import { GitUrlPathProps } from './types';
 
-const { Grid, InputAdornment } = MuiCore;
+const { InputAdornment } = MuiCore;
 
 // relative path should always start with slash
 
@@ -18,30 +18,28 @@ export const GitUrlPath = ({ names, handleFormFieldChange }: GitUrlPathProps) =>
     } = useFormContext();
 
     return (
-        <Grid item xs={12}>
-            <FormTextField
-                {...register(names.gitUrlPath.name, {
-                    required: 'Enter relative path to repository.',
-                    pattern: {
-                        value: /^.*$/,
-                        message: 'Enter valid relative path to repository',
-                    },
-                    onBlur: ({ target: { name, value } }: FieldEvent) =>
-                        handleFormFieldChange({
-                            name,
-                            value: value ? `${slashSymbol}${value}` : undefined,
-                        }),
-                })}
-                label={'Relative path'}
-                placeholder={
-                    'First type a forward slash "/", then type the relative path to the repository'
-                }
-                control={control}
-                errors={errors}
-                InputProps={{
-                    startAdornment: <InputAdornment position="start">{slashSymbol}</InputAdornment>,
-                }}
-            />
-        </Grid>
+        <FormTextField
+            {...register(names.gitUrlPath.name, {
+                required: 'Enter relative path to repository.',
+                pattern: {
+                    value: /^.*$/,
+                    message: 'Enter valid relative path to repository',
+                },
+                onBlur: ({ target: { name, value } }: FieldEvent) =>
+                    handleFormFieldChange({
+                        name,
+                        value: value ? `${slashSymbol}${value}` : undefined,
+                    }),
+            })}
+            label={'Relative path'}
+            placeholder={
+                'First type a forward slash "/", then type the relative path to the repository'
+            }
+            control={control}
+            errors={errors}
+            InputProps={{
+                startAdornment: <InputAdornment position="start">{slashSymbol}</InputAdornment>,
+            }}
+        />
     );
 };

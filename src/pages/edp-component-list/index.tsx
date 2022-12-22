@@ -1,23 +1,26 @@
+import ComponentFilterHeader from '../../components/ComponentFilterHeader';
+import { CreateCodebase } from '../../components/CreateCodebase';
+import { CreateKubeObject } from '../../components/CreateKubeObject';
+import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { useNamespace } from '../../hooks/useNamespace';
-import { streamEDPComponents } from '../../k8s/EDPComponent';
-import { EDPComponentKubeObjectInterface } from '../../k8s/EDPComponent/types';
+import { streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { pluginLib, React } from '../../plugin.globals';
-import { rem } from '../../utils/styling/rem';
-import { Table } from './components/Table';
+import { ComponentList } from './components/ComponentList';
 
-const { CommonComponents } = pluginLib;
-const { SectionBox, SectionFilterHeader } = CommonComponents;
+const {
+    CommonComponents: { SectionBox },
+} = pluginLib;
 
 export const EDPComponentList = (): React.ReactElement => {
     const { namespace } = useNamespace();
-
-    const [EDPComponents, setEDPComponents] = React.useState<EDPComponentKubeObjectInterface[]>([]);
+    const [components, setComponents] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
     const [, setError] = React.useState<Error>(null);
+    const [type, setType] = React.useState<CODEBASE_TYPES>(CODEBASE_TYPES['APPLICATION']);
 
-    const handleStoreEDPComponents = React.useCallback(
-        (EDPComponents: EDPComponentKubeObjectInterface[]) => {
-            const filteredEDPComponents = EDPComponents.filter(el => el.spec.visible);
-            setEDPComponents(filteredEDPComponents);
+    const handleStoreComponents = React.useCallback(
+        (components: EDPCodebaseKubeObjectInterface[]) => {
+            setComponents(components);
         },
         []
     );
@@ -27,17 +30,24 @@ export const EDPComponentList = (): React.ReactElement => {
     }, []);
 
     React.useEffect(() => {
-        const cancelStream = streamEDPComponents(handleStoreEDPComponents, handleError, namespace);
+        const cancelStream = streamCodebasesByTypeLabel(
+            type,
+            handleStoreComponents,
+            handleError,
+            namespace
+        );
 
         return () => cancelStream();
-    }, [handleError, handleStoreEDPComponents, namespace]);
+    }, [handleError, handleStoreComponents, namespace, type]);
 
     return (
-        <SectionBox
-            title={<SectionFilterHeader title="Overview" headerStyle="label" noNamespaceFilter />}
-            sx={{ paddingTop: rem(20) }}
-        >
-            <Table data={EDPComponents} />
-        </SectionBox>
+        <>
+            <SectionBox title={<ComponentFilterHeader setType={setType} />}>
+                <CreateKubeObject>
+                    <CreateCodebase />
+                </CreateKubeObject>
+                <ComponentList components={components} type={type} />
+            </SectionBox>
+        </>
     );
 };

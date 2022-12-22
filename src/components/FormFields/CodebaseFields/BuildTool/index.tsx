@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { MuiCore, React } from '../../../../plugin.globals';
+import { React } from '../../../../plugin.globals';
 import { FieldEvent, SelectOption } from '../../../../types/forms';
 import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
@@ -7,9 +7,7 @@ import { FormSelect } from '../../../FormComponents';
 import { FormTextField } from '../../../FormComponents';
 import { BuildToolProps } from './types';
 
-const { Grid } = MuiCore;
-
-export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps) => {
+export const BuildTool = ({ names, handleFormFieldChange }: BuildToolProps) => {
     const {
         register,
         control,
@@ -18,15 +16,16 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
         watch,
     } = useFormContext();
 
-    const frameworkValue = watch(names.framework.name);
-    const langValue = watch(names.lang.name);
+    const frameworkFieldValue = watch(names.framework.name);
+    const langFieldValue = watch(names.lang.name);
+    const typeFieldValue = watch(names.type.name);
 
     const onBuildToolChange = React.useCallback(
         ({ target: { name, value } }: FieldEvent) => {
             handleFormFieldChange({ name, value });
-            const recommendedJenkinsAgent = getRecommendedJenkinsAgent(type, {
-                lang: langValue,
-                framework: frameworkValue,
+            const recommendedJenkinsAgent = getRecommendedJenkinsAgent(typeFieldValue, {
+                lang: langFieldValue,
+                framework: frameworkFieldValue,
                 buildTool: value,
             });
 
@@ -36,17 +35,27 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
                 value: recommendedJenkinsAgent,
             });
         },
-        [frameworkValue, handleFormFieldChange, langValue, names.jenkinsSlave.name, setValue, type]
+        [
+            frameworkFieldValue,
+            handleFormFieldChange,
+            langFieldValue,
+            names.jenkinsSlave.name,
+            setValue,
+            typeFieldValue,
+        ]
     );
 
-    const { chosenLang } = useChosenCodebaseLanguage({ type, langValue });
+    const { chosenLang } = useChosenCodebaseLanguage({
+        type: typeFieldValue,
+        lang: langFieldValue,
+    });
 
     return (
-        <Grid item xs={12}>
-            {langValue === 'other' ? (
+        <>
+            {langFieldValue === 'other' ? (
                 <FormTextField
                     {...register(names.buildTool.name, {
-                        required: `Enter ${type} build tool.`,
+                        required: `Enter ${typeFieldValue} build tool.`,
                         maxLength: {
                             value: 8,
                             message: 'You exceeded the maximum length of 8',
@@ -66,7 +75,7 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
             ) : (
                 <FormSelect
                     {...register(names.buildTool.name, {
-                        required: `Select ${type} build tool.`,
+                        required: `Select ${typeFieldValue} build tool.`,
                         maxLength: null,
                         pattern: null,
                         onChange: onBuildToolChange,
@@ -83,6 +92,6 @@ export const BuildTool = ({ names, handleFormFieldChange, type }: BuildToolProps
                     })}
                 />
             )}
-        </Grid>
+        </>
     );
 };

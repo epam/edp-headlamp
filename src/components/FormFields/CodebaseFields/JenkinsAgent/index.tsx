@@ -1,17 +1,12 @@
 import { useFormContext } from 'react-hook-form';
+import { useJenkinsAgents } from '../../../../hooks/useJenkinsAgents';
 import { useNamespace } from '../../../../hooks/useNamespace';
-import { MuiCore, React } from '../../../../plugin.globals';
+import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
-import { JenkinsSlaveProps } from './types';
+import { JenkinsAgentProps } from './types';
 
-const { Grid } = MuiCore;
-
-export const JenkinsAgent = ({
-    names,
-    handleFormFieldChange,
-    jenkinsAgents,
-}: JenkinsSlaveProps) => {
+export const JenkinsAgent = ({ names, handleFormFieldChange }: JenkinsAgentProps) => {
     const {
         register,
         control,
@@ -19,25 +14,24 @@ export const JenkinsAgent = ({
     } = useFormContext();
 
     const { namespace } = useNamespace();
+    const { jenkinsAgents } = useJenkinsAgents({ namespace });
 
     return (
-        <Grid item xs={12}>
-            <FormSelect
-                {...register(names.jenkinsSlave.name, {
-                    required: 'Select Jenkins agent',
-                    onBlur: ({ target: { name, value } }: FieldEvent) =>
-                        handleFormFieldChange({ name, value }),
-                })}
-                label={'Jenkins agent'}
-                placeholder={!namespace ? 'Select namespace first' : 'Select Jenkins agent'}
-                control={control}
-                errors={errors}
-                disabled={!namespace}
-                options={jenkinsAgents.map(el => ({
-                    label: el,
-                    value: el,
-                }))}
-            />
-        </Grid>
+        <FormSelect
+            {...register(names.jenkinsSlave.name, {
+                required: 'Select Jenkins agent',
+                onBlur: ({ target: { name, value } }: FieldEvent) =>
+                    handleFormFieldChange({ name, value }),
+            })}
+            label={'Jenkins agent'}
+            placeholder={!namespace ? 'Select namespace first' : 'Select Jenkins agent'}
+            control={control}
+            errors={errors}
+            disabled={!namespace}
+            options={jenkinsAgents.map(el => ({
+                label: el,
+                value: el,
+            }))}
+        />
     );
 };
