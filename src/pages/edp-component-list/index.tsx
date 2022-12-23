@@ -46,7 +46,7 @@ export const EDPComponentList = (): React.ReactElement => {
                 <CreateKubeObject>
                     <CreateCodebase />
                 </CreateKubeObject>
-                <ComponentList components={components} type={type} />
+                <ComponentList components={components} />
             </SectionBox>
         </>
     );

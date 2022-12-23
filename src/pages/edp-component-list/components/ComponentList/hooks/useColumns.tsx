@@ -14,9 +14,7 @@ const {
     CommonComponents: { Link },
 } = pluginLib;
 
-export const useColumns = (
-    type
-): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObjectInterface>[] =>
+export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObjectInterface>[] =>
     React.useMemo(
         () => [
             {
@@ -29,7 +27,7 @@ export const useColumns = (
                 sort: (a, b) => sortByStatus(a.status.status, b.status.status),
             },
             {
-                label: capitalizeFirstLetter(type),
+                label: 'Name',
                 getter: ({ metadata: { name, namespace } }) => {
                     return (
                         <Link
@@ -46,6 +44,10 @@ export const useColumns = (
                     );
                 },
                 sort: (a, b) => sortByName(a.metadata.name, b.metadata.name),
+            },
+            {
+                label: 'Type',
+                getter: ({ spec: { type } }) => capitalizeFirstLetter(type),
             },
             {
                 label: 'Language',
@@ -72,5 +74,5 @@ export const useColumns = (
                 getter: kubeObjectData => <CodebaseActions kubeObjectData={kubeObjectData} />,
             },
         ],
-        [type]
+        []
     );

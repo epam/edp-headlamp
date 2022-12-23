@@ -8,8 +8,8 @@ const {
     Utils: { useFilterFunc },
 } = pluginLib;
 
-export const ComponentList = ({ components, type }: ComponentListProps): React.ReactElement => {
-    const columns = useColumns(type);
+export const ComponentList = ({ components }: ComponentListProps): React.ReactElement => {
+    const columns = useColumns();
     const filterFunc = useFilterFunc();
 
     return (
