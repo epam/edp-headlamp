@@ -4,6 +4,10 @@ import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter'
 
 export const codebaseTypeSelectOptions: SelectOption[] = [
     {
+        label: capitalizeFirstLetter(CODEBASE_TYPES['ALL']),
+        value: CODEBASE_TYPES['ALL'],
+    },
+    {
         label: capitalizeFirstLetter(CODEBASE_TYPES['APPLICATION']),
         value: CODEBASE_TYPES['APPLICATION'],
     },

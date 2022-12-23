@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
-import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
-import { MuiCore, pluginLib, React, ReactRedux } from '../../plugin.globals';
-import { rem } from '../../utils/styling/rem';
-import { FormSelect, FormTextField } from '../FormComponents';
+import { FormSelect, FormTextField } from '../../../../components/FormComponents';
+import { codebaseTypeSelectOptions } from '../../../../configs/select-options/codebaseTypeSelectOptions';
+import { MuiCore, pluginLib, React, ReactRedux } from '../../../../plugin.globals';
+import { rem } from '../../../../utils/styling/rem';
+import { ComponentFilterHeaderProps } from './types';
 
 const {
     CommonComponents: { SectionHeader },
@@ -16,25 +16,24 @@ const { Box, Grid } = MuiCore;
 function setSearchFilter(searchTerms: string) {
     return { type: 'FILTER_SET_SEARCH', search: searchTerms };
 }
-export default function ComponentFilterHeader({ setType }) {
+export const ComponentFilterHeader = ({
+    setType,
+    defaultValues,
+}: ComponentFilterHeaderProps): React.ReactElement => {
     const dispatch = useDispatch();
 
-    React.useEffect(
-        () => {
-            // We don't want the search to be used globally, but we're using Redux with it because
-            // this way we manage it the same way as with the other filters.
-            return function cleanup() {
-                dispatch(setSearchFilter(''));
-            };
-        },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        []
-    );
+    React.useEffect(() => {
+        return function cleanup() {
+            dispatch(setSearchFilter(''));
+        };
+    }, [dispatch]);
+
     const {
         register,
         control,
         formState: { errors },
     } = useForm();
+
     return (
         <>
             <SectionHeader
@@ -53,7 +52,7 @@ export default function ComponentFilterHeader({ setType }) {
                                         name={'type'}
                                         label={'Type'}
                                         options={codebaseTypeSelectOptions}
-                                        defaultValue={CODEBASE_TYPES['APPLICATION']}
+                                        defaultValue={defaultValues.type}
                                     />
                                 </Grid>
                                 <Grid item>
@@ -77,4 +76,4 @@ export default function ComponentFilterHeader({ setType }) {
             />
         </>
     );
-}
+};

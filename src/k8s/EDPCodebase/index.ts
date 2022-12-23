@@ -1,3 +1,4 @@
+import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { pluginLib } from '../../plugin.globals';
 import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { streamResult } from '../common/streamResult';
@@ -58,7 +59,7 @@ export const streamCodebase = (
 };
 
 export const streamCodebasesByTypeLabel = (
-    codebaseType: string,
+    codebaseType: CODEBASE_TYPES,
     cb: (data: EDPCodebaseKubeObjectInterface[]) => void,
     errCb: (err: Error) => void,
     namespace?: string
@@ -66,9 +67,16 @@ export const streamCodebasesByTypeLabel = (
     const url = namespace
         ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
         : `/apis/${group}/${version}/${pluralForm}`;
-    return streamResults(url, cb, errCb, {
-        labelSelector: `app.edp.epam.com/codebaseType=${codebaseType}`,
-    });
+    return streamResults(
+        url,
+        cb,
+        errCb,
+        codebaseType !== CODEBASE_TYPES['ALL']
+            ? {
+                  labelSelector: `app.edp.epam.com/codebaseType=${codebaseType}`,
+              }
+            : null
+    );
 };
 
 export const getCodebasesByTypeLabel = (

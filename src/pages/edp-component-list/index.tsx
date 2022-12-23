@@ -1,4 +1,3 @@
-import ComponentFilterHeader from '../../components/ComponentFilterHeader';
 import { CreateCodebase } from '../../components/CreateCodebase';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
@@ -6,6 +5,7 @@ import { useNamespace } from '../../hooks/useNamespace';
 import { streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { pluginLib, React } from '../../plugin.globals';
+import { ComponentFilterHeader } from './components/ComponentFilterHeader';
 import { ComponentList } from './components/ComponentList';
 
 const {
@@ -16,7 +16,7 @@ export const EDPComponentList = (): React.ReactElement => {
     const { namespace } = useNamespace();
     const [components, setComponents] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
     const [, setError] = React.useState<Error>(null);
-    const [type, setType] = React.useState<CODEBASE_TYPES>(CODEBASE_TYPES['APPLICATION']);
+    const [type, setType] = React.useState<CODEBASE_TYPES>(CODEBASE_TYPES['ALL']);
 
     const handleStoreComponents = React.useCallback(
         (components: EDPCodebaseKubeObjectInterface[]) => {
@@ -42,7 +42,14 @@ export const EDPComponentList = (): React.ReactElement => {
 
     return (
         <>
-            <SectionBox title={<ComponentFilterHeader setType={setType} />}>
+            <SectionBox
+                title={
+                    <ComponentFilterHeader
+                        setType={setType}
+                        defaultValues={{ type: CODEBASE_TYPES['ALL'] }}
+                    />
+                }
+            >
                 <CreateKubeObject>
                     <CreateCodebase />
                 </CreateKubeObject>
