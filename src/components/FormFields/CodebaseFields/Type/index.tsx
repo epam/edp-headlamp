@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { codebaseTypeSelectOptions } from '../../../../configs/select-options/codebaseTypeSelectOptions';
+import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -25,7 +26,9 @@ export const Type = ({ names, handleFormFieldChange, setType }: TypeProps) => {
             placeholder={'Select a codebase type'}
             control={control}
             errors={errors}
-            options={codebaseTypeSelectOptions}
+            options={codebaseTypeSelectOptions.filter(
+                ({ value }) => value !== CODEBASE_TYPES['ALL']
+            )}
         />
     );
 };
