@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { qualityGateTypeSelectOptions } from '../../../../../../configs/select-options/qualityGateTypes';
+import { QUALITY_GATE_TYPES } from '../../../../../../constants/qualityGateTypes';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import { FormSelect } from '../../../../../FormComponents';
 import { FormTextField } from '../../../../../FormComponents';
@@ -37,7 +38,7 @@ export const QualityGateRow = ({
 
     const availableQualityGateTypeSelectOptions = React.useMemo(() => {
         return qualityGateTypeSelectOptions.map(el => {
-            if (el.value === 'autotests' && !autotests.length) {
+            if (el.value === QUALITY_GATE_TYPES['AUTOTESTS'] && !autotests.length) {
                 return {
                     ...el,
                     disabled: true,
@@ -63,7 +64,7 @@ export const QualityGateRow = ({
         event => {
             const chosenQualityGateType = event.target.value;
 
-            if (chosenQualityGateType === 'manual') {
+            if (chosenQualityGateType === QUALITY_GATE_TYPES['MANUAL']) {
                 resetField(createQualityGateAutotestFieldName(currentQualityGateData.id));
                 resetField(
                     createQualityGateTypeAutotestsBranchFieldName(currentQualityGateData.id)
@@ -76,7 +77,7 @@ export const QualityGateRow = ({
                         return qualityGate;
                     }
 
-                    if (chosenQualityGateType === 'manual') {
+                    if (chosenQualityGateType === QUALITY_GATE_TYPES['MANUAL']) {
                         return {
                             ...qualityGate,
                             autotestName: null,
@@ -210,7 +211,8 @@ export const QualityGateRow = ({
                     </Grid>
                     <Render
                         condition={
-                            !!autotests.length && currentQualityGateTypeFieldValue === 'autotests'
+                            !!autotests.length &&
+                            currentQualityGateTypeFieldValue === QUALITY_GATE_TYPES['AUTOTESTS']
                         }
                     >
                         <>
@@ -224,7 +226,7 @@ export const QualityGateRow = ({
                                             onChange: handleChangeQualityGateAutotestName,
                                         }
                                     )}
-                                    label={'Autotests'}
+                                    label={'Autotest'}
                                     placeholder={'Select autotest'}
                                     control={control}
                                     errors={errors}
@@ -244,8 +246,8 @@ export const QualityGateRow = ({
                                             onChange: handleChangeQualityGateAutotestBranchName,
                                         }
                                     )}
-                                    label={'Autotests branch'}
-                                    placeholder={'Select autotests branch'}
+                                    label={'Autotest branch'}
+                                    placeholder={'Select autotest branch'}
                                     control={control}
                                     errors={errors}
                                     disabled={!currentQualityGateBranchesOptions.length}

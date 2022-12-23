@@ -109,7 +109,7 @@ describe('testing createCodebaseExample', () => {
                 apiVersion: 'v2.edp.epam.com/v1',
                 kind: 'Codebase',
                 spec: {
-                    type: 'autotests',
+                    type: 'autotest',
                     strategy: 'clone',
                     gitServer: 'gerrit',
                     ciTool: 'jenkins',

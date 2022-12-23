@@ -6,7 +6,7 @@ export const autotestCloneStrategyEditorPropsObjectMock: DeepPartial<EDPCodebase
         apiVersion: 'v2.edp.epam.com/v1',
         kind: 'Codebase',
         spec: {
-            type: 'autotests',
+            type: 'autotest',
             strategy: 'clone',
             gitServer: 'gerrit',
             ciTool: 'jenkins',
@@ -37,7 +37,7 @@ export const autotestCloneStrategyEditorPropsObjectMock: DeepPartial<EDPCodebase
     };
 
 export const autotestCloneStrategyEditorPropsObjectMockExpectedOutput = {
-    type: 'autotests',
+    type: 'autotest',
     strategy: 'clone',
     gitServer: 'gerrit',
     ciTool: 'jenkins',

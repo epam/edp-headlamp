@@ -4,4 +4,4 @@ export const createQualityGateStepNameFieldName = (idx: number): string =>
 export const createQualityGateAutotestFieldName = (idx: number): string =>
     `quality-gate-type-autotest-${idx}`;
 export const createQualityGateTypeAutotestsBranchFieldName = (idx: number): string =>
-    `quality-gate-type-autotests-branch-${idx}`;
+    `quality-gate-type-autotest-branch-${idx}`;

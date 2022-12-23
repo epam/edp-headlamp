@@ -1,6 +1,6 @@
 import { Autotest } from '../../components/FormFields/CDPipelineStageFields/QualityGates/types';
+import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { getCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
-import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { getCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBranch';
 import { React } from '../../plugin.globals';
 
@@ -23,7 +23,7 @@ export const useAutotestsWithBranches = ({
 
                 const { items: autotests } = await getCodebasesByTypeLabel(
                     namespace,
-                    EDPCodebaseKubeObjectConfig.types.autotest.name.pluralForm
+                    CODEBASE_TYPES['AUTOTEST']
                 );
 
                 const autotestsWithBranches = await Promise.all(

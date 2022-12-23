@@ -86,30 +86,6 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
         [resetField, setNewQualityGates]
     );
 
-    React.useEffect(() => {
-        if (qualityGatesFieldValue) {
-            const newQualityGates = qualityGatesFieldValue.map(
-                ({ qualityGateType, stepName, autotestName, branchName }, idx) => {
-                    setValue(createQualityGateTypeFieldName(idx), qualityGateType);
-                    setValue(createQualityGateStepNameFieldName(idx), stepName);
-                    setValue(createQualityGateAutotestFieldName(idx), autotestName);
-                    setValue(createQualityGateTypeAutotestsBranchFieldName(idx), branchName);
-
-                    return {
-                        id: idx,
-                        qualityGateType,
-                        stepName,
-                        autotestName,
-                        branchName,
-                    };
-                }
-            );
-            setQualityGates(newQualityGates);
-        } else {
-            setQualityGates([]);
-        }
-    }, [qualityGatesFieldValue, setValue]);
-
     return (
         <>
             <Grid container spacing={2}>

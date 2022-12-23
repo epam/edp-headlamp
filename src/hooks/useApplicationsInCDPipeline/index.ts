@@ -1,5 +1,5 @@
+import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
-import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { getCodebaseImageStreams } from '../../k8s/EDPCodebaseImageStream';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../k8s/EDPCodebaseImageStream/types';
@@ -25,7 +25,7 @@ export const useApplicationsInCDPipeline = ({
 } => {
     const { applications, error: codebasesError } = useCodebasesByType({
         namespace: CDPipelineData && CDPipelineData.metadata.namespace,
-        codebaseType: EDPCodebaseKubeObjectConfig.types.application.name.singularForm,
+        codebaseType: CODEBASE_TYPES['APPLICATION'],
     });
 
     const [error, setError] = React.useState<Error>(codebasesError);

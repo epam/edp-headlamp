@@ -1,5 +1,5 @@
+import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { getCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
-import { EDPCodebaseKubeObjectConfig } from '../../k8s/EDPCodebase/config';
 import { getCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBranch';
 import { React } from '../../plugin.globals';
 import { SelectOption } from '../../types/forms';
@@ -36,7 +36,7 @@ export const useGroovyLibrariesWithTheirBranches = ({
 
                 const { items: libraries } = await getCodebasesByTypeLabel(
                     namespace,
-                    EDPCodebaseKubeObjectConfig.types.library.name.singularForm
+                    CODEBASE_TYPES['LIBRARY']
                 );
 
                 const groovyLibraries = libraries.filter(el => isGroovyLibrary(el));

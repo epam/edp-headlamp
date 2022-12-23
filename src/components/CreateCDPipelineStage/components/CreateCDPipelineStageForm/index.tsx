@@ -3,6 +3,7 @@ import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
@@ -40,9 +41,7 @@ export const CreateCDPipelineStageForm = ({
     isApplying,
 }: CreateCDPipelineStageFormProps): React.ReactElement => {
     const classes = useStyles();
-    const {
-        metadata: { namespace },
-    } = CDPipelineData;
+    const { namespace } = useNamespace();
 
     const { baseDefaultValues } = useDefaultValues({
         names: CDPIPELINE_STAGE_NAMES,

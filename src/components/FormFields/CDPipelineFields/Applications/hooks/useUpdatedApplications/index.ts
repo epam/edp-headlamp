@@ -1,5 +1,5 @@
+import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
 import { getCodebasesByTypeLabel } from '../../../../../../k8s/EDPCodebase';
-import { EDPCodebaseKubeObjectConfig } from '../../../../../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../../k8s/EDPCodebase/types';
 import { getCodebaseBranchesByCodebaseLabel } from '../../../../../../k8s/EDPCodebaseBranch';
 import { React } from '../../../../../../plugin.globals';
@@ -139,7 +139,7 @@ export const useUpdatedApplications = ({
         const fetchApplications = async (): Promise<void> => {
             const { items: codebaseList } = await getCodebasesByTypeLabel(
                 namespace,
-                EDPCodebaseKubeObjectConfig.types.application.name.singularForm
+                CODEBASE_TYPES['APPLICATION']
             );
 
             const filteredApplications = (

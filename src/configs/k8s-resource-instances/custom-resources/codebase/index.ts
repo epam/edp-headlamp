@@ -21,7 +21,7 @@ export const createCodebaseInstance = (
         apiVersion: `${group}/${version}`,
         kind,
         spec: {
-            type: type === 'autotest' ? 'autotests' : type,
+            type,
         },
         metadata: {
             name: name || `your ${type} name`,

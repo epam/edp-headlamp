@@ -6,7 +6,7 @@ export const autotestImportStrategyEditorPropsObjectMock: DeepPartial<EDPCodebas
         apiVersion: 'v2.edp.epam.com/v1',
         kind: 'Codebase',
         spec: {
-            type: 'autotests',
+            type: 'autotest',
             strategy: 'import',
             gitServer: 'gerrit',
             ciTool: 'jenkins',
@@ -35,7 +35,7 @@ export const autotestImportStrategyEditorPropsObjectMock: DeepPartial<EDPCodebas
     };
 
 export const autotestImportStrategyEditorPropsObjectMockExpectedOutput = {
-    type: 'autotests',
+    type: 'autotest',
     strategy: 'import',
     gitServer: 'gerrit',
     ciTool: 'jenkins',

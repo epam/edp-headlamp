@@ -5,7 +5,7 @@ export const codebasesMock = {
             kind: 'Codebase',
             metadata: {
                 labels: {
-                    'app.edp.epam.com/codebaseType': 'autotests',
+                    'app.edp.epam.com/codebaseType': 'autotest',
                 },
                 name: 'autotest-autotest',
                 namespace: 'edp-delivery-vp-delivery-dev',
@@ -28,7 +28,7 @@ export const codebasesMock = {
                 strategy: 'clone',
                 testReportFramework: 'allure',
                 ticketNamePattern: null,
-                type: 'autotests',
+                type: 'autotest',
                 versioning: {
                     type: 'default',
                 },
@@ -39,7 +39,7 @@ export const codebasesMock = {
             kind: 'Codebase',
             metadata: {
                 labels: {
-                    'app.edp.epam.com/codebaseType': 'autotests',
+                    'app.edp.epam.com/codebaseType': 'autotest',
                 },
                 name: 'test-autotest',
                 namespace: 'edp-delivery-vp-delivery-dev',
@@ -64,7 +64,7 @@ export const codebasesMock = {
                 strategy: 'clone',
                 testReportFramework: 'allure',
                 ticketNamePattern: 'PROJECT_NAME-\\d{4}',
-                type: 'autotests',
+                type: 'autotest',
                 versioning: {
                     type: 'default',
                 },

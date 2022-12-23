@@ -8,24 +8,4 @@ export const EDPCodebaseKubeObjectConfig: KubeObjectConfig = {
     },
     group: 'v2.edp.epam.com',
     version: 'v1',
-    types: {
-        application: {
-            name: {
-                singularForm: 'application',
-                pluralForm: 'applications',
-            },
-        },
-        library: {
-            name: {
-                singularForm: 'library',
-                pluralForm: 'libraries',
-            },
-        },
-        autotest: {
-            name: {
-                singularForm: 'autotest',
-                pluralForm: 'autotests',
-            },
-        },
-    },
 };

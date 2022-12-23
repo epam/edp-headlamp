@@ -6,7 +6,7 @@ describe('cheking isAutotest', () => {
         expect(
             isAutotest({
                 spec: {
-                    type: 'autotests',
+                    type: 'autotest',
                 },
             } as EDPCodebaseKubeObjectInterface)
         ).toBeTruthy();
