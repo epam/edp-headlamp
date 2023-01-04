@@ -38,6 +38,7 @@ export const ComponentFilterHeader = ({
         <>
             <SectionHeader
                 title={'Components'}
+                headerStyle={'label'}
                 actions={[
                     <form>
                         <Box>
