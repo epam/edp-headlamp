@@ -28,15 +28,15 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
-        'CD Pipelines',
-        CDPIPELINES_ROUTE_NAME,
-        ICONS['INFINITY'],
-        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
-    ),
-    createNewSidebarItem(
         'Components',
         COMPONENTS_ROUTE_NAME,
         ICONS['APPLICATION'],
+        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
+    ),
+    createNewSidebarItem(
+        'CD Pipelines',
+        CDPIPELINES_ROUTE_NAME,
+        ICONS['INFINITY'],
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
