@@ -4,13 +4,13 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../../../.
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCodebaseImageStream/types';
 
 interface useImageStreamBasedOnResourcesInterface {
-    application: EnrichedApplication;
+    enrichedApplication: EnrichedApplication;
     CDPipeline: EDPCDPipelineKubeObjectInterface;
     currentCDPipelineStage: EDPCDPipelineStageKubeObjectInterface;
     CDPipelineStages: EDPCDPipelineStageKubeObjectInterface[];
 }
 export const useImageStreamBasedOnResources = ({
-    application,
+    enrichedApplication,
     CDPipeline,
     currentCDPipelineStage,
     CDPipelineStages,
@@ -30,7 +30,7 @@ export const useImageStreamBasedOnResources = ({
 
     const CDPipelineInputDockerStreamsSet = new Set<string>(normalizedInputDockerStreamNames);
 
-    const { applicationImageStreams } = application;
+    const { applicationImageStreams } = enrichedApplication;
 
     const findPreviousStage = (
         stages: EDPCDPipelineStageKubeObjectInterface[],

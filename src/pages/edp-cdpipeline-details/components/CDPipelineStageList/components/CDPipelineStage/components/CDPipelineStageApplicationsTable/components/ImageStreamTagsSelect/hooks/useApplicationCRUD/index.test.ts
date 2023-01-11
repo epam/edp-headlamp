@@ -4,14 +4,20 @@
 
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react-hooks';
+import { EnrichedApplication } from '../../../../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { ApplicationKubeObject } from '../../../../../../../../../../../../k8s/Application';
+import { EDPCDPipelineKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCDPipelineStage/types';
-import { pluginLib } from '../../../../../../../../../../../../plugin.globals';
+import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCodebaseImageStream/types';
+import { EDPGitServerKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPGitServer/types';
 import { useApplicationCRUD } from './index';
-import { applicationMock } from './mocks/application.mock';
-import { gerritsMock } from './mocks/gerrits.mock';
-
-const { ApiProxy } = pluginLib;
+import { expectedApplicationOutputMock } from './mocks/application.mock';
+import { CDPipelineMock } from './mocks/CDPipeline.mock';
+import { CDPipelineStageMock } from './mocks/CDPipelineStage.mock';
+import { enrichedApplicationMock } from './mocks/enrichedApplication.mock';
+import { gitServerMock } from './mocks/gitServer.mock';
+import { gitServersMock } from './mocks/gitServers.mock';
+import { imageStreamMock } from './mocks/imageStream.mock';
 
 jest.mock('notistack', () => ({
     useSnackbar: () => ({
@@ -35,52 +41,30 @@ afterEach(() => {
 
 describe('testing useApplicationCRUD hook', () => {
     it('should successfully create Application resource', async () => {
-        jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
-            if (url.includes('gerrits')) {
-                return Promise.resolve(gerritsMock);
-            }
-        });
-
         const applicationPostRequestSpy = jest
             .spyOn(ApplicationKubeObject.apiEndpoint, 'post')
-            .mockResolvedValue(applicationMock);
+            .mockResolvedValue(expectedApplicationOutputMock);
 
         const {
             result: {
                 current: { createApplication },
             },
-        } = renderHook(() => useApplicationCRUD());
+        } = renderHook(() => useApplicationCRUD({ gitServers: gitServersMock.items }));
 
         const createApplicationPromise = createApplication({
-            pipelineName: 'test-pipeline-name',
-            stageData: {
-                apiVersion: 'v2.edp.epam.com/v1',
-                kind: 'Stage',
-                metadata: {
-                    name: 'test-pipeline-name-test-stage-name',
-                    uid: '84dfeba1-bc42-4d1b-ab1f-473ebdf0fdf3',
-                },
-                spec: {
-                    name: 'test-stage-name',
-                },
-            } as unknown as EDPCDPipelineStageKubeObjectInterface,
-            appName: 'test-app-name',
-            imageName: 'test-image-name',
+            CDPipeline: CDPipelineMock as EDPCDPipelineKubeObjectInterface,
+            currentCDPipelineStage:
+                CDPipelineStageMock as unknown as EDPCDPipelineStageKubeObjectInterface,
+            enrichedApplication: enrichedApplicationMock as unknown as EnrichedApplication,
+            imageStream: imageStreamMock as EDPCodebaseImageStreamKubeObjectInterface,
             imageTag: 'test-image-tag',
-            namespace: 'test-namespace',
-            versioningType: 'edp',
+            gitServer: gitServerMock as EDPGitServerKubeObjectInterface,
         });
 
-        await expect(createApplicationPromise).resolves.toEqual(applicationMock);
-        expect(applicationPostRequestSpy).toHaveBeenCalledWith(applicationMock);
+        await expect(createApplicationPromise).resolves.toEqual(expectedApplicationOutputMock);
+        expect(applicationPostRequestSpy).toHaveBeenCalledWith(expectedApplicationOutputMock);
     });
     it(`shouldn't create Application if something goes wrong`, async () => {
-        jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
-            if (url.includes('gerrits')) {
-                return Promise.resolve(gerritsMock);
-            }
-        });
-
         const applicationPostRequestSpy = jest
             .spyOn(ApplicationKubeObject.apiEndpoint, 'post')
             .mockRejectedValue({ status: 'Failure' });
@@ -89,29 +73,19 @@ describe('testing useApplicationCRUD hook', () => {
             result: {
                 current: { createApplication },
             },
-        } = renderHook(() => useApplicationCRUD());
+        } = renderHook(() => useApplicationCRUD({ gitServers: gitServersMock.items }));
 
         const createApplicationPromise = createApplication({
-            pipelineName: 'test-pipeline-name',
-            stageData: {
-                apiVersion: 'v2.edp.epam.com/v1',
-                kind: 'Stage',
-                metadata: {
-                    name: 'test-pipeline-name-test-stage-name',
-                    uid: '84dfeba1-bc42-4d1b-ab1f-473ebdf0fdf3',
-                },
-                spec: {
-                    name: 'test-stage-name',
-                },
-            } as unknown as EDPCDPipelineStageKubeObjectInterface,
-            appName: 'test-app-name',
-            imageName: 'test-image-name',
+            CDPipeline: CDPipelineMock as EDPCDPipelineKubeObjectInterface,
+            currentCDPipelineStage:
+                CDPipelineStageMock as unknown as EDPCDPipelineStageKubeObjectInterface,
+            enrichedApplication: enrichedApplicationMock as unknown as EnrichedApplication,
+            imageStream: imageStreamMock as EDPCodebaseImageStreamKubeObjectInterface,
             imageTag: 'test-image-tag',
-            namespace: 'test-namespace',
-            versioningType: 'edp',
+            gitServer: gitServerMock as EDPGitServerKubeObjectInterface,
         });
 
         await expect(createApplicationPromise).rejects.toEqual({ status: 'Failure' });
-        expect(applicationPostRequestSpy).toHaveBeenCalledWith(applicationMock);
+        expect(applicationPostRequestSpy).toHaveBeenCalledWith(expectedApplicationOutputMock);
     });
 });

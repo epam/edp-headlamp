@@ -64,7 +64,7 @@ export const applicationMock: DeepPartial<EnrichedApplication> = {
             spec: {
                 codebase: 'vp-test-jenkins',
                 imageName:
-                    '093899590031.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev/vp-test-jenkins',
+                    '01234567890.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev/vp-test-jenkins',
                 tags: [
                     {
                         created: '2022-10-25T19:57:04',
@@ -86,7 +86,7 @@ export const applicationMock: DeepPartial<EnrichedApplication> = {
             },
             spec: {
                 codebase: 'vp-test-jenkins',
-                imageName: '093899590031.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
+                imageName: '01234567890.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
                 tags: [
                     {
                         created: '2022-10-25T20:04:59',
@@ -108,7 +108,7 @@ export const applicationMock: DeepPartial<EnrichedApplication> = {
             },
             spec: {
                 codebase: 'vp-test-jenkins',
-                imageName: '093899590031.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
+                imageName: '01234567890.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
                 tags: [
                     {
                         created: '2022-10-25T20:03:36',

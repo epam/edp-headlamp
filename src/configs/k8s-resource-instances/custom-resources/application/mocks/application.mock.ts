@@ -1,5 +1,5 @@
-import { ApplicationKubeObjectInterface } from '../../../../../../../../../../../../../k8s/Application/types';
-import { DeepPartial } from '../../../../../../../../../../../../../types/global';
+import { ApplicationKubeObjectInterface } from '../../../../../k8s/Application/types';
+import { DeepPartial } from '../../../../../types/global';
 
 export const expectedApplicationOutputMock: DeepPartial<ApplicationKubeObjectInterface> = {
     apiVersion: 'argoproj.io/v1alpha1',

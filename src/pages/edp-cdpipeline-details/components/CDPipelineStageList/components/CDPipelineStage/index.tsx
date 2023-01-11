@@ -51,7 +51,7 @@ export const CDPipelineStage = (): React.ReactElement => {
                 );
 
                 return {
-                    application: enrichedApplication,
+                    enrichedApplication,
                     argoApplication: fitArgoApplication,
                 };
             }),

@@ -5,21 +5,28 @@ import { EnrichedApplication } from '../../../../../../../../../../hooks/useAppl
 import { useRequest } from '../../../../../../../../../../hooks/useRequest';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/Application/types';
 import { MuiCore, React } from '../../../../../../../../../../plugin.globals';
+import { rem } from '../../../../../../../../../../utils/styling/rem';
 import { CDPipelineDataContext } from '../../../../../../../../index';
 import {
     CDPipelineStagesDataContext,
     CurrentCDPipelineStageDataContext,
+    GitServersDataContext,
 } from '../../../../../../index';
 import { useApplicationCRUD } from './hooks/useApplicationCRUD';
+import {
+    createApplicationInterface,
+    deleteApplicationInterface,
+    editApplicationInterface,
+} from './hooks/useApplicationCRUD/types';
 import { useImageStreamBasedOnResources } from './hooks/useImageStreamBasedOnResources';
 
 const { Grid, Button } = MuiCore;
 
 export const ImageStreamTagsSelect = ({
-    application,
+    enrichedApplication,
     argoApplication,
 }: {
-    application: EnrichedApplication;
+    enrichedApplication: EnrichedApplication;
     argoApplication: ApplicationKubeObjectInterface;
 }) => {
     const {
@@ -32,13 +39,13 @@ export const ImageStreamTagsSelect = ({
     const streamTagFieldValue = watch(streamTagFieldName);
 
     const CDPipeline = React.useContext(CDPipelineDataContext);
-
     const currentCDPipelineStage = React.useContext(CurrentCDPipelineStageDataContext);
-    const currentArgoAppName = `${CDPipeline.metadata.name}-${currentCDPipelineStage.spec.name}-${application.application.metadata.name}`;
     const CDPipelineStages = React.useContext(CDPipelineStagesDataContext);
+    const gitServers = React.useContext(GitServersDataContext);
 
+    const currentArgoAppName = `${CDPipeline.metadata.name}-${currentCDPipelineStage.spec.name}-${enrichedApplication.application.metadata.name}`;
     const { imageStream } = useImageStreamBasedOnResources({
-        application,
+        enrichedApplication,
         CDPipeline,
         currentCDPipelineStage,
         CDPipelineStages,
@@ -52,7 +59,9 @@ export const ImageStreamTagsSelect = ({
               }))
             : [];
 
-    const { createApplication, editApplication, deleteApplication } = useApplicationCRUD();
+    const { createApplication, editApplication, deleteApplication } = useApplicationCRUD({
+        gitServers,
+    });
 
     const {
         state: { isLoading: isApplying },
@@ -89,19 +98,17 @@ export const ImageStreamTagsSelect = ({
             objectName: currentArgoAppName,
             args: [
                 {
-                    pipelineName: CDPipeline.metadata.name,
-                    stageData: currentCDPipelineStage,
-                    appName: application.application.metadata.name,
-                    imageName: imageStream.spec.imageName,
-                    namespace: CDPipeline.metadata.namespace,
-                    versioningType: application.application.spec.versioning.type,
+                    CDPipeline,
+                    currentCDPipelineStage,
+                    enrichedApplication,
+                    imageStream,
                     imageTag: streamTagFieldValue,
-                },
+                } as createApplicationInterface,
             ],
         });
     }, [
         CDPipeline,
-        application,
+        enrichedApplication,
         currentArgoAppName,
         currentCDPipelineStage,
         fireCreateApplicationRequest,
@@ -114,14 +121,14 @@ export const ImageStreamTagsSelect = ({
             objectName: currentArgoAppName,
             args: [
                 {
-                    deployedVersion: streamTagFieldValue,
+                    imageTag: streamTagFieldValue,
                     argoApplication,
-                    versioningType: application.application.spec.versioning.type,
-                },
+                    enrichedApplication,
+                } as editApplicationInterface,
             ],
         });
     }, [
-        application,
+        enrichedApplication,
         argoApplication,
         currentArgoAppName,
         fireEditApplicationRequest,
@@ -134,7 +141,7 @@ export const ImageStreamTagsSelect = ({
             args: [
                 {
                     argoApplication,
-                },
+                } as deleteApplicationInterface,
             ],
         });
     }, [argoApplication, currentArgoAppName, fireDeleteApplicationRequest]);
@@ -143,14 +150,16 @@ export const ImageStreamTagsSelect = ({
         <form>
             <Grid container spacing={2} alignItems={'center'}>
                 <Grid item style={{ flexGrow: 1 }}>
-                    <FormSelect
-                        control={control}
-                        errors={errors}
-                        name={streamTagFieldName}
-                        options={imageStreamTagsOptions}
-                        disabled={!imageStreamTagsOptions.length}
-                        placeholder={'Image stream version'}
-                    />
+                    <div style={{ maxWidth: rem(250), width: '100%' }}>
+                        <FormSelect
+                            control={control}
+                            errors={errors}
+                            name={streamTagFieldName}
+                            options={imageStreamTagsOptions}
+                            disabled={!imageStreamTagsOptions.length}
+                            placeholder={'Image stream version'}
+                        />
+                    </div>
                 </Grid>
                 <Grid item>
                     <Render condition={!argoApplication}>

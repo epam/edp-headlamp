@@ -4,7 +4,7 @@ import {
 } from '../../../../../../../../../../../../configs/k8s-resource-instances/custom-resources/application';
 import { ApplicationKubeObject } from '../../../../../../../../../../../../k8s/Application';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../../../k8s/Application/types';
-import { getGerritList } from '../../../../../../../../../../../../k8s/Gerrit';
+import { EDPGitServerKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPGitServer/types';
 import { Notistack, React } from '../../../../../../../../../../../../plugin.globals';
 import { createErrorMessage } from '../../../../../../../../../../../../utils/createErrorMessage';
 import { throwErrorNoty } from '../../../../../../../../../../../../utils/throwErrorNoty';
@@ -16,7 +16,11 @@ import {
 
 const { useSnackbar } = Notistack;
 
-export const useApplicationCRUD = (): {
+export const useApplicationCRUD = ({
+    gitServers,
+}: {
+    gitServers: EDPGitServerKubeObjectInterface[];
+}): {
     createApplication: (
         props: createApplicationInterface
     ) => Promise<ApplicationKubeObjectInterface>;
@@ -29,32 +33,29 @@ export const useApplicationCRUD = (): {
 
     const createApplication = React.useCallback(
         async ({
-            pipelineName,
-            stageData,
-            appName,
-            imageName,
+            CDPipeline,
+            currentCDPipelineStage,
+            enrichedApplication,
+            imageStream,
             imageTag,
-            namespace,
-            versioningType,
         }: createApplicationInterface): Promise<ApplicationKubeObjectInterface> => {
             let newArgoApplicationData: ApplicationKubeObjectInterface;
 
             try {
-                const { items } = await getGerritList(namespace);
-                const [gerrit] = items;
                 const {
-                    spec: { sshPort },
-                } = gerrit;
+                    application: {
+                        spec: { gitServer: gitServerName },
+                    },
+                } = enrichedApplication;
+                const [gitServer] = gitServers.filter(el => el.spec.gitProvider === gitServerName);
 
                 newArgoApplicationData = createApplicationInstance({
-                    pipelineName,
-                    stageData,
-                    appName,
-                    imageName,
+                    CDPipeline,
+                    currentCDPipelineStage,
+                    enrichedApplication,
+                    imageStream,
                     imageTag,
-                    port: sshPort,
-                    namespace,
-                    versioningType,
+                    gitServer,
                 });
 
                 return await ApplicationKubeObject.apiEndpoint.post(newArgoApplicationData);
@@ -64,22 +65,22 @@ export const useApplicationCRUD = (): {
                 throw err;
             }
         },
-        [enqueueSnackbar]
+        [enqueueSnackbar, gitServers]
     );
 
     const editApplication = React.useCallback(
         async ({
-            versioningType,
             argoApplication,
-            deployedVersion,
+            enrichedApplication,
+            imageTag,
         }: editApplicationInterface): Promise<ApplicationKubeObjectInterface> => {
             let newApplicationData: ApplicationKubeObjectInterface;
 
             try {
                 newApplicationData = editApplicationInstance({
-                    versioningType,
                     argoApplication,
-                    deployedVersion,
+                    enrichedApplication,
+                    imageTag,
                 });
                 return await ApplicationKubeObject.apiEndpoint.put(newApplicationData);
             } catch (err) {

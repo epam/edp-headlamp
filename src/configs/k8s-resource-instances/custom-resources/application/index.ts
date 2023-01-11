@@ -1,4 +1,5 @@
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
+import { GIT_SERVERS } from '../../../../constants/gitServers';
 import { ApplicationKubeObjectConfig } from '../../../../k8s/Application/config';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
 import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
@@ -7,21 +8,43 @@ import { createApplicationInstanceProps, editApplicationInstanceProps } from './
 const { kind, group, version } = ApplicationKubeObjectConfig;
 
 export const createApplicationInstance = ({
-    pipelineName,
-    stageData,
-    appName,
-    imageName,
+    CDPipeline,
+    currentCDPipelineStage,
+    enrichedApplication,
+    imageStream,
     imageTag,
-    port,
-    namespace,
-    versioningType,
+    gitServer,
 }: createApplicationInstanceProps): ApplicationKubeObjectInterface => {
-    const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
     const randomPostfix = createRandomFiveSymbolString();
+    const {
+        metadata: { namespace, name: pipelineName },
+    } = CDPipeline;
 
     const {
         spec: { name: stageName },
-    } = stageData;
+    } = currentCDPipelineStage;
+
+    const {
+        application: {
+            metadata: { name: appName },
+            spec: {
+                versioning: { type: versioningType },
+                gitUrlPath,
+            },
+        },
+    } = enrichedApplication;
+
+    const {
+        spec: { imageName },
+    } = imageStream;
+
+    const {
+        spec: { gitProvider, gitHost, sshPort },
+    } = gitServer;
+
+    const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
+
+    const repoUrlPath = gitProvider === GIT_SERVERS['GERRIT'] ? `/${appName}` : gitUrlPath;
 
     return {
         apiVersion: `${group}/${version}`,
@@ -37,12 +60,12 @@ export const createApplicationInstance = ({
             finalizers: ['resources-finalizer.argocd.argoproj.io'],
             ownerReferences: [
                 {
-                    apiVersion: stageData.apiVersion,
+                    apiVersion: currentCDPipelineStage.apiVersion,
                     blockOwnerDeletion: true,
                     controller: true,
-                    kind: stageData.kind,
-                    name: stageData.metadata.name,
-                    uid: stageData.metadata.uid,
+                    kind: currentCDPipelineStage.kind,
+                    name: currentCDPipelineStage.metadata.name,
+                    uid: currentCDPipelineStage.metadata.uid,
                 },
             ],
         },
@@ -66,7 +89,7 @@ export const createApplicationInstance = ({
                     ],
                 },
                 path: 'deploy-templates',
-                repoURL: `ssh://argocd@gerrit.${namespace}:${port}/${appName}.git`,
+                repoURL: `ssh://argocd@${gitHost}:${sshPort}${repoUrlPath}`,
                 targetRevision: isEDPVersioning ? `build/${imageTag}` : imageTag,
             },
             syncPolicy: {
@@ -82,9 +105,16 @@ export const createApplicationInstance = ({
 
 export const editApplicationInstance = ({
     argoApplication,
-    versioningType,
-    deployedVersion,
+    enrichedApplication,
+    imageTag,
 }: editApplicationInstanceProps): ApplicationKubeObjectInterface => {
+    const {
+        application: {
+            spec: {
+                versioning: { type: versioningType },
+            },
+        },
+    } = enrichedApplication;
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
     const base = { ...argoApplication };
 
@@ -92,14 +122,14 @@ export const editApplicationInstance = ({
         if (el.name === 'image.tag') {
             return {
                 ...el,
-                value: deployedVersion,
+                value: imageTag,
             };
         }
 
         return el;
     });
 
-    const newTargetRevision = isEDPVersioning ? `build/${deployedVersion}` : deployedVersion;
+    const newTargetRevision = isEDPVersioning ? `build/${imageTag}` : imageTag;
 
     base.spec.source.helm.parameters = newParameters;
     base.spec.source.targetRevision = newTargetRevision;

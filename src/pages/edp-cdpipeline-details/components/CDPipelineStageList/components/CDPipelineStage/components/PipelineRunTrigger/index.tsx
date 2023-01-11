@@ -63,7 +63,7 @@ export const PipelineRunTrigger = ({
 
     const codebaseTag = React.useMemo(() => {
         return enrichedApplicationsWithArgoApplications
-            .reduce((acc, { application: { application }, argoApplication }) => {
+            .reduce((acc, { enrichedApplication: { application }, argoApplication }) => {
                 if (!argoApplication) {
                     return [];
                 }

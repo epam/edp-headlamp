@@ -13,7 +13,7 @@ const {
 } = pluginLib;
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<{
-    application: EnrichedApplication;
+    enrichedApplication: EnrichedApplication;
     argoApplication: ApplicationKubeObjectInterface;
 }>[] =>
     React.useMemo(
@@ -55,7 +55,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
             {
                 label: 'Application',
                 getter: ({
-                    application: {
+                    enrichedApplication: {
                         application: {
                             metadata: { name, namespace },
                         },
@@ -87,9 +87,9 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
             },
             {
                 label: 'Image stream version',
-                getter: ({ application, argoApplication }) => (
+                getter: ({ enrichedApplication, argoApplication }) => (
                     <ImageStreamTagsSelect
-                        application={application}
+                        enrichedApplication={enrichedApplication}
                         argoApplication={argoApplication}
                     />
                 ),

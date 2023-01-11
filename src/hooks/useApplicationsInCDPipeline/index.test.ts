@@ -57,7 +57,7 @@ describe('testing useApplicationsInCDPipeline hook', () => {
                         spec: {
                             codebase: 'test-python-2',
                             imageName:
-                                '093899590031.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev/test-python-2',
+                                '01234567890.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev/test-python-2',
                             tags: [{ created: '2022-10-26T13:41:09', name: 'main-1.0.0-1' }],
                         },
                     },
@@ -71,7 +71,7 @@ describe('testing useApplicationsInCDPipeline hook', () => {
                         spec: {
                             codebase: 'test-python-2',
                             imageName:
-                                '093899590031.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
+                                '01234567890.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
                         },
                     },
                     {
@@ -84,7 +84,7 @@ describe('testing useApplicationsInCDPipeline hook', () => {
                         spec: {
                             codebase: 'test-python-2',
                             imageName:
-                                '093899590031.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
+                                '01234567890.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
                         },
                     },
                 ],
@@ -108,7 +108,7 @@ describe('testing useApplicationsInCDPipeline hook', () => {
                         spec: {
                             codebase: 'vp-test-jenkins',
                             imageName:
-                                '093899590031.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev/vp-test-jenkins',
+                                '01234567890.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev/vp-test-jenkins',
                             tags: [{ created: '2022-10-25T19:57:04', name: 'master-1.0.0-1' }],
                         },
                     },
@@ -122,7 +122,7 @@ describe('testing useApplicationsInCDPipeline hook', () => {
                         spec: {
                             codebase: 'vp-test-jenkins',
                             imageName:
-                                '093899590031.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
+                                '01234567890.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
                             tags: [{ created: '2022-10-25T20:04:59', name: 'master-1.0.0-1' }],
                         },
                     },

@@ -20,7 +20,7 @@ describe('testing useImageStreamBasedOnResources hook', () => {
             },
         } = renderHook(() =>
             useImageStreamBasedOnResources({
-                application: applicationMock as EnrichedApplication,
+                enrichedApplication: applicationMock as EnrichedApplication,
                 CDPipeline: cdpipelineMock as EDPCDPipelineKubeObjectInterface,
                 currentCDPipelineStage: stageMock as EDPCDPipelineStageKubeObjectInterface,
                 CDPipelineStages: stagesMock as EDPCDPipelineStageKubeObjectInterface[],
@@ -40,7 +40,7 @@ describe('testing useImageStreamBasedOnResources hook', () => {
             },
             spec: {
                 codebase: 'vp-test-jenkins',
-                imageName: '093899590031.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
+                imageName: '01234567890.dkr.ecr.eu-central-1.amazonaws.com/edp-delivery-vp-dev',
                 tags: [{ created: '2022-10-25T20:03:36', name: 'master-1.0.0-1' }],
             },
         });

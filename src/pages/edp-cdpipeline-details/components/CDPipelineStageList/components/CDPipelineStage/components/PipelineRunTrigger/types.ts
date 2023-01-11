@@ -5,7 +5,7 @@ export interface PipelineRunTriggerProps {
     namespace: string;
     runActionIsEnabled: boolean;
     enrichedApplicationsWithArgoApplications: {
-        application: EnrichedApplication;
+        enrichedApplication: EnrichedApplication;
         argoApplication: ApplicationKubeObjectInterface;
     }[];
 }
