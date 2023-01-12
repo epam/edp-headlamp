@@ -31,9 +31,9 @@ export const GitUrlPath = ({ names, handleFormFieldChange }: GitUrlPathProps) =>
                         value: value ? `${slashSymbol}${value}` : undefined,
                     }),
             })}
-            label={'Relative path'}
+            label={'Git repo relative path'}
             placeholder={
-                'First type a forward slash "/", then type the relative path to the repository'
+                'Indicate the repository relative path in the following format project/repository'
             }
             control={control}
             errors={errors}
