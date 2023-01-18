@@ -1,4 +1,5 @@
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
+import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { GIT_SERVERS } from '../../../../constants/gitServers';
 import { ApplicationKubeObjectConfig } from '../../../../k8s/Application/config';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
@@ -30,6 +31,7 @@ export const createApplicationInstance = ({
             spec: {
                 versioning: { type: versioningType },
                 gitUrlPath,
+                strategy,
             },
         },
     } = enrichedApplication;
@@ -45,6 +47,7 @@ export const createApplicationInstance = ({
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
 
     const repoUrlPath = gitProvider === GIT_SERVERS['GERRIT'] ? `/${appName}` : gitUrlPath;
+    const repoUrlUser = strategy === CODEBASE_CREATION_STRATEGIES['GERRIT'] ? 'argocd' : 'git';
 
     return {
         apiVersion: `${group}/${version}`,
@@ -89,7 +92,7 @@ export const createApplicationInstance = ({
                     ],
                 },
                 path: 'deploy-templates',
-                repoURL: `ssh://argocd@${gitHost}:${sshPort}${repoUrlPath}`,
+                repoURL: `ssh://${repoUrlUser}@${gitHost}:${sshPort}${repoUrlPath}`,
                 targetRevision: isEDPVersioning ? `build/${imageTag}` : imageTag,
             },
             syncPolicy: {
