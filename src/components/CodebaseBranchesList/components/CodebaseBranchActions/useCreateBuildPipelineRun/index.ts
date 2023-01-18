@@ -45,7 +45,7 @@ export const useCreateBuildPipelineRun = (
 
     const createBuildPipelineRun = React.useCallback(
         async (data: createBuildPipelineRunProps): Promise<PipelineRunKubeObjectInterface> => {
-            const { codebaseData, randomPostfix } = data;
+            const { codebaseData, codebaseBranchData, randomPostfix } = data;
             let newPipelineRunData: PipelineRunKubeObjectInterface;
 
             try {
@@ -62,7 +62,7 @@ export const useCreateBuildPipelineRun = (
             } catch (err) {
                 const errorMessage = createErrorMessage(
                     err,
-                    `${codebaseData.codebaseName}-build-${randomPostfix}`
+                    `${codebaseData.codebaseName}-${codebaseBranchData.codebaseBranchName}-build-${randomPostfix}`
                 );
 
                 throwErrorNoty(enqueueSnackbar, errorMessage);

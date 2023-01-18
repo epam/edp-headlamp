@@ -5,7 +5,7 @@ export const pipelineRunMock: PipelineRunKubeObjectInterface = {
     kind: 'PipelineRun',
     metadata: {
         namespace: 'test-namespace',
-        name: 'test-codebase-name-build-8ygse',
+        name: 'test-codebase-name-test-codebase-branch-name-build-8ygse',
         labels: {
             'app.edp.epam.com/codebasebranch': 'test-codebase-name-test-codebase-branch-name',
             'app.edp.epam.com/codebase': 'test-codebase-name',

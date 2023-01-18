@@ -58,7 +58,8 @@ export const CodebaseBranch = ({
                 .sort(sortKubeObjectByCreationTimestamp);
 
             if (
-                latestBuildPipelineRun.status.conditions[0].reason === latestBuildPipelineRunStatus
+                latestBuildPipelineRun?.status?.conditions?.[0]?.reason ===
+                latestBuildPipelineRunStatus
             ) {
                 return;
             }
