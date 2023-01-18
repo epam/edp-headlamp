@@ -22,7 +22,7 @@ export const CommitMessagePattern = ({
                     handleFormFieldChange({ name, value }),
             })}
             label={'Specify the pattern to validate a commit message'}
-            placeholder={`^\[PROJECT_NAME-\d{4}\]:.*$`}
+            placeholder={'^\\[PROJECT_NAME-\\d{4}\\]:.*'}
             control={control}
             errors={errors}
         />
