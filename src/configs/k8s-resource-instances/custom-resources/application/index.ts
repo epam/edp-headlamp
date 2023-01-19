@@ -47,7 +47,7 @@ export const createApplicationInstance = ({
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
 
     const repoUrlPath = gitProvider === GIT_SERVERS['GERRIT'] ? `/${appName}` : gitUrlPath;
-    const repoUrlUser = strategy === CODEBASE_CREATION_STRATEGIES['GERRIT'] ? 'argocd' : 'git';
+    const repoUrlUser = strategy === CODEBASE_CREATION_STRATEGIES['IMPORT'] ? 'git' : 'argocd';
 
     return {
         apiVersion: `${group}/${version}`,
