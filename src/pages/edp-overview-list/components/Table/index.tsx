@@ -1,5 +1,4 @@
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
-import { EDPComponents } from '../../../../icons/sprites/EDPComponents';
 import { pluginLib, React } from '../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
@@ -14,7 +13,6 @@ export const Table: React.FC<TableProps> = ({ data }): React.ReactElement => {
 
     return (
         <>
-            <EDPComponents />
             <HeadlampSimpleTable
                 data={data}
                 columns={columns}

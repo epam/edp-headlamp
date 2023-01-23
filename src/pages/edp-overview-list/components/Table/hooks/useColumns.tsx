@@ -1,10 +1,8 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { Render } from '../../../../../components/Render';
-import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { EDPComponentKubeObjectInterface } from '../../../../../k8s/EDPComponent/types';
 import { Iconify, MuiCore, React } from '../../../../../plugin.globals';
 import { sortByName } from '../../../../../utils/sort/sortByName';
-import { rem } from '../../../../../utils/styling/rem';
 
 const { Link, Typography } = MuiCore;
 const { Icon } = Iconify;
@@ -16,11 +14,13 @@ export const useColumns = (classes: {
         () => [
             {
                 label: 'Icon',
-                getter: ({ spec: { url, visible, type } }) => (
+                getter: ({ spec: { url, visible, icon } }) => (
                     <>
                         <Render condition={!!visible}>
                             <Link href={url} target="_blank" rel="noopener">
-                                <UseSpriteSymbol name={type} width={rem(40)} height={rem(40)} />
+                                <span className={classes.serviceItemIcon}>
+                                    <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
+                                </span>
                             </Link>
                         </Render>
                         <Render condition={!visible}>
