@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
+import { CODEBASE_CREATION_STRATEGIES } from '../../../../../../constants/creationStrategies';
 import { Applications } from '../../../../../../icons/sprites/Applications';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary';
@@ -26,6 +27,7 @@ export const CodebaseTypeInfo = (): React.ReactElement => {
 
     const langFieldValue = watch(names.lang.name);
     const typeFieldValue = watch(names.type.name);
+    const strategyFieldValue = watch(names.strategy.name);
 
     const { chosenLang } = useChosenCodebaseLanguage({
         type: typeFieldValue,
@@ -47,9 +49,11 @@ export const CodebaseTypeInfo = (): React.ReactElement => {
                         <Description names={names} handleFormFieldChange={handleFormFieldChange} />
                     </Grid>
                 </Render>
-                <Grid item xs={12}>
-                    <EmptyProject names={names} handleFormFieldChange={handleFormFieldChange} />
-                </Grid>
+                <Render condition={strategyFieldValue === CODEBASE_CREATION_STRATEGIES['CREATE']}>
+                    <Grid item xs={12}>
+                        <EmptyProject names={names} handleFormFieldChange={handleFormFieldChange} />
+                    </Grid>
+                </Render>
                 <Grid item xs={12}>
                     <Lang names={names} handleFormFieldChange={handleFormFieldChange} />
                 </Grid>

@@ -17,68 +17,55 @@ export const useUpdateFieldsDependingOnChosenIntegrationStrategy = ({
 }: UseUpdateFieldsDependingOnChosenIntegrationStrategyProps): void => {
     const strategyFieldValue = watch(names.strategy.name);
 
+    const resetFields = React.useCallback(
+        (fieldNames: string[]) => {
+            for (const fieldName of fieldNames) {
+                resetField(fieldName);
+                handleFormFieldChange({
+                    name: fieldName,
+                    value: undefined,
+                });
+            }
+        },
+        [handleFormFieldChange, resetField]
+    );
+
     React.useEffect(() => {
         if (strategyFieldValue) {
             switch (strategyFieldValue) {
                 case CODEBASE_CREATION_STRATEGIES['CREATE']:
-                    resetField(names.gitUrlPath.name);
-                    handleFormFieldChange({
-                        name: names.gitUrlPath.name,
-                        value: undefined,
-                    });
-                    resetField(names.repositoryUrl.name);
-                    handleFormFieldChange({
-                        name: names.repositoryUrl.name,
-                        value: undefined,
-                    });
-                    resetField(names.hasCodebaseAuth.name);
-                    handleFormFieldChange({
-                        name: names.hasCodebaseAuth.name,
-                        value: undefined,
-                    });
-                    resetField(names.repositoryLogin.name);
-                    handleFormFieldChange({
-                        name: names.repositoryLogin.name,
-                        value: undefined,
-                    });
-                    resetField(names.repositoryPasswordOrApiToken.name);
-                    handleFormFieldChange({
-                        name: names.repositoryPasswordOrApiToken.name,
-                        value: undefined,
-                    });
+                    resetFields([
+                        names.gitUrlPath.name,
+                        names.repositoryUrl.name,
+                        names.hasCodebaseAuth.name,
+                        names.repositoryLogin.name,
+                        names.repositoryPasswordOrApiToken.name,
+                    ]);
                     break;
 
                 case CODEBASE_CREATION_STRATEGIES['CLONE']:
-                    resetField(names.gitUrlPath.name);
+                    resetFields([names.gitUrlPath.name]);
+                    resetField(names.emptyProject.name);
                     handleFormFieldChange({
-                        name: names.gitUrlPath.name,
-                        value: undefined,
+                        name: names.emptyProject.name,
+                        value: false,
                     });
                     break;
 
                 case CODEBASE_CREATION_STRATEGIES['IMPORT']:
-                    resetField(names.repositoryUrl.name);
+                    resetFields([
+                        names.repositoryUrl.name,
+                        names.hasCodebaseAuth.name,
+                        names.repositoryLogin.name,
+                        names.repositoryPasswordOrApiToken.name,
+                    ]);
+                    resetField(names.emptyProject.name);
                     handleFormFieldChange({
-                        name: names.repositoryUrl.name,
-                        value: undefined,
-                    });
-                    resetField(names.hasCodebaseAuth.name);
-                    handleFormFieldChange({
-                        name: names.hasCodebaseAuth.name,
-                        value: undefined,
-                    });
-                    resetField(names.repositoryLogin.name);
-                    handleFormFieldChange({
-                        name: names.repositoryLogin.name,
-                        value: undefined,
-                    });
-                    resetField(names.repositoryPasswordOrApiToken.name);
-                    handleFormFieldChange({
-                        name: names.repositoryPasswordOrApiToken.name,
-                        value: undefined,
+                        name: names.emptyProject.name,
+                        value: false,
                     });
                     break;
             }
         }
-    }, [strategyFieldValue, names, resetField, handleFormFieldChange]);
+    }, [strategyFieldValue, names, resetField, handleFormFieldChange, resetFields]);
 };
