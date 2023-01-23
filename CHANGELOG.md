@@ -2,6 +2,40 @@
 ## [Unreleased]
 
 
+<a name="v0.4.0"></a>
+## [v0.4.0] - 2023-01-19
+### Features
+
+- Hides create and clone strategies when there is no Gerrit git server available [EPMDEDP-11212](https://jiraeu.epam.com/browse/EPMDEDP-11212)
+- Adds all type to components filter [EPMDEDP-11223](https://jiraeu.epam.com/browse/EPMDEDP-11223)
+- Adds type column into components table [EPMDEDP-11223](https://jiraeu.epam.com/browse/EPMDEDP-11223)
+- Merges applications, libraries and autotests in one entity in list and creation forms [EPMDEDP-11223](https://jiraeu.epam.com/browse/EPMDEDP-11223)
+- Increases tooltip font-size [EPMDEDP-11240](https://jiraeu.epam.com/browse/EPMDEDP-11240)
+- Changes components page menu order [EPMDEDP-11262](https://jiraeu.epam.com/browse/EPMDEDP-11262)
+- Updates argo application resource creation template [EPMDEDP-11334](https://jiraeu.epam.com/browse/EPMDEDP-11334)
+
+### Bug Fixes
+
+- Fixes crash with useGitServers hook returned value [EPMDEDP-11212](https://jiraeu.epam.com/browse/EPMDEDP-11212)
+- Removes All option from codebase creation type field [EPMDEDP-11223](https://jiraeu.epam.com/browse/EPMDEDP-11223)
+- Changes autotests type to autotest in all possible dependencies [EPMDEDP-11259](https://jiraeu.epam.com/browse/EPMDEDP-11259)
+- Fixes components page title font [EPMDEDP-11262](https://jiraeu.epam.com/browse/EPMDEDP-11262)
+- Updates argoApplication resource creation template [EPMDEDP-11296](https://jiraeu.epam.com/browse/EPMDEDP-11296)
+- Changes relative path placeholder value [EPMDEDP-11297](https://jiraeu.epam.com/browse/EPMDEDP-11297)
+- Normalizes codebase branch name in pipeline-run name [EPMDEDP-11316](https://jiraeu.epam.com/browse/EPMDEDP-11316)
+- Updates pipeline-run creation template with name containing branch name, fixes status error [EPMDEDP-11316](https://jiraeu.epam.com/browse/EPMDEDP-11316)
+- Fixes repoUrlUser typo in argo application resource creation template [EPMDEDP-11334](https://jiraeu.epam.com/browse/EPMDEDP-11334)
+- Fixes commit message pattern and ticket name pattern placeholders [EPMDEDP-11360](https://jiraeu.epam.com/browse/EPMDEDP-11360)
+
+### Routine
+
+- Updates headlamp docker tag [EPMDEDP-11185](https://jiraeu.epam.com/browse/EPMDEDP-11185)
+- Updates headlamp docker image [EPMDEDP-11276](https://jiraeu.epam.com/browse/EPMDEDP-11276)
+
+
+<a name="v0.3.0"></a>
+## [v0.3.0] - 2022-12-16
+
 <a name="v0.2.2"></a>
 ## [v0.2.2] - 2022-12-15
 ### Features
@@ -221,7 +255,9 @@
 - Update changelog [EPMDEDP-10150](https://jiraeu.epam.com/browse/EPMDEDP-10150)
 
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.4.0...HEAD
+[v0.4.0]: https://github.com/epam/edp-headlamp/compare/v0.3.0...v0.4.0
+[v0.3.0]: https://github.com/epam/edp-headlamp/compare/v0.2.2...v0.3.0
 [v0.2.2]: https://github.com/epam/edp-headlamp/compare/v0.2.1...v0.2.2
 [v0.2.1]: https://github.com/epam/edp-headlamp/compare/v0.2.0...v0.2.1
 [v0.2.0]: https://github.com/epam/edp-headlamp/compare/v0.1.0...v0.2.0
