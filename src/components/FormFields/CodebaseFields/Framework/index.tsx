@@ -1,10 +1,11 @@
 import { useFormContext } from 'react-hook-form';
+import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
-import { FormRadioGroup } from '../../../FormComponents';
+import { FormRadioGroup, FormTextField } from '../../../FormComponents';
 import { FrameworkProps } from './types';
 
 export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
@@ -50,20 +51,44 @@ export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
     });
 
     return (
-        <FormRadioGroup
-            {...register(names.framework.name, {
-                required: `Select ${typeFieldValue} version/framework`,
-                onChange: onFrameworkChange,
-            })}
-            control={control}
-            errors={errors}
-            label={`Language version/framework`}
-            options={Object.values(chosenLang.frameworks).map(({ name, value, icon }) => ({
-                value,
-                label: name,
-                icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-            }))}
-        />
+        <>
+            {langFieldValue === CODEBASE_COMMON_LANGUAGES['OTHER'] ? (
+                <FormTextField
+                    {...register(names.framework.name, {
+                        required: `Enter ${typeFieldValue} version/framework`,
+                        maxLength: {
+                            value: 8,
+                            message: 'You exceeded the maximum length of 8',
+                        },
+                        pattern: {
+                            value: /[a-z]/,
+                            message: 'Invalid framework name: [a-z]',
+                        },
+                        onBlur: ({ target: { name, value } }: FieldEvent) =>
+                            handleFormFieldChange({ name, value }),
+                    })}
+                    label={`Language version/framework`}
+                    placeholder={`Enter language version/framework`}
+                    control={control}
+                    errors={errors}
+                />
+            ) : (
+                <FormRadioGroup
+                    {...register(names.framework.name, {
+                        required: `Select ${typeFieldValue} version/framework`,
+                        onChange: onFrameworkChange,
+                    })}
+                    control={control}
+                    errors={errors}
+                    label={`Language version/framework`}
+                    options={Object.values(chosenLang.frameworks).map(({ name, value, icon }) => ({
+                        value,
+                        label: name,
+                        icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                        checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                    }))}
+                />
+            )}
+        </>
     );
 };

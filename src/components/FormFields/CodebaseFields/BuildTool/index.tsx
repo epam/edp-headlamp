@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent, SelectOption } from '../../../../types/forms';
 import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
@@ -52,7 +53,7 @@ export const BuildTool = ({ names, handleFormFieldChange }: BuildToolProps) => {
 
     return (
         <>
-            {langFieldValue === 'other' ? (
+            {langFieldValue === CODEBASE_COMMON_LANGUAGES['OTHER'] ? (
                 <FormTextField
                     {...register(names.buildTool.name, {
                         required: `Enter ${typeFieldValue} build tool.`,

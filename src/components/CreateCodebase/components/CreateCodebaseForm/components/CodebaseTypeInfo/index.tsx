@@ -15,7 +15,6 @@ import {
     TestReportFramework,
 } from '../../../../../FormFields/CodebaseFields';
 import { Render } from '../../../../../Render';
-import { useChosenCodebaseLanguage } from '../../hooks/useChosenCodebaseLanguage';
 import { FormDataContext } from '../../index';
 
 const { Grid } = MuiCore;
@@ -28,11 +27,6 @@ export const CodebaseTypeInfo = (): React.ReactElement => {
     const langFieldValue = watch(names.lang.name);
     const typeFieldValue = watch(names.type.name);
     const strategyFieldValue = watch(names.strategy.name);
-
-    const { chosenLang } = useChosenCodebaseLanguage({
-        type: typeFieldValue,
-        lang: langFieldValue,
-    });
 
     return (
         <ErrorBoundary>
@@ -57,11 +51,11 @@ export const CodebaseTypeInfo = (): React.ReactElement => {
                 <Grid item xs={12}>
                     <Lang names={names} handleFormFieldChange={handleFormFieldChange} />
                 </Grid>
-                {langFieldValue && Object.values(chosenLang.frameworks).length ? (
+                <Render condition={langFieldValue}>
                     <Grid item xs={12}>
                         <Framework names={names} handleFormFieldChange={handleFormFieldChange} />
                     </Grid>
-                ) : null}
+                </Render>
                 {langFieldValue ? (
                     <Grid item xs={12}>
                         <BuildTool names={names} handleFormFieldChange={handleFormFieldChange} />

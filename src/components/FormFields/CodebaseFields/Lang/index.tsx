@@ -45,36 +45,24 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
     const buildToolValue = watch(names.buildTool.name);
     const strategyValue = watch(names.strategy.name);
 
+    const resetFields = React.useCallback(
+        (fieldNames: string[]) => {
+            for (const fieldName of fieldNames) {
+                resetField(fieldName);
+                handleFormFieldChange({
+                    name: fieldName,
+                    value: undefined,
+                });
+            }
+        },
+        [handleFormFieldChange, resetField]
+    );
+
     const onLangChange = React.useCallback(
         ({ target: { name, value } }: FieldEvent) => {
             handleFormFieldChange({ name, value });
 
-            resetField(names.jenkinsSlave.name);
-            handleFormFieldChange({
-                name: names.jenkinsSlave.name,
-                value: undefined,
-            });
-
-            resetField(names.framework.name);
-            handleFormFieldChange({
-                name: names.framework.name,
-                value: undefined,
-            });
-
-            resetField(names.buildTool.name);
-            handleFormFieldChange({
-                name: names.buildTool.name,
-                value: undefined,
-            });
-
-            if (value === CODEBASE_COMMON_LANGUAGES['OTHER']) {
-                setValue(names.framework.name, CODEBASE_COMMON_LANGUAGES['OTHER']);
-            }
-
-            handleFormFieldChange({
-                name: names.framework.name,
-                value: CODEBASE_COMMON_LANGUAGES['OTHER'],
-            });
+            resetFields([names.jenkinsSlave.name, names.framework.name, names.buildTool.name]);
 
             const recommendedJenkinsAgent = getRecommendedJenkinsAgent(typeFieldValue, {
                 lang: value,
@@ -92,10 +80,8 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
             buildToolValue,
             frameworkValue,
             handleFormFieldChange,
-            names.buildTool.name,
-            names.framework.name,
-            names.jenkinsSlave.name,
-            resetField,
+            names,
+            resetFields,
             setValue,
             typeFieldValue,
         ]
@@ -116,7 +102,8 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
                 icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
                 checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
                 disabled:
-                    value === 'other' && strategyValue === CODEBASE_CREATION_STRATEGIES['CREATE'],
+                    value === CODEBASE_COMMON_LANGUAGES['OTHER'] &&
+                    strategyValue === CODEBASE_CREATION_STRATEGIES['CREATE'],
             }))}
         />
     );
