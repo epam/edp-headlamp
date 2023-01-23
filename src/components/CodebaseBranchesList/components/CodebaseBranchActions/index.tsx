@@ -72,7 +72,11 @@ export const CodebaseBranchActions = ({
 
     const handleApply = React.useCallback(
         async (data: createBuildPipelineRunProps): Promise<void> => {
-            const name = `${data.codebaseData.codebaseName}-build-${randomPostfix}`;
+            const {
+                codebaseData: { codebaseName },
+                codebaseBranchData: { codebaseBranchName },
+            } = data;
+            const name = `${codebaseName}-${codebaseBranchName}-build-${randomPostfix}`;
 
             await fireRequest({
                 objectName: name,
