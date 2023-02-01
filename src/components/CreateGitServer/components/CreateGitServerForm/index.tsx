@@ -107,10 +107,12 @@ export const CreateGitServerForm = ({
             const {
                 metadata: { name },
             } = editorReturnValues;
+            const sshPrivateKeyWithExtraLine = sshPrivateKey.trim() + '\n';
+
             const gitServerSecretInstance = createGitServerSecretInstance(GIT_SERVER_SECRET_NAMES, {
                 name,
                 gitUser: btoa(unescape(gitUser)),
-                sshPrivateKey: btoa(unescape(sshPrivateKey)),
+                sshPrivateKey: btoa(unescape(sshPrivateKeyWithExtraLine)),
                 token: btoa(unescape(token)),
             });
 
