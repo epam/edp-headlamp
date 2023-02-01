@@ -75,14 +75,16 @@ export const EditCodebaseForm = ({
 
     const { editorReturnValues } = useEditorCode({
         names,
-        formValues: hasJiraServerIntegrationFieldValue
-            ? formValues
-            : {
-                  jiraIssueMetadataPayload: '',
-                  ticketNamePattern: '',
-                  commitMessagePattern: '',
-                  jiraServer: '',
-              },
+        formValues: {
+            ...formValues,
+            jiraIssueMetadataPayload: hasJiraServerIntegrationFieldValue
+                ? formValues.jiraIssueMetadataPayload
+                : '',
+            commitMessagePattern: hasJiraServerIntegrationFieldValue
+                ? formValues.commitMessagePattern
+                : '',
+            jiraServer: hasJiraServerIntegrationFieldValue ? formValues.jiraServer : '',
+        },
         kubeObjectData: codebaseData,
     });
 
@@ -112,6 +114,12 @@ export const EditCodebaseForm = ({
                     <div className={classes.formInner}>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
+                                <TicketNamePattern
+                                    names={names}
+                                    handleFormFieldChange={handleFormFieldChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
                                 <JiraServerIntegration
                                     jiraServers={jiraServers}
                                     names={names}
@@ -129,12 +137,6 @@ export const EditCodebaseForm = ({
                                     </Grid>
                                     <Grid item xs={12}>
                                         <CommitMessagePattern
-                                            names={names}
-                                            handleFormFieldChange={handleFormFieldChange}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <TicketNamePattern
                                             names={names}
                                             handleFormFieldChange={handleFormFieldChange}
                                         />

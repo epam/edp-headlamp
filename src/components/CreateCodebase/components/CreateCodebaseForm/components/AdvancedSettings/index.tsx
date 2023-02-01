@@ -66,6 +66,12 @@ export const AdvancedSettings = (): React.ReactElement => {
                     />
                 </Grid>
                 <Grid item xs={12}>
+                    <TicketNamePattern
+                        names={names}
+                        handleFormFieldChange={handleFormFieldChange}
+                    />
+                </Grid>
+                <Grid item xs={12}>
                     <JiraServerIntegration
                         jiraServers={jiraServers}
                         names={names}
@@ -84,12 +90,6 @@ export const AdvancedSettings = (): React.ReactElement => {
                         </Grid>
                         <Grid item xs={12}>
                             <CommitMessagePattern
-                                names={names}
-                                handleFormFieldChange={handleFormFieldChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TicketNamePattern
                                 names={names}
                                 handleFormFieldChange={handleFormFieldChange}
                             />
