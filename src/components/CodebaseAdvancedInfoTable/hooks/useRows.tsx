@@ -3,7 +3,7 @@ import { MuiCore, React } from '../../../plugin.globals';
 import { NameValueTableRow } from '../../HeadlampNameValueTable/types';
 import { Render } from '../../Render';
 
-const { Typography } = MuiCore;
+const { Typography, Divider } = MuiCore;
 
 export const useRows = (
     codebaseSpec: EDPCodebaseSpecInterface,
@@ -60,13 +60,44 @@ export const useRows = (
         }
 
         if (codebaseSpec.jiraIssueMetadataPayload) {
+            const parsedJiraConfiguration: {
+                components: string;
+                fixVersions: string;
+                labels: string;
+            } = JSON.parse(codebaseSpec.jiraIssueMetadataPayload);
+            const parsedJiraConfigurationEntries = Object.entries(parsedJiraConfiguration);
+
             base.push({
                 name: 'Jira Issue Metadata Payload',
                 value: (
                     <Render condition={!!codebaseSpec.jiraIssueMetadataPayload}>
-                        <Typography className={classes.statusLabel} component="span">
-                            {codebaseSpec.jiraIssueMetadataPayload}
-                        </Typography>
+                        <>
+                            {parsedJiraConfigurationEntries.map(([name, value], idx) => {
+                                const key = `jiraProp::${idx}`;
+
+                                return (
+                                    <div key={key}>
+                                        <Render condition={idx !== 0}>
+                                            <Divider className={classes.divider} />
+                                        </Render>
+                                        <div>
+                                            <Typography
+                                                className={classes.statusLabel}
+                                                component="span"
+                                            >
+                                                {name}:
+                                            </Typography>
+                                            <Typography
+                                                component="div"
+                                                className={classes.valueField}
+                                            >
+                                                "{value}"
+                                            </Typography>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </>
                     </Render>
                 ),
             });
