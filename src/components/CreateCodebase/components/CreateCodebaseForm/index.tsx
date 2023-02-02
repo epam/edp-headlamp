@@ -213,6 +213,7 @@ export const CreateCodebaseForm = ({
         watch,
         names,
         setValue,
+        resetField,
         handleFormFieldChange,
         hasGerritGitServer,
     });

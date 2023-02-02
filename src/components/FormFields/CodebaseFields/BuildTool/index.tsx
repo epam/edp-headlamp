@@ -51,6 +51,19 @@ export const BuildTool = ({ names, handleFormFieldChange }: BuildToolProps) => {
         lang: langFieldValue,
     });
 
+    const buildToolOptions = React.useMemo(() => {
+        if (!chosenLang) {
+            return [];
+        }
+
+        return Object.values(chosenLang.buildTools).map(({ name, value }) => {
+            return {
+                label: name,
+                value,
+            } as SelectOption;
+        });
+    }, [chosenLang]);
+
     return (
         <>
             {langFieldValue === CODEBASE_COMMON_LANGUAGES['OTHER'] ? (
@@ -85,12 +98,7 @@ export const BuildTool = ({ names, handleFormFieldChange }: BuildToolProps) => {
                     placeholder={'Select build tool'}
                     control={control}
                     errors={errors}
-                    options={Object.values(chosenLang.buildTools).map(({ name, value }) => {
-                        return {
-                            label: name,
-                            value,
-                        } as SelectOption;
-                    })}
+                    options={buildToolOptions}
                 />
             )}
         </>

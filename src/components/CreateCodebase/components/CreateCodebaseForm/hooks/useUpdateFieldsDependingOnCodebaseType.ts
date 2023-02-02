@@ -8,6 +8,7 @@ interface useUpdateFieldsDependingOnChosenCIToolProps {
     watch: (name: string) => string;
     names: { [key: string]: FormNameObject };
     setValue: (name: string, value: any) => void;
+    resetField: (name: string) => void;
     handleFormFieldChange(eventTarget: FieldEventTarget): void;
     hasGerritGitServer: boolean;
 }
@@ -16,14 +17,31 @@ export const useUpdateFieldsDependingOnCodebaseType = ({
     watch,
     names,
     setValue,
+    resetField,
     handleFormFieldChange,
     hasGerritGitServer,
 }: useUpdateFieldsDependingOnChosenCIToolProps): void => {
+    console.log(names);
     const codebaseTypeFieldValue = watch(names.type.name);
+
+    const resetFields = React.useCallback(
+        (fieldNames: string[]) => {
+            for (const fieldName of fieldNames) {
+                resetField(fieldName);
+                handleFormFieldChange({
+                    name: fieldName,
+                    value: undefined,
+                });
+            }
+        },
+        [handleFormFieldChange, resetField]
+    );
 
     React.useEffect(() => {
         switch (codebaseTypeFieldValue) {
             case CODEBASE_TYPES['APPLICATION']:
+                resetFields([names.lang.name, names.framework.name, names.buildTool.name]);
+
                 setValue(names.deploymentScript.name, DEPLOYMENT_SCRIPTS['HELM_CHART']);
                 handleFormFieldChange({
                     name: names.deploymentScript.name,
@@ -43,11 +61,13 @@ export const useUpdateFieldsDependingOnCodebaseType = ({
                 });
                 break;
             case CODEBASE_TYPES['AUTOTEST']:
-                setValue(names.deploymentScript.name, undefined);
-                handleFormFieldChange({
-                    name: names.deploymentScript.name,
-                    value: undefined,
-                });
+                resetFields([
+                    names.lang.name,
+                    names.framework.name,
+                    names.buildTool.name,
+                    names.deploymentScript.name,
+                ]);
+
                 setValue(
                     names.strategy.name,
                     hasGerritGitServer
@@ -62,11 +82,13 @@ export const useUpdateFieldsDependingOnCodebaseType = ({
                 });
                 break;
             case CODEBASE_TYPES['LIBRARY']:
-                setValue(names.deploymentScript.name, undefined);
-                handleFormFieldChange({
-                    name: names.deploymentScript.name,
-                    value: undefined,
-                });
+                resetFields([
+                    names.lang.name,
+                    names.framework.name,
+                    names.buildTool.name,
+                    names.deploymentScript.name,
+                ]);
+
                 setValue(
                     names.strategy.name,
                     hasGerritGitServer
@@ -80,5 +102,12 @@ export const useUpdateFieldsDependingOnCodebaseType = ({
                         : CODEBASE_CREATION_STRATEGIES['IMPORT'],
                 });
         }
-    }, [codebaseTypeFieldValue, handleFormFieldChange, hasGerritGitServer, names, setValue]);
+    }, [
+        codebaseTypeFieldValue,
+        handleFormFieldChange,
+        hasGerritGitServer,
+        names,
+        resetFields,
+        setValue,
+    ]);
 };

@@ -6,6 +6,8 @@ import {
     Docker,
     DotNet,
     DotNetCore,
+    Fastapi,
+    Flask,
     Go,
     Groovy,
     Java,
@@ -43,6 +45,8 @@ export const Applications = (): React.ReactElement => {
             <Python />
             <ReactSymbol />
             <Terraform />
+            <Fastapi />
+            <Flask />
         </svg>
     );
 };

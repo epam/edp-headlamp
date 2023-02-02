@@ -50,6 +50,19 @@ export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
         lang: langFieldValue,
     });
 
+    const frameworkOptions = React.useMemo(() => {
+        if (!chosenLang) {
+            return [];
+        }
+
+        return Object.values(chosenLang.frameworks).map(({ name, value, icon }) => ({
+            value,
+            label: name,
+            icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+            checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+        }));
+    }, [chosenLang]);
+
     return (
         <>
             {langFieldValue === CODEBASE_COMMON_LANGUAGES['OTHER'] ? (
@@ -81,12 +94,7 @@ export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
                     control={control}
                     errors={errors}
                     label={`Language version/framework`}
-                    options={Object.values(chosenLang.frameworks).map(({ name, value, icon }) => ({
-                        value,
-                        label: name,
-                        icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                        checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                    }))}
+                    options={frameworkOptions}
                 />
             )}
         </>

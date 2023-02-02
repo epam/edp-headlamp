@@ -91,6 +91,16 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 value: 'python-3.8',
                 icon: 'python',
             },
+            fastapi: {
+                name: 'Fastapi',
+                value: 'fastapi',
+                icon: 'fastapi',
+            },
+            flask: {
+                name: 'Flask',
+                value: 'flask',
+                icon: 'flask',
+            },
         },
         buildTools: {
             python: {

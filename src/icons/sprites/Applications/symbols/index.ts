@@ -3,6 +3,8 @@ export * from './Codenarc';
 export * from './Container';
 export * from './Docker';
 export * from './DotNetCore';
+export * from './Fastapi';
+export * from './Flask';
 export * from './DotNet';
 export * from './Go';
 export * from './Groovy';
