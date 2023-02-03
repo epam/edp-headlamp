@@ -66,7 +66,7 @@ export const AdvancedSettings = (): React.ReactElement => {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <TicketNamePattern
+                    <CommitMessagePattern
                         names={names}
                         handleFormFieldChange={handleFormFieldChange}
                     />
@@ -89,7 +89,7 @@ export const AdvancedSettings = (): React.ReactElement => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <CommitMessagePattern
+                            <TicketNamePattern
                                 names={names}
                                 handleFormFieldChange={handleFormFieldChange}
                             />

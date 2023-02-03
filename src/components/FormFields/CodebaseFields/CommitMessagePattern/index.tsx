@@ -17,7 +17,6 @@ export const CommitMessagePattern = ({
     return (
         <FormTextField
             {...register(names.commitMessagePattern.name, {
-                required: 'Specify the pattern to validate a commit message',
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
                     handleFormFieldChange({ name, value }),
             })}

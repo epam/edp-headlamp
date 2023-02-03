@@ -1838,7 +1838,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                             <span
                               class="MuiTypography-root makeStyles-label-17 MuiTypography-body1"
                             >
-                              Specify the pattern to find a Jira ticket number in a commit message
+                              Specify the pattern to validate a commit message
                             </span>
                           </span>
                         </div>
@@ -1858,8 +1858,8 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                 <input
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
-                                  name="ticketNamePattern"
-                                  placeholder="PROJECT_NAME-\\d{4}"
+                                  name="commitMessagePattern"
+                                  placeholder="^\\[PROJECT_NAME-\\d{4}\\]:.*"
                                   type="text"
                                   value=""
                                 />
@@ -3868,7 +3868,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-67 MuiTypography-body1"
                             >
-                              Specify the pattern to find a Jira ticket number in a commit message
+                              Specify the pattern to validate a commit message
                             </span>
                           </span>
                         </div>
@@ -3888,8 +3888,8 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                 <input
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
-                                  name="ticketNamePattern"
-                                  placeholder="PROJECT_NAME-\\d{4}"
+                                  name="commitMessagePattern"
+                                  placeholder="^\\[PROJECT_NAME-\\d{4}\\]:.*"
                                   type="text"
                                   value=""
                                 />
@@ -5898,7 +5898,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             <span
                               class="MuiTypography-root makeStyles-label-42 MuiTypography-body1"
                             >
-                              Specify the pattern to find a Jira ticket number in a commit message
+                              Specify the pattern to validate a commit message
                             </span>
                           </span>
                         </div>
@@ -5918,8 +5918,8 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                 <input
                                   aria-invalid="false"
                                   class="MuiInputBase-input MuiInput-input"
-                                  name="ticketNamePattern"
-                                  placeholder="PROJECT_NAME-\\d{4}"
+                                  name="commitMessagePattern"
+                                  placeholder="^\\[PROJECT_NAME-\\d{4}\\]:.*"
                                   type="text"
                                   value=""
                                 />
