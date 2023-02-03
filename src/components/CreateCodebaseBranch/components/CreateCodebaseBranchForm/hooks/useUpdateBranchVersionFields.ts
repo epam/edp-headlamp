@@ -1,5 +1,6 @@
 import { React } from '../../../../../plugin.globals';
 import { FieldEventTarget, FormNameObject } from '../../../../../types/forms';
+import { createReleaseNameString } from '../../../../../utils/createReleaseNameString';
 import { getMajorMinorPatchOfVersion } from '../../../../../utils/getMajorMinorPatchOfVersion';
 import { getVersionAndPostfixFromVersioningString } from '../../../../../utils/getVersionAndPostfixFromVersioningString';
 
@@ -55,8 +56,13 @@ export const useUpdateBranchVersionFields = ({
         const { major, minor, patch } = getMajorMinorPatchOfVersion(currentBranchVersion);
         const newDefaultBranchMinor = minor + 1;
         const defaultBranchNewVersion = [major, newDefaultBranchMinor, patch].join('.');
-
+        const newReleaseBranchName = createReleaseNameString(major, minor);
         setValue(names.defaultBranchVersionStart.name, defaultBranchNewVersion);
+        setValue(names.branchName.name, newReleaseBranchName);
+        handleFormFieldChange({
+            name: names.branchName.name,
+            value: newReleaseBranchName,
+        });
 
         if (!defaultVersionPostfixFieldValue) {
             setValue(names.defaultBranchVersionPostfix.name, postfix);
