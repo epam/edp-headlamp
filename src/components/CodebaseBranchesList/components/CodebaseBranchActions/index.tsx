@@ -1,6 +1,5 @@
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
-import { useGitServers } from '../../../../hooks/useGitServers';
 import { useRequest } from '../../../../hooks/useRequest';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
@@ -25,6 +24,7 @@ export const CodebaseBranchActions = ({
     codebaseBranchData,
     defaultBranch,
     codebase,
+    gitServers,
 }: CodebaseBranchActionsProps): React.ReactElement => {
     const {
         metadata: { namespace },
@@ -46,8 +46,6 @@ export const CodebaseBranchActions = ({
     const handleCloseActionsMenu = React.useCallback(() => {
         setAnchorEl(null);
     }, [setAnchorEl]);
-
-    const { gitServers } = useGitServers({ namespace });
 
     const gitServerByCodebase = gitServers
         ? gitServers.filter(el => el.metadata.name === codebase.spec.gitServer)?.[0]

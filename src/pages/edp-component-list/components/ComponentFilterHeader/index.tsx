@@ -40,39 +40,37 @@ export const ComponentFilterHeader = ({
                 title={'Components'}
                 headerStyle={'label'}
                 actions={[
-                    <form>
-                        <Box>
-                            <Grid container spacing={1}>
-                                <Grid item style={{ minWidth: rem(200) }}>
-                                    <FormSelect
-                                        {...register('type', {
-                                            onChange: ({ target: { value } }) => setType(value),
-                                        })}
-                                        control={control}
-                                        errors={errors}
-                                        name={'type'}
-                                        label={'Type'}
-                                        options={codebaseTypeSelectOptions}
-                                        defaultValue={defaultValues.type}
-                                    />
-                                </Grid>
-                                <Grid item>
-                                    <FormTextField
-                                        {...register('search', {
-                                            onChange: ({ target: { value } }) => {
-                                                dispatch(setSearchFilter(value));
-                                            },
-                                        })}
-                                        control={control}
-                                        errors={errors}
-                                        label={'Search'}
-                                        placeholder={'Filter'}
-                                        InputProps={{ role: 'search', type: 'search' }}
-                                    />
-                                </Grid>
+                    <Box>
+                        <Grid container spacing={1}>
+                            <Grid item style={{ minWidth: rem(200) }}>
+                                <FormSelect
+                                    {...register('type', {
+                                        onChange: ({ target: { value } }) => setType(value),
+                                    })}
+                                    control={control}
+                                    errors={errors}
+                                    name={'type'}
+                                    label={'Type'}
+                                    options={codebaseTypeSelectOptions}
+                                    defaultValue={defaultValues.type}
+                                />
                             </Grid>
-                        </Box>
-                    </form>,
+                            <Grid item>
+                                <FormTextField
+                                    {...register('search', {
+                                        onChange: ({ target: { value } }) => {
+                                            dispatch(setSearchFilter(value));
+                                        },
+                                    })}
+                                    control={control}
+                                    errors={errors}
+                                    label={'Search'}
+                                    placeholder={'Filter'}
+                                    InputProps={{ role: 'search', type: 'search' }}
+                                />
+                            </Grid>
+                        </Grid>
+                    </Box>,
                 ]}
             />
         </>

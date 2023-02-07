@@ -1,3 +1,4 @@
+import { useGitServers } from '../../hooks/useGitServers';
 import { streamCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
 import { pluginLib, React } from '../../plugin.globals';
@@ -28,6 +29,8 @@ export const CodebaseBranchesList = ({
     const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpandedPanel(isExpanded ? panel : null);
     };
+
+    const { gitServers } = useGitServers({ namespace });
 
     const handleStoreCodebaseBranches = React.useCallback(
         (data: EDPCodebaseBranchKubeObjectInterface[]) => {
@@ -76,6 +79,7 @@ export const CodebaseBranchesList = ({
                                 expandedPanel={expandedPanel}
                                 codebaseData={codebaseData}
                                 handlePanelChange={handleChange}
+                                gitServers={gitServers}
                             />
                         );
                     }

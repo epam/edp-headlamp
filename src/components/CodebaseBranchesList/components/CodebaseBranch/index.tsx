@@ -1,25 +1,39 @@
 import clsx from 'clsx';
+import { useForm } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
-import { CUSTOM_RESOURCE_STATUSES, PIPELINE_RUN_STATUSES } from '../../../../constants/statuses';
+import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { streamPipelineRunListByCodebaseBranchLabel } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
+import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
+import { parsePipelineRunStatus } from '../../../../utils/parsePipelineRunStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../utils/styling/rem';
+import { FormSelect } from '../../../FormComponents';
 import { HeadlampNameValueTable } from '../../../HeadlampNameValueTable';
+import { HeadlampSimpleTable } from '../../../HeadlampSimpleTable';
 import { Render } from '../../../Render';
 import { StatusIcon } from '../../../StatusIcon';
 import { isDefaultBranch } from '../../utils';
 import { CodebaseBranchActions } from '../CodebaseBranchActions';
 import { CodebaseBranchMetadataTable } from '../CodebaseBranchMetadataTable';
-import { useRows } from './hooks/useRows';
+import { useMainInfoRows } from './hooks/useMainInfoRows';
+import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
 import { useStyles } from './styles';
 import { CodebaseBranchProps } from './types';
 
-const { Grid, Typography, Accordion, AccordionSummary, AccordionDetails, Chip } = MuiCore;
+const { Grid, Typography, Accordion, AccordionSummary, AccordionDetails, Chip, Paper } = MuiCore;
 const { Icon } = Iconify;
+
+const pipelineRunTypes = Object.entries(PIPELINE_TYPES).filter(
+    ([, value]) => value !== PIPELINE_TYPES['DEPLOY']
+);
+const pipelineRunTypeSelectOptions = pipelineRunTypes.map(([, value]) => ({
+    label: capitalizeFirstLetter(value),
+    value: value,
+}));
 
 export const CodebaseBranch = ({
     defaultBranch,
@@ -28,7 +42,14 @@ export const CodebaseBranch = ({
     id,
     handlePanelChange,
     codebaseData,
+    gitServers,
 }: CodebaseBranchProps): React.ReactElement => {
+    const {
+        register,
+        control,
+        formState: { errors },
+    } = useForm();
+
     const {
         spec: { ciTool },
     } = codebaseData;
@@ -36,21 +57,40 @@ export const CodebaseBranch = ({
     const jenkinsCiToolIsUsed = ciTool === CI_TOOLS['JENKINS'];
 
     const classes = useStyles();
-    const rows = useRows(codebaseBranchData);
-    const codebaseBranchLabel = `${codebaseData.metadata.name}-${codebaseBranchData.spec.branchName}`;
+    const mainInfoRows = useMainInfoRows(codebaseBranchData);
+    const pipelineRunsColumns = usePipelineRunsColumns();
+    const normalizedCodebaseBranchName = codebaseBranchData.metadata.name.replaceAll('/', '-');
 
-    const [latestBuildPipelineRunStatus, setLatestPipelineRunStatus] = React.useState<string>(
-        CUSTOM_RESOURCE_STATUSES['UNKNOWN']
-    );
+    const [pipelineRuns, setPipelineRuns] = React.useState<{
+        all: PipelineRunKubeObjectInterface[];
+        latestBuildRunStatus: string;
+    }>({
+        all: null,
+        latestBuildRunStatus: CUSTOM_RESOURCE_STATUSES['UNKNOWN'],
+    });
+
     const [, setError] = React.useState<Error>(null);
+    const [pipelineRunType, setPipelineRunType] = React.useState<PIPELINE_TYPES>(
+        PIPELINE_TYPES['ALL']
+    );
+    const filteredPipelineRunsByType = React.useMemo(
+        () =>
+            pipelineRunType === 'all'
+                ? pipelineRuns.all
+                : pipelineRuns.all.filter(
+                      ({ metadata: { labels } }) =>
+                          labels['app.edp.epam.com/pipelinetype'] === pipelineRunType
+                  ),
+        [pipelineRunType, pipelineRuns.all]
+    );
 
-    const handleStoreLatestPipelineRun = React.useCallback(
-        (data: PipelineRunKubeObjectInterface[]) => {
+    const handleStorePipelineRuns = React.useCallback(
+        (socketPipelineRuns: PipelineRunKubeObjectInterface[]) => {
             if (jenkinsCiToolIsUsed) {
                 return;
             }
 
-            const [latestBuildPipelineRun] = data
+            const [latestBuildPipelineRun] = socketPipelineRuns
                 .filter(
                     ({ metadata: { labels } }) =>
                         labels['app.edp.epam.com/pipelinetype'] === PIPELINE_TYPES['BUILD']
@@ -59,37 +99,22 @@ export const CodebaseBranch = ({
 
             if (
                 latestBuildPipelineRun?.status?.conditions?.[0]?.reason ===
-                latestBuildPipelineRunStatus
+                pipelineRuns.latestBuildRunStatus
             ) {
                 return;
             }
 
-            if (
-                !latestBuildPipelineRun ||
-                !latestBuildPipelineRun.status ||
-                !latestBuildPipelineRun.status.conditions ||
-                !latestBuildPipelineRun.status.conditions.length
-            ) {
-                setLatestPipelineRunStatus(CUSTOM_RESOURCE_STATUSES['UNKNOWN']);
-                return;
-            }
+            const pipelineRunStatus = parsePipelineRunStatus(latestBuildPipelineRun);
 
-            const reasonValue = latestBuildPipelineRun.status.conditions[0].reason.toLowerCase();
-            const statusValue = latestBuildPipelineRun.status.conditions[0].status.toLowerCase();
-
-            const currentPipelineRunStatus =
-                reasonValue === PIPELINE_RUN_STATUSES['RUNNING']
-                    ? reasonValue
-                    : statusValue === 'true'
-                    ? PIPELINE_RUN_STATUSES['SUCCEEDED']
-                    : PIPELINE_RUN_STATUSES['FAILED'];
-
-            setLatestPipelineRunStatus(currentPipelineRunStatus);
+            setPipelineRuns({
+                all: socketPipelineRuns,
+                latestBuildRunStatus: pipelineRunStatus,
+            });
         },
-        [jenkinsCiToolIsUsed, latestBuildPipelineRunStatus]
+        [jenkinsCiToolIsUsed, pipelineRuns.latestBuildRunStatus]
     );
 
-    const handleError = React.useCallback((error: Error) => {
+    const handleStreamError = React.useCallback((error: Error) => {
         setError(error);
     }, []);
 
@@ -99,17 +124,17 @@ export const CodebaseBranch = ({
         }
 
         const cancelStream = streamPipelineRunListByCodebaseBranchLabel(
-            codebaseBranchLabel,
-            handleStoreLatestPipelineRun,
-            handleError,
+            normalizedCodebaseBranchName,
+            handleStorePipelineRuns,
+            handleStreamError,
             codebaseBranchData.metadata.namespace
         );
 
         return () => cancelStream();
     }, [
-        codebaseBranchLabel,
-        handleError,
-        handleStoreLatestPipelineRun,
+        normalizedCodebaseBranchName,
+        handleStreamError,
+        handleStorePipelineRuns,
         codebaseBranchData,
         jenkinsCiToolIsUsed,
     ]);
@@ -147,8 +172,8 @@ export const CodebaseBranch = ({
                                     <Grid item>
                                         <div className={classes.pipelineRunStatus}>
                                             <StatusIcon
-                                                status={latestBuildPipelineRunStatus}
-                                                customTitle={`Last pipeline run status: ${latestBuildPipelineRunStatus}`}
+                                                status={pipelineRuns.latestBuildRunStatus}
+                                                customTitle={`Last pipeline run status: ${pipelineRuns.latestBuildRunStatus}`}
                                                 width={18}
                                             />
                                         </div>
@@ -164,6 +189,7 @@ export const CodebaseBranch = ({
                                         codebaseBranchData={codebaseBranchData}
                                         defaultBranch={defaultBranch}
                                         codebase={codebaseData}
+                                        gitServers={gitServers}
                                     />
                                 </Grid>
                             </Grid>
@@ -171,9 +197,42 @@ export const CodebaseBranch = ({
                     </div>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <HeadlampNameValueTable rows={rows} />
+                            <Grid container spacing={1}>
+                                <Render condition={!!pipelineRuns?.all?.length}>
+                                    <Grid item xs={4}>
+                                        <FormSelect
+                                            {...register('type', {
+                                                onChange: ({ target: { value } }) =>
+                                                    setPipelineRunType(value),
+                                            })}
+                                            control={control}
+                                            errors={errors}
+                                            name={'type'}
+                                            label={'Type'}
+                                            options={pipelineRunTypeSelectOptions}
+                                            defaultValue={PIPELINE_TYPES['ALL']}
+                                        />
+                                    </Grid>
+                                </Render>
+                                <Grid item xs={12}>
+                                    <Paper>
+                                        <HeadlampSimpleTable
+                                            columns={pipelineRunsColumns}
+                                            data={filteredPipelineRunsByType}
+                                            emptyMessage={
+                                                pipelineRunType === PIPELINE_TYPES['ALL']
+                                                    ? 'No pipeline runs'
+                                                    : `No ${pipelineRunType} pipeline runs`
+                                            }
+                                        />
+                                    </Paper>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <HeadlampNameValueTable rows={mainInfoRows} />
                         </Grid>
                     </Grid>
                 </AccordionDetails>

@@ -5,6 +5,8 @@ const { makeStyles } = MuiCore;
 export const useStyles = makeStyles(() => ({
     icon: {
         willChange: 'transform',
+        display: 'block',
+        lineHeight: 0,
     },
     rotateIcon: {
         animation: '$spin 2s linear infinite',

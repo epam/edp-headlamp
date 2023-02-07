@@ -23,7 +23,17 @@ export const streamResult = (
             const fieldSelector = encodeURIComponent(`metadata.name=${name}`);
             const watchUrl = `${url}?watch=1&fieldSelector=${fieldSelector}`;
 
-            socket = ApiProxy.stream(watchUrl, x => cb(x.object), { isJson: true });
+            socket = ApiProxy.stream(
+                watchUrl,
+                x => {
+                    const currentVersion = parseInt(item.metadata.resourceVersion, 10);
+                    const newVersion = parseInt(x.object.metadata.resourceVersion, 10);
+                    if (currentVersion < newVersion) {
+                        cb(x);
+                    }
+                },
+                { isJson: true }
+            );
         } catch (err) {
             if (errCb) errCb(err as ApiError, cancel);
         }

@@ -24,8 +24,7 @@ export const StatusIcon = ({
                     icon={icon}
                     color={color}
                     width={width}
-                    className={clsx({
-                        [classes.icon]: animate,
+                    className={clsx(classes.icon, {
                         [classes.rotateIcon]: animate,
                     })}
                 />
