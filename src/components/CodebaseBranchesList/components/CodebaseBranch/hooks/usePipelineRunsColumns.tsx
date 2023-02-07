@@ -35,6 +35,10 @@ export const usePipelineRunsColumns =
                             metadata: { name, namespace },
                         } = resource;
 
+                        if (!resource?.status?.pipelineSpec?.params?.[0]?.default) {
+                            return <>{name}</>;
+                        }
+
                         const tektonOrigin = resource?.status?.pipelineSpec?.params?.[0]?.default;
                         const urlObject = new URL(tektonOrigin);
                         const pipelineRunLink = `${urlObject.origin}/#/namespaces/${namespace}/pipelineruns/${name}`;
@@ -58,9 +62,14 @@ export const usePipelineRunsColumns =
                             },
                         } = resource;
 
+                        if (!resource?.status?.pipelineSpec?.params?.[0]?.default) {
+                            return <>{pipelineRefName}</>;
+                        }
+
                         const tektonOrigin = resource?.status?.pipelineSpec?.params?.[0]?.default;
                         const urlObject = new URL(tektonOrigin);
                         const pipelineLink = `${urlObject.origin}/#/namespaces/${namespace}/pipelines/${pipelineRefName}`;
+
                         return (
                             <>
                                 <Link href={pipelineLink} target="_blank" rel="noopener">
@@ -73,6 +82,10 @@ export const usePipelineRunsColumns =
                 {
                     label: 'Time',
                     getter: resource => {
+                        if (!resource?.status?.startTime || !resource?.status?.completionTime) {
+                            return <HoverInfoLabel label={''} hoverInfo={''} icon="mdi:calendar" />;
+                        }
+
                         const startTimeDate = new Date(resource?.status?.startTime);
                         const completionTimeDate = new Date(resource?.status?.completionTime);
                         const time = humanizeDefault(

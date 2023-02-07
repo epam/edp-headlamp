@@ -83,19 +83,20 @@ export const CodebaseBranch = ({
                   ),
         [pipelineRunType, pipelineRuns.all]
     );
-
     const handleStorePipelineRuns = React.useCallback(
         (socketPipelineRuns: PipelineRunKubeObjectInterface[]) => {
             if (jenkinsCiToolIsUsed) {
                 return;
             }
 
-            const [latestBuildPipelineRun] = socketPipelineRuns
+            const sortedPipelineRuns = socketPipelineRuns
                 .filter(
                     ({ metadata: { labels } }) =>
                         labels['app.edp.epam.com/pipelinetype'] === PIPELINE_TYPES['BUILD']
                 )
                 .sort(sortKubeObjectByCreationTimestamp);
+
+            const [latestBuildPipelineRun] = sortedPipelineRuns;
 
             if (
                 latestBuildPipelineRun?.status?.conditions?.[0]?.reason ===
@@ -107,7 +108,7 @@ export const CodebaseBranch = ({
             const pipelineRunStatus = parsePipelineRunStatus(latestBuildPipelineRun);
 
             setPipelineRuns({
-                all: socketPipelineRuns,
+                all: sortedPipelineRuns,
                 latestBuildRunStatus: pipelineRunStatus,
             });
         },

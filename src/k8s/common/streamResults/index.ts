@@ -101,7 +101,9 @@ export const streamResults = (
     }
 
     function push() {
-        const values = Object.values(results);
+        const values = Object.entries(results)
+            .sort()
+            .map(([, value]) => value);
         cb(values);
     }
 };
