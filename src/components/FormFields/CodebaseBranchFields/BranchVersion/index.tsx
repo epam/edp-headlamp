@@ -76,7 +76,7 @@ export const BranchVersion = ({ names, handleFormFieldChange }: BranchVersionPro
                         required: 'Branch version',
                         onBlur: onBranchVersionStartFieldValueChange,
                         pattern: {
-                            value: /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/,
+                            value: /^([0-9]+)\.([0-9]+)\.([0-9]+)?$/,
                             message: 'Enter valid semantic versioning format',
                         },
                     })}

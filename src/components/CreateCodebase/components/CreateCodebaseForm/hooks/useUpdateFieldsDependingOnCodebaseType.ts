@@ -21,7 +21,6 @@ export const useUpdateFieldsDependingOnCodebaseType = ({
     handleFormFieldChange,
     hasGerritGitServer,
 }: useUpdateFieldsDependingOnChosenCIToolProps): void => {
-    console.log(names);
     const codebaseTypeFieldValue = watch(names.type.name);
 
     const resetFields = React.useCallback(

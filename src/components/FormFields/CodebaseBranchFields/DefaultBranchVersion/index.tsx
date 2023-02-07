@@ -25,7 +25,7 @@ export const DefaultBranchVersion = ({
                         onBlur: ({ target: { name, value } }: FieldEvent) =>
                             handleFormFieldChange({ name, value }),
                         pattern: {
-                            value: /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/,
+                            value: /^([0-9]+)\.([0-9]+)\.([0-9]+)?$/,
                             message: 'Enter valid semantic versioning format',
                         },
                     })}

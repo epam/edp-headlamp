@@ -59,6 +59,7 @@ export const CreateCodebaseBranchForm = ({
 
     const methods = useForm({
         defaultValues: baseDefaultValues,
+        mode: 'onBlur',
     });
 
     const {
