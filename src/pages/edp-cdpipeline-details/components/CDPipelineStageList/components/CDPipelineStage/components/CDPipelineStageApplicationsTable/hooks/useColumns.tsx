@@ -12,7 +12,9 @@ const {
     CommonComponents: { Link },
 } = pluginLib;
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<{
+export const useColumns = (
+    qualityGatePipelineIsRunning: boolean
+): HeadlampSimpleTableGetterColumn<{
     enrichedApplication: EnrichedApplication;
     argoApplication: ApplicationKubeObjectInterface;
 }>[] =>
@@ -21,12 +23,8 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
             {
                 label: 'Health',
                 getter: ({ argoApplication }) =>
-                    argoApplication &&
-                    argoApplication.status &&
                     //@ts-ignore
-                    argoApplication.status.health &&
-                    //@ts-ignore
-                    argoApplication.status.health.status ? (
+                    argoApplication?.status?.health?.status ? (
                         <StatusIcon
                             //@ts-ignore
                             status={argoApplication.status.health.status.toLowerCase()}
@@ -38,12 +36,8 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
             {
                 label: 'Sync',
                 getter: ({ argoApplication }) =>
-                    argoApplication &&
-                    argoApplication.status &&
                     //@ts-ignore
-                    argoApplication.status.sync &&
-                    //@ts-ignore
-                    argoApplication.status.sync.status ? (
+                    argoApplication?.status?.sync?.status ? (
                         <StatusIcon
                             //@ts-ignore
                             status={argoApplication.status.sync.status.toLowerCase()}
@@ -91,9 +85,10 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
                     <ImageStreamTagsSelect
                         enrichedApplication={enrichedApplication}
                         argoApplication={argoApplication}
+                        qualityGatePipelineIsRunning={qualityGatePipelineIsRunning}
                     />
                 ),
             },
         ],
-        []
+        [qualityGatePipelineIsRunning]
     );

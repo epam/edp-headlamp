@@ -25,9 +25,11 @@ const { Grid, Button } = MuiCore;
 export const ImageStreamTagsSelect = ({
     enrichedApplication,
     argoApplication,
+    qualityGatePipelineIsRunning,
 }: {
     enrichedApplication: EnrichedApplication;
     argoApplication: ApplicationKubeObjectInterface;
+    qualityGatePipelineIsRunning: boolean;
 }) => {
     const {
         control,
@@ -169,7 +171,12 @@ export const ImageStreamTagsSelect = ({
                             variant={'contained'}
                             color={'primary'}
                             size={'small'}
-                            disabled={!streamTagFieldValue || isApplying || isUpdating}
+                            disabled={
+                                !streamTagFieldValue ||
+                                isApplying ||
+                                isUpdating ||
+                                qualityGatePipelineIsRunning
+                            }
                             onClick={handleCreateRequest}
                         >
                             Deploy
@@ -182,7 +189,12 @@ export const ImageStreamTagsSelect = ({
                             variant={'contained'}
                             color={'primary'}
                             size={'small'}
-                            disabled={!streamTagFieldValue || isApplying || isUpdating}
+                            disabled={
+                                !streamTagFieldValue ||
+                                isApplying ||
+                                isUpdating ||
+                                qualityGatePipelineIsRunning
+                            }
                             onClick={handleEditRequest}
                         >
                             Update
@@ -196,7 +208,7 @@ export const ImageStreamTagsSelect = ({
                         variant={'contained'}
                         color={'default'}
                         size={'small'}
-                        disabled={!argoApplication || isDeleting}
+                        disabled={!argoApplication || isDeleting || qualityGatePipelineIsRunning}
                         onClick={handleDeleteRequest}
                     >
                         Uninstall

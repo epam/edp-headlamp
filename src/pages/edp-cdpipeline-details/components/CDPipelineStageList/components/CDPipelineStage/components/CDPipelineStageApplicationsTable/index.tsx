@@ -6,8 +6,9 @@ import { useStyles } from './styles';
 
 export const CDPipelineStageApplicationsTable = ({
     enrichedApplicationsWithArgoApplications,
+    qualityGatePipelineIsRunning,
 }): React.ReactElement => {
-    const columns = useColumns();
+    const columns = useColumns(qualityGatePipelineIsRunning);
     const classes = useStyles();
 
     return (

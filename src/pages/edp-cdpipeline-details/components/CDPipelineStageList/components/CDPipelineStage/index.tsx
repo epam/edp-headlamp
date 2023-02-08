@@ -10,6 +10,7 @@ import { ApplicationKubeObjectInterface } from '../../../../../../k8s/Applicatio
 import { streamPipelineRunListByTypeLabel } from '../../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
 import { MuiCore, React } from '../../../../../../plugin.globals';
+import { parsePipelineRunStatus } from '../../../../../../utils/parsePipelineRunStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
 import { ApplicationsContext, CDPipelineDataContext } from '../../../../index';
@@ -69,6 +70,11 @@ export const CDPipelineStage = (): React.ReactElement => {
         PipelineRunKubeObjectInterface[]
     >([]);
 
+    const qualityGatePipelineIsRunning = React.useMemo(
+        () => parsePipelineRunStatus(latestTenPipelineRuns[0]) === PIPELINE_RUN_STATUSES['RUNNING'],
+        [latestTenPipelineRuns]
+    );
+
     const handleStoreLatestTenPipelineRuns = React.useCallback(
         (data: PipelineRunKubeObjectInterface[]) => {
             const latestTenPipelineRuns = data.sort(sortKubeObjectByCreationTimestamp).slice(0, 10);
@@ -117,24 +123,15 @@ export const CDPipelineStage = (): React.ReactElement => {
 
         if (latestTenPipelineRuns.length) {
             if (
-                !latestTenPipelineRuns[0] ||
-                !latestTenPipelineRuns[0].status ||
-                !latestTenPipelineRuns[0].status.conditions ||
-                !latestTenPipelineRuns[0].status.conditions[0] ||
-                latestTenPipelineRuns[0].status.conditions[0].reason?.toLowerCase() ===
-                    PIPELINE_RUN_STATUSES['RUNNING']
+                latestTenPipelineRuns?.[0]?.status?.conditions?.[0]?.reason?.toLowerCase() ===
+                PIPELINE_RUN_STATUSES['RUNNING']
             ) {
                 return false;
             }
         }
 
         return enrichedApplicationsWithArgoApplications.every(({ argoApplication }) => {
-            if (
-                !argoApplication ||
-                !argoApplication.status ||
-                !argoApplication.status.health ||
-                !argoApplication.status.health.status
-            ) {
+            if (!argoApplication?.status?.health?.status) {
                 return false;
             }
             return (
@@ -154,6 +151,7 @@ export const CDPipelineStage = (): React.ReactElement => {
                     enrichedApplicationsWithArgoApplications={
                         enrichedApplicationsWithArgoApplications
                     }
+                    qualityGatePipelineIsRunning={qualityGatePipelineIsRunning}
                 />
             </Grid>
             <Grid item xs={12}>
