@@ -29,7 +29,7 @@ export const streamResult = (
                     const currentVersion = parseInt(item.metadata.resourceVersion, 10);
                     const newVersion = parseInt(x.object.metadata.resourceVersion, 10);
                     if (currentVersion < newVersion) {
-                        cb(x);
+                        cb(x.object);
                     }
                 },
                 { isJson: true }

@@ -24,7 +24,7 @@ export const useApplicationsInCDPipeline = ({
     error: Error;
 } => {
     const { applications, error: codebasesError } = useCodebasesByType({
-        namespace: CDPipelineData && CDPipelineData.metadata.namespace,
+        namespace: CDPipelineData?.metadata?.namespace,
         codebaseType: CODEBASE_TYPES['APPLICATION'],
     });
 

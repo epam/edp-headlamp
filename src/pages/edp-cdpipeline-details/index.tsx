@@ -35,18 +35,9 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
 
     const handleStoreCDPipeline = React.useCallback(
         (newCDPipelineData: EDPCDPipelineKubeObjectInterface) => {
-            if (!CDPipelineData) {
-                setCDPipelineData(newCDPipelineData);
-                return;
-            }
-
-            const currentVersion = parseInt(CDPipelineData.metadata.resourceVersion, 10);
-            const newVersion = parseInt(newCDPipelineData.metadata.resourceVersion, 10);
-            if (currentVersion < newVersion) {
-                setCDPipelineData(newCDPipelineData);
-            }
+            setCDPipelineData(newCDPipelineData);
         },
-        [CDPipelineData]
+        []
     );
 
     const handleError = React.useCallback((error: Error) => {
