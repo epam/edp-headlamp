@@ -13,6 +13,7 @@ interface CodebaseFrameworkInterface {
 interface CodebaseBuildToolsInterface {
     name: string;
     value: string;
+    icon: string;
 }
 
 interface CodebaseAutoTestReportFrameworksInterface {

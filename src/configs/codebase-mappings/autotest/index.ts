@@ -18,8 +18,8 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
             java11: { name: 'Java 11', value: 'java11', icon: 'java' },
         },
         buildTools: {
-            gradle: { name: 'Gradle', value: 'gradle' },
-            maven: { name: 'Maven', value: 'maven' },
+            gradle: { name: 'Gradle', value: 'gradle', icon: 'gradle' },
+            maven: { name: 'Maven', value: 'maven', icon: 'maven' },
         },
     },
     [AUTOTEST_LANGUAGES['OTHER']]: {

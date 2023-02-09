@@ -9,10 +9,14 @@ import {
     Fastapi,
     Flask,
     Go,
+    Gradle,
     Groovy,
     Java,
     JavaScript,
+    Kaniko,
     Kustomize,
+    Maven,
+    Npm,
     Opa,
     OperatorSDK,
     OtherApps,
@@ -36,6 +40,10 @@ export const Applications = (): React.ReactElement => {
             <DotNet />
             <Go />
             <Groovy />
+            <Gradle />
+            <Maven />
+            <Npm />
+            <Kaniko />
             <Java />
             <JavaScript />
             <Kustomize />

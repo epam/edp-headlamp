@@ -1,5 +1,7 @@
 import ErrorBoundary from '../../../../components/ErrorBoundary';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
+import { Applications } from '../../../../icons/sprites/Applications';
+import { CiTools } from '../../../../icons/sprites/CiTools';
 import { pluginLib, React } from '../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
 import { ComponentListProps } from './types';
@@ -14,6 +16,8 @@ export const ComponentList = ({ components }: ComponentListProps): React.ReactEl
 
     return (
         <ErrorBoundary>
+            <Applications />
+            <CiTools />
             <HeadlampSimpleTable
                 data={components}
                 columns={columns}

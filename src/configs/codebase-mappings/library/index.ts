@@ -35,10 +35,12 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             gradle: {
                 name: 'Gradle',
                 value: 'gradle',
+                icon: 'gradle',
             },
             maven: {
                 name: 'Maven',
                 value: 'maven',
+                icon: 'maven',
             },
         },
     },
@@ -59,6 +61,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             npm: {
                 name: 'NPM',
                 value: 'npm',
+                icon: 'npm',
             },
         },
     },
@@ -79,6 +82,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             dotnet: {
                 name: 'dotnet',
                 value: 'dotnet',
+                icon: 'dotnet',
             },
         },
     },
@@ -99,6 +103,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             python: {
                 name: 'Python',
                 value: 'python',
+                icon: 'python',
             },
         },
     },
@@ -119,6 +124,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             codenarc: {
                 name: 'Codenarc',
                 value: 'codenarc',
+                icon: 'codenarc',
             },
         },
     },
@@ -139,6 +145,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             terraform: {
                 name: 'Terraform',
                 value: 'terraform',
+                icon: 'terraform',
             },
         },
     },
@@ -152,7 +159,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             opa: { name: 'OPA', value: 'opa', icon: 'opa' },
         },
         buildTools: {
-            opa: { name: 'OPA', value: 'opa' },
+            opa: { name: 'OPA', value: 'opa', icon: 'opa' },
         },
     },
     [LIBRARY_LANGUAGES['CONTAINER']]: {
@@ -172,6 +179,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             kaniko: {
                 name: 'Kaniko',
                 value: 'kaniko',
+                icon: 'kaniko',
             },
         },
     },

@@ -32,10 +32,12 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             gradle: {
                 name: 'Gradle',
                 value: 'gradle',
+                icon: 'gradle',
             },
             maven: {
                 name: 'Maven',
                 value: 'maven',
+                icon: 'maven',
             },
         },
     },
@@ -56,6 +58,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             npm: {
                 name: 'NPM',
                 value: 'npm',
+                icon: 'npm',
             },
         },
     },
@@ -76,6 +79,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             dotnet: {
                 name: 'dotnet',
                 value: 'dotnet',
+                icon: 'dotnet',
             },
         },
     },
@@ -106,6 +110,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             python: {
                 name: 'Python',
                 value: 'python',
+                icon: 'python',
             },
         },
     },
@@ -131,6 +136,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             go: {
                 name: 'Go',
                 value: 'go',
+                icon: 'go',
             },
         },
     },
