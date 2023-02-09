@@ -89,12 +89,7 @@ export const CodebaseBranch = ({
                 return;
             }
 
-            const sortedPipelineRuns = socketPipelineRuns
-                .filter(
-                    ({ metadata: { labels } }) =>
-                        labels['app.edp.epam.com/pipelinetype'] === PIPELINE_TYPES['BUILD']
-                )
-                .sort(sortKubeObjectByCreationTimestamp);
+            const sortedPipelineRuns = socketPipelineRuns.sort(sortKubeObjectByCreationTimestamp);
 
             const [latestBuildPipelineRun] = sortedPipelineRuns;
 
