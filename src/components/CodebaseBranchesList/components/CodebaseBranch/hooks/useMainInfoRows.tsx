@@ -1,17 +1,11 @@
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../k8s/EDPCodebaseBranch/types';
 import { React } from '../../../../../plugin.globals';
-import { formatDateUTCToLocal } from '../../../../../utils/format/formatDateUTCToLocal';
 import { NameValueTableRow } from '../../../../HeadlampNameValueTable/types';
 
 export const useMainInfoRows = (codebaseBranch: EDPCodebaseBranchKubeObjectInterface) =>
     React.useMemo(() => {
         const { spec, status } = codebaseBranch;
-        const base: NameValueTableRow[] = [
-            {
-                name: 'Last time updated',
-                value: status && formatDateUTCToLocal(status.lastTimeUpdated),
-            },
-        ];
+        const base: NameValueTableRow[] = [];
 
         if (spec.fromCommit) {
             base.push({
