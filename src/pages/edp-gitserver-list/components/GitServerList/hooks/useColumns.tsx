@@ -1,27 +1,50 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
+import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
+import {
+    CUSTOM_RESOURCE_ACTIVE_STATUSES,
+    CUSTOM_RESOURCE_STATUSES,
+} from '../../../../../constants/statuses';
 import { EDPGitServerKubeObjectInterface } from '../../../../../k8s/EDPGitServer/types';
-import { pluginLib, React } from '../../../../../plugin.globals';
+import { MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { GIT_SERVERS_ROUTE_NAME } from '../../../../../routes/names';
+import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { sortByActiveStatus } from '../../../../../utils/sort/sortByActiveStatus';
 import { sortByName } from '../../../../../utils/sort/sortByName';
+import { rem } from '../../../../../utils/styling/rem';
 
 const {
     CommonComponents: { Link },
 } = pluginLib;
+
+const { Typography } = MuiCore;
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPGitServerKubeObjectInterface>[] =>
     React.useMemo(
         () => [
             {
                 label: 'Status',
-                getter: ({ status }) => (
-                    <StatusIcon
-                        status={status ? status.value : CUSTOM_RESOURCE_STATUSES['UNKNOWN']}
-                    />
-                ),
+                getter: ({ status: gitServerStatus }) => {
+                    const status = gitServerStatus
+                        ? gitServerStatus.value
+                        : CUSTOM_RESOURCE_ACTIVE_STATUSES['UNKNOWN'];
+
+                    const statusTitle = (
+                        <>
+                            <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                                {capitalizeFirstLetter(status)}
+                            </Typography>
+                            <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
+                                <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                                    {gitServerStatus?.detailed_message}
+                                </Typography>
+                            </Render>
+                        </>
+                    );
+
+                    return <StatusIcon status={status} customTitle={statusTitle} />;
+                },
                 sort: (a, b) => sortByActiveStatus(a.status.value, b.status.value),
             },
             {

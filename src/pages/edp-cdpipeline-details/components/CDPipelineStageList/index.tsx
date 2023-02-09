@@ -1,3 +1,4 @@
+import { Render } from '../../../../components/Render';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICONS } from '../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
@@ -6,6 +7,7 @@ import { streamCDPipelineStagesByCDPipelineName } from '../../../../k8s/EDPCDPip
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
 import { Iconify, MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { rem } from '../../../../utils/styling/rem';
 import { CDPipelineDataContext } from '../../index';
 import { CDPipelineStage } from './components/CDPipelineStage';
@@ -76,7 +78,20 @@ export const CDPipelineStagesList = (): React.ReactElement => {
             </div>
             {CDPipelineStages.map((el, idx) => {
                 const stageId = `${el.spec.name}:${idx}`;
+                const status = el.status ? el.status.status : CUSTOM_RESOURCE_STATUSES['UNKNOWN'];
 
+                const statusTitle = (
+                    <>
+                        <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                            {capitalizeFirstLetter(status)}
+                        </Typography>
+                        <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
+                            <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                                {el?.status?.detailed_message}
+                            </Typography>
+                        </Render>
+                    </>
+                );
                 return (
                     <React.Fragment key={stageId}>
                         <CDPipelineStagesDataContext.Provider value={CDPipelineStages}>
@@ -93,13 +108,8 @@ export const CDPipelineStagesList = (): React.ReactElement => {
                                             >
                                                 <div className={classes.stageHeading}>
                                                     <StatusIcon
-                                                        status={
-                                                            el.status
-                                                                ? el.status.status
-                                                                : CUSTOM_RESOURCE_STATUSES[
-                                                                      'UNKNOWN'
-                                                                  ]
-                                                        }
+                                                        status={status}
+                                                        customTitle={statusTitle}
                                                     />
                                                     <Typography
                                                         variant={'h6'}

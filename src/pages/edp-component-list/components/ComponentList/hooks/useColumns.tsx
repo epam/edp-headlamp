@@ -1,5 +1,6 @@
 import { CodebaseActions } from '../../../../../components/CodebaseActions';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
+import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { APPLICATION_MAPPING } from '../../../../../configs/codebase-mappings/application';
 import { AUTOTEST_MAPPING } from '../../../../../configs/codebase-mappings/autotest';
@@ -15,10 +16,12 @@ import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFir
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
+import { rem } from '../../../../../utils/styling/rem';
 
 const {
     CommonComponents: { Link },
 } = pluginLib;
+const { Typography } = MuiCore;
 
 const { Grid } = MuiCore;
 
@@ -37,11 +40,26 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
         () => [
             {
                 label: 'Status',
-                getter: ({ status }) => (
-                    <StatusIcon
-                        status={status ? status.status : CUSTOM_RESOURCE_STATUSES['UNKNOWN']}
-                    />
-                ),
+                getter: ({ status: codebaseStatus }) => {
+                    const status = codebaseStatus
+                        ? codebaseStatus.status
+                        : CUSTOM_RESOURCE_STATUSES['UNKNOWN'];
+
+                    const title = (
+                        <>
+                            <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                                {capitalizeFirstLetter(status)}
+                            </Typography>
+                            <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
+                                <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                                    {codebaseStatus?.detailedMessage}
+                                </Typography>
+                            </Render>
+                        </>
+                    );
+
+                    return <StatusIcon status={status} customTitle={title} />;
+                },
                 sort: (a, b) => sortByStatus(a.status.status, b.status.status),
             },
             {

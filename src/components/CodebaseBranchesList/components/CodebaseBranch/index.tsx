@@ -135,18 +135,29 @@ export const CodebaseBranch = ({
         jenkinsCiToolIsUsed,
     ]);
 
+    const status = codebaseBranchData.status
+        ? codebaseBranchData.status.status
+        : CUSTOM_RESOURCE_STATUSES['UNKNOWN'];
+
+    const statusTitle = (
+        <>
+            <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                {capitalizeFirstLetter(status)}
+            </Typography>
+            <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
+                <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                    {codebaseBranchData?.status?.detailedMessage}
+                </Typography>
+            </Render>
+        </>
+    );
+
     return (
         <div style={{ paddingBottom: rem(16) }}>
             <Accordion expanded={expandedPanel === id} onChange={handlePanelChange(id)}>
                 <AccordionSummary expandIcon={<Icon icon={ICONS['ARROW_DOWN']} />}>
                     <div className={classes.branchHeader}>
-                        <StatusIcon
-                            status={
-                                codebaseBranchData.status
-                                    ? codebaseBranchData.status.status
-                                    : CUSTOM_RESOURCE_STATUSES['UNKNOWN']
-                            }
-                        />
+                        <StatusIcon status={status} customTitle={statusTitle} />
                         <Typography variant={'h6'} style={{ lineHeight: 1, marginTop: rem(2) }}>
                             {codebaseBranchData.spec.branchName}
                         </Typography>
