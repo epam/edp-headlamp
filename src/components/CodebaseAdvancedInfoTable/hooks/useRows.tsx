@@ -1,3 +1,4 @@
+import { CODEBASE_CREATION_STRATEGIES } from '../../../constants/creationStrategies';
 import { EDPCodebaseSpecInterface } from '../../../k8s/EDPCodebase/types';
 import { MuiCore, React } from '../../../plugin.globals';
 import { NameValueTableRow } from '../../HeadlampNameValueTable/types';
@@ -46,8 +47,13 @@ export const useRows = (
         }
 
         if (codebaseSpec.repository) {
+            const title =
+                codebaseSpec.strategy === CODEBASE_CREATION_STRATEGIES['CLONE']
+                    ? 'Forked from'
+                    : 'Repository URL';
+
             base.push({
-                name: 'Repository URL',
+                name: title,
                 value: codebaseSpec.repository.url,
             });
         }
