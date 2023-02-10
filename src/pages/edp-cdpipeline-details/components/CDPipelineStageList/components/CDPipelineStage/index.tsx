@@ -3,6 +3,7 @@ import { HeadlampSimpleTable } from '../../../../../../components/HeadlampSimple
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import {
     ARGO_APPLICATION_HEALTH_STATUSES,
+    ARGO_APPLICATION_SYNC_STATUSES,
     PIPELINE_RUN_STATUSES,
 } from '../../../../../../constants/statuses';
 import { streamApplicationListByPipelineStageLabel } from '../../../../../../k8s/Application';
@@ -134,9 +135,11 @@ export const CDPipelineStage = (): React.ReactElement => {
             if (!argoApplication?.status?.health?.status) {
                 return false;
             }
+
             return (
                 argoApplication.status.health.status.toLowerCase() ===
-                ARGO_APPLICATION_HEALTH_STATUSES['HEALTHY']
+                    ARGO_APPLICATION_HEALTH_STATUSES['HEALTHY'] &&
+                argoApplication.status.sync.status === ARGO_APPLICATION_SYNC_STATUSES['SYNCED']
             );
         });
     }, [argoApplications, enrichedApplicationsWithArgoApplications, latestTenPipelineRuns]);

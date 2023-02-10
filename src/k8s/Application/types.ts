@@ -218,6 +218,9 @@ export interface ApplicationStatus {
     health?: {
         status?: string;
     };
+    sync?: {
+        status?: string;
+    };
 }
 
 export interface ApplicationKubeObjectInterface extends EDPKubeObjectInterface {
