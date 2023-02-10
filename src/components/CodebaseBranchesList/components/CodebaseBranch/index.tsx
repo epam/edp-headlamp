@@ -205,39 +205,41 @@ export const CodebaseBranch = ({
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <Grid container spacing={1}>
-                                <Render condition={!!pipelineRuns?.all?.length}>
-                                    <Grid item xs={4}>
-                                        <FormSelect
-                                            {...register('type', {
-                                                onChange: ({ target: { value } }) =>
-                                                    setPipelineRunType(value),
-                                            })}
-                                            control={control}
-                                            errors={errors}
-                                            name={'type'}
-                                            label={'Type'}
-                                            options={pipelineRunTypeSelectOptions}
-                                            defaultValue={PIPELINE_TYPES['ALL']}
-                                        />
+                        <Render condition={!jenkinsCiToolIsUsed}>
+                            <Grid item xs={12}>
+                                <Grid container spacing={1}>
+                                    <Render condition={!!pipelineRuns?.all?.length}>
+                                        <Grid item xs={4}>
+                                            <FormSelect
+                                                {...register('type', {
+                                                    onChange: ({ target: { value } }) =>
+                                                        setPipelineRunType(value),
+                                                })}
+                                                control={control}
+                                                errors={errors}
+                                                name={'type'}
+                                                label={'Type'}
+                                                options={pipelineRunTypeSelectOptions}
+                                                defaultValue={PIPELINE_TYPES['ALL']}
+                                            />
+                                        </Grid>
+                                    </Render>
+                                    <Grid item xs={12}>
+                                        <Paper>
+                                            <HeadlampSimpleTable
+                                                columns={pipelineRunsColumns}
+                                                data={filteredPipelineRunsByType}
+                                                emptyMessage={
+                                                    pipelineRunType === PIPELINE_TYPES['ALL']
+                                                        ? 'No pipeline runs'
+                                                        : `No ${pipelineRunType} pipeline runs`
+                                                }
+                                            />
+                                        </Paper>
                                     </Grid>
-                                </Render>
-                                <Grid item xs={12}>
-                                    <Paper>
-                                        <HeadlampSimpleTable
-                                            columns={pipelineRunsColumns}
-                                            data={filteredPipelineRunsByType}
-                                            emptyMessage={
-                                                pipelineRunType === PIPELINE_TYPES['ALL']
-                                                    ? 'No pipeline runs'
-                                                    : `No ${pipelineRunType} pipeline runs`
-                                            }
-                                        />
-                                    </Paper>
                                 </Grid>
                             </Grid>
-                        </Grid>
+                        </Render>
                         <Grid item xs={12}>
                             <HeadlampNameValueTable rows={mainInfoRows} />
                         </Grid>
