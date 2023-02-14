@@ -9,11 +9,15 @@ import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
+import { AvailableCIToolsDataContext } from '../../../CreateCodebase/components/CreateCodebaseForm';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
 import { FormRadioGroup } from '../../../FormComponents';
+import { FormRadioOption } from '../../../FormComponents/FormRadioGroup/types';
 import { LangProps } from './types';
 
 export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
+    const AvailableCIToolsDataContextValue = React.useContext(AvailableCIToolsDataContext);
+
     const {
         register,
         control,
@@ -44,6 +48,34 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
     const frameworkValue = watch(names.framework.name);
     const buildToolValue = watch(names.buildTool.name);
     const strategyValue = watch(names.strategy.name);
+
+    const langOptions = React.useMemo(() => {
+        const resultOptions: FormRadioOption[] = [];
+
+        Object.values(codebaseMapping).map(
+            ({ language: { name, value, icon, availableCITools } }) => {
+                for (const availableCITool of availableCITools) {
+                    if (!AvailableCIToolsDataContextValue.includes(availableCITool)) {
+                        continue;
+                    }
+
+                    resultOptions.push({
+                        value,
+                        label: name,
+                        icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                        checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                        disabled:
+                            value === CODEBASE_COMMON_LANGUAGES['OTHER'] &&
+                            strategyValue === CODEBASE_CREATION_STRATEGIES['CREATE'],
+                    });
+
+                    break;
+                }
+            }
+        );
+
+        return resultOptions;
+    }, [AvailableCIToolsDataContextValue, codebaseMapping, strategyValue]);
 
     const resetFields = React.useCallback(
         (fieldNames: string[]) => {
@@ -96,15 +128,7 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
             control={control}
             errors={errors}
             label={`${capitalizedCodebaseType} code language`}
-            options={Object.values(codebaseMapping).map(({ language: { name, value, icon } }) => ({
-                value,
-                label: name,
-                icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                disabled:
-                    value === CODEBASE_COMMON_LANGUAGES['OTHER'] &&
-                    strategyValue === CODEBASE_CREATION_STRATEGIES['CREATE'],
-            }))}
+            options={langOptions}
         />
     );
 };

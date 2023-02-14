@@ -1,3 +1,4 @@
+import { CI_TOOLS } from '../../../constants/ciTools';
 import { CodebaseInterface } from '../types';
 
 export enum LIBRARY_LANGUAGES {
@@ -18,17 +19,20 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Java',
             value: LIBRARY_LANGUAGES['JAVA'],
             icon: 'java',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             java8: {
                 name: 'Java 8',
                 value: 'java8',
                 icon: 'java',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
             java11: {
                 name: 'Java 11',
                 value: 'java11',
                 icon: 'java',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -36,11 +40,13 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'Gradle',
                 value: 'gradle',
                 icon: 'gradle',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
             maven: {
                 name: 'Maven',
                 value: 'maven',
                 icon: 'maven',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -49,12 +55,14 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'JavaScript',
             value: LIBRARY_LANGUAGES['JAVASCRIPT'],
             icon: 'javascript',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             react: {
                 name: 'React',
                 value: 'react',
                 icon: 'react',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -62,6 +70,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'NPM',
                 value: 'npm',
                 icon: 'npm',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -70,12 +79,14 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'DotNet',
             value: LIBRARY_LANGUAGES['DOTNET'],
             icon: 'dotnet',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             'dotnet-3.1': {
                 name: 'Dotnet 3.1',
                 value: 'dotnet-3.1',
                 icon: 'dotnetcore',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -83,6 +94,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'dotnet',
                 value: 'dotnet',
                 icon: 'dotnet',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -91,12 +103,14 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Python',
             value: LIBRARY_LANGUAGES['PYTHON'],
             icon: 'python',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             'python-3.8': {
                 name: 'Python 3.8',
                 value: 'python-3.8',
                 icon: 'python',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -104,6 +118,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'Python',
                 value: 'python',
                 icon: 'python',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -112,12 +127,14 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Groovy-pipeline',
             value: LIBRARY_LANGUAGES['GROOVY_PIPELINE'],
             icon: 'groovy',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             codenarc: {
                 name: 'Codenarc',
                 value: 'codenarc',
                 icon: 'codenarc',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -125,6 +142,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'Codenarc',
                 value: 'codenarc',
                 icon: 'codenarc',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -133,12 +151,14 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Terraform',
             value: LIBRARY_LANGUAGES['TERRAFORM'],
             icon: 'terraform',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             terraform: {
                 name: 'Terraform',
                 value: 'terraform',
                 icon: 'terraform',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -146,6 +166,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'Terraform',
                 value: 'terraform',
                 icon: 'terraform',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -154,12 +175,23 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Rego',
             value: LIBRARY_LANGUAGES['REGO'],
             icon: 'opa',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
-            opa: { name: 'OPA', value: 'opa', icon: 'opa' },
+            opa: {
+                name: 'OPA',
+                value: 'opa',
+                icon: 'opa',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+            },
         },
         buildTools: {
-            opa: { name: 'OPA', value: 'opa', icon: 'opa' },
+            opa: {
+                name: 'OPA',
+                value: 'opa',
+                icon: 'opa',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+            },
         },
     },
     [LIBRARY_LANGUAGES['CONTAINER']]: {
@@ -167,12 +199,14 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Container',
             value: LIBRARY_LANGUAGES['CONTAINER'],
             icon: 'container',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             docker: {
                 name: 'Docker',
                 value: 'docker',
                 icon: 'docker',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -180,6 +214,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'Kaniko',
                 value: 'kaniko',
                 icon: 'kaniko',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -188,6 +223,7 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Other',
             value: LIBRARY_LANGUAGES['OTHER'],
             icon: 'otherapps',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {},
         buildTools: {},

@@ -3,12 +3,16 @@ import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
+import { AvailableCIToolsDataContext } from '../../../CreateCodebase/components/CreateCodebaseForm';
 import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
 import { FormRadioGroup, FormTextField } from '../../../FormComponents';
+import { FormRadioOption } from '../../../FormComponents/FormRadioGroup/types';
 import { FrameworkProps } from './types';
 
 export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
+    const AvailableCIToolsDataContextValue = React.useContext(AvailableCIToolsDataContext);
+
     const {
         register,
         control,
@@ -55,13 +59,28 @@ export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
             return [];
         }
 
-        return Object.values(chosenLang.frameworks).map(({ name, value, icon }) => ({
-            value,
-            label: name,
-            icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-            checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-        }));
-    }, [chosenLang]);
+        const resultOptions: FormRadioOption[] = [];
+
+        Object.values(chosenLang.frameworks).map(({ name, value, icon, availableCITools }) => {
+            for (const availableCITool of availableCITools) {
+                console.log(availableCITool, AvailableCIToolsDataContextValue);
+                if (!AvailableCIToolsDataContextValue.includes(availableCITool)) {
+                    continue;
+                }
+
+                resultOptions.push({
+                    value,
+                    label: name,
+                    icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                    checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                });
+
+                break;
+            }
+        });
+
+        return resultOptions;
+    }, [AvailableCIToolsDataContextValue, chosenLang]);
 
     return (
         <>

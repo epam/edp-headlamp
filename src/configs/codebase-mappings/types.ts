@@ -1,35 +1,21 @@
-interface CodebaseLangInterface {
-    name: string;
-    value: string;
-    icon: string;
-}
+import { CI_TOOLS } from '../../constants/ciTools';
 
-interface CodebaseFrameworkInterface {
+interface CodebaseMappingItemInterface {
     name: string;
     value: string;
-    icon: string;
-}
-
-interface CodebaseBuildToolsInterface {
-    name: string;
-    value: string;
-    icon: string;
-}
-
-interface CodebaseAutoTestReportFrameworksInterface {
-    name: string;
-    value: string;
+    icon?: string;
+    availableCITools: Array<CI_TOOLS>;
 }
 
 export interface CodebaseInterface {
-    language: CodebaseLangInterface;
+    language: CodebaseMappingItemInterface;
     frameworks: {
-        [key: string]: CodebaseFrameworkInterface;
+        [key: string]: CodebaseMappingItemInterface;
     };
     buildTools: {
-        [key: string]: CodebaseBuildToolsInterface;
+        [key: string]: CodebaseMappingItemInterface;
     };
     autoTestReportFrameworks?: {
-        [key: string]: CodebaseAutoTestReportFrameworksInterface;
+        [key: string]: CodebaseMappingItemInterface;
     };
 }

@@ -1,3 +1,4 @@
+import { CI_TOOLS } from '../../../constants/ciTools';
 import { APPLICATION_MAPPING } from '../application';
 import { CodebaseInterface } from '../types';
 
@@ -12,14 +13,35 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Java',
             value: AUTOTEST_LANGUAGES['JAVA'],
             icon: 'java',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
-            java8: { name: 'Java 8', value: 'java8', icon: 'java' },
-            java11: { name: 'Java 11', value: 'java11', icon: 'java' },
+            java8: {
+                name: 'Java 8',
+                value: 'java8',
+                icon: 'java',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+            },
+            java11: {
+                name: 'Java 11',
+                value: 'java11',
+                icon: 'java',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+            },
         },
         buildTools: {
-            gradle: { name: 'Gradle', value: 'gradle', icon: 'gradle' },
-            maven: { name: 'Maven', value: 'maven', icon: 'maven' },
+            gradle: {
+                name: 'Gradle',
+                value: 'gradle',
+                icon: 'gradle',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+            },
+            maven: {
+                name: 'Maven',
+                value: 'maven',
+                icon: 'maven',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+            },
         },
     },
     [AUTOTEST_LANGUAGES['OTHER']]: {
@@ -27,11 +49,16 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Other',
             value: AUTOTEST_LANGUAGES['OTHER'],
             icon: 'otherapps',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {},
         buildTools: {},
         autoTestReportFrameworks: {
-            allure: { name: 'allure', value: 'allure' },
+            allure: {
+                name: 'allure',
+                value: 'allure',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+            },
         },
     },
 };

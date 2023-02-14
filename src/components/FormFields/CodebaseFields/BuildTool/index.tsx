@@ -2,6 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent, SelectOption } from '../../../../types/forms';
+import { AvailableCIToolsDataContext } from '../../../CreateCodebase/components/CreateCodebaseForm';
 import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
 import { FormSelect } from '../../../FormComponents';
@@ -9,6 +10,8 @@ import { FormTextField } from '../../../FormComponents';
 import { BuildToolProps } from './types';
 
 export const BuildTool = ({ names, handleFormFieldChange }: BuildToolProps) => {
+    const AvailableCIToolsDataContextValue = React.useContext(AvailableCIToolsDataContext);
+
     const {
         register,
         control,
@@ -56,13 +59,25 @@ export const BuildTool = ({ names, handleFormFieldChange }: BuildToolProps) => {
             return [];
         }
 
-        return Object.values(chosenLang.buildTools).map(({ name, value }) => {
-            return {
-                label: name,
-                value,
-            } as SelectOption;
+        const resultOptions: SelectOption[] = [];
+
+        Object.values(chosenLang.buildTools).map(({ name, value, availableCITools }) => {
+            for (const availableCITool of availableCITools) {
+                if (!AvailableCIToolsDataContextValue.includes(availableCITool)) {
+                    continue;
+                }
+
+                resultOptions.push({
+                    label: name,
+                    value,
+                } as SelectOption);
+
+                break;
+            }
         });
-    }, [chosenLang]);
+
+        return resultOptions;
+    }, [AvailableCIToolsDataContextValue, chosenLang]);
 
     return (
         <>

@@ -1,3 +1,4 @@
+import { CI_TOOLS } from '../../../constants/ciTools';
 import { CodebaseInterface } from '../types';
 
 export enum APPLICATION_LANGUAGES {
@@ -15,17 +16,20 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Java',
             value: APPLICATION_LANGUAGES['JAVA'],
             icon: 'java',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             java8: {
                 name: 'Java 8',
                 value: 'java8',
                 icon: 'java',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
             java11: {
                 name: 'Java 11',
                 value: 'java11',
                 icon: 'java',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -33,11 +37,13 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'Gradle',
                 value: 'gradle',
                 icon: 'gradle',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
             maven: {
                 name: 'Maven',
                 value: 'maven',
                 icon: 'maven',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -46,12 +52,14 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'JavaScript',
             value: APPLICATION_LANGUAGES['JAVASCRIPT'],
             icon: 'javascript',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             react: {
                 name: 'React',
                 value: 'react',
                 icon: 'react',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -59,6 +67,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'NPM',
                 value: 'npm',
                 icon: 'npm',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -67,12 +76,14 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'DotNet',
             value: APPLICATION_LANGUAGES['DOTNET'],
             icon: 'dotnet',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             'dotnet-3.1': {
                 name: 'Dotnet 3.1',
                 value: 'dotnet-3.1',
                 icon: 'dotnetcore',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -80,6 +91,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'dotnet',
                 value: 'dotnet',
                 icon: 'dotnet',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -88,22 +100,26 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Python',
             value: APPLICATION_LANGUAGES['PYTHON'],
             icon: 'python',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             'python-3.8': {
                 name: 'Python 3.8',
                 value: 'python-3.8',
                 icon: 'python',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
             fastapi: {
                 name: 'Fastapi',
                 value: 'fastapi',
                 icon: 'fastapi',
+                availableCITools: [CI_TOOLS['TEKTON']],
             },
             flask: {
                 name: 'Flask',
                 value: 'flask',
                 icon: 'flask',
+                availableCITools: [CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -111,6 +127,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'Python',
                 value: 'python',
                 icon: 'python',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -119,17 +136,20 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Go',
             value: APPLICATION_LANGUAGES['GO'],
             icon: 'go',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {
             beego: {
                 name: 'Beego',
                 value: 'beego',
                 icon: 'beego',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
             'operator-sdk': {
                 name: 'Operator SDK',
                 value: 'operator-sdk',
                 icon: 'operatorsdk',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
@@ -137,6 +157,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'Go',
                 value: 'go',
                 icon: 'go',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
         },
     },
@@ -145,6 +166,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             name: 'Other',
             value: APPLICATION_LANGUAGES['OTHER'],
             icon: 'otherapps',
+            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
         },
         frameworks: {},
         buildTools: {},

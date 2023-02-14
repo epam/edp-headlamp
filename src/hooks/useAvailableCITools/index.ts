@@ -1,15 +1,30 @@
 import { CI_TOOLS } from '../../constants/ciTools';
+import { React } from '../../plugin.globals';
 import { useEDPComponents } from '../useEDPComponents';
 
-export const useAvailableCITools = ({ namespace }) => {
-    const { EDPComponents, error } = useEDPComponents({ namespace });
-    const availableCITools = Object.values(CI_TOOLS).reduce((acc, cur) => {
-        if (EDPComponents.includes(cur)) {
-            acc.push(cur);
-        }
+interface UseAvailableCIToolsProps {
+    namespace: string;
+}
 
-        return acc;
-    }, []);
+export const useAvailableCITools = ({
+    namespace,
+}: UseAvailableCIToolsProps): {
+    availableCITools: string[];
+    error: Error;
+} => {
+    const { EDPComponents, error } = useEDPComponents({ namespace });
+
+    const availableCITools = React.useMemo(
+        () =>
+            Object.values(CI_TOOLS).reduce((acc, cur) => {
+                if (EDPComponents.includes(cur)) {
+                    acc.push(cur);
+                }
+
+                return acc;
+            }, []),
+        [EDPComponents]
+    );
 
     return { availableCITools, error };
 };

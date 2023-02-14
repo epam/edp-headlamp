@@ -1,21 +1,19 @@
 import { useFormContext } from 'react-hook-form';
-import { useAvailableCITools } from '../../../../hooks/useAvailableCITools';
-import { useNamespace } from '../../../../hooks/useNamespace';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
+import { AvailableCIToolsDataContext } from '../../../CreateCodebase/components/CreateCodebaseForm';
 import { FormSelect } from '../../../FormComponents';
 import { CIToolProps } from './types';
 
 export const CITool = ({ names, handleFormFieldChange }: CIToolProps) => {
+    const AvailableCIToolsDataContextValue = React.useContext(AvailableCIToolsDataContext);
+
     const {
         register,
         control,
         formState: { errors },
     } = useFormContext();
-    const { namespace } = useNamespace();
-
-    const { availableCITools } = useAvailableCITools({ namespace });
 
     return (
         <FormSelect
@@ -29,7 +27,7 @@ export const CITool = ({ names, handleFormFieldChange }: CIToolProps) => {
             title={'Select CI tool for building the codebase'}
             control={control}
             errors={errors}
-            options={availableCITools.map(el => ({
+            options={AvailableCIToolsDataContextValue.map(el => ({
                 label: capitalizeFirstLetter(el),
                 value: el,
             }))}
