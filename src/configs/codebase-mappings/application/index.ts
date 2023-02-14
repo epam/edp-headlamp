@@ -110,7 +110,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
             fastapi: {
-                name: 'Fastapi',
+                name: 'FastAPI',
                 value: 'fastapi',
                 icon: 'fastapi',
                 availableCITools: [CI_TOOLS['TEKTON']],
