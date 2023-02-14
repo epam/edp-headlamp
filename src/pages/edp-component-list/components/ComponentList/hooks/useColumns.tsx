@@ -35,6 +35,8 @@ const getMappingByCodebaseType = (type: string): { [key: string]: CodebaseInterf
         : null;
 };
 
+const otherIconName = 'otherapps';
+
 export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObjectInterface>[] =>
     React.useMemo(
         () => [
@@ -97,7 +99,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item>
                                 <UseSpriteSymbol
-                                    name={codebaseMapping[lang].language.icon}
+                                    name={codebaseMapping?.[lang]?.language?.icon || otherIconName}
                                     width={20}
                                     height={20}
                                 />
@@ -121,7 +123,10 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item>
                                 <UseSpriteSymbol
-                                    name={codebaseMapping[lang].frameworks[framework].icon}
+                                    name={
+                                        codebaseMapping?.[lang]?.frameworks?.[framework]?.icon ||
+                                        otherIconName
+                                    }
                                     width={20}
                                     height={20}
                                 />
@@ -145,7 +150,10 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item>
                                 <UseSpriteSymbol
-                                    name={codebaseMapping[lang].buildTools[buildTool].icon}
+                                    name={
+                                        codebaseMapping?.[lang]?.buildTools?.[buildTool]?.icon ||
+                                        otherIconName
+                                    }
                                     width={20}
                                     height={20}
                                 />
