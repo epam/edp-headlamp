@@ -53,7 +53,7 @@ helm-docs: $(HELMDOCS) ## generate helm docs
 	$(HELMDOCS)
 
 $(GITCHGLOG): ## Download git-chglog locally if necessary.
-	$(call go-get-tool,$(GITCHGLOG),github.com/git-chglog/git-chglog/cmd/git-chglog,v0.15.1)
+	$(call go-get-tool,$(GITCHGLOG),github.com/git-chglog/git-chglog/cmd/git-chglog,v0.15.4)
 
 
 $(HELMDOCS):
