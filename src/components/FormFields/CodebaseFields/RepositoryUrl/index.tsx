@@ -12,14 +12,14 @@ export const RepositoryUrl = ({ names, handleFormFieldChange }: RepositoryUrlPro
     } = useFormContext();
 
     const fieldRequirementLabel =
-        'Specify the application URL in the following format: http(s)://git.sample.com/sample.git';
+        'Specify the application URL in the following format: http(s)://git.sample.com/sample';
 
     return (
         <FormTextField
             {...register(names.repositoryUrl.name, {
                 required: fieldRequirementLabel,
                 pattern: {
-                    value: /(?:^git|^ssh|^https?|^git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/,
+                    value: /((git|ssh|http(s)?)|(git@[\w.]+))(:(\/\/)?)([\w.@/-~]+)\w/,
                     message: fieldRequirementLabel,
                 },
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
@@ -27,7 +27,7 @@ export const RepositoryUrl = ({ names, handleFormFieldChange }: RepositoryUrlPro
             })}
             label={'Repository URL'}
             title={fieldRequirementLabel}
-            placeholder={'http(s)://git.sample.com/sample.git'}
+            placeholder={'http(s)://git.sample.com/sample'}
             control={control}
             errors={errors}
         />
