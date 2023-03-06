@@ -31,6 +31,12 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 icon: 'java',
                 availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
             },
+            java17: {
+                name: 'Java 17',
+                value: 'java17',
+                icon: 'java',
+                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+            },
         },
         buildTools: {
             gradle: {
@@ -196,6 +202,9 @@ const mapJavaBasedAgent = (framework: string, buildTool: string): string | undef
             break;
         case mapping.frameworks.java11.value:
             result += 'java11';
+            break;
+        case mapping.frameworks.java17.value:
+            result += 'java17';
             break;
         default:
             return undefined;
