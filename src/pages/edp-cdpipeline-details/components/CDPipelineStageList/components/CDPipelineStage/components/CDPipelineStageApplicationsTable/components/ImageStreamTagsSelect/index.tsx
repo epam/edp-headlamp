@@ -127,7 +127,7 @@ export const ImageStreamTagsSelect = ({
             gitServer,
         });
 
-        await createApplicationMutation.mutate(newArgoApplicationData);
+        createApplicationMutation.mutate(newArgoApplicationData);
     }, [
         gitServers,
         CDPipeline,
