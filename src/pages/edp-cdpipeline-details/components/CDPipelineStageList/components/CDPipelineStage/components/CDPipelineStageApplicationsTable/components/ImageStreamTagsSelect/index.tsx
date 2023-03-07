@@ -1,8 +1,15 @@
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import { FormSelect } from '../../../../../../../../../../components/FormComponents';
 import { Render } from '../../../../../../../../../../components/Render';
+import {
+    createApplicationInstance,
+    editApplicationInstance,
+} from '../../../../../../../../../../configs/k8s-resource-instances/custom-resources/application';
+import { CRUD_TYPES } from '../../../../../../../../../../constants/crudTypes';
 import { EnrichedApplication } from '../../../../../../../../../../hooks/useApplicationsInCDPipeline';
-import { useRequest } from '../../../../../../../../../../hooks/useRequest';
+import { useRequestStatusMessages } from '../../../../../../../../../../hooks/useResourceRequestStatusMessages';
+import { ApplicationKubeObject } from '../../../../../../../../../../k8s/Application';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/Application/types';
 import { MuiCore, React } from '../../../../../../../../../../plugin.globals';
 import { rem } from '../../../../../../../../../../utils/styling/rem';
@@ -12,16 +19,8 @@ import {
     CurrentCDPipelineStageDataContext,
     GitServersDataContext,
 } from '../../../../../../index';
-import { useApplicationCRUD } from './hooks/useApplicationCRUD';
-import {
-    createApplicationInterface,
-    deleteApplicationInterface,
-    editApplicationInterface,
-} from './hooks/useApplicationCRUD/types';
 import { useImageStreamBasedOnResources } from './hooks/useImageStreamBasedOnResources';
-
 const { Grid, Button } = MuiCore;
-
 export const ImageStreamTagsSelect = ({
     enrichedApplication,
     argoApplication,
@@ -45,7 +44,6 @@ export const ImageStreamTagsSelect = ({
     const CDPipelineStages = React.useContext(CDPipelineStagesDataContext);
     const gitServers = React.useContext(GitServersDataContext);
 
-    const currentArgoAppName = `${CDPipeline.metadata.name}-${currentCDPipelineStage.spec.name}-${enrichedApplication.application.metadata.name}`;
     const { imageStream } = useImageStreamBasedOnResources({
         enrichedApplication,
         CDPipeline,
@@ -61,92 +59,114 @@ export const ImageStreamTagsSelect = ({
               }))
             : [];
 
-    const { createApplication, editApplication, deleteApplication } = useApplicationCRUD({
-        gitServers,
-    });
+    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
+        useRequestStatusMessages();
 
-    const {
-        state: { isLoading: isApplying },
-        fireRequest: fireCreateApplicationRequest,
-    } = useRequest({
-        requestFn: createApplication,
-        options: {
-            mode: 'create',
+    const createApplicationMutation = useMutation(
+        (newArgoApplicationData: ApplicationKubeObjectInterface) => {
+            return ApplicationKubeObject.apiEndpoint.post(newArgoApplicationData);
         },
-    });
+        {
+            onMutate: newArgoApplicationData =>
+                showBeforeRequestMessage(newArgoApplicationData.metadata.name, CRUD_TYPES.CREATE),
+            onSuccess: (data, newArgoApplicationData) =>
+                showRequestSuccessMessage(newArgoApplicationData.metadata.name, CRUD_TYPES.CREATE),
+            onError: (error, newArgoApplicationData) => {
+                showRequestErrorMessage(newArgoApplicationData.metadata.name, CRUD_TYPES.CREATE);
+                console.error('onCreateError', error);
+            },
+        }
+    );
 
-    const {
-        state: { isLoading: isUpdating },
-        fireRequest: fireEditApplicationRequest,
-    } = useRequest({
-        requestFn: editApplication,
-        options: {
-            mode: 'edit',
+    const editApplicationMutation = useMutation(
+        (newArgoApplicationData: ApplicationKubeObjectInterface) => {
+            return ApplicationKubeObject.apiEndpoint.put(newArgoApplicationData);
         },
-    });
+        {
+            onMutate: newArgoApplicationData =>
+                showBeforeRequestMessage(newArgoApplicationData.metadata.name, CRUD_TYPES.EDIT),
+            onSuccess: (data, newArgoApplicationData) =>
+                showRequestSuccessMessage(newArgoApplicationData.metadata.name, CRUD_TYPES.EDIT),
+            onError: (error, newArgoApplicationData) => {
+                showRequestErrorMessage(newArgoApplicationData.metadata.name, CRUD_TYPES.EDIT);
+                console.error(error);
+            },
+        }
+    );
 
-    const {
-        state: { isLoading: isDeleting },
-        fireRequest: fireDeleteApplicationRequest,
-    } = useRequest({
-        requestFn: deleteApplication,
-        options: {
-            mode: 'delete',
+    const deleteApplicationMutation = useMutation(
+        (argoApplication: ApplicationKubeObjectInterface) => {
+            return ApplicationKubeObject.apiEndpoint.delete(
+                argoApplication.metadata.namespace,
+                argoApplication.metadata.name
+            );
         },
-    });
+        {
+            onMutate: argoApplication =>
+                showBeforeRequestMessage(argoApplication.metadata.name, CRUD_TYPES.DELETE),
+            onSuccess: (data, argoApplication) =>
+                showRequestSuccessMessage(argoApplication.metadata.name, CRUD_TYPES.DELETE),
+            onError: (error, argoApplication) => {
+                showRequestErrorMessage(argoApplication.metadata.name, CRUD_TYPES.DELETE);
+                console.error(error);
+            },
+        }
+    );
 
     const handleCreateRequest = React.useCallback(async (): Promise<void> => {
-        await fireCreateApplicationRequest({
-            objectName: currentArgoAppName,
-            args: [
-                {
-                    CDPipeline,
-                    currentCDPipelineStage,
-                    enrichedApplication,
-                    imageStream,
-                    imageTag: streamTagFieldValue,
-                } as createApplicationInterface,
-            ],
+        const [gitServer] = gitServers.filter(
+            el => el.metadata.name === enrichedApplication.application.spec.gitServer
+        );
+
+        const newArgoApplicationData = createApplicationInstance({
+            CDPipeline,
+            currentCDPipelineStage,
+            enrichedApplication,
+            imageStream,
+            imageTag: streamTagFieldValue,
+            gitServer,
         });
+
+        await createApplicationMutation.mutate(newArgoApplicationData);
     }, [
+        gitServers,
         CDPipeline,
-        enrichedApplication,
-        currentArgoAppName,
         currentCDPipelineStage,
-        fireCreateApplicationRequest,
+        enrichedApplication,
         imageStream,
         streamTagFieldValue,
+        createApplicationMutation,
     ]);
 
     const handleEditRequest = React.useCallback(async (): Promise<void> => {
-        await fireEditApplicationRequest({
-            objectName: currentArgoAppName,
-            args: [
-                {
-                    imageTag: streamTagFieldValue,
-                    argoApplication,
-                    enrichedApplication,
-                } as editApplicationInterface,
-            ],
+        const newArgoApplicationData: ApplicationKubeObjectInterface = editApplicationInstance({
+            argoApplication,
+            enrichedApplication,
+            imageTag: streamTagFieldValue,
         });
-    }, [
-        enrichedApplication,
-        argoApplication,
-        currentArgoAppName,
-        fireEditApplicationRequest,
-        streamTagFieldValue,
-    ]);
+
+        editApplicationMutation.mutate(newArgoApplicationData);
+    }, [argoApplication, enrichedApplication, streamTagFieldValue, editApplicationMutation]);
 
     const handleDeleteRequest = React.useCallback(async (): Promise<void> => {
-        await fireDeleteApplicationRequest({
-            objectName: currentArgoAppName,
-            args: [
-                {
-                    argoApplication,
-                } as deleteApplicationInterface,
-            ],
-        });
-    }, [argoApplication, currentArgoAppName, fireDeleteApplicationRequest]);
+        deleteApplicationMutation.mutate(argoApplication);
+    }, [argoApplication, deleteApplicationMutation]);
+
+    const crudActionDisabled = React.useMemo(
+        () =>
+            !streamTagFieldValue ||
+            createApplicationMutation.isLoading ||
+            editApplicationMutation.isLoading ||
+            deleteApplicationMutation.isLoading ||
+            qualityGatePipelineIsRunning,
+        [
+            createApplicationMutation.isLoading,
+            deleteApplicationMutation.isLoading,
+            editApplicationMutation.isLoading,
+            qualityGatePipelineIsRunning,
+            streamTagFieldValue,
+        ]
+    );
 
     return (
         <form>
@@ -171,12 +191,7 @@ export const ImageStreamTagsSelect = ({
                             variant={'contained'}
                             color={'primary'}
                             size={'small'}
-                            disabled={
-                                !streamTagFieldValue ||
-                                isApplying ||
-                                isUpdating ||
-                                qualityGatePipelineIsRunning
-                            }
+                            disabled={crudActionDisabled}
                             onClick={handleCreateRequest}
                         >
                             Deploy
@@ -189,12 +204,7 @@ export const ImageStreamTagsSelect = ({
                             variant={'contained'}
                             color={'primary'}
                             size={'small'}
-                            disabled={
-                                !streamTagFieldValue ||
-                                isApplying ||
-                                isUpdating ||
-                                qualityGatePipelineIsRunning
-                            }
+                            disabled={crudActionDisabled}
                             onClick={handleEditRequest}
                         >
                             Update
@@ -208,7 +218,11 @@ export const ImageStreamTagsSelect = ({
                         variant={'contained'}
                         color={'default'}
                         size={'small'}
-                        disabled={!argoApplication || isDeleting || qualityGatePipelineIsRunning}
+                        disabled={
+                            !argoApplication ||
+                            deleteApplicationMutation.isLoading ||
+                            qualityGatePipelineIsRunning
+                        }
                         onClick={handleDeleteRequest}
                     >
                         Uninstall

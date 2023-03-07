@@ -48,7 +48,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPGitServerKubeOb
                 sort: (a, b) => sortByActiveStatus(a.status.value, b.status.value),
             },
             {
-                label: 'gitHost',
+                label: 'Name',
                 getter: ({ metadata: { name, namespace } }) => {
                     return (
                         <Link
@@ -64,6 +64,11 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPGitServerKubeOb
                         </Link>
                     );
                 },
+                sort: (a, b) => sortByName(a.metadata.name, b.metadata.name),
+            },
+            {
+                label: 'gitHost',
+                getter: ({ spec: { gitHost } }) => gitHost,
                 sort: (a, b) => sortByName(a.spec.gitHost, b.spec.gitHost),
             },
             {

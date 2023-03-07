@@ -73,6 +73,7 @@
     "lodash.omit": "^4.5.0",
     "lodash.set": "^4.3.2",
     "react-hook-form": "^7.34.2",
-    "react-json-view": "^1.21.3"
+    "react-json-view": "^1.21.3",
+    "react-query": "^3.39.3"
   }
 }

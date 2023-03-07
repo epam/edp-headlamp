@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { EDPCDPipelineDetails } from '../pages/edp-cdpipeline-details';
 import { EDPCDPipelineList } from '../pages/edp-cdpipeline-list';
 import { EDPComponentDetails } from '../pages/edp-component-details';
@@ -21,6 +22,12 @@ import {
     OVERVIEW_ROUTE_NAME,
 } from './names';
 
+const WrappedRoute: React.FC = ({ children }): React.ReactElement => {
+    const queryClient = new QueryClient();
+
+    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+};
+
 export const List: {
     [routeName: string]: any;
 } = {
@@ -29,46 +36,74 @@ export const List: {
         path: createRouteName(COMPONENTS_ROUTE_NAME),
         sidebar: createSidebarItemName(COMPONENTS_ROUTE_NAME),
         exact: true,
-        component: () => <EDPComponentList />,
+        component: () => (
+            <WrappedRoute>
+                <EDPComponentList />
+            </WrappedRoute>
+        ),
     },
     [COMPONENT_ROUTE_NAME]: {
         name: 'EDP Component',
         path: createRouteNameBasedOnNameAndNamespace(COMPONENTS_ROUTE_NAME),
         sidebar: createSidebarItemName(COMPONENTS_ROUTE_NAME),
-        component: () => <EDPComponentDetails />,
+        component: () => (
+            <WrappedRoute>
+                <EDPComponentDetails />
+            </WrappedRoute>
+        ),
     },
     [OVERVIEW_ROUTE_NAME]: {
         name: 'EDP Overview',
         path: createRouteName(OVERVIEW_ROUTE_NAME),
         sidebar: createSidebarItemName(OVERVIEW_ROUTE_NAME),
         exact: true,
-        component: () => <EDPOverviewList />,
+        component: () => (
+            <WrappedRoute>
+                <EDPOverviewList />
+            </WrappedRoute>
+        ),
     },
     [CDPIPELINES_ROUTE_NAME]: {
         name: 'EDP CD Pipelines',
         path: createRouteName(CDPIPELINES_ROUTE_NAME),
         sidebar: createSidebarItemName(CDPIPELINES_ROUTE_NAME),
         exact: true,
-        component: () => <EDPCDPipelineList />,
+        component: () => (
+            <WrappedRoute>
+                <EDPCDPipelineList />
+            </WrappedRoute>
+        ),
     },
     [CDPIPELINE_ROUTE_NAME]: {
         name: 'EDP CD Pipeline',
         path: createRouteNameBasedOnNameAndNamespace(CDPIPELINES_ROUTE_NAME),
         sidebar: createSidebarItemName(CDPIPELINES_ROUTE_NAME),
-        component: () => <EDPCDPipelineDetails />,
+        component: () => (
+            <WrappedRoute>
+                <EDPCDPipelineDetails />
+            </WrappedRoute>
+        ),
     },
     [GIT_SERVERS_ROUTE_NAME]: {
         name: 'EDP CD Pipelines',
         path: createRouteName(GIT_SERVERS_ROUTE_NAME),
         sidebar: createSidebarItemName(GIT_SERVERS_ROUTE_NAME),
         exact: true,
-        component: () => <EDPGitServerList />,
+        component: () => (
+            <WrappedRoute>
+                <EDPGitServerList />
+            </WrappedRoute>
+        ),
     },
     [GIT_SERVER_ROUTE_NAME]: {
         name: 'EDP CD Pipelines',
         path: createRouteNameBasedOnNameAndNamespace(GIT_SERVERS_ROUTE_NAME),
         sidebar: createSidebarItemName(GIT_SERVERS_ROUTE_NAME),
         exact: true,
-        component: () => <EDPGitServerDetails />,
+        component: () => (
+            <WrappedRoute>
+                <EDPGitServerDetails />
+            </WrappedRoute>
+        ),
     },
 };
