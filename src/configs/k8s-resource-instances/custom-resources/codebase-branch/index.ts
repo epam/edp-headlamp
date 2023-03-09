@@ -2,7 +2,6 @@ import lodashSet from 'lodash.set';
 import { EDPCodebaseBranchKubeObjectConfig } from '../../../../k8s/EDPCodebaseBranch/config';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { FormNameObject } from '../../../../types/forms';
-import { DeepPartial } from '../../../../types/global';
 
 const { kind, group, version } = EDPCodebaseBranchKubeObjectConfig;
 
@@ -14,11 +13,11 @@ export const createCodebaseBranchInstanceBasedOnFormValues = (
         [key: string]: any;
     },
     codebaseName: string
-): DeepPartial<EDPCodebaseBranchKubeObjectInterface> => {
+): EDPCodebaseBranchKubeObjectInterface => {
     const { branchName, ...restProps } = formValues;
     const transformedBranchName = branchName ? branchName.replaceAll('/', '-') : '';
 
-    const base: DeepPartial<EDPCodebaseBranchKubeObjectInterface> = {
+    const base = {
         apiVersion: `${group}/${version}`,
         kind,
         spec: {
@@ -38,18 +37,18 @@ export const createCodebaseBranchInstanceBasedOnFormValues = (
         lodashSet(base, propPath, propValue);
     }
 
-    return base;
+    return base as unknown as EDPCodebaseBranchKubeObjectInterface;
 };
 
 export const editCodebaseBranchInstance = (
     names: {
         [key: string]: FormNameObject;
     },
-    kubeObjectData: DeepPartial<EDPCodebaseBranchKubeObjectInterface>,
+    kubeObjectData: EDPCodebaseBranchKubeObjectInterface,
     formValues: {
         [key: string]: any;
     }
-): DeepPartial<EDPCodebaseBranchKubeObjectInterface> => {
+): EDPCodebaseBranchKubeObjectInterface => {
     const base = { ...kubeObjectData };
 
     for (const [propKey, propValue] of Object.entries(formValues)) {

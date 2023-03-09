@@ -7,6 +7,7 @@ import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import {
@@ -114,7 +115,9 @@ export const CreateCDPipelineStageForm = ({
     };
 
     const onSubmit = React.useCallback(() => {
-        handleApply(editorReturnValues);
+        handleApply({
+            CDPipelineStageData: editorReturnValues,
+        });
     }, [editorReturnValues, handleApply]);
 
     const hasJenkinsCITool = React.useMemo(
@@ -217,7 +220,7 @@ export const CreateCDPipelineStageForm = ({
             <Render condition={!!editorOpen}>
                 <EditorDialog
                     {...muDialogProps}
-                    item={editorReturnValues}
+                    item={editorReturnValues as unknown as KubeObjectInterface}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}
                 />

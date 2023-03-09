@@ -2,10 +2,8 @@ import { CreateCDPipelineStage } from '../../../../../../components/CreateCDPipe
 import { useCreateCDPipelineStage } from '../../../../../../components/CreateCDPipelineStage/hooks/useCreateCDPipelineStage';
 import { ICONS } from '../../../../../../constants/icons';
 import { useAvailableCITools } from '../../../../../../hooks/useAvailableCITools';
-import { useRequest } from '../../../../../../hooks/useRequest';
-import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDPCDPipelineStage/types';
+import { useNamespace } from '../../../../../../hooks/useNamespace';
 import { Iconify, MuiCore, React } from '../../../../../../plugin.globals';
-import { DeepPartial } from '../../../../../../types/global';
 import { CDPipelineDataContext } from '../../../../index';
 import { TableHeaderActionsProps } from './types';
 
@@ -17,6 +15,7 @@ export const TableHeaderActions = ({
 }: TableHeaderActionsProps): React.ReactElement => {
     const CDPipelineData = React.useContext(CDPipelineDataContext);
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
+    const { namespace } = useNamespace();
 
     const onClose = React.useCallback(
         (_?, reason?: string) => {
@@ -29,47 +28,20 @@ export const TableHeaderActions = ({
         [setCreateDialogOpen]
     );
 
-    const { createCDPipelineStage } = useCreateCDPipelineStage(
-        () => {
+    const {
+        createCDPipelineStage,
+        mutations: { CDPipelineStageCreateMutation },
+    } = useCreateCDPipelineStage({
+        onSuccess: () => {
             setCreateDialogOpen(false);
         },
-        () => {
+        onError: () => {
             setCreateDialogOpen(true);
-        }
-    );
-
-    const applyFunc = React.useCallback(
-        async (
-            newCDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
-        ): Promise<DeepPartial<EDPCDPipelineStageKubeObjectInterface> | undefined> =>
-            createCDPipelineStage(newCDPipelineStageData),
-        [createCDPipelineStage]
-    );
-
-    const {
-        state: { isLoading },
-        fireRequest,
-    } = useRequest({
-        requestFn: applyFunc,
-        options: {
-            mode: 'create',
         },
     });
 
-    const handleApply = React.useCallback(
-        async (
-            newCDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
-        ): Promise<void> => {
-            await fireRequest({
-                objectName: newCDPipelineStageData.spec.name,
-                args: [newCDPipelineStageData],
-            });
-        },
-        [fireRequest]
-    );
-
     const { availableCITools } = useAvailableCITools({
-        namespace: CDPipelineData.metadata.namespace,
+        namespace,
     });
 
     return (
@@ -89,8 +61,8 @@ export const TableHeaderActions = ({
                 open={createDialogOpen}
                 onClose={onClose}
                 setOpen={setCreateDialogOpen}
-                handleApply={handleApply}
-                isApplying={isLoading}
+                handleApply={createCDPipelineStage}
+                isApplying={CDPipelineStageCreateMutation.isLoading}
             />
         </>
     );

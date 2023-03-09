@@ -3,7 +3,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
-import { DeepPartial } from '../../../../types/global';
 import { Applications } from '../../../FormFields/CDPipelineFields';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
@@ -24,7 +23,7 @@ export const EditCDPipelineForm = ({
     const { baseDefaultValues } = useDefaultValues({ names, CDPipelineData });
 
     const [formValues, setFormValues] =
-        React.useState<DeepPartial<EDPCDPipelineKubeObjectInterface>>(baseDefaultValues);
+        React.useState<EDPCDPipelineKubeObjectInterface>(baseDefaultValues);
 
     const methods = useForm({
         defaultValues: baseDefaultValues,
@@ -68,7 +67,9 @@ export const EditCDPipelineForm = ({
     });
 
     const onSubmit = React.useCallback(() => {
-        handleApply(editorReturnValues);
+        handleApply({
+            CDPipelineData: editorReturnValues,
+        });
     }, [editorReturnValues, handleApply]);
 
     return (

@@ -1,7 +1,4 @@
-import { useRequest } from '../../hooks/useRequest';
-import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
 import { MuiCore, React } from '../../plugin.globals';
-import { DeepPartial } from '../../types/global';
 import { EditCDPipelineStageForm } from './components/EditCDPipelineStageForm';
 import { useEditCDPipelineStage } from './hooks/useEditCDPipelineStage';
 import { useStyles } from './styles';
@@ -17,37 +14,10 @@ export const EditCDPipelineStage = ({
 }: EditCodebaseProps): React.ReactElement => {
     const classes = useStyles();
 
-    const { editCDPipelineStage } = useEditCDPipelineStage(
-        () => setOpen(false),
-        () => setOpen(true)
-    );
-
-    const applyFunc = React.useCallback(
-        async (
-            newCDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
-        ): Promise<EDPCDPipelineStageKubeObjectInterface | undefined> =>
-            editCDPipelineStage(newCDPipelineStageData),
-        [editCDPipelineStage]
-    );
-
-    const { fireRequest } = useRequest({
-        requestFn: applyFunc,
-        options: {
-            mode: 'edit',
-        },
+    const { editCDPipelineStage } = useEditCDPipelineStage({
+        onSuccess: () => setOpen(false),
+        onError: () => setOpen(true),
     });
-
-    const handleApply = React.useCallback(
-        async (
-            newCDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
-        ): Promise<void> => {
-            await fireRequest({
-                objectName: newCDPipelineStageData.spec.name,
-                args: [newCDPipelineStageData],
-            });
-        },
-        [fireRequest]
-    );
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth>
@@ -59,7 +29,7 @@ export const EditCDPipelineStage = ({
                 </div>
                 <DialogContent className={classes.dialogContent}>
                     <EditCDPipelineStageForm
-                        handleApply={handleApply}
+                        handleApply={editCDPipelineStage}
                         setDialogOpen={setOpen}
                         CDPipelineStageData={CDPipelineStageData}
                     />

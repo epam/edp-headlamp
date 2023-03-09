@@ -7,8 +7,8 @@ import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
-import { DeepPartial } from '../../../../types/global';
 import { CreateCDPipelineStage } from '../../../CreateCDPipelineStage';
 import { Render } from '../../../Render';
 import { ApplicationsFormPart } from './components/ApplicationsFormPart';
@@ -56,10 +56,8 @@ export const CreateCDPipelineForm = ({
     const { baseDefaultValues } = useDefaultValues({ names: CDPIPELINE_CREATION_FORM_NAMES });
 
     const [formValues, setFormValues] =
-        React.useState<DeepPartial<EDPCDPipelineKubeObjectInterface>>(baseDefaultValues);
-    const [stages, setStages] = React.useState<
-        DeepPartial<EDPCDPipelineStageKubeObjectInterface>[]
-    >([]);
+        React.useState<EDPCDPipelineKubeObjectInterface>(baseDefaultValues);
+    const [stages, setStages] = React.useState<EDPCDPipelineStageKubeObjectInterface[]>([]);
 
     const handleChangeTab = React.useCallback(
         (event: React.ChangeEvent<{}>, newActiveTabIdx: number) => {
@@ -163,7 +161,10 @@ export const CreateCDPipelineForm = ({
     }, [activeTabFormPartName, activeTabIdx, trigger]);
 
     const onSubmit = React.useCallback(() => {
-        handleApply(editorReturnValues, stages);
+        handleApply({
+            CDPipelineData: editorReturnValues,
+            CDPipelineStagesData: stages,
+        });
     }, [editorReturnValues, handleApply, stages]);
 
     const [createStageDialogOpen, setCreateStageDialogOpen] = React.useState<boolean>(false);
@@ -180,8 +181,12 @@ export const CreateCDPipelineForm = ({
     );
 
     const handleCreateNewStage = React.useCallback(
-        (stage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>) => {
-            setStages(prev => [...prev, stage]);
+        ({
+            CDPipelineStageData,
+        }: {
+            CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface;
+        }) => {
+            setStages(prev => [...prev, CDPipelineStageData]);
             onClose();
         },
         [onClose]
@@ -337,7 +342,7 @@ export const CreateCDPipelineForm = ({
             <Render condition={!!editorOpen}>
                 <EditorDialog
                     {...muDialogProps}
-                    item={editorReturnValues}
+                    item={editorReturnValues as unknown as KubeObjectInterface}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}
                 />

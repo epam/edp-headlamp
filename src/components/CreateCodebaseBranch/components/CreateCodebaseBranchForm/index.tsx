@@ -5,8 +5,10 @@ import { editCodebaseBranchInstance } from '../../../../configs/k8s-resource-ins
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { createVersioningString } from '../../../../utils/createVersioningString';
@@ -41,6 +43,7 @@ export const CreateCodebaseBranchForm = ({
     isApplying,
 }: CreateCodebaseBranchFormProps): React.ReactElement => {
     const classes = useStyles();
+    const { namespace } = useNamespace();
 
     const { defaultBranch } = useDefaultBranch({ codebaseData });
     const defaultBranchVersion = React.useMemo(
@@ -106,7 +109,7 @@ export const CreateCodebaseBranchForm = ({
         names: CODEBASE_BRANCH_NAMES,
         formValues,
         codebaseName: codebaseData.metadata.name,
-        namespace: codebaseData.metadata.namespace,
+        namespace,
     });
 
     const onEditorSave = React.useCallback(
@@ -147,9 +150,14 @@ export const CreateCodebaseBranchForm = ({
                 defaultBranch,
                 { version: newDefaultBranchVersion }
             );
-            handleApply(editorReturnValues, newDefaultBranch);
+            handleApply({
+                codebaseBranchData: editorReturnValues,
+                defaultCodebaseBranchData: newDefaultBranch,
+            });
         } else {
-            handleApply(editorReturnValues);
+            handleApply({
+                codebaseBranchData: editorReturnValues,
+            });
         }
     }, [
         defaultBranch,
@@ -255,7 +263,7 @@ export const CreateCodebaseBranchForm = ({
             <Render condition={!!editorOpen}>
                 <EditorDialog
                     {...muDialogProps}
-                    item={editorReturnValues}
+                    item={editorReturnValues as unknown as KubeObjectInterface}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}
                 />

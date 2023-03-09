@@ -93,7 +93,9 @@ export const EditCodebaseForm = ({
             spec: { jiraServer, commitMessagePattern, ticketNamePattern, jiraIssueMetadataPayload },
         } = codebaseData;
 
-        handleApply(editorReturnValues);
+        handleApply({
+            codebaseData: editorReturnValues,
+        });
         reset();
 
         setValue(names.hasJiraServerIntegration.name, !!jiraServer);

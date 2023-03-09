@@ -1,43 +1,80 @@
+import { useMutation, UseMutationResult } from 'react-query';
+import { CRUD_TYPES } from '../../../../constants/crudTypes';
+import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
 import { EDPCDPipelineKubeObject } from '../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
-import { Notistack, React } from '../../../../plugin.globals';
-import { DeepPartial } from '../../../../types/global';
-import { createErrorMessage } from '../../../../utils/createErrorMessage';
-import { throwErrorNoty } from '../../../../utils/throwErrorNoty';
+import { React } from '../../../../plugin.globals';
 
-const { useSnackbar } = Notistack;
+interface EditCDPipelineProps {
+    CDPipelineData: EDPCDPipelineKubeObjectInterface;
+}
 
-export const useEditCDPipeline = (
-    onSuccess: () => void,
-    onError: () => void
-): {
-    editCDPipeline: (
-        newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>
-    ) => Promise<EDPCDPipelineKubeObjectInterface | undefined>;
+export const useEditCDPipeline = ({
+    onSuccess,
+    onError,
+}: {
+    onSuccess?: () => void;
+    onError?: () => void;
+}): {
+    editCDPipeline: (props: EditCDPipelineProps) => Promise<void>;
+    mutations: {
+        CDPipelineEditMutation: UseMutationResult<
+            EDPCDPipelineKubeObjectInterface,
+            Error,
+            { CDPipelineData: EDPCDPipelineKubeObjectInterface }
+        >;
+    };
 } => {
-    const { enqueueSnackbar } = useSnackbar();
+    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
+        useRequestStatusMessages();
 
-    const editCDPipeline = React.useCallback(
-        async (
-            newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>
-        ): Promise<EDPCDPipelineKubeObjectInterface | undefined> => {
-            const {
-                metadata: { name },
-            } = newCDPipelineData;
-
-            try {
-                const result = await EDPCDPipelineKubeObject.apiEndpoint.put(newCDPipelineData);
-                onSuccess();
-                return result;
-            } catch (err: any) {
-                const errorMessage = createErrorMessage(err, name);
-                throwErrorNoty(enqueueSnackbar, errorMessage);
-                onError();
-                throw err;
-            }
+    const CDPipelineEditMutation = useMutation<
+        EDPCDPipelineKubeObjectInterface,
+        Error,
+        {
+            CDPipelineData: EDPCDPipelineKubeObjectInterface;
+        }
+    >(
+        'CDPipelineEditMutation',
+        ({ CDPipelineData }) => {
+            return EDPCDPipelineKubeObject.apiEndpoint.put(CDPipelineData);
         },
-        [enqueueSnackbar, onError, onSuccess]
+        {
+            onMutate: ({ CDPipelineData }) =>
+                showBeforeRequestMessage(CDPipelineData.metadata.name, CRUD_TYPES.EDIT),
+            onSuccess: (data, { CDPipelineData }) => {
+                showRequestSuccessMessage(CDPipelineData.metadata.name, CRUD_TYPES.EDIT);
+            },
+            onError: (error, { CDPipelineData }) => {
+                showRequestErrorMessage(CDPipelineData.metadata.name, CRUD_TYPES.EDIT);
+            },
+        }
     );
 
-    return { editCDPipeline };
+    const editCDPipeline = React.useCallback(
+        async ({ CDPipelineData }: EditCDPipelineProps) => {
+            CDPipelineEditMutation.mutate(
+                { CDPipelineData },
+                {
+                    onSuccess: () => {
+                        if (onSuccess) {
+                            onSuccess();
+                        }
+                    },
+                    onError: () => {
+                        if (onError) {
+                            onError();
+                        }
+                    },
+                }
+            );
+        },
+        [CDPipelineEditMutation, onError, onSuccess]
+    );
+
+    const mutations = {
+        CDPipelineEditMutation,
+    };
+
+    return { editCDPipeline, mutations };
 };

@@ -7,7 +7,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { render, screen, waitFor } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
+import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { CreateCodebaseBranch } from './index';
 import { CreateCodebaseBranchProps } from './types';
 
@@ -28,7 +30,7 @@ describe('CreateCodebaseBranch', () => {
                         startFrom: '0.0.0-SNAPSHOT',
                     },
                 },
-            },
+            } as unknown as EDPCodebaseKubeObjectInterface,
             open: true,
             setOpen: () => {},
             onClose: () => {},
@@ -38,12 +40,15 @@ describe('CreateCodebaseBranch', () => {
         const store = configureStore({
             reducer: () => ({}),
         });
+        const queryClient = new QueryClient();
 
         render(
             <Provider store={store}>
-                <SnackbarProvider>
-                    <CreateCodebaseBranch {...props} />
-                </SnackbarProvider>
+                <QueryClientProvider client={queryClient}>
+                    <SnackbarProvider>
+                        <CreateCodebaseBranch {...props} />
+                    </SnackbarProvider>
+                </QueryClientProvider>
             </Provider>
         );
         await waitFor(() => {

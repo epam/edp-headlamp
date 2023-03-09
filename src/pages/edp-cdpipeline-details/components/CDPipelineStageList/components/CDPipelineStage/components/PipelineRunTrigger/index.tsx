@@ -2,16 +2,11 @@ import { useForm } from 'react-hook-form';
 import { FormSelect } from '../../../../../../../../components/FormComponents';
 import { PIPELINE_TYPES } from '../../../../../../../../constants/pipelineTypes';
 import { usePipelinesByType } from '../../../../../../../../hooks/usePipelinesByType';
-import { useRequest } from '../../../../../../../../hooks/useRequest';
-import { PipelineRunKubeObjectInterface } from '../../../../../../../../k8s/PipelineRun/types';
 import { MuiCore, React } from '../../../../../../../../plugin.globals';
 import { createRandomFiveSymbolString } from '../../../../../../../../utils/createRandomFiveSymbolString';
 import { CDPipelineDataContext } from '../../../../../../index';
 import { CurrentCDPipelineStageDataContext } from '../../../../index';
-import {
-    createDeployPipelineRunProps,
-    useCreateDeployPipelineRun,
-} from './hooks/useCreateDeployPipelineRun';
+import { useCreateDeployPipelineRun } from './hooks/useCreateDeployPipelineRun';
 import { PipelineRunTriggerProps } from './types';
 
 const { Grid, Button } = MuiCore;
@@ -46,20 +41,7 @@ export const PipelineRunTrigger = ({
 
     const pipelineNameFieldValue = watch(pipelineNameFieldName);
 
-    const { createDeployPipelineRun } = useCreateDeployPipelineRun();
-
-    const applyFunc = React.useCallback(
-        async (data: createDeployPipelineRunProps): Promise<PipelineRunKubeObjectInterface> =>
-            createDeployPipelineRun(data),
-        [createDeployPipelineRun]
-    );
-
-    const { fireRequest } = useRequest({
-        requestFn: applyFunc,
-        options: {
-            mode: 'create',
-        },
-    });
+    const { createDeployPipelineRun } = useCreateDeployPipelineRun({});
 
     const codebaseTag = React.useMemo(() => {
         return enrichedApplicationsWithArgoApplications
@@ -82,26 +64,19 @@ export const PipelineRunTrigger = ({
     const randomPostfix = createRandomFiveSymbolString();
 
     const handleRunClick = React.useCallback(async (): Promise<void> => {
-        const name = `${CDPipelineDataContextValue.metadata.name}-${CurrentCDPipelineStageDataContextValue.spec.name}-${randomPostfix}`;
-
-        await fireRequest({
-            objectName: name,
-            args: [
-                {
-                    namespace,
-                    pipelineName: pipelineNameFieldValue,
-                    stageName: CurrentCDPipelineStageDataContextValue.spec.name,
-                    CDPipelineName: CDPipelineDataContextValue.metadata.name,
-                    randomPostfix,
-                    codebaseTag,
-                },
-            ],
+        await createDeployPipelineRun({
+            namespace,
+            pipelineName: pipelineNameFieldValue,
+            stageName: CurrentCDPipelineStageDataContextValue.spec.name,
+            CDPipelineName: CDPipelineDataContextValue.metadata.name,
+            randomPostfix,
+            codebaseTag,
         });
     }, [
         CDPipelineDataContextValue,
         CurrentCDPipelineStageDataContextValue,
         codebaseTag,
-        fireRequest,
+        createDeployPipelineRun,
         namespace,
         pipelineNameFieldValue,
         randomPostfix,

@@ -9,8 +9,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import { render, screen, waitFor } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { namespacesMock } from '../../hooks/useNamespaces/mocks/namespaces.mock';
+import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
+import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
 import { pluginLib } from '../../plugin.globals';
 import { CreateCDPipelineStage } from './index';
 import { CreateCDPipelineStageProps } from './types';
@@ -28,7 +31,7 @@ describe('CreateCDPipelineStage', () => {
                     name: 'test-app-name',
                     namespace: 'test-namespace',
                 },
-            },
+            } as unknown as EDPCDPipelineKubeObjectInterface,
             otherStages: [
                 {
                     apiVersion: 'apiVersion',
@@ -40,7 +43,7 @@ describe('CreateCDPipelineStage', () => {
                         name: 'test-pipe-sit',
                         namespace: 'test-namespace',
                     },
-                },
+                } as unknown as EDPCDPipelineStageKubeObjectInterface,
             ],
             open: true,
             setOpen: () => {},
@@ -51,6 +54,7 @@ describe('CreateCDPipelineStage', () => {
         const store = configureStore({
             reducer: () => ({}),
         });
+        const queryClient = new QueryClient();
 
         jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
             if (url.includes('/api/v1/namespaces')) {
@@ -73,11 +77,13 @@ describe('CreateCDPipelineStage', () => {
 
         render(
             <Provider store={store}>
-                <SnackbarProvider>
-                    <ThemeProvider theme={theme}>
-                        <CreateCDPipelineStage {...props} />
-                    </ThemeProvider>
-                </SnackbarProvider>
+                <QueryClientProvider client={queryClient}>
+                    <SnackbarProvider>
+                        <ThemeProvider theme={theme}>
+                            <CreateCDPipelineStage {...props} />
+                        </ThemeProvider>
+                    </SnackbarProvider>
+                </QueryClientProvider>
             </Provider>
         );
 

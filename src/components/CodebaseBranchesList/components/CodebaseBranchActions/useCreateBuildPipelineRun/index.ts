@@ -1,13 +1,12 @@
+import { useMutation, UseMutationResult } from 'react-query';
 import { createBuildPipelineRunInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/pipeline-run';
-import { PipelineRun } from '../../../../../k8s/PipelineRun';
+import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { useRequestStatusMessages } from '../../../../../hooks/useResourceRequestStatusMessages';
+import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
-import { Notistack, React } from '../../../../../plugin.globals';
-import { createErrorMessage } from '../../../../../utils/createErrorMessage';
-import { throwErrorNoty } from '../../../../../utils/throwErrorNoty';
+import { React } from '../../../../../plugin.globals';
 
-const { useSnackbar } = Notistack;
-
-export interface createBuildPipelineRunProps {
+export interface CreateBuildPipelineRunProps {
     namespace: string;
     codebaseData: {
         codebaseName: string;
@@ -33,49 +32,73 @@ export interface createBuildPipelineRunProps {
     randomPostfix: string;
 }
 
-export const useCreateBuildPipelineRun = (
-    onSuccess?: () => void,
-    onError?: () => void
-): {
-    createBuildPipelineRun: (
-        data: createBuildPipelineRunProps
-    ) => Promise<PipelineRunKubeObjectInterface>;
+export const useCreateBuildPipelineRun = ({
+    onSuccess,
+    onError,
+}: {
+    onSuccess?: () => void;
+    onError?: () => void;
+}): {
+    createBuildPipelineRun: (props: CreateBuildPipelineRunProps) => Promise<void>;
+    mutations: {
+        buildPipelineRunCreateMutation: UseMutationResult<
+            PipelineRunKubeObjectInterface,
+            Error,
+            { buildPipelineRunData: PipelineRunKubeObjectInterface }
+        >;
+    };
 } => {
-    const { enqueueSnackbar } = useSnackbar();
+    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
+        useRequestStatusMessages();
 
-    const createBuildPipelineRun = React.useCallback(
-        async (data: createBuildPipelineRunProps): Promise<PipelineRunKubeObjectInterface> => {
-            const { codebaseData, codebaseBranchData, randomPostfix } = data;
-            let newPipelineRunData: PipelineRunKubeObjectInterface;
-
-            try {
-                newPipelineRunData = createBuildPipelineRunInstance(data);
-
-                const pipelineRunPostRequestResult = await PipelineRun.apiEndpoint.post(
-                    newPipelineRunData
-                );
-
-                if (onSuccess) {
-                    onSuccess();
-                }
-                return pipelineRunPostRequestResult;
-            } catch (err) {
-                const errorMessage = createErrorMessage(
-                    err,
-                    `${codebaseData.codebaseName}-${codebaseBranchData.codebaseBranchName}-build-${randomPostfix}`
-                );
-
-                throwErrorNoty(enqueueSnackbar, errorMessage);
-
-                if (onError) {
-                    onError();
-                }
-
-                throw err;
-            }
+    const buildPipelineRunCreateMutation = useMutation<
+        PipelineRunKubeObjectInterface,
+        Error,
+        {
+            buildPipelineRunData: PipelineRunKubeObjectInterface;
+        }
+    >(
+        'buildPipelineRunCreateMutation',
+        ({ buildPipelineRunData }) => {
+            return PipelineRunKubeObject.apiEndpoint.post(buildPipelineRunData);
         },
-        [enqueueSnackbar, onError, onSuccess]
+        {
+            onMutate: ({ buildPipelineRunData }) =>
+                showBeforeRequestMessage(buildPipelineRunData.metadata.name, CRUD_TYPES.CREATE),
+            onSuccess: (data, { buildPipelineRunData }) => {
+                showRequestSuccessMessage(buildPipelineRunData.metadata.name, CRUD_TYPES.CREATE);
+            },
+            onError: (error, { buildPipelineRunData }) => {
+                showRequestErrorMessage(buildPipelineRunData.metadata.name, CRUD_TYPES.CREATE);
+            },
+        }
     );
 
-    return { createBuildPipelineRun };
+    const createBuildPipelineRun = React.useCallback(
+        async (data: CreateBuildPipelineRunProps) => {
+            const buildPipelineRunData = createBuildPipelineRunInstance(data);
+            buildPipelineRunCreateMutation.mutate(
+                { buildPipelineRunData },
+                {
+                    onSuccess: () => {
+                        if (onSuccess) {
+                            onSuccess();
+                        }
+                    },
+                    onError: () => {
+                        if (onError) {
+                            onError();
+                        }
+                    },
+                }
+            );
+        },
+        [buildPipelineRunCreateMutation, onError, onSuccess]
+    );
+
+    const mutations = {
+        buildPipelineRunCreateMutation,
+    };
+
+    return { createBuildPipelineRun, mutations };
 };

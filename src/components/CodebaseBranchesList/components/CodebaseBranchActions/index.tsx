@@ -1,8 +1,6 @@
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
-import { useRequest } from '../../../../hooks/useRequest';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
-import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { KubeObjectAction } from '../../../../types/actions';
 import { createKubeAction } from '../../../../utils/actions/createKubeAction';
@@ -11,10 +9,7 @@ import { DeleteKubeObject } from '../../../DeleteKubeObject';
 import { KubeObjectActions } from '../../../KubeObjectActions';
 import { CodebaseBranchCDPipelineConflictError } from './components/CodebaseBranchCDPipelineConflictError';
 import { CodebaseBranchActionsProps } from './types';
-import {
-    createBuildPipelineRunProps,
-    useCreateBuildPipelineRun,
-} from './useCreateBuildPipelineRun';
+import { useCreateBuildPipelineRun } from './useCreateBuildPipelineRun';
 import { createDeleteAction, getConflictedCDPipeline } from './utils';
 
 const { IconButton } = MuiCore;
@@ -26,10 +21,6 @@ export const CodebaseBranchActions = ({
     codebase,
     gitServers,
 }: CodebaseBranchActionsProps): React.ReactElement => {
-    const {
-        metadata: { namespace },
-    } = codebaseBranchData;
-
     const {
         spec: { ciTool },
     } = codebase;
@@ -51,38 +42,9 @@ export const CodebaseBranchActions = ({
         ? gitServers.filter(el => el.metadata.name === codebase.spec.gitServer)?.[0]
         : null;
 
-    const { createBuildPipelineRun } = useCreateBuildPipelineRun();
-
-    const applyFunc = React.useCallback(
-        async (data: createBuildPipelineRunProps): Promise<PipelineRunKubeObjectInterface> =>
-            createBuildPipelineRun(data),
-        [createBuildPipelineRun]
-    );
-
-    const { fireRequest } = useRequest({
-        requestFn: applyFunc,
-        options: {
-            mode: 'create',
-        },
-    });
+    const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
 
     const randomPostfix = createRandomFiveSymbolString();
-
-    const handleApply = React.useCallback(
-        async (data: createBuildPipelineRunProps): Promise<void> => {
-            const {
-                codebaseData: { codebaseName },
-                codebaseBranchData: { codebaseBranchName },
-            } = data;
-            const name = `${codebaseName}-${codebaseBranchName}-build-${randomPostfix}`;
-
-            await fireRequest({
-                objectName: name,
-                args: [data],
-            });
-        },
-        [fireRequest, randomPostfix]
-    );
 
     const buildAction = React.useMemo(() => {
         if (ciTool === CI_TOOLS['JENKINS']) {
@@ -94,8 +56,8 @@ export const CodebaseBranchActions = ({
             icon: ICONS['PLAY'],
             action: async () => {
                 handleCloseActionsMenu();
-                await handleApply({
-                    namespace,
+                await createBuildPipelineRun({
+                    namespace: codebase.metadata.namespace,
                     codebaseBranchData: {
                         codebaseBranchName: codebaseBranchData.spec.branchName,
                         codebaseBranchMetadataName: codebaseBranchData.metadata.name,
@@ -125,10 +87,9 @@ export const CodebaseBranchActions = ({
         ciTool,
         codebase,
         codebaseBranchData,
+        createBuildPipelineRun,
         gitServerByCodebase,
-        handleApply,
         handleCloseActionsMenu,
-        namespace,
         randomPostfix,
     ]);
 
@@ -163,7 +124,7 @@ export const CodebaseBranchActions = ({
             );
             setLoadingActive(false);
         },
-        [codebase, codebaseBranchData, namespace]
+        [codebase, codebaseBranchData]
     );
 
     return (

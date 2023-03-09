@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
-import { useRequest } from '../../hooks/useRequest';
 import { MuiCore, React } from '../../plugin.globals';
 import { Render } from '../Render';
+import { useDeleteKubeObject } from './hooks/useDeleteKubeObject';
 import { DeleteKubeObjectProps } from './types';
 
 const {
@@ -18,13 +18,6 @@ const {
 
 const NAMES = {
     name: 'name',
-};
-
-const getErrorMessage = (name: string, error: unknown): string => {
-    if (error instanceof Error) {
-        return error.message;
-    }
-    return `Oops! Something went wrong! Couldn't delete "${name}"`;
 };
 
 const getDialogTitle = (errorTemplate: React.ReactNode, objectName: string): string =>
@@ -56,31 +49,9 @@ export const DeleteKubeObject = ({
         setPopupOpen(true);
     }, [setPopupOpen]);
 
-    const applyFunc = React.useCallback(async (): Promise<void> => {
-        try {
-            await kubeObject.apiEndpoint.delete(
-                kubeObjectData.metadata.namespace,
-                kubeObjectData.metadata.name
-            );
-
-            if (!onSuccess) {
-                return;
-            }
-
-            onSuccess();
-        } catch (error: unknown) {
-            const msg = getErrorMessage(kubeObjectData.metadata.name, error);
-            setErrorTemplate(msg);
-            handleOpenPopup();
-            throw error;
-        }
-    }, [kubeObject, kubeObjectData, onSuccess, handleOpenPopup]);
-
-    const { fireRequest } = useRequest({
-        requestFn: applyFunc,
-        options: {
-            mode: 'delete',
-        },
+    const { deleteKubeObject } = useDeleteKubeObject({
+        onSuccess: onSuccess,
+        onError: handleOpenPopup,
     });
 
     const onSubmit = React.useCallback(
@@ -90,16 +61,17 @@ export const DeleteKubeObject = ({
             }
 
             handleClosePopup();
-            await fireRequest({ objectName: kubeObjectData.metadata.name });
+            await deleteKubeObject({ kubeObject, kubeObjectData });
             reset();
         },
         [
             errorTemplate,
             objectName,
-            reset,
             handleClosePopup,
-            fireRequest,
-            kubeObjectData.metadata.name,
+            deleteKubeObject,
+            kubeObject,
+            kubeObjectData,
+            reset,
         ]
     );
 

@@ -5,8 +5,10 @@ import { createGitServerSecretInstance } from '../../../../configs/k8s-resource-
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
+import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import {
     GitProvider,
     HostName,
@@ -109,14 +111,17 @@ export const CreateGitServerForm = ({
             } = editorReturnValues;
             const sshPrivateKeyWithExtraLine = sshPrivateKey.trim() + '\n';
 
-            const gitServerSecretInstance = createGitServerSecretInstance(GIT_SERVER_SECRET_NAMES, {
+            const gitServerSecretData = createGitServerSecretInstance(GIT_SERVER_SECRET_NAMES, {
                 name,
                 gitUser: btoa(unescape(gitUser)),
                 sshPrivateKey: btoa(unescape(sshPrivateKeyWithExtraLine)),
                 token: btoa(unescape(token)),
             });
 
-            handleApply(editorReturnValues, gitServerSecretInstance);
+            handleApply({
+                gitServerData: editorReturnValues,
+                gitServerSecretData: gitServerSecretData as EDPKubeObjectInterface,
+            });
         },
         [editorReturnValues, handleApply]
     );
@@ -211,7 +216,7 @@ export const CreateGitServerForm = ({
             <Render condition={!!editorOpen}>
                 <EditorDialog
                     {...muDialogProps}
-                    item={editorReturnValues}
+                    item={editorReturnValues as unknown as KubeObjectInterface}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}
                 />

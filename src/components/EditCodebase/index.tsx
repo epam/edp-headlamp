@@ -1,7 +1,4 @@
-import { useRequest } from '../../hooks/useRequest';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { MuiCore, React } from '../../plugin.globals';
-import { EDPKubeObjectInterface } from '../../types/k8s';
 import { EditCodebaseForm } from './components/EditCodebaseForm';
 import { useEditCodebase } from './hooks/useEditCodebase';
 import { useStyles } from './styles';
@@ -17,34 +14,10 @@ export const EditCodebase = ({
 }: EditCodebaseProps): React.ReactElement => {
     const classes = useStyles();
 
-    const { editCodebase } = useEditCodebase(
-        () => setOpen(false),
-        () => setOpen(true)
-    );
-
-    const applyFunc = React.useCallback(
-        async (
-            newCodebaseData: EDPKubeObjectInterface
-        ): Promise<EDPCodebaseKubeObjectInterface | undefined> => editCodebase(newCodebaseData),
-        [editCodebase]
-    );
-
-    const { fireRequest } = useRequest({
-        requestFn: applyFunc,
-        options: {
-            mode: 'edit',
-        },
+    const { editCodebase } = useEditCodebase({
+        onSuccess: () => setOpen(false),
+        onError: () => setOpen(true),
     });
-
-    const handleApply = React.useCallback(
-        async (newCodebaseData: EDPKubeObjectInterface): Promise<void> => {
-            await fireRequest({
-                objectName: newCodebaseData.metadata.name,
-                args: [newCodebaseData],
-            });
-        },
-        [fireRequest]
-    );
 
     return (
         <Dialog open={open} onClose={onClose} maxWidth={'sm'} fullWidth>
@@ -54,7 +27,7 @@ export const EditCodebase = ({
                 </div>
                 <DialogContent className={classes.dialogContent}>
                     <EditCodebaseForm
-                        handleApply={handleApply}
+                        handleApply={editCodebase}
                         setDialogOpen={setOpen}
                         codebaseData={codebaseData}
                     />

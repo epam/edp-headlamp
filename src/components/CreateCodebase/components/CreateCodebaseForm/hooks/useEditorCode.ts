@@ -1,5 +1,5 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
 import { createCodebaseInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/codebase';
+import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
@@ -15,9 +15,9 @@ export const useEditorCode = ({
     names,
     formValues,
     type,
-}: UseEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
+}: UseEditorCodeProps): { editorReturnValues: EDPCodebaseKubeObjectInterface } => {
     const editorReturnValues = React.useMemo(() => {
-        return createCodebaseInstance(names, type, formValues) as KubeObjectInterface;
+        return createCodebaseInstance(names, type, formValues) as EDPCodebaseKubeObjectInterface;
     }, [formValues, names, type]);
 
     return { editorReturnValues };

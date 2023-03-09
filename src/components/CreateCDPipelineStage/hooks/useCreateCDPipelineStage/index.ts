@@ -1,45 +1,80 @@
+import { useMutation, UseMutationResult } from 'react-query';
+import { CRUD_TYPES } from '../../../../constants/crudTypes';
+import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
-import { Notistack, React } from '../../../../plugin.globals';
-import { DeepPartial } from '../../../../types/global';
-import { createErrorMessage } from '../../../../utils/createErrorMessage';
-import { throwErrorNoty } from '../../../../utils/throwErrorNoty';
+import { React } from '../../../../plugin.globals';
 
-const { useSnackbar } = Notistack;
+interface CreateCDPipelineStageProps {
+    CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface;
+}
 
-export const useCreateCDPipelineStage = (
-    onSuccess: () => void,
-    onError: () => void
-): {
-    createCDPipelineStage: (
-        newCDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
-    ) => Promise<DeepPartial<EDPCDPipelineStageKubeObjectInterface> | undefined>;
+export const useCreateCDPipelineStage = ({
+    onSuccess,
+    onError,
+}: {
+    onSuccess?: () => void;
+    onError?: () => void;
+}): {
+    createCDPipelineStage: (props: CreateCDPipelineStageProps) => Promise<void>;
+    mutations: {
+        CDPipelineStageCreateMutation: UseMutationResult<
+            EDPCDPipelineStageKubeObjectInterface,
+            Error,
+            { CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface }
+        >;
+    };
 } => {
-    const { enqueueSnackbar } = useSnackbar();
+    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
+        useRequestStatusMessages();
 
-    const createCDPipelineStage = React.useCallback(
-        async (
-            newCDPipelineStageData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
-        ): Promise<DeepPartial<EDPCDPipelineStageKubeObjectInterface> | undefined> => {
-            const {
-                metadata: { name },
-            } = newCDPipelineStageData;
-
-            try {
-                const result = await EDPCDPipelineStageKubeObject.apiEndpoint.post(
-                    newCDPipelineStageData
-                );
-                onSuccess();
-                return result; // return statement only for testing purposes
-            } catch (err: any) {
-                const errorMessage = createErrorMessage(err, name);
-                throwErrorNoty(enqueueSnackbar, errorMessage);
-                onError();
-                throw err;
-            }
+    const CDPipelineStageCreateMutation = useMutation<
+        EDPCDPipelineStageKubeObjectInterface,
+        Error,
+        {
+            CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface;
+        }
+    >(
+        'CDPipelineStageCreateMutation',
+        ({ CDPipelineStageData }) => {
+            return EDPCDPipelineStageKubeObject.apiEndpoint.post(CDPipelineStageData);
         },
-        [enqueueSnackbar, onError, onSuccess]
+        {
+            onMutate: ({ CDPipelineStageData }) =>
+                showBeforeRequestMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.CREATE),
+            onSuccess: (data, { CDPipelineStageData }) => {
+                showRequestSuccessMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.CREATE);
+            },
+            onError: (error, { CDPipelineStageData }) => {
+                showRequestErrorMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.CREATE);
+            },
+        }
     );
 
-    return { createCDPipelineStage };
+    const createCDPipelineStage = React.useCallback(
+        async ({ CDPipelineStageData }: CreateCDPipelineStageProps) => {
+            CDPipelineStageCreateMutation.mutate(
+                { CDPipelineStageData },
+                {
+                    onSuccess: () => {
+                        if (onSuccess) {
+                            onSuccess();
+                        }
+                    },
+                    onError: () => {
+                        if (onError) {
+                            onError();
+                        }
+                    },
+                }
+            );
+        },
+        [CDPipelineStageCreateMutation, onError, onSuccess]
+    );
+
+    const mutations = {
+        CDPipelineStageCreateMutation,
+    };
+
+    return { createCDPipelineStage, mutations };
 };

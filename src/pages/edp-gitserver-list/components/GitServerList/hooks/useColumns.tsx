@@ -25,9 +25,9 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPGitServerKubeOb
         () => [
             {
                 label: 'Status',
-                getter: ({ status: gitServerStatus }) => {
-                    const status = gitServerStatus
-                        ? gitServerStatus.value
+                getter: gitServerData => {
+                    const status = gitServerData?.status
+                        ? gitServerData?.status?.value
                         : CUSTOM_RESOURCE_ACTIVE_STATUSES['UNKNOWN'];
 
                     const statusTitle = (
@@ -37,7 +37,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPGitServerKubeOb
                             </Typography>
                             <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
                                 <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                                    {gitServerStatus?.detailed_message}
+                                    {gitServerData?.status?.detailed_message}
                                 </Typography>
                             </Render>
                         </>

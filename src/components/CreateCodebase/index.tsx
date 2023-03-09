@@ -1,14 +1,11 @@
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { ICONS } from '../../constants/icons';
-import { useRequest } from '../../hooks/useRequest';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, React } from '../../plugin.globals';
-import { EDPKubeObjectInterface } from '../../types/k8s';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { CreateCodebaseForm } from './components/CreateCodebaseForm';
 import { useCreateCodebase } from './hooks/useCreateCodebase';
 import { useStyles } from './styles';
-import { CodebaseAuthData, CreateCodebaseProps } from './types';
+import { CreateCodebaseProps } from './types';
 
 const { Dialog, DialogContent, Typography, Button } = MuiCore;
 const { Icon } = Iconify;
@@ -22,46 +19,17 @@ export const CreateCodebase = ({
     const [type, setType] = React.useState<CODEBASE_TYPES>(CODEBASE_TYPES['APPLICATION']);
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
 
-    const { createCodebase } = useCreateCodebase(
-        () => {
-            setCreateDialogOpen(false);
-        },
-        () => {
-            setCreateDialogOpen(true);
-        }
-    );
-
-    const applyFunc = React.useCallback(
-        async (
-            newCodebaseData: EDPKubeObjectInterface,
-            codebaseAuthData: CodebaseAuthData | null
-        ): Promise<EDPCodebaseKubeObjectInterface | undefined> =>
-            createCodebase(newCodebaseData, codebaseAuthData),
-        [createCodebase]
-    );
-
     const {
-        state: { isLoading },
-        fireRequest,
-    } = useRequest({
-        requestFn: applyFunc,
-        options: {
-            mode: 'create',
+        createCodebase,
+        mutations: {
+            codebaseCreateMutation,
+            codebaseSecretCreateMutation,
+            codebaseSecretDeleteMutation,
         },
+    } = useCreateCodebase({
+        onSuccess: () => setCreateDialogOpen(false),
+        onError: () => setCreateDialogOpen(true),
     });
-
-    const handleApply = React.useCallback(
-        async (
-            newCodebaseData: EDPKubeObjectInterface,
-            codebaseAuthData: CodebaseAuthData | null
-        ): Promise<void> => {
-            await fireRequest({
-                objectName: newCodebaseData.metadata.name,
-                args: [newCodebaseData, codebaseAuthData],
-            });
-        },
-        [fireRequest]
-    );
 
     return (
         <Dialog
@@ -90,9 +58,13 @@ export const CreateCodebase = ({
                         setType={setType}
                         editorOpen={editorOpen}
                         setEditorOpen={setEditorOpen}
-                        handleApply={handleApply}
+                        handleApply={createCodebase}
                         setDialogOpen={setCreateDialogOpen}
-                        isApplying={isLoading}
+                        isApplying={
+                            codebaseCreateMutation.isLoading ||
+                            codebaseSecretCreateMutation.isLoading ||
+                            codebaseSecretDeleteMutation.isLoading
+                        }
                     />
                 </DialogContent>
             </div>

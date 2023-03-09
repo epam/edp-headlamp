@@ -7,6 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { render, screen, waitFor } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { namespacesMock } from '../../hooks/useNamespaces/mocks/namespaces.mock';
 import { pluginLib } from '../../plugin.globals';
@@ -26,6 +27,7 @@ describe('CreateCodebase', () => {
             const store = configureStore({
                 reducer: () => ({}),
             });
+            const queryClient = new QueryClient();
 
             jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
                 if (url.includes('/api/v1/namespaces')) {
@@ -35,9 +37,11 @@ describe('CreateCodebase', () => {
 
             render(
                 <Provider store={store}>
-                    <SnackbarProvider>
-                        <CreateCodebase {...props} />
-                    </SnackbarProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <SnackbarProvider>
+                            <CreateCodebase {...props} />
+                        </SnackbarProvider>
+                    </QueryClientProvider>
                 </Provider>
             );
 
@@ -57,6 +61,7 @@ describe('CreateCodebase', () => {
             const store = configureStore({
                 reducer: () => ({}),
             });
+            const queryClient = new QueryClient();
 
             jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
                 if (url.includes('/api/v1/namespaces')) {
@@ -66,9 +71,11 @@ describe('CreateCodebase', () => {
 
             render(
                 <Provider store={store}>
-                    <SnackbarProvider>
-                        <CreateCodebase {...props} />
-                    </SnackbarProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <SnackbarProvider>
+                            <CreateCodebase {...props} />
+                        </SnackbarProvider>
+                    </QueryClientProvider>
                 </Provider>
             );
 
@@ -88,6 +95,7 @@ describe('CreateCodebase', () => {
             const store = configureStore({
                 reducer: () => ({}),
             });
+            const queryClient = new QueryClient();
 
             jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
                 if (url.includes('/api/v1/namespaces')) {
@@ -97,9 +105,11 @@ describe('CreateCodebase', () => {
 
             render(
                 <Provider store={store}>
-                    <SnackbarProvider>
-                        <CreateCodebase {...props} />
-                    </SnackbarProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <SnackbarProvider>
+                            <CreateCodebase {...props} />
+                        </SnackbarProvider>
+                    </QueryClientProvider>
                 </Provider>
             );
 

@@ -10,6 +10,7 @@ import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget, FormNameObject } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
@@ -225,9 +226,15 @@ export const CreateCodebaseForm = ({
         const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;
 
         if (repositoryLogin && repositoryPasswordOrApiToken) {
-            handleApply(editorReturnValues, codebaseAuthData);
+            handleApply({
+                codebaseData: editorReturnValues,
+                codebaseAuthData: codebaseAuthData,
+            });
         } else {
-            handleApply(editorReturnValues, null);
+            handleApply({
+                codebaseData: editorReturnValues,
+                codebaseAuthData: null,
+            });
         }
     }, [codebaseAuthData, editorReturnValues, handleApply]);
 
@@ -334,7 +341,7 @@ export const CreateCodebaseForm = ({
             </div>
             <EditorDialog
                 {...muDialogProps}
-                item={editorReturnValues}
+                item={editorReturnValues as unknown as KubeObjectInterface}
                 onClose={() => setEditorOpen(false)}
                 onSave={onEditorSave}
             />

@@ -1,43 +1,80 @@
+import { useMutation, UseMutationResult } from 'react-query';
+import { CRUD_TYPES } from '../../../../constants/crudTypes';
+import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
-import { Notistack, React } from '../../../../plugin.globals';
-import { DeepPartial } from '../../../../types/global';
-import { createErrorMessage } from '../../../../utils/createErrorMessage';
-import { throwErrorNoty } from '../../../../utils/throwErrorNoty';
+import { React } from '../../../../plugin.globals';
 
-const { useSnackbar } = Notistack;
+interface EditCodebaseProps {
+    codebaseData: EDPCodebaseKubeObjectInterface;
+}
 
-export const useEditCodebase = (
-    onSuccess: () => void,
-    onError: () => void
-): {
-    editCodebase: (
-        newCodebaseData: DeepPartial<EDPCodebaseKubeObjectInterface>
-    ) => Promise<EDPCodebaseKubeObjectInterface | undefined>;
+export const useEditCodebase = ({
+    onSuccess,
+    onError,
+}: {
+    onSuccess?: () => void;
+    onError?: () => void;
+}): {
+    editCodebase: (props: EditCodebaseProps) => Promise<void>;
+    mutations: {
+        codebaseEditMutation: UseMutationResult<
+            EDPCodebaseKubeObjectInterface,
+            Error,
+            { codebaseData: EDPCodebaseKubeObjectInterface }
+        >;
+    };
 } => {
-    const { enqueueSnackbar } = useSnackbar();
+    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
+        useRequestStatusMessages();
 
-    const editCodebase = React.useCallback(
-        async (
-            newCodebaseData: DeepPartial<EDPCodebaseKubeObjectInterface>
-        ): Promise<EDPCodebaseKubeObjectInterface | undefined> => {
-            const {
-                metadata: { name },
-            } = newCodebaseData;
-
-            try {
-                const result = await EDPCodebaseKubeObject.apiEndpoint.put(newCodebaseData);
-                onSuccess();
-                return result;
-            } catch (err: any) {
-                const errorMessage = createErrorMessage(err, name);
-                throwErrorNoty(enqueueSnackbar, errorMessage);
-                onError();
-                throw err;
-            }
+    const codebaseEditMutation = useMutation<
+        EDPCodebaseKubeObjectInterface,
+        Error,
+        {
+            codebaseData: EDPCodebaseKubeObjectInterface;
+        }
+    >(
+        'codebaseEditMutation',
+        ({ codebaseData }) => {
+            return EDPCodebaseKubeObject.apiEndpoint.put(codebaseData);
         },
-        [enqueueSnackbar, onError, onSuccess]
+        {
+            onMutate: ({ codebaseData }) =>
+                showBeforeRequestMessage(codebaseData.metadata.name, CRUD_TYPES.EDIT),
+            onSuccess: (data, { codebaseData }) => {
+                showRequestSuccessMessage(codebaseData.metadata.name, CRUD_TYPES.EDIT);
+            },
+            onError: (error, { codebaseData }) => {
+                showRequestErrorMessage(codebaseData.metadata.name, CRUD_TYPES.EDIT);
+            },
+        }
     );
 
-    return { editCodebase };
+    const editCodebase = React.useCallback(
+        async ({ codebaseData }: EditCodebaseProps) => {
+            codebaseEditMutation.mutate(
+                { codebaseData },
+                {
+                    onSuccess: () => {
+                        if (onSuccess) {
+                            onSuccess();
+                        }
+                    },
+                    onError: () => {
+                        if (onError) {
+                            onError();
+                        }
+                    },
+                }
+            );
+        },
+        [codebaseEditMutation, onError, onSuccess]
+    );
+
+    const mutations = {
+        codebaseEditMutation,
+    };
+
+    return { editCodebase, mutations };
 };

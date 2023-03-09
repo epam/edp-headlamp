@@ -7,6 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { render, screen } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { DeleteKubeObject } from './index';
 import { DeleteKubeObjectProps } from './types';
@@ -38,12 +39,15 @@ describe('DeleteKubeObject', () => {
         const store = configureStore({
             reducer: () => ({}),
         });
+        const queryClient = new QueryClient();
 
         render(
             <Provider store={store}>
-                <SnackbarProvider>
-                    <DeleteKubeObject {...props} />
-                </SnackbarProvider>
+                <QueryClientProvider client={queryClient}>
+                    <SnackbarProvider>
+                        <DeleteKubeObject {...props} />
+                    </SnackbarProvider>
+                </QueryClientProvider>
             </Provider>
         );
 

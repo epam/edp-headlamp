@@ -1,7 +1,4 @@
-import { useRequest } from '../../hooks/useRequest';
-import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
 import { MuiCore, React } from '../../plugin.globals';
-import { DeepPartial } from '../../types/global';
 import { EditCDPipelineForm } from './components/EditCDPipelineForm';
 import { useEditCDPipeline } from './hooks/useEditCDPipeline';
 import { useStyles } from './styles';
@@ -17,35 +14,10 @@ export const EditCDPipeline = ({
 }: EditCDPipelineProps): React.ReactElement => {
     const classes = useStyles();
 
-    const { editCDPipeline } = useEditCDPipeline(
-        () => setOpen(false),
-        () => setOpen(true)
-    );
-
-    const applyFunc = React.useCallback(
-        async (
-            newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>
-        ): Promise<EDPCDPipelineKubeObjectInterface | undefined> =>
-            editCDPipeline(newCDPipelineData),
-        [editCDPipeline]
-    );
-
-    const { fireRequest } = useRequest({
-        requestFn: applyFunc,
-        options: {
-            mode: 'edit',
-        },
+    const { editCDPipeline } = useEditCDPipeline({
+        onSuccess: () => setOpen(false),
+        onError: () => setOpen(true),
     });
-
-    const handleApply = React.useCallback(
-        async (newCDPipelineData: DeepPartial<EDPCDPipelineKubeObjectInterface>): Promise<void> => {
-            await fireRequest({
-                objectName: newCDPipelineData.metadata.name,
-                args: [newCDPipelineData],
-            });
-        },
-        [fireRequest]
-    );
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth maxWidth={'md'}>
@@ -55,7 +27,7 @@ export const EditCDPipeline = ({
                 </div>
                 <DialogContent className={classes.dialogContent}>
                     <EditCDPipelineForm
-                        handleApply={handleApply}
+                        handleApply={editCDPipeline}
                         setDialogOpen={setOpen}
                         CDPipelineData={CDPipelineData}
                     />

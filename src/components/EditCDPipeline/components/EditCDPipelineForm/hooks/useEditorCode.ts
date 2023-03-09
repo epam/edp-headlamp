@@ -1,4 +1,3 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/types/lib/k8s/cluster';
 import { editCDPipelineInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/cdpipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
 import { React } from '../../../../../plugin.globals';
@@ -17,9 +16,13 @@ export const useEditorCode = ({
     names,
     formValues,
     kubeObjectData,
-}: useEditorCodeProps): { editorReturnValues: KubeObjectInterface } => {
+}: useEditorCodeProps): { editorReturnValues: EDPCDPipelineKubeObjectInterface } => {
     const editorReturnValues = React.useMemo(() => {
-        return editCDPipelineInstance(names, kubeObjectData, formValues) as KubeObjectInterface;
+        return editCDPipelineInstance(
+            names,
+            kubeObjectData,
+            formValues
+        ) as EDPCDPipelineKubeObjectInterface;
     }, [formValues, kubeObjectData, names]);
 
     return { editorReturnValues };

@@ -68,7 +68,9 @@ export const EditCDPipelineStageForm = ({
     });
 
     const onSubmit = React.useCallback(() => {
-        handleApply(editorReturnValues);
+        handleApply({
+            CDPipelineStageData: editorReturnValues,
+        });
     }, [editorReturnValues, handleApply]);
 
     return (

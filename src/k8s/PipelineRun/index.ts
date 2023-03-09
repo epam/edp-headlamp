@@ -17,7 +17,9 @@ const {
 } = PipelineRunKubeObjectConfig;
 
 // @ts-ignore
-export class PipelineRun extends makeKubeObject<PipelineRunKubeObjectInterface>(singularForm) {
+export class PipelineRunKubeObject extends makeKubeObject<PipelineRunKubeObjectInterface>(
+    singularForm
+) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
     static get className(): string {

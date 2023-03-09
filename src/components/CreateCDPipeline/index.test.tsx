@@ -9,6 +9,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { render, screen, waitFor } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { namespacesMock } from '../../hooks/useNamespaces/mocks/namespaces.mock';
 import { pluginLib } from '../../plugin.globals';
@@ -28,6 +29,7 @@ describe('CreateCDPipeline', () => {
         const store = configureStore({
             reducer: () => ({}),
         });
+        const queryClient = new QueryClient();
 
         const theme: DefaultTheme = createTheme();
 
@@ -39,11 +41,13 @@ describe('CreateCDPipeline', () => {
 
         render(
             <Provider store={store}>
-                <SnackbarProvider>
-                    <ThemeProvider theme={theme}>
-                        <CreateCDPipeline {...props} />
-                    </ThemeProvider>
-                </SnackbarProvider>
+                <QueryClientProvider client={queryClient}>
+                    <SnackbarProvider>
+                        <ThemeProvider theme={theme}>
+                            <CreateCDPipeline {...props} />
+                        </ThemeProvider>
+                    </SnackbarProvider>
+                </QueryClientProvider>
             </Provider>
         );
 
