@@ -32,7 +32,7 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: 'Java 17',
                 value: 'java17',
                 icon: 'java',
-                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+                availableCITools: [CI_TOOLS['TEKTON']],
             },
         },
         buildTools: {
