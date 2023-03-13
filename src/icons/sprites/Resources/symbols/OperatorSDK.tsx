@@ -1,8 +1,9 @@
+import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
 
 export const OperatorSDK = (): React.ReactElement => {
     return (
-        <symbol id="operatorsdk" viewBox="6.2 5.88 346.46 346.46">
+        <symbol id={RESOURCES_ICON_MAPPING['operator-sdk']} viewBox="6.2 5.88 346.46 346.46">
             <path
                 fill="#c00"
                 d="M179.432 5.88A173.23 173.23 0 1 1 6.202 179.11 173.23 173.23 0 0 1 179.433 5.88"

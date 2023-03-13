@@ -1,9 +1,10 @@
+import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
 
 export const Go = (): React.ReactElement => {
     return (
         <symbol
-            id="go"
+            id={RESOURCES_ICON_MAPPING.go}
             viewBox="0 -0.03 205.39 76.73"
             xmlSpace="preserve"
             preserveAspectRatio="xMidYMid"

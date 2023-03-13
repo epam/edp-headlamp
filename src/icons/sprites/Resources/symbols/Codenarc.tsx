@@ -1,8 +1,9 @@
+import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
 
 export const Codenarc = (): React.ReactElement => {
     return (
-        <symbol id="codenarc" viewBox="0 0 392 140" xmlSpace="preserve">
+        <symbol id={RESOURCES_ICON_MAPPING.codenarc} viewBox="0 0 392 140" xmlSpace="preserve">
             <image
                 width={392}
                 height={140}

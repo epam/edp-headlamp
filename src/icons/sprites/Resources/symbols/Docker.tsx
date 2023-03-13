@@ -1,8 +1,9 @@
+import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
 
 export const Docker = (): React.ReactElement => {
     return (
-        <symbol id="docker" viewBox="0 0 1316 1126" xmlSpace="preserve">
+        <symbol id={RESOURCES_ICON_MAPPING.docker} viewBox="0 0 1316 1126" xmlSpace="preserve">
             <image
                 width={1316}
                 height={1126}

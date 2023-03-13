@@ -6,6 +6,7 @@ import { APPLICATION_MAPPING } from '../../../../../configs/codebase-mappings/ap
 import { AUTOTEST_MAPPING } from '../../../../../configs/codebase-mappings/autotest';
 import { LIBRARY_MAPPING } from '../../../../../configs/codebase-mappings/library';
 import { CodebaseInterface } from '../../../../../configs/codebase-mappings/types';
+import { RESOURCES_ICON_MAPPING } from '../../../../../configs/icon-mappings';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
@@ -34,8 +35,6 @@ const getMappingByCodebaseType = (type: string): { [key: string]: CodebaseInterf
         ? AUTOTEST_MAPPING
         : null;
 };
-
-const otherIconName = 'otherapps';
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObjectInterface>[] =>
     React.useMemo(
@@ -99,7 +98,10 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item>
                                 <UseSpriteSymbol
-                                    name={codebaseMapping?.[lang]?.language?.icon || otherIconName}
+                                    name={
+                                        RESOURCES_ICON_MAPPING?.[lang?.toLowerCase()] ||
+                                        RESOURCES_ICON_MAPPING.other
+                                    }
                                     width={20}
                                     height={20}
                                 />
@@ -112,7 +114,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
             },
             {
                 label: 'Framework',
-                getter: ({ spec: { lang, framework, type } }) => {
+                getter: ({ spec: { framework, type } }) => {
                     const codebaseMapping = getMappingByCodebaseType(type);
 
                     if (!codebaseMapping) {
@@ -124,8 +126,8 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={
-                                        codebaseMapping?.[lang]?.frameworks?.[framework]?.icon ||
-                                        otherIconName
+                                        RESOURCES_ICON_MAPPING?.[framework?.toLowerCase()] ||
+                                        RESOURCES_ICON_MAPPING.other
                                     }
                                     width={20}
                                     height={20}
@@ -139,7 +141,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
             },
             {
                 label: 'Build Tool',
-                getter: ({ spec: { lang, buildTool, type } }) => {
+                getter: ({ spec: { buildTool, type } }) => {
                     const codebaseMapping = getMappingByCodebaseType(type);
 
                     if (!codebaseMapping) {
@@ -151,8 +153,8 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={
-                                        codebaseMapping?.[lang]?.buildTools?.[buildTool]?.icon ||
-                                        otherIconName
+                                        RESOURCES_ICON_MAPPING?.[buildTool?.toLowerCase()] ||
+                                        RESOURCES_ICON_MAPPING.other
                                     }
                                     width={20}
                                     height={20}
@@ -170,7 +172,11 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                     return (
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item>
-                                <UseSpriteSymbol name={ciTool} width={20} height={20} />
+                                <UseSpriteSymbol
+                                    name={ciTool?.toLowerCase()}
+                                    width={20}
+                                    height={20}
+                                />
                             </Grid>
                             <Grid item>{ciTool}</Grid>
                         </Grid>

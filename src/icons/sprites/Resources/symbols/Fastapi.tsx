@@ -1,9 +1,10 @@
+import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
 
 export const Fastapi = (): React.ReactElement => {
     return (
         <symbol
-            id="fastapi"
+            id={RESOURCES_ICON_MAPPING.fastapi}
             viewBox="0 0 154 154"
             xmlSpace="preserve"
             preserveAspectRatio="xMidYMid"

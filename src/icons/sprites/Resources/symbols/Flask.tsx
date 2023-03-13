@@ -1,9 +1,10 @@
+import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
 
 export const Flask = (): React.ReactElement => {
     return (
         <symbol
-            id="flask"
+            id={RESOURCES_ICON_MAPPING.flask}
             viewBox="0 0 256 328.83"
             xmlSpace="preserve"
             preserveAspectRatio="xMidYMid"

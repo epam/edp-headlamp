@@ -18,6 +18,11 @@
   ],
   "prettier": "./.prettierrc.js",
   "eslintConfig": {
+    "rules": {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "no-useless-computed-key": "error"
+    },
     "extends": [
       "@kinvolk",
       "prettier",
@@ -25,11 +30,7 @@
     ],
     "plugins": [
       "react-hooks"
-    ],
-    "rules": {
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
-    }
+    ]
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",

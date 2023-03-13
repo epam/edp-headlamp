@@ -1,8 +1,13 @@
+import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
 
 export const Java = (): React.ReactElement => {
     return (
-        <symbol id="java" viewBox="0.52 0.37 254.73 345.38" xmlSpace="preserve">
+        <symbol
+            id={RESOURCES_ICON_MAPPING.java}
+            viewBox="0.52 0.37 254.73 345.38"
+            xmlSpace="preserve"
+        >
             <path
                 fill="#5382A1"
                 d="M82.554 267.473s-13.198 7.675 9.393 10.272c27.369 3.122 41.356 2.675 71.517-3.034 0 0 7.93 4.972 19.003 9.279-67.611 28.977-153.019-1.679-99.913-16.517M74.292 229.659s-14.803 10.958 7.805 13.296c29.236 3.016 52.324 3.263 92.276-4.43 0 0 5.526 5.602 14.215 8.666-81.747 23.904-172.798 1.885-114.296-17.532"

@@ -1,8 +1,13 @@
+import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
 
 export const Groovy = (): React.ReactElement => {
     return (
-        <symbol id="groovy" viewBox="0 0 445 221.89" xmlSpace="preserve">
+        <symbol
+            id={RESOURCES_ICON_MAPPING['groovy-pipeline']}
+            viewBox="0 0 445 221.89"
+            xmlSpace="preserve"
+        >
             <path d="m360.017 221.678-137.515-53.304-137.51 53.29 54.296-84.953L0 84.688l171.07.798L222.497.044l51.43 85.446L445 84.71l-139.288 52.01 54.305 84.959" />
             <path
                 fill="#619cbc"

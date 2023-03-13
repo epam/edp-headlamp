@@ -1,8 +1,13 @@
+import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
 
 export const DotNetCore = (): React.ReactElement => {
     return (
-        <symbol id="dotnetcore" viewBox="-0.89 0 64.89 64.89" xmlSpace="preserve">
+        <symbol
+            id={RESOURCES_ICON_MAPPING['dotnet-3.1']}
+            viewBox="-0.89 0 64.89 64.89"
+            xmlSpace="preserve"
+        >
             <circle cx={32} cy={32} r={32} fill="#5c2d91" />
             <path fill="#fff" d="M9.82 9A32 32 0 1 0 55 54.18Z" opacity=".1" />
             <path

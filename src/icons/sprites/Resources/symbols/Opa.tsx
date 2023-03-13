@@ -1,8 +1,13 @@
+import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
 
 export const Opa = (): React.ReactElement => {
     return (
-        <symbol id="opa" viewBox="24.86 6.7 378.78 419.1" xmlSpace="preserve">
+        <symbol
+            id={RESOURCES_ICON_MAPPING.opa}
+            viewBox="24.86 6.7 378.78 419.1"
+            xmlSpace="preserve"
+        >
             <path
                 fill="#bfbfbf"
                 d="M71 214.5c7.5-26.7 20.9-50.1 38.4-68.8-5.9-4.4-29.3-22.6-30.4-36.9C77.3 85.4 100.7 6.7 100.7 6.7S30 92.8 25.1 127.6c-3.9 27.3 40.8 81.5 45.5 87v-.1h.4zm287.7-1.4v.2c0 .1.1.2.1.3 7.8-9.4 48.3-59.9 44.6-86-4.9-34.8-75.6-120.9-75.6-120.9s23.4 78.7 21.7 102.1c-1 13.7-22.3 30.8-29.4 36.2 17.5 18.4 31 41.6 38.6 68.1z"

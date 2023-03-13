@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../../../constants/creationStrategies';
-import { Applications } from '../../../../../../icons/sprites/Applications';
+import { Resources } from '../../../../../../icons/sprites/Resources';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import ErrorBoundary from '../../../../../ErrorBoundary';
 import {
@@ -30,7 +30,7 @@ export const CodebaseTypeInfo = (): React.ReactElement => {
 
     return (
         <ErrorBoundary>
-            <Applications />
+            <Resources />
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Name names={names} handleFormFieldChange={handleFormFieldChange} />
