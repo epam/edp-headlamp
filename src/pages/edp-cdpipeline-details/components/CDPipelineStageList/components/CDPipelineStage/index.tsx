@@ -136,11 +136,18 @@ export const CDPipelineStage = (): React.ReactElement => {
                 return false;
             }
 
-            return (
+            if (!argoApplication?.status?.sync?.status) {
+                return false;
+            }
+
+            const healthIsOk =
                 argoApplication.status.health.status.toLowerCase() ===
-                    ARGO_APPLICATION_HEALTH_STATUSES['HEALTHY'] &&
-                argoApplication.status.sync.status === ARGO_APPLICATION_SYNC_STATUSES['SYNCED']
-            );
+                ARGO_APPLICATION_HEALTH_STATUSES['HEALTHY'];
+            const syncIsOk =
+                argoApplication.status.sync.status.toLowerCase() ===
+                ARGO_APPLICATION_SYNC_STATUSES['SYNCED'];
+
+            return healthIsOk && syncIsOk;
         });
     }, [argoApplications, enrichedApplicationsWithArgoApplications, latestTenPipelineRuns]);
 
