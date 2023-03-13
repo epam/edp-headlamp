@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useNamespace } from '../../../../hooks/useNamespace';
@@ -27,6 +28,8 @@ export const useDeleteKubeObject = ({
         >;
     };
 } => {
+    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
     const { namespace } = useNamespace();
     const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
         useRequestStatusMessages();
@@ -61,19 +64,15 @@ export const useDeleteKubeObject = ({
                 { kubeObjectData, kubeObject },
                 {
                     onSuccess: () => {
-                        if (onSuccess) {
-                            onSuccess();
-                        }
+                        invokeOnSuccessCallback();
                     },
                     onError: () => {
-                        if (onError) {
-                            onError();
-                        }
+                        invokeOnErrorCallback();
                     },
                 }
             );
         },
-        [kubeObjectDeleteMutation, onError, onSuccess]
+        [invokeOnErrorCallback, invokeOnSuccessCallback, kubeObjectDeleteMutation]
     );
 
     const mutations = {

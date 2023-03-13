@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
@@ -25,6 +26,8 @@ export const useCreateCDPipelineStage = ({
         >;
     };
 } => {
+    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
     const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
         useRequestStatusMessages();
 
@@ -57,19 +60,15 @@ export const useCreateCDPipelineStage = ({
                 { CDPipelineStageData },
                 {
                     onSuccess: () => {
-                        if (onSuccess) {
-                            onSuccess();
-                        }
+                        invokeOnSuccessCallback();
                     },
                     onError: () => {
-                        if (onError) {
-                            onError();
-                        }
+                        invokeOnErrorCallback();
                     },
                 }
             );
         },
-        [CDPipelineStageCreateMutation, onError, onSuccess]
+        [CDPipelineStageCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
     );
 
     const mutations = {

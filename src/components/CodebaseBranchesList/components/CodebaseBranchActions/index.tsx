@@ -107,7 +107,7 @@ export const CodebaseBranchActions = ({
         async (handleError, setLoadingActive) => {
             setLoadingActive(true);
             const conflictedCDPipeline = await getConflictedCDPipeline(
-                namespace,
+                codebase.metadata.namespace,
                 codebaseBranchData,
                 codebase
             );

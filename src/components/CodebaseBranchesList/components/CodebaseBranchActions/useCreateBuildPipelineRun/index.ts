@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { createBuildPipelineRunInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/pipeline-run';
 import { CRUD_TYPES } from '../../../../../constants/crudTypes';
@@ -48,6 +49,8 @@ export const useCreateBuildPipelineRun = ({
         >;
     };
 } => {
+    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
     const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
         useRequestStatusMessages();
 
@@ -81,19 +84,15 @@ export const useCreateBuildPipelineRun = ({
                 { buildPipelineRunData },
                 {
                     onSuccess: () => {
-                        if (onSuccess) {
-                            onSuccess();
-                        }
+                        invokeOnSuccessCallback();
                     },
                     onError: () => {
-                        if (onError) {
-                            onError();
-                        }
+                        invokeOnErrorCallback();
                     },
                 }
             );
         },
-        [buildPipelineRunCreateMutation, onError, onSuccess]
+        [buildPipelineRunCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
     );
 
     const mutations = {

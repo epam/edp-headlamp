@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { createCodebaseSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
@@ -44,6 +45,8 @@ export const useCreateCodebase = ({
         >;
     };
 } => {
+    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
     const { namespace } = useNamespace();
     const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
         useRequestStatusMessages();
@@ -124,7 +127,7 @@ export const useCreateCodebase = ({
         async ({ codebaseData, codebaseAuthData }: CreateCodebaseProps) => {
             if (codebaseAuthData === null) {
                 codebaseCreateMutation.mutate({ codebaseData });
-                onSuccess();
+                invokeOnSuccessCallback();
                 return;
             }
 
@@ -149,25 +152,19 @@ export const useCreateCodebase = ({
                                             codebaseSecretData as EDPKubeObjectInterface,
                                     });
 
-                                    if (onError) {
-                                        onError();
-                                    }
+                                    invokeOnErrorCallback();
                                 },
                             }
                         );
 
-                        if (onSuccess) {
-                            onSuccess();
-                        }
+                        invokeOnSuccessCallback();
                     },
                     onError: () => {
                         codebaseSecretDeleteMutation.mutate({
                             codebaseSecretData: codebaseSecretData as EDPKubeObjectInterface,
                         });
 
-                        if (onError) {
-                            onError();
-                        }
+                        invokeOnErrorCallback();
                     },
                 }
             );
@@ -176,8 +173,8 @@ export const useCreateCodebase = ({
             codebaseCreateMutation,
             codebaseSecretCreateMutation,
             codebaseSecretDeleteMutation,
-            onError,
-            onSuccess,
+            invokeOnErrorCallback,
+            invokeOnSuccessCallback,
         ]
     );
 

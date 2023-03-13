@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useNamespace } from '../../../../hooks/useNamespace';
@@ -42,6 +43,8 @@ export const useCreateGitServer = ({
         >;
     };
 } => {
+    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
     const { namespace } = useNamespace();
     const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
         useRequestStatusMessages();
@@ -130,23 +133,17 @@ export const useCreateGitServer = ({
                                 onError: () => {
                                     gitServerSecretDeleteMutation.mutate({ gitServerSecretData });
 
-                                    if (onError) {
-                                        onError();
-                                    }
+                                    invokeOnErrorCallback();
                                 },
                             }
                         );
 
-                        if (onSuccess) {
-                            onSuccess();
-                        }
+                        invokeOnSuccessCallback();
                     },
                     onError: () => {
                         gitServerSecretDeleteMutation.mutate({ gitServerSecretData });
 
-                        if (onError) {
-                            onError();
-                        }
+                        invokeOnErrorCallback();
                     },
                 }
             );
@@ -155,8 +152,8 @@ export const useCreateGitServer = ({
             gitServerCreateMutation,
             gitServerSecretCreateMutation,
             gitServerSecretDeleteMutation,
-            onError,
-            onSuccess,
+            invokeOnErrorCallback,
+            invokeOnSuccessCallback,
         ]
     );
 

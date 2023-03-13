@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
@@ -31,6 +32,8 @@ export const useCreateCodebaseBranch = ({
         >;
     };
 } => {
+    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
     const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
         useRequestStatusMessages();
 
@@ -92,19 +95,20 @@ export const useCreateCodebaseBranch = ({
                             });
                         }
 
-                        if (onSuccess) {
-                            onSuccess();
-                        }
+                        invokeOnSuccessCallback();
                     },
                     onError: () => {
-                        if (onError) {
-                            onError();
-                        }
+                        invokeOnErrorCallback();
                     },
                 }
             );
         },
-        [codebaseBranchCreateMutation, codebaseBranchEditMutation, onError, onSuccess]
+        [
+            codebaseBranchCreateMutation,
+            codebaseBranchEditMutation,
+            invokeOnErrorCallback,
+            invokeOnSuccessCallback,
+        ]
     );
 
     const mutations = {

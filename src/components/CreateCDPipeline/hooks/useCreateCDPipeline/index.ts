@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useNamespace } from '../../../../hooks/useNamespace';
@@ -44,6 +45,8 @@ export const useCreateCDPipeline = ({
         >;
     };
 } => {
+    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
     const { namespace } = useNamespace();
     const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
         useRequestStatusMessages();
@@ -155,28 +158,24 @@ export const useCreateCDPipeline = ({
                         const createdStages: EDPCDPipelineStageKubeObjectInterface[] = [];
 
                         for await (const stage of CDPipelineStagesData) {
-                            await CDPipelineStageCreateMutation.mutate(
+                            CDPipelineStageCreateMutation.mutate(
                                 { CDPipelineStageData: stage },
                                 {
                                     onSuccess: (data, { CDPipelineStageData }) => {
                                         createdStages.push(CDPipelineStageData);
 
-                                        if (onSuccess) {
-                                            onSuccess();
-                                        }
+                                        invokeOnSuccessCallback();
                                     },
                                     onError: async () => {
                                         CDPipelineDeleteMutation.mutate({ CDPipelineData });
 
                                         for await (const createdStage of createdStages) {
-                                            await CDPipelineStageDeleteMutation.mutate({
+                                            CDPipelineStageDeleteMutation.mutate({
                                                 CDPipelineStageData: createdStage,
                                             });
                                         }
 
-                                        if (onError) {
-                                            onError();
-                                        }
+                                        invokeOnErrorCallback();
                                     },
                                 }
                             );
@@ -187,9 +186,7 @@ export const useCreateCDPipeline = ({
                             CDPipelineData,
                         });
 
-                        if (onError) {
-                            onError();
-                        }
+                        invokeOnErrorCallback();
                     },
                 }
             );
@@ -199,8 +196,8 @@ export const useCreateCDPipeline = ({
             CDPipelineDeleteMutation,
             CDPipelineStageCreateMutation,
             CDPipelineStageDeleteMutation,
-            onError,
-            onSuccess,
+            invokeOnErrorCallback,
+            invokeOnSuccessCallback,
         ]
     );
 
