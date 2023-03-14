@@ -80,9 +80,6 @@ export const EditCodebaseForm = ({
             jiraIssueMetadataPayload: hasJiraServerIntegrationFieldValue
                 ? formValues.jiraIssueMetadataPayload
                 : '',
-            commitMessagePattern: hasJiraServerIntegrationFieldValue
-                ? formValues.commitMessagePattern
-                : '',
             jiraServer: hasJiraServerIntegrationFieldValue ? formValues.jiraServer : '',
         },
         kubeObjectData: codebaseData,
@@ -116,7 +113,7 @@ export const EditCodebaseForm = ({
                     <div className={classes.formInner}>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
-                                <TicketNamePattern
+                                <CommitMessagePattern
                                     names={names}
                                     handleFormFieldChange={handleFormFieldChange}
                                 />
@@ -138,7 +135,7 @@ export const EditCodebaseForm = ({
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <CommitMessagePattern
+                                        <TicketNamePattern
                                             names={names}
                                             handleFormFieldChange={handleFormFieldChange}
                                         />
