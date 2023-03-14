@@ -25,7 +25,6 @@ describe('testing createBuildPipelineRunInstance', () => {
             namespace: 'test-namespace',
             codebaseData: {
                 codebaseName: 'test-codebase-name',
-                codebaseLanguage: 'test-codebase-language',
                 codebaseBuildTool: 'test-build-tool',
                 codebaseVersioningType: 'test-versioning-type',
                 codebaseType: 'application',
@@ -80,16 +79,6 @@ describe('testing createBuildPipelineRunInstance', () => {
                     name: 'test-git-provider-test-build-tool-test-framework-app-build-test-versioning-type',
                 },
                 serviceAccountName: 'tekton',
-                taskRunSpecs: [
-                    {
-                        pipelineTaskName: 'create-ecr-repository',
-                        taskServiceAccountName: 'edp-kaniko',
-                    },
-                    {
-                        pipelineTaskName: 'kaniko-build',
-                        taskServiceAccountName: 'edp-kaniko',
-                    },
-                ],
                 timeout: '1h0m0s',
                 workspaces: [
                     {

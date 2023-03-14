@@ -64,7 +64,6 @@ export const CodebaseBranchActions = ({
                     },
                     codebaseData: {
                         codebaseName: codebase.metadata.name,
-                        codebaseLanguage: codebase.spec.lang,
                         codebaseBuildTool: codebase.spec.buildTool,
                         codebaseVersioningType: codebase.spec.versioning.type,
                         codebaseType: codebase.spec.type,

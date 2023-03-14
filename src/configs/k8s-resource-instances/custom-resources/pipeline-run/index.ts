@@ -1,4 +1,3 @@
-import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { PipelineRunKubeObjectConfig } from '../../../../k8s/PipelineRun/config';
@@ -11,7 +10,6 @@ interface createBuildPipelineRunInstanceProps {
     codebaseData: {
         codebaseName: string;
         codebaseType: string;
-        codebaseLanguage: string;
         codebaseFramework: string;
         codebaseBuildTool: string;
         codebaseVersioningType: string;
@@ -45,7 +43,6 @@ export const createBuildPipelineRunInstance = ({
     namespace,
     codebaseData: {
         codebaseName,
-        codebaseLanguage,
         codebaseBuildTool,
         codebaseVersioningType,
         codebaseType,
@@ -146,24 +143,6 @@ export const createBuildPipelineRunInstance = ({
         });
     }
 
-    if (
-        codebaseType === CODEBASE_TYPES['APPLICATION'] ||
-        (codebaseType === CODEBASE_TYPES['LIBRARY'] &&
-            codebaseLanguage === 'container' &&
-            codebaseFramework === 'docker' &&
-            codebaseBuildTool === 'kaniko')
-    ) {
-        base.spec.taskRunSpecs = [
-            {
-                pipelineTaskName: 'create-ecr-repository',
-                taskServiceAccountName: 'edp-kaniko',
-            },
-            {
-                pipelineTaskName: 'kaniko-build',
-                taskServiceAccountName: 'edp-kaniko',
-            },
-        ];
-    }
     return base;
 };
 

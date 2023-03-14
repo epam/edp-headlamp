@@ -12,7 +12,6 @@ export interface CreateBuildPipelineRunProps {
     codebaseData: {
         codebaseName: string;
         codebaseType: string;
-        codebaseLanguage: string;
         codebaseFramework: string;
         codebaseBuildTool: string;
         codebaseVersioningType: string;
