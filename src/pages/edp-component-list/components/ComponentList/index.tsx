@@ -1,4 +1,3 @@
-import ErrorBoundary from '../../../../components/ErrorBoundary';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { CiTools } from '../../../../icons/sprites/CiTools';
 import { Resources } from '../../../../icons/sprites/Resources';
@@ -15,7 +14,7 @@ export const ComponentList = ({ components }: ComponentListProps): React.ReactEl
     const filterFunc = useFilterFunc();
 
     return (
-        <ErrorBoundary>
+        <>
             <Resources />
             <CiTools />
             <HeadlampSimpleTable
@@ -24,6 +23,6 @@ export const ComponentList = ({ components }: ComponentListProps): React.ReactEl
                 rowsPerPage={[15, 25, 50]}
                 filterFunction={filterFunc}
             />
-        </ErrorBoundary>
+        </>
     );
 };

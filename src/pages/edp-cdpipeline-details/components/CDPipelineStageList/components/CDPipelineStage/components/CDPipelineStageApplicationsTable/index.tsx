@@ -1,4 +1,3 @@
-import ErrorBoundary from '../../../../../../../../components/ErrorBoundary';
 import { HeadlampSimpleTable } from '../../../../../../../../components/HeadlampSimpleTable';
 import { React } from '../../../../../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
@@ -12,13 +11,11 @@ export const CDPipelineStageApplicationsTable = ({
     const classes = useStyles();
 
     return (
-        <ErrorBoundary>
-            <div className={classes.tableRoot}>
-                <HeadlampSimpleTable
-                    data={enrichedApplicationsWithArgoApplications}
-                    columns={columns}
-                />
-            </div>
-        </ErrorBoundary>
+        <div className={classes.tableRoot}>
+            <HeadlampSimpleTable
+                data={enrichedApplicationsWithArgoApplications}
+                columns={columns}
+            />
+        </div>
     );
 };

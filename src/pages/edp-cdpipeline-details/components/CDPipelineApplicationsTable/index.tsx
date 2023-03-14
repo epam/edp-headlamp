@@ -1,4 +1,3 @@
-import ErrorBoundary from '../../../../components/ErrorBoundary';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { ApplicationsContext } from '../../index';
@@ -17,9 +16,7 @@ export const CDPipelineApplicationsTable = (): React.ReactElement => {
     return (
         <SectionBox title={<SectionHeader title={'Applications'} headerStyle="label" />}>
             <Box>
-                <ErrorBoundary>
-                    <HeadlampSimpleTable data={applications} columns={columns} />
-                </ErrorBoundary>
+                <HeadlampSimpleTable data={applications} columns={columns} />
             </Box>
         </SectionBox>
     );

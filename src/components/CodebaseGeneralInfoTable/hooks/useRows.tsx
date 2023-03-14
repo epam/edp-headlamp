@@ -10,7 +10,7 @@ export const useRows = (kubeObjectData: DeepPartial<EDPCodebaseKubeObjectInterfa
         const base: NameValueTableRow[] = [
             {
                 name: 'Status',
-                value: status.status,
+                value: status?.status,
             },
             {
                 name: 'Language',

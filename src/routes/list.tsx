@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { EDPCDPipelineDetails } from '../pages/edp-cdpipeline-details';
 import { EDPCDPipelineList } from '../pages/edp-cdpipeline-list';
 import { EDPComponentDetails } from '../pages/edp-component-details';
@@ -25,7 +26,11 @@ import {
 const WrappedRoute: React.FC = ({ children }): React.ReactElement => {
     const queryClient = new QueryClient();
 
-    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+    return (
+        <QueryClientProvider client={queryClient}>
+            <ErrorBoundary>{children}</ErrorBoundary>
+        </QueryClientProvider>
+    );
 };
 
 export const List: {

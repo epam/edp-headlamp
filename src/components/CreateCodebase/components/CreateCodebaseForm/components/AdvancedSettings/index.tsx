@@ -3,7 +3,6 @@ import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { useJiraServers } from '../../../../../../hooks/useJiraServers';
 import { useNamespace } from '../../../../../../hooks/useNamespace';
 import { MuiCore, React } from '../../../../../../plugin.globals';
-import ErrorBoundary from '../../../../../ErrorBoundary';
 import {
     AdvancedJiraMapping,
     CITool,
@@ -38,71 +37,60 @@ export const AdvancedSettings = (): React.ReactElement => {
     useUpdateFieldsDependingOnChosenCITool({ watch, names, handleFormFieldChange });
 
     return (
-        <ErrorBoundary>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <CITool names={names} handleFormFieldChange={handleFormFieldChange} />
-                </Grid>
-                <Render condition={chosenCiToolFieldValue === CI_TOOLS['JENKINS']}>
-                    <>
-                        <Grid item xs={12}>
-                            <JenkinsAgent
-                                names={names}
-                                handleFormFieldChange={handleFormFieldChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <JobProvisioning
-                                names={names}
-                                handleFormFieldChange={handleFormFieldChange}
-                            />
-                        </Grid>
-                    </>
-                </Render>
-                <Grid item xs={12}>
-                    <CodebaseVersioning
-                        names={names}
-                        handleFormFieldChange={handleFormFieldChange}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <CommitMessagePattern
-                        names={names}
-                        handleFormFieldChange={handleFormFieldChange}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <JiraServerIntegration
-                        jiraServers={jiraServers}
-                        names={names}
-                        handleFormFieldChange={handleFormFieldChange}
-                    />
-                </Grid>
-
-                {jiraServers.length && hasJiraServerIntegrationFieldValue ? (
-                    <>
-                        <Grid item xs={12}>
-                            <JiraServer
-                                jiraServers={jiraServers}
-                                names={names}
-                                handleFormFieldChange={handleFormFieldChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TicketNamePattern
-                                names={names}
-                                handleFormFieldChange={handleFormFieldChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <AdvancedJiraMapping
-                                names={names}
-                                handleFormFieldChange={handleFormFieldChange}
-                            />
-                        </Grid>
-                    </>
-                ) : null}
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <CITool names={names} handleFormFieldChange={handleFormFieldChange} />
             </Grid>
-        </ErrorBoundary>
+            <Render condition={chosenCiToolFieldValue === CI_TOOLS['JENKINS']}>
+                <>
+                    <Grid item xs={12}>
+                        <JenkinsAgent names={names} handleFormFieldChange={handleFormFieldChange} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <JobProvisioning
+                            names={names}
+                            handleFormFieldChange={handleFormFieldChange}
+                        />
+                    </Grid>
+                </>
+            </Render>
+            <Grid item xs={12}>
+                <CodebaseVersioning names={names} handleFormFieldChange={handleFormFieldChange} />
+            </Grid>
+            <Grid item xs={12}>
+                <CommitMessagePattern names={names} handleFormFieldChange={handleFormFieldChange} />
+            </Grid>
+            <Grid item xs={12}>
+                <JiraServerIntegration
+                    jiraServers={jiraServers}
+                    names={names}
+                    handleFormFieldChange={handleFormFieldChange}
+                />
+            </Grid>
+
+            {jiraServers.length && hasJiraServerIntegrationFieldValue ? (
+                <>
+                    <Grid item xs={12}>
+                        <JiraServer
+                            jiraServers={jiraServers}
+                            names={names}
+                            handleFormFieldChange={handleFormFieldChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TicketNamePattern
+                            names={names}
+                            handleFormFieldChange={handleFormFieldChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <AdvancedJiraMapping
+                            names={names}
+                            handleFormFieldChange={handleFormFieldChange}
+                        />
+                    </Grid>
+                </>
+            ) : null}
+        </Grid>
     );
 };

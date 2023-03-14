@@ -3,7 +3,6 @@ import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../../../constants/creationStrategies';
 import { Resources } from '../../../../../../icons/sprites/Resources';
 import { MuiCore, React } from '../../../../../../plugin.globals';
-import ErrorBoundary from '../../../../../ErrorBoundary';
 import {
     BuildTool,
     DefaultBranch,
@@ -29,7 +28,7 @@ export const CodebaseTypeInfo = (): React.ReactElement => {
     const strategyFieldValue = watch(names.strategy.name);
 
     return (
-        <ErrorBoundary>
+        <>
             <Resources />
             <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -70,6 +69,6 @@ export const CodebaseTypeInfo = (): React.ReactElement => {
                     </Grid>
                 </Render>
             </Grid>
-        </ErrorBoundary>
+        </>
     );
 };
