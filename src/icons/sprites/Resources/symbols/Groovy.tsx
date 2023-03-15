@@ -1,10 +1,10 @@
-import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
+import { RESOURCE_ICON_NAMES } from '../names';
 
 export const Groovy = (): React.ReactElement => {
     return (
         <symbol
-            id={RESOURCES_ICON_MAPPING['groovy-pipeline']}
+            id={RESOURCE_ICON_NAMES.GROOVY_PIPELINE}
             viewBox="0 0 445 221.89"
             xmlSpace="preserve"
         >

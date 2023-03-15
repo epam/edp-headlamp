@@ -1,10 +1,10 @@
-import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
+import { RESOURCE_ICON_NAMES } from '../names';
 
 export const Kustomize = (): React.ReactElement => {
     return (
         <symbol
-            id={RESOURCES_ICON_MAPPING.kustomize}
+            id={RESOURCE_ICON_NAMES.KUSTOMIZE}
             viewBox="2.12 574 29.21 32.47"
             xmlSpace="preserve"
         >

@@ -7,7 +7,39 @@ export const CODEBASE_COMMON_LANGUAGES = {
     TERRAFORM: 'terraform',
     REGO: 'rego',
     CONTAINER: 'container',
-    YAML: 'yaml',
+    HELM: 'helm',
     GO: 'go',
     OTHER: 'other',
+} as const;
+
+export const CODEBASE_COMMON_FRAMEWORKS = {
+    JAVA8: 'java8',
+    JAVA11: 'java11',
+    JAVA17: 'java17',
+    REACT: 'react',
+    CODENARC: 'codenarc',
+    TERRAFORM: 'terraform',
+    OPA: 'opa',
+    DOCKER: 'docker',
+    PIPELINE: 'pipeline',
+    BEEGO: 'beego',
+    FLASK: 'flask',
+    FASTAPI: 'fastapi',
+    DOTNET_3_1: 'dotnet-3.1',
+    PYTHON_3_8: 'python-3.8',
+    OPERATOR_SDK: 'operator-sdk',
+} as const;
+
+export const CODEBASE_COMMON_BUILD_TOOLS = {
+    GRADLE: 'gradle',
+    MAVEN: 'maven',
+    NPM: 'npm',
+    DOTNET: 'dotnet',
+    GO: 'go',
+    PYTHON: 'python',
+    CODENARC: 'codenarc',
+    TERRAFORM: 'terraform',
+    OPA: 'opa',
+    KANIKO: 'kaniko',
+    HELM: 'helm',
 } as const;

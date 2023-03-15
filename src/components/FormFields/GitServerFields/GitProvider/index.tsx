@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { gitProviderOptions } from '../../../../configs/select-options/gitProviders';
-import { GitProviders } from '../../../../icons/sprites/GitProviders';
+import { Resources } from '../../../../icons/sprites/Resources';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
@@ -16,7 +16,7 @@ export const GitProvider = ({ names, handleFormFieldChange }: GitProviderProps) 
 
     return (
         <>
-            <GitProviders />
+            <Resources />
             <FormRadioGroup
                 {...register(names.gitProvider.name, {
                     required: `Select Git provider`,

@@ -1,9 +1,9 @@
-import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
+import { RESOURCE_ICON_NAMES } from '../names';
 
 export const Npm = (): React.ReactElement => {
     return (
-        <symbol id={RESOURCES_ICON_MAPPING.npm} viewBox="0 0 18 7" xmlSpace="preserve">
+        <symbol id={RESOURCE_ICON_NAMES.NPM} viewBox="0 0 18 7" xmlSpace="preserve">
             <path
                 fill="#CB3837"
                 d="M0 0h18v6H9v1H5V6H0V0zm1 5h2V2h1v3h1V1H1v4zm5-4v5h2V5h2V1H6zm2 1h1v2H8V2zm3-1v4h2V2h1v3h1V2h1v3h1V1h-6z"

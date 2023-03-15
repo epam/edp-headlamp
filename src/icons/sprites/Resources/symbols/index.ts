@@ -23,3 +23,8 @@ export * from './Python';
 export * from './ReactSymbol';
 export * from './Terraform';
 export * from './Yaml';
+export * from './Tekton';
+export * from './Gerrit';
+export * from './Github';
+export * from './Gitlab';
+export * from './Jenkins';

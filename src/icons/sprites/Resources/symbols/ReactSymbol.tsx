@@ -1,13 +1,9 @@
-import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
+import { RESOURCE_ICON_NAMES } from '../names';
 
 export const ReactSymbol = (): React.ReactElement => {
     return (
-        <symbol
-            id={RESOURCES_ICON_MAPPING.react}
-            viewBox="-11.5 -12.13 23 24.25"
-            xmlSpace="preserve"
-        >
+        <symbol id={RESOURCE_ICON_NAMES.REACT} viewBox="-11.5 -12.13 23 24.25" xmlSpace="preserve">
             <circle r="2.05" fill="#61dafb" />
             <g fill="none" stroke="#61dafb">
                 <ellipse rx={11} ry="4.2" />

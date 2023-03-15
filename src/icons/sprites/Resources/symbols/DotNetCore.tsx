@@ -1,10 +1,10 @@
-import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
+import { RESOURCE_ICON_NAMES } from '../names';
 
 export const DotNetCore = (): React.ReactElement => {
     return (
         <symbol
-            id={RESOURCES_ICON_MAPPING['dotnet-3.1']}
+            id={RESOURCE_ICON_NAMES.DOTNETCORE}
             viewBox="-0.89 0 64.89 64.89"
             xmlSpace="preserve"
         >

@@ -1,58 +1,66 @@
 import { CI_TOOLS } from '../../../constants/ciTools';
-import { RESOURCES_ICON_MAPPING } from '../../icon-mappings';
+import {
+    BUILD_TOOL_ICON_MAPPING,
+    FRAMEWORK_ICON_MAPPING,
+    LANGUAGE_ICON_MAPPING,
+} from '../../icon-mappings';
 import { APPLICATION_MAPPING } from '../application';
-import { CODEBASE_COMMON_LANGUAGES } from '../index';
+import {
+    CODEBASE_COMMON_BUILD_TOOLS,
+    CODEBASE_COMMON_FRAMEWORKS,
+    CODEBASE_COMMON_LANGUAGES,
+} from '../index';
 import { CodebaseInterface } from '../types';
 
 export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
-    [CODEBASE_COMMON_LANGUAGES['JAVA']]: {
+    [CODEBASE_COMMON_LANGUAGES.JAVA]: {
         language: {
             name: 'Java',
-            value: CODEBASE_COMMON_LANGUAGES['JAVA'],
-            icon: RESOURCES_ICON_MAPPING['java'],
-            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+            value: CODEBASE_COMMON_LANGUAGES.JAVA,
+            icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.JAVA],
+            availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
         },
         frameworks: {
-            java8: {
+            [CODEBASE_COMMON_FRAMEWORKS.JAVA8]: {
                 name: 'Java 8',
-                value: 'java8',
-                icon: RESOURCES_ICON_MAPPING['java'],
-                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+                value: CODEBASE_COMMON_FRAMEWORKS.JAVA8,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.JAVA8],
+                availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
             },
-            java11: {
+            [CODEBASE_COMMON_FRAMEWORKS.JAVA11]: {
                 name: 'Java 11',
-                value: 'java11',
-                icon: RESOURCES_ICON_MAPPING['java'],
-                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+                value: CODEBASE_COMMON_FRAMEWORKS.JAVA11,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.JAVA11],
+                availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
             },
-            java17: {
+            [CODEBASE_COMMON_FRAMEWORKS.JAVA17]: {
                 name: 'Java 17',
-                value: 'java17',
-                icon: RESOURCES_ICON_MAPPING['java'],
-                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+                value: CODEBASE_COMMON_FRAMEWORKS.JAVA17,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.JAVA17],
+                availableCITools: [CI_TOOLS.TEKTON],
             },
         },
         buildTools: {
-            gradle: {
+            [CODEBASE_COMMON_BUILD_TOOLS.GRADLE]: {
                 name: 'Gradle',
-                value: 'gradle',
-                icon: RESOURCES_ICON_MAPPING['gradle'],
-                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+                value: CODEBASE_COMMON_BUILD_TOOLS.GRADLE,
+                icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.GRADLE],
+                availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
             },
-            maven: {
+            [CODEBASE_COMMON_BUILD_TOOLS.MAVEN]: {
                 name: 'Maven',
-                value: 'maven',
-                icon: RESOURCES_ICON_MAPPING['maven'],
-                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+                value: CODEBASE_COMMON_BUILD_TOOLS.MAVEN,
+                icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.MAVEN],
+                availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
             },
         },
     },
-    [CODEBASE_COMMON_LANGUAGES['OTHER']]: {
+    [CODEBASE_COMMON_LANGUAGES.OTHER]: {
         language: {
             name: 'Other',
-            value: CODEBASE_COMMON_LANGUAGES['OTHER'],
-            icon: RESOURCES_ICON_MAPPING['other'],
-            availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+            value: CODEBASE_COMMON_LANGUAGES.OTHER,
+            icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.OTHER],
+            availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
         },
         frameworks: {},
         buildTools: {},
@@ -60,7 +68,7 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
             allure: {
                 name: 'allure',
                 value: 'allure',
-                availableCITools: [CI_TOOLS['JENKINS'], CI_TOOLS['TEKTON']],
+                availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
             },
         },
     },
@@ -68,14 +76,14 @@ export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
 
 const mapJavaBasedAgent = (framework: string, buildTool: string): string | undefined => {
     let result = '';
-    const mapping = AUTOTEST_MAPPING[CODEBASE_COMMON_LANGUAGES['JAVA']];
+    const mapping = AUTOTEST_MAPPING[CODEBASE_COMMON_LANGUAGES.JAVA];
 
     switch (buildTool) {
-        case mapping.buildTools.gradle.value:
-            result += 'gradle';
+        case mapping.buildTools[CODEBASE_COMMON_BUILD_TOOLS.GRADLE].value:
+            result += CODEBASE_COMMON_BUILD_TOOLS.GRADLE;
             break;
-        case mapping.buildTools.maven.value:
-            result += 'maven';
+        case mapping.buildTools[CODEBASE_COMMON_BUILD_TOOLS.MAVEN].value:
+            result += CODEBASE_COMMON_BUILD_TOOLS.MAVEN;
             break;
         default:
             return undefined;
@@ -84,14 +92,14 @@ const mapJavaBasedAgent = (framework: string, buildTool: string): string | undef
     result += '-';
 
     switch (framework) {
-        case mapping.frameworks.java8.value:
-            result += 'java8';
+        case mapping.frameworks[CODEBASE_COMMON_FRAMEWORKS.JAVA8].value:
+            result += CODEBASE_COMMON_FRAMEWORKS.JAVA8;
             break;
-        case mapping.frameworks.java11.value:
-            result += 'java11';
+        case mapping.frameworks[CODEBASE_COMMON_FRAMEWORKS.JAVA11].value:
+            result += CODEBASE_COMMON_FRAMEWORKS.JAVA11;
             break;
-        case mapping.frameworks.java17.value:
-            result += 'java17';
+        case mapping.frameworks[CODEBASE_COMMON_FRAMEWORKS.JAVA17].value:
+            result += CODEBASE_COMMON_FRAMEWORKS.JAVA17;
             break;
         default:
             return undefined;
@@ -106,7 +114,7 @@ export const getAutotestRecommendedJenkinsAgent = (
     buildTool?: string
 ): string | undefined => {
     switch (lang) {
-        case APPLICATION_MAPPING[CODEBASE_COMMON_LANGUAGES['JAVA']].language.value:
+        case APPLICATION_MAPPING[CODEBASE_COMMON_LANGUAGES.JAVA].language.value:
             return mapJavaBasedAgent(framework, buildTool);
     }
 

@@ -1,9 +1,9 @@
-import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
+import { RESOURCE_ICON_NAMES } from '../names';
 
 export const DotNet = (): React.ReactElement => {
     return (
-        <symbol id={RESOURCES_ICON_MAPPING.dotnet} viewBox="0 0 456 456" xmlSpace="preserve">
+        <symbol id={RESOURCE_ICON_NAMES.DOTNET} viewBox="0 0 456 456" xmlSpace="preserve">
             <path fill="#512BD4" d="M0 0h456v456H0z" />
             <path
                 fill="#fff"

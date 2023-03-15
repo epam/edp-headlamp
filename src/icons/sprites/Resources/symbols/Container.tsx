@@ -1,13 +1,9 @@
-import { RESOURCES_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { React } from '../../../../plugin.globals';
+import { RESOURCE_ICON_NAMES } from '../names';
 
 export const Container = (): React.ReactElement => {
     return (
-        <symbol
-            id={RESOURCES_ICON_MAPPING.container}
-            viewBox="0 0 504.99 504.99"
-            xmlSpace="preserve"
-        >
+        <symbol id={RESOURCE_ICON_NAMES.CONTAINER} viewBox="0 0 504.99 504.99" xmlSpace="preserve">
             <path
                 fill="#fff"
                 d="M28.055 266.521h332.449v210.411H28.055zM144.482 28.055h332.449v210.411H144.482z"

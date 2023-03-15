@@ -8,12 +8,15 @@ import {
     DotNetCore,
     Fastapi,
     Flask,
+    Gerrit,
+    Github,
     Go,
     Gradle,
     Groovy,
     Helm,
     Java,
     JavaScript,
+    Jenkins,
     Kaniko,
     Kustomize,
     Maven,
@@ -23,6 +26,7 @@ import {
     Other,
     Python,
     ReactSymbol,
+    Tekton,
     Terraform,
     Yaml,
 } from './symbols';
@@ -59,6 +63,10 @@ export const Resources = (): React.ReactElement => {
             <Yaml />
             <Fastapi />
             <Flask />
+            <Tekton />
+            <Gerrit />
+            <Github />
+            <Jenkins />
         </svg>
     );
 };

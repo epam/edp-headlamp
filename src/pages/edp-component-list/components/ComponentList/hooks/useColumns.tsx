@@ -6,9 +6,15 @@ import { APPLICATION_MAPPING } from '../../../../../configs/codebase-mappings/ap
 import { AUTOTEST_MAPPING } from '../../../../../configs/codebase-mappings/autotest';
 import { LIBRARY_MAPPING } from '../../../../../configs/codebase-mappings/library';
 import { CodebaseInterface } from '../../../../../configs/codebase-mappings/types';
-import { RESOURCES_ICON_MAPPING } from '../../../../../configs/icon-mappings';
+import {
+    BUILD_TOOL_ICON_MAPPING,
+    CI_TOOL_ICON_MAPPING,
+    FRAMEWORK_ICON_MAPPING,
+    LANGUAGE_ICON_MAPPING,
+} from '../../../../../configs/icon-mappings';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
+import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { MuiCore, pluginLib, React } from '../../../../../plugin.globals';
@@ -99,14 +105,14 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={
-                                        RESOURCES_ICON_MAPPING?.[lang?.toLowerCase()] ||
-                                        RESOURCES_ICON_MAPPING.other
+                                        LANGUAGE_ICON_MAPPING?.[lang?.toLowerCase()] ||
+                                        RESOURCE_ICON_NAMES.OTHER
                                     }
                                     width={20}
                                     height={20}
                                 />
                             </Grid>
-                            <Grid item>{lang}</Grid>
+                            <Grid item>{codebaseMapping[lang].language.name}</Grid>
                         </Grid>
                     );
                 },
@@ -114,7 +120,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
             },
             {
                 label: 'Framework',
-                getter: ({ spec: { framework, type } }) => {
+                getter: ({ spec: { lang, framework, type } }) => {
                     const codebaseMapping = getMappingByCodebaseType(type);
 
                     if (!codebaseMapping) {
@@ -126,14 +132,14 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={
-                                        RESOURCES_ICON_MAPPING?.[framework?.toLowerCase()] ||
-                                        RESOURCES_ICON_MAPPING.other
+                                        FRAMEWORK_ICON_MAPPING?.[framework?.toLowerCase()] ||
+                                        RESOURCE_ICON_NAMES.OTHER
                                     }
                                     width={20}
                                     height={20}
                                 />
                             </Grid>
-                            <Grid item>{framework}</Grid>
+                            <Grid item>{codebaseMapping[lang].frameworks[framework].name}</Grid>
                         </Grid>
                     );
                 },
@@ -141,7 +147,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
             },
             {
                 label: 'Build Tool',
-                getter: ({ spec: { buildTool, type } }) => {
+                getter: ({ spec: { lang, buildTool, type } }) => {
                     const codebaseMapping = getMappingByCodebaseType(type);
 
                     if (!codebaseMapping) {
@@ -153,14 +159,14 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={
-                                        RESOURCES_ICON_MAPPING?.[buildTool?.toLowerCase()] ||
-                                        RESOURCES_ICON_MAPPING.other
+                                        BUILD_TOOL_ICON_MAPPING?.[buildTool?.toLowerCase()] ||
+                                        RESOURCE_ICON_NAMES.OTHER
                                     }
                                     width={20}
                                     height={20}
                                 />
                             </Grid>
-                            <Grid item>{buildTool}</Grid>
+                            <Grid item>{codebaseMapping[lang].buildTools[buildTool].name}</Grid>
                         </Grid>
                     );
                 },
@@ -173,12 +179,15 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item>
                                 <UseSpriteSymbol
-                                    name={ciTool?.toLowerCase()}
+                                    name={
+                                        CI_TOOL_ICON_MAPPING?.[ciTool?.toLowerCase()] ||
+                                        RESOURCE_ICON_NAMES.OTHER
+                                    }
                                     width={20}
                                     height={20}
                                 />
                             </Grid>
-                            <Grid item>{ciTool}</Grid>
+                            <Grid item>{capitalizeFirstLetter(ciTool)}</Grid>
                         </Grid>
                     );
                 },

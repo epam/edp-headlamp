@@ -1,5 +1,4 @@
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
-import { CiTools } from '../../../../icons/sprites/CiTools';
 import { Resources } from '../../../../icons/sprites/Resources';
 import { pluginLib, React } from '../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
@@ -16,7 +15,6 @@ export const ComponentList = ({ components }: ComponentListProps): React.ReactEl
     return (
         <>
             <Resources />
-            <CiTools />
             <HeadlampSimpleTable
                 data={components}
                 columns={columns}
