@@ -48,8 +48,12 @@ export const useCreateCodebase = ({
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
     const { namespace } = useNamespace();
-    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
-        useRequestStatusMessages();
+    const {
+        showBeforeRequestMessage,
+        showRequestErrorMessage,
+        showRequestSuccessMessage,
+        showRequestErrorDetailedMessage,
+    } = useRequestStatusMessages();
 
     const codebaseCreateMutation = useMutation<
         EDPCodebaseKubeObjectInterface,
@@ -70,6 +74,8 @@ export const useCreateCodebase = ({
             },
             onError: (error, { codebaseData }) => {
                 showRequestErrorMessage(codebaseData.metadata.name, CRUD_TYPES.CREATE);
+                showRequestErrorDetailedMessage(error);
+                console.error(error);
             },
         }
     );
@@ -95,6 +101,7 @@ export const useCreateCodebase = ({
                 showRequestSuccessMessage(codebaseSecretData.metadata.name, CRUD_TYPES.DELETE),
             onError: (error, { codebaseSecretData }) => {
                 showRequestErrorMessage(codebaseSecretData.metadata.name, CRUD_TYPES.DELETE);
+                showRequestErrorDetailedMessage(error);
                 console.error(error);
             },
         }
@@ -119,6 +126,8 @@ export const useCreateCodebase = ({
             },
             onError: (error, { codebaseSecretData }) => {
                 showRequestErrorMessage(codebaseSecretData.metadata.name, CRUD_TYPES.CREATE);
+                showRequestErrorDetailedMessage(error);
+                console.error(error);
             },
         }
     );
@@ -126,8 +135,17 @@ export const useCreateCodebase = ({
     const createCodebase = React.useCallback(
         async ({ codebaseData, codebaseAuthData }: CreateCodebaseProps) => {
             if (codebaseAuthData === null) {
-                codebaseCreateMutation.mutate({ codebaseData });
-                invokeOnSuccessCallback();
+                codebaseCreateMutation.mutate(
+                    { codebaseData },
+                    {
+                        onSuccess: () => {
+                            invokeOnSuccessCallback();
+                        },
+                        onError: () => {
+                            invokeOnErrorCallback();
+                        },
+                    }
+                );
                 return;
             }
 

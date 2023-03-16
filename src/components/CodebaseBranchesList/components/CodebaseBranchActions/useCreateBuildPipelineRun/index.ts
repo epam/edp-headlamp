@@ -50,8 +50,12 @@ export const useCreateBuildPipelineRun = ({
 } => {
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
-    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
-        useRequestStatusMessages();
+    const {
+        showBeforeRequestMessage,
+        showRequestErrorMessage,
+        showRequestSuccessMessage,
+        showRequestErrorDetailedMessage,
+    } = useRequestStatusMessages();
 
     const buildPipelineRunCreateMutation = useMutation<
         PipelineRunKubeObjectInterface,
@@ -72,6 +76,8 @@ export const useCreateBuildPipelineRun = ({
             },
             onError: (error, { buildPipelineRunData }) => {
                 showRequestErrorMessage(buildPipelineRunData.metadata.name, CRUD_TYPES.CREATE);
+                showRequestErrorDetailedMessage(error);
+                console.error(error);
             },
         }
     );

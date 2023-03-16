@@ -48,8 +48,12 @@ export const useCreateCDPipeline = ({
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
     const { namespace } = useNamespace();
-    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
-        useRequestStatusMessages();
+    const {
+        showBeforeRequestMessage,
+        showRequestErrorMessage,
+        showRequestSuccessMessage,
+        showRequestErrorDetailedMessage,
+    } = useRequestStatusMessages();
 
     const CDPipelineCreateMutation = useMutation<
         EDPCDPipelineKubeObjectInterface,
@@ -70,6 +74,8 @@ export const useCreateCDPipeline = ({
             },
             onError: (error, { CDPipelineData }) => {
                 showRequestErrorMessage(CDPipelineData.metadata.name, CRUD_TYPES.CREATE);
+                showRequestErrorDetailedMessage(error);
+                console.error(error);
             },
         }
     );
@@ -95,6 +101,7 @@ export const useCreateCDPipeline = ({
                 showRequestSuccessMessage(CDPipelineData.metadata.name, CRUD_TYPES.DELETE),
             onError: (error, { CDPipelineData }) => {
                 showRequestErrorMessage(CDPipelineData.metadata.name, CRUD_TYPES.DELETE);
+                showRequestErrorDetailedMessage(error);
                 console.error(error);
             },
         }
@@ -119,6 +126,8 @@ export const useCreateCDPipeline = ({
             },
             onError: (error, { CDPipelineStageData }) => {
                 showRequestErrorMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.CREATE);
+                showRequestErrorDetailedMessage(error);
+                console.error(error);
             },
         }
     );
@@ -144,6 +153,7 @@ export const useCreateCDPipeline = ({
                 showRequestSuccessMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.DELETE),
             onError: (error, { CDPipelineStageData }) => {
                 showRequestErrorMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.DELETE);
+                showRequestErrorDetailedMessage(error);
                 console.error(error);
             },
         }

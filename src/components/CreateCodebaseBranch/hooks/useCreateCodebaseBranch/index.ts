@@ -34,8 +34,12 @@ export const useCreateCodebaseBranch = ({
 } => {
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
-    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
-        useRequestStatusMessages();
+    const {
+        showBeforeRequestMessage,
+        showRequestErrorMessage,
+        showRequestSuccessMessage,
+        showRequestErrorDetailedMessage,
+    } = useRequestStatusMessages();
 
     const codebaseBranchCreateMutation = useMutation<
         EDPCodebaseBranchKubeObjectInterface,
@@ -56,6 +60,8 @@ export const useCreateCodebaseBranch = ({
             },
             onError: (error, { codebaseBranchData }) => {
                 showRequestErrorMessage(codebaseBranchData.metadata.name, CRUD_TYPES.CREATE);
+                showRequestErrorDetailedMessage(error);
+                console.error(error);
             },
         }
     );
@@ -79,6 +85,8 @@ export const useCreateCodebaseBranch = ({
             },
             onError: (error, { codebaseBranchData }) => {
                 showRequestErrorMessage(codebaseBranchData.metadata.name, CRUD_TYPES.EDIT);
+                showRequestErrorDetailedMessage(error);
+                console.error(error);
             },
         }
     );

@@ -46,8 +46,12 @@ export const useCreateGitServer = ({
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
     const { namespace } = useNamespace();
-    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
-        useRequestStatusMessages();
+    const {
+        showBeforeRequestMessage,
+        showRequestErrorMessage,
+        showRequestSuccessMessage,
+        showRequestErrorDetailedMessage,
+    } = useRequestStatusMessages();
 
     const gitServerCreateMutation = useMutation<
         EDPGitServerKubeObjectInterface,
@@ -68,6 +72,8 @@ export const useCreateGitServer = ({
             },
             onError: (error, { gitServerData }) => {
                 showRequestErrorMessage(gitServerData.metadata.name, CRUD_TYPES.CREATE);
+                showRequestErrorDetailedMessage(error);
+                console.error(error);
             },
         }
     );
@@ -93,6 +99,7 @@ export const useCreateGitServer = ({
                 showRequestSuccessMessage(gitServerSecretData.metadata.name, CRUD_TYPES.DELETE),
             onError: (error, { gitServerSecretData }) => {
                 showRequestErrorMessage(gitServerSecretData.metadata.name, CRUD_TYPES.DELETE);
+                showRequestErrorDetailedMessage(error);
                 console.error(error);
             },
         }
@@ -117,6 +124,8 @@ export const useCreateGitServer = ({
             },
             onError: (error, { gitServerSecretData }) => {
                 showRequestErrorMessage(gitServerSecretData.metadata.name, CRUD_TYPES.CREATE);
+                showRequestErrorDetailedMessage(error);
+                console.error(error);
             },
         }
     );

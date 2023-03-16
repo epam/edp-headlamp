@@ -6,6 +6,7 @@ export const useRequestStatusMessages = (): {
     showBeforeRequestMessage: (resourceName: string, mode: CRUD_TYPES) => void;
     showRequestSuccessMessage: (resourceName: string, mode: CRUD_TYPES) => void;
     showRequestErrorMessage: (resourceName: string, mode: CRUD_TYPES) => void;
+    showRequestErrorDetailedMessage: (error: unknown) => void;
 } => {
     const { enqueueSnackbar } = useSnackbar();
 
@@ -74,5 +75,21 @@ export const useRequestStatusMessages = (): {
         });
     };
 
-    return { showBeforeRequestMessage, showRequestSuccessMessage, showRequestErrorMessage };
+    const showRequestErrorDetailedMessage = (error: unknown) => {
+        enqueueSnackbar(error.toString(), {
+            autoHideDuration: 5000,
+            variant: 'error',
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+            },
+        });
+    };
+
+    return {
+        showBeforeRequestMessage,
+        showRequestSuccessMessage,
+        showRequestErrorMessage,
+        showRequestErrorDetailedMessage,
+    };
 };

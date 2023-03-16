@@ -57,8 +57,12 @@ export const useCreateArgoApplication = (): {
     };
 } => {
     const { namespace } = useNamespace();
-    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
-        useRequestStatusMessages();
+    const {
+        showBeforeRequestMessage,
+        showRequestErrorMessage,
+        showRequestSuccessMessage,
+        showRequestErrorDetailedMessage,
+    } = useRequestStatusMessages();
 
     const argoApplicationCreateMutation = useMutation<
         ApplicationKubeObjectInterface,
@@ -78,7 +82,8 @@ export const useCreateArgoApplication = (): {
                 showRequestSuccessMessage(argoApplicationData.metadata.name, CRUD_TYPES.CREATE),
             onError: (error, { argoApplicationData }) => {
                 showRequestErrorMessage(argoApplicationData.metadata.name, CRUD_TYPES.CREATE);
-                console.error('onCreateError', error);
+                showRequestErrorDetailedMessage(error);
+                console.error(error);
             },
         }
     );
@@ -101,6 +106,7 @@ export const useCreateArgoApplication = (): {
                 showRequestSuccessMessage(argoApplicationData.metadata.name, CRUD_TYPES.EDIT),
             onError: (error, { argoApplicationData }) => {
                 showRequestErrorMessage(argoApplicationData.metadata.name, CRUD_TYPES.EDIT);
+                showRequestErrorDetailedMessage(error);
                 console.error(error);
             },
         }
@@ -127,6 +133,7 @@ export const useCreateArgoApplication = (): {
                 showRequestSuccessMessage(argoApplicationData.metadata.name, CRUD_TYPES.DELETE),
             onError: (error, { argoApplicationData }) => {
                 showRequestErrorMessage(argoApplicationData.metadata.name, CRUD_TYPES.DELETE);
+                showRequestErrorDetailedMessage(error);
                 console.error(error);
             },
         }

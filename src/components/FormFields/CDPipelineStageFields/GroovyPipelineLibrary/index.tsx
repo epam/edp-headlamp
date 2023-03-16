@@ -24,6 +24,7 @@ export const GroovyPipelineLibrary = ({
         control,
         formState: { errors },
         resetField,
+        setValue,
     } = useFormContext();
 
     const sourceLibraryNameFieldValue = watch(names.sourceLibraryName.name);
@@ -67,8 +68,22 @@ export const GroovyPipelineLibrary = ({
                 value: undefined,
             });
             handleFormFieldChange({ name, value });
+
+            if (value !== 'default') {
+                setValue(names.sourceType.name, 'library');
+                handleFormFieldChange({
+                    name: names.sourceType.name,
+                    value: 'library',
+                });
+            } else {
+                setValue(names.sourceType.name, 'default');
+                handleFormFieldChange({
+                    name: names.sourceType.name,
+                    value: 'default',
+                });
+            }
         },
-        [handleFormFieldChange, names.sourceLibraryBranch.name, resetField]
+        [handleFormFieldChange, names, resetField, setValue]
     );
 
     return (
