@@ -1,7 +1,4 @@
-import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
-import { DeepPartial } from '../../../types/global';
-
-export const libraryCloneStrategyEditorPropsObjectMock: DeepPartial<EDPCodebaseKubeObjectInterface> =
+export const libraryCloneStrategyEditorPropsObjectMock = [
     {
         apiVersion: 'v2.edp.epam.com/v1',
         kind: 'Codebase',
@@ -34,7 +31,8 @@ export const libraryCloneStrategyEditorPropsObjectMock: DeepPartial<EDPCodebaseK
         metadata: {
             name: 'test',
         },
-    };
+    },
+];
 
 export const libraryCloneStrategyEditorPropsObjectMockExpectedOutput = {
     type: 'library',

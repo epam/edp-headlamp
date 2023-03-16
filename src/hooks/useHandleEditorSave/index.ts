@@ -71,7 +71,7 @@ export const useHandleEditorSave = ({
     );
 
     const handleEditorSave = React.useCallback(
-        (editorPropsObject: DeepPartial<EDPKubeObjectInterface>) => {
+        (editorResultValues: EDPKubeObjectInterface[]) => {
             /*
 			This is the example of values we get on editorSave
 
@@ -97,7 +97,8 @@ export const useHandleEditorSave = ({
 			 */
 
             // we need to process only spec and metadata since createInstance function already has apiVersion and kind in its config
-            const { spec, metadata } = editorPropsObject;
+            const [editorResultValue] = editorResultValues;
+            const { spec, metadata } = editorResultValue;
             const specAndMetadata = { ...spec, ...metadata };
 
             // we don't have to handle any other values except spec and metadata for now
@@ -123,7 +124,7 @@ export const useHandleEditorSave = ({
 				we check if formValue still exists in those values and if not we delete it from form state
 
 			*/
-            cleanFormStateFromUnusedProps(editorPropsObject);
+            cleanFormStateFromUnusedProps(editorResultValue);
         },
         [
             backwardNames,

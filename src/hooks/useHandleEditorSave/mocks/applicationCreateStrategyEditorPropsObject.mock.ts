@@ -1,7 +1,4 @@
-import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
-import { DeepPartial } from '../../../types/global';
-
-export const applicationCreateStrategyEditorPropsObjectMock: DeepPartial<EDPCodebaseKubeObjectInterface> =
+export const applicationCreateStrategyEditorPropsObjectMock = [
     {
         apiVersion: 'v2.edp.epam.com/v1',
         kind: 'Codebase',
@@ -31,7 +28,8 @@ export const applicationCreateStrategyEditorPropsObjectMock: DeepPartial<EDPCode
         metadata: {
             name: 'test',
         },
-    };
+    },
+];
 
 export const applicationCreateStrategyEditorPropsObjectMockExpectedOutput = {
     type: 'application',

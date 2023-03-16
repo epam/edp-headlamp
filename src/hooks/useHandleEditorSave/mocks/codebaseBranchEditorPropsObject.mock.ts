@@ -1,7 +1,4 @@
-import { EDPCodebaseBranchKubeObjectInterface } from '../../../k8s/EDPCodebaseBranch/types';
-import { DeepPartial } from '../../../types/global';
-
-export const codebaseBranchEditorPropsObjectMock: DeepPartial<EDPCodebaseBranchKubeObjectInterface> =
+export const codebaseBranchEditorPropsObjectMock = [
     {
         apiVersion: 'v2.edp.epam.com/v1',
         kind: 'CodebaseBranch',
@@ -17,7 +14,8 @@ export const codebaseBranchEditorPropsObjectMock: DeepPartial<EDPCodebaseBranchK
                 'app.edp.epam.com/codebaseName': 'test-java-app',
             },
         },
-    };
+    },
+];
 
 export const codebaseBranchEditorPropsObjectMockExpectedOutput = {
     codebaseName: 'test-java-app',

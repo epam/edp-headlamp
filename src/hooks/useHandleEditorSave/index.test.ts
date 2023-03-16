@@ -11,7 +11,6 @@ import {
     CODEBASE_BRANCH_BACKWARDS_NAME_MAPPING,
     CODEBASE_BRANCH_NAMES,
 } from '../../components/CreateCodebaseBranch/components/CreateCodebaseBranchForm/names';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { FieldEventTarget } from '../../types/forms';
 import { useHandleEditorSave } from './index';
 import {
@@ -94,9 +93,7 @@ describe('testing handleEditorSave function', () => {
                 })
             );
 
-            handleEditorSave(
-                applicationCreateStrategyEditorPropsObjectMock as EDPCodebaseKubeObjectInterface
-            );
+            handleEditorSave(applicationCreateStrategyEditorPropsObjectMock);
             expect(formState).toMatchObject(
                 applicationCreateStrategyEditorPropsObjectMockExpectedOutput
             );
@@ -126,9 +123,7 @@ describe('testing handleEditorSave function', () => {
                 })
             );
 
-            handleEditorSave(
-                applicationCloneStrategyEditorPropsObjectMock as EDPCodebaseKubeObjectInterface
-            );
+            handleEditorSave(applicationCloneStrategyEditorPropsObjectMock);
             expect(formState).toMatchObject(
                 applicationCloneStrategyEditorPropsObjectMockExpectedOutput
             );
@@ -158,9 +153,7 @@ describe('testing handleEditorSave function', () => {
                 })
             );
 
-            handleEditorSave(
-                applicationImportStrategyEditorPropsObjectMock as EDPCodebaseKubeObjectInterface
-            );
+            handleEditorSave(applicationImportStrategyEditorPropsObjectMock);
 
             expect(formState).toMatchObject(
                 applicationImportStrategyEditorPropsObjectMockExpectedOutput
@@ -191,9 +184,7 @@ describe('testing handleEditorSave function', () => {
                 })
             );
 
-            handleEditorSave(
-                libraryCreateStrategyEditorPropsObjectMock as EDPCodebaseKubeObjectInterface
-            );
+            handleEditorSave(libraryCreateStrategyEditorPropsObjectMock);
 
             expect(formState).toMatchObject(
                 libraryCreateStrategyEditorPropsObjectMockExpectedOutput
@@ -224,9 +215,7 @@ describe('testing handleEditorSave function', () => {
                 })
             );
 
-            handleEditorSave(
-                libraryCloneStrategyEditorPropsObjectMock as EDPCodebaseKubeObjectInterface
-            );
+            handleEditorSave(libraryCloneStrategyEditorPropsObjectMock);
 
             expect(formState).toMatchObject(
                 libraryCloneStrategyEditorPropsObjectMockExpectedOutput
@@ -257,9 +246,7 @@ describe('testing handleEditorSave function', () => {
                 })
             );
 
-            handleEditorSave(
-                libraryImportStrategyEditorPropsObjectMock as EDPCodebaseKubeObjectInterface
-            );
+            handleEditorSave(libraryImportStrategyEditorPropsObjectMock);
 
             expect(formState).toMatchObject(
                 libraryImportStrategyEditorPropsObjectMockExpectedOutput
@@ -290,9 +277,7 @@ describe('testing handleEditorSave function', () => {
                 })
             );
 
-            handleEditorSave(
-                autotestCloneStrategyEditorPropsObjectMock as EDPCodebaseKubeObjectInterface
-            );
+            handleEditorSave(autotestCloneStrategyEditorPropsObjectMock);
 
             expect(formState).toMatchObject(
                 autotestCloneStrategyEditorPropsObjectMockExpectedOutput
@@ -323,9 +308,7 @@ describe('testing handleEditorSave function', () => {
                 })
             );
 
-            handleEditorSave(
-                autotestImportStrategyEditorPropsObjectMock as EDPCodebaseKubeObjectInterface
-            );
+            handleEditorSave(autotestImportStrategyEditorPropsObjectMock);
 
             expect(formState).toMatchObject(
                 autotestImportStrategyEditorPropsObjectMockExpectedOutput
@@ -356,7 +339,7 @@ describe('testing handleEditorSave function', () => {
                 })
             );
 
-            handleEditorSave(codebaseBranchEditorPropsObjectMock as EDPCodebaseKubeObjectInterface);
+            handleEditorSave(codebaseBranchEditorPropsObjectMock);
 
             expect(formState).toMatchObject(codebaseBranchEditorPropsObjectMockExpectedOutput);
 

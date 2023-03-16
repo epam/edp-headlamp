@@ -122,8 +122,8 @@ export const CreateCDPipelineForm = ({
     });
 
     const onEditorSave = React.useCallback(
-        (editorPropsObject: EDPCDPipelineKubeObjectInterface) => {
-            handleEditorSave(editorPropsObject);
+        (editorReturnValues: EDPCDPipelineKubeObjectInterface) => {
+            handleEditorSave(editorReturnValues);
             setEditorOpen(false);
         },
         [handleEditorSave, setEditorOpen]

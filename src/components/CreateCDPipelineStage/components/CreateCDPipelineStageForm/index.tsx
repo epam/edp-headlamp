@@ -103,8 +103,8 @@ export const CreateCDPipelineStageForm = ({
     });
 
     const onEditorSave = React.useCallback(
-        (editorPropsObject: EDPCodebaseBranchKubeObjectInterface) => {
-            handleEditorSave(editorPropsObject);
+        (editorReturnValues: EDPCodebaseBranchKubeObjectInterface) => {
+            handleEditorSave(editorReturnValues);
             setEditorOpen(false);
         },
         [handleEditorSave, setEditorOpen]

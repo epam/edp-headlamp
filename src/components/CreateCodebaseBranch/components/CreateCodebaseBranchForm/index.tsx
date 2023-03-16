@@ -113,8 +113,8 @@ export const CreateCodebaseBranchForm = ({
     });
 
     const onEditorSave = React.useCallback(
-        (editorPropsObject: EDPCodebaseBranchKubeObjectInterface) => {
-            handleEditorSave(editorPropsObject);
+        (editorReturnValues: EDPCodebaseBranchKubeObjectInterface) => {
+            handleEditorSave(editorReturnValues);
             setEditorOpen(false);
         },
         [handleEditorSave, setEditorOpen]

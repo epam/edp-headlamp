@@ -93,8 +93,8 @@ export const CreateGitServerForm = ({
     });
 
     const onEditorSave = React.useCallback(
-        (editorPropsObject: EDPGitServerKubeObjectInterface) => {
-            handleEditorSave(editorPropsObject);
+        (editorReturnValues: EDPGitServerKubeObjectInterface) => {
+            handleEditorSave(editorReturnValues);
             setEditorOpen(false);
         },
         [handleEditorSave, setEditorOpen]

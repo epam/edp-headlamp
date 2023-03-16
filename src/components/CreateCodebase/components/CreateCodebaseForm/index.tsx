@@ -179,8 +179,8 @@ export const CreateCodebaseForm = ({
     const { editorReturnValues } = useEditorCode({ names, formValues, type: typeFieldValue });
 
     const onEditorSave = React.useCallback(
-        (editorPropsObject: EDPCodebaseKubeObjectInterface) => {
-            handleEditorSave(editorPropsObject);
+        (editorReturnValues: EDPCodebaseKubeObjectInterface) => {
+            handleEditorSave(editorReturnValues);
             setEditorOpen(false);
         },
         [handleEditorSave, setEditorOpen]
