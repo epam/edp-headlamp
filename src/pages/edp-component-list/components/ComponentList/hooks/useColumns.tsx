@@ -112,7 +112,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                                     height={20}
                                 />
                             </Grid>
-                            <Grid item>{codebaseMapping[lang].language.name}</Grid>
+                            <Grid item>{codebaseMapping?.[lang]?.language?.name || lang}</Grid>
                         </Grid>
                     );
                 },
@@ -139,7 +139,9 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                                     height={20}
                                 />
                             </Grid>
-                            <Grid item>{codebaseMapping[lang].frameworks[framework].name}</Grid>
+                            <Grid item>
+                                {codebaseMapping?.[lang].frameworks?.[framework]?.name || framework}
+                            </Grid>
                         </Grid>
                     );
                 },
@@ -166,7 +168,9 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                                     height={20}
                                 />
                             </Grid>
-                            <Grid item>{codebaseMapping[lang].buildTools[buildTool].name}</Grid>
+                            <Grid item>
+                                {codebaseMapping?.[lang].buildTools?.[buildTool]?.name || buildTool}
+                            </Grid>
                         </Grid>
                     );
                 },
