@@ -44,7 +44,7 @@ export const useDeleteKubeObject = ({
     >(
         'kubeObjectDeleteMutation',
         ({ kubeObjectData, kubeObject }) => {
-            return kubeObject.apiEndpoint.delete(kubeObjectData, namespace);
+            return kubeObject.apiEndpoint.delete(namespace, kubeObjectData.metadata.name);
         },
         {
             onMutate: ({ kubeObjectData }) =>
