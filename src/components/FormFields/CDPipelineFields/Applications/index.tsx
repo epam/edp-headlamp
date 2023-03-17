@@ -7,7 +7,7 @@ import { ApplicationRow } from './components/ApplicationRow';
 import { useUpdatedApplications } from './hooks/useUpdatedApplications';
 import { Application, ApplicationsProps } from './types';
 
-const { Grid, Button, Typography } = MuiCore;
+const { Grid, Button, Typography, CircularProgress } = MuiCore;
 const { Alert } = MuiLab;
 
 const getUsedApplications = (applications: Application[]) => {
@@ -45,7 +45,9 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
     const applicationsToPromoteValue = watch(names.applicationsToPromote.name);
     const applicationsBranchesFieldValue = watch(names.inputDockerStreams.name);
 
-    const { applications, setApplications } = useUpdatedApplications({
+    const [appsWithBranches, setAppsWithBranches] = React.useState<Application[]>([]);
+
+    const { isLoading, error } = useUpdatedApplications({
         values: {
             namespace,
             applicationsFieldValue,
@@ -53,10 +55,14 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
             applicationsBranchesFieldValue,
         },
         setValue,
+        appsWithBranches,
+        setAppsWithBranches,
     });
 
+    console.log(isLoading, error);
+
     const handleAddApplicationRow = React.useCallback(async () => {
-        setApplications(prev => {
+        setAppsWithBranches(prev => {
             const newApplications = prev.map(application => {
                 if (application.value === applicationsToAddChooserFieldValue) {
                     return {
@@ -92,31 +98,31 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
         handleFormFieldChange,
         names,
         resetField,
-        setApplications,
+        setAppsWithBranches,
         setValue,
         trigger,
     ]);
 
     const usedApplications = React.useMemo(() => {
-        return getUsedApplications(applications);
-    }, [applications]);
+        return getUsedApplications(appsWithBranches);
+    }, [appsWithBranches]);
 
     const unusedApplications = React.useMemo(() => {
-        return getUnusedApplications(applications);
-    }, [applications]);
+        return getUnusedApplications(appsWithBranches);
+    }, [appsWithBranches]);
 
     const applicationsOptionsListIsDisabled = React.useMemo(() => {
-        return !namespace || usedApplications.length === applications.length;
-    }, [applications.length, namespace, usedApplications.length]);
+        return !namespace || usedApplications.length === appsWithBranches.length;
+    }, [appsWithBranches.length, namespace, usedApplications.length]);
 
     const applicationsAddingButtonIsDisabled = React.useMemo(() => {
         return (
             !namespace ||
             !applicationsToAddChooserFieldValue ||
-            usedApplications.length === applications.length
+            usedApplications.length === appsWithBranches.length
         );
     }, [
-        applications.length,
+        appsWithBranches.length,
         applicationsToAddChooserFieldValue,
         namespace,
         usedApplications.length,
@@ -164,7 +170,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={2}>
-                    <Render condition={!!applications.length}>
+                    <Render condition={!!appsWithBranches.length}>
                         <>
                             <Render condition={!!usedApplications.length}>
                                 <>
@@ -182,20 +188,29 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
                                     </Grid>
                                 </>
                             </Render>
+                            <Render condition={isLoading}>
+                                <CircularProgress />
+                            </Render>
+                            <Render condition={!!error}>
+                                <Typography color={'error'}>{error}</Typography>
+                            </Render>
+                            <Render condition={!isLoading && !error}>
+                                <>
+                                    {usedApplications.map((application, idx) => {
+                                        const key = `${application.value}::${idx}`;
 
-                            {usedApplications.map((application, idx) => {
-                                const key = `${application.value}::${idx}`;
-
-                                return (
-                                    <ApplicationRow
-                                        key={key}
-                                        names={names}
-                                        application={application}
-                                        setApplications={setApplications}
-                                        handleFormFieldChange={handleFormFieldChange}
-                                    />
-                                );
-                            })}
+                                        return (
+                                            <ApplicationRow
+                                                key={key}
+                                                names={names}
+                                                application={application}
+                                                setAppsWithBranches={setAppsWithBranches}
+                                                handleFormFieldChange={handleFormFieldChange}
+                                            />
+                                        );
+                                    })}
+                                </>
+                            </Render>
                         </>
                     </Render>
                 </Grid>

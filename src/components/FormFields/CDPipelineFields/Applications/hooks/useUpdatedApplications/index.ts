@@ -1,3 +1,4 @@
+import { useQuery } from 'react-query';
 import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
 import { getCodebasesByTypeLabel } from '../../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../../k8s/EDPCodebase/types';
@@ -11,6 +12,8 @@ interface UseUpdatedApplicationsProps {
     values: {
         [key: string]: any;
     };
+    appsWithBranches: Application[];
+    setAppsWithBranches: React.Dispatch<React.SetStateAction<Application[]>>;
 }
 
 const getCodebaseWithBranchesList = (
@@ -45,11 +48,12 @@ const getCodebaseWithBranchesList = (
 
 export const useUpdatedApplications = ({
     setValue,
+    appsWithBranches,
+    setAppsWithBranches,
     values,
 }: UseUpdatedApplicationsProps): {
-    applications: Application[];
-    setApplications: React.Dispatch<React.SetStateAction<Application[]>>;
-    error: Error;
+    isLoading: boolean;
+    error: unknown;
 } => {
     const {
         namespace,
@@ -57,9 +61,6 @@ export const useUpdatedApplications = ({
         applicationsToPromoteValue,
         applicationsBranchesFieldValue,
     } = values;
-
-    const [applications, setApplications] = React.useState<Application[]>([]);
-    const [error, setError] = React.useState<Error>(null);
 
     const updateUsedApp = React.useCallback(
         (applicationsFieldValueSet: Set<string>, applications: Application[]) => {
@@ -131,42 +132,26 @@ export const useUpdatedApplications = ({
         [setValue]
     );
 
-    React.useEffect(() => {
-        if (!namespace) {
-            return;
+    const { isLoading, error } = useQuery(
+        'applications',
+        () => getCodebasesByTypeLabel(namespace, CODEBASE_TYPES['APPLICATION']),
+        {
+            onSuccess: async ({ items: applicationsList }) => {
+                const appsWithBranches = (
+                    await Promise.all(getCodebaseWithBranchesList(applicationsList, namespace))
+                ).filter(app => app !== null);
+                setAppsWithBranches(appsWithBranches);
+            },
+            enabled: !appsWithBranches || !appsWithBranches.length,
         }
+    );
 
-        const fetchApplications = async (): Promise<void> => {
-            const { items: codebaseList } = await getCodebasesByTypeLabel(
-                namespace,
-                CODEBASE_TYPES['APPLICATION']
-            );
+    const applicationsFieldValueSet = new Set<string>(applicationsFieldValue);
+    const applicationsToPromoteValueSet = new Set<string>(applicationsToPromoteValue);
 
-            const filteredApplications = (
-                await Promise.all(getCodebaseWithBranchesList(codebaseList, namespace))
-            ).filter(app => app !== null);
+    updateUsedApp(applicationsFieldValueSet, appsWithBranches);
+    updateAppChosenBranch(appsWithBranches);
+    updatePromotedApp(applicationsToPromoteValueSet, appsWithBranches);
 
-            const applicationsFieldValueSet = new Set<string>(applicationsFieldValue);
-            const applicationsToPromoteValueSet = new Set<string>(applicationsToPromoteValue);
-
-            updateUsedApp(applicationsFieldValueSet, filteredApplications);
-            updateAppChosenBranch(filteredApplications);
-            updatePromotedApp(applicationsToPromoteValueSet, filteredApplications);
-
-            setApplications(filteredApplications);
-            setError(null);
-        };
-
-        fetchApplications().catch(setError);
-    }, [
-        applicationsFieldValue,
-        applicationsToPromoteValue,
-        namespace,
-        setValue,
-        updateAppChosenBranch,
-        updatePromotedApp,
-        updateUsedApp,
-    ]);
-
-    return { applications, setApplications, error };
+    return { isLoading, error };
 };

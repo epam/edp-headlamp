@@ -19,7 +19,7 @@ const { useTheme } = MuiStyles;
 export const ApplicationRow = ({
     names,
     application,
-    setApplications,
+    setAppsWithBranches,
     handleFormFieldChange,
 }: ApplicationRowProps) => {
     const classes = useStyles();
@@ -38,7 +38,7 @@ export const ApplicationRow = ({
 
     const handleChangeApplicationBranch = React.useCallback(
         ({ value: targetValue }: FieldEventTarget) => {
-            setApplications(prev => {
+            setAppsWithBranches(prev => {
                 const newApplications = prev.map(app => {
                     if (app.value === value) {
                         return {
@@ -65,12 +65,12 @@ export const ApplicationRow = ({
                 return newApplications;
             });
         },
-        [handleFormFieldChange, names.inputDockerStreams.name, setApplications, setValue, value]
+        [handleFormFieldChange, names.inputDockerStreams.name, setAppsWithBranches, setValue, value]
     );
 
     const handleChangeApplicationToPromote = React.useCallback(
         ({ value: targetValue }: FieldEventTarget) => {
-            setApplications(prev => {
+            setAppsWithBranches(prev => {
                 const newApplications = prev.map(app => {
                     if (app.value === value) {
                         return {
@@ -97,11 +97,17 @@ export const ApplicationRow = ({
                 return newApplications;
             });
         },
-        [handleFormFieldChange, names.applicationsToPromote.name, setApplications, setValue, value]
+        [
+            handleFormFieldChange,
+            names.applicationsToPromote.name,
+            setAppsWithBranches,
+            setValue,
+            value,
+        ]
     );
 
     const handleDeleteApplicationRow = React.useCallback(() => {
-        setApplications(prev => {
+        setAppsWithBranches(prev => {
             const newApplications = prev.map(app => {
                 if (app.value === value) {
                     return {
@@ -167,7 +173,7 @@ export const ApplicationRow = ({
         names.applicationsToPromote.name,
         names.inputDockerStreams.name,
         resetField,
-        setApplications,
+        setAppsWithBranches,
         setValue,
         value,
     ]);

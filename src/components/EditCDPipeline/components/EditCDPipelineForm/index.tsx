@@ -10,7 +10,7 @@ import { useNames } from './hooks/useNames';
 import { useStyles } from './styles';
 import { EditCDPipelineFormProps } from './types';
 
-const { Button } = MuiCore;
+const { Button, Grid } = MuiCore;
 
 export const EditCDPipelineForm = ({
     handleApply,
@@ -77,7 +77,12 @@ export const EditCDPipelineForm = ({
             <div className={classes.form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.formInner}>
-                        <Applications names={names} handleFormFieldChange={handleFormFieldChange} />
+                        <Grid container spacing={3}>
+                            <Applications
+                                names={names}
+                                handleFormFieldChange={handleFormFieldChange}
+                            />
+                        </Grid>
                     </div>
                     <div className={classes.actions}>
                         <Button

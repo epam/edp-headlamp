@@ -5,6 +5,6 @@ import { Application } from '../../types';
 export interface ApplicationRowProps {
     names: { [key: string]: FormNameObject };
     application: Application;
-    setApplications: React.Dispatch<React.SetStateAction<Application[]>>;
+    setAppsWithBranches: React.Dispatch<React.SetStateAction<Application[]>>;
     handleFormFieldChange(eventTarget: FieldEventTarget): void;
 }
