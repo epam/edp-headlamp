@@ -140,7 +140,8 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                                 />
                             </Grid>
                             <Grid item>
-                                {codebaseMapping?.[lang].frameworks?.[framework]?.name || framework}
+                                {codebaseMapping?.[lang]?.frameworks?.[framework]?.name ||
+                                    framework}
                             </Grid>
                         </Grid>
                     );
@@ -169,7 +170,8 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
                                 />
                             </Grid>
                             <Grid item>
-                                {codebaseMapping?.[lang].buildTools?.[buildTool]?.name || buildTool}
+                                {codebaseMapping?.[lang]?.buildTools?.[buildTool]?.name ||
+                                    buildTool}
                             </Grid>
                         </Grid>
                     );
