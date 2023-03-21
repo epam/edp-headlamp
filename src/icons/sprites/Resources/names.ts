@@ -2,7 +2,7 @@ export const RESOURCE_ICON_NAMES = {
     JAVA: 'java',
     JAVASCRIPT: 'javascript',
     DOTNET: 'dotnet',
-    DOTNETCORE: 'dotnetcore',
+    C_SHARP: 'csharp',
     PYTHON: 'python',
     GROOVY_PIPELINE: 'groovy-pipeline',
     TERRAFORM: 'terraform',

@@ -9,6 +9,7 @@ export const CODEBASE_COMMON_LANGUAGES = {
     CONTAINER: 'container',
     HELM: 'helm',
     GO: 'go',
+    C_SHARP: 'csharp',
     OTHER: 'other',
 } as const;
 
@@ -26,6 +27,7 @@ export const CODEBASE_COMMON_FRAMEWORKS = {
     FLASK: 'flask',
     FASTAPI: 'fastapi',
     DOTNET_3_1: 'dotnet-3.1',
+    DOTNET_6_0: 'dotnet-6.0',
     PYTHON_3_8: 'python-3.8',
     OPERATOR_SDK: 'operator-sdk',
 } as const;

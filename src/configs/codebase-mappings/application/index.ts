@@ -80,14 +80,14 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
     },
     [CODEBASE_COMMON_LANGUAGES.DOTNET]: {
         language: {
-            name: 'DotNet',
+            name: '.NET',
             value: CODEBASE_COMMON_LANGUAGES.DOTNET,
             icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.DOTNET],
             availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
         },
         frameworks: {
             [CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1]: {
-                name: 'Dotnet 3.1',
+                name: '.NET 3.1',
                 value: CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1,
                 icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1],
                 availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
@@ -95,7 +95,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
         },
         buildTools: {
             [CODEBASE_COMMON_BUILD_TOOLS.DOTNET]: {
-                name: 'dotnet',
+                name: '.NET',
                 value: CODEBASE_COMMON_BUILD_TOOLS.DOTNET,
                 icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.DOTNET],
                 availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
@@ -165,6 +165,30 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 value: CODEBASE_COMMON_BUILD_TOOLS.GO,
                 icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.GO],
                 availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
+            },
+        },
+    },
+    [CODEBASE_COMMON_LANGUAGES.C_SHARP]: {
+        language: {
+            name: 'C#',
+            value: CODEBASE_COMMON_LANGUAGES.C_SHARP,
+            icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.C_SHARP],
+            availableCITools: [CI_TOOLS.TEKTON],
+        },
+        frameworks: {
+            [CODEBASE_COMMON_FRAMEWORKS.DOTNET_6_0]: {
+                name: '.NET 6.0',
+                value: CODEBASE_COMMON_FRAMEWORKS.DOTNET_6_0,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.DOTNET_6_0],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
+        },
+        buildTools: {
+            [CODEBASE_COMMON_BUILD_TOOLS.DOTNET]: {
+                name: '.NET',
+                value: CODEBASE_COMMON_BUILD_TOOLS.DOTNET,
+                icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.DOTNET],
+                availableCITools: [CI_TOOLS.TEKTON],
             },
         },
     },

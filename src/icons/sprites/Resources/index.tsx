@@ -3,9 +3,9 @@ import {
     Beego,
     Codenarc,
     Container,
+    CSharp,
     Docker,
     DotNet,
-    DotNetCore,
     Fastapi,
     Flask,
     Gerrit,
@@ -28,7 +28,6 @@ import {
     ReactSymbol,
     Tekton,
     Terraform,
-    Yaml,
 } from './symbols';
 
 export const Resources = (): React.ReactElement => {
@@ -42,7 +41,7 @@ export const Resources = (): React.ReactElement => {
             <Codenarc />
             <Container />
             <Docker />
-            <DotNetCore />
+            <CSharp />
             <DotNet />
             <Go />
             <Groovy />
@@ -60,7 +59,6 @@ export const Resources = (): React.ReactElement => {
             <Python />
             <ReactSymbol />
             <Terraform />
-            <Yaml />
             <Fastapi />
             <Flask />
             <Tekton />
