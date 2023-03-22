@@ -2,6 +2,5 @@ import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/ty
 
 export interface GitServerListProps {
     gitServers: EDPGitServerKubeObjectInterface[];
-    onEdit?(): void;
-    onDelete?(): void;
+    error: unknown;
 }

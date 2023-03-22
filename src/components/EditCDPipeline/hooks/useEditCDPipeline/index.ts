@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
-import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
-import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
+import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
 import { EDPCDPipelineKubeObject } from '../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { React } from '../../../../plugin.globals';
@@ -16,58 +15,25 @@ export const useEditCDPipeline = ({
 }: {
     onSuccess?: () => void;
     onError?: () => void;
-}): {
-    editCDPipeline: (props: EditCDPipelineProps) => Promise<void>;
-    mutations: {
-        CDPipelineEditMutation: UseMutationResult<
-            EDPCDPipelineKubeObjectInterface,
-            Error,
-            { CDPipelineData: EDPCDPipelineKubeObjectInterface }
-        >;
-    };
-} => {
+}) => {
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
 
-    const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
-        useRequestStatusMessages();
-
-    const CDPipelineEditMutation = useMutation<
+    const CDPipelineEditMutation = useResourceCRUDMutation<
         EDPCDPipelineKubeObjectInterface,
-        Error,
-        {
-            CDPipelineData: EDPCDPipelineKubeObjectInterface;
-        }
-    >(
-        'CDPipelineEditMutation',
-        ({ CDPipelineData }) => {
-            return EDPCDPipelineKubeObject.apiEndpoint.put(CDPipelineData);
-        },
-        {
-            onMutate: ({ CDPipelineData }) =>
-                showBeforeRequestMessage(CDPipelineData.metadata.name, CRUD_TYPES.EDIT),
-            onSuccess: (data, { CDPipelineData }) => {
-                showRequestSuccessMessage(CDPipelineData.metadata.name, CRUD_TYPES.EDIT);
-            },
-            onError: (error, { CDPipelineData }) => {
-                showRequestErrorMessage(CDPipelineData.metadata.name, CRUD_TYPES.EDIT);
-            },
-        }
-    );
+        CRUD_TYPES.EDIT
+    >('CDPipelineEditMutation', EDPCDPipelineKubeObject, CRUD_TYPES.EDIT);
 
     const editCDPipeline = React.useCallback(
         async ({ CDPipelineData }: EditCDPipelineProps) => {
-            CDPipelineEditMutation.mutate(
-                { CDPipelineData },
-                {
-                    onSuccess: () => {
-                        invokeOnSuccessCallback();
-                    },
-                    onError: () => {
-                        invokeOnErrorCallback();
-                    },
-                }
-            );
+            CDPipelineEditMutation.mutate(CDPipelineData, {
+                onSuccess: () => {
+                    invokeOnSuccessCallback();
+                },
+                onError: () => {
+                    invokeOnErrorCallback();
+                },
+            });
         },
         [CDPipelineEditMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
     );

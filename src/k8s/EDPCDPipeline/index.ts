@@ -1,5 +1,4 @@
 import { pluginLib } from '../../plugin.globals';
-import { createRouteURL } from '../../utils/routes/createRouteURL';
 import { EDPCDPipelineKubeObjectConfig } from './config';
 import { EDPCDPipelineKubeObjectInterface, EDPCDPipelineSpec, EDPCDPipelineStatus } from './types';
 
@@ -15,7 +14,6 @@ const {
     version,
 } = EDPCDPipelineKubeObjectConfig;
 
-// @ts-ignore
 export class EDPCDPipelineKubeObject extends makeKubeObject<EDPCDPipelineKubeObjectInterface>(
     singularForm
 ) {
@@ -23,13 +21,6 @@ export class EDPCDPipelineKubeObject extends makeKubeObject<EDPCDPipelineKubeObj
 
     static get className(): string {
         return singularForm;
-    }
-
-    getDetailsLink(type: string): string {
-        return createRouteURL(type, {
-            namespace: this.jsonData!.metadata.namespace,
-            name: this.jsonData!.metadata.name,
-        });
     }
 
     get spec(): EDPCDPipelineSpec {

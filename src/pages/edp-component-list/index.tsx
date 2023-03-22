@@ -1,59 +1,73 @@
+import { useForm } from 'react-hook-form';
 import { CreateCodebase } from '../../components/CreateCodebase';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
+import { FormSelect } from '../../components/FormComponents';
+import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
-import { useNamespace } from '../../hooks/useNamespace';
-import { streamCodebasesByTypeLabel } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { pluginLib, React } from '../../plugin.globals';
-import { ComponentFilterHeader } from './components/ComponentFilterHeader';
+import { MuiCore, pluginLib, React } from '../../plugin.globals';
+import { rem } from '../../utils/styling/rem';
 import { ComponentList } from './components/ComponentList';
 
 const {
-    CommonComponents: { SectionBox },
+    CommonComponents: { SectionBox, SectionFilterHeader },
 } = pluginLib;
 
+const { Box, Grid } = MuiCore;
 export const EDPComponentList = (): React.ReactElement => {
-    const { namespace } = useNamespace();
-    const [components, setComponents] = React.useState<EDPCodebaseKubeObjectInterface[]>([]);
-    const [, setError] = React.useState<Error>(null);
-    const [type, setType] = React.useState<CODEBASE_TYPES>(CODEBASE_TYPES['ALL']);
+    const [type, setType] = React.useState<CODEBASE_TYPES>(CODEBASE_TYPES.ALL);
+    const [items, error] = EDPCodebaseKubeObject.useList();
+    const [components, setComponents] = React.useState<EDPCodebaseKubeObjectInterface[]>(items);
 
-    const handleStoreComponents = React.useCallback(
-        (components: EDPCodebaseKubeObjectInterface[]) => {
-            setComponents(components);
-        },
-        []
-    );
-
-    const handleError = React.useCallback((error: Error) => {
-        setError(error);
-    }, []);
+    const {
+        register,
+        control,
+        formState: { errors },
+    } = useForm();
 
     React.useEffect(() => {
-        const cancelStream = streamCodebasesByTypeLabel(
-            type,
-            handleStoreComponents,
-            handleError,
-            namespace
-        );
+        if (type === CODEBASE_TYPES.ALL) {
+            setComponents(items);
+            return;
+        }
 
-        return () => cancelStream();
-    }, [handleError, handleStoreComponents, namespace, type]);
+        setComponents(items.filter(el => el.spec.type === type));
+    }, [items, type]);
 
     return (
         <>
             <SectionBox
                 title={
-                    <ComponentFilterHeader
-                        setType={setType}
-                        defaultValues={{ type: CODEBASE_TYPES['ALL'] }}
+                    <SectionFilterHeader
+                        title={'Components'}
+                        headerStyle={'label'}
+                        actions={[
+                            <Box>
+                                <Grid container spacing={1}>
+                                    <Grid item style={{ minWidth: rem(200), marginBottom: rem(6) }}>
+                                        <FormSelect
+                                            {...register('type', {
+                                                onChange: ({ target: { value } }) => setType(value),
+                                            })}
+                                            control={control}
+                                            errors={errors}
+                                            name={'type'}
+                                            label={'Type'}
+                                            options={codebaseTypeSelectOptions}
+                                            defaultValue={CODEBASE_TYPES.ALL}
+                                        />
+                                    </Grid>
+                                </Grid>
+                            </Box>,
+                        ]}
                     />
                 }
             >
                 <CreateKubeObject>
                     <CreateCodebase />
                 </CreateKubeObject>
-                <ComponentList components={components} />
+                <ComponentList components={components} error={error} />
             </SectionBox>
         </>
     );

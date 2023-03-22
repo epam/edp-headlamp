@@ -8,6 +8,7 @@ import {
 import { EDPGitServerKubeObjectInterface } from '../../../../../k8s/EDPGitServer/types';
 import { MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { GIT_SERVERS_ROUTE_NAME } from '../../../../../routes/names';
+import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { sortByActiveStatus } from '../../../../../utils/sort/sortByActiveStatus';
@@ -20,14 +21,16 @@ const {
 
 const { Typography } = MuiCore;
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPGitServerKubeObjectInterface>[] =>
+export const useColumns = (): HeadlampSimpleTableGetterColumn<
+    HeadlampKubeObject<EDPGitServerKubeObjectInterface>
+>[] =>
     React.useMemo(
         () => [
             {
                 label: 'Status',
-                getter: gitServerData => {
-                    const status = gitServerData?.status
-                        ? gitServerData?.status?.value
+                getter: gitServerKubeObject => {
+                    const status = gitServerKubeObject?.status
+                        ? gitServerKubeObject?.status?.value
                         : CUSTOM_RESOURCE_ACTIVE_STATUSES['UNKNOWN'];
 
                     const statusTitle = (
@@ -37,7 +40,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPGitServerKubeOb
                             </Typography>
                             <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
                                 <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                                    {gitServerData?.status?.detailed_message}
+                                    {gitServerKubeObject?.status?.detailed_message}
                                 </Typography>
                             </Render>
                         </>

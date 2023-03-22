@@ -2,4 +2,5 @@ import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/type
 
 export interface ComponentListProps {
     components: EDPCodebaseKubeObjectInterface[];
+    error: unknown;
 }

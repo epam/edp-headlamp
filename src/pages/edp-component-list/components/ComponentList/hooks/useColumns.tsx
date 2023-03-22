@@ -19,6 +19,7 @@ import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { COMPONENTS_ROUTE_NAME } from '../../../../../routes/names';
+import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { sortByName } from '../../../../../utils/sort/sortByName';
@@ -42,7 +43,9 @@ const getMappingByCodebaseType = (type: string): { [key: string]: CodebaseInterf
         : null;
 };
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObjectInterface>[] =>
+export const useColumns = (): HeadlampSimpleTableGetterColumn<
+    HeadlampKubeObject<EDPCodebaseKubeObjectInterface>
+>[] =>
     React.useMemo(
         () => [
             {
@@ -201,7 +204,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCodebaseKubeObj
             },
             {
                 label: '',
-                getter: kubeObjectData => <CodebaseActions kubeObjectData={kubeObjectData} />,
+                getter: ({ jsonData }) => <CodebaseActions kubeObjectData={jsonData} />,
             },
         ],
         []

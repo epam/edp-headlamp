@@ -1,4 +1,5 @@
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../../../../../../../../../k8s/EDPCDPipeline/types';
+import { KubeObjectInterface } from '../../../../../../../../../../../../../plugin.types';
 import { DeepPartial } from '../../../../../../../../../../../../../types/global';
 
 export const cdpipelineMock: DeepPartial<EDPCDPipelineKubeObjectInterface> = {
@@ -29,4 +30,4 @@ export const cdpipelineMock: DeepPartial<EDPCDPipelineKubeObjectInterface> = {
         username: 'system',
         value: 'active',
     },
-};
+} as KubeObjectInterface;

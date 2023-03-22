@@ -1,4 +1,4 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
 export interface EDPCDPipelineSpec {
     applications: string[];
@@ -19,7 +19,7 @@ export interface EDPCDPipelineStatus {
     value: string;
 }
 
-export interface EDPCDPipelineKubeObjectInterface extends EDPKubeObjectInterface {
+export interface EDPCDPipelineKubeObjectInterface extends KubeObjectInterface {
     spec: EDPCDPipelineSpec;
     status: EDPCDPipelineStatus;
 }

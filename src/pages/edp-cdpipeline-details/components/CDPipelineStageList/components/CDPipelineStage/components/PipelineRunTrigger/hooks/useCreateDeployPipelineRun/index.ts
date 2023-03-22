@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
-import { useMutation, UseMutationResult } from 'react-query';
 import { createDeployPipelineRunInstance } from '../../../../../../../../../../configs/k8s-resource-instances/custom-resources/pipeline-run';
 import { CRUD_TYPES } from '../../../../../../../../../../constants/crudTypes';
-import { useRequestStatusMessages } from '../../../../../../../../../../hooks/useResourceRequestStatusMessages';
+import { useResourceCRUDMutation } from '../../../../../../../../../../hooks/useResourceCreationMutation';
 import { PipelineRunKubeObject } from '../../../../../../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../../../../k8s/PipelineRun/types';
 import { React } from '../../../../../../../../../../plugin.globals';
@@ -22,64 +21,26 @@ export const useCreateDeployPipelineRun = ({
 }: {
     onSuccess?: () => void;
     onError?: () => void;
-}): {
-    createDeployPipelineRun: (props: CreateDeployPipelineRunProps) => Promise<void>;
-    mutations: {
-        deployPipelineRunCreateMutation: UseMutationResult<
-            PipelineRunKubeObjectInterface,
-            Error,
-            { deployPipelineRunData: PipelineRunKubeObjectInterface }
-        >;
-    };
-} => {
+}) => {
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
-    const {
-        showBeforeRequestMessage,
-        showRequestErrorMessage,
-        showRequestSuccessMessage,
-        showRequestErrorDetailedMessage,
-    } = useRequestStatusMessages();
 
-    const deployPipelineRunCreateMutation = useMutation<
+    const deployPipelineRunCreateMutation = useResourceCRUDMutation<
         PipelineRunKubeObjectInterface,
-        Error,
-        {
-            deployPipelineRunData: PipelineRunKubeObjectInterface;
-        }
-    >(
-        'deployPipelineRunCreateMutation',
-        ({ deployPipelineRunData }) => {
-            return PipelineRunKubeObject.apiEndpoint.post(deployPipelineRunData);
-        },
-        {
-            onMutate: ({ deployPipelineRunData }) =>
-                showBeforeRequestMessage(deployPipelineRunData.metadata.name, CRUD_TYPES.CREATE),
-            onSuccess: (data, { deployPipelineRunData }) => {
-                showRequestSuccessMessage(deployPipelineRunData.metadata.name, CRUD_TYPES.CREATE);
-            },
-            onError: (error, { deployPipelineRunData }) => {
-                showRequestErrorMessage(deployPipelineRunData.metadata.name, CRUD_TYPES.CREATE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
+        CRUD_TYPES.CREATE
+    >('deployPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE);
 
     const createDeployPipelineRun = React.useCallback(
         async (data: CreateDeployPipelineRunProps) => {
             const deployPipelineRunData = createDeployPipelineRunInstance(data);
-            deployPipelineRunCreateMutation.mutate(
-                { deployPipelineRunData },
-                {
-                    onSuccess: () => {
-                        invokeOnSuccessCallback();
-                    },
-                    onError: () => {
-                        invokeOnErrorCallback();
-                    },
-                }
-            );
+            deployPipelineRunCreateMutation.mutate(deployPipelineRunData, {
+                onSuccess: () => {
+                    invokeOnSuccessCallback();
+                },
+                onError: () => {
+                    invokeOnErrorCallback();
+                },
+            });
         },
         [deployPipelineRunCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
     );

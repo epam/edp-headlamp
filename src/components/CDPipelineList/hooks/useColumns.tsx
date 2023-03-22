@@ -2,6 +2,7 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../constants/statuses';
 import { EDPCDPipelineKubeObjectInterface } from '../../../k8s/EDPCDPipeline/types';
 import { MuiCore, pluginLib, React } from '../../../plugin.globals';
 import { CDPIPELINES_ROUTE_NAME } from '../../../routes/names';
+import { HeadlampKubeObject } from '../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../utils/format/capitalizeFirstLetter';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../utils/routes/createRouteName';
 import { sortByName } from '../../../utils/sort/sortByName';
@@ -18,7 +19,9 @@ const {
 } = pluginLib;
 const { Typography } = MuiCore;
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeObjectInterface>[] =>
+export const useColumns = (): HeadlampSimpleTableGetterColumn<
+    HeadlampKubeObject<EDPCDPipelineKubeObjectInterface>
+>[] =>
     React.useMemo(
         () => [
             {
@@ -72,7 +75,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPCDPipelineKubeO
             },
             {
                 label: '',
-                getter: kubeObjectData => <CDPipelineActions kubeObjectData={kubeObjectData} />,
+                getter: ({ jsonData }) => <CDPipelineActions kubeObjectData={jsonData} />,
             },
         ],
         []

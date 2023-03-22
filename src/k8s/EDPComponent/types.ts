@@ -1,4 +1,4 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
 export interface EDPComponentSpec {
     icon: string;
@@ -7,7 +7,7 @@ export interface EDPComponentSpec {
     visible: boolean;
 }
 
-export interface EDPComponentKubeObjectInterface extends EDPKubeObjectInterface {
+export interface EDPComponentKubeObjectInterface extends KubeObjectInterface {
     spec: EDPComponentSpec;
     status: string;
 }

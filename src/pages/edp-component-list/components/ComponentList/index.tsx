@@ -8,7 +8,7 @@ const {
     Utils: { useFilterFunc },
 } = pluginLib;
 
-export const ComponentList = ({ components }: ComponentListProps): React.ReactElement => {
+export const ComponentList = ({ components, error }: ComponentListProps): React.ReactElement => {
     const columns = useColumns();
     const filterFunc = useFilterFunc();
 
@@ -17,6 +17,7 @@ export const ComponentList = ({ components }: ComponentListProps): React.ReactEl
             <Resources />
             <HeadlampSimpleTable
                 data={components}
+                errorMessage={error?.toString()}
                 columns={columns}
                 rowsPerPage={[15, 25, 50]}
                 filterFunction={filterFunc}

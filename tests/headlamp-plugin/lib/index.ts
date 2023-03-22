@@ -4,6 +4,7 @@ import * as cluster from './K8s/cluster';
 const noop = () => {};
 const Utils = {
     useFilterFunc: noop,
+    getCluster: noop,
 };
 
 class Secret {

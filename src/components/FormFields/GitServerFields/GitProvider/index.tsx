@@ -1,6 +1,8 @@
 import { useFormContext } from 'react-hook-form';
+import { GIT_PROVIDER_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { gitProviderOptions } from '../../../../configs/select-options/gitProviders';
 import { Resources } from '../../../../icons/sprites/Resources';
+import { RESOURCE_ICON_NAMES } from '../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
@@ -31,8 +33,24 @@ export const GitProvider = ({ names, handleFormFieldChange }: GitProviderProps) 
                     return {
                         value,
                         label,
-                        icon: <UseSpriteSymbol name={value} width={20} height={20} />,
-                        checkedIcon: <UseSpriteSymbol name={value} width={20} height={20} />,
+                        icon: (
+                            <UseSpriteSymbol
+                                name={
+                                    GIT_PROVIDER_ICON_MAPPING?.[value] || RESOURCE_ICON_NAMES.OTHER
+                                }
+                                width={20}
+                                height={20}
+                            />
+                        ),
+                        checkedIcon: (
+                            <UseSpriteSymbol
+                                name={
+                                    GIT_PROVIDER_ICON_MAPPING?.[value] || RESOURCE_ICON_NAMES.OTHER
+                                }
+                                width={20}
+                                height={20}
+                            />
+                        ),
                     };
                 })}
             />

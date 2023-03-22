@@ -1,8 +1,6 @@
 import { CreateGitServer } from '../../components/CreateGitServer';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
-import { useNamespace } from '../../hooks/useNamespace';
-import { streamGitServers } from '../../k8s/EDPGitServer';
-import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
+import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { pluginLib, React } from '../../plugin.globals';
 import { GitServerList } from './components/GitServerList';
 
@@ -11,37 +9,14 @@ const {
 } = pluginLib;
 
 export const EDPGitServerList = (): React.ReactElement => {
-    const { namespace } = useNamespace();
-    const [gitServers, setGitServers] = React.useState<EDPGitServerKubeObjectInterface[]>([]);
-    const [, setError] = React.useState<Error>(null);
-
-    const handleStoreGitServers = React.useCallback(
-        (gitServers: EDPGitServerKubeObjectInterface[]) => {
-            setGitServers(gitServers);
-        },
-        []
-    );
-
-    const handleError = React.useCallback((error: Error) => {
-        setError(error);
-    }, []);
-
-    React.useEffect(() => {
-        const cancelStream = streamGitServers(handleStoreGitServers, handleError, namespace);
-
-        return () => cancelStream();
-    }, [handleError, handleStoreGitServers, namespace]);
+    const [items, error] = EDPGitServerKubeObject.useList();
 
     return (
-        <SectionBox
-            title={
-                <SectionFilterHeader title="Git Servers" headerStyle="label" noNamespaceFilter />
-            }
-        >
+        <SectionBox title={<SectionFilterHeader title="Git Servers" headerStyle="label" />}>
             <CreateKubeObject>
                 <CreateGitServer />
             </CreateKubeObject>
-            <GitServerList gitServers={gitServers} />
+            <GitServerList gitServers={items} error={error} />
         </SectionBox>
     );
 };

@@ -1,4 +1,4 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
 interface EDPCodebaseSpecInterface {
     branchToCopyInDefaultBranch: string;
@@ -48,7 +48,7 @@ interface EDPCodebaseStatusInterface {
     value: string;
 }
 
-interface EDPCodebaseKubeObjectInterface extends EDPKubeObjectInterface {
+interface EDPCodebaseKubeObjectInterface extends KubeObjectInterface {
     spec: EDPCodebaseSpecInterface;
     status: EDPCodebaseStatusInterface;
 }

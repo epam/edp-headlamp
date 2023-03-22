@@ -1,4 +1,4 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
 export interface EDPGitServerSpec {
     gitHost: string;
@@ -20,7 +20,7 @@ export interface EDPGitServerStatus {
     value: string;
 }
 
-export interface EDPGitServerKubeObjectInterface extends EDPKubeObjectInterface {
+export interface EDPGitServerKubeObjectInterface extends KubeObjectInterface {
     spec: EDPGitServerSpec;
     status: EDPGitServerStatus;
 }

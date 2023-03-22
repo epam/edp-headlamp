@@ -1,8 +1,6 @@
 import { useCallback } from 'react';
-import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
-import { useNamespace } from '../../../../hooks/useNamespace';
-import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
+import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
 import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
 import { pluginLib, React } from '../../../../plugin.globals';
@@ -23,139 +21,45 @@ export const useCreateGitServer = ({
 }: {
     onSuccess?: () => void;
     onError?: () => void;
-}): {
-    createGitServer: (props: CreateGitServerProps) => Promise<void>;
-    mutations: {
-        gitServerCreateMutation: UseMutationResult<
-            EDPGitServerKubeObjectInterface,
-            Error,
-            { gitServerData: EDPGitServerKubeObjectInterface }
-        >;
-        gitServerSecretCreateMutation: UseMutationResult<
-            EDPKubeObjectInterface,
-            Error,
-            { gitServerSecretData: EDPKubeObjectInterface }
-        >;
-        gitServerSecretDeleteMutation: UseMutationResult<
-            void,
-            Error,
-            { gitServerSecretData: EDPKubeObjectInterface }
-        >;
-    };
-} => {
+}) => {
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
-    const { namespace } = useNamespace();
-    const {
-        showBeforeRequestMessage,
-        showRequestErrorMessage,
-        showRequestSuccessMessage,
-        showRequestErrorDetailedMessage,
-    } = useRequestStatusMessages();
 
-    const gitServerCreateMutation = useMutation<
+    const gitServerCreateMutation = useResourceCRUDMutation<
         EDPGitServerKubeObjectInterface,
-        Error,
-        {
-            gitServerData: EDPGitServerKubeObjectInterface;
-        }
-    >(
-        'gitServerCreateMutation',
-        ({ gitServerData }) => {
-            return EDPGitServerKubeObject.apiEndpoint.post(gitServerData);
-        },
-        {
-            onMutate: ({ gitServerData }) =>
-                showBeforeRequestMessage(gitServerData.metadata.name, CRUD_TYPES.CREATE),
-            onSuccess: (data, { gitServerData }) => {
-                showRequestSuccessMessage(gitServerData.metadata.name, CRUD_TYPES.CREATE);
-            },
-            onError: (error, { gitServerData }) => {
-                showRequestErrorMessage(gitServerData.metadata.name, CRUD_TYPES.CREATE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
+        CRUD_TYPES.CREATE
+    >('gitServerCreateMutation', EDPGitServerKubeObject, CRUD_TYPES.CREATE);
 
-    const gitServerSecretDeleteMutation = useMutation<
-        void,
-        Error,
-        {
-            gitServerSecretData: EDPKubeObjectInterface;
-        }
-    >(
-        'gitServerSecretDeleteMutation',
-        ({ gitServerSecretData }) => {
-            return SecretKubeObject.default.apiEndpoint.delete(
-                namespace,
-                gitServerSecretData.metadata.name
-            );
-        },
-        {
-            onMutate: ({ gitServerSecretData }) =>
-                showBeforeRequestMessage(gitServerSecretData.metadata.name, CRUD_TYPES.DELETE),
-            onSuccess: (data, { gitServerSecretData }) =>
-                showRequestSuccessMessage(gitServerSecretData.metadata.name, CRUD_TYPES.DELETE),
-            onError: (error, { gitServerSecretData }) => {
-                showRequestErrorMessage(gitServerSecretData.metadata.name, CRUD_TYPES.DELETE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
-
-    const gitServerSecretCreateMutation = useMutation<
+    const gitServerSecretDeleteMutation = useResourceCRUDMutation<
         EDPKubeObjectInterface,
-        Error,
-        {
-            gitServerSecretData: EDPKubeObjectInterface;
-        }
-    >(
-        'gitServerSecretCreateMutation',
-        ({ gitServerSecretData }) => {
-            return SecretKubeObject.default.apiEndpoint.post(gitServerSecretData);
-        },
-        {
-            onMutate: ({ gitServerSecretData }) =>
-                showBeforeRequestMessage(gitServerSecretData.metadata.name, CRUD_TYPES.CREATE),
-            onSuccess: (data, { gitServerSecretData }) => {
-                showRequestSuccessMessage(gitServerSecretData.metadata.name, CRUD_TYPES.CREATE);
-            },
-            onError: (error, { gitServerSecretData }) => {
-                showRequestErrorMessage(gitServerSecretData.metadata.name, CRUD_TYPES.CREATE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
+        CRUD_TYPES.DELETE
+    >('gitServerSecretDeleteMutation', SecretKubeObject.default, CRUD_TYPES.DELETE);
+
+    const gitServerSecretCreateMutation = useResourceCRUDMutation<
+        EDPKubeObjectInterface,
+        CRUD_TYPES.CREATE
+    >('gitServerSecretCreateMutation', SecretKubeObject.default, CRUD_TYPES.CREATE);
 
     const createGitServer = React.useCallback(
         async ({ gitServerData, gitServerSecretData }: CreateGitServerProps) => {
-            gitServerSecretCreateMutation.mutate(
-                { gitServerSecretData },
-                {
-                    onSuccess: () => {
-                        gitServerCreateMutation.mutate(
-                            { gitServerData },
-                            {
-                                onError: () => {
-                                    gitServerSecretDeleteMutation.mutate({ gitServerSecretData });
+            gitServerSecretCreateMutation.mutate(gitServerSecretData, {
+                onSuccess: () => {
+                    gitServerCreateMutation.mutate(gitServerData, {
+                        onError: () => {
+                            gitServerSecretDeleteMutation.mutate(gitServerSecretData);
 
-                                    invokeOnErrorCallback();
-                                },
-                            }
-                        );
+                            invokeOnErrorCallback();
+                        },
+                    });
 
-                        invokeOnSuccessCallback();
-                    },
-                    onError: () => {
-                        gitServerSecretDeleteMutation.mutate({ gitServerSecretData });
+                    invokeOnSuccessCallback();
+                },
+                onError: () => {
+                    gitServerSecretDeleteMutation.mutate(gitServerSecretData);
 
-                        invokeOnErrorCallback();
-                    },
-                }
-            );
+                    invokeOnErrorCallback();
+                },
+            });
         },
         [
             gitServerCreateMutation,

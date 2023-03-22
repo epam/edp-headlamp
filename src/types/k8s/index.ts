@@ -14,3 +14,15 @@ export interface EDPKubeMetadata
 export interface EDPKubeObjectInterface extends Omit<KubeObjectInterface, 'metadata'> {
     metadata: EDPKubeMetadata;
 }
+
+export interface HeadlampKubeObject<T extends KubeObjectInterface> {
+    jsonData: T;
+    isNamespaced: boolean;
+    kind: string;
+    listRoute: string;
+    detailsRoute: string;
+    pluralName: string;
+    metadata: T['metadata'];
+    spec: T['spec'];
+    status: T['status'];
+}

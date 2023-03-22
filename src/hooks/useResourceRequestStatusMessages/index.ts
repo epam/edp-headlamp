@@ -2,23 +2,18 @@ import { CRUD_TYPES } from '../../constants/crudTypes';
 import { Notistack } from '../../plugin.globals';
 
 const { useSnackbar } = Notistack;
-export const useRequestStatusMessages = (): {
-    showBeforeRequestMessage: (resourceName: string, mode: CRUD_TYPES) => void;
-    showRequestSuccessMessage: (resourceName: string, mode: CRUD_TYPES) => void;
-    showRequestErrorMessage: (resourceName: string, mode: CRUD_TYPES) => void;
-    showRequestErrorDetailedMessage: (error: unknown) => void;
-} => {
+export const useRequestStatusMessages = () => {
     const { enqueueSnackbar } = useSnackbar();
 
-    const showBeforeRequestMessage = (resourceName: string, mode: CRUD_TYPES) => {
+    const showBeforeRequestMessage = (kindName: string, resourceName: string, mode: CRUD_TYPES) => {
         const beforeRequestMessage = (() => {
             switch (mode) {
-                case 'create':
-                    return `Applying ${resourceName}`;
-                case 'edit':
-                    return `Updating ${resourceName}`;
-                case 'delete':
-                    return `Deleting ${resourceName}`;
+                case CRUD_TYPES.CREATE:
+                    return `Applying ${kindName} ${resourceName}`;
+                case CRUD_TYPES.EDIT:
+                    return `Updating ${kindName} ${resourceName}`;
+                case CRUD_TYPES.DELETE:
+                    return `Deleting ${kindName} ${resourceName}`;
             }
         })();
 
@@ -32,15 +27,19 @@ export const useRequestStatusMessages = (): {
         });
     };
 
-    const showRequestSuccessMessage = (resourceName: string, mode: CRUD_TYPES) => {
+    const showRequestSuccessMessage = (
+        kindName: string,
+        resourceName: string,
+        mode: CRUD_TYPES
+    ) => {
         const requestSuccessMessage = (() => {
             switch (mode) {
-                case 'create':
-                    return `${resourceName} has been successfully applied`;
-                case 'edit':
-                    return `${resourceName} has been successfully updated`;
-                case 'delete':
-                    return `${resourceName} has been successfully deleted`;
+                case CRUD_TYPES.CREATE:
+                    return `${kindName} ${resourceName} has been successfully applied`;
+                case CRUD_TYPES.EDIT:
+                    return `${kindName} ${resourceName} has been successfully updated`;
+                case CRUD_TYPES.DELETE:
+                    return `${kindName} ${resourceName} has been successfully deleted`;
             }
         })();
         enqueueSnackbar(requestSuccessMessage, {
@@ -53,15 +52,15 @@ export const useRequestStatusMessages = (): {
         });
     };
 
-    const showRequestErrorMessage = (resourceName: string, mode: CRUD_TYPES) => {
+    const showRequestErrorMessage = (kindName: string, resourceName: string, mode: CRUD_TYPES) => {
         const requestErrorMessage = (() => {
             switch (mode) {
-                case 'create':
-                    return `Failed to apply ${resourceName}`;
-                case 'edit':
-                    return `Failed to update ${resourceName}`;
-                case 'delete':
-                    return `Failed to delete ${resourceName}`;
+                case CRUD_TYPES.CREATE:
+                    return `Failed to apply ${kindName} ${resourceName}`;
+                case CRUD_TYPES.EDIT:
+                    return `Failed to update ${kindName} ${resourceName}`;
+                case CRUD_TYPES.DELETE:
+                    return `Failed to delete ${kindName} ${resourceName}`;
             }
         })();
 

@@ -1,6 +1,6 @@
 import { EnrichedApplication } from '../../../../../../../../../../../../../hooks/useApplicationsInCDPipeline';
+import { KubeObjectInterface } from '../../../../../../../../../../../../../plugin.types';
 import { DeepPartial } from '../../../../../../../../../../../../../types/global';
-
 export const applicationMock: DeepPartial<EnrichedApplication> = {
     application: {
         apiVersion: 'v2.edp.epam.com/v1',
@@ -47,7 +47,7 @@ export const applicationMock: DeepPartial<EnrichedApplication> = {
             username: 'system',
             value: 'active',
         },
-    },
+    } as KubeObjectInterface,
     toPromote: true,
     applicationImageStreams: [
         {

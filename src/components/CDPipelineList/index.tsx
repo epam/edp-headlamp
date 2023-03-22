@@ -7,13 +7,14 @@ const {
     Utils: { useFilterFunc },
 } = pluginLib;
 
-export const CDPipelineList = ({ CDPipelines }: CDPipelineListProps): React.ReactElement => {
+export const CDPipelineList = ({ CDPipelines, error }: CDPipelineListProps): React.ReactElement => {
     const columns = useColumns();
     const filterFunc = useFilterFunc();
 
     return (
         <HeadlampSimpleTable
             data={CDPipelines}
+            errorMessage={error?.toString()}
             columns={columns}
             rowsPerPage={[15, 25, 50]}
             filterFunction={filterFunc}

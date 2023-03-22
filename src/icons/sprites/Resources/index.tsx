@@ -10,6 +10,7 @@ import {
     Flask,
     Gerrit,
     Github,
+    Gitlab,
     Go,
     Gradle,
     Groovy,
@@ -64,6 +65,7 @@ export const Resources = (): React.ReactElement => {
             <Tekton />
             <Gerrit />
             <Github />
+            <Gitlab />
             <Jenkins />
         </svg>
     );

@@ -7,13 +7,14 @@ const {
     Utils: { useFilterFunc },
 } = pluginLib;
 
-export const GitServerList = ({ gitServers }: GitServerListProps): React.ReactElement => {
+export const GitServerList = ({ gitServers, error }: GitServerListProps): React.ReactElement => {
     const columns = useColumns();
     const filterFunc = useFilterFunc();
 
     return (
         <HeadlampSimpleTable
             data={gitServers}
+            errorMessage={error?.toString()}
             columns={columns}
             rowsPerPage={[15, 25, 50]}
             filterFunction={filterFunc}

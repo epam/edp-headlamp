@@ -1,9 +1,7 @@
 import { useCallback } from 'react';
-import { useMutation, UseMutationResult } from 'react-query';
 import { createCodebaseSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
-import { useNamespace } from '../../../../hooks/useNamespace';
-import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
+import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { pluginLib, React } from '../../../../plugin.globals';
@@ -25,127 +23,36 @@ export const useCreateCodebase = ({
 }: {
     onSuccess?: () => void;
     onError?: () => void;
-}): {
-    createCodebase: (props: CreateCodebaseProps) => Promise<void>;
-    mutations: {
-        codebaseCreateMutation: UseMutationResult<
-            EDPCodebaseKubeObjectInterface,
-            Error,
-            { codebaseData: EDPCodebaseKubeObjectInterface }
-        >;
-        codebaseSecretCreateMutation: UseMutationResult<
-            EDPKubeObjectInterface,
-            Error,
-            { codebaseSecretData: EDPKubeObjectInterface }
-        >;
-        codebaseSecretDeleteMutation: UseMutationResult<
-            void,
-            Error,
-            { codebaseSecretData: EDPKubeObjectInterface }
-        >;
-    };
-} => {
+}) => {
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
-    const { namespace } = useNamespace();
-    const {
-        showBeforeRequestMessage,
-        showRequestErrorMessage,
-        showRequestSuccessMessage,
-        showRequestErrorDetailedMessage,
-    } = useRequestStatusMessages();
 
-    const codebaseCreateMutation = useMutation<
+    const codebaseCreateMutation = useResourceCRUDMutation<
         EDPCodebaseKubeObjectInterface,
-        Error,
-        {
-            codebaseData: EDPCodebaseKubeObjectInterface;
-        }
-    >(
-        'codebaseCreateMutation',
-        ({ codebaseData }) => {
-            return EDPCodebaseKubeObject.apiEndpoint.post(codebaseData);
-        },
-        {
-            onMutate: ({ codebaseData }) =>
-                showBeforeRequestMessage(codebaseData.metadata.name, CRUD_TYPES.CREATE),
-            onSuccess: (data, { codebaseData }) => {
-                showRequestSuccessMessage(codebaseData.metadata.name, CRUD_TYPES.CREATE);
-            },
-            onError: (error, { codebaseData }) => {
-                showRequestErrorMessage(codebaseData.metadata.name, CRUD_TYPES.CREATE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
+        CRUD_TYPES.CREATE
+    >('codebaseCreateMutation', EDPCodebaseKubeObject, CRUD_TYPES.CREATE);
 
-    const codebaseSecretDeleteMutation = useMutation<
-        void,
-        Error,
-        {
-            codebaseSecretData: EDPKubeObjectInterface;
-        }
-    >(
-        'codebaseSecretDeleteMutation',
-        ({ codebaseSecretData }) => {
-            return SecretKubeObject.default.apiEndpoint.delete(
-                namespace,
-                codebaseSecretData.metadata.name
-            );
-        },
-        {
-            onMutate: ({ codebaseSecretData }) =>
-                showBeforeRequestMessage(codebaseSecretData.metadata.name, CRUD_TYPES.DELETE),
-            onSuccess: (data, { codebaseSecretData }) =>
-                showRequestSuccessMessage(codebaseSecretData.metadata.name, CRUD_TYPES.DELETE),
-            onError: (error, { codebaseSecretData }) => {
-                showRequestErrorMessage(codebaseSecretData.metadata.name, CRUD_TYPES.DELETE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
-
-    const codebaseSecretCreateMutation = useMutation<
+    const codebaseSecretDeleteMutation = useResourceCRUDMutation<
         EDPKubeObjectInterface,
-        Error,
-        {
-            codebaseSecretData: EDPKubeObjectInterface;
-        }
-    >(
-        'codebaseSecretCreateMutation',
-        ({ codebaseSecretData }) => {
-            return SecretKubeObject.default.apiEndpoint.post(codebaseSecretData);
-        },
-        {
-            onMutate: ({ codebaseSecretData }) =>
-                showBeforeRequestMessage(codebaseSecretData.metadata.name, CRUD_TYPES.CREATE),
-            onSuccess: (data, { codebaseSecretData }) => {
-                showRequestSuccessMessage(codebaseSecretData.metadata.name, CRUD_TYPES.CREATE);
-            },
-            onError: (error, { codebaseSecretData }) => {
-                showRequestErrorMessage(codebaseSecretData.metadata.name, CRUD_TYPES.CREATE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
+        CRUD_TYPES.DELETE
+    >('codebaseSecretDeleteMutation', SecretKubeObject.default, CRUD_TYPES.DELETE);
+
+    const codebaseSecretCreateMutation = useResourceCRUDMutation<
+        EDPKubeObjectInterface,
+        CRUD_TYPES.CREATE
+    >('codebaseSecretCreateMutation', SecretKubeObject.default, CRUD_TYPES.CREATE);
 
     const createCodebase = React.useCallback(
         async ({ codebaseData, codebaseAuthData }: CreateCodebaseProps) => {
             if (codebaseAuthData === null) {
-                codebaseCreateMutation.mutate(
-                    { codebaseData },
-                    {
-                        onSuccess: () => {
-                            invokeOnSuccessCallback();
-                        },
-                        onError: () => {
-                            invokeOnErrorCallback();
-                        },
-                    }
-                );
+                codebaseCreateMutation.mutate(codebaseData, {
+                    onSuccess: () => {
+                        invokeOnSuccessCallback();
+                    },
+                    onError: () => {
+                        invokeOnErrorCallback();
+                    },
+                });
                 return;
             }
 
@@ -157,35 +64,28 @@ export const useCreateCodebase = ({
                 repositoryPasswordOrApiToken
             );
 
-            codebaseSecretCreateMutation.mutate(
-                { codebaseSecretData: codebaseSecretData as EDPKubeObjectInterface },
-                {
-                    onSuccess: () => {
-                        codebaseCreateMutation.mutate(
-                            { codebaseData },
-                            {
-                                onError: () => {
-                                    codebaseSecretDeleteMutation.mutate({
-                                        codebaseSecretData:
-                                            codebaseSecretData as EDPKubeObjectInterface,
-                                    });
+            codebaseSecretCreateMutation.mutate(codebaseSecretData as EDPKubeObjectInterface, {
+                onSuccess: () => {
+                    codebaseCreateMutation.mutate(codebaseData, {
+                        onError: () => {
+                            codebaseSecretDeleteMutation.mutate(
+                                codebaseSecretData as EDPKubeObjectInterface
+                            );
 
-                                    invokeOnErrorCallback();
-                                },
-                            }
-                        );
+                            invokeOnErrorCallback();
+                        },
+                    });
 
-                        invokeOnSuccessCallback();
-                    },
-                    onError: () => {
-                        codebaseSecretDeleteMutation.mutate({
-                            codebaseSecretData: codebaseSecretData as EDPKubeObjectInterface,
-                        });
+                    invokeOnSuccessCallback();
+                },
+                onError: () => {
+                    codebaseSecretDeleteMutation.mutate(
+                        codebaseSecretData as EDPKubeObjectInterface
+                    );
 
-                        invokeOnErrorCallback();
-                    },
-                }
-            );
+                    invokeOnErrorCallback();
+                },
+            });
         },
         [
             codebaseCreateMutation,

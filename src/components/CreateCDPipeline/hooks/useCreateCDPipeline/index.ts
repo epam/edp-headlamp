@@ -1,8 +1,6 @@
 import { useCallback } from 'react';
-import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
-import { useNamespace } from '../../../../hooks/useNamespace';
-import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
+import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
 import { EDPCDPipelineKubeObject } from '../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
@@ -20,186 +18,61 @@ export const useCreateCDPipeline = ({
 }: {
     onSuccess?: () => void;
     onError?: () => void;
-}): {
-    createCDPipeline: (props: CreateCDPipelineProps) => Promise<void>;
-    mutations: {
-        CDPipelineCreateMutation: UseMutationResult<
-            EDPCDPipelineKubeObjectInterface,
-            Error,
-            { CDPipelineData: EDPCDPipelineKubeObjectInterface }
-        >;
-        CDPipelineDeleteMutation: UseMutationResult<
-            void,
-            Error,
-            { CDPipelineData: EDPCDPipelineKubeObjectInterface }
-        >;
-        CDPipelineStageCreateMutation: UseMutationResult<
-            EDPCDPipelineStageKubeObjectInterface,
-            Error,
-            { CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface }
-        >;
-        CDPipelineStageDeleteMutation: UseMutationResult<
-            void,
-            Error,
-            { CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface }
-        >;
-    };
-} => {
+}) => {
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
-    const { namespace } = useNamespace();
-    const {
-        showBeforeRequestMessage,
-        showRequestErrorMessage,
-        showRequestSuccessMessage,
-        showRequestErrorDetailedMessage,
-    } = useRequestStatusMessages();
 
-    const CDPipelineCreateMutation = useMutation<
+    const CDPipelineCreateMutation = useResourceCRUDMutation<
         EDPCDPipelineKubeObjectInterface,
-        Error,
-        {
-            CDPipelineData: EDPCDPipelineKubeObjectInterface;
-        }
-    >(
-        'CDPipelineCreateMutation',
-        ({ CDPipelineData }) => {
-            return EDPCDPipelineKubeObject.apiEndpoint.post(CDPipelineData);
-        },
-        {
-            onMutate: ({ CDPipelineData }) =>
-                showBeforeRequestMessage(CDPipelineData.metadata.name, CRUD_TYPES.CREATE),
-            onSuccess: (data, { CDPipelineData }) => {
-                showRequestSuccessMessage(CDPipelineData.metadata.name, CRUD_TYPES.CREATE);
-            },
-            onError: (error, { CDPipelineData }) => {
-                showRequestErrorMessage(CDPipelineData.metadata.name, CRUD_TYPES.CREATE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
+        CRUD_TYPES.CREATE
+    >('CDPipelineCreateMutation', EDPCDPipelineKubeObject, CRUD_TYPES.CREATE);
 
-    const CDPipelineDeleteMutation = useMutation<
-        void,
-        Error,
-        {
-            CDPipelineData: EDPCDPipelineKubeObjectInterface;
-        }
-    >(
-        'CDPipelineDeleteMutation',
-        ({ CDPipelineData }) => {
-            return EDPCDPipelineKubeObject.apiEndpoint.delete(
-                namespace,
-                CDPipelineData.metadata.name
-            );
-        },
-        {
-            onMutate: ({ CDPipelineData }) =>
-                showBeforeRequestMessage(CDPipelineData.metadata.name, CRUD_TYPES.DELETE),
-            onSuccess: (data, { CDPipelineData }) =>
-                showRequestSuccessMessage(CDPipelineData.metadata.name, CRUD_TYPES.DELETE),
-            onError: (error, { CDPipelineData }) => {
-                showRequestErrorMessage(CDPipelineData.metadata.name, CRUD_TYPES.DELETE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
+    const CDPipelineDeleteMutation = useResourceCRUDMutation<
+        EDPCDPipelineKubeObjectInterface,
+        CRUD_TYPES.DELETE
+    >('CDPipelineDeleteMutation', EDPCDPipelineKubeObject, CRUD_TYPES.DELETE);
 
-    const CDPipelineStageCreateMutation = useMutation<
+    const CDPipelineStageCreateMutation = useResourceCRUDMutation<
         EDPCDPipelineStageKubeObjectInterface,
-        Error,
-        {
-            CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface;
-        }
-    >(
-        'CDPipelineStageCreateMutation',
-        ({ CDPipelineStageData }) => {
-            return EDPCDPipelineStageKubeObject.apiEndpoint.post(CDPipelineStageData);
-        },
-        {
-            onMutate: ({ CDPipelineStageData }) =>
-                showBeforeRequestMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.CREATE),
-            onSuccess: (data, { CDPipelineStageData }) => {
-                showRequestSuccessMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.CREATE);
-            },
-            onError: (error, { CDPipelineStageData }) => {
-                showRequestErrorMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.CREATE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
+        CRUD_TYPES.CREATE
+    >('CDPipelineStageCreateMutation', EDPCDPipelineStageKubeObject, CRUD_TYPES.CREATE);
 
-    const CDPipelineStageDeleteMutation = useMutation<
-        void,
-        Error,
-        {
-            CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface;
-        }
-    >(
-        'CDPipelineStageDeleteMutation',
-        ({ CDPipelineStageData }) => {
-            return EDPCDPipelineStageKubeObject.apiEndpoint.delete(
-                namespace,
-                CDPipelineStageData.metadata.name
-            );
-        },
-        {
-            onMutate: ({ CDPipelineStageData }) =>
-                showBeforeRequestMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.DELETE),
-            onSuccess: (data, { CDPipelineStageData }) =>
-                showRequestSuccessMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.DELETE),
-            onError: (error, { CDPipelineStageData }) => {
-                showRequestErrorMessage(CDPipelineStageData.metadata.name, CRUD_TYPES.DELETE);
-                showRequestErrorDetailedMessage(error);
-                console.error(error);
-            },
-        }
-    );
+    const CDPipelineStageDeleteMutation = useResourceCRUDMutation<
+        EDPCDPipelineStageKubeObjectInterface,
+        CRUD_TYPES.DELETE
+    >('CDPipelineStageDeleteMutation', EDPCDPipelineStageKubeObject, CRUD_TYPES.DELETE);
 
     const createCDPipeline = React.useCallback(
         async ({ CDPipelineData, CDPipelineStagesData }: CreateCDPipelineProps) => {
-            CDPipelineCreateMutation.mutate(
-                { CDPipelineData },
-                {
-                    onSuccess: async () => {
-                        const createdStages: EDPCDPipelineStageKubeObjectInterface[] = [];
+            CDPipelineCreateMutation.mutate(CDPipelineData, {
+                onSuccess: async () => {
+                    const createdStages: EDPCDPipelineStageKubeObjectInterface[] = [];
 
-                        for await (const stage of CDPipelineStagesData) {
-                            CDPipelineStageCreateMutation.mutate(
-                                { CDPipelineStageData: stage },
-                                {
-                                    onSuccess: (data, { CDPipelineStageData }) => {
-                                        createdStages.push(CDPipelineStageData);
+                    for await (const stage of CDPipelineStagesData) {
+                        CDPipelineStageCreateMutation.mutate(stage, {
+                            onSuccess: (data, { CDPipelineStageData }) => {
+                                createdStages.push(CDPipelineStageData);
 
-                                        invokeOnSuccessCallback();
-                                    },
-                                    onError: async () => {
-                                        CDPipelineDeleteMutation.mutate({ CDPipelineData });
+                                invokeOnSuccessCallback();
+                            },
+                            onError: async () => {
+                                CDPipelineDeleteMutation.mutate(CDPipelineData);
 
-                                        for await (const createdStage of createdStages) {
-                                            CDPipelineStageDeleteMutation.mutate({
-                                                CDPipelineStageData: createdStage,
-                                            });
-                                        }
-
-                                        invokeOnErrorCallback();
-                                    },
+                                for await (const createdStage of createdStages) {
+                                    CDPipelineStageDeleteMutation.mutate(createdStage);
                                 }
-                            );
-                        }
-                    },
-                    onError: () => {
-                        CDPipelineDeleteMutation.mutate({
-                            CDPipelineData,
-                        });
 
-                        invokeOnErrorCallback();
-                    },
-                }
-            );
+                                invokeOnErrorCallback();
+                            },
+                        });
+                    }
+                },
+                onError: () => {
+                    CDPipelineDeleteMutation.mutate(CDPipelineData);
+
+                    invokeOnErrorCallback();
+                },
+            });
         },
         [
             CDPipelineCreateMutation,
