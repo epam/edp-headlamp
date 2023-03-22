@@ -116,7 +116,10 @@ export const GroovyPipelineLibrary = ({
                         control={control}
                         errors={errors}
                         disabled={!chosenGroovyLibraryBranches.length}
-                        options={chosenGroovyLibraryBranches}
+                        options={chosenGroovyLibraryBranches.map(el => ({
+                            label: el.specBranchName,
+                            value: el.metadataBranchName,
+                        }))}
                     />
                 </Render>
             </Grid>

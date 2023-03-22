@@ -12,16 +12,16 @@ interface useGroovyLibrariesWithTheirBranchesProps {
 
 interface GroovyLibraryWithBranches {
     option: SelectOption;
-    branches: SelectOption[];
+    branches: {
+        specBranchName: string;
+        metadataBranchName: string;
+    }[];
 }
 
 export const useGroovyLibrariesWithTheirBranches = ({
     namespace,
     defaultOption,
-}: useGroovyLibrariesWithTheirBranchesProps): {
-    groovyLibraries: { option: SelectOption; branches: SelectOption[] }[];
-    error: Error;
-} => {
+}: useGroovyLibrariesWithTheirBranchesProps) => {
     const [groovyLibraries, setGroovyLibraries] = React.useState<GroovyLibraryWithBranches[]>([
         { option: defaultOption, branches: [] },
     ]);
@@ -42,15 +42,13 @@ export const useGroovyLibrariesWithTheirBranches = ({
                 const groovyLibraries = libraries.filter(el => isGroovyLibrary(el));
                 const groovyLibrariesWithBranches = await Promise.all(
                     groovyLibraries.map(async ({ metadata: { name } }) => {
-                        const { items: branches } = await getCodebaseBranchesByCodebaseLabel(
-                            namespace,
-                            name
-                        );
+                        const { items: codebaseBranches } =
+                            await getCodebaseBranchesByCodebaseLabel(namespace, name);
 
-                        if (branches.length) {
-                            const branchesNames = branches.map(({ metadata: { name } }) => ({
-                                value: name,
-                                label: name,
+                        if (codebaseBranches.length) {
+                            const branchesNames = codebaseBranches.map(el => ({
+                                specBranchName: el.spec.branchName,
+                                metadataBranchName: el.metadata.name,
                             }));
 
                             return {

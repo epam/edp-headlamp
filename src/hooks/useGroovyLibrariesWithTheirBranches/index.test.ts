@@ -35,11 +35,16 @@ describe('testing useGroovyLibrariesWithTheirBranches hook', () => {
         await expect(result.current.groovyLibraries).toEqual([
             {
                 option: { value: 'test-groovy', label: 'test-groovy' },
-                branches: [{ value: 'test-groovy-master', label: 'test-groovy-master' }],
+                branches: [{ specBranchName: 'master', metadataBranchName: 'test-groovy-master' }],
             },
             {
                 option: { value: 'test-lib', label: 'test-lib' },
-                branches: [{ value: 'test-groovy-master', label: 'test-groovy-master' }],
+                branches: [
+                    {
+                        specBranchName: 'master',
+                        metadataBranchName: 'test-groovy-master',
+                    },
+                ],
             },
         ]);
         await expect(result.current.error).toBeNull();
