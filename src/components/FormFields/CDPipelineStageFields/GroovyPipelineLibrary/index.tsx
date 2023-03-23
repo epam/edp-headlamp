@@ -118,7 +118,7 @@ export const GroovyPipelineLibrary = ({
                         disabled={!chosenGroovyLibraryBranches.length}
                         options={chosenGroovyLibraryBranches.map(el => ({
                             label: el.specBranchName,
-                            value: el.metadataBranchName,
+                            value: el.specBranchName,
                         }))}
                     />
                 </Render>
