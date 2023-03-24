@@ -83,14 +83,14 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             name: '.NET',
             value: CODEBASE_COMMON_LANGUAGES.DOTNET,
             icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.DOTNET],
-            availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
+            availableCITools: [CI_TOOLS.JENKINS],
         },
         frameworks: {
             [CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1]: {
                 name: '.NET 3.1',
                 value: CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1,
                 icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1],
-                availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
+                availableCITools: [CI_TOOLS.JENKINS],
             },
         },
         buildTools: {
@@ -98,7 +98,7 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 name: '.NET',
                 value: CODEBASE_COMMON_BUILD_TOOLS.DOTNET,
                 icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.DOTNET],
-                availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
+                availableCITools: [CI_TOOLS.JENKINS],
             },
         },
     },
