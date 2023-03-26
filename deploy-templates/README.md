@@ -1,6 +1,6 @@
 # edp-headlamp
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.2](https://img.shields.io/badge/AppVersion-0.2.2-informational?style=flat-square)
+![Version: 0.6.0-SNAPSHOT](https://img.shields.io/badge/Version-0.6.0--SNAPSHOT-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.6.0-SNAPSHOT](https://img.shields.io/badge/AppVersion-0.6.0--SNAPSHOT-informational?style=flat-square)
 
 A Helm chart for EDP Headlamp
 
@@ -35,7 +35,7 @@ A Helm chart for EDP Headlamp
 | global.dnsWildCard | string | `nil` | a cluster DNS wildcard name |
 | global.edpName | string | `""` | namespace or a project name (in case of OpenShift) |
 | global.keycloakUrl | string | `"https://keycloak.example.com"` | Keycloak URL |
-| global.platform | string | `"openshift"` | platform type that can be "kubernetes" or "openshift" |
+| global.platform | string | `"kubernetes"` | platform type that can be "kubernetes" or "openshift" |
 | image.repository | string | `"epamedp/edp-headlamp"` | EDP headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp) |
 | image.tag | string | `nil` | EDP headlamp Docker image tag. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp/tags) |
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |

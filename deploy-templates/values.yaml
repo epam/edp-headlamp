@@ -11,7 +11,7 @@ global:
   # -- a cluster DNS wildcard name
   dnsWildCard:
   # -- platform type that can be "kubernetes" or "openshift"
-  platform: "openshift"
+  platform: "kubernetes"
   # -- Keycloak URL
   keycloakUrl: "https://keycloak.example.com"
 

@@ -3,8 +3,8 @@ description: A Helm chart for EDP Headlamp
 home: https://epam.github.io/edp-install/
 name: edp-headlamp
 type: application
-version: 0.2.2
-appVersion: 0.2.2
+version: 0.6.0-SNAPSHOT
+appVersion: 0.6.0-SNAPSHOT
 icon: https://raw.githubusercontent.com/kinvolk/headlamp/main/docs/headlamp_light.svg
 keywords:
   - edp
@@ -26,10 +26,10 @@ annotations:
   artifacthub.io/license: Apache-2.0
   artifacthub.io/operator: "true"
   artifacthub.io/images: |
-    - name: ghcr.io/kinvolk/headlamp:v0.12.0
-      image: ghcr.io/kinvolk/headlamp:v0.12.0
-    - name: edp-headlamp:0.2.0
-      image: epamedp/edp-headlamp:0.2.0
+    - name: ghcr.io/headlamp-k8s/headlamp:v0.16.0
+      image: ghcr.io/headlamp-k8s/headlamp:v0.16.0
+    - name: edp-headlamp:0.5.0
+      image: epamedp/edp-headlamp:0.5.0
   artifacthub.io/operatorCapabilities: Full Lifecycle
   artifacthub.io/links: |
     - name: EDP Documentation
