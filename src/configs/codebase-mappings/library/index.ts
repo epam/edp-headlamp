@@ -68,6 +68,24 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
                 icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.REACT],
                 availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
             },
+            [CODEBASE_COMMON_FRAMEWORKS.VUE]: {
+                name: 'Vue',
+                value: CODEBASE_COMMON_FRAMEWORKS.VUE,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.VUE],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
+            [CODEBASE_COMMON_FRAMEWORKS.ANGULAR]: {
+                name: 'Angular',
+                value: CODEBASE_COMMON_FRAMEWORKS.ANGULAR,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.ANGULAR],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
+            [CODEBASE_COMMON_FRAMEWORKS.EXPRESS]: {
+                name: 'Express',
+                value: CODEBASE_COMMON_FRAMEWORKS.EXPRESS,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.EXPRESS],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
         },
         buildTools: {
             [CODEBASE_COMMON_BUILD_TOOLS.NPM]: {

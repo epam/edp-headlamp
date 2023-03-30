@@ -28,5 +28,8 @@ export const RESOURCE_ICON_NAMES = {
     GITHUB: 'github',
     GITLAB: 'gitlab',
     GERRIT: 'gerrit',
+    VUE: 'vue',
+    EXPRESS: 'express',
+    ANGULAR: 'angular',
     OTHER: 'other',
 } as const;

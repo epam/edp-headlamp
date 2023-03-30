@@ -1,11 +1,13 @@
 import { React } from '../../../plugin.globals';
 import {
+    Angular,
     Beego,
     Codenarc,
     Container,
     CSharp,
     Docker,
     DotNet,
+    Express,
     Fastapi,
     Flask,
     Gerrit,
@@ -29,6 +31,7 @@ import {
     ReactSymbol,
     Tekton,
     Terraform,
+    Vue,
 } from './symbols';
 
 export const Resources = (): React.ReactElement => {
@@ -67,6 +70,9 @@ export const Resources = (): React.ReactElement => {
             <Github />
             <Gitlab />
             <Jenkins />
+            <Vue />
+            <Express />
+            <Angular />
         </svg>
     );
 };
