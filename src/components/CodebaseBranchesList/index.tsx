@@ -1,4 +1,5 @@
 import { useGitServers } from '../../hooks/useGitServers';
+import { useTriggerTemplates } from '../../hooks/useTriggerTemplates';
 import { streamCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
 import { pluginLib, React } from '../../plugin.globals';
@@ -31,6 +32,7 @@ export const CodebaseBranchesList = ({
     };
 
     const { gitServers } = useGitServers({ namespace });
+    const { triggerTemplates } = useTriggerTemplates({ namespace });
 
     const handleStoreCodebaseBranches = React.useCallback(
         (data: EDPCodebaseBranchKubeObjectInterface[]) => {
@@ -80,6 +82,7 @@ export const CodebaseBranchesList = ({
                                 codebaseData={codebaseData}
                                 handlePanelChange={handleChange}
                                 gitServers={gitServers}
+                                triggerTemplates={triggerTemplates}
                             />
                         );
                     }

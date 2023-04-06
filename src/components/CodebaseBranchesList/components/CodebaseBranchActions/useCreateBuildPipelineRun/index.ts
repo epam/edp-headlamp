@@ -28,6 +28,7 @@ export interface CreateBuildPipelineRunProps {
         sshPort: number;
         nameSshKeySecret: string;
     };
+    storageSize: string;
     randomPostfix: string;
 }
 

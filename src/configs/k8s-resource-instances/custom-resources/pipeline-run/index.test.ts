@@ -43,6 +43,7 @@ describe('testing createBuildPipelineRunInstance', () => {
                 sshPort: 123,
                 nameSshKeySecret: 'test-ssh-key-secret',
             },
+            storageSize: '1Gi',
             randomPostfix,
         });
 

@@ -27,6 +27,7 @@ interface createBuildPipelineRunInstanceProps {
         sshPort: number;
         nameSshKeySecret: string;
     };
+    storageSize: string;
     randomPostfix: string;
 }
 
@@ -52,6 +53,7 @@ export const createBuildPipelineRunInstance = ({
     },
     codebaseBranchData: { codebaseBranchMetadataName, codebaseBranchName },
     gitServerData: { gitUser, gitHost, gitProvider, sshPort, nameSshKeySecret },
+    storageSize,
     randomPostfix,
 }: createBuildPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
     const truncatedCodebaseType = codebaseType.slice(0, 3);
@@ -115,7 +117,7 @@ export const createBuildPipelineRunInstance = ({
                             accessModes: ['ReadWriteOnce'],
                             resources: {
                                 requests: {
-                                    storage: '1Gi',
+                                    storage: storageSize,
                                 },
                             },
                         },

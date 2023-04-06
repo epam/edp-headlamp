@@ -20,6 +20,7 @@ export const CodebaseBranchActions = ({
     defaultBranch,
     codebase,
     gitServers,
+    triggerTemplates,
 }: CodebaseBranchActionsProps): React.ReactElement => {
     const {
         spec: { ciTool },
@@ -44,6 +45,19 @@ export const CodebaseBranchActions = ({
 
     const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
 
+    const storageSize = React.useMemo(() => {
+        if (!triggerTemplates?.length) {
+            return;
+        }
+
+        const buildTriggerTemplate = triggerTemplates.find(
+            el => el.metadata.name === `${codebase.spec.gitServer}-build-template`
+        );
+
+        return buildTriggerTemplate?.spec?.resourcetemplates?.[0]?.spec?.workspaces?.[0]
+            ?.volumeClaimTemplate?.spec?.resources?.requests?.storage;
+    }, [codebase.spec.gitServer, triggerTemplates]);
+
     const randomPostfix = createRandomFiveSymbolString();
 
     const buildAction = React.useMemo(() => {
@@ -56,6 +70,11 @@ export const CodebaseBranchActions = ({
             icon: ICONS['PLAY'],
             action: async () => {
                 handleCloseActionsMenu();
+
+                if (!storageSize) {
+                    throw new Error(`Trigger template's storage property has not been found`);
+                }
+
                 await createBuildPipelineRun({
                     namespace: codebase.metadata.namespace,
                     codebaseBranchData: {
@@ -78,18 +97,32 @@ export const CodebaseBranchActions = ({
                         sshPort: gitServerByCodebase.spec.sshPort,
                         nameSshKeySecret: gitServerByCodebase.spec.nameSshKeySecret,
                     },
+                    storageSize: storageSize,
                     randomPostfix,
                 });
             },
         });
     }, [
         ciTool,
-        codebase,
-        codebaseBranchData,
+        codebase.metadata.name,
+        codebase.metadata.namespace,
+        codebase.spec.buildTool,
+        codebase.spec.framework,
+        codebase.spec.gitUrlPath,
+        codebase.spec.strategy,
+        codebase.spec.type,
+        codebase.spec.versioning.type,
+        codebaseBranchData.metadata.name,
+        codebaseBranchData.spec.branchName,
         createBuildPipelineRun,
-        gitServerByCodebase,
+        gitServerByCodebase.spec.gitHost,
+        gitServerByCodebase.spec.gitProvider,
+        gitServerByCodebase.spec.gitUser,
+        gitServerByCodebase.spec.nameSshKeySecret,
+        gitServerByCodebase.spec.sshPort,
         handleCloseActionsMenu,
         randomPostfix,
+        storageSize,
     ]);
 
     const actions: KubeObjectAction[] = React.useMemo(() => {

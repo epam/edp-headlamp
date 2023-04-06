@@ -43,6 +43,7 @@ export const CodebaseBranch = ({
     handlePanelChange,
     codebaseData,
     gitServers,
+    triggerTemplates,
 }: CodebaseBranchProps): React.ReactElement => {
     const {
         register,
@@ -197,6 +198,7 @@ export const CodebaseBranch = ({
                                         defaultBranch={defaultBranch}
                                         codebase={codebaseData}
                                         gitServers={gitServers}
+                                        triggerTemplates={triggerTemplates}
                                     />
                                 </Grid>
                             </Grid>
