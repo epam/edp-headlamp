@@ -19,13 +19,14 @@ const { Grid } = MuiCore;
 export const CodebaseInfo = (): React.ReactElement => {
     const { names, handleFormFieldChange, setType } = React.useContext(FormDataContext);
 
-    const { watch, resetField } = useFormContext();
+    const { watch, resetField, setValue } = useFormContext();
 
     const strategyFieldValue = watch(names.strategy.name);
     const hasCodebaseAuthFieldValue = watch(names.hasCodebaseAuth.name);
 
     useUpdateFieldsDependingOnChosenIntegrationStrategy({
         watch,
+        setValue,
         handleFormFieldChange,
         resetField,
         names,

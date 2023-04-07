@@ -4,6 +4,7 @@ import { FieldEventTarget, FormNameObject } from '../../../../../types/forms';
 
 interface UseUpdateFieldsDependingOnChosenIntegrationStrategyProps {
     watch: (name: string) => string;
+    setValue: (name: string, value: any) => void;
     names: { [key: string]: FormNameObject };
     handleFormFieldChange(eventTarget: FieldEventTarget): void;
     resetField: (name: string) => void;
@@ -11,11 +12,13 @@ interface UseUpdateFieldsDependingOnChosenIntegrationStrategyProps {
 
 export const useUpdateFieldsDependingOnChosenIntegrationStrategy = ({
     watch,
+    setValue,
     handleFormFieldChange,
     resetField,
     names,
 }: UseUpdateFieldsDependingOnChosenIntegrationStrategyProps): void => {
     const strategyFieldValue = watch(names.strategy.name);
+    const nameFieldValue = watch(names.name.name);
 
     const resetFields = React.useCallback(
         (fieldNames: string[]) => {
@@ -41,6 +44,15 @@ export const useUpdateFieldsDependingOnChosenIntegrationStrategy = ({
                         names.repositoryLogin.name,
                         names.repositoryPasswordOrApiToken.name,
                     ]);
+
+                    if (nameFieldValue) {
+                        setValue(names.gitUrlPath.name, `/${nameFieldValue}`);
+                        handleFormFieldChange({
+                            name: names.gitUrlPath.name,
+                            value: `/${nameFieldValue}`,
+                        });
+                    }
+
                     break;
 
                 case CODEBASE_CREATION_STRATEGIES['CLONE']:
@@ -54,6 +66,7 @@ export const useUpdateFieldsDependingOnChosenIntegrationStrategy = ({
 
                 case CODEBASE_CREATION_STRATEGIES['IMPORT']:
                     resetFields([
+                        names.gitUrlPath.name,
                         names.repositoryUrl.name,
                         names.hasCodebaseAuth.name,
                         names.repositoryLogin.name,
@@ -67,5 +80,13 @@ export const useUpdateFieldsDependingOnChosenIntegrationStrategy = ({
                     break;
             }
         }
-    }, [strategyFieldValue, names, resetField, handleFormFieldChange, resetFields]);
+    }, [
+        strategyFieldValue,
+        names,
+        resetField,
+        handleFormFieldChange,
+        resetFields,
+        setValue,
+        nameFieldValue,
+    ]);
 };
