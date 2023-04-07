@@ -46,6 +46,7 @@ interface EDPCodebaseStatusInterface {
     status: string;
     username: string;
     value: string;
+    gitWebUrl: string;
 }
 
 interface EDPCodebaseKubeObjectInterface extends KubeObjectInterface {

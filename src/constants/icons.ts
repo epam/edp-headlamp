@@ -9,8 +9,6 @@ export enum ICONS {
     PANEL = 'material-symbols:view-quilt-outline-rounded',
     INFINITY = 'ion:infinite-outline',
     APPLICATION = 'fluent:app-generic-24-regular',
-    TEST_APPLICATION = 'file-icons:test-generic',
-    BOOKS = 'fluent:library-16-regular',
     BUCKET = 'mdi:delete',
     CHECK_CIRCLE = 'bi:check-circle',
     CROSS_CIRCLE = 'uiw:circle-close-o',
@@ -28,4 +26,6 @@ export enum ICONS {
     UNKNOWN = 'pajamas:severity-unknown',
     ARROW_CHECK = 'material-symbols:check-circle-outline-rounded',
     ARROW_CIRCLE_UP = 'material-symbols:arrow-circle-up-outline-rounded',
+    GIT_BRANCH = 'ph:git-branch',
+    NEW_WINDOW = 'radix-icons:open-in-new-window',
 }

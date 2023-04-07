@@ -18,13 +18,24 @@ import { Render } from '../../../Render';
 import { StatusIcon } from '../../../StatusIcon';
 import { isDefaultBranch } from '../../utils';
 import { CodebaseBranchActions } from '../CodebaseBranchActions';
-import { CodebaseBranchMetadataTable } from '../CodebaseBranchMetadataTable';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
 import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
 import { useStyles } from './styles';
 import { CodebaseBranchProps } from './types';
 
-const { Grid, Typography, Accordion, AccordionSummary, AccordionDetails, Chip, Paper } = MuiCore;
+const {
+    IconButton,
+    Tooltip,
+    Grid,
+    Typography,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Chip,
+    Link,
+    Paper,
+    Box,
+} = MuiCore;
 const { Icon } = Iconify;
 
 const pipelineRunTypes = Object.entries(PIPELINE_TYPES).filter(
@@ -34,6 +45,8 @@ const pipelineRunTypeSelectOptions = pipelineRunTypes.map(([, value]) => ({
     label: capitalizeFirstLetter(value),
     value: value,
 }));
+
+const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
 
 export const CodebaseBranch = ({
     defaultBranch,
@@ -187,11 +200,41 @@ export const CodebaseBranch = ({
                                         </div>
                                     </Grid>
                                 </Render>
-                                <Grid item>
-                                    <CodebaseBranchMetadataTable
-                                        codebaseBranchData={codebaseBranchData}
-                                    />
-                                </Grid>
+                                <Render condition={!!codebaseData?.status?.gitWebUrl}>
+                                    <Grid item>
+                                        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                                        <div
+                                            onClick={stopPropagation}
+                                            onFocus={stopPropagation}
+                                            style={{ cursor: 'default' }}
+                                        >
+                                            <Tooltip
+                                                title={
+                                                    <Box display={'flex'} alignItems={'center'}>
+                                                        Go to the Source Code{' '}
+                                                        <Icon
+                                                            icon={ICONS.NEW_WINDOW}
+                                                            color={'grey'}
+                                                            width="20"
+                                                        />
+                                                    </Box>
+                                                }
+                                            >
+                                                <IconButton
+                                                    component={Link}
+                                                    href={codebaseData?.status?.gitWebUrl}
+                                                    target={'_blank'}
+                                                >
+                                                    <Icon
+                                                        icon={ICONS.GIT_BRANCH}
+                                                        color={'grey'}
+                                                        width="20"
+                                                    />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </div>
+                                    </Grid>
+                                </Render>
                                 <Grid item>
                                     <CodebaseBranchActions
                                         codebaseBranchData={codebaseBranchData}
