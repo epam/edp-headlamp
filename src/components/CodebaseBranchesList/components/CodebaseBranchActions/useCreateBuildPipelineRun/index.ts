@@ -14,7 +14,6 @@ export interface CreateBuildPipelineRunProps {
         codebaseFramework: string;
         codebaseBuildTool: string;
         codebaseVersioningType: string;
-        codebaseStrategy: string;
         codebaseGitUrlPath: string;
     };
     codebaseBranchData: {

@@ -19,7 +19,7 @@ export const RepositoryUrl = ({ names, handleFormFieldChange }: RepositoryUrlPro
             {...register(names.repositoryUrl.name, {
                 required: fieldRequirementLabel,
                 pattern: {
-                    value: /((git|ssh|http(s)?)|(git@[\w.]+))(:(\/\/)?)([\w.@/-~]+)\w/,
+                    value: /((git|ssh|http(s)?)|(git@[\w.]+))(:(\/\/)?)([\w.@\/~-]+)\w/,
                     message: fieldRequirementLabel,
                 },
                 onBlur: ({ target: { name, value } }: FieldEvent) =>

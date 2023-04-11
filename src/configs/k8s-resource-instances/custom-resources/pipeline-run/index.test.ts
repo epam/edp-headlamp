@@ -29,8 +29,7 @@ describe('testing createBuildPipelineRunInstance', () => {
                 codebaseVersioningType: 'test-versioning-type',
                 codebaseType: 'application',
                 codebaseFramework: 'test-framework',
-                codebaseStrategy: 'create',
-                codebaseGitUrlPath: 'test-git-url-path',
+                codebaseGitUrlPath: '/test-git-url-path',
             },
             codebaseBranchData: {
                 codebaseBranchMetadataName: 'test-codebase-name-test-codebase-branch-name',
@@ -64,7 +63,7 @@ describe('testing createBuildPipelineRunInstance', () => {
                 params: [
                     {
                         name: 'git-source-url',
-                        value: 'ssh://test-git-user@test-git-host:123/test-codebase-name',
+                        value: 'ssh://test-git-user@test-git-host:123/test-git-url-path',
                     },
                     {
                         name: 'git-source-revision',

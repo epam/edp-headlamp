@@ -12,7 +12,7 @@ import {
 import { Type } from '../../../../../FormFields/CodebaseFields/Type';
 import { useUpdateFieldsDependingOnChosenIntegrationStrategy } from '../../hooks/useUpdateFieldsDependingOnChosenIntegrationStrategy';
 import { FormDataContext } from '../../index';
-import { isCloneStrategy, isImportStrategy } from '../../utils';
+import { isCloneStrategy } from '../../utils';
 
 const { Grid } = MuiCore;
 
@@ -44,6 +44,9 @@ export const CodebaseInfo = (): React.ReactElement => {
             <Grid item xs={12}>
                 <Strategy names={names} handleFormFieldChange={handleFormFieldChange} />
             </Grid>
+            <Grid item xs={12}>
+                <GitServer names={names} handleFormFieldChange={handleFormFieldChange} />
+            </Grid>
             {isCloneStrategy(strategyFieldValue) ? (
                 <>
                     <Grid item xs={12}>
@@ -52,6 +55,13 @@ export const CodebaseInfo = (): React.ReactElement => {
                             handleFormFieldChange={handleFormFieldChange}
                         />
                     </Grid>
+                </>
+            ) : null}
+            <Grid item xs={12}>
+                <GitUrlPath names={names} handleFormFieldChange={handleFormFieldChange} />
+            </Grid>
+            {isCloneStrategy(strategyFieldValue) ? (
+                <>
                     <Grid item xs={12}>
                         <CodebaseAuth names={names} handleFormFieldChange={handleFormFieldChange} />
                     </Grid>
@@ -71,16 +81,6 @@ export const CodebaseInfo = (): React.ReactElement => {
                             </Grid>
                         </>
                     ) : null}
-                </>
-            ) : null}
-            {isImportStrategy(strategyFieldValue) ? (
-                <>
-                    <Grid item xs={12}>
-                        <GitServer names={names} handleFormFieldChange={handleFormFieldChange} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <GitUrlPath names={names} handleFormFieldChange={handleFormFieldChange} />
-                    </Grid>
                 </>
             ) : null}
         </Grid>

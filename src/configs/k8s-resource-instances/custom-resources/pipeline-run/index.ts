@@ -1,4 +1,3 @@
-import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { PipelineRunKubeObjectConfig } from '../../../../k8s/PipelineRun/config';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
@@ -13,7 +12,6 @@ interface createBuildPipelineRunInstanceProps {
         codebaseFramework: string;
         codebaseBuildTool: string;
         codebaseVersioningType: string;
-        codebaseStrategy: string;
         codebaseGitUrlPath: string;
     };
     codebaseBranchData: {
@@ -48,7 +46,6 @@ export const createBuildPipelineRunInstance = ({
         codebaseVersioningType,
         codebaseType,
         codebaseFramework,
-        codebaseStrategy,
         codebaseGitUrlPath,
     },
     codebaseBranchData: { codebaseBranchMetadataName, codebaseBranchName },
@@ -75,11 +72,7 @@ export const createBuildPipelineRunInstance = ({
             params: [
                 {
                     name: 'git-source-url',
-                    value: `ssh://${gitUser}@${gitHost}:${sshPort}${
-                        codebaseStrategy === CODEBASE_CREATION_STRATEGIES['IMPORT']
-                            ? codebaseGitUrlPath
-                            : `/${codebaseName}`
-                    }`,
+                    value: `ssh://${gitUser}@${gitHost}:${sshPort}${codebaseGitUrlPath}`,
                 },
                 {
                     name: 'git-source-revision',

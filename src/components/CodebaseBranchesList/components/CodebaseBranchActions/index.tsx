@@ -87,7 +87,6 @@ export const CodebaseBranchActions = ({
                         codebaseVersioningType: codebase.spec.versioning.type,
                         codebaseType: codebase.spec.type,
                         codebaseFramework: codebase.spec.framework,
-                        codebaseStrategy: codebase.spec.strategy,
                         codebaseGitUrlPath: codebase.spec.gitUrlPath,
                     },
                     gitServerData: {
@@ -109,7 +108,6 @@ export const CodebaseBranchActions = ({
         codebase.spec.buildTool,
         codebase.spec.framework,
         codebase.spec.gitUrlPath,
-        codebase.spec.strategy,
         codebase.spec.type,
         codebase.spec.versioning.type,
         codebaseBranchData.metadata.name,
