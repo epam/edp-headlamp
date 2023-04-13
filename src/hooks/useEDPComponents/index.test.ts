@@ -20,7 +20,38 @@ describe('testing useEDPComponents hook', () => {
         );
 
         await waitForNextUpdate();
-        expect(result.current.EDPComponents).toEqual(['tekton', 'jenkins', 'sonar']);
+        expect(result.current.EDPComponents).toEqual([
+            {
+                apiVersion: 'v1.edp.epam.com/v1',
+                kind: 'EDPComponent',
+                metadata: {
+                    name: 'tekton',
+                },
+                spec: {
+                    type: 'tekton',
+                },
+            },
+            {
+                apiVersion: 'v1.edp.epam.com/v1',
+                kind: 'EDPComponent',
+                metadata: {
+                    name: 'jenkins',
+                },
+                spec: {
+                    type: 'jenkins',
+                },
+            },
+            {
+                apiVersion: 'v1.edp.epam.com/v1',
+                kind: 'EDPComponent',
+                metadata: {
+                    name: 'sonar',
+                },
+                spec: {
+                    type: 'sonar',
+                },
+            },
+        ]);
         expect(result.current.error).toBeNull();
     });
 

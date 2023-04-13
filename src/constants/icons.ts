@@ -28,4 +28,5 @@ export enum ICONS {
     ARROW_CIRCLE_UP = 'material-symbols:arrow-circle-up-outline-rounded',
     GIT_BRANCH = 'ph:git-branch',
     NEW_WINDOW = 'radix-icons:open-in-new-window',
+    ARGOCD = 'simple-icons:argo',
 }

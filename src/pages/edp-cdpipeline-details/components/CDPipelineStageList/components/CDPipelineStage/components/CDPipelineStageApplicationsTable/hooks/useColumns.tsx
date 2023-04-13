@@ -3,17 +3,21 @@ import { StatusIcon } from '../../../../../../../../../components/StatusIcon';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../../constants/statuses';
 import { EnrichedApplication } from '../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../k8s/Application/types';
-import { pluginLib, React } from '../../../../../../../../../plugin.globals';
+import { MuiCore, pluginLib, React } from '../../../../../../../../../plugin.globals';
 import { COMPONENTS_ROUTE_NAME } from '../../../../../../../../../routes/names';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../../../../utils/routes/createRouteName';
+import { createArgoCDApplicationLink } from '../../../../../../../../../utils/url/createArgoCDApplicationLink';
 import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
 
 const {
     CommonComponents: { Link },
 } = pluginLib;
 
+const { Link: MuiLink } = MuiCore;
+
 export const useColumns = (
-    qualityGatePipelineIsRunning: boolean
+    qualityGatePipelineIsRunning: boolean,
+    argoCDURLOrigin: string
 ): HeadlampSimpleTableGetterColumn<{
     enrichedApplication: EnrichedApplication;
     argoApplication: ApplicationKubeObjectInterface;
@@ -72,12 +76,28 @@ export const useColumns = (
             },
             {
                 label: 'Deployed version',
-                getter: ({ argoApplication }) =>
-                    argoApplication
-                        ? argoApplication.spec.source.helm.parameters.find(
-                              el => el.name === 'image.tag'
-                          ).value
-                        : 'No deploy',
+                getter: ({ argoApplication }) => {
+                    return argoApplication ? (
+                        <>
+                            <MuiLink
+                                href={createArgoCDApplicationLink(
+                                    argoCDURLOrigin,
+                                    argoApplication.metadata.labels['app.edp.epam.com/pipeline'],
+                                    argoApplication.metadata.labels['app.edp.epam.com/stage'],
+                                    argoApplication.metadata.labels['app.edp.epam.com/app-name']
+                                )}
+                            >
+                                {
+                                    argoApplication.spec.source.helm.parameters.find(
+                                        el => el.name === 'image.tag'
+                                    ).value
+                                }
+                            </MuiLink>
+                        </>
+                    ) : (
+                        'No deploy'
+                    );
+                },
             },
             {
                 label: 'Image stream version',
@@ -90,5 +110,5 @@ export const useColumns = (
                 ),
             },
         ],
-        [qualityGatePipelineIsRunning]
+        [argoCDURLOrigin, qualityGatePipelineIsRunning]
     );

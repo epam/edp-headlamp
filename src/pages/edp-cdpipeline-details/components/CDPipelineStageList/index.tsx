@@ -6,9 +6,10 @@ import { useGitServers } from '../../../../hooks/useGitServers';
 import { streamCDPipelineStagesByCDPipelineName } from '../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
-import { Iconify, MuiCore, pluginLib, React } from '../../../../plugin.globals';
+import { Iconify, MuiCore, MuiStyles, pluginLib, React } from '../../../../plugin.globals';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { rem } from '../../../../utils/styling/rem';
+import { createArgoCDStageLink } from '../../../../utils/url/createArgoCDStageLink';
 import { CDPipelineDataContext } from '../../index';
 import { CDPipelineStage } from './components/CDPipelineStage';
 import { CDPipelineStageActions } from './components/CDPipelineStageActions';
@@ -20,16 +21,30 @@ const {
     CommonComponents: { SectionHeader },
 } = pluginLib;
 const { Icon } = Iconify;
-const { Accordion, AccordionSummary, AccordionDetails, Typography, Grid } = MuiCore;
-
+const {
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Typography,
+    Grid,
+    IconButton,
+    Link: MuiLink,
+    Tooltip,
+} = MuiCore;
+const { useTheme } = MuiStyles;
 export const CDPipelineStagesDataContext =
     React.createContext<EDPCDPipelineStageKubeObjectInterface[]>(null);
 export const CurrentCDPipelineStageDataContext =
     React.createContext<EDPCDPipelineStageKubeObjectInterface>(null);
 export const GitServersDataContext = React.createContext<EDPGitServerKubeObjectInterface[]>(null);
-
-export const CDPipelineStagesList = (): React.ReactElement => {
+const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
+export const CDPipelineStagesList = ({
+    argoCDURLOrigin,
+}: {
+    argoCDURLOrigin: string;
+}): React.ReactElement => {
     const CDPipelineData = React.useContext(CDPipelineDataContext);
+    const theme: DefaultTheme = useTheme();
     const {
         metadata: { name, namespace },
     } = CDPipelineData;
@@ -79,6 +94,11 @@ export const CDPipelineStagesList = (): React.ReactElement => {
             {CDPipelineStages.map((el, idx) => {
                 const stageId = `${el.spec.name}:${idx}`;
                 const status = el.status ? el.status.status : CUSTOM_RESOURCE_STATUSES['UNKNOWN'];
+                const argoCDStageLink = createArgoCDStageLink(
+                    argoCDURLOrigin,
+                    CDPipelineData?.metadata?.name,
+                    el.spec.name
+                );
 
                 const statusTitle = (
                     <>
@@ -120,6 +140,34 @@ export const CDPipelineStagesList = (): React.ReactElement => {
                                                     <div style={{ marginLeft: 'auto' }}>
                                                         <Grid container spacing={1}>
                                                             <Grid item>
+                                                                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                                                                <div
+                                                                    onClick={stopPropagation}
+                                                                    onFocus={stopPropagation}
+                                                                >
+                                                                    <Tooltip
+                                                                        title={'Open in ArgoCD'}
+                                                                    >
+                                                                        <IconButton
+                                                                            component={MuiLink}
+                                                                            href={argoCDStageLink}
+                                                                            target={'_blank'}
+                                                                        >
+                                                                            <Icon
+                                                                                icon={
+                                                                                    ICONS['ARGOCD']
+                                                                                }
+                                                                                color={
+                                                                                    theme.palette
+                                                                                        .grey['500']
+                                                                                }
+                                                                                width="20"
+                                                                            />
+                                                                        </IconButton>
+                                                                    </Tooltip>
+                                                                </div>
+                                                            </Grid>
+                                                            <Grid item>
                                                                 <CDPipelineStageMetadataTable />
                                                             </Grid>
                                                             <Grid item>
@@ -130,7 +178,9 @@ export const CDPipelineStagesList = (): React.ReactElement => {
                                                 </div>
                                             </AccordionSummary>
                                             <AccordionDetails>
-                                                <CDPipelineStage />
+                                                <CDPipelineStage
+                                                    argoCDURLOrigin={argoCDURLOrigin}
+                                                />
                                             </AccordionDetails>
                                         </Accordion>
                                     </div>

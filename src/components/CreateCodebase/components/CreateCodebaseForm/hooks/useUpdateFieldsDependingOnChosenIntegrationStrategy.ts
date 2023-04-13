@@ -46,7 +46,7 @@ export const useUpdateFieldsDependingOnChosenIntegrationStrategy = ({
                     ]);
 
                     if (nameFieldValue) {
-                        setValue(names.gitUrlPath.name, `/${nameFieldValue}`);
+                        setValue(names.gitUrlPath.name, nameFieldValue);
                         handleFormFieldChange({
                             name: names.gitUrlPath.name,
                             value: `/${nameFieldValue}`,

@@ -25,7 +25,11 @@ import { useStyles } from './styles';
 
 const { Grid, Typography } = MuiCore;
 
-export const CDPipelineStage = (): React.ReactElement => {
+export const CDPipelineStage = ({
+    argoCDURLOrigin,
+}: {
+    argoCDURLOrigin: string;
+}): React.ReactElement => {
     const CurrentCDPipelineStageDataContextValue = React.useContext(
         CurrentCDPipelineStageDataContext
     );
@@ -162,6 +166,7 @@ export const CDPipelineStage = (): React.ReactElement => {
                         enrichedApplicationsWithArgoApplications
                     }
                     qualityGatePipelineIsRunning={qualityGatePipelineIsRunning}
+                    argoCDURLOrigin={argoCDURLOrigin}
                 />
             </Grid>
             <Grid item xs={12}>

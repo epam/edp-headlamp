@@ -1,4 +1,5 @@
 import { getEDPComponents } from '../../k8s/EDPComponent';
+import { EDPComponentKubeObjectInterface } from '../../k8s/EDPComponent/types';
 import { React } from '../../plugin.globals';
 
 interface UseEDPComponentsProps {
@@ -7,8 +8,8 @@ interface UseEDPComponentsProps {
 
 export const useEDPComponents = ({
     namespace,
-}: UseEDPComponentsProps): { EDPComponents: string[]; error: Error } => {
-    const [EDPComponents, setEDPComponents] = React.useState<string[]>([]);
+}: UseEDPComponentsProps): { EDPComponents: EDPComponentKubeObjectInterface[]; error: Error } => {
+    const [EDPComponents, setEDPComponents] = React.useState<EDPComponentKubeObjectInterface[]>([]);
     const [error, setError] = React.useState<Error>(null);
 
     React.useEffect(() => {
@@ -19,8 +20,7 @@ export const useEDPComponents = ({
 
             try {
                 const { items } = await getEDPComponents(namespace);
-                const EDPComponentsNames = items.map(el => el.spec.type);
-                setEDPComponents(EDPComponentsNames);
+                setEDPComponents(items);
                 setError(null);
             } catch (err: any) {
                 setError(err);

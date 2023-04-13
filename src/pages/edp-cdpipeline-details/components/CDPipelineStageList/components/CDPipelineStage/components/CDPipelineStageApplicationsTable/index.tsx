@@ -6,10 +6,10 @@ import { useStyles } from './styles';
 export const CDPipelineStageApplicationsTable = ({
     enrichedApplicationsWithArgoApplications,
     qualityGatePipelineIsRunning,
+    argoCDURLOrigin,
 }): React.ReactElement => {
-    const columns = useColumns(qualityGatePipelineIsRunning);
+    const columns = useColumns(qualityGatePipelineIsRunning, argoCDURLOrigin);
     const classes = useStyles();
-
     return (
         <div className={classes.tableRoot}>
             <HeadlampSimpleTable

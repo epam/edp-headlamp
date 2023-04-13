@@ -13,17 +13,21 @@ export const useAvailableCITools = ({
     error: Error;
 } => {
     const { EDPComponents, error } = useEDPComponents({ namespace });
+    const EDPComponentsNames = React.useMemo(
+        () => EDPComponents.map(el => el.spec.type),
+        [EDPComponents]
+    );
 
     const availableCITools = React.useMemo(
         () =>
             Object.values(CI_TOOLS).reduce((acc, cur) => {
-                if (EDPComponents.includes(cur)) {
+                if (EDPComponentsNames.includes(cur)) {
                     acc.push(cur);
                 }
 
                 return acc;
             }, []),
-        [EDPComponents]
+        [EDPComponentsNames]
     );
 
     return { availableCITools, error };

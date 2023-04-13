@@ -4,9 +4,11 @@ import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
+import { useEDPComponents } from '../../../../hooks/useEDPComponents';
+import { useNamespace } from '../../../../hooks/useNamespace';
 import { streamPipelineRunListByCodebaseBranchLabel } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
-import { Iconify, MuiCore, React } from '../../../../plugin.globals';
+import { Iconify, MuiCore, MuiStyles, React } from '../../../../plugin.globals';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { parsePipelineRunStatus } from '../../../../utils/parsePipelineRunStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
@@ -34,9 +36,9 @@ const {
     Chip,
     Link,
     Paper,
-    Box,
 } = MuiCore;
 const { Icon } = Iconify;
+const { useTheme } = MuiStyles;
 
 const pipelineRunTypes = Object.entries(PIPELINE_TYPES).filter(
     ([, value]) => value !== PIPELINE_TYPES['DEPLOY']
@@ -63,6 +65,14 @@ export const CodebaseBranch = ({
         control,
         formState: { errors },
     } = useForm();
+    const theme: DefaultTheme = useTheme();
+    const { namespace } = useNamespace();
+
+    const { EDPComponents } = useEDPComponents({ namespace });
+    const tektonUrlOrigin = React.useMemo(
+        () => EDPComponents.filter(el => el.spec.type === 'tekton')?.[0]?.spec?.url,
+        [EDPComponents]
+    );
 
     const {
         spec: { ciTool },
@@ -72,7 +82,7 @@ export const CodebaseBranch = ({
 
     const classes = useStyles();
     const mainInfoRows = useMainInfoRows(codebaseBranchData);
-    const pipelineRunsColumns = usePipelineRunsColumns();
+    const pipelineRunsColumns = usePipelineRunsColumns(tektonUrlOrigin);
     const normalizedCodebaseBranchName = codebaseBranchData.metadata.name.replaceAll('/', '-');
 
     const [pipelineRuns, setPipelineRuns] = React.useState<{
@@ -210,14 +220,20 @@ export const CodebaseBranch = ({
                                         >
                                             <Tooltip
                                                 title={
-                                                    <Box display={'flex'} alignItems={'center'}>
-                                                        Go to the Source Code{' '}
-                                                        <Icon
-                                                            icon={ICONS.NEW_WINDOW}
-                                                            color={'grey'}
-                                                            width="20"
-                                                        />
-                                                    </Box>
+                                                    <Grid
+                                                        container
+                                                        alignItems={'center'}
+                                                        spacing={1}
+                                                    >
+                                                        <Grid item>Go to the Source Code </Grid>
+                                                        <Grid item>
+                                                            <Icon
+                                                                icon={ICONS.NEW_WINDOW}
+                                                                color={theme.palette.grey['500']}
+                                                                width="15"
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
                                                 }
                                             >
                                                 <IconButton
@@ -227,7 +243,7 @@ export const CodebaseBranch = ({
                                                 >
                                                     <Icon
                                                         icon={ICONS.GIT_BRANCH}
-                                                        color={'grey'}
+                                                        color={theme.palette.grey['500']}
                                                         width="20"
                                                     />
                                                 </IconButton>
