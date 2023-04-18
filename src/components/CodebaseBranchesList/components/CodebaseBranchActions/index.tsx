@@ -75,6 +75,10 @@ export const CodebaseBranchActions = ({
                     throw new Error(`Trigger template's storage property has not been found`);
                 }
 
+                if (gitServerByCodebase) {
+                    throw new Error(`Codebase Git Server has not been found`);
+                }
+
                 await createBuildPipelineRun({
                     namespace: codebase.metadata.namespace,
                     codebaseBranchData: {
@@ -103,21 +107,10 @@ export const CodebaseBranchActions = ({
         });
     }, [
         ciTool,
-        codebase.metadata.name,
-        codebase.metadata.namespace,
-        codebase.spec.buildTool,
-        codebase.spec.framework,
-        codebase.spec.gitUrlPath,
-        codebase.spec.type,
-        codebase.spec.versioning.type,
-        codebaseBranchData.metadata.name,
-        codebaseBranchData.spec.branchName,
+        codebase,
+        codebaseBranchData,
         createBuildPipelineRun,
-        gitServerByCodebase.spec.gitHost,
-        gitServerByCodebase.spec.gitProvider,
-        gitServerByCodebase.spec.gitUser,
-        gitServerByCodebase.spec.nameSshKeySecret,
-        gitServerByCodebase.spec.sshPort,
+        gitServerByCodebase,
         handleCloseActionsMenu,
         randomPostfix,
         storageSize,
