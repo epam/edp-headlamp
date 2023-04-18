@@ -86,6 +86,7 @@ export const useColumns = (
                                     argoApplication.metadata.labels['app.edp.epam.com/stage'],
                                     argoApplication.metadata.labels['app.edp.epam.com/app-name']
                                 )}
+                                target={'_blank'}
                             >
                                 {
                                     argoApplication.spec.source.helm.parameters.find(
