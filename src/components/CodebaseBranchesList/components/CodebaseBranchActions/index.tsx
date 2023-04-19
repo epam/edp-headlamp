@@ -75,7 +75,7 @@ export const CodebaseBranchActions = ({
                     throw new Error(`Trigger template's storage property has not been found`);
                 }
 
-                if (gitServerByCodebase) {
+                if (!gitServerByCodebase) {
                     throw new Error(`Codebase Git Server has not been found`);
                 }
 
