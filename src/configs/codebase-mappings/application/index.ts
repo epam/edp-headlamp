@@ -210,6 +210,30 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             },
         },
     },
+    [CODEBASE_COMMON_LANGUAGES.HELM]: {
+        language: {
+            name: 'Helm',
+            value: CODEBASE_COMMON_LANGUAGES.HELM,
+            icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.HELM],
+            availableCITools: [CI_TOOLS.TEKTON],
+        },
+        frameworks: {
+            [CODEBASE_COMMON_FRAMEWORKS.HELM]: {
+                name: 'Helm',
+                value: CODEBASE_COMMON_FRAMEWORKS.HELM,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.HELM],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
+        },
+        buildTools: {
+            [CODEBASE_COMMON_BUILD_TOOLS.HELM]: {
+                name: 'Helm',
+                value: CODEBASE_COMMON_BUILD_TOOLS.HELM,
+                icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.HELM],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
+        },
+    },
     [CODEBASE_COMMON_LANGUAGES.OTHER]: {
         language: {
             name: 'Other',
