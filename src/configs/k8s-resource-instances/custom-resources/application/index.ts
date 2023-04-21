@@ -4,6 +4,11 @@ import { GIT_SERVERS } from '../../../../constants/gitServers';
 import { ApplicationKubeObjectConfig } from '../../../../k8s/Application/config';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
 import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
+import {
+    CODEBASE_COMMON_BUILD_TOOLS,
+    CODEBASE_COMMON_FRAMEWORKS,
+    CODEBASE_COMMON_LANGUAGES,
+} from '../../../codebase-mappings';
 import { createApplicationInstanceProps, editApplicationInstanceProps } from './types';
 
 const { kind, group, version } = ApplicationKubeObjectConfig;
@@ -32,6 +37,9 @@ export const createApplicationInstance = ({
                 versioning: { type: versioningType },
                 gitUrlPath,
                 strategy,
+                lang,
+                framework,
+                buildTool,
             },
         },
     } = enrichedApplication;
@@ -49,7 +57,7 @@ export const createApplicationInstance = ({
     const repoUrlPath = gitProvider === GIT_SERVERS['GERRIT'] ? `/${appName}` : gitUrlPath;
     const repoUrlUser = strategy === CODEBASE_CREATION_STRATEGIES['IMPORT'] ? 'git' : 'argocd';
 
-    return {
+    const base = {
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
@@ -82,10 +90,6 @@ export const createApplicationInstance = ({
                 helm: {
                     parameters: [
                         {
-                            name: 'image.tag',
-                            value: imageTag,
-                        },
-                        {
                             name: 'image.repository',
                             value: imageName,
                         },
@@ -104,6 +108,24 @@ export const createApplicationInstance = ({
             },
         },
     };
+
+    if (
+        lang === CODEBASE_COMMON_LANGUAGES.HELM &&
+        framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
+        buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM
+    ) {
+        return base;
+    }
+
+    base.spec.source.helm.parameters = [
+        ...base.spec.source.helm.parameters,
+        {
+            name: 'image.tag',
+            value: imageTag,
+        },
+    ];
+
+    return base;
 };
 
 export const editApplicationInstance = ({

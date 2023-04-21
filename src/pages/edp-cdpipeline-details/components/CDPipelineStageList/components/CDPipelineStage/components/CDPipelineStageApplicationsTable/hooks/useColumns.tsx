@@ -1,5 +1,10 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../../../../../components/StatusIcon';
+import {
+    CODEBASE_COMMON_BUILD_TOOLS,
+    CODEBASE_COMMON_FRAMEWORKS,
+    CODEBASE_COMMON_LANGUAGES,
+} from '../../../../../../../../../configs/codebase-mappings';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../../constants/statuses';
 import { EnrichedApplication } from '../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../k8s/Application/types';
@@ -76,7 +81,25 @@ export const useColumns = (
             },
             {
                 label: 'Deployed version',
-                getter: ({ argoApplication }) => {
+                getter: ({
+                    argoApplication,
+                    enrichedApplication: {
+                        application: {
+                            spec: { lang, framework, buildTool },
+                        },
+                    },
+                }) => {
+                    const isHelm =
+                        lang === CODEBASE_COMMON_LANGUAGES.HELM &&
+                        framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
+                        buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
+
+                    const deployedVersion = !isHelm
+                        ? argoApplication.spec.source.helm.parameters.find(
+                              el => el.name === 'image.tag'
+                          )?.value
+                        : argoApplication.spec.source.targetRevision;
+
                     return argoApplication ? (
                         <>
                             <MuiLink
@@ -88,11 +111,7 @@ export const useColumns = (
                                 )}
                                 target={'_blank'}
                             >
-                                {
-                                    argoApplication.spec.source.helm.parameters.find(
-                                        el => el.name === 'image.tag'
-                                    ).value
-                                }
+                                {deployedVersion}
                             </MuiLink>
                         </>
                     ) : (

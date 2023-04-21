@@ -50,9 +50,9 @@ export const PipelineRunTrigger = ({
                     return [];
                 }
 
-                const deployedVersion = argoApplication.spec.source.helm.parameters.find(
-                    el => el.name === 'image.tag'
-                ).value;
+                const deployedVersion =
+                    argoApplication.spec.source.helm.parameters.find(el => el.name === 'image.tag')
+                        ?.value || '';
 
                 const appTag = `${application.metadata.name}=${deployedVersion}`;
                 acc.push(appTag);
