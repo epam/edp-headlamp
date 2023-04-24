@@ -89,6 +89,9 @@ export const useColumns = (
                         },
                     },
                 }) => {
+                    if (!argoApplication) {
+                        return;
+                    }
                     const isHelm =
                         lang === CODEBASE_COMMON_LANGUAGES.HELM &&
                         framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
