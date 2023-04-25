@@ -43,6 +43,8 @@ export const CodebaseBranchActions = ({
         ? gitServers.filter(el => el.metadata.name === codebase.spec.gitServer)?.[0]
         : null;
 
+    console.log(gitServerByCodebase);
+
     const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
 
     const storageSize = React.useMemo(() => {

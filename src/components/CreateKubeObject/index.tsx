@@ -10,16 +10,9 @@ export const CreateKubeObject: React.FC = ({ children }): React.ReactElement => 
 
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
 
-    const onClose = React.useCallback(
-        (_?, reason?: string) => {
-            if (reason === 'backdropClick') {
-                return;
-            }
-
-            setCreateDialogOpen(false);
-        },
-        [setCreateDialogOpen]
-    );
+    const onClose = React.useCallback(() => {
+        setCreateDialogOpen(false);
+    }, [setCreateDialogOpen]);
 
     return (
         <>

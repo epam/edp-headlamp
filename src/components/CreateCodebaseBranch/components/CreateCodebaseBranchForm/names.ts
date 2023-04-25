@@ -1,5 +1,5 @@
 import { BackwardNameMapping, FormNameObject } from '../../../../types/forms';
-import { FORM_PART_CODEBASE_INFO } from '../../../CreateCodebase/components/CreateCodebaseForm/constants';
+import { FORM_PART_CODEBASE_INFO } from '../../../CreateCodebase/constants';
 
 export const CODEBASE_BRANCH_BACKWARDS_NAME_MAPPING: BackwardNameMapping = {
     labels: {

@@ -6,7 +6,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import {
     CODEBASE_BACKWARDS_NAME_MAPPING,
     CODEBASE_NAMES,
-} from '../../components/CreateCodebase/components/CreateCodebaseForm/names';
+} from '../../components/CreateCodebase/names';
 import {
     CODEBASE_BRANCH_BACKWARDS_NAME_MAPPING,
     CODEBASE_BRANCH_NAMES,

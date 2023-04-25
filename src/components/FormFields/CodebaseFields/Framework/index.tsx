@@ -3,11 +3,11 @@ import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
-import { AvailableCIToolsDataContext } from '../../../CreateCodebase/components/CreateCodebaseForm';
-import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
-import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
+import { AvailableCIToolsDataContext } from '../../../CreateCodebase';
+import { FormRadioOption } from '../../../CreateCodebase/components/FormRadioGroup/types';
+import { useChosenCodebaseLanguage } from '../../../CreateCodebase/hooks/useChosenCodebaseLanguage';
+import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/utils';
 import { FormRadioGroup, FormTextField } from '../../../FormComponents';
-import { FormRadioOption } from '../../../FormComponents/FormRadioGroup/types';
 import { FrameworkProps } from './types';
 
 export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {

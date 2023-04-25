@@ -9,10 +9,10 @@ import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
-import { AvailableCIToolsDataContext } from '../../../CreateCodebase/components/CreateCodebaseForm';
-import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
+import { AvailableCIToolsDataContext } from '../../../CreateCodebase';
+import { FormRadioOption } from '../../../CreateCodebase/components/FormRadioGroup/types';
+import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/utils';
 import { FormRadioGroup } from '../../../FormComponents';
-import { FormRadioOption } from '../../../FormComponents/FormRadioGroup/types';
 import { LangProps } from './types';
 
 export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
@@ -30,6 +30,10 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
     const typeFieldValue = watch(names.type.name);
 
     const codebaseMapping = React.useMemo(() => {
+        if (!typeFieldValue) {
+            return null;
+        }
+
         if (typeFieldValue === CODEBASE_TYPES['APPLICATION']) {
             return APPLICATION_MAPPING;
         }
@@ -51,6 +55,10 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
 
     const langOptions = React.useMemo(() => {
         const resultOptions: FormRadioOption[] = [];
+
+        if (!codebaseMapping) {
+            return resultOptions;
+        }
 
         Object.values(codebaseMapping).map(
             ({ language: { name, value, icon, availableCITools } }) => {

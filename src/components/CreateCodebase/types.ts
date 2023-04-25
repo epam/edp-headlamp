@@ -1,6 +1,5 @@
 export interface CreateCodebaseProps {
     createDialogOpen?: boolean;
-    onClose?(): void;
     setCreateDialogOpen?(boolean): void;
 }
 

@@ -22,7 +22,6 @@ describe('CreateCodebase', () => {
             const props: CreateCodebaseProps = {
                 createDialogOpen: true,
                 setCreateDialogOpen: () => {},
-                onClose: () => {},
             };
             const store = configureStore({
                 reducer: () => ({}),
@@ -56,7 +55,6 @@ describe('CreateCodebase', () => {
             const props: CreateCodebaseProps = {
                 createDialogOpen: true,
                 setCreateDialogOpen: () => {},
-                onClose: () => {},
             };
             const store = configureStore({
                 reducer: () => ({}),
@@ -90,7 +88,6 @@ describe('CreateCodebase', () => {
             const props: CreateCodebaseProps = {
                 createDialogOpen: true,
                 setCreateDialogOpen: () => {},
-                onClose: () => {},
             };
             const store = configureStore({
                 reducer: () => ({}),

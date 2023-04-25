@@ -1,11 +1,13 @@
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings';
+import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { React } from '../../../../plugin.globals';
-import { FieldEvent, SelectOption } from '../../../../types/forms';
-import { AvailableCIToolsDataContext } from '../../../CreateCodebase/components/CreateCodebaseForm';
-import { useChosenCodebaseLanguage } from '../../../CreateCodebase/components/CreateCodebaseForm/hooks/useChosenCodebaseLanguage';
-import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/components/CreateCodebaseForm/utils';
-import { FormSelect } from '../../../FormComponents';
+import { FieldEvent } from '../../../../types/forms';
+import { AvailableCIToolsDataContext } from '../../../CreateCodebase';
+import { FormRadioOption } from '../../../CreateCodebase/components/FormRadioGroup/types';
+import { useChosenCodebaseLanguage } from '../../../CreateCodebase/hooks/useChosenCodebaseLanguage';
+import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/utils';
+import { FormRadioGroup } from '../../../FormComponents';
 import { FormTextField } from '../../../FormComponents';
 import { BuildToolProps } from './types';
 
@@ -59,18 +61,20 @@ export const BuildTool = ({ names, handleFormFieldChange }: BuildToolProps) => {
             return [];
         }
 
-        const resultOptions: SelectOption[] = [];
+        const resultOptions: FormRadioOption[] = [];
 
-        Object.values(chosenLang.buildTools).map(({ name, value, availableCITools }) => {
+        Object.values(chosenLang.buildTools).map(({ name, value, icon, availableCITools }) => {
             for (const availableCITool of availableCITools) {
                 if (!AvailableCIToolsDataContextValue.includes(availableCITool)) {
                     continue;
                 }
 
                 resultOptions.push({
-                    label: name,
                     value,
-                } as SelectOption);
+                    label: name,
+                    icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                    checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+                } as FormRadioOption);
 
                 break;
             }
@@ -102,17 +106,14 @@ export const BuildTool = ({ names, handleFormFieldChange }: BuildToolProps) => {
                     errors={errors}
                 />
             ) : (
-                <FormSelect
+                <FormRadioGroup
                     {...register(names.buildTool.name, {
                         required: `Select ${typeFieldValue} build tool.`,
-                        maxLength: null,
-                        pattern: null,
                         onChange: onBuildToolChange,
                     })}
-                    label={'Build tool'}
-                    placeholder={'Select build tool'}
                     control={control}
                     errors={errors}
+                    label={`Build tool`}
                     options={buildToolOptions}
                 />
             )}

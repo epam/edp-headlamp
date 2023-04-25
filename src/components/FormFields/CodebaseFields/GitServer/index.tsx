@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
-import { GitServersDataContext } from '../../../CreateCodebase/components/CreateCodebaseForm';
+import { GitServersDataContext } from '../../../CreateCodebase';
 import { FormSelect } from '../../../FormComponents';
 import { GitServerProps } from './types';
 

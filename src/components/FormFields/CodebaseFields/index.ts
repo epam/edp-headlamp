@@ -19,6 +19,5 @@ export * from './Name';
 export * from './RepositoryLogin';
 export * from './RepositoryPasswordOrApiToken';
 export * from './RepositoryUrl';
-export * from './Strategy';
 export * from './TestReportFramework';
 export * from './TicketNamePattern';

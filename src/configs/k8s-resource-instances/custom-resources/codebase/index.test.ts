@@ -1,4 +1,4 @@
-import { CODEBASE_NAMES } from '../../../../components/CreateCodebase/components/CreateCodebaseForm/names';
+import { CODEBASE_NAMES } from '../../../../components/CreateCodebase/names';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { createCodebaseInstance } from './index';
 

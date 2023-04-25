@@ -1611,13 +1611,6 @@ exports[`CreateGitServer should render correctly 1`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                >
-                  <span
-                    class="MuiTypography-root MuiTypography-subtitle2 MuiTypography-colorError"
-                  />
-                </div>
               </div>
             </div>
             <div
@@ -1652,6 +1645,10 @@ exports[`CreateGitServer should render correctly 1`] = `
                             >
                               Host
                             </span>
+                            <div
+                              class="MuiBox-root MuiBox-root-18"
+                              style="height: 1.5625rem;"
+                            />
                           </span>
                         </div>
                         <div
@@ -1773,6 +1770,10 @@ exports[`CreateGitServer should render correctly 1`] = `
                             >
                               SSH port
                             </span>
+                            <div
+                              class="MuiBox-root MuiBox-root-19"
+                              style="height: 1.5625rem;"
+                            />
                           </span>
                         </div>
                         <div
@@ -1829,6 +1830,10 @@ exports[`CreateGitServer should render correctly 1`] = `
                             >
                               HTTPS port
                             </span>
+                            <div
+                              class="MuiBox-root MuiBox-root-20"
+                              style="height: 1.5625rem;"
+                            />
                           </span>
                         </div>
                         <div
@@ -1887,6 +1892,10 @@ exports[`CreateGitServer should render correctly 1`] = `
                         >
                           Access token
                         </span>
+                        <div
+                          class="MuiBox-root MuiBox-root-21"
+                          style="height: 1.5625rem;"
+                        />
                       </span>
                     </div>
                     <div
@@ -1949,6 +1958,10 @@ exports[`CreateGitServer should render correctly 1`] = `
                         >
                           Private SSH key
                         </span>
+                        <div
+                          class="MuiBox-root MuiBox-root-22"
+                          style="height: 1.5625rem;"
+                        />
                       </span>
                     </div>
                     <div

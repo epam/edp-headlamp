@@ -2,7 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
-import { AvailableCIToolsDataContext } from '../../../CreateCodebase/components/CreateCodebaseForm';
+import { AvailableCIToolsDataContext } from '../../../CreateCodebase';
 import { FormSelect } from '../../../FormComponents';
 import { CIToolProps } from './types';
 
