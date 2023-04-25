@@ -88,12 +88,7 @@ export const createApplicationInstance = ({
             },
             source: {
                 helm: {
-                    parameters: [
-                        {
-                            name: 'image.repository',
-                            value: imageName,
-                        },
-                    ],
+                    parameters: [],
                 },
                 path: 'deploy-templates',
                 repoURL: `ssh://${repoUrlUser}@${gitHost}:${sshPort}${repoUrlPath}`,
@@ -122,6 +117,10 @@ export const createApplicationInstance = ({
         {
             name: 'image.tag',
             value: imageTag,
+        },
+        {
+            name: 'image.repository',
+            value: imageName,
         },
     ];
 

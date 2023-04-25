@@ -33,11 +33,11 @@ export const expectedApplicationOutputMock: DeepPartial<ApplicationKubeObjectInt
         source: {
             helm: {
                 parameters: [
+                    { name: 'image.tag', value: 'test-image-tag' },
                     {
                         name: 'image.repository',
                         value: '012345678910.dkr.ecr.eu-central-1.amazonaws.com/test-namespace/test-app-name',
                     },
-                    { name: 'image.tag', value: 'test-image-tag' },
                 ],
             },
             path: 'deploy-templates',
