@@ -71,18 +71,6 @@ export const CreateCodebase = ({
         open: editorOpen,
     };
 
-    const {
-        createCodebase,
-        mutations: {
-            codebaseCreateMutation,
-            codebaseSecretCreateMutation,
-            codebaseSecretDeleteMutation,
-        },
-    } = useCreateCodebase({
-        onSuccess: () => setCreateDialogOpen(false),
-        onError: () => setCreateDialogOpen(true),
-    });
-
     const [modalActiveTabIdx, setModalActiveTabIdx] = React.useState<number>(0);
     const [formActiveTabIdx, setFormActiveTabIdx] = React.useState<number>(
         TAB_INDEXES[FORM_PART_CODEBASE_INFO]
@@ -234,9 +222,22 @@ export const CreateCodebase = ({
                 [CODEBASE_NAMES.strategy.name]: undefined,
                 [CODEBASE_NAMES.type.name]: undefined,
             });
+            setFormActiveTabIdx(TAB_INDEXES[FORM_PART_CODEBASE_INFO]);
             setModalActiveTabIdx(0);
         }, 500);
     }, [setCreateDialogOpen, reset, baseDefaultValues]);
+
+    const {
+        createCodebase,
+        mutations: {
+            codebaseCreateMutation,
+            codebaseSecretCreateMutation,
+            codebaseSecretDeleteMutation,
+        },
+    } = useCreateCodebase({
+        onSuccess: handleClose,
+        onError: () => setCreateDialogOpen(true),
+    });
 
     const onSubmit = React.useCallback(async () => {
         const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;

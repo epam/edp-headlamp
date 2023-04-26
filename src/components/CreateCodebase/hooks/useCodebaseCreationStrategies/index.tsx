@@ -14,7 +14,7 @@ export const useCodebaseCreationStrategies = ({
         () => [
             {
                 value: 'create',
-                label: 'Create blank project',
+                label: 'Create from template',
                 description: 'Create a sample project from a template to start quickly.',
                 icon: (
                     <Icon

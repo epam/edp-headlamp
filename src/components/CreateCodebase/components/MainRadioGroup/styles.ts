@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
         display: 'block',
         width: '100%',
         height: '100%',
-        padding: `${rem(20)} ${rem(10)} ${rem(20)} ${rem(20)}`,
+        padding: `${rem(20)} ${rem(10)}`,
         borderRadius: rem(5),
         border: '1px solid transparent',
         backgroundColor: `${theme.palette.primary.main}10`,
