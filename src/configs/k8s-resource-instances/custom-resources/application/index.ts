@@ -1,6 +1,5 @@
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
-import { GIT_SERVERS } from '../../../../constants/gitServers';
 import { ApplicationKubeObjectConfig } from '../../../../k8s/Application/config';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
 import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
@@ -49,12 +48,10 @@ export const createApplicationInstance = ({
     } = imageStream;
 
     const {
-        spec: { gitProvider, gitHost, sshPort },
+        spec: { gitHost, sshPort },
     } = gitServer;
 
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
-
-    const repoUrlPath = gitProvider === GIT_SERVERS['GERRIT'] ? `/${appName}` : gitUrlPath;
     const repoUrlUser = strategy === CODEBASE_CREATION_STRATEGIES['IMPORT'] ? 'git' : 'argocd';
 
     const base = {
@@ -91,7 +88,7 @@ export const createApplicationInstance = ({
                     parameters: [],
                 },
                 path: 'deploy-templates',
-                repoURL: `ssh://${repoUrlUser}@${gitHost}:${sshPort}${repoUrlPath}`,
+                repoURL: `ssh://${repoUrlUser}@${gitHost}:${sshPort}${gitUrlPath}`,
                 targetRevision: isEDPVersioning ? `build/${imageTag}` : imageTag,
             },
             syncPolicy: {
