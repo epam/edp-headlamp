@@ -98,10 +98,10 @@ export const useColumns = (
                         buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
 
                     const deployedVersion = !isHelm
-                        ? argoApplication.spec.source.helm.parameters.find(
+                        ? argoApplication?.spec?.source?.helm?.parameters?.find(
                               el => el.name === 'image.tag'
                           )?.value
-                        : argoApplication.spec.source.targetRevision;
+                        : argoApplication?.spec?.source?.targetRevision;
 
                     return argoApplication ? (
                         <>
