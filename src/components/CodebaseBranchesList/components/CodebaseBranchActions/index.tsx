@@ -43,8 +43,6 @@ export const CodebaseBranchActions = ({
         ? gitServers.filter(el => el.metadata.name === codebase.spec.gitServer)?.[0]
         : null;
 
-    console.log(gitServerByCodebase);
-
     const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
 
     const storageSize = React.useMemo(() => {
@@ -53,12 +51,12 @@ export const CodebaseBranchActions = ({
         }
 
         const buildTriggerTemplate = triggerTemplates.find(
-            el => el.metadata.name === `${codebase.spec.gitServer}-build-template`
+            el => el.metadata.name === `${gitServerByCodebase.spec.gitProvider}-build-template`
         );
 
         return buildTriggerTemplate?.spec?.resourcetemplates?.[0]?.spec?.workspaces?.[0]
             ?.volumeClaimTemplate?.spec?.resources?.requests?.storage;
-    }, [codebase.spec.gitServer, triggerTemplates]);
+    }, [gitServerByCodebase, triggerTemplates]);
 
     const randomPostfix = createRandomFiveSymbolString();
 

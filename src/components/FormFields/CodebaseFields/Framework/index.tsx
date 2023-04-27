@@ -63,7 +63,6 @@ export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
 
         Object.values(chosenLang.frameworks).map(({ name, value, icon, availableCITools }) => {
             for (const availableCITool of availableCITools) {
-                console.log(availableCITool, AvailableCIToolsDataContextValue);
                 if (!AvailableCIToolsDataContextValue.includes(availableCITool)) {
                     continue;
                 }

@@ -59,8 +59,6 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
         setAppsWithBranches,
     });
 
-    console.log(isLoading, error);
-
     const handleAddApplicationRow = React.useCallback(async () => {
         setAppsWithBranches(prev => {
             const newApplications = prev.map(application => {
