@@ -194,6 +194,12 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
             availableCITools: [CI_TOOLS.TEKTON],
         },
         frameworks: {
+            [CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1]: {
+                name: '.NET 3.1',
+                value: CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
             [CODEBASE_COMMON_FRAMEWORKS.DOTNET_6_0]: {
                 name: '.NET 6.0',
                 value: CODEBASE_COMMON_FRAMEWORKS.DOTNET_6_0,
