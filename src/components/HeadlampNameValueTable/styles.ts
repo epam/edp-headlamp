@@ -5,14 +5,12 @@ const { makeStyles } = MuiCore;
 
 export const useStyles = makeStyles(() => ({
     tableWrapper: {
-        '& .MuiTableCell-body': {
+        '& dt, dd': {
             lineHeight: '1.5',
             fontSize: rem(14),
-            verticalAlign: 'middle',
-        },
-
-        '& .MuiTableCell-root': {
             padding: `${rem(8)} ${rem(2)}`,
+            verticalAlign: 'middle',
+            minWidth: 0,
         },
     },
 }));
