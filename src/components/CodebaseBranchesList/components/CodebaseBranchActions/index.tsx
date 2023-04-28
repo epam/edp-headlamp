@@ -39,9 +39,13 @@ export const CodebaseBranchActions = ({
         setAnchorEl(null);
     }, [setAnchorEl]);
 
-    const gitServerByCodebase = gitServers
-        ? gitServers.filter(el => el.metadata.name === codebase.spec.gitServer)?.[0]
-        : null;
+    const gitServerByCodebase = React.useMemo(
+        () =>
+            gitServers
+                ? gitServers.filter(el => el.metadata.name === codebase.spec.gitServer)?.[0]
+                : null,
+        [gitServers, codebase]
+    );
 
     const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
 
@@ -50,8 +54,12 @@ export const CodebaseBranchActions = ({
             return;
         }
 
+        if (!gitServerByCodebase) {
+            return;
+        }
+
         const buildTriggerTemplate = triggerTemplates.find(
-            el => el.metadata.name === `${gitServerByCodebase.spec.gitProvider}-build-template`
+            el => el.metadata.name === `${gitServerByCodebase?.spec?.gitProvider}-build-template`
         );
 
         return buildTriggerTemplate?.spec?.resourcetemplates?.[0]?.spec?.workspaces?.[0]
