@@ -1,5 +1,5 @@
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
-import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
+import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { ApplicationKubeObjectConfig } from '../../../../k8s/Application/config';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
 import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
@@ -35,7 +35,6 @@ export const createApplicationInstance = ({
             spec: {
                 versioning: { type: versioningType },
                 gitUrlPath,
-                strategy,
                 lang,
                 framework,
                 buildTool,
@@ -48,11 +47,11 @@ export const createApplicationInstance = ({
     } = imageStream;
 
     const {
-        spec: { gitHost, sshPort },
+        spec: { gitHost, sshPort, gitProvider },
     } = gitServer;
 
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
-    const repoUrlUser = strategy === CODEBASE_CREATION_STRATEGIES['IMPORT'] ? 'git' : 'argocd';
+    const repoUrlUser = gitProvider === GIT_PROVIDERS.GERRIT ? 'argocd' : 'git';
 
     const base = {
         apiVersion: `${group}/${version}`,

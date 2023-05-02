@@ -41,7 +41,7 @@ export const expectedApplicationOutputMock: DeepPartial<ApplicationKubeObjectInt
                 ],
             },
             path: 'deploy-templates',
-            repoURL: 'ssh://argocd@github.com:22/test-namespace/test-app-name',
+            repoURL: 'ssh://git@github.com:22/test-namespace/test-app-name',
             targetRevision: 'test-image-tag',
         },
         syncPolicy: {
