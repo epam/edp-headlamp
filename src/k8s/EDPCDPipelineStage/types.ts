@@ -22,6 +22,7 @@ interface EDPCDPipelineStageSpecInterface {
         type: string;
     };
     triggerType: string;
+    namespace: string;
 }
 
 interface EDPCDPipelineStageStatusInterface {

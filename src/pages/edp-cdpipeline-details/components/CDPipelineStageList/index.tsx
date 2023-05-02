@@ -6,45 +6,42 @@ import { useGitServers } from '../../../../hooks/useGitServers';
 import { streamCDPipelineStagesByCDPipelineName } from '../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
-import { Iconify, MuiCore, MuiStyles, pluginLib, React } from '../../../../plugin.globals';
+import { Iconify, MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { rem } from '../../../../utils/styling/rem';
 import { createArgoCDStageLink } from '../../../../utils/url/createArgoCDStageLink';
+import { createGrafanaLink } from '../../../../utils/url/createGrafanaLink';
+import { createKibanaLink } from '../../../../utils/url/createKibanaLink';
 import { CDPipelineDataContext } from '../../index';
 import { CDPipelineStage } from './components/CDPipelineStage';
 import { CDPipelineStageActions } from './components/CDPipelineStageActions';
-import { CDPipelineStageMetadataTable } from './components/CDPipelineStageMetadataTable';
+import { CDPipelineStageResourceLink } from './components/CDPipelineStageResourceLink';
 import { TableHeaderActions } from './components/TableHeaderActions';
 import { useStyles } from './styles';
+import { CDPipelineStagesListProps } from './types';
 
 const {
     CommonComponents: { SectionHeader },
 } = pluginLib;
+
 const { Icon } = Iconify;
-const {
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-    Typography,
-    Grid,
-    IconButton,
-    Link: MuiLink,
-    Tooltip,
-} = MuiCore;
-const { useTheme } = MuiStyles;
+
+const { Accordion, AccordionSummary, AccordionDetails, Typography, Grid } = MuiCore;
+
 export const CDPipelineStagesDataContext =
     React.createContext<EDPCDPipelineStageKubeObjectInterface[]>(null);
+
 export const CurrentCDPipelineStageDataContext =
     React.createContext<EDPCDPipelineStageKubeObjectInterface>(null);
+
 export const GitServersDataContext = React.createContext<EDPGitServerKubeObjectInterface[]>(null);
-const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
+
 export const CDPipelineStagesList = ({
     argoCDURLOrigin,
-}: {
-    argoCDURLOrigin: string;
-}): React.ReactElement => {
+    grafanaURLOrigin,
+    kibanaURLOrigin,
+}: CDPipelineStagesListProps): React.ReactElement => {
     const CDPipelineData = React.useContext(CDPipelineDataContext);
-    const theme: DefaultTheme = useTheme();
     const {
         metadata: { name, namespace },
     } = CDPipelineData;
@@ -100,6 +97,9 @@ export const CDPipelineStagesList = ({
                     el.spec.name
                 );
 
+                const grafanaLink = createGrafanaLink(grafanaURLOrigin, el.spec.namespace);
+                const kibanaLink = createKibanaLink(kibanaURLOrigin, el.spec.namespace);
+
                 const statusTitle = (
                     <>
                         <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
@@ -140,35 +140,27 @@ export const CDPipelineStagesList = ({
                                                     <div style={{ marginLeft: 'auto' }}>
                                                         <Grid container spacing={1}>
                                                             <Grid item>
-                                                                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                                                                <div
-                                                                    onClick={stopPropagation}
-                                                                    onFocus={stopPropagation}
-                                                                >
-                                                                    <Tooltip
-                                                                        title={'Open in ArgoCD'}
-                                                                    >
-                                                                        <IconButton
-                                                                            component={MuiLink}
-                                                                            href={argoCDStageLink}
-                                                                            target={'_blank'}
-                                                                        >
-                                                                            <Icon
-                                                                                icon={
-                                                                                    ICONS['ARGOCD']
-                                                                                }
-                                                                                color={
-                                                                                    theme.palette
-                                                                                        .grey['500']
-                                                                                }
-                                                                                width="20"
-                                                                            />
-                                                                        </IconButton>
-                                                                    </Tooltip>
-                                                                </div>
+                                                                <CDPipelineStageResourceLink
+                                                                    icon={ICONS.ARGOCD}
+                                                                    tooltipTitle={'Open in ArgoCD '}
+                                                                    link={argoCDStageLink}
+                                                                />
                                                             </Grid>
                                                             <Grid item>
-                                                                <CDPipelineStageMetadataTable />
+                                                                <CDPipelineStageResourceLink
+                                                                    icon={ICONS.GRAFANA}
+                                                                    tooltipTitle={
+                                                                        'Open in Grafana '
+                                                                    }
+                                                                    link={grafanaLink}
+                                                                />
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <CDPipelineStageResourceLink
+                                                                    icon={ICONS.KIBANA}
+                                                                    tooltipTitle={'Open in Kibana '}
+                                                                    link={kibanaLink}
+                                                                />
                                                             </Grid>
                                                             <Grid item>
                                                                 <CDPipelineStageActions />

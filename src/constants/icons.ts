@@ -29,4 +29,6 @@ export enum ICONS {
     GIT_BRANCH = 'ph:git-branch',
     NEW_WINDOW = 'radix-icons:open-in-new-window',
     ARGOCD = 'simple-icons:argo',
+    GRAFANA = 'simple-icons:grafana',
+    KIBANA = 'simple-icons:kibana',
 }

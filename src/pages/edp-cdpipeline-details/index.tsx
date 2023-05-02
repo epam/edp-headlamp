@@ -65,6 +65,14 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
         () => EDPComponents.filter(el => el.spec.type === 'argocd')?.[0]?.spec?.url,
         [EDPComponents]
     );
+    const grafanaURLOrigin = React.useMemo(
+        () => EDPComponents.filter(el => el.spec.type === 'grafana')?.[0]?.spec?.url,
+        [EDPComponents]
+    );
+    const kibanaURLOrigin = React.useMemo(
+        () => EDPComponents.filter(el => el.spec.type === 'kibana')?.[0]?.spec?.url,
+        [EDPComponents]
+    );
 
     const argoCDPipelineLink = React.useMemo(
         () => createArgoCDPipelineLink(argoCDURLOrigin, name),
@@ -119,7 +127,11 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
                     <CDPipelineDataContext.Provider value={CDPipelineData}>
                         <ApplicationsContext.Provider value={applications}>
                             <CDPipelineApplicationsTable />
-                            <CDPipelineStagesList argoCDURLOrigin={argoCDURLOrigin} />
+                            <CDPipelineStagesList
+                                argoCDURLOrigin={argoCDURLOrigin}
+                                grafanaURLOrigin={grafanaURLOrigin}
+                                kibanaURLOrigin={kibanaURLOrigin}
+                            />
                         </ApplicationsContext.Provider>
                     </CDPipelineDataContext.Provider>
                 </>
