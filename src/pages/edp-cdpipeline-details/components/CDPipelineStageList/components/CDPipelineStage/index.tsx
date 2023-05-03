@@ -23,7 +23,7 @@ import { useColumns } from './hooks/useColumns';
 import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
 
-const { Grid, Typography } = MuiCore;
+const { Grid, Typography, Button } = MuiCore;
 
 export const CDPipelineStage = ({
     argoCDURLOrigin,
@@ -182,32 +182,48 @@ export const CDPipelineStage = ({
                                     rowsPerPage={[15, 25, 50]}
                                     data={CurrentCDPipelineStageDataContextValue.spec.qualityGates}
                                 />
+                                <Grid container justifyContent={'flex-end'}>
+                                    <Grid item>
+                                        <Button
+                                            component={'button'}
+                                            type={'button'}
+                                            variant={'contained'}
+                                            color={'primary'}
+                                            size={'small'}
+                                            disabled={!runActionIsEnabled}
+                                        >
+                                            Run
+                                        </Button>
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ marginTop: rem(100) }}>
                                 <Grid container spacing={4}>
                                     <Grid item xs={12}>
-                                        <div style={{ padding: `0 ${rem(10)}` }}>
-                                            <PipelineRunTrigger
-                                                namespace={
-                                                    CurrentCDPipelineStageDataContextValue.metadata
-                                                        .namespace
-                                                }
-                                                runActionIsEnabled={runActionIsEnabled}
-                                                enrichedApplicationsWithArgoApplications={
-                                                    enrichedApplicationsWithArgoApplications
-                                                }
-                                            />
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={12}>
                                         <div className={classes.tableItemTitle}>
-                                            <Typography variant={'h5'}>Pipelines</Typography>
+                                            <Typography variant={'h5'}>Custom gates</Typography>
                                         </div>
-                                        <HeadlampSimpleTable
-                                            columns={deployPipelineRunsColumns}
-                                            rowsPerPage={[10]}
-                                            data={latestTenPipelineRuns}
-                                        />
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12}>
+                                                <PipelineRunTrigger
+                                                    namespace={
+                                                        CurrentCDPipelineStageDataContextValue
+                                                            .metadata.namespace
+                                                    }
+                                                    runActionIsEnabled={runActionIsEnabled}
+                                                    enrichedApplicationsWithArgoApplications={
+                                                        enrichedApplicationsWithArgoApplications
+                                                    }
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <HeadlampSimpleTable
+                                                    columns={deployPipelineRunsColumns}
+                                                    rowsPerPage={[10]}
+                                                    data={latestTenPipelineRuns}
+                                                />
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
