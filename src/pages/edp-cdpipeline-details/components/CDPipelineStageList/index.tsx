@@ -163,6 +163,13 @@ export const CDPipelineStagesList = ({
                                                                 />
                                                             </Grid>
                                                             <Grid item>
+                                                                <CDPipelineStageResourceLink
+                                                                    icon={ICONS.KUBERNETES}
+                                                                    tooltipTitle={'In cluster'}
+                                                                    link={null}
+                                                                />
+                                                            </Grid>
+                                                            <Grid item>
                                                                 <CDPipelineStageActions />
                                                             </Grid>
                                                         </Grid>

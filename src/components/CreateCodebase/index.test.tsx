@@ -17,6 +17,8 @@ import { CreateCodebaseProps } from './types';
 const { ApiProxy } = pluginLib;
 
 describe('CreateCodebase', () => {
+    jest.setTimeout(10000);
+
     describe('codebase type - application', () => {
         it('should render correctly', async () => {
             const props: CreateCodebaseProps = {

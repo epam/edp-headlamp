@@ -10,6 +10,7 @@ import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
+import { rem } from '../../../../utils/styling/rem';
 import {
     Description,
     GroovyPipelineLibrary,
@@ -18,6 +19,7 @@ import {
     StageName,
     TriggerType,
 } from '../../../FormFields/CDPipelineStageFields';
+import { Cluster } from '../../../FormFields/CDPipelineStageFields/Cluster';
 import { Render } from '../../../Render';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
@@ -25,7 +27,7 @@ import { CDPIPELINE_STAGE_BACKWARDS_NAME_MAPPING, CDPIPELINE_STAGE_NAMES } from 
 import { useStyles } from './styles';
 import { CreateCDPipelineStageFormProps } from './types';
 
-const { Button, Grid } = MuiCore;
+const { Button, Grid, Divider } = MuiCore;
 
 const {
     CommonComponents: { EditorDialog },
@@ -138,6 +140,12 @@ export const CreateCDPipelineStageForm = ({
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.formInner}>
                         <Grid container spacing={2} alignItems={'flex-end'}>
+                            <Grid item xs={12}>
+                                <Cluster
+                                    names={CDPIPELINE_STAGE_NAMES}
+                                    handleFormFieldChange={handleFormFieldChange}
+                                />
+                            </Grid>
                             <Grid item xs={6}>
                                 <StageName
                                     names={CDPIPELINE_STAGE_NAMES}
@@ -174,6 +182,14 @@ export const CreateCDPipelineStageForm = ({
                                     </Grid>
                                 </>
                             </Render>
+                            <Grid item xs={12}>
+                                <Divider
+                                    style={{
+                                        margin: `${rem(20)} auto`,
+                                        width: '100%',
+                                    }}
+                                />
+                            </Grid>
                             <Grid item xs={12}>
                                 <QualityGates
                                     namespace={namespace}

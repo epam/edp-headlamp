@@ -25,6 +25,11 @@ export const CDPIPELINE_STAGE_NAME_QUALITY_GATES_TYPE_ADD_CHOOSER: FormNameObjec
     notUsedInFormData: true,
 };
 
+export const CDPIPELINE_STAGE_NAME_CLUSTER: FormNameObject = {
+    name: 'cluster',
+    notUsedInFormData: true,
+};
+
 export const CDPIPELINE_STAGE_NAME_NAME: FormNameObject = {
     name: 'name',
     path: ['metadata', 'name'],
@@ -84,6 +89,7 @@ export const CDPIPELINE_STAGE_NAME_NAMESPACE: FormNameObject = {
 export const CDPIPELINE_STAGE_NAMES: { [key: string]: FormNameObject } = {
     // NOT USED IN FORM DATA
     qualityGatesTypeAddChooser: CDPIPELINE_STAGE_NAME_QUALITY_GATES_TYPE_ADD_CHOOSER,
+    cluster: CDPIPELINE_STAGE_NAME_CLUSTER,
 
     name: CDPIPELINE_STAGE_NAME_NAME,
     namespace: CDPIPELINE_STAGE_NAME_NAMESPACE,

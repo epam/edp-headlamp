@@ -31,4 +31,5 @@ export enum ICONS {
     ARGOCD = 'simple-icons:argo',
     GRAFANA = 'simple-icons:grafana',
     KIBANA = 'simple-icons:kibana',
+    KUBERNETES = 'simple-icons:kubernetes',
 }
