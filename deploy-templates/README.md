@@ -31,6 +31,8 @@ A Helm chart for EDP Headlamp
 | config.oidc.enabled | bool | `false` |  |
 | config.oidc.issuerRealm | string | `""` | OIDC issuer realm |
 | config.oidc.scopes | string | `""` | OIDC scopes to be used |
+| extraVolumeMounts | list | `[]` | Additional volumeMounts to be added to the container |
+| extraVolumes | list | `[]` | Additional volumes to be added to the pod |
 | fullnameOverride | string | `""` | Overrides the full name of the chart |
 | global.dnsWildCard | string | `nil` | a cluster DNS wildcard name |
 | global.edpName | string | `""` | namespace or a project name (in case of OpenShift) |

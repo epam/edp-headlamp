@@ -33,6 +33,10 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{ if .Values.config.oidc.enabled }}
           env:
+          {{- if .Values.extraVolumeMounts }}
+          - name: NODE_EXTRA_CA_CERTS
+            value: {{ (index $.Values.extraVolumeMounts 0).mountPath }}
+          {{- end }}
           - name: CLIENT_SECRET
             valueFrom:
               secretKeyRef:
@@ -77,6 +81,14 @@ spec:
             failureThreshold: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          {{- if .Values.extraVolumeMounts }}
+            {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+          {{- end }}
+      volumes:
+      {{- if .Values.extraVolumes }}
+        {{- toYaml .Values.extraVolumes | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
