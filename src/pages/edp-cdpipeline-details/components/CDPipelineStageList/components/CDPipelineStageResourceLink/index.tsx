@@ -18,11 +18,6 @@ export const CDPipelineStageResourceLink = ({
 }: CDPipelineStageResourceLinkProps) => {
     const theme: DefaultTheme = useTheme();
 
-    const btnStyles: React.CSSProperties = {
-        cursor: link ? 'pointer' : 'default',
-        pointerEvents: 'auto',
-    };
-
     return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
         <div onClick={stopPropagation} onFocus={stopPropagation}>
@@ -42,15 +37,11 @@ export const CDPipelineStageResourceLink = ({
                     </Grid>
                 }
             >
-                <IconButton
-                    component={MuiLink}
-                    href={link}
-                    target={'_blank'}
-                    disabled={!link}
-                    style={btnStyles}
-                >
-                    <Icon icon={icon} color={theme.palette.grey['500']} width="20" />
-                </IconButton>
+                <span>
+                    <IconButton component={MuiLink} href={link} target={'_blank'} disabled={!link}>
+                        <Icon icon={icon} color={theme.palette.grey['500']} width="20" />
+                    </IconButton>
+                </span>
             </Tooltip>
         </div>
     );

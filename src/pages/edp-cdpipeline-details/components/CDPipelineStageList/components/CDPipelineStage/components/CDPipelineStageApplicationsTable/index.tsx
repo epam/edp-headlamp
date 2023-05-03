@@ -7,8 +7,9 @@ export const CDPipelineStageApplicationsTable = ({
     enrichedApplicationsWithArgoApplications,
     qualityGatePipelineIsRunning,
     argoCDURLOrigin,
+    jaegerURLOrigin,
 }): React.ReactElement => {
-    const columns = useColumns(qualityGatePipelineIsRunning, argoCDURLOrigin);
+    const columns = useColumns(qualityGatePipelineIsRunning, argoCDURLOrigin, jaegerURLOrigin);
     const classes = useStyles();
     return (
         <div className={classes.tableRoot}>

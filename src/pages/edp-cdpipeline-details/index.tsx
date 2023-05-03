@@ -74,6 +74,11 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
         [EDPComponents]
     );
 
+    const jaegerURLOrigin = React.useMemo(
+        () => EDPComponents.filter(el => el.spec.type === 'jaeger')?.[0]?.spec?.url,
+        [EDPComponents]
+    );
+
     const argoCDPipelineLink = React.useMemo(
         () => createArgoCDPipelineLink(argoCDURLOrigin, name),
         [argoCDURLOrigin, name]
@@ -131,6 +136,7 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
                                 argoCDURLOrigin={argoCDURLOrigin}
                                 grafanaURLOrigin={grafanaURLOrigin}
                                 kibanaURLOrigin={kibanaURLOrigin}
+                                jaegerURLOrigin={jaegerURLOrigin}
                             />
                         </ApplicationsContext.Provider>
                     </CDPipelineDataContext.Provider>

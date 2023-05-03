@@ -40,6 +40,7 @@ export const CDPipelineStagesList = ({
     argoCDURLOrigin,
     grafanaURLOrigin,
     kibanaURLOrigin,
+    jaegerURLOrigin,
 }: CDPipelineStagesListProps): React.ReactElement => {
     const CDPipelineData = React.useContext(CDPipelineDataContext);
     const {
@@ -179,6 +180,7 @@ export const CDPipelineStagesList = ({
                                             <AccordionDetails>
                                                 <CDPipelineStage
                                                     argoCDURLOrigin={argoCDURLOrigin}
+                                                    jaegerURLOrigin={jaegerURLOrigin}
                                                 />
                                             </AccordionDetails>
                                         </Accordion>

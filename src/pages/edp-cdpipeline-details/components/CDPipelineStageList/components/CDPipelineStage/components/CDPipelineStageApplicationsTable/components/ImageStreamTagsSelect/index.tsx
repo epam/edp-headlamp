@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { FormSelect } from '../../../../../../../../../../components/FormComponents';
 import { Render } from '../../../../../../../../../../components/Render';
+import { ICONS } from '../../../../../../../../../../constants/icons';
 import { EnrichedApplication } from '../../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/Application/types';
-import { MuiCore, React } from '../../../../../../../../../../plugin.globals';
+import { Iconify, MuiCore, React } from '../../../../../../../../../../plugin.globals';
 import { rem } from '../../../../../../../../../../utils/styling/rem';
 import { CDPipelineDataContext } from '../../../../../../../../index';
 import {
@@ -13,7 +14,10 @@ import {
 } from '../../../../../../index';
 import { useCreateArgoApplication } from './hooks/useCreateArgoApplication';
 import { useImageStreamBasedOnResources } from './hooks/useImageStreamBasedOnResources';
-const { Grid, Button } = MuiCore;
+
+const { Grid, Tooltip, IconButton } = MuiCore;
+const { Icon } = Iconify;
+
 export const ImageStreamTagsSelect = ({
     enrichedApplication,
     argoApplication,
@@ -22,6 +26,7 @@ export const ImageStreamTagsSelect = ({
     enrichedApplication: EnrichedApplication;
     argoApplication: ApplicationKubeObjectInterface;
     qualityGatePipelineIsRunning: boolean;
+    jaegerLink: string;
 }) => {
     const {
         control,
@@ -123,8 +128,8 @@ export const ImageStreamTagsSelect = ({
     return (
         <form>
             <Grid container spacing={2} alignItems={'center'}>
-                <Grid item style={{ flexGrow: 1 }}>
-                    <div style={{ maxWidth: rem(250), width: '100%' }}>
+                <Grid item>
+                    <div style={{ width: rem(250) }}>
                         <FormSelect
                             control={control}
                             errors={errors}
@@ -137,44 +142,44 @@ export const ImageStreamTagsSelect = ({
                 </Grid>
                 <Grid item>
                     <Render condition={!argoApplication}>
-                        <Button
-                            component={'button'}
-                            type={'button'}
-                            variant={'contained'}
-                            color={'primary'}
-                            size={'small'}
-                            disabled={createEditActionDisabled}
-                            onClick={handleCreateRequest}
-                        >
-                            Deploy
-                        </Button>
+                        <Tooltip title={'Deploy'}>
+                            <span>
+                                <IconButton
+                                    aria-label={'Deploy'}
+                                    onClick={handleCreateRequest}
+                                    disabled={createEditActionDisabled}
+                                >
+                                    <Icon icon={ICONS.DEPLOY} color={'grey'} width="20" />
+                                </IconButton>
+                            </span>
+                        </Tooltip>
                     </Render>
                     <Render condition={!!argoApplication}>
-                        <Button
-                            component={'button'}
-                            type={'button'}
-                            variant={'contained'}
-                            color={'primary'}
-                            size={'small'}
-                            disabled={createEditActionDisabled}
-                            onClick={handleEditRequest}
-                        >
-                            Update
-                        </Button>
+                        <Tooltip title={'Update'}>
+                            <span>
+                                <IconButton
+                                    aria-label={'Update'}
+                                    onClick={handleEditRequest}
+                                    disabled={createEditActionDisabled}
+                                >
+                                    <Icon icon={ICONS.SYNC} color={'grey'} width="20" />
+                                </IconButton>
+                            </span>
+                        </Tooltip>
                     </Render>
                 </Grid>
                 <Grid item>
-                    <Button
-                        component={'button'}
-                        type={'button'}
-                        variant={'contained'}
-                        color={'default'}
-                        size={'small'}
-                        disabled={deleteActionDisabled}
-                        onClick={handleDeleteRequest}
-                    >
-                        Uninstall
-                    </Button>
+                    <Tooltip title={'Uninstall'}>
+                        <span>
+                            <IconButton
+                                aria-label={'Uninstall'}
+                                onClick={handleDeleteRequest}
+                                disabled={deleteActionDisabled}
+                            >
+                                <Icon icon={ICONS.BUCKET} color={'grey'} width="20" />
+                            </IconButton>
+                        </span>
+                    </Tooltip>
                 </Grid>
             </Grid>
         </form>

@@ -12,6 +12,7 @@ import { MuiCore, pluginLib, React } from '../../../../../../../../../plugin.glo
 import { COMPONENTS_ROUTE_NAME } from '../../../../../../../../../routes/names';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../../../../utils/routes/createRouteName';
 import { createArgoCDApplicationLink } from '../../../../../../../../../utils/url/createArgoCDApplicationLink';
+import { createJaegerLink } from '../../../../../../../../../utils/url/createJaegerLink';
 import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
 
 const {
@@ -22,7 +23,8 @@ const { Link: MuiLink } = MuiCore;
 
 export const useColumns = (
     qualityGatePipelineIsRunning: boolean,
-    argoCDURLOrigin: string
+    argoCDURLOrigin: string,
+    jaegerURLOrigin: string
 ): HeadlampSimpleTableGetterColumn<{
     enrichedApplication: EnrichedApplication;
     argoApplication: ApplicationKubeObjectInterface;
@@ -124,14 +126,21 @@ export const useColumns = (
             },
             {
                 label: 'Image stream version',
-                getter: ({ enrichedApplication, argoApplication }) => (
-                    <ImageStreamTagsSelect
-                        enrichedApplication={enrichedApplication}
-                        argoApplication={argoApplication}
-                        qualityGatePipelineIsRunning={qualityGatePipelineIsRunning}
-                    />
-                ),
+                getter: ({ enrichedApplication, argoApplication }) => {
+                    const jaegerLink = argoApplication
+                        ? createJaegerLink(jaegerURLOrigin, argoApplication?.metadata?.name)
+                        : null;
+
+                    return (
+                        <ImageStreamTagsSelect
+                            enrichedApplication={enrichedApplication}
+                            argoApplication={argoApplication}
+                            qualityGatePipelineIsRunning={qualityGatePipelineIsRunning}
+                            jaegerLink={jaegerLink}
+                        />
+                    );
+                },
             },
         ],
-        [argoCDURLOrigin, qualityGatePipelineIsRunning]
+        [argoCDURLOrigin, jaegerURLOrigin, qualityGatePipelineIsRunning]
     );

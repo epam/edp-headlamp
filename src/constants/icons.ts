@@ -32,4 +32,7 @@ export enum ICONS {
     GRAFANA = 'simple-icons:grafana',
     KIBANA = 'simple-icons:kibana',
     KUBERNETES = 'simple-icons:kubernetes',
+    SYNC = 'material-symbols:cloud-sync-outline-rounded',
+    DEPLOY = 'tabler:cloud-upload',
+    JAEGER = 'devicon-plain:jaegertracing',
 }
