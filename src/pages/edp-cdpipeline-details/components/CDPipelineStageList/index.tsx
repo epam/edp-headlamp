@@ -1,4 +1,5 @@
 import { Render } from '../../../../components/Render';
+import { ResourceIconLink } from '../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICONS } from '../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
@@ -15,7 +16,6 @@ import { createKibanaLink } from '../../../../utils/url/createKibanaLink';
 import { CDPipelineDataContext } from '../../index';
 import { CDPipelineStage } from './components/CDPipelineStage';
 import { CDPipelineStageActions } from './components/CDPipelineStageActions';
-import { CDPipelineStageResourceLink } from './components/CDPipelineStageResourceLink';
 import { TableHeaderActions } from './components/TableHeaderActions';
 import { useStyles } from './styles';
 import { CDPipelineStagesListProps } from './types';
@@ -141,14 +141,14 @@ export const CDPipelineStagesList = ({
                                                     <div style={{ marginLeft: 'auto' }}>
                                                         <Grid container spacing={1}>
                                                             <Grid item>
-                                                                <CDPipelineStageResourceLink
+                                                                <ResourceIconLink
                                                                     icon={ICONS.ARGOCD}
                                                                     tooltipTitle={'Open in ArgoCD '}
                                                                     link={argoCDStageLink}
                                                                 />
                                                             </Grid>
                                                             <Grid item>
-                                                                <CDPipelineStageResourceLink
+                                                                <ResourceIconLink
                                                                     icon={ICONS.GRAFANA}
                                                                     tooltipTitle={
                                                                         'Open in Grafana '
@@ -157,14 +157,14 @@ export const CDPipelineStagesList = ({
                                                                 />
                                                             </Grid>
                                                             <Grid item>
-                                                                <CDPipelineStageResourceLink
+                                                                <ResourceIconLink
                                                                     icon={ICONS.KIBANA}
                                                                     tooltipTitle={'Open in Kibana '}
                                                                     link={kibanaLink}
                                                                 />
                                                             </Grid>
                                                             <Grid item>
-                                                                <CDPipelineStageResourceLink
+                                                                <ResourceIconLink
                                                                     icon={ICONS.KUBERNETES}
                                                                     tooltipTitle={'In cluster'}
                                                                     link={null}

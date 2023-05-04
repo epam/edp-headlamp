@@ -8,15 +8,17 @@ import { useEDPComponents } from '../../../../hooks/useEDPComponents';
 import { useNamespace } from '../../../../hooks/useNamespace';
 import { streamPipelineRunListByCodebaseBranchLabel } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
-import { Iconify, MuiCore, MuiStyles, React } from '../../../../plugin.globals';
+import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { parsePipelineRunStatus } from '../../../../utils/parsePipelineRunStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../utils/styling/rem';
+import { createSonarLink } from '../../../../utils/url/createSonarLink';
 import { FormSelect } from '../../../FormComponents';
 import { HeadlampNameValueTable } from '../../../HeadlampNameValueTable';
 import { HeadlampSimpleTable } from '../../../HeadlampSimpleTable';
 import { Render } from '../../../Render';
+import { ResourceIconLink } from '../../../ResourceIconLink';
 import { StatusIcon } from '../../../StatusIcon';
 import { isDefaultBranch } from '../../utils';
 import { CodebaseBranchActions } from '../CodebaseBranchActions';
@@ -25,20 +27,8 @@ import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
 import { useStyles } from './styles';
 import { CodebaseBranchProps } from './types';
 
-const {
-    IconButton,
-    Tooltip,
-    Grid,
-    Typography,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-    Chip,
-    Link,
-    Paper,
-} = MuiCore;
+const { Grid, Typography, Accordion, AccordionSummary, AccordionDetails, Chip, Paper } = MuiCore;
 const { Icon } = Iconify;
-const { useTheme } = MuiStyles;
 
 const pipelineRunTypes = Object.entries(PIPELINE_TYPES).filter(
     ([, value]) => value !== PIPELINE_TYPES['DEPLOY']
@@ -47,8 +37,6 @@ const pipelineRunTypeSelectOptions = pipelineRunTypes.map(([, value]) => ({
     label: capitalizeFirstLetter(value),
     value: value,
 }));
-
-const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
 
 export const CodebaseBranch = ({
     defaultBranch,
@@ -65,12 +53,17 @@ export const CodebaseBranch = ({
         control,
         formState: { errors },
     } = useForm();
-    const theme: DefaultTheme = useTheme();
     const { namespace } = useNamespace();
 
     const { EDPComponents } = useEDPComponents({ namespace });
+
     const tektonUrlOrigin = React.useMemo(
         () => EDPComponents.filter(el => el.spec.type === 'tekton')?.[0]?.spec?.url,
+        [EDPComponents]
+    );
+
+    const sonarUrlOrigin = React.useMemo(
+        () => EDPComponents.filter(el => el.spec.type === 'sonar')?.[0]?.spec?.url,
         [EDPComponents]
     );
 
@@ -176,6 +169,11 @@ export const CodebaseBranch = ({
         </>
     );
 
+    const sonarLink = React.useMemo(
+        () => createSonarLink(sonarUrlOrigin, codebaseBranchData.metadata.name),
+        [codebaseBranchData.metadata.name, sonarUrlOrigin]
+    );
+
     return (
         <div style={{ paddingBottom: rem(16) }}>
             <Accordion expanded={expandedPanel === id} onChange={handlePanelChange(id)}>
@@ -210,45 +208,22 @@ export const CodebaseBranch = ({
                                         </div>
                                     </Grid>
                                 </Render>
+                                <Render condition={!!sonarUrlOrigin}>
+                                    <Grid item>
+                                        <ResourceIconLink
+                                            tooltipTitle={'Link to sonar '}
+                                            link={sonarLink}
+                                            icon={ICONS.SONAR}
+                                        />
+                                    </Grid>
+                                </Render>
                                 <Render condition={!!codebaseData?.status?.gitWebUrl}>
                                     <Grid item>
-                                        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                                        <div
-                                            onClick={stopPropagation}
-                                            onFocus={stopPropagation}
-                                            style={{ cursor: 'default' }}
-                                        >
-                                            <Tooltip
-                                                title={
-                                                    <Grid
-                                                        container
-                                                        alignItems={'center'}
-                                                        spacing={1}
-                                                    >
-                                                        <Grid item>Go to the Source Code </Grid>
-                                                        <Grid item>
-                                                            <Icon
-                                                                icon={ICONS.NEW_WINDOW}
-                                                                color={theme.palette.grey['500']}
-                                                                width="15"
-                                                            />
-                                                        </Grid>
-                                                    </Grid>
-                                                }
-                                            >
-                                                <IconButton
-                                                    component={Link}
-                                                    href={codebaseData?.status?.gitWebUrl}
-                                                    target={'_blank'}
-                                                >
-                                                    <Icon
-                                                        icon={ICONS.GIT_BRANCH}
-                                                        color={theme.palette.grey['500']}
-                                                        width="20"
-                                                    />
-                                                </IconButton>
-                                            </Tooltip>
-                                        </div>
+                                        <ResourceIconLink
+                                            tooltipTitle={'Go to the Source Code '}
+                                            link={codebaseData?.status?.gitWebUrl}
+                                            icon={ICONS.GIT_BRANCH}
+                                        />
                                     </Grid>
                                 </Render>
                                 <Grid item>

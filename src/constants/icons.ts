@@ -35,4 +35,5 @@ export enum ICONS {
     SYNC = 'material-symbols:cloud-sync-outline-rounded',
     DEPLOY = 'tabler:cloud-upload',
     JAEGER = 'devicon-plain:jaegertracing',
+    SONAR = 'simple-icons:sonarsource',
 }

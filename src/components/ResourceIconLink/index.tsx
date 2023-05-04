@@ -1,7 +1,7 @@
-import { Render } from '../../../../../../components/Render';
-import { ICONS } from '../../../../../../constants/icons';
-import { Iconify, MuiCore, MuiStyles, React } from '../../../../../../plugin.globals';
-import { CDPipelineStageResourceLinkProps } from './types';
+import { ICONS } from '../../constants/icons';
+import { Iconify, MuiCore, MuiStyles, React } from '../../plugin.globals';
+import { Render } from '../Render';
+import { ResourceIconLinkProps } from './types';
 
 const { Grid, IconButton, Link: MuiLink, Tooltip } = MuiCore;
 
@@ -11,11 +11,7 @@ const { useTheme } = MuiStyles;
 
 const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
 
-export const CDPipelineStageResourceLink = ({
-    tooltipTitle,
-    icon,
-    link,
-}: CDPipelineStageResourceLinkProps) => {
+export const ResourceIconLink = ({ tooltipTitle, icon, link }: ResourceIconLinkProps) => {
     const theme: DefaultTheme = useTheme();
 
     return (
