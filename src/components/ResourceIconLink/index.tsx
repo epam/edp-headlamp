@@ -21,6 +21,7 @@ export const ResourceIconLink = ({ tooltipTitle, icon, link }: ResourceIconLinkP
                 title={
                     <Grid container alignItems={'center'} spacing={1}>
                         <Grid item>{tooltipTitle}</Grid>
+                        <span> </span>
                         <Render condition={!!link}>
                             <Grid item>
                                 <Icon

@@ -143,23 +143,21 @@ export const CDPipelineStagesList = ({
                                                             <Grid item>
                                                                 <ResourceIconLink
                                                                     icon={ICONS.ARGOCD}
-                                                                    tooltipTitle={'Open in ArgoCD '}
+                                                                    tooltipTitle={'Open in ArgoCD'}
                                                                     link={argoCDStageLink}
                                                                 />
                                                             </Grid>
                                                             <Grid item>
                                                                 <ResourceIconLink
                                                                     icon={ICONS.GRAFANA}
-                                                                    tooltipTitle={
-                                                                        'Open in Grafana '
-                                                                    }
+                                                                    tooltipTitle={'Open in Grafana'}
                                                                     link={grafanaLink}
                                                                 />
                                                             </Grid>
                                                             <Grid item>
                                                                 <ResourceIconLink
                                                                     icon={ICONS.KIBANA}
-                                                                    tooltipTitle={'Open in Kibana '}
+                                                                    tooltipTitle={'Open in Kibana'}
                                                                     link={kibanaLink}
                                                                 />
                                                             </Grid>

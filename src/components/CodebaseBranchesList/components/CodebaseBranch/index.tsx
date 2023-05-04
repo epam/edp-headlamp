@@ -211,7 +211,7 @@ export const CodebaseBranch = ({
                                 <Render condition={!!sonarUrlOrigin}>
                                     <Grid item>
                                         <ResourceIconLink
-                                            tooltipTitle={'Link to sonar '}
+                                            tooltipTitle={'Go to the Quality Gates'}
                                             link={sonarLink}
                                             icon={ICONS.SONAR}
                                         />
@@ -220,7 +220,7 @@ export const CodebaseBranch = ({
                                 <Render condition={!!codebaseData?.status?.gitWebUrl}>
                                     <Grid item>
                                         <ResourceIconLink
-                                            tooltipTitle={'Go to the Source Code '}
+                                            tooltipTitle={'Go to the Source Code'}
                                             link={codebaseData?.status?.gitWebUrl}
                                             icon={ICONS.GIT_BRANCH}
                                         />
