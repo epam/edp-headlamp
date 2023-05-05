@@ -4,7 +4,7 @@ import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
-import { useEDPComponents } from '../../../../hooks/useEDPComponents';
+import { useEDPComponentsURLs } from '../../../../hooks/useEDPComponentsURLs';
 import { useNamespace } from '../../../../hooks/useNamespace';
 import { streamPipelineRunListByCodebaseBranchLabel } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
@@ -54,18 +54,7 @@ export const CodebaseBranch = ({
         formState: { errors },
     } = useForm();
     const { namespace } = useNamespace();
-
-    const { EDPComponents } = useEDPComponents({ namespace });
-
-    const tektonUrlOrigin = React.useMemo(
-        () => EDPComponents.filter(el => el.spec.type === 'tekton')?.[0]?.spec?.url,
-        [EDPComponents]
-    );
-
-    const sonarUrlOrigin = React.useMemo(
-        () => EDPComponents.filter(el => el.spec.type === 'sonar')?.[0]?.spec?.url,
-        [EDPComponents]
-    );
+    const EDPComponentsURLS = useEDPComponentsURLs({ namespace });
 
     const {
         spec: { ciTool },
@@ -75,7 +64,7 @@ export const CodebaseBranch = ({
 
     const classes = useStyles();
     const mainInfoRows = useMainInfoRows(codebaseBranchData);
-    const pipelineRunsColumns = usePipelineRunsColumns(tektonUrlOrigin);
+    const pipelineRunsColumns = usePipelineRunsColumns();
     const normalizedCodebaseBranchName = codebaseBranchData.metadata.name.replaceAll('/', '-');
 
     const [pipelineRuns, setPipelineRuns] = React.useState<{
@@ -170,8 +159,11 @@ export const CodebaseBranch = ({
     );
 
     const sonarLink = React.useMemo(
-        () => createSonarLink(sonarUrlOrigin, codebaseBranchData.metadata.name),
-        [codebaseBranchData.metadata.name, sonarUrlOrigin]
+        () =>
+            'sonar' in EDPComponentsURLS
+                ? createSonarLink(EDPComponentsURLS?.sonar, codebaseBranchData.metadata.name)
+                : null,
+        [codebaseBranchData.metadata.name, EDPComponentsURLS]
     );
 
     return (
@@ -208,7 +200,7 @@ export const CodebaseBranch = ({
                                         </div>
                                     </Grid>
                                 </Render>
-                                <Render condition={!!sonarUrlOrigin}>
+                                <Render condition={!!EDPComponentsURLS?.sonar}>
                                     <Grid item>
                                         <ResourceIconLink
                                             tooltipTitle={'Go to the Quality Gates'}

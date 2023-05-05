@@ -7,6 +7,8 @@ import {
 } from '../../../../../../../../../configs/codebase-mappings';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../../constants/statuses';
 import { EnrichedApplication } from '../../../../../../../../../hooks/useApplicationsInCDPipeline';
+import { useEDPComponentsURLs } from '../../../../../../../../../hooks/useEDPComponentsURLs';
+import { useNamespace } from '../../../../../../../../../hooks/useNamespace';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../k8s/Application/types';
 import { MuiCore, pluginLib, React } from '../../../../../../../../../plugin.globals';
 import { COMPONENTS_ROUTE_NAME } from '../../../../../../../../../routes/names';
@@ -22,14 +24,15 @@ const {
 const { Link: MuiLink } = MuiCore;
 
 export const useColumns = (
-    qualityGatePipelineIsRunning: boolean,
-    argoCDURLOrigin: string,
-    jaegerURLOrigin: string
+    qualityGatePipelineIsRunning: boolean
 ): HeadlampSimpleTableGetterColumn<{
     enrichedApplication: EnrichedApplication;
     argoApplication: ApplicationKubeObjectInterface;
-}>[] =>
-    React.useMemo(
+}>[] => {
+    const { namespace } = useNamespace();
+    const EDPComponentsURLS = useEDPComponentsURLs({ namespace });
+
+    return React.useMemo(
         () => [
             {
                 label: 'Health',
@@ -108,12 +111,22 @@ export const useColumns = (
                     return argoApplication ? (
                         <>
                             <MuiLink
-                                href={createArgoCDApplicationLink(
-                                    argoCDURLOrigin,
-                                    argoApplication.metadata.labels['app.edp.epam.com/pipeline'],
-                                    argoApplication.metadata.labels['app.edp.epam.com/stage'],
-                                    argoApplication.metadata.labels['app.edp.epam.com/app-name']
-                                )}
+                                href={
+                                    Object.hasOwn(EDPComponentsURLS, 'argocd')
+                                        ? createArgoCDApplicationLink(
+                                              EDPComponentsURLS?.argocd,
+                                              argoApplication.metadata.labels[
+                                                  'app.edp.epam.com/pipeline'
+                                              ],
+                                              argoApplication.metadata.labels[
+                                                  'app.edp.epam.com/stage'
+                                              ],
+                                              argoApplication.metadata.labels[
+                                                  'app.edp.epam.com/app-name'
+                                              ]
+                                          )
+                                        : null
+                                }
                                 target={'_blank'}
                             >
                                 {deployedVersion}
@@ -127,9 +140,13 @@ export const useColumns = (
             {
                 label: 'Image stream version',
                 getter: ({ enrichedApplication, argoApplication }) => {
-                    const jaegerLink = argoApplication
-                        ? createJaegerLink(jaegerURLOrigin, argoApplication?.metadata?.name)
-                        : null;
+                    const jaegerLink =
+                        argoApplication && Object.hasOwn(EDPComponentsURLS, 'jaeger')
+                            ? createJaegerLink(
+                                  EDPComponentsURLS?.jaeger,
+                                  argoApplication?.metadata?.name
+                              )
+                            : null;
 
                     return (
                         <ImageStreamTagsSelect
@@ -142,5 +159,6 @@ export const useColumns = (
                 },
             },
         ],
-        [argoCDURLOrigin, jaegerURLOrigin, qualityGatePipelineIsRunning]
+        [EDPComponentsURLS, qualityGatePipelineIsRunning]
     );
+};

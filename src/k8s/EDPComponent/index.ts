@@ -1,5 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
-import { streamResults } from '../common/streamResults';
+import { KubeObjectListInterface } from '../../types/k8s';
 import { EDPComponentKubeObjectConfig } from './config';
 import { EDPComponentKubeObjectInterface, EDPComponentSpec } from './types';
 
@@ -16,7 +16,6 @@ const {
     version,
 } = EDPComponentKubeObjectConfig;
 
-// @ts-ignore
 export class EDPComponentKubeObject extends makeKubeObject<EDPComponentKubeObjectInterface>(
     singularForm
 ) {
@@ -26,10 +25,6 @@ export class EDPComponentKubeObject extends makeKubeObject<EDPComponentKubeObjec
         return singularForm;
     }
 
-    get listRoute(): string {
-        return pluralForm;
-    }
-
     get spec(): EDPComponentSpec {
         return this.jsonData!.spec;
     }
@@ -37,23 +32,12 @@ export class EDPComponentKubeObject extends makeKubeObject<EDPComponentKubeObjec
     get status(): string {
         return this.jsonData!.status;
     }
+
+    static getList(
+        namespace: string
+    ): Promise<KubeObjectListInterface<EDPComponentKubeObjectInterface>> {
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+
+        return ApiProxy.request(url);
+    }
 }
-
-export const getEDPComponents = (
-    namespace: string
-): Promise<{ items: EDPComponentKubeObjectInterface[] }> => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-
-    return ApiProxy.request(url);
-};
-
-export const streamEDPComponents = (
-    cb: (data: EDPComponentKubeObjectInterface[]) => void,
-    errCb: (err: Error) => void,
-    namespace?: string
-) => {
-    const url = namespace
-        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
-        : `/apis/${group}/${version}/${pluralForm}`;
-    return streamResults(url, cb, errCb);
-};

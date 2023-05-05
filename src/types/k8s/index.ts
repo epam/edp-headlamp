@@ -26,3 +26,7 @@ export interface HeadlampKubeObject<T extends KubeObjectInterface> {
     spec: T['spec'];
     status: T['status'];
 }
+
+export interface KubeObjectListInterface<T> extends KubeObjectInterface {
+    items: T[];
+}

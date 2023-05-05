@@ -1,3 +1,5 @@
+import { useEDPComponentsURLs } from '../../../../../hooks/useEDPComponentsURLs';
+import { useNamespace } from '../../../../../hooks/useNamespace';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
 import { MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { formatFullYear, humanizeDefault } from '../../../../../utils/date/humanize';
@@ -12,103 +14,112 @@ const {
     CommonComponents: { HoverInfoLabel },
 } = pluginLib;
 
-export const usePipelineRunsColumns = (
-    tektonUrlOrigin: string
-): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] =>
-    React.useMemo(
-        () => [
-            {
-                label: 'Status',
-                getter: resource => {
-                    const status = parsePipelineRunStatus(resource);
+export const usePipelineRunsColumns =
+    (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] => {
+        const { namespace } = useNamespace();
+        const EDPComponentsURLS = useEDPComponentsURLs({ namespace });
 
-                    return (
-                        <StatusIcon
-                            status={status}
-                            width={25}
-                            customTitle={`Pipeline run status: ${status}`}
-                        />
-                    );
+        return React.useMemo(
+            () => [
+                {
+                    label: 'Status',
+                    getter: resource => {
+                        const status = parsePipelineRunStatus(resource);
+
+                        return (
+                            <StatusIcon
+                                status={status}
+                                width={25}
+                                customTitle={`Pipeline run status: ${status}`}
+                            />
+                        );
+                    },
                 },
-            },
-            {
-                label: 'Run',
-                getter: resource => {
-                    const {
-                        metadata: { name, namespace },
-                    } = resource;
+                {
+                    label: 'Run',
+                    getter: resource => {
+                        const {
+                            metadata: { name, namespace },
+                        } = resource;
 
-                    if (!resource?.status?.pipelineSpec?.params?.[0]?.default) {
-                        return <>{name}</>;
-                    }
+                        if (!resource?.status?.pipelineSpec?.params?.[0]?.default) {
+                            return <>{name}</>;
+                        }
 
-                    const pipelineRunLink = createTektonPipelineRunLink(
-                        tektonUrlOrigin,
-                        namespace,
-                        name
-                    );
+                        const pipelineRunLink =
+                            'tekton' in EDPComponentsURLS
+                                ? createTektonPipelineRunLink(
+                                      EDPComponentsURLS?.tekton,
+                                      namespace,
+                                      name
+                                  )
+                                : null;
 
-                    return (
-                        <>
-                            <Link href={pipelineRunLink} target="_blank" rel="noopener">
-                                {name}
-                            </Link>
-                        </>
-                    );
+                        return (
+                            <>
+                                <Link href={pipelineRunLink} target="_blank" rel="noopener">
+                                    {name}
+                                </Link>
+                            </>
+                        );
+                    },
                 },
-            },
-            {
-                label: 'Pipeline',
-                getter: resource => {
-                    const {
-                        metadata: { namespace },
-                        spec: {
-                            pipelineRef: { name: pipelineRefName },
-                        },
-                    } = resource;
+                {
+                    label: 'Pipeline',
+                    getter: resource => {
+                        const {
+                            metadata: { namespace },
+                            spec: {
+                                pipelineRef: { name: pipelineRefName },
+                            },
+                        } = resource;
 
-                    if (!resource?.status?.pipelineSpec?.params?.[0]?.default) {
-                        return <>{pipelineRefName}</>;
-                    }
+                        if (!resource?.status?.pipelineSpec?.params?.[0]?.default) {
+                            return <>{pipelineRefName}</>;
+                        }
 
-                    const pipelineLink = createTektonPipelineLink(
-                        tektonUrlOrigin,
-                        namespace,
-                        pipelineRefName
-                    );
+                        const pipelineLink =
+                            'tekton' in EDPComponentsURLS
+                                ? createTektonPipelineLink(
+                                      EDPComponentsURLS?.tekton,
+                                      namespace,
+                                      pipelineRefName
+                                  )
+                                : null;
 
-                    return (
-                        <>
-                            <Link href={pipelineLink} target="_blank" rel="noopener">
-                                {pipelineRefName}
-                            </Link>
-                        </>
-                    );
+                        return (
+                            <>
+                                <Link href={pipelineLink} target="_blank" rel="noopener">
+                                    {pipelineRefName}
+                                </Link>
+                            </>
+                        );
+                    },
                 },
-            },
-            {
-                label: 'Time',
-                getter: resource => {
-                    if (!resource?.status?.startTime || !resource?.status?.completionTime) {
-                        return <HoverInfoLabel label={''} hoverInfo={''} icon="mdi:calendar" />;
-                    }
+                {
+                    label: 'Time',
+                    getter: resource => {
+                        if (!resource?.status?.startTime || !resource?.status?.completionTime) {
+                            return <HoverInfoLabel label={''} hoverInfo={''} icon="mdi:calendar" />;
+                        }
 
-                    const startTimeDate = new Date(resource?.status?.startTime);
-                    const completionTimeDate = new Date(resource?.status?.completionTime);
-                    const time = humanizeDefault(
-                        completionTimeDate.getTime(),
-                        startTimeDate.getTime()
-                    );
+                        const startTimeDate = new Date(resource?.status?.startTime);
+                        const completionTimeDate = new Date(resource?.status?.completionTime);
+                        const time = humanizeDefault(
+                            completionTimeDate.getTime(),
+                            startTimeDate.getTime()
+                        );
 
-                    return (
-                        <HoverInfoLabel
-                            label={time}
-                            hoverInfo={formatFullYear(startTimeDate)}
-                            icon="mdi:calendar"
-                        />
-                    );
+                        return (
+                            <HoverInfoLabel
+                                label={time}
+                                hoverInfo={formatFullYear(startTimeDate)}
+                                icon="mdi:calendar"
+                            />
+                        );
+                    },
                 },
-            },
-        ],
-        [tektonUrlOrigin]
-    );
+            ],
+            [EDPComponentsURLS]
+        );
+    };

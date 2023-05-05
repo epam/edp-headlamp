@@ -3,6 +3,7 @@ import { ResourceIconLink } from '../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICONS } from '../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
+import { useEDPComponentsURLs } from '../../../../hooks/useEDPComponentsURLs';
 import { useGitServers } from '../../../../hooks/useGitServers';
 import { streamCDPipelineStagesByCDPipelineName } from '../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
@@ -18,7 +19,6 @@ import { CDPipelineStage } from './components/CDPipelineStage';
 import { CDPipelineStageActions } from './components/CDPipelineStageActions';
 import { TableHeaderActions } from './components/TableHeaderActions';
 import { useStyles } from './styles';
-import { CDPipelineStagesListProps } from './types';
 
 const {
     CommonComponents: { SectionHeader },
@@ -36,12 +36,7 @@ export const CurrentCDPipelineStageDataContext =
 
 export const GitServersDataContext = React.createContext<EDPGitServerKubeObjectInterface[]>(null);
 
-export const CDPipelineStagesList = ({
-    argoCDURLOrigin,
-    grafanaURLOrigin,
-    kibanaURLOrigin,
-    jaegerURLOrigin,
-}: CDPipelineStagesListProps): React.ReactElement => {
+export const CDPipelineStagesList = (): React.ReactElement => {
     const CDPipelineData = React.useContext(CDPipelineDataContext);
     const {
         metadata: { name, namespace },
@@ -71,6 +66,7 @@ export const CDPipelineStagesList = ({
     }, []);
 
     const { gitServers } = useGitServers({ namespace });
+    const EDPComponentsURLS = useEDPComponentsURLs({ namespace });
 
     React.useEffect(() => {
         const cancelStream = streamCDPipelineStagesByCDPipelineName(
@@ -92,14 +88,20 @@ export const CDPipelineStagesList = ({
             {CDPipelineStages.map((el, idx) => {
                 const stageId = `${el.spec.name}:${idx}`;
                 const status = el.status ? el.status.status : CUSTOM_RESOURCE_STATUSES['UNKNOWN'];
-                const argoCDStageLink = createArgoCDStageLink(
-                    argoCDURLOrigin,
-                    CDPipelineData?.metadata?.name,
-                    el.spec.name
-                );
+                const argoCDStageLink = Object.hasOwn(EDPComponentsURLS, 'argocd')
+                    ? createArgoCDStageLink(
+                          EDPComponentsURLS?.argocd,
+                          CDPipelineData?.metadata?.name,
+                          el.spec.name
+                      )
+                    : null;
 
-                const grafanaLink = createGrafanaLink(grafanaURLOrigin, el.spec.namespace);
-                const kibanaLink = createKibanaLink(kibanaURLOrigin, el.spec.namespace);
+                const grafanaLink = Object.hasOwn(EDPComponentsURLS, 'grafana')
+                    ? createGrafanaLink(EDPComponentsURLS?.grafana, el.spec.namespace)
+                    : null;
+                const kibanaLink = Object.hasOwn(EDPComponentsURLS, 'kibana')
+                    ? createKibanaLink(EDPComponentsURLS?.kibana, el.spec.namespace)
+                    : null;
 
                 const statusTitle = (
                     <>
@@ -176,10 +178,7 @@ export const CDPipelineStagesList = ({
                                                 </div>
                                             </AccordionSummary>
                                             <AccordionDetails>
-                                                <CDPipelineStage
-                                                    argoCDURLOrigin={argoCDURLOrigin}
-                                                    jaegerURLOrigin={jaegerURLOrigin}
-                                                />
+                                                <CDPipelineStage />
                                             </AccordionDetails>
                                         </Accordion>
                                     </div>

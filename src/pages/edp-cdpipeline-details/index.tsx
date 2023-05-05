@@ -1,14 +1,15 @@
 import { CDPipelineActions } from '../../components/CDPipelineActions';
 import { Render } from '../../components/Render';
+import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { ICONS } from '../../constants/icons';
 import {
     EnrichedApplication,
     useApplicationsInCDPipeline,
 } from '../../hooks/useApplicationsInCDPipeline';
-import { useEDPComponents } from '../../hooks/useEDPComponents';
+import { useEDPComponentsURLs } from '../../hooks/useEDPComponentsURLs';
 import { streamCDPipeline } from '../../k8s/EDPCDPipeline/streamCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
-import { Iconify, MuiCore, MuiStyles, pluginLib, React, ReactRouter } from '../../plugin.globals';
+import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { CDPIPELINES_ROUTE_NAME } from '../../routes/names';
 import { createRouteName } from '../../utils/routes/createRouteName';
 import { createArgoCDPipelineLink } from '../../utils/url/createArgoCDPipelineLink';
@@ -19,21 +20,18 @@ import { useStyles } from './styles';
 import { EDPCDPipelineDetailsProps } from './types';
 
 const { Icon } = Iconify;
-const { Typography, Grid, IconButton, Link: MuiLink, Button, Tooltip } = MuiCore;
+const { Typography, Grid, Button } = MuiCore;
 
 const { useParams } = ReactRouter;
-const { useTheme } = MuiStyles;
 const {
     CommonComponents: { Link },
 } = pluginLib;
-const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
 
 export const ApplicationsContext = React.createContext<EnrichedApplication[]>(null);
 export const CDPipelineDataContext = React.createContext<EDPCDPipelineKubeObjectInterface>(null);
 
 export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): React.ReactElement => {
     const classes = useStyles();
-    const theme: DefaultTheme = useTheme();
     const { namespace, name } = useParams();
     const [CDPipelineData, setCDPipelineData] =
         React.useState<EDPCDPipelineKubeObjectInterface>(null);
@@ -60,28 +58,14 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
         return () => cancelStream();
     }, [handleError, handleStoreCDPipeline, name, namespace]);
 
-    const { EDPComponents } = useEDPComponents({ namespace });
-    const argoCDURLOrigin = React.useMemo(
-        () => EDPComponents.filter(el => el.spec.type === 'argocd')?.[0]?.spec?.url,
-        [EDPComponents]
-    );
-    const grafanaURLOrigin = React.useMemo(
-        () => EDPComponents.filter(el => el.spec.type === 'grafana')?.[0]?.spec?.url,
-        [EDPComponents]
-    );
-    const kibanaURLOrigin = React.useMemo(
-        () => EDPComponents.filter(el => el.spec.type === 'kibana')?.[0]?.spec?.url,
-        [EDPComponents]
-    );
-
-    const jaegerURLOrigin = React.useMemo(
-        () => EDPComponents.filter(el => el.spec.type === 'jaeger')?.[0]?.spec?.url,
-        [EDPComponents]
-    );
+    const EDPComponentsURLS = useEDPComponentsURLs(namespace);
 
     const argoCDPipelineLink = React.useMemo(
-        () => createArgoCDPipelineLink(argoCDURLOrigin, name),
-        [argoCDURLOrigin, name]
+        () =>
+            'argocd' in EDPComponentsURLS
+                ? createArgoCDPipelineLink(EDPComponentsURLS?.argocd, name)
+                : null,
+        [EDPComponentsURLS, name]
     );
 
     return (
@@ -100,22 +84,11 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
                     <div style={{ marginLeft: 'auto' }}>
                         <Grid container spacing={1}>
                             <Grid item>
-                                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                                <div onClick={stopPropagation} onFocus={stopPropagation}>
-                                    <Tooltip title={'Open in ArgoCD'}>
-                                        <IconButton
-                                            component={MuiLink}
-                                            href={argoCDPipelineLink}
-                                            target={'_blank'}
-                                        >
-                                            <Icon
-                                                icon={ICONS['ARGOCD']}
-                                                color={theme.palette.grey['500']}
-                                                width="20"
-                                            />
-                                        </IconButton>
-                                    </Tooltip>
-                                </div>
+                                <ResourceIconLink
+                                    tooltipTitle={'Open in ArgoCD'}
+                                    icon={ICONS.ARGOCD}
+                                    link={argoCDPipelineLink}
+                                />
                             </Grid>
                             <Grid item>
                                 <CDPipelineMetadataTable CDPipelineData={CDPipelineData} />
@@ -132,12 +105,7 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
                     <CDPipelineDataContext.Provider value={CDPipelineData}>
                         <ApplicationsContext.Provider value={applications}>
                             <CDPipelineApplicationsTable />
-                            <CDPipelineStagesList
-                                argoCDURLOrigin={argoCDURLOrigin}
-                                grafanaURLOrigin={grafanaURLOrigin}
-                                kibanaURLOrigin={kibanaURLOrigin}
-                                jaegerURLOrigin={jaegerURLOrigin}
-                            />
+                            <CDPipelineStagesList />
                         </ApplicationsContext.Provider>
                     </CDPipelineDataContext.Provider>
                 </>

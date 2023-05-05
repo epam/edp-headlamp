@@ -1,27 +1,19 @@
 import { CI_TOOLS } from '../../constants/ciTools';
 import { React } from '../../plugin.globals';
-import { useEDPComponents } from '../useEDPComponents';
-
-interface UseAvailableCIToolsProps {
-    namespace: string;
-}
+import { useEDPComponentsQuery } from '../useEDPComponentsQuery';
+import { UseAvailableCIToolsProps, UseAvailableCIToolsReturnType } from './types';
 
 export const useAvailableCITools = ({
     namespace,
-}: UseAvailableCIToolsProps): {
-    availableCITools: string[];
-    error: Error;
-} => {
-    const { EDPComponents, error } = useEDPComponents({ namespace });
-    const EDPComponentsNames = React.useMemo(
-        () => EDPComponents.map(el => el.spec.type),
-        [EDPComponents]
-    );
+}: UseAvailableCIToolsProps): UseAvailableCIToolsReturnType => {
+    const { data } = useEDPComponentsQuery({ namespace });
+
+    const EDPComponentsNames = React.useMemo(() => data?.items?.map(el => el.spec.type), [data]);
 
     const availableCITools = React.useMemo(
         () =>
             Object.values(CI_TOOLS).reduce((acc, cur) => {
-                if (EDPComponentsNames.includes(cur)) {
+                if (Array.isArray(EDPComponentsNames) && EDPComponentsNames.includes(cur)) {
                     acc.push(cur);
                 }
 
@@ -30,5 +22,5 @@ export const useAvailableCITools = ({
         [EDPComponentsNames]
     );
 
-    return { availableCITools, error };
+    return { availableCITools };
 };

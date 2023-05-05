@@ -1,13 +1,21 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../../../../../components/StatusIcon';
 import { PIPELINE_RUN_STATUSES } from '../../../../../../../../../constants/statuses';
+import { useEDPComponentsURLs } from '../../../../../../../../../hooks/useEDPComponentsURLs';
+import { useNamespace } from '../../../../../../../../../hooks/useNamespace';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../../../k8s/PipelineRun/types';
-import { React } from '../../../../../../../../../plugin.globals';
+import { MuiCore, React } from '../../../../../../../../../plugin.globals';
 import { formatDateToDuration } from '../../../../../../../../../utils/format/formatDateToDuration';
 import { formatDateUTCToLocal } from '../../../../../../../../../utils/format/formatDateUTCToLocal';
+import { createTektonPipelineRunLink } from '../../../../../../../../../utils/url/createTektonPipelineRunLink';
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] =>
-    React.useMemo(
+const { Link: MuiLink } = MuiCore;
+
+export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] => {
+    const { namespace } = useNamespace();
+    const EDPComponentsURLS = useEDPComponentsURLs({ namespace });
+
+    return React.useMemo(
         () => [
             {
                 label: 'Status',
@@ -27,7 +35,22 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObj
             },
             {
                 label: 'Name',
-                getter: ({ metadata: { name } }) => name,
+                getter: ({ metadata: { name, namespace } }) => (
+                    <MuiLink
+                        href={
+                            Object.hasOwn(EDPComponentsURLS, 'tekton')
+                                ? createTektonPipelineRunLink(
+                                      EDPComponentsURLS?.tekton,
+                                      namespace,
+                                      name
+                                  )
+                                : null
+                        }
+                        target={'_blank'}
+                    >
+                        {name}
+                    </MuiLink>
+                ),
             },
             {
                 label: 'Start time',
@@ -39,5 +62,6 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObj
                     formatDateToDuration(status?.startTime, status?.completionTime),
             },
         ],
-        []
+        [EDPComponentsURLS]
     );
+};
