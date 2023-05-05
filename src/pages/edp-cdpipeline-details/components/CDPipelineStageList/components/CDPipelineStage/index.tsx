@@ -6,14 +6,18 @@ import {
     ARGO_APPLICATION_SYNC_STATUSES,
     PIPELINE_RUN_STATUSES,
 } from '../../../../../../constants/statuses';
+import { useGitServers } from '../../../../../../hooks/useGitServers';
+import { useTriggerTemplates } from '../../../../../../hooks/useTriggerTemplates';
 import { streamApplicationListByPipelineStageLabel } from '../../../../../../k8s/Application';
 import { ApplicationKubeObjectInterface } from '../../../../../../k8s/Application/types';
 import {
     streamAutotestsPipelineRunList,
+    streamPipelineRunListByTypeAndPipelineNameLabels,
     streamPipelineRunListByTypeLabel,
 } from '../../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
 import { MuiCore, React } from '../../../../../../plugin.globals';
+import { createRandomFiveSymbolString } from '../../../../../../utils/createRandomFiveSymbolString';
 import { parsePipelineRunStatus } from '../../../../../../utils/parsePipelineRunStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
@@ -22,11 +26,13 @@ import { CurrentCDPipelineStageDataContext } from '../../index';
 import { CDPipelineStageApplicationsTable } from './components/CDPipelineStageApplicationsTable';
 import { useColumns as useDeployPipelineRunsColumns } from './components/DeployPipelineRunsTable/hooks/useColumns';
 import { PipelineRunTrigger } from './components/PipelineRunTrigger';
+import { useCreateAutotestRunnerPipelineRun } from './components/PipelineRunTrigger/hooks/useCreateAutotestRunnerPipelineRun';
 import { useColumns } from './hooks/useColumns';
 import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
 
 const { Grid, Typography, Button } = MuiCore;
+const randomPostfix = createRandomFiveSymbolString();
 
 export const CDPipelineStage = (): React.ReactElement => {
     const CurrentCDPipelineStageDataContextValue = React.useContext(
@@ -94,11 +100,21 @@ export const CDPipelineStage = (): React.ReactElement => {
         },
         [setLatestTenAutotestPipelineRuns]
     );
+    const [latestTenAutotestRunnerPipelineRuns, setLatestTenAutotestRunnerPipelineRuns] =
+        React.useState<PipelineRunKubeObjectInterface[]>([]);
+    const handleStoreLatestTenAutotestRunnerPipelineRuns = React.useCallback(
+        (data: PipelineRunKubeObjectInterface[]) => {
+            const latestTenAutotestRunnerPipelineRuns = data
+                .sort(sortKubeObjectByCreationTimestamp)
+                .slice(0, 10);
+            setLatestTenAutotestRunnerPipelineRuns(latestTenAutotestRunnerPipelineRuns);
+        },
+        [setLatestTenAutotestRunnerPipelineRuns]
+    );
 
     const enrichedQualityGatesWithPipelineRuns = React.useMemo(
         () =>
             CurrentCDPipelineStageDataContextValue.spec.qualityGates.map(qualityGate => {
-                console.log(qualityGate.autotestName);
                 return {
                     qualityGate: qualityGate,
                     autotestPipelineRun: latestTenAutotestPipelineRuns.find(
@@ -131,10 +147,17 @@ export const CDPipelineStage = (): React.ReactElement => {
             CDPipelineDataContextValue.metadata.namespace
         );
 
-        const cancelDeployPipelineRunsStream = streamPipelineRunListByTypeLabel(
+        const cancelDeployPipelineRunsStream = streamPipelineRunListByTypeAndPipelineNameLabels(
             PIPELINE_TYPES.DEPLOY,
             `${CDPipelineDataContextValue.metadata.name}-${CurrentCDPipelineStageDataContextValue.spec.name}`,
             handleStoreLatestTenDeployPipelineRuns,
+            handleError,
+            CDPipelineDataContextValue.metadata.namespace
+        );
+
+        const cancelAutotestRunnerPipelineRunsStream = streamPipelineRunListByTypeLabel(
+            PIPELINE_TYPES.AUTOTEST_RUNNER,
+            handleStoreLatestTenAutotestRunnerPipelineRuns,
             handleError,
             CDPipelineDataContextValue.metadata.namespace
         );
@@ -150,6 +173,7 @@ export const CDPipelineStage = (): React.ReactElement => {
         return () => {
             cancelDeployPipelineRunsStream();
             cancelAutotestPipelineRunsStream();
+            cancelAutotestRunnerPipelineRunsStream();
             cancelApplicationsStream();
         };
     }, [
@@ -159,9 +183,10 @@ export const CDPipelineStage = (): React.ReactElement => {
         handleStoreArgoApplications,
         handleStoreLatestTenAutotestPipelineRuns,
         handleStoreLatestTenDeployPipelineRuns,
+        handleStoreLatestTenAutotestRunnerPipelineRuns,
     ]);
 
-    const runActionIsEnabled = React.useMemo(() => {
+    const deployPipelineRunActionEnabled = React.useMemo(() => {
         if (!argoApplications.length) {
             return false;
         }
@@ -194,6 +219,108 @@ export const CDPipelineStage = (): React.ReactElement => {
             return healthIsOk && syncIsOk;
         });
     }, [argoApplications, enrichedApplicationsWithArgoApplications, latestTenDeployPipelineRuns]);
+
+    const autotestRunnerPipelineRunActionEnabled = React.useMemo(() => {
+        if (!argoApplications.length) {
+            return false;
+        }
+
+        if (latestTenAutotestPipelineRuns.length) {
+            if (
+                latestTenAutotestPipelineRuns?.[0]?.status?.conditions?.[0]?.reason?.toLowerCase() ===
+                PIPELINE_RUN_STATUSES.RUNNING
+            ) {
+                return false;
+            }
+        }
+
+        if (latestTenAutotestRunnerPipelineRuns.length) {
+            if (
+                latestTenAutotestRunnerPipelineRuns?.[0]?.status?.conditions?.[0]?.reason?.toLowerCase() ===
+                PIPELINE_RUN_STATUSES.RUNNING
+            ) {
+                return false;
+            }
+        }
+
+        return enrichedApplicationsWithArgoApplications.every(({ argoApplication }) => {
+            if (!argoApplication?.status?.health?.status) {
+                return false;
+            }
+
+            if (!argoApplication?.status?.sync?.status) {
+                return false;
+            }
+
+            const healthIsOk =
+                argoApplication.status.health.status.toLowerCase() ===
+                ARGO_APPLICATION_HEALTH_STATUSES['HEALTHY'];
+            const syncIsOk =
+                argoApplication.status.sync.status.toLowerCase() ===
+                ARGO_APPLICATION_SYNC_STATUSES['SYNCED'];
+
+            return healthIsOk && syncIsOk;
+        });
+    }, [
+        argoApplications.length,
+        enrichedApplicationsWithArgoApplications,
+        latestTenAutotestPipelineRuns,
+        latestTenAutotestRunnerPipelineRuns,
+    ]);
+
+    const { createAutotestRunnerPipelineRun } = useCreateAutotestRunnerPipelineRun({});
+
+    const { triggerTemplates } = useTriggerTemplates({
+        namespace: CurrentCDPipelineStageDataContextValue.metadata.namespace,
+    });
+    const { gitServers } = useGitServers({
+        namespace: CurrentCDPipelineStageDataContextValue.metadata.namespace,
+    });
+
+    const gitServerByCodebase = React.useMemo(
+        () =>
+            gitServers
+                ? gitServers.filter(
+                      el =>
+                          el.metadata.name ===
+                          enrichedWithImageStreamsApplications?.[0]?.application.spec.gitServer
+                  )?.[0]
+                : null,
+        [gitServers, enrichedWithImageStreamsApplications]
+    );
+
+    const storageSize = React.useMemo(() => {
+        if (!triggerTemplates?.length) {
+            return;
+        }
+
+        if (!gitServerByCodebase) {
+            return;
+        }
+
+        const buildTriggerTemplate = triggerTemplates.find(
+            el => el.metadata.name === `${gitServerByCodebase?.spec?.gitProvider}-build-template`
+        );
+
+        return buildTriggerTemplate?.spec?.resourcetemplates?.[0]?.spec?.workspaces?.[0]
+            ?.volumeClaimTemplate?.spec?.resources?.requests?.storage;
+    }, [gitServerByCodebase, triggerTemplates]);
+
+    const handleRunAutotestRunner = React.useCallback(async () => {
+        await createAutotestRunnerPipelineRun({
+            namespace: CurrentCDPipelineStageDataContextValue.metadata.namespace,
+            storageSize: storageSize,
+            randomPostfix,
+            stageName: CurrentCDPipelineStageDataContextValue.spec.name,
+            CDPipelineName: CDPipelineDataContextValue.metadata.name,
+        });
+    }, [
+        CDPipelineDataContextValue.metadata.name,
+        CurrentCDPipelineStageDataContextValue.metadata.namespace,
+        CurrentCDPipelineStageDataContextValue.spec.name,
+        createAutotestRunnerPipelineRun,
+        storageSize,
+    ]);
 
     return (
         <Grid container spacing={5}>
@@ -229,7 +356,8 @@ export const CDPipelineStage = (): React.ReactElement => {
                                             variant={'contained'}
                                             color={'primary'}
                                             size={'small'}
-                                            disabled={!runActionIsEnabled}
+                                            disabled={!autotestRunnerPipelineRunActionEnabled}
+                                            onClick={handleRunAutotestRunner}
                                         >
                                             Run
                                         </Button>
@@ -249,7 +377,9 @@ export const CDPipelineStage = (): React.ReactElement => {
                                                         CurrentCDPipelineStageDataContextValue
                                                             .metadata.namespace
                                                     }
-                                                    runActionIsEnabled={runActionIsEnabled}
+                                                    runActionIsEnabled={
+                                                        deployPipelineRunActionEnabled
+                                                    }
                                                     enrichedApplicationsWithArgoApplications={
                                                         enrichedApplicationsWithArgoApplications
                                                     }

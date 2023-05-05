@@ -38,6 +38,14 @@ interface createDeployPipelineRunInstanceProps {
     codebaseTag: string;
 }
 
+interface createAutotestRunnerPipelineRunInstanceProps {
+    namespace: string;
+    stageName: string;
+    CDPipelineName: string;
+    storageSize: string;
+    randomPostfix: string;
+}
+
 export const createBuildPipelineRunInstance = ({
     namespace,
     codebaseData: {
@@ -179,6 +187,59 @@ export const createDeployPipelineRunInstance = ({
             pipelineRef: {
                 name: pipelineName,
             },
+        },
+    };
+};
+
+export const createAutotestRunnerPipelineRunInstance = ({
+    namespace,
+    stageName,
+    CDPipelineName,
+    storageSize,
+    randomPostfix,
+}: createAutotestRunnerPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
+    return {
+        apiVersion: `${group}/${version}`,
+        kind,
+        metadata: {
+            // @ts-ignore
+            generateName: `${CDPipelineName}-${stageName}-${randomPostfix}`,
+            namespace,
+            labels: {
+                'app.edp.epam.com/pipelinetype': 'autotestRunner',
+            },
+        },
+        spec: {
+            pipelineRef: {
+                name: 'autotest-runner',
+            },
+            params: [
+                {
+                    name: 'cd-pipeline-name',
+                    value: CDPipelineName,
+                },
+                {
+                    name: 'stage-name',
+                    value: stageName,
+                },
+            ],
+            serviceAccountName: 'tekton',
+            workspaces: [
+                {
+                    name: 'shared-workspace',
+                    volumeClaimTemplate: {
+                        spec: {
+                            accessModes: ['ReadWriteOnce'],
+                            resources: {
+                                requests: {
+                                    storage: storageSize,
+                                },
+                            },
+                            volumeMode: 'Filesystem',
+                        },
+                    },
+                },
+            ],
         },
     };
 };
