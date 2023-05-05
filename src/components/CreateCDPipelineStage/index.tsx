@@ -8,7 +8,6 @@ const { Dialog, DialogContent, Typography, Button } = MuiCore;
 const { Icon } = Iconify;
 
 export const CreateCDPipelineStage = ({
-    availableCITools,
     CDPipelineData,
     otherStages,
     open,
@@ -38,7 +37,6 @@ export const CreateCDPipelineStage = ({
                 </div>
                 <DialogContent className={classes.dialogContent}>
                     <CreateCDPipelineStageForm
-                        availableCITools={availableCITools}
                         CDPipelineData={CDPipelineData}
                         otherStages={otherStages}
                         editorOpen={editorOpen}

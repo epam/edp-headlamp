@@ -8,7 +8,6 @@ import {
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../../constants/statuses';
 import { EnrichedApplication } from '../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { useEDPComponentsURLs } from '../../../../../../../../../hooks/useEDPComponentsURLs';
-import { useNamespace } from '../../../../../../../../../hooks/useNamespace';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../k8s/Application/types';
 import { MuiCore, pluginLib, React } from '../../../../../../../../../plugin.globals';
 import { COMPONENTS_ROUTE_NAME } from '../../../../../../../../../routes/names';
@@ -29,8 +28,27 @@ export const useColumns = (
     enrichedApplication: EnrichedApplication;
     argoApplication: ApplicationKubeObjectInterface;
 }>[] => {
-    const { namespace } = useNamespace();
-    const EDPComponentsURLS = useEDPComponentsURLs({ namespace });
+    const EDPComponentsURLS = useEDPComponentsURLs();
+    const _createArgoCDLink = React.useCallback(
+        (argoApplication: ApplicationKubeObjectInterface) =>
+            Object.hasOwn(EDPComponentsURLS, 'argocd')
+                ? createArgoCDApplicationLink(
+                      EDPComponentsURLS?.argocd,
+                      argoApplication.metadata.labels['app.edp.epam.com/pipeline'],
+                      argoApplication.metadata.labels['app.edp.epam.com/stage'],
+                      argoApplication.metadata.labels['app.edp.epam.com/app-name']
+                  )
+                : null,
+        [EDPComponentsURLS]
+    );
+
+    const _createJaegerLink = React.useCallback(
+        (argoApplication: ApplicationKubeObjectInterface) =>
+            argoApplication && Object.hasOwn(EDPComponentsURLS, 'jaeger')
+                ? createJaegerLink(EDPComponentsURLS?.jaeger, argoApplication?.metadata?.name)
+                : null,
+        [EDPComponentsURLS]
+    );
 
     return React.useMemo(
         () => [
@@ -110,25 +128,7 @@ export const useColumns = (
 
                     return argoApplication ? (
                         <>
-                            <MuiLink
-                                href={
-                                    Object.hasOwn(EDPComponentsURLS, 'argocd')
-                                        ? createArgoCDApplicationLink(
-                                              EDPComponentsURLS?.argocd,
-                                              argoApplication.metadata.labels[
-                                                  'app.edp.epam.com/pipeline'
-                                              ],
-                                              argoApplication.metadata.labels[
-                                                  'app.edp.epam.com/stage'
-                                              ],
-                                              argoApplication.metadata.labels[
-                                                  'app.edp.epam.com/app-name'
-                                              ]
-                                          )
-                                        : null
-                                }
-                                target={'_blank'}
-                            >
+                            <MuiLink href={_createArgoCDLink(argoApplication)} target={'_blank'}>
                                 {deployedVersion}
                             </MuiLink>
                         </>
@@ -140,13 +140,7 @@ export const useColumns = (
             {
                 label: 'Image stream version',
                 getter: ({ enrichedApplication, argoApplication }) => {
-                    const jaegerLink =
-                        argoApplication && Object.hasOwn(EDPComponentsURLS, 'jaeger')
-                            ? createJaegerLink(
-                                  EDPComponentsURLS?.jaeger,
-                                  argoApplication?.metadata?.name
-                              )
-                            : null;
+                    const jaegerLink = _createJaegerLink(argoApplication);
 
                     return (
                         <ImageStreamTagsSelect
@@ -159,6 +153,6 @@ export const useColumns = (
                 },
             },
         ],
-        [EDPComponentsURLS, qualityGatePipelineIsRunning]
+        [_createArgoCDLink, _createJaegerLink, qualityGatePipelineIsRunning]
     );
 };

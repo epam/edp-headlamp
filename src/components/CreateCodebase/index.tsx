@@ -78,7 +78,7 @@ export const CreateCodebase = ({
 
     const { namespace } = useNamespace();
     const { gitServers } = useGitServers({ namespace });
-    const { availableCITools } = useAvailableCITools({ namespace });
+    const availableCITools = useAvailableCITools();
 
     const { baseDefaultValues } = useDefaultValues({ names });
 

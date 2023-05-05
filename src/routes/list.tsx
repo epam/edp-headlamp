@@ -23,15 +23,23 @@ import {
     OVERVIEW_ROUTE_NAME,
 } from './names';
 
-const WrappedRoute: React.FC = ({ children }): React.ReactElement => {
-    const queryClient = new QueryClient();
+const WrappedRoute: React.FC = React.memo(({ children }): React.ReactElement => {
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: {
+                staleTime: Infinity,
+                refetchOnWindowFocus: false,
+                retry: false,
+            },
+        },
+    });
 
     return (
         <QueryClientProvider client={queryClient}>
             <ErrorBoundary>{children}</ErrorBoundary>
         </QueryClientProvider>
     );
-};
+});
 
 export const List: {
     [routeName: string]: any;

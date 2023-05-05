@@ -1,8 +1,6 @@
 import { CreateCDPipelineStage } from '../../../../../../components/CreateCDPipelineStage';
 import { useCreateCDPipelineStage } from '../../../../../../components/CreateCDPipelineStage/hooks/useCreateCDPipelineStage';
 import { ICONS } from '../../../../../../constants/icons';
-import { useAvailableCITools } from '../../../../../../hooks/useAvailableCITools';
-import { useNamespace } from '../../../../../../hooks/useNamespace';
 import { Iconify, MuiCore, React } from '../../../../../../plugin.globals';
 import { CDPipelineDataContext } from '../../../../index';
 import { TableHeaderActionsProps } from './types';
@@ -15,7 +13,6 @@ export const TableHeaderActions = ({
 }: TableHeaderActionsProps): React.ReactElement => {
     const CDPipelineData = React.useContext(CDPipelineDataContext);
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
-    const { namespace } = useNamespace();
 
     const onClose = React.useCallback(
         (_?, reason?: string) => {
@@ -40,10 +37,6 @@ export const TableHeaderActions = ({
         },
     });
 
-    const { availableCITools } = useAvailableCITools({
-        namespace,
-    });
-
     return (
         <>
             <Tooltip title={'Create stage'}>
@@ -55,7 +48,6 @@ export const TableHeaderActions = ({
                 </Button>
             </Tooltip>
             <CreateCDPipelineStage
-                availableCITools={availableCITools}
                 CDPipelineData={CDPipelineData}
                 otherStages={CDPipelineStages}
                 open={createDialogOpen}

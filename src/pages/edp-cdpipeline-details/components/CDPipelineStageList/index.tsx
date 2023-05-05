@@ -66,7 +66,7 @@ export const CDPipelineStagesList = (): React.ReactElement => {
     }, []);
 
     const { gitServers } = useGitServers({ namespace });
-    const EDPComponentsURLS = useEDPComponentsURLs({ namespace });
+    const EDPComponentsURLS = useEDPComponentsURLs();
 
     React.useEffect(() => {
         const cancelStream = streamCDPipelineStagesByCDPipelineName(

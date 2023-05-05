@@ -1,16 +1,11 @@
 import { CI_TOOLS } from '../../constants/ciTools';
 import { React } from '../../plugin.globals';
-import { useEDPComponentsQuery } from '../useEDPComponentsQuery';
-import { UseAvailableCIToolsProps, UseAvailableCIToolsReturnType } from './types';
+import { useEDPComponentsNames } from '../useEDPComponentsNames';
 
-export const useAvailableCITools = ({
-    namespace,
-}: UseAvailableCIToolsProps): UseAvailableCIToolsReturnType => {
-    const { data } = useEDPComponentsQuery({ namespace });
+export const useAvailableCITools = (): string[] => {
+    const EDPComponentsNames = useEDPComponentsNames();
 
-    const EDPComponentsNames = React.useMemo(() => data?.items?.map(el => el.spec.type), [data]);
-
-    const availableCITools = React.useMemo(
+    return React.useMemo(
         () =>
             Object.values(CI_TOOLS).reduce((acc, cur) => {
                 if (Array.isArray(EDPComponentsNames) && EDPComponentsNames.includes(cur)) {
@@ -21,6 +16,4 @@ export const useAvailableCITools = ({
             }, []),
         [EDPComponentsNames]
     );
-
-    return { availableCITools };
 };

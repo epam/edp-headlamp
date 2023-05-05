@@ -58,11 +58,11 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
         return () => cancelStream();
     }, [handleError, handleStoreCDPipeline, name, namespace]);
 
-    const EDPComponentsURLS = useEDPComponentsURLs(namespace);
+    const EDPComponentsURLS = useEDPComponentsURLs();
 
     const argoCDPipelineLink = React.useMemo(
         () =>
-            'argocd' in EDPComponentsURLS
+            Object.hasOwn(EDPComponentsURLS, 'argocd')
                 ? createArgoCDPipelineLink(EDPComponentsURLS?.argocd, name)
                 : null,
         [EDPComponentsURLS, name]

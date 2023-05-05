@@ -2,6 +2,7 @@ import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
+import { useAvailableCITools } from '../../../../hooks/useAvailableCITools';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
@@ -34,7 +35,6 @@ const {
 } = pluginLib;
 
 export const CreateCDPipelineStageForm = ({
-    availableCITools,
     CDPipelineData,
     otherStages,
     editorOpen,
@@ -122,8 +122,10 @@ export const CreateCDPipelineStageForm = ({
         });
     }, [editorReturnValues, handleApply]);
 
+    const availableCITools = useAvailableCITools();
+
     const hasJenkinsCITool = React.useMemo(
-        () => availableCITools.includes(CI_TOOLS['JENKINS']),
+        () => availableCITools.includes(CI_TOOLS.JENKINS),
         [availableCITools]
     );
 

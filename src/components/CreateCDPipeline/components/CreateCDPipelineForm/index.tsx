@@ -1,9 +1,7 @@
 import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useAvailableCITools } from '../../../../hooks/useAvailableCITools';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
-import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
@@ -204,10 +202,6 @@ export const CreateCDPipelineForm = ({
         );
     }, []);
 
-    const { namespace } = useNamespace();
-
-    const { availableCITools } = useAvailableCITools({ namespace });
-
     const onPipelineNameChange = React.useCallback(
         pipelineNameFieldValue => {
             if (!stages.length) {
@@ -329,7 +323,6 @@ export const CreateCDPipelineForm = ({
                     </div>
                 </form>
                 <CreateCDPipelineStage
-                    availableCITools={availableCITools}
                     CDPipelineData={editorReturnValues}
                     otherStages={stages}
                     open={createStageDialogOpen}

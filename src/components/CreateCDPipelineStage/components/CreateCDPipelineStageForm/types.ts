@@ -2,7 +2,6 @@ import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 
 export interface CreateCDPipelineStageFormProps {
-    availableCITools: string[];
     CDPipelineData: EDPCDPipelineKubeObjectInterface;
     otherStages: EDPCDPipelineStageKubeObjectInterface[];
     editorOpen: boolean;
