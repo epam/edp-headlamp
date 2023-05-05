@@ -1,33 +1,41 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../../../components/StatusIcon';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../constants/statuses';
 import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../../../k8s/EDPCDPipelineStage/types';
+import { PipelineRunKubeObjectInterface } from '../../../../../../../k8s/PipelineRun/types';
 import { React } from '../../../../../../../plugin.globals';
 
-export const useColumns =
-    (): HeadlampSimpleTableGetterColumn<EDPCDPipelineStageSpecQualityGatesInterface>[] =>
-        React.useMemo(
-            () => [
-                {
-                    label: 'Status',
-                    getter: () => <StatusIcon status={CUSTOM_RESOURCE_STATUSES.UNKNOWN} />,
+export const useColumns = (): HeadlampSimpleTableGetterColumn<{
+    qualityGate: EDPCDPipelineStageSpecQualityGatesInterface;
+    autotestPipelineRun: PipelineRunKubeObjectInterface;
+}>[] =>
+    React.useMemo(
+        () => [
+            {
+                label: 'Status',
+                getter: ({ autotestPipelineRun }) => {
+                    return (
+                        <StatusIcon
+                            status={autotestPipelineRun?.status?.conditions?.[0]?.reason?.toLowerCase()}
+                        />
+                    );
                 },
-                {
-                    label: 'Type',
-                    getter: ({ qualityGateType }) => qualityGateType,
-                },
-                {
-                    label: 'Step name',
-                    getter: ({ stepName }) => stepName,
-                },
-                {
-                    label: 'Autotest name',
-                    getter: ({ autotestName }) => autotestName,
-                },
-                {
-                    label: 'Branch name',
-                    getter: ({ branchName }) => branchName,
-                },
-            ],
-            []
-        );
+            },
+            {
+                label: 'Type',
+                getter: ({ qualityGate: { qualityGateType } }) => qualityGateType,
+            },
+            {
+                label: 'Step name',
+                getter: ({ qualityGate: { stepName } }) => stepName,
+            },
+            {
+                label: 'Autotest name',
+                getter: ({ qualityGate: { autotestName } }) => autotestName,
+            },
+            {
+                label: 'Branch name',
+                getter: ({ qualityGate: { branchName } }) => branchName,
+            },
+        ],
+        []
+    );

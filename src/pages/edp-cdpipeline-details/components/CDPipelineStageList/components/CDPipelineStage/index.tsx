@@ -8,7 +8,10 @@ import {
 } from '../../../../../../constants/statuses';
 import { streamApplicationListByPipelineStageLabel } from '../../../../../../k8s/Application';
 import { ApplicationKubeObjectInterface } from '../../../../../../k8s/Application/types';
-import { streamPipelineRunListByTypeLabel } from '../../../../../../k8s/PipelineRun';
+import {
+    streamAutotestsPipelineRunList,
+    streamPipelineRunListByTypeLabel,
+} from '../../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import { parsePipelineRunStatus } from '../../../../../../utils/parsePipelineRunStatus';
@@ -67,21 +70,52 @@ export const CDPipelineStage = (): React.ReactElement => {
         []
     );
 
-    const [latestTenPipelineRuns, setLatestTenPipelineRuns] = React.useState<
+    const [latestTenDeployPipelineRuns, setLatestTenDeployPipelineRuns] = React.useState<
         PipelineRunKubeObjectInterface[]
     >([]);
-
-    const qualityGatePipelineIsRunning = React.useMemo(
-        () => parsePipelineRunStatus(latestTenPipelineRuns[0]) === PIPELINE_RUN_STATUSES['RUNNING'],
-        [latestTenPipelineRuns]
+    const handleStoreLatestTenDeployPipelineRuns = React.useCallback(
+        (data: PipelineRunKubeObjectInterface[]) => {
+            const latestTenDeployPipelineRuns = data
+                .sort(sortKubeObjectByCreationTimestamp)
+                .slice(0, 10);
+            setLatestTenDeployPipelineRuns(latestTenDeployPipelineRuns);
+        },
+        [setLatestTenDeployPipelineRuns]
+    );
+    const [latestTenAutotestPipelineRuns, setLatestTenAutotestPipelineRuns] = React.useState<
+        PipelineRunKubeObjectInterface[]
+    >([]);
+    const handleStoreLatestTenAutotestPipelineRuns = React.useCallback(
+        (data: PipelineRunKubeObjectInterface[]) => {
+            const latestTenAutotestPipelineRuns = data
+                .sort(sortKubeObjectByCreationTimestamp)
+                .slice(0, 10);
+            setLatestTenAutotestPipelineRuns(latestTenAutotestPipelineRuns);
+        },
+        [setLatestTenAutotestPipelineRuns]
     );
 
-    const handleStoreLatestTenPipelineRuns = React.useCallback(
-        (data: PipelineRunKubeObjectInterface[]) => {
-            const latestTenPipelineRuns = data.sort(sortKubeObjectByCreationTimestamp).slice(0, 10);
-            setLatestTenPipelineRuns(latestTenPipelineRuns);
-        },
-        [setLatestTenPipelineRuns]
+    const enrichedQualityGatesWithPipelineRuns = React.useMemo(
+        () =>
+            CurrentCDPipelineStageDataContextValue.spec.qualityGates.map(qualityGate => {
+                console.log(qualityGate.autotestName);
+                return {
+                    qualityGate: qualityGate,
+                    autotestPipelineRun: latestTenAutotestPipelineRuns.find(
+                        pipelineRun =>
+                            pipelineRun.metadata.labels['app.edp.epam.com/autotestname'] ===
+                            qualityGate.autotestName
+                    ),
+                };
+            }),
+        [CurrentCDPipelineStageDataContextValue.spec.qualityGates, latestTenAutotestPipelineRuns]
+    );
+
+    const qualityGatePipelineIsRunning = React.useMemo(
+        () =>
+            parsePipelineRunStatus(latestTenDeployPipelineRuns[0]) ===
+            PIPELINE_RUN_STATUSES['RUNNING'],
+        [latestTenDeployPipelineRuns]
     );
 
     const handleError = React.useCallback((error: Error) => {
@@ -97,16 +131,25 @@ export const CDPipelineStage = (): React.ReactElement => {
             CDPipelineDataContextValue.metadata.namespace
         );
 
-        const cancelPipelineRunsStream = streamPipelineRunListByTypeLabel(
-            PIPELINE_TYPES['DEPLOY'],
+        const cancelDeployPipelineRunsStream = streamPipelineRunListByTypeLabel(
+            PIPELINE_TYPES.DEPLOY,
             `${CDPipelineDataContextValue.metadata.name}-${CurrentCDPipelineStageDataContextValue.spec.name}`,
-            handleStoreLatestTenPipelineRuns,
+            handleStoreLatestTenDeployPipelineRuns,
+            handleError,
+            CDPipelineDataContextValue.metadata.namespace
+        );
+
+        const cancelAutotestPipelineRunsStream = streamAutotestsPipelineRunList(
+            CurrentCDPipelineStageDataContextValue.spec.name,
+            CDPipelineDataContextValue.metadata.name,
+            handleStoreLatestTenAutotestPipelineRuns,
             handleError,
             CDPipelineDataContextValue.metadata.namespace
         );
 
         return () => {
-            cancelPipelineRunsStream();
+            cancelDeployPipelineRunsStream();
+            cancelAutotestPipelineRunsStream();
             cancelApplicationsStream();
         };
     }, [
@@ -114,7 +157,8 @@ export const CDPipelineStage = (): React.ReactElement => {
         CurrentCDPipelineStageDataContextValue,
         handleError,
         handleStoreArgoApplications,
-        handleStoreLatestTenPipelineRuns,
+        handleStoreLatestTenAutotestPipelineRuns,
+        handleStoreLatestTenDeployPipelineRuns,
     ]);
 
     const runActionIsEnabled = React.useMemo(() => {
@@ -122,10 +166,10 @@ export const CDPipelineStage = (): React.ReactElement => {
             return false;
         }
 
-        if (latestTenPipelineRuns.length) {
+        if (latestTenDeployPipelineRuns.length) {
             if (
-                latestTenPipelineRuns?.[0]?.status?.conditions?.[0]?.reason?.toLowerCase() ===
-                PIPELINE_RUN_STATUSES['RUNNING']
+                latestTenDeployPipelineRuns?.[0]?.status?.conditions?.[0]?.reason?.toLowerCase() ===
+                PIPELINE_RUN_STATUSES.RUNNING
             ) {
                 return false;
             }
@@ -149,7 +193,7 @@ export const CDPipelineStage = (): React.ReactElement => {
 
             return healthIsOk && syncIsOk;
         });
-    }, [argoApplications, enrichedApplicationsWithArgoApplications, latestTenPipelineRuns]);
+    }, [argoApplications, enrichedApplicationsWithArgoApplications, latestTenDeployPipelineRuns]);
 
     return (
         <Grid container spacing={5}>
@@ -175,7 +219,7 @@ export const CDPipelineStage = (): React.ReactElement => {
                                 <HeadlampSimpleTable
                                     columns={qualityGatesColumns}
                                     rowsPerPage={[15, 25, 50]}
-                                    data={CurrentCDPipelineStageDataContextValue.spec.qualityGates}
+                                    data={enrichedQualityGatesWithPipelineRuns}
                                 />
                                 <Grid container justifyContent={'flex-end'}>
                                     <Grid item>
@@ -215,7 +259,7 @@ export const CDPipelineStage = (): React.ReactElement => {
                                                 <HeadlampSimpleTable
                                                     columns={deployPipelineRunsColumns}
                                                     rowsPerPage={[10]}
-                                                    data={latestTenPipelineRuns}
+                                                    data={latestTenDeployPipelineRuns}
                                                 />
                                             </Grid>
                                         </Grid>
