@@ -57,7 +57,9 @@ export const useCreateCodebase = ({
             }
 
             const { repositoryLogin, repositoryPasswordOrApiToken } = codebaseAuthData;
-            const { name } = codebaseData;
+            const {
+                metadata: { name },
+            } = codebaseData;
             const codebaseSecretData = createCodebaseSecretInstance(
                 name,
                 repositoryLogin,
