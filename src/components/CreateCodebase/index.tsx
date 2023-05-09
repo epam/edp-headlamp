@@ -317,6 +317,7 @@ export const CreateCodebase = ({
                                         control={control}
                                         errors={errors}
                                         options={codebaseTypeOptions}
+                                        gridItemSize={6}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -351,6 +352,7 @@ export const CreateCodebase = ({
                                         control={control}
                                         errors={errors}
                                         options={codebaseCreationStrategies}
+                                        gridItemSize={4}
                                     />
                                 </Grid>
                             </Grid>

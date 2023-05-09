@@ -1,5 +1,6 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../../../components/StatusIcon';
+import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../constants/statuses';
 import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../../../k8s/EDPCDPipelineStage/types';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../k8s/PipelineRun/types';
 import { React } from '../../../../../../../plugin.globals';
@@ -15,7 +16,10 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
                 getter: ({ autotestPipelineRun }) => {
                     return (
                         <StatusIcon
-                            status={autotestPipelineRun?.status?.conditions?.[0]?.reason?.toLowerCase()}
+                            status={
+                                autotestPipelineRun?.status?.conditions?.[0]?.reason?.toLowerCase() ||
+                                CUSTOM_RESOURCE_STATUSES.UNKNOWN
+                            }
                         />
                     );
                 },

@@ -17,6 +17,7 @@ import {
     Gradle,
     Groovy,
     Helm,
+    Infraspace,
     Java,
     JavaScript,
     Jenkins,
@@ -73,6 +74,7 @@ export const Resources = (): React.ReactElement => {
             <Vue />
             <Express />
             <Angular />
+            <Infraspace />
         </svg>
     );
 };

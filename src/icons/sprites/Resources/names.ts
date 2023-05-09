@@ -31,5 +31,6 @@ export const RESOURCE_ICON_NAMES = {
     VUE: 'vue',
     EXPRESS: 'express',
     ANGULAR: 'angular',
+    INFRASPACE: 'infraspace',
     OTHER: 'other',
 } as const;

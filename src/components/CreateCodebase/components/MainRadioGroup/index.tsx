@@ -10,7 +10,7 @@ const { FormControl, Radio, ButtonBase, RadioGroup, Typography, Grid, FormContro
 
 export const MainRadioGroup = React.forwardRef(
     (
-        { name, control, errors, options, ...props }: MainRadioGroupProps,
+        { name, control, errors, options, gridItemSize, ...props }: MainRadioGroupProps,
         ref: React.RefObject<HTMLInputElement>
     ): React.ReactElement => {
         const hasError = !!errors[name];
@@ -42,7 +42,7 @@ export const MainRadioGroup = React.forwardRef(
                                                         const key = `${value}::${idx}`;
 
                                                         return (
-                                                            <Grid item xs={4}>
+                                                            <Grid item xs={gridItemSize}>
                                                                 <ButtonBase
                                                                     key={key}
                                                                     className={clsx(

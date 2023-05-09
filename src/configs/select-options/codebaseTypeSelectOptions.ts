@@ -16,6 +16,10 @@ export const codebaseTypeSelectOptions: SelectOption[] = [
         value: CODEBASE_TYPES['AUTOTEST'],
     },
     {
+        label: capitalizeFirstLetter(CODEBASE_TYPES['INFRASTRUCTURE']),
+        value: CODEBASE_TYPES['INFRASTRUCTURE'],
+    },
+    {
         label: capitalizeFirstLetter(CODEBASE_TYPES['LIBRARY']),
         value: CODEBASE_TYPES['LIBRARY'],
     },

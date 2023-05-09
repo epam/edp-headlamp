@@ -2,6 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings';
 import { APPLICATION_MAPPING } from '../../../../configs/codebase-mappings/application';
 import { AUTOTEST_MAPPING } from '../../../../configs/codebase-mappings/autotest';
+import { INFRASTRUCTURE_MAPPING } from '../../../../configs/codebase-mappings/infrastructure';
 import { LIBRARY_MAPPING } from '../../../../configs/codebase-mappings/library';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
@@ -34,16 +35,20 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
             return null;
         }
 
-        if (typeFieldValue === CODEBASE_TYPES['APPLICATION']) {
+        if (typeFieldValue === CODEBASE_TYPES.APPLICATION) {
             return APPLICATION_MAPPING;
         }
 
-        if (typeFieldValue === CODEBASE_TYPES['LIBRARY']) {
+        if (typeFieldValue === CODEBASE_TYPES.LIBRARY) {
             return LIBRARY_MAPPING;
         }
 
-        if (typeFieldValue === CODEBASE_TYPES['AUTOTEST']) {
+        if (typeFieldValue === CODEBASE_TYPES.AUTOTEST) {
             return AUTOTEST_MAPPING;
+        }
+
+        if (typeFieldValue === CODEBASE_TYPES.INFRASTRUCTURE) {
+            return INFRASTRUCTURE_MAPPING;
         }
     }, [typeFieldValue]);
 

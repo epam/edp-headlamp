@@ -7,6 +7,14 @@ const { Icon } = Iconify;
 export const useCodebaseTypeOptions = (): MainRadioGroupOption[] => {
     return [
         {
+            value: CODEBASE_TYPES.INFRASTRUCTURE,
+            label: 'Infrastructure',
+            description:
+                'Deploys and manages the infrastructure components in cloud environments using Infrastructure as Code (IaC) approach. Manage, Version and Promote your IaC environments here.',
+            icon: <Icon icon={'tabler:cloud-code'} width={40} height={40} />,
+            checkedIcon: <Icon icon={'tabler:cloud-code'} width={40} height={40} />,
+        },
+        {
             value: CODEBASE_TYPES.APPLICATION,
             label: 'Application',
             description:

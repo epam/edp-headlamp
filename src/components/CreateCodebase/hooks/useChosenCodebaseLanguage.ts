@@ -1,5 +1,6 @@
 import { APPLICATION_MAPPING } from '../../../configs/codebase-mappings/application';
 import { AUTOTEST_MAPPING } from '../../../configs/codebase-mappings/autotest';
+import { INFRASTRUCTURE_MAPPING } from '../../../configs/codebase-mappings/infrastructure';
 import { LIBRARY_MAPPING } from '../../../configs/codebase-mappings/library';
 import { CodebaseInterface } from '../../../configs/codebase-mappings/types';
 import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
@@ -25,6 +26,10 @@ export const useChosenCodebaseLanguage = ({
 
         if (type === CODEBASE_TYPES.AUTOTEST) {
             return AUTOTEST_MAPPING[lang];
+        }
+
+        if (type === CODEBASE_TYPES.INFRASTRUCTURE) {
+            return INFRASTRUCTURE_MAPPING[lang];
         }
     }, [lang, type]);
 
