@@ -119,7 +119,7 @@ export const CDPipelineStage = (): React.ReactElement => {
                     qualityGate: qualityGate,
                     autotestPipelineRun: latestTenAutotestPipelineRuns.find(
                         pipelineRun =>
-                            pipelineRun.metadata.labels['app.edp.epam.com/autotestname'] ===
+                            pipelineRun.metadata.labels['app.edp.epam.com/codebase'] ===
                             qualityGate.autotestName
                     ),
                 };

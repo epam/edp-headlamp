@@ -99,6 +99,6 @@ export const streamAutotestsPipelineRunList = (
         ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
         : `/apis/${group}/${version}/${pluralForm}`;
     return streamResults(url, cb, errCb, {
-        labelSelector: `app.edp.epam.com/stagename=${stageName},app.edp.epam.com/cdpipelinnname=${pipelineName}`,
+        labelSelector: `app.edp.epam.com/stage=${stageName},app.edp.epam.com/cdpipeline=${pipelineName}`,
     });
 };
