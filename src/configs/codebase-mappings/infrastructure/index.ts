@@ -20,10 +20,10 @@ export const INFRASTRUCTURE_MAPPING: { [key: string]: CodebaseInterface } = {
             availableCITools: [CI_TOOLS.TEKTON],
         },
         frameworks: {
-            [CODEBASE_COMMON_FRAMEWORKS.INFRASPACE]: {
-                name: 'Infraspace',
-                value: CODEBASE_COMMON_FRAMEWORKS.INFRASPACE,
-                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.INFRASPACE],
+            [CODEBASE_COMMON_FRAMEWORKS.AWS]: {
+                name: 'AWS',
+                value: CODEBASE_COMMON_FRAMEWORKS.AWS,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.AWS],
                 availableCITools: [CI_TOOLS.TEKTON],
             },
         },

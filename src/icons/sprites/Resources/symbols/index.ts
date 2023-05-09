@@ -30,4 +30,4 @@ export * from './Jenkins';
 export * from './Vue';
 export * from './Express';
 export * from './Angular';
-export * from './Infraspace';
+export * from './AWS';

@@ -34,7 +34,7 @@ export const CODEBASE_COMMON_FRAMEWORKS = {
     DOTNET_6_0: 'dotnet-6.0',
     PYTHON_3_8: 'python-3.8',
     OPERATOR_SDK: 'operator-sdk',
-    INFRASPACE: 'infraspace',
+    AWS: 'aws',
 } as const;
 
 export const CODEBASE_COMMON_BUILD_TOOLS = {

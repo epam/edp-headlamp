@@ -86,32 +86,32 @@ export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
             {langFieldValue === CODEBASE_COMMON_LANGUAGES['OTHER'] ? (
                 <FormTextField
                     {...register(names.framework.name, {
-                        required: `Enter ${typeFieldValue} version/framework`,
+                        required: `Enter ${typeFieldValue} provider`,
                         maxLength: {
                             value: 8,
                             message: 'You exceeded the maximum length of 8',
                         },
                         pattern: {
                             value: /[a-z]/,
-                            message: 'Invalid framework name: [a-z]',
+                            message: 'Invalid provider name: [a-z]',
                         },
                         onBlur: ({ target: { name, value } }: FieldEvent) =>
                             handleFormFieldChange({ name, value }),
                     })}
-                    label={`Language version/framework`}
-                    placeholder={`Enter language version/framework`}
+                    label={`Provider`}
+                    placeholder={`Enter provider`}
                     control={control}
                     errors={errors}
                 />
             ) : (
                 <FormRadioGroup
                     {...register(names.framework.name, {
-                        required: `Select ${typeFieldValue} version/framework`,
+                        required: `Select ${typeFieldValue} provider`,
                         onChange: onFrameworkChange,
                     })}
                     control={control}
                     errors={errors}
-                    label={`Language version/framework`}
+                    label={`Provider`}
                     options={frameworkOptions}
                 />
             )}

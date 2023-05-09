@@ -1,6 +1,7 @@
 import { React } from '../../../plugin.globals';
 import {
     Angular,
+    AWS,
     Beego,
     Codenarc,
     Container,
@@ -17,7 +18,6 @@ import {
     Gradle,
     Groovy,
     Helm,
-    Infraspace,
     Java,
     JavaScript,
     Jenkins,
@@ -74,7 +74,7 @@ export const Resources = (): React.ReactElement => {
             <Vue />
             <Express />
             <Angular />
-            <Infraspace />
+            <AWS />
         </svg>
     );
 };
