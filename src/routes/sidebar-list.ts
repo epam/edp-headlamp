@@ -16,7 +16,7 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         parentName: null,
         itemLabel: 'EDP',
         itemName: createSidebarItemName(EDP_ROOT_ROUTE_NAME),
-        url: createRouteName(COMPONENTS_ROUTE_NAME),
+        url: createRouteName(OVERVIEW_ROUTE_NAME),
         opts: {
             icon: ICONS['ROCKET'],
         },
