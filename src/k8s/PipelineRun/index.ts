@@ -35,14 +35,6 @@ export class PipelineRunKubeObject extends makeKubeObject<PipelineRunKubeObjectI
     }
 }
 
-export const getPipelineRunList = (
-    namespace: string
-): Promise<{ items: PipelineRunKubeObjectInterface[] }> => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-
-    return ApiProxy.request(url);
-};
-
 export const streamPipelineRunListByCodebaseBranchLabel = (
     codebaseBranchLabel: string,
     cb: (data: PipelineRunKubeObjectInterface[]) => void,
@@ -51,9 +43,7 @@ export const streamPipelineRunListByCodebaseBranchLabel = (
 ): (() => void) => {
     const normalizedCodebaseBranchLabel = codebaseBranchLabel.replaceAll('/', '-');
 
-    const url = namespace
-        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
-        : `/apis/${group}/${version}/${pluralForm}`;
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, cb, errCb, {
         labelSelector: `app.edp.epam.com/codebasebranch=${normalizedCodebaseBranchLabel}`,
     });
@@ -61,44 +51,39 @@ export const streamPipelineRunListByCodebaseBranchLabel = (
 
 export const streamPipelineRunListByTypeAndPipelineNameLabels = (
     pipelineType: string,
-    pipelineName: string,
+    stageMetadataName: string,
     cb: (data: PipelineRunKubeObjectInterface[]) => void,
     errCb: (err: Error) => void,
     namespace?: string
 ): (() => void) => {
-    const url = namespace
-        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
-        : `/apis/${group}/${version}/${pluralForm}`;
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, cb, errCb, {
-        labelSelector: `app.edp.epam.com/pipelinetype=${pipelineType},app.edp.epam.com/pipelinename=${pipelineName}`,
+        labelSelector: `app.edp.epam.com/pipelinetype=${pipelineType},app.edp.epam.com/pipeline=${stageMetadataName}`,
     });
 };
 
-export const streamPipelineRunListByTypeLabel = (
-    pipelineType: string,
+export const streamAutotestRunnerPipelineRunList = (
+    stageSpecName: string,
+    CDPipelineMetadataName: string,
     cb: (data: PipelineRunKubeObjectInterface[]) => void,
     errCb: (err: Error) => void,
     namespace?: string
 ): (() => void) => {
-    const url = namespace
-        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
-        : `/apis/${group}/${version}/${pluralForm}`;
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, cb, errCb, {
-        labelSelector: `app.edp.epam.com/pipelinetype=${pipelineType}`,
+        labelSelector: `app.edp.epam.com/pipelinetype=autotestRunner,app.edp.epam.com/stage=${stageSpecName},app.edp.epam.com/pipeline=${CDPipelineMetadataName}`,
     });
 };
 
 export const streamAutotestsPipelineRunList = (
-    stageName: string,
-    pipelineName: string,
+    stageSpecName: string,
+    CDPipelineMetadataName: string,
     cb: (data: PipelineRunKubeObjectInterface[]) => void,
     errCb: (err: Error) => void,
     namespace?: string
 ): (() => void) => {
-    const url = namespace
-        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
-        : `/apis/${group}/${version}/${pluralForm}`;
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, cb, errCb, {
-        labelSelector: `app.edp.epam.com/stage=${stageName},app.edp.epam.com/cdpipeline=${pipelineName}`,
+        labelSelector: `app.edp.epam.com/stage=${stageSpecName},app.edp.epam.com/pipeline=${CDPipelineMetadataName}`,
     });
 };

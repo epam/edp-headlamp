@@ -30,7 +30,7 @@ export const useAutotestsWithBranches = ({
                     autotests.map(async ({ metadata: { name } }) => {
                         const { items: autotestsBranches } =
                             await getCodebaseBranchesByCodebaseLabel(namespace, name);
-                        const branchesNames = autotestsBranches.map(el => el.metadata.name);
+                        const branchesNames = autotestsBranches.map(el => el.spec.branchName);
                         return {
                             name: name,
                             branches: branchesNames,

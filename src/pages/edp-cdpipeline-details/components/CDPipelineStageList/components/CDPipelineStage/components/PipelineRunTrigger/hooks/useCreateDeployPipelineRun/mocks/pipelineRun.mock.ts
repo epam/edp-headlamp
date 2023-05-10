@@ -7,7 +7,7 @@ export const pipelineRunMock: PipelineRunKubeObjectInterface = {
         namespace: 'test-namespace',
         name: 'test-cdpipeline-name-test-stage-name-8ygse',
         labels: {
-            'app.edp.epam.com/pipelinename': 'test-cdpipeline-name-test-stage-name',
+            'app.edp.epam.com/pipeline': 'test-cdpipeline-name-test-stage-name',
             'app.edp.epam.com/pipelinetype': 'deploy',
         },
     },

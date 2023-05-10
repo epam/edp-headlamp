@@ -164,7 +164,7 @@ export const createDeployPipelineRunInstance = ({
             namespace,
             name: `${CDPipelineName}-${stageName}-${randomPostfix}`,
             labels: {
-                'app.edp.epam.com/pipelinename': `${CDPipelineName}-${stageName}`,
+                'app.edp.epam.com/pipeline': `${CDPipelineName}-${stageName}`,
                 'app.edp.epam.com/pipelinetype': 'deploy',
             },
         },
@@ -207,6 +207,8 @@ export const createAutotestRunnerPipelineRunInstance = ({
             namespace,
             labels: {
                 'app.edp.epam.com/pipelinetype': 'autotestRunner',
+                'app.edp.epam.com/stage': stageName,
+                'app.edp.epam.com/pipeline': CDPipelineName,
             },
         },
         spec: {

@@ -32,8 +32,8 @@ describe('testing useAutotestsWithBranches hook', () => {
 
         await waitForNextUpdate();
         await expect(result.current.autotests).toEqual([
-            { name: 'autotest-autotest', branches: ['test-autotest-master'] },
-            { name: 'test-autotest', branches: ['test-autotest-master'] },
+            { name: 'autotest-autotest', branches: ['master'] },
+            { name: 'test-autotest', branches: ['master'] },
         ]);
         await expect(result.current.error).toBeNull();
     });

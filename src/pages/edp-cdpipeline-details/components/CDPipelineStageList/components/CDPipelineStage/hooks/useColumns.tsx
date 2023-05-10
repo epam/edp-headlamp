@@ -1,15 +1,29 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../../../components/StatusIcon';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../constants/statuses';
+import { useEDPComponentsURLs } from '../../../../../../../hooks/useEDPComponentsURLs';
 import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../../../k8s/EDPCDPipelineStage/types';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../k8s/PipelineRun/types';
-import { React } from '../../../../../../../plugin.globals';
+import { MuiCore, pluginLib, React } from '../../../../../../../plugin.globals';
+import { COMPONENTS_ROUTE_NAME } from '../../../../../../../routes/names';
+import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../../utils/routes/createRouteName';
+import { createTektonPipelineRunLink } from '../../../../../../../utils/url/createTektonPipelineRunLink';
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<{
+const {
+    CommonComponents: { Link },
+} = pluginLib;
+
+const { Link: MuiLink } = MuiCore;
+
+export const useColumns = (
+    namespace: string
+): HeadlampSimpleTableGetterColumn<{
     qualityGate: EDPCDPipelineStageSpecQualityGatesInterface;
     autotestPipelineRun: PipelineRunKubeObjectInterface;
-}>[] =>
-    React.useMemo(
+}>[] => {
+    const EDPComponentsURLS = useEDPComponentsURLs();
+
+    return React.useMemo(
         () => [
             {
                 label: 'Status',
@@ -29,17 +43,51 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
                 getter: ({ qualityGate: { qualityGateType } }) => qualityGateType,
             },
             {
-                label: 'Step name',
-                getter: ({ qualityGate: { stepName } }) => stepName,
+                label: 'Step',
+                getter: ({ qualityGate: { stepName }, autotestPipelineRun }) => {
+                    const tektonLink =
+                        autotestPipelineRun && Object.hasOwn(EDPComponentsURLS, 'tekton')
+                            ? createTektonPipelineRunLink(
+                                  EDPComponentsURLS?.tekton,
+                                  autotestPipelineRun?.metadata?.namespace,
+                                  autotestPipelineRun?.metadata?.name
+                              )
+                            : null;
+
+                    return tektonLink ? (
+                        <MuiLink href={tektonLink} target={'_blank'}>
+                            {stepName}
+                        </MuiLink>
+                    ) : (
+                        stepName
+                    );
+                },
             },
             {
-                label: 'Autotest name',
-                getter: ({ qualityGate: { autotestName } }) => autotestName,
+                label: 'Autotest',
+                getter: ({ qualityGate: { autotestName } }) => {
+                    return autotestName ? (
+                        <Link
+                            routeName={createRouteNameBasedOnNameAndNamespace(
+                                COMPONENTS_ROUTE_NAME
+                            )}
+                            params={{
+                                name: autotestName,
+                                namespace,
+                            }}
+                        >
+                            {autotestName}
+                        </Link>
+                    ) : (
+                        autotestName
+                    );
+                },
             },
             {
-                label: 'Branch name',
+                label: 'Branch',
                 getter: ({ qualityGate: { branchName } }) => branchName,
             },
         ],
-        []
+        [EDPComponentsURLS, namespace]
     );
+};

@@ -36,16 +36,14 @@ export class ApplicationKubeObject extends makeKubeObject<ApplicationKubeObjectI
 }
 
 export const streamApplicationListByPipelineStageLabel = (
-    pipelineName: string,
-    pipelineStageName: string,
+    CDPipelineMetadataName: string,
+    stageSpecName: string,
     cb: (data: ApplicationKubeObjectInterface[]) => void,
     errCb: (err: Error) => void,
     namespace?: string
 ): (() => void) => {
-    const url = namespace
-        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
-        : `/apis/${group}/${version}/${pluralForm}`;
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, cb, errCb, {
-        labelSelector: `app.edp.epam.com/pipeline=${pipelineName},app.edp.epam.com/stage=${pipelineStageName} `,
+        labelSelector: `app.edp.epam.com/pipeline=${CDPipelineMetadataName},app.edp.epam.com/stage=${stageSpecName}`,
     });
 };
