@@ -5,7 +5,7 @@
 import { jest } from '@jest/globals';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
-import { EnrichedApplicationWithImageStreams } from '../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { EnrichedApplicationWithItsImageStreams } from '../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../../k8s/EDPCodebaseImageStream/types';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
 import { createApplicationInstance } from './index';
@@ -33,8 +33,8 @@ describe('testing createApplicationInstance', () => {
             CDPipeline: CDPipelineMock as EDPCDPipelineKubeObjectInterface,
             currentCDPipelineStage:
                 CDPipelineStageMock as unknown as EDPCDPipelineStageKubeObjectInterface,
-            enrichedApplication:
-                enrichedApplicationMock as unknown as EnrichedApplicationWithImageStreams,
+            enrichedApplicationWithItsImageStreams:
+                enrichedApplicationMock as unknown as EnrichedApplicationWithItsImageStreams,
             imageStream: imageStreamMock as EDPCodebaseImageStreamKubeObjectInterface,
             imageTag: 'test-image-tag',
             gitServer: gitServerMock as EDPGitServerKubeObjectInterface,

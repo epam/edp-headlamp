@@ -3,7 +3,7 @@ import { FormSelect } from '../../../../../../../../../../components/FormCompone
 import { Render } from '../../../../../../../../../../components/Render';
 import { ICONS } from '../../../../../../../../../../constants/icons';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/Application/types';
-import { EnrichedApplicationWithImageStreams } from '../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { EnrichedApplicationWithItsImageStreams } from '../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { useGitServerListQuery } from '../../../../../../../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { Iconify, MuiCore, React } from '../../../../../../../../../../plugin.globals';
 import { rem } from '../../../../../../../../../../utils/styling/rem';
@@ -19,11 +19,11 @@ const { Grid, Tooltip, IconButton } = MuiCore;
 const { Icon } = Iconify;
 
 export const ImageStreamTagsSelect = ({
-    enrichedApplication,
+    enrichedApplicationWithItsImageStreams,
     argoApplication,
     qualityGatePipelineIsRunning,
 }: {
-    enrichedApplication: EnrichedApplicationWithImageStreams;
+    enrichedApplicationWithItsImageStreams: EnrichedApplicationWithItsImageStreams;
     argoApplication: ApplicationKubeObjectInterface;
     qualityGatePipelineIsRunning: boolean;
     jaegerLink: string;
@@ -43,7 +43,7 @@ export const ImageStreamTagsSelect = ({
     const { data: gitServers } = useGitServerListQuery({});
 
     const { imageStream } = useImageStreamBasedOnResources({
-        enrichedApplication,
+        enrichedApplicationWithItsImageStreams,
         CDPipeline,
         currentCDPipelineStage,
         CDPipelineStages,
@@ -73,7 +73,7 @@ export const ImageStreamTagsSelect = ({
             gitServers: gitServers?.items,
             CDPipeline,
             currentCDPipelineStage,
-            enrichedApplication,
+            enrichedApplicationWithItsImageStreams,
             imageStream,
             imageTag: streamTagFieldValue,
         });
@@ -81,7 +81,7 @@ export const ImageStreamTagsSelect = ({
         CDPipeline,
         createArgoApplication,
         currentCDPipelineStage,
-        enrichedApplication,
+        enrichedApplicationWithItsImageStreams,
         gitServers,
         imageStream,
         streamTagFieldValue,
@@ -90,10 +90,15 @@ export const ImageStreamTagsSelect = ({
     const handleEditRequest = React.useCallback(async () => {
         await editArgoApplication({
             argoApplication,
-            enrichedApplication,
+            enrichedApplicationWithItsImageStreams,
             imageTag: streamTagFieldValue,
         });
-    }, [argoApplication, editArgoApplication, enrichedApplication, streamTagFieldValue]);
+    }, [
+        argoApplication,
+        editArgoApplication,
+        enrichedApplicationWithItsImageStreams,
+        streamTagFieldValue,
+    ]);
 
     const handleDeleteRequest = React.useCallback(async () => {
         await deleteArgoApplication({

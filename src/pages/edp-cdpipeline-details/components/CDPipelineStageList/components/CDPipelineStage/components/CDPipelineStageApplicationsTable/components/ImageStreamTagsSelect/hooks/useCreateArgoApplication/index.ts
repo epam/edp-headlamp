@@ -8,7 +8,7 @@ import { ApplicationKubeObject } from '../../../../../../../../../../../../k8s/A
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../../../k8s/Application/types';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCDPipelineStage/types';
-import { EnrichedApplicationWithImageStreams } from '../../../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { EnrichedApplicationWithItsImageStreams } from '../../../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCodebaseImageStream/types';
 import { EDPGitServerKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPGitServer/types';
 import { React } from '../../../../../../../../../../../../plugin.globals';
@@ -17,14 +17,14 @@ interface CreateArgoApplicationProps {
     gitServers: EDPGitServerKubeObjectInterface[];
     CDPipeline: EDPCDPipelineKubeObjectInterface;
     currentCDPipelineStage: EDPCDPipelineStageKubeObjectInterface;
-    enrichedApplication: EnrichedApplicationWithImageStreams;
+    enrichedApplicationWithItsImageStreams: EnrichedApplicationWithItsImageStreams;
     imageStream: EDPCodebaseImageStreamKubeObjectInterface;
     imageTag: string;
 }
 
 interface EditArgoApplicationProps {
     argoApplication: ApplicationKubeObjectInterface;
-    enrichedApplication: EnrichedApplicationWithImageStreams;
+    enrichedApplicationWithItsImageStreams: EnrichedApplicationWithItsImageStreams;
     imageTag: string;
 }
 
@@ -53,18 +53,20 @@ export const useCreateArgoApplication = () => {
             gitServers,
             CDPipeline,
             currentCDPipelineStage,
-            enrichedApplication,
+            enrichedApplicationWithItsImageStreams,
             imageStream,
             imageTag,
         }: CreateArgoApplicationProps): Promise<void> => {
             const [gitServer] = gitServers.filter(
-                el => el.metadata.name === enrichedApplication.application.spec.gitServer
+                el =>
+                    el.metadata.name ===
+                    enrichedApplicationWithItsImageStreams.application.spec.gitServer
             );
 
             const argoApplicationData = createApplicationInstance({
                 CDPipeline,
                 currentCDPipelineStage,
-                enrichedApplication,
+                enrichedApplicationWithItsImageStreams,
                 imageStream,
                 imageTag,
                 gitServer,
@@ -78,12 +80,12 @@ export const useCreateArgoApplication = () => {
     const editArgoApplication = React.useCallback(
         async ({
             argoApplication,
-            enrichedApplication,
+            enrichedApplicationWithItsImageStreams,
             imageTag,
         }: EditArgoApplicationProps): Promise<void> => {
             const argoApplicationData: ApplicationKubeObjectInterface = editApplicationInstance({
                 argoApplication,
-                enrichedApplication,
+                enrichedApplicationWithItsImageStreams,
                 imageTag,
             });
 

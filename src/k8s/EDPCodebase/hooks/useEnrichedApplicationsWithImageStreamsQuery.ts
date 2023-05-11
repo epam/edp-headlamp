@@ -7,7 +7,7 @@ import { EDPCodebaseImageStreamKubeObjectInterface } from '../../EDPCodebaseImag
 import { EDPCodebaseKubeObjectInterface } from '../types';
 import { useCodebasesByTypeLabelQuery } from './useCodebasesByTypeLabelQuery';
 
-export interface EnrichedApplicationWithImageStreams {
+export interface EnrichedApplicationWithItsImageStreams {
     application: EDPCodebaseKubeObjectInterface;
     applicationImageStream: string;
     applicationImageStreams: EDPCodebaseImageStreamKubeObjectInterface[];
@@ -21,7 +21,7 @@ interface UseEnrichedApplicationsWithImageStreamsQueryProps {
     options?: UseQueryOptions<
         KubeObjectListInterface<EDPCodebaseKubeObjectInterface>,
         Error,
-        EnrichedApplicationWithImageStreams[]
+        EnrichedApplicationWithItsImageStreams[]
     >;
 }
 
@@ -47,7 +47,7 @@ export const useEnrichedApplicationsWithImageStreamsQuery = ({
 
     console.log(codebaseImageStreams);
 
-    return useCodebasesByTypeLabelQuery<EnrichedApplicationWithImageStreams[]>({
+    return useCodebasesByTypeLabelQuery<EnrichedApplicationWithItsImageStreams[]>({
         props: {
             namespace: CDPipelineData?.metadata.namespace,
             codebaseType: CODEBASE_TYPES.APPLICATION,

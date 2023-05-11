@@ -1,7 +1,7 @@
-import { EnrichedApplicationWithImageStreams } from '../../../../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { EnrichedApplicationWithItsImageStreams } from '../../../../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { KubeObjectInterface } from '../../../../../../../../../../../../../plugin.types';
 import { DeepPartial } from '../../../../../../../../../../../../../types/global';
-export const applicationMock: DeepPartial<EnrichedApplicationWithImageStreams> = {
+export const applicationMock: DeepPartial<EnrichedApplicationWithItsImageStreams> = {
     application: {
         apiVersion: 'v2.edp.epam.com/v1',
         kind: 'Codebase',

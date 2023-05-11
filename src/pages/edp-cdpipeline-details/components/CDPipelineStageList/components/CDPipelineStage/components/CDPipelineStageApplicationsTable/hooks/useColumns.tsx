@@ -7,7 +7,7 @@ import {
 } from '../../../../../../../../../configs/codebase-mappings';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../../constants/statuses';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../k8s/Application/types';
-import { EnrichedApplicationWithImageStreams } from '../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { EnrichedApplicationWithItsImageStreams } from '../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { useEDPComponentsURLsQuery } from '../../../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { MuiCore, pluginLib, React } from '../../../../../../../../../plugin.globals';
 import { COMPONENTS_ROUTE_NAME } from '../../../../../../../../../routes/names';
@@ -25,7 +25,7 @@ const { Link: MuiLink } = MuiCore;
 export const useColumns = (
     qualityGatePipelineIsRunning: boolean
 ): HeadlampSimpleTableGetterColumn<{
-    enrichedApplication: EnrichedApplicationWithImageStreams;
+    enrichedApplicationWithItsImageStreams: EnrichedApplicationWithItsImageStreams;
     argoApplication: ApplicationKubeObjectInterface;
 }>[] => {
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
@@ -81,7 +81,7 @@ export const useColumns = (
             {
                 label: 'Application',
                 getter: ({
-                    enrichedApplication: {
+                    enrichedApplicationWithItsImageStreams: {
                         application: {
                             metadata: { name, namespace },
                         },
@@ -106,7 +106,7 @@ export const useColumns = (
                 label: 'Deployed version',
                 getter: ({
                     argoApplication,
-                    enrichedApplication: {
+                    enrichedApplicationWithItsImageStreams: {
                         application: {
                             spec: { lang, framework, buildTool },
                         },
@@ -139,12 +139,14 @@ export const useColumns = (
             },
             {
                 label: 'Image stream version',
-                getter: ({ enrichedApplication, argoApplication }) => {
+                getter: ({ enrichedApplicationWithItsImageStreams, argoApplication }) => {
                     const jaegerLink = _createJaegerLink(argoApplication);
 
                     return (
                         <ImageStreamTagsSelect
-                            enrichedApplication={enrichedApplication}
+                            enrichedApplicationWithItsImageStreams={
+                                enrichedApplicationWithItsImageStreams
+                            }
                             argoApplication={argoApplication}
                             qualityGatePipelineIsRunning={qualityGatePipelineIsRunning}
                             jaegerLink={jaegerLink}

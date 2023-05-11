@@ -2,7 +2,7 @@ import { HeadlampSimpleTableGetterColumn } from '../../../../../components/Headl
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { ICONS } from '../../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
-import { EnrichedApplicationWithImageStreams } from '../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { EnrichedApplicationWithItsImageStreams } from '../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { Iconify, pluginLib, React } from '../../../../../plugin.globals';
 import { COMPONENTS_ROUTE_NAME } from '../../../../../routes/names';
 import { DeepPartial } from '../../../../../types/global';
@@ -14,7 +14,7 @@ const {
 const { Icon } = Iconify;
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<
-    DeepPartial<EnrichedApplicationWithImageStreams>
+    DeepPartial<EnrichedApplicationWithItsImageStreams>
 >[] =>
     React.useMemo(
         () => [

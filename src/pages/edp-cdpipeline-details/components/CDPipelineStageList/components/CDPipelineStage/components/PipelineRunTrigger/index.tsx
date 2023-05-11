@@ -51,20 +51,26 @@ export const PipelineRunTrigger = ({
         return (
             enrichedApplicationsWithArgoApplications &&
             enrichedApplicationsWithArgoApplications
-                .reduce((acc, { enrichedApplication: { application }, argoApplication }) => {
-                    if (!argoApplication) {
-                        return [];
-                    }
+                .reduce(
+                    (
+                        acc,
+                        { enrichedApplicationWithItsImageStreams: { application }, argoApplication }
+                    ) => {
+                        if (!argoApplication) {
+                            return [];
+                        }
 
-                    const deployedVersion =
-                        argoApplication?.spec?.source?.helm?.parameters?.find(
-                            el => el.name === 'image.tag'
-                        )?.value || '';
+                        const deployedVersion =
+                            argoApplication?.spec?.source?.helm?.parameters?.find(
+                                el => el.name === 'image.tag'
+                            )?.value || '';
 
-                    const appTag = `${application.metadata.name}=${deployedVersion}`;
-                    acc.push(appTag);
-                    return acc;
-                }, [])
+                        const appTag = `${application.metadata.name}=${deployedVersion}`;
+                        acc.push(appTag);
+                        return acc;
+                    },
+                    []
+                )
                 .join(' ')
         );
     }, [enrichedApplicationsWithArgoApplications]);

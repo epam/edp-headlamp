@@ -15,7 +15,7 @@ const { kind, group, version } = ApplicationKubeObjectConfig;
 export const createApplicationInstance = ({
     CDPipeline,
     currentCDPipelineStage,
-    enrichedApplication,
+    enrichedApplicationWithItsImageStreams,
     imageStream,
     imageTag,
     gitServer,
@@ -40,7 +40,7 @@ export const createApplicationInstance = ({
                 buildTool,
             },
         },
-    } = enrichedApplication;
+    } = enrichedApplicationWithItsImageStreams;
 
     const {
         spec: { imageName },
@@ -126,7 +126,7 @@ export const createApplicationInstance = ({
 
 export const editApplicationInstance = ({
     argoApplication,
-    enrichedApplication,
+    enrichedApplicationWithItsImageStreams,
     imageTag,
 }: editApplicationInstanceProps): ApplicationKubeObjectInterface => {
     const {
@@ -135,7 +135,7 @@ export const editApplicationInstance = ({
                 versioning: { type: versioningType },
             },
         },
-    } = enrichedApplication;
+    } = enrichedApplicationWithItsImageStreams;
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
     const base = { ...argoApplication };
 

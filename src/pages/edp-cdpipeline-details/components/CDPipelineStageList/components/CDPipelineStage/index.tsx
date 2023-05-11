@@ -1,11 +1,7 @@
 import { HeadlampNameValueTable } from '../../../../../../components/HeadlampNameValueTable';
 import { HeadlampSimpleTable } from '../../../../../../components/HeadlampSimpleTable';
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
-import {
-    ARGO_APPLICATION_HEALTH_STATUSES,
-    ARGO_APPLICATION_SYNC_STATUSES,
-    PIPELINE_RUN_STATUSES,
-} from '../../../../../../constants/statuses';
+import { PIPELINE_RUN_STATUSES } from '../../../../../../constants/statuses';
 import { streamApplicationListByPipelineStageLabel } from '../../../../../../k8s/Application';
 import { ApplicationKubeObjectInterface } from '../../../../../../k8s/Application/types';
 import {
@@ -27,8 +23,13 @@ import { useColumns as useDeployPipelineRunsColumns } from './components/DeployP
 import { PipelineRunTrigger } from './components/PipelineRunTrigger';
 import { useCreateAutotestRunnerPipelineRun } from './components/PipelineRunTrigger/hooks/useCreateAutotestRunnerPipelineRun';
 import { useColumns } from './hooks/useColumns';
+import { useEveryArgoAppIsHealthyAndInSync } from './hooks/useEveryArgoAppIsHealthyAndInSync';
 import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
+import {
+    EnrichedApplicationWithArgoApplication,
+    EnrichedQualityGateWithAutotestPipelineRun,
+} from './types';
 
 const { Grid, Typography, Button, CircularProgress } = MuiCore;
 const randomPostfix = createRandomFiveSymbolString();
@@ -37,7 +38,7 @@ export const CDPipelineStage = (): React.ReactElement => {
     const CurrentCDPipelineStageDataContextValue = React.useContext(
         CurrentCDPipelineStageDataContext
     );
-    const enrichedWithImageStreamsApplications = React.useContext(ApplicationsContext);
+    const enrichedApplicationsWithItsImageStreams = React.useContext(ApplicationsContext);
     const CDPipelineDataContextValue = React.useContext(CDPipelineDataContext);
 
     const classes = useStyles();
@@ -100,41 +101,48 @@ export const CDPipelineStage = (): React.ReactElement => {
         [setLatestTenAutotestRunnersPipelineRun]
     );
 
-    const enrichedApplicationsWithArgoApplications = React.useMemo(
-        () =>
-            enrichedWithImageStreamsApplications &&
-            enrichedWithImageStreamsApplications.length &&
-            enrichedWithImageStreamsApplications.map(enrichedApplication => {
-                const fitArgoApplication = argoApplications.find(
-                    argoApplication =>
-                        argoApplication.metadata.labels['app.edp.epam.com/app-name'] ===
-                        enrichedApplication.application.metadata.name
-                );
+    const enrichedApplicationsWithArgoApplications: EnrichedApplicationWithArgoApplication[] =
+        React.useMemo(
+            () =>
+                enrichedApplicationsWithItsImageStreams &&
+                enrichedApplicationsWithItsImageStreams.length &&
+                enrichedApplicationsWithItsImageStreams.map(
+                    enrichedApplicationWithItsImageStreams => {
+                        const fitArgoApplication = argoApplications.find(
+                            argoApplication =>
+                                argoApplication.metadata.labels['app.edp.epam.com/app-name'] ===
+                                enrichedApplicationWithItsImageStreams.application.metadata.name
+                        );
 
-                return {
-                    enrichedApplication,
-                    argoApplication: fitArgoApplication,
-                };
-            }),
-        [enrichedWithImageStreamsApplications, argoApplications]
-    );
+                        return {
+                            enrichedApplicationWithItsImageStreams,
+                            argoApplication: fitArgoApplication,
+                        };
+                    }
+                ),
+            [enrichedApplicationsWithItsImageStreams, argoApplications]
+        );
 
-    const enrichedQualityGatesWithPipelineRuns = React.useMemo(
-        () =>
-            CurrentCDPipelineStageDataContextValue.spec.qualityGates.map(qualityGate => {
-                const autotestPipelineRun = latestTenAutotestPipelineRuns.find(
-                    pipelineRun =>
-                        pipelineRun.metadata.labels['app.edp.epam.com/codebase'] ===
-                        qualityGate.autotestName
-                );
+    const enrichedQualityGatesWithPipelineRuns: EnrichedQualityGateWithAutotestPipelineRun[] =
+        React.useMemo(
+            () =>
+                CurrentCDPipelineStageDataContextValue.spec.qualityGates.map(qualityGate => {
+                    const autotestPipelineRun = latestTenAutotestPipelineRuns.find(
+                        pipelineRun =>
+                            pipelineRun.metadata.labels['app.edp.epam.com/codebase'] ===
+                            qualityGate.autotestName
+                    );
 
-                return {
-                    qualityGate: qualityGate,
-                    autotestPipelineRun: autotestPipelineRun,
-                };
-            }),
-        [CurrentCDPipelineStageDataContextValue.spec.qualityGates, latestTenAutotestPipelineRuns]
-    );
+                    return {
+                        qualityGate: qualityGate,
+                        autotestPipelineRun: autotestPipelineRun,
+                    };
+                }),
+            [
+                CurrentCDPipelineStageDataContextValue.spec.qualityGates,
+                latestTenAutotestPipelineRuns,
+            ]
+        );
 
     React.useEffect(() => {
         const cancelApplicationsStream = streamApplicationListByPipelineStageLabel(
@@ -216,36 +224,12 @@ export const CDPipelineStage = (): React.ReactElement => {
         [CurrentCDPipelineStageDataContextValue.spec.qualityGates]
     );
 
-    const everyArgoAppIsHealthyAndInSync = React.useMemo(
-        () =>
-            enrichedApplicationsWithArgoApplications &&
-            enrichedApplicationsWithArgoApplications.every(({ argoApplication }) => {
-                if (!argoApplication?.status?.health?.status) {
-                    return false;
-                }
-
-                if (!argoApplication?.status?.sync?.status) {
-                    return false;
-                }
-
-                const healthIsOk =
-                    argoApplication.status.health.status.toLowerCase() ===
-                    ARGO_APPLICATION_HEALTH_STATUSES['HEALTHY'];
-                const syncIsOk =
-                    argoApplication.status.sync.status.toLowerCase() ===
-                    ARGO_APPLICATION_SYNC_STATUSES['SYNCED'];
-
-                return healthIsOk && syncIsOk;
-            }),
-        [enrichedApplicationsWithArgoApplications]
+    const everyArgoAppIsHealthyAndInSync = useEveryArgoAppIsHealthyAndInSync(
+        enrichedApplicationsWithArgoApplications
     );
 
     const deployPipelineRunActionEnabled = React.useMemo(() => {
-        if (!thereAreArgoApplications) {
-            return false;
-        }
-
-        if (latestDeployPipelineRunIsRunning) {
+        if (!thereAreArgoApplications || latestDeployPipelineRunIsRunning) {
             return false;
         }
 
@@ -257,15 +241,11 @@ export const CDPipelineStage = (): React.ReactElement => {
     ]);
 
     const autotestRunnerPipelineRunActionEnabled = React.useMemo(() => {
-        if (!thereAreArgoApplications) {
-            return false;
-        }
-
-        if (latestAutotestPipelineRunIsRunning) {
-            return false;
-        }
-
-        if (latestAutotestRunnerIsRunning) {
+        if (
+            !thereAreArgoApplications ||
+            latestAutotestPipelineRunIsRunning ||
+            latestAutotestRunnerIsRunning
+        ) {
             return false;
         }
 
@@ -280,7 +260,7 @@ export const CDPipelineStage = (): React.ReactElement => {
     const { createAutotestRunnerPipelineRun } = useCreateAutotestRunnerPipelineRun({});
 
     const { data: storageSize } = useStorageSizeQuery(
-        enrichedWithImageStreamsApplications?.[0]?.application
+        enrichedApplicationsWithItsImageStreams?.[0]?.application
     );
 
     const handleRunAutotestRunner = React.useCallback(async () => {

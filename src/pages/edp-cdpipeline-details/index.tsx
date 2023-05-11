@@ -5,7 +5,7 @@ import { ICONS } from '../../constants/icons';
 import { streamCDPipeline } from '../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
 import {
-    EnrichedApplicationWithImageStreams,
+    EnrichedApplicationWithItsImageStreams,
     useEnrichedApplicationsWithImageStreamsQuery,
 } from '../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
@@ -27,7 +27,8 @@ const {
     CommonComponents: { Link },
 } = pluginLib;
 
-export const ApplicationsContext = React.createContext<EnrichedApplicationWithImageStreams[]>(null);
+export const ApplicationsContext =
+    React.createContext<EnrichedApplicationWithItsImageStreams[]>(null);
 export const CDPipelineDataContext = React.createContext<EDPCDPipelineKubeObjectInterface>(null);
 
 export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): React.ReactElement => {
