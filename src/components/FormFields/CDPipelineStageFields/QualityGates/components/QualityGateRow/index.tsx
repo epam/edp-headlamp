@@ -182,9 +182,16 @@ export const QualityGateRow = ({
                 const alreadyChosenAutotest = qualityGates.find(
                     ({ autotestName }) => autotestName === name
                 );
-                const allBranchesAreChosen = branches.every(branch =>
-                    qualityGates.find(qualityGate => branch === qualityGate.branchName)
+
+                const qualityGatesByChosenAutotest = qualityGates.filter(
+                    ({ autotestName }) => autotestName === name
                 );
+
+                const allBranchesAreChosen =
+                    qualityGatesByChosenAutotest.length === branches.length &&
+                    qualityGatesByChosenAutotest.every(qualityGate =>
+                        branches.includes(qualityGate.branchName)
+                    );
 
                 if (alreadyChosenAutotest && branches.length <= 1) {
                     return {
@@ -208,8 +215,12 @@ export const QualityGateRow = ({
     const availableAutotestBranches = React.useMemo(
         () =>
             currentQualityGateBranchesOptions.map(branchOption => {
-                const alreadyChosenAutotestBranch = qualityGates.find(
-                    ({ branchName }) => branchOption.value === branchName
+                const qualityGatesByChosenAutotest = qualityGates.filter(
+                    ({ autotestName }) => autotestName === currentQualityGateAutotestFieldValue
+                );
+
+                const alreadyChosenAutotestBranch = qualityGatesByChosenAutotest.find(
+                    qualityGate => qualityGate.branchName === branchOption.value
                 );
 
                 if (alreadyChosenAutotestBranch) {
@@ -221,7 +232,7 @@ export const QualityGateRow = ({
 
                 return branchOption;
             }),
-        [currentQualityGateBranchesOptions, qualityGates]
+        [currentQualityGateAutotestFieldValue, currentQualityGateBranchesOptions, qualityGates]
     );
 
     return (
