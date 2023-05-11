@@ -20,6 +20,7 @@ export const QualityGateRow = ({
     currentQualityGateData,
     setQualityGates,
     setNewQualityGates,
+    qualityGates,
 }: QualityGateRowProps): React.ReactElement => {
     const {
         register,
@@ -38,7 +39,7 @@ export const QualityGateRow = ({
 
     const availableQualityGateTypeSelectOptions = React.useMemo(() => {
         return qualityGateTypeSelectOptions.map(el => {
-            if (el.value === QUALITY_GATE_TYPES['AUTOTESTS'] && !autotests.length) {
+            if (el.value === QUALITY_GATE_TYPES.AUTOTESTS && !autotests.length) {
                 return {
                     ...el,
                     disabled: true,
@@ -174,6 +175,55 @@ export const QualityGateRow = ({
         [currentQualityGateData.id, setNewQualityGates, setQualityGates]
     );
 
+    const availableAutotests = React.useMemo(
+        () =>
+            autotests.map(autotest => {
+                const { name, branches } = autotest;
+                const alreadyChosenAutotest = qualityGates.find(
+                    ({ autotestName }) => autotestName === name
+                );
+                const allBranchesAreChosen = branches.every(branch =>
+                    qualityGates.find(qualityGate => branch === qualityGate.branchName)
+                );
+
+                if (alreadyChosenAutotest && branches.length <= 1) {
+                    return {
+                        ...autotest,
+                        disabled: true,
+                    };
+                }
+
+                if (allBranchesAreChosen) {
+                    return {
+                        ...autotest,
+                        disabled: true,
+                    };
+                }
+
+                return autotest;
+            }),
+        [autotests, qualityGates]
+    );
+
+    const availableAutotestBranches = React.useMemo(
+        () =>
+            currentQualityGateBranchesOptions.map(branchOption => {
+                const alreadyChosenAutotestBranch = qualityGates.find(
+                    ({ branchName }) => branchOption.value === branchName
+                );
+
+                if (alreadyChosenAutotestBranch) {
+                    return {
+                        ...branchOption,
+                        disabled: true,
+                    };
+                }
+
+                return branchOption;
+            }),
+        [currentQualityGateBranchesOptions, qualityGates]
+    );
+
     return (
         <>
             <Grid item xs={12}>
@@ -230,10 +280,13 @@ export const QualityGateRow = ({
                                     placeholder={'Select autotest'}
                                     control={control}
                                     errors={errors}
-                                    options={autotests.map(({ name }) => ({
-                                        label: name,
-                                        value: name,
-                                    }))}
+                                    options={availableAutotests.map(
+                                        ({ name, disabled = false }) => ({
+                                            label: name,
+                                            value: name,
+                                            disabled,
+                                        })
+                                    )}
                                 />
                             </Grid>
                             <Grid item xs={3}>
@@ -251,7 +304,7 @@ export const QualityGateRow = ({
                                     control={control}
                                     errors={errors}
                                     disabled={!currentQualityGateBranchesOptions.length}
-                                    options={currentQualityGateBranchesOptions}
+                                    options={availableAutotestBranches}
                                 />
                             </Grid>
                         </>

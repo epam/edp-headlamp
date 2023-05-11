@@ -108,6 +108,7 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
                                                         currentQualityGateData={el}
                                                         setQualityGates={setQualityGates}
                                                         setNewQualityGates={setNewQualityGates}
+                                                        qualityGates={qualityGates}
                                                     />
                                                 </Grid>
                                             </Grid>

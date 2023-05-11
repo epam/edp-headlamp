@@ -15,4 +15,5 @@ export interface QualityGate {
 export interface Autotest {
     name: string;
     branches: string[];
+    disabled?: boolean;
 }
