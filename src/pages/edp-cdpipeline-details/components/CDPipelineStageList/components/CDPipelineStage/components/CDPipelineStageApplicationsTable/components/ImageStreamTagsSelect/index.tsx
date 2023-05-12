@@ -2,15 +2,15 @@ import { useForm } from 'react-hook-form';
 import { FormSelect } from '../../../../../../../../../../components/FormComponents';
 import { Render } from '../../../../../../../../../../components/Render';
 import { ICONS } from '../../../../../../../../../../constants/icons';
-import { EnrichedApplication } from '../../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../k8s/Application/types';
+import { EnrichedApplicationWithImageStreams } from '../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { useGitServerListQuery } from '../../../../../../../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { Iconify, MuiCore, React } from '../../../../../../../../../../plugin.globals';
 import { rem } from '../../../../../../../../../../utils/styling/rem';
 import { CDPipelineDataContext } from '../../../../../../../../index';
 import {
     CDPipelineStagesDataContext,
     CurrentCDPipelineStageDataContext,
-    GitServersDataContext,
 } from '../../../../../../index';
 import { useCreateArgoApplication } from './hooks/useCreateArgoApplication';
 import { useImageStreamBasedOnResources } from './hooks/useImageStreamBasedOnResources';
@@ -23,7 +23,7 @@ export const ImageStreamTagsSelect = ({
     argoApplication,
     qualityGatePipelineIsRunning,
 }: {
-    enrichedApplication: EnrichedApplication;
+    enrichedApplication: EnrichedApplicationWithImageStreams;
     argoApplication: ApplicationKubeObjectInterface;
     qualityGatePipelineIsRunning: boolean;
     jaegerLink: string;
@@ -40,7 +40,7 @@ export const ImageStreamTagsSelect = ({
     const CDPipeline = React.useContext(CDPipelineDataContext);
     const currentCDPipelineStage = React.useContext(CurrentCDPipelineStageDataContext);
     const CDPipelineStages = React.useContext(CDPipelineStagesDataContext);
-    const gitServers = React.useContext(GitServersDataContext);
+    const { data: gitServers } = useGitServerListQuery();
 
     const { imageStream } = useImageStreamBasedOnResources({
         enrichedApplication,
@@ -70,7 +70,7 @@ export const ImageStreamTagsSelect = ({
 
     const handleCreateRequest = React.useCallback(async () => {
         await createArgoApplication({
-            gitServers,
+            gitServers: gitServers?.items,
             CDPipeline,
             currentCDPipelineStage,
             enrichedApplication,

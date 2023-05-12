@@ -6,12 +6,8 @@ import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../constants/creationStrategies';
 import { DEPLOYMENT_SCRIPTS } from '../../constants/deploymentScripts';
 import { ICONS } from '../../constants/icons';
-import { useAvailableCITools } from '../../hooks/useAvailableCITools';
-import { useGitServers } from '../../hooks/useGitServers';
 import { useHandleEditorSave } from '../../hooks/useHandleEditorSave';
-import { useNamespace } from '../../hooks/useNamespace';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
 import { Iconify, MuiCore, pluginLib, React } from '../../plugin.globals';
 import { KubeObjectInterface } from '../../plugin.types';
 import { FieldEvent, FieldEventTarget, FormNameObject } from '../../types/forms';
@@ -51,8 +47,6 @@ const a11yProps = (index: any) => {
 
 const TAB_INDEXES_LAST_INDEX = Object.keys(TAB_INDEXES).length - 1;
 
-export const GitServersDataContext = React.createContext<EDPGitServerKubeObjectInterface[]>(null);
-export const AvailableCIToolsDataContext = React.createContext<string[]>(null);
 export const FormDataContext = React.createContext<{
     formValues: any;
     names: {
@@ -75,10 +69,6 @@ export const CreateCodebase = ({
     const [formActiveTabIdx, setFormActiveTabIdx] = React.useState<number>(
         TAB_INDEXES[FORM_PART_CODEBASE_INFO]
     );
-
-    const { namespace } = useNamespace();
-    const { gitServers } = useGitServers({ namespace });
-    const availableCITools = useAvailableCITools();
 
     const { baseDefaultValues } = useDefaultValues({ names });
 
@@ -403,36 +393,26 @@ export const CreateCodebase = ({
                                                 handleFormFieldChange,
                                             }}
                                         >
-                                            <AvailableCIToolsDataContext.Provider
-                                                value={availableCITools}
-                                            >
-                                                <div className={classes.formInner}>
-                                                    <TabPanel
-                                                        value={formActiveTabIdx}
-                                                        index={TAB_INDEXES[FORM_PART_CODEBASE_INFO]}
-                                                        className={classes.tabPanel}
-                                                    >
-                                                        <div className={classes.tabPanelInner}>
-                                                            <GitServersDataContext.Provider
-                                                                value={gitServers}
-                                                            >
-                                                                <CodebaseInfo />
-                                                            </GitServersDataContext.Provider>
-                                                        </div>
-                                                    </TabPanel>
-                                                    <TabPanel
-                                                        value={formActiveTabIdx}
-                                                        index={
-                                                            TAB_INDEXES[FORM_PART_ADVANCED_SETTINGS]
-                                                        }
-                                                        className={classes.tabPanel}
-                                                    >
-                                                        <div className={classes.tabPanelInner}>
-                                                            <AdvancedSettings />
-                                                        </div>
-                                                    </TabPanel>
-                                                </div>
-                                            </AvailableCIToolsDataContext.Provider>
+                                            <div className={classes.formInner}>
+                                                <TabPanel
+                                                    value={formActiveTabIdx}
+                                                    index={TAB_INDEXES[FORM_PART_CODEBASE_INFO]}
+                                                    className={classes.tabPanel}
+                                                >
+                                                    <div className={classes.tabPanelInner}>
+                                                        <CodebaseInfo />
+                                                    </div>
+                                                </TabPanel>
+                                                <TabPanel
+                                                    value={formActiveTabIdx}
+                                                    index={TAB_INDEXES[FORM_PART_ADVANCED_SETTINGS]}
+                                                    className={classes.tabPanel}
+                                                >
+                                                    <div className={classes.tabPanelInner}>
+                                                        <AdvancedSettings />
+                                                    </div>
+                                                </TabPanel>
+                                            </div>
                                         </FormDataContext.Provider>
                                         <div className={classes.tabPanelActions}>
                                             <Button

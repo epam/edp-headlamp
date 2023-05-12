@@ -1,4 +1,4 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
 interface EDPCDPipelineStageSpecQualityGatesInterface {
     autotestName: string | null;
@@ -37,7 +37,7 @@ interface EDPCDPipelineStageStatusInterface {
     value: string;
 }
 
-interface EDPCDPipelineStageKubeObjectInterface extends EDPKubeObjectInterface {
+interface EDPCDPipelineStageKubeObjectInterface extends KubeObjectInterface {
     spec: EDPCDPipelineStageSpecInterface;
     status: EDPCDPipelineStageStatusInterface;
 }

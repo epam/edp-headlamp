@@ -1,4 +1,4 @@
-import { useEDPComponentsURLs } from '../../../../../hooks/useEDPComponentsURLs';
+import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
 import { MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { formatFullYear, humanizeDefault } from '../../../../../utils/date/humanize';
@@ -15,7 +15,7 @@ const {
 
 export const usePipelineRunsColumns =
     (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] => {
-        const EDPComponentsURLS = useEDPComponentsURLs();
+        const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
 
         return React.useMemo(
             () => [
@@ -44,13 +44,14 @@ export const usePipelineRunsColumns =
                             return <>{name}</>;
                         }
 
-                        const pipelineRunLink = Object.hasOwn(EDPComponentsURLS, 'tekton')
-                            ? createTektonPipelineRunLink(
-                                  EDPComponentsURLS?.tekton,
-                                  namespace,
-                                  name
-                              )
-                            : null;
+                        const pipelineRunLink =
+                            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'tekton')
+                                ? createTektonPipelineRunLink(
+                                      EDPComponentsURLS?.tekton,
+                                      namespace,
+                                      name
+                                  )
+                                : null;
 
                         return (
                             <>
@@ -75,13 +76,14 @@ export const usePipelineRunsColumns =
                             return <>{pipelineRefName}</>;
                         }
 
-                        const pipelineLink = Object.hasOwn(EDPComponentsURLS, 'tekton')
-                            ? createTektonPipelineLink(
-                                  EDPComponentsURLS?.tekton,
-                                  namespace,
-                                  pipelineRefName
-                              )
-                            : null;
+                        const pipelineLink =
+                            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'tekton')
+                                ? createTektonPipelineLink(
+                                      EDPComponentsURLS?.tekton,
+                                      namespace,
+                                      pipelineRefName
+                                  )
+                                : null;
 
                         return (
                             <>

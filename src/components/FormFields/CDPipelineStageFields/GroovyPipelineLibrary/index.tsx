@@ -1,9 +1,9 @@
 import { useFormContext } from 'react-hook-form';
-import { useGroovyLibrariesWithTheirBranches } from '../../../../hooks/useGroovyLibrariesWithTheirBranches';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent, SelectOption } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
 import { Render } from '../../../Render';
+import { useGroovyLibrariesWithBranches } from './hooks/useGroovyLibrariesWithBranches';
 import { GroovyPipelineLibraryProps } from './types';
 
 const { Grid } = MuiCore;
@@ -14,7 +14,6 @@ const defaultGroovyPipelineOption: SelectOption = {
 };
 
 export const GroovyPipelineLibrary = ({
-    namespace,
     names,
     handleFormFieldChange,
 }: GroovyPipelineLibraryProps) => {
@@ -29,32 +28,31 @@ export const GroovyPipelineLibrary = ({
 
     const sourceLibraryNameFieldValue = watch(names.sourceLibraryName.name);
 
-    const { groovyLibraries } = useGroovyLibrariesWithTheirBranches({
-        namespace,
-        defaultOption: defaultGroovyPipelineOption,
-    });
+    const groovyLibsWithBranches = useGroovyLibrariesWithBranches();
 
     const groovyLibrariesOptions = React.useMemo(() => {
-        if (groovyLibraries && groovyLibraries.length) {
-            return [defaultGroovyPipelineOption, ...groovyLibraries.map(el => el.option)].filter(
-                Boolean
-            );
+        if (groovyLibsWithBranches) {
+            return [
+                defaultGroovyPipelineOption,
+                ...groovyLibsWithBranches?.map(el => el.option),
+            ].filter(Boolean);
         }
 
         return [defaultGroovyPipelineOption];
-    }, [groovyLibraries]);
+    }, [groovyLibsWithBranches]);
 
     const chosenGroovyLibraryBranches = React.useMemo(() => {
         if (sourceLibraryNameFieldValue === 'default') {
             return [];
         }
         if (sourceLibraryNameFieldValue) {
-            return groovyLibraries.filter(el => el.option.value === sourceLibraryNameFieldValue)[0]
-                .branches;
+            return groovyLibsWithBranches.filter(
+                el => el.option.value === sourceLibraryNameFieldValue
+            )[0].branches;
         }
 
         return [];
-    }, [groovyLibraries, sourceLibraryNameFieldValue]);
+    }, [groovyLibsWithBranches, sourceLibraryNameFieldValue]);
 
     const defaultAsLibrarySelected = React.useMemo(() => {
         return sourceLibraryNameFieldValue === 'default';

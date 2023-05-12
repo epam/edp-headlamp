@@ -1,3 +1,3 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
-export interface TriggerTemplateKubeObjectInterface extends EDPKubeObjectInterface {}
+export interface TriggerTemplateKubeObjectInterface extends KubeObjectInterface {}

@@ -4,7 +4,7 @@ import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
-import { useEDPComponentsURLs } from '../../../../hooks/useEDPComponentsURLs';
+import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { streamPipelineRunListByCodebaseBranchLabel } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
@@ -44,8 +44,6 @@ export const CodebaseBranch = ({
     id,
     handlePanelChange,
     codebaseData,
-    gitServers,
-    triggerTemplates,
 }: CodebaseBranchProps): React.ReactElement => {
     const {
         register,
@@ -53,7 +51,7 @@ export const CodebaseBranch = ({
         formState: { errors },
     } = useForm();
 
-    const EDPComponentsURLS = useEDPComponentsURLs();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
 
     const {
         spec: { ciTool },
@@ -159,7 +157,7 @@ export const CodebaseBranch = ({
 
     const sonarLink = React.useMemo(
         () =>
-            Object.hasOwn(EDPComponentsURLS, 'sonar')
+            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'sonar')
                 ? createSonarLink(EDPComponentsURLS?.sonar, codebaseBranchData.metadata.name)
                 : null,
         [codebaseBranchData.metadata.name, EDPComponentsURLS]
@@ -222,8 +220,6 @@ export const CodebaseBranch = ({
                                         codebaseBranchData={codebaseBranchData}
                                         defaultBranch={defaultBranch}
                                         codebase={codebaseData}
-                                        gitServers={gitServers}
-                                        triggerTemplates={triggerTemplates}
                                     />
                                 </Grid>
                             </Grid>

@@ -1,3 +1,3 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
-export interface PipelineRunKubeObjectInterface extends EDPKubeObjectInterface {}
+export interface PipelineRunKubeObjectInterface extends KubeObjectInterface {}

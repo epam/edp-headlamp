@@ -1,7 +1,7 @@
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useJiraServers } from '../../../../hooks/useJiraServers';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
+import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
 import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
@@ -102,7 +102,7 @@ export const EditCodebaseForm = ({
         setValue(names.jiraIssueMetadataPayload.name, jiraIssueMetadataPayload);
     }, [codebaseData, editorReturnValues, handleApply, names, reset, setValue]);
 
-    const { jiraServers } = useJiraServers({ namespace: codebaseData.metadata.namespace });
+    const { data: jiraServersNames } = useJiraServerNameListQuery();
 
     useUpdateJiraServerIntegrationValue({ watch, setValue, names });
 
@@ -120,16 +120,16 @@ export const EditCodebaseForm = ({
                             </Grid>
                             <Grid item xs={12}>
                                 <JiraServerIntegration
-                                    jiraServers={jiraServers}
                                     names={names}
                                     handleFormFieldChange={handleFormFieldChange}
                                 />
                             </Grid>
-                            {jiraServers.length && hasJiraServerIntegrationFieldValue ? (
+                            {jiraServersNames &&
+                            jiraServersNames.length &&
+                            hasJiraServerIntegrationFieldValue ? (
                                 <>
                                     <Grid item xs={12}>
                                         <JiraServer
-                                            jiraServers={jiraServers}
                                             names={names}
                                             handleFormFieldChange={handleFormFieldChange}
                                         />

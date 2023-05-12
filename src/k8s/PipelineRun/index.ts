@@ -16,7 +16,6 @@ const {
     version,
 } = PipelineRunKubeObjectConfig;
 
-// @ts-ignore
 export class PipelineRunKubeObject extends makeKubeObject<PipelineRunKubeObjectInterface>(
     singularForm
 ) {

@@ -6,9 +6,9 @@ import {
     CODEBASE_COMMON_LANGUAGES,
 } from '../../../../../../../../../configs/codebase-mappings';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../../constants/statuses';
-import { EnrichedApplication } from '../../../../../../../../../hooks/useApplicationsInCDPipeline';
-import { useEDPComponentsURLs } from '../../../../../../../../../hooks/useEDPComponentsURLs';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../k8s/Application/types';
+import { EnrichedApplicationWithImageStreams } from '../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { useEDPComponentsURLsQuery } from '../../../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { MuiCore, pluginLib, React } from '../../../../../../../../../plugin.globals';
 import { COMPONENTS_ROUTE_NAME } from '../../../../../../../../../routes/names';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../../../../utils/routes/createRouteName';
@@ -25,13 +25,13 @@ const { Link: MuiLink } = MuiCore;
 export const useColumns = (
     qualityGatePipelineIsRunning: boolean
 ): HeadlampSimpleTableGetterColumn<{
-    enrichedApplication: EnrichedApplication;
+    enrichedApplication: EnrichedApplicationWithImageStreams;
     argoApplication: ApplicationKubeObjectInterface;
 }>[] => {
-    const EDPComponentsURLS = useEDPComponentsURLs();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
     const _createArgoCDLink = React.useCallback(
         (argoApplication: ApplicationKubeObjectInterface) =>
-            Object.hasOwn(EDPComponentsURLS, 'argocd')
+            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'argocd')
                 ? createArgoCDApplicationLink(
                       EDPComponentsURLS?.argocd,
                       argoApplication.metadata.labels['app.edp.epam.com/pipeline'],
@@ -44,7 +44,7 @@ export const useColumns = (
 
     const _createJaegerLink = React.useCallback(
         (argoApplication: ApplicationKubeObjectInterface) =>
-            argoApplication && Object.hasOwn(EDPComponentsURLS, 'jaeger')
+            argoApplication && EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'jaeger')
                 ? createJaegerLink(EDPComponentsURLS?.jaeger, argoApplication?.metadata?.name)
                 : null,
         [EDPComponentsURLS]

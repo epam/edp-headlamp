@@ -1,6 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { useCDPipelineProvisioners } from '../../../../hooks/useCDPipelineProvisioners';
-import { useNamespace } from '../../../../hooks/useNamespace';
+import { useCDPipelineProvisionersQuery } from '../../../../k8s/Jenkins/hooks/useCDPipelineProvisionersQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -13,11 +12,7 @@ export const JobProvisioner = ({ names, handleFormFieldChange }: JobProvisionerP
         formState: { errors },
     } = useFormContext();
 
-    const { namespace } = useNamespace();
-
-    const { CDPipelineProvisioners } = useCDPipelineProvisioners({
-        namespace,
-    });
+    const { data: CDPipelineProvisioners } = useCDPipelineProvisionersQuery();
 
     return (
         <FormSelect
@@ -29,10 +24,13 @@ export const JobProvisioner = ({ names, handleFormFieldChange }: JobProvisionerP
             placeholder={'Select job provisioner'}
             control={control}
             errors={errors}
-            options={CDPipelineProvisioners.map(el => ({
-                label: el,
-                value: el,
-            }))}
+            options={
+                CDPipelineProvisioners &&
+                CDPipelineProvisioners.map(el => ({
+                    label: el,
+                    value: el,
+                }))
+            }
         />
     );
 };

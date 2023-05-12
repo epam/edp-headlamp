@@ -3,12 +3,12 @@ import {
     editApplicationInstance,
 } from '../../../../../../../../../../../../configs/k8s-resource-instances/custom-resources/application';
 import { CRUD_TYPES } from '../../../../../../../../../../../../constants/crudTypes';
-import { EnrichedApplication } from '../../../../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { useResourceCRUDMutation } from '../../../../../../../../../../../../hooks/useResourceCreationMutation';
 import { ApplicationKubeObject } from '../../../../../../../../../../../../k8s/Application';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../../../../../k8s/Application/types';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCDPipelineStage/types';
+import { EnrichedApplicationWithImageStreams } from '../../../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCodebaseImageStream/types';
 import { EDPGitServerKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPGitServer/types';
 import { React } from '../../../../../../../../../../../../plugin.globals';
@@ -17,14 +17,14 @@ interface CreateArgoApplicationProps {
     gitServers: EDPGitServerKubeObjectInterface[];
     CDPipeline: EDPCDPipelineKubeObjectInterface;
     currentCDPipelineStage: EDPCDPipelineStageKubeObjectInterface;
-    enrichedApplication: EnrichedApplication;
+    enrichedApplication: EnrichedApplicationWithImageStreams;
     imageStream: EDPCodebaseImageStreamKubeObjectInterface;
     imageTag: string;
 }
 
 interface EditArgoApplicationProps {
     argoApplication: ApplicationKubeObjectInterface;
-    enrichedApplication: EnrichedApplication;
+    enrichedApplication: EnrichedApplicationWithImageStreams;
     imageTag: string;
 }
 

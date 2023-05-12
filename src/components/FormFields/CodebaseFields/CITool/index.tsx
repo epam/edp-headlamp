@@ -1,13 +1,13 @@
 import { useFormContext } from 'react-hook-form';
+import { useAvailableCIToolsQuery } from '../../../../k8s/EDPComponent/hooks/useAvailableCIToolsQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
-import { AvailableCIToolsDataContext } from '../../../CreateCodebase';
 import { FormSelect } from '../../../FormComponents';
 import { CIToolProps } from './types';
 
 export const CITool = ({ names, handleFormFieldChange }: CIToolProps) => {
-    const AvailableCIToolsDataContextValue = React.useContext(AvailableCIToolsDataContext);
+    const { data: availableCITools } = useAvailableCIToolsQuery();
 
     const {
         register,
@@ -27,10 +27,13 @@ export const CITool = ({ names, handleFormFieldChange }: CIToolProps) => {
             title={'Select CI tool for building the codebase'}
             control={control}
             errors={errors}
-            options={AvailableCIToolsDataContextValue.map(el => ({
-                label: capitalizeFirstLetter(el),
-                value: el,
-            }))}
+            options={
+                availableCITools &&
+                availableCITools.map(el => ({
+                    label: capitalizeFirstLetter(el),
+                    value: el,
+                }))
+            }
         />
     );
 };

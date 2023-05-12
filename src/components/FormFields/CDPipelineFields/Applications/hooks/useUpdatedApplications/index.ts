@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
-import { getCodebasesByTypeLabel } from '../../../../../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObject } from '../../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../../k8s/EDPCodebase/types';
-import { getCodebaseBranchesByCodebaseLabel } from '../../../../../../k8s/EDPCodebaseBranch';
+import { EDPCodebaseBranchKubeObject } from '../../../../../../k8s/EDPCodebaseBranch';
 import { React } from '../../../../../../plugin.globals';
 import { createApplicationRowName } from '../../constants';
 import { Application } from '../../types';
@@ -17,12 +17,10 @@ interface UseUpdatedApplicationsProps {
 }
 
 const getCodebaseWithBranchesList = (
-    codebaseList: EDPCodebaseKubeObjectInterface[],
-    namespaceFieldValue
+    codebaseList: EDPCodebaseKubeObjectInterface[]
 ): Promise<Application>[] => {
     return codebaseList.map(async ({ metadata: { name } }): Promise<Application> => {
-        const { items: codebaseBranches } = await getCodebaseBranchesByCodebaseLabel(
-            namespaceFieldValue,
+        const { items: codebaseBranches } = await EDPCodebaseBranchKubeObject.getListByCodebaseName(
             name
         );
 
@@ -55,12 +53,8 @@ export const useUpdatedApplications = ({
     isLoading: boolean;
     error: unknown;
 } => {
-    const {
-        namespace,
-        applicationsFieldValue,
-        applicationsToPromoteValue,
-        applicationsBranchesFieldValue,
-    } = values;
+    const { applicationsFieldValue, applicationsToPromoteValue, applicationsBranchesFieldValue } =
+        values;
 
     const updateUsedApp = React.useCallback(
         (applicationsFieldValueSet: Set<string>, applications: Application[]) => {
@@ -134,11 +128,11 @@ export const useUpdatedApplications = ({
 
     const { isLoading, error } = useQuery(
         'applications',
-        () => getCodebasesByTypeLabel(namespace, CODEBASE_TYPES['APPLICATION']),
+        () => EDPCodebaseKubeObject.getListByTypeLabel(CODEBASE_TYPES.APPLICATION),
         {
             onSuccess: async ({ items: applicationsList }) => {
                 const appsWithBranches = (
-                    await Promise.all(getCodebaseWithBranchesList(applicationsList, namespace))
+                    await Promise.all(getCodebaseWithBranchesList(applicationsList))
                 ).filter(app => app !== null);
                 setAppsWithBranches(appsWithBranches);
             },

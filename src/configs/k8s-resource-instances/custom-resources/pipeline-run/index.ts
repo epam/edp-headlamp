@@ -160,6 +160,7 @@ export const createDeployPipelineRunInstance = ({
     return {
         apiVersion: `${group}/${version}`,
         kind,
+        // @ts-ignore
         metadata: {
             namespace,
             name: `${CDPipelineName}-${stageName}-${randomPostfix}`,

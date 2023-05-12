@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
-import { useNamespace } from '../../../../hooks/useNamespace';
 import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
 import { React } from '../../../../plugin.globals';
 import { k8s } from '../../../../plugin.types';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
+import { getNamespace } from '../../../../utils/getNamespace';
 
 interface DeleteKubeObjectProps {
     kubeObjectData: EDPKubeObjectInterface;
@@ -30,7 +30,7 @@ export const useDeleteKubeObject = ({
 } => {
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
-    const { namespace } = useNamespace();
+    const namespace = getNamespace();
     const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
         useRequestStatusMessages();
 

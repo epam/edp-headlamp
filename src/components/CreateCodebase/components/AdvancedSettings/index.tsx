@@ -1,7 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
-import { useJiraServers } from '../../../../hooks/useJiraServers';
-import { useNamespace } from '../../../../hooks/useNamespace';
+import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
 import { MuiCore, React } from '../../../../plugin.globals';
 import {
     AdvancedJiraMapping,
@@ -26,9 +25,8 @@ export const AdvancedSettings = (): React.ReactElement => {
     const { watch } = useFormContext();
 
     const hasJiraServerIntegrationFieldValue = watch(names.hasJiraServerIntegration.name);
-    const { namespace } = useNamespace();
     const chosenCiToolFieldValue = watch(names.ciTool.name);
-    const { jiraServers } = useJiraServers({ namespace });
+    const { data: jiraServersNames } = useJiraServerNameListQuery();
 
     return (
         <Grid container spacing={2}>
@@ -59,20 +57,15 @@ export const AdvancedSettings = (): React.ReactElement => {
             </Grid>
             <Grid item xs={12}>
                 <JiraServerIntegration
-                    jiraServers={jiraServers}
                     names={names}
                     handleFormFieldChange={handleFormFieldChange}
                 />
             </Grid>
 
-            {jiraServers.length && hasJiraServerIntegrationFieldValue ? (
+            {jiraServersNames && jiraServersNames.length && hasJiraServerIntegrationFieldValue ? (
                 <>
                     <Grid item xs={12}>
-                        <JiraServer
-                            jiraServers={jiraServers}
-                            names={names}
-                            handleFormFieldChange={handleFormFieldChange}
-                        />
+                        <JiraServer names={names} handleFormFieldChange={handleFormFieldChange} />
                     </Grid>
                     <Grid item xs={12}>
                         <TicketNamePattern

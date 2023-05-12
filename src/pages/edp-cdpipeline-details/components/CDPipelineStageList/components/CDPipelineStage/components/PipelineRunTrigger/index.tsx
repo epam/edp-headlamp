@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { FormSelect } from '../../../../../../../../components/FormComponents';
 import { PIPELINE_TYPES } from '../../../../../../../../constants/pipelineTypes';
-import { usePipelinesByType } from '../../../../../../../../hooks/usePipelinesByType';
+import { usePipelineByTypeListQuery } from '../../../../../../../../k8s/Pipeline/hooks/usePipelineByTypeListQuery';
 import { MuiCore, React } from '../../../../../../../../plugin.globals';
 import { createRandomFiveSymbolString } from '../../../../../../../../utils/createRandomFiveSymbolString';
 import { CDPipelineDataContext } from '../../../../../../index';
@@ -29,15 +29,15 @@ export const PipelineRunTrigger = ({
         watch,
     } = useForm();
 
-    const { pipelines } = usePipelinesByType({
-        namespace,
-        pipelineType: PIPELINE_TYPES['DEPLOY'],
-    });
+    const { data: pipelines } = usePipelineByTypeListQuery(PIPELINE_TYPES.DEPLOY);
 
-    const pipelineOptions = pipelines.map(({ metadata: { name } }) => ({
-        label: name,
-        value: name,
-    }));
+    const pipelineOptions =
+        pipelines &&
+        pipelines?.items?.length &&
+        pipelines?.items.map(({ metadata: { name } }) => ({
+            label: name,
+            value: name,
+        }));
 
     const pipelineNameFieldValue = watch(pipelineNameFieldName);
 
@@ -92,7 +92,7 @@ export const PipelineRunTrigger = ({
                         errors={errors}
                         name={pipelineNameFieldName}
                         options={pipelineOptions}
-                        disabled={!pipelineOptions.length}
+                        disabled={pipelineOptions && !pipelineOptions.length}
                         placeholder={'Select pipeline name'}
                     />
                 </Grid>

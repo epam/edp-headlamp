@@ -1,4 +1,6 @@
 import { pluginLib } from '../../plugin.globals';
+import { KubeObjectListInterface } from '../../types/k8s';
+import { getNamespace } from '../../utils/getNamespace';
 import { TriggerTemplateKubeObjectConfig } from './config';
 import { TriggerTemplateKubeObjectInterface } from './types';
 
@@ -15,8 +17,7 @@ const {
     version,
 } = TriggerTemplateKubeObjectConfig;
 
-// @ts-ignore
-export class TriggerTemplate extends makeKubeObject<TriggerTemplateKubeObjectInterface>(
+export class TriggerTemplateKubeObject extends makeKubeObject<TriggerTemplateKubeObjectInterface>(
     singularForm
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
@@ -32,12 +33,11 @@ export class TriggerTemplate extends makeKubeObject<TriggerTemplateKubeObjectInt
     get status(): any {
         return this.jsonData!.status;
     }
+
+    static getList(): Promise<KubeObjectListInterface<TriggerTemplateKubeObjectInterface>> {
+        const namespace = getNamespace();
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+
+        return ApiProxy.request(url);
+    }
 }
-
-export const getTriggerTemplates = (
-    namespace: string
-): Promise<{ items: TriggerTemplateKubeObjectInterface[] }> => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-
-    return ApiProxy.request(url);
-};

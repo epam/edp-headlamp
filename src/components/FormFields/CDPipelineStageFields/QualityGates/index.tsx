@@ -1,9 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../constants/icons';
-import { useAutotestsWithBranches } from '../../../../hooks/useAutotestsWithBranches';
 import { Iconify, MuiCore, MuiLab, MuiStyles, React } from '../../../../plugin.globals';
 import { Render } from '../../../Render';
 import { QualityGateRow } from './components/QualityGateRow';
+import { useAutotestsWithBranches } from './hooks/useAutotestsWithBranches';
 import { QualityGate, QualityGatesProps } from './types';
 import {
     createQualityGateAutotestFieldName,
@@ -25,14 +25,12 @@ const createQualityGateBase = (idx: number): QualityGate => ({
     branchName: null,
 });
 
-export const QualityGates = ({ namespace, names, handleFormFieldChange }: QualityGatesProps) => {
+export const QualityGates = ({ names, handleFormFieldChange }: QualityGatesProps) => {
     const theme: DefaultTheme = useTheme();
 
     const { resetField, watch, setValue } = useFormContext();
 
     const qualityGatesFieldValue = watch(names.qualityGates.name);
-
-    const { autotests } = useAutotestsWithBranches({ namespace });
 
     const [qualityGates, setQualityGates] = React.useState<QualityGate[]>([
         createQualityGateBase(0),
@@ -86,6 +84,8 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
         [resetField, setNewQualityGates]
     );
 
+    const autotestsWithBranchesOptions = useAutotestsWithBranches();
+
     return (
         <>
             <Grid container spacing={2}>
@@ -104,7 +104,9 @@ export const QualityGates = ({ namespace, names, handleFormFieldChange }: Qualit
                                             <Grid item xs={11}>
                                                 <Grid container>
                                                     <QualityGateRow
-                                                        autotests={autotests}
+                                                        autotestsWithBranchesOptions={
+                                                            autotestsWithBranchesOptions
+                                                        }
                                                         currentQualityGateData={el}
                                                         setQualityGates={setQualityGates}
                                                         setNewQualityGates={setNewQualityGates}

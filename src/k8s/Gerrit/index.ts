@@ -15,7 +15,6 @@ const {
     version,
 } = GerritKubeObjectConfig;
 
-// @ts-ignore
 export class Gerrit extends makeKubeObject<GerritKubeObjectInterface>(singularForm) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
@@ -31,11 +30,3 @@ export class Gerrit extends makeKubeObject<GerritKubeObjectInterface>(singularFo
         return this.jsonData!.status;
     }
 }
-
-export const getGerritList = (
-    namespace: string
-): Promise<{ items: GerritKubeObjectInterface[] }> => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-
-    return ApiProxy.request(url);
-};

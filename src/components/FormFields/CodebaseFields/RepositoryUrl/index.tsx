@@ -1,8 +1,8 @@
 import { useFormContext } from 'react-hook-form';
 import { GIT_SERVERS } from '../../../../constants/gitServers';
+import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
-import { GitServersDataContext } from '../../../CreateCodebase';
 import { FormTextField } from '../../../FormComponents';
 import { RepositoryUrlProps } from './types';
 
@@ -16,14 +16,14 @@ export const RepositoryUrl = ({ names, handleFormFieldChange }: RepositoryUrlPro
 
     const fieldRequirementLabel =
         'Specify the application URL in the following format: http(s)://git.sample.com/sample';
-    const gitServers = React.useContext(GitServersDataContext);
+    const { data: gitServers } = useGitServerListQuery();
 
     const hasGerritGitServer = React.useMemo(() => {
         if (!gitServers) {
             return true;
         }
 
-        return !!gitServers.find(el => el.spec.gitProvider === GIT_SERVERS.GERRIT);
+        return !!gitServers?.items.find(el => el.spec.gitProvider === GIT_SERVERS.GERRIT);
     }, [gitServers]);
 
     return (

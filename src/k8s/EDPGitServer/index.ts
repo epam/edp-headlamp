@@ -1,6 +1,7 @@
 import { pluginLib } from '../../plugin.globals';
+import { KubeObjectListInterface } from '../../types/k8s';
+import { getNamespace } from '../../utils/getNamespace';
 import { streamResult } from '../common/streamResult';
-import { streamResults } from '../common/streamResults';
 import { EDPGitServerKubeObjectConfig } from './config';
 import { EDPGitServerKubeObjectInterface, EDPGitServerSpec, EDPGitServerStatus } from './types';
 
@@ -17,7 +18,6 @@ const {
     version,
 } = EDPGitServerKubeObjectConfig;
 
-// @ts-ignore
 export class EDPGitServerKubeObject extends makeKubeObject<EDPGitServerKubeObjectInterface>(
     singularForm
 ) {
@@ -34,26 +34,14 @@ export class EDPGitServerKubeObject extends makeKubeObject<EDPGitServerKubeObjec
     get status(): EDPGitServerStatus {
         return this.jsonData!.status;
     }
+
+    static getList(): Promise<KubeObjectListInterface<EDPGitServerKubeObjectInterface>> {
+        const namespace = getNamespace();
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+
+        return ApiProxy.request(url);
+    }
 }
-
-export const getGitServers = (
-    namespace: string
-): Promise<{ items: EDPGitServerKubeObjectInterface[] }> => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-
-    return ApiProxy.request(url);
-};
-
-export const streamGitServers = (
-    cb: (data: EDPGitServerKubeObjectInterface[]) => void,
-    errCb: (err: Error) => void,
-    namespace?: string
-) => {
-    const url = namespace
-        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
-        : `/apis/${group}/${version}/${pluralForm}`;
-    return streamResults(url, cb, errCb);
-};
 
 export const streamGitServer = (
     name: string,

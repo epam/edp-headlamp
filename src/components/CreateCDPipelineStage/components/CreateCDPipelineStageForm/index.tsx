@@ -2,11 +2,10 @@ import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
-import { useAvailableCITools } from '../../../../hooks/useAvailableCITools';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
-import { useNamespace } from '../../../../hooks/useNamespace';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
+import { useAvailableCIToolsQuery } from '../../../../k8s/EDPComponent/hooks/useAvailableCIToolsQuery';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
@@ -44,7 +43,6 @@ export const CreateCDPipelineStageForm = ({
     isApplying,
 }: CreateCDPipelineStageFormProps): React.ReactElement => {
     const classes = useStyles();
-    const { namespace } = useNamespace();
 
     const { baseDefaultValues } = useDefaultValues({
         names: CDPIPELINE_STAGE_NAMES,
@@ -122,10 +120,10 @@ export const CreateCDPipelineStageForm = ({
         });
     }, [editorReturnValues, handleApply]);
 
-    const availableCITools = useAvailableCITools();
+    const { data: availableCITools } = useAvailableCIToolsQuery();
 
     const hasJenkinsCITool = React.useMemo(
-        () => availableCITools.includes(CI_TOOLS.JENKINS),
+        () => availableCITools && availableCITools.includes(CI_TOOLS.JENKINS),
         [availableCITools]
     );
 
@@ -178,7 +176,6 @@ export const CreateCDPipelineStageForm = ({
                                     <Grid item xs={12}>
                                         <GroovyPipelineLibrary
                                             names={CDPIPELINE_STAGE_NAMES}
-                                            namespace={namespace}
                                             handleFormFieldChange={handleFormFieldChange}
                                         />
                                     </Grid>
@@ -194,7 +191,6 @@ export const CreateCDPipelineStageForm = ({
                             </Grid>
                             <Grid item xs={12}>
                                 <QualityGates
-                                    namespace={namespace}
                                     names={CDPIPELINE_STAGE_NAMES}
                                     handleFormFieldChange={handleFormFieldChange}
                                 />

@@ -1,11 +1,11 @@
-import { EnrichedApplication } from '../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../k8s/Application/types';
+import { EnrichedApplicationWithImageStreams } from '../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 
 export interface PipelineRunTriggerProps {
     namespace: string;
     runActionIsEnabled: boolean;
     enrichedApplicationsWithArgoApplications: {
-        enrichedApplication: EnrichedApplication;
+        enrichedApplication: EnrichedApplicationWithImageStreams;
         argoApplication: ApplicationKubeObjectInterface;
     }[];
 }

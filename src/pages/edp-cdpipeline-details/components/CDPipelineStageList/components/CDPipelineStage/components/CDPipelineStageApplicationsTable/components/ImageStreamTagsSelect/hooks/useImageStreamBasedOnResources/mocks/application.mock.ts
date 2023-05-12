@@ -1,7 +1,7 @@
-import { EnrichedApplication } from '../../../../../../../../../../../../../hooks/useApplicationsInCDPipeline';
+import { EnrichedApplicationWithImageStreams } from '../../../../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { KubeObjectInterface } from '../../../../../../../../../../../../../plugin.types';
 import { DeepPartial } from '../../../../../../../../../../../../../types/global';
-export const applicationMock: DeepPartial<EnrichedApplication> = {
+export const applicationMock: DeepPartial<EnrichedApplicationWithImageStreams> = {
     application: {
         apiVersion: 'v2.edp.epam.com/v1',
         kind: 'Codebase',
@@ -55,7 +55,6 @@ export const applicationMock: DeepPartial<EnrichedApplication> = {
             kind: 'CodebaseImageStream',
             metadata: {
                 creationTimestamp: '2022-10-25T19:54:17Z',
-                generation: 2,
                 name: 'vp-test-jenkins-master',
                 namespace: 'edp-delivery-vp-dev',
                 resourceVersion: '326029843',
@@ -78,7 +77,6 @@ export const applicationMock: DeepPartial<EnrichedApplication> = {
             kind: 'CodebaseImageStream',
             metadata: {
                 creationTimestamp: '2022-10-25T19:59:27Z',
-                generation: 2,
                 name: 'vp-test-jenkins-pipe-qa-vp-test-jenkins-verified',
                 namespace: 'edp-delivery-vp-dev',
                 resourceVersion: '326098114',
@@ -100,7 +98,6 @@ export const applicationMock: DeepPartial<EnrichedApplication> = {
             kind: 'CodebaseImageStream',
             metadata: {
                 creationTimestamp: '2022-10-25T19:59:26Z',
-                generation: 2,
                 name: 'vp-test-jenkins-pipe-sit-vp-test-jenkins-verified',
                 namespace: 'edp-delivery-vp-dev',
                 resourceVersion: '326086111',

@@ -1,4 +1,4 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
 type EDPCodebaseImageStreamSpecTag = {
     created: string;
@@ -16,7 +16,7 @@ interface EDPCodebaseImageStreamStatusInterface {
     failureCount: number;
 }
 
-interface EDPCodebaseImageStreamKubeObjectInterface extends EDPKubeObjectInterface {
+interface EDPCodebaseImageStreamKubeObjectInterface extends KubeObjectInterface {
     spec: EDPCodebaseImageStreamSpecInterface;
     status: EDPCodebaseImageStreamStatusInterface;
 }

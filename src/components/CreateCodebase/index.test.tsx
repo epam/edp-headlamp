@@ -9,12 +9,8 @@ import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
-import { namespacesMock } from '../../hooks/useNamespaces/mocks/namespaces.mock';
-import { pluginLib } from '../../plugin.globals';
 import { CreateCodebase } from './index';
 import { CreateCodebaseProps } from './types';
-
-const { ApiProxy } = pluginLib;
 
 describe('CreateCodebase', () => {
     jest.setTimeout(10000);
@@ -29,12 +25,6 @@ describe('CreateCodebase', () => {
                 reducer: () => ({}),
             });
             const queryClient = new QueryClient();
-
-            jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
-                if (url.includes('/api/v1/namespaces')) {
-                    return Promise.resolve(namespacesMock);
-                }
-            });
 
             render(
                 <Provider store={store}>
@@ -63,12 +53,6 @@ describe('CreateCodebase', () => {
             });
             const queryClient = new QueryClient();
 
-            jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
-                if (url.includes('/api/v1/namespaces')) {
-                    return Promise.resolve(namespacesMock);
-                }
-            });
-
             render(
                 <Provider store={store}>
                     <QueryClientProvider client={queryClient}>
@@ -95,12 +79,6 @@ describe('CreateCodebase', () => {
                 reducer: () => ({}),
             });
             const queryClient = new QueryClient();
-
-            jest.spyOn(ApiProxy, 'request').mockImplementation(url => {
-                if (url.includes('/api/v1/namespaces')) {
-                    return Promise.resolve(namespacesMock);
-                }
-            });
 
             render(
                 <Provider store={store}>

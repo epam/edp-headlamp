@@ -1,4 +1,6 @@
 import { pluginLib } from '../../plugin.globals';
+import { KubeObjectListInterface } from '../../types/k8s';
+import { getNamespace } from '../../utils/getNamespace';
 import { JenkinsKubeObjectConfig } from './config';
 import { JenkinsKubeObjectInterface, JenkinsSpec, JenkinsStatus } from './types';
 
@@ -15,8 +17,7 @@ const {
     version,
 } = JenkinsKubeObjectConfig;
 
-// @ts-ignore
-export class Jenkins extends makeKubeObject<JenkinsKubeObjectInterface>(singularForm) {
+export class JenkinsKubeObject extends makeKubeObject<JenkinsKubeObjectInterface>(singularForm) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
     static get className(): string {
@@ -30,12 +31,11 @@ export class Jenkins extends makeKubeObject<JenkinsKubeObjectInterface>(singular
     get status(): JenkinsStatus {
         return this.jsonData!.status;
     }
+
+    static getList(): Promise<KubeObjectListInterface<JenkinsKubeObjectInterface>> {
+        const namespace = getNamespace();
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+
+        return ApiProxy.request(url);
+    }
 }
-
-export const getJenkinsList = (
-    namespace: string
-): Promise<{ items: JenkinsKubeObjectInterface[] }> => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-
-    return ApiProxy.request(url);
-};

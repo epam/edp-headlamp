@@ -1,7 +1,7 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../../../../../components/StatusIcon';
 import { PIPELINE_RUN_STATUSES } from '../../../../../../../../../constants/statuses';
-import { useEDPComponentsURLs } from '../../../../../../../../../hooks/useEDPComponentsURLs';
+import { useEDPComponentsURLsQuery } from '../../../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../../../k8s/PipelineRun/types';
 import { MuiCore, React } from '../../../../../../../../../plugin.globals';
 import { formatDateToDuration } from '../../../../../../../../../utils/format/formatDateToDuration';
@@ -11,7 +11,7 @@ import { createTektonPipelineRunLink } from '../../../../../../../../../utils/ur
 const { Link: MuiLink } = MuiCore;
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] => {
-    const EDPComponentsURLS = useEDPComponentsURLs();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
 
     return React.useMemo(
         () => [
@@ -36,7 +36,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObj
                 getter: ({ metadata: { name, namespace } }) => (
                     <MuiLink
                         href={
-                            Object.hasOwn(EDPComponentsURLS, 'tekton')
+                            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'tekton')
                                 ? createTektonPipelineRunLink(
                                       EDPComponentsURLS?.tekton,
                                       namespace,

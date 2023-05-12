@@ -3,6 +3,7 @@ import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRu
 export const pipelineRunMock: PipelineRunKubeObjectInterface = {
     apiVersion: 'tekton.dev/v1beta1',
     kind: 'PipelineRun',
+    // @ts-ignore
     metadata: {
         namespace: 'test-namespace',
         name: 'test-codebase-name-test-codebase-branch-name-build-8ygse',

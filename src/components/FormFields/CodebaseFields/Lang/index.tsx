@@ -7,17 +7,17 @@ import { LIBRARY_MAPPING } from '../../../../configs/codebase-mappings/library';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
+import { useAvailableCIToolsQuery } from '../../../../k8s/EDPComponent/hooks/useAvailableCIToolsQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
-import { AvailableCIToolsDataContext } from '../../../CreateCodebase';
 import { FormRadioOption } from '../../../CreateCodebase/components/FormRadioGroup/types';
 import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/utils';
 import { FormRadioGroup } from '../../../FormComponents';
 import { LangProps } from './types';
 
 export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
-    const AvailableCIToolsDataContextValue = React.useContext(AvailableCIToolsDataContext);
+    const { data: availableCITools } = useAvailableCIToolsQuery();
 
     const {
         register,
@@ -66,9 +66,9 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
         }
 
         Object.values(codebaseMapping).map(
-            ({ language: { name, value, icon, availableCITools } }) => {
-                for (const availableCITool of availableCITools) {
-                    if (!AvailableCIToolsDataContextValue.includes(availableCITool)) {
+            ({ language: { name, value, icon, availableCITools: mappingAvailableCITools } }) => {
+                for (const availableCITool of mappingAvailableCITools) {
+                    if (!availableCITools.includes(availableCITool)) {
                         continue;
                     }
 
@@ -88,7 +88,7 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
         );
 
         return resultOptions;
-    }, [AvailableCIToolsDataContextValue, codebaseMapping, strategyValue]);
+    }, [availableCITools, codebaseMapping, strategyValue]);
 
     const resetFields = React.useCallback(
         (fieldNames: string[]) => {

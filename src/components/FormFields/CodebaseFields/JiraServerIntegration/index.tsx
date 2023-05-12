@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
 import { MuiCore, MuiLab, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormCheckbox, FormControlLabelWithTooltip } from '../../../FormComponents';
@@ -11,7 +12,6 @@ const { Alert } = MuiLab;
 export const JiraServerIntegration = ({
     names,
     handleFormFieldChange,
-    jiraServers,
 }: JiraServerIntegrationProps) => {
     const {
         register,
@@ -19,9 +19,11 @@ export const JiraServerIntegration = ({
         formState: { errors },
     } = useFormContext();
 
+    const { data: jiraServersNames } = useJiraServerNameListQuery();
+
     return (
         <Grid container spacing={2}>
-            <Render condition={jiraServers && !jiraServers.length}>
+            <Render condition={jiraServersNames && !jiraServersNames.length}>
                 <Grid item xs={12}>
                     <Alert severity="info" elevation={2} variant="filled">
                         There are no available Jira servers
@@ -37,7 +39,7 @@ export const JiraServerIntegration = ({
                     label={<FormControlLabelWithTooltip label={'Integrate with Jira server'} />}
                     control={control}
                     errors={errors}
-                    disabled={!jiraServers.length}
+                    disabled={jiraServersNames && !jiraServersNames.length}
                 />
             </Grid>
         </Grid>

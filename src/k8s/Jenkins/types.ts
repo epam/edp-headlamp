@@ -1,4 +1,4 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
 export interface JenkinsSpec {
     basePath?: string;
@@ -39,7 +39,7 @@ export interface JenkinsStatus {
         | null;
 }
 
-export interface JenkinsKubeObjectInterface extends EDPKubeObjectInterface {
+export interface JenkinsKubeObjectInterface extends KubeObjectInterface {
     spec: JenkinsSpec;
     status: JenkinsStatus;
 }

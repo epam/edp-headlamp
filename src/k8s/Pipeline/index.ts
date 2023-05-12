@@ -1,5 +1,9 @@
+import { PIPELINE_TYPES } from '../../constants/pipelineTypes';
 import { pluginLib } from '../../plugin.globals';
+import { KubeObjectListInterface } from '../../types/k8s';
+import { getNamespace } from '../../utils/getNamespace';
 import { PipelineKubeObjectConfig } from './config';
+import { PIPELINE_LABEL_SELECTOR_PIPELINE_TYPE } from './labels';
 import { PipelineKubeObjectInterface } from './types';
 
 const {
@@ -15,8 +19,7 @@ const {
     version,
 } = PipelineKubeObjectConfig;
 
-// @ts-ignore
-export class Pipeline extends makeKubeObject<PipelineKubeObjectInterface>(singularForm) {
+export class PipelineKubeObject extends makeKubeObject<PipelineKubeObjectInterface>(singularForm) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
     static get className(): string {
@@ -30,13 +33,12 @@ export class Pipeline extends makeKubeObject<PipelineKubeObjectInterface>(singul
     get status(): any {
         return this.jsonData!.status;
     }
+
+    static getListByPipelineType(
+        pipelineType: PIPELINE_TYPES
+    ): Promise<KubeObjectListInterface<PipelineKubeObjectInterface>> {
+        const namespace = getNamespace();
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${PIPELINE_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType}`;
+        return ApiProxy.request(url);
+    }
 }
-
-export const getPipelinesByType = (
-    namespace: string,
-    pipelineType: string
-): Promise<{ items: PipelineKubeObjectInterface[] }> => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=app.edp.epam.com/pipelinetype=${pipelineType}`;
-
-    return ApiProxy.request(url);
-};

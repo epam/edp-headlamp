@@ -3,9 +3,9 @@
  */
 
 import { renderHook } from '@testing-library/react-hooks';
-import { EnrichedApplication } from '../../../../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCDPipelineStage/types';
+import { EnrichedApplicationWithImageStreams } from '../../../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { useImageStreamBasedOnResources } from './index';
 import { applicationMock } from './mocks/application.mock';
 import { cdpipelineMock } from './mocks/cdpipeline.mock';
@@ -20,7 +20,7 @@ describe('testing useImageStreamBasedOnResources hook', () => {
             },
         } = renderHook(() =>
             useImageStreamBasedOnResources({
-                enrichedApplication: applicationMock as EnrichedApplication,
+                enrichedApplication: applicationMock as EnrichedApplicationWithImageStreams,
                 CDPipeline: cdpipelineMock as EDPCDPipelineKubeObjectInterface,
                 currentCDPipelineStage: stageMock as EDPCDPipelineStageKubeObjectInterface,
                 CDPipelineStages: stagesMock as EDPCDPipelineStageKubeObjectInterface[],
@@ -32,7 +32,6 @@ describe('testing useImageStreamBasedOnResources hook', () => {
             kind: 'CodebaseImageStream',
             metadata: {
                 creationTimestamp: '2022-10-25T19:59:26Z',
-                generation: 2,
                 name: 'vp-test-jenkins-pipe-sit-vp-test-jenkins-verified',
                 namespace: 'edp-delivery-vp-dev',
                 resourceVersion: '326086111',

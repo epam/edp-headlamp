@@ -11,8 +11,6 @@ export const stagesMock: DeepPartial<EDPCDPipelineStageKubeObjectInterface>[] = 
                 'app.edp.epam.com/vp-test-jenkins': 'master-1.0.0-1',
             },
             creationTimestamp: '2022-10-25T19:59:26Z',
-            finalizers: ['foregroundDeletion'],
-            generation: 1,
             labels: {
                 'app.edp.epam.com/cdPipelineName': 'vp-test-jenkins-pipe',
             },
@@ -71,8 +69,6 @@ export const stagesMock: DeepPartial<EDPCDPipelineStageKubeObjectInterface>[] = 
                 'app.edp.epam.com/vp-test-jenkins': 'master-1.0.0-1',
             },
             creationTimestamp: '2022-10-25T19:59:26Z',
-            finalizers: ['foregroundDeletion'],
-            generation: 1,
             labels: {
                 'app.edp.epam.com/cdPipelineName': 'vp-test-jenkins-pipe',
             },

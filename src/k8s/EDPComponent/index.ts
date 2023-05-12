@@ -1,5 +1,6 @@
 import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
+import { getNamespace } from '../../utils/getNamespace';
 import { EDPComponentKubeObjectConfig } from './config';
 import { EDPComponentKubeObjectInterface, EDPComponentSpec } from './types';
 
@@ -33,9 +34,8 @@ export class EDPComponentKubeObject extends makeKubeObject<EDPComponentKubeObjec
         return this.jsonData!.status;
     }
 
-    static getList(
-        namespace: string
-    ): Promise<KubeObjectListInterface<EDPComponentKubeObjectInterface>> {
+    static getList(): Promise<KubeObjectListInterface<EDPComponentKubeObjectInterface>> {
+        const namespace = getNamespace();
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
 
         return ApiProxy.request(url);

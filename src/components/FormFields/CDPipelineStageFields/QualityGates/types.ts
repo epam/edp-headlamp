@@ -1,7 +1,11 @@
 import { CreationFormFieldInterface } from '../../../../types/forms';
 
-export interface QualityGatesProps extends CreationFormFieldInterface {
-    namespace: string;
+export interface QualityGatesProps extends CreationFormFieldInterface {}
+
+export interface AutotestWithBranchesOption {
+    name: string;
+    branches: string[];
+    disabled?: boolean;
 }
 
 export interface QualityGate {
@@ -10,10 +14,4 @@ export interface QualityGate {
     stepName: string;
     autotestName: string | null;
     branchName: string | null;
-}
-
-export interface Autotest {
-    name: string;
-    branches: string[];
-    disabled?: boolean;
 }

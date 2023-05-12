@@ -1,18 +1,15 @@
 import { useFormContext } from 'react-hook-form';
+import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
-import { GitServersDataContext } from '../../../CreateCodebase';
 import { FormSelect } from '../../../FormComponents';
 import { GitServerProps } from './types';
 
 export const GitServer = ({ names, handleFormFieldChange }: GitServerProps) => {
-    const gitServers = React.useContext(GitServersDataContext);
+    const { data: gitServers } = useGitServerListQuery();
     const gitServersOptions = React.useMemo(
-        () =>
-            gitServers
-                ? gitServers.map(({ metadata: { name } }) => ({ label: name, value: name }))
-                : [],
-        [gitServers]
+        () => gitServers?.items.map(({ metadata: { name } }) => ({ label: name, value: name })),
+        [gitServers?.items]
     );
 
     const {

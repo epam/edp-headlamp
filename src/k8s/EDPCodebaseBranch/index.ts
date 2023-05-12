@@ -1,6 +1,9 @@
 import { pluginLib } from '../../plugin.globals';
+import { KubeObjectListInterface } from '../../types/k8s';
+import { getNamespace } from '../../utils/getNamespace';
 import { streamResults } from '../common/streamResults';
 import { EDPCodebaseBranchKubeObjectConfig } from './config';
+import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from './labels';
 import {
     EDPCodebaseBranchKubeObjectInterface,
     EDPCodebaseBranchSpecInterface,
@@ -20,7 +23,6 @@ const {
     version,
 } = EDPCodebaseBranchKubeObjectConfig;
 
-// @ts-ignore
 export class EDPCodebaseBranchKubeObject extends makeKubeObject<EDPCodebaseBranchKubeObjectInterface>(
     singularForm
 ) {
@@ -37,6 +39,14 @@ export class EDPCodebaseBranchKubeObject extends makeKubeObject<EDPCodebaseBranc
     get status(): EDPCodebaseBranchStatusInterface {
         return this.jsonData!.status;
     }
+
+    static getListByCodebaseName(
+        codebaseName: string
+    ): Promise<KubeObjectListInterface<EDPCodebaseBranchKubeObjectInterface>> {
+        const namespace = getNamespace();
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME}=${codebaseName}`;
+        return ApiProxy.request(url);
+    }
 }
 
 export const streamCodebaseBranchesByCodebaseLabel = (
@@ -49,13 +59,4 @@ export const streamCodebaseBranchesByCodebaseLabel = (
     return streamResults(url, cb, errCb, {
         labelSelector: `app.edp.epam.com/codebaseName=${codebaseName}`,
     });
-};
-
-export const getCodebaseBranchesByCodebaseLabel = (
-    namespace: string,
-    codebaseName: string
-): Promise<{ items: EDPCodebaseBranchKubeObjectInterface[] }> => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=app.edp.epam.com/codebaseName=${codebaseName}`;
-
-    return ApiProxy.request(url);
 };

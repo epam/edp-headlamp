@@ -1,8 +1,8 @@
 import { useFormContext } from 'react-hook-form';
-import { useJenkinsAgents } from '../../../../hooks/useJenkinsAgents';
-import { useNamespace } from '../../../../hooks/useNamespace';
+import { useJenkinsAgentsQuery } from '../../../../k8s/Jenkins/hooks/useJenkinsAgentsQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
+import { getNamespace } from '../../../../utils/getNamespace';
 import { FormSelect } from '../../../FormComponents';
 import { JenkinsAgentProps } from './types';
 
@@ -13,8 +13,8 @@ export const JenkinsAgent = ({ names, handleFormFieldChange }: JenkinsAgentProps
         formState: { errors },
     } = useFormContext();
 
-    const { namespace } = useNamespace();
-    const { jenkinsAgents } = useJenkinsAgents({ namespace });
+    const namespace = getNamespace();
+    const { data: jenkinsAgents } = useJenkinsAgentsQuery();
 
     return (
         <FormSelect

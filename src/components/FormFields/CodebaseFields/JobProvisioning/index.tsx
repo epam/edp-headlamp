@@ -1,6 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { useCIPipelineProvisioners } from '../../../../hooks/useCIPipelineProvisioners';
-import { useNamespace } from '../../../../hooks/useNamespace';
+import { useCIPipelineProvisionersQuery } from '../../../../k8s/Jenkins/hooks/useCIPipelineProvisionersQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
@@ -13,11 +12,7 @@ export const JobProvisioning = ({ names, handleFormFieldChange }: JobProvisionin
         formState: { errors },
     } = useFormContext();
 
-    const { namespace } = useNamespace();
-
-    const { CIPipelineProvisioners } = useCIPipelineProvisioners({
-        namespace,
-    });
+    const { data: CIPipelineProvisioners } = useCIPipelineProvisionersQuery();
 
     return (
         <FormSelect
@@ -30,10 +25,13 @@ export const JobProvisioning = ({ names, handleFormFieldChange }: JobProvisionin
             placeholder={'Select CI pipeline provisioner'}
             control={control}
             errors={errors}
-            options={CIPipelineProvisioners.map(el => ({
-                label: el,
-                value: el,
-            }))}
+            options={
+                CIPipelineProvisioners &&
+                CIPipelineProvisioners.map(el => ({
+                    label: el,
+                    value: el,
+                }))
+            }
         />
     );
 };

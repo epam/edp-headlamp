@@ -16,7 +16,7 @@ import { QualityGateRowProps } from './types';
 const { Grid } = MuiCore;
 
 export const QualityGateRow = ({
-    autotests,
+    autotestsWithBranchesOptions,
     currentQualityGateData,
     setQualityGates,
     setNewQualityGates,
@@ -39,7 +39,7 @@ export const QualityGateRow = ({
 
     const availableQualityGateTypeSelectOptions = React.useMemo(() => {
         return qualityGateTypeSelectOptions.map(el => {
-            if (el.value === QUALITY_GATE_TYPES.AUTOTESTS && !autotests.length) {
+            if (el.value === QUALITY_GATE_TYPES.AUTOTESTS && !autotestsWithBranchesOptions.length) {
                 return {
                     ...el,
                     disabled: true,
@@ -48,18 +48,18 @@ export const QualityGateRow = ({
 
             return el;
         });
-    }, [autotests]);
+    }, [autotestsWithBranchesOptions]);
 
     const currentQualityGateBranchesOptions = React.useMemo(() => {
-        return autotests.length && currentQualityGateAutotestFieldValue
-            ? autotests
+        return autotestsWithBranchesOptions.length && currentQualityGateAutotestFieldValue
+            ? autotestsWithBranchesOptions
                   .filter(el => el.name === currentQualityGateAutotestFieldValue)[0]
                   .branches.map(el => ({
                       label: el,
                       value: el,
                   }))
             : [];
-    }, [autotests, currentQualityGateAutotestFieldValue]);
+    }, [autotestsWithBranchesOptions, currentQualityGateAutotestFieldValue]);
 
     const handleChangeQualityGateType = React.useCallback(
         event => {
@@ -177,7 +177,7 @@ export const QualityGateRow = ({
 
     const availableAutotests = React.useMemo(
         () =>
-            autotests.map(autotest => {
+            autotestsWithBranchesOptions.map(autotest => {
                 const { name, branches } = autotest;
                 const alreadyChosenAutotest = qualityGates.find(
                     ({ autotestName }) => autotestName === name
@@ -209,7 +209,7 @@ export const QualityGateRow = ({
 
                 return autotest;
             }),
-        [autotests, qualityGates]
+        [autotestsWithBranchesOptions, qualityGates]
     );
 
     const availableAutotestBranches = React.useMemo(
@@ -272,7 +272,7 @@ export const QualityGateRow = ({
                     </Grid>
                     <Render
                         condition={
-                            !!autotests.length &&
+                            !!autotestsWithBranchesOptions.length &&
                             currentQualityGateTypeFieldValue === QUALITY_GATE_TYPES['AUTOTESTS']
                         }
                     >

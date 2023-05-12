@@ -1,10 +1,10 @@
-import { EnrichedApplication } from '../../../../../../../../../../../../hooks/useApplicationsInCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCDPipelineStage/types';
+import { EnrichedApplicationWithImageStreams } from '../../../../../../../../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../../../../../../../../../../k8s/EDPCodebaseImageStream/types';
 
 interface useImageStreamBasedOnResourcesInterface {
-    enrichedApplication: EnrichedApplication;
+    enrichedApplication: EnrichedApplicationWithImageStreams;
     CDPipeline: EDPCDPipelineKubeObjectInterface;
     currentCDPipelineStage: EDPCDPipelineStageKubeObjectInterface;
     CDPipelineStages: EDPCDPipelineStageKubeObjectInterface[];

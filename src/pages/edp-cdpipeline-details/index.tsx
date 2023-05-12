@@ -2,13 +2,13 @@ import { CDPipelineActions } from '../../components/CDPipelineActions';
 import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { ICONS } from '../../constants/icons';
-import {
-    EnrichedApplication,
-    useApplicationsInCDPipeline,
-} from '../../hooks/useApplicationsInCDPipeline';
-import { useEDPComponentsURLs } from '../../hooks/useEDPComponentsURLs';
-import { streamCDPipeline } from '../../k8s/EDPCDPipeline/streamCDPipeline';
+import { streamCDPipeline } from '../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
+import {
+    EnrichedApplicationWithImageStreams,
+    useEnrichedApplicationsWithImageStreamsQuery,
+} from '../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
 import { CDPIPELINES_ROUTE_NAME } from '../../routes/names';
 import { createRouteName } from '../../utils/routes/createRouteName';
@@ -27,7 +27,7 @@ const {
     CommonComponents: { Link },
 } = pluginLib;
 
-export const ApplicationsContext = React.createContext<EnrichedApplication[]>(null);
+export const ApplicationsContext = React.createContext<EnrichedApplicationWithImageStreams[]>(null);
 export const CDPipelineDataContext = React.createContext<EDPCDPipelineKubeObjectInterface>(null);
 
 export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): React.ReactElement => {
@@ -48,9 +48,7 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
         setError(error);
     }, []);
 
-    const { applications } = useApplicationsInCDPipeline({
-        CDPipelineData,
-    });
+    const { data: applications } = useEnrichedApplicationsWithImageStreamsQuery(CDPipelineData);
 
     React.useEffect(() => {
         const cancelStream = streamCDPipeline(name, namespace, handleStoreCDPipeline, handleError);
@@ -58,11 +56,11 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
         return () => cancelStream();
     }, [handleError, handleStoreCDPipeline, name, namespace]);
 
-    const EDPComponentsURLS = useEDPComponentsURLs();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
 
     const argoCDPipelineLink = React.useMemo(
         () =>
-            Object.hasOwn(EDPComponentsURLS, 'argocd')
+            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'argocd')
                 ? createArgoCDPipelineLink(EDPComponentsURLS?.argocd, name)
                 : null,
         [EDPComponentsURLS, name]

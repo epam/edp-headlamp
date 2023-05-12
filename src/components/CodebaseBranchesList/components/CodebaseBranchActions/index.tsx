@@ -1,6 +1,8 @@
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
+import { useGitServerByCodebaseQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
+import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { KubeObjectAction } from '../../../../types/actions';
 import { createKubeAction } from '../../../../utils/actions/createKubeAction';
@@ -8,9 +10,10 @@ import { createRandomFiveSymbolString } from '../../../../utils/createRandomFive
 import { DeleteKubeObject } from '../../../DeleteKubeObject';
 import { KubeObjectActions } from '../../../KubeObjectActions';
 import { CodebaseBranchCDPipelineConflictError } from './components/CodebaseBranchCDPipelineConflictError';
+import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
 import { CodebaseBranchActionsProps } from './types';
 import { useCreateBuildPipelineRun } from './useCreateBuildPipelineRun';
-import { createDeleteAction, getConflictedCDPipeline } from './utils';
+import { createDeleteAction } from './utils';
 
 const { IconButton } = MuiCore;
 const { Icon } = Iconify;
@@ -19,8 +22,6 @@ export const CodebaseBranchActions = ({
     codebaseBranchData,
     defaultBranch,
     codebase,
-    gitServers,
-    triggerTemplates,
 }: CodebaseBranchActionsProps): React.ReactElement => {
     const {
         spec: { ciTool },
@@ -39,37 +40,16 @@ export const CodebaseBranchActions = ({
         setAnchorEl(null);
     }, [setAnchorEl]);
 
-    const gitServerByCodebase = React.useMemo(
-        () =>
-            gitServers
-                ? gitServers.filter(el => el.metadata.name === codebase.spec.gitServer)?.[0]
-                : null,
-        [gitServers, codebase]
-    );
-
     const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
 
-    const storageSize = React.useMemo(() => {
-        if (!triggerTemplates?.length) {
-            return;
-        }
+    const { data: gitServerByCodebase } = useGitServerByCodebaseQuery(codebase);
 
-        if (!gitServerByCodebase) {
-            return;
-        }
-
-        const buildTriggerTemplate = triggerTemplates.find(
-            el => el.metadata.name === `${gitServerByCodebase?.spec?.gitProvider}-build-template`
-        );
-
-        return buildTriggerTemplate?.spec?.resourcetemplates?.[0]?.spec?.workspaces?.[0]
-            ?.volumeClaimTemplate?.spec?.resources?.requests?.storage;
-    }, [gitServerByCodebase, triggerTemplates]);
+    const { data: storageSize } = useStorageSizeQuery(codebase);
 
     const randomPostfix = createRandomFiveSymbolString();
 
     const buildAction = React.useMemo(() => {
-        if (ciTool === CI_TOOLS['JENKINS']) {
+        if (ciTool === CI_TOOLS.JENKINS) {
             return null;
         }
 
@@ -134,14 +114,11 @@ export const CodebaseBranchActions = ({
         ].filter(Boolean);
     }, [buildAction, codebaseBranchData, defaultBranch, handleCloseActionsMenu]);
 
+    const conflictedCDPipeline = useConflictedCDPipeline(codebaseBranchData, codebase);
+
     const onBeforeSubmit = React.useCallback(
         async (handleError, setLoadingActive) => {
             setLoadingActive(true);
-            const conflictedCDPipeline = await getConflictedCDPipeline(
-                codebase.metadata.namespace,
-                codebaseBranchData,
-                codebase
-            );
             if (!conflictedCDPipeline) {
                 setLoadingActive(false);
                 return;
@@ -155,7 +132,7 @@ export const CodebaseBranchActions = ({
             );
             setLoadingActive(false);
         },
-        [codebase, codebaseBranchData]
+        [codebaseBranchData, conflictedCDPipeline]
     );
 
     return (

@@ -5,13 +5,14 @@ import { editCodebaseBranchInstance } from '../../../../configs/k8s-resource-ins
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
-import { useNamespace } from '../../../../hooks/useNamespace';
+import { useDefaultBranchQuery } from '../../../../k8s/EDPCodebaseBranch/hooks/useDefaultBranchQuery';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { createVersioningString } from '../../../../utils/createVersioningString';
+import { getNamespace } from '../../../../utils/getNamespace';
 import { BranchName } from '../../../FormFields/CodebaseBranchFields';
 import {
     BranchVersion,
@@ -20,7 +21,6 @@ import {
     ReleaseBranch,
 } from '../../../FormFields/CodebaseBranchFields';
 import { Render } from '../../../Render';
-import { useDefaultBranch } from './hooks/useDefaultBranch';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
 import { useUpdateBranchVersionFields } from './hooks/useUpdateBranchVersionFields';
@@ -43,9 +43,9 @@ export const CreateCodebaseBranchForm = ({
     isApplying,
 }: CreateCodebaseBranchFormProps): React.ReactElement => {
     const classes = useStyles();
-    const { namespace } = useNamespace();
+    const namespace = getNamespace();
 
-    const { defaultBranch } = useDefaultBranch({ codebaseData });
+    const { data: defaultBranch } = useDefaultBranchQuery(codebaseData);
     const defaultBranchVersion = React.useMemo(
         () => (defaultBranch ? defaultBranch.spec.version : undefined),
         [defaultBranch]

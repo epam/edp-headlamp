@@ -1,18 +1,20 @@
 import { useFormContext } from 'react-hook-form';
-import { useNamespace } from '../../../../hooks/useNamespace';
+import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
+import { getNamespace } from '../../../../utils/getNamespace';
 import { FormSelect } from '../../../FormComponents';
 import { JiraServerProps } from './types';
 
-export const JiraServer = ({ names, handleFormFieldChange, jiraServers }: JiraServerProps) => {
+export const JiraServer = ({ names, handleFormFieldChange }: JiraServerProps) => {
     const {
         register,
         control,
         formState: { errors },
     } = useFormContext();
 
-    const { namespace } = useNamespace();
+    const namespace = getNamespace();
+    const { data: jiraServersNames } = useJiraServerNameListQuery();
 
     return (
         <FormSelect
@@ -27,7 +29,7 @@ export const JiraServer = ({ names, handleFormFieldChange, jiraServers }: JiraSe
             control={control}
             errors={errors}
             disabled={!namespace}
-            options={jiraServers.map(el => ({
+            options={jiraServersNames.map(el => ({
                 label: el,
                 value: el,
             }))}

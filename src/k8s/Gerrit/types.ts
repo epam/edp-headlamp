@@ -1,4 +1,4 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
 export interface GerritSpec {
     keycloakSpec: {
@@ -16,7 +16,7 @@ export interface GerritStatus {
     status?: string;
 }
 
-export interface GerritKubeObjectInterface extends EDPKubeObjectInterface {
+export interface GerritKubeObjectInterface extends KubeObjectInterface {
     spec: GerritSpec;
     status: GerritStatus;
 }

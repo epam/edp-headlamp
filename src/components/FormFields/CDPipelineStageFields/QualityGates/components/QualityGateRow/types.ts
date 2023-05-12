@@ -1,8 +1,8 @@
 import { React } from '../../../../../../plugin.globals';
-import { Autotest, QualityGate } from '../../types';
+import { AutotestWithBranchesOption, QualityGate } from '../../types';
 
 export interface QualityGateRowProps {
-    autotests: Autotest[];
+    autotestsWithBranchesOptions: AutotestWithBranchesOption[];
     currentQualityGateData: QualityGate;
     setNewQualityGates: (newQualityGates: QualityGate[]) => void;
     qualityGates: QualityGate[];

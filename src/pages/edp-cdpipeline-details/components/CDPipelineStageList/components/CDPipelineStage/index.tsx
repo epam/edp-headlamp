@@ -6,8 +6,6 @@ import {
     ARGO_APPLICATION_SYNC_STATUSES,
     PIPELINE_RUN_STATUSES,
 } from '../../../../../../constants/statuses';
-import { useGitServers } from '../../../../../../hooks/useGitServers';
-import { useTriggerTemplates } from '../../../../../../hooks/useTriggerTemplates';
 import { streamApplicationListByPipelineStageLabel } from '../../../../../../k8s/Application';
 import { ApplicationKubeObjectInterface } from '../../../../../../k8s/Application/types';
 import {
@@ -16,6 +14,7 @@ import {
     streamPipelineRunListByTypeAndPipelineNameLabels,
 } from '../../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
+import { useStorageSizeQuery } from '../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import { createRandomFiveSymbolString } from '../../../../../../utils/createRandomFiveSymbolString';
 import { parsePipelineRunStatus } from '../../../../../../utils/parsePipelineRunStatus';
@@ -103,6 +102,8 @@ export const CDPipelineStage = (): React.ReactElement => {
 
     const enrichedApplicationsWithArgoApplications = React.useMemo(
         () =>
+            enrichedWithImageStreamsApplications &&
+            enrichedWithImageStreamsApplications.length &&
             enrichedWithImageStreamsApplications.map(enrichedApplication => {
                 const fitArgoApplication = argoApplications.find(
                     argoApplication =>
@@ -277,43 +278,15 @@ export const CDPipelineStage = (): React.ReactElement => {
 
     const { createAutotestRunnerPipelineRun } = useCreateAutotestRunnerPipelineRun({});
 
-    const { triggerTemplates } = useTriggerTemplates({
-        namespace: CurrentCDPipelineStageDataContextValue.metadata.namespace,
-    });
-    const { gitServers } = useGitServers({
-        namespace: CurrentCDPipelineStageDataContextValue.metadata.namespace,
-    });
-
-    const gitServerByCodebase = React.useMemo(
-        () =>
-            gitServers
-                ? gitServers.filter(
-                      el =>
-                          el.metadata.name ===
-                          enrichedWithImageStreamsApplications?.[0]?.application.spec.gitServer
-                  )?.[0]
-                : null,
-        [gitServers, enrichedWithImageStreamsApplications]
+    const { data: storageSize } = useStorageSizeQuery(
+        enrichedWithImageStreamsApplications?.[0]?.application
     );
 
-    const storageSize = React.useMemo(() => {
-        if (!triggerTemplates?.length) {
-            return;
-        }
-
-        if (!gitServerByCodebase) {
-            return;
-        }
-
-        const buildTriggerTemplate = triggerTemplates.find(
-            el => el.metadata.name === `${gitServerByCodebase?.spec?.gitProvider}-build-template`
-        );
-
-        return buildTriggerTemplate?.spec?.resourcetemplates?.[0]?.spec?.workspaces?.[0]
-            ?.volumeClaimTemplate?.spec?.resources?.requests?.storage;
-    }, [gitServerByCodebase, triggerTemplates]);
-
     const handleRunAutotestRunner = React.useCallback(async () => {
+        if (!storageSize) {
+            throw new Error(`Trigger template's storage property has not been found`);
+        }
+
         await createAutotestRunnerPipelineRun({
             namespace: CurrentCDPipelineStageDataContextValue.metadata.namespace,
             storageSize: storageSize,

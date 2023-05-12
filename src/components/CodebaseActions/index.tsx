@@ -8,8 +8,8 @@ import { DeleteKubeObject } from '../DeleteKubeObject';
 import { EditCodebase } from '../EditCodebase';
 import { KubeObjectActions } from '../KubeObjectActions';
 import { CodebaseCDPipelineConflictError } from './components/CodebaseCDPipelineConflictError';
+import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
 import { CodebaseActionsProps } from './types';
-import { getConflictedCDPipeline } from './utils';
 
 const { IconButton } = MuiCore;
 const { Icon } = Iconify;
@@ -60,10 +60,11 @@ export const CodebaseActions = ({
         ];
     }, [handleCloseActionsMenu, setEditActionPopupOpen, setDeleteActionPopupOpen]);
 
+    const conflictedCDPipeline = useConflictedCDPipeline(kubeObjectData);
+
     const onBeforeSubmit = React.useCallback(
         async (setErrorTemplate, setLoadingActive) => {
             setLoadingActive(true);
-            const conflictedCDPipeline = await getConflictedCDPipeline(kubeObjectData);
             if (!conflictedCDPipeline) {
                 setLoadingActive(false);
                 return;
@@ -77,7 +78,7 @@ export const CodebaseActions = ({
             );
             setLoadingActive(false);
         },
-        [kubeObjectData]
+        [conflictedCDPipeline, kubeObjectData]
     );
 
     const onSuccess = React.useCallback(() => {
