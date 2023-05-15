@@ -6,30 +6,49 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../EDPCDPipelineStage/
 import { EDPCDPipelineKubeObjectInterface } from '../types';
 import { useCDPipelineByNameQuery } from './useCDPipelineByNameQuery';
 
-export const useCDPipelineByAutotestBranchItUsesInItsStagesQuery = (
-    codebaseBranchName: string,
+interface UseCDPipelineByAutotestBranchItUsesInItsStagesQueryProps {
+    props: {
+        codebaseBranchName: string;
+    };
     options?: UseQueryOptions<
         KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>,
         Error,
         EDPCDPipelineKubeObjectInterface
-    >
-) => {
+    >;
+}
+
+export const useCDPipelineByAutotestBranchItUsesInItsStagesQuery = ({
+    props,
+    options,
+}: UseCDPipelineByAutotestBranchItUsesInItsStagesQueryProps) => {
+    const { codebaseBranchName } = props;
+
     const [CDPipelineName, setCDPipelineName] = React.useState<string>(null);
-    const query = useCDPipelineByNameQuery(CDPipelineName);
+    const query = useCDPipelineByNameQuery({
+        props: {
+            name: CDPipelineName,
+        },
+        options: {
+            enabled: !!CDPipelineName,
+        },
+    });
 
     useCDPipelineStageListQuery<EDPCDPipelineKubeObjectInterface>({
-        onSuccess: async data => {
-            for (const {
-                spec: { qualityGates, cdPipeline },
-            } of data?.items) {
-                for (const { branchName } of qualityGates) {
-                    if (branchName && branchName === codebaseBranchName) {
-                        setCDPipelineName(cdPipeline);
+        options: {
+            onSuccess: async data => {
+                for (const {
+                    spec: { qualityGates, cdPipeline },
+                } of data?.items) {
+                    for (const { branchName } of qualityGates) {
+                        if (branchName && branchName === codebaseBranchName) {
+                            setCDPipelineName(cdPipeline);
+                        }
                     }
                 }
-            }
+            },
+            ...options,
+            enabled: options?.enabled && !!codebaseBranchName,
         },
-        ...options,
     });
 
     return query;

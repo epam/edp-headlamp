@@ -6,33 +6,52 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../EDPCDPipelineStage/
 import { EDPCDPipelineKubeObjectInterface } from '../types';
 import { useCDPipelineByNameQuery } from './useCDPipelineByNameQuery';
 
-export const useCDPipelineByGroovyLibraryItUsesInItsStagesQuery = (
-    codebaseName: string,
+interface UseCDPipelineByGroovyLibraryItUsesInItsStagesQueryProps {
+    props: {
+        codebaseName: string;
+    };
     options?: UseQueryOptions<
         KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>,
         Error,
         EDPCDPipelineKubeObjectInterface
-    >
-) => {
+    >;
+}
+
+export const useCDPipelineByGroovyLibraryItUsesInItsStagesQuery = ({
+    props,
+    options,
+}: UseCDPipelineByGroovyLibraryItUsesInItsStagesQueryProps) => {
+    const { codebaseName } = props;
+
     const [CDPipelineName, setCDPipelineName] = React.useState<string>(null);
-    const query = useCDPipelineByNameQuery(CDPipelineName);
+    const query = useCDPipelineByNameQuery({
+        props: {
+            name: CDPipelineName,
+        },
+        options: {
+            enabled: !!CDPipelineName,
+        },
+    });
 
     useCDPipelineStageListQuery<EDPCDPipelineKubeObjectInterface>({
-        onSuccess: async data => {
-            for (const {
-                spec: {
-                    source: {
-                        library: { name },
+        options: {
+            onSuccess: async data => {
+                for (const {
+                    spec: {
+                        source: {
+                            library: { name },
+                        },
+                        cdPipeline,
                     },
-                    cdPipeline,
-                },
-            } of data?.items) {
-                if (name === codebaseName) {
-                    setCDPipelineName(cdPipeline);
+                } of data?.items) {
+                    if (name === codebaseName) {
+                        setCDPipelineName(cdPipeline);
+                    }
                 }
-            }
+            },
+            ...options,
+            enabled: options?.enabled && !!codebaseName,
         },
-        ...options,
     });
 
     return query;

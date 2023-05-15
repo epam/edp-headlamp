@@ -48,7 +48,11 @@ export const EDPCDPipelineDetails: React.FC<EDPCDPipelineDetailsProps> = (): Rea
         setError(error);
     }, []);
 
-    const { data: applications } = useEnrichedApplicationsWithImageStreamsQuery(CDPipelineData);
+    const { data: applications } = useEnrichedApplicationsWithImageStreamsQuery({
+        props: {
+            CDPipelineData,
+        },
+    });
 
     React.useEffect(() => {
         const cancelStream = streamCDPipeline(name, namespace, handleStoreCDPipeline, handleError);

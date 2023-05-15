@@ -1,7 +1,6 @@
 import { PIPELINE_TYPES } from '../../constants/pipelineTypes';
 import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { getNamespace } from '../../utils/getNamespace';
 import { PipelineKubeObjectConfig } from './config';
 import { PIPELINE_LABEL_SELECTOR_PIPELINE_TYPE } from './labels';
 import { PipelineKubeObjectInterface } from './types';
@@ -35,9 +34,9 @@ export class PipelineKubeObject extends makeKubeObject<PipelineKubeObjectInterfa
     }
 
     static getListByPipelineType(
+        namespace: string,
         pipelineType: PIPELINE_TYPES
     ): Promise<KubeObjectListInterface<PipelineKubeObjectInterface>> {
-        const namespace = getNamespace();
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${PIPELINE_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType}`;
         return ApiProxy.request(url);
     }

@@ -1,4 +1,4 @@
-import { EDPKubeObjectInterface } from '../../types/k8s';
+import { KubeObjectInterface } from '../../plugin.types';
 
 export interface ApplicationOperation {
     info?: {
@@ -223,7 +223,7 @@ export interface ApplicationStatus {
     };
 }
 
-export interface ApplicationKubeObjectInterface extends EDPKubeObjectInterface {
+export interface ApplicationKubeObjectInterface extends KubeObjectInterface {
     spec: ApplicationSpec;
     operation?: ApplicationOperation;
     status?: ApplicationStatus;

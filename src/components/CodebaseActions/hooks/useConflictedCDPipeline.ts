@@ -13,17 +13,32 @@ export const useConflictedCDPipeline = (codebase: EDPCodebaseKubeObjectInterface
     } = codebase;
 
     const CDPipelineByGroovyLibraryItUsesInItsStagesQuery =
-        useCDPipelineByGroovyLibraryItUsesInItsStagesQuery(name, {
-            enabled: isLibrary(codebase) && isGroovyLibrary(codebase),
+        useCDPipelineByGroovyLibraryItUsesInItsStagesQuery({
+            props: {
+                codebaseName: name,
+            },
+            options: {
+                enabled: isLibrary(codebase) && isGroovyLibrary(codebase),
+            },
         });
 
     const CDPipelineByAutotestItUsesInItsStagesQuery =
-        useCDPipelineByAutotestItUsesInItsStagesQuery(name, {
-            enabled: isAutotest(codebase),
+        useCDPipelineByAutotestItUsesInItsStagesQuery({
+            props: {
+                codebaseName: name,
+            },
+            options: {
+                enabled: isAutotest(codebase),
+            },
         });
 
-    const CDPipelineByApplicationItUsesQuery = useCDPipelineByApplicationItUsesQuery(name, {
-        enabled: isApplication(codebase),
+    const CDPipelineByApplicationItUsesQuery = useCDPipelineByApplicationItUsesQuery({
+        props: {
+            codebaseName: name,
+        },
+        options: {
+            enabled: isApplication(codebase),
+        },
     });
 
     if (CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data) {

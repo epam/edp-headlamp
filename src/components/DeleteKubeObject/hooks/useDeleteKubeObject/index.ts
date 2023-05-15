@@ -5,7 +5,7 @@ import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestSt
 import { React } from '../../../../plugin.globals';
 import { k8s } from '../../../../plugin.types';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
-import { getNamespace } from '../../../../utils/getNamespace';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 
 interface DeleteKubeObjectProps {
     kubeObjectData: EDPKubeObjectInterface;
@@ -30,7 +30,7 @@ export const useDeleteKubeObject = ({
 } => {
     const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
-    const namespace = getNamespace();
+    const namespace = getDefaultNamespace();
     const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
         useRequestStatusMessages();
 

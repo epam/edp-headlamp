@@ -218,6 +218,7 @@ export const CDPipelineStage = (): React.ReactElement => {
 
     const everyArgoAppIsHealthyAndInSync = React.useMemo(
         () =>
+            enrichedApplicationsWithArgoApplications &&
             enrichedApplicationsWithArgoApplications.every(({ argoApplication }) => {
                 if (!argoApplication?.status?.health?.status) {
                     return false;

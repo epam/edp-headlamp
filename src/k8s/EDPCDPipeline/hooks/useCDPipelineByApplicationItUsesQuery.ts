@@ -3,22 +3,34 @@ import { KubeObjectListInterface } from '../../../types/k8s';
 import { EDPCDPipelineKubeObjectInterface } from '../types';
 import { useCDPipelineListQuery } from './useCDPipelineListQuery';
 
-export const useCDPipelineByApplicationItUsesQuery = (
-    codebaseName: string,
+interface UseCDPipelineByApplicationItUsesQueryProps {
+    props: {
+        codebaseName: string;
+    };
     options?: UseQueryOptions<
         KubeObjectListInterface<EDPCDPipelineKubeObjectInterface>,
         Error,
         EDPCDPipelineKubeObjectInterface
-    >
-) => {
+    >;
+}
+
+export const useCDPipelineByApplicationItUsesQuery = ({
+    props,
+    options,
+}: UseCDPipelineByApplicationItUsesQueryProps) => {
+    const { codebaseName } = props;
+
     return useCDPipelineListQuery<EDPCDPipelineKubeObjectInterface>({
-        select: data => {
-            for (const item of data?.items) {
-                if (item.spec.applications.includes(codebaseName)) {
-                    return item;
+        options: {
+            select: data => {
+                for (const item of data?.items) {
+                    if (item.spec.applications.includes(codebaseName)) {
+                        return item;
+                    }
                 }
-            }
+            },
+            ...options,
+            enabled: options?.enabled && !!codebaseName,
         },
-        ...options,
     });
 };

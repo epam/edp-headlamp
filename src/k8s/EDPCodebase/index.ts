@@ -1,7 +1,6 @@
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { getNamespace } from '../../utils/getNamespace';
 import { streamResult } from '../common/streamResult';
 import { EDPCodebaseKubeObjectConfig } from './config';
 import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE } from './labels';
@@ -41,9 +40,9 @@ export class EDPCodebaseKubeObject extends makeKubeObject<EDPCodebaseKubeObjectI
     }
 
     static getListByTypeLabel(
+        namespace: string,
         codebaseType: CODEBASE_TYPES
     ): Promise<KubeObjectListInterface<EDPCodebaseKubeObjectInterface>> {
-        const namespace = getNamespace();
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${codebaseType}`;
         return ApiProxy.request(url);
     }

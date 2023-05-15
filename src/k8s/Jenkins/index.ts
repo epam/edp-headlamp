@@ -1,6 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { getNamespace } from '../../utils/getNamespace';
 import { JenkinsKubeObjectConfig } from './config';
 import { JenkinsKubeObjectInterface, JenkinsSpec, JenkinsStatus } from './types';
 
@@ -32,8 +31,9 @@ export class JenkinsKubeObject extends makeKubeObject<JenkinsKubeObjectInterface
         return this.jsonData!.status;
     }
 
-    static getList(): Promise<KubeObjectListInterface<JenkinsKubeObjectInterface>> {
-        const namespace = getNamespace();
+    static getList(
+        namespace: string
+    ): Promise<KubeObjectListInterface<JenkinsKubeObjectInterface>> {
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
 
         return ApiProxy.request(url);

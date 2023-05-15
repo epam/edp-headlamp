@@ -2,7 +2,7 @@ import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../constants/crudTypes';
 import { KubeObjectIface } from '../../plugin.types';
 import { EDPKubeObjectInterface } from '../../types/k8s';
-import { getNamespace } from '../../utils/getNamespace';
+import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { useRequestStatusMessages } from '../useResourceRequestStatusMessages';
 
 type UseResourceCRUDMutationReturnType<
@@ -29,7 +29,7 @@ export const useResourceCRUDMutation = <
         showRequestErrorDetailedMessage,
     } = useRequestStatusMessages();
 
-    const namespace = getNamespace();
+    const namespace = getDefaultNamespace();
 
     return useMutation<
         UseResourceCRUDMutationReturnType<KubeObjectData, Mode>,

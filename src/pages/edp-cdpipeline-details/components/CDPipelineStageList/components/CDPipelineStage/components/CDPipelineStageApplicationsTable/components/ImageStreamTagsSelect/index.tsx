@@ -40,7 +40,7 @@ export const ImageStreamTagsSelect = ({
     const CDPipeline = React.useContext(CDPipelineDataContext);
     const currentCDPipelineStage = React.useContext(CurrentCDPipelineStageDataContext);
     const CDPipelineStages = React.useContext(CDPipelineStagesDataContext);
-    const { data: gitServers } = useGitServerListQuery();
+    const { data: gitServers } = useGitServerListQuery({});
 
     const { imageStream } = useImageStreamBasedOnResources({
         enrichedApplication,

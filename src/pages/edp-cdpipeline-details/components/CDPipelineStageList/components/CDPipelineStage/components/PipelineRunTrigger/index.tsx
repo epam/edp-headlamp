@@ -29,7 +29,11 @@ export const PipelineRunTrigger = ({
         watch,
     } = useForm();
 
-    const { data: pipelines } = usePipelineByTypeListQuery(PIPELINE_TYPES.DEPLOY);
+    const { data: pipelines } = usePipelineByTypeListQuery({
+        props: {
+            pipelineType: PIPELINE_TYPES.DEPLOY,
+        },
+    });
 
     const pipelineOptions =
         pipelines &&
@@ -44,22 +48,25 @@ export const PipelineRunTrigger = ({
     const { createDeployPipelineRun } = useCreateDeployPipelineRun({});
 
     const codebaseTag = React.useMemo(() => {
-        return enrichedApplicationsWithArgoApplications
-            .reduce((acc, { enrichedApplication: { application }, argoApplication }) => {
-                if (!argoApplication) {
-                    return [];
-                }
+        return (
+            enrichedApplicationsWithArgoApplications &&
+            enrichedApplicationsWithArgoApplications
+                .reduce((acc, { enrichedApplication: { application }, argoApplication }) => {
+                    if (!argoApplication) {
+                        return [];
+                    }
 
-                const deployedVersion =
-                    argoApplication?.spec?.source?.helm?.parameters?.find(
-                        el => el.name === 'image.tag'
-                    )?.value || '';
+                    const deployedVersion =
+                        argoApplication?.spec?.source?.helm?.parameters?.find(
+                            el => el.name === 'image.tag'
+                        )?.value || '';
 
-                const appTag = `${application.metadata.name}=${deployedVersion}`;
-                acc.push(appTag);
-                return acc;
-            }, [])
-            .join(' ');
+                    const appTag = `${application.metadata.name}=${deployedVersion}`;
+                    acc.push(appTag);
+                    return acc;
+                }, [])
+                .join(' ')
+        );
     }, [enrichedApplicationsWithArgoApplications]);
 
     const randomPostfix = createRandomFiveSymbolString();

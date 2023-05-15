@@ -1,6 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { getNamespace } from '../../utils/getNamespace';
 import { streamResults } from '../common/streamResults';
 import { EDPCodebaseBranchKubeObjectConfig } from './config';
 import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from './labels';
@@ -41,9 +40,9 @@ export class EDPCodebaseBranchKubeObject extends makeKubeObject<EDPCodebaseBranc
     }
 
     static getListByCodebaseName(
+        namespace: string,
         codebaseName: string
     ): Promise<KubeObjectListInterface<EDPCodebaseBranchKubeObjectInterface>> {
-        const namespace = getNamespace();
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME}=${codebaseName}`;
         return ApiProxy.request(url);
     }

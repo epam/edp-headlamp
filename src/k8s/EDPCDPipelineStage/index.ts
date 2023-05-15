@@ -1,6 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { getNamespace } from '../../utils/getNamespace';
 import { streamResults } from '../common/streamResults';
 import { EDPCDPipelineStageKubeObjectConfig } from './config';
 import {
@@ -38,8 +37,9 @@ export class EDPCDPipelineStageKubeObject extends makeKubeObject<EDPCDPipelineSt
         return this.jsonData!.status;
     }
 
-    static getList(): Promise<KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>> {
-        const namespace = getNamespace();
+    static getList(
+        namespace: string
+    ): Promise<KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>> {
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
         return ApiProxy.request(url);
     }

@@ -6,7 +6,7 @@ import { FormSelect } from '../../../FormComponents';
 import { GitServerProps } from './types';
 
 export const GitServer = ({ names, handleFormFieldChange }: GitServerProps) => {
-    const { data: gitServers } = useGitServerListQuery();
+    const { data: gitServers } = useGitServerListQuery({});
     const gitServersOptions = React.useMemo(
         () => gitServers?.items.map(({ metadata: { name } }) => ({ label: name, value: name })),
         [gitServers?.items]

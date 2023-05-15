@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, MuiLab, React } from '../../../../plugin.globals';
-import { getNamespace } from '../../../../utils/getNamespace';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { FormSelect } from '../../../FormComponents';
 import { Render } from '../../../Render';
 import { ApplicationRow } from './components/ApplicationRow';
@@ -39,7 +39,7 @@ export const Applications = ({ names, handleFormFieldChange }: ApplicationsProps
         required: 'Select branch',
     });
 
-    const namespace = getNamespace();
+    const namespace = getDefaultNamespace();
     const applicationsToAddChooserFieldValue = watch(names.applicationsToAddChooser.name);
     const applicationsFieldValue = watch(names.applications.name);
     const applicationsToPromoteValue = watch(names.applicationsToPromote.name);

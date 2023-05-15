@@ -16,7 +16,6 @@ const {
     version,
 } = ApplicationKubeObjectConfig;
 
-// @ts-ignore
 export class ApplicationKubeObject extends makeKubeObject<ApplicationKubeObjectInterface>(
     singularForm
 ) {

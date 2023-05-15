@@ -2,7 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
-import { getNamespace } from '../../../../utils/getNamespace';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { FormSelect } from '../../../FormComponents';
 import { JiraServerProps } from './types';
 
@@ -13,7 +13,7 @@ export const JiraServer = ({ names, handleFormFieldChange }: JiraServerProps) =>
         formState: { errors },
     } = useFormContext();
 
-    const namespace = getNamespace();
+    const namespace = getDefaultNamespace();
     const { data: jiraServersNames } = useJiraServerNameListQuery();
 
     return (

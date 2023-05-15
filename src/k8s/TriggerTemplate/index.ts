@@ -1,6 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { getNamespace } from '../../utils/getNamespace';
 import { TriggerTemplateKubeObjectConfig } from './config';
 import { TriggerTemplateKubeObjectInterface } from './types';
 
@@ -34,8 +33,9 @@ export class TriggerTemplateKubeObject extends makeKubeObject<TriggerTemplateKub
         return this.jsonData!.status;
     }
 
-    static getList(): Promise<KubeObjectListInterface<TriggerTemplateKubeObjectInterface>> {
-        const namespace = getNamespace();
+    static getList(
+        namespace: string
+    ): Promise<KubeObjectListInterface<TriggerTemplateKubeObjectInterface>> {
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
 
         return ApiProxy.request(url);

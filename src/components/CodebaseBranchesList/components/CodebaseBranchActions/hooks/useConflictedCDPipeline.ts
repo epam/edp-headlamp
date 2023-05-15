@@ -12,21 +12,33 @@ export const useConflictedCDPipeline = (
     codebase: EDPCodebaseKubeObjectInterface
 ) => {
     const CDPipelineByGroovyLibraryItUsesInItsStagesQuery =
-        useCDPipelineByGroovyLibraryItUsesInItsStagesQuery(codebase.metadata.name, {
-            enabled: isLibrary(codebase) && isGroovyLibrary(codebase),
+        useCDPipelineByGroovyLibraryItUsesInItsStagesQuery({
+            props: {
+                codebaseName: codebase.metadata.name,
+            },
+            options: {
+                enabled: isLibrary(codebase) && isGroovyLibrary(codebase),
+            },
         });
 
     const CDPipelineByAutotestBranchItUsesInItsStagesQuery =
-        useCDPipelineByAutotestBranchItUsesInItsStagesQuery(codebaseBranch.spec.branchName, {
-            enabled: isAutotest(codebase),
+        useCDPipelineByAutotestBranchItUsesInItsStagesQuery({
+            props: {
+                codebaseBranchName: codebaseBranch.spec.branchName,
+            },
+            options: {
+                enabled: isAutotest(codebase),
+            },
         });
 
-    const CDPipelineByCodebaseBranchItUsesQuery = useCDPipelineByCodebaseBranchItUsesQuery(
-        codebaseBranch.metadata.name,
-        {
+    const CDPipelineByCodebaseBranchItUsesQuery = useCDPipelineByCodebaseBranchItUsesQuery({
+        props: {
+            codebaseBranchName: codebaseBranch.metadata.name,
+        },
+        options: {
             enabled: !isLibrary(codebase) && isGroovyLibrary(codebase) && !isAutotest(codebase),
-        }
-    );
+        },
+    });
 
     if (CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data) {
         return CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data;

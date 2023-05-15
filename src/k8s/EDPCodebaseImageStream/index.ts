@@ -1,6 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { getNamespace } from '../../utils/getNamespace';
 import { EDPCodebaseImageStreamKubeObjectConfig } from './config';
 import {
     EDPCodebaseImageStreamKubeObjectInterface,
@@ -37,8 +36,9 @@ export class EDPCodebaseImageStreamKubeObject extends makeKubeObject<EDPCodebase
         return this.jsonData!.status;
     }
 
-    static getList(): Promise<KubeObjectListInterface<EDPCodebaseImageStreamKubeObjectInterface>> {
-        const namespace = getNamespace();
+    static getList(
+        namespace
+    ): Promise<KubeObjectListInterface<EDPCodebaseImageStreamKubeObjectInterface>> {
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
 
         return ApiProxy.request(url);

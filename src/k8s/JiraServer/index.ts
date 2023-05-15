@@ -1,6 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { getNamespace } from '../../utils/getNamespace';
 import { JiraServerKubeObjectConfig } from './config';
 import { JiraServerKubeObjectInterface, JiraServerSpec, JiraServerStatus } from './types';
 
@@ -34,8 +33,9 @@ export class JiraServerKubeObject extends makeKubeObject<JiraServerKubeObjectInt
         return this.jsonData!.status;
     }
 
-    static getList(): Promise<KubeObjectListInterface<JiraServerKubeObjectInterface>> {
-        const namespace = getNamespace();
+    static getList(
+        namespace: string
+    ): Promise<KubeObjectListInterface<JiraServerKubeObjectInterface>> {
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
 
         return ApiProxy.request(url);

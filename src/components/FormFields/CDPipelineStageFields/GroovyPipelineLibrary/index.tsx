@@ -34,7 +34,7 @@ export const GroovyPipelineLibrary = ({
         if (groovyLibsWithBranches) {
             return [
                 defaultGroovyPipelineOption,
-                ...groovyLibsWithBranches?.map(el => el.option),
+                ...groovyLibsWithBranches.map(el => el.option),
             ].filter(Boolean);
         }
 

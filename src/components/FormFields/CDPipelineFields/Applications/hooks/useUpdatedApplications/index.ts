@@ -4,6 +4,7 @@ import { EDPCodebaseKubeObject } from '../../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../../k8s/EDPCodebase/types';
 import { EDPCodebaseBranchKubeObject } from '../../../../../../k8s/EDPCodebaseBranch';
 import { React } from '../../../../../../plugin.globals';
+import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
 import { createApplicationRowName } from '../../constants';
 import { Application } from '../../types';
 
@@ -16,11 +17,14 @@ interface UseUpdatedApplicationsProps {
     setAppsWithBranches: React.Dispatch<React.SetStateAction<Application[]>>;
 }
 
+const defaultNamespace = getDefaultNamespace();
+
 const getCodebaseWithBranchesList = (
     codebaseList: EDPCodebaseKubeObjectInterface[]
 ): Promise<Application>[] => {
     return codebaseList.map(async ({ metadata: { name } }): Promise<Application> => {
         const { items: codebaseBranches } = await EDPCodebaseBranchKubeObject.getListByCodebaseName(
+            defaultNamespace,
             name
         );
 
@@ -128,7 +132,8 @@ export const useUpdatedApplications = ({
 
     const { isLoading, error } = useQuery(
         'applications',
-        () => EDPCodebaseKubeObject.getListByTypeLabel(CODEBASE_TYPES.APPLICATION),
+        () =>
+            EDPCodebaseKubeObject.getListByTypeLabel(defaultNamespace, CODEBASE_TYPES.APPLICATION),
         {
             onSuccess: async ({ items: applicationsList }) => {
                 const appsWithBranches = (

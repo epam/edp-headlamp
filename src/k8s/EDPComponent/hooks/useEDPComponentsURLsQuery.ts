@@ -9,10 +9,12 @@ export type EDPComponentsURLS = {
 
 export const useEDPComponentsURLsQuery = () => {
     return useEDPComponentsQuery<EDPComponentsURLS>({
-        select: data =>
-            data.items.reduce((acc, cur) => {
-                acc[cur.spec.type] = cur.spec.url;
-                return acc;
-            }, {}),
+        options: {
+            select: data =>
+                data.items.reduce((acc, cur) => {
+                    acc[cur.spec.type] = cur.spec.url;
+                    return acc;
+                }, {}),
+        },
     });
 };

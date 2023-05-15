@@ -46,16 +46,22 @@ export const useImageStreamBasedOnResources = ({
         order: number
     ): EDPCodebaseImageStreamKubeObjectInterface => {
         if (order === 0) {
-            return imageStreams.find(el => CDPipelineInputDockerStreamsSet.has(el.metadata.name));
+            return (
+                imageStreams &&
+                imageStreams.find(el => CDPipelineInputDockerStreamsSet.has(el.metadata.name))
+            );
         }
 
         const {
             spec: { name: previousStageName },
         } = findPreviousStage(CDPipelineStages, order);
 
-        return imageStreams.find(
-            ({ spec: { codebase }, metadata: { name } }) =>
-                name === `${CDPipelineName}-${previousStageName}-${codebase}-verified`
+        return (
+            imageStreams &&
+            imageStreams.find(
+                ({ spec: { codebase }, metadata: { name } }) =>
+                    name === `${CDPipelineName}-${previousStageName}-${codebase}-verified`
+            )
         );
     };
 

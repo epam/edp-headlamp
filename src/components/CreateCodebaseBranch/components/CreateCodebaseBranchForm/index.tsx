@@ -12,7 +12,7 @@ import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { createVersioningString } from '../../../../utils/createVersioningString';
-import { getNamespace } from '../../../../utils/getNamespace';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { BranchName } from '../../../FormFields/CodebaseBranchFields';
 import {
     BranchVersion,
@@ -43,9 +43,15 @@ export const CreateCodebaseBranchForm = ({
     isApplying,
 }: CreateCodebaseBranchFormProps): React.ReactElement => {
     const classes = useStyles();
-    const namespace = getNamespace();
+    const namespace = getDefaultNamespace();
 
-    const { data: defaultBranch } = useDefaultBranchQuery(codebaseData);
+    const { data: defaultBranch } = useDefaultBranchQuery({
+        props: {
+            defaultBranchName: codebaseData.spec.defaultBranch,
+            codebaseName: codebaseData.metadata.name,
+        },
+    });
+
     const defaultBranchVersion = React.useMemo(
         () => (defaultBranch ? defaultBranch.spec.version : undefined),
         [defaultBranch]

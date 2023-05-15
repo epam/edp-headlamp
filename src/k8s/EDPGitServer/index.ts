@@ -1,6 +1,5 @@
 import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { getNamespace } from '../../utils/getNamespace';
 import { streamResult } from '../common/streamResult';
 import { EDPGitServerKubeObjectConfig } from './config';
 import { EDPGitServerKubeObjectInterface, EDPGitServerSpec, EDPGitServerStatus } from './types';
@@ -35,8 +34,9 @@ export class EDPGitServerKubeObject extends makeKubeObject<EDPGitServerKubeObjec
         return this.jsonData!.status;
     }
 
-    static getList(): Promise<KubeObjectListInterface<EDPGitServerKubeObjectInterface>> {
-        const namespace = getNamespace();
+    static getList(
+        namespace: string
+    ): Promise<KubeObjectListInterface<EDPGitServerKubeObjectInterface>> {
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
 
         return ApiProxy.request(url);

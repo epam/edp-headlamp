@@ -16,7 +16,7 @@ export const RepositoryUrl = ({ names, handleFormFieldChange }: RepositoryUrlPro
 
     const fieldRequirementLabel =
         'Specify the application URL in the following format: http(s)://git.sample.com/sample';
-    const { data: gitServers } = useGitServerListQuery();
+    const { data: gitServers } = useGitServerListQuery({});
 
     const hasGerritGitServer = React.useMemo(() => {
         if (!gitServers) {

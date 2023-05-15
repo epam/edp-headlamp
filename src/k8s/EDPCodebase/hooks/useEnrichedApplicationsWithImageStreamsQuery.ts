@@ -1,4 +1,6 @@
+import { UseQueryOptions } from 'react-query';
 import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
+import { KubeObjectListInterface } from '../../../types/k8s';
 import { EDPCDPipelineKubeObjectInterface } from '../../EDPCDPipeline/types';
 import { useCodebaseImageStreamListQuery } from '../../EDPCodebaseImageStream/hooks/useCodebaseImageStreamListQuery';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../EDPCodebaseImageStream/types';
@@ -12,44 +14,79 @@ export interface EnrichedApplicationWithImageStreams {
     toPromote: boolean;
 }
 
-export const useEnrichedApplicationsWithImageStreamsQuery = (
-    CDPipelineData: EDPCDPipelineKubeObjectInterface
-) => {
+interface UseEnrichedApplicationsWithImageStreamsQueryProps {
+    props: {
+        CDPipelineData: EDPCDPipelineKubeObjectInterface;
+    };
+    options?: UseQueryOptions<
+        KubeObjectListInterface<EDPCodebaseKubeObjectInterface>,
+        Error,
+        EnrichedApplicationWithImageStreams[]
+    >;
+}
+
+export const useEnrichedApplicationsWithImageStreamsQuery = ({
+    props,
+    options,
+}: UseEnrichedApplicationsWithImageStreamsQueryProps) => {
+    const { CDPipelineData } = props;
+
     const CDPipelineApplicationListSet = new Set<string>(CDPipelineData?.spec.applications);
     const CDPipelineApplicationToPromoteListSet = new Set<string>(
         CDPipelineData?.spec.applicationsToPromote
     );
 
-    const { data: codebaseImageStreams } = useCodebaseImageStreamListQuery();
-    return useCodebasesByTypeLabelQuery(CODEBASE_TYPES.APPLICATION, {
-        select: data => {
-            return data?.items.map(el => {
-                const {
-                    metadata: { name },
-                } = el;
+    const { data: codebaseImageStreams } = useCodebaseImageStreamListQuery({
+        props: {
+            namespace: CDPipelineData?.metadata.namespace,
+        },
+        options: {
+            enabled: !!CDPipelineData?.metadata.namespace,
+        },
+    });
 
-                if (!CDPipelineApplicationListSet.has(name)) {
-                    return;
-                }
+    console.log(codebaseImageStreams);
 
-                const codebaseImageStreamsByCodebaseName = codebaseImageStreams?.items.filter(
-                    ({ spec: { codebase } }) => codebase === name
-                );
+    return useCodebasesByTypeLabelQuery<EnrichedApplicationWithImageStreams[]>({
+        props: {
+            namespace: CDPipelineData?.metadata.namespace,
+            codebaseType: CODEBASE_TYPES.APPLICATION,
+        },
+        options: {
+            select: data => {
+                return data?.items
+                    .map(el => {
+                        const {
+                            metadata: { name },
+                        } = el;
 
-                const CDPipelineSpecApplicationIndex = CDPipelineData.spec.applications.findIndex(
-                    appName => appName === name
-                );
+                        if (!CDPipelineApplicationListSet.has(name)) {
+                            return;
+                        }
 
-                const applicationImageStream =
-                    CDPipelineData.spec.inputDockerStreams[CDPipelineSpecApplicationIndex];
+                        const codebaseImageStreamsByCodebaseName =
+                            codebaseImageStreams?.items.filter(
+                                ({ spec: { codebase } }) => codebase === name
+                            );
 
-                return {
-                    application: { ...el },
-                    applicationImageStream,
-                    toPromote: CDPipelineApplicationToPromoteListSet.has(name),
-                    applicationImageStreams: codebaseImageStreamsByCodebaseName,
-                };
-            });
+                        const CDPipelineSpecApplicationIndex =
+                            CDPipelineData?.spec.applications.findIndex(
+                                appName => appName === name
+                            );
+
+                        const applicationImageStream =
+                            CDPipelineData?.spec.inputDockerStreams[CDPipelineSpecApplicationIndex];
+
+                        return {
+                            application: { ...el },
+                            applicationImageStream,
+                            toPromote: CDPipelineApplicationToPromoteListSet.has(name),
+                            applicationImageStreams: codebaseImageStreamsByCodebaseName,
+                        };
+                    })
+                    .filter(Boolean);
+            },
+            ...options,
         },
     });
 };

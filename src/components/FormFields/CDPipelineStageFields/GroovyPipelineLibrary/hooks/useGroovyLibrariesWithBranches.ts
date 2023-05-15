@@ -4,6 +4,7 @@ import { EDPCodebaseBranchKubeObject } from '../../../../../k8s/EDPCodebaseBranc
 import { React } from '../../../../../plugin.globals';
 import { SelectOption } from '../../../../../types/forms';
 import { isGroovyLibrary } from '../../../../../utils/checks/isGroovyLibrary';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 
 interface GroovyLibWithBranchesOption {
     option: SelectOption;
@@ -18,32 +19,40 @@ export const useGroovyLibrariesWithBranches = (): GroovyLibWithBranchesOption[] 
         GroovyLibWithBranchesOption[]
     >([]);
 
-    useCodebasesByTypeLabelQuery(CODEBASE_TYPES.LIBRARY, {
-        onSuccess: async data => {
-            const groovyLibraries = data?.items.filter(el => isGroovyLibrary(el));
-            const groovyLibsWithBranches = await Promise.all(
-                groovyLibraries.map(async groovyLib => {
-                    const {
-                        metadata: { name },
-                    } = groovyLib;
+    useCodebasesByTypeLabelQuery({
+        props: {
+            codebaseType: CODEBASE_TYPES.LIBRARY,
+        },
+        options: {
+            onSuccess: async data => {
+                const groovyLibraries = data?.items.filter(el => isGroovyLibrary(el));
+                const groovyLibsWithBranches = await Promise.all(
+                    groovyLibraries.map(async groovyLib => {
+                        const {
+                            metadata: { name },
+                        } = groovyLib;
 
-                    const { items: codebaseBranches } =
-                        await EDPCodebaseBranchKubeObject.getListByCodebaseName(name);
+                        const { items: codebaseBranches } =
+                            await EDPCodebaseBranchKubeObject.getListByCodebaseName(
+                                getDefaultNamespace(),
+                                name
+                            );
 
-                    if (codebaseBranches.length) {
-                        const branchesNames = codebaseBranches.map(el => ({
-                            specBranchName: el.spec.branchName,
-                            metadataBranchName: el.metadata.name,
-                        }));
+                        if (codebaseBranches.length) {
+                            const branchesNames = codebaseBranches.map(el => ({
+                                specBranchName: el.spec.branchName,
+                                metadataBranchName: el.metadata.name,
+                            }));
 
-                        return {
-                            option: { value: name, label: name },
-                            branches: branchesNames,
-                        };
-                    }
-                })
-            );
-            setGroovyLibsWithBranchesOptions(groovyLibsWithBranches);
+                            return {
+                                option: { value: name, label: name },
+                                branches: branchesNames,
+                            };
+                        }
+                    })
+                );
+                setGroovyLibsWithBranchesOptions(groovyLibsWithBranches);
+            },
         },
     });
 

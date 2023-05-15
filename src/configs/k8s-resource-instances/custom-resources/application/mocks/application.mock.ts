@@ -12,6 +12,7 @@ export const expectedApplicationOutputMock: DeepPartial<ApplicationKubeObjectInt
             'app.edp.epam.com/pipeline': 'test-pipeline-name',
             'app.edp.epam.com/app-name': 'test-app-name',
         },
+        // @ts-ignore
         finalizers: ['resources-finalizer.argocd.argoproj.io'],
         ownerReferences: [
             {

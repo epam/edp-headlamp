@@ -53,7 +53,7 @@ export const createApplicationInstance = ({
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
     const repoUrlUser = gitProvider === GIT_PROVIDERS.GERRIT ? 'argocd' : 'git';
 
-    const base = {
+    const base: ApplicationKubeObjectInterface = {
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
@@ -64,6 +64,7 @@ export const createApplicationInstance = ({
                 'app.edp.epam.com/pipeline': pipelineName,
                 'app.edp.epam.com/app-name': appName,
             },
+            // @ts-ignore
             finalizers: ['resources-finalizer.argocd.argoproj.io'],
             ownerReferences: [
                 {

@@ -42,7 +42,9 @@ export const CodebaseBranchActions = ({
 
     const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
 
-    const { data: gitServerByCodebase } = useGitServerByCodebaseQuery(codebase);
+    const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
+        props: { codebaseGitServer: codebase?.spec.gitServer },
+    });
 
     const { data: storageSize } = useStorageSizeQuery(codebase);
 
