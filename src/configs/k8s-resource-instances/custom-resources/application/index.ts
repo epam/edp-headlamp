@@ -85,6 +85,7 @@ export const createApplicationInstance = ({
             },
             source: {
                 helm: {
+                    releaseName: enrichedApplicationWithItsImageStreams.application.metadata.name,
                     parameters: [],
                 },
                 path: 'deploy-templates',

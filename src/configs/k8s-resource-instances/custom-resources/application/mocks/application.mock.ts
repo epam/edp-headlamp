@@ -33,6 +33,7 @@ export const expectedApplicationOutputMock: DeepPartial<ApplicationKubeObjectInt
         },
         source: {
             helm: {
+                releaseName: 'test-app-name',
                 parameters: [
                     { name: 'image.tag', value: 'test-image-tag' },
                     {
