@@ -28,10 +28,14 @@ export const JenkinsAgent = ({ names, handleFormFieldChange }: JenkinsAgentProps
             control={control}
             errors={errors}
             disabled={!namespace}
-            options={jenkinsAgents.map(el => ({
-                label: el,
-                value: el,
-            }))}
+            options={
+                jenkinsAgents &&
+                jenkinsAgents.length &&
+                jenkinsAgents.map(el => ({
+                    label: el,
+                    value: el,
+                }))
+            }
         />
     );
 };
