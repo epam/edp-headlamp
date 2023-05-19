@@ -5,11 +5,11 @@ import { ICONS } from '../../../../constants/icons';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { streamPipelineRunListByCodebaseBranchLabel } from '../../../../k8s/PipelineRun';
+import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
-import { parsePipelineRunStatus } from '../../../../utils/parsePipelineRunStatus';
+import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../utils/styling/rem';
 import { createSonarLink } from '../../../../utils/url/createSonarLink';
@@ -103,7 +103,7 @@ export const CodebaseBranch = ({
                 return;
             }
 
-            const pipelineRunStatus = parsePipelineRunStatus(latestBuildPipelineRun);
+            const pipelineRunStatus = parseTektonResourceStatus(latestBuildPipelineRun);
 
             setPipelineRuns({
                 all: sortedPipelineRuns,
@@ -122,12 +122,12 @@ export const CodebaseBranch = ({
             return;
         }
 
-        const cancelStream = streamPipelineRunListByCodebaseBranchLabel(
-            normalizedCodebaseBranchName,
-            handleStorePipelineRuns,
-            handleStreamError,
-            codebaseBranchData.metadata.namespace
-        );
+        const cancelStream = PipelineRunKubeObject.streamPipelineRunListByCodebaseBranchLabel({
+            namespace: codebaseBranchData.metadata.namespace,
+            codebaseBranchLabel: normalizedCodebaseBranchName,
+            dataHandler: handleStorePipelineRuns,
+            errorHandler: handleStreamError,
+        });
 
         return () => cancelStream();
     }, [
@@ -140,7 +140,7 @@ export const CodebaseBranch = ({
 
     const status = codebaseBranchData.status
         ? codebaseBranchData.status.status
-        : CUSTOM_RESOURCE_STATUSES['UNKNOWN'];
+        : CUSTOM_RESOURCE_STATUSES.UNKNOWN;
 
     const statusTitle = (
         <>

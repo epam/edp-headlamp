@@ -10,6 +10,8 @@ export const useEveryArgoAppIsHealthyAndInSync = (
 ) => {
     return React.useMemo(
         () =>
+            enrichedApplicationsWithArgoApplications &&
+            enrichedApplicationsWithArgoApplications.length &&
             enrichedApplicationsWithArgoApplications.every(({ argoApplication }) => {
                 if (!argoApplication?.status?.health?.status) {
                     return false;

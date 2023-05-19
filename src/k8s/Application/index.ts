@@ -1,7 +1,13 @@
 import { pluginLib } from '../../plugin.globals';
 import { streamResults } from '../common/streamResults';
 import { ApplicationKubeObjectConfig } from './config';
-import { ApplicationKubeObjectInterface, ApplicationSpec, ApplicationStatus } from './types';
+import { APPLICATION_LABEL_SELECTOR_PIPELINE, APPLICATION_LABEL_SELECTOR_STAGE } from './labels';
+import {
+    ApplicationKubeObjectInterface,
+    ApplicationSpec,
+    ApplicationStatus,
+    StreamApplicationListByPipelineStageLabelProps,
+} from './types';
 
 const {
     ApiProxy,
@@ -32,17 +38,17 @@ export class ApplicationKubeObject extends makeKubeObject<ApplicationKubeObjectI
     get status(): ApplicationStatus {
         return this.jsonData!.status;
     }
-}
 
-export const streamApplicationListByPipelineStageLabel = (
-    CDPipelineMetadataName: string,
-    stageSpecName: string,
-    cb: (data: ApplicationKubeObjectInterface[]) => void,
-    errCb: (err: Error) => void,
-    namespace?: string
-): (() => void) => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResults(url, cb, errCb, {
-        labelSelector: `app.edp.epam.com/pipeline=${CDPipelineMetadataName},app.edp.epam.com/stage=${stageSpecName}`,
-    });
-};
+    static streamApplicationListByPipelineStageLabel({
+        namespace,
+        stageSpecName,
+        CDPipelineMetadataName,
+        dataHandler,
+        errorHandler,
+    }: StreamApplicationListByPipelineStageLabelProps): () => void {
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+        return streamResults(url, dataHandler, errorHandler, {
+            labelSelector: `${APPLICATION_LABEL_SELECTOR_PIPELINE}=${CDPipelineMetadataName},${APPLICATION_LABEL_SELECTOR_STAGE}=${stageSpecName}`,
+        });
+    }
+}

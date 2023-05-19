@@ -40,7 +40,7 @@ interface createDeployPipelineRunInstanceProps {
 
 interface createAutotestRunnerPipelineRunInstanceProps {
     namespace: string;
-    stageName: string;
+    stageSpecName: string;
     CDPipelineName: string;
     storageSize: string;
     randomPostfix: string;
@@ -194,7 +194,7 @@ export const createDeployPipelineRunInstance = ({
 
 export const createAutotestRunnerPipelineRunInstance = ({
     namespace,
-    stageName,
+    stageSpecName,
     CDPipelineName,
     storageSize,
     randomPostfix,
@@ -204,11 +204,11 @@ export const createAutotestRunnerPipelineRunInstance = ({
         kind,
         metadata: {
             // @ts-ignore
-            generateName: `${CDPipelineName}-${stageName}-${randomPostfix}`,
+            generateName: `${CDPipelineName}-${stageSpecName}-${randomPostfix}`,
             namespace,
             labels: {
                 'app.edp.epam.com/pipelinetype': 'autotestRunner',
-                'app.edp.epam.com/stage': stageName,
+                'app.edp.epam.com/stage': stageSpecName,
                 'app.edp.epam.com/pipeline': CDPipelineName,
             },
         },
@@ -223,7 +223,7 @@ export const createAutotestRunnerPipelineRunInstance = ({
                 },
                 {
                     name: 'stage-name',
-                    value: stageName,
+                    value: stageSpecName,
                 },
             ],
             serviceAccountName: 'tekton',

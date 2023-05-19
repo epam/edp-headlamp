@@ -1,19 +1,16 @@
 import { HeadlampNameValueTable } from '../../../../../../components/HeadlampNameValueTable';
 import { HeadlampSimpleTable } from '../../../../../../components/HeadlampSimpleTable';
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
-import { PIPELINE_RUN_STATUSES } from '../../../../../../constants/statuses';
-import { streamApplicationListByPipelineStageLabel } from '../../../../../../k8s/Application';
-import { ApplicationKubeObjectInterface } from '../../../../../../k8s/Application/types';
-import {
-    streamAutotestRunnerPipelineRunList,
-    streamAutotestsPipelineRunList,
-    streamPipelineRunListByTypeAndPipelineNameLabels,
-} from '../../../../../../k8s/PipelineRun';
-import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
+import { TEKTON_RESOURCE_STATUSES } from '../../../../../../constants/statuses';
+import { useStreamApplicationListByPipelineStageLabel } from '../../../../../../k8s/Application/hooks/useStreamApplicationListByPipelineStageLabel';
+import { useStreamAutotestPipelineRunList } from '../../../../../../k8s/PipelineRun/hooks/useStreamAutotestPipelineRunList';
+import { useStreamAutotestRunnerPipelineRunList } from '../../../../../../k8s/PipelineRun/hooks/useStreamAutotestRunnerPipelineRunList';
+import { useStreamPipelineRunListByTypeAndPipelineNameLabels } from '../../../../../../k8s/PipelineRun/hooks/useStreamPipelineRunListByTypeAndPipelineNameLabels';
+import { useStreamTaskRunListByPipelineNameAndPipelineType } from '../../../../../../k8s/TaskRun/hooks/useStreamTaskRunListByPipelineNameAndPipelineType';
 import { useStorageSizeQuery } from '../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import { createRandomFiveSymbolString } from '../../../../../../utils/createRandomFiveSymbolString';
-import { parsePipelineRunStatus } from '../../../../../../utils/parsePipelineRunStatus';
+import { parseTektonResourceStatus } from '../../../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
 import { ApplicationsContext, CDPipelineDataContext } from '../../../../index';
@@ -22,8 +19,10 @@ import { CDPipelineStageApplicationsTable } from './components/CDPipelineStageAp
 import { useColumns as useDeployPipelineRunsColumns } from './components/DeployPipelineRunsTable/hooks/useColumns';
 import { PipelineRunTrigger } from './components/PipelineRunTrigger';
 import { useCreateAutotestRunnerPipelineRun } from './components/PipelineRunTrigger/hooks/useCreateAutotestRunnerPipelineRun';
+import { QualityGatesDiagram } from './components/QualityGatesDiagram';
 import { useColumns } from './hooks/useColumns';
 import { useEveryArgoAppIsHealthyAndInSync } from './hooks/useEveryArgoAppIsHealthyAndInSync';
+import { useQualityGatesGraphData } from './hooks/useQualityGatesGraphData';
 import { useRows } from './hooks/useRows';
 import { useStyles } from './styles';
 import {
@@ -35,11 +34,16 @@ const { Grid, Typography, Button, CircularProgress } = MuiCore;
 const randomPostfix = createRandomFiveSymbolString();
 
 export const CDPipelineStage = (): React.ReactElement => {
+    const CDPipelineDataContextValue = React.useContext(CDPipelineDataContext);
     const CurrentCDPipelineStageDataContextValue = React.useContext(
         CurrentCDPipelineStageDataContext
     );
     const enrichedApplicationsWithItsImageStreams = React.useContext(ApplicationsContext);
-    const CDPipelineDataContextValue = React.useContext(CDPipelineDataContext);
+
+    const namespace = CurrentCDPipelineStageDataContextValue.metadata.namespace;
+    const stageSpecName = CurrentCDPipelineStageDataContextValue.spec.name;
+    const stageMetadataName = CurrentCDPipelineStageDataContextValue.metadata.name;
+    const CDPipelineName = CDPipelineDataContextValue.metadata.name;
 
     const classes = useStyles();
     const generalInfoRows = useRows(CurrentCDPipelineStageDataContextValue);
@@ -48,58 +52,54 @@ export const CDPipelineStage = (): React.ReactElement => {
     );
     const deployPipelineRunsColumns = useDeployPipelineRunsColumns();
 
-    const [, setError] = React.useState<Error>(null);
-    const handleError = React.useCallback((error: Error) => {
-        setError(error);
-    }, []);
+    const argoApplications = useStreamApplicationListByPipelineStageLabel({
+        namespace,
+        stageSpecName,
+        CDPipelineMetadataName: CDPipelineName,
+    });
 
-    const [argoApplications, setArgoApplications] = React.useState<
-        ApplicationKubeObjectInterface[]
-    >([]);
-    const handleStoreArgoApplications = React.useCallback(
-        (argoApplications: ApplicationKubeObjectInterface[]) => {
-            setArgoApplications(argoApplications);
-        },
-        []
+    const latestTenDeployPipelineRuns = useStreamPipelineRunListByTypeAndPipelineNameLabels({
+        namespace,
+        pipelineType: PIPELINE_TYPES.DEPLOY,
+        stageMetadataName,
+        select: React.useCallback(data => {
+            return data.sort(sortKubeObjectByCreationTimestamp).slice(0, 10);
+        }, []),
+    });
+
+    const latestAutotestRunnerPipelineRuns = useStreamAutotestRunnerPipelineRunList({
+        namespace,
+        stageSpecName,
+        CDPipelineMetadataName: CDPipelineName,
+        select: React.useCallback(data => {
+            return data.sort(sortKubeObjectByCreationTimestamp).slice(0, 1);
+        }, []),
+    });
+
+    const latestAutotestRunnerPipelineRunName = React.useMemo(
+        () => latestAutotestRunnerPipelineRuns?.[0]?.metadata.name,
+        [latestAutotestRunnerPipelineRuns]
     );
 
-    const [latestTenDeployPipelineRuns, setLatestTenDeployPipelineRuns] = React.useState<
-        PipelineRunKubeObjectInterface[]
-    >([]);
-    const handleStoreLatestTenDeployPipelineRuns = React.useCallback(
-        (data: PipelineRunKubeObjectInterface[]) => {
-            const latestTenDeployPipelineRuns = data
-                .sort(sortKubeObjectByCreationTimestamp)
-                .slice(0, 10);
-            setLatestTenDeployPipelineRuns(latestTenDeployPipelineRuns);
-        },
-        [setLatestTenDeployPipelineRuns]
-    );
+    const latestTenAutotestPipelineRuns = useStreamAutotestPipelineRunList({
+        namespace,
+        stageSpecName,
+        CDPipelineMetadataName: CDPipelineName,
+        parentPipelineRunName: latestAutotestRunnerPipelineRunName,
+        select: React.useCallback(data => {
+            return data.sort(sortKubeObjectByCreationTimestamp).slice(0, 10);
+        }, []),
+    });
 
-    const [latestTenAutotestPipelineRuns, setLatestTenAutotestPipelineRuns] = React.useState<
-        PipelineRunKubeObjectInterface[]
-    >([]);
-    const handleStoreLatestTenAutotestPipelineRuns = React.useCallback(
-        (data: PipelineRunKubeObjectInterface[]) => {
-            const latestTenAutotestPipelineRuns = data
-                .sort(sortKubeObjectByCreationTimestamp)
-                .slice(0, 10);
-            setLatestTenAutotestPipelineRuns(latestTenAutotestPipelineRuns);
-        },
-        [setLatestTenAutotestPipelineRuns]
-    );
-
-    const [latestTenAutotestRunnersPipelineRun, setLatestTenAutotestRunnersPipelineRun] =
-        React.useState<PipelineRunKubeObjectInterface[]>([]);
-    const handleStoreLatestTenAutotestRunnerPipelineRuns = React.useCallback(
-        (data: PipelineRunKubeObjectInterface[]) => {
-            const latestTenAutotestRunnersPipelineRun = data
-                .sort(sortKubeObjectByCreationTimestamp)
-                .slice(0, 10);
-            setLatestTenAutotestRunnersPipelineRun(latestTenAutotestRunnersPipelineRun);
-        },
-        [setLatestTenAutotestRunnersPipelineRun]
-    );
+    const taskRunList = useStreamTaskRunListByPipelineNameAndPipelineType({
+        namespace,
+        CDPipelineName,
+        pipelineType: PIPELINE_TYPES.AUTOTEST_RUNNER,
+        parentPipelineRunName: latestAutotestRunnerPipelineRunName,
+        select: React.useCallback(data => {
+            return data.sort(sortKubeObjectByCreationTimestamp).slice(0, 10);
+        }, []),
+    });
 
     const enrichedApplicationsWithArgoApplications: EnrichedApplicationWithArgoApplication[] =
         React.useMemo(
@@ -144,55 +144,6 @@ export const CDPipelineStage = (): React.ReactElement => {
             ]
         );
 
-    React.useEffect(() => {
-        const cancelApplicationsStream = streamApplicationListByPipelineStageLabel(
-            CDPipelineDataContextValue.metadata.name,
-            CurrentCDPipelineStageDataContextValue.spec.name,
-            handleStoreArgoApplications,
-            handleError,
-            CDPipelineDataContextValue.metadata.namespace
-        );
-
-        const cancelDeployPipelineRunsStream = streamPipelineRunListByTypeAndPipelineNameLabels(
-            PIPELINE_TYPES.DEPLOY,
-            CurrentCDPipelineStageDataContextValue.metadata.name,
-            handleStoreLatestTenDeployPipelineRuns,
-            handleError,
-            CDPipelineDataContextValue.metadata.namespace
-        );
-
-        const cancelAutotestRunnerPipelineRunsStream = streamAutotestRunnerPipelineRunList(
-            CurrentCDPipelineStageDataContextValue.spec.name,
-            CDPipelineDataContextValue.metadata.name,
-            handleStoreLatestTenAutotestRunnerPipelineRuns,
-            handleError,
-            CDPipelineDataContextValue.metadata.namespace
-        );
-
-        const cancelAutotestPipelineRunsStream = streamAutotestsPipelineRunList(
-            CurrentCDPipelineStageDataContextValue.spec.name,
-            CDPipelineDataContextValue.metadata.name,
-            handleStoreLatestTenAutotestPipelineRuns,
-            handleError,
-            CDPipelineDataContextValue.metadata.namespace
-        );
-
-        return () => {
-            cancelDeployPipelineRunsStream();
-            cancelAutotestPipelineRunsStream();
-            cancelAutotestRunnerPipelineRunsStream();
-            cancelApplicationsStream();
-        };
-    }, [
-        CDPipelineDataContextValue,
-        CurrentCDPipelineStageDataContextValue,
-        handleError,
-        handleStoreArgoApplications,
-        handleStoreLatestTenAutotestPipelineRuns,
-        handleStoreLatestTenDeployPipelineRuns,
-        handleStoreLatestTenAutotestRunnerPipelineRuns,
-    ]);
-
     const thereAreArgoApplications = React.useMemo(
         () => argoApplications.length,
         [argoApplications.length]
@@ -200,23 +151,23 @@ export const CDPipelineStage = (): React.ReactElement => {
 
     const latestDeployPipelineRunIsRunning = React.useMemo(
         () =>
-            parsePipelineRunStatus(latestTenDeployPipelineRuns[0]) ===
-            PIPELINE_RUN_STATUSES.RUNNING,
+            parseTektonResourceStatus(latestTenDeployPipelineRuns[0]) ===
+            TEKTON_RESOURCE_STATUSES.PENDING,
         [latestTenDeployPipelineRuns]
     );
 
     const latestAutotestPipelineRunIsRunning = React.useMemo(
         () =>
-            parsePipelineRunStatus(latestTenAutotestPipelineRuns[0]) ===
-            PIPELINE_RUN_STATUSES.RUNNING,
+            parseTektonResourceStatus(latestTenAutotestPipelineRuns[0]) ===
+            TEKTON_RESOURCE_STATUSES.RUNNING,
         [latestTenAutotestPipelineRuns]
     );
 
     const latestAutotestRunnerIsRunning = React.useMemo(
         () =>
-            parsePipelineRunStatus(latestTenAutotestRunnersPipelineRun[0]) ===
-            PIPELINE_RUN_STATUSES.RUNNING,
-        [latestTenAutotestRunnersPipelineRun]
+            parseTektonResourceStatus(latestAutotestRunnerPipelineRuns?.[0]) ===
+            TEKTON_RESOURCE_STATUSES.RUNNING,
+        [latestAutotestRunnerPipelineRuns]
     );
 
     const hasAutotests = React.useMemo(
@@ -269,19 +220,18 @@ export const CDPipelineStage = (): React.ReactElement => {
         }
 
         await createAutotestRunnerPipelineRun({
-            namespace: CurrentCDPipelineStageDataContextValue.metadata.namespace,
-            storageSize: storageSize,
+            namespace,
+            storageSize,
             randomPostfix,
-            stageName: CurrentCDPipelineStageDataContextValue.spec.name,
-            CDPipelineName: CDPipelineDataContextValue.metadata.name,
+            stageSpecName,
+            CDPipelineName,
         });
-    }, [
-        CDPipelineDataContextValue.metadata.name,
-        CurrentCDPipelineStageDataContextValue.metadata.namespace,
-        CurrentCDPipelineStageDataContextValue.spec.name,
-        createAutotestRunnerPipelineRun,
-        storageSize,
-    ]);
+    }, [CDPipelineName, createAutotestRunnerPipelineRun, namespace, stageSpecName, storageSize]);
+
+    const { nodes, edges } = useQualityGatesGraphData(
+        taskRunList,
+        enrichedQualityGatesWithPipelineRuns
+    );
 
     return (
         <Grid container spacing={5}>
@@ -309,6 +259,7 @@ export const CDPipelineStage = (): React.ReactElement => {
                                     rowsPerPage={[15, 25, 50]}
                                     data={enrichedQualityGatesWithPipelineRuns}
                                 />
+                                <QualityGatesDiagram nodes={nodes} edges={edges} />
                                 <Grid container justifyContent={'flex-end'}>
                                     <Grid item>
                                         <Button

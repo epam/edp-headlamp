@@ -19,9 +19,10 @@ export enum CUSTOM_RESOURCE_ACTIVE_STATUSES {
     INACTIVE = 'inactive',
 }
 
-export enum PIPELINE_RUN_STATUSES {
+export enum TEKTON_RESOURCE_STATUSES {
     SUCCEEDED = 'succeeded',
     RUNNING = 'running',
+    PENDING = 'pending',
     FAILED = 'failed',
 }
 

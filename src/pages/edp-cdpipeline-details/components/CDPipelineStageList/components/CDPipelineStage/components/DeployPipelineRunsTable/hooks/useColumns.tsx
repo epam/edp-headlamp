@@ -1,11 +1,11 @@
 import { HeadlampSimpleTableGetterColumn } from '../../../../../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../../../../../components/StatusIcon';
-import { PIPELINE_RUN_STATUSES } from '../../../../../../../../../constants/statuses';
 import { useEDPComponentsURLsQuery } from '../../../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../../../k8s/PipelineRun/types';
 import { MuiCore, React } from '../../../../../../../../../plugin.globals';
 import { formatDateToDuration } from '../../../../../../../../../utils/format/formatDateToDuration';
 import { formatDateUTCToLocal } from '../../../../../../../../../utils/format/formatDateUTCToLocal';
+import { parseTektonResourceStatus } from '../../../../../../../../../utils/parseTektonResourceStatus';
 import { createTektonPipelineRunLink } from '../../../../../../../../../utils/url/createTektonPipelineRunLink';
 
 const { Link: MuiLink } = MuiCore;
@@ -17,18 +17,8 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObj
         () => [
             {
                 label: 'Status',
-                getter: ({ status }) => {
-                    const reasonValue = status?.conditions[0]?.reason.toLowerCase();
-                    const statusValue = status?.conditions[0]?.status.toLowerCase();
-
-                    const currentPipelineRunStatus =
-                        reasonValue === PIPELINE_RUN_STATUSES['RUNNING']
-                            ? reasonValue
-                            : statusValue === 'true'
-                            ? PIPELINE_RUN_STATUSES['SUCCEEDED']
-                            : PIPELINE_RUN_STATUSES['FAILED'];
-
-                    return <StatusIcon status={currentPipelineRunStatus} />;
+                getter: pipelineRun => {
+                    return <StatusIcon status={parseTektonResourceStatus(pipelineRun)} />;
                 },
             },
             {

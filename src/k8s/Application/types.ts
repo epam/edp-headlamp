@@ -228,3 +228,11 @@ export interface ApplicationKubeObjectInterface extends KubeObjectInterface {
     operation?: ApplicationOperation;
     status?: ApplicationStatus;
 }
+
+export interface StreamApplicationListByPipelineStageLabelProps {
+    namespace: string;
+    stageSpecName: string;
+    CDPipelineMetadataName: string;
+    dataHandler: (data: ApplicationKubeObjectInterface[]) => void;
+    errorHandler: (err: Error) => void;
+}

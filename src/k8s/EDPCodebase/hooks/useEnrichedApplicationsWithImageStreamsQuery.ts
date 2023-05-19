@@ -45,8 +45,6 @@ export const useEnrichedApplicationsWithImageStreamsQuery = ({
         },
     });
 
-    console.log(codebaseImageStreams);
-
     return useCodebasesByTypeLabelQuery<EnrichedApplicationWithItsImageStreams[]>({
         props: {
             namespace: CDPipelineData?.metadata.namespace,

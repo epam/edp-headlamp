@@ -8,7 +8,7 @@ import { React } from '../../../../../../../../../../plugin.globals';
 
 export interface CreateAutotestRunnerPipelineRunProps {
     namespace: string;
-    stageName: string;
+    stageSpecName: string;
     CDPipelineName: string;
     storageSize: string;
     randomPostfix: string;

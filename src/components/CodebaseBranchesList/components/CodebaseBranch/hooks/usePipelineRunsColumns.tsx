@@ -2,7 +2,7 @@ import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
 import { MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { formatFullYear, humanizeDefault } from '../../../../../utils/date/humanize';
-import { parsePipelineRunStatus } from '../../../../../utils/parsePipelineRunStatus';
+import { parseTektonResourceStatus } from '../../../../../utils/parseTektonResourceStatus';
 import { createTektonPipelineLink } from '../../../../../utils/url/createTektonPipelineLink';
 import { createTektonPipelineRunLink } from '../../../../../utils/url/createTektonPipelineRunLink';
 import { HeadlampSimpleTableGetterColumn } from '../../../../HeadlampSimpleTable/types';
@@ -22,7 +22,7 @@ export const usePipelineRunsColumns =
                 {
                     label: 'Status',
                     getter: resource => {
-                        const status = parsePipelineRunStatus(resource);
+                        const status = parseTektonResourceStatus(resource);
 
                         return (
                             <StatusIcon
