@@ -31,3 +31,4 @@ export * from './Vue';
 export * from './Express';
 export * from './Angular';
 export * from './AWS';
+export * from './Gin';

@@ -170,6 +170,12 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.BEEGO],
                 availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
             },
+            [CODEBASE_COMMON_FRAMEWORKS.GIN]: {
+                name: 'Gin',
+                value: CODEBASE_COMMON_FRAMEWORKS.GIN,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.GIN],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
             [CODEBASE_COMMON_FRAMEWORKS.OPERATOR_SDK]: {
                 name: 'Operator SDK',
                 value: CODEBASE_COMMON_FRAMEWORKS.OPERATOR_SDK,

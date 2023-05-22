@@ -12,6 +12,7 @@ import {
     Fastapi,
     Flask,
     Gerrit,
+    Gin,
     Github,
     Gitlab,
     Go,
@@ -75,6 +76,7 @@ export const Resources = (): React.ReactElement => {
             <Express />
             <Angular />
             <AWS />
+            <Gin />
         </svg>
     );
 };

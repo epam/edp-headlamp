@@ -32,5 +32,6 @@ export const RESOURCE_ICON_NAMES = {
     EXPRESS: 'express',
     ANGULAR: 'angular',
     AWS: 'AWS',
+    GIN: 'GIN',
     OTHER: 'other',
 } as const;
