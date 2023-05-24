@@ -13,10 +13,10 @@ export const EDPGitServerList = (): React.ReactElement => {
 
     return (
         <SectionBox title={<SectionFilterHeader title="Git Servers" headerStyle="label" />}>
+            <GitServerList gitServers={items} error={error} />
             <CreateKubeObject>
                 <CreateGitServer />
             </CreateKubeObject>
-            <GitServerList gitServers={items} error={error} />
         </SectionBox>
     );
 };

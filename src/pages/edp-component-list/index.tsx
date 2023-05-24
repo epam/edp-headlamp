@@ -64,10 +64,10 @@ export const EDPComponentList = (): React.ReactElement => {
                     />
                 }
             >
+                <ComponentList components={components} error={error} />
                 <CreateKubeObject>
                     <CreateCodebase />
                 </CreateKubeObject>
-                <ComponentList components={components} error={error} />
             </SectionBox>
         </>
     );

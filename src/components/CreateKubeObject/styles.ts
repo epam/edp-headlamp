@@ -5,9 +5,10 @@ const { makeStyles } = MuiCore;
 
 export const useStyles = makeStyles((theme: DefaultTheme) => ({
     button: {
-        position: 'fixed',
-        bottom: theme.spacing(2),
-        right: theme.spacing(2),
+        position: 'sticky',
+        bottom: '0',
+        left: '100%',
+        transform: `translate(${rem(46)}, -20%)`,
         backgroundColor: theme.palette.background.paper,
     },
     buttonIcon: {

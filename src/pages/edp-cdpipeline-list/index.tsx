@@ -13,10 +13,10 @@ export const EDPCDPipelineList = (): React.ReactElement => {
 
     return (
         <SectionBox title={<SectionFilterHeader title="CD Pipelines" headerStyle="label" />}>
+            <CDPipelineList CDPipelines={items} error={error} />
             <CreateKubeObject>
                 <CreateCDPipeline />
             </CreateKubeObject>
-            <CDPipelineList CDPipelines={items} error={error} />
         </SectionBox>
     );
 };
