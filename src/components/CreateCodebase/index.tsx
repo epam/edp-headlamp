@@ -88,6 +88,7 @@ export const CreateCodebase = ({
 
     React.useEffect(() => {
         reset(baseDefaultValues);
+        setFormValues(baseDefaultValues);
     }, [baseDefaultValues, reset]);
 
     const typeFieldValue = watch(names.type.name);
@@ -154,6 +155,8 @@ export const CreateCodebase = ({
             [names.type.name]: typeFieldValue,
         });
     }, [reset, baseDefaultValues, strategyFieldValue, typeFieldValue]);
+
+    console.log(formValues);
 
     const { handleEditorSave } = useHandleEditorSave({
         names,
