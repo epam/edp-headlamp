@@ -35,12 +35,16 @@ export const PipelineRunTrigger = ({
         },
     });
 
-    const pipelineOptions = React.useMemo(() => pipelines &&
-    pipelines?.items?.length ?
-        pipelines?.items.map(({ metadata: { name } }) => ({
-            label: name,
-            value: name,
-        })) : [], [pipelines])
+    const pipelineOptions = React.useMemo(
+        () =>
+            pipelines && pipelines?.items?.length
+                ? pipelines?.items.map(({ metadata: { name } }) => ({
+                      label: name,
+                      value: name,
+                  }))
+                : [],
+        [pipelines]
+    );
 
     const pipelineNameFieldValue = watch(pipelineNameFieldName);
 

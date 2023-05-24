@@ -4,11 +4,17 @@ import { rem } from '../../utils/styling/rem';
 const { makeStyles } = MuiCore;
 
 export const useStyles = makeStyles((theme: DefaultTheme) => ({
-    button: {
+    fabWrapper: {
         position: 'sticky',
         bottom: '0',
         left: '100%',
-        transform: `translate(${rem(46)}, -20%)`,
+        translate: `${rem(46)} 0`,
+        height: 0,
+        display: 'flex',
+    },
+    button: {
+        marginLeft: 'auto',
+        translate: `0 ${rem(-65)}`,
         backgroundColor: theme.palette.background.paper,
     },
     buttonIcon: {

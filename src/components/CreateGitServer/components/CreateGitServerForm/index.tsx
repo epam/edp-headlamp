@@ -1,4 +1,3 @@
-import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { createGitServerSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
@@ -99,10 +98,6 @@ export const CreateGitServerForm = ({
         },
         [handleEditorSave, setEditorOpen]
     );
-
-    const muDialogProps: DialogProps = {
-        open: editorOpen,
-    };
 
     const onSubmit = React.useCallback(
         ({ gitUser, sshPrivateKey, token }) => {
@@ -215,7 +210,7 @@ export const CreateGitServerForm = ({
             </div>
             <Render condition={!!editorOpen}>
                 <EditorDialog
-                    {...muDialogProps}
+                    open={editorOpen}
                     item={editorReturnValues as unknown as KubeObjectInterface}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}

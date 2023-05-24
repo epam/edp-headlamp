@@ -1,4 +1,3 @@
-import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
@@ -136,10 +135,6 @@ export const CreateCDPipelineForm = ({
         },
         [getFirstErrorTabName]
     );
-
-    const muDialogProps: DialogProps = {
-        open: editorOpen,
-    };
 
     const activeTabFormPartName = React.useMemo(() => {
         const [validEntry] = Object.entries(TAB_INDEXES).filter(([, idx]) => idx === activeTabIdx);
@@ -334,7 +329,7 @@ export const CreateCDPipelineForm = ({
             </div>
             <Render condition={!!editorOpen}>
                 <EditorDialog
-                    {...muDialogProps}
+                    open={editorOpen}
                     item={editorReturnValues as unknown as KubeObjectInterface}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}

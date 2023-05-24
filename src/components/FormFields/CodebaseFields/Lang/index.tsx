@@ -4,10 +4,10 @@ import { APPLICATION_MAPPING } from '../../../../configs/codebase-mappings/appli
 import { AUTOTEST_MAPPING } from '../../../../configs/codebase-mappings/autotest';
 import { INFRASTRUCTURE_MAPPING } from '../../../../configs/codebase-mappings/infrastructure';
 import { LIBRARY_MAPPING } from '../../../../configs/codebase-mappings/library';
+import { CI_TOOLS } from '../../../../constants/ciTools';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
-import { useAvailableCIToolsQuery } from '../../../../k8s/EDPComponent/hooks/useAvailableCIToolsQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
@@ -17,8 +17,6 @@ import { FormRadioGroup } from '../../../FormComponents';
 import { LangProps } from './types';
 
 export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
-    const { data: availableCITools } = useAvailableCIToolsQuery();
-
     const {
         register,
         control,
@@ -29,6 +27,10 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
     } = useFormContext();
 
     const typeFieldValue = watch(names.type.name);
+    const frameworkValue = watch(names.framework.name);
+    const buildToolValue = watch(names.buildTool.name);
+    const strategyValue = watch(names.strategy.name);
+    const CIToolFieldValue = watch(names.ciTool.name);
 
     const codebaseMapping = React.useMemo(() => {
         if (!typeFieldValue) {
@@ -54,10 +56,6 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
 
     const capitalizedCodebaseType = capitalizeFirstLetter(typeFieldValue);
 
-    const frameworkValue = watch(names.framework.name);
-    const buildToolValue = watch(names.buildTool.name);
-    const strategyValue = watch(names.strategy.name);
-
     const langOptions = React.useMemo(() => {
         const resultOptions: FormRadioOption[] = [];
 
@@ -68,7 +66,7 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
         Object.values(codebaseMapping).map(
             ({ language: { name, value, icon, availableCITools: mappingAvailableCITools } }) => {
                 for (const availableCITool of mappingAvailableCITools) {
-                    if (!availableCITools.includes(availableCITool)) {
+                    if (availableCITool !== CIToolFieldValue) {
                         continue;
                     }
 
@@ -88,7 +86,7 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
         );
 
         return resultOptions;
-    }, [availableCITools, codebaseMapping, strategyValue]);
+    }, [CIToolFieldValue, codebaseMapping, strategyValue]);
 
     const resetFields = React.useCallback(
         (fieldNames: string[]) => {
@@ -109,6 +107,10 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
 
             resetFields([names.jenkinsSlave.name, names.framework.name, names.buildTool.name]);
 
+            if (CIToolFieldValue !== CI_TOOLS.JENKINS) {
+                return;
+            }
+
             const recommendedJenkinsAgent = getRecommendedJenkinsAgent(typeFieldValue, {
                 lang: value,
                 framework: frameworkValue,
@@ -122,10 +124,13 @@ export const Lang = ({ names, handleFormFieldChange }: LangProps) => {
             });
         },
         [
+            CIToolFieldValue,
             buildToolValue,
             frameworkValue,
             handleFormFieldChange,
-            names,
+            names.buildTool.name,
+            names.framework.name,
+            names.jenkinsSlave.name,
             resetFields,
             setValue,
             typeFieldValue,

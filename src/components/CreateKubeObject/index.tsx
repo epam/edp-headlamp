@@ -16,13 +16,15 @@ export const CreateKubeObject: React.FC = ({ children }): React.ReactElement => 
 
     return (
         <>
-            <Fab
-                aria-label="add"
-                onClick={() => setCreateDialogOpen(true)}
-                className={classes.button}
-            >
-                <Icon icon={ICONS['PLUS']} className={classes.buttonIcon} />
-            </Fab>
+            <div className={classes.fabWrapper}>
+                <Fab
+                    aria-label="add"
+                    onClick={() => setCreateDialogOpen(true)}
+                    className={classes.button}
+                >
+                    <Icon icon={ICONS['PLUS']} className={classes.buttonIcon} />
+                </Fab>
+            </div>
             {React.cloneElement(children as React.ReactElement, {
                 createDialogOpen,
                 onClose,

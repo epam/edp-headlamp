@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings';
+import { CI_TOOLS } from '../../../../constants/ciTools';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
-import { useAvailableCIToolsQuery } from '../../../../k8s/EDPComponent/hooks/useAvailableCIToolsQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormRadioOption } from '../../../CreateCodebase/components/FormRadioGroup/types';
@@ -11,8 +11,6 @@ import { FormRadioGroup, FormTextField } from '../../../FormComponents';
 import { FrameworkProps } from './types';
 
 export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
-    const { data: availableCITools } = useAvailableCIToolsQuery();
-
     const {
         register,
         control,
@@ -24,10 +22,15 @@ export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
     const buildToolFieldValue = watch(names.buildTool.name);
     const langFieldValue = watch(names.lang.name);
     const typeFieldValue = watch(names.type.name);
+    const CIToolFieldValue = watch(names.ciTool.name);
 
     const onFrameworkChange = React.useCallback(
         ({ target: { name, value } }: FieldEvent) => {
             handleFormFieldChange({ name, value });
+            if (CIToolFieldValue !== CI_TOOLS.JENKINS) {
+                return;
+            }
+
             const recommendedJenkinsAgent = getRecommendedJenkinsAgent(typeFieldValue, {
                 lang: langFieldValue,
                 framework: value,
@@ -40,6 +43,7 @@ export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
             });
         },
         [
+            CIToolFieldValue,
             buildToolFieldValue,
             handleFormFieldChange,
             langFieldValue,
@@ -64,7 +68,7 @@ export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
         Object.values(chosenLang.frameworks).map(
             ({ name, value, icon, availableCITools: mappingAvailableCITools }) => {
                 for (const availableCITool of mappingAvailableCITools) {
-                    if (!availableCITools.includes(availableCITool)) {
+                    if (availableCITool !== CIToolFieldValue) {
                         continue;
                     }
 
@@ -81,11 +85,11 @@ export const Framework = ({ names, handleFormFieldChange }: FrameworkProps) => {
         );
 
         return resultOptions;
-    }, [availableCITools, chosenLang]);
+    }, [CIToolFieldValue, chosenLang]);
 
     return (
         <>
-            {langFieldValue === CODEBASE_COMMON_LANGUAGES['OTHER'] ? (
+            {langFieldValue === CODEBASE_COMMON_LANGUAGES.OTHER ? (
                 <FormTextField
                     {...register(names.framework.name, {
                         required: `Enter ${typeFieldValue} provider`,

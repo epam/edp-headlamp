@@ -1,4 +1,3 @@
-import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { editCodebaseBranchInstance } from '../../../../configs/k8s-resource-instances/custom-resources/codebase-branch';
@@ -125,10 +124,6 @@ export const CreateCodebaseBranchForm = ({
         },
         [handleEditorSave, setEditorOpen]
     );
-
-    const muDialogProps: DialogProps = {
-        open: editorOpen,
-    };
 
     const defaultBranchVersionFieldValue = watch(
         CODEBASE_BRANCH_NAMES.defaultBranchVersionStart.name
@@ -268,7 +263,7 @@ export const CreateCodebaseBranchForm = ({
             </div>
             <Render condition={!!editorOpen}>
                 <EditorDialog
-                    {...muDialogProps}
+                    open={editorOpen}
                     item={editorReturnValues as unknown as KubeObjectInterface}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}

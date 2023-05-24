@@ -4,7 +4,6 @@ import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/use
 import { MuiCore, React } from '../../../../plugin.globals';
 import {
     AdvancedJiraMapping,
-    CITool,
     CodebaseVersioning,
     CommitMessagePattern,
     DefaultBranch,
@@ -32,9 +31,6 @@ export const AdvancedSettings = (): React.ReactElement => {
         <Grid container spacing={2}>
             <Grid item xs={12}>
                 <DefaultBranch names={names} handleFormFieldChange={handleFormFieldChange} />
-            </Grid>
-            <Grid item xs={12}>
-                <CITool names={names} handleFormFieldChange={handleFormFieldChange} />
             </Grid>
             <Render condition={chosenCiToolFieldValue === CI_TOOLS.JENKINS}>
                 <>

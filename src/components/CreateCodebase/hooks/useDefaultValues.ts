@@ -1,23 +1,36 @@
 import { CI_TOOLS } from '../../../constants/ciTools';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { GIT_SERVERS } from '../../../constants/gitServers';
+import { useAvailableCIToolsQuery } from '../../../k8s/EDPComponent/hooks/useAvailableCIToolsQuery';
 import { React } from '../../../plugin.globals';
-import { FormNameObject } from '../../../types/forms';
+import { CODEBASE_NAMES } from '../names';
 
-interface UseDefaultValuesProps {
-    names: { [key: string]: FormNameObject };
-}
+export const useDefaultValues = (): { [key: string]: any } => {
+    const { data: availableCITools } = useAvailableCIToolsQuery();
 
-export const useDefaultValues = ({ names }: UseDefaultValuesProps): { [key: string]: any } => {
+    const defaultCITool = React.useMemo(() => {
+        if (!availableCITools || !availableCITools.length) {
+            return undefined;
+        }
+
+        if (availableCITools.includes(CI_TOOLS.TEKTON)) {
+            return CI_TOOLS.TEKTON;
+        }
+
+        if (availableCITools.includes(CI_TOOLS.JENKINS)) {
+            return CI_TOOLS.JENKINS;
+        }
+    }, [availableCITools]);
+
     const baseDefaultValues = React.useMemo(() => {
         return {
-            [names.gitServer.name]: GIT_SERVERS.GERRIT,
-            [names.defaultBranch.name]: 'main',
-            [names.emptyProject.name]: false,
-            [names.versioningType.name]: CODEBASE_VERSIONING_TYPES.DEFAULT,
-            [names.ciTool.name]: CI_TOOLS.TEKTON,
+            [CODEBASE_NAMES.gitServer.name]: GIT_SERVERS.GERRIT,
+            [CODEBASE_NAMES.defaultBranch.name]: 'main',
+            [CODEBASE_NAMES.emptyProject.name]: false,
+            [CODEBASE_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPES.DEFAULT,
+            [CODEBASE_NAMES.ciTool.name]: defaultCITool,
         };
-    }, [names]);
+    }, [defaultCITool]);
 
     return { baseDefaultValues };
 };

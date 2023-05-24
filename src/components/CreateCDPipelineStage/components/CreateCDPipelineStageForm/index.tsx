@@ -1,4 +1,3 @@
-import type { DialogProps } from '@material-ui/core/Dialog';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
@@ -110,10 +109,6 @@ export const CreateCDPipelineStageForm = ({
         [handleEditorSave, setEditorOpen]
     );
 
-    const muDialogProps: DialogProps = {
-        open: editorOpen,
-    };
-
     const onSubmit = React.useCallback(() => {
         handleApply({
             CDPipelineStageData: editorReturnValues,
@@ -122,10 +117,19 @@ export const CreateCDPipelineStageForm = ({
 
     const { data: availableCITools } = useAvailableCIToolsQuery();
 
-    const hasJenkinsCITool = React.useMemo(
-        () => availableCITools && availableCITools.includes(CI_TOOLS.JENKINS),
-        [availableCITools]
-    );
+    const defaultCITool = React.useMemo(() => {
+        if (!availableCITools || !availableCITools.length) {
+            return undefined;
+        }
+
+        if (availableCITools.includes(CI_TOOLS.TEKTON)) {
+            return CI_TOOLS.TEKTON;
+        }
+
+        if (availableCITools.includes(CI_TOOLS.JENKINS)) {
+            return CI_TOOLS.JENKINS;
+        }
+    }, [availableCITools]);
 
     const qualityGatesFieldValue = watch(CDPIPELINE_STAGE_NAMES.qualityGates.name);
 
@@ -165,7 +169,7 @@ export const CreateCDPipelineStageForm = ({
                                     handleFormFieldChange={handleFormFieldChange}
                                 />
                             </Grid>
-                            <Render condition={hasJenkinsCITool}>
+                            <Render condition={defaultCITool && defaultCITool === CI_TOOLS.JENKINS}>
                                 <>
                                     <Grid item xs={6}>
                                         <JobProvisioner
@@ -233,7 +237,7 @@ export const CreateCDPipelineStageForm = ({
             </div>
             <Render condition={!!editorOpen}>
                 <EditorDialog
-                    {...muDialogProps}
+                    open={editorOpen}
                     item={editorReturnValues as unknown as KubeObjectInterface}
                     onClose={() => setEditorOpen(false)}
                     onSave={onEditorSave}

@@ -1,4 +1,3 @@
-import { DialogProps } from '@material-ui/core/Dialog';
 import clsx from 'clsx';
 import lodashOmit from 'lodash.omit';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -28,7 +27,7 @@ import { useEditorCode } from './hooks/useEditorCode';
 import { useUpdateFieldsDependingOnChosenCITool } from './hooks/useUpdateFieldsDependingOnChosenCITool';
 import { useUpdateJiraServerIntegrationValue } from './hooks/useUpdateJiraServerIntegrationValue';
 import { useUpdateVersioningFields } from './hooks/useUpdateVersioningFields';
-import { CODEBASE_BACKWARDS_NAME_MAPPING, CODEBASE_NAMES, CODEBASE_NAMES as names } from './names';
+import { CODEBASE_BACKWARDS_NAME_MAPPING, CODEBASE_NAMES as names } from './names';
 import { useStyles } from './styles';
 import { CodebaseAuthData, CreateCodebaseProps } from './types';
 
@@ -61,16 +60,12 @@ export const CreateCodebase = ({
 }: CreateCodebaseProps): React.ReactElement => {
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
-    const muDialogProps: DialogProps = {
-        open: editorOpen,
-    };
-
     const [modalActiveTabIdx, setModalActiveTabIdx] = React.useState<number>(0);
     const [formActiveTabIdx, setFormActiveTabIdx] = React.useState<number>(
         TAB_INDEXES[FORM_PART_CODEBASE_INFO]
     );
 
-    const { baseDefaultValues } = useDefaultValues({ names });
+    const { baseDefaultValues } = useDefaultValues();
 
     const [formValues, setFormValues] =
         React.useState<DeepPartial<EDPCodebaseKubeObjectInterface>>(baseDefaultValues);
@@ -91,8 +86,12 @@ export const CreateCodebase = ({
         control,
     } = createCodebaseForm;
 
-    const typeFieldValue = watch(CODEBASE_NAMES.type.name);
-    const strategyFieldValue = watch(CODEBASE_NAMES.strategy.name);
+    React.useEffect(() => {
+        reset(baseDefaultValues);
+    }, [baseDefaultValues, reset]);
+
+    const typeFieldValue = watch(names.type.name);
+    const strategyFieldValue = watch(names.strategy.name);
 
     const [codebaseAuthData, setCodebaseAuthData] = React.useState<CodebaseAuthData>({
         repositoryLogin: '',
@@ -151,8 +150,8 @@ export const CreateCodebase = ({
     const handleResetFields = React.useCallback(() => {
         reset({
             ...baseDefaultValues,
-            [CODEBASE_NAMES.strategy.name]: strategyFieldValue,
-            [CODEBASE_NAMES.type.name]: typeFieldValue,
+            [names.strategy.name]: strategyFieldValue,
+            [names.type.name]: typeFieldValue,
         });
     }, [reset, baseDefaultValues, strategyFieldValue, typeFieldValue]);
 
@@ -209,8 +208,8 @@ export const CreateCodebase = ({
         setTimeout(() => {
             reset({
                 ...baseDefaultValues,
-                [CODEBASE_NAMES.strategy.name]: undefined,
-                [CODEBASE_NAMES.type.name]: undefined,
+                [names.strategy.name]: undefined,
+                [names.type.name]: undefined,
             });
             setFormActiveTabIdx(TAB_INDEXES[FORM_PART_CODEBASE_INFO]);
             setModalActiveTabIdx(0);
@@ -284,7 +283,7 @@ export const CreateCodebase = ({
                             <Grid container spacing={3}>
                                 <Grid item xs={12}>
                                     <MainRadioGroup
-                                        {...register(CODEBASE_NAMES.type.name, {
+                                        {...register(names.type.name, {
                                             onChange: ({ target: { name, value } }: FieldEvent) => {
                                                 handleFormFieldChange({ name, value });
 
@@ -315,7 +314,7 @@ export const CreateCodebase = ({
                                 </Grid>
                                 <Grid item xs={12}>
                                     <MainRadioGroup
-                                        {...register(CODEBASE_NAMES.strategy.name, {
+                                        {...register(names.strategy.name, {
                                             onChange: ({ target: { name, value } }: FieldEvent) => {
                                                 handleFormFieldChange({ name, value });
                                                 switch (value) {
@@ -464,7 +463,7 @@ export const CreateCodebase = ({
                                     </form>
                                 </div>
                                 <EditorDialog
-                                    {...muDialogProps}
+                                    open={editorOpen}
                                     item={editorReturnValues as unknown as KubeObjectInterface}
                                     onClose={() => setEditorOpen(false)}
                                     onSave={onEditorSave}
