@@ -18,7 +18,11 @@
 
 EDP Admin Console v2.0 is a new version of [EDP Admin Console](https://github.com/epam/edp-admin-console), built on the top of [Headlamp](https://github.com/kinvolk/headlamp). All EDP-specific functionality is written as Headlamp plugins.
 
-https://github-production-user-asset-6210df.s3.amazonaws.com/42180137/240909919-ff40e11d-25e9-4c92-a264-dc5ffd3c6eab.mp4
+
+
+https://github.com/epam/edp-headlamp/assets/42180137/3bf51f80-4d08-48de-a255-c98dbbaab704
+
+
 
 ### Assets
 
@@ -27,30 +31,38 @@ https://github-production-user-asset-6210df.s3.amazonaws.com/42180137/240909919-
         <td>
             <img alt="EDP Components page screenshot" src="docs/assets/components_page.png">
         </td>
+    </tr>
+    <tr>
         <td>
             <img alt="EDP Component page screenshot" src="docs/assets/component_page.png">
         </td>
     </tr>
-   <tr>
+    <tr>
         <td>
             <img alt="EDP Create Component Start screenshot" src="docs/assets/create_component_start.png">
         </td>
+    </tr>
+    <tr>
         <td>
             <img alt="EDP Create Component screenshot" src="docs/assets/create_component.png">
         </td>
     </tr>
-   <tr>
+    <tr>
         <td>
             <img alt="EDP Create Component Doc screenshot" src="docs/assets/create_component_doc.png">
         </td>
+    </tr>
+    <tr>
         <td>
             <img alt="EDP Create Component Editor screenshot" src="docs/assets/create_component_editor.png">
         </td>
     </tr>
-   <tr>
+    <tr>
         <td>
             <img alt="EDP Create Component Advanced screenshot" src="docs/assets/create_component_advanced.png">
         </td>
+    </tr>
+   <tr>
         <td>
             <img alt="EDP CDPipeline page screenshot" src="docs/assets/cdpipeline_page.png">
         </td>
