@@ -18,22 +18,46 @@
 
 EDP Admin Console v2.0 is a new version of [EDP Admin Console](https://github.com/epam/edp-admin-console), built on the top of [Headlamp](https://github.com/kinvolk/headlamp). All EDP-specific functionality is written as Headlamp plugins.
 
-https://user-images.githubusercontent.com/4813007/178267935-1a87d0dc-d015-4184-8109-d375030671d4.mp4
+https://github-production-user-asset-6210df.s3.amazonaws.com/42180137/240909919-ff40e11d-25e9-4c92-a264-dc5ffd3c6eab.mp4
 
 ### Assets
 
 <table>
     <tr>
         <td>
-            <img alt="EDP overview page screenshot" src="docs/assets/headlamp_edp_overview_page.png">
+            <img alt="EDP Components page screenshot" src="docs/assets/components_page.png">
+        </td>
+        <td>
+            <img alt="EDP Component page screenshot" src="docs/assets/component_page.png">
+        </td>
+    </tr>
+   <tr>
+        <td>
+            <img alt="EDP Create Component Start screenshot" src="docs/assets/create_component_start.png">
+        </td>
+        <td>
+            <img alt="EDP Create Component screenshot" src="docs/assets/create_component.png">
+        </td>
+    </tr>
+   <tr>
+        <td>
+            <img alt="EDP Create Component Doc screenshot" src="docs/assets/create_component_doc.png">
+        </td>
+        <td>
+            <img alt="EDP Create Component Editor screenshot" src="docs/assets/create_component_editor.png">
+        </td>
+    </tr>
+   <tr>
+        <td>
+            <img alt="EDP Create Component Advanced screenshot" src="docs/assets/create_component_advanced.png">
+        </td>
+        <td>
+            <img alt="EDP CDPipeline page screenshot" src="docs/assets/cdpipeline_page.png">
         </td>
     </tr>
     <tr>
         <td>
-            <img alt="EDP CD pipelines page screenshot" src="docs/assets/headlamp_edp_cd_pipelines_page.png">
-        </td>
-        <td>
-            <img alt="EDP applications page screenshot" src="docs/assets/headlamp_edp_applications_page.png">
+            <img alt="EDP overview page screenshot" src="docs/assets/overview_page.png">
         </td>
     </tr>
 </table>
