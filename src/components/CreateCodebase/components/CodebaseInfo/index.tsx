@@ -93,11 +93,9 @@ export const CodebaseInfo = (): React.ReactElement => {
                 <Grid item xs={12}>
                     <Name names={names} handleFormFieldChange={handleFormFieldChange} />
                 </Grid>
-                <Render condition={typeFieldValue === CODEBASE_TYPES.AUTOTEST}>
-                    <Grid item xs={12}>
-                        <Description names={names} handleFormFieldChange={handleFormFieldChange} />
-                    </Grid>
-                </Render>
+                <Grid item xs={12}>
+                    <Description names={names} handleFormFieldChange={handleFormFieldChange} />
+                </Grid>
                 <Render condition={strategyFieldValue === CODEBASE_CREATION_STRATEGIES.CREATE}>
                     <Grid item xs={12}>
                         <EmptyProject names={names} handleFormFieldChange={handleFormFieldChange} />
