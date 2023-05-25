@@ -2,6 +2,76 @@
 ## [Unreleased]
 
 
+<a name="v0.6.0"></a>
+## [v0.6.0] - 2023-05-24
+### Features
+
+- Add "helm" application support [EPMDEDP-11478](https://jiraeu.epam.com/browse/EPMDEDP-11478)
+- Update create strategy label on codebase creation flow, fix onSubmit/onError progress reset behaviour [EPMDEDP-11478](https://jiraeu.epam.com/browse/EPMDEDP-11478)
+- Update application resource creation template [EPMDEDP-11478](https://jiraeu.epam.com/browse/EPMDEDP-11478)
+- Update Application resource creation template [EPMDEDP-11478](https://jiraeu.epam.com/browse/EPMDEDP-11478)
+- Add button with link to VCS repo in codebase branch block on component page [EPMDEDP-11516](https://jiraeu.epam.com/browse/EPMDEDP-11516)
+- Add gitUrlPath when creating codebase with create strategy [EPMDEDP-11516](https://jiraeu.epam.com/browse/EPMDEDP-11516)
+- Add links to ArgoCD in CDPipeline page(pipeline, stage, application) [EPMDEDP-11521](https://jiraeu.epam.com/browse/EPMDEDP-11521)
+- Update link to argocd in stage applications table to open a new page in a new tab [EPMDEDP-11521](https://jiraeu.epam.com/browse/EPMDEDP-11521)
+- Add links to Grafana and Kibana on CD pipeline page in Stage view [EPMDEDP-11523](https://jiraeu.epam.com/browse/EPMDEDP-11523)
+- Move component create button upper to be fixed at the table bottom-right border [EPMDEDP-11654](https://jiraeu.epam.com/browse/EPMDEDP-11654)
+- Use workspace size volume from trigger template [EPMDEDP-11704](https://jiraeu.epam.com/browse/EPMDEDP-11704)
+- Add vue/angular/express javascript frameworks [EPMDEDP-11762](https://jiraeu.epam.com/browse/EPMDEDP-11762)
+- Add Gin - GO's framework [EPMDEDP-11836](https://jiraeu.epam.com/browse/EPMDEDP-11836)
+- Add the ability to use additional volumes in helm chart [EPMDEDP-11847](https://jiraeu.epam.com/browse/EPMDEDP-11847)
+- Update component create flow, update build PipelineRun resource creation template [EPMDEDP-11849](https://jiraeu.epam.com/browse/EPMDEDP-11849)
+- Update C# lang frameworks [EPMDEDP-11881](https://jiraeu.epam.com/browse/EPMDEDP-11881)
+- Add .NET 3.1 to list of C# library frameworks [EPMDEDP-11881](https://jiraeu.epam.com/browse/EPMDEDP-11881)
+- Merge codebase info + application info on codebase creation flow [EPMDEDP-11900](https://jiraeu.epam.com/browse/EPMDEDP-11900)
+- Add link to GQ Pipeline in CD pipeline [EPMDEDP-11911](https://jiraeu.epam.com/browse/EPMDEDP-11911)
+- Fix sonar error, update use resource hook logic [EPMDEDP-11911](https://jiraeu.epam.com/browse/EPMDEDP-11911)
+- Set Overview page as a default EDP page [EPMDEDP-11940](https://jiraeu.epam.com/browse/EPMDEDP-11940)
+- Add ability to define cluster to deploy for CD pipelines [EPMDEDP-11952](https://jiraeu.epam.com/browse/EPMDEDP-11952)
+- Update "update", "uninstall", "deploy" argo application buttons [EPMDEDP-11954](https://jiraeu.epam.com/browse/EPMDEDP-11954)
+- Update argoApplication resource creation template [EPMDEDP-11961](https://jiraeu.epam.com/browse/EPMDEDP-11961)
+- Update argo application resource creation template [EPMDEDP-11964](https://jiraeu.epam.com/browse/EPMDEDP-11964)
+- Add ability to run autotests on Stage view [EPMDEDP-11975](https://jiraeu.epam.com/browse/EPMDEDP-11975)
+- Add link to Sonar on Codebase Branch view [EPMDEDP-11984](https://jiraeu.epam.com/browse/EPMDEDP-11984)
+- Update Sonar link's tooltip text [EPMDEDP-11984](https://jiraeu.epam.com/browse/EPMDEDP-11984)
+- Update status column in quality gates table to show actual status [EPMDEDP-11990](https://jiraeu.epam.com/browse/EPMDEDP-11990)
+- Add ability to run autotests in stage by creating autotest runner pipeline run [EPMDEDP-11990](https://jiraeu.epam.com/browse/EPMDEDP-11990)
+- Add status column into quality gates table [EPMDEDP-11990](https://jiraeu.epam.com/browse/EPMDEDP-11990)
+- Add "Infrastructure" codebase type [EPMDEDP-11997](https://jiraeu.epam.com/browse/EPMDEDP-11997)
+- Update infrastructure codebase config, rename "Language version/framework" field to "Provider" [EPMDEDP-11997](https://jiraeu.epam.com/browse/EPMDEDP-11997)
+- Update quality gates section [EPMDEDP-12007](https://jiraeu.epam.com/browse/EPMDEDP-12007)
+- Remove ability to set similar quality gates when creating stage [EPMDEDP-12007](https://jiraeu.epam.com/browse/EPMDEDP-12007)
+- Add quality gates diagram [EPMDEDP-12017](https://jiraeu.epam.com/browse/EPMDEDP-12017)
+- Update formValues when setting base default values in create codebase form [EPMDEDP-12037](https://jiraeu.epam.com/browse/EPMDEDP-12037)
+- Keep only one possible CI Tool as a default CI Tool in create resource behaviour [EPMDEDP-12037](https://jiraeu.epam.com/browse/EPMDEDP-12037)
+
+### Bug Fixes
+
+- Fix crash when there is no helm in argoApplication spec [EPMDEDP-11478](https://jiraeu.epam.com/browse/EPMDEDP-11478)
+- Fix crash on CDPipeline page where there is no argo application [EPMDEDP-11478](https://jiraeu.epam.com/browse/EPMDEDP-11478)
+- Fix condition when creating build pipeline run action [EPMDEDP-11902](https://jiraeu.epam.com/browse/EPMDEDP-11902)
+- Fix crash when creating pipeline run build action that uses git server as a useMemo dependency [EPMDEDP-11902](https://jiraeu.epam.com/browse/EPMDEDP-11902)
+- Fix secret creation when creating codebase with clone strategy and private repo credentials [EPMDEDP-11904](https://jiraeu.epam.com/browse/EPMDEDP-11904)
+- Fix crash when trying to get gitProvider value from codebase gitServer [EPMDEDP-11943](https://jiraeu.epam.com/browse/EPMDEDP-11943)
+- Fix repoURL property value in created Application resource [EPMDEDP-11945](https://jiraeu.epam.com/browse/EPMDEDP-11945)
+- Fix crash when trying to find specific TriggerTemplate resource based on codebase git server [EPMDEDP-11946](https://jiraeu.epam.com/browse/EPMDEDP-11946)
+- Fix stage component sonar cognitive complexity critical [EPMDEDP-12007](https://jiraeu.epam.com/browse/EPMDEDP-12007)
+- Remove ability to set similar quality gates when creating stage [EPMDEDP-12007](https://jiraeu.epam.com/browse/EPMDEDP-12007)
+- Fix crash when choosing Jenkins as a CI Tool [EPMDEDP-12036](https://jiraeu.epam.com/browse/EPMDEDP-12036)
+- Fix crash when creating pipeline options in PipelineRunTrigger component [EPMDEDP-12083](https://jiraeu.epam.com/browse/EPMDEDP-12083)
+
+### Code Refactoring
+
+- Refactor use <resourceName> hooks, fix errors after refactor [EPMDEDP-11546](https://jiraeu.epam.com/browse/EPMDEDP-11546)
+- Refactor useResource/useResourceList hooks and its logic [EPMDEDP-11546](https://jiraeu.epam.com/browse/EPMDEDP-11546)
+- Align labels for PipelineRuns CR [EPMDEDP-12004](https://jiraeu.epam.com/browse/EPMDEDP-12004)
+
+### Routine
+
+- Update current development version [EPMDEDP-11472](https://jiraeu.epam.com/browse/EPMDEDP-11472)
+- Update headlamp image to v0.17.0, update headlamp-plugin to v0.5.6-alpha.2, fix table styles according to update [EPMDEDP-11951](https://jiraeu.epam.com/browse/EPMDEDP-11951)
+
+
 <a name="v0.5.0"></a>
 ## [v0.5.0] - 2023-03-24
 ### Features
@@ -28,32 +98,32 @@
 - Remove custom useRequest hook, use React-query package instead [EPMDEDP-11659](https://jiraeu.epam.com/browse/EPMDEDP-11659)
 - Add yaml lang, helm framework/build tool, fix icons mapping logic [EPMDEDP-11678](https://jiraeu.epam.com/browse/EPMDEDP-11678)
 - Align edp-headlamp with upstream headlamp(align namespace scoping logic) [EPMDEDP-11725](https://jiraeu.epam.com/browse/EPMDEDP-11725)
-- Add C# language, .NET 6.0 framework into codebase mapping config [EPMDEDP-11731](https://jiraeu.epam.com/browse/EPMDEDP-11731)
 - Hide dotnet option in codebase creation for non-jenkins ci tools [EPMDEDP-11731](https://jiraeu.epam.com/browse/EPMDEDP-11731)
+- Add C# language, .NET 6.0 framework into codebase mapping config [EPMDEDP-11731](https://jiraeu.epam.com/browse/EPMDEDP-11731)
 
 ### Bug Fixes
 
 - Normalizes codebase branch name in pipeline-run name [EPMDEDP-11316](https://jiraeu.epam.com/browse/EPMDEDP-11316)
 - Add branch name to pipeline run name in notifications [EPMDEDP-11316](https://jiraeu.epam.com/browse/EPMDEDP-11316)
 - Fixes repoUrlUser typo in argo application resource creation template [EPMDEDP-11334](https://jiraeu.epam.com/browse/EPMDEDP-11334)
+- Fix crash on resource update, sort resources before pushing in streamResults fn [EPMDEDP-11338](https://jiraeu.epam.com/browse/EPMDEDP-11338)
 - Fix storing pipeline runs, remove filtering [EPMDEDP-11338](https://jiraeu.epam.com/browse/EPMDEDP-11338)
 - Hide pipeline runs if jenkins ci tool is used [EPMDEDP-11338](https://jiraeu.epam.com/browse/EPMDEDP-11338)
-- Fix crash on resource update, sort resources before pushing in streamResults fn [EPMDEDP-11338](https://jiraeu.epam.com/browse/EPMDEDP-11338)
 - Fix edpcomponent resource icon view, update headlamp template icon [EPMDEDP-11377](https://jiraeu.epam.com/browse/EPMDEDP-11377)
 - Move commit message pattern out of Jira functionality [EPMDEDP-11433](https://jiraeu.epam.com/browse/EPMDEDP-11433)
-- Fix update release branch name on branch version edit [EPMDEDP-11455](https://jiraeu.epam.com/browse/EPMDEDP-11455)
 - Trigger validate in branch version change [EPMDEDP-11455](https://jiraeu.epam.com/browse/EPMDEDP-11455)
+- Fix update release branch name on branch version edit [EPMDEDP-11455](https://jiraeu.epam.com/browse/EPMDEDP-11455)
 - Fix crash after streamResult fn exec [EPMDEDP-11475](https://jiraeu.epam.com/browse/EPMDEDP-11475)
-- Disable QG Pipeline run button when health and status aren't healthy [EPMDEDP-11510](https://jiraeu.epam.com/browse/EPMDEDP-11510)
 - Fix deploy pipeline run button disabled state [EPMDEDP-11510](https://jiraeu.epam.com/browse/EPMDEDP-11510)
+- Disable QG Pipeline run button when health and status aren't healthy [EPMDEDP-11510](https://jiraeu.epam.com/browse/EPMDEDP-11510)
 - Fix crash with undefined icons [EPMDEDP-11532](https://jiraeu.epam.com/browse/EPMDEDP-11532)
 - Make java17 available only in tekton [EPMDEDP-11559](https://jiraeu.epam.com/browse/EPMDEDP-11559)
 - Fix create resource yaml editor editing sync with forms [EPMDEDP-11596](https://jiraeu.epam.com/browse/EPMDEDP-11596)
-- Fix cd pipeline stage source type, fix error showing in request mutations [EPMDEDP-11603](https://jiraeu.epam.com/browse/EPMDEDP-11603)
 - Change groovy-lib branchName value to spec branch name instead of metadata name in stage creation [EPMDEDP-11603](https://jiraeu.epam.com/browse/EPMDEDP-11603)
+- Fix cd pipeline stage source type, fix error showing in request mutations [EPMDEDP-11603](https://jiraeu.epam.com/browse/EPMDEDP-11603)
 - Move commitmessagepattern field out of jira integration block in codebase edit flow [EPMDEDP-11611](https://jiraeu.epam.com/browse/EPMDEDP-11611)
-- Remove await due to sonarqube warning [EPMDEDP-11649](https://jiraeu.epam.com/browse/EPMDEDP-11649)
 - Filter gitServers by metadata.name, add gitHost column in gitServers list page [EPMDEDP-11649](https://jiraeu.epam.com/browse/EPMDEDP-11649)
+- Remove await due to sonarqube warning [EPMDEDP-11649](https://jiraeu.epam.com/browse/EPMDEDP-11649)
 - Fix sonar warnings in useCreate<ResourceName> hooks regarding cognitive complexity [EPMDEDP-11659](https://jiraeu.epam.com/browse/EPMDEDP-11659)
 - Fix requesting applications with branches, refactor w/ react query [EPMDEDP-11670](https://jiraeu.epam.com/browse/EPMDEDP-11670)
 - Fix resource details page crash when there is no status, move ErrorBoundary to wrapped page component [EPMDEDP-11712](https://jiraeu.epam.com/browse/EPMDEDP-11712)
@@ -165,8 +235,8 @@
 - Updates argo application object [EPMDEDP-11032](https://jiraeu.epam.com/browse/EPMDEDP-11032)
 - Implements quality gate run in CD pipeline [EPMDEDP-11041](https://jiraeu.epam.com/browse/EPMDEDP-11041)
 - Adds build number, last successful build, version, default/release labels to branches [EPMDEDP-11058](https://jiraeu.epam.com/browse/EPMDEDP-11058)
-- Updates codebase branch view depending on jenkins ci tool [EPMDEDP-11073](https://jiraeu.epam.com/browse/EPMDEDP-11073)
 - Hides build action on codebases with jenkins ci tool [EPMDEDP-11073](https://jiraeu.epam.com/browse/EPMDEDP-11073)
+- Updates codebase branch view depending on jenkins ci tool [EPMDEDP-11073](https://jiraeu.epam.com/browse/EPMDEDP-11073)
 - Updates pipelinerun resource labels [EPMDEDP-11080](https://jiraeu.epam.com/browse/EPMDEDP-11080)
 - Adds pipeline name label to Application resource when creating [EPMDEDP-11086](https://jiraeu.epam.com/browse/EPMDEDP-11086)
 - Removes dialog closing on backdrop click [EPMDEDP-111036](https://jiraeu.epam.com/browse/EPMDEDP-111036)
@@ -190,29 +260,29 @@
 - Replaces plus button with add word [EPMDEDP-10817](https://jiraeu.epam.com/browse/EPMDEDP-10817)
 - Fixes cdpipeline creation flow [EPMDEDP-10818](https://jiraeu.epam.com/browse/EPMDEDP-10818)
 - Fixes application branch validation in pipeline creation [EPMDEDP-10818](https://jiraeu.epam.com/browse/EPMDEDP-10818)
+- Remove some fields' values on integration strategy change [EPMDEDP-10819](https://jiraeu.epam.com/browse/EPMDEDP-10819)
 - Fixes updating fields depending on codebase integration strategy [EPMDEDP-10819](https://jiraeu.epam.com/browse/EPMDEDP-10819)
 - Returns gitServer default value in codebase creation [EPMDEDP-10819](https://jiraeu.epam.com/browse/EPMDEDP-10819)
-- Remove some fields' values on integration strategy change [EPMDEDP-10819](https://jiraeu.epam.com/browse/EPMDEDP-10819)
 - Fixes updating fields in codebase branch creation tool, changes general tables title size [EPMDEDP-10834](https://jiraeu.epam.com/browse/EPMDEDP-10834)
 - Changes codebase creation type to library on library list page [EPMDEDP-10867](https://jiraeu.epam.com/browse/EPMDEDP-10867)
 - Updates secret string field required value, changes git server resource status identification [EPMDEDP-10913](https://jiraeu.epam.com/browse/EPMDEDP-10913)
 - Fixes security issue about generating crypto random string [EPMDEDP-10987](https://jiraeu.epam.com/browse/EPMDEDP-10987)
 - Fixes validation rules update on input type change [EPMDEDP-10989](https://jiraeu.epam.com/browse/EPMDEDP-10989)
 - Clears deletion tool form values on submit [EPMDEDP-10991](https://jiraeu.epam.com/browse/EPMDEDP-10991)
-- Keeps build/ prefix with edp versioning only in Application.spec.source.targetRevision [EPMDEDP-11018](https://jiraeu.epam.com/browse/EPMDEDP-11018)
 - Considers versioning type in image stream tag name when creating application resource [EPMDEDP-11018](https://jiraeu.epam.com/browse/EPMDEDP-11018)
-- Fixes pipeline run object template [EPMDEDP-11031](https://jiraeu.epam.com/browse/EPMDEDP-11031)
+- Keeps build/ prefix with edp versioning only in Application.spec.source.targetRevision [EPMDEDP-11018](https://jiraeu.epam.com/browse/EPMDEDP-11018)
 - Adds build pipeline run button into codebase branch component [EPMDEDP-11031](https://jiraeu.epam.com/browse/EPMDEDP-11031)
+- Fixes pipeline run object template [EPMDEDP-11031](https://jiraeu.epam.com/browse/EPMDEDP-11031)
 - Changes branch name labels in applications in pipeline creation, adds branch required validation [EPMDEDP-11034](https://jiraeu.epam.com/browse/EPMDEDP-11034)
-- Fixes runActionIsEnabled boolean calculation [EPMDEDP-11041](https://jiraeu.epam.com/browse/EPMDEDP-11041)
 - Fixes pipeline run trigger enabled state [EPMDEDP-11041](https://jiraeu.epam.com/browse/EPMDEDP-11041)
 - Fixes run button disabled state when there are no latest pipeline runs [EPMDEDP-11041](https://jiraeu.epam.com/browse/EPMDEDP-11041)
+- Fixes runActionIsEnabled boolean calculation [EPMDEDP-11041](https://jiraeu.epam.com/browse/EPMDEDP-11041)
 - Adds versioning type info in codebase details page [EPMDEDP-11042](https://jiraeu.epam.com/browse/EPMDEDP-11042)
 - Fixes pipeline run status [EPMDEDP-11063](https://jiraeu.epam.com/browse/EPMDEDP-11063)
 - Updates headlamp to v.0.14.0 [EPMDEDP-11074](https://jiraeu.epam.com/browse/EPMDEDP-11074)
 - Updates codebase languages/frameworks to lowercase style [EPMDEDP-11076](https://jiraeu.epam.com/browse/EPMDEDP-11076)
-- Adds regexp pattern to version field in edp versioning [EPMDEDP-11113](https://jiraeu.epam.com/browse/EPMDEDP-11113)
 - Updates regexp error and tooltip for versioning field [EPMDEDP-11113](https://jiraeu.epam.com/browse/EPMDEDP-11113)
+- Adds regexp pattern to version field in edp versioning [EPMDEDP-11113](https://jiraeu.epam.com/browse/EPMDEDP-11113)
 - Fixes stages updating after pipeline name change in cdpipeline creation flow [EPMDEDP-11120](https://jiraeu.epam.com/browse/EPMDEDP-11120)
 - Relocates user to resource kind page after resource deletion [EPMDEDP-11126](https://jiraeu.epam.com/browse/EPMDEDP-11126)
 - Prohibits adding similar-name stages [EPMDEDP-11133](https://jiraeu.epam.com/browse/EPMDEDP-11133)
@@ -315,17 +385,18 @@
 
 - Add support for GitHub Actions [EPMDEDP-10105](https://jiraeu.epam.com/browse/EPMDEDP-10105)
 - Update Headlamp version to v.0.10.0 [EPMDEDP-10116](https://jiraeu.epam.com/browse/EPMDEDP-10116)
+- Adds package-lock.json file to existing codebase and removes it from .gitignore [EPMDEDP-10123](https://jiraeu.epam.com/browse/EPMDEDP-10123)
 - Adds pluginLib global type [EPMDEDP-10123](https://jiraeu.epam.com/browse/EPMDEDP-10123)
 - Adds prettier configs, gitignore and babelconfig [EPMDEDP-10123](https://jiraeu.epam.com/browse/EPMDEDP-10123)
 - Add source code [EPMDEDP-10123](https://jiraeu.epam.com/browse/EPMDEDP-10123)
-- Adds package-lock.json file to existing codebase and removes it from .gitignore [EPMDEDP-10123](https://jiraeu.epam.com/browse/EPMDEDP-10123)
 - Use default image version from .Chart.AppVersion [EPMDEDP-10125](https://jiraeu.epam.com/browse/EPMDEDP-10125)
 - Fix codecov step in GH Actions [EPMDEDP-10126](https://jiraeu.epam.com/browse/EPMDEDP-10126)
 - Update Makefile targets [EPMDEDP-10126](https://jiraeu.epam.com/browse/EPMDEDP-10126)
 - Update changelog [EPMDEDP-10150](https://jiraeu.epam.com/browse/EPMDEDP-10150)
 
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.6.0...HEAD
+[v0.6.0]: https://github.com/epam/edp-headlamp/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/epam/edp-headlamp/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/epam/edp-headlamp/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/epam/edp-headlamp/compare/v0.2.2...v0.3.0
