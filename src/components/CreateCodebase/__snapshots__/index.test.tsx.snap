@@ -2016,65 +2016,6 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                  >
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      style="display: flex;"
-                    >
-                      <div
-                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                      >
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                        >
-                          <span
-                            class="makeStyles-labelWrap-25"
-                          >
-                            <span
-                              class="MuiTypography-root makeStyles-label-26 MuiTypography-body1"
-                            >
-                              Specify the pattern to validate a commit message
-                            </span>
-                            <div
-                              class="MuiBox-root MuiBox-root-33"
-                              style="height: 1.5625rem;"
-                            />
-                          </span>
-                        </div>
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                          style="display: flex; align-items: flex-end;"
-                        >
-                          <div
-                            class="MuiFormControl-root MuiFormControl-fullWidth"
-                          >
-                            <div
-                              class="MuiFormControl-root MuiTextField-root"
-                            >
-                              <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-                              >
-                                <input
-                                  aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input"
-                                  name="commitMessagePattern"
-                                  placeholder="^\\[PROJECT_NAME-\\d{4}\\]:.*"
-                                  type="text"
-                                  value=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                >
-                  <div
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
                   >
                     <div
@@ -2137,7 +2078,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                                       Integrate with Jira server
                                     </span>
                                     <div
-                                      class="MuiBox-root MuiBox-root-34"
+                                      class="MuiBox-root MuiBox-root-33"
                                       style="height: 1.5625rem;"
                                     />
                                   </span>
@@ -2207,11 +2148,11 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
 
 exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
 <div
-  class="makeStyles-dialog-70"
+  class="makeStyles-dialog-68"
   data-testid="create-codebase"
 >
   <div
-    class="makeStyles-dialogTitle-71"
+    class="makeStyles-dialogTitle-69"
   >
     <h5
       class="MuiTypography-root MuiTypography-h5"
@@ -2239,10 +2180,10 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
     </button>
   </div>
   <div
-    class="MuiDialogContent-root makeStyles-dialogContent-72"
+    class="MuiDialogContent-root makeStyles-dialogContent-70"
   >
     <div
-      class="MuiTabs-root makeStyles-tabs-75 MuiTabs-vertical"
+      class="MuiTabs-root makeStyles-tabs-73 MuiTabs-vertical"
     >
       <div
         class="MuiTabs-scroller MuiTabs-fixed"
@@ -2291,26 +2232,26 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
           </button>
         </div>
         <span
-          class="PrivateTabIndicator-root-88 PrivateTabIndicator-colorPrimary-89 MuiTabs-indicator PrivateTabIndicator-vertical-91"
+          class="PrivateTabIndicator-root-86 PrivateTabIndicator-colorPrimary-87 MuiTabs-indicator PrivateTabIndicator-vertical-89"
           style="top: 0px; height: 0px;"
         />
       </div>
     </div>
     <div
-      class="makeStyles-form-73"
+      class="makeStyles-form-71"
     >
       <form>
         <div
-          class="makeStyles-formInner-74"
+          class="makeStyles-formInner-72"
         >
           <div
             aria-labelledby="simple-tab-0"
-            class="makeStyles-tabPanel-76"
+            class="makeStyles-tabPanel-74"
             id="simple-tabpanel-0"
             role="tabpanel"
           >
             <div
-              class="makeStyles-tabPanelInner-77"
+              class="makeStyles-tabPanelInner-75"
             >
               <svg
                 display="none"
@@ -3784,10 +3725,10 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                             >
                               <span
-                                class="makeStyles-labelWrap-93"
+                                class="makeStyles-labelWrap-91"
                               >
                                 <span
-                                  class="MuiTypography-root makeStyles-label-94 MuiTypography-body1"
+                                  class="MuiTypography-root makeStyles-label-92 MuiTypography-body1"
                                 >
                                   Git server
                                 </span>
@@ -3856,15 +3797,15 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                             >
                               <span
-                                class="makeStyles-labelWrap-93"
+                                class="makeStyles-labelWrap-91"
                               >
                                 <span
-                                  class="MuiTypography-root makeStyles-label-94 MuiTypography-body1"
+                                  class="MuiTypography-root makeStyles-label-92 MuiTypography-body1"
                                 >
                                   Git repo relative path
                                 </span>
                                 <div
-                                  class="MuiBox-root MuiBox-root-95"
+                                  class="MuiBox-root MuiBox-root-93"
                                   style="height: 1.5625rem;"
                                 />
                               </span>
@@ -3926,10 +3867,10 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                           class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <span
-                            class="makeStyles-labelWrap-93"
+                            class="makeStyles-labelWrap-91"
                           >
                             <span
-                              class="MuiTypography-root makeStyles-label-94 MuiTypography-body1"
+                              class="MuiTypography-root makeStyles-label-92 MuiTypography-body1"
                             >
                               Component name
                             </span>
@@ -4041,15 +3982,15 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                           >
                             <span
-                              class="makeStyles-labelWrap-93"
+                              class="makeStyles-labelWrap-91"
                             >
                               <span
-                                class="MuiTypography-root makeStyles-label-94 MuiTypography-body1"
+                                class="MuiTypography-root makeStyles-label-92 MuiTypography-body1"
                               >
                                 undefined code language
                               </span>
                               <div
-                                class="MuiBox-root MuiBox-root-100"
+                                class="MuiBox-root MuiBox-root-98"
                                 style="height: 1.5625rem;"
                               />
                             </span>
@@ -4058,7 +3999,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                           >
                             <div
-                              class="MuiFormGroup-root makeStyles-radioGroup-96 MuiFormGroup-row"
+                              class="MuiFormGroup-root makeStyles-radioGroup-94 MuiFormGroup-row"
                               role="radiogroup"
                             />
                           </div>
@@ -4072,13 +4013,13 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
           </div>
           <div
             aria-labelledby="simple-tab-1"
-            class="makeStyles-tabPanel-76"
+            class="makeStyles-tabPanel-74"
             hidden=""
             id="simple-tabpanel-1"
             role="tabpanel"
           >
             <div
-              class="makeStyles-tabPanelInner-77"
+              class="makeStyles-tabPanelInner-75"
             >
               <div
                 class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
@@ -4100,10 +4041,10 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                           class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <span
-                            class="makeStyles-labelWrap-93"
+                            class="makeStyles-labelWrap-91"
                           >
                             <span
-                              class="MuiTypography-root makeStyles-label-94 MuiTypography-body1"
+                              class="MuiTypography-root makeStyles-label-92 MuiTypography-body1"
                             >
                               Default branch
                             </span>
@@ -4162,10 +4103,10 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                             >
                               <span
-                                class="makeStyles-labelWrap-93"
+                                class="makeStyles-labelWrap-91"
                               >
                                 <span
-                                  class="MuiTypography-root makeStyles-label-94 MuiTypography-body1"
+                                  class="MuiTypography-root makeStyles-label-92 MuiTypography-body1"
                                 >
                                   Codebase versioning type
                                 </span>
@@ -4221,65 +4162,6 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                  >
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      style="display: flex;"
-                    >
-                      <div
-                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                      >
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                        >
-                          <span
-                            class="makeStyles-labelWrap-93"
-                          >
-                            <span
-                              class="MuiTypography-root makeStyles-label-94 MuiTypography-body1"
-                            >
-                              Specify the pattern to validate a commit message
-                            </span>
-                            <div
-                              class="MuiBox-root MuiBox-root-101"
-                              style="height: 1.5625rem;"
-                            />
-                          </span>
-                        </div>
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                          style="display: flex; align-items: flex-end;"
-                        >
-                          <div
-                            class="MuiFormControl-root MuiFormControl-fullWidth"
-                          >
-                            <div
-                              class="MuiFormControl-root MuiTextField-root"
-                            >
-                              <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-                              >
-                                <input
-                                  aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input"
-                                  name="commitMessagePattern"
-                                  placeholder="^\\[PROJECT_NAME-\\d{4}\\]:.*"
-                                  type="text"
-                                  value=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                >
-                  <div
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
                   >
                     <div
@@ -4300,13 +4182,13 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                             >
                               <span
                                 aria-disabled="false"
-                                class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-84 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
+                                class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-82 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
                               >
                                 <span
                                   class="MuiIconButton-label"
                                 >
                                   <input
-                                    class="PrivateSwitchBase-input-87"
+                                    class="PrivateSwitchBase-input-85"
                                     data-indeterminate="false"
                                     name="hasJiraServerIntegration"
                                     type="checkbox"
@@ -4334,15 +4216,15 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                                   style="display: inline-block; margin-top: 0.125rem;"
                                 >
                                   <span
-                                    class="makeStyles-labelWrap-93"
+                                    class="makeStyles-labelWrap-91"
                                   >
                                     <span
-                                      class="MuiTypography-root makeStyles-label-94 MuiTypography-body1"
+                                      class="MuiTypography-root makeStyles-label-92 MuiTypography-body1"
                                     >
                                       Integrate with Jira server
                                     </span>
                                     <div
-                                      class="MuiBox-root MuiBox-root-102"
+                                      class="MuiBox-root MuiBox-root-99"
                                       style="height: 1.5625rem;"
                                     />
                                   </span>
@@ -4360,7 +4242,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
           </div>
         </div>
         <div
-          class="makeStyles-tabPanelActions-78"
+          class="makeStyles-tabPanelActions-76"
         >
           <button
             class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
@@ -4412,11 +4294,11 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
 
 exports[`CreateCodebase codebase type - library should render correctly 1`] = `
 <div
-  class="makeStyles-dialog-36"
+  class="makeStyles-dialog-35"
   data-testid="create-codebase"
 >
   <div
-    class="makeStyles-dialogTitle-37"
+    class="makeStyles-dialogTitle-36"
   >
     <h5
       class="MuiTypography-root MuiTypography-h5"
@@ -4444,10 +4326,10 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
     </button>
   </div>
   <div
-    class="MuiDialogContent-root makeStyles-dialogContent-38"
+    class="MuiDialogContent-root makeStyles-dialogContent-37"
   >
     <div
-      class="MuiTabs-root makeStyles-tabs-41 MuiTabs-vertical"
+      class="MuiTabs-root makeStyles-tabs-40 MuiTabs-vertical"
     >
       <div
         class="MuiTabs-scroller MuiTabs-fixed"
@@ -4496,26 +4378,26 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
           </button>
         </div>
         <span
-          class="PrivateTabIndicator-root-54 PrivateTabIndicator-colorPrimary-55 MuiTabs-indicator PrivateTabIndicator-vertical-57"
+          class="PrivateTabIndicator-root-53 PrivateTabIndicator-colorPrimary-54 MuiTabs-indicator PrivateTabIndicator-vertical-56"
           style="top: 0px; height: 0px;"
         />
       </div>
     </div>
     <div
-      class="makeStyles-form-39"
+      class="makeStyles-form-38"
     >
       <form>
         <div
-          class="makeStyles-formInner-40"
+          class="makeStyles-formInner-39"
         >
           <div
             aria-labelledby="simple-tab-0"
-            class="makeStyles-tabPanel-42"
+            class="makeStyles-tabPanel-41"
             id="simple-tabpanel-0"
             role="tabpanel"
           >
             <div
-              class="makeStyles-tabPanelInner-43"
+              class="makeStyles-tabPanelInner-42"
             >
               <svg
                 display="none"
@@ -5989,10 +5871,10 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                             >
                               <span
-                                class="makeStyles-labelWrap-59"
+                                class="makeStyles-labelWrap-58"
                               >
                                 <span
-                                  class="MuiTypography-root makeStyles-label-60 MuiTypography-body1"
+                                  class="MuiTypography-root makeStyles-label-59 MuiTypography-body1"
                                 >
                                   Git server
                                 </span>
@@ -6061,15 +5943,15 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                             >
                               <span
-                                class="makeStyles-labelWrap-59"
+                                class="makeStyles-labelWrap-58"
                               >
                                 <span
-                                  class="MuiTypography-root makeStyles-label-60 MuiTypography-body1"
+                                  class="MuiTypography-root makeStyles-label-59 MuiTypography-body1"
                                 >
                                   Git repo relative path
                                 </span>
                                 <div
-                                  class="MuiBox-root MuiBox-root-61"
+                                  class="MuiBox-root MuiBox-root-60"
                                   style="height: 1.5625rem;"
                                 />
                               </span>
@@ -6131,10 +6013,10 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                           class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <span
-                            class="makeStyles-labelWrap-59"
+                            class="makeStyles-labelWrap-58"
                           >
                             <span
-                              class="MuiTypography-root makeStyles-label-60 MuiTypography-body1"
+                              class="MuiTypography-root makeStyles-label-59 MuiTypography-body1"
                             >
                               Component name
                             </span>
@@ -6246,15 +6128,15 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                           >
                             <span
-                              class="makeStyles-labelWrap-59"
+                              class="makeStyles-labelWrap-58"
                             >
                               <span
-                                class="MuiTypography-root makeStyles-label-60 MuiTypography-body1"
+                                class="MuiTypography-root makeStyles-label-59 MuiTypography-body1"
                               >
                                 undefined code language
                               </span>
                               <div
-                                class="MuiBox-root MuiBox-root-66"
+                                class="MuiBox-root MuiBox-root-65"
                                 style="height: 1.5625rem;"
                               />
                             </span>
@@ -6263,7 +6145,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                           >
                             <div
-                              class="MuiFormGroup-root makeStyles-radioGroup-62 MuiFormGroup-row"
+                              class="MuiFormGroup-root makeStyles-radioGroup-61 MuiFormGroup-row"
                               role="radiogroup"
                             />
                           </div>
@@ -6277,13 +6159,13 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
           </div>
           <div
             aria-labelledby="simple-tab-1"
-            class="makeStyles-tabPanel-42"
+            class="makeStyles-tabPanel-41"
             hidden=""
             id="simple-tabpanel-1"
             role="tabpanel"
           >
             <div
-              class="makeStyles-tabPanelInner-43"
+              class="makeStyles-tabPanelInner-42"
             >
               <div
                 class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
@@ -6305,10 +6187,10 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                           class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         >
                           <span
-                            class="makeStyles-labelWrap-59"
+                            class="makeStyles-labelWrap-58"
                           >
                             <span
-                              class="MuiTypography-root makeStyles-label-60 MuiTypography-body1"
+                              class="MuiTypography-root makeStyles-label-59 MuiTypography-body1"
                             >
                               Default branch
                             </span>
@@ -6367,10 +6249,10 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                             >
                               <span
-                                class="makeStyles-labelWrap-59"
+                                class="makeStyles-labelWrap-58"
                               >
                                 <span
-                                  class="MuiTypography-root makeStyles-label-60 MuiTypography-body1"
+                                  class="MuiTypography-root makeStyles-label-59 MuiTypography-body1"
                                 >
                                   Codebase versioning type
                                 </span>
@@ -6426,65 +6308,6 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                  >
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                      style="display: flex;"
-                    >
-                      <div
-                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-                      >
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                        >
-                          <span
-                            class="makeStyles-labelWrap-59"
-                          >
-                            <span
-                              class="MuiTypography-root makeStyles-label-60 MuiTypography-body1"
-                            >
-                              Specify the pattern to validate a commit message
-                            </span>
-                            <div
-                              class="MuiBox-root MuiBox-root-67"
-                              style="height: 1.5625rem;"
-                            />
-                          </span>
-                        </div>
-                        <div
-                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                          style="display: flex; align-items: flex-end;"
-                        >
-                          <div
-                            class="MuiFormControl-root MuiFormControl-fullWidth"
-                          >
-                            <div
-                              class="MuiFormControl-root MuiTextField-root"
-                            >
-                              <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-                              >
-                                <input
-                                  aria-invalid="false"
-                                  class="MuiInputBase-input MuiInput-input"
-                                  name="commitMessagePattern"
-                                  placeholder="^\\[PROJECT_NAME-\\d{4}\\]:.*"
-                                  type="text"
-                                  value=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                >
-                  <div
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
                   >
                     <div
@@ -6505,13 +6328,13 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                             >
                               <span
                                 aria-disabled="false"
-                                class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-50 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
+                                class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-49 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
                               >
                                 <span
                                   class="MuiIconButton-label"
                                 >
                                   <input
-                                    class="PrivateSwitchBase-input-53"
+                                    class="PrivateSwitchBase-input-52"
                                     data-indeterminate="false"
                                     name="hasJiraServerIntegration"
                                     type="checkbox"
@@ -6539,15 +6362,15 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                                   style="display: inline-block; margin-top: 0.125rem;"
                                 >
                                   <span
-                                    class="makeStyles-labelWrap-59"
+                                    class="makeStyles-labelWrap-58"
                                   >
                                     <span
-                                      class="MuiTypography-root makeStyles-label-60 MuiTypography-body1"
+                                      class="MuiTypography-root makeStyles-label-59 MuiTypography-body1"
                                     >
                                       Integrate with Jira server
                                     </span>
                                     <div
-                                      class="MuiBox-root MuiBox-root-68"
+                                      class="MuiBox-root MuiBox-root-66"
                                       style="height: 1.5625rem;"
                                     />
                                   </span>
@@ -6565,7 +6388,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
           </div>
         </div>
         <div
-          class="makeStyles-tabPanelActions-44"
+          class="makeStyles-tabPanelActions-43"
         >
           <button
             class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"

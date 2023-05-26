@@ -4,7 +4,7 @@ import { CI_TOOLS } from '../../../../constants/ciTools';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
-import { useAvailableCIToolsQuery } from '../../../../k8s/EDPComponent/hooks/useAvailableCIToolsQuery';
+import { useDefaultCIToolQuery } from '../../../../k8s/EDPComponent/hooks/useDefaultCIToolQuery';
 import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
 import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
@@ -115,21 +115,7 @@ export const CreateCDPipelineStageForm = ({
         });
     }, [editorReturnValues, handleApply]);
 
-    const { data: availableCITools } = useAvailableCIToolsQuery();
-
-    const defaultCITool = React.useMemo(() => {
-        if (!availableCITools || !availableCITools.length) {
-            return undefined;
-        }
-
-        if (availableCITools.includes(CI_TOOLS.TEKTON)) {
-            return CI_TOOLS.TEKTON;
-        }
-
-        if (availableCITools.includes(CI_TOOLS.JENKINS)) {
-            return CI_TOOLS.JENKINS;
-        }
-    }, [availableCITools]);
+    const { data: defaultCITool } = useDefaultCIToolQuery();
 
     const qualityGatesFieldValue = watch(CDPIPELINE_STAGE_NAMES.qualityGates.name);
 
