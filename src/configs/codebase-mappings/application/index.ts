@@ -80,6 +80,12 @@ export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
                 icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.ANGULAR],
                 availableCITools: [CI_TOOLS.TEKTON],
             },
+            [CODEBASE_COMMON_FRAMEWORKS.NEXTJS]: {
+                name: 'Next.js',
+                value: CODEBASE_COMMON_FRAMEWORKS.NEXTJS,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.NEXTJS],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
             [CODEBASE_COMMON_FRAMEWORKS.EXPRESS]: {
                 name: 'Express',
                 value: CODEBASE_COMMON_FRAMEWORKS.EXPRESS,

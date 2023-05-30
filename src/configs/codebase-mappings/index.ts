@@ -19,6 +19,7 @@ export const CODEBASE_COMMON_FRAMEWORKS = {
     JAVA17: 'java17',
     REACT: 'react',
     VUE: 'vue',
+    NEXTJS: 'next',
     EXPRESS: 'express',
     ANGULAR: 'angular',
     CODENARC: 'codenarc',

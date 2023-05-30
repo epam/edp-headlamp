@@ -29,6 +29,7 @@ export const RESOURCE_ICON_NAMES = {
     GITLAB: 'gitlab',
     GERRIT: 'gerrit',
     VUE: 'vue',
+    NEXTJS: 'next',
     EXPRESS: 'express',
     ANGULAR: 'angular',
     AWS: 'AWS',

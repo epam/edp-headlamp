@@ -25,6 +25,7 @@ import {
     Kaniko,
     Kustomize,
     Maven,
+    NextJS,
     Npm,
     Opa,
     OperatorSDK,
@@ -77,6 +78,7 @@ export const Resources = (): React.ReactElement => {
             <Angular />
             <AWS />
             <Gin />
+            <NextJS />
         </svg>
     );
 };

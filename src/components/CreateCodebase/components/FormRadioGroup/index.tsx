@@ -53,6 +53,7 @@ export const FormRadioGroup = React.forwardRef(
                                                                 value={value}
                                                                 control={
                                                                     <Radio
+                                                                        color={'primary'}
                                                                         checked={isChecked}
                                                                         icon={icon}
                                                                         checkedIcon={checkedIcon}
