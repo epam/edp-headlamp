@@ -20,11 +20,11 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
         () => [
             {
                 label: 'Status',
-                getter: ({ application: { status } }) => (
-                    <StatusIcon
-                        status={status ? status.status : CUSTOM_RESOURCE_STATUSES['UNKNOWN']}
-                    />
-                ),
+                getter: ({ application }) => {
+                    const status = application.status.status;
+
+                    return <StatusIcon status={status || CUSTOM_RESOURCE_STATUSES.UNKNOWN} />;
+                },
             },
             {
                 label: 'Application',
@@ -50,12 +50,16 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
             },
             {
                 label: 'Image stream',
-                getter: ({ applicationImageStream }) => applicationImageStream,
+                getter: ({
+                    applicationImageStream: {
+                        metadata: { name },
+                    },
+                }) => name,
             },
             {
                 label: 'To promote',
                 getter: ({ toPromote }) => (
-                    <Icon icon={toPromote ? ICONS['ACCEPT_ARROW'] : ICONS['CROSS']} width="20" />
+                    <Icon icon={toPromote ? ICONS.ACCEPT_ARROW : ICONS.CROSS} width="20" />
                 ),
             },
         ],

@@ -1,13 +1,13 @@
 import { KubeObjectInterface } from '../../plugin.types';
 
-interface EDPCDPipelineStageSpecQualityGatesInterface {
+export interface EDPCDPipelineStageSpecQualityGatesInterface {
     autotestName: string | null;
     branchName: string | null;
     qualityGateType: string;
     stepName: string;
 }
 
-interface EDPCDPipelineStageSpecInterface {
+export interface EDPCDPipelineStageSpecInterface {
     cdPipeline: string;
     description: string;
     jobProvisioning: string;
@@ -25,7 +25,7 @@ interface EDPCDPipelineStageSpecInterface {
     namespace: string;
 }
 
-interface EDPCDPipelineStageStatusInterface {
+export interface EDPCDPipelineStageStatusInterface {
     action: string;
     available: boolean;
     detailed_message: string;
@@ -37,14 +37,14 @@ interface EDPCDPipelineStageStatusInterface {
     value: string;
 }
 
-interface EDPCDPipelineStageKubeObjectInterface extends KubeObjectInterface {
+export interface EDPCDPipelineStageKubeObjectInterface extends KubeObjectInterface {
     spec: EDPCDPipelineStageSpecInterface;
     status: EDPCDPipelineStageStatusInterface;
 }
 
-export {
-    EDPCDPipelineStageSpecInterface,
-    EDPCDPipelineStageStatusInterface,
-    EDPCDPipelineStageKubeObjectInterface,
-    EDPCDPipelineStageSpecQualityGatesInterface,
-};
+export interface StreamCDPipelineStagesByCDPipelineNameProps {
+    namespace: string;
+    CDPipelineMetadataName: string;
+    dataHandler: (data: EDPCDPipelineStageKubeObjectInterface[]) => void;
+    errorHandler: (err: Error) => void;
+}

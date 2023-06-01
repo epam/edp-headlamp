@@ -12,10 +12,10 @@ import { createApplicationInstanceProps, editApplicationInstanceProps } from './
 
 const { kind, group, version } = ApplicationKubeObjectConfig;
 
-export const createApplicationInstance = ({
+export const createArgoApplicationInstance = ({
     CDPipeline,
     currentCDPipelineStage,
-    enrichedApplicationWithItsImageStreams,
+    application,
     imageStream,
     imageTag,
     gitServer,
@@ -30,17 +30,15 @@ export const createApplicationInstance = ({
     } = currentCDPipelineStage;
 
     const {
-        application: {
-            metadata: { name: appName },
-            spec: {
-                versioning: { type: versioningType },
-                gitUrlPath,
-                lang,
-                framework,
-                buildTool,
-            },
+        metadata: { name: appName },
+        spec: {
+            versioning: { type: versioningType },
+            gitUrlPath,
+            lang,
+            framework,
+            buildTool,
         },
-    } = enrichedApplicationWithItsImageStreams;
+    } = application;
 
     const {
         spec: { imageName },
@@ -85,7 +83,7 @@ export const createApplicationInstance = ({
             },
             source: {
                 helm: {
-                    releaseName: enrichedApplicationWithItsImageStreams.application.metadata.name,
+                    releaseName: appName,
                     parameters: [],
                 },
                 path: 'deploy-templates',
@@ -127,16 +125,14 @@ export const createApplicationInstance = ({
 
 export const editApplicationInstance = ({
     argoApplication,
-    enrichedApplicationWithItsImageStreams,
+    application,
     imageTag,
 }: editApplicationInstanceProps): ApplicationKubeObjectInterface => {
     const {
-        application: {
-            spec: {
-                versioning: { type: versioningType },
-            },
+        spec: {
+            versioning: { type: versioningType },
         },
-    } = enrichedApplicationWithItsImageStreams;
+    } = application;
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
     const base = { ...argoApplication };
 

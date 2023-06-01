@@ -5,10 +5,10 @@
 import { jest } from '@jest/globals';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
-import { EnrichedApplicationWithItsImageStreams } from '../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../../k8s/EDPCodebaseImageStream/types';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
-import { createApplicationInstance } from './index';
+import { createArgoApplicationInstance } from './index';
 import { expectedApplicationOutputMock } from './mocks/application.mock';
 import { CDPipelineMock } from './mocks/CDPipeline.mock';
 import { CDPipelineStageMock } from './mocks/CDPipelineStage.mock';
@@ -29,12 +29,12 @@ afterEach(() => {
 
 describe('testing createApplicationInstance', () => {
     it('should return valid kube object', () => {
-        const object = createApplicationInstance({
+        const object = createArgoApplicationInstance({
             CDPipeline: CDPipelineMock as EDPCDPipelineKubeObjectInterface,
             currentCDPipelineStage:
                 CDPipelineStageMock as unknown as EDPCDPipelineStageKubeObjectInterface,
-            enrichedApplicationWithItsImageStreams:
-                enrichedApplicationMock as unknown as EnrichedApplicationWithItsImageStreams,
+            application:
+                enrichedApplicationMock.application as unknown as EDPCodebaseKubeObjectInterface,
             imageStream: imageStreamMock as EDPCodebaseImageStreamKubeObjectInterface,
             imageTag: 'test-image-tag',
             gitServer: gitServerMock as EDPGitServerKubeObjectInterface,

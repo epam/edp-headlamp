@@ -54,8 +54,6 @@ export const Graph = ({ direction = 'RIGHT', id, nodes, edges, type = 'detailed'
         width: graphWidth,
     } = positions;
 
-    console.log(graphNodes);
-
     return (
         <div className="tkn--pipeline-graph">
             <svg style={{ height: graphHeight, width: graphWidth }}>

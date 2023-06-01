@@ -16,7 +16,8 @@ export const useResourceCRUDMutation = <
 >(
     mutationKey: string,
     kubeObject: KubeObjectIface<any>,
-    mode: Mode
+    mode: Mode,
+    showMessages: boolean = true
 ): UseMutationResult<
     UseResourceCRUDMutationReturnType<KubeObjectData, Mode>,
     Error,
@@ -64,13 +65,16 @@ export const useResourceCRUDMutation = <
         },
         {
             onMutate: variables =>
+                showMessages &&
                 showBeforeRequestMessage(variables.kind, variables.metadata.name, mode),
             onSuccess: (data, variables) => {
-                showRequestSuccessMessage(variables.kind, variables.metadata.name, mode);
+                showMessages &&
+                    showRequestSuccessMessage(variables.kind, variables.metadata.name, mode);
             },
             onError: (error, variables) => {
-                showRequestErrorMessage(variables.kind, variables.metadata.name, mode);
-                showRequestErrorDetailedMessage(error);
+                showMessages &&
+                    showRequestErrorMessage(variables.kind, variables.metadata.name, mode);
+                showMessages && showRequestErrorDetailedMessage(error);
                 console.error(error);
             },
         }

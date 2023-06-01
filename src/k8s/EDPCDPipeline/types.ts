@@ -23,3 +23,10 @@ export interface EDPCDPipelineKubeObjectInterface extends KubeObjectInterface {
     spec: EDPCDPipelineSpec;
     status: EDPCDPipelineStatus;
 }
+
+export interface StreamCDPipelineProps {
+    namespace: string;
+    CDPipelineMetadataName: string;
+    dataHandler: (data: EDPCDPipelineKubeObjectInterface) => void;
+    errorHandler: (err: Error) => void;
+}

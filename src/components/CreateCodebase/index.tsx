@@ -156,8 +156,6 @@ export const CreateCodebase = ({
         });
     }, [reset, baseDefaultValues, strategyFieldValue, typeFieldValue]);
 
-    console.log(formValues);
-
     const { handleEditorSave } = useHandleEditorSave({
         names,
         backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,

@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../components/ErrorBoundary';
-import { EDPCDPipelineDetails } from '../pages/edp-cdpipeline-details';
+import { EDPCDPipelineDetailsPage } from '../pages/edp-cdpipeline-details';
 import { EDPCDPipelineList } from '../pages/edp-cdpipeline-list';
 import { EDPComponentDetails } from '../pages/edp-component-details';
 import { EDPComponentList } from '../pages/edp-component-list';
@@ -93,7 +93,7 @@ export const List: {
         sidebar: createSidebarItemName(CDPIPELINES_ROUTE_NAME),
         component: () => (
             <WrappedRoute>
-                <EDPCDPipelineDetails />
+                <EDPCDPipelineDetailsPage />
             </WrappedRoute>
         ),
     },

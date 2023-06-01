@@ -10,4 +10,11 @@ export const useStyles = makeStyles(() => ({
         alignItems: 'center',
         paddingRight: rem(20),
     },
+    tableHeaderActions: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        gap: rem(20),
+        alignItems: 'center',
+        paddingRight: rem(20),
+    },
 }));

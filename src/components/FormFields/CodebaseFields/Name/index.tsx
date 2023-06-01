@@ -18,7 +18,7 @@ export const Name = ({ names, handleFormFieldChange }: NameProps) => {
             {...register(names.name.name, {
                 required: `Enter the Component name`,
                 pattern: {
-                    value: /^[a-z][a-z0-9-]*[a-z0-9]$/,
+                    value: /^[a-z](?!.*--[^-])[a-z0-9-]*[a-z0-9]$/,
                     message: nameRequirementLabel,
                 },
                 onBlur: ({ target: { name, value } }: FieldEvent) =>

@@ -2,7 +2,12 @@ import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
 import { streamResult } from '../common/streamResult';
 import { EDPCDPipelineKubeObjectConfig } from './config';
-import { EDPCDPipelineKubeObjectInterface, EDPCDPipelineSpec, EDPCDPipelineStatus } from './types';
+import {
+    EDPCDPipelineKubeObjectInterface,
+    EDPCDPipelineSpec,
+    EDPCDPipelineStatus,
+    StreamCDPipelineProps,
+} from './types';
 
 const {
     ApiProxy,
@@ -47,14 +52,14 @@ export class EDPCDPipelineKubeObject extends makeKubeObject<EDPCDPipelineKubeObj
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}/${name}`;
         return ApiProxy.request(url);
     }
-}
 
-export const streamCDPipeline = (
-    name: string,
-    namespace: string,
-    cb: (data: EDPCDPipelineKubeObjectInterface | EDPCDPipelineKubeObjectInterface[]) => void,
-    errCb: (err: Error) => void
-): any => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResult(url, name, cb, errCb);
-};
+    static streamCDPipeline({
+        namespace,
+        CDPipelineMetadataName,
+        dataHandler,
+        errorHandler,
+    }: StreamCDPipelineProps): () => void {
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+        return streamResult(url, CDPipelineMetadataName, dataHandler, errorHandler);
+    }
+}

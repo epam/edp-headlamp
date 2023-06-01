@@ -2,10 +2,12 @@ import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
 import { streamResults } from '../common/streamResults';
 import { EDPCDPipelineStageKubeObjectConfig } from './config';
+import { STAGE_LABEL_SELECTOR_CD_PIPELINE_NAME } from './labels';
 import {
     EDPCDPipelineStageKubeObjectInterface,
     EDPCDPipelineStageSpecInterface,
     EDPCDPipelineStageStatusInterface,
+    StreamCDPipelineStagesByCDPipelineNameProps,
 } from './types';
 
 const {
@@ -43,18 +45,16 @@ export class EDPCDPipelineStageKubeObject extends makeKubeObject<EDPCDPipelineSt
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
         return ApiProxy.request(url);
     }
-}
 
-export const streamCDPipelineStagesByCDPipelineName = (
-    CDPipelineName: string,
-    cb: (data: EDPCDPipelineStageKubeObjectInterface[]) => void,
-    errCb: (err: Error) => void,
-    namespace?: string
-) => {
-    const url = namespace
-        ? `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`
-        : `/apis/${group}/${version}/${pluralForm}`;
-    return streamResults(url, cb, errCb, {
-        labelSelector: `app.edp.epam.com/cdPipelineName=${CDPipelineName}`,
-    });
-};
+    static streamCDPipelineStagesByCDPipelineName({
+        namespace,
+        CDPipelineMetadataName,
+        dataHandler,
+        errorHandler,
+    }: StreamCDPipelineStagesByCDPipelineNameProps): () => void {
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+        return streamResults(url, dataHandler, errorHandler, {
+            labelSelector: `${STAGE_LABEL_SELECTOR_CD_PIPELINE_NAME}=${CDPipelineMetadataName}`,
+        });
+    }
+}
