@@ -4,7 +4,8 @@ import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { usePipelineByTypeListQuery } from '../../../../../../k8s/Pipeline/hooks/usePipelineByTypeListQuery';
 import { MuiCore, React } from '../../../../../../plugin.globals';
 import { createRandomFiveSymbolString } from '../../../../../../utils/createRandomFiveSymbolString';
-import { useCDPipelineData, useStageData } from '../../../../provider';
+import { useCDPipelineContext } from '../../../../providers/CDPipeline/hooks';
+import { useCDPipelineStageContext } from '../../../../providers/CDPipelineStage/hooks';
 import { useCreateDeployPipelineRun } from './hooks/useCreateDeployPipelineRun';
 import { PipelineRunTriggerProps } from './types';
 
@@ -17,8 +18,8 @@ export const PipelineRunTrigger = ({
     runActionIsEnabled,
     enrichedApplicationsWithArgoApplications,
 }: PipelineRunTriggerProps): React.ReactElement => {
-    const { stage } = useStageData();
-    const { CDPipeline } = useCDPipelineData();
+    const { stage } = useCDPipelineStageContext();
+    const { CDPipeline } = useCDPipelineContext();
 
     const {
         control,

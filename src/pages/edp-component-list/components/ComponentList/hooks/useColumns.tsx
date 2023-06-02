@@ -1,27 +1,23 @@
-import { CodebaseActions } from '../../../../../components/CodebaseActions';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
-import { APPLICATION_MAPPING } from '../../../../../configs/codebase-mappings/application';
-import { AUTOTEST_MAPPING } from '../../../../../configs/codebase-mappings/autotest';
-import { INFRASTRUCTURE_MAPPING } from '../../../../../configs/codebase-mappings/infrastructure';
-import { LIBRARY_MAPPING } from '../../../../../configs/codebase-mappings/library';
-import { CodebaseInterface } from '../../../../../configs/codebase-mappings/types';
 import {
     BUILD_TOOL_ICON_MAPPING,
     CI_TOOL_ICON_MAPPING,
     FRAMEWORK_ICON_MAPPING,
     LANGUAGE_ICON_MAPPING,
 } from '../../../../../configs/icon-mappings';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { ICONS } from '../../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
-import { MuiCore, pluginLib, React } from '../../../../../plugin.globals';
+import { Iconify, MuiCore, pluginLib, React } from '../../../../../plugin.globals';
+import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
 import { COMPONENTS_ROUTE_NAME } from '../../../../../routes/names';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
+import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
@@ -32,24 +28,15 @@ const {
 } = pluginLib;
 const { Typography } = MuiCore;
 
-const { Grid } = MuiCore;
-
-const getMappingByCodebaseType = (type: string): { [key: string]: CodebaseInterface } | null => {
-    return type === CODEBASE_TYPES['APPLICATION']
-        ? APPLICATION_MAPPING
-        : type === CODEBASE_TYPES['LIBRARY']
-        ? LIBRARY_MAPPING
-        : type === CODEBASE_TYPES['AUTOTEST']
-        ? AUTOTEST_MAPPING
-        : type === CODEBASE_TYPES['INFRASTRUCTURE']
-        ? INFRASTRUCTURE_MAPPING
-        : null;
-};
+const { Grid, IconButton } = MuiCore;
+const { Icon } = Iconify;
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<
     HeadlampKubeObject<EDPCodebaseKubeObjectInterface>
->[] =>
-    React.useMemo(
+>[] => {
+    const { handleOpenResourceActionListMenu } = useResourceActionListContext();
+
+    return React.useMemo(
         () => [
             {
                 label: 'Status',
@@ -101,7 +88,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
             {
                 label: 'Language',
                 getter: ({ spec: { lang, type } }) => {
-                    const codebaseMapping = getMappingByCodebaseType(type);
+                    const codebaseMapping = getCodebaseMappingByCodebaseType(type);
                     if (!codebaseMapping) {
                         return lang;
                     }
@@ -127,7 +114,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
             {
                 label: 'Framework',
                 getter: ({ spec: { lang, framework, type } }) => {
-                    const codebaseMapping = getMappingByCodebaseType(type);
+                    const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
                     if (!codebaseMapping) {
                         return framework;
@@ -157,7 +144,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
             {
                 label: 'Build Tool',
                 getter: ({ spec: { lang, buildTool, type } }) => {
-                    const codebaseMapping = getMappingByCodebaseType(type);
+                    const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
                     if (!codebaseMapping) {
                         return buildTool;
@@ -207,8 +194,23 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
             },
             {
                 label: '',
-                getter: ({ jsonData }) => <CodebaseActions kubeObjectData={jsonData} />,
+                getter: ({ jsonData }) => {
+                    const buttonRef = React.createRef<HTMLButtonElement>();
+
+                    return (
+                        <IconButton
+                            ref={buttonRef}
+                            aria-label={'Options'}
+                            onClick={() =>
+                                handleOpenResourceActionListMenu(buttonRef.current, jsonData)
+                            }
+                        >
+                            <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
+                        </IconButton>
+                    );
+                },
             },
         ],
-        []
+        [handleOpenResourceActionListMenu]
     );
+};

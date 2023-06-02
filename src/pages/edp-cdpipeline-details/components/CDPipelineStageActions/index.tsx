@@ -5,64 +5,64 @@ import { ICONS } from '../../../../constants/icons';
 import { RESOURCE_ACTIONS } from '../../../../constants/resourceActions';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
+import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../../../types/actions';
 import { createKubeAction } from '../../../../utils/actions/createKubeAction';
-import { useCDPipelineStagesData, useStageData } from '../../provider';
+import { useCDPipelineStageContext } from '../../providers/CDPipelineStage/hooks';
+import { useCDPipelineStagesContext } from '../../providers/CDPipelineStages/hooks';
 import { createDeleteAction } from './utils';
 
 const { Icon } = Iconify;
-const { IconButton } = MuiCore;
+const { IconButton, Tooltip } = MuiCore;
 
 export const CDPipelineStageActions = (): React.ReactElement => {
-    const { stage } = useStageData();
-    const { stages } = useCDPipelineStagesData();
+    const { stage } = useCDPipelineStageContext();
+    const { stages } = useCDPipelineStagesContext();
 
+    const { anchorEl, handleOpenResourceActionListMenu, handleCloseResourceActionListMenu } =
+        useResourceActionListContext();
     const {
         spec: { name },
     } = stage;
 
     const [editActionEditorOpen, setEditActionEditorOpen] = React.useState<boolean>(false);
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
-    const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-
-    const toggleActionsMenu = React.useCallback(
-        event => {
-            setAnchorEl(prev => (prev === event.currentTarget ? null : event.currentTarget));
-        },
-        [setAnchorEl]
-    );
-
-    const handleCloseActionsMenu = React.useCallback(() => {
-        setAnchorEl(null);
-    }, [setAnchorEl]);
 
     const actions: KubeObjectAction[] = React.useMemo(() => {
         return [
             createKubeAction({
-                name: RESOURCE_ACTIONS['EDIT'],
-                icon: ICONS['PENCIL'],
+                name: RESOURCE_ACTIONS.EDIT,
+                icon: ICONS.PENCIL,
                 action: () => {
-                    handleCloseActionsMenu();
+                    handleCloseResourceActionListMenu();
                     setEditActionEditorOpen(true);
                 },
             }),
             createDeleteAction(stages, stage, () => {
-                handleCloseActionsMenu();
+                handleCloseResourceActionListMenu();
                 setDeleteActionPopupOpen(true);
             }),
         ];
-    }, [stages, stage, handleCloseActionsMenu]);
+    }, [stages, stage, handleCloseResourceActionListMenu]);
+
+    const buttonRef = React.createRef<HTMLButtonElement>();
 
     return (
         <KubeObjectActions
             anchorEl={anchorEl}
-            handleCloseActionsMenu={handleCloseActionsMenu}
+            handleCloseActionsMenu={handleCloseResourceActionListMenu}
             actions={actions}
         >
             <div>
-                <IconButton aria-label={'Options'} onClick={toggleActionsMenu}>
-                    <Icon icon={ICONS['THREE_DOTS']} color={'grey'} width="20" />
-                </IconButton>
+                <Tooltip title={'Actions'}>
+                    <IconButton
+                        aria-label={'Actions'}
+                        ref={buttonRef}
+                        onClick={() => handleOpenResourceActionListMenu(buttonRef.current, stage)}
+                    >
+                        <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
+                    </IconButton>
+                </Tooltip>
                 <EditCDPipelineStage
                     open={editActionEditorOpen}
                     onClose={() => setEditActionEditorOpen(false)}
@@ -75,8 +75,7 @@ export const CDPipelineStageActions = (): React.ReactElement => {
                     kubeObject={EDPCDPipelineStageKubeObject}
                     kubeObjectData={stage}
                     objectName={name}
-                    description={`Confirm the deletion of the CD stage with all its components
-                            (Record in database, Jenkins pipeline, cluster namespace).`}
+                    description={`Confirm the deletion of the CD stage with all its components`}
                 />
             </div>
         </KubeObjectActions>

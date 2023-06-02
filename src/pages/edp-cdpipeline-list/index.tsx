@@ -1,8 +1,10 @@
-import { CDPipelineList } from '../../components/CDPipelineList';
+import { CDPipelineActionsMenu } from '../../components/CDPipelineActionsMenu';
 import { CreateCDPipeline } from '../../components/CreateCDPipeline';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { pluginLib, React } from '../../plugin.globals';
+import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
+import { CDPipelineList } from './components/CDPipelineList';
 
 const {
     CommonComponents: { SectionBox, SectionFilterHeader },
@@ -13,7 +15,10 @@ export const EDPCDPipelineList = (): React.ReactElement => {
 
     return (
         <SectionBox title={<SectionFilterHeader title="CD Pipelines" headerStyle="label" />}>
-            <CDPipelineList CDPipelines={items} error={error} />
+            <ResourceActionListContextProvider>
+                <CDPipelineList CDPipelines={items} error={error} />
+                <CDPipelineActionsMenu />
+            </ResourceActionListContextProvider>
             <CreateKubeObject>
                 <CreateCDPipeline />
             </CreateKubeObject>

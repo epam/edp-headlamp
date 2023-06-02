@@ -22,7 +22,9 @@ import { rem } from '../../../../utils/styling/rem';
 import { createArgoCDStageLink } from '../../../../utils/url/createArgoCDStageLink';
 import { createGrafanaLink } from '../../../../utils/url/createGrafanaLink';
 import { createKibanaLink } from '../../../../utils/url/createKibanaLink';
-import { useCDPipelineData, useEnrichedApplicationsData, useStageData } from '../../provider';
+import { useCDPipelineContext } from '../../providers/CDPipeline/hooks';
+import { useCDPipelineStageContext } from '../../providers/CDPipelineStage/hooks';
+import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
 import { CDPipelineStageActions } from '../CDPipelineStageActions';
 import { CDPipelineStageApplicationsTable } from './components/CDPipelineStageApplicationsTable';
 import { useColumns as useDeployPipelineRunsColumns } from './components/DeployPipelineRunsTable/hooks/useColumns';
@@ -51,9 +53,9 @@ const {
 const randomPostfix = createRandomFiveSymbolString();
 
 export const CDPipelineStage = ({ expandedPanel, handleAccordionChange }: CDPipelineStageProps) => {
-    const { CDPipeline } = useCDPipelineData();
-    const { stage } = useStageData();
-    const { enrichedApplications } = useEnrichedApplicationsData();
+    const { CDPipeline } = useCDPipelineContext();
+    const { stage } = useCDPipelineStageContext();
+    const { enrichedApplications } = useEnrichedApplicationsContext();
 
     const namespace = stage.metadata.namespace;
     const stageSpecName = stage.spec.name;

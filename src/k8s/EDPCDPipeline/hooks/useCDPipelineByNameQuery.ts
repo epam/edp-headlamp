@@ -1,4 +1,5 @@
 import { useQuery, UseQueryOptions } from 'react-query';
+import { React } from '../../../plugin.globals';
 import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { EDPCDPipelineKubeObject } from '../index';
 import { REQUEST_KEY_QUERY_CD_PIPELINE_BY_NAME } from '../requestKeys';
@@ -19,7 +20,7 @@ export const useCDPipelineByNameQuery = <ReturnType = EDPCDPipelineKubeObjectInt
     const { name } = props;
     const namespace = props?.namespace || getDefaultNamespace();
 
-    return useQuery<EDPCDPipelineKubeObjectInterface, Error, ReturnType>(
+    const query = useQuery<EDPCDPipelineKubeObjectInterface, Error, ReturnType>(
         [REQUEST_KEY_QUERY_CD_PIPELINE_BY_NAME, name],
         () => EDPCDPipelineKubeObject.getItemByName(namespace, name),
         {
@@ -27,4 +28,6 @@ export const useCDPipelineByNameQuery = <ReturnType = EDPCDPipelineKubeObjectInt
             enabled: options?.enabled && !!name,
         }
     );
+
+    return React.useMemo(() => query, [query]);
 };

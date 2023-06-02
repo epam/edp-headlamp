@@ -1,6 +1,6 @@
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { pluginLib, React } from '../../../../plugin.globals';
-import { useEnrichedApplicationsData } from '../../provider';
+import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
 import { useColumns } from './hooks/useColumns';
 
 const {
@@ -9,7 +9,7 @@ const {
 
 export const CDPipelineApplicationsTable = (): React.ReactElement => {
     const columns = useColumns();
-    const { enrichedApplications } = useEnrichedApplicationsData();
+    const { enrichedApplications } = useEnrichedApplicationsContext();
 
     return (
         <SectionBox title={<SectionHeader title={'Applications'} headerStyle="label" />}>

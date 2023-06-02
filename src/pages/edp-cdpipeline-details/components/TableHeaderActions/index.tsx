@@ -3,7 +3,7 @@ import { useCreateCDPipelineStage } from '../../../../components/CreateCDPipelin
 import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../constants/icons';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
-import { useCDPipelineData } from '../../provider';
+import { useCDPipelineContext } from '../../providers/CDPipeline/hooks';
 import { TableHeaderActionsProps } from './types';
 
 const { Icon } = Iconify;
@@ -12,7 +12,7 @@ const { Tooltip, Button, Typography } = MuiCore;
 export const TableHeaderActions = ({
     CDPipelineStages,
 }: TableHeaderActionsProps): React.ReactElement => {
-    const { CDPipeline } = useCDPipelineData();
+    const { CDPipeline } = useCDPipelineContext();
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
 
     const onClose = React.useCallback(

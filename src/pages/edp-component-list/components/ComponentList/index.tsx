@@ -11,7 +11,6 @@ const {
 export const ComponentList = ({ components, error }: ComponentListProps): React.ReactElement => {
     const columns = useColumns();
     const filterFunc = useFilterFunc();
-
     return (
         <>
             <Resources />

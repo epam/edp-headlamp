@@ -1,4 +1,5 @@
 import { CI_TOOLS } from '../../../constants/ciTools';
+import { ValueOf } from '../../../types/global';
 import {
     BUILD_TOOL_ICON_MAPPING,
     FRAMEWORK_ICON_MAPPING,
@@ -11,7 +12,17 @@ import {
 } from '../index';
 import { CodebaseInterface } from '../types';
 
-export const APPLICATION_MAPPING: { [key: string]: CodebaseInterface } = {
+type CodebaseMappingKey = ValueOf<typeof CODEBASE_COMMON_LANGUAGES>;
+type ExcludedCodebaseLanguageKeys =
+    | typeof CODEBASE_COMMON_LANGUAGES.GROOVY_PIPELINE
+    | typeof CODEBASE_COMMON_LANGUAGES.TERRAFORM
+    | typeof CODEBASE_COMMON_LANGUAGES.REGO
+    | typeof CODEBASE_COMMON_LANGUAGES.CONTAINER;
+type ApplicationMappingKey = Exclude<CodebaseMappingKey, ExcludedCodebaseLanguageKeys>;
+
+export const APPLICATION_MAPPING: {
+    [K in ApplicationMappingKey]: CodebaseInterface;
+} = {
     [CODEBASE_COMMON_LANGUAGES.JAVA]: {
         language: {
             name: 'Java',

@@ -1,12 +1,13 @@
 import { useForm } from 'react-hook-form';
+import { CodebaseActionsMenu } from '../../components/CodebaseActionsMenu';
 import { CreateCodebase } from '../../components/CreateCodebase';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
 import { FormSelect } from '../../components/FormComponents';
 import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { MuiCore, pluginLib, React } from '../../plugin.globals';
+import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { rem } from '../../utils/styling/rem';
 import { ComponentList } from './components/ComponentList';
 
@@ -18,7 +19,6 @@ const { Box, Grid } = MuiCore;
 export const EDPComponentList = (): React.ReactElement => {
     const [type, setType] = React.useState<CODEBASE_TYPES>(CODEBASE_TYPES.ALL);
     const [items, error] = EDPCodebaseKubeObject.useList();
-    const [components, setComponents] = React.useState<EDPCodebaseKubeObjectInterface[]>(items);
 
     const {
         register,
@@ -26,14 +26,10 @@ export const EDPComponentList = (): React.ReactElement => {
         formState: { errors },
     } = useForm();
 
-    React.useEffect(() => {
-        if (type === CODEBASE_TYPES.ALL) {
-            setComponents(items);
-            return;
-        }
-
-        setComponents(items.filter(el => el.spec.type === type));
-    }, [items, type]);
+    const filteredComponents = React.useMemo(
+        () => (type !== CODEBASE_TYPES.ALL ? items.filter(el => el.spec.type === type) : items),
+        [items, type]
+    );
 
     return (
         <>
@@ -64,7 +60,10 @@ export const EDPComponentList = (): React.ReactElement => {
                     />
                 }
             >
-                <ComponentList components={components} error={error} />
+                <ResourceActionListContextProvider>
+                    <ComponentList components={filteredComponents} error={error} />
+                    <CodebaseActionsMenu />
+                </ResourceActionListContextProvider>
                 <CreateKubeObject>
                     <CreateCodebase />
                 </CreateKubeObject>

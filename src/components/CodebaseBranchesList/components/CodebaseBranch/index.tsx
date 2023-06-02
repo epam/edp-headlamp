@@ -20,7 +20,7 @@ import { Render } from '../../../Render';
 import { ResourceIconLink } from '../../../ResourceIconLink';
 import { StatusIcon } from '../../../StatusIcon';
 import { isDefaultBranch } from '../../utils';
-import { CodebaseBranchActions } from '../CodebaseBranchActions';
+import { CodebaseBranchActions } from './components/CodebaseBranchActions';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
 import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
 import { useStyles } from './styles';

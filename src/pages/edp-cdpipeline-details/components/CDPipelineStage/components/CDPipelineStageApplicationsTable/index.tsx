@@ -8,7 +8,8 @@ import {
 import { useCreateArgoApplication } from '../../../../../../k8s/Application/hooks/useCreateArgoApplication';
 import { useGitServerListQuery } from '../../../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { MuiCore, React } from '../../../../../../plugin.globals';
-import { useCDPipelineData, useStageData } from '../../../../provider';
+import { useCDPipelineContext } from '../../../../providers/CDPipeline/hooks';
+import { useCDPipelineStageContext } from '../../../../providers/CDPipelineStage/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
@@ -42,8 +43,8 @@ export const CDPipelineStageApplicationsTable = ({
     enrichedApplicationsWithArgoApplications: EnrichedApplicationWithArgoApplication[];
     qualityGatePipelineIsRunning: boolean;
 }): React.ReactElement => {
-    const { CDPipeline } = useCDPipelineData();
-    const { stage } = useStageData();
+    const { CDPipeline } = useCDPipelineContext();
+    const { stage } = useCDPipelineStageContext();
     const { data: gitServers } = useGitServerListQuery({});
 
     const classes = useStyles();

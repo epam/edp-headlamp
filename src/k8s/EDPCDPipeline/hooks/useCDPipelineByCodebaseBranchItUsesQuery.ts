@@ -1,4 +1,5 @@
 import { UseQueryOptions } from 'react-query';
+import { React } from '../../../plugin.globals';
 import { KubeObjectListInterface } from '../../../types/k8s';
 import { EDPCDPipelineKubeObjectInterface } from '../types';
 import { useCDPipelineListQuery } from './useCDPipelineListQuery';
@@ -19,7 +20,7 @@ export const useCDPipelineByCodebaseBranchItUsesQuery = ({
     options,
 }: UseCDPipelineByCodebaseBranchItUsesQuery) => {
     const { codebaseBranchName } = props;
-    return useCDPipelineListQuery({
+    const query = useCDPipelineListQuery({
         options: {
             select: data => {
                 for (const item of data?.items) {
@@ -32,4 +33,6 @@ export const useCDPipelineByCodebaseBranchItUsesQuery = ({
             enabled: options?.enabled && !!codebaseBranchName,
         },
     });
+
+    return React.useMemo(() => query, [query]);
 };

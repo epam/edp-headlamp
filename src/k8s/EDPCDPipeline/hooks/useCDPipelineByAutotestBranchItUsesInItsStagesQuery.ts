@@ -51,5 +51,5 @@ export const useCDPipelineByAutotestBranchItUsesInItsStagesQuery = ({
         },
     });
 
-    return query;
+    return React.useMemo(() => query, [query]);
 };

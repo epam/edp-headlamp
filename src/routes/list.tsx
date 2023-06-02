@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../components/ErrorBoundary';
-import { EDPCDPipelineDetailsPage } from '../pages/edp-cdpipeline-details';
+import { EDPCDPipelineDetails } from '../pages/edp-cdpipeline-details';
 import { EDPCDPipelineList } from '../pages/edp-cdpipeline-list';
 import { EDPComponentDetails } from '../pages/edp-component-details';
 import { EDPComponentList } from '../pages/edp-component-list';
@@ -23,7 +23,7 @@ import {
     OVERVIEW_ROUTE_NAME,
 } from './names';
 
-const WrappedRoute: React.FC = React.memo(({ children }): React.ReactElement => {
+const WrappedRoute: React.FC = ({ children }): React.ReactElement => {
     const queryClient = new QueryClient({
         defaultOptions: {
             queries: {
@@ -39,7 +39,7 @@ const WrappedRoute: React.FC = React.memo(({ children }): React.ReactElement => 
             <ErrorBoundary>{children}</ErrorBoundary>
         </QueryClientProvider>
     );
-});
+};
 
 export const List: {
     [routeName: string]: any;
@@ -93,7 +93,7 @@ export const List: {
         sidebar: createSidebarItemName(CDPIPELINES_ROUTE_NAME),
         component: () => (
             <WrappedRoute>
-                <EDPCDPipelineDetailsPage />
+                <EDPCDPipelineDetails />
             </WrappedRoute>
         ),
     },

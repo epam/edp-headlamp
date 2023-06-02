@@ -54,5 +54,5 @@ export const useCDPipelineByGroovyLibraryItUsesInItsStagesQuery = ({
         },
     });
 
-    return query;
+    return React.useMemo(() => query, [query]);
 };

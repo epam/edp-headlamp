@@ -1,4 +1,3 @@
-import { CodebaseActions } from '../../components/CodebaseActions';
 import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
 import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
 import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
@@ -7,8 +6,10 @@ import { ICONS } from '../../constants/icons';
 import { streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, pluginLib, React, ReactRouter } from '../../plugin.globals';
+import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { COMPONENTS_ROUTE_NAME } from '../../routes/names';
 import { createRouteName } from '../../utils/routes/createRouteName';
+import { CodebaseActions } from './components/CodebaseActions';
 import { useStyles } from './styles';
 
 const { Icon } = Iconify;
@@ -39,7 +40,7 @@ export const EDPComponentDetails = (): React.ReactElement => {
     }, [handleError, handleStoreComponent, name, namespace]);
 
     return (
-        <>
+        <ResourceActionListContextProvider>
             <div className={classes.pageHeading}>
                 <Button
                     startIcon={<Icon icon={ICONS['ARROW_LEFT']} />}
@@ -57,7 +58,7 @@ export const EDPComponentDetails = (): React.ReactElement => {
                                 <CodebaseMetadataTable codebaseData={component} />
                             </Grid>
                             <Grid item>
-                                <CodebaseActions kubeObjectData={component} isDetailsPage />
+                                <CodebaseActions codebase={component} />
                             </Grid>
                         </Grid>
                     </div>
@@ -76,6 +77,6 @@ export const EDPComponentDetails = (): React.ReactElement => {
                     </Grid>
                 </>
             )}
-        </>
+        </ResourceActionListContextProvider>
     );
 };

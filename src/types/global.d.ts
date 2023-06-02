@@ -38,3 +38,5 @@ declare module '@material-ui/core/styles/createPalette.d' {
         [propName: string]: any;
     }
 }
+
+type ValueOf<T> = T[keyof T];
