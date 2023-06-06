@@ -25,15 +25,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObj
                 label: 'Name',
                 getter: ({ metadata: { name, namespace } }) => (
                     <MuiLink
-                        href={
-                            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'tekton')
-                                ? createTektonPipelineRunLink(
-                                      EDPComponentsURLS?.tekton,
-                                      namespace,
-                                      name
-                                  )
-                                : null
-                        }
+                        href={createTektonPipelineRunLink(EDPComponentsURLS, namespace, name)}
                         target={'_blank'}
                     >
                         {name}

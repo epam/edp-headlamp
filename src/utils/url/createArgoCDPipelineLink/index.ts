@@ -1,6 +1,12 @@
+import { EDPComponentsURLS } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { createURLObjectFromURLOrigin } from '../createURLObjectFromURLOrigin';
 
-export const createArgoCDPipelineLink = (argoCDURLOrigin: string, pipelineName: string) => {
+export const createArgoCDPipelineLink = (
+    EDPComponentsURLS: EDPComponentsURLS,
+    pipelineName: string
+) => {
+    const argoCDURLOrigin = EDPComponentsURLS?.argocd;
+
     if (!argoCDURLOrigin) {
         return;
     }

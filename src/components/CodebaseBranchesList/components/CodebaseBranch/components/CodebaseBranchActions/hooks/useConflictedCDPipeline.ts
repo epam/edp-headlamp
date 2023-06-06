@@ -17,26 +17,30 @@ export const useConflictedCDPipeline = (
                 codebaseName: codebase.metadata.name,
             },
             options: {
-                enabled: isLibrary(codebase) && isGroovyLibrary(codebase),
+                enabled: !!codebaseBranch && isLibrary(codebase) && isGroovyLibrary(codebase),
             },
         });
 
     const CDPipelineByAutotestBranchItUsesInItsStagesQuery =
         useCDPipelineByAutotestBranchItUsesInItsStagesQuery({
             props: {
-                codebaseBranchName: codebaseBranch.spec.branchName,
+                codebaseBranchName: codebaseBranch?.spec.branchName,
             },
             options: {
-                enabled: isAutotest(codebase),
+                enabled: !!codebaseBranch && isAutotest(codebase),
             },
         });
 
     const CDPipelineByCodebaseBranchItUsesQuery = useCDPipelineByCodebaseBranchItUsesQuery({
         props: {
-            codebaseBranchName: codebaseBranch.metadata.name,
+            codebaseBranchName: codebaseBranch?.metadata.name,
         },
         options: {
-            enabled: !isLibrary(codebase) && isGroovyLibrary(codebase) && !isAutotest(codebase),
+            enabled:
+                !!codebaseBranch &&
+                !isLibrary(codebase) &&
+                isGroovyLibrary(codebase) &&
+                !isAutotest(codebase),
         },
     });
 

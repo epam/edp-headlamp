@@ -4,7 +4,9 @@ describe('test createGrafanaLink util', () => {
     it('should successfully create grafana url based on given grafanaURLOrigin and namespace params', () => {
         expect(
             createSonarLink(
-                'https://sonar-edp-delivery-vp-dev.eks-sandbox.aws.main.edp.projects.epam.com',
+                {
+                    sonar: 'https://sonar-edp-delivery-vp-dev.eks-sandbox.aws.main.edp.projects.epam.com',
+                },
                 'test-codebaseBranch-name'
             )
         ).toEqual(

@@ -29,14 +29,12 @@ export const useColumns = (
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
     const _createArgoCDLink = React.useCallback(
         (argoApplication: ApplicationKubeObjectInterface) =>
-            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'argocd')
-                ? createArgoCDApplicationLink(
-                      EDPComponentsURLS?.argocd,
-                      argoApplication.metadata.labels['app.edp.epam.com/pipeline'],
-                      argoApplication.metadata.labels['app.edp.epam.com/stage'],
-                      argoApplication.metadata.labels['app.edp.epam.com/app-name']
-                  )
-                : null,
+            createArgoCDApplicationLink(
+                EDPComponentsURLS,
+                argoApplication.metadata.labels['app.edp.epam.com/pipeline'],
+                argoApplication.metadata.labels['app.edp.epam.com/stage'],
+                argoApplication.metadata.labels['app.edp.epam.com/app-name']
+            ),
         [EDPComponentsURLS]
     );
 

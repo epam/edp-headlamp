@@ -4,7 +4,6 @@ import { React } from '../../../../plugin.globals';
 
 export interface CodebaseBranchProps {
     codebaseBranchData: EDPCodebaseBranchKubeObjectInterface;
-    defaultBranch: string;
     expandedPanel: string;
     id: string;
     codebaseData: EDPCodebaseKubeObjectInterface;

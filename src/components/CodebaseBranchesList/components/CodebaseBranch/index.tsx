@@ -8,6 +8,7 @@ import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/us
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
+import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
@@ -20,17 +21,26 @@ import { Render } from '../../../Render';
 import { ResourceIconLink } from '../../../ResourceIconLink';
 import { StatusIcon } from '../../../StatusIcon';
 import { isDefaultBranch } from '../../utils';
-import { CodebaseBranchActions } from './components/CodebaseBranchActions';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
 import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
 import { useStyles } from './styles';
 import { CodebaseBranchProps } from './types';
 
-const { Grid, Typography, Accordion, AccordionSummary, AccordionDetails, Chip, Paper } = MuiCore;
+const {
+    Grid,
+    Typography,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Chip,
+    Paper,
+    IconButton,
+    Tooltip,
+} = MuiCore;
 const { Icon } = Iconify;
 
 const pipelineRunTypes = Object.entries(PIPELINE_TYPES).filter(
-    ([, value]) => value !== PIPELINE_TYPES['DEPLOY']
+    ([, value]) => value !== PIPELINE_TYPES.DEPLOY && value !== PIPELINE_TYPES.AUTOTEST_RUNNER
 );
 const pipelineRunTypeSelectOptions = pipelineRunTypes.map(([, value]) => ({
     label: capitalizeFirstLetter(value),
@@ -38,7 +48,6 @@ const pipelineRunTypeSelectOptions = pipelineRunTypes.map(([, value]) => ({
 }));
 
 export const CodebaseBranch = ({
-    defaultBranch,
     codebaseBranchData,
     expandedPanel,
     id,
@@ -156,12 +165,13 @@ export const CodebaseBranch = ({
     );
 
     const sonarLink = React.useMemo(
-        () =>
-            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'sonar')
-                ? createSonarLink(EDPComponentsURLS?.sonar, codebaseBranchData.metadata.name)
-                : null,
+        () => createSonarLink(EDPComponentsURLS, codebaseBranchData.metadata.name),
         [codebaseBranchData.metadata.name, EDPComponentsURLS]
     );
+
+    const buttonRef = React.createRef<HTMLButtonElement>();
+
+    const { handleOpenResourceActionListMenu } = useResourceActionListContext();
 
     return (
         <div style={{ paddingBottom: rem(16) }}>
@@ -216,11 +226,25 @@ export const CodebaseBranch = ({
                                     </Grid>
                                 </Render>
                                 <Grid item>
-                                    <CodebaseBranchActions
-                                        codebaseBranchData={codebaseBranchData}
-                                        defaultBranch={defaultBranch}
-                                        codebase={codebaseData}
-                                    />
+                                    <Tooltip title={'Actions'}>
+                                        <IconButton
+                                            aria-label={'Actions'}
+                                            ref={buttonRef}
+                                            onClick={e => {
+                                                e.stopPropagation();
+                                                handleOpenResourceActionListMenu(
+                                                    buttonRef.current,
+                                                    codebaseBranchData
+                                                );
+                                            }}
+                                        >
+                                            <Icon
+                                                icon={ICONS.THREE_DOTS}
+                                                color={'grey'}
+                                                width="20"
+                                            />
+                                        </IconButton>
+                                    </Tooltip>
                                 </Grid>
                             </Grid>
                         </div>

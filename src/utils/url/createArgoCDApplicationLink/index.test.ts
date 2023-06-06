@@ -4,7 +4,9 @@ describe('test createArgoCDApplicationLink util', () => {
     it('should successfully create argocd application url based on given argoCDURLOrigin, pipeline name, stage name and app name params', () => {
         expect(
             createArgoCDApplicationLink(
-                'https://argocd-test.com/',
+                {
+                    argocd: 'https://argocd-test.com/',
+                },
                 'test-pipeline-name',
                 'test-stage-name',
                 'test-app-name'

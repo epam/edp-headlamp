@@ -68,7 +68,9 @@ export const EDPComponentDetails = (): React.ReactElement => {
                 <>
                     <Grid container spacing={2}>
                         <Grid item xs={12} lg={8}>
-                            <CodebaseBranchesList codebaseData={component} />
+                            <ResourceActionListContextProvider>
+                                <CodebaseBranchesList codebaseData={component} />
+                            </ResourceActionListContextProvider>
                         </Grid>
                         <Grid item xs={12} lg={4}>
                             <CodebaseGeneralInfoTable codebaseData={component} />

@@ -1,9 +1,10 @@
 import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { ICONS } from '../../../../../../constants/icons';
 import { EDPCodebaseBranchKubeObject } from '../../../../../../k8s/EDPCodebaseBranch';
+import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../../k8s/EDPCodebaseBranch/types';
 import { useGitServerByCodebaseQuery } from '../../../../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
 import { useStorageSizeQuery } from '../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
-import { Iconify, MuiCore, React } from '../../../../../../plugin.globals';
+import { React } from '../../../../../../plugin.globals';
 import { useResourceActionListContext } from '../../../../../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../../../../../types/actions';
 import { createKubeAction } from '../../../../../../utils/actions/createKubeAction';
@@ -17,15 +18,11 @@ import { useCreateBuildPipelineRun } from './hooks/useCreateBuildPipelineRun';
 import { CodebaseBranchActionsProps } from './types';
 import { createDeleteAction } from './utils';
 
-const { Icon } = Iconify;
-const { IconButton, Tooltip } = MuiCore;
-
 export const CodebaseBranchActions = ({
-    codebaseBranchData,
     defaultBranch,
     codebase,
 }: CodebaseBranchActionsProps): React.ReactElement => {
-    const { anchorEl, handleOpenResourceActionListMenu, handleCloseResourceActionListMenu } =
+    const { anchorEl, kubeObject, handleCloseResourceActionListMenu } =
         useResourceActionListContext();
 
     const {
@@ -64,8 +61,8 @@ export const CodebaseBranchActions = ({
                 await createBuildPipelineRun({
                     namespace: codebase.metadata.namespace,
                     codebaseBranchData: {
-                        codebaseBranchName: codebaseBranchData?.spec.branchName,
-                        codebaseBranchMetadataName: codebaseBranchData?.metadata.name,
+                        codebaseBranchName: kubeObject?.spec.branchName,
+                        codebaseBranchMetadataName: kubeObject?.metadata.name,
                     },
                     codebaseData: {
                         codebaseName: codebase.metadata.name,
@@ -99,27 +96,34 @@ export const CodebaseBranchActions = ({
         createBuildPipelineRun,
         gitServerByCodebase,
         handleCloseResourceActionListMenu,
-        codebaseBranchData?.metadata.name,
-        codebaseBranchData?.spec.branchName,
+        kubeObject?.metadata.name,
+        kubeObject?.spec.branchName,
         randomPostfix,
         storageSize,
     ]);
 
     const actions: KubeObjectAction[] = React.useMemo(() => {
-        if (!codebaseBranchData) {
+        if (!kubeObject) {
             return;
         }
 
         return [
             buildAction,
-            createDeleteAction(codebaseBranchData, defaultBranch, () => {
-                handleCloseResourceActionListMenu();
-                setDeleteActionPopupOpen(true);
-            }),
+            createDeleteAction(
+                kubeObject as EDPCodebaseBranchKubeObjectInterface,
+                defaultBranch,
+                () => {
+                    handleCloseResourceActionListMenu();
+                    setDeleteActionPopupOpen(true);
+                }
+            ),
         ].filter(Boolean);
-    }, [buildAction, defaultBranch, handleCloseResourceActionListMenu, codebaseBranchData]);
+    }, [buildAction, defaultBranch, handleCloseResourceActionListMenu, kubeObject]);
 
-    const conflictedCDPipeline = useConflictedCDPipeline(codebaseBranchData, codebase);
+    const conflictedCDPipeline = useConflictedCDPipeline(
+        kubeObject as EDPCodebaseBranchKubeObjectInterface,
+        codebase
+    );
 
     const onBeforeSubmit = React.useCallback(
         async (handleError, setLoadingActive) => {
@@ -132,46 +136,29 @@ export const CodebaseBranchActions = ({
             handleError(
                 <CodebaseBranchCDPipelineConflictError
                     conflictedCDPipeline={conflictedCDPipeline}
-                    name={codebaseBranchData?.spec.branchName}
+                    name={kubeObject?.spec.branchName}
                 />
             );
             setLoadingActive(false);
         },
-        [conflictedCDPipeline, codebaseBranchData?.spec.branchName]
+        [conflictedCDPipeline, kubeObject?.spec.branchName]
     );
-
-    const buttonRef = React.createRef<HTMLButtonElement>();
 
     return (
         <>
-            <Tooltip title={'Actions'}>
-                <IconButton
-                    aria-label={'Actions'}
-                    ref={buttonRef}
-                    onClick={() =>
-                        handleOpenResourceActionListMenu(
-                            buttonRef.current,
-                            codebaseBranchData,
-                            true
-                        )
-                    }
-                >
-                    <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
-                </IconButton>
-            </Tooltip>
             <KubeObjectActions
                 anchorEl={anchorEl}
                 handleCloseActionsMenu={handleCloseResourceActionListMenu}
                 actions={actions}
             >
-                <Render condition={!!codebaseBranchData}>
+                <Render condition={!!kubeObject}>
                     <div>
                         <DeleteKubeObject
                             popupOpen={deleteActionPopupOpen}
                             setPopupOpen={setDeleteActionPopupOpen}
                             kubeObject={EDPCodebaseBranchKubeObject}
-                            kubeObjectData={codebaseBranchData}
-                            objectName={codebaseBranchData?.spec.branchName}
+                            kubeObjectData={kubeObject}
+                            objectName={kubeObject?.spec.branchName}
                             description={`Confirm the deletion of the codebase branch with all its components`}
                             onBeforeSubmit={onBeforeSubmit}
                         />

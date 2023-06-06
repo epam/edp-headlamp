@@ -4,7 +4,9 @@ describe('test createTektonPipelineLink util', () => {
     it('should successfully create tekton pipeline url based on given tektonURLOrigin, namespace and pipeline name params', () => {
         expect(
             createTektonPipelineLink(
-                'https://tekton-test-origin.com',
+                {
+                    tekton: 'https://tekton-test-origin.com',
+                },
                 'test-namespace',
                 'test-pipeline-name'
             )

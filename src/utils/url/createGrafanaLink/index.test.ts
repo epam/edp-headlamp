@@ -4,7 +4,9 @@ describe('test createGrafanaLink util', () => {
     it('should successfully create grafana url based on given grafanaURLOrigin and namespace params', () => {
         expect(
             createGrafanaLink(
-                'https://grafana.eks-sandbox.aws.main.edp.projects.epam.com',
+                {
+                    grafana: 'https://grafana.eks-sandbox.aws.main.edp.projects.epam.com',
+                },
                 'test-namespace'
             )
         ).toEqual(

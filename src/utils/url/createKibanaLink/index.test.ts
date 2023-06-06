@@ -4,7 +4,9 @@ describe('test createKibanaLink util', () => {
     it('should successfully create kibana url based on given kibanaURLOrigin and namespace params', () => {
         expect(
             createKibanaLink(
-                'https://kibana.eks-sandbox.aws.main.edp.projects.epam.com',
+                {
+                    kibana: 'https://kibana.eks-sandbox.aws.main.edp.projects.epam.com',
+                },
                 'test-namespace'
             )
         ).toEqual(

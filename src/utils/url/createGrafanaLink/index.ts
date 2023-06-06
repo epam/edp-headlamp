@@ -1,4 +1,8 @@
-export const createGrafanaLink = (grafanaURLOrigin: string, namespace: string) => {
+import { EDPComponentsURLS } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+
+export const createGrafanaLink = (EDPComponentsURLS: EDPComponentsURLS, namespace: string) => {
+    const grafanaURLOrigin = EDPComponentsURLS?.grafana;
+
     if (!grafanaURLOrigin) {
         return;
     }

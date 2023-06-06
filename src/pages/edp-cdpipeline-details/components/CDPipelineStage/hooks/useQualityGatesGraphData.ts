@@ -46,14 +46,11 @@ export const useQualityGatesGraphData = (
             ...enrichedQualityGatesWithPipelineRuns.map((el, idx) => {
                 const tektonLink =
                     el?.autotestPipelineRun &&
-                    EDPComponentsURLS &&
-                    Object.hasOwn(EDPComponentsURLS, 'tekton')
-                        ? createTektonPipelineRunLink(
-                              EDPComponentsURLS?.tekton,
-                              el?.autotestPipelineRun?.metadata?.namespace,
-                              el?.autotestPipelineRun?.metadata?.name
-                          )
-                        : null;
+                    createTektonPipelineRunLink(
+                        EDPComponentsURLS,
+                        el?.autotestPipelineRun?.metadata?.namespace,
+                        el?.autotestPipelineRun?.metadata?.name
+                    );
 
                 return {
                     id: `node::${idx}`,

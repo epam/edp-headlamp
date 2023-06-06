@@ -8,6 +8,7 @@ import {
 import { useCreateArgoApplication } from '../../../../../../k8s/Application/hooks/useCreateArgoApplication';
 import { useGitServerListQuery } from '../../../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { MuiCore, React } from '../../../../../../plugin.globals';
+import { mapEvery } from '../../../../../../utils/loops/mapEvery';
 import { useCDPipelineContext } from '../../../../providers/CDPipeline/hooks';
 import { useCDPipelineStageContext } from '../../../../providers/CDPipelineStage/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
@@ -22,6 +23,12 @@ const parseTagLabelValue = (tag: string) => {
         return { value: tag, label: undefined };
     }
 };
+
+interface ButtonsMap {
+    deploy: boolean;
+    update: boolean;
+    uninstall: boolean;
+}
 
 const {
     Table,
@@ -178,97 +185,57 @@ export const CDPipelineStageApplicationsTable = ({
         }
     }, [enrichedApplicationsByApplicationName, resetField, selected, setValue]);
 
-    const buttonsEnabledMap: {
-        deploy: boolean;
-        update: boolean;
-        uninstall: boolean;
-    } = React.useMemo(() => {
+    const buttonsEnabledMap: ButtonsMap = React.useMemo(() => {
         if (!selected || !selected.length) {
             return null;
         }
 
-        const map = selected.reduce(
-            (acc, selectedApplication) => {
-                {
-                    const application =
-                        enrichedApplicationsByApplicationName.get(selectedApplication)?.application;
-                    const argoApplicationBySelectedApplication =
-                        enrichedApplicationsByApplicationName.get(
-                            selectedApplication
-                        )?.argoApplication;
+        const map = selected.reduce((acc, selectedApplication) => {
+            {
+                const application =
+                    enrichedApplicationsByApplicationName.get(selectedApplication)?.application;
+                const argoApplicationBySelectedApplication =
+                    enrichedApplicationsByApplicationName.get(selectedApplication)?.argoApplication;
 
-                    if (!argoApplicationBySelectedApplication) {
-                        acc.set(selectedApplication, {
-                            deploy: true,
-                            update: false,
-                            uninstall: false,
-                        });
-                        return acc;
-                    }
-
-                    const isHelm =
-                        application?.spec?.lang === CODEBASE_COMMON_LANGUAGES.HELM &&
-                        application?.spec?.framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
-                        application?.spec?.buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
-
-                    const deployedVersion = !isHelm
-                        ? argoApplicationBySelectedApplication?.spec?.source?.helm?.parameters?.find(
-                              el => el.name === 'image.tag'
-                          )?.value
-                        : argoApplicationBySelectedApplication?.spec?.source?.targetRevision;
-
+                if (!argoApplicationBySelectedApplication) {
                     acc.set(selectedApplication, {
-                        deploy: !deployedVersion,
-                        update: !!deployedVersion,
-                        uninstall: !!deployedVersion,
+                        deploy: true,
+                        update: false,
+                        uninstall: false,
                     });
                     return acc;
                 }
-            },
-            new Map<
-                string,
-                {
-                    deploy: boolean;
-                    update: boolean;
-                    uninstall: boolean;
-                }
-            >()
-        );
 
-        const getDeployBoolean = () => {
-            for (const [, value] of map) {
-                if (!value.deploy) {
-                    return false;
-                }
+                const isHelm =
+                    application?.spec?.lang === CODEBASE_COMMON_LANGUAGES.HELM &&
+                    application?.spec?.framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
+                    application?.spec?.buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
+
+                const deployedVersion = !isHelm
+                    ? argoApplicationBySelectedApplication?.spec?.source?.helm?.parameters?.find(
+                          el => el.name === 'image.tag'
+                      )?.value
+                    : argoApplicationBySelectedApplication?.spec?.source?.targetRevision;
+
+                acc.set(selectedApplication, {
+                    deploy: !deployedVersion,
+                    update: !!deployedVersion,
+                    uninstall: !!deployedVersion,
+                });
+                return acc;
             }
+        }, new Map<string, ButtonsMap>());
 
-            return true;
-        };
+        const deployBoolean = mapEvery(map, value => value.deploy);
 
-        const getUpdateBoolean = () => {
-            for (const [, value] of map) {
-                if (!value.update) {
-                    return false;
-                }
-            }
+        const updateBoolean = mapEvery(map, value => value.update);
 
-            return true;
-        };
-
-        const getUninstallBoolean = () => {
-            for (const [, value] of map) {
-                if (!value.uninstall) {
-                    return false;
-                }
-            }
-
-            return true;
-        };
+        const uninstallBoolean = mapEvery(map, value => value.uninstall);
 
         return {
-            deploy: getDeployBoolean(),
-            update: getUpdateBoolean(),
-            uninstall: getUninstallBoolean(),
+            deploy: deployBoolean,
+            update: updateBoolean,
+            uninstall: uninstallBoolean,
         };
     }, [enrichedApplicationsByApplicationName, selected]);
 

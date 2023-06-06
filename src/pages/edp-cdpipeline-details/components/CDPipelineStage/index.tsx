@@ -14,6 +14,7 @@ import { useStreamPipelineRunListByTypeAndPipelineNameLabels } from '../../../..
 import { useStreamTaskRunListByPipelineNameAndPipelineType } from '../../../../k8s/TaskRun/hooks/useStreamTaskRunListByPipelineNameAndPipelineType';
 import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
+import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
@@ -25,7 +26,6 @@ import { createKibanaLink } from '../../../../utils/url/createKibanaLink';
 import { useCDPipelineContext } from '../../providers/CDPipeline/hooks';
 import { useCDPipelineStageContext } from '../../providers/CDPipelineStage/hooks';
 import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
-import { CDPipelineStageActions } from '../CDPipelineStageActions';
 import { CDPipelineStageApplicationsTable } from './components/CDPipelineStageApplicationsTable';
 import { useColumns as useDeployPipelineRunsColumns } from './components/DeployPipelineRunsTable/hooks/useColumns';
 import { PipelineRunTrigger } from './components/PipelineRunTrigger';
@@ -40,7 +40,6 @@ import { useStyles } from './styles';
 import { CDPipelineStageProps, EnrichedQualityGateWithAutotestPipelineRun } from './types';
 
 const { Icon } = Iconify;
-
 const {
     Accordion,
     AccordionSummary,
@@ -49,6 +48,8 @@ const {
     Grid,
     Button,
     CircularProgress,
+    IconButton,
+    Tooltip,
 } = MuiCore;
 const randomPostfix = createRandomFiveSymbolString();
 
@@ -240,29 +241,16 @@ export const CDPipelineStage = ({ expandedPanel, handleAccordionChange }: CDPipe
     );
 
     const argoCDStageLink = React.useMemo(
-        () =>
-            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'argocd')
-                ? createArgoCDStageLink(
-                      EDPComponentsURLS?.argocd,
-                      CDPipeline?.metadata?.name,
-                      stage.spec.name
-                  )
-                : null,
+        () => createArgoCDStageLink(EDPComponentsURLS, CDPipeline?.metadata?.name, stage.spec.name),
         [CDPipeline?.metadata?.name, EDPComponentsURLS, stage.spec.name]
     );
 
     const grafanaLink = React.useMemo(
-        () =>
-            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'grafana')
-                ? createGrafanaLink(EDPComponentsURLS?.grafana, stage.spec.namespace)
-                : null,
+        () => createGrafanaLink(EDPComponentsURLS, stage.spec.namespace),
         [EDPComponentsURLS, stage.spec.namespace]
     );
     const kibanaLink = React.useMemo(
-        () =>
-            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'kibana')
-                ? createKibanaLink(EDPComponentsURLS?.kibana, stage.spec.namespace)
-                : null,
+        () => createKibanaLink(EDPComponentsURLS, stage.spec.namespace),
         [EDPComponentsURLS, stage.spec.namespace]
     );
 
@@ -281,6 +269,9 @@ export const CDPipelineStage = ({ expandedPanel, handleAccordionChange }: CDPipe
         ),
         [stage?.status?.detailed_message, status]
     );
+
+    const { handleOpenResourceActionListMenu } = useResourceActionListContext();
+    const buttonRef = React.createRef<HTMLButtonElement>();
 
     return (
         <>
@@ -329,7 +320,25 @@ export const CDPipelineStage = ({ expandedPanel, handleAccordionChange }: CDPipe
                                         />
                                     </Grid>
                                     <Grid item>
-                                        <CDPipelineStageActions />
+                                        <Tooltip title={'Actions'}>
+                                            <IconButton
+                                                aria-label={'Actions'}
+                                                ref={buttonRef}
+                                                onClick={e => {
+                                                    e.stopPropagation();
+                                                    handleOpenResourceActionListMenu(
+                                                        buttonRef.current,
+                                                        stage
+                                                    );
+                                                }}
+                                            >
+                                                <Icon
+                                                    icon={ICONS.THREE_DOTS}
+                                                    color={'grey'}
+                                                    width="20"
+                                                />
+                                            </IconButton>
+                                        </Tooltip>
                                     </Grid>
                                 </Grid>
                             </div>

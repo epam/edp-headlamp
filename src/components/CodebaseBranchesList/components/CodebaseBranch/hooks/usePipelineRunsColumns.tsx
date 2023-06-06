@@ -44,14 +44,11 @@ export const usePipelineRunsColumns =
                             return <>{name}</>;
                         }
 
-                        const pipelineRunLink =
-                            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'tekton')
-                                ? createTektonPipelineRunLink(
-                                      EDPComponentsURLS?.tekton,
-                                      namespace,
-                                      name
-                                  )
-                                : null;
+                        const pipelineRunLink = createTektonPipelineRunLink(
+                            EDPComponentsURLS,
+                            namespace,
+                            name
+                        );
 
                         return (
                             <>
@@ -76,14 +73,11 @@ export const usePipelineRunsColumns =
                             return <>{pipelineRefName}</>;
                         }
 
-                        const pipelineLink =
-                            EDPComponentsURLS && Object.hasOwn(EDPComponentsURLS, 'tekton')
-                                ? createTektonPipelineLink(
-                                      EDPComponentsURLS?.tekton,
-                                      namespace,
-                                      pipelineRefName
-                                  )
-                                : null;
+                        const pipelineLink = createTektonPipelineLink(
+                            EDPComponentsURLS,
+                            namespace,
+                            pipelineRefName
+                        );
 
                         return (
                             <>

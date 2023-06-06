@@ -1,10 +1,13 @@
+import { EDPComponentsURLS } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { createURLObjectFromURLOrigin } from '../createURLObjectFromURLOrigin';
 
 export const createTektonPipelineRunLink = (
-    tektonURLOrigin: string,
+    EDPComponentsURLS: EDPComponentsURLS,
     namespace: string,
     pipelineRunName: string
 ) => {
+    const tektonURLOrigin = EDPComponentsURLS?.tekton;
+
     if (!tektonURLOrigin) {
         return;
     }

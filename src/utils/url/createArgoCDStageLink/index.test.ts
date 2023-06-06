@@ -4,7 +4,9 @@ describe('test createArgoCDStageLink util', () => {
     it('should successfully create argocd stage url based on given argoCDURLOrigin, pipeline name and stage name params', () => {
         expect(
             createArgoCDStageLink(
-                'https://argocd-test.com/',
+                {
+                    argocd: 'https://argocd-test.com/',
+                },
                 'test-pipeline-name',
                 'test-stage-name'
             )

@@ -47,14 +47,11 @@ export const useColumns = (
                 getter: ({ qualityGate: { stepName }, autotestPipelineRun }) => {
                     const tektonLink =
                         autotestPipelineRun &&
-                        EDPComponentsURLS &&
-                        Object.hasOwn(EDPComponentsURLS, 'tekton')
-                            ? createTektonPipelineRunLink(
-                                  EDPComponentsURLS?.tekton,
-                                  autotestPipelineRun?.metadata?.namespace,
-                                  autotestPipelineRun?.metadata?.name
-                              )
-                            : null;
+                        createTektonPipelineRunLink(
+                            EDPComponentsURLS,
+                            autotestPipelineRun?.metadata?.namespace,
+                            autotestPipelineRun?.metadata?.name
+                        );
 
                     return tektonLink ? (
                         <MuiLink href={tektonLink} target={'_blank'}>
