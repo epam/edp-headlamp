@@ -1,7 +1,7 @@
-import { ICONS } from '../../../../../../constants/icons';
-import { RESOURCE_ACTIONS } from '../../../../../../constants/resourceActions';
-import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../../k8s/EDPCodebaseBranch/types';
-import { createKubeAction } from '../../../../../../utils/actions/createKubeAction';
+import { ICONS } from '../../../../constants/icons';
+import { RESOURCE_ACTIONS } from '../../../../constants/resourceActions';
+import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
+import { createKubeAction } from '../../../../utils/actions/createKubeAction';
 
 export const createDeleteAction = (
     kubeObjectData: EDPCodebaseBranchKubeObjectInterface,

@@ -2,7 +2,7 @@ import { streamCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBran
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
 import { pluginLib, React } from '../../plugin.globals';
 import { CodebaseBranch } from './components/CodebaseBranch';
-import { CodebaseBranchActions } from './components/CodebaseBranch/components/CodebaseBranchActions';
+import { CodebaseBranchActions } from './components/CodebaseBranchActions';
 import { TableHeaderActions } from './components/TableHeaderActions';
 import { useStyles } from './styles';
 import { CodebaseBranchesListProps } from './types';
@@ -63,6 +63,7 @@ export const CodebaseBranchesList = ({
                     <TableHeaderActions kubeObjectData={codebaseData} />
                 </div>
             </div>
+            <CodebaseBranchActions defaultBranch={defaultBranch} codebase={codebaseData} />
             {currentCodebaseBranches.length ? (
                 currentCodebaseBranches.map(
                     (codebaseBranchData: EDPCodebaseBranchKubeObjectInterface, idx: number) => {
@@ -83,7 +84,6 @@ export const CodebaseBranchesList = ({
             ) : (
                 <EmptyContent color={'textSecondary'}>No branches</EmptyContent>
             )}
-            <CodebaseBranchActions defaultBranch={defaultBranch} codebase={codebaseData} />
         </>
     );
 };

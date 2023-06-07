@@ -1,5 +1,5 @@
-import { MuiCore } from '../../../../../../../../plugin.globals';
-import { rem } from '../../../../../../../../utils/styling/rem';
+import { MuiCore } from '../../../../../../plugin.globals';
+import { rem } from '../../../../../../utils/styling/rem';
 
 const { makeStyles } = MuiCore;
 

@@ -1,4 +1,4 @@
-import { PipelineRunKubeObjectInterface } from '../../../../../../../../../k8s/PipelineRun/types';
+import { PipelineRunKubeObjectInterface } from '../../../../../../../k8s/PipelineRun/types';
 
 export const pipelineRunMock: PipelineRunKubeObjectInterface = {
     apiVersion: 'tekton.dev/v1beta1',

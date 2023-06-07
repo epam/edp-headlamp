@@ -53,7 +53,9 @@ export const ImageStreamTagsSelect = ({
             <FormSelect
                 {...register(`image-tag-${application.metadata.name}`, {
                     required: selected.includes(application.metadata.name),
-                    onChange: event => handleRowClick(event, application.metadata.name),
+                    onChange: event =>
+                        !selected.includes(application.metadata.name) &&
+                        handleRowClick(event, application.metadata.name),
                 })}
                 control={control}
                 errors={errors}

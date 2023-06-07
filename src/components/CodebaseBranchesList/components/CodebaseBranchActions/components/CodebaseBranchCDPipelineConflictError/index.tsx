@@ -1,6 +1,6 @@
-import { MuiCore, pluginLib, React } from '../../../../../../../../plugin.globals';
-import { CDPIPELINES_ROUTE_NAME } from '../../../../../../../../routes/names';
-import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../../../utils/routes/createRouteName';
+import { MuiCore, pluginLib, React } from '../../../../../../plugin.globals';
+import { CDPIPELINES_ROUTE_NAME } from '../../../../../../routes/names';
+import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../utils/routes/createRouteName';
 import { useStyles } from './styles';
 import { CodebaseBranchCDPipelineConflictErrorProps } from './types';
 

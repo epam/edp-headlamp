@@ -96,9 +96,6 @@ export const useColumns = (
                         spec: { lang, framework, buildTool },
                     },
                 }) => {
-                    if (!argoApplication) {
-                        return;
-                    }
                     const isHelm =
                         lang === CODEBASE_COMMON_LANGUAGES.HELM &&
                         framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
@@ -108,7 +105,7 @@ export const useColumns = (
                         ? argoApplication?.spec?.source?.helm?.parameters?.find(
                               el => el.name === 'image.tag'
                           )?.value
-                        : argoApplication?.spec?.source?.targetRevision;
+                        : argoApplication?.spec?.source?.targetRevision?.split('/');
 
                     return argoApplication ? (
                         <>

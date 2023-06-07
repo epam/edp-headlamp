@@ -133,10 +133,10 @@ export const editApplicationInstance = ({
             versioning: { type: versioningType },
         },
     } = application;
-    const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
+    const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES.EDP;
     const base = { ...argoApplication };
 
-    const newParameters = base.spec.source.helm.parameters.map(el => {
+    const newParameters = base.spec.source.helm?.parameters?.map(el => {
         if (el.name === 'image.tag') {
             return {
                 ...el,
