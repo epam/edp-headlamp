@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { HeadlampNameValueTable } from '../../../../components/HeadlampNameValueTable';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { Render } from '../../../../components/Render';
@@ -6,6 +7,7 @@ import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICONS } from '../../../../constants/icons';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { CUSTOM_RESOURCE_STATUSES, TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
+import { TRIGGER_TYPES } from '../../../../constants/triggerTypes';
 import { useStreamApplicationListByPipelineStageLabel } from '../../../../k8s/Application/hooks/useStreamApplicationListByPipelineStageLabel';
 import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useStreamAutotestPipelineRunList } from '../../../../k8s/PipelineRun/hooks/useStreamAutotestPipelineRunList';
@@ -45,6 +47,7 @@ const {
     AccordionSummary,
     AccordionDetails,
     Typography,
+    Chip,
     Grid,
     Button,
     CircularProgress,
@@ -273,6 +276,11 @@ export const CDPipelineStage = ({ expandedPanel, handleAccordionChange }: CDPipe
     const { handleOpenResourceActionListMenu } = useResourceActionListContext();
     const buttonRef = React.createRef<HTMLButtonElement>();
 
+    const isManualTriggerType = React.useMemo(
+        () => stage?.spec.triggerType === TRIGGER_TYPES.MANUAL,
+        [stage?.spec.triggerType]
+    );
+
     return (
         <>
             <div style={{ paddingBottom: rem(16) }}>
@@ -289,6 +297,18 @@ export const CDPipelineStage = ({ expandedPanel, handleAccordionChange }: CDPipe
                             <Typography variant={'h6'} style={{ lineHeight: 1 }}>
                                 {stage.spec.name}
                             </Typography>
+                            <Render condition={isManualTriggerType}>
+                                <Chip
+                                    label="manual"
+                                    className={clsx([classes.labelChip, classes.labelChipBlue])}
+                                />
+                            </Render>
+                            <Render condition={!isManualTriggerType}>
+                                <Chip
+                                    label="auto"
+                                    className={clsx([classes.labelChip, classes.labelChipGreen])}
+                                />
+                            </Render>
                             <div style={{ marginLeft: 'auto' }}>
                                 <Grid container spacing={1}>
                                     <Grid item>

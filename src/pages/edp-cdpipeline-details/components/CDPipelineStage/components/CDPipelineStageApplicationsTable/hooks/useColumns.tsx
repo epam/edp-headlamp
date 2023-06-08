@@ -105,7 +105,7 @@ export const useColumns = (
                         ? argoApplication?.spec?.source?.helm?.parameters?.find(
                               el => el.name === 'image.tag'
                           )?.value
-                        : argoApplication?.spec?.source?.targetRevision?.split('/');
+                        : argoApplication?.spec?.source?.targetRevision?.split('/').at(-1);
 
                     return argoApplication ? (
                         <>
