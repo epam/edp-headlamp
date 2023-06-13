@@ -10,7 +10,7 @@ import { BranchVersionProps } from './types';
 
 const { Grid } = MuiCore;
 
-export const BranchVersion = ({ names, handleFormFieldChange }: BranchVersionProps) => {
+export const BranchVersion = ({ names }: BranchVersionProps) => {
     const {
         register,
         control,
@@ -27,16 +27,6 @@ export const BranchVersion = ({ names, handleFormFieldChange }: BranchVersionPro
         ({ target: { value } }: FieldEvent): void => {
             const branchVersion = createVersioningString(value, branchVersionPostfixFieldValue);
 
-            handleFormFieldChange({
-                name: names.branchVersionStart.name,
-                value: value,
-            });
-
-            handleFormFieldChange({
-                name: names.version.name,
-                value: branchVersion,
-            });
-
             setValue(names.version.name, branchVersion);
 
             if (!releaseFieldValue) {
@@ -47,25 +37,15 @@ export const BranchVersion = ({ names, handleFormFieldChange }: BranchVersionPro
             const { major, minor } = getMajorMinorPatchOfVersion(version);
             setValue(names.branchName.name, createReleaseNameString(major, minor));
         },
-        [branchVersionPostfixFieldValue, handleFormFieldChange, names, releaseFieldValue, setValue]
+        [branchVersionPostfixFieldValue, names, releaseFieldValue, setValue]
     );
 
     const onBranchVersionPostfixFieldValueChange = React.useCallback(
         ({ target: { value } }: FieldEvent): void => {
             const branchVersion = createVersioningString(branchVersionStartFieldValue, value);
-            handleFormFieldChange({
-                name: names.branchVersionPostfix.name,
-                value: value,
-            });
-
-            handleFormFieldChange({
-                name: names.version.name,
-                value: branchVersion,
-            });
-
             setValue(names.version.name, branchVersion);
         },
-        [branchVersionStartFieldValue, handleFormFieldChange, names, setValue]
+        [branchVersionStartFieldValue, names, setValue]
     );
 
     return (

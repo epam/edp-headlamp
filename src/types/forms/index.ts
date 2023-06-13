@@ -1,9 +1,15 @@
 export interface FormNameObject {
     name: string;
     formPart?: string;
-    notUsedInFormData?: boolean;
     path?: string[];
+    notUsedInFormData?: boolean;
+    value?: any;
 }
+export interface FormNamesObject {
+    [key: string]: FormNameObject;
+}
+export type FormData<T extends FormNamesObject> = Record<keyof T, any>;
+export type FormNameKeys<T extends FormNamesObject> = keyof FormData<T>;
 
 export interface BackwardNameMappingChildren {
     formItemName?: string;
@@ -11,7 +17,6 @@ export interface BackwardNameMappingChildren {
         [key: string]: BackwardNameMappingChildren;
     };
 }
-
 export interface BackwardNameMapping {
     [key: string]: {
         children?: {
@@ -20,11 +25,13 @@ export interface BackwardNameMapping {
     };
 }
 
-export interface CreationFormFieldInterface {
-    names: {
+export interface CreationFormFieldInterface<
+    Names = {
         [key: string]: FormNameObject;
-    };
-    handleFormFieldChange(eventTarget: FieldEventTarget): void;
+    }
+> {
+    names: Names;
+    handleFormFieldChange?(eventTarget: FieldEventTarget): void;
 }
 
 export interface SelectOption {

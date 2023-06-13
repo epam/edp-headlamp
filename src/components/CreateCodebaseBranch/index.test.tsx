@@ -32,10 +32,8 @@ describe('CreateCodebaseBranch', () => {
                 },
             } as unknown as EDPCodebaseKubeObjectInterface,
             open: true,
-            setOpen: () => {},
-            onClose: () => {},
-            handleApply: () => {},
-            isApplying: false,
+            handleOpenDialog: () => {},
+            handleCloseDialog: () => {},
         };
         const store = configureStore({
             reducer: () => ({}),

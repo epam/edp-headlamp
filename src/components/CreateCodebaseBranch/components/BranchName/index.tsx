@@ -8,11 +8,7 @@ import { BranchNameProps } from './types';
 
 const { Grid } = MuiCore;
 
-export const BranchName = ({
-    names,
-    handleFormFieldChange,
-    defaultBranchVersion,
-}: BranchNameProps) => {
+export const BranchName = ({ names, defaultBranchVersion }: BranchNameProps) => {
     const {
         register,
         control,
@@ -25,9 +21,7 @@ export const BranchName = ({
     const versionStartFieldValue = watch(names.branchVersionStart.name);
 
     const handleBranchNameFieldValueChange = React.useCallback(
-        ({ target: { name, value } }: FieldEvent) => {
-            handleFormFieldChange({ name, value });
-
+        ({ target: { value } }: FieldEvent) => {
             if (releaseFieldValue || !defaultBranchVersion) {
                 return;
             }
@@ -36,19 +30,9 @@ export const BranchName = ({
             const newValue = value === '' ? postfix : `${value}-${postfix}`;
 
             setValue(names.branchVersionPostfix.name, newValue);
-            handleFormFieldChange({
-                name: names.version.name,
-                value: createVersioningString(versionStartFieldValue, newValue),
-            });
+            setValue(names.version.name, createVersioningString(versionStartFieldValue, newValue));
         },
-        [
-            defaultBranchVersion,
-            handleFormFieldChange,
-            names,
-            releaseFieldValue,
-            setValue,
-            versionStartFieldValue,
-        ]
+        [defaultBranchVersion, names, releaseFieldValue, setValue, versionStartFieldValue]
     );
 
     return (
@@ -56,7 +40,7 @@ export const BranchName = ({
             <FormTextField
                 {...register(names.branchName.name, {
                     pattern: {
-                        value: /^[a-z0-9][a-z0-9\/\-\.]*[a-z0-9]$/,
+                        value: /^[a-z0-9][a-z0-9\/\-.]*[a-z0-9]$/,
                         message: 'Enter valid branch name',
                     },
                     required: `Branch name may contain only: lower-case letters, numbers, slashes, dashes and dots.

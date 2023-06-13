@@ -1,7 +1,6 @@
 import { ICONS } from '../../../../constants/icons';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { CreateCodebaseBranch } from '../../../CreateCodebaseBranch';
-import { useCreateCodebaseBranch } from '../../../CreateCodebaseBranch/hooks/useCreateCodebaseBranch';
 import { TableHeaderActionsProps } from './types';
 
 const { Icon } = Iconify;
@@ -11,18 +10,8 @@ export const TableHeaderActions = ({
     kubeObjectData,
 }: TableHeaderActionsProps): React.ReactElement => {
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
-
-    const {
-        createCodebaseBranch,
-        mutations: { codebaseBranchCreateMutation, codebaseBranchEditMutation },
-    } = useCreateCodebaseBranch({
-        onSuccess: () => {
-            setCreateDialogOpen(false);
-        },
-        onError: () => {
-            setCreateDialogOpen(true);
-        },
-    });
+    const handleCloseDialog = React.useCallback(() => setCreateDialogOpen(false), []);
+    const handleOpenDialog = React.useCallback(() => setCreateDialogOpen(true), []);
 
     return (
         <>
@@ -37,12 +26,8 @@ export const TableHeaderActions = ({
             <CreateCodebaseBranch
                 codebaseData={kubeObjectData}
                 open={createDialogOpen}
-                onClose={() => setCreateDialogOpen(false)}
-                setOpen={setCreateDialogOpen}
-                handleApply={createCodebaseBranch}
-                isApplying={
-                    codebaseBranchCreateMutation.isLoading || codebaseBranchEditMutation.isLoading
-                }
+                handleCloseDialog={handleCloseDialog}
+                handleOpenDialog={handleOpenDialog}
             />
         </>
     );

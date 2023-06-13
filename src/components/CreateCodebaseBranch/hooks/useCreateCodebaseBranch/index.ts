@@ -7,7 +7,7 @@ import { React } from '../../../../plugin.globals';
 
 interface CreateCodebaseBranchProps {
     codebaseBranchData: EDPCodebaseBranchKubeObjectInterface;
-    defaultCodebaseBranchData: EDPCodebaseBranchKubeObjectInterface;
+    defaultCodebaseBranchData?: EDPCodebaseBranchKubeObjectInterface;
 }
 
 export const useCreateCodebaseBranch = ({

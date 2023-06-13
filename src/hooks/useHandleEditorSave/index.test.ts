@@ -8,9 +8,9 @@ import {
     CODEBASE_NAMES,
 } from '../../components/CreateCodebase/names';
 import {
-    CODEBASE_BRANCH_BACKWARDS_NAME_MAPPING,
-    CODEBASE_BRANCH_NAMES,
-} from '../../components/CreateCodebaseBranch/components/CreateCodebaseBranchForm/names';
+    CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING,
+    CODEBASE_BRANCH_FORM_NAMES,
+} from '../../components/CreateCodebaseBranch/names';
 import { FieldEventTarget } from '../../types/forms';
 import { useHandleEditorSave } from './index';
 import {
@@ -330,8 +330,8 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: CODEBASE_BRANCH_NAMES,
-                    backwardNames: CODEBASE_BRANCH_BACKWARDS_NAME_MAPPING,
+                    names: CODEBASE_BRANCH_FORM_NAMES,
+                    backwardNames: CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING,
                     setValue,
                     handleFormFieldChange,
                     formValues,

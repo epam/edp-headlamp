@@ -1,10 +1,10 @@
-import { CODEBASE_BRANCH_NAMES } from '../../../../components/CreateCodebaseBranch/components/CreateCodebaseBranchForm/names';
+import { CODEBASE_BRANCH_FORM_NAMES } from '../../../../components/CreateCodebaseBranch/names';
 import { createCodebaseBranchInstanceBasedOnFormValues } from './index';
 
 describe('testing createCodebaseBranchInstanceBasedOnFormValues', () => {
     it('should return valid kube object', () => {
         const object = createCodebaseBranchInstanceBasedOnFormValues(
-            CODEBASE_BRANCH_NAMES,
+            CODEBASE_BRANCH_FORM_NAMES,
             {
                 fromCommit: 'com',
                 release: false,

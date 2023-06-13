@@ -6,13 +6,10 @@ import { createVersioningString } from '../../../../utils/createVersioningString
 import { getMajorMinorPatchOfVersion } from '../../../../utils/getMajorMinorPatchOfVersion';
 import { getVersionAndPostfixFromVersioningString } from '../../../../utils/getVersionAndPostfixFromVersioningString';
 import { FormCheckbox, FormControlLabelWithTooltip } from '../../../FormComponents';
+import { RELEASE_BRANCH_POSTFIX } from '../../constants';
 import { ReleaseBranchProps } from './types';
 
-export const ReleaseBranch = ({
-    names,
-    handleFormFieldChange,
-    defaultBranchVersion,
-}: ReleaseBranchProps) => {
+export const ReleaseBranch = ({ names, defaultBranchVersion }: ReleaseBranchProps) => {
     const {
         register,
         control,
@@ -35,40 +32,25 @@ export const ReleaseBranch = ({
     }, [defaultBranchVersion, versionFieldValue]);
 
     const handleReleaseValueChange = React.useCallback(
-        ({ target: { name, value } }: FieldEvent) => {
+        ({ target: { value } }: FieldEvent) => {
             if (!versionFieldValue || !defaultBranchVersion) {
                 return;
             }
 
             const { postfix } = getVersionAndPostfixFromVersioningString(defaultBranchVersion);
 
-            const newPostfix = 'RC';
-            const branchName = value ? releaseName : 'your-branch-name';
-            const branchFormValueName = value ? releaseName : undefined;
-            const branchVersionPostfix = value ? newPostfix : postfix;
+            const branchName = value ? releaseName : undefined;
+            const branchVersionPostfix = value ? RELEASE_BRANCH_POSTFIX : postfix;
             const newVersion = value
-                ? createVersioningString(versionStartFieldValue, newPostfix)
+                ? createVersioningString(versionStartFieldValue, RELEASE_BRANCH_POSTFIX)
                 : createVersioningString(versionStartFieldValue, postfix);
 
-            setValue(names.branchName.name, branchFormValueName);
-
-            handleFormFieldChange({
-                name: names.branchName.name,
-                value: branchName,
-            });
-
+            setValue(names.branchName.name, branchName);
             setValue(names.branchVersionPostfix.name, branchVersionPostfix);
-
-            handleFormFieldChange({
-                name: names.version.name,
-                value: newVersion,
-            });
-
-            handleFormFieldChange({ name, value });
+            setValue(names.version.name, newVersion);
         },
         [
             defaultBranchVersion,
-            handleFormFieldChange,
             names,
             releaseName,
             setValue,

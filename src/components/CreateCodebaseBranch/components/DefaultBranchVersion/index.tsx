@@ -1,15 +1,11 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../plugin.globals';
-import { FieldEvent } from '../../../../types/forms';
 import { FormTextField } from '../../../FormComponents';
 import { DefaultBranchVersionProps } from './types';
 
 const { Grid } = MuiCore;
 
-export const DefaultBranchVersion = ({
-    names,
-    handleFormFieldChange,
-}: DefaultBranchVersionProps) => {
+export const DefaultBranchVersion = ({ names }: DefaultBranchVersionProps) => {
     const {
         register,
         control,
@@ -22,8 +18,6 @@ export const DefaultBranchVersion = ({
                 <FormTextField
                     {...register(names.defaultBranchVersionStart.name, {
                         required: 'Default branch version',
-                        onBlur: ({ target: { name, value } }: FieldEvent) =>
-                            handleFormFieldChange({ name, value }),
                         pattern: {
                             value: /^([0-9]+)\.([0-9]+)\.([0-9]+)?$/,
                             message: 'Enter valid semantic versioning format',
@@ -48,8 +42,6 @@ export const DefaultBranchVersion = ({
                 <FormTextField
                     {...register(names.defaultBranchVersionPostfix.name, {
                         required: 'Default branch version',
-                        onBlur: ({ target: { name, value } }: FieldEvent) =>
-                            handleFormFieldChange({ name, value }),
                     })}
                     placeholder={'SNAPSHOT'}
                     control={control}

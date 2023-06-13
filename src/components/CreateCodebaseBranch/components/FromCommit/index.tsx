@@ -1,12 +1,11 @@
 import { useFormContext } from 'react-hook-form';
 import { MuiCore, React } from '../../../../plugin.globals';
-import { FieldEvent } from '../../../../types/forms';
 import { FormTextField } from '../../../FormComponents';
 import { FromCommitProps } from './types';
 
 const { Grid } = MuiCore;
 
-export const FromCommit = ({ names, handleFormFieldChange }: FromCommitProps) => {
+export const FromCommit = ({ names }: FromCommitProps) => {
     const {
         register,
         control,
@@ -21,8 +20,6 @@ export const FromCommit = ({ names, handleFormFieldChange }: FromCommitProps) =>
                         value: /\b([a-f0-9]{40})\b/,
                         message: 'Enter valid commit hash',
                     },
-                    onBlur: ({ target: { name, value } }: FieldEvent) =>
-                        handleFormFieldChange({ name, value }),
                 })}
                 label={'From Commit Hash '}
                 title={

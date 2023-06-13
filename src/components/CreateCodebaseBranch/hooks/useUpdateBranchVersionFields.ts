@@ -1,15 +1,14 @@
-import { React } from '../../../../../plugin.globals';
-import { FieldEventTarget, FormNameObject } from '../../../../../types/forms';
-import { createReleaseNameString } from '../../../../../utils/createReleaseNameString';
-import { getMajorMinorPatchOfVersion } from '../../../../../utils/getMajorMinorPatchOfVersion';
-import { getVersionAndPostfixFromVersioningString } from '../../../../../utils/getVersionAndPostfixFromVersioningString';
+import { React } from '../../../plugin.globals';
+import { createReleaseNameString } from '../../../utils/createReleaseNameString';
+import { getMajorMinorPatchOfVersion } from '../../../utils/getMajorMinorPatchOfVersion';
+import { getVersionAndPostfixFromVersioningString } from '../../../utils/getVersionAndPostfixFromVersioningString';
+import { CreateCodebaseBranchFormKeys, CreateCodebaseBranchFormNames } from '../types';
 
 interface useUpdateBranchVersionFieldsProps {
-    names: { [key: string]: FormNameObject };
-    setValue: (name: string, value: any) => void;
+    names: CreateCodebaseBranchFormNames;
+    setValue: (name: CreateCodebaseBranchFormKeys, value: any) => void;
     watch: (name: string) => string;
     defaultBranchVersion: string;
-    handleFormFieldChange: ({ name, value }: FieldEventTarget) => void;
 }
 
 export const useUpdateBranchVersionFields = ({
@@ -17,7 +16,6 @@ export const useUpdateBranchVersionFields = ({
     setValue,
     watch,
     defaultBranchVersion,
-    handleFormFieldChange,
 }: useUpdateBranchVersionFieldsProps): void => {
     const releaseFieldValue = watch(names.release.name);
     const versionStartFieldValue = watch(names.branchVersionStart.name);
@@ -41,11 +39,7 @@ export const useUpdateBranchVersionFields = ({
         }
 
         if (!versionFieldValue) {
-            setValue(names.version.name, defaultBranchVersion); // just set initial value, doesn't update it
-            handleFormFieldChange({
-                name: names.version.name,
-                value: defaultBranchVersion,
-            });
+            setValue(names.version.name, defaultBranchVersion); // just sets initial value, doesn't update it
         }
 
         if (!releaseFieldValue) {
@@ -59,10 +53,6 @@ export const useUpdateBranchVersionFields = ({
         const newReleaseBranchName = createReleaseNameString(major, minor);
         setValue(names.defaultBranchVersionStart.name, defaultBranchNewVersion);
         setValue(names.branchName.name, newReleaseBranchName);
-        handleFormFieldChange({
-            name: names.branchName.name,
-            value: newReleaseBranchName,
-        });
 
         if (!defaultVersionPostfixFieldValue) {
             setValue(names.defaultBranchVersionPostfix.name, postfix);
@@ -72,7 +62,6 @@ export const useUpdateBranchVersionFields = ({
         defaultBranchVersion,
         names,
         releaseFieldValue,
-        handleFormFieldChange,
         versionStartFieldValue,
         versionPostfixFieldValue,
         versionFieldValue,
