@@ -5,6 +5,11 @@ import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../constants/creationStrategies';
 import { DEPLOYMENT_SCRIPTS } from '../../constants/deploymentScripts';
 import { ICONS } from '../../constants/icons';
+import {
+    URL_EDP_HEADLAMP_USER_GUIDE_APPLICATION_ADD,
+    URL_EDP_HEADLAMP_USER_GUIDE_AUTOTEST_ADD,
+    URL_EDP_HEADLAMP_USER_GUIDE_LIBRARY_ADD,
+} from '../../constants/urls';
 import { useHandleEditorSave } from '../../hooks/useHandleEditorSave';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, pluginLib, React } from '../../plugin.globals';
@@ -13,6 +18,7 @@ import { FieldEvent, FieldEventTarget, FormNameObject } from '../../types/forms'
 import { DeepPartial } from '../../types/global';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { rem } from '../../utils/styling/rem';
+import { DocLink } from '../DocLink';
 import { Render } from '../Render';
 import { AdvancedSettings } from './components/AdvancedSettings';
 import { CodebaseInfo } from './components/CodebaseInfo';
@@ -264,6 +270,21 @@ export const CreateCodebase = ({
     useUpdateVersioningFields({ watch, setValue, names, handleFormFieldChange });
     useUpdateFieldsDependingOnChosenCITool({ watch, names, handleFormFieldChange });
 
+    const docLink = React.useMemo(() => {
+        switch (typeFieldValue) {
+            case CODEBASE_TYPES.APPLICATION:
+                return URL_EDP_HEADLAMP_USER_GUIDE_APPLICATION_ADD;
+            case CODEBASE_TYPES.AUTOTEST:
+                return URL_EDP_HEADLAMP_USER_GUIDE_AUTOTEST_ADD;
+            case CODEBASE_TYPES.LIBRARY:
+                return URL_EDP_HEADLAMP_USER_GUIDE_LIBRARY_ADD;
+            default:
+                return URL_EDP_HEADLAMP_USER_GUIDE_APPLICATION_ADD;
+        }
+    }, [typeFieldValue]);
+
+    const capitalizedType = capitalizeFirstLetter(typeFieldValue);
+
     return (
         <Dialog
             open={createDialogOpen}
@@ -352,14 +373,25 @@ export const CreateCodebase = ({
                 <TabPanel value={modalActiveTabIdx} className={classes.tabPanel} index={1}>
                     <div className={classes.dialog} data-testid={'create-codebase'}>
                         <div className={classes.dialogTitle}>
-                            <Typography variant={'h5'}>{`Create ${capitalizeFirstLetter(
-                                typeFieldValue
-                            )}`}</Typography>
+                            <Grid container alignItems={'center'} spacing={1}>
+                                <Grid item>
+                                    <Typography
+                                        variant={'h5'}
+                                    >{`Create ${capitalizedType}`}</Typography>
+                                </Grid>
+                                <Grid item>
+                                    <DocLink
+                                        title={`${capitalizedType} Creation Doc`}
+                                        href={docLink}
+                                    />
+                                </Grid>
+                            </Grid>
                             <Button
                                 startIcon={<Icon icon={ICONS['PENCIL']} />}
                                 size="small"
                                 component={'button'}
                                 onClick={() => setEditorOpen(true)}
+                                style={{ flexShrink: 0 }}
                             >
                                 Edit YAML
                             </Button>

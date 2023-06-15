@@ -1,10 +1,13 @@
+import { Typography } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { CodebaseActionsMenu } from '../../components/CodebaseActionsMenu';
 import { CreateCodebase } from '../../components/CreateCodebase';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
+import { DocLink } from '../../components/DocLink';
 import { FormSelect } from '../../components/FormComponents';
 import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
+import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../constants/urls';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { MuiCore, pluginLib, React } from '../../plugin.globals';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
@@ -36,7 +39,20 @@ export const EDPComponentList = (): React.ReactElement => {
             <SectionBox
                 title={
                     <SectionFilterHeader
-                        title={'Components'}
+                        // @ts-ignore
+                        title={
+                            <Grid container alignItems={'center'} spacing={1}>
+                                <Grid item>
+                                    <Typography variant={'h5'}>Components</Typography>
+                                </Grid>
+                                <Grid item>
+                                    <DocLink
+                                        title={'Components Doc'}
+                                        href={URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS}
+                                    />
+                                </Grid>
+                            </Grid>
+                        }
                         headerStyle={'label'}
                         actions={[
                             <Box>

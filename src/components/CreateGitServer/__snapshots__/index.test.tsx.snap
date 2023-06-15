@@ -8,13 +8,43 @@ exports[`CreateGitServer should render correctly 1`] = `
   <div
     class="makeStyles-dialogTitle-3"
   >
-    <h5
-      class="MuiTypography-root MuiTypography-h5"
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
     >
-      Create Git Server
-    </h5>
+      <div
+        class="MuiGrid-root MuiGrid-item"
+      >
+        <h5
+          class="MuiTypography-root MuiTypography-h5"
+        >
+          Create Git Server
+        </h5>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item"
+      >
+        <a
+          aria-disabled="false"
+          class="MuiButtonBase-root MuiIconButton-root"
+          href="https://epam.github.io/edp-install/headlamp-user-guide/add-git-server/"
+          tabindex="0"
+          target="_blank"
+          title="Git Server Creation Doc"
+        >
+          <span
+            class="MuiIconButton-label"
+          >
+            <span />
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </a>
+      </div>
+    </div>
     <button
       class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+      style="flex-shrink: 0;"
       tabindex="0"
       type="button"
     >

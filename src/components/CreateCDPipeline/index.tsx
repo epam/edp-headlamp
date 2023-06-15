@@ -1,11 +1,13 @@
 import { ICONS } from '../../constants/icons';
+import { URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES } from '../../constants/urls';
 import { Iconify, MuiCore, React } from '../../plugin.globals';
+import { DocLink } from '../DocLink';
 import { CreateCDPipelineForm } from './components/CreateCDPipelineForm';
 import { useCreateCDPipeline } from './hooks/useCreateCDPipeline';
 import { useStyles } from './styles';
 import { CreateCDPipelineProps } from './types';
 
-const { Dialog, DialogContent, Typography, Button } = MuiCore;
+const { Dialog, DialogContent, Typography, Button, Grid } = MuiCore;
 const { Icon } = Iconify;
 
 export const CreateCDPipeline = ({
@@ -44,12 +46,23 @@ export const CreateCDPipeline = ({
         >
             <div className={classes.dialog} data-testid={'create-cdpipeline'}>
                 <div className={classes.dialogTitle}>
-                    <Typography variant={'h5'}>{`Create CD Pipeline`}</Typography>
+                    <Grid container alignItems={'center'} spacing={1}>
+                        <Grid item>
+                            <Typography variant={'h5'}>Create CD Pipeline</Typography>
+                        </Grid>
+                        <Grid item>
+                            <DocLink
+                                title={'CD Pipeline Creation Doc'}
+                                href={URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES}
+                            />
+                        </Grid>
+                    </Grid>
                     <Button
                         startIcon={<Icon icon={ICONS['PENCIL']} />}
                         size="small"
                         component={'button'}
                         onClick={() => setEditorOpen(true)}
+                        style={{ flexShrink: 0 }}
                     >
                         Edit YAML
                     </Button>

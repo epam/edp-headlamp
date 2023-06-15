@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { DocLink } from '../../../../components/DocLink';
 import { HeadlampNameValueTable } from '../../../../components/HeadlampNameValueTable';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { Render } from '../../../../components/Render';
@@ -8,6 +9,10 @@ import { ICONS } from '../../../../constants/icons';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { CUSTOM_RESOURCE_STATUSES, TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { TRIGGER_TYPES } from '../../../../constants/triggerTypes';
+import {
+    URL_EDP_HEADLAMP_USER_GUIDE_QUALITY_GATE_ADD,
+    URL_EDP_HEADLAMP_USER_GUIDE_QUALITY_GATE_RUN,
+} from '../../../../constants/urls';
 import { useStreamApplicationListByPipelineStageLabel } from '../../../../k8s/Application/hooks/useStreamApplicationListByPipelineStageLabel';
 import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useStreamAutotestPipelineRunList } from '../../../../k8s/PipelineRun/hooks/useStreamAutotestPipelineRunList';
@@ -383,9 +388,25 @@ export const CDPipelineStage = ({ expandedPanel, handleAccordionChange }: CDPipe
                                         <Grid container spacing={2}>
                                             <Grid item xs={12}>
                                                 <div className={classes.tableItemTitle}>
-                                                    <Typography variant={'h5'}>
-                                                        Quality gates
-                                                    </Typography>
+                                                    <Grid
+                                                        container
+                                                        alignItems={'center'}
+                                                        spacing={1}
+                                                    >
+                                                        <Grid item>
+                                                            <Typography variant={'h5'}>
+                                                                Quality gates
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <DocLink
+                                                                title={'Quality Gate Run Doc'}
+                                                                href={
+                                                                    URL_EDP_HEADLAMP_USER_GUIDE_QUALITY_GATE_RUN
+                                                                }
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
                                                 </div>
                                                 <HeadlampSimpleTable
                                                     columns={qualityGatesColumns}
@@ -425,9 +446,27 @@ export const CDPipelineStage = ({ expandedPanel, handleAccordionChange }: CDPipe
                                                 <Grid container spacing={4}>
                                                     <Grid item xs={12}>
                                                         <div className={classes.tableItemTitle}>
-                                                            <Typography variant={'h5'}>
-                                                                Custom gates
-                                                            </Typography>
+                                                            <Grid
+                                                                container
+                                                                alignItems={'center'}
+                                                                spacing={1}
+                                                            >
+                                                                <Grid item>
+                                                                    <Typography variant={'h5'}>
+                                                                        Custom gates
+                                                                    </Typography>
+                                                                </Grid>
+                                                                <Grid item>
+                                                                    <DocLink
+                                                                        title={
+                                                                            'Quality Gate Creation Doc'
+                                                                        }
+                                                                        href={
+                                                                            URL_EDP_HEADLAMP_USER_GUIDE_QUALITY_GATE_ADD
+                                                                        }
+                                                                    />
+                                                                </Grid>
+                                                            </Grid>
                                                         </div>
                                                         <Grid container spacing={2}>
                                                             <Grid item xs={12}>

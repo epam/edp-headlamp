@@ -1,6 +1,9 @@
+import { Typography } from '@material-ui/core';
+import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../constants/urls';
 import { streamCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
-import { pluginLib, React } from '../../plugin.globals';
+import { MuiCore, pluginLib, React } from '../../plugin.globals';
+import { DocLink } from '../DocLink';
 import { CodebaseBranch } from './components/CodebaseBranch';
 import { CodebaseBranchActions } from './components/CodebaseBranchActions';
 import { TableHeaderActions } from './components/TableHeaderActions';
@@ -10,6 +13,7 @@ import { isDefaultBranch } from './utils';
 const {
     CommonComponents: { SectionHeader, EmptyContent },
 } = pluginLib;
+const { Grid } = MuiCore;
 
 export const CodebaseBranchesList = ({
     codebaseData,
@@ -58,7 +62,23 @@ export const CodebaseBranchesList = ({
     return (
         <>
             <div className={classes.tableHeader}>
-                <SectionHeader title="Branches" headerStyle="label" />
+                <SectionHeader
+                    // @ts-ignore
+                    title={
+                        <Grid container alignItems={'center'} spacing={1}>
+                            <Grid item>
+                                <Typography variant={'h5'}>Branches</Typography>
+                            </Grid>
+                            <Grid item>
+                                <DocLink
+                                    title={'Build Branch Doc'}
+                                    href={URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS}
+                                />
+                            </Grid>
+                        </Grid>
+                    }
+                    headerStyle="label"
+                />
                 <div className={classes.tableHeaderActions}>
                     <TableHeaderActions kubeObjectData={codebaseData} />
                 </div>

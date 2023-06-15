@@ -6,11 +6,13 @@ import {
 import { CODEBASE_VERSIONING_TYPES } from '../../constants/codebaseVersioningTypes';
 import { ICONS } from '../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../constants/statuses';
+import { URL_EDP_HEADLAMP_USER_GUIDE_BRANCH_ADD } from '../../constants/urls';
 import { useHandleEditorSaveNew } from '../../hooks/useHandleEditorSave';
 import { useDefaultBranchQuery } from '../../k8s/EDPCodebaseBranch/hooks/useDefaultBranchQuery';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
 import { Iconify, MuiCore, pluginLib, React } from '../../plugin.globals';
 import { createVersioningString } from '../../utils/createVersioningString';
+import { DocLink } from '../DocLink';
 import { Render } from '../Render';
 import { BranchName } from './components/BranchName';
 import { BranchVersion } from './components/BranchVersion';
@@ -200,12 +202,23 @@ export const CreateCodebaseBranch = ({
         <Dialog open={open} onClose={handleCloseDialog} fullWidth>
             <div className={classes.dialog} data-testid={'create-codebase-branch'}>
                 <div className={classes.dialogTitle}>
-                    <Typography variant={'h5'}>{`Create new branch`}</Typography>
+                    <Grid container alignItems={'center'} spacing={1}>
+                        <Grid item>
+                            <Typography variant={'h5'}>Create New Branch</Typography>
+                        </Grid>
+                        <Grid item>
+                            <DocLink
+                                title={'Branch Creation Doc'}
+                                href={URL_EDP_HEADLAMP_USER_GUIDE_BRANCH_ADD}
+                            />
+                        </Grid>
+                    </Grid>
                     <Button
                         startIcon={<Icon icon={ICONS.PENCIL} />}
                         size="small"
                         component={'button'}
                         onClick={handleOpenEditor}
+                        style={{ flexShrink: 0 }}
                     >
                         Edit YAML
                     </Button>
