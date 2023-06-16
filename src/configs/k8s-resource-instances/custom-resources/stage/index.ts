@@ -23,6 +23,7 @@ export const createCDPipelineStageInstance = (
         kind,
         metadata: {
             name: `${CDPipeline.metadata.name}-${name || 'your stage name'}`,
+            namespace: CDPipeline.metadata.namespace,
         },
         spec: {
             name: name || `your stage name`,
