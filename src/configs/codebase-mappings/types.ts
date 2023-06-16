@@ -1,4 +1,6 @@
 import { CI_TOOLS } from '../../constants/ciTools';
+import { ValueOf } from '../../types/global';
+import { CODEBASE_COMMON_LANGUAGES } from './index';
 
 interface CodebaseMappingItemInterface {
     name: string;
@@ -19,3 +21,5 @@ export interface CodebaseInterface {
         [key: string]: CodebaseMappingItemInterface;
     };
 }
+
+export type CodebaseMappingKey = ValueOf<typeof CODEBASE_COMMON_LANGUAGES>;

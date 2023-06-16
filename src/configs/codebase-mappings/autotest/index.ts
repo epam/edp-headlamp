@@ -10,9 +10,19 @@ import {
     CODEBASE_COMMON_FRAMEWORKS,
     CODEBASE_COMMON_LANGUAGES,
 } from '../index';
-import { CodebaseInterface } from '../types';
+import { CodebaseInterface, CodebaseMappingKey } from '../types';
 
-export const AUTOTEST_MAPPING: { [key: string]: CodebaseInterface } = {
+export type AutotestLanguageKeys =
+    | typeof CODEBASE_COMMON_LANGUAGES.JAVA
+    | typeof CODEBASE_COMMON_LANGUAGES.OTHER;
+
+type AutotestMappingKey = Extract<CodebaseMappingKey, AutotestLanguageKeys>;
+
+export type AutotestMapping = {
+    [K in AutotestMappingKey]: CodebaseInterface;
+};
+
+export const AUTOTEST_MAPPING: AutotestMapping = {
     [CODEBASE_COMMON_LANGUAGES.JAVA]: {
         language: {
             name: 'Java',

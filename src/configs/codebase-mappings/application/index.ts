@@ -1,5 +1,4 @@
 import { CI_TOOLS } from '../../../constants/ciTools';
-import { ValueOf } from '../../../types/global';
 import {
     BUILD_TOOL_ICON_MAPPING,
     FRAMEWORK_ICON_MAPPING,
@@ -10,19 +9,25 @@ import {
     CODEBASE_COMMON_FRAMEWORKS,
     CODEBASE_COMMON_LANGUAGES,
 } from '../index';
-import { CodebaseInterface } from '../types';
+import { CodebaseInterface, CodebaseMappingKey } from '../types';
 
-type CodebaseMappingKey = ValueOf<typeof CODEBASE_COMMON_LANGUAGES>;
-type ExcludedCodebaseLanguageKeys =
-    | typeof CODEBASE_COMMON_LANGUAGES.GROOVY_PIPELINE
-    | typeof CODEBASE_COMMON_LANGUAGES.TERRAFORM
-    | typeof CODEBASE_COMMON_LANGUAGES.REGO
-    | typeof CODEBASE_COMMON_LANGUAGES.CONTAINER;
-type ApplicationMappingKey = Exclude<CodebaseMappingKey, ExcludedCodebaseLanguageKeys>;
+export type ApplicationLanguageKeys =
+    | typeof CODEBASE_COMMON_LANGUAGES.JAVA
+    | typeof CODEBASE_COMMON_LANGUAGES.JAVASCRIPT
+    | typeof CODEBASE_COMMON_LANGUAGES.DOTNET
+    | typeof CODEBASE_COMMON_LANGUAGES.PYTHON
+    | typeof CODEBASE_COMMON_LANGUAGES.GO
+    | typeof CODEBASE_COMMON_LANGUAGES.C_SHARP
+    | typeof CODEBASE_COMMON_LANGUAGES.HELM
+    | typeof CODEBASE_COMMON_LANGUAGES.OTHER;
 
-export const APPLICATION_MAPPING: {
+type ApplicationMappingKey = Extract<CodebaseMappingKey, ApplicationLanguageKeys>;
+
+export type ApplicationMapping = {
     [K in ApplicationMappingKey]: CodebaseInterface;
-} = {
+};
+
+export const APPLICATION_MAPPING: ApplicationMapping = {
     [CODEBASE_COMMON_LANGUAGES.JAVA]: {
         language: {
             name: 'Java',

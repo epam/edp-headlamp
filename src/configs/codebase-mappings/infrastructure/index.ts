@@ -9,9 +9,17 @@ import {
     CODEBASE_COMMON_FRAMEWORKS,
     CODEBASE_COMMON_LANGUAGES,
 } from '../index';
-import { CodebaseInterface } from '../types';
+import { CodebaseInterface, CodebaseMappingKey } from '../types';
 
-export const INFRASTRUCTURE_MAPPING: { [key: string]: CodebaseInterface } = {
+export type InfrastructureLanguageKeys = typeof CODEBASE_COMMON_LANGUAGES.TERRAFORM;
+
+type InfrastructureMappingKey = Extract<CodebaseMappingKey, InfrastructureLanguageKeys>;
+
+export type InfrastructureMapping = {
+    [K in InfrastructureMappingKey]: CodebaseInterface;
+};
+
+export const INFRASTRUCTURE_MAPPING: InfrastructureMapping = {
     [CODEBASE_COMMON_LANGUAGES.TERRAFORM]: {
         language: {
             name: 'Terraform',

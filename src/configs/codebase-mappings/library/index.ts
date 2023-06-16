@@ -9,9 +9,28 @@ import {
     CODEBASE_COMMON_FRAMEWORKS,
     CODEBASE_COMMON_LANGUAGES,
 } from '../index';
-import { CodebaseInterface } from '../types';
+import { CodebaseInterface, CodebaseMappingKey } from '../types';
 
-export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
+export type LibraryLanguageKeys =
+    | typeof CODEBASE_COMMON_LANGUAGES.JAVA
+    | typeof CODEBASE_COMMON_LANGUAGES.JAVASCRIPT
+    | typeof CODEBASE_COMMON_LANGUAGES.DOTNET
+    | typeof CODEBASE_COMMON_LANGUAGES.PYTHON
+    | typeof CODEBASE_COMMON_LANGUAGES.GROOVY_PIPELINE
+    | typeof CODEBASE_COMMON_LANGUAGES.TERRAFORM
+    | typeof CODEBASE_COMMON_LANGUAGES.REGO
+    | typeof CODEBASE_COMMON_LANGUAGES.CONTAINER
+    | typeof CODEBASE_COMMON_LANGUAGES.HELM
+    | typeof CODEBASE_COMMON_LANGUAGES.C_SHARP
+    | typeof CODEBASE_COMMON_LANGUAGES.OTHER;
+
+type LibraryMappingKey = Extract<CodebaseMappingKey, LibraryLanguageKeys>;
+
+export type LibraryMapping = {
+    [K in LibraryMappingKey]: CodebaseInterface;
+};
+
+export const LIBRARY_MAPPING: LibraryMapping = {
     [CODEBASE_COMMON_LANGUAGES.JAVA]: {
         language: {
             name: 'Java',
@@ -133,18 +152,6 @@ export const LIBRARY_MAPPING: { [key: string]: CodebaseInterface } = {
                 value: CODEBASE_COMMON_FRAMEWORKS.PYTHON_3_8,
                 icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.PYTHON_3_8],
                 availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
-            },
-            [CODEBASE_COMMON_FRAMEWORKS.FASTAPI]: {
-                name: 'FastAPI',
-                value: CODEBASE_COMMON_FRAMEWORKS.FASTAPI,
-                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.FASTAPI],
-                availableCITools: [CI_TOOLS.TEKTON],
-            },
-            [CODEBASE_COMMON_FRAMEWORKS.FLASK]: {
-                name: 'Flask',
-                value: CODEBASE_COMMON_FRAMEWORKS.FLASK,
-                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.FLASK],
-                availableCITools: [CI_TOOLS.TEKTON],
             },
         },
         buildTools: {
