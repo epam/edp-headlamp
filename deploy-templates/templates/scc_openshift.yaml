@@ -9,7 +9,7 @@ metadata:
   name: edp-headlamp-{{ .Values.global.edpName }}
 runAsUser:
   type: MustRunAs
-  uid: 65534
+  uid: 100
 seLinuxContext:
   type: MustRunAs
 users:
