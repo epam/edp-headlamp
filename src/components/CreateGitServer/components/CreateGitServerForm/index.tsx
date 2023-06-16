@@ -1,4 +1,4 @@
-import lodashOmit from 'lodash.omit';
+import { omit } from 'lodash';
 import { FormProvider, useForm } from 'react-hook-form';
 import { createGitServerSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
@@ -63,7 +63,7 @@ export const CreateGitServerForm = ({
             }
 
             if (value === undefined) {
-                return lodashOmit(prev, name);
+                return omit(prev, name);
             }
 
             return {

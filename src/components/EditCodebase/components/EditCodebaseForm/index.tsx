@@ -1,4 +1,4 @@
-import lodashOmit from 'lodash.omit';
+import { omit } from 'lodash';
 import { FormProvider, useForm } from 'react-hook-form';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
@@ -54,7 +54,7 @@ export const EditCodebaseForm = ({
                 }
 
                 if (value === undefined) {
-                    return lodashOmit(prev, name);
+                    return omit(prev, name);
                 }
 
                 return {

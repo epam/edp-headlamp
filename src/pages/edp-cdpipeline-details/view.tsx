@@ -27,7 +27,10 @@ const {
 } = pluginLib;
 
 export const EDPCDPipelineDetails = () => {
-    const { name } = useParams();
+    const { name } = useParams<{
+        namespace?: string;
+        name?: string;
+    }>();
     const classes = useStyles();
 
     const { CDPipeline } = useCDPipelineContext();

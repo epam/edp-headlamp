@@ -1,4 +1,4 @@
-import lodashOmit from 'lodash.omit';
+import { omit } from 'lodash';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
@@ -88,7 +88,7 @@ export const CreateCDPipelineForm = ({
             }
 
             if (value === undefined) {
-                return lodashOmit(prev, name);
+                return omit(prev, name) as EDPCDPipelineKubeObjectInterface;
             }
 
             return {

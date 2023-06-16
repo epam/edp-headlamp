@@ -1,4 +1,4 @@
-import lodashSet from 'lodash.set';
+import { set } from 'lodash';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectConfig } from '../../../../k8s/EDPCDPipelineStage/config';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
@@ -33,7 +33,7 @@ export const createCDPipelineStageInstance = (
 
     for (const [propKey, propValue] of Object.entries(restProps)) {
         const propPath = names[propKey].path;
-        lodashSet(base, propPath, propValue);
+        set(base, propPath, propValue);
     }
 
     return base;
@@ -56,7 +56,7 @@ export const editCDPipelineStageInstance = (
         }
 
         const propPath = names[propKey].path;
-        lodashSet(base, propPath, propValue);
+        set(base, propPath, propValue);
     }
 
     return base;

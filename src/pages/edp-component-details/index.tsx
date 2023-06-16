@@ -21,7 +21,10 @@ const {
 
 export const EDPComponentDetails = (): React.ReactElement => {
     const classes = useStyles();
-    const { namespace, name } = useParams();
+    const { namespace, name } = useParams<{
+        namespace?: string;
+        name?: string;
+    }>();
     const [component, setComponent] = React.useState<EDPCodebaseKubeObjectInterface>(null);
     const [, setError] = React.useState<Error>(null);
 

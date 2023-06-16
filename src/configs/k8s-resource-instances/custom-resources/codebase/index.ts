@@ -1,4 +1,4 @@
-import lodashSet from 'lodash.set';
+import { set } from 'lodash';
 import { EDPCodebaseKubeObjectConfig } from '../../../../k8s/EDPCodebase/config';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { FormNameObject } from '../../../../types/forms';
@@ -30,7 +30,7 @@ export const createCodebaseInstance = (
 
     for (const [propKey, propValue] of Object.entries(restProps)) {
         const propPath = names[propKey].path;
-        lodashSet(base, propPath, propValue);
+        set(base, propPath, propValue);
     }
 
     return base;
@@ -53,7 +53,7 @@ export const editCodebaseInstance = (
         }
 
         const propPath = names[propKey].path;
-        lodashSet(base, propPath, propValue);
+        set(base, propPath, propValue);
     }
 
     return base;

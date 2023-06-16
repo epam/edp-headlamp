@@ -1,4 +1,4 @@
-import lodashOmit from 'lodash.omit';
+import { omit } from 'lodash';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
@@ -71,7 +71,7 @@ export const CreateCDPipelineStageForm = ({
             }
 
             if (value === undefined) {
-                return lodashOmit(prev, name);
+                return omit(prev, name);
             }
 
             return {

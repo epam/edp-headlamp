@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import lodashOmit from 'lodash.omit';
+import { omit } from 'lodash';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../constants/creationStrategies';
@@ -144,7 +144,7 @@ export const CreateCodebase = ({
             }
 
             if (value === undefined) {
-                return lodashOmit(prev, name);
+                return omit(prev, name);
             }
 
             return {

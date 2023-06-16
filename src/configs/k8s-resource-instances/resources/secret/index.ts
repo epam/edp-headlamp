@@ -1,4 +1,4 @@
-import lodashSet from 'lodash.set';
+import { set } from 'lodash';
 import { FormNameObject } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
@@ -41,7 +41,7 @@ export const createGitServerSecretInstance = (
 
     for (const [propKey, propValue] of Object.entries(restProps)) {
         const propPath = names[propKey].path;
-        lodashSet(base, propPath, propValue);
+        set(base, propPath, propValue);
     }
 
     return base;

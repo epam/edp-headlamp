@@ -1,4 +1,4 @@
-import lodashSet from 'lodash.set';
+import { set } from 'lodash';
 import { EDPGitServerKubeObjectConfig } from '../../../../k8s/EDPGitServer/config';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
 import { FormNameObject } from '../../../../types/forms';
@@ -32,7 +32,7 @@ export const createGitServerInstance = (
 
     for (const [propKey, propValue] of Object.entries(restProps)) {
         const propPath = names[propKey].path;
-        lodashSet(base, propPath, propValue);
+        set(base, propPath, propValue);
     }
 
     return base;

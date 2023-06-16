@@ -5,7 +5,10 @@ import { CDPipelineStagesContext } from './context';
 const { useParams } = ReactRouter;
 
 export const CDPipelineStagesContextProvider: React.FC = ({ children }) => {
-    const { namespace, name } = useParams();
+    const { namespace, name } = useParams<{
+        namespace?: string;
+        name?: string;
+    }>();
     const stages = useStreamStagesByCDPipelineName({
         namespace,
         CDPipelineMetadataName: name,

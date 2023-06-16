@@ -1,4 +1,4 @@
-import hasLodash from 'lodash.has';
+import { has } from 'lodash';
 import { FieldValues } from 'react-hook-form';
 import { React } from '../../plugin.globals';
 import { KubeObjectInterface } from '../../plugin.types';
@@ -43,7 +43,7 @@ export const useHandleEditorSave = ({
             for (const formValueKey of Object.keys(formValues)) {
                 const propNameObjectPath = names[formValueKey].path;
 
-                if (hasLodash(editorPropsObject, propNameObjectPath)) {
+                if (has(editorPropsObject, propNameObjectPath)) {
                     continue;
                 }
 
@@ -158,7 +158,7 @@ export const useHandleEditorSaveNew = ({
             for (const formValueKey of Object.keys(formValues)) {
                 const propNameObjectPath = names[formValueKey].path;
 
-                if (hasLodash(editorPropsObject, propNameObjectPath)) {
+                if (has(editorPropsObject, propNameObjectPath)) {
                     continue;
                 }
 

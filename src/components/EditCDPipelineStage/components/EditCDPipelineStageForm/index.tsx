@@ -1,4 +1,4 @@
-import lodashOmit from 'lodash.omit';
+import { omit } from 'lodash';
 import { FormProvider, useForm } from 'react-hook-form';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { MuiCore, React } from '../../../../plugin.globals';
@@ -44,7 +44,7 @@ export const EditCDPipelineStageForm = ({
                 }
 
                 if (value === undefined) {
-                    return lodashOmit(prev, name);
+                    return omit(prev, name);
                 }
 
                 return {

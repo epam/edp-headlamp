@@ -1,4 +1,4 @@
-import lodashSet from 'lodash.set';
+import { set } from 'lodash';
 import { EDPCodebaseBranchKubeObjectConfig } from '../../../../k8s/EDPCodebaseBranch/config';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { FormNameObject } from '../../../../types/forms';
@@ -34,7 +34,7 @@ export const createCodebaseBranchInstanceBasedOnFormValues = (
 
     for (const [propKey, propValue] of Object.entries(restProps)) {
         const propPath = names[propKey].path;
-        lodashSet(base, propPath, propValue);
+        set(base, propPath, propValue);
     }
 
     return base as unknown as EDPCodebaseBranchKubeObjectInterface;
@@ -57,7 +57,7 @@ export const editCodebaseBranchInstance = (
         }
 
         const propPath = names[propKey].path;
-        lodashSet(base, propPath, propValue);
+        set(base, propPath, propValue);
     }
 
     return base;

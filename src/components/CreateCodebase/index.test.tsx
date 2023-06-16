@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 
-import { describe } from '@jest/globals';
 import { configureStore } from '@reduxjs/toolkit';
 import { render, screen, waitFor } from '@testing-library/react';
 import { SnackbarProvider } from 'notistack';

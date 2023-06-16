@@ -17,7 +17,10 @@ const {
 
 export const EDPGitServerDetails = (): React.ReactElement => {
     const classes = useStyles();
-    const { namespace, name } = useParams();
+    const { namespace, name } = useParams<{
+        namespace?: string;
+        name?: string;
+    }>();
     const [gitServer, setGitServer] = React.useState<EDPGitServerKubeObjectInterface>(null);
     const [, setError] = React.useState<Error>(null);
 
