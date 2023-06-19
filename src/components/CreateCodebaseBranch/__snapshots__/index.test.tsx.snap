@@ -29,7 +29,6 @@ exports[`CreateCodebaseBranch should render correctly 1`] = `
           href="https://epam.github.io/edp-install/headlamp-user-guide/application/#add-a-new-branch"
           tabindex="0"
           target="_blank"
-          title="Branch Creation Doc"
         >
           <span
             class="MuiIconButton-label"

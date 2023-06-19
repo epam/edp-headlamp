@@ -29,10 +29,7 @@ export const EDPCDPipelineList = (): React.ReactElement => {
                                 <Typography variant={'h5'}>CD Pipelines</Typography>
                             </Grid>
                             <Grid item>
-                                <DocLink
-                                    title={'CD Pipelines Doc'}
-                                    href={URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES}
-                                />
+                                <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES} />
                             </Grid>
                         </Grid>
                     }

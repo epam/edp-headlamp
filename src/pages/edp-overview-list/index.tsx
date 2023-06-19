@@ -33,10 +33,7 @@ export const EDPOverviewList = (): React.ReactElement => {
                                 <Typography variant={'h5'}>Overview</Typography>
                             </Grid>
                             <Grid item>
-                                <DocLink
-                                    title={'Overview Doc'}
-                                    href={URL_EDP_HEADLAMP_USER_GUIDE_OVERVIEW}
-                                />
+                                <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_OVERVIEW} />
                             </Grid>
                         </Grid>
                     }

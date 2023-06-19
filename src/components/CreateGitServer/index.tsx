@@ -46,10 +46,7 @@ export const CreateGitServer = ({
                             <Typography variant={'h5'}>Create Git Server</Typography>
                         </Grid>
                         <Grid item>
-                            <DocLink
-                                title={'Git Server Creation Doc'}
-                                href={URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVER_ADD}
-                            />
+                            <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVER_ADD} />
                         </Grid>
                     </Grid>
                     <Button

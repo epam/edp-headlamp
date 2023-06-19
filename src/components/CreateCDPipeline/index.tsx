@@ -51,10 +51,7 @@ export const CreateCDPipeline = ({
                             <Typography variant={'h5'}>Create CD Pipeline</Typography>
                         </Grid>
                         <Grid item>
-                            <DocLink
-                                title={'CD Pipeline Creation Doc'}
-                                href={URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES}
-                            />
+                            <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES} />
                         </Grid>
                     </Grid>
                     <Button

@@ -26,10 +26,7 @@ export const EDPGitServerList = (): React.ReactElement => {
                                 <Typography variant={'h5'}>Git Servers</Typography>
                             </Grid>
                             <Grid item>
-                                <DocLink
-                                    title={'Git Servers Doc'}
-                                    href={URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVERS}
-                                />
+                                <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVERS} />
                             </Grid>
                         </Grid>
                     }

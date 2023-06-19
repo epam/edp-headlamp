@@ -32,10 +32,7 @@ export const CreateCDPipelineStage = ({
                             >{`Create stage for "${CDPipelineData.metadata.name}"`}</Typography>
                         </Grid>
                         <Grid item>
-                            <DocLink
-                                title={'CD Pipeline Stage Creation Doc'}
-                                href={URL_EDP_HEADLAMP_USER_GUIDE_STAGE_ADD}
-                            />
+                            <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_STAGE_ADD} />
                         </Grid>
                     </Grid>
                     <Button

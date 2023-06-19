@@ -11,9 +11,7 @@ import { URL_EDP_HEADLAMP_USER_GUIDE } from './constants/urls';
 import { List } from './routes';
 import { SIDEBAR_LIST } from './routes/sidebar-list';
 
-const additionalActions = [
-    <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE} title={'EDP Headlamp User Guide'} />,
-];
+const additionalActions = [<DocLink href={URL_EDP_HEADLAMP_USER_GUIDE} />];
 
 class EDPHeadlampPlugin extends Plugin {
     initialize() {

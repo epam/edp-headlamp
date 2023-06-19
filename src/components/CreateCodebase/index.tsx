@@ -380,10 +380,7 @@ export const CreateCodebase = ({
                                     >{`Create ${capitalizedType}`}</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <DocLink
-                                        title={`${capitalizedType} Creation Doc`}
-                                        href={docLink}
-                                    />
+                                    <DocLink href={docLink} />
                                 </Grid>
                             </Grid>
                             <Button

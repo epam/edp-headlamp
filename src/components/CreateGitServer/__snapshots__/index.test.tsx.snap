@@ -29,7 +29,6 @@ exports[`CreateGitServer should render correctly 1`] = `
           href="https://epam.github.io/edp-install/headlamp-user-guide/add-git-server/"
           tabindex="0"
           target="_blank"
-          title="Git Server Creation Doc"
         >
           <span
             class="MuiIconButton-label"

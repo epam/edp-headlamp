@@ -207,10 +207,7 @@ export const CreateCodebaseBranch = ({
                             <Typography variant={'h5'}>Create New Branch</Typography>
                         </Grid>
                         <Grid item>
-                            <DocLink
-                                title={'Branch Creation Doc'}
-                                href={URL_EDP_HEADLAMP_USER_GUIDE_BRANCH_ADD}
-                            />
+                            <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_BRANCH_ADD} />
                         </Grid>
                     </Grid>
                     <Button

@@ -70,10 +70,7 @@ export const CodebaseBranchesList = ({
                                 <Typography variant={'h5'}>Branches</Typography>
                             </Grid>
                             <Grid item>
-                                <DocLink
-                                    title={'Build Branch Doc'}
-                                    href={URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS}
-                                />
+                                <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS} />
                             </Grid>
                         </Grid>
                     }

@@ -400,7 +400,6 @@ export const CDPipelineStage = ({ expandedPanel, handleAccordionChange }: CDPipe
                                                         </Grid>
                                                         <Grid item>
                                                             <DocLink
-                                                                title={'Quality Gate Run Doc'}
                                                                 href={
                                                                     URL_EDP_HEADLAMP_USER_GUIDE_QUALITY_GATE_RUN
                                                                 }
@@ -458,9 +457,6 @@ export const CDPipelineStage = ({ expandedPanel, handleAccordionChange }: CDPipe
                                                                 </Grid>
                                                                 <Grid item>
                                                                     <DocLink
-                                                                        title={
-                                                                            'Quality Gate Creation Doc'
-                                                                        }
                                                                         href={
                                                                             URL_EDP_HEADLAMP_USER_GUIDE_QUALITY_GATE_ADD
                                                                         }

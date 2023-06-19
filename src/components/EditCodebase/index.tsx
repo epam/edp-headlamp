@@ -32,10 +32,7 @@ export const EditCodebase = ({
                             >{`Edit ${codebaseData.metadata.name}`}</Typography>
                         </Grid>
                         <Grid item>
-                            <DocLink
-                                title={'Component Edit Creation Doc'}
-                                href={URL_EDP_HEADLAMP_USER_GUIDE_APPLICATION_EDIT}
-                            />
+                            <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_APPLICATION_EDIT} />
                         </Grid>
                     </Grid>
                 </div>

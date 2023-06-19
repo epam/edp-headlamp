@@ -29,7 +29,6 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
           href="https://epam.github.io/edp-install/headlamp-user-guide/add-application/"
           tabindex="0"
           target="_blank"
-          title="undefined Creation Doc"
         >
           <span
             class="MuiIconButton-label"
@@ -2245,7 +2244,6 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
           href="https://epam.github.io/edp-install/headlamp-user-guide/add-application/"
           tabindex="0"
           target="_blank"
-          title="undefined Creation Doc"
         >
           <span
             class="MuiIconButton-label"
@@ -4461,7 +4459,6 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
           href="https://epam.github.io/edp-install/headlamp-user-guide/add-application/"
           tabindex="0"
           target="_blank"
-          title="undefined Creation Doc"
         >
           <span
             class="MuiIconButton-label"

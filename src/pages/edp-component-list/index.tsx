@@ -46,10 +46,7 @@ export const EDPComponentList = (): React.ReactElement => {
                                     <Typography variant={'h5'}>Components</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <DocLink
-                                        title={'Components Doc'}
-                                        href={URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS}
-                                    />
+                                    <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS} />
                                 </Grid>
                             </Grid>
                         }

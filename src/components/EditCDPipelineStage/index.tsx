@@ -32,10 +32,7 @@ export const EditCDPipelineStage = ({
                             >{`Edit ${CDPipelineStageData.metadata.name}`}</Typography>
                         </Grid>
                         <Grid item>
-                            <DocLink
-                                title={'CD Pipeline Stage Edit Creation Doc'}
-                                href={URL_EDP_HEADLAMP_USER_GUIDE_STAGE_EDIT}
-                            />
+                            <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_STAGE_EDIT} />
                         </Grid>
                     </Grid>
                 </div>
