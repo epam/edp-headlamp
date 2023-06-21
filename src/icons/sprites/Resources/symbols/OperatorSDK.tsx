@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const OperatorSDK = (): React.ReactElement => {
+export const OperatorSDK = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.OPERATOR_SDK} viewBox="6.2 5.88 346.46 346.46">
             <path

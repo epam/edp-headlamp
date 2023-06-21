@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const ReactSymbol = (): React.ReactElement => {
+export const ReactSymbol = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.REACT} viewBox="-11.5 -12.13 23 24.25" xmlSpace="preserve">
             <circle r="2.05" fill="#61dafb" />

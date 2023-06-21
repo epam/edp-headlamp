@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const DotNet = (): React.ReactElement => {
+export const DotNet = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.DOTNET} viewBox="0 0 456 456" xmlSpace="preserve">
             <path fill="#512BD4" d="M0 0h456v456H0z" />

@@ -1,0 +1,181 @@
+import { Icon } from '@iconify/react';
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Chip, Grid, IconButton, Typography } from '@material-ui/core';
+import { ClassNameMap } from '@material-ui/styles';
+import clsx from 'clsx';
+import { useParams } from 'react-router-dom';
+import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
+import { Render } from '../../../../../components/Render';
+import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
+import { StatusIcon } from '../../../../../components/StatusIcon';
+import { ICONS } from '../../../../../constants/icons';
+import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
+import { TRIGGER_TYPES } from '../../../../../constants/triggerTypes';
+import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
+import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { React } from '../../../../../plugin.globals';
+import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
+import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
+import { rem } from '../../../../../utils/styling/rem';
+import { createArgoCDStageLink } from '../../../../../utils/url/createArgoCDStageLink';
+import { createGrafanaLink } from '../../../../../utils/url/createGrafanaLink';
+import { createKibanaLink } from '../../../../../utils/url/createKibanaLink';
+import { routeEDPStageDetails } from '../../../../edp-stage-details/route';
+import { EDPCDPipelineRouteParams } from '../../../types';
+
+export const useColumns = (
+    classes: ClassNameMap<'labelChip' | 'labelChipBlue' | 'labelChipGreen'>
+): HeadlampSimpleTableGetterColumn<EDPCDPipelineStageKubeObjectInterface>[] => {
+    const { handleOpenResourceActionListMenu } = useResourceActionListContext();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
+    const { name: CDPipelineName, namespace } = useParams<EDPCDPipelineRouteParams>();
+
+    const grafanaLink = React.useMemo(
+        () => createGrafanaLink(EDPComponentsURLS, namespace),
+        [EDPComponentsURLS, namespace]
+    );
+    const kibanaLink = React.useMemo(
+        () => createKibanaLink(EDPComponentsURLS, namespace),
+        [EDPComponentsURLS, namespace]
+    );
+
+    return React.useMemo(
+        () => [
+            {
+                label: 'Status',
+                getter: ({ status }) => {
+                    return (
+                        <StatusIcon
+                            status={status?.status}
+                            customTitle={
+                                <>
+                                    <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                                        {capitalizeFirstLetter(status?.status)}
+                                    </Typography>
+                                    <Render
+                                        condition={
+                                            status?.status === CUSTOM_RESOURCE_STATUSES.FAILED
+                                        }
+                                    >
+                                        <Typography
+                                            variant={'subtitle2'}
+                                            style={{ marginTop: rem(10) }}
+                                        >
+                                            {status?.detailed_message}
+                                        </Typography>
+                                    </Render>
+                                </>
+                            }
+                        />
+                    );
+                },
+            },
+            {
+                label: 'Stage',
+                getter: ({ spec: { name: specName }, metadata: { name: metadataName } }) => {
+                    return (
+                        <Link
+                            routeName={routeEDPStageDetails.path}
+                            params={{
+                                CDPipelineName,
+                                namespace,
+                                stageName: metadataName,
+                            }}
+                        >
+                            {specName}
+                        </Link>
+                    );
+                },
+            },
+            {
+                label: 'Trigger Type',
+                getter: ({ spec: { triggerType } }) => {
+                    const isManualTriggerType = triggerType === TRIGGER_TYPES.MANUAL;
+
+                    return isManualTriggerType ? (
+                        <Chip
+                            label="manual"
+                            className={clsx([classes.labelChip, classes.labelChipBlue])}
+                        />
+                    ) : (
+                        <Chip
+                            label="auto"
+                            className={clsx([classes.labelChip, classes.labelChipGreen])}
+                        />
+                    );
+                },
+            },
+            {
+                label: 'Links',
+                getter: stage => {
+                    const argoCDStageLink = createArgoCDStageLink(
+                        EDPComponentsURLS,
+                        CDPipelineName,
+                        stage.spec.name
+                    );
+
+                    return (
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <ResourceIconLink
+                                    icon={ICONS.ARGOCD}
+                                    tooltipTitle={'Open in ArgoCD'}
+                                    link={argoCDStageLink}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <ResourceIconLink
+                                    icon={ICONS.GRAFANA}
+                                    tooltipTitle={'Open in Grafana'}
+                                    link={grafanaLink}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <ResourceIconLink
+                                    icon={ICONS.KIBANA}
+                                    tooltipTitle={'Open in Kibana'}
+                                    link={kibanaLink}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <ResourceIconLink
+                                    icon={ICONS.KUBERNETES}
+                                    tooltipTitle={'In cluster'}
+                                    link={null}
+                                />
+                            </Grid>
+                        </Grid>
+                    );
+                },
+            },
+            {
+                label: '',
+                getter: stage => {
+                    console.log(stage);
+                    const buttonRef = React.createRef<HTMLButtonElement>();
+
+                    return (
+                        <IconButton
+                            ref={buttonRef}
+                            aria-label={'Options'}
+                            onClick={() =>
+                                handleOpenResourceActionListMenu(buttonRef.current, stage)
+                            }
+                        >
+                            <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
+                        </IconButton>
+                    );
+                },
+            },
+        ],
+        [
+            CDPipelineName,
+            EDPComponentsURLS,
+            classes,
+            grafanaLink,
+            handleOpenResourceActionListMenu,
+            kibanaLink,
+            namespace,
+        ]
+    );
+};

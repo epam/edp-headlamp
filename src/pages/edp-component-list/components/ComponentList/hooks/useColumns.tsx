@@ -14,14 +14,13 @@ import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { Iconify, MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
-import { COMPONENTS_ROUTE_NAME } from '../../../../../routes/names';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
-import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 import { rem } from '../../../../../utils/styling/rem';
+import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 
 const {
     CommonComponents: { Link },
@@ -67,9 +66,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                 getter: ({ metadata: { name, namespace } }) => {
                     return (
                         <Link
-                            routeName={createRouteNameBasedOnNameAndNamespace(
-                                COMPONENTS_ROUTE_NAME
-                            )}
+                            routeName={routeEDPComponentDetails.path}
                             params={{
                                 name,
                                 namespace,

@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Maven = (): React.ReactElement => {
+export const Maven = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.MAVEN} viewBox="3.03 0 17.94 24" xmlSpace="preserve">
             <path

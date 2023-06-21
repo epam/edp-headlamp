@@ -6,9 +6,7 @@ import { TableHeaderActionsProps } from './types';
 const { Icon } = Iconify;
 const { Tooltip, Button, Typography } = MuiCore;
 
-export const TableHeaderActions = ({
-    kubeObjectData,
-}: TableHeaderActionsProps): React.ReactElement => {
+export const TableHeaderActions = ({ kubeObjectData }: TableHeaderActionsProps) => {
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
     const handleCloseDialog = React.useCallback(() => setCreateDialogOpen(false), []);
     const handleOpenDialog = React.useCallback(() => setCreateDialogOpen(true), []);

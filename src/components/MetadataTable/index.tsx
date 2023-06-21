@@ -8,7 +8,7 @@ const { Icon } = Iconify;
 
 const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
 
-export const MetadataTable = ({ rows }: MetadataTableProps): React.ReactElement => {
+export const MetadataTable = ({ rows }: MetadataTableProps) => {
     const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
     const handleDialogOpen = React.useCallback(() => {

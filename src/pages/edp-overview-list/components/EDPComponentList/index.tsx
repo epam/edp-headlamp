@@ -6,10 +6,7 @@ import { EDPComponentListProps } from './types';
 
 const { Utils } = pluginLib;
 
-export const EDPComponentList: React.FC<EDPComponentListProps> = ({
-    EDPComponents,
-    error,
-}): React.ReactElement => {
+export const EDPComponentList: React.FC<EDPComponentListProps> = ({ EDPComponents, error }) => {
     const classes = useStyles();
     const columns = useColumns(classes);
     const filterFunc = Utils.useFilterFunc();

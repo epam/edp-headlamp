@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Opa = (): React.ReactElement => {
+export const Opa = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.OPA} viewBox="24.86 6.7 378.78 419.1" xmlSpace="preserve">
             <path

@@ -13,7 +13,7 @@ export const EditCDPipelineStage = ({
     onClose,
     setOpen,
     CDPipelineStageData,
-}: EditCodebaseProps): React.ReactElement => {
+}: EditCodebaseProps) => {
     const classes = useStyles();
 
     const { editCDPipelineStage } = useEditCDPipelineStage({

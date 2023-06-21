@@ -7,7 +7,7 @@ const { Grid } = MuiCore;
 export const ApplicationsFormPart = ({
     names,
     handleFormFieldChange,
-}: ApplicationsFormPartProps): React.ReactElement => {
+}: ApplicationsFormPartProps) => {
     return (
         <Grid container spacing={3}>
             <Applications names={names} handleFormFieldChange={handleFormFieldChange} />

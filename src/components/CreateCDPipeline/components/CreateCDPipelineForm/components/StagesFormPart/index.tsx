@@ -10,7 +10,7 @@ export const StagesFormPart = ({
     stages,
     setCreateStageDialogOpen,
     onStageDelete,
-}: StagesFormPartProps): React.ReactElement => {
+}: StagesFormPartProps) => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>

@@ -1,6 +1,5 @@
-import { React } from '../../plugin.globals';
 import { RenderProps } from './types';
 
-export const Render = ({ condition, children }: RenderProps): React.ReactElement => {
+export const Render = ({ condition, children }: RenderProps) => {
     return condition ? children : null;
 };

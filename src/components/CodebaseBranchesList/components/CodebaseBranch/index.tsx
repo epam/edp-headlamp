@@ -53,7 +53,7 @@ export const CodebaseBranch = ({
     id,
     handlePanelChange,
     codebaseData,
-}: CodebaseBranchProps): React.ReactElement => {
+}: CodebaseBranchProps) => {
     const {
         register,
         control,

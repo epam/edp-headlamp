@@ -8,7 +8,7 @@ const {
 } = pluginLib;
 const { Box } = MuiCore;
 
-export const GeneralInfoTable = ({ gitServerData }: GeneralInfoTableProps): React.ReactElement => {
+export const GeneralInfoTable = ({ gitServerData }: GeneralInfoTableProps) => {
     const { spec } = gitServerData;
 
     const columns = useColumns(spec);

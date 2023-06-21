@@ -8,11 +8,7 @@ import { StatusIconProps } from './types';
 const { Icon } = Iconify;
 const { Tooltip } = MuiCore;
 
-export const StatusIcon = ({
-    status,
-    customTitle,
-    width = 25,
-}: StatusIconProps): React.ReactElement => {
+export const StatusIcon = ({ status, customTitle, width = 25 }: StatusIconProps) => {
     const classes = useStyles();
 
     const [icon, color, animate] = getCustomResourceStatusIconByStatusName(status);

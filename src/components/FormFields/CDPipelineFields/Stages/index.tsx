@@ -7,11 +7,7 @@ const { Grid, Button, Typography } = MuiCore;
 const { useTheme } = MuiStyles;
 const { Icon } = Iconify;
 
-export const Stages = ({
-    stages,
-    setCreateStageDialogOpen,
-    onStageDelete,
-}: StagesProps): React.ReactElement => {
+export const Stages = ({ stages, setCreateStageDialogOpen, onStageDelete }: StagesProps) => {
     const theme: DefaultTheme = useTheme();
 
     return (

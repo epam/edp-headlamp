@@ -16,7 +16,7 @@ export const EditCDPipelineForm = ({
     handleApply,
     setDialogOpen,
     CDPipelineData,
-}: EditCDPipelineFormProps): React.ReactElement => {
+}: EditCDPipelineFormProps) => {
     const classes = useStyles();
 
     const { names } = useNames();

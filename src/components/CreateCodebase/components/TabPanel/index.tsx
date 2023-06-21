@@ -1,13 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { TabPanelProps } from './types';
 
-export const TabPanel = ({
-    children,
-    value,
-    index,
-    className,
-    ...other
-}: TabPanelProps): React.ReactElement => {
+export const TabPanel = ({ children, value, index, className, ...other }: TabPanelProps) => {
     const isActive = value === index;
     return (
         <div

@@ -18,10 +18,7 @@ import { useCreateBuildPipelineRun } from './hooks/useCreateBuildPipelineRun';
 import { CodebaseBranchActionsProps } from './types';
 import { createDeleteAction } from './utils';
 
-export const CodebaseBranchActions = ({
-    defaultBranch,
-    codebase,
-}: CodebaseBranchActionsProps): React.ReactElement => {
+export const CodebaseBranchActions = ({ defaultBranch, codebase }: CodebaseBranchActionsProps) => {
     const { anchorEl, kubeObject, handleCloseResourceActionListMenu } =
         useResourceActionListContext();
 

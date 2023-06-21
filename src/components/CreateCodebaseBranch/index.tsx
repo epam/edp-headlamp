@@ -39,7 +39,7 @@ export const CreateCodebaseBranch = ({
     open,
     handleCloseDialog,
     handleOpenDialog,
-}: CreateCodebaseBranchProps): React.ReactElement => {
+}: CreateCodebaseBranchProps) => {
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
     const [editorCodebaseBranchData, setEditorCodebaseBranchData] =

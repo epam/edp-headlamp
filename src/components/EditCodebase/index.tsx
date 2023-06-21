@@ -8,12 +8,7 @@ import { EditCodebaseProps } from './types';
 
 const { Dialog, DialogContent, Typography, Grid } = MuiCore;
 
-export const EditCodebase = ({
-    open,
-    onClose,
-    setOpen,
-    codebaseData,
-}: EditCodebaseProps): React.ReactElement => {
+export const EditCodebase = ({ open, onClose, setOpen, codebaseData }: EditCodebaseProps) => {
     const classes = useStyles();
 
     const { editCodebase } = useEditCodebase({

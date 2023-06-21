@@ -1,0 +1,10 @@
+import { React } from '../../plugin.globals';
+import { createSidebarItemName } from '../../utils/routes/createSidebarItemName';
+import Page from './page';
+
+export const routeEDPStageDetails = {
+    name: 'edp-stage-details',
+    path: '/edp/cdpipelines/:namespace/:CDPipelineName/stages/:stageName',
+    sidebar: createSidebarItemName('cdpipelines'),
+    component: () => <Page />,
+};

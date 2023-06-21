@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Jenkins = (): React.ReactElement => {
+export const Jenkins = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.JENKINS} viewBox="0 .14 225.54 311.86">
             <path

@@ -4,7 +4,7 @@ import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
 import { ClusterProps } from './types';
 
-export const Cluster = ({ names, handleFormFieldChange }: ClusterProps): React.ReactElement => {
+export const Cluster = ({ names, handleFormFieldChange }: ClusterProps) => {
     const {
         register,
         control,

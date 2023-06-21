@@ -25,7 +25,7 @@ export const EditCodebaseForm = ({
     handleApply,
     setDialogOpen,
     codebaseData,
-}: EditCodebaseFormProps): React.ReactElement => {
+}: EditCodebaseFormProps) => {
     const classes = useStyles();
 
     const { names } = useNames();

@@ -9,9 +9,7 @@ const {
 } = pluginLib;
 const { Box } = MuiCore;
 
-export const CodebaseAdvancedInfoTable = ({
-    kubeObjectData,
-}: CodebaseAdvancedInfoTableProps): React.ReactElement => {
+export const CodebaseAdvancedInfoTable = ({ kubeObjectData }: CodebaseAdvancedInfoTableProps) => {
     const { spec } = kubeObjectData;
 
     const classes = useStyles();

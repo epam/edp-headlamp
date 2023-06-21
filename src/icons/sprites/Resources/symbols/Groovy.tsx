@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Groovy = (): React.ReactElement => {
+export const Groovy = () => {
     return (
         <symbol
             id={RESOURCE_ICON_NAMES.GROOVY_PIPELINE}

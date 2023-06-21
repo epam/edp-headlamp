@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Docker = (): React.ReactElement => {
+export const Docker = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.DOCKER} viewBox="0 0 1316 1126" xmlSpace="preserve">
             <image

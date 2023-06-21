@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Python = (): React.ReactElement => {
+export const Python = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.PYTHON} viewBox="0.14 0.07 255.38 254.05">
             <path

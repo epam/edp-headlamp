@@ -14,7 +14,7 @@ export const CreateGitServer = ({
     createDialogOpen,
     onClose,
     setCreateDialogOpen,
-}: CreateGitServerProps): React.ReactElement => {
+}: CreateGitServerProps) => {
     const classes = useStyles();
 
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);

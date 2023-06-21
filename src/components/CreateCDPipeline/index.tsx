@@ -14,7 +14,7 @@ export const CreateCDPipeline = ({
     createDialogOpen,
     onClose,
     setCreateDialogOpen,
-}: CreateCDPipelineProps): React.ReactElement => {
+}: CreateCDPipelineProps) => {
     const classes = useStyles();
 
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);

@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Tekton = (): React.ReactElement => {
+export const Tekton = () => {
     return (
         <symbol
             id={RESOURCE_ICON_NAMES.TEKTON}

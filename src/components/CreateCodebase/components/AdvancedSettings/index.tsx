@@ -19,7 +19,7 @@ import { FormDataContext } from '../../index';
 
 const { Grid } = MuiCore;
 
-export const AdvancedSettings = (): React.ReactElement => {
+export const AdvancedSettings = () => {
     const { names, handleFormFieldChange } = React.useContext(FormDataContext);
 
     const { watch } = useFormContext();

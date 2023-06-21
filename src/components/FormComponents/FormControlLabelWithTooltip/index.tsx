@@ -8,10 +8,7 @@ import { FormControlLabelWithTooltipProps } from './types';
 const { Typography, Tooltip, Box } = MuiCore;
 const { Icon } = Iconify;
 
-export const FormControlLabelWithTooltip = ({
-    label,
-    title,
-}: FormControlLabelWithTooltipProps): React.ReactElement => {
+export const FormControlLabelWithTooltip = ({ label, title }: FormControlLabelWithTooltipProps) => {
     const classes = useStyles();
     return (
         <span className={classes.labelWrap}>

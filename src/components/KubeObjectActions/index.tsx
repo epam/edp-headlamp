@@ -14,7 +14,7 @@ type ActionsListProps = {
     anchorEl: HTMLElement | null;
 };
 
-const ActionsList = ({ actions, menuOpen, anchorEl }: ActionsListProps): React.ReactElement => {
+const ActionsList = ({ actions, menuOpen, anchorEl }: ActionsListProps) => {
     const classes = useStyles();
 
     return (
@@ -61,7 +61,7 @@ export const KubeObjectActions = ({
     actions = [],
     anchorEl,
     handleCloseActionsMenu,
-}: React.PropsWithChildren<KubeObjectActionsProps>): React.ReactElement => {
+}: React.PropsWithChildren<KubeObjectActionsProps>) => {
     const classes = useStyles();
 
     return (

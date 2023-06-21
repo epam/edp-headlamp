@@ -1,19 +1,29 @@
+import { Grid, Paper, Typography } from '@material-ui/core';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
-import { pluginLib, React } from '../../../../plugin.globals';
+import { React } from '../../../../plugin.globals';
 import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
 import { useColumns } from './hooks/useColumns';
+import { useStyles } from './styles';
 
-const {
-    CommonComponents: { SectionBox, SectionHeader },
-} = pluginLib;
-
-export const CDPipelineApplicationsTable = (): React.ReactElement => {
+export const CDPipelineApplicationsTable = () => {
     const columns = useColumns();
+    const classes = useStyles();
     const { enrichedApplications } = useEnrichedApplicationsContext();
 
     return (
-        <SectionBox title={<SectionHeader title={'Applications'} headerStyle="label" />}>
-            <HeadlampSimpleTable data={enrichedApplications} columns={columns} />
-        </SectionBox>
+        <Grid container spacing={1}>
+            <Grid item xs={12}>
+                <Grid container spacing={1} alignItems={'center'} justifyContent={'space-between'}>
+                    <Grid item>
+                        <Typography variant={'h5'}>Applications</Typography>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                <Paper className={classes.tableRoot}>
+                    <HeadlampSimpleTable data={enrichedApplications} columns={columns} />
+                </Paper>
+            </Grid>
+        </Grid>
     );
 };

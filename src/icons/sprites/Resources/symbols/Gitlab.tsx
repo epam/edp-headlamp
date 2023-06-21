@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Gitlab = (): React.ReactElement => {
+export const Gitlab = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.GITLAB} viewBox="93.97 97.52 192.05 184.99">
             <path

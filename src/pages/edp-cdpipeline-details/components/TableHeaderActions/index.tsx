@@ -9,9 +9,7 @@ import { TableHeaderActionsProps } from './types';
 const { Icon } = Iconify;
 const { Tooltip, Button, Typography } = MuiCore;
 
-export const TableHeaderActions = ({
-    CDPipelineStages,
-}: TableHeaderActionsProps): React.ReactElement => {
+export const TableHeaderActions = ({ CDPipelineStages }: TableHeaderActionsProps) => {
     const { CDPipeline } = useCDPipelineContext();
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
 

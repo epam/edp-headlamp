@@ -17,7 +17,7 @@ export const EditCDPipelineStageForm = ({
     handleApply,
     setDialogOpen,
     CDPipelineStageData,
-}: EditCodebaseFormProps): React.ReactElement => {
+}: EditCodebaseFormProps) => {
     const classes = useStyles();
 
     const { names } = useNames();

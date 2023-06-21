@@ -8,7 +8,7 @@ const {
     Utils: { useFilterFunc },
 } = pluginLib;
 
-export const ComponentList = ({ components, error }: ComponentListProps): React.ReactElement => {
+export const ComponentList = ({ components, error }: ComponentListProps) => {
     const columns = useColumns();
     const filterFunc = useFilterFunc();
     return (

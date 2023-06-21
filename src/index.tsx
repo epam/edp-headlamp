@@ -8,7 +8,7 @@ import {
 } from '@kinvolk/headlamp-plugin/lib';
 import { DocLink } from './components/DocLink';
 import { URL_EDP_HEADLAMP_USER_GUIDE } from './constants/urls';
-import { List } from './routes';
+import routes from './routes';
 import { SIDEBAR_LIST } from './routes/sidebar-list';
 
 const additionalActions = [<DocLink href={URL_EDP_HEADLAMP_USER_GUIDE} />];
@@ -30,7 +30,7 @@ class EDPHeadlampPlugin extends Plugin {
             });
         }
 
-        for (const route of Object.values(List)) {
+        for (const route of routes) {
             registerRoute(route);
         }
 

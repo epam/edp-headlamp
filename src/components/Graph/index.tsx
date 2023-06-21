@@ -1,3 +1,4 @@
+import '@carbon/charts/styles-g90.css';
 import { ArrowRightMarker } from '@carbon/charts-react/diagrams/Marker';
 import { ElkNode } from 'elkjs';
 import ELK from 'elkjs/lib/elk.bundled';
@@ -5,7 +6,6 @@ import React, { useEffect, useState } from 'react';
 import { Edge } from './components/Edge';
 import { Node } from './components/Node';
 import { GraphProps } from './components/types';
-
 export const Graph = ({ direction = 'RIGHT', id, nodes, edges, type = 'detailed' }: GraphProps) => {
     const elk = React.useMemo(
         () =>

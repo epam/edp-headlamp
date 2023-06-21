@@ -23,7 +23,7 @@ export const FormTextField = React.forwardRef(
             ...props
         }: FormTextFieldProps,
         ref: React.RefObject<HTMLInputElement>
-    ): React.ReactElement => {
+    ) => {
         const hasError = !!errors[name];
 
         return (

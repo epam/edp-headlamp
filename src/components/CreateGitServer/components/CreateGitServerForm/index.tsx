@@ -36,7 +36,7 @@ export const CreateGitServerForm = ({
     handleApply,
     setDialogOpen,
     isApplying,
-}: CreateGitServerFormProps): React.ReactElement => {
+}: CreateGitServerFormProps) => {
     const classes = useStyles();
 
     const { baseDefaultValues } = useDefaultValues({ names: GIT_SERVER_NAMES });

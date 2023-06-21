@@ -45,7 +45,7 @@ export const CreateCDPipelineForm = ({
     handleApply,
     setDialogOpen,
     isApplying,
-}: CreateCDPipelineFormProps): React.ReactElement => {
+}: CreateCDPipelineFormProps) => {
     const classes = useStyles();
 
     const [activeTabIdx, setActiveTabIdx] = React.useState<number>(TAB_INDEXES[FORM_PART_PIPELINE]);

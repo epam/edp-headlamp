@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Flask = (): React.ReactElement => {
+export const Flask = () => {
     return (
         <symbol
             id={RESOURCE_ICON_NAMES.FLASK}

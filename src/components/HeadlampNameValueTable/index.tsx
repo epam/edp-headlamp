@@ -6,9 +6,7 @@ const {
     CommonComponents: { NameValueTable },
 } = pluginLib;
 
-export const HeadlampNameValueTable: React.FC<HeadlampNameValueTableProps> = (
-    props
-): React.ReactElement => {
+export const HeadlampNameValueTable: React.FC<HeadlampNameValueTableProps> = props => {
     const classes = useStyles();
     return (
         <div className={classes.tableWrapper}>

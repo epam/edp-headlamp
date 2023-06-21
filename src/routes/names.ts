@@ -12,3 +12,5 @@ export const GIT_SERVER_ROUTE_NAME = EDPGitServerKubeObjectConfig.name.singularF
 export const OVERVIEW_ROUTE_NAME = 'overview';
 export const COMPONENTS_ROUTE_NAME = 'components';
 export const COMPONENT_ROUTE_NAME = 'component';
+export const STAGES_ROUTE_NAME = 'stage';
+export const STAGE_ROUTE_NAME = 'stages';

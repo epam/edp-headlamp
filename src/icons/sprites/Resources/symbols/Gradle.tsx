@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Gradle = (): React.ReactElement => {
+export const Gradle = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.GRADLE} viewBox="0 12.12 64 39.77" xmlSpace="preserve">
             <g fillRule="evenodd">

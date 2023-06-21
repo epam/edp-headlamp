@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const AWS = (): React.ReactElement => {
+export const AWS = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.AWS} viewBox="0 0 304 182" xmlSpace="preserve">
             <path

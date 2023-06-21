@@ -21,7 +21,7 @@ export const QualityGateRow = ({
     setQualityGates,
     setNewQualityGates,
     qualityGates,
-}: QualityGateRowProps): React.ReactElement => {
+}: QualityGateRowProps) => {
     const {
         register,
         control,

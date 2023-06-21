@@ -24,7 +24,7 @@ import { isCloneStrategy } from '../../utils';
 
 const { Grid } = MuiCore;
 
-export const CodebaseInfo = (): React.ReactElement => {
+export const CodebaseInfo = () => {
     const { names, handleFormFieldChange } = React.useContext(FormDataContext);
 
     const { watch } = useFormContext();

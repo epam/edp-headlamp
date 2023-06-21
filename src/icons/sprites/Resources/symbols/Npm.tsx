@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Npm = (): React.ReactElement => {
+export const Npm = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.NPM} viewBox="0 0 18 7" xmlSpace="preserve">
             <path

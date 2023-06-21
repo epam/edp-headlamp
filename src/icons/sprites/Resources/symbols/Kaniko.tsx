@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Kaniko = (): React.ReactElement => {
+export const Kaniko = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.KANIKO} viewBox="87.98 85.93 222 226.2" xmlSpace="preserve">
             <path

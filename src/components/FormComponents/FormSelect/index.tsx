@@ -25,7 +25,7 @@ export const FormSelect = React.forwardRef(
             ...props
         }: FormSelectProps,
         ref: React.RefObject<HTMLInputElement>
-    ): React.ReactElement => {
+    ) => {
         const hasError = !!errors[name];
         const classes = useStyles();
 

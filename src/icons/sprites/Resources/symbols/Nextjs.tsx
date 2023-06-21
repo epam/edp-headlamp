@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const NextJS = (): React.ReactElement => {
+export const NextJS = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.NEXTJS} viewBox="0 0 394 80" xmlSpace="preserve">
             <path

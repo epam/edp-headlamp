@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Fastapi = (): React.ReactElement => {
+export const Fastapi = () => {
     return (
         <symbol
             id={RESOURCE_ICON_NAMES.FASTAPI}

@@ -1,6 +1,6 @@
 import { pluginLib, ReactRedux, ReactRouter } from '../../../plugin.globals';
 import type { Router } from '../../../plugin.types';
-import { List } from '../../../routes';
+import routes from '../../../routes';
 import { RouteURLProps } from '../../../routes/types';
 
 const { Utils } = pluginLib;
@@ -16,7 +16,7 @@ type HeadlampState = {
 export function useMemoizedCreateRouteURL(routeName: string, params: RouteURLProps = {}) {
     const store = ReactRedux.useStore<HeadlampState>();
     const storeRoutes = store.getState().ui.routes;
-    const route = (storeRoutes && storeRoutes[routeName]) || List[routeName];
+    const route = (storeRoutes && storeRoutes[routeName]) || routes[routeName];
 
     if (!route) {
         return '';
@@ -41,7 +41,7 @@ export function useMemoizedCreateRouteURL(routeName: string, params: RouteURLPro
 }
 
 export function createRouteURL(routeName: string, params: RouteURLProps = {}) {
-    const route = List[routeName];
+    const route = routes[routeName];
 
     if (!route) {
         return '';

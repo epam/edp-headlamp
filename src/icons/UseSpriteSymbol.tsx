@@ -5,7 +5,7 @@ interface UseSpriteSymbolProps {
     [key: string]: any;
 }
 
-export const UseSpriteSymbol = ({ name, ...props }: UseSpriteSymbolProps): React.ReactElement => {
+export const UseSpriteSymbol = ({ name, ...props }: UseSpriteSymbolProps) => {
     return (
         <span style={{ display: 'block', lineHeight: 0 }}>
             <svg {...props}>

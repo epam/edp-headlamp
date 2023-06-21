@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const JavaScript = (): React.ReactElement => {
+export const JavaScript = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.JAVASCRIPT} viewBox="0 0 630 630" xmlSpace="preserve">
             <path fill="#f7df1e" d="M0 0h630v630H0z" />

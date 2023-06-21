@@ -5,7 +5,7 @@ import { useStyles } from './styles';
 const { Fab } = MuiCore;
 const { Icon } = Iconify;
 
-export const CreateKubeObject: React.FC = ({ children }): React.ReactElement => {
+export const CreateKubeObject: React.FC = ({ children }) => {
     const classes = useStyles();
 
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);

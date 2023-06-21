@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Codenarc = (): React.ReactElement => {
+export const Codenarc = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.CODENARC} viewBox="0 0 392 140" xmlSpace="preserve">
             <image

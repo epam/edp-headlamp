@@ -7,7 +7,7 @@ const {
     Utils: { useFilterFunc },
 } = pluginLib;
 
-export const GitServerList = ({ gitServers, error }: GitServerListProps): React.ReactElement => {
+export const GitServerList = ({ gitServers, error }: GitServerListProps) => {
     const columns = useColumns();
     const filterFunc = useFilterFunc();
 

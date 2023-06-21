@@ -8,7 +8,7 @@ export const PipelineInfoFormPart = ({
     names,
     handleFormFieldChange,
     onPipelineNameChange,
-}: PipelineInfoFormPartProps): React.ReactElement => {
+}: PipelineInfoFormPartProps) => {
     return (
         <Grid container spacing={2}>
             <PipelineName

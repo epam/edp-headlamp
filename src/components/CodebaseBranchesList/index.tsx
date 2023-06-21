@@ -15,9 +15,7 @@ const {
 } = pluginLib;
 const { Grid } = MuiCore;
 
-export const CodebaseBranchesList = ({
-    codebaseData,
-}: CodebaseBranchesListProps): React.ReactElement => {
+export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps) => {
     const {
         metadata: { name, namespace },
         spec: { defaultBranch },

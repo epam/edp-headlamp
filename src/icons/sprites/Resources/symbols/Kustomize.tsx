@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Kustomize = (): React.ReactElement => {
+export const Kustomize = () => {
     return (
         <symbol
             id={RESOURCE_ICON_NAMES.KUSTOMIZE}

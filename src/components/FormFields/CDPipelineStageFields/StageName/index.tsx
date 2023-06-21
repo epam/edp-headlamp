@@ -4,11 +4,7 @@ import { FieldEvent } from '../../../../types/forms';
 import { FormTextField } from '../../../FormComponents';
 import { StageNameProps } from './types';
 
-export const StageName = ({
-    names,
-    handleFormFieldChange,
-    otherStagesNames,
-}: StageNameProps): React.ReactElement => {
+export const StageName = ({ names, handleFormFieldChange, otherStagesNames }: StageNameProps) => {
     const {
         register,
         control,

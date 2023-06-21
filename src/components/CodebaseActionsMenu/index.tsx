@@ -15,7 +15,7 @@ import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
 
 const { useHistory } = ReactRouter;
 
-export const CodebaseActionsMenu = (): React.ReactElement => {
+export const CodebaseActionsMenu = () => {
     const history = useHistory();
 
     const { kubeObject, anchorEl, isDetailsPage, handleCloseResourceActionListMenu } =

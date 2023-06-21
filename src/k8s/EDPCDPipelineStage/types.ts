@@ -48,3 +48,10 @@ export interface StreamCDPipelineStagesByCDPipelineNameProps {
     dataHandler: (data: EDPCDPipelineStageKubeObjectInterface[]) => void;
     errorHandler: (err: Error) => void;
 }
+
+export interface StreamCDPipelineStageProps {
+    namespace: string;
+    dataHandler: (data: EDPCDPipelineStageKubeObjectInterface) => void;
+    errorHandler: (err: Error) => void;
+    stageMetadataName: string;
+}

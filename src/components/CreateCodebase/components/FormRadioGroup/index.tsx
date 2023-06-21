@@ -13,7 +13,7 @@ export const FormRadioGroup = React.forwardRef(
     (
         { name, control, errors, label, title, options, ...props }: FormRadioProps,
         ref: React.RefObject<HTMLInputElement>
-    ): React.ReactElement => {
+    ) => {
         const hasError = !!errors[name];
         const classes = useStyles();
 

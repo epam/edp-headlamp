@@ -12,7 +12,7 @@ const { Link } = CommonComponents;
 export const CodebaseCDPipelineConflictError = ({
     conflictedCDPipeline,
     codebase,
-}: CodebaseCDPipelineConflictErrorProps): React.ReactElement => {
+}: CodebaseCDPipelineConflictErrorProps) => {
     const classes = useStyles();
 
     return (

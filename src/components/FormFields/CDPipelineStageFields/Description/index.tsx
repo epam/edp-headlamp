@@ -4,10 +4,7 @@ import { FieldEvent } from '../../../../types/forms';
 import { FormTextField } from '../../../FormComponents';
 import { DescriptionProps } from './types';
 
-export const Description = ({
-    names,
-    handleFormFieldChange,
-}: DescriptionProps): React.ReactElement => {
+export const Description = ({ names, handleFormFieldChange }: DescriptionProps) => {
     const {
         register,
         control,

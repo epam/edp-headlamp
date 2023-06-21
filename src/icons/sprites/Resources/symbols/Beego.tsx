@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Beego = (): React.ReactElement => {
+export const Beego = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.BEEGO} viewBox="6.56 1 71.44 77" xmlSpace="preserve">
             <path

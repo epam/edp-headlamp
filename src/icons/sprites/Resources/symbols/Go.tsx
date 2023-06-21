@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Go = (): React.ReactElement => {
+export const Go = () => {
     return (
         <symbol
             id={RESOURCE_ICON_NAMES.GO}

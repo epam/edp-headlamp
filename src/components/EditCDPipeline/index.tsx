@@ -8,12 +8,7 @@ import { EditCDPipelineProps } from './types';
 
 const { Dialog, DialogContent, Typography, Grid } = MuiCore;
 
-export const EditCDPipeline = ({
-    open,
-    onClose,
-    setOpen,
-    CDPipelineData,
-}: EditCDPipelineProps): React.ReactElement => {
+export const EditCDPipeline = ({ open, onClose, setOpen, CDPipelineData }: EditCDPipelineProps) => {
     const classes = useStyles();
 
     const { editCDPipeline } = useEditCDPipeline({

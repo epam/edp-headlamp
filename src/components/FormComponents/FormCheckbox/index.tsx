@@ -11,7 +11,7 @@ export const FormCheckbox = React.forwardRef(
     (
         { name, label, control, errors, disabled, ...props }: FormCheckboxProps,
         ref: React.RefObject<HTMLInputElement>
-    ): React.ReactElement => {
+    ) => {
         const hasError = !!errors[name];
 
         return (

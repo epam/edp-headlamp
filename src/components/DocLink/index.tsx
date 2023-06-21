@@ -1,19 +1,31 @@
 import { Icon } from '@iconify/react';
-import { Grid, IconButton, Tooltip, useTheme } from '@material-ui/core';
+import { Button, Grid, IconButton, Tooltip, Typography, useTheme } from '@material-ui/core';
 import React from 'react';
 import { ICONS } from '../../constants/icons';
+import { Render } from '../Render';
 import { DocLinkProps } from './types';
 
-export const DocLink = ({ href }: DocLinkProps) => {
+export const DocLink = ({
+    href,
+    variant = 'rounded',
+    title = 'Read documentation',
+    objectToRegard,
+}: DocLinkProps) => {
     const theme = useTheme();
 
     return (
         <Tooltip
             title={
                 <Grid container alignItems={'center'} spacing={1}>
-                    <Grid item>Doc</Grid>
-                    <span> </span>
                     <Grid item>
+                        <Render condition={!!objectToRegard}>
+                            <>
+                                {title} regarding <strong>{objectToRegard} </strong>
+                            </>
+                        </Render>
+                        <Render condition={!objectToRegard}>
+                            <>{title} </>
+                        </Render>
                         <Icon
                             icon={ICONS.NEW_WINDOW}
                             color={theme.palette.grey['500']}
@@ -23,9 +35,22 @@ export const DocLink = ({ href }: DocLinkProps) => {
                 </Grid>
             }
         >
-            <IconButton href={href} target={'_blank'}>
-                <Icon icon={ICONS.DOC} />
-            </IconButton>
+            <div>
+                <Render condition={variant === 'rounded'}>
+                    <IconButton href={href} target={'_blank'}>
+                        <Icon icon={ICONS.DOC} />
+                    </IconButton>
+                </Render>
+                <Render condition={variant === 'straight'}>
+                    <Button
+                        href={href}
+                        target={'_blank'}
+                        startIcon={<Icon icon={ICONS.DOC} color={theme.palette.grey['500']} />}
+                    >
+                        <Typography>documentation</Typography>
+                    </Button>
+                </Render>
+            </div>
         </Tooltip>
     );
 };

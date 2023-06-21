@@ -40,7 +40,7 @@ export const CreateCDPipelineStageForm = ({
     handleApply,
     setDialogOpen,
     isApplying,
-}: CreateCDPipelineStageFormProps): React.ReactElement => {
+}: CreateCDPipelineStageFormProps) => {
     const classes = useStyles();
 
     const { baseDefaultValues } = useDefaultValues({

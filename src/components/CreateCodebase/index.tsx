@@ -60,10 +60,7 @@ export const FormDataContext = React.createContext<{
     handleFormFieldChange: ({ name, value }: FieldEventTarget) => void;
 }>(null);
 
-export const CreateCodebase = ({
-    createDialogOpen,
-    setCreateDialogOpen,
-}: CreateCodebaseProps): React.ReactElement => {
+export const CreateCodebase = ({ createDialogOpen, setCreateDialogOpen }: CreateCodebaseProps) => {
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
     const [modalActiveTabIdx, setModalActiveTabIdx] = React.useState<number>(0);

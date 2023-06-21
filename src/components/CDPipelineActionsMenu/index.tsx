@@ -13,7 +13,7 @@ import { Render } from '../Render';
 
 const { useHistory } = ReactRouter;
 
-export const CDPipelineActionsMenu = (): React.ReactElement => {
+export const CDPipelineActionsMenu = () => {
     const history = useHistory();
 
     const { kubeObject, anchorEl, isDetailsPage, handleCloseResourceActionListMenu } =

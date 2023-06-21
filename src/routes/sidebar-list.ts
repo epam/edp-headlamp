@@ -18,31 +18,31 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         itemName: createSidebarItemName(EDP_ROOT_ROUTE_NAME),
         url: createRouteName(OVERVIEW_ROUTE_NAME),
         opts: {
-            icon: ICONS['ROCKET'],
+            icon: ICONS.ROCKET,
         },
     },
     createNewSidebarItem(
         'Overview',
         OVERVIEW_ROUTE_NAME,
-        ICONS['PANEL'],
+        ICONS.PANEL,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'Components',
         COMPONENTS_ROUTE_NAME,
-        ICONS['APPLICATION'],
+        ICONS.APPLICATION,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'CD Pipelines',
         CDPIPELINES_ROUTE_NAME,
-        ICONS['INFINITY'],
+        ICONS.INFINITY,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
         'Git Servers',
         GIT_SERVERS_ROUTE_NAME,
-        ICONS['REPOSITORY'],
+        ICONS.REPOSITORY,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
 ];

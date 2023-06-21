@@ -8,9 +8,7 @@ const {
 } = pluginLib;
 const { Box } = MuiCore;
 
-export const CodebaseGeneralInfoTable = ({
-    codebaseData,
-}: CodebaseGeneralInfoTableProps): React.ReactElement => {
+export const CodebaseGeneralInfoTable = ({ codebaseData }: CodebaseGeneralInfoTableProps) => {
     const columns = useRows(codebaseData);
 
     return (

@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const CSharp = (): React.ReactElement => {
+export const CSharp = () => {
     return (
         <symbol
             id={RESOURCE_ICON_NAMES.C_SHARP}

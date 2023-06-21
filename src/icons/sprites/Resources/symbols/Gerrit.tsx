@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Gerrit = (): React.ReactElement => {
+export const Gerrit = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.GERRIT} viewBox="140.65 274.54 565.46 582.26">
             <g fill="#fff">

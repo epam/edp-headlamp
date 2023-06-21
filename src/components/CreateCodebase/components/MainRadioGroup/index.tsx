@@ -12,7 +12,7 @@ export const MainRadioGroup = React.forwardRef(
     (
         { name, control, errors, options, gridItemSize, ...props }: MainRadioGroupProps,
         ref: React.RefObject<HTMLInputElement>
-    ): React.ReactElement => {
+    ) => {
         const hasError = !!errors[name];
         const classes = useStyles();
 

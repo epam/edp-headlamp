@@ -24,6 +24,8 @@ export const URL_EDP_HEADLAMP_USER_GUIDE_STAGE_EDIT =
     'https://epam.github.io/edp-install/headlamp-user-guide/add-cd-pipeline/#edit-stage';
 export const URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES =
     'https://epam.github.io/edp-install/headlamp-user-guide/add-cd-pipeline/';
+export const URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES_DEPLOY =
+    'https://epam.github.io/edp-install/headlamp-user-guide/add-cd-pipeline/#deploy-application';
 export const URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINE_EDIT =
     'https://epam.github.io/edp-install/headlamp-user-guide/add-cd-pipeline/#edit-existing-cd-pipeline';
 export const URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVERS =

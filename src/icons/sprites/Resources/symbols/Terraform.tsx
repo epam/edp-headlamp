@@ -1,7 +1,7 @@
 import { React } from '../../../../plugin.globals';
 import { RESOURCE_ICON_NAMES } from '../names';
 
-export const Terraform = (): React.ReactElement => {
+export const Terraform = () => {
     return (
         <symbol id={RESOURCE_ICON_NAMES.TERRAFORM} viewBox="0 0 24 24" xmlSpace="preserve">
             <path
