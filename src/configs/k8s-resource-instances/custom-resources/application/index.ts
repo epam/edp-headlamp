@@ -79,7 +79,7 @@ export const createArgoApplicationInstance = ({
             project: namespace,
             destination: {
                 namespace: `${namespace}-${pipelineName}-${stageName}`,
-                server: 'https://kubernetes.default.svc',
+                name: currentCDPipelineStage.spec.clusterName,
             },
             source: {
                 helm: {

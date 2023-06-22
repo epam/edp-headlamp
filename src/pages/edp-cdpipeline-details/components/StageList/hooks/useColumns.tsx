@@ -151,7 +151,6 @@ export const useColumns = (
             {
                 label: '',
                 getter: stage => {
-                    console.log(stage);
                     const buttonRef = React.createRef<HTMLButtonElement>();
 
                     return (

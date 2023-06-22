@@ -45,9 +45,10 @@ export const DocLink = ({
                     <Button
                         href={href}
                         target={'_blank'}
+                        variant={'outlined'}
                         startIcon={<Icon icon={ICONS.DOC} color={theme.palette.grey['500']} />}
                     >
-                        <Typography>documentation</Typography>
+                        <Typography>docs</Typography>
                     </Button>
                 </Render>
             </div>

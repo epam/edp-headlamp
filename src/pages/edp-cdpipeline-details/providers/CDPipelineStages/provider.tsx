@@ -1,14 +1,13 @@
 import { useStreamStagesByCDPipelineName } from '../../../../k8s/EDPCDPipelineStage/hooks/useStreamStagesByCDPipelineName';
 import { React, ReactRouter } from '../../../../plugin.globals';
+import { EDPCDPipelineRouteParams } from '../../types';
 import { CDPipelineStagesContext } from './context';
 
 const { useParams } = ReactRouter;
 
 export const CDPipelineStagesContextProvider: React.FC = ({ children }) => {
-    const { namespace, name } = useParams<{
-        namespace?: string;
-        name?: string;
-    }>();
+    const { namespace, name } = useParams<EDPCDPipelineRouteParams>();
+
     const stages = useStreamStagesByCDPipelineName({
         namespace,
         CDPipelineMetadataName: name,

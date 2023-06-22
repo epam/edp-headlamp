@@ -29,7 +29,7 @@ export const expectedApplicationOutputMock: DeepPartial<ApplicationKubeObjectInt
         project: 'test-namespace',
         destination: {
             namespace: 'test-namespace-test-pipeline-name-test-stage-name',
-            server: 'https://kubernetes.default.svc',
+            name: 'test-cluster-name',
         },
         source: {
             helm: {

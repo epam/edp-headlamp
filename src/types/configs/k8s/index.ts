@@ -4,7 +4,7 @@ export interface KubeObjectConfig {
         singularForm: string;
         pluralForm: string;
     };
-    group: string;
+    group?: string;
     version: string;
     types?: {
         [key: string]: {

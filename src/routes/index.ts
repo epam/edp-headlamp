@@ -1,5 +1,6 @@
 import { routeEDPCDPipelineDetails } from '../pages/edp-cdpipeline-details/route';
 import { routeEDPCDPipelineList } from '../pages/edp-cdpipeline-list/route';
+import { routeEDPClusterList } from '../pages/edp-cluster-list/route';
 import { routeEDPComponentDetails } from '../pages/edp-component-details/route';
 import { routeEDPComponentList } from '../pages/edp-component-list/route';
 import { routeEDPGitServerDetails } from '../pages/edp-gitserver-details/route';
@@ -24,4 +25,7 @@ export default [
 
     routeEDPGitServerList,
     routeEDPGitServerDetails,
+
+    // Clusters & children
+    routeEDPClusterList,
 ];

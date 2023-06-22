@@ -4,6 +4,7 @@ import { createRouteName } from '../utils/routes/createRouteName';
 import { createSidebarItemName } from '../utils/routes/createSidebarItemName';
 import {
     CDPIPELINES_ROUTE_NAME,
+    CLUSTERS_ROUTE_NAME,
     COMPONENTS_ROUTE_NAME,
     EDP_ROOT_ROUTE_NAME,
     GIT_SERVERS_ROUTE_NAME,
@@ -37,6 +38,12 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         'CD Pipelines',
         CDPIPELINES_ROUTE_NAME,
         ICONS.INFINITY,
+        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
+    ),
+    createNewSidebarItem(
+        'Clusters',
+        CLUSTERS_ROUTE_NAME,
+        ICONS.CLUSTERS,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(

@@ -27,7 +27,7 @@ export const CDPIPELINE_STAGE_NAME_QUALITY_GATES_TYPE_ADD_CHOOSER: FormNameObjec
 
 export const CDPIPELINE_STAGE_NAME_CLUSTER: FormNameObject = {
     name: 'cluster',
-    notUsedInFormData: true,
+    path: ['spec', 'clusterName'],
 };
 
 export const CDPIPELINE_STAGE_NAME_NAME: FormNameObject = {

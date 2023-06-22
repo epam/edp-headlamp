@@ -33,5 +33,6 @@ export enum ICONS {
     KIBANA = 'simple-icons:kibana',
     KUBERNETES = 'simple-icons:kubernetes',
     SONAR = 'simple-icons:sonarsource',
-    DOC = 'solar:document-bold',
+    DOC = 'bxs:book',
+    CLUSTERS = 'vaadin:cluster',
 }
