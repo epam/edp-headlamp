@@ -7,7 +7,13 @@ export const DialogContext = React.createContext<DialogContextProviderValue>({
         forwardedProps: null,
         open: false,
     },
-    setDialog: () => {},
-    openDialog: () => {},
-    closeDialog: () => {},
+    setDialog: () => {
+        // empty fn
+    },
+    openDialog: () => {
+        // empty fn
+    },
+    closeDialog: () => {
+        // empty fn
+    },
 });

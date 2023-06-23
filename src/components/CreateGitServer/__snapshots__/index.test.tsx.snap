@@ -23,26 +23,22 @@ exports[`CreateGitServer should render correctly 1`] = `
       <div
         class="MuiGrid-root MuiGrid-item"
       >
-        <div
-          class=""
+        <a
+          aria-disabled="false"
+          class="MuiButtonBase-root MuiIconButton-root"
+          href="https://epam.github.io/edp-install/headlamp-user-guide/add-git-server/"
+          tabindex="0"
+          target="_blank"
         >
-          <a
-            aria-disabled="false"
-            class="MuiButtonBase-root MuiIconButton-root"
-            href="https://epam.github.io/edp-install/headlamp-user-guide/add-git-server/"
-            tabindex="0"
-            target="_blank"
+          <span
+            class="MuiIconButton-label"
           >
-            <span
-              class="MuiIconButton-label"
-            >
-              <span />
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </a>
-        </div>
+            <span />
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </a>
       </div>
     </div>
     <button

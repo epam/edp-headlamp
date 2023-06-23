@@ -1,12 +1,10 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { DocLink } from '../../../../components/DocLink';
 import { Render } from '../../../../components/Render';
 import {
     CODEBASE_COMMON_BUILD_TOOLS,
     CODEBASE_COMMON_FRAMEWORKS,
     CODEBASE_COMMON_LANGUAGES,
 } from '../../../../configs/codebase-mappings';
-import { URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES_DEPLOY } from '../../../../constants/urls';
 import { useCreateArgoApplication } from '../../../../k8s/Application/hooks/useCreateArgoApplication';
 import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { MuiCore, React } from '../../../../plugin.globals';
@@ -351,15 +349,6 @@ export const Applications = ({
     return (
         <>
             <Grid container spacing={2} justifyContent={'flex-end'}>
-                <Grid item>
-                    <Grid item>
-                        <DocLink
-                            href={URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES_DEPLOY}
-                            variant={'straight'}
-                            objectToRegard={'application deploying'}
-                        />
-                    </Grid>
-                </Grid>
                 <Grid item xs={12}>
                     <FormProvider {...methods}>
                         <div className={classes.tableRoot}>

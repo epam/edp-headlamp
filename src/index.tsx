@@ -11,7 +11,7 @@ import { URL_EDP_HEADLAMP_USER_GUIDE } from './constants/urls';
 import routes from './routes';
 import { SIDEBAR_LIST } from './routes/sidebar-list';
 
-const additionalActions = [<DocLink href={URL_EDP_HEADLAMP_USER_GUIDE} />];
+const additionalActions = [<DocLink href={URL_EDP_HEADLAMP_USER_GUIDE} isDocRootPage />];
 
 class EDPHeadlampPlugin extends Plugin {
     initialize() {

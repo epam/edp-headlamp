@@ -34,5 +34,6 @@ export enum ICONS {
     KUBERNETES = 'simple-icons:kubernetes',
     SONAR = 'simple-icons:sonarsource',
     DOC = 'bxs:book',
+    DOC_PAGE = 'basil:document-outline',
     CLUSTERS = 'vaadin:cluster',
 }

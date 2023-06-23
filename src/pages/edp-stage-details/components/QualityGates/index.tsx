@@ -1,11 +1,9 @@
 import { Button, CircularProgress, Grid } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
-import { DocLink } from '../../../../components/DocLink';
 import { Graph } from '../../../../components/Graph';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
-import { URL_EDP_HEADLAMP_USER_GUIDE_QUALITY_GATE_RUN } from '../../../../constants/urls';
 import { useStreamTaskRunListByPipelineNameAndPipelineType } from '../../../../k8s/TaskRun/hooks/useStreamTaskRunListByPipelineNameAndPipelineType';
 import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { React } from '../../../../plugin.globals';
@@ -118,13 +116,6 @@ export const QualityGates = ({
 
     return (
         <Grid container spacing={2} justifyContent={'flex-end'}>
-            <Grid item>
-                <DocLink
-                    href={URL_EDP_HEADLAMP_USER_GUIDE_QUALITY_GATE_RUN}
-                    variant={'straight'}
-                    objectToRegard={'quality gates'}
-                />
-            </Grid>
             <Grid item xs={12}>
                 <HeadlampSimpleTable
                     columns={columns}

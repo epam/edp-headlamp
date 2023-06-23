@@ -1,12 +1,10 @@
 import { Button, Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { DocLink } from '../../../../components/DocLink';
 import { FormSelect } from '../../../../components/FormComponents';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
-import { URL_EDP_HEADLAMP_USER_GUIDE_QUALITY_GATE_ADD } from '../../../../constants/urls';
 import { usePipelineByTypeListQuery } from '../../../../k8s/Pipeline/hooks/usePipelineByTypeListQuery';
 import { React } from '../../../../plugin.globals';
 import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
@@ -126,13 +124,6 @@ export const CustomGates = ({
 
     return (
         <Grid container spacing={2} justifyContent={'flex-end'}>
-            <Grid item>
-                <DocLink
-                    href={URL_EDP_HEADLAMP_USER_GUIDE_QUALITY_GATE_ADD}
-                    variant={'straight'}
-                    objectToRegard={'custom gates'}
-                />
-            </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={2} alignItems={'center'}>
                     <Grid item style={{ flexGrow: 1 }}>
