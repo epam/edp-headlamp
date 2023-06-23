@@ -36,4 +36,5 @@ export enum ICONS {
     DOC = 'bxs:book',
     DOC_PAGE = 'basil:document-outline',
     CLUSTERS = 'vaadin:cluster',
+    TIMEOUT = 'fluent-mdl2:unsync-occurence',
 }

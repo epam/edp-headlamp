@@ -24,6 +24,7 @@ export enum TEKTON_RESOURCE_STATUSES {
     RUNNING = 'running',
     PENDING = 'pending',
     FAILED = 'failed',
+    TIMEOUT = 'pipelineruntimeout',
 }
 
 export enum ARGO_APPLICATION_HEALTH_STATUSES {

@@ -52,6 +52,9 @@ export const getCustomResourceStatusIconByStatusName = (status: StatusType): Ico
         case TEKTON_RESOURCE_STATUSES.FAILED:
             return [ICONS.CROSS_CIRCLE, STATUSES_COLORS.ERROR];
 
+        case TEKTON_RESOURCE_STATUSES.TIMEOUT:
+            return [ICONS.TIMEOUT, STATUSES_COLORS.SUSPENDED];
+
         case ARGO_APPLICATION_HEALTH_STATUSES.HEALTHY:
             return [ICONS.HEART, STATUSES_COLORS.SUCCESS];
 
