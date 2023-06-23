@@ -2,7 +2,7 @@ import { createGitServerInstance } from '../../../../../configs/k8s-resource-ins
 import { EDPGitServerKubeObjectInterface } from '../../../../../k8s/EDPGitServer/types';
 import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
-import { createRandomFiveSymbolString } from '../../../../../utils/createRandomFiveSymbolString';
+import { createRandomString } from '../../../../../utils/createRandomString';
 
 interface UseEditorCodeProps {
     names: { [key: string]: FormNameObject };
@@ -15,7 +15,7 @@ export const useEditorCode = ({
     names,
     formValues,
 }: UseEditorCodeProps): { editorReturnValues: EDPGitServerKubeObjectInterface } => {
-    const randomPostfix = createRandomFiveSymbolString();
+    const randomPostfix = createRandomString();
 
     const editorReturnValues = React.useMemo(() => {
         return createGitServerInstance(

@@ -1,4 +1,4 @@
-export const createRandomFiveSymbolString = (
+export const createRandomString = (
     stringLength: number = 5,
     stringChars: string = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 ): string =>

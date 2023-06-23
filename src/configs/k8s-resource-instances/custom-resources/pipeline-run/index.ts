@@ -63,13 +63,15 @@ export const createBuildPipelineRunInstance = ({
 }: createBuildPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
     const truncatedCodebaseType = codebaseType.slice(0, 3);
     const normalizedCodebaseBranchName = codebaseBranchName.replaceAll('/', '-');
+    const trimmedPipelineRunNameStartValue =
+        `${codebaseName}-${normalizedCodebaseBranchName}`.slice(0, 32); // 33 max length for name before random postfix
 
     const base: any = {
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
             namespace,
-            name: `${codebaseName}-${normalizedCodebaseBranchName}-build-${randomPostfix}`,
+            name: `${trimmedPipelineRunNameStartValue}-build-${randomPostfix}`,
             labels: {
                 'app.edp.epam.com/codebasebranch': codebaseBranchMetadataName,
                 'app.edp.epam.com/codebase': codebaseName,

@@ -7,7 +7,7 @@ import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useStreamTaskRunListByPipelineNameAndPipelineType } from '../../../../k8s/TaskRun/hooks/useStreamTaskRunListByPipelineNameAndPipelineType';
 import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { React } from '../../../../plugin.globals';
-import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
+import { createRandomString } from '../../../../utils/createRandomString';
 import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../utils/styling/rem';
@@ -19,7 +19,7 @@ import { useColumns } from './hooks/useColumns';
 import { useQualityGatesGraphData } from './hooks/useQualityGatesGraphData';
 import { QualityGatesProps } from './types';
 
-const randomPostfix = createRandomFiveSymbolString();
+const randomPostfix = createRandomString();
 
 export const QualityGates = ({
     enrichedQualityGatesWithPipelineRuns,

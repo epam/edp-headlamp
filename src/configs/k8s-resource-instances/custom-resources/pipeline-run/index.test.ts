@@ -3,7 +3,7 @@
  */
 
 import { jest } from '@jest/globals';
-import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
+import { createRandomString } from '../../../../utils/createRandomString';
 import { createBuildPipelineRunInstance, createDeployPipelineRunInstance } from './index';
 
 beforeEach(() => {
@@ -19,7 +19,7 @@ afterEach(() => {
 
 describe('testing createBuildPipelineRunInstance', () => {
     it('should return valid kube object', () => {
-        const randomPostfix = createRandomFiveSymbolString();
+        const randomPostfix = createRandomString(4);
 
         const object = createBuildPipelineRunInstance({
             namespace: 'test-namespace',
@@ -51,7 +51,7 @@ describe('testing createBuildPipelineRunInstance', () => {
             kind: 'PipelineRun',
             metadata: {
                 namespace: 'test-namespace',
-                name: 'test-codebase-name-test-codebase-branch-name-build-8ygse',
+                name: 'test-codebase-name-test-codebase-build-8ygse',
                 labels: {
                     'app.edp.epam.com/codebasebranch':
                         'test-codebase-name-test-codebase-branch-name',
@@ -109,7 +109,7 @@ describe('testing createBuildPipelineRunInstance', () => {
 
 describe('testing createDeployPipelineRunInstance', () => {
     it('should return valid kube object', () => {
-        const randomPostfix = createRandomFiveSymbolString();
+        const randomPostfix = createRandomString();
 
         const object = createDeployPipelineRunInstance({
             namespace: 'test-namespace',

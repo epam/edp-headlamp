@@ -2,7 +2,7 @@ import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersion
 import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { ApplicationKubeObjectConfig } from '../../../../k8s/Application/config';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
-import { createRandomFiveSymbolString } from '../../../../utils/createRandomFiveSymbolString';
+import { createRandomString } from '../../../../utils/createRandomString';
 import {
     CODEBASE_COMMON_BUILD_TOOLS,
     CODEBASE_COMMON_FRAMEWORKS,
@@ -20,7 +20,7 @@ export const createArgoApplicationInstance = ({
     imageTag,
     gitServer,
 }: createApplicationInstanceProps): ApplicationKubeObjectInterface => {
-    const randomPostfix = createRandomFiveSymbolString();
+    const randomPostfix = createRandomString();
     const {
         metadata: { namespace, name: pipelineName },
     } = CDPipeline;

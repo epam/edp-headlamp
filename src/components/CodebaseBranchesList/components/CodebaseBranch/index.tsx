@@ -3,12 +3,15 @@ import { useForm } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
+import { CUSTOM_RESOURCE_STATUSES, TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { useGitServerByCodebaseQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
+import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
+import { createRandomString } from '../../../../utils/createRandomString';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
@@ -21,6 +24,7 @@ import { Render } from '../../../Render';
 import { ResourceIconLink } from '../../../ResourceIconLink';
 import { StatusIcon } from '../../../StatusIcon';
 import { isDefaultBranch } from '../../utils';
+import { useCreateBuildPipelineRun } from './hooks/useCreateBuildPipelineRun';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
 import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
 import { useStyles } from './styles';
@@ -46,6 +50,8 @@ const pipelineRunTypeSelectOptions = pipelineRunTypes.map(([, value]) => ({
     label: capitalizeFirstLetter(value),
     value: value,
 }));
+
+const randomPostfix = createRandomString(4);
 
 export const CodebaseBranch = ({
     codebaseBranchData,
@@ -172,6 +178,50 @@ export const CodebaseBranch = ({
     const buttonRef = React.createRef<HTMLButtonElement>();
 
     const { handleOpenResourceActionListMenu } = useResourceActionListContext();
+    const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
+    const { data: storageSize } = useStorageSizeQuery(codebaseData);
+    const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
+        props: { codebaseGitServer: codebaseData?.spec.gitServer },
+    });
+    const onBuildButtonClick = React.useCallback(
+        async e => {
+            e.stopPropagation();
+
+            if (!storageSize) {
+                throw new Error(`Trigger template's storage property has not been found`);
+            }
+
+            if (!gitServerByCodebase) {
+                throw new Error(`Codebase Git Server has not been found`);
+            }
+
+            await createBuildPipelineRun({
+                namespace: codebaseData.metadata.namespace,
+                codebaseBranchData: {
+                    codebaseBranchName: codebaseBranchData?.spec.branchName,
+                    codebaseBranchMetadataName: codebaseBranchData?.metadata.name,
+                },
+                codebaseData: {
+                    codebaseName: codebaseData.metadata.name,
+                    codebaseBuildTool: codebaseData.spec.buildTool,
+                    codebaseVersioningType: codebaseData.spec.versioning.type,
+                    codebaseType: codebaseData.spec.type,
+                    codebaseFramework: codebaseData.spec.framework,
+                    codebaseGitUrlPath: codebaseData.spec.gitUrlPath,
+                },
+                gitServerData: {
+                    gitUser: gitServerByCodebase.spec.gitUser,
+                    gitHost: gitServerByCodebase.spec.gitHost,
+                    gitProvider: gitServerByCodebase.spec.gitProvider,
+                    sshPort: gitServerByCodebase.spec.sshPort,
+                    nameSshKeySecret: gitServerByCodebase.spec.nameSshKeySecret,
+                },
+                storageSize: storageSize,
+                randomPostfix,
+            });
+        },
+        [codebaseBranchData, codebaseData, createBuildPipelineRun, gitServerByCodebase, storageSize]
+    );
 
     return (
         <div style={{ paddingBottom: rem(16) }}>
@@ -225,6 +275,22 @@ export const CodebaseBranch = ({
                                         />
                                     </Grid>
                                 </Render>
+                                <Render condition={ciTool === CI_TOOLS.TEKTON}>
+                                    <Grid item>
+                                        <Tooltip title={'Trigger build pipeline run'}>
+                                            <IconButton
+                                                onClick={onBuildButtonClick}
+                                                disabled={
+                                                    pipelineRuns.latestBuildRunStatus ===
+                                                    TEKTON_RESOURCE_STATUSES.RUNNING
+                                                }
+                                            >
+                                                <Icon icon={ICONS.PLAY} />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Grid>
+                                </Render>
+
                                 <Grid item>
                                     <Tooltip title={'Actions'}>
                                         <IconButton
