@@ -267,6 +267,12 @@ export const LIBRARY_MAPPING: LibraryMapping = {
             availableCITools: [CI_TOOLS.TEKTON],
         },
         frameworks: {
+            [CODEBASE_COMMON_FRAMEWORKS.HELM]: {
+                name: 'Helm',
+                value: CODEBASE_COMMON_FRAMEWORKS.HELM,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.HELM],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
             [CODEBASE_COMMON_FRAMEWORKS.PIPELINE]: {
                 name: 'Pipeline',
                 value: CODEBASE_COMMON_FRAMEWORKS.PIPELINE,
