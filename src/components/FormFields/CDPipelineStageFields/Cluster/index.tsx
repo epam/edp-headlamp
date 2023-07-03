@@ -1,9 +1,15 @@
 import { useFormContext } from 'react-hook-form';
+import { DEFAULT_CLUSTER } from '../../../../constants/clusters';
 import { useClusterSecretListQuery } from '../../../../k8s/Secret/hooks/useClusterSecretListQuery';
 import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
 import { ClusterProps } from './types';
+
+const defaultClusterOption = {
+    label: DEFAULT_CLUSTER,
+    value: DEFAULT_CLUSTER,
+};
 
 export const Cluster = ({ names, handleFormFieldChange }: ClusterProps) => {
     const {
@@ -16,15 +22,17 @@ export const Cluster = ({ names, handleFormFieldChange }: ClusterProps) => {
 
     const clusterOptions = React.useMemo(() => {
         if (isLoading) {
-            return [];
+            return [defaultClusterOption];
         }
-        return data?.items.map(({ data: { name } }) => {
+        const clusters = data?.items.map(({ data: { name } }) => {
             const decodedName = atob(unescape(name));
             return {
                 label: decodedName,
                 value: decodedName,
             };
         });
+
+        return [defaultClusterOption, ...clusters];
     }, [data?.items, isLoading]);
 
     return (
