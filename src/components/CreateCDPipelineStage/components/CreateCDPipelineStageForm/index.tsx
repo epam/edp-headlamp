@@ -52,6 +52,7 @@ export const CreateCDPipelineStageForm = ({
         React.useState<DeepPartial<EDPCDPipelineStageKubeObjectInterface>>(baseDefaultValues);
 
     const methods = useForm({
+        mode: 'onChange',
         defaultValues: baseDefaultValues,
     });
 
@@ -59,7 +60,7 @@ export const CreateCDPipelineStageForm = ({
         handleSubmit,
         reset,
         resetField,
-        formState: { isDirty },
+        formState: { isDirty, isValid },
         setValue,
         watch,
     } = methods;
@@ -210,7 +211,7 @@ export const CreateCDPipelineStageForm = ({
                             color={'primary'}
                             size="small"
                             disabled={
-                                !isDirty ||
+                                !isValid ||
                                 isApplying ||
                                 !qualityGatesFieldValue ||
                                 !qualityGatesFieldValue.length
