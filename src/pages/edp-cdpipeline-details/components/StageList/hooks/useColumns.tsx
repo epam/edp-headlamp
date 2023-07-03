@@ -140,7 +140,7 @@ export const useColumns = (
                             <Grid item>
                                 <ResourceIconLink
                                     icon={ICONS.KUBERNETES}
-                                    tooltipTitle={'In cluster'}
+                                    tooltipTitle={stage?.spec.clusterName}
                                     link={null}
                                 />
                             </Grid>
