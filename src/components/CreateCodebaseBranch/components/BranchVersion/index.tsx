@@ -79,7 +79,6 @@ export const BranchVersion = ({ names }: BranchVersionProps) => {
             >
                 <FormTextField
                     {...register(names.branchVersionPostfix.name, {
-                        required: 'Branch version',
                         onBlur: onBranchVersionPostfixFieldValueChange,
                     })}
                     placeholder={'SNAPSHOT'}

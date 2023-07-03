@@ -1,2 +1,2 @@
 export const createVersioningString = (version: string, postfix: string): string =>
-    `${version}-${postfix}`;
+    !postfix ? version : `${version}-${postfix}`;
