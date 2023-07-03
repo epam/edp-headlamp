@@ -68,15 +68,7 @@ export const BranchVersion = ({ names }: BranchVersionProps) => {
                     errors={errors}
                 />
             </Grid>
-            <Grid
-                item
-                xs={6}
-                style={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    flexDirection: 'column',
-                }}
-            >
+            <Grid item xs={6}>
                 <FormTextField
                     {...register(names.branchVersionPostfix.name, {
                         onBlur: onBranchVersionPostfixFieldValueChange,

@@ -77,7 +77,6 @@ exports[`CreateGitServer should render correctly 1`] = `
           >
             <div
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              style="display: flex;"
             >
               <svg
                 display="none"
@@ -1743,14 +1742,12 @@ exports[`CreateGitServer should render correctly 1`] = `
             </div>
             <div
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              style="display: flex;"
             >
               <div
                 class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
               >
                 <div
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
-                  style="display: flex;"
                 >
                   <div
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -1810,7 +1807,6 @@ exports[`CreateGitServer should render correctly 1`] = `
                 </div>
                 <div
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
-                  style="display: flex;"
                 >
                   <div
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -1868,14 +1864,12 @@ exports[`CreateGitServer should render correctly 1`] = `
             </div>
             <div
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              style="display: flex;"
             >
               <div
                 class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
               >
                 <div
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
-                  style="display: flex;"
                 >
                   <div
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -1935,7 +1929,6 @@ exports[`CreateGitServer should render correctly 1`] = `
                 </div>
                 <div
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
-                  style="display: flex;"
                 >
                   <div
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -1997,7 +1990,6 @@ exports[`CreateGitServer should render correctly 1`] = `
             </div>
             <div
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              style="display: flex;"
             >
               <div
                 class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -2063,7 +2055,6 @@ exports[`CreateGitServer should render correctly 1`] = `
             </div>
             <div
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              style="display: flex;"
             >
               <div
                 class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"

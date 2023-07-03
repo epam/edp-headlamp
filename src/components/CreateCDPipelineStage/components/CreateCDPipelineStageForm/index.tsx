@@ -130,7 +130,7 @@ export const CreateCDPipelineStageForm = ({
             <div className={classes.form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.formInner}>
-                        <Grid container spacing={2} alignItems={'flex-end'}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <Cluster
                                     names={CDPIPELINE_STAGE_NAMES}
