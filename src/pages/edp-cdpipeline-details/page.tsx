@@ -1,24 +1,36 @@
 import React from 'react';
-import { withErrorBoundary } from '../../hocs/WithErrorBoundary';
-import { withQueryClient } from '../../hocs/WithQueryClient';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import ErrorBoundary from '../../components/ErrorBoundary';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { CDPipelineContextProvider } from './providers/CDPipeline/provider';
 import { CDPipelineStagesContextProvider } from './providers/CDPipelineStages/provider';
 import { EnrichedApplicationsContextProvider } from './providers/EnrichedApplications/provider';
 import { PageView } from './view';
 
-const Page = () => {
-    return (
-        <CDPipelineContextProvider>
-            <CDPipelineStagesContextProvider>
-                <EnrichedApplicationsContextProvider>
-                    <ResourceActionListContextProvider>
-                        <PageView />
-                    </ResourceActionListContextProvider>
-                </EnrichedApplicationsContextProvider>
-            </CDPipelineStagesContextProvider>
-        </CDPipelineContextProvider>
-    );
-};
+export default function () {
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: {
+                staleTime: Infinity,
+                refetchOnWindowFocus: false,
+                retry: false,
+            },
+        },
+    });
 
-export default withQueryClient(withErrorBoundary(Page));
+    return (
+        <QueryClientProvider client={queryClient}>
+            <ErrorBoundary>
+                <CDPipelineContextProvider>
+                    <CDPipelineStagesContextProvider>
+                        <EnrichedApplicationsContextProvider>
+                            <ResourceActionListContextProvider>
+                                <PageView />
+                            </ResourceActionListContextProvider>
+                        </EnrichedApplicationsContextProvider>
+                    </CDPipelineStagesContextProvider>
+                </CDPipelineContextProvider>
+            </ErrorBoundary>
+        </QueryClientProvider>
+    );
+}

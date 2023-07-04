@@ -1,9 +1,10 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../../components/ErrorBoundary';
 import { React } from '../../plugin.globals';
-import { DialogContextProvider } from '../../providers/Dialog';
+import { ViewModeContextProvider } from '../../providers/ViewMode';
+import { PageView } from './view';
 
-export const withPageWrapper = WrappedComponent => props => {
+export default function () {
     const queryClient = new QueryClient({
         defaultOptions: {
             queries: {
@@ -15,12 +16,12 @@ export const withPageWrapper = WrappedComponent => props => {
     });
 
     return (
-        <ErrorBoundary>
-            <QueryClientProvider client={queryClient}>
-                <DialogContextProvider>
-                    <WrappedComponent {...props} />
-                </DialogContextProvider>
-            </QueryClientProvider>
-        </ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+            <ErrorBoundary>
+                <ViewModeContextProvider entityID={'configuration'}>
+                    <PageView />
+                </ViewModeContextProvider>
+            </ErrorBoundary>
+        </QueryClientProvider>
     );
-};
+}

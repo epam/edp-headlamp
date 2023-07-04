@@ -3,6 +3,7 @@ import { routeEDPCDPipelineList } from '../pages/edp-cdpipeline-list/route';
 import { routeEDPClusterList } from '../pages/edp-cluster-list/route';
 import { routeEDPComponentDetails } from '../pages/edp-component-details/route';
 import { routeEDPComponentList } from '../pages/edp-component-list/route';
+import { routeEDPConfiguration } from '../pages/edp-configuration/route';
 import { routeEDPGitServerDetails } from '../pages/edp-gitserver-details/route';
 import { routeEDPGitServerList } from '../pages/edp-gitserver-list/route';
 import { routeEDPOverviewList } from '../pages/edp-overview-list/route';
@@ -20,6 +21,10 @@ export default [
     routeEDPCDPipelineList,
     routeEDPCDPipelineDetails,
     routeEDPStageDetails,
+
+    // Configuration(Git Servers & children, Clusters & children)
+
+    routeEDPConfiguration,
 
     // Git Servers & children
 

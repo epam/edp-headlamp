@@ -37,4 +37,7 @@ export enum ICONS {
     DOC_PAGE = 'basil:document-outline',
     CLUSTERS = 'vaadin:cluster',
     TIMEOUT = 'fluent-mdl2:unsync-occurence',
+    SETTINGS = 'solar:settings-outline',
+    VIEW_TABLE = 'ph:table',
+    VIEW_GRID = 'ph:grid-nine',
 }
