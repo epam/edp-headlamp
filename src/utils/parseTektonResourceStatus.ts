@@ -1,5 +1,5 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { CUSTOM_RESOURCE_STATUSES, TEKTON_RESOURCE_STATUSES } from '../constants/statuses';
-import { KubeObjectInterface } from '../plugin.types';
 
 export const parseTektonResourceStatus = (resource: KubeObjectInterface): string => {
     if (!resource?.status?.conditions?.length) {

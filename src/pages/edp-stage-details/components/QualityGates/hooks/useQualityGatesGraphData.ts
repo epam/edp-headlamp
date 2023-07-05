@@ -1,6 +1,6 @@
+import React from 'react';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { TaskRunKubeObjectInterface } from '../../../../../k8s/TaskRun/types';
-import { React } from '../../../../../plugin.globals';
 import { parseTektonResourceStatus } from '../../../../../utils/parseTektonResourceStatus';
 import { createTektonPipelineRunLink } from '../../../../../utils/url/createTektonPipelineRunLink';
 import { EnrichedQualityGateWithAutotestPipelineRun } from '../../../types';

@@ -1,6 +1,4 @@
-import { Notistack } from '../../plugin.globals';
-const { withSnackbar } = Notistack;
-import { OptionsObject, SnackbarKey, SnackbarMessage } from 'notistack';
+import { OptionsObject, SnackbarKey, SnackbarMessage, withSnackbar } from 'notistack';
 import * as React from 'react';
 
 interface State {

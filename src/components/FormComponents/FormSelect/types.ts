@@ -1,6 +1,6 @@
+import React from 'react';
 import { Control } from 'react-hook-form/dist/types';
 import { FieldErrors } from 'react-hook-form/dist/types/errors';
-import { React } from '../../../plugin.globals';
 import { SelectOption } from '../../../types/forms';
 
 export interface FormSelectProps {

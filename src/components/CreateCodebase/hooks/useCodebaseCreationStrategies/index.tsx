@@ -1,7 +1,6 @@
+import { Icon } from '@iconify/react';
+import React from 'react';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
-import { Iconify, React } from '../../../../plugin.globals';
-
-const { Icon } = Iconify;
 
 interface UseCodebaseCreationStrategiesProps {
     typeFieldValue: string;

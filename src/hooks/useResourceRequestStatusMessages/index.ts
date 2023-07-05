@@ -1,7 +1,6 @@
+import { useSnackbar } from 'notistack';
 import { CRUD_TYPES } from '../../constants/crudTypes';
-import { Notistack } from '../../plugin.globals';
 
-const { useSnackbar } = Notistack;
 export const useRequestStatusMessages = () => {
     const { enqueueSnackbar } = useSnackbar();
 

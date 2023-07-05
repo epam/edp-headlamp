@@ -1,6 +1,6 @@
+import React from 'react';
 import { UseQueryOptions } from 'react-query';
 import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
-import { React } from '../../../plugin.globals';
 import { KubeObjectListInterface } from '../../../types/k8s';
 import { EDPCDPipelineKubeObjectInterface } from '../../EDPCDPipeline/types';
 import { useCodebaseImageStreamListQuery } from '../../EDPCodebaseImageStream/hooks/useCodebaseImageStreamListQuery';

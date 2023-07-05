@@ -1,11 +1,9 @@
+import { Icon } from '@iconify/react';
+import { Button, Grid, Typography, useTheme } from '@material-ui/core';
+import React from 'react';
 import { ICONS } from '../../../../constants/icons';
-import { Iconify, MuiCore, MuiStyles, React } from '../../../../plugin.globals';
 import { Render } from '../../../Render';
 import { StagesProps } from './types';
-
-const { Grid, Button, Typography } = MuiCore;
-const { useTheme } = MuiStyles;
-const { Icon } = Iconify;
 
 export const Stages = ({ stages, setCreateStageDialogOpen, onStageDelete }: StagesProps) => {
     const theme: DefaultTheme = useTheme();

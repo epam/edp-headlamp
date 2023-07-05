@@ -1,4 +1,4 @@
-import { React } from '../../../../../plugin.globals';
+import React from 'react';
 import { FormNameObject } from '../../../../../types/forms';
 
 interface useDefaultValuesProps {

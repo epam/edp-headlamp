@@ -1,7 +1,7 @@
 import { GridSize } from '@material-ui/core';
+import React from 'react';
 import { Control } from 'react-hook-form/dist/types';
 import { FieldErrors } from 'react-hook-form/dist/types/errors';
-import { React } from '../../../../plugin.globals';
 
 export interface MainRadioGroupOption {
     value: string;

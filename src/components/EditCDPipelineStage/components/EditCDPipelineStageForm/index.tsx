@@ -1,7 +1,8 @@
+import { Button } from '@material-ui/core';
 import { omit } from 'lodash';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
-import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { TriggerType } from '../../../FormFields/CDPipelineStageFields';
@@ -10,8 +11,6 @@ import { useEditorCode } from './hooks/useEditorCode';
 import { useNames } from './hooks/useNames';
 import { useStyles } from './styles';
 import { EditCodebaseFormProps } from './types';
-
-const { Button } = MuiCore;
 
 export const EditCDPipelineStageForm = ({
     handleApply,

@@ -1,8 +1,9 @@
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { ICONS } from '../../constants/icons';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { React, ReactRouter } from '../../plugin.globals';
 import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../types/actions';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
@@ -12,8 +13,6 @@ import { KubeObjectActions } from '../KubeObjectActions';
 import { Render } from '../Render';
 import { CodebaseCDPipelineConflictError } from './components/CodebaseCDPipelineConflictError';
 import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
-
-const { useHistory } = ReactRouter;
 
 export const CodebaseActionsMenu = () => {
     const history = useHistory();

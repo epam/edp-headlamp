@@ -1,12 +1,12 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Breadcrumbs, Button, Grid, Typography } from '@material-ui/core';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { StageActionsMenu } from '../../components/StageActionsMenu';
 import { ICONS } from '../../constants/icons';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { React } from '../../plugin.globals';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { createArgoCDPipelineLink } from '../../utils/url/createArgoCDPipelineLink';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';

@@ -1,10 +1,9 @@
+import { Utils } from '@kinvolk/headlamp-plugin/lib';
+import React from 'react';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
-import { pluginLib, React } from '../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
 import { EDPComponentListProps } from './types';
-
-const { Utils } = pluginLib;
 
 export const EDPComponentList: React.FC<EDPComponentListProps> = ({ EDPComponents, error }) => {
     const classes = useStyles();

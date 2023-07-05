@@ -1,10 +1,9 @@
+import { Icon } from '@iconify/react';
+import { Button, Tooltip, Typography } from '@material-ui/core';
+import React from 'react';
 import { ICONS } from '../../../../constants/icons';
-import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { CreateCodebaseBranch } from '../../../CreateCodebaseBranch';
 import { TableHeaderActionsProps } from './types';
-
-const { Icon } = Iconify;
-const { Tooltip, Button, Typography } = MuiCore;
 
 export const TableHeaderActions = ({ kubeObjectData }: TableHeaderActionsProps) => {
     const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);

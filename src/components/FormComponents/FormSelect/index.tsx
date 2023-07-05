@@ -1,14 +1,13 @@
 import { ErrorMessage } from '@hookform/error-message';
 import { Grid } from '@material-ui/core';
+import { FormControl, MenuItem, Select, Typography } from '@material-ui/core';
 import clsx from 'clsx';
+import React from 'react';
 import { Controller } from 'react-hook-form';
-import { MuiCore, React } from '../../../plugin.globals';
 import { Render } from '../../Render';
 import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { useStyles } from './styles';
 import { FormSelectProps } from './types';
-
-const { FormControl, Select, MenuItem, Typography } = MuiCore;
 
 export const FormSelect = React.forwardRef(
     (

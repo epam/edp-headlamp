@@ -1,4 +1,4 @@
-import { React } from '../../../../plugin.globals';
+import React from 'react';
 
 export interface TabPanelProps {
     children?: React.ReactNode;

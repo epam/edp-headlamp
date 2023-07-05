@@ -1,8 +1,9 @@
+import { Grid } from '@material-ui/core';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { useDefaultCIToolQuery } from '../../../../k8s/EDPComponent/hooks/useDefaultCIToolQuery';
 import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
-import { MuiCore, React } from '../../../../plugin.globals';
 import {
     AdvancedJiraMapping,
     CodebaseVersioning,
@@ -16,8 +17,6 @@ import {
 } from '../../../FormFields/CodebaseFields';
 import { Render } from '../../../Render';
 import { FormDataContext } from '../../index';
-
-const { Grid } = MuiCore;
 
 export const AdvancedSettings = () => {
     const { names, handleFormFieldChange } = React.useContext(FormDataContext);

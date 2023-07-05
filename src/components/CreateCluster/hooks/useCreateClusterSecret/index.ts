@@ -1,16 +1,12 @@
+import { K8s } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
-import { pluginLib } from '../../../../plugin.globals';
 
 interface CreateClusterProps {
     clusterSecretData: KubeObjectInterface;
 }
-
-const {
-    K8s: { secret: SecretKubeObject },
-} = pluginLib;
 
 export const useCreateClusterSecret = ({
     onSuccess,
@@ -25,7 +21,7 @@ export const useCreateClusterSecret = ({
     const clusterSecretCreateMutation = useResourceCRUDMutation<
         KubeObjectInterface,
         CRUD_TYPES.CREATE
-    >('clusterSecretCreateMutation', SecretKubeObject.default, CRUD_TYPES.CREATE);
+    >('clusterSecretCreateMutation', K8s.secret.default, CRUD_TYPES.CREATE);
 
     const createClusterSecret = React.useCallback(
         async ({ clusterSecretData }: CreateClusterProps) => {

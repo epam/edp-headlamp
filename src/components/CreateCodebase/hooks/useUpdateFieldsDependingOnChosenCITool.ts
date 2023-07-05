@@ -1,5 +1,5 @@
+import React from 'react';
 import { CI_TOOLS } from '../../../constants/ciTools';
-import { React } from '../../../plugin.globals';
 import { FieldEventTarget, FormNameObject } from '../../../types/forms';
 
 interface useUpdateFieldsDependingOnChosenCIToolProps {

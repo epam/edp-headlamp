@@ -1,13 +1,12 @@
+import { Grid } from '@material-ui/core';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { codebaseVersioningTypeSelectOptions } from '../../../../configs/select-options/codebaseVersioningTypes';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
-import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
 import { FormTextField } from '../../../FormComponents';
 import { CodebaseVersioningProps } from './types';
-
-const { Grid } = MuiCore;
 
 export const CodebaseVersioning = ({ names, handleFormFieldChange }: CodebaseVersioningProps) => {
     const {

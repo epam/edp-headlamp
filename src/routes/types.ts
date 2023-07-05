@@ -1,4 +1,4 @@
-import type { SidebarEntryProps } from '../plugin.types';
+import { SidebarEntryProps } from '@kinvolk/headlamp-plugin/lib/components/Sidebar';
 
 export interface SidebarItem {
     parentName: string;

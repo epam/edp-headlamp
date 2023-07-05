@@ -1,6 +1,6 @@
-import React, { FC, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
-export const SectionBox = ({ children }: FC): ReactElement => {
+export const SectionBox: React.FC = ({ children }): ReactElement => {
     return <div>{children}</div>;
 };
 

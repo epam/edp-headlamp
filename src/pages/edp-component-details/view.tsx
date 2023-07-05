@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Button, Grid, Typography } from '@material-ui/core';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
 import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
@@ -9,7 +10,6 @@ import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { ICONS } from '../../constants/icons';
 import { streamCodebase } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { React } from '../../plugin.globals';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { COMPONENTS_ROUTE_NAME } from '../../routes/names';
 import { createRouteName } from '../../utils/routes/createRouteName';

@@ -1,5 +1,20 @@
+import { Icon } from '@iconify/react';
+import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import {
+    Box,
+    Button,
+    Dialog,
+    DialogContent,
+    Divider,
+    Grid,
+    Tab,
+    Tabs,
+    Typography,
+} from '@material-ui/core';
 import clsx from 'clsx';
 import { omit } from 'lodash';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../constants/creationStrategies';
@@ -12,8 +27,6 @@ import {
 } from '../../constants/urls';
 import { useHandleEditorSave } from '../../hooks/useHandleEditorSave';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { Iconify, MuiCore, pluginLib, React } from '../../plugin.globals';
-import { KubeObjectInterface } from '../../plugin.types';
 import { FieldEvent, FieldEventTarget, FormNameObject } from '../../types/forms';
 import { DeepPartial } from '../../types/global';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
@@ -36,12 +49,6 @@ import { useUpdateVersioningFields } from './hooks/useUpdateVersioningFields';
 import { CODEBASE_BACKWARDS_NAME_MAPPING, CODEBASE_NAMES as names } from './names';
 import { useStyles } from './styles';
 import { CodebaseAuthData, CreateCodebaseProps } from './types';
-
-const { Grid, Dialog, Divider, DialogContent, Typography, Button, Box, Tabs, Tab } = MuiCore;
-const { Icon } = Iconify;
-const {
-    CommonComponents: { EditorDialog },
-} = pluginLib;
 
 const a11yProps = (index: any) => {
     return {

@@ -1,9 +1,8 @@
+import { Grid } from '@material-ui/core';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { MuiCore, React } from '../../../../plugin.globals';
 import { FormTextField } from '../../../FormComponents';
 import { ClusterNameProps } from './types';
-
-const { Grid } = MuiCore;
 
 export const ClusterName = ({ names }: ClusterNameProps) => {
     const {

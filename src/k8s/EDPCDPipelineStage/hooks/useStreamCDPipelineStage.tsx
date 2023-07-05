@@ -1,4 +1,4 @@
-import { React } from '../../../plugin.globals';
+import React from 'react';
 import { EDPCDPipelineStageKubeObject } from '../index';
 import { EDPCDPipelineStageKubeObjectInterface } from '../types';
 

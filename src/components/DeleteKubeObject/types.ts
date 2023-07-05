@@ -1,11 +1,11 @@
-import { React } from '../../plugin.globals';
-import type { k8s } from '../../plugin.types';
+import { KubeObject } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import React from 'react';
 import { EDPKubeObjectInterface } from '../../types/k8s';
 
 export interface DeleteKubeObjectProps {
     popupOpen: boolean;
     setPopupOpen(boolean): void;
-    kubeObject: k8s.cluster.KubeObject;
+    kubeObject: KubeObject;
     kubeObjectData: EDPKubeObjectInterface;
     objectName: string;
     description: string;

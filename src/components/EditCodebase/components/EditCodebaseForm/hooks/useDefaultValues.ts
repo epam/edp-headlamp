@@ -1,5 +1,5 @@
+import React from 'react';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
-import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 import { DeepPartial } from '../../../../../types/global';
 

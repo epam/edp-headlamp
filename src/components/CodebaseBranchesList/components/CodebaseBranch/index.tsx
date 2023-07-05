@@ -1,4 +1,17 @@
+import { Icon } from '@iconify/react';
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Chip,
+    Grid,
+    IconButton,
+    Paper,
+    Tooltip,
+    Typography,
+} from '@material-ui/core';
 import clsx from 'clsx';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { ICONS } from '../../../../constants/icons';
@@ -9,7 +22,6 @@ import { useGitServerByCodebaseQuery } from '../../../../k8s/EDPGitServer/hooks/
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
-import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { createRandomString } from '../../../../utils/createRandomString';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
@@ -29,19 +41,6 @@ import { useMainInfoRows } from './hooks/useMainInfoRows';
 import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
 import { useStyles } from './styles';
 import { CodebaseBranchProps } from './types';
-
-const {
-    Grid,
-    Typography,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-    Chip,
-    Paper,
-    IconButton,
-    Tooltip,
-} = MuiCore;
-const { Icon } = Iconify;
 
 const pipelineRunTypes = Object.entries(PIPELINE_TYPES).filter(
     ([, value]) => value !== PIPELINE_TYPES.DEPLOY && value !== PIPELINE_TYPES.AUTOTEST_RUNNER

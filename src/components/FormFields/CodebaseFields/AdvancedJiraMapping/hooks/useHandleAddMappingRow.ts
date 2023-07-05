@@ -1,5 +1,5 @@
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 import { AdvancedMappingItem, AdvancedMappingRow } from '../types';
 

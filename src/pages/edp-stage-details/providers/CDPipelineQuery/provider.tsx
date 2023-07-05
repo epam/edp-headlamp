@@ -1,9 +1,8 @@
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import { useCDPipelineByNameQuery } from '../../../../k8s/EDPCDPipeline/hooks/useCDPipelineByNameQuery';
-import { React, ReactRouter } from '../../../../plugin.globals';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { CDPipelineQueryContext } from './context';
-
-const { useParams } = ReactRouter;
 
 export const CDPipelineQueryContextProvider: React.FC = ({ children }) => {
     const { CDPipelineName } = useParams<EDPStageDetailsRouteParams>();

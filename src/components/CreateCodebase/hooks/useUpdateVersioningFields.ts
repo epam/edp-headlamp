@@ -1,5 +1,5 @@
+import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
-import { React } from '../../../plugin.globals';
 import { FieldEventTarget, FormNameObject } from '../../../types/forms';
 
 interface UseUpdateVersioningFieldsProps {

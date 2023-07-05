@@ -1,4 +1,4 @@
-import { React } from '../../../../plugin.globals';
+import React from 'react';
 import { CDPipelineStagesContextProviderValue } from './types';
 
 export const CDPipelineStagesContext = React.createContext<CDPipelineStagesContextProviderValue>({

@@ -6,7 +6,6 @@ import { CreateKubeObject } from '../../components/CreateKubeObject';
 import { DocLink } from '../../components/DocLink';
 import { URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES } from '../../constants/urls';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
-import { React } from '../../plugin.globals';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { CDPipelineList } from './components/CDPipelineList';
 

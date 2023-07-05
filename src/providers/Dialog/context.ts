@@ -1,4 +1,4 @@
-import { React } from '../../plugin.globals';
+import React from 'react';
 import { DialogContextProviderValue } from './types';
 
 export const DialogContext = React.createContext<DialogContextProviderValue>({

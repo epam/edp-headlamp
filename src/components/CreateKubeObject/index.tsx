@@ -1,9 +1,8 @@
+import { Icon } from '@iconify/react';
+import { Fab } from '@material-ui/core';
+import React from 'react';
 import { ICONS } from '../../constants/icons';
-import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { useStyles } from './styles';
-
-const { Fab } = MuiCore;
-const { Icon } = Iconify;
 
 export const CreateKubeObject: React.FC = ({ children }) => {
     const classes = useStyles();

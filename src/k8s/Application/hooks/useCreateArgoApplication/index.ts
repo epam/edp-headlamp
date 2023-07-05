@@ -1,10 +1,10 @@
+import React from 'react';
 import {
     createArgoApplicationInstance,
     editApplicationInstance,
 } from '../../../../configs/k8s-resource-instances/custom-resources/application';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
-import { React } from '../../../../plugin.globals';
 import { EDPCDPipelineKubeObjectInterface } from '../../../EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../EDPCDPipelineStage/types';
 import { EDPCodebaseKubeObjectInterface } from '../../../EDPCodebase/types';

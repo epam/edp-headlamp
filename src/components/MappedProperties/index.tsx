@@ -1,8 +1,7 @@
-import { MuiCore, React } from '../../plugin.globals';
+import { Typography } from '@material-ui/core';
+import React from 'react';
 import { Render } from '../Render';
 import { MappedPropertiesProps } from './types';
-
-const { Typography } = MuiCore;
 
 export const MappedProperties = ({ properties, variant }: MappedPropertiesProps) => {
     return properties && properties.length ? (

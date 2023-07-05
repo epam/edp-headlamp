@@ -1,6 +1,6 @@
+import React from 'react';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
-import { React } from '../../../../plugin.globals';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../../../types/actions';
 import { DeleteKubeObject } from '../../../DeleteKubeObject';

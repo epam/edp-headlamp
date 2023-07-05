@@ -1,5 +1,5 @@
+import React from 'react';
 import { useEnrichedApplicationsWithImageStreamsQuery } from '../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
-import { React } from '../../../../plugin.globals';
 import { useCDPipelineQueryContext } from '../CDPipelineQuery/hooks';
 import { EnrichedApplicationsContext } from './context';
 

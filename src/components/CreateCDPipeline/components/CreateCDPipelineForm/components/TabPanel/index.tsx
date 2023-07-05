@@ -1,4 +1,4 @@
-import { React } from '../../../../../../plugin.globals';
+import React from 'react';
 import { TabPanelProps } from './types';
 
 export const TabPanel = ({ children, value, index, className, ...other }: TabPanelProps) => {

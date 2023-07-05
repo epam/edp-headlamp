@@ -1,7 +1,5 @@
-import { MuiCore } from '../../../../plugin.globals';
+import { makeStyles } from '@material-ui/core';
 import { STATUSES_COLORS } from '../../../../utils/styling/getCustomResourceStatusIconByStatusName';
-
-const { makeStyles } = MuiCore;
 
 export const useStyles = makeStyles(() => ({
     node: {

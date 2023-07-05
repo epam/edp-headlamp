@@ -1,8 +1,9 @@
+import { Button, Grid } from '@material-ui/core';
 import { omit } from 'lodash';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
-import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import {
@@ -18,8 +19,6 @@ import { useNames } from './hooks/useNames';
 import { useUpdateJiraServerIntegrationValue } from './hooks/useUpdateJiraServerIntegrationValue';
 import { useStyles } from './styles';
 import { EditCodebaseFormProps } from './types';
-
-const { Button, Grid } = MuiCore;
 
 export const EditCodebaseForm = ({
     handleApply,

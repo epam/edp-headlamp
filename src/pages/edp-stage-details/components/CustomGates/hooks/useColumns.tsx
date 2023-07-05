@@ -1,9 +1,9 @@
 import { Link as MuiLink } from '@material-ui/core';
+import React from 'react';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
-import { React } from '../../../../../plugin.globals';
 import { formatDateToDuration } from '../../../../../utils/format/formatDateToDuration';
 import { formatDateUTCToLocal } from '../../../../../utils/format/formatDateUTCToLocal';
 import { parseTektonResourceStatus } from '../../../../../utils/parseTektonResourceStatus';

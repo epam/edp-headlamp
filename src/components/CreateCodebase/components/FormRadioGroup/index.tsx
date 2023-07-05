@@ -1,13 +1,20 @@
 import { ErrorMessage } from '@hookform/error-message';
+import {
+    ButtonBase,
+    FormControl,
+    FormControlLabel,
+    Grid,
+    Radio,
+    RadioGroup,
+    Typography,
+} from '@material-ui/core';
 import clsx from 'clsx';
+import React from 'react';
 import { Controller } from 'react-hook-form';
-import { MuiCore, React } from '../../../../plugin.globals';
 import { FormControlLabelWithTooltip } from '../../../FormComponents';
 import { Render } from '../../../Render';
 import { useStyles } from './styles';
 import { FormRadioProps } from './types';
-
-const { FormControl, Radio, ButtonBase, RadioGroup, Typography, Grid, FormControlLabel } = MuiCore;
 
 export const FormRadioGroup = React.forwardRef(
     (

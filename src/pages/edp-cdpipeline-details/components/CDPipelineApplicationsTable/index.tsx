@@ -1,6 +1,6 @@
 import { Grid, Paper, Typography } from '@material-ui/core';
+import React from 'react';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
-import { React } from '../../../../plugin.globals';
 import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';

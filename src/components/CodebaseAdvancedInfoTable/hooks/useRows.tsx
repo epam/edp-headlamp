@@ -1,10 +1,9 @@
+import { Divider, Typography } from '@material-ui/core';
+import React from 'react';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../constants/creationStrategies';
 import { EDPCodebaseSpecInterface } from '../../../k8s/EDPCodebase/types';
-import { MuiCore, React } from '../../../plugin.globals';
 import { NameValueTableRow } from '../../HeadlampNameValueTable/types';
 import { Render } from '../../Render';
-
-const { Typography, Divider } = MuiCore;
 
 export const useRows = (
     codebaseSpec: EDPCodebaseSpecInterface,

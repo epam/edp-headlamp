@@ -1,8 +1,7 @@
-import { MuiCore, React } from '../../../../../../plugin.globals';
+import { Grid } from '@material-ui/core';
+import React from 'react';
 import { Applications } from '../../../../../FormFields/CDPipelineFields';
 import { ApplicationsFormPartProps } from './types';
-
-const { Grid } = MuiCore;
 
 export const ApplicationsFormPart = ({
     names,

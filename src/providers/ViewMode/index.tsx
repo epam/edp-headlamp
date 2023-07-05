@@ -1,4 +1,4 @@
-import { React } from '../../plugin.globals';
+import React from 'react';
 import { ViewModeContext } from './context';
 import { VIEW_MODES, ViewMode, ViewModeContextProviderProps } from './types';
 

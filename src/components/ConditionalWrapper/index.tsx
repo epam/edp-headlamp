@@ -1,6 +1,5 @@
-import { React } from '../../plugin.globals';
+import React from 'react';
 import { ConditionalWrapperProps } from './types';
-
 export const ConditionalWrapper = ({
     condition,
     wrapper,

@@ -1,6 +1,6 @@
+import React from 'react';
 import { createCodebaseInstance } from '../../../configs/k8s-resource-instances/custom-resources/codebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
-import { React } from '../../../plugin.globals';
 import { FormNameObject } from '../../../types/forms';
 
 interface UseEditorCodeProps {

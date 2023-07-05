@@ -1,11 +1,11 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Button, Grid, Typography } from '@material-ui/core';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ICONS } from '../../constants/icons';
 import { streamGitServer } from '../../k8s/EDPGitServer';
 import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
-import { React } from '../../plugin.globals';
 import { GIT_SERVERS_ROUTE_NAME } from '../../routes/names';
 import { createRouteName } from '../../utils/routes/createRouteName';
 import { GeneralInfoTable } from './components/GeneralInfoTable';

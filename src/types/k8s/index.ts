@@ -1,5 +1,4 @@
-import { KubeMetadata } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { KubeObjectInterface } from '../../plugin.types';
+import { KubeMetadata, KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 
 export interface EDPKubeMetadata
     extends Omit<KubeMetadata, 'uid' | 'creationTimestamp' | 'resourceVersion' | 'selfLink'> {

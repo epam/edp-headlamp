@@ -1,4 +1,4 @@
-import { React } from '../../plugin.globals';
+import React from 'react';
 import { ResourceActionListContextProviderValue } from './types';
 
 export const ResourceActionListContext =

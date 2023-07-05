@@ -1,8 +1,9 @@
+import { Grid } from '@material-ui/core';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { Resources } from '../../../../icons/sprites/Resources';
-import { MuiCore, React } from '../../../../plugin.globals';
 import {
     BuildTool,
     CodebaseAuth,
@@ -21,8 +22,6 @@ import {
 import { Render } from '../../../Render';
 import { FormDataContext } from '../../index';
 import { isCloneStrategy } from '../../utils';
-
-const { Grid } = MuiCore;
 
 export const CodebaseInfo = () => {
     const { names, handleFormFieldChange } = React.useContext(FormDataContext);

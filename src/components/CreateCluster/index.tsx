@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { Button, Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
 import React from 'react';
@@ -6,7 +7,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { createClusterSecretInstance } from '../../configs/k8s-resource-instances/resources/secret';
 import { ICONS } from '../../constants/icons';
 import { useHandleEditorSaveNew } from '../../hooks/useHandleEditorSave';
-import { pluginLib } from '../../plugin.globals';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { Render } from '../Render';
 import { ClusterCertificate } from './components/ClusterCertificate';
@@ -18,10 +18,6 @@ import { CLUSTER_CREATION_FORM_NAMES } from './names';
 import { useStyles } from './styles';
 import { CreateClusterFormNames } from './types';
 import { getUsedValues } from './utils/getUsedValues';
-
-const {
-    CommonComponents: { EditorDialog },
-} = pluginLib;
 
 export const CreateCluster = () => {
     const { activeDialog, openDialog, closeDialog } = useDialogContext();

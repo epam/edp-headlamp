@@ -1,10 +1,17 @@
+import { Icon } from '@iconify/react';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    IconButton,
+    Tooltip,
+} from '@material-ui/core';
+import React from 'react';
 import { ICONS } from '../../constants/icons';
-import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { HeadlampNameValueTable } from '../HeadlampNameValueTable';
 import { MetadataTableProps } from './types';
-
-const { IconButton, Dialog, DialogContent, DialogActions, DialogTitle, Button, Tooltip } = MuiCore;
-const { Icon } = Iconify;
 
 const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
 

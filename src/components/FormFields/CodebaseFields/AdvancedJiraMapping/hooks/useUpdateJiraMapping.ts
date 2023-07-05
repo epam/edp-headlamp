@@ -1,9 +1,8 @@
+import { useSnackbar } from 'notistack';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Notistack, React } from '../../../../../plugin.globals';
 import { createAdvancedMappingRowName } from '../constants';
 import { getJiraIssueMetadataPayloadDefaultValue } from '../utils';
-
-const { useSnackbar } = Notistack;
 
 export const useUpdateJiraMapping = ({ names, setAdvancedMapping, setAdvancedMappingRows }) => {
     const { watch, setValue } = useFormContext();

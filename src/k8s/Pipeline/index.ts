@@ -1,16 +1,9 @@
+import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { PIPELINE_TYPES } from '../../constants/pipelineTypes';
-import { pluginLib } from '../../plugin.globals';
 import { KubeObjectListInterface } from '../../types/k8s';
 import { PipelineKubeObjectConfig } from './config';
 import { PIPELINE_LABEL_SELECTOR_PIPELINE_TYPE } from './labels';
 import { PipelineKubeObjectInterface } from './types';
-
-const {
-    ApiProxy,
-    K8s: {
-        cluster: { makeKubeObject },
-    },
-} = pluginLib;
 
 const {
     name: { singularForm, pluralForm },
@@ -18,7 +11,9 @@ const {
     version,
 } = PipelineKubeObjectConfig;
 
-export class PipelineKubeObject extends makeKubeObject<PipelineKubeObjectInterface>(singularForm) {
+export class PipelineKubeObject extends K8s.cluster.makeKubeObject<PipelineKubeObjectInterface>(
+    singularForm
+) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
     static get className(): string {

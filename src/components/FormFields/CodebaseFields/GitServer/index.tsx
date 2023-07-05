@@ -1,6 +1,6 @@
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
-import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
 import { GitServerProps } from './types';

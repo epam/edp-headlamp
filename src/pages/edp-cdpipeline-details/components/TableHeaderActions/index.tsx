@@ -1,13 +1,12 @@
+import { Icon } from '@iconify/react';
+import { Button, Tooltip, Typography } from '@material-ui/core';
+import React from 'react';
 import { CreateCDPipelineStage } from '../../../../components/CreateCDPipelineStage';
 import { useCreateCDPipelineStage } from '../../../../components/CreateCDPipelineStage/hooks/useCreateCDPipelineStage';
 import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../constants/icons';
-import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { useCDPipelineContext } from '../../providers/CDPipeline/hooks';
 import { TableHeaderActionsProps } from './types';
-
-const { Icon } = Iconify;
-const { Tooltip, Button, Typography } = MuiCore;
 
 export const TableHeaderActions = ({ CDPipelineStages }: TableHeaderActionsProps) => {
     const { CDPipeline } = useCDPipelineContext();

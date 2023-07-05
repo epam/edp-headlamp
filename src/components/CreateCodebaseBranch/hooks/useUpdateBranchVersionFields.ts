@@ -1,4 +1,4 @@
-import { React } from '../../../plugin.globals';
+import React from 'react';
 import { createReleaseNameString } from '../../../utils/createReleaseNameString';
 import { getMajorMinorPatchOfVersion } from '../../../utils/getMajorMinorPatchOfVersion';
 import { getVersionAndPostfixFromVersioningString } from '../../../utils/getVersionAndPostfixFromVersioningString';

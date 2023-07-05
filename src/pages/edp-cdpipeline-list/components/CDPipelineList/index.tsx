@@ -1,15 +1,12 @@
+import { Utils } from '@kinvolk/headlamp-plugin/lib';
+import React from 'react';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
-import { pluginLib, React } from '../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
 import { CDPipelineListProps } from './types';
 
-const {
-    Utils: { useFilterFunc },
-} = pluginLib;
-
 export const CDPipelineList = ({ CDPipelines, error }: CDPipelineListProps) => {
     const columns = useColumns();
-    const filterFunc = useFilterFunc();
+    const filterFunc = Utils.useFilterFunc();
 
     return (
         <HeadlampSimpleTable

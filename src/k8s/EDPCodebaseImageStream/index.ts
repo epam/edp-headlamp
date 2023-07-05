@@ -1,4 +1,4 @@
-import { pluginLib } from '../../plugin.globals';
+import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectListInterface } from '../../types/k8s';
 import { EDPCodebaseImageStreamKubeObjectConfig } from './config';
 import {
@@ -8,18 +8,12 @@ import {
 } from './types';
 
 const {
-    ApiProxy,
-    K8s: {
-        cluster: { makeKubeObject },
-    },
-} = pluginLib;
-const {
     name: { singularForm, pluralForm },
     group,
     version,
 } = EDPCodebaseImageStreamKubeObjectConfig;
 
-export class EDPCodebaseImageStreamKubeObject extends makeKubeObject<EDPCodebaseImageStreamKubeObjectInterface>(
+export class EDPCodebaseImageStreamKubeObject extends K8s.cluster.makeKubeObject<EDPCodebaseImageStreamKubeObjectInterface>(
     singularForm
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);

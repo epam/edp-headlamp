@@ -1,12 +1,10 @@
-import { MuiCore, pluginLib, React } from '../../../../../../plugin.globals';
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Typography } from '@material-ui/core';
+import React from 'react';
 import { CDPIPELINES_ROUTE_NAME } from '../../../../../../routes/names';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../utils/routes/createRouteName';
 import { useStyles } from './styles';
 import { CodebaseBranchCDPipelineConflictErrorProps } from './types';
-
-const { Typography } = MuiCore;
-const { CommonComponents } = pluginLib;
-const { Link } = CommonComponents;
 
 export const CodebaseBranchCDPipelineConflictError = ({
     conflictedCDPipeline,

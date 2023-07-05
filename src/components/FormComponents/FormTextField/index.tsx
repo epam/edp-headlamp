@@ -1,11 +1,10 @@
 import { ErrorMessage } from '@hookform/error-message';
+import { FormControl, Grid, TextField, Typography } from '@material-ui/core';
+import React from 'react';
 import { Controller } from 'react-hook-form';
-import { MuiCore, React } from '../../../plugin.globals';
 import { Render } from '../../Render';
 import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { FormTextFieldProps } from './types';
-
-const { FormControl, TextField, Typography, Grid } = MuiCore;
 
 export const FormTextField = React.forwardRef(
     (

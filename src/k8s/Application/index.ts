@@ -1,4 +1,4 @@
-import { pluginLib } from '../../plugin.globals';
+import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { streamResults } from '../common/streamResults';
 import { ApplicationKubeObjectConfig } from './config';
 import { APPLICATION_LABEL_SELECTOR_PIPELINE, APPLICATION_LABEL_SELECTOR_STAGE } from './labels';
@@ -10,19 +10,12 @@ import {
 } from './types';
 
 const {
-    ApiProxy,
-    K8s: {
-        cluster: { makeKubeObject },
-    },
-} = pluginLib;
-
-const {
     name: { singularForm, pluralForm },
     group,
     version,
 } = ApplicationKubeObjectConfig;
 
-export class ApplicationKubeObject extends makeKubeObject<ApplicationKubeObjectInterface>(
+export class ApplicationKubeObject extends K8s.cluster.makeKubeObject<ApplicationKubeObjectInterface>(
     singularForm
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);

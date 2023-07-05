@@ -1,6 +1,6 @@
+import React from 'react';
 import { JOB_PROVISIONERS } from '../../../../../constants/jobProvisioners';
 import { TRIGGER_TYPES } from '../../../../../constants/triggerTypes';
-import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
 interface useDefaultValuesProps {

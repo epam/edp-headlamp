@@ -1,10 +1,12 @@
+import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { Button, Grid } from '@material-ui/core';
 import { omit } from 'lodash';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { createGitServerSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
-import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
-import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
@@ -23,12 +25,6 @@ import { useEditorCode } from './hooks/useEditorCode';
 import { GIT_SERVER_NAMES, GIT_SERVER_SECRET_NAMES } from './names';
 import { useStyles } from './styles';
 import { CreateGitServerFormProps } from './types';
-
-const { Button, Grid } = MuiCore;
-
-const {
-    CommonComponents: { EditorDialog },
-} = pluginLib;
 
 export const CreateGitServerForm = ({
     editorOpen,

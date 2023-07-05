@@ -1,5 +1,5 @@
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { React } from '../../../../../plugin.globals';
 import { FieldEvent, FieldEventTarget, FormNameObject } from '../../../../../types/forms';
 import { AdvancedMappingRow } from '../types';
 import { getJiraIssueMetadataPayload } from '../utils';

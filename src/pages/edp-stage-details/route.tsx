@@ -1,4 +1,3 @@
-import { React } from '../../plugin.globals';
 import { CDPIPELINES_ROUTE_NAME } from '../../routes/names';
 import { createSidebarItemName } from '../../utils/routes/createSidebarItemName';
 import Page from './page';

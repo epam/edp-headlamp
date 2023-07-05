@@ -1,4 +1,4 @@
-import { React } from '../../../../../../plugin.globals';
+import React from 'react';
 import { FieldEventTarget, FormNameObject } from '../../../../../../types/forms';
 import { Application } from '../../types';
 

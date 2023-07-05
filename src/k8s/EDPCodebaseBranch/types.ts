@@ -1,4 +1,4 @@
-import { KubeObjectInterface } from '../../plugin.types';
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 
 interface EDPCodebaseBranchSpecInterface {
     branchName: string;

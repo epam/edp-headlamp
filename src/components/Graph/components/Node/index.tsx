@@ -1,12 +1,10 @@
 import CardNode, { CardNodeColumn, CardNodeTitle } from '@carbon/charts-react/diagrams/CardNode';
+import { Link, Paper } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
-import { MuiCore } from '../../../../plugin.globals';
 import { StatusIcon } from '../../../StatusIcon';
 import { useStyles } from './styles';
 import { NodeProps } from './types';
-const { Paper } = MuiCore;
-const { Link: MuiLink } = MuiCore;
 
 export const Node = ({ x, y, height, width, status, title, url }: NodeProps) => {
     const classes = useStyles();
@@ -26,9 +24,9 @@ export const Node = ({ x, y, height, width, status, title, url }: NodeProps) => 
                     <CardNodeColumn>
                         <CardNodeTitle>
                             {url ? (
-                                <MuiLink href={url} target={'_blank'}>
+                                <Link href={url} target={'_blank'}>
                                     {title}
-                                </MuiLink>
+                                </Link>
                             ) : (
                                 <span title={title}>{title}</span>
                             )}

@@ -1,20 +1,19 @@
-import { useForm } from 'react-hook-form';
-import { MuiCore, React } from '../../plugin.globals';
-import { Render } from '../Render';
-import { useDeleteKubeObject } from './hooks/useDeleteKubeObject';
-import { DeleteKubeObjectProps } from './types';
-
-const {
-    Grid,
+import {
+    Button,
+    CircularProgress,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
-    Button,
-    Typography,
+    Grid,
     TextField,
-    CircularProgress,
-} = MuiCore;
+    Typography,
+} from '@material-ui/core';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Render } from '../Render';
+import { useDeleteKubeObject } from './hooks/useDeleteKubeObject';
+import { DeleteKubeObjectProps } from './types';
 
 const NAMES = {
     name: 'name',

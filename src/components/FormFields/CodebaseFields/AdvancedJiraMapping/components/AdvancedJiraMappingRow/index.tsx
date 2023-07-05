@@ -1,13 +1,11 @@
+import { Icon } from '@iconify/react';
+import { Button, FormControl, Grid, TextField, useTheme } from '@material-ui/core';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../../../constants/icons';
-import { Iconify, MuiCore, MuiStyles, React } from '../../../../../../plugin.globals';
 import { FormTextField } from '../../../../../FormComponents';
 import { createAdvancedMappingRowName } from '../../constants';
 import { AdvancedJiraMappingRowProps } from './types';
-
-const { Grid, FormControl, TextField, Button } = MuiCore;
-const { Icon } = Iconify;
-const { useTheme } = MuiStyles;
 
 export const AdvancedJiraMappingRow = ({
     label,

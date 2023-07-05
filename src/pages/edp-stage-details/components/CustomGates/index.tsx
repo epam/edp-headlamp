@@ -1,4 +1,5 @@
 import { Button, Grid } from '@material-ui/core';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { FormSelect } from '../../../../components/FormComponents';
@@ -6,7 +7,6 @@ import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable'
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { usePipelineByTypeListQuery } from '../../../../k8s/Pipeline/hooks/usePipelineByTypeListQuery';
-import { React } from '../../../../plugin.globals';
 import { createRandomString } from '../../../../utils/createRandomString';
 import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 import { useCDPipelineStageContext } from '../../providers/CDPipelineStage/hooks';

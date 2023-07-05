@@ -1,8 +1,9 @@
-import { Typography } from '@material-ui/core';
+import { EmptyContent, SectionHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Grid, Typography } from '@material-ui/core';
+import React from 'react';
 import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../constants/urls';
 import { streamCodebaseBranchesByCodebaseLabel } from '../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
-import { MuiCore, pluginLib, React } from '../../plugin.globals';
 import { DocLink } from '../DocLink';
 import { CodebaseBranch } from './components/CodebaseBranch';
 import { CodebaseBranchActions } from './components/CodebaseBranchActions';
@@ -10,10 +11,6 @@ import { TableHeaderActions } from './components/TableHeaderActions';
 import { useStyles } from './styles';
 import { CodebaseBranchesListProps } from './types';
 import { isDefaultBranch } from './utils';
-const {
-    CommonComponents: { SectionHeader, EmptyContent },
-} = pluginLib;
-const { Grid } = MuiCore;
 
 export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps) => {
     const {

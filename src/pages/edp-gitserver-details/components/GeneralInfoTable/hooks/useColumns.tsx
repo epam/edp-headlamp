@@ -1,5 +1,5 @@
+import React from 'react';
 import { EDPGitServerSpec } from '../../../../../k8s/EDPGitServer/types';
-import { React } from '../../../../../plugin.globals';
 
 export const useColumns = (gitServerSpec: EDPGitServerSpec) =>
     React.useMemo(

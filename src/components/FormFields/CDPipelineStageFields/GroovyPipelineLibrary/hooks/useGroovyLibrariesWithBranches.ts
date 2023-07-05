@@ -1,7 +1,7 @@
+import React from 'react';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { useCodebasesByTypeLabelQuery } from '../../../../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
 import { EDPCodebaseBranchKubeObject } from '../../../../../k8s/EDPCodebaseBranch';
-import { React } from '../../../../../plugin.globals';
 import { SelectOption } from '../../../../../types/forms';
 import { isGroovyLibrary } from '../../../../../utils/checks/isGroovyLibrary';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';

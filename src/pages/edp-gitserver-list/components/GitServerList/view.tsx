@@ -1,15 +1,11 @@
+import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
-import { pluginLib, React } from '../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
 import { GitServerListProps } from './types';
 
-const {
-    Utils: { useFilterFunc },
-} = pluginLib;
-
 export const GitServerList = ({ gitServers, error }: GitServerListProps) => {
     const columns = useColumns();
-    const filterFunc = useFilterFunc();
+    const filterFunc = Utils.useFilterFunc();
 
     return (
         <HeadlampSimpleTable

@@ -1,11 +1,10 @@
-import { useCallback } from 'react';
+import React from 'react';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
 import { EDPCDPipelineKubeObject } from '../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
-import { React } from '../../../../plugin.globals';
 
 interface CreateCDPipelineProps {
     CDPipelineData: EDPCDPipelineKubeObjectInterface;
@@ -19,8 +18,8 @@ export const useCreateCDPipeline = ({
     onSuccess?: () => void;
     onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
+    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
     const CDPipelineCreateMutation = useResourceCRUDMutation<
         EDPCDPipelineKubeObjectInterface,

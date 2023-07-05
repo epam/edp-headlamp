@@ -1,5 +1,5 @@
+import React from 'react';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
-import { React } from '../../../../plugin.globals';
 import { DeepPartial } from '../../../../types/global';
 
 export interface StagesProps {

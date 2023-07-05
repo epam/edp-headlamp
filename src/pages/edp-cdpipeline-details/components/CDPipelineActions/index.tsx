@@ -1,11 +1,10 @@
+import { Icon } from '@iconify/react';
+import { IconButton, Tooltip } from '@material-ui/core';
+import React from 'react';
 import { CDPipelineActionsMenu } from '../../../../components/CDPipelineActionsMenu';
 import { ICONS } from '../../../../constants/icons';
-import { Iconify, MuiCore, React } from '../../../../plugin.globals';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { CDPipelineActionsProps } from './types';
-
-const { Icon } = Iconify;
-const { IconButton, Tooltip } = MuiCore;
 
 export const CDPipelineActions = ({ CDPipeline }: CDPipelineActionsProps) => {
     const { handleOpenResourceActionListMenu } = useResourceActionListContext();

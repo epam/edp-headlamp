@@ -1,6 +1,6 @@
+import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
-import { React } from '../../../plugin.globals';
 import { DeepPartial } from '../../../types/global';
 import { NameValueTableRow } from '../../HeadlampNameValueTable/types';
 

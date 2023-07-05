@@ -1,5 +1,5 @@
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormTextField } from '../../../FormComponents';
 import { HostNameProps } from './types';

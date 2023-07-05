@@ -1,17 +1,14 @@
+import { HoverInfoLabel } from '@kinvolk/headlamp-plugin/lib/components/common';
+import { Link } from '@material-ui/core';
+import React from 'react';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
-import { MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { formatFullYear, humanizeDefault } from '../../../../../utils/date/humanize';
 import { parseTektonResourceStatus } from '../../../../../utils/parseTektonResourceStatus';
 import { createTektonPipelineLink } from '../../../../../utils/url/createTektonPipelineLink';
 import { createTektonPipelineRunLink } from '../../../../../utils/url/createTektonPipelineRunLink';
 import { HeadlampSimpleTableGetterColumn } from '../../../../HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../StatusIcon';
-
-const { Link } = MuiCore;
-const {
-    CommonComponents: { HoverInfoLabel },
-} = pluginLib;
 
 export const usePipelineRunsColumns =
     (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] => {

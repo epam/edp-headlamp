@@ -1,15 +1,14 @@
-import { useCallback } from 'react';
+import { KubeObject } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import React from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
-import { React } from '../../../../plugin.globals';
-import { k8s } from '../../../../plugin.types';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 
 interface DeleteKubeObjectProps {
     kubeObjectData: EDPKubeObjectInterface;
-    kubeObject: k8s.cluster.KubeObject;
+    kubeObject: KubeObject;
 }
 
 export const useDeleteKubeObject = ({
@@ -28,8 +27,8 @@ export const useDeleteKubeObject = ({
         >;
     };
 } => {
-    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
+    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
     const namespace = getDefaultNamespace();
     const { showBeforeRequestMessage, showRequestErrorMessage, showRequestSuccessMessage } =
         useRequestStatusMessages();
@@ -39,7 +38,7 @@ export const useDeleteKubeObject = ({
         Error,
         {
             kubeObjectData: EDPKubeObjectInterface;
-            kubeObject: k8s.cluster.KubeObject;
+            kubeObject: KubeObject;
         }
     >(
         'kubeObjectDeleteMutation',

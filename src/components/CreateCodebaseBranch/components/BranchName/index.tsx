@@ -1,12 +1,11 @@
+import { Grid } from '@material-ui/core';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { createVersioningString } from '../../../../utils/createVersioningString';
 import { getVersionAndPostfixFromVersioningString } from '../../../../utils/getVersionAndPostfixFromVersioningString';
 import { FormTextField } from '../../../FormComponents';
 import { BranchNameProps } from './types';
-
-const { Grid } = MuiCore;
 
 export const BranchName = ({ names, defaultBranchVersion }: BranchNameProps) => {
     const {

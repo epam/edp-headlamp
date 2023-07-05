@@ -1,9 +1,7 @@
-import { pluginLib, React } from '../../plugin.globals';
+import { SimpleTable } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import React from 'react';
 import { useStyles } from './styles';
 import { HeadlampSimpleTableProps } from './types';
-
-const { CommonComponents } = pluginLib;
-const { SimpleTable } = CommonComponents;
 
 export const HeadlampSimpleTable: React.FC<HeadlampSimpleTableProps> = props => {
     const classes = useStyles();

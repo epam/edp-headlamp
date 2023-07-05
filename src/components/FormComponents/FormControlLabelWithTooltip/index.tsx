@@ -1,12 +1,11 @@
+import { Icon } from '@iconify/react';
+import { Box, Tooltip, Typography } from '@material-ui/core';
+import React from 'react';
 import { ICONS } from '../../../constants/icons';
-import { Iconify, MuiCore, React } from '../../../plugin.globals';
 import { rem } from '../../../utils/styling/rem';
 import { Render } from '../../Render';
 import { useStyles } from './styles';
 import { FormControlLabelWithTooltipProps } from './types';
-
-const { Typography, Tooltip, Box } = MuiCore;
-const { Icon } = Iconify;
 
 export const FormControlLabelWithTooltip = ({ label, title }: FormControlLabelWithTooltipProps) => {
     const classes = useStyles();

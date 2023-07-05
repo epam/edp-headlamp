@@ -1,14 +1,7 @@
-import { pluginLib } from '../../plugin.globals';
+import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectListInterface } from '../../types/k8s';
 import { JenkinsKubeObjectConfig } from './config';
 import { JenkinsKubeObjectInterface, JenkinsSpec, JenkinsStatus } from './types';
-
-const {
-    ApiProxy,
-    K8s: {
-        cluster: { makeKubeObject },
-    },
-} = pluginLib;
 
 const {
     name: { singularForm, pluralForm },
@@ -16,7 +9,9 @@ const {
     version,
 } = JenkinsKubeObjectConfig;
 
-export class JenkinsKubeObject extends makeKubeObject<JenkinsKubeObjectInterface>(singularForm) {
+export class JenkinsKubeObject extends K8s.cluster.makeKubeObject<JenkinsKubeObjectInterface>(
+    singularForm
+) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
     static get className(): string {

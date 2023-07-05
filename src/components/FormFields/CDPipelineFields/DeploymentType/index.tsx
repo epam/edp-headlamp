@@ -1,11 +1,10 @@
+import { Grid } from '@material-ui/core';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { deploymentTypeSelectOptions } from '../../../../configs/select-options/deploymentTypes';
-import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
 import { DeploymentTypeProps } from './types';
-
-const { Grid } = MuiCore;
 
 export const DeploymentType = ({ names, handleFormFieldChange }: DeploymentTypeProps) => {
     const {

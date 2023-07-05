@@ -1,11 +1,11 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@material-ui/core';
+import { Link as MuiLink } from '@material-ui/core';
 import React from 'react';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { sortByActiveStatus } from '../../../../../utils/sort/sortByActiveStatus';
 import { ConfigurationItem } from '../../../types';
-
 export const useColumns = (): HeadlampSimpleTableGetterColumn<ConfigurationItem>[] => {
     return React.useMemo(
         () => [
@@ -29,6 +29,16 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<ConfigurationItem>
                 label: 'Description',
                 getter: ({ description }) => {
                     return <Typography variant={'subtitle1'}>{description}</Typography>;
+                },
+            },
+            {
+                label: 'Documentation',
+                getter: ({ docLink }) => {
+                    return docLink ? (
+                        <MuiLink href={docLink} target={'_blank'}>
+                            User guide
+                        </MuiLink>
+                    ) : null;
                 },
             },
         ],

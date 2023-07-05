@@ -1,12 +1,11 @@
+import { Icon } from '@iconify/react';
+import { Tooltip } from '@material-ui/core';
 import clsx from 'clsx';
-import { Iconify, MuiCore, React } from '../../plugin.globals';
+import React from 'react';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { getCustomResourceStatusIconByStatusName } from '../../utils/styling/getCustomResourceStatusIconByStatusName';
 import { useStyles } from './styles';
 import { StatusIconProps } from './types';
-
-const { Icon } = Iconify;
-const { Tooltip } = MuiCore;
 
 const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
 

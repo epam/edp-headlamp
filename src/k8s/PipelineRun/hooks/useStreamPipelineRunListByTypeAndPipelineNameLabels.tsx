@@ -1,4 +1,4 @@
-import { React } from '../../../plugin.globals';
+import React from 'react';
 import { TaskRunKubeObjectInterface } from '../../TaskRun/types';
 import { PipelineRunKubeObject } from '../index';
 import { PipelineRunKubeObjectInterface } from '../types';

@@ -1,3 +1,7 @@
+import { Icon } from '@iconify/react';
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { IconButton, Typography } from '@material-ui/core';
+import React from 'react';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { MappedProperties } from '../../../../../components/MappedProperties';
 import { Render } from '../../../../../components/Render';
@@ -5,7 +9,6 @@ import { StatusIcon } from '../../../../../components/StatusIcon';
 import { ICONS } from '../../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
-import { Iconify, MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
 import { CDPIPELINES_ROUTE_NAME } from '../../../../../routes/names';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
@@ -15,11 +18,6 @@ import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 import { rem } from '../../../../../utils/styling/rem';
 
-const {
-    CommonComponents: { Link },
-} = pluginLib;
-const { IconButton, Typography } = MuiCore;
-const { Icon } = Iconify;
 export const useColumns = (): HeadlampSimpleTableGetterColumn<
     HeadlampKubeObject<EDPCDPipelineKubeObjectInterface>
 >[] => {

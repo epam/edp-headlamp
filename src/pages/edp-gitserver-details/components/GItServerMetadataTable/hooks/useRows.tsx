@@ -1,4 +1,4 @@
-import { React } from '../../../../../plugin.globals';
+import React from 'react';
 import { EDPKubeMetadata } from '../../../../../types/k8s';
 import { formatDateUTCToLocal } from '../../../../../utils/format/formatDateUTCToLocal';
 

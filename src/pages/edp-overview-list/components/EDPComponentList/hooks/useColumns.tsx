@@ -1,12 +1,11 @@
+import { Icon } from '@iconify/react';
+import { Link, Typography } from '@material-ui/core';
+import React from 'react';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { Render } from '../../../../../components/Render';
 import { EDPComponentKubeObjectInterface } from '../../../../../k8s/EDPComponent/types';
-import { Iconify, MuiCore, React } from '../../../../../plugin.globals';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { sortByName } from '../../../../../utils/sort/sortByName';
-
-const { Link, Typography } = MuiCore;
-const { Icon } = Iconify;
 
 export const useColumns = (classes: {
     [key: string]: string;

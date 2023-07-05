@@ -1,10 +1,10 @@
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { GIT_PROVIDER_ICON_MAPPING } from '../../../../configs/icon-mappings';
 import { gitProviderOptions } from '../../../../configs/select-options/gitProviders';
 import { Resources } from '../../../../icons/sprites/Resources';
 import { RESOURCE_ICON_NAMES } from '../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
-import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormRadioGroup } from '../../../FormComponents';
 import { GitProviderProps } from './types';

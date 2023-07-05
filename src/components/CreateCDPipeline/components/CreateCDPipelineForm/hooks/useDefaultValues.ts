@@ -1,5 +1,5 @@
+import React from 'react';
 import { DEPLOYMENT_TYPES } from '../../../../../constants/deploymentTypes';
-import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
 interface UseDefaultValuesProps {

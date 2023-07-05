@@ -1,7 +1,7 @@
+import React from 'react';
 import { editCDPipelineStageInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/stage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
-import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 import { DeepPartial } from '../../../../../types/global';
 

@@ -1,10 +1,9 @@
-import { useCallback } from 'react';
+import React from 'react';
 import { createAutotestRunnerPipelineRunInstance } from '../../../../../../configs/k8s-resource-instances/custom-resources/pipeline-run';
 import { CRUD_TYPES } from '../../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../../hooks/useResourceCreationMutation';
 import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
-import { React } from '../../../../../../plugin.globals';
 
 export interface CreateAutotestRunnerPipelineRunProps {
     namespace: string;
@@ -21,8 +20,8 @@ export const useCreateAutotestRunnerPipelineRun = ({
     onSuccess?: () => void;
     onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
+    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
     const autotestRunnerPipelineRunCreateMutation = useResourceCRUDMutation<
         PipelineRunKubeObjectInterface,

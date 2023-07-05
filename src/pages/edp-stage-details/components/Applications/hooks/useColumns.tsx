@@ -1,5 +1,6 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Link as MuiLink } from '@material-ui/core';
+import React from 'react';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import {
@@ -10,7 +11,6 @@ import {
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { ApplicationKubeObjectInterface } from '../../../../../k8s/Application/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { React } from '../../../../../plugin.globals';
 import { COMPONENTS_ROUTE_NAME } from '../../../../../routes/names';
 import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { createArgoCDApplicationLink } from '../../../../../utils/url/createArgoCDApplicationLink';

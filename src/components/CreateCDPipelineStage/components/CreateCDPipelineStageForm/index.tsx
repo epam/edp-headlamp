@@ -1,12 +1,14 @@
+import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { Button, Divider, Grid } from '@material-ui/core';
 import { omit } from 'lodash';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { useDefaultCIToolQuery } from '../../../../k8s/EDPComponent/hooks/useDefaultCIToolQuery';
-import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
-import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { rem } from '../../../../utils/styling/rem';
@@ -25,12 +27,6 @@ import { useEditorCode } from './hooks/useEditorCode';
 import { CDPIPELINE_STAGE_BACKWARDS_NAME_MAPPING, CDPIPELINE_STAGE_NAMES } from './names';
 import { useStyles } from './styles';
 import { CreateCDPipelineStageFormProps } from './types';
-
-const { Button, Grid, Divider } = MuiCore;
-
-const {
-    CommonComponents: { EditorDialog },
-} = pluginLib;
 
 export const CreateCDPipelineStageForm = ({
     CDPipelineData,

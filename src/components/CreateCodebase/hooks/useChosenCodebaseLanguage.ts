@@ -1,10 +1,10 @@
+import React from 'react';
 import { APPLICATION_MAPPING } from '../../../configs/codebase-mappings/application';
 import { AUTOTEST_MAPPING } from '../../../configs/codebase-mappings/autotest';
 import { INFRASTRUCTURE_MAPPING } from '../../../configs/codebase-mappings/infrastructure';
 import { LIBRARY_MAPPING } from '../../../configs/codebase-mappings/library';
 import { CodebaseInterface } from '../../../configs/codebase-mappings/types';
 import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
-import { React } from '../../../plugin.globals';
 
 interface UseChosenCodebaseLanguageProps {
     type: string;

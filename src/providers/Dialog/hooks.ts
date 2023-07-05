@@ -1,4 +1,4 @@
-import { React } from '../../plugin.globals';
+import React from 'react';
 import { DialogContext } from './context';
 
 export const useDialogContext = () => React.useContext(DialogContext);

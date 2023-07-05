@@ -1,3 +1,6 @@
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Typography } from '@material-ui/core';
+import React from 'react';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
@@ -6,7 +9,6 @@ import {
     CUSTOM_RESOURCE_STATUSES,
 } from '../../../../../constants/statuses';
 import { EDPGitServerKubeObjectInterface } from '../../../../../k8s/EDPGitServer/types';
-import { MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { GIT_SERVERS_ROUTE_NAME } from '../../../../../routes/names';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
@@ -14,12 +16,6 @@ import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/rou
 import { sortByActiveStatus } from '../../../../../utils/sort/sortByActiveStatus';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { rem } from '../../../../../utils/styling/rem';
-
-const {
-    CommonComponents: { Link },
-} = pluginLib;
-
-const { Typography } = MuiCore;
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<
     HeadlampKubeObject<EDPGitServerKubeObjectInterface>

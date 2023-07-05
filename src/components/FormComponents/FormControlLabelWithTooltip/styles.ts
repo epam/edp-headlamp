@@ -1,7 +1,5 @@
-import { MuiCore } from '../../../plugin.globals';
+import { makeStyles } from '@material-ui/core';
 import { rem } from '../../../utils/styling/rem';
-
-const { makeStyles } = MuiCore;
 
 export const useStyles = makeStyles((theme: DefaultTheme) => ({
     labelWrap: {

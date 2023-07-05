@@ -1,3 +1,7 @@
+import { Icon } from '@iconify/react';
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Grid, IconButton, Typography } from '@material-ui/core';
+import React from 'react';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
@@ -12,7 +16,6 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
-import { Iconify, MuiCore, pluginLib, React } from '../../../../../plugin.globals';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
@@ -21,14 +24,6 @@ import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
-
-const {
-    CommonComponents: { Link },
-} = pluginLib;
-const { Typography } = MuiCore;
-
-const { Grid, IconButton } = MuiCore;
-const { Icon } = Iconify;
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<
     HeadlampKubeObject<EDPCodebaseKubeObjectInterface>

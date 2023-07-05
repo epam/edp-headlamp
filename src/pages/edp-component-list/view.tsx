@@ -1,5 +1,6 @@
 import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Box, Grid, Typography } from '@material-ui/core';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CodebaseActionsMenu } from '../../components/CodebaseActionsMenu';
 import { CreateCodebase } from '../../components/CreateCodebase';
@@ -10,7 +11,6 @@ import { codebaseTypeSelectOptions } from '../../configs/select-options/codebase
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../constants/urls';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
-import { React } from '../../plugin.globals';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { rem } from '../../utils/styling/rem';
 import { ComponentList } from './components/ComponentList';

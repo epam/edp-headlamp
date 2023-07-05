@@ -1,10 +1,12 @@
+import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { Button, Tab, Tabs } from '@material-ui/core';
 import { omit } from 'lodash';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
-import { MuiCore, pluginLib, React } from '../../../../plugin.globals';
-import { KubeObjectInterface } from '../../../../plugin.types';
 import { FieldEventTarget } from '../../../../types/forms';
 import { CreateCDPipelineStage } from '../../../CreateCDPipelineStage';
 import { Render } from '../../../Render';
@@ -23,12 +25,6 @@ import { useEditorReturnValues } from './hooks/useEditorCode';
 import { CDPIPELINE_BACKWARDS_NAME_MAPPING, CDPIPELINE_CREATION_FORM_NAMES } from './names';
 import { useStyles } from './styles';
 import { CreateCDPipelineFormProps } from './types';
-
-const { Tabs, Tab, Button } = MuiCore;
-
-const {
-    CommonComponents: { EditorDialog },
-} = pluginLib;
 
 const a11yProps = (index: any) => {
     return {

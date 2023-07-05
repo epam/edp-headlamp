@@ -1,6 +1,6 @@
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormSelect } from '../../../../../../components/FormComponents';
-import { React } from '../../../../../../plugin.globals';
 import { SelectOption } from '../../../../../../types/forms';
 import { ImageStreamTagsSelectProps } from './types';
 

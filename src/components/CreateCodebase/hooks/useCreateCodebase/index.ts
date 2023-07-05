@@ -1,16 +1,12 @@
-import { useCallback } from 'react';
+import { K8s } from '@kinvolk/headlamp-plugin/lib';
+import React from 'react';
 import { createCodebaseSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
-import { pluginLib, React } from '../../../../plugin.globals';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { CodebaseAuthData } from '../../types';
-
-const {
-    K8s: { secret: SecretKubeObject },
-} = pluginLib;
 
 interface CreateCodebaseProps {
     codebaseData: EDPCodebaseKubeObjectInterface;
@@ -24,8 +20,8 @@ export const useCreateCodebase = ({
     onSuccess?: () => void;
     onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
+    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
     const codebaseCreateMutation = useResourceCRUDMutation<
         EDPCodebaseKubeObjectInterface,
@@ -35,12 +31,12 @@ export const useCreateCodebase = ({
     const codebaseSecretDeleteMutation = useResourceCRUDMutation<
         EDPKubeObjectInterface,
         CRUD_TYPES.DELETE
-    >('codebaseSecretDeleteMutation', SecretKubeObject.default, CRUD_TYPES.DELETE);
+    >('codebaseSecretDeleteMutation', K8s.secret.default, CRUD_TYPES.DELETE);
 
     const codebaseSecretCreateMutation = useResourceCRUDMutation<
         EDPKubeObjectInterface,
         CRUD_TYPES.CREATE
-    >('codebaseSecretCreateMutation', SecretKubeObject.default, CRUD_TYPES.CREATE);
+    >('codebaseSecretCreateMutation', K8s.secret.default, CRUD_TYPES.CREATE);
 
     const createCodebase = React.useCallback(
         async ({ codebaseData, codebaseAuthData }: CreateCodebaseProps) => {

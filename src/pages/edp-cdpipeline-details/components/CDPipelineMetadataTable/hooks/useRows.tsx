@@ -1,5 +1,5 @@
+import React from 'react';
 import { MappedProperties } from '../../../../../components/MappedProperties';
-import { React } from '../../../../../plugin.globals';
 import { EDPKubeMetadata } from '../../../../../types/k8s';
 import { formatDateUTCToLocal } from '../../../../../utils/format/formatDateUTCToLocal';
 

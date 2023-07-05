@@ -1,6 +1,6 @@
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useCIPipelineProvisionersQuery } from '../../../../k8s/Jenkins/hooks/useCIPipelineProvisionersQuery';
-import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
 import { JobProvisioningProps } from './types';

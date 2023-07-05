@@ -1,6 +1,6 @@
+import { KubeObjectIface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { useMutation, UseMutationResult } from 'react-query';
 import { CRUD_TYPES } from '../../constants/crudTypes';
-import { KubeObjectIface } from '../../plugin.types';
 import { EDPKubeObjectInterface } from '../../types/k8s';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { useRequestStatusMessages } from '../useResourceRequestStatusMessages';

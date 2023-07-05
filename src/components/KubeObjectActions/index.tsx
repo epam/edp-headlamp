@@ -1,12 +1,18 @@
-import { Iconify, MuiCore, React } from '../../plugin.globals';
+import { Icon } from '@iconify/react';
+import {
+    ClickAwayListener,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Popper,
+    Tooltip,
+} from '@material-ui/core';
+import React from 'react';
 import { KubeObjectAction } from '../../types/actions';
 import { ConditionalWrapper } from '../ConditionalWrapper';
 import { Render } from '../Render';
 import { useStyles } from './styles';
 import { KubeObjectActionsProps } from './types';
-
-const { Icon } = Iconify;
-const { Tooltip, Popper, ListItem, ListItemIcon, ListItemText, ClickAwayListener } = MuiCore;
 
 type ActionsListProps = {
     actions: KubeObjectAction[];

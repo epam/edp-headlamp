@@ -1,8 +1,10 @@
-import { pluginLib } from '../../../plugin.globals';
-import { ApiError, StreamErrCb, StreamResultsCb } from '../../../plugin.types';
+import { ApiProxy } from '@kinvolk/headlamp-plugin/lib';
+import {
+    ApiError,
+    StreamErrCb,
+    StreamResultsCb,
+} from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { EDPKubeObjectInterface } from '../../../types/k8s';
-
-const { ApiProxy } = pluginLib;
 
 export const streamResults = (
     url: string,

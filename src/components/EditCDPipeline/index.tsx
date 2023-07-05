@@ -1,12 +1,10 @@
+import { Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
 import { URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINE_EDIT } from '../../constants/urls';
-import { MuiCore, React } from '../../plugin.globals';
 import { DocLink } from '../DocLink';
 import { EditCDPipelineForm } from './components/EditCDPipelineForm';
 import { useEditCDPipeline } from './hooks/useEditCDPipeline';
 import { useStyles } from './styles';
 import { EditCDPipelineProps } from './types';
-
-const { Dialog, DialogContent, Typography, Grid } = MuiCore;
 
 export const EditCDPipeline = ({ open, onClose, setOpen, CDPipelineData }: EditCDPipelineProps) => {
     const classes = useStyles();

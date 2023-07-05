@@ -1,4 +1,4 @@
-import { React } from '../../../../plugin.globals';
+import React from 'react';
 import { RESOURCE_ICON_NAMES } from '../names';
 
 export const Gerrit = () => {

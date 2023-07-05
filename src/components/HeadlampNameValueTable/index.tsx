@@ -1,10 +1,7 @@
-import { pluginLib, React } from '../../plugin.globals';
+import { NameValueTable } from '@kinvolk/headlamp-plugin/lib/components/common';
+import React from 'react';
 import { useStyles } from './styles';
 import { HeadlampNameValueTableProps } from './types';
-
-const {
-    CommonComponents: { NameValueTable },
-} = pluginLib;
 
 export const HeadlampNameValueTable: React.FC<HeadlampNameValueTableProps> = props => {
     const classes = useStyles();

@@ -1,5 +1,5 @@
-import { React } from '../../plugin.globals';
-import { KubeObjectInterface } from '../../plugin.types';
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import React from 'react';
 import { ResourceActionListContext } from './context';
 
 export const ResourceActionListContextProvider: React.FC = ({ children }) => {

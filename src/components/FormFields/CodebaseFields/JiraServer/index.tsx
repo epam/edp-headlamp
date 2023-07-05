@@ -1,6 +1,6 @@
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
-import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { FormSelect } from '../../../FormComponents';

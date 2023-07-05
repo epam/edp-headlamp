@@ -1,10 +1,9 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { createBuildPipelineRunInstance } from '../../../../../../configs/k8s-resource-instances/custom-resources/pipeline-run';
 import { CRUD_TYPES } from '../../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../../hooks/useResourceCreationMutation';
 import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
-import { React } from '../../../../../../plugin.globals';
 
 export interface CreateBuildPipelineRunProps {
     namespace: string;

@@ -1,6 +1,6 @@
+import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../../components/ErrorBoundary';
-import { React } from '../../plugin.globals';
 import { ViewModeContextProvider } from '../../providers/ViewMode';
 import { PageView } from './view';
 

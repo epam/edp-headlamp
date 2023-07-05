@@ -1,10 +1,9 @@
-import { MuiCore, MuiLab, React } from '../../../../../../plugin.globals';
-import { Stages } from '../../../../../FormFields/CDPipelineFields/Stages';
+import { Grid } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import React from 'react';
+import { Stages } from '../../../../../FormFields/CDPipelineFields';
 import { Render } from '../../../../../Render';
 import { StagesFormPartProps } from './types';
-
-const { Grid } = MuiCore;
-const { Alert } = MuiLab;
 
 export const StagesFormPart = ({
     stages,

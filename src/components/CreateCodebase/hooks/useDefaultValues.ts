@@ -1,7 +1,7 @@
+import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { GIT_SERVERS } from '../../../constants/gitServers';
 import { useDefaultCIToolQuery } from '../../../k8s/EDPComponent/hooks/useDefaultCIToolQuery';
-import { React } from '../../../plugin.globals';
 import { CODEBASE_NAMES } from '../names';
 
 export const useDefaultValues = (): { [key: string]: any } => {

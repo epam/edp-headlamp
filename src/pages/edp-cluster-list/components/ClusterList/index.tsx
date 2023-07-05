@@ -1,16 +1,12 @@
+import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import React from 'react';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
-import { pluginLib } from '../../../../plugin.globals';
 import { useColumns } from './hooks/useColumns';
 import { ClusterListProps } from './types';
 
-const {
-    Utils: { useFilterFunc },
-} = pluginLib;
-
 export const ClusterList = ({ clusterSecrets, error }: ClusterListProps) => {
     const columns = useColumns();
-    const filterFunc = useFilterFunc();
+    const filterFunc = Utils.useFilterFunc();
 
     return (
         <HeadlampSimpleTable

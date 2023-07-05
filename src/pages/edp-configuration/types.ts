@@ -3,4 +3,5 @@ export interface ConfigurationItem {
     routePath: string;
     icon: string;
     description: string;
+    docLink?: string;
 }

@@ -1,14 +1,7 @@
-import { pluginLib } from '../../plugin.globals';
+import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectListInterface } from '../../types/k8s';
 import { JiraServerKubeObjectConfig } from './config';
 import { JiraServerKubeObjectInterface, JiraServerSpec, JiraServerStatus } from './types';
-
-const {
-    ApiProxy,
-    K8s: {
-        cluster: { makeKubeObject },
-    },
-} = pluginLib;
 
 const {
     name: { singularForm, pluralForm },
@@ -16,7 +9,7 @@ const {
     version,
 } = JiraServerKubeObjectConfig;
 
-export class JiraServerKubeObject extends makeKubeObject<JiraServerKubeObjectInterface>(
+export class JiraServerKubeObject extends K8s.cluster.makeKubeObject<JiraServerKubeObjectInterface>(
     singularForm
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);

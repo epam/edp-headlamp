@@ -1,5 +1,5 @@
+import React from 'react';
 import { MetadataTable } from '../../../../components/MetadataTable';
-import { React } from '../../../../plugin.globals';
 import { useRows } from './hooks/useRows';
 import { MetadataTableProps } from './types';
 

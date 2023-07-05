@@ -1,4 +1,4 @@
-import { React } from '../../../../../../plugin.globals';
+import React from 'react';
 import { AutotestWithBranchesOption, QualityGate } from '../../types';
 
 export interface QualityGateRowProps {

@@ -1,6 +1,6 @@
+import React from 'react';
 import { createCDPipelineInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/cdpipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
-import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 
 interface UseEditorCodeProps {

@@ -1,13 +1,12 @@
+import { Grid } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
-import { MuiCore, MuiLab, React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { FormCheckbox, FormControlLabelWithTooltip } from '../../../FormComponents';
 import { Render } from '../../../Render';
 import { JiraServerIntegrationProps } from './types';
-
-const { Grid } = MuiCore;
-const { Alert } = MuiLab;
 
 export const JiraServerIntegration = ({
     names,

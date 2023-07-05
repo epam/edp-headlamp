@@ -1,6 +1,8 @@
+import { Icon } from '@iconify/react';
+import { Button, Grid, useTheme } from '@material-ui/core';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../../../constants/icons';
-import { Iconify, MuiCore, MuiStyles, React } from '../../../../../../plugin.globals';
 import { FieldEvent, FieldEventTarget } from '../../../../../../types/forms';
 import { FormSelect } from '../../../../../FormComponents';
 import {
@@ -11,10 +13,6 @@ import {
 import { createApplicationRowName } from '../../constants';
 import { useStyles } from './styles';
 import { ApplicationRowProps } from './types';
-
-const { Grid, Button } = MuiCore;
-const { Icon } = Iconify;
-const { useTheme } = MuiStyles;
 
 export const ApplicationRow = ({
     names,

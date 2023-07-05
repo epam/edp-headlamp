@@ -1,8 +1,8 @@
+import React from 'react';
 import { ICONS } from '../../constants/icons';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
-import { React } from '../../plugin.globals';
 import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../types/actions';
 import { createKubeAction } from '../../utils/actions/createKubeAction';

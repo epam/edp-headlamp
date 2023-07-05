@@ -1,5 +1,5 @@
+import React from 'react';
 import { UseQueryOptions } from 'react-query';
-import { React } from '../../../plugin.globals';
 import { KubeObjectListInterface } from '../../../types/k8s';
 import { useCDPipelineStageListQuery } from '../../EDPCDPipelineStage/hooks/useCDPipelineStageListQuery';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../EDPCDPipelineStage/types';

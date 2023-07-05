@@ -1,6 +1,9 @@
+import { Icon } from '@iconify/react';
+import { Button, Grid, Typography, useTheme } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../constants/icons';
-import { Iconify, MuiCore, MuiLab, MuiStyles, React } from '../../../../plugin.globals';
 import { Render } from '../../../Render';
 import { QualityGateRow } from './components/QualityGateRow';
 import { useAutotestsWithBranches } from './hooks/useAutotestsWithBranches';
@@ -11,11 +14,6 @@ import {
     createQualityGateTypeAutotestsBranchFieldName,
     createQualityGateTypeFieldName,
 } from './utils';
-
-const { Grid, Typography, Button } = MuiCore;
-const { useTheme } = MuiStyles;
-const { Icon } = Iconify;
-const { Alert } = MuiLab;
 
 const createQualityGateBase = (idx: number): QualityGate => ({
     id: idx,

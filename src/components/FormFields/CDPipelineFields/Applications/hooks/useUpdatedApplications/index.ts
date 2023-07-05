@@ -1,9 +1,9 @@
+import React from 'react';
 import { useQuery } from 'react-query';
 import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
 import { EDPCodebaseKubeObject } from '../../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../../k8s/EDPCodebase/types';
 import { EDPCodebaseBranchKubeObject } from '../../../../../../k8s/EDPCodebaseBranch';
-import { React } from '../../../../../../plugin.globals';
 import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
 import { createApplicationRowName } from '../../constants';
 import { Application } from '../../types';

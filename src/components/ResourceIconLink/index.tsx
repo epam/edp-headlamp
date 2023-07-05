@@ -1,13 +1,9 @@
+import { Icon } from '@iconify/react';
+import { Grid, IconButton, Link as MuiLink, Tooltip, useTheme } from '@material-ui/core';
+import React from 'react';
 import { ICONS } from '../../constants/icons';
-import { Iconify, MuiCore, MuiStyles, React } from '../../plugin.globals';
 import { Render } from '../Render';
 import { ResourceIconLinkProps } from './types';
-
-const { Grid, IconButton, Link: MuiLink, Tooltip } = MuiCore;
-
-const { Icon } = Iconify;
-
-const { useTheme } = MuiStyles;
 
 const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
 

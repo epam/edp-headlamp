@@ -1,6 +1,6 @@
+import React from 'react';
 import { createGitServerInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/git-server';
 import { EDPGitServerKubeObjectInterface } from '../../../../../k8s/EDPGitServer/types';
-import { React } from '../../../../../plugin.globals';
 import { FormNameObject } from '../../../../../types/forms';
 import { createRandomString } from '../../../../../utils/createRandomString';
 

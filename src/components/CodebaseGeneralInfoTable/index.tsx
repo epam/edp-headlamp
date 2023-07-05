@@ -1,12 +1,9 @@
-import { MuiCore, pluginLib, React } from '../../plugin.globals';
+import { SectionBox, SectionHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Box } from '@material-ui/core';
+import React from 'react';
 import { HeadlampNameValueTable } from '../HeadlampNameValueTable';
 import { useRows } from './hooks/useRows';
 import { CodebaseGeneralInfoTableProps } from './types';
-
-const {
-    CommonComponents: { SectionBox, SectionHeader },
-} = pluginLib;
-const { Box } = MuiCore;
 
 export const CodebaseGeneralInfoTable = ({ codebaseData }: CodebaseGeneralInfoTableProps) => {
     const columns = useRows(codebaseData);

@@ -1,6 +1,6 @@
+import React from 'react';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../../k8s/EDPCodebase/types';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../../../../k8s/EDPCodebaseImageStream/types';
-import { React } from '../../../../../../plugin.globals';
 
 export interface ImageStreamTagsSelectProps {
     applicationImageStream: EDPCodebaseImageStreamKubeObjectInterface;

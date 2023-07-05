@@ -1,6 +1,6 @@
+import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
-import { React } from '../../../plugin.globals';
 import { CreateCodebaseBranchFormKeys, CreateCodebaseBranchFormNames } from '../types';
 
 interface useDefaultValuesProps {

@@ -1,14 +1,7 @@
-import { pluginLib } from '../../plugin.globals';
+import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectListInterface } from '../../types/k8s';
 import { TriggerTemplateKubeObjectConfig } from './config';
 import { TriggerTemplateKubeObjectInterface } from './types';
-
-const {
-    ApiProxy,
-    K8s: {
-        cluster: { makeKubeObject },
-    },
-} = pluginLib;
 
 const {
     name: { singularForm, pluralForm },
@@ -16,7 +9,7 @@ const {
     version,
 } = TriggerTemplateKubeObjectConfig;
 
-export class TriggerTemplateKubeObject extends makeKubeObject<TriggerTemplateKubeObjectInterface>(
+export class TriggerTemplateKubeObject extends K8s.cluster.makeKubeObject<TriggerTemplateKubeObjectInterface>(
     singularForm
 ) {
     static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);

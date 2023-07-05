@@ -6,5 +6,8 @@ module.exports = {
         '^@kinvolk/headlamp-plugin/lib/CommonComponents': [
             '<rootDir>/tests/headlamp-plugin/components/common/index.tsx',
         ],
+        '^@kinvolk/headlamp-plugin/lib/components/common': [
+            '<rootDir>/tests/headlamp-plugin/components/common/index.tsx',
+        ],
     },
 };

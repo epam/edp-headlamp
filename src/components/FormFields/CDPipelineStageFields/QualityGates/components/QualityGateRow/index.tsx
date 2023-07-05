@@ -1,7 +1,8 @@
+import { Grid } from '@material-ui/core';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { qualityGateTypeSelectOptions } from '../../../../../../configs/select-options/qualityGateTypes';
 import { QUALITY_GATE_TYPES } from '../../../../../../constants/qualityGateTypes';
-import { MuiCore, React } from '../../../../../../plugin.globals';
 import { FormSelect } from '../../../../../FormComponents';
 import { FormTextField } from '../../../../../FormComponents';
 import { Render } from '../../../../../Render';
@@ -12,8 +13,6 @@ import {
     createQualityGateTypeFieldName,
 } from '../../utils';
 import { QualityGateRowProps } from './types';
-
-const { Grid } = MuiCore;
 
 export const QualityGateRow = ({
     autotestsWithBranchesOptions,

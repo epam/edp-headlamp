@@ -1,4 +1,3 @@
-import { React } from '../../plugin.globals';
 import { MetadataTable } from '../MetadataTable';
 import { useRows } from './hooks/useRows';
 import { CodebaseMetadataTableProps } from './types';

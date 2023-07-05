@@ -1,7 +1,8 @@
+import { Button, Grid } from '@material-ui/core';
 import { omit } from 'lodash';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
-import { MuiCore, React } from '../../../../plugin.globals';
 import { FieldEventTarget } from '../../../../types/forms';
 import { Applications } from '../../../FormFields/CDPipelineFields';
 import { useDefaultValues } from './hooks/useDefaultValues';
@@ -9,8 +10,6 @@ import { useEditorCode } from './hooks/useEditorCode';
 import { useNames } from './hooks/useNames';
 import { useStyles } from './styles';
 import { EditCDPipelineFormProps } from './types';
-
-const { Button, Grid } = MuiCore;
 
 export const EditCDPipelineForm = ({
     handleApply,

@@ -1,5 +1,5 @@
+import React from 'react';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../k8s/EDPCodebaseBranch/types';
-import { React } from '../../../../../plugin.globals';
 import { NameValueTableRow } from '../../../../HeadlampNameValueTable/types';
 
 export const useMainInfoRows = (codebaseBranch: EDPCodebaseBranchKubeObjectInterface) =>

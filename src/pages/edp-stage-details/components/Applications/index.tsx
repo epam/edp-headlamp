@@ -7,7 +7,6 @@ import {
 } from '../../../../configs/codebase-mappings';
 import { useCreateArgoApplication } from '../../../../k8s/Application/hooks/useCreateArgoApplication';
 import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
-import { MuiCore, React } from '../../../../plugin.globals';
 import { mapEvery } from '../../../../utils/loops/mapEvery';
 import { useCDPipelineQueryContext } from '../../providers/CDPipelineQuery/hooks';
 import { useCDPipelineStageContext } from '../../providers/CDPipelineStage/hooks';
@@ -31,19 +30,21 @@ interface ButtonsMap {
     uninstall: boolean;
 }
 
-const {
+import {
+    Button,
+    Checkbox,
+    Grid,
     Table,
-    TableRow,
+    TableBody,
     TableCell,
     TableContainer,
     TableHead,
-    TableBody,
-    Checkbox,
-    Typography,
-    Grid,
-    Button,
+    TableRow,
     Tooltip,
-} = MuiCore;
+    Typography,
+} from '@material-ui/core';
+import React from 'react';
+
 export const Applications = ({
     enrichedApplicationsWithArgoApplications,
     qualityGatePipelineIsRunning,

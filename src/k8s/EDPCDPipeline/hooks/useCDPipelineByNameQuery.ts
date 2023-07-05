@@ -1,5 +1,5 @@
+import React from 'react';
 import { useQuery, UseQueryOptions } from 'react-query';
-import { React } from '../../../plugin.globals';
 import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { EDPCDPipelineKubeObject } from '../index';
 import { REQUEST_KEY_QUERY_CD_PIPELINE_BY_NAME } from '../requestKeys';

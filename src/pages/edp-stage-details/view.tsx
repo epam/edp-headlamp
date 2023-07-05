@@ -10,6 +10,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import clsx from 'clsx';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { StatusIcon } from '../../components/StatusIcon';
@@ -22,7 +23,6 @@ import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPCo
 import { useStreamAutotestPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestPipelineRunList';
 import { useStreamAutotestRunnerPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestRunnerPipelineRunList';
 import { useStreamPipelineRunListByTypeAndPipelineNameLabels } from '../../k8s/PipelineRun/hooks/useStreamPipelineRunListByTypeAndPipelineNameLabels';
-import { React } from '../../plugin.globals';
 import { parseTektonResourceStatus } from '../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../utils/styling/rem';

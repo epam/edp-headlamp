@@ -1,8 +1,9 @@
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { ICONS } from '../../constants/icons';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
-import { React, ReactRouter } from '../../plugin.globals';
 import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../types/actions';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
@@ -10,8 +11,6 @@ import { DeleteKubeObject } from '../DeleteKubeObject';
 import { EditCDPipeline } from '../EditCDPipeline';
 import { KubeObjectActions } from '../KubeObjectActions';
 import { Render } from '../Render';
-
-const { useHistory } = ReactRouter;
 
 export const CDPipelineActionsMenu = () => {
     const history = useHistory();

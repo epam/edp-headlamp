@@ -1,7 +1,7 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { has } from 'lodash';
+import React from 'react';
 import { FieldValues } from 'react-hook-form';
-import { React } from '../../plugin.globals';
-import { KubeObjectInterface } from '../../plugin.types';
 import { BackwardNameMappingChildren, FieldEventTarget, FormNameObject } from '../../types/forms';
 import { DeepPartial } from '../../types/global';
 import { EDPKubeObjectInterface } from '../../types/k8s';

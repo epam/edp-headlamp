@@ -1,3 +1,4 @@
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings';
 import { APPLICATION_MAPPING } from '../../../../configs/codebase-mappings/application';
@@ -8,7 +9,6 @@ import { CI_TOOLS } from '../../../../constants/ciTools';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
-import { React } from '../../../../plugin.globals';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { FormRadioOption } from '../../../CreateCodebase/components/FormRadioGroup/types';

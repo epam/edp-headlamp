@@ -1,9 +1,8 @@
-import { useCallback } from 'react';
+import React from 'react';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
-import { React } from '../../../../plugin.globals';
 
 interface CreateCodebaseBranchProps {
     codebaseBranchData: EDPCodebaseBranchKubeObjectInterface;
@@ -17,8 +16,8 @@ export const useCreateCodebaseBranch = ({
     onSuccess?: () => void;
     onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
+    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
     const codebaseBranchCreateMutation = useResourceCRUDMutation<
         EDPCodebaseBranchKubeObjectInterface,

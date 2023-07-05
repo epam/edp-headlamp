@@ -1,4 +1,5 @@
 import { Button, CircularProgress, Grid } from '@material-ui/core';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Graph } from '../../../../components/Graph';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
@@ -6,7 +7,6 @@ import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useStreamTaskRunListByPipelineNameAndPipelineType } from '../../../../k8s/TaskRun/hooks/useStreamTaskRunListByPipelineNameAndPipelineType';
 import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
-import { React } from '../../../../plugin.globals';
 import { createRandomString } from '../../../../utils/createRandomString';
 import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';

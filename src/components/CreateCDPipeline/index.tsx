@@ -1,14 +1,13 @@
+import { Icon } from '@iconify/react';
+import { Button, Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
+import React from 'react';
 import { ICONS } from '../../constants/icons';
 import { URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES } from '../../constants/urls';
-import { Iconify, MuiCore, React } from '../../plugin.globals';
 import { DocLink } from '../DocLink';
 import { CreateCDPipelineForm } from './components/CreateCDPipelineForm';
 import { useCreateCDPipeline } from './hooks/useCreateCDPipeline';
 import { useStyles } from './styles';
 import { CreateCDPipelineProps } from './types';
-
-const { Dialog, DialogContent, Typography, Button, Grid } = MuiCore;
-const { Icon } = Iconify;
 
 export const CreateCDPipeline = ({
     createDialogOpen,

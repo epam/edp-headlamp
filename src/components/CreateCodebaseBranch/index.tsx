@@ -1,3 +1,7 @@
+import { Icon } from '@iconify/react';
+import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
+import { Button, Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
     createCodebaseBranchInstanceBasedOnFormValues,
@@ -10,7 +14,6 @@ import { URL_EDP_HEADLAMP_USER_GUIDE_BRANCH_ADD } from '../../constants/urls';
 import { useHandleEditorSaveNew } from '../../hooks/useHandleEditorSave';
 import { useDefaultBranchQuery } from '../../k8s/EDPCodebaseBranch/hooks/useDefaultBranchQuery';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
-import { Iconify, MuiCore, pluginLib, React } from '../../plugin.globals';
 import { createVersioningString } from '../../utils/createVersioningString';
 import { DocLink } from '../DocLink';
 import { Render } from '../Render';
@@ -26,13 +29,6 @@ import { CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING, CODEBASE_BRANCH_FORM_NAMES } f
 import { useStyles } from './styles';
 import { CreateCodebaseBranchFormNames, CreateCodebaseBranchProps } from './types';
 import { getUsedValues } from './utils/getUsedValues';
-
-const { Grid, Dialog, DialogContent, Typography, Button } = MuiCore;
-const { Icon } = Iconify;
-
-const {
-    CommonComponents: { EditorDialog },
-} = pluginLib;
 
 export const CreateCodebaseBranch = ({
     codebaseData,

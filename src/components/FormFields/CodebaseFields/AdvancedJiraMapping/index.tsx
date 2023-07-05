@@ -1,5 +1,6 @@
+import { Button, Grid } from '@material-ui/core';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { MuiCore, React } from '../../../../plugin.globals';
 import { SelectOption } from '../../../../types/forms';
 import { FormSelect } from '../../../FormComponents';
 import { Render } from '../../../Render';
@@ -11,8 +12,6 @@ import { useOnChangeJiraPattern } from './hooks/useOnChangeJiraPattern';
 import { useUpdateJiraMapping } from './hooks/useUpdateJiraMapping';
 import { AdvancedJiraMappingProps, AdvancedMappingItem, AdvancedMappingRow } from './types';
 import { getAdvancedMappingOptions } from './utils';
-
-const { Grid, Button } = MuiCore;
 
 export const AdvancedJiraMapping = ({ names, handleFormFieldChange }: AdvancedJiraMappingProps) => {
     const {

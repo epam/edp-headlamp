@@ -1,10 +1,10 @@
 import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@material-ui/core';
+import React from 'react';
 import { DocLink } from '../../components/DocLink';
 import { URL_EDP_HEADLAMP_USER_GUIDE_OVERVIEW } from '../../constants/urls';
 import { EDPComponentKubeObject } from '../../k8s/EDPComponent';
 import { EDPComponentKubeObjectInterface } from '../../k8s/EDPComponent/types';
-import { React } from '../../plugin.globals';
 import { rem } from '../../utils/styling/rem';
 import { EDPComponentList } from './components/EDPComponentList';
 

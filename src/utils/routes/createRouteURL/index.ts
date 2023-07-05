@@ -1,20 +1,20 @@
-import { pluginLib, ReactRedux, ReactRouter } from '../../../plugin.globals';
-import type { Router } from '../../../plugin.types';
+import { Route } from '@kinvolk/headlamp-plugin/lib/lib/router';
+import { getCluster, getClusterPrefixedPath } from '@kinvolk/headlamp-plugin/lib/lib/util';
+import { useStore } from 'react-redux';
+import { generatePath } from 'react-router-dom';
 import routes from '../../../routes';
 import { RouteURLProps } from '../../../routes/types';
-
-const { Utils } = pluginLib;
 
 type HeadlampState = {
     ui: {
         routes: {
-            [path: string]: Router.Route;
+            [path: string]: Route;
         };
     };
 };
 
 export function useMemoizedCreateRouteURL(routeName: string, params: RouteURLProps = {}) {
-    const store = ReactRedux.useStore<HeadlampState>();
+    const store = useStore<HeadlampState>();
     const storeRoutes = store.getState().ui.routes;
     const route = (storeRoutes && storeRoutes[routeName]) || routes[routeName];
 
@@ -24,7 +24,7 @@ export function useMemoizedCreateRouteURL(routeName: string, params: RouteURLPro
 
     let cluster: string | null = null;
     if (!route.noCluster) {
-        cluster = Utils.getCluster();
+        cluster = getCluster();
         if (!cluster) {
             return '/';
         }
@@ -36,8 +36,8 @@ export function useMemoizedCreateRouteURL(routeName: string, params: RouteURLPro
         fullParams.cluster = cluster;
     }
 
-    const url = Utils.getClusterPrefixedPath(route.path);
-    return ReactRouter.generatePath(url, fullParams);
+    const url = getClusterPrefixedPath(route.path);
+    return generatePath(url, fullParams);
 }
 
 export function createRouteURL(routeName: string, params: RouteURLProps = {}) {
@@ -49,7 +49,7 @@ export function createRouteURL(routeName: string, params: RouteURLProps = {}) {
 
     let cluster: string | null = null;
     if (!route.noCluster) {
-        cluster = Utils.getCluster();
+        cluster = getCluster();
         if (!cluster) {
             return '/';
         }
@@ -61,6 +61,6 @@ export function createRouteURL(routeName: string, params: RouteURLProps = {}) {
         fullParams.cluster = cluster;
     }
 
-    const url = Utils.getClusterPrefixedPath(route.path);
-    return ReactRouter.generatePath(url, fullParams);
+    const url = getClusterPrefixedPath(route.path);
+    return generatePath(url, fullParams);
 }

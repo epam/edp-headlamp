@@ -1,14 +1,13 @@
+import { Button, CircularProgress, Grid, Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { MuiCore, MuiLab, React } from '../../../../plugin.globals';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { FormSelect } from '../../../FormComponents';
 import { Render } from '../../../Render';
 import { ApplicationRow } from './components/ApplicationRow';
 import { useUpdatedApplications } from './hooks/useUpdatedApplications';
 import { Application, ApplicationsProps } from './types';
-
-const { Grid, Button, Typography, CircularProgress } = MuiCore;
-const { Alert } = MuiLab;
 
 const getUsedApplications = (applications: Application[]) => {
     return applications.filter(el => el.isUsed);
