@@ -3,6 +3,7 @@ import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { Button, Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useQueryClient } from 'react-query';
 import {
     createCodebaseBranchInstanceBasedOnFormValues,
     editCodebaseBranchInstance,
@@ -13,6 +14,7 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../constants/statuses';
 import { URL_EDP_HEADLAMP_USER_GUIDE_BRANCH_ADD } from '../../constants/urls';
 import { useHandleEditorSaveNew } from '../../hooks/useHandleEditorSave';
 import { useDefaultBranchQuery } from '../../k8s/EDPCodebaseBranch/hooks/useDefaultBranchQuery';
+import { REQUEST_KEY_QUERY_CODEBASE_BRANCH_LIST_BY_CODEBASE_NAME } from '../../k8s/EDPCodebaseBranch/requestKeys';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
 import { createVersioningString } from '../../utils/createVersioningString';
 import { DocLink } from '../DocLink';
@@ -36,12 +38,13 @@ export const CreateCodebaseBranch = ({
     handleCloseDialog,
     handleOpenDialog,
 }: CreateCodebaseBranchProps) => {
+    const queryClient = useQueryClient();
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
     const [editorCodebaseBranchData, setEditorCodebaseBranchData] =
         React.useState<EDPCodebaseBranchKubeObjectInterface>(null);
 
-    const { data: defaultBranch } = useDefaultBranchQuery({
+    const { data: defaultBranch, refetch } = useDefaultBranchQuery({
         props: {
             defaultBranchName: codebaseData.spec.defaultBranch,
             codebaseName: codebaseData.metadata.name,
@@ -127,8 +130,13 @@ export const CreateCodebaseBranch = ({
         createCodebaseBranch,
         mutations: { codebaseBranchCreateMutation, codebaseBranchEditMutation },
     } = useCreateCodebaseBranch({
-        onSuccess: () => {
+        onSuccess: async () => {
             handleCloseDialog();
+            await queryClient.invalidateQueries([
+                REQUEST_KEY_QUERY_CODEBASE_BRANCH_LIST_BY_CODEBASE_NAME,
+                codebaseData.metadata.name,
+            ]);
+            await refetch();
         },
         onError: () => {
             handleOpenDialog();
@@ -170,13 +178,15 @@ export const CreateCodebaseBranch = ({
                 codebaseBranchData: createCodebaseBranchInstance,
             });
         }
+        reset();
     }, [
-        codebaseData.metadata.name,
-        defaultBranch,
         getValues,
-        createCodebaseBranch,
-        newDefaultBranchVersion,
+        codebaseData.metadata.name,
         releaseFieldValue,
+        reset,
+        defaultBranch,
+        newDefaultBranchVersion,
+        createCodebaseBranch,
     ]);
 
     useUpdateBranchVersionFields({
@@ -184,6 +194,7 @@ export const CreateCodebaseBranch = ({
         watch,
         names: CODEBASE_BRANCH_FORM_NAMES,
         setValue,
+        isDirty,
     });
 
     const canCreateReleaseBranch = React.useMemo(

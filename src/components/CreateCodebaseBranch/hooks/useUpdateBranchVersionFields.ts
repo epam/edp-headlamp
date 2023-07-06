@@ -6,9 +6,14 @@ import { CreateCodebaseBranchFormKeys, CreateCodebaseBranchFormNames } from '../
 
 interface useUpdateBranchVersionFieldsProps {
     names: CreateCodebaseBranchFormNames;
-    setValue: (name: CreateCodebaseBranchFormKeys, value: any) => void;
+    setValue: (
+        name: CreateCodebaseBranchFormKeys,
+        value: any,
+        props?: { [key: string]: any }
+    ) => void;
     watch: (name: string) => string;
     defaultBranchVersion: string;
+    isDirty: boolean;
 }
 
 export const useUpdateBranchVersionFields = ({
@@ -16,7 +21,9 @@ export const useUpdateBranchVersionFields = ({
     setValue,
     watch,
     defaultBranchVersion,
+    isDirty,
 }: useUpdateBranchVersionFieldsProps): void => {
+    console.log('isDirty', isDirty);
     const releaseFieldValue = watch(names.release.name);
     const versionStartFieldValue = watch(names.branchVersionStart.name);
     const versionPostfixFieldValue = watch(names.branchVersionPostfix.name);
@@ -30,12 +37,16 @@ export const useUpdateBranchVersionFields = ({
 
         const { version, postfix } = getVersionAndPostfixFromVersioningString(defaultBranchVersion);
 
-        if (versionStartFieldValue === undefined) {
-            setValue(names.branchVersionStart.name, version);
+        if (versionStartFieldValue === undefined || !isDirty) {
+            setValue(names.branchVersionStart.name, version, {
+                shouldDirty: false,
+            });
         }
 
-        if (versionPostfixFieldValue === undefined) {
-            setValue(names.branchVersionPostfix.name, postfix);
+        if (versionPostfixFieldValue === undefined || !isDirty) {
+            setValue(names.branchVersionPostfix.name, postfix, {
+                shouldDirty: false,
+            });
         }
 
         if (!versionFieldValue) {
@@ -66,5 +77,6 @@ export const useUpdateBranchVersionFields = ({
         versionPostfixFieldValue,
         versionFieldValue,
         defaultVersionPostfixFieldValue,
+        isDirty,
     ]);
 };
