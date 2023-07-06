@@ -1,7 +1,7 @@
-import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Breadcrumbs, Button, Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { PageWrapper } from '../../components/PageWrapper';
 import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { StageActionsMenu } from '../../components/StageActionsMenu';
@@ -31,42 +31,40 @@ export const PageView = () => {
     );
 
     return (
-        <>
-            <Grid container spacing={1} alignItems={'center'} justifyContent={'space-between'}>
-                <Grid item>
-                    <Breadcrumbs>
-                        <Button
-                            size="small"
-                            component={Link}
-                            routeName={routeEDPCDPipelineList.path}
-                        >
-                            CD Pipelines
-                        </Button>
-                        <Typography color="textPrimary">{name}</Typography>
-                    </Breadcrumbs>
-                </Grid>
-                <Grid item>
-                    <Grid container>
-                        <Grid item>
-                            <ResourceIconLink
-                                tooltipTitle={'Open in ArgoCD'}
-                                icon={ICONS.ARGOCD}
-                                link={argoCDPipelineLink}
-                            />
-                        </Grid>
-                        <Render condition={!!CDPipeline}>
-                            <>
-                                <Grid item>
-                                    <CDPipelineMetadataTable CDPipelineData={CDPipeline} />
-                                </Grid>
-                                <Grid item>
-                                    <CDPipelineActions CDPipeline={CDPipeline} />
-                                </Grid>
-                            </>
-                        </Render>
+        <PageWrapper
+            breadcrumbs={[
+                {
+                    label: 'CD Pipelines',
+                    url: {
+                        pathname: routeEDPCDPipelineList.path,
+                    },
+                },
+                {
+                    label: name,
+                },
+            ]}
+            headerSlot={
+                <Grid container>
+                    <Grid item>
+                        <ResourceIconLink
+                            tooltipTitle={'Open in ArgoCD'}
+                            icon={ICONS.ARGOCD}
+                            link={argoCDPipelineLink}
+                        />
                     </Grid>
+                    <Render condition={!!CDPipeline}>
+                        <>
+                            <Grid item>
+                                <CDPipelineMetadataTable CDPipelineData={CDPipeline} />
+                            </Grid>
+                            <Grid item>
+                                <CDPipelineActions CDPipeline={CDPipeline} />
+                            </Grid>
+                        </>
+                    </Render>
                 </Grid>
-            </Grid>
+            }
+        >
             <Render condition={!!CDPipeline}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
@@ -80,6 +78,6 @@ export const PageView = () => {
                     </Grid>
                 </Grid>
             </Render>
-        </>
+        </PageWrapper>
     );
 };

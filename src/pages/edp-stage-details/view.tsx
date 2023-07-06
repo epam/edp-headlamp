@@ -1,17 +1,10 @@
-import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Tabs } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import {
-    Breadcrumbs,
-    Button,
-    Chip,
-    CircularProgress,
-    Grid,
-    Tooltip,
-    Typography,
-} from '@material-ui/core';
+import { Chip, CircularProgress, Grid, Tooltip } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { PageWrapper } from '../../components/PageWrapper';
+import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { StatusIcon } from '../../components/StatusIcon';
 import { ICONS } from '../../constants/icons';
@@ -149,45 +142,34 @@ export const PageView = () => {
         [EDPComponentsURLS, namespace]
     );
 
-    return !!stage ? (
-        <>
-            <Grid container spacing={1} alignItems={'center'} justifyContent={'space-between'}>
-                <Grid item>
-                    <Breadcrumbs>
-                        <Button
-                            size="small"
-                            component={Link}
-                            routeName={routeEDPCDPipelineList.path}
-                        >
-                            CD Pipelines
-                        </Button>
-                        <Button
-                            size="small"
-                            component={Link}
-                            routeName={routeEDPCDPipelineDetails.path}
-                            params={{
-                                name: CDPipelineName,
-                                namespace: namespace,
-                            }}
-                        >
-                            {CDPipelineName}
-                        </Button>
+    return (
+        <PageWrapper
+            breadcrumbs={[
+                { label: 'CD Pipelines', url: { pathname: routeEDPCDPipelineList.path } },
+                {
+                    label: CDPipelineName,
+                    url: {
+                        pathname: routeEDPCDPipelineDetails.path,
+                        params: {
+                            name: CDPipelineName,
+                            namespace: namespace,
+                        },
+                    },
+                },
+                {
+                    label: stageSpecName,
+                },
+            ]}
+            breadcrumbsExtraContent={
+                <Render condition={!!stage}>
+                    <div style={{ marginBottom: rem(2) }}>
                         <Grid container alignItems={'center'} spacing={2}>
                             <Grid item>
-                                <Typography
-                                    color="textPrimary"
-                                    variant={'subtitle2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
-                                    {stageSpecName}
-                                </Typography>
+                                <StatusIcon status={stage?.status.status} width={15} />
                             </Grid>
-                            <Grid item style={{ marginBottom: rem(5) }}>
-                                <StatusIcon status={stage.status.status} width={15} />
-                            </Grid>
-                            <Grid item style={{ marginBottom: rem(3) }}>
+                            <Grid item>
                                 <Tooltip title={'Trigger Type'}>
-                                    {stage.spec.triggerType === TRIGGER_TYPES.MANUAL ? (
+                                    {stage?.spec.triggerType === TRIGGER_TYPES.MANUAL ? (
                                         <Chip
                                             label="manual"
                                             className={clsx([
@@ -207,94 +189,109 @@ export const PageView = () => {
                                 </Tooltip>
                             </Grid>
                         </Grid>
-                    </Breadcrumbs>
-                </Grid>
-                <Grid item>
-                    <Grid container>
-                        <Grid item>
-                            <ResourceIconLink
-                                icon={ICONS.ARGOCD}
-                                tooltipTitle={'Open in ArgoCD'}
-                                link={argoCDStageLink}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <ResourceIconLink
-                                icon={ICONS.GRAFANA}
-                                tooltipTitle={'Open in Grafana'}
-                                link={grafanaLink}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <ResourceIconLink
-                                icon={ICONS.KIBANA}
-                                tooltipTitle={'Open in Kibana'}
-                                link={kibanaLink}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <ResourceIconLink
-                                icon={ICONS.KUBERNETES}
-                                tooltipTitle={stage?.spec.clusterName}
-                                link={null}
-                            />
-                        </Grid>
-                        <Grid item style={{ marginLeft: rem(20) }}>
-                            <StageActions stage={stage} />
-                        </Grid>
+                    </div>
+                </Render>
+            }
+            headerSlot={
+                <Grid container>
+                    <Grid item>
+                        <ResourceIconLink
+                            icon={ICONS.ARGOCD}
+                            tooltipTitle={'Open in ArgoCD'}
+                            link={argoCDStageLink}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <ResourceIconLink
+                            icon={ICONS.GRAFANA}
+                            tooltipTitle={'Open in Grafana'}
+                            link={grafanaLink}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <ResourceIconLink
+                            icon={ICONS.KIBANA}
+                            tooltipTitle={'Open in Kibana'}
+                            link={kibanaLink}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <ResourceIconLink
+                            icon={ICONS.KUBERNETES}
+                            tooltipTitle={stage?.spec.clusterName}
+                            link={null}
+                        />
+                    </Grid>
+                    <Grid item style={{ marginLeft: rem(20) }}>
+                        <StageActions stage={stage} />
                     </Grid>
                 </Grid>
-            </Grid>
-            <Tabs
-                ariaLabel={'CD Pipeline Stage Details'}
-                className={classes.tabs}
-                tabs={[
-                    {
-                        label: 'Applications',
-                        component: (
-                            <Applications
-                                enrichedApplicationsWithArgoApplications={
-                                    enrichedApplicationsWithArgoApplications
-                                }
-                                qualityGatePipelineIsRunning={latestDeployPipelineRunIsRunning}
-                            />
-                        ),
-                    },
-                    {
-                        label: 'Quality Gates',
-                        component: (
-                            <QualityGates
-                                enrichedQualityGatesWithPipelineRuns={
-                                    enrichedQualityGatesWithPipelineRuns
-                                }
-                                argoApplications={argoApplications}
-                                everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
-                                latestAutotestRunnerPipelineRuns={latestAutotestRunnerPipelineRuns}
-                                latestTenAutotestPipelineRuns={latestTenAutotestPipelineRuns}
-                            />
-                        ),
-                    },
-                    {
-                        label: 'Custom Gates',
-                        component: (
-                            <CustomGates
-                                enrichedApplicationsWithArgoApplications={
-                                    enrichedApplicationsWithArgoApplications
-                                }
-                                argoApplications={argoApplications}
-                                latestTenDeployPipelineRuns={latestTenDeployPipelineRuns}
-                                everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
-                            />
-                        ),
-                    },
-                    {
-                        label: 'General Info',
-                        component: <GeneralInfo />,
-                    },
-                ]}
-            />
-        </>
-    ) : (
-        <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
+            }
+        >
+            {!!stage ? (
+                <>
+                    <Tabs
+                        ariaLabel={'CD Pipeline Stage Details'}
+                        className={classes.tabs}
+                        tabs={[
+                            {
+                                label: 'Applications',
+                                component: (
+                                    <Applications
+                                        enrichedApplicationsWithArgoApplications={
+                                            enrichedApplicationsWithArgoApplications
+                                        }
+                                        qualityGatePipelineIsRunning={
+                                            latestDeployPipelineRunIsRunning
+                                        }
+                                    />
+                                ),
+                            },
+                            {
+                                label: 'Quality Gates',
+                                component: (
+                                    <QualityGates
+                                        enrichedQualityGatesWithPipelineRuns={
+                                            enrichedQualityGatesWithPipelineRuns
+                                        }
+                                        argoApplications={argoApplications}
+                                        everyArgoAppIsHealthyAndInSync={
+                                            everyArgoAppIsHealthyAndInSync
+                                        }
+                                        latestAutotestRunnerPipelineRuns={
+                                            latestAutotestRunnerPipelineRuns
+                                        }
+                                        latestTenAutotestPipelineRuns={
+                                            latestTenAutotestPipelineRuns
+                                        }
+                                    />
+                                ),
+                            },
+                            {
+                                label: 'Custom Gates',
+                                component: (
+                                    <CustomGates
+                                        enrichedApplicationsWithArgoApplications={
+                                            enrichedApplicationsWithArgoApplications
+                                        }
+                                        argoApplications={argoApplications}
+                                        latestTenDeployPipelineRuns={latestTenDeployPipelineRuns}
+                                        everyArgoAppIsHealthyAndInSync={
+                                            everyArgoAppIsHealthyAndInSync
+                                        }
+                                    />
+                                ),
+                            },
+                            {
+                                label: 'General Info',
+                                component: <GeneralInfo />,
+                            },
+                        ]}
+                    />
+                </>
+            ) : (
+                <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
+            )}
+        </PageWrapper>
     );
 };

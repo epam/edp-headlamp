@@ -1,13 +1,10 @@
-import {
-    Link,
-    SectionBox,
-    SectionFilterHeader,
-} from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Breadcrumbs, Button, Grid, Typography } from '@material-ui/core';
+import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { CreateGitServer } from '../../components/CreateGitServer';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
 import { DocLink } from '../../components/DocLink';
+import { PageWrapper } from '../../components/PageWrapper';
 import { URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVERS } from '../../constants/urls';
 import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { routeEDPConfiguration } from '../edp-configuration/route';
@@ -17,21 +14,19 @@ export const PageView = () => {
     const [items, error] = EDPGitServerKubeObject.useList();
 
     return (
-        <>
-            <Grid container spacing={1} alignItems={'center'} justifyContent={'space-between'}>
-                <Grid item>
-                    <Breadcrumbs>
-                        <Button
-                            size="small"
-                            component={Link}
-                            routeName={routeEDPConfiguration.path}
-                        >
-                            Configuration
-                        </Button>
-                        <Typography color="textPrimary">Git Servers</Typography>
-                    </Breadcrumbs>
-                </Grid>
-            </Grid>
+        <PageWrapper
+            breadcrumbs={[
+                {
+                    label: 'Configuration',
+                    url: {
+                        pathname: routeEDPConfiguration.path,
+                    },
+                },
+                {
+                    label: 'Git Servers',
+                },
+            ]}
+        >
             <SectionBox
                 title={
                     <SectionFilterHeader
@@ -55,6 +50,6 @@ export const PageView = () => {
                     <CreateGitServer />
                 </CreateKubeObject>
             </SectionBox>
-        </>
+        </PageWrapper>
     );
 };

@@ -1,20 +1,16 @@
-import { Icon } from '@iconify/react';
-import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { ICONS } from '../../constants/icons';
+import { PageWrapper } from '../../components/PageWrapper';
+import { Render } from '../../components/Render';
 import { streamGitServer } from '../../k8s/EDPGitServer';
 import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
-import { GIT_SERVERS_ROUTE_NAME } from '../../routes/names';
-import { createRouteName } from '../../utils/routes/createRouteName';
+import { routeEDPGitServerList } from '../edp-gitserver-list/route';
 import { GeneralInfoTable } from './components/GeneralInfoTable';
 import { GitServerMetadataTable } from './components/GItServerMetadataTable';
-import { useStyles } from './styles';
 import { EDPGitServerDetailsRouteParams } from './types';
 
 export const PageView = () => {
-    const classes = useStyles();
     const { namespace, name } = useParams<EDPGitServerDetailsRouteParams>();
     const [gitServer, setGitServer] = React.useState<EDPGitServerKubeObjectInterface>(null);
     const [, setError] = React.useState<Error>(null);
@@ -37,32 +33,33 @@ export const PageView = () => {
     }, [handleError, handleStoreApplication, name, namespace]);
 
     return (
-        <>
-            <div className={classes.pageHeading}>
-                <Button
-                    startIcon={<Icon icon={ICONS['ARROW_LEFT']} />}
-                    size="small"
-                    component={Link}
-                    routeName={createRouteName(GIT_SERVERS_ROUTE_NAME)}
-                />
-                <Typography variant={'h1'} component={'span'}>
-                    {name}
-                </Typography>
-                {gitServer && (
-                    <div style={{ marginLeft: 'auto' }}>
+        <PageWrapper
+            breadcrumbs={[
+                {
+                    label: 'Git Servers',
+                    url: {
+                        pathname: routeEDPGitServerList.path,
+                    },
+                },
+                {
+                    label: name,
+                },
+            ]}
+            headerSlot={
+                <div style={{ marginLeft: 'auto' }}>
+                    <Render condition={!!gitServer}>
                         <Grid container spacing={1}>
                             <Grid item>
                                 <GitServerMetadataTable gitServerData={gitServer} />
                             </Grid>
                         </Grid>
-                    </div>
-                )}
-            </div>
-            {gitServer && (
-                <>
-                    <GeneralInfoTable gitServerData={gitServer} />
-                </>
-            )}
-        </>
+                    </Render>
+                </div>
+            }
+        >
+            <Render condition={!!gitServer}>
+                <GeneralInfoTable gitServerData={gitServer} />
+            </Render>
+        </PageWrapper>
     );
 };

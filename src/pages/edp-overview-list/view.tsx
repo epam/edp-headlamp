@@ -2,6 +2,7 @@ import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/Co
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { DocLink } from '../../components/DocLink';
+import { PageWrapper } from '../../components/PageWrapper';
 import { URL_EDP_HEADLAMP_USER_GUIDE_OVERVIEW } from '../../constants/urls';
 import { EDPComponentKubeObject } from '../../k8s/EDPComponent';
 import { EDPComponentKubeObjectInterface } from '../../k8s/EDPComponent/types';
@@ -20,26 +21,28 @@ export const PageView = () => {
     );
 
     return (
-        <SectionBox
-            title={
-                <SectionFilterHeader
-                    // @ts-ignore
-                    title={
-                        <Grid container alignItems={'center'} spacing={1}>
-                            <Grid item>
-                                <Typography variant={'h5'}>Overview</Typography>
+        <PageWrapper>
+            <SectionBox
+                title={
+                    <SectionFilterHeader
+                        // @ts-ignore
+                        title={
+                            <Grid container alignItems={'center'} spacing={1}>
+                                <Grid item>
+                                    <Typography variant={'h5'}>Overview</Typography>
+                                </Grid>
+                                <Grid item>
+                                    <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_OVERVIEW} />
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_OVERVIEW} />
-                            </Grid>
-                        </Grid>
-                    }
-                    headerStyle="label"
-                />
-            }
-            sx={{ paddingTop: rem(20) }}
-        >
-            <EDPComponentList EDPComponents={EDPComponents} error={error} />
-        </SectionBox>
+                        }
+                        headerStyle="label"
+                    />
+                }
+                sx={{ paddingTop: rem(20) }}
+            >
+                <EDPComponentList EDPComponents={EDPComponents} error={error} />
+            </SectionBox>
+        </PageWrapper>
     );
 };

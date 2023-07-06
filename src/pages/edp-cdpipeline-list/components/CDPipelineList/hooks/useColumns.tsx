@@ -10,13 +10,12 @@ import { ICONS } from '../../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
-import { CDPIPELINES_ROUTE_NAME } from '../../../../../routes/names';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
-import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 import { rem } from '../../../../../utils/styling/rem';
+import { routeEDPCDPipelineDetails } from '../../../../edp-cdpipeline-details/route';
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<
     HeadlampKubeObject<EDPCDPipelineKubeObjectInterface>
@@ -54,9 +53,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                 getter: ({ metadata: { name, namespace } }) => {
                     return (
                         <Link
-                            routeName={createRouteNameBasedOnNameAndNamespace(
-                                CDPIPELINES_ROUTE_NAME
-                            )}
+                            routeName={routeEDPCDPipelineDetails.path}
                             params={{
                                 name,
                                 namespace,

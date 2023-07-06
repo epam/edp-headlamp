@@ -1,6 +1,6 @@
 import { ICONS } from '../constants/icons';
+import { routeEDPOverviewList } from '../pages/edp-overview-list/route';
 import { createNewSidebarItem } from '../utils/routes/createNewSidebarItem';
-import { createRouteName } from '../utils/routes/createRouteName';
 import { createSidebarItemName } from '../utils/routes/createSidebarItemName';
 import {
     CDPIPELINES_ROUTE_NAME,
@@ -16,7 +16,7 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         parentName: null,
         itemLabel: 'EDP',
         itemName: createSidebarItemName(EDP_ROOT_ROUTE_NAME),
-        url: createRouteName(OVERVIEW_ROUTE_NAME),
+        url: routeEDPOverviewList.path,
         opts: {
             icon: ICONS.ROCKET,
         },

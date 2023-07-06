@@ -1,9 +1,8 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Typography } from '@material-ui/core';
 import React from 'react';
-import { CDPIPELINES_ROUTE_NAME } from '../../../../routes/names';
+import { routeEDPCDPipelineDetails } from '../../../../pages/edp-cdpipeline-details/route';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
-import { createRouteNameBasedOnNameAndNamespace } from '../../../../utils/routes/createRouteName';
 import { useStyles } from './styles';
 import { CodebaseCDPipelineConflictErrorProps } from './types';
 
@@ -20,7 +19,7 @@ export const CodebaseCDPipelineConflictError = ({
             </Typography>
             <div className={classes.conflictEntityName}>
                 <Link
-                    routeName={createRouteNameBasedOnNameAndNamespace(CDPIPELINES_ROUTE_NAME)}
+                    routeName={routeEDPCDPipelineDetails.path}
                     params={{
                         name: conflictedCDPipeline.metadata.name,
                         namespace: conflictedCDPipeline.metadata.namespace,

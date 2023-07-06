@@ -8,9 +8,8 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
-import { COMPONENTS_ROUTE_NAME } from '../../../../../routes/names';
-import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { createTektonPipelineRunLink } from '../../../../../utils/url/createTektonPipelineRunLink';
+import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 import { EDPStageDetailsRouteParams } from '../../../types';
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<{
@@ -64,9 +63,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
                 getter: ({ qualityGate: { autotestName } }) => {
                     return autotestName ? (
                         <Link
-                            routeName={createRouteNameBasedOnNameAndNamespace(
-                                COMPONENTS_ROUTE_NAME
-                            )}
+                            routeName={routeEDPComponentDetails.path}
                             params={{
                                 name: autotestName,
                                 namespace,

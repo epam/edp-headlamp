@@ -1,8 +1,7 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Typography } from '@material-ui/core';
 import React from 'react';
-import { CDPIPELINES_ROUTE_NAME } from '../../../../../../routes/names';
-import { createRouteNameBasedOnNameAndNamespace } from '../../../../../../utils/routes/createRouteName';
+import { routeEDPCDPipelineDetails } from '../../../../../../pages/edp-cdpipeline-details/route';
 import { useStyles } from './styles';
 import { CodebaseBranchCDPipelineConflictErrorProps } from './types';
 
@@ -17,7 +16,7 @@ export const CodebaseBranchCDPipelineConflictError = ({
             <Typography component={'span'}>Branch {name} is used in </Typography>
             <div className={classes.conflictEntityName}>
                 <Link
-                    routeName={createRouteNameBasedOnNameAndNamespace(CDPIPELINES_ROUTE_NAME)}
+                    routeName={routeEDPCDPipelineDetails.path}
                     params={{
                         name: conflictedCDPipeline.metadata.name,
                         namespace: conflictedCDPipeline.metadata.namespace,

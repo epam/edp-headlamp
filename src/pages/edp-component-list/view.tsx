@@ -7,6 +7,7 @@ import { CreateCodebase } from '../../components/CreateCodebase';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
 import { DocLink } from '../../components/DocLink';
 import { FormSelect } from '../../components/FormComponents';
+import { PageWrapper } from '../../components/PageWrapper';
 import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../constants/urls';
@@ -31,7 +32,7 @@ export const PageView = () => {
     );
 
     return (
-        <>
+        <PageWrapper>
             <SectionBox
                 title={
                     <SectionFilterHeader
@@ -77,6 +78,6 @@ export const PageView = () => {
                     <CreateCodebase />
                 </CreateKubeObject>
             </SectionBox>
-        </>
+        </PageWrapper>
     );
 };

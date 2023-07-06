@@ -11,9 +11,8 @@ import {
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { ApplicationKubeObjectInterface } from '../../../../../k8s/Application/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { COMPONENTS_ROUTE_NAME } from '../../../../../routes/names';
-import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { createArgoCDApplicationLink } from '../../../../../utils/url/createArgoCDApplicationLink';
+import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 import { EnrichedApplicationWithArgoApplication } from '../../../types';
 import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
 
@@ -71,9 +70,7 @@ export const useColumns = (
                 }) => {
                     return (
                         <Link
-                            routeName={createRouteNameBasedOnNameAndNamespace(
-                                COMPONENTS_ROUTE_NAME
-                            )}
+                            routeName={routeEDPComponentDetails.path}
                             params={{
                                 name,
                                 namespace,

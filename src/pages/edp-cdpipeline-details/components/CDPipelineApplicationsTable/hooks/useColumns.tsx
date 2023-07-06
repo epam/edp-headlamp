@@ -6,9 +6,8 @@ import { StatusIcon } from '../../../../../components/StatusIcon';
 import { ICONS } from '../../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { EnrichedApplicationWithItsImageStreams } from '../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
-import { COMPONENTS_ROUTE_NAME } from '../../../../../routes/names';
 import { DeepPartial } from '../../../../../types/global';
-import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
+import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<
     DeepPartial<EnrichedApplicationWithItsImageStreams>
@@ -32,9 +31,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                 }) => {
                     return (
                         <Link
-                            routeName={createRouteNameBasedOnNameAndNamespace(
-                                COMPONENTS_ROUTE_NAME
-                            )}
+                            routeName={routeEDPComponentDetails.path}
                             params={{
                                 name,
                                 namespace,

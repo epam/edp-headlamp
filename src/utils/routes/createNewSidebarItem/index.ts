@@ -1,5 +1,4 @@
 import { SidebarItem } from '../../../routes/types';
-import { createRouteName } from '../createRouteName';
 import { createSidebarItemName } from '../createSidebarItemName';
 
 export const createNewSidebarItem = (
@@ -11,7 +10,7 @@ export const createNewSidebarItem = (
     parentName,
     itemLabel,
     itemName: createSidebarItemName(name),
-    url: createRouteName(name),
+    url: `/edp/${name}`,
     opts: {
         icon,
     },

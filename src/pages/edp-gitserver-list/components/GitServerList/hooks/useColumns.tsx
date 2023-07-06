@@ -9,13 +9,12 @@ import {
     CUSTOM_RESOURCE_STATUSES,
 } from '../../../../../constants/statuses';
 import { EDPGitServerKubeObjectInterface } from '../../../../../k8s/EDPGitServer/types';
-import { GIT_SERVERS_ROUTE_NAME } from '../../../../../routes/names';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
-import { createRouteNameBasedOnNameAndNamespace } from '../../../../../utils/routes/createRouteName';
 import { sortByActiveStatus } from '../../../../../utils/sort/sortByActiveStatus';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { rem } from '../../../../../utils/styling/rem';
+import { routeEDPGitServerDetails } from '../../../../edp-gitserver-details/route';
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<
     HeadlampKubeObject<EDPGitServerKubeObjectInterface>
@@ -51,9 +50,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                 getter: ({ metadata: { name, namespace } }) => {
                     return (
                         <Link
-                            routeName={createRouteNameBasedOnNameAndNamespace(
-                                GIT_SERVERS_ROUTE_NAME
-                            )}
+                            routeName={routeEDPGitServerDetails.path}
                             params={{
                                 name,
                                 namespace,
