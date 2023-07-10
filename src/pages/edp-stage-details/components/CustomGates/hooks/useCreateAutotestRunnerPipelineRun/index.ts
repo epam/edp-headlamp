@@ -10,7 +10,6 @@ export interface CreateAutotestRunnerPipelineRunProps {
     stageSpecName: string;
     CDPipelineName: string;
     storageSize: string;
-    randomPostfix: string;
 }
 
 export const useCreateAutotestRunnerPipelineRun = ({

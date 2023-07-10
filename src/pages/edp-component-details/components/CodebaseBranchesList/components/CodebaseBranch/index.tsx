@@ -32,7 +32,6 @@ import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
 import { useStorageSizeQuery } from '../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { useResourceActionListContext } from '../../../../../../providers/ResourceActionList/hooks';
-import { createRandomString } from '../../../../../../utils/createRandomString';
 import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
 import { parseTektonResourceStatus } from '../../../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
@@ -52,8 +51,6 @@ const pipelineRunTypeSelectOptions = pipelineRunTypes.map(([, value]) => ({
     label: capitalizeFirstLetter(value),
     value: value,
 }));
-
-const randomPostfix = createRandomString(4);
 
 export const CodebaseBranch = ({
     codebaseBranchData,
@@ -219,7 +216,6 @@ export const CodebaseBranch = ({
                     nameSshKeySecret: gitServerByCodebase.spec.nameSshKeySecret,
                 },
                 storageSize: storageSize,
-                randomPostfix,
             });
         },
         [codebaseBranchData, codebaseData, createBuildPipelineRun, gitServerByCodebase, storageSize]

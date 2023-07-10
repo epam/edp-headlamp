@@ -10,7 +10,6 @@ export interface CreateDeployPipelineRunProps {
     pipelineName: string;
     stageName: string;
     CDPipelineName: string;
-    randomPostfix: string;
     codebaseTag: string;
 }
 

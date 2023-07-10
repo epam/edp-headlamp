@@ -3,6 +3,7 @@ import { EDPGitServerKubeObjectConfig } from '../../../../k8s/EDPGitServer/confi
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
 import { FormNameObject } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
+import { createRandomString } from '../../../../utils/createRandomString';
 
 const { kind, group, version } = EDPGitServerKubeObjectConfig;
 
@@ -12,11 +13,10 @@ export const createGitServerInstance = (
     },
     formValues: {
         [key: string]: any;
-    },
-    randomPostfix: string
+    }
 ): DeepPartial<EDPGitServerKubeObjectInterface> => {
     const { gitHost, ...restProps } = formValues;
-    const gitServerName = `${gitHost}-${randomPostfix}`;
+    const gitServerName = `${gitHost}-${createRandomString()}`;
 
     const base: DeepPartial<EDPGitServerKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,

@@ -1,6 +1,7 @@
 import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { PipelineRunKubeObjectConfig } from '../../../../k8s/PipelineRun/config';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
+import { createRandomString } from '../../../../utils/createRandomString';
 
 const { kind, group, version } = PipelineRunKubeObjectConfig;
 
@@ -26,7 +27,6 @@ interface createBuildPipelineRunInstanceProps {
         nameSshKeySecret: string;
     };
     storageSize: string;
-    randomPostfix: string;
 }
 
 interface createDeployPipelineRunInstanceProps {
@@ -34,7 +34,6 @@ interface createDeployPipelineRunInstanceProps {
     pipelineName: string;
     stageName: string;
     CDPipelineName: string;
-    randomPostfix: string;
     codebaseTag: string;
 }
 
@@ -43,7 +42,6 @@ interface createAutotestRunnerPipelineRunInstanceProps {
     stageSpecName: string;
     CDPipelineName: string;
     storageSize: string;
-    randomPostfix: string;
 }
 
 export const createBuildPipelineRunInstance = ({
@@ -59,7 +57,6 @@ export const createBuildPipelineRunInstance = ({
     codebaseBranchData: { codebaseBranchMetadataName, codebaseBranchName },
     gitServerData: { gitUser, gitHost, gitProvider, sshPort, nameSshKeySecret },
     storageSize,
-    randomPostfix,
 }: createBuildPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
     const truncatedCodebaseType = codebaseType.slice(0, 3);
     const normalizedCodebaseBranchName = codebaseBranchName.replaceAll('/', '-');
@@ -71,7 +68,7 @@ export const createBuildPipelineRunInstance = ({
         kind,
         metadata: {
             namespace,
-            name: `${trimmedPipelineRunNameStartValue}-build-${randomPostfix}`,
+            name: `${trimmedPipelineRunNameStartValue}-build-${createRandomString(4)}`,
             labels: {
                 'app.edp.epam.com/codebasebranch': codebaseBranchMetadataName,
                 'app.edp.epam.com/codebase': codebaseName,
@@ -156,7 +153,6 @@ export const createDeployPipelineRunInstance = ({
     pipelineName,
     stageName,
     CDPipelineName,
-    randomPostfix,
     codebaseTag,
 }: createDeployPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
     return {
@@ -165,7 +161,7 @@ export const createDeployPipelineRunInstance = ({
         // @ts-ignore
         metadata: {
             namespace,
-            name: `${CDPipelineName}-${stageName}-${randomPostfix}`,
+            name: `${CDPipelineName}-${stageName}-${createRandomString()}`,
             labels: {
                 'app.edp.epam.com/pipeline': `${CDPipelineName}-${stageName}`,
                 'app.edp.epam.com/pipelinetype': 'deploy',
@@ -199,14 +195,13 @@ export const createAutotestRunnerPipelineRunInstance = ({
     stageSpecName,
     CDPipelineName,
     storageSize,
-    randomPostfix,
 }: createAutotestRunnerPipelineRunInstanceProps): PipelineRunKubeObjectInterface => {
     return {
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
             // @ts-ignore
-            generateName: `${CDPipelineName}-${stageSpecName}-${randomPostfix}`,
+            generateName: `${CDPipelineName}-${stageSpecName}-${createRandomString()}`,
             namespace,
             labels: {
                 'app.edp.epam.com/pipelinetype': 'autotestRunner',

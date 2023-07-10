@@ -3,7 +3,6 @@
  */
 
 import { jest } from '@jest/globals';
-import { createRandomString } from '../../../../utils/createRandomString';
 import { createBuildPipelineRunInstance, createDeployPipelineRunInstance } from './index';
 
 beforeEach(() => {
@@ -19,8 +18,6 @@ afterEach(() => {
 
 describe('testing createBuildPipelineRunInstance', () => {
     it('should return valid kube object', () => {
-        const randomPostfix = createRandomString(4);
-
         const object = createBuildPipelineRunInstance({
             namespace: 'test-namespace',
             codebaseData: {
@@ -43,7 +40,6 @@ describe('testing createBuildPipelineRunInstance', () => {
                 nameSshKeySecret: 'test-ssh-key-secret',
             },
             storageSize: '1Gi',
-            randomPostfix,
         });
 
         expect(object).toEqual({
@@ -109,15 +105,12 @@ describe('testing createBuildPipelineRunInstance', () => {
 
 describe('testing createDeployPipelineRunInstance', () => {
     it('should return valid kube object', () => {
-        const randomPostfix = createRandomString();
-
         const object = createDeployPipelineRunInstance({
             namespace: 'test-namespace',
             pipelineName: 'test-pipeline-name',
             stageName: 'test-stage-name',
             CDPipelineName: 'test-cdpipeline-name',
             codebaseTag: 'test-app-name=SNAPSHOT 0.0.0 test-app-2-name=SNAPSHOT 0.1.0',
-            randomPostfix,
         });
 
         expect(object).toEqual({

@@ -20,7 +20,6 @@ export const createArgoApplicationInstance = ({
     imageTag,
     gitServer,
 }: createApplicationInstanceProps): ApplicationKubeObjectInterface => {
-    const randomPostfix = createRandomString();
     const {
         metadata: { namespace, name: pipelineName },
     } = CDPipeline;
@@ -55,7 +54,7 @@ export const createArgoApplicationInstance = ({
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
-            name: `${appName}-${randomPostfix}`,
+            name: `${appName}-${createRandomString()}`,
             namespace,
             labels: {
                 'app.edp.epam.com/stage': stageName,

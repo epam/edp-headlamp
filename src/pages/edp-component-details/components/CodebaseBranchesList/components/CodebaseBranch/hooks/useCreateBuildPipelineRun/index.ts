@@ -27,7 +27,6 @@ export interface CreateBuildPipelineRunProps {
         nameSshKeySecret: string;
     };
     storageSize: string;
-    randomPostfix: string;
 }
 
 export const useCreateBuildPipelineRun = ({
