@@ -33,3 +33,4 @@ export * from './Angular';
 export * from './AWS';
 export * from './Gin';
 export * from './Nextjs';
+export * from './Antora';

@@ -108,6 +108,12 @@ export const APPLICATION_MAPPING: ApplicationMapping = {
                 icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.EXPRESS],
                 availableCITools: [CI_TOOLS.TEKTON],
             },
+            [CODEBASE_COMMON_FRAMEWORKS.ANTORA]: {
+                name: 'Antora',
+                value: CODEBASE_COMMON_FRAMEWORKS.ANTORA,
+                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.ANTORA],
+                availableCITools: [CI_TOOLS.TEKTON],
+            },
         },
         buildTools: {
             [CODEBASE_COMMON_BUILD_TOOLS.NPM]: {

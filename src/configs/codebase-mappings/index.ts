@@ -20,6 +20,7 @@ export const CODEBASE_COMMON_FRAMEWORKS = {
     REACT: 'react',
     VUE: 'vue',
     NEXTJS: 'next',
+    ANTORA: 'antora',
     EXPRESS: 'express',
     ANGULAR: 'angular',
     CODENARC: 'codenarc',

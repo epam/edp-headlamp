@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     Angular,
+    Antora,
     AWS,
     Beego,
     Codenarc,
@@ -79,6 +80,7 @@ export const Resources = () => {
             <AWS />
             <Gin />
             <NextJS />
+            <Antora />
         </svg>
     );
 };
