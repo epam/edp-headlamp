@@ -1,5 +1,5 @@
-import { CODEBASE_NAMES } from '../../../../components/CreateCodebase/names';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { CODEBASE_NAMES } from '../../../../widgets/CreateCodebase/names';
 import { createCodebaseInstance } from './index';
 
 describe('testing createCodebaseExample', () => {

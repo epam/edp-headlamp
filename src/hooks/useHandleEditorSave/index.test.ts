@@ -3,15 +3,15 @@
  */
 
 import { renderHook } from '@testing-library/react-hooks';
+import { FieldEventTarget } from '../../types/forms';
 import {
     CODEBASE_BACKWARDS_NAME_MAPPING,
     CODEBASE_NAMES,
-} from '../../components/CreateCodebase/names';
+} from '../../widgets/CreateCodebase/names';
 import {
     CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING,
     CODEBASE_BRANCH_FORM_NAMES,
-} from '../../components/CreateCodebaseBranch/names';
-import { FieldEventTarget } from '../../types/forms';
+} from '../../widgets/CreateCodebaseBranch/names';
 import { useHandleEditorSave } from './index';
 import {
     applicationCloneStrategyEditorPropsObjectMock,

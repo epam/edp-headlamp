@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { Button, FormControl, Grid, TextField, useTheme } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { ICONS } from '../../../../../../constants/icons';
+import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { FormTextField } from '../../../../../FormComponents';
 import { createAdvancedMappingRowName } from '../../constants';
 import { AdvancedJiraMappingRowProps } from './types';

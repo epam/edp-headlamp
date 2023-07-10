@@ -1,4 +1,3 @@
-import { ICONS } from '../../../constants/icons';
 import {
     ARGO_APPLICATION_HEALTH_STATUSES,
     ARGO_APPLICATION_SYNC_STATUSES,
@@ -6,6 +5,7 @@ import {
     CUSTOM_RESOURCE_STATUSES,
     TEKTON_RESOURCE_STATUSES,
 } from '../../../constants/statuses';
+import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { IconProps, StatusType } from './types';
 
 export enum STATUSES_COLORS {

@@ -1,4 +1,4 @@
-import { CODEBASE_BRANCH_FORM_NAMES } from '../../../../components/CreateCodebaseBranch/names';
+import { CODEBASE_BRANCH_FORM_NAMES } from '../../../../widgets/CreateCodebaseBranch/names';
 import { createCodebaseBranchInstanceBasedOnFormValues } from './index';
 
 describe('testing createCodebaseBranchInstanceBasedOnFormValues', () => {

@@ -3,7 +3,7 @@ import { Button, Grid, Typography, useTheme } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { ICONS } from '../../../../constants/icons';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { Render } from '../../../Render';
 import { QualityGateRow } from './components/QualityGateRow';
 import { useAutotestsWithBranches } from './hooks/useAutotestsWithBranches';

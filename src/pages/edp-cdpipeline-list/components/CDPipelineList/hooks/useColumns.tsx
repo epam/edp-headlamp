@@ -6,8 +6,8 @@ import { HeadlampSimpleTableGetterColumn } from '../../../../../components/Headl
 import { MappedProperties } from '../../../../../components/MappedProperties';
 import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
-import { ICONS } from '../../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
+import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
 import { HeadlampKubeObject } from '../../../../../types/k8s';

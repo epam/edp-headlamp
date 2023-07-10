@@ -1,10 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { CodebaseAdvancedInfoTable } from '../../components/CodebaseAdvancedInfoTable';
-import { CodebaseBranchesList } from '../../components/CodebaseBranchesList';
-import { CodebaseGeneralInfoTable } from '../../components/CodebaseGeneralInfoTable';
-import { CodebaseMetadataTable } from '../../components/CodebaseMetadataTable';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Render } from '../../components/Render';
 import { streamCodebase } from '../../k8s/EDPCodebase';
@@ -12,6 +8,10 @@ import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { routeEDPComponentList } from '../edp-component-list/route';
 import { CodebaseActions } from './components/CodebaseActions';
+import { CodebaseAdvancedInfoTable } from './components/CodebaseAdvancedInfoTable';
+import { CodebaseBranchesList } from './components/CodebaseBranchesList';
+import { CodebaseGeneralInfoTable } from './components/CodebaseGeneralInfoTable';
+import { CodebaseMetadataTable } from './components/CodebaseMetadataTable';
 import { EDPComponentDetailsRouteParams } from './types';
 
 export const PageView = () => {

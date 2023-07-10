@@ -9,7 +9,7 @@ import {
     Tooltip,
 } from '@material-ui/core';
 import React from 'react';
-import { ICONS } from '../../constants/icons';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { HeadlampNameValueTable } from '../HeadlampNameValueTable';
 import { MetadataTableProps } from './types';
 

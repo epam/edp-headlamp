@@ -3,7 +3,7 @@ import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/Co
 import { Grid, IconButton, Typography, useTheme } from '@material-ui/core';
 import React from 'react';
 import { PageWrapper } from '../../components/PageWrapper';
-import { ICONS } from '../../constants/icons';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useViewModeContext } from '../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../providers/ViewMode/types';
 import { ConfigurationList } from './components/ConfigurationList/view';

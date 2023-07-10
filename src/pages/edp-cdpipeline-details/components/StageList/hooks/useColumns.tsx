@@ -9,9 +9,9 @@ import { HeadlampSimpleTableGetterColumn } from '../../../../../components/Headl
 import { Render } from '../../../../../components/Render';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
-import { ICONS } from '../../../../../constants/icons';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { TRIGGER_TYPES } from '../../../../../constants/triggerTypes';
+import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';

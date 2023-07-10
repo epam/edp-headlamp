@@ -3,7 +3,7 @@ import { IconButton, Tooltip } from '@material-ui/core';
 import React from 'react';
 import { Render } from '../../../../components/Render';
 import { StageActionsMenu } from '../../../../components/StageActionsMenu';
-import { ICONS } from '../../../../constants/icons';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { useCDPipelineStagesQueryContext } from '../../providers/CDPipelineStagesQuery/hooks';
 import { StageActionsProps } from './types';

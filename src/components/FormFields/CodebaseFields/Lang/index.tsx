@@ -11,8 +11,8 @@ import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStra
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
-import { FormRadioOption } from '../../../CreateCodebase/components/FormRadioGroup/types';
-import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/utils';
+import { FormRadioOption } from '../../../../widgets/CreateCodebase/components/FormRadioGroup/types';
+import { getRecommendedJenkinsAgent } from '../../../../widgets/CreateCodebase/utils';
 import { FormRadioGroup } from '../../../FormComponents';
 import { LangProps } from './types';
 

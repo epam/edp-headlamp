@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Box, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
-import { ICONS } from '../../../constants/icons';
+import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { rem } from '../../../utils/styling/rem';
 import { Render } from '../../Render';
 import { useStyles } from './styles';

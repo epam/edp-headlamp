@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Grid, IconButton, Tooltip, useTheme } from '@material-ui/core';
 import React from 'react';
-import { ICONS } from '../../constants/icons';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { DocLinkProps } from './types';
 
 export const DocLink = ({ href, isDocRootPage = false }: DocLinkProps) => {

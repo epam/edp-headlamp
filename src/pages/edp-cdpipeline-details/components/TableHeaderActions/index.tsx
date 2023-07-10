@@ -1,10 +1,10 @@
 import { Icon } from '@iconify/react';
 import { Button, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
-import { CreateCDPipelineStage } from '../../../../components/CreateCDPipelineStage';
-import { useCreateCDPipelineStage } from '../../../../components/CreateCDPipelineStage/hooks/useCreateCDPipelineStage';
 import { Render } from '../../../../components/Render';
-import { ICONS } from '../../../../constants/icons';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { CreateCDPipelineStage } from '../../../../widgets/CreateCDPipelineStage';
+import { useCreateCDPipelineStage } from '../../../../widgets/CreateCDPipelineStage/hooks/useCreateCDPipelineStage';
 import { useCDPipelineContext } from '../../providers/CDPipeline/hooks';
 import { TableHeaderActionsProps } from './types';
 

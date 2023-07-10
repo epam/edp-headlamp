@@ -1,4 +1,4 @@
-import { CDPIPELINE_CREATION_FORM_NAMES } from '../../../../components/CreateCDPipeline/components/CreateCDPipelineForm/names';
+import { CDPIPELINE_CREATION_FORM_NAMES } from '../../../../widgets/CreateCDPipeline/components/CreateCDPipelineForm/names';
 import { createCDPipelineInstance } from './index';
 
 describe('testing createCDPipelineInstance', () => {

@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Fab } from '@material-ui/core';
 import React from 'react';
-import { ICONS } from '../../constants/icons';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useStyles } from './styles';
 
 export const CreateKubeObject: React.FC = ({ children }) => {

@@ -1,13 +1,13 @@
 import React from 'react';
-import { ICONS } from '../../constants/icons';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
 import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../types/actions';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { EditCDPipelineStage } from '../../widgets/EditCDPipelineStage';
 import { DeleteKubeObject } from '../DeleteKubeObject';
-import { EditCDPipelineStage } from '../EditCDPipelineStage';
 import { KubeObjectActions } from '../KubeObjectActions';
 import { createDeleteAction } from './utils';
 

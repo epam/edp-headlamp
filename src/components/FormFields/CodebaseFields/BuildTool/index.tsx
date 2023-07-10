@@ -4,9 +4,9 @@ import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
 import { FieldEvent } from '../../../../types/forms';
-import { FormRadioOption } from '../../../CreateCodebase/components/FormRadioGroup/types';
-import { useChosenCodebaseLanguage } from '../../../CreateCodebase/hooks/useChosenCodebaseLanguage';
-import { getRecommendedJenkinsAgent } from '../../../CreateCodebase/utils';
+import { FormRadioOption } from '../../../../widgets/CreateCodebase/components/FormRadioGroup/types';
+import { useChosenCodebaseLanguage } from '../../../../widgets/CreateCodebase/hooks/useChosenCodebaseLanguage';
+import { getRecommendedJenkinsAgent } from '../../../../widgets/CreateCodebase/utils';
 import { FormRadioGroup } from '../../../FormComponents';
 import { FormTextField } from '../../../FormComponents';
 import { BuildToolProps } from './types';

@@ -5,7 +5,7 @@ import { PageWrapper } from '../../components/PageWrapper';
 import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { StageActionsMenu } from '../../components/StageActionsMenu';
-import { ICONS } from '../../constants/icons';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { createArgoCDPipelineLink } from '../../utils/url/createArgoCDPipelineLink';

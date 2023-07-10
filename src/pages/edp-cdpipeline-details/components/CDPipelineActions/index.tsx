@@ -1,9 +1,9 @@
 import { Icon } from '@iconify/react';
 import { IconButton, Tooltip } from '@material-ui/core';
 import React from 'react';
-import { CDPipelineActionsMenu } from '../../../../components/CDPipelineActionsMenu';
-import { ICONS } from '../../../../constants/icons';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
+import { CDPipelineActionsMenu } from '../../../../widgets/CDPipelineActionsMenu';
 import { CDPipelineActionsProps } from './types';
 
 export const CDPipelineActions = ({ CDPipeline }: CDPipelineActionsProps) => {

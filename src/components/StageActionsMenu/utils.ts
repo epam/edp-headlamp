@@ -1,5 +1,5 @@
-import { ICONS } from '../../constants/icons';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
 import { KubeObjectAction } from '../../types/actions';
 import { DeepPartial } from '../../types/global';

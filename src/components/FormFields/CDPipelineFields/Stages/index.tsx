@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Button, Grid, Typography, useTheme } from '@material-ui/core';
 import React from 'react';
-import { ICONS } from '../../../../constants/icons';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { Render } from '../../../Render';
 import { StagesProps } from './types';
 

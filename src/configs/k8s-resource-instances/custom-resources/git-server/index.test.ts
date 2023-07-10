@@ -1,4 +1,4 @@
-import { GIT_SERVER_NAMES } from '../../../../components/CreateGitServer/components/CreateGitServerForm/names';
+import { GIT_SERVER_NAMES } from '../../../../widgets/CreateGitServer/components/CreateGitServerForm/names';
 import { createGitServerInstance } from './index';
 
 describe('testing createGitServerInstance', () => {

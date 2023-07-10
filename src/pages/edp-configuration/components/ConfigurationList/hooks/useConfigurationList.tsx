@@ -1,6 +1,6 @@
 import React from 'react';
-import { ICONS } from '../../../../../constants/icons';
 import { URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVER_ADD } from '../../../../../constants/urls';
+import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { routeEDPClusterList } from '../../../../edp-cluster-list/route';
 import { routeEDPGitServerList } from '../../../../edp-gitserver-list/route';
 import { ConfigurationItem } from '../../../types';

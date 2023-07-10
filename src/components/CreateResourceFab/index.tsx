@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Fab } from '@material-ui/core';
-import { ICONS } from '../../constants/icons';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { useStyles } from './styles';
 import { CreateResourceFabProps } from './types';

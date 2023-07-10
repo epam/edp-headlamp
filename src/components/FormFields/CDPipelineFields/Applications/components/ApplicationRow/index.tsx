@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { Button, Grid, useTheme } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { ICONS } from '../../../../../../constants/icons';
+import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { FieldEvent, FieldEventTarget } from '../../../../../../types/forms';
 import { FormSelect } from '../../../../../FormComponents';
 import {

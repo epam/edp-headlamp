@@ -7,8 +7,3 @@ export interface SidebarItem {
     url: string;
     opts?: Pick<SidebarEntryProps, 'useClusterURL' | 'icon'>;
 }
-
-export interface RouteURLProps {
-    cluster?: string;
-    [prop: string]: any;
-}

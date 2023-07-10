@@ -1,4 +1,4 @@
-import { ICONS } from '../constants/icons';
+import { ICONS } from '../icons/iconify-icons-mapping';
 import { routeEDPOverviewList } from '../pages/edp-overview-list/route';
 import { createNewSidebarItem } from '../utils/routes/createNewSidebarItem';
 import { createSidebarItemName } from '../utils/routes/createSidebarItemName';

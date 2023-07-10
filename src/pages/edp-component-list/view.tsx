@@ -2,8 +2,6 @@ import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/Co
 import { Box, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CodebaseActionsMenu } from '../../components/CodebaseActionsMenu';
-import { CreateCodebase } from '../../components/CreateCodebase';
 import { CreateKubeObject } from '../../components/CreateKubeObject';
 import { DocLink } from '../../components/DocLink';
 import { FormSelect } from '../../components/FormComponents';
@@ -14,6 +12,8 @@ import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../constants/urls';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { rem } from '../../utils/styling/rem';
+import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
+import { CreateCodebase } from '../../widgets/CreateCodebase';
 import { ComponentList } from './components/ComponentList';
 
 export const PageView = () => {
