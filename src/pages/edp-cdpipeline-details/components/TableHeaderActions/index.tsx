@@ -3,8 +3,8 @@ import { Button, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { useCreateCDPipelineStage } from '../../../../k8s/EDPCDPipelineStage/hooks/useCreateCDPipelineStage';
 import { CreateCDPipelineStage } from '../../../../widgets/CreateCDPipelineStage';
-import { useCreateCDPipelineStage } from '../../../../widgets/CreateCDPipelineStage/hooks/useCreateCDPipelineStage';
 import { useCDPipelineContext } from '../../providers/CDPipeline/hooks';
 import { TableHeaderActionsProps } from './types';
 

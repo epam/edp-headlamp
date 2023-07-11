@@ -7,11 +7,11 @@ import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable'
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { usePipelineByTypeListQuery } from '../../../../k8s/Pipeline/hooks/usePipelineByTypeListQuery';
+import { useCreateDeployPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateDeployPipelineRun';
 import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 import { useCDPipelineStageContext } from '../../providers/CDPipelineStage/hooks';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { useColumns } from './hooks/useColumns';
-import { useCreateDeployPipelineRun } from './hooks/useCreateDeployPipelineRun';
 import { CustomGatesProps } from './types';
 
 const pipelineNameFieldName = 'pipelineName';

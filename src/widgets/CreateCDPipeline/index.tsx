@@ -4,8 +4,8 @@ import React from 'react';
 import { DocLink } from '../../components/DocLink';
 import { URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { useCreateCDPipeline } from '../../k8s/EDPCDPipeline/hooks/useCreateCDPipeline';
 import { CreateCDPipelineForm } from './components/CreateCDPipelineForm';
-import { useCreateCDPipeline } from './hooks/useCreateCDPipeline';
 import { useStyles } from './styles';
 import { CreateCDPipelineProps } from './types';
 

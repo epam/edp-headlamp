@@ -1,6 +1,6 @@
 import React from 'react';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
-import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
+import { useResourceCRUDMutation } from '../../../../hooks/useResourceCRUDMutation';
 import { EDPCDPipelineKubeObject } from '../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 

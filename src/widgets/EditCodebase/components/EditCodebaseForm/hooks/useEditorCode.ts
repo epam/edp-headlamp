@@ -1,6 +1,6 @@
 import React from 'react';
-import { editCodebaseInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/codebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
+import { editCodebaseInstance } from '../../../../../k8s/EDPCodebase/utils/editCodebaseInstance';
 import { FormNameObject } from '../../../../../types/forms';
 import { DeepPartial } from '../../../../../types/global';
 

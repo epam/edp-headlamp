@@ -5,15 +5,15 @@ import { Button, Dialog, DialogContent, Grid, Typography } from '@material-ui/co
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Render } from '../../components/Render';
-import { createClusterSecretInstance } from '../../configs/k8s-resource-instances/resources/secret';
 import { useHandleEditorSaveNew } from '../../hooks/useHandleEditorSave';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { useCreateClusterSecret } from '../../k8s/Secret/hooks/useCreateClusterSecret';
+import { createClusterSecretInstance } from '../../k8s/Secret/utils/createClusterSecretInstance';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { ClusterCertificate } from './components/ClusterCertificate';
 import { ClusterHost } from './components/ClusterHost';
 import { ClusterName } from './components/ClusterName';
 import { ClusterToken } from './components/ClusterToken';
-import { useCreateClusterSecret } from './hooks/useCreateClusterSecret';
 import { CLUSTER_CREATION_FORM_NAMES } from './names';
 import { useStyles } from './styles';
 import { CreateClusterFormNames } from './types';

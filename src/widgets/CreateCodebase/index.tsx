@@ -28,6 +28,7 @@ import {
 } from '../../constants/urls';
 import { useHandleEditorSave } from '../../hooks/useHandleEditorSave';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { useCreateCodebase } from '../../k8s/EDPCodebase/hooks/useCreateCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { FieldEvent, FieldEventTarget, FormNameObject } from '../../types/forms';
 import { DeepPartial } from '../../types/global';
@@ -40,7 +41,6 @@ import { TabPanel } from './components/TabPanel';
 import { FORM_PART_ADVANCED_SETTINGS, FORM_PART_CODEBASE_INFO, TAB_INDEXES } from './constants';
 import { useCodebaseCreationStrategies } from './hooks/useCodebaseCreationStrategies';
 import { useCodebaseTypeOptions } from './hooks/useCodebaseTypeOptions';
-import { useCreateCodebase } from './hooks/useCreateCodebase';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
 import { useUpdateFieldsDependingOnChosenCITool } from './hooks/useUpdateFieldsDependingOnChosenCITool';

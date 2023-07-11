@@ -29,6 +29,7 @@ import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { useEDPComponentsURLsQuery } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useGitServerByCodebaseQuery } from '../../../../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
 import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
+import { useCreateBuildPipelineRun } from '../../../../../../k8s/PipelineRun/hooks/useCreateBuildPipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
 import { useStorageSizeQuery } from '../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { useResourceActionListContext } from '../../../../../../providers/ResourceActionList/hooks';
@@ -38,7 +39,6 @@ import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/
 import { rem } from '../../../../../../utils/styling/rem';
 import { createSonarLink } from '../../../../../../utils/url/createSonarLink';
 import { isDefaultBranch } from '../../utils';
-import { useCreateBuildPipelineRun } from './hooks/useCreateBuildPipelineRun';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
 import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
 import { useStyles } from './styles';

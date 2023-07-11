@@ -4,8 +4,8 @@ import React from 'react';
 import { DocLink } from '../../components/DocLink';
 import { URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVER_ADD } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { useCreateGitServer } from '../../k8s/EDPGitServer/hooks/useCreateGitServer';
 import { CreateGitServerForm } from './components/CreateGitServerForm';
-import { useCreateGitServer } from './hooks/useCreateGitServer';
 import { useStyles } from './styles';
 import { CreateGitServerProps } from './types';
 

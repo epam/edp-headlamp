@@ -14,9 +14,9 @@ import {
     UserName,
 } from '../../../../components/FormFields/GitServerFields';
 import { Render } from '../../../../components/Render';
-import { createGitServerSecretInstance } from '../../../../configs/k8s-resource-instances/resources/secret';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
+import { createGitServerSecretInstance } from '../../../../k8s/Secret/utils/createGitServerSecretInstance';
 import { FieldEventTarget } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';

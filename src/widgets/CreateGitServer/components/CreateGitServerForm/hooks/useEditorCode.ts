@@ -1,6 +1,6 @@
 import React from 'react';
-import { createGitServerInstance } from '../../../../../configs/k8s-resource-instances/custom-resources/git-server';
 import { EDPGitServerKubeObjectInterface } from '../../../../../k8s/EDPGitServer/types';
+import { createGitServerInstance } from '../../../../../k8s/EDPGitServer/utils/createGitServerInstance';
 import { FormNameObject } from '../../../../../types/forms';
 
 interface UseEditorCodeProps {

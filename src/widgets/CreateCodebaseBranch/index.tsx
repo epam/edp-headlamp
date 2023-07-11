@@ -6,25 +6,23 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { DocLink } from '../../components/DocLink';
 import { Render } from '../../components/Render';
-import {
-    createCodebaseBranchInstanceBasedOnFormValues,
-    editCodebaseBranchInstance,
-} from '../../configs/k8s-resource-instances/custom-resources/codebase-branch';
 import { CODEBASE_VERSIONING_TYPES } from '../../constants/codebaseVersioningTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../constants/statuses';
 import { URL_EDP_HEADLAMP_USER_GUIDE_BRANCH_ADD } from '../../constants/urls';
 import { useHandleEditorSaveNew } from '../../hooks/useHandleEditorSave';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { useCreateCodebaseBranch } from '../../k8s/EDPCodebaseBranch/hooks/useCreateCodebaseBranch';
 import { useDefaultBranchQuery } from '../../k8s/EDPCodebaseBranch/hooks/useDefaultBranchQuery';
 import { REQUEST_KEY_QUERY_CODEBASE_BRANCH_LIST_BY_CODEBASE_NAME } from '../../k8s/EDPCodebaseBranch/requestKeys';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
+import { createCodebaseBranchInstance } from '../../k8s/EDPCodebaseBranch/utils/createCodebaseBranchInstance';
+import { editCodebaseBranchInstance } from '../../k8s/EDPCodebaseBranch/utils/editCodebaseBranchInstance';
 import { createVersioningString } from '../../utils/createVersioningString';
 import { BranchName } from './components/BranchName';
 import { BranchVersion } from './components/BranchVersion';
 import { DefaultBranchVersion } from './components/DefaultBranchVersion';
 import { FromCommit } from './components/FromCommit';
 import { ReleaseBranch } from './components/ReleaseBranch';
-import { useCreateCodebaseBranch } from './hooks/useCreateCodebaseBranch';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useUpdateBranchVersionFields } from './hooks/useUpdateBranchVersionFields';
 import { CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING, CODEBASE_BRANCH_FORM_NAMES } from './names';
@@ -81,7 +79,7 @@ export const CreateCodebaseBranch = ({
         setEditorOpen(true);
         const formValues = getValues();
         const usedValues = getUsedValues(formValues, CODEBASE_BRANCH_FORM_NAMES);
-        const newCodebaseBranchData = createCodebaseBranchInstanceBasedOnFormValues(
+        const newCodebaseBranchData = createCodebaseBranchInstance(
             CODEBASE_BRANCH_FORM_NAMES,
             usedValues,
             codebaseData.metadata.name
@@ -152,7 +150,7 @@ export const CreateCodebaseBranch = ({
         const values = getValues();
         const usedValues = getUsedValues(values, CODEBASE_BRANCH_FORM_NAMES);
 
-        const createCodebaseBranchInstance = createCodebaseBranchInstanceBasedOnFormValues(
+        const codebaseBranchInstance = createCodebaseBranchInstance(
             CODEBASE_BRANCH_FORM_NAMES,
             usedValues,
             codebaseData.metadata.name
@@ -170,12 +168,12 @@ export const CreateCodebaseBranch = ({
                 { version: newDefaultBranchVersion }
             );
             await createCodebaseBranch({
-                codebaseBranchData: createCodebaseBranchInstance,
+                codebaseBranchData: codebaseBranchInstance,
                 defaultCodebaseBranchData: newDefaultBranch,
             });
         } else {
             await createCodebaseBranch({
-                codebaseBranchData: createCodebaseBranchInstance,
+                codebaseBranchData: codebaseBranchInstance,
             });
         }
         reset();

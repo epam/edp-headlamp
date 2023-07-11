@@ -1,6 +1,6 @@
 import React from 'react';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
-import { useResourceCRUDMutation } from '../../../../hooks/useResourceCreationMutation';
+import { useResourceCRUDMutation } from '../../../../hooks/useResourceCRUDMutation';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 
