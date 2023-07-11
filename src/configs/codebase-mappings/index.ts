@@ -31,6 +31,7 @@ export const CODEBASE_COMMON_FRAMEWORKS = {
     BEEGO: 'beego',
     FLASK: 'flask',
     HELM: 'helm',
+    CHARTS: 'charts',
     FASTAPI: 'fastapi',
     DOTNET_3_1: 'dotnet-3.1',
     DOTNET_6_0: 'dotnet-6.0',
