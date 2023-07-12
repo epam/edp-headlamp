@@ -6,6 +6,7 @@ import { routeEDPComponentList } from '../pages/edp-component-list/route';
 import { routeEDPConfiguration } from '../pages/edp-configuration/route';
 import { routeEDPGitServerDetails } from '../pages/edp-gitserver-details/route';
 import { routeEDPGitServerList } from '../pages/edp-gitserver-list/route';
+import { routeEDPMarketplace } from '../pages/edp-marketplace/route';
 import { routeEDPOverviewList } from '../pages/edp-overview-list/route';
 import { routeEDPStageDetails } from '../pages/edp-stage-details/route';
 
@@ -33,4 +34,8 @@ export default [
 
     // Clusters & children
     routeEDPClusterList,
+
+    // Market place
+
+    routeEDPMarketplace,
 ];

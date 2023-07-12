@@ -16,7 +16,9 @@ export const MappedProperties = ({ properties, variant }: MappedPropertiesProps)
                                 <Render condition={idx !== 0}>
                                     <Typography component="span">, </Typography>
                                 </Render>
-                                <Typography component="span">{el}</Typography>
+                                <Typography component="span" variant={'caption'}>
+                                    {el}
+                                </Typography>
                             </>
                         </Render>
 

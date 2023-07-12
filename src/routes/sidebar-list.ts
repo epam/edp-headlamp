@@ -7,6 +7,7 @@ import {
     COMPONENTS_ROUTE_NAME,
     CONFIGURATION_ROUTE_NAME,
     EDP_ROOT_ROUTE_NAME,
+    MARKETPLACE_ROUTE_NAME,
     OVERVIEW_ROUTE_NAME,
 } from './names';
 import { SidebarItem } from './types';
@@ -25,6 +26,12 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         'Overview',
         OVERVIEW_ROUTE_NAME,
         ICONS.PANEL,
+        createSidebarItemName(EDP_ROOT_ROUTE_NAME)
+    ),
+    createNewSidebarItem(
+        'Marketplace',
+        MARKETPLACE_ROUTE_NAME,
+        ICONS.BASKET,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(

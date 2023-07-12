@@ -6,7 +6,7 @@ import { PageWrapper } from '../../components/PageWrapper';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useViewModeContext } from '../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../providers/ViewMode/types';
-import { ConfigurationList } from './components/ConfigurationList/view';
+import { MarketplaceList } from './components/MarketplaceList';
 import { useStyles } from './styles';
 
 export const PageView = () => {
@@ -23,7 +23,7 @@ export const PageView = () => {
                         title={
                             <Grid container alignItems={'center'} spacing={1}>
                                 <Grid item>
-                                    <Typography variant={'h5'}>Configuration</Typography>
+                                    <Typography variant={'h5'}>Marketplace</Typography>
                                 </Grid>
                             </Grid>
                         }
@@ -71,7 +71,7 @@ export const PageView = () => {
                     className: classes.sectionRoot,
                 }}
             >
-                <ConfigurationList />
+                <MarketplaceList />
             </SectionBox>
         </PageWrapper>
     );

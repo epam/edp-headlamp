@@ -5,15 +5,17 @@ import React from 'react';
 import { DocLink } from '../../../../components/DocLink';
 import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { Render } from '../../../../components/Render';
+import { useViewModeContext } from '../../../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../../../providers/ViewMode/types';
 import { useColumns } from './hooks/useColumns';
 import { useConfigurationList } from './hooks/useConfigurationList';
 import { useStyles } from './styles';
 
-export const ConfigurationList = ({ viewMode }) => {
+export const ConfigurationList = () => {
     const columns = useColumns();
     const classes = useStyles();
     const data = useConfigurationList();
+    const { viewMode } = useViewModeContext();
 
     return (
         <>
@@ -54,7 +56,12 @@ export const ConfigurationList = ({ viewMode }) => {
                                         </Grid>
                                     </CardContent>
                                     <CardActions className={classes.cardActions}>
-                                        <Button component={Link} routeName={routePath}>
+                                        <Button
+                                            component={Link}
+                                            size={'small'}
+                                            routeName={routePath}
+                                            style={{ textDecoration: 'none' }}
+                                        >
                                             configure
                                         </Button>
                                     </CardActions>

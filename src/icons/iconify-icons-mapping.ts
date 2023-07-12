@@ -2,7 +2,6 @@ export enum ICONS {
     PENCIL = 'ci:edit',
     PLUS = 'akar-icons:plus',
     DOCUMENT_ADD = 'carbon:document-add',
-    ARROW_LEFT = 'eva:arrow-back-outline',
     THREE_DOTS = 'mi:options-vertical',
     ARROW_DOWN = 'dashicons:arrow-down-alt2',
     ROCKET = 'ion:rocket-outline',
@@ -40,4 +39,5 @@ export enum ICONS {
     SETTINGS = 'solar:settings-outline',
     VIEW_TABLE = 'ph:table',
     VIEW_GRID = 'ph:grid-nine',
+    BASKET = 'mdi:shopping-outline',
 }
