@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../utils/routes/createSidebarItemName'
 import Page from './page';
 
 export const routeEDPComponentDetails = {
-    name: 'edp-component-details',
+    name: 'Component Details',
     path: `/edp/components/:namespace/:name/`,
     sidebar: createSidebarItemName(COMPONENTS_ROUTE_NAME),
     component: () => <Page />,

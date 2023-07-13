@@ -4,7 +4,7 @@ import { createSidebarItemName } from '../../utils/routes/createSidebarItemName'
 import Page from './page';
 
 export const routeEDPClusterList = {
-    name: 'edp-cluster-list',
+    name: 'Clusters',
     path: `/edp/clusters`,
     sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
     component: () => <Page />,

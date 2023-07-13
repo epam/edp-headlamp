@@ -4,7 +4,7 @@ import { createSidebarItemName } from '../../utils/routes/createSidebarItemName'
 import Page from './page';
 
 export const routeEDPGitServerDetails = {
-    name: 'edp-git-server-details',
+    name: 'Git Server Details',
     path: `/edp/gitservers/:namespace/:name/`,
     sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
     component: () => <Page />,

@@ -4,7 +4,7 @@ import { createSidebarItemName } from '../../utils/routes/createSidebarItemName'
 import Page from './page';
 
 export const routeEDPMarketplace = {
-    name: 'edp-marketplace',
+    name: 'Marketplace',
     path: `/edp/marketplace`,
     sidebar: createSidebarItemName(MARKETPLACE_ROUTE_NAME),
     component: () => <Page />,

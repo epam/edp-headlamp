@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../utils/routes/createSidebarItemName'
 import Page from './page';
 
 export const routeEDPStageDetails = {
-    name: 'edp-stage-details',
+    name: 'Stage Details',
     path: '/edp/cdpipelines/:namespace/:CDPipelineName/stages/:stageName',
     sidebar: createSidebarItemName(CDPIPELINES_ROUTE_NAME),
     component: () => <Page />,

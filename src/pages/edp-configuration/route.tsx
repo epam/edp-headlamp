@@ -4,7 +4,7 @@ import { createSidebarItemName } from '../../utils/routes/createSidebarItemName'
 import Page from './page';
 
 export const routeEDPConfiguration = {
-    name: 'edp-configuration',
+    name: 'Configuration',
     path: `/edp/configuration`,
     sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
     component: () => <Page />,
