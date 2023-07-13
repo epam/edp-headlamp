@@ -34,18 +34,22 @@ export const useColumns = (classes: {
             },
             {
                 label: 'Name',
-                getter: ({ spec: { url, type, visible } }) => (
-                    <>
-                        <Render condition={!!visible}>
-                            <Link href={url} target="_blank" rel="noopener">
-                                {type}
-                            </Link>
-                        </Render>
-                        <Render condition={!visible}>
-                            <Typography>{type}</Typography>
-                        </Render>
-                    </>
-                ),
+                getter: ({ spec: { url, type, visible } }) => {
+                    const _url = !/^https?:\/\//i.test(url) ? `https://${url}` : url;
+
+                    return (
+                        <>
+                            <Render condition={!!visible}>
+                                <Link href={_url} target="_blank" rel="noopener">
+                                    {type}
+                                </Link>
+                            </Render>
+                            <Render condition={!visible}>
+                                <Typography>{type}</Typography>
+                            </Render>
+                        </>
+                    );
+                },
                 sort: (a, b) => sortByName(a.spec.type, b.spec.type),
             },
             {
