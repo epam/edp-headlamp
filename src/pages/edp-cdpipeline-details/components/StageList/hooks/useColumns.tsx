@@ -30,15 +30,6 @@ export const useColumns = (
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
     const { name: CDPipelineName, namespace } = useParams<EDPCDPipelineRouteParams>();
 
-    const grafanaLink = React.useMemo(
-        () => createGrafanaLink(EDPComponentsURLS, namespace),
-        [EDPComponentsURLS, namespace]
-    );
-    const kibanaLink = React.useMemo(
-        () => createKibanaLink(EDPComponentsURLS, namespace),
-        [EDPComponentsURLS, namespace]
-    );
-
     return React.useMemo(
         () => [
             {
@@ -114,6 +105,9 @@ export const useColumns = (
                         stage.spec.name
                     );
 
+                    const grafanaLink = createGrafanaLink(EDPComponentsURLS, stage.spec.namespace);
+                    const kibanaLink = createKibanaLink(EDPComponentsURLS, stage.spec.namespace);
+
                     return (
                         <Grid container spacing={1}>
                             <Grid item>
@@ -167,14 +161,6 @@ export const useColumns = (
                 },
             },
         ],
-        [
-            CDPipelineName,
-            EDPComponentsURLS,
-            classes,
-            grafanaLink,
-            handleOpenResourceActionListMenu,
-            kibanaLink,
-            namespace,
-        ]
+        [CDPipelineName, EDPComponentsURLS, classes, handleOpenResourceActionListMenu, namespace]
     );
 };

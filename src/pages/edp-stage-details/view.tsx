@@ -134,12 +134,12 @@ export const PageView = () => {
     );
 
     const grafanaLink = React.useMemo(
-        () => createGrafanaLink(EDPComponentsURLS, namespace),
-        [EDPComponentsURLS, namespace]
+        () => createGrafanaLink(EDPComponentsURLS, stage?.spec.namespace),
+        [EDPComponentsURLS, stage?.spec.namespace]
     );
     const kibanaLink = React.useMemo(
-        () => createKibanaLink(EDPComponentsURLS, namespace),
-        [EDPComponentsURLS, namespace]
+        () => createKibanaLink(EDPComponentsURLS, stage?.spec.namespace),
+        [EDPComponentsURLS, stage?.spec.namespace]
     );
 
     return (
