@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../../../components/HeadlampSimpleTable/types';
 import {
@@ -10,25 +10,41 @@ import { RESOURCE_ICON_NAMES } from '../../../../../../../icons/sprites/Resource
 import { UseSpriteSymbol } from '../../../../../../../icons/UseSpriteSymbol';
 import { EDPTemplateKubeObjectInterface } from '../../../../../../../k8s/EDPTemplate/types';
 import { getCodebaseMappingByCodebaseType } from '../../../../../../../utils/getCodebaseMappingByCodebaseType';
-import { sortByActiveStatus } from '../../../../../../../utils/sort/sortByActiveStatus';
 import { sortByName } from '../../../../../../../utils/sort/sortByName';
+import { rem } from '../../../../../../../utils/styling/rem';
 export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPTemplateKubeObjectInterface>[] => {
     return React.useMemo(
         () => [
             {
+                label: '',
+                getter: ({ spec: { icon } }) => {
+                    return (
+                        <img
+                            style={{ height: rem(40), verticalAlign: 'middle' }}
+                            src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
+                            alt=""
+                        />
+                    );
+                },
+            },
+            {
                 label: 'Name',
-                getter: ({ spec: { displayName } }) => displayName,
-                sort: (a, b) => sortByActiveStatus(a.label, b.label),
+                getter: ({ spec: { description, displayName } }) => (
+                    <Tooltip title={description}>
+                        <Typography>{displayName}</Typography>
+                    </Tooltip>
+                ),
+                sort: (a, b) => sortByName(a.spec.displayName, b.spec.displayName),
             },
             {
                 label: 'Type',
                 getter: ({ spec: { type } }) => type,
-                sort: (a, b) => sortByActiveStatus(a.label, b.label),
+                sort: (a, b) => sortByName(a.spec.type, b.spec.type),
             },
             {
                 label: 'Category',
                 getter: ({ spec: { category } }) => category,
-                sort: (a, b) => sortByActiveStatus(a.label, b.label),
+                sort: (a, b) => sortByName(a.spec.category, b.spec.category),
             },
             {
                 label: 'Language',
@@ -39,7 +55,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPTemplateKubeObj
                     }
 
                     return (
-                        <Grid container spacing={1} alignItems={'center'}>
+                        <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={
@@ -68,7 +84,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPTemplateKubeObj
                     }
 
                     return (
-                        <Grid container spacing={1} alignItems={'center'}>
+                        <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={
@@ -98,7 +114,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPTemplateKubeObj
                     }
 
                     return (
-                        <Grid container spacing={1} alignItems={'center'}>
+                        <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={
@@ -121,7 +137,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPTemplateKubeObj
             {
                 label: 'Maturity',
                 getter: ({ spec: { maturity } }) => maturity,
-                sort: (a, b) => sortByActiveStatus(a.label, b.label),
+                sort: (a, b) => sortByName(a.spec.maturity, b.spec.maturity),
             },
         ],
         []

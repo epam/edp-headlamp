@@ -1,4 +1,5 @@
 import {
+    Box,
     Card,
     CardContent,
     Chip,
@@ -18,7 +19,6 @@ import {
 import { RESOURCE_ICON_NAMES } from '../../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../../icons/UseSpriteSymbol';
 import { getCodebaseMappingByCodebaseType } from '../../../../../../utils/getCodebaseMappingByCodebaseType';
-import { rem } from '../../../../../../utils/styling/rem';
 import { useStyles } from './styles';
 import { TemplateCardProps } from './types';
 
@@ -40,17 +40,16 @@ export const TemplateCard = ({
             maturity,
             version,
         },
-        metadata: { name },
+        metadata: { uid },
     } = template;
     const classes = useStyles();
     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
-    console.log(activeTemplate);
-
-    const isChecked = activeTemplate && activeTemplate.metadata.name === name;
+    const isChecked = activeTemplate && activeTemplate.metadata.uid === uid;
 
     return (
         <FormControlLabel
+            className={classes.formControl}
             control={
                 <Radio
                     onChange={event => handleTemplateClick(event, template)}
@@ -64,140 +63,137 @@ export const TemplateCard = ({
                         [classes.cardRootActive]: isChecked,
                     })}
                 >
-                    <CardContent>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12}>
-                                <Grid container spacing={1} alignItems={'center'}>
-                                    <Grid item>
-                                        <img
-                                            style={{ width: rem(40) }}
-                                            src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
-                                            alt=""
+                    <CardContent className={classes.cardContent}>
+                        <Box className={clsx(classes.cardContentRow, classes.cardContentHeader)}>
+                            <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                                <Grid item>
+                                    <img
+                                        className={classes.templateIcon}
+                                        src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
+                                        alt=""
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    <Tooltip title={displayName}>
+                                        <Typography variant={'h6'} className={classes.templateName}>
+                                            {displayName}
+                                        </Typography>
+                                    </Tooltip>
+                                </Grid>
+                                <Grid item style={{ marginLeft: 'auto', alignSelf: 'flex-start' }}>
+                                    <Typography variant={'caption'}>{version}</Typography>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                        <Box className={classes.cardContentRow}>
+                            <Grid container alignItems={'center'} spacing={1}>
+                                <Grid item>
+                                    <Tooltip title={'Language'}>
+                                        <Chip
+                                            size="small"
+                                            avatar={
+                                                <UseSpriteSymbol
+                                                    name={
+                                                        LANGUAGE_ICON_MAPPING?.[language] ||
+                                                        RESOURCE_ICON_NAMES.OTHER
+                                                    }
+                                                    width={15}
+                                                    height={15}
+                                                />
+                                            }
+                                            label={
+                                                codebaseMapping?.[language]?.language?.name ||
+                                                language
+                                            }
+                                            className={classes.chipWithRoundedAvatar}
                                         />
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant={'h5'}>{displayName}</Typography>
-                                    </Grid>
+                                    </Tooltip>
+                                </Grid>
+                                <Grid item>
+                                    <Tooltip title={'Framework'}>
+                                        <Chip
+                                            size="small"
+                                            avatar={
+                                                <UseSpriteSymbol
+                                                    name={
+                                                        FRAMEWORK_ICON_MAPPING?.[framework] ||
+                                                        RESOURCE_ICON_NAMES.OTHER
+                                                    }
+                                                    width={15}
+                                                    height={15}
+                                                />
+                                            }
+                                            label={
+                                                codebaseMapping?.[language]?.frameworks?.[framework]
+                                                    ?.name || framework
+                                            }
+                                            className={classes.chipWithRoundedAvatar}
+                                        />
+                                    </Tooltip>
+                                </Grid>
+                                <Grid item>
+                                    <Tooltip title={'Build Tool'}>
+                                        <Chip
+                                            size="small"
+                                            avatar={
+                                                <UseSpriteSymbol
+                                                    name={
+                                                        BUILD_TOOL_ICON_MAPPING?.[buildTool] ||
+                                                        RESOURCE_ICON_NAMES.OTHER
+                                                    }
+                                                    width={15}
+                                                    height={15}
+                                                />
+                                            }
+                                            label={
+                                                codebaseMapping?.[language]?.buildTools?.[buildTool]
+                                                    ?.name || buildTool
+                                            }
+                                            className={classes.chipWithRoundedAvatar}
+                                        />
+                                    </Tooltip>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Grid container alignItems={'center'} spacing={1}>
-                                    <Grid item>
-                                        <Tooltip title={'Language'}>
-                                            <Chip
-                                                size="small"
-                                                avatar={
-                                                    <UseSpriteSymbol
-                                                        name={
-                                                            LANGUAGE_ICON_MAPPING?.[language] ||
-                                                            RESOURCE_ICON_NAMES.OTHER
-                                                        }
-                                                        width={15}
-                                                        height={15}
-                                                    />
-                                                }
-                                                label={
-                                                    codebaseMapping?.[language]?.language?.name ||
-                                                    language
-                                                }
-                                            />
-                                        </Tooltip>
-                                    </Grid>
-                                    <Grid item>
-                                        <Tooltip title={'Framework'}>
-                                            <Chip
-                                                size="small"
-                                                avatar={
-                                                    <UseSpriteSymbol
-                                                        name={
-                                                            FRAMEWORK_ICON_MAPPING?.[framework] ||
-                                                            RESOURCE_ICON_NAMES.OTHER
-                                                        }
-                                                        width={15}
-                                                        height={15}
-                                                    />
-                                                }
-                                                label={
-                                                    codebaseMapping?.[language]?.frameworks?.[
-                                                        framework
-                                                    ]?.name || framework
-                                                }
-                                            />
-                                        </Tooltip>
-                                    </Grid>
-                                    <Grid item>
-                                        <Tooltip title={'Build Tool'}>
-                                            <Chip
-                                                size="small"
-                                                avatar={
-                                                    <UseSpriteSymbol
-                                                        name={
-                                                            BUILD_TOOL_ICON_MAPPING?.[buildTool] ||
-                                                            RESOURCE_ICON_NAMES.OTHER
-                                                        }
-                                                        width={15}
-                                                        height={15}
-                                                    />
-                                                }
-                                                label={
-                                                    codebaseMapping?.[language]?.buildTools?.[
-                                                        buildTool
-                                                    ]?.name || buildTool
-                                                }
-                                            />
-                                        </Tooltip>
-                                    </Grid>
+                        </Box>
+                        <Box className={classes.cardContentRow}>
+                            <Typography variant={'caption'} className={classes.templateDescription}>
+                                {description}
+                            </Typography>
+                        </Box>
+                        <Box className={classes.cardContentRow} style={{ marginTop: 'auto' }}>
+                            <Grid container spacing={1} alignItems={'center'}>
+                                <Grid item>
+                                    <Tooltip title={'Type'}>
+                                        <Chip
+                                            size={'small'}
+                                            label={type}
+                                            color={'primary'}
+                                            variant={'outlined'}
+                                        />
+                                    </Tooltip>
+                                </Grid>
+                                <Grid item>
+                                    <Tooltip title={'Category'}>
+                                        <Chip
+                                            size={'small'}
+                                            label={category}
+                                            color={'primary'}
+                                            variant={'outlined'}
+                                        />
+                                    </Tooltip>
+                                </Grid>
+                                <Grid item>
+                                    <Tooltip title={'Maturity'}>
+                                        <Chip
+                                            size={'small'}
+                                            label={maturity}
+                                            color={'primary'}
+                                            variant={'outlined'}
+                                        />
+                                    </Tooltip>
                                 </Grid>
                             </Grid>
-
-                            <Grid item xs={12}>
-                                <Typography variant={'caption'}>{description}</Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Grid container spacing={1} alignItems={'center'}>
-                                    <Grid item>
-                                        <Tooltip title={'Type'}>
-                                            <Chip
-                                                size={'small'}
-                                                label={type}
-                                                color={'primary'}
-                                                variant={'outlined'}
-                                            />
-                                        </Tooltip>
-                                    </Grid>
-                                    <Grid item>
-                                        <Tooltip title={'Category'}>
-                                            <Chip
-                                                size={'small'}
-                                                label={category}
-                                                color={'primary'}
-                                                variant={'outlined'}
-                                            />
-                                        </Tooltip>
-                                    </Grid>
-                                    <Grid item>
-                                        <Tooltip title={'Maturity'}>
-                                            <Chip
-                                                size={'small'}
-                                                label={maturity}
-                                                color={'primary'}
-                                                variant={'outlined'}
-                                            />
-                                        </Tooltip>
-                                    </Grid>
-                                    <Grid item>
-                                        <Tooltip title={'Version'}>
-                                            <Chip
-                                                size={'small'}
-                                                label={version}
-                                                color={'primary'}
-                                                variant={'outlined'}
-                                            />
-                                        </Tooltip>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
+                        </Box>
                     </CardContent>
                 </Card>
             }

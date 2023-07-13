@@ -86,7 +86,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                     }
 
                     return (
-                        <Grid container spacing={1} alignItems={'center'}>
+                        <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={
@@ -113,7 +113,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                     }
 
                     return (
-                        <Grid container spacing={1} alignItems={'center'}>
+                        <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={
@@ -143,7 +143,7 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                     }
 
                     return (
-                        <Grid container spacing={1} alignItems={'center'}>
+                        <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                             <Grid item>
                                 <UseSpriteSymbol
                                     name={

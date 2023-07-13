@@ -37,10 +37,10 @@ export const TemplatesTable = ({
                         data.length &&
                         data.map(row => {
                             const {
-                                metadata: { name },
+                                metadata: { uid },
                             } = row;
                             const isItemSelected =
-                                activeTemplate && activeTemplate.metadata.name === name;
+                                activeTemplate && activeTemplate.metadata.uid === uid;
 
                             return (
                                 <TableRow
@@ -48,7 +48,7 @@ export const TemplatesTable = ({
                                     role="radio"
                                     aria-checked={isItemSelected}
                                     tabIndex={-1}
-                                    key={name}
+                                    key={uid}
                                     selected={isItemSelected}
                                     onClick={event => handleTemplateClick(event, row)}
                                     style={

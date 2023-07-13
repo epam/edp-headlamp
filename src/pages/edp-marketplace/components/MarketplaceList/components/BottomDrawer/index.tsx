@@ -1,5 +1,13 @@
 import { Icon } from '@iconify/react';
-import { Button, Grid, IconButton, Link, SwipeableDrawer, Typography } from '@material-ui/core';
+import {
+    Button,
+    Grid,
+    IconButton,
+    Link,
+    SwipeableDrawer,
+    Tooltip,
+    Typography,
+} from '@material-ui/core';
 import React from 'react';
 import { MappedProperties } from '../../../../../../components/MappedProperties';
 import {
@@ -33,12 +41,13 @@ export const BottomDrawer = ({ activeTemplate, drawerOpen, toggleDrawer }: Botto
                     <Grid item xs={12}>
                         <Grid
                             container
-                            spacing={1}
+                            spacing={2}
                             alignItems={'center'}
                             justifyContent={'space-between'}
+                            wrap={'nowrap'}
                         >
                             <Grid item xs={10}>
-                                <Grid container spacing={1} alignItems={'center'}>
+                                <Grid container spacing={2} alignItems={'center'} wrap={'nowrap'}>
                                     <Grid item>
                                         <img
                                             style={{ width: rem(40) }}
@@ -47,13 +56,18 @@ export const BottomDrawer = ({ activeTemplate, drawerOpen, toggleDrawer }: Botto
                                         />
                                     </Grid>
                                     <Grid item>
-                                        <Typography variant={'h5'}>
-                                            {activeTemplate?.spec.displayName}
-                                        </Typography>
+                                        <Tooltip title={activeTemplate?.spec.displayName}>
+                                            <Typography
+                                                variant={'h5'}
+                                                className={classes.templateName}
+                                            >
+                                                {activeTemplate?.spec.displayName}
+                                            </Typography>
+                                        </Tooltip>
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item>
+                            <Grid item style={{ alignSelf: 'flex-start' }}>
                                 <IconButton onClick={e => toggleDrawer(e, false)}>
                                     <Icon icon={ICONS.CROSS} />
                                 </IconButton>
@@ -182,15 +196,6 @@ export const BottomDrawer = ({ activeTemplate, drawerOpen, toggleDrawer }: Botto
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant={'body1'} gutterBottom>
-                                    Keywords
-                                </Typography>
-                                <MappedProperties
-                                    properties={activeTemplate?.spec.keywords}
-                                    variant={'inline'}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography variant={'body1'} gutterBottom>
                                     Maintainers
                                 </Typography>
                                 {activeTemplate?.spec.maintainers.map(maintainer => {
@@ -215,6 +220,15 @@ export const BottomDrawer = ({ activeTemplate, drawerOpen, toggleDrawer }: Botto
                                         </Typography>
                                     );
                                 })}
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant={'body1'} gutterBottom>
+                                    Keywords
+                                </Typography>
+                                <MappedProperties
+                                    properties={activeTemplate?.spec.keywords}
+                                    variant={'inline'}
+                                />
                             </Grid>
                         </Grid>
                     </Grid>
