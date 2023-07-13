@@ -4,7 +4,7 @@ export const CODEBASE_COMMON_LANGUAGES = {
     DOTNET: 'dotnet',
     PYTHON: 'python',
     GROOVY_PIPELINE: 'groovy-pipeline',
-    TERRAFORM: 'terraform',
+    HCL: 'hcl',
     REGO: 'rego',
     CONTAINER: 'container',
     HELM: 'helm',

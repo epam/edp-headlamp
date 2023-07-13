@@ -17,7 +17,7 @@ export type LibraryLanguageKeys =
     | typeof CODEBASE_COMMON_LANGUAGES.DOTNET
     | typeof CODEBASE_COMMON_LANGUAGES.PYTHON
     | typeof CODEBASE_COMMON_LANGUAGES.GROOVY_PIPELINE
-    | typeof CODEBASE_COMMON_LANGUAGES.TERRAFORM
+    | typeof CODEBASE_COMMON_LANGUAGES.HCL
     | typeof CODEBASE_COMMON_LANGUAGES.REGO
     | typeof CODEBASE_COMMON_LANGUAGES.CONTAINER
     | typeof CODEBASE_COMMON_LANGUAGES.HELM
@@ -187,11 +187,11 @@ export const LIBRARY_MAPPING: LibraryMapping = {
             },
         },
     },
-    [CODEBASE_COMMON_LANGUAGES.TERRAFORM]: {
+    [CODEBASE_COMMON_LANGUAGES.HCL]: {
         language: {
-            name: 'Terraform',
-            value: CODEBASE_COMMON_LANGUAGES.TERRAFORM,
-            icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.TERRAFORM],
+            name: 'HCL',
+            value: CODEBASE_COMMON_LANGUAGES.HCL,
+            icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.HCL],
             availableCITools: [CI_TOOLS.JENKINS, CI_TOOLS.TEKTON],
         },
         frameworks: {
@@ -396,7 +396,7 @@ export const getLibraryRecommendedJenkinsAgent = (
             return 'python-3.8';
         case LIBRARY_MAPPING[CODEBASE_COMMON_LANGUAGES.GROOVY_PIPELINE].language.value:
             return 'codenarc';
-        case LIBRARY_MAPPING[CODEBASE_COMMON_LANGUAGES.TERRAFORM].language.value:
+        case LIBRARY_MAPPING[CODEBASE_COMMON_LANGUAGES.HCL].language.value:
             return 'terraform';
         case LIBRARY_MAPPING[CODEBASE_COMMON_LANGUAGES.REGO].language.value:
             return 'opa';
