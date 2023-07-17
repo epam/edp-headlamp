@@ -2,8 +2,8 @@ import { ErrorMessage } from '@hookform/error-message';
 import { Checkbox, FormControl, FormControlLabel, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { rem } from '../../../utils/styling/rem';
-import { Render } from '../../Render';
+import { Render } from '../../../../components/Render';
+import { rem } from '../../../../utils/styling/rem';
 import { FormCheckboxProps } from './types';
 
 export const FormCheckbox = React.forwardRef(

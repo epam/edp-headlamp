@@ -10,7 +10,6 @@ export const createCodebaseInstance = (
     names: {
         [key: string]: FormNameObject;
     },
-    type: string,
     formValues: {
         [key: string]: any;
     }
@@ -20,11 +19,8 @@ export const createCodebaseInstance = (
     const base: DeepPartial<EDPCodebaseKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,
         kind,
-        spec: {
-            type,
-        },
         metadata: {
-            name: name || `your ${type} name`,
+            name: name || 'your codebase name',
         },
     };
 

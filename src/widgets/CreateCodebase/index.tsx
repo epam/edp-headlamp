@@ -30,13 +30,13 @@ import { useHandleEditorSave } from '../../hooks/useHandleEditorSave';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useCreateCodebase } from '../../k8s/EDPCodebase/hooks/useCreateCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { MainRadioGroup } from '../../providers/Form/components/MainRadioGroup';
 import { FieldEvent, FieldEventTarget, FormNameObject } from '../../types/forms';
 import { DeepPartial } from '../../types/global';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { rem } from '../../utils/styling/rem';
 import { AdvancedSettings } from './components/AdvancedSettings';
 import { CodebaseInfo } from './components/CodebaseInfo';
-import { MainRadioGroup } from './components/MainRadioGroup';
 import { TabPanel } from './components/TabPanel';
 import { FORM_PART_ADVANCED_SETTINGS, FORM_PART_CODEBASE_INFO, TAB_INDEXES } from './constants';
 import { useCodebaseCreationStrategies } from './hooks/useCodebaseCreationStrategies';
@@ -175,7 +175,7 @@ export const CreateCodebase = ({ createDialogOpen, setCreateDialogOpen }: Create
         resetField,
     });
 
-    const { editorReturnValues } = useEditorCode({ names, formValues, type: typeFieldValue });
+    const { editorReturnValues } = useEditorCode({ names, formValues });
 
     const onEditorSave = React.useCallback(
         (editorReturnValues: EDPCodebaseKubeObjectInterface) => {

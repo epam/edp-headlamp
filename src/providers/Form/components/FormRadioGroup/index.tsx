@@ -11,8 +11,8 @@ import {
 import clsx from 'clsx';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { FormControlLabelWithTooltip } from '../../../../components/FormComponents';
 import { Render } from '../../../../components/Render';
+import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { useStyles } from './styles';
 import { FormRadioProps } from './types';
 

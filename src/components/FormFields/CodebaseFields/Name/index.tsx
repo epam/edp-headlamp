@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormTextField } from '../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../types/forms';
-import { FormTextField } from '../../../FormComponents';
 import { NameProps } from './types';
 
 export const Name = ({ names, handleFormFieldChange }: NameProps) => {
@@ -22,6 +22,7 @@ export const Name = ({ names, handleFormFieldChange }: NameProps) => {
                     message: nameRequirementLabel,
                 },
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
+                    handleFormFieldChange &&
                     handleFormFieldChange({
                         name,
                         value: typeof value === 'string' ? value.trim() : value,

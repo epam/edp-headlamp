@@ -18,14 +18,18 @@ import {
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { RESOURCE_ICON_NAMES } from '../../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../../icons/UseSpriteSymbol';
+import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getCodebaseMappingByCodebaseType } from '../../../../../../utils/getCodebaseMappingByCodebaseType';
 import { rem } from '../../../../../../utils/styling/rem';
+import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../../../../../widgets/CreateCodebaseFromTemplate/constants';
+import { CreateCodebaseFromTemplateDialogForwardedProps } from '../../../../../../widgets/CreateCodebaseFromTemplate/types';
 import { useStyles } from './styles';
 import { BottomDrawerProps } from './types';
 
 export const BottomDrawer = ({ activeTemplate, drawerOpen, toggleDrawer }: BottomDrawerProps) => {
     const classes = useStyles();
     const codebaseMapping = getCodebaseMappingByCodebaseType(activeTemplate?.spec.type);
+    const { setDialog } = useDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>();
 
     return (
         <SwipeableDrawer
@@ -75,7 +79,20 @@ export const BottomDrawer = ({ activeTemplate, drawerOpen, toggleDrawer }: Botto
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button color={'primary'} variant={'contained'} size={'small'}>
+                        <Button
+                            color={'primary'}
+                            variant={'contained'}
+                            size={'small'}
+                            onClick={e => {
+                                toggleDrawer(e, false);
+                                setDialog({
+                                    modalName: CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME,
+                                    forwardedProps: {
+                                        template: activeTemplate,
+                                    },
+                                });
+                            }}
+                        >
                             create from template
                         </Button>
                     </Grid>

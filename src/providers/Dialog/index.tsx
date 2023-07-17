@@ -12,19 +12,22 @@ const renderModal = (activeDialog: ActiveDialog) => {
 };
 
 export const DialogContextProvider: React.FC = ({ children }) => {
-    const [activeDialog, setActiveDialog] = React.useState<ActiveDialog>({
+    const [activeDialog, setActiveDialog] = React.useState<ActiveDialog<null>>({
         modalName: null,
         forwardedProps: null,
         open: false,
     });
 
-    const setDialog = React.useCallback(({ modalName, forwardedProps = {} }: ActiveDialog) => {
-        setActiveDialog({
-            modalName,
-            forwardedProps,
-            open: true,
-        });
-    }, []);
+    const setDialog = React.useCallback(
+        ({ modalName, forwardedProps = null }: ActiveDialog<null>) => {
+            setActiveDialog({
+                modalName,
+                forwardedProps,
+                open: true,
+            });
+        },
+        []
+    );
 
     const openDialog = React.useCallback(() => {
         setActiveDialog(prevState => ({

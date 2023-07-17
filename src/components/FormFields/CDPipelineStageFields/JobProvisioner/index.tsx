@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useCDPipelineProvisionersQuery } from '../../../../k8s/Jenkins/hooks/useCDPipelineProvisionersQuery';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
-import { FormSelect } from '../../../FormComponents';
 import { JobProvisionerProps } from './types';
 
 export const JobProvisioner = ({ names, handleFormFieldChange }: JobProvisionerProps) => {

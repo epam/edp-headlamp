@@ -1,9 +1,9 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useJenkinsAgentsQuery } from '../../../../k8s/Jenkins/hooks/useJenkinsAgentsQuery';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { FormSelect } from '../../../FormComponents';
 import { JenkinsAgentProps } from './types';
 
 export const JenkinsAgent = ({ names, handleFormFieldChange }: JenkinsAgentProps) => {

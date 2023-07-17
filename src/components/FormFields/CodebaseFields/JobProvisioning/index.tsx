@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useCIPipelineProvisionersQuery } from '../../../../k8s/Jenkins/hooks/useCIPipelineProvisionersQuery';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
-import { FormSelect } from '../../../FormComponents';
 import { JobProvisioningProps } from './types';
 
 export const JobProvisioning = ({ names, handleFormFieldChange }: JobProvisioningProps) => {

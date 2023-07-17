@@ -1,9 +1,9 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { FormSelect } from '../../../FormComponents';
 import { JiraServerProps } from './types';
 
 export const JiraServer = ({ names, handleFormFieldChange }: JiraServerProps) => {

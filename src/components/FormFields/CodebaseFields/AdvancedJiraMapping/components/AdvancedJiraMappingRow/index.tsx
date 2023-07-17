@@ -3,7 +3,7 @@ import { Button, FormControl, Grid, TextField, useTheme } from '@material-ui/cor
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { FormTextField } from '../../../../../FormComponents';
+import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { createAdvancedMappingRowName } from '../../constants';
 import { AdvancedJiraMappingRowProps } from './types';
 

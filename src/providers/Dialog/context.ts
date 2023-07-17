@@ -1,7 +1,7 @@
 import React from 'react';
 import { DialogContextProviderValue } from './types';
 
-export const DialogContext = React.createContext<DialogContextProviderValue>({
+export const DialogContext = React.createContext<DialogContextProviderValue<null>>({
     activeDialog: {
         modalName: null,
         forwardedProps: null,

@@ -2,8 +2,8 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { GIT_SERVERS } from '../../../../constants/gitServers';
 import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
+import { FormTextField } from '../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../types/forms';
-import { FormTextField } from '../../../FormComponents';
 import { RepositoryUrlProps } from './types';
 
 export const RepositoryUrl = ({ names, handleFormFieldChange }: RepositoryUrlProps) => {

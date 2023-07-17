@@ -1,7 +1,8 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormCheckbox } from '../../../../providers/Form/components/FormCheckbox';
+import { FormControlLabelWithTooltip } from '../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FieldEvent } from '../../../../types/forms';
-import { FormCheckbox, FormControlLabelWithTooltip } from '../../../FormComponents';
 import { CodebaseAuthProps } from './types';
 
 export const CodebaseAuth = ({ names, handleFormFieldChange }: CodebaseAuthProps) => {

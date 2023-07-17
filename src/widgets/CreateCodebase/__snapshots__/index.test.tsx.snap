@@ -2021,7 +2021,7 @@ exports[`CreateCodebase codebase type - application should render correctly 1`] 
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
                     >
                       <div
                         class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -4247,7 +4247,7 @@ exports[`CreateCodebase codebase type - autotest should render correctly 1`] = `
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
                     >
                       <div
                         class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -6473,7 +6473,7 @@ exports[`CreateCodebase codebase type - library should render correctly 1`] = `
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
                     >
                       <div
                         class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"

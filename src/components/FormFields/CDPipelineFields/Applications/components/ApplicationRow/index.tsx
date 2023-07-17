@@ -3,13 +3,11 @@ import { Button, Grid, useTheme } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
+import { FormCheckbox } from '../../../../../../providers/Form/components/FormCheckbox';
+import { FormControlLabelWithTooltip } from '../../../../../../providers/Form/components/FormControlLabelWithTooltip';
+import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
+import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent, FieldEventTarget } from '../../../../../../types/forms';
-import { FormSelect } from '../../../../../FormComponents';
-import {
-    FormCheckbox,
-    FormControlLabelWithTooltip,
-    FormTextField,
-} from '../../../../../FormComponents';
 import { createApplicationRowName } from '../../constants';
 import { useStyles } from './styles';
 import { ApplicationRowProps } from './types';

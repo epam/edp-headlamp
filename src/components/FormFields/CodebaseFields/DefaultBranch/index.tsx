@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormTextField } from '../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../types/forms';
-import { FormTextField } from '../../../FormComponents';
 import { DefaultBranchProps } from './types';
 
 export const DefaultBranch = ({ names, handleFormFieldChange }: DefaultBranchProps) => {
@@ -20,7 +20,7 @@ export const DefaultBranch = ({ names, handleFormFieldChange }: DefaultBranchPro
                     message: 'Enter valid default branch name',
                 },
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
-                    handleFormFieldChange({ name, value }),
+                    handleFormFieldChange && handleFormFieldChange({ name, value }),
             })}
             label={'Default branch'}
             title={'Enter a new or existing branch name'}

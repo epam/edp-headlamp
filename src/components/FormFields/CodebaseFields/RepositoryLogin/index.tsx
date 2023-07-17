@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormTextField } from '../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../types/forms';
-import { FormTextField } from '../../../FormComponents';
 import { RepositoryLoginProps } from './types';
 
 export const RepositoryLogin = ({ names, handleFormFieldChange }: RepositoryLoginProps) => {

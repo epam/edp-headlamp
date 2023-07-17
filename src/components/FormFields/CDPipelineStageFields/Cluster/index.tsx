@@ -2,8 +2,8 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { DEFAULT_CLUSTER } from '../../../../constants/clusters';
 import { useClusterSecretListQuery } from '../../../../k8s/Secret/hooks/useClusterSecretListQuery';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
-import { FormSelect } from '../../../FormComponents';
 import { ClusterProps } from './types';
 
 const defaultClusterOption = {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
-import { FormSelect } from '../../../FormComponents';
 import { GitServerProps } from './types';
 
 export const GitServer = ({ names, handleFormFieldChange }: GitServerProps) => {
@@ -23,7 +23,7 @@ export const GitServer = ({ names, handleFormFieldChange }: GitServerProps) => {
             {...register(names.gitServer.name, {
                 required: 'Select an existing Git server',
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
-                    handleFormFieldChange({ name, value }),
+                    handleFormFieldChange && handleFormFieldChange({ name, value }),
             })}
             label={'Git server'}
             title={'Select an existing Git server'}

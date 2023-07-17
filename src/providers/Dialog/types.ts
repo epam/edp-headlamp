@@ -1,19 +1,19 @@
 import { MODAL_MAPPING } from './mapping';
 
-export interface ActiveDialog {
+export interface ActiveDialog<ForwardedPropsType = {}> {
     modalName: keyof typeof MODAL_MAPPING;
-    forwardedProps?: any;
+    forwardedProps?: ForwardedPropsType;
     open: boolean;
 }
 
-export interface DialogContextProviderValue {
-    activeDialog: ActiveDialog;
+export interface DialogContextProviderValue<ForwardedPropsType> {
+    activeDialog: ActiveDialog<ForwardedPropsType>;
     setDialog: ({
         modalName,
-        forwardedProps = {},
+        forwardedProps,
     }: {
         modalName: ActiveDialog['modalName'];
-        forwardedProps?: ActiveDialog['forwardedProps'];
+        forwardedProps?: ForwardedPropsType;
     }) => void;
     openDialog: () => void;
     closeDialog: () => void;

@@ -1,8 +1,8 @@
 import { InputAdornment } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormTextField } from '../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../types/forms';
-import { FormTextField } from '../../../FormComponents';
 import { GitUrlPathProps } from './types';
 
 // relative path should always start with slash
@@ -25,6 +25,7 @@ export const GitUrlPath = ({ names, handleFormFieldChange }: GitUrlPathProps) =>
                     message: 'Enter valid relative path to repository',
                 },
                 onBlur: ({ target: { name, value } }: FieldEvent) =>
+                    handleFormFieldChange &&
                     handleFormFieldChange({
                         name,
                         value: value ? `${slashSymbol}${value}` : undefined,

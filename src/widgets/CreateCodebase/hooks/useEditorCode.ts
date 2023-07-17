@@ -8,17 +8,15 @@ interface UseEditorCodeProps {
     formValues: {
         [key: string]: any;
     };
-    type: string;
 }
 
 export const useEditorCode = ({
     names,
     formValues,
-    type,
 }: UseEditorCodeProps): { editorReturnValues: EDPCodebaseKubeObjectInterface } => {
     const editorReturnValues = React.useMemo(() => {
-        return createCodebaseInstance(names, type, formValues) as EDPCodebaseKubeObjectInterface;
-    }, [formValues, names, type]);
+        return createCodebaseInstance(names, formValues) as EDPCodebaseKubeObjectInterface;
+    }, [formValues, names]);
 
     return { editorReturnValues };
 };

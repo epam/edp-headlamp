@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { testReportFrameworkSelectOptions } from '../../../../configs/select-options/testReportFrameworks';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
-import { FormSelect } from '../../../FormComponents';
 import { TestReportFrameworkProps } from './types';
 
 export const TestReportFramework = ({ names, handleFormFieldChange }: TestReportFrameworkProps) => {

@@ -5,7 +5,7 @@ import { createCodebaseInstance } from './index';
 describe('testing createCodebaseExample', () => {
     describe('codebase type: application', () => {
         it('should return valid kube object', () => {
-            const object = createCodebaseInstance(CODEBASE_NAMES, CODEBASE_TYPES['APPLICATION'], {
+            const object = createCodebaseInstance(CODEBASE_NAMES, {
                 strategy: 'create',
                 gitServer: 'gerrit',
                 ciTool: 'jenkins',
@@ -20,6 +20,7 @@ describe('testing createCodebaseExample', () => {
                 versioningStartFrom: '0.0.0-SNAPSHOT',
                 deploymentScript: 'helm-chart',
                 name: 'test',
+                type: CODEBASE_TYPES.APPLICATION,
             });
 
             expect(object).toMatchObject({
@@ -46,7 +47,7 @@ describe('testing createCodebaseExample', () => {
     });
     describe('codebase type: library', () => {
         it('should return valid kube object', () => {
-            const object = createCodebaseInstance(CODEBASE_NAMES, CODEBASE_TYPES['LIBRARY'], {
+            const object = createCodebaseInstance(CODEBASE_NAMES, {
                 strategy: 'create',
                 gitServer: 'gerrit',
                 ciTool: 'jenkins',
@@ -61,6 +62,7 @@ describe('testing createCodebaseExample', () => {
                 versioningStartFrom: '0.0.0-SNAPSHOT',
                 deploymentScript: 'helm-chart',
                 name: 'test',
+                type: CODEBASE_TYPES.LIBRARY,
             });
 
             expect(object).toMatchObject({
@@ -87,7 +89,7 @@ describe('testing createCodebaseExample', () => {
     });
     describe('codebase type: autotest', () => {
         it('should return valid kube object', () => {
-            const object = createCodebaseInstance(CODEBASE_NAMES, CODEBASE_TYPES['AUTOTEST'], {
+            const object = createCodebaseInstance(CODEBASE_NAMES, {
                 strategy: 'clone',
                 gitServer: 'gerrit',
                 ciTool: 'jenkins',
@@ -103,6 +105,7 @@ describe('testing createCodebaseExample', () => {
                 jobProvisioning: 'default',
                 versioningType: 'edp',
                 versioningStartFrom: '0.0.0-SNAPSHOT',
+                type: CODEBASE_TYPES.AUTOTEST,
             });
 
             expect(object).toMatchObject({

@@ -2,7 +2,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { FormControl, Grid, TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Render } from '../../Render';
+import { Render } from '../../../../components/Render';
 import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { FormTextFieldProps } from './types';
 

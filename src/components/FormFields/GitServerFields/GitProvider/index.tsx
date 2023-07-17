@@ -5,8 +5,8 @@ import { gitProviderOptions } from '../../../../configs/select-options/gitProvid
 import { Resources } from '../../../../icons/sprites/Resources';
 import { RESOURCE_ICON_NAMES } from '../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
+import { FormRadioGroup } from '../../../../providers/Form/components/FormRadioGroup';
 import { FieldEvent } from '../../../../types/forms';
-import { FormRadioGroup } from '../../../FormComponents';
 import { GitProviderProps } from './types';
 
 export const GitProvider = ({ names, handleFormFieldChange }: GitProviderProps) => {

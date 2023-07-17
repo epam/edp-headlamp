@@ -3,68 +3,70 @@ import { FORM_PART_CODEBASE_INFO } from '../CreateCodebase/constants';
 
 const LABEL_CODEBASE_NAME = 'app.edp.epam.com/codebaseName';
 
-const NAME_NAME = 'name' as const;
-const NAME_NAMESPACE = 'namespace' as const;
-const NAME_CODEBASE_NAME = 'codebaseName' as const;
-const NAME_BRANCH_VERSION_START = 'branchVersionStart' as const;
-const NAME_BRANCH_VERSION_POSTFIX = 'branchVersionPostfix' as const;
-const NAME_DEFAULT_BRANCH_VERSION_START = 'defaultBranchVersionStart' as const;
-const NAME_DEFAULT_BRANCH_VERSION_POSTFIX = 'defaultBranchVersionPostfix' as const;
-const NAME_BRANCH_NAME = 'branchName' as const;
-const NAME_FROM_COMMIT = 'fromCommit' as const;
-const NAME_RELEASE = 'release' as const;
-const NAME_VERSION = 'version' as const;
-const NAME_CODEBASE_NAME_LABEL = 'codebaseNameLabel' as const;
+const NAMES = {
+    NAME: 'name',
+    NAMESPACE: 'namespace',
+    CODEBASE_NAME: 'codebaseName',
+    BRANCH_VERSION_START: 'branchVersionStart',
+    BRANCH_VERSION_POSTFIX: 'branchVersionPostfix',
+    DEFAULT_BRANCH_VERSION_START: 'defaultBranchVersionStart',
+    DEFAULT_BRANCH_VERSION_POSTFIX: 'defaultBranchVersionPostfix',
+    BRANCH_NAME: 'branchName',
+    FROM_COMMIT: 'fromCommit',
+    RELEASE: 'release',
+    VERSION: 'version',
+    CODEBASE_NAME_LABEL: 'codebaseNameLabel',
+} as const;
 
 export const CODEBASE_BRANCH_FORM_NAMES = {
-    [NAME_BRANCH_VERSION_START]: {
-        name: NAME_BRANCH_VERSION_START,
+    [NAMES.BRANCH_VERSION_START]: {
+        name: NAMES.BRANCH_VERSION_START,
         notUsedInFormData: true,
     },
-    [NAME_BRANCH_VERSION_POSTFIX]: {
-        name: NAME_BRANCH_VERSION_POSTFIX,
+    [NAMES.BRANCH_VERSION_POSTFIX]: {
+        name: NAMES.BRANCH_VERSION_POSTFIX,
         notUsedInFormData: true,
     },
-    [NAME_DEFAULT_BRANCH_VERSION_START]: {
-        name: NAME_DEFAULT_BRANCH_VERSION_START,
+    [NAMES.DEFAULT_BRANCH_VERSION_START]: {
+        name: NAMES.DEFAULT_BRANCH_VERSION_START,
         notUsedInFormData: true,
     },
-    [NAME_DEFAULT_BRANCH_VERSION_POSTFIX]: {
-        name: NAME_DEFAULT_BRANCH_VERSION_POSTFIX,
+    [NAMES.DEFAULT_BRANCH_VERSION_POSTFIX]: {
+        name: NAMES.DEFAULT_BRANCH_VERSION_POSTFIX,
         notUsedInFormData: true,
     },
-    [NAME_CODEBASE_NAME]: {
-        name: NAME_CODEBASE_NAME,
+    [NAMES.CODEBASE_NAME]: {
+        name: NAMES.CODEBASE_NAME,
         path: ['spec', 'codebaseName'],
         notUsedInFormData: true,
     },
-    [NAME_NAMESPACE]: {
-        name: NAME_NAMESPACE,
+    [NAMES.NAMESPACE]: {
+        name: NAMES.NAMESPACE,
         path: ['metadata', 'namespace'],
         notUsedInFormData: true,
     },
-    [NAME_NAME]: {
-        name: NAME_NAME,
+    [NAMES.NAME]: {
+        name: NAMES.NAME,
         path: ['metadata', 'name'],
     },
-    [NAME_BRANCH_NAME]: {
-        name: NAME_BRANCH_NAME,
+    [NAMES.BRANCH_NAME]: {
+        name: NAMES.BRANCH_NAME,
         path: ['spec', 'branchName'],
     },
-    [NAME_FROM_COMMIT]: {
-        name: NAME_FROM_COMMIT,
+    [NAMES.FROM_COMMIT]: {
+        name: NAMES.FROM_COMMIT,
         path: ['spec', 'fromCommit'],
     },
-    [NAME_RELEASE]: {
-        name: NAME_RELEASE,
+    [NAMES.RELEASE]: {
+        name: NAMES.RELEASE,
         path: ['spec', 'release'],
     },
-    [NAME_VERSION]: {
-        name: NAME_VERSION,
+    [NAMES.VERSION]: {
+        name: NAMES.VERSION,
         path: ['spec', 'version'],
     },
-    [NAME_CODEBASE_NAME_LABEL]: {
-        name: NAME_CODEBASE_NAME_LABEL,
+    [NAMES.CODEBASE_NAME_LABEL]: {
+        name: NAMES.CODEBASE_NAME_LABEL,
         formPart: FORM_PART_CODEBASE_INFO,
         path: ['metadata', 'labels', LABEL_CODEBASE_NAME],
     },
@@ -74,7 +76,7 @@ export const CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING: BackwardNameMapping = {
     labels: {
         children: {
             [LABEL_CODEBASE_NAME]: {
-                formItemName: NAME_CODEBASE_NAME_LABEL,
+                formItemName: NAMES.CODEBASE_NAME_LABEL,
             },
         },
     },

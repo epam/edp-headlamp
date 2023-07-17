@@ -1,8 +1,8 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { SelectOption } from '../../../../types/forms';
-import { FormSelect } from '../../../FormComponents';
 import { Render } from '../../../Render';
 import { AdvancedJiraMappingRow } from './components/AdvancedJiraMappingRow';
 import { advancedMappingBase } from './constants';

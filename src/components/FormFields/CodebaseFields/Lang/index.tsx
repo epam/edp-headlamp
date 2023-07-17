@@ -9,11 +9,11 @@ import { CI_TOOLS } from '../../../../constants/ciTools';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
+import { FormRadioGroup } from '../../../../providers/Form/components/FormRadioGroup';
+import { FormRadioOption } from '../../../../providers/Form/components/FormRadioGroup/types';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
-import { FormRadioOption } from '../../../../widgets/CreateCodebase/components/FormRadioGroup/types';
 import { getRecommendedJenkinsAgent } from '../../../../widgets/CreateCodebase/utils';
-import { FormRadioGroup } from '../../../FormComponents';
 import { LangProps } from './types';
 
 export const Lang = ({ names, handleFormFieldChange }: LangProps) => {

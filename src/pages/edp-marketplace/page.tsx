@@ -1,6 +1,7 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../../components/ErrorBoundary';
+import { DialogContextProvider } from '../../providers/Dialog';
 import { ViewModeContextProvider } from '../../providers/ViewMode';
 import { PageView } from './view';
 
@@ -19,7 +20,9 @@ export default function () {
         <QueryClientProvider client={queryClient}>
             <ErrorBoundary>
                 <ViewModeContextProvider entityID={'marketplace'}>
-                    <PageView />
+                    <DialogContextProvider>
+                        <PageView />
+                    </DialogContextProvider>
                 </ViewModeContextProvider>
             </ErrorBoundary>
         </QueryClientProvider>

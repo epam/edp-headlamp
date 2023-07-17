@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { triggerTypeSelectOptions } from '../../../../configs/select-options/triggerTypes';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
-import { FormSelect } from '../../../FormComponents';
 import { TriggerTypeProps } from './types';
 
 export const TriggerType = ({ names, handleFormFieldChange }: TriggerTypeProps) => {

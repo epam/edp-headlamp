@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormCheckbox, FormControlLabelWithTooltip } from '../../../../components/FormComponents';
+import { FormCheckbox } from '../../../../providers/Form/components/FormCheckbox';
+import { FormControlLabelWithTooltip } from '../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FieldEvent } from '../../../../types/forms';
 import { createReleaseNameString } from '../../../../utils/createReleaseNameString';
 import { createVersioningString } from '../../../../utils/createVersioningString';

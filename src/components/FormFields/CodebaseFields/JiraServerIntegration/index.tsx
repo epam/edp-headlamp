@@ -3,8 +3,9 @@ import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useJiraServerNameListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
+import { FormCheckbox } from '../../../../providers/Form/components/FormCheckbox';
+import { FormControlLabelWithTooltip } from '../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FieldEvent } from '../../../../types/forms';
-import { FormCheckbox, FormControlLabelWithTooltip } from '../../../FormComponents';
 import { Render } from '../../../Render';
 import { JiraServerIntegrationProps } from './types';
 

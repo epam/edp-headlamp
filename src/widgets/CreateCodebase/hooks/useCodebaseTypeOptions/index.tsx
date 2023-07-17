@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import React from 'react';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
-import { MainRadioGroupOption } from '../../components/MainRadioGroup/types';
+import { MainRadioGroupOption } from '../../../../providers/Form/components/MainRadioGroup/types';
 
 export const useCodebaseTypeOptions = (): MainRadioGroupOption[] => {
     return [

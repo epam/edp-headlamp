@@ -14,7 +14,7 @@ export const TableHeaderActions = ({ kubeObjectData }: TableHeaderActionsProps) 
         <>
             <Tooltip title={'Create branch'}>
                 <Button
-                    startIcon={<Icon icon={ICONS['DOCUMENT_ADD']} />}
+                    startIcon={<Icon icon={ICONS.DOCUMENT_ADD} />}
                     onClick={() => setCreateDialogOpen(true)}
                 >
                     <Typography>Create</Typography>

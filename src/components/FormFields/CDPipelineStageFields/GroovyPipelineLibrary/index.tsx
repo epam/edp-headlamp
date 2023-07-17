@@ -1,8 +1,8 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent, SelectOption } from '../../../../types/forms';
-import { FormSelect } from '../../../FormComponents';
 import { Render } from '../../../Render';
 import { useGroovyLibrariesWithBranches } from './hooks/useGroovyLibrariesWithBranches';
 import { GroovyPipelineLibraryProps } from './types';

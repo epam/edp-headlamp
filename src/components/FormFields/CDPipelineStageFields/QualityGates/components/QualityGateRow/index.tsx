@@ -3,8 +3,8 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { qualityGateTypeSelectOptions } from '../../../../../../configs/select-options/qualityGateTypes';
 import { QUALITY_GATE_TYPES } from '../../../../../../constants/qualityGateTypes';
-import { FormSelect } from '../../../../../FormComponents';
-import { FormTextField } from '../../../../../FormComponents';
+import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
+import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { Render } from '../../../../../Render';
 import {
     createQualityGateAutotestFieldName,

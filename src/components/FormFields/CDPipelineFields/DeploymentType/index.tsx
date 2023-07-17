@@ -2,8 +2,8 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { deploymentTypeSelectOptions } from '../../../../configs/select-options/deploymentTypes';
+import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
-import { FormSelect } from '../../../FormComponents';
 import { DeploymentTypeProps } from './types';
 
 export const DeploymentType = ({ names, handleFormFieldChange }: DeploymentTypeProps) => {

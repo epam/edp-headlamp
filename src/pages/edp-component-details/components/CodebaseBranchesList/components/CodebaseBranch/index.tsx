@@ -13,7 +13,6 @@ import {
 import clsx from 'clsx';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormSelect } from '../../../../../../components/FormComponents';
 import { HeadlampNameValueTable } from '../../../../../../components/HeadlampNameValueTable';
 import { HeadlampSimpleTable } from '../../../../../../components/HeadlampSimpleTable';
 import { Render } from '../../../../../../components/Render';
@@ -32,6 +31,7 @@ import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
 import { useCreateBuildPipelineRun } from '../../../../../../k8s/PipelineRun/hooks/useCreateBuildPipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
 import { useStorageSizeQuery } from '../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
+import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { useResourceActionListContext } from '../../../../../../providers/ResourceActionList/hooks';
 import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
 import { parseTektonResourceStatus } from '../../../../../../utils/parseTektonResourceStatus';

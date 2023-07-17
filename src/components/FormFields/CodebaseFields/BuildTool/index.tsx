@@ -3,12 +3,12 @@ import { useFormContext } from 'react-hook-form';
 import { CODEBASE_COMMON_LANGUAGES } from '../../../../configs/codebase-mappings';
 import { CI_TOOLS } from '../../../../constants/ciTools';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
+import { FormRadioGroup } from '../../../../providers/Form/components/FormRadioGroup';
+import { FormRadioOption } from '../../../../providers/Form/components/FormRadioGroup/types';
+import { FormTextField } from '../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../types/forms';
-import { FormRadioOption } from '../../../../widgets/CreateCodebase/components/FormRadioGroup/types';
 import { useChosenCodebaseLanguage } from '../../../../widgets/CreateCodebase/hooks/useChosenCodebaseLanguage';
 import { getRecommendedJenkinsAgent } from '../../../../widgets/CreateCodebase/utils';
-import { FormRadioGroup } from '../../../FormComponents';
-import { FormTextField } from '../../../FormComponents';
 import { BuildToolProps } from './types';
 
 export const BuildTool = ({ names, handleFormFieldChange }: BuildToolProps) => {

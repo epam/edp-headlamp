@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FormTextField } from '../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../types/forms';
-import { FormTextField } from '../../../FormComponents';
 import { SSHPrivateKeyProps } from './types';
 
 export const SSHPrivateKey = ({ names, handleFormFieldChange }: SSHPrivateKeyProps) => {
