@@ -222,6 +222,7 @@ export const CreateCodebase = ({ createDialogOpen, setCreateDialogOpen }: Create
                 [names.strategy.name]: undefined,
                 [names.type.name]: undefined,
             });
+            setFormValues(baseDefaultValues);
             setFormActiveTabIdx(TAB_INDEXES[FORM_PART_CODEBASE_INFO]);
             setModalActiveTabIdx(0);
         }, 500);
