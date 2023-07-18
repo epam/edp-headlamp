@@ -1,11 +1,15 @@
 import { DeepPartial } from '../../../../types/global';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 
-export const createCodebaseSecretInstance = (
-    codebaseName: string,
-    repositoryLogin: string,
-    repositoryPassword: string
-): DeepPartial<EDPKubeObjectInterface> => {
+export const createCodebaseSecretInstance = ({
+    codebaseName,
+    repositoryLogin,
+    repositoryPassword,
+}: {
+    codebaseName: string;
+    repositoryLogin: string;
+    repositoryPassword: string;
+}): DeepPartial<EDPKubeObjectInterface> => {
     return {
         apiVersion: 'v1',
         kind: 'Secret',

@@ -20,7 +20,8 @@ import { routeEDPCDPipelineDetails } from '../../../../edp-cdpipeline-details/ro
 export const useColumns = (): HeadlampSimpleTableGetterColumn<
     HeadlampKubeObject<EDPCDPipelineKubeObjectInterface>
 >[] => {
-    const { handleOpenResourceActionListMenu } = useResourceActionListContext();
+    const { handleOpenResourceActionListMenu } =
+        useResourceActionListContext<EDPCDPipelineKubeObjectInterface>();
 
     return React.useMemo(
         () => [

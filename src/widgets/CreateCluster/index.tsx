@@ -42,11 +42,16 @@ export const CreateCluster = () => {
     const handleOpenEditor = React.useCallback(() => {
         setEditorOpen(true);
         const formValues = getValues();
-        const usedValues = getUsedValues(formValues, CLUSTER_CREATION_FORM_NAMES);
-        const newClusterSecretData = createClusterSecretInstance(
-            CLUSTER_CREATION_FORM_NAMES,
-            usedValues
+        const { clusterName, clusterHost, clusterToken, clusterCertificate } = getUsedValues(
+            formValues,
+            CLUSTER_CREATION_FORM_NAMES
         );
+        const newClusterSecretData = createClusterSecretInstance({
+            clusterName,
+            clusterHost,
+            clusterToken,
+            clusterCertificate,
+        });
         setEditorClusterSecretData(newClusterSecretData);
     }, [getValues]);
 
@@ -91,12 +96,17 @@ export const CreateCluster = () => {
 
     const onSubmit = React.useCallback(async () => {
         const values = getValues();
-        const usedValues = getUsedValues(values, CLUSTER_CREATION_FORM_NAMES);
-
-        const newClusterSecretData = createClusterSecretInstance(
-            CLUSTER_CREATION_FORM_NAMES,
-            usedValues
+        const { clusterName, clusterHost, clusterToken, clusterCertificate } = getUsedValues(
+            values,
+            CLUSTER_CREATION_FORM_NAMES
         );
+
+        const newClusterSecretData = createClusterSecretInstance({
+            clusterName,
+            clusterHost,
+            clusterToken,
+            clusterCertificate,
+        });
 
         await createClusterSecret({
             clusterSecretData: newClusterSecretData,

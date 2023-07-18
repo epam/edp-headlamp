@@ -23,7 +23,6 @@ export const useUpdateBranchVersionFields = ({
     defaultBranchVersion,
     isDirty,
 }: useUpdateBranchVersionFieldsProps): void => {
-    console.log('isDirty', isDirty);
     const releaseFieldValue = watch(names.release.name);
     const versionStartFieldValue = watch(names.branchVersionStart.name);
     const versionPostfixFieldValue = watch(names.branchVersionPostfix.name);

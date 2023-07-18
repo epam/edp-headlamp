@@ -4,13 +4,15 @@ import React from 'react';
 import { Render } from '../../../../components/Render';
 import { StageActionsMenu } from '../../../../components/StageActionsMenu';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { useCDPipelineStagesQueryContext } from '../../providers/CDPipelineStagesQuery/hooks';
 import { StageActionsProps } from './types';
 
 export const StageActions = ({ stage }: StageActionsProps) => {
     const { stagesQuery } = useCDPipelineStagesQueryContext();
-    const { handleOpenResourceActionListMenu } = useResourceActionListContext();
+    const { handleOpenResourceActionListMenu } =
+        useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
     const buttonRef = React.createRef<HTMLButtonElement>();
 
     return (

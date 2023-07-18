@@ -12,14 +12,14 @@ import { KubeObjectActions } from '../KubeObjectActions';
 import { createDeleteAction } from './utils';
 
 export const StageActionsMenu = ({ stages }) => {
-    const { anchorEl, kubeObject, handleCloseResourceActionListMenu } =
-        useResourceActionListContext();
+    const { anchorEl, data, handleCloseResourceActionListMenu } =
+        useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
 
     const [editActionEditorOpen, setEditActionEditorOpen] = React.useState<boolean>(false);
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
 
     const actions: KubeObjectAction[] = React.useMemo(() => {
-        if (!stages || !kubeObject) {
+        if (!stages || !data) {
             return;
         }
 
@@ -32,12 +32,12 @@ export const StageActionsMenu = ({ stages }) => {
                     setEditActionEditorOpen(true);
                 },
             }),
-            createDeleteAction(stages, kubeObject as EDPCDPipelineStageKubeObjectInterface, () => {
+            createDeleteAction(stages, data, () => {
                 handleCloseResourceActionListMenu();
                 setDeleteActionPopupOpen(true);
             }),
         ];
-    }, [stages, kubeObject, handleCloseResourceActionListMenu]);
+    }, [stages, data, handleCloseResourceActionListMenu]);
 
     return (
         <KubeObjectActions
@@ -50,14 +50,14 @@ export const StageActionsMenu = ({ stages }) => {
                     open={editActionEditorOpen}
                     onClose={() => setEditActionEditorOpen(false)}
                     setOpen={setEditActionEditorOpen}
-                    CDPipelineStageData={kubeObject as EDPCDPipelineStageKubeObjectInterface}
+                    CDPipelineStageData={data}
                 />
                 <DeleteKubeObject
                     popupOpen={deleteActionPopupOpen}
                     setPopupOpen={setDeleteActionPopupOpen}
                     kubeObject={EDPCDPipelineStageKubeObject}
-                    kubeObjectData={kubeObject}
-                    objectName={kubeObject?.spec.name}
+                    kubeObjectData={data}
+                    objectName={data?.spec.name}
                     description={`Confirm the deletion of the CD stage with all its components`}
                 />
             </div>

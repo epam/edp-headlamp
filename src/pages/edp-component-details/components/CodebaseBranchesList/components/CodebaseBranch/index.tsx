@@ -25,6 +25,7 @@ import {
     TEKTON_RESOURCE_STATUSES,
 } from '../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
+import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../../k8s/EDPCodebaseBranch/types';
 import { useEDPComponentsURLsQuery } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useGitServerByCodebaseQuery } from '../../../../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
 import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
@@ -176,7 +177,8 @@ export const CodebaseBranch = ({
 
     const buttonRef = React.createRef<HTMLButtonElement>();
 
-    const { handleOpenResourceActionListMenu } = useResourceActionListContext();
+    const { handleOpenResourceActionListMenu } =
+        useResourceActionListContext<EDPCodebaseBranchKubeObjectInterface>();
     const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
     const { data: storageSize } = useStorageSizeQuery(codebaseData);
     const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({

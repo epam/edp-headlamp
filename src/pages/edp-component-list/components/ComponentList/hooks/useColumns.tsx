@@ -28,7 +28,8 @@ import { routeEDPComponentDetails } from '../../../../edp-component-details/rout
 export const useColumns = (): HeadlampSimpleTableGetterColumn<
     HeadlampKubeObject<EDPCodebaseKubeObjectInterface>
 >[] => {
-    const { handleOpenResourceActionListMenu } = useResourceActionListContext();
+    const { handleOpenResourceActionListMenu } =
+        useResourceActionListContext<EDPCodebaseKubeObjectInterface>();
 
     return React.useMemo(
         () => [

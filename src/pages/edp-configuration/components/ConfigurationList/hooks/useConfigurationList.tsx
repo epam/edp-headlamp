@@ -3,6 +3,7 @@ import { URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVER_ADD } from '../../../../../const
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { routeEDPClusterList } from '../../../../edp-cluster-list/route';
 import { routeEDPGitServerList } from '../../../../edp-gitserver-list/route';
+import { routeEDPRegistryList } from '../../../../edp-registry-list/route';
 import { ConfigurationItem } from '../../../types';
 
 export const useConfigurationList = () =>
@@ -20,6 +21,12 @@ export const useConfigurationList = () =>
                 label: 'Clusters',
                 description: 'Scale workloads across multiple Kubernetes clusters.',
                 routePath: routeEDPClusterList.path,
+            },
+            {
+                icon: ICONS.REGISTRY,
+                label: 'Registry',
+                description: 'Registry description.',
+                routePath: routeEDPRegistryList.path,
             },
         ];
     }, []);

@@ -12,31 +12,24 @@ import { CodebaseBranchActionsProps } from './types';
 import { createDeleteAction } from './utils';
 
 export const CodebaseBranchActions = ({ defaultBranch, codebase }: CodebaseBranchActionsProps) => {
-    const { anchorEl, kubeObject, handleCloseResourceActionListMenu } =
-        useResourceActionListContext();
+    const { anchorEl, data, handleCloseResourceActionListMenu } =
+        useResourceActionListContext<EDPCodebaseBranchKubeObjectInterface>();
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
 
     const actions: KubeObjectAction[] = React.useMemo(() => {
-        if (!kubeObject) {
+        if (!data) {
             return;
         }
 
         return [
-            createDeleteAction(
-                kubeObject as EDPCodebaseBranchKubeObjectInterface,
-                defaultBranch,
-                () => {
-                    handleCloseResourceActionListMenu();
-                    setDeleteActionPopupOpen(true);
-                }
-            ),
+            createDeleteAction(data, defaultBranch, () => {
+                handleCloseResourceActionListMenu();
+                setDeleteActionPopupOpen(true);
+            }),
         ].filter(Boolean);
-    }, [defaultBranch, handleCloseResourceActionListMenu, kubeObject]);
+    }, [defaultBranch, handleCloseResourceActionListMenu, data]);
 
-    const conflictedCDPipeline = useConflictedCDPipeline(
-        kubeObject as EDPCodebaseBranchKubeObjectInterface,
-        codebase
-    );
+    const conflictedCDPipeline = useConflictedCDPipeline(data, codebase);
 
     const onBeforeSubmit = React.useCallback(
         async (handleError, setLoadingActive) => {
@@ -49,12 +42,12 @@ export const CodebaseBranchActions = ({ defaultBranch, codebase }: CodebaseBranc
             handleError(
                 <CodebaseBranchCDPipelineConflictError
                     conflictedCDPipeline={conflictedCDPipeline}
-                    name={kubeObject?.spec.branchName}
+                    name={data?.spec.branchName}
                 />
             );
             setLoadingActive(false);
         },
-        [conflictedCDPipeline, kubeObject?.spec.branchName]
+        [conflictedCDPipeline, data?.spec.branchName]
     );
 
     return (
@@ -64,14 +57,14 @@ export const CodebaseBranchActions = ({ defaultBranch, codebase }: CodebaseBranc
                 handleCloseActionsMenu={handleCloseResourceActionListMenu}
                 actions={actions}
             >
-                <Render condition={!!kubeObject}>
+                <Render condition={!!data}>
                     <div>
                         <DeleteKubeObject
                             popupOpen={deleteActionPopupOpen}
                             setPopupOpen={setDeleteActionPopupOpen}
                             kubeObject={EDPCodebaseBranchKubeObject}
-                            kubeObjectData={kubeObject}
-                            objectName={kubeObject?.spec.branchName}
+                            kubeObjectData={data}
+                            objectName={data?.spec.branchName}
                             description={`Confirm the deletion of the codebase branch with all its components`}
                             onBeforeSubmit={onBeforeSubmit}
                         />

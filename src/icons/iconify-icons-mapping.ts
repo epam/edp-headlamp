@@ -40,4 +40,5 @@ export enum ICONS {
     VIEW_TABLE = 'ph:table',
     VIEW_GRID = 'ph:grid-nine',
     BASKET = 'mdi:shopping-outline',
+    REGISTRY = 'carbon:container-registry',
 }

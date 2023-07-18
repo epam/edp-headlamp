@@ -8,6 +8,7 @@ import { routeEDPGitServerDetails } from '../pages/edp-gitserver-details/route';
 import { routeEDPGitServerList } from '../pages/edp-gitserver-list/route';
 import { routeEDPMarketplace } from '../pages/edp-marketplace/route';
 import { routeEDPOverviewList } from '../pages/edp-overview-list/route';
+import { routeEDPRegistryList } from '../pages/edp-registry-list/route';
 import { routeEDPStageDetails } from '../pages/edp-stage-details/route';
 
 export default [
@@ -27,15 +28,14 @@ export default [
 
     routeEDPConfiguration,
 
-    // Git Servers & children
+    routeEDPClusterList,
 
     routeEDPGitServerList,
     routeEDPGitServerDetails,
 
-    // Clusters & children
-    routeEDPClusterList,
+    routeEDPRegistryList,
 
-    // Market place
+    // Marketplace
 
     routeEDPMarketplace,
 ];

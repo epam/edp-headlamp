@@ -23,7 +23,7 @@ export const PageView = () => {
                         title={
                             <Grid container alignItems={'center'} spacing={1}>
                                 <Grid item>
-                                    <Typography variant={'h5'}>CD Pipelines</Typography>
+                                    <Typography variant={'h5'}>Environments</Typography>
                                 </Grid>
                                 <Grid item>
                                     <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES} />

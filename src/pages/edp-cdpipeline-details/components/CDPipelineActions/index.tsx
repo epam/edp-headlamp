@@ -2,12 +2,14 @@ import { Icon } from '@iconify/react';
 import { IconButton, Tooltip } from '@material-ui/core';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { CDPipelineActionsMenu } from '../../../../widgets/CDPipelineActionsMenu';
 import { CDPipelineActionsProps } from './types';
 
 export const CDPipelineActions = ({ CDPipeline }: CDPipelineActionsProps) => {
-    const { handleOpenResourceActionListMenu } = useResourceActionListContext();
+    const { handleOpenResourceActionListMenu } =
+        useResourceActionListContext<EDPCDPipelineKubeObjectInterface>();
     const buttonRef = React.createRef<HTMLButtonElement>();
 
     return (

@@ -6,6 +6,8 @@ import { EDPCodebaseKubeObjectInterface } from '../../types';
 
 const { kind, group, version } = EDPCodebaseKubeObjectConfig;
 
+const slashSymbol = '/';
+
 export const createCodebaseInstance = (
     names: {
         [key: string]: FormNameObject;
@@ -27,6 +29,13 @@ export const createCodebaseInstance = (
     for (const [propKey, propValue] of Object.entries(restProps)) {
         const propPath = names[propKey].path;
         set(base, propPath, propValue);
+    }
+
+    if (base.spec.gitUrlPath) {
+        base.spec.gitUrlPath =
+            base.spec.gitUrlPath.at(0) === slashSymbol
+                ? base.spec.gitUrlPath
+                : `${slashSymbol}${base.spec.gitUrlPath}`;
     }
 
     return base;

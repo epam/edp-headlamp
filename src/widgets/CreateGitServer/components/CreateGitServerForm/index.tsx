@@ -22,7 +22,7 @@ import { DeepPartial } from '../../../../types/global';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { useEditorCode } from './hooks/useEditorCode';
-import { GIT_SERVER_NAMES, GIT_SERVER_SECRET_NAMES } from './names';
+import { GIT_SERVER_NAMES } from './names';
 import { useStyles } from './styles';
 import { CreateGitServerFormProps } from './types';
 
@@ -100,13 +100,12 @@ export const CreateGitServerForm = ({
             const {
                 metadata: { name },
             } = editorReturnValues;
-            const sshPrivateKeyWithExtraLine = sshPrivateKey.trim() + '\n';
 
-            const gitServerSecretData = createGitServerSecretInstance(GIT_SERVER_SECRET_NAMES, {
+            const gitServerSecretData = createGitServerSecretInstance({
                 name,
-                gitUser: btoa(unescape(gitUser)),
-                sshPrivateKey: btoa(unescape(sshPrivateKeyWithExtraLine)),
-                token: btoa(unescape(token)),
+                gitUser,
+                sshPrivateKey,
+                token,
             });
 
             handleApply({

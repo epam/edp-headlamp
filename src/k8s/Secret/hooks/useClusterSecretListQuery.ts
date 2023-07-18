@@ -26,7 +26,7 @@ export const useClusterSecretListQuery = <
 
     return useQuery<KubeObjectListInterface<SecretKubeObjectInterface>, Error, ReturnType>(
         REQUEST_KEY_QUERY_CLUSTER_SECRET_LIST,
-        () => SecretKubeObject.getList(namespace),
+        () => SecretKubeObject.getClusterSecretList(namespace),
         options
     );
 };

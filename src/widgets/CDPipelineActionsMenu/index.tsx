@@ -15,8 +15,8 @@ import { EditCDPipeline } from '../EditCDPipeline';
 export const CDPipelineActionsMenu = () => {
     const history = useHistory();
 
-    const { kubeObject, anchorEl, isDetailsPage, handleCloseResourceActionListMenu } =
-        useResourceActionListContext();
+    const { data, anchorEl, isDetailsPage, handleCloseResourceActionListMenu } =
+        useResourceActionListContext<EDPCDPipelineKubeObjectInterface>();
     const [editActionEditorOpen, setEditActionEditorOpen] = React.useState<boolean>(false);
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
 
@@ -55,10 +55,10 @@ export const CDPipelineActionsMenu = () => {
             handleCloseActionsMenu={handleCloseResourceActionListMenu}
             actions={actions}
         >
-            <Render condition={!!kubeObject}>
+            <Render condition={!!data}>
                 <>
                     <EditCDPipeline
-                        CDPipelineData={kubeObject as EDPCDPipelineKubeObjectInterface}
+                        CDPipelineData={data}
                         onClose={() => setEditActionEditorOpen(false)}
                         open={editActionEditorOpen}
                         setOpen={setEditActionEditorOpen}
@@ -67,8 +67,8 @@ export const CDPipelineActionsMenu = () => {
                         popupOpen={deleteActionPopupOpen}
                         setPopupOpen={setDeleteActionPopupOpen}
                         kubeObject={EDPCDPipelineKubeObject}
-                        kubeObjectData={kubeObject}
-                        objectName={kubeObject?.metadata.name}
+                        kubeObjectData={data}
+                        objectName={data?.metadata.name}
                         description={`Confirm the deletion of the CD Pipeline with all its components`}
                         onSuccess={onSuccess}
                     />

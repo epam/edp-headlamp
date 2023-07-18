@@ -1,15 +1,17 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { UseFormProps } from 'react-hook-form/dist/types';
 import { FormContext } from './context';
+import { FormContextProviderProps } from './types';
 
-export const FormContextProvider: React.FC<{
-    formSettings: UseFormProps;
-}> = ({ children, formSettings }) => {
+export const FormContextProvider: React.FC<FormContextProviderProps> = ({
+    children,
+    formSettings,
+    formData,
+}) => {
     const formState = useForm(formSettings);
 
     return (
-        <FormContext.Provider value={{ formState }}>
+        <FormContext.Provider value={{ formState, formData }}>
             <FormProvider {...formState}>{children}</FormProvider>
         </FormContext.Provider>
     );

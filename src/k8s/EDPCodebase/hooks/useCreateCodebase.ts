@@ -56,11 +56,11 @@ export const useCreateCodebase = ({
             const {
                 metadata: { name },
             } = codebaseData;
-            const codebaseSecretData = createCodebaseSecretInstance(
-                name,
+            const codebaseSecretData = createCodebaseSecretInstance({
+                codebaseName: name,
                 repositoryLogin,
-                repositoryPasswordOrApiToken
-            );
+                repositoryPassword: repositoryPasswordOrApiToken,
+            });
 
             codebaseSecretCreateMutation.mutate(codebaseSecretData as EDPKubeObjectInterface, {
                 onSuccess: () => {

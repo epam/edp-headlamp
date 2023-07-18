@@ -17,8 +17,8 @@ import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
 export const CodebaseActionsMenu = () => {
     const history = useHistory();
 
-    const { kubeObject, anchorEl, isDetailsPage, handleCloseResourceActionListMenu } =
-        useResourceActionListContext();
+    const { data, anchorEl, isDetailsPage, handleCloseResourceActionListMenu } =
+        useResourceActionListContext<EDPCodebaseKubeObjectInterface>();
 
     const [editActionPopupOpen, setEditActionPopupOpen] = React.useState<boolean>(false);
     const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
@@ -44,9 +44,7 @@ export const CodebaseActionsMenu = () => {
         ];
     }, [handleCloseResourceActionListMenu]);
 
-    const conflictedCDPipeline = useConflictedCDPipeline(
-        kubeObject as EDPCodebaseKubeObjectInterface
-    );
+    const conflictedCDPipeline = useConflictedCDPipeline(data);
 
     const onBeforeSubmit = React.useCallback(
         async (setErrorTemplate, setLoadingActive) => {
@@ -59,12 +57,12 @@ export const CodebaseActionsMenu = () => {
             setErrorTemplate(
                 <CodebaseCDPipelineConflictError
                     conflictedCDPipeline={conflictedCDPipeline}
-                    codebase={kubeObject as EDPCodebaseKubeObjectInterface}
+                    codebase={data}
                 />
             );
             setLoadingActive(false);
         },
-        [conflictedCDPipeline, kubeObject]
+        [conflictedCDPipeline, data]
     );
 
     const onSuccess = React.useCallback(() => {
@@ -92,20 +90,20 @@ export const CodebaseActionsMenu = () => {
             handleCloseActionsMenu={handleCloseResourceActionListMenu}
             actions={actions}
         >
-            <Render condition={!!kubeObject}>
+            <Render condition={!!data}>
                 <div>
                     <EditCodebase
                         open={editActionPopupOpen}
                         onClose={onClose}
                         setOpen={setEditActionPopupOpen}
-                        codebaseData={kubeObject}
+                        codebaseData={data}
                     />
                     <DeleteKubeObject
                         popupOpen={deleteActionPopupOpen}
                         setPopupOpen={setDeleteActionPopupOpen}
                         kubeObject={EDPCodebaseKubeObject}
-                        kubeObjectData={kubeObject}
-                        objectName={kubeObject?.metadata?.name}
+                        kubeObjectData={data}
+                        objectName={data?.metadata?.name}
                         description={`Confirm the deletion of the codebase with all its components`}
                         onBeforeSubmit={onBeforeSubmit}
                         onSuccess={onSuccess}

@@ -31,15 +31,10 @@ export const FormActions = () => {
     const onSubmit = React.useCallback(async () => {
         const values = getValues();
         const usedValues = getUsedValues(values, CODEBASE_FROM_TEMPLATE_FORM_NAMES);
-        const codebaseInstance = createCodebaseInstance(CODEBASE_FROM_TEMPLATE_FORM_NAMES, {
-            ...usedValues,
-            ...(usedValues?.gitUrlPath
-                ? {
-                      [CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitUrlPath
-                          .name]: `/${usedValues?.gitUrlPath}`,
-                  }
-                : {}),
-        });
+        const codebaseInstance = createCodebaseInstance(
+            CODEBASE_FROM_TEMPLATE_FORM_NAMES,
+            usedValues
+        );
 
         await createCodebase({
             codebaseData: codebaseInstance as EDPCodebaseKubeObjectInterface,

@@ -145,7 +145,7 @@ export const PageView = () => {
     return (
         <PageWrapper
             breadcrumbs={[
-                { label: 'CD Pipelines', url: { pathname: routeEDPCDPipelineList.path } },
+                { label: 'Environments', url: { pathname: routeEDPCDPipelineList.path } },
                 {
                     label: CDPipelineName,
                     url: {

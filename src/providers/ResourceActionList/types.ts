@@ -1,13 +1,11 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-
-export interface ResourceActionListContextProviderValue {
+export interface ResourceActionListContextProviderValue<DataType = unknown> {
     anchorEl: HTMLElement | null;
-    kubeObject: KubeObjectInterface;
+    data: DataType;
     isDetailsPage?: boolean;
     handleOpenResourceActionListMenu: (
-        anchorEl: HTMLElement | null,
-        kubeObject: KubeObjectInterface,
-        isDetailsPage?: boolean
+        anchorEl: ResourceActionListContextProviderValue['anchorEl'],
+        data: ResourceActionListContextProviderValue['data'],
+        isDetailsPage?: ResourceActionListContextProviderValue['isDetailsPage']
     ) => void;
     handleCloseResourceActionListMenu: () => void;
 }

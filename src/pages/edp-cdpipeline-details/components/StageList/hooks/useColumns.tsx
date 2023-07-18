@@ -26,7 +26,8 @@ import { EDPCDPipelineRouteParams } from '../../../types';
 export const useColumns = (
     classes: ClassNameMap<'labelChip' | 'labelChipBlue' | 'labelChipGreen'>
 ): HeadlampSimpleTableGetterColumn<EDPCDPipelineStageKubeObjectInterface>[] => {
-    const { handleOpenResourceActionListMenu } = useResourceActionListContext();
+    const { handleOpenResourceActionListMenu } =
+        useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
     const { name: CDPipelineName, namespace } = useParams<EDPCDPipelineRouteParams>();
 

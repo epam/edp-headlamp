@@ -34,7 +34,7 @@ export const PageView = () => {
         <PageWrapper
             breadcrumbs={[
                 {
-                    label: 'CD Pipelines',
+                    label: 'Environments',
                     url: {
                         pathname: routeEDPCDPipelineList.path,
                     },
