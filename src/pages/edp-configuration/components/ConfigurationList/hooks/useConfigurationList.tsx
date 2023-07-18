@@ -11,7 +11,7 @@ export const useConfigurationList = () =>
             {
                 icon: ICONS.REPOSITORY,
                 label: 'Git Servers',
-                description: 'Integrate platform with Version Control Systems',
+                description: 'Integrate platform with Version Control Systems.',
                 routePath: routeEDPGitServerList.path,
                 docLink: URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVER_ADD,
             },

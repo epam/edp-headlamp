@@ -41,7 +41,7 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
     ),
     createNewSidebarItem(
-        'CD Pipelines',
+        'Environments',
         CDPIPELINES_ROUTE_NAME,
         ICONS.INFINITY,
         createSidebarItemName(EDP_ROOT_ROUTE_NAME)
