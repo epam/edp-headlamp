@@ -22,6 +22,29 @@ import { rem } from '../../utils/styling/rem';
 import { ManageRegistrySecret } from '../../widgets/ManageRegistrySecret';
 import { routeEDPConfiguration } from '../edp-configuration/route';
 
+const findKanikoRegistrySecret = (items: Array<SecretKubeObjectInterface | 'placeholder'>) =>
+    items.find(el => typeof el !== 'string' && el.metadata.name === 'kaniko-docker-config');
+
+const findRegcredRegistrySecret = (items: Array<SecretKubeObjectInterface | 'placeholder'>) =>
+    items.find(el => typeof el !== 'string' && el.metadata.name === 'regcred');
+
+const generateItemName = (isPlaceholder: boolean, el: SecretKubeObjectInterface | 'placeholder') =>
+    el === 'placeholder'
+        ? 'Create Service Account'
+        : el?.metadata?.name === 'kaniko-docker-config'
+        ? 'Read/write'
+        : el?.metadata?.name === 'regcred'
+        ? 'Read-only'
+        : el?.metadata?.name;
+
+const findKanikoAndRegcredSecrets = (secrets: SecretKubeObjectInterface[]) =>
+    secrets.filter(
+        el => el.metadata.name === 'kaniko-docker-config' || el.metadata.name === 'regcred'
+    );
+
+const sortKanikoAndRegcredSecrets = (secrets: SecretKubeObjectInterface[]) =>
+    secrets.sort(a => (a.metadata.name === 'kaniko-docker-config' ? -1 : 1));
+
 export const PageView = () => {
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
     const dockerRegistryURL = EDPComponentsURLS?.['docker-registry'];
@@ -38,15 +61,11 @@ export const PageView = () => {
             namespace: getDefaultNamespace(),
 
             dataHandler: data => {
-                const registrySecrets = data
-                    .filter(
-                        el =>
-                            el.metadata.name === 'kaniko-docker-config' ||
-                            el.metadata.name === 'regcred'
-                    )
-                    .sort(a => (a.metadata.name === 'kaniko-docker-config' ? -1 : 1));
+                const kanikoAndRegcredSecrets = findKanikoAndRegcredSecrets(data);
+                const sortedKanikoAndRegcredSecrets =
+                    sortKanikoAndRegcredSecrets(kanikoAndRegcredSecrets);
 
-                setItems(registrySecrets);
+                setItems(sortedKanikoAndRegcredSecrets);
             },
             errorHandler: error => console.error(error),
         });
@@ -56,12 +75,8 @@ export const PageView = () => {
         };
     }, []);
 
-    const kanikoDockerConfigSecret = items.find(
-        el => typeof el !== 'string' && el.metadata.name === 'kaniko-docker-config'
-    );
-    const regcredSecret = items.find(
-        el => typeof el !== 'string' && el.metadata.name === 'regcred'
-    );
+    const kanikoDockerConfigSecret = findKanikoRegistrySecret(items);
+    const regcredSecret = findRegcredRegistrySecret(items);
 
     const creationButtonDisabled = React.useMemo(
         () => (!!kanikoDockerConfigSecret && !!regcredSecret) || items.includes('placeholder'),
@@ -126,13 +141,7 @@ export const PageView = () => {
                                     const key = isPlaceholder
                                         ? 'placeholder'
                                         : el?.metadata?.name || el?.metadata?.uid;
-                                    const name = isPlaceholder
-                                        ? 'Create Service Account'
-                                        : el?.metadata?.name === 'kaniko-docker-config'
-                                        ? 'Read/write'
-                                        : el?.metadata?.name === 'regcred'
-                                        ? 'Read-only'
-                                        : el?.metadata?.name;
+                                    const name = generateItemName(isPlaceholder, el);
 
                                     return (
                                         <Grid item xs={12} key={key}>
@@ -160,11 +169,6 @@ export const PageView = () => {
                                                                             dockerRegistryURL,
                                                                         handleDeleteRow,
                                                                     }}
-                                                                    formMode={
-                                                                        isPlaceholder
-                                                                            ? 'create'
-                                                                            : 'edit'
-                                                                    }
                                                                 />
                                                             </Render>
                                                         </Grid>

@@ -11,7 +11,6 @@ export interface ManageRegistrySecretFormDataContext {
 
 export interface ManageRegistrySecretProps {
     formData: ManageRegistrySecretFormDataContext;
-    formMode: 'create' | 'edit';
 }
 
 export type ManageRegistrySecretFormNames = FormData<typeof REGISTRY_SECRET_CREATION_FORM_NAMES>;
