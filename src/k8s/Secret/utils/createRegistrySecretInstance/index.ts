@@ -24,7 +24,7 @@ export const createRegistrySecretInstance = ({
         },
         type: 'Opaque',
         data: {
-            'config.json': btoa(
+            '.dockerconfigjson': btoa(
                 unescape(
                     JSON.stringify({
                         auths: {

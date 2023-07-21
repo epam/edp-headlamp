@@ -13,7 +13,7 @@ export const useDefaultValues = ({
         if (typeof currentElement === 'string' && currentElement === 'placeholder') {
             return { userName: undefined, password: undefined };
         }
-        const configJson = currentElement?.data?.['config.json'];
+        const configJson = currentElement?.data?.['.dockerconfigjson'];
         if (configJson) {
             const decodedConfigJson = atob(unescape(configJson));
             const parsedConfigJson = JSON.parse(decodedConfigJson);
