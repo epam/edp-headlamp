@@ -157,16 +157,20 @@ export const PageView = () => {
                     },
                 },
                 {
-                    label: stageSpecName,
+                    label: (
+                        <Grid container spacing={1} alignItems={'center'}>
+                            <Grid item>
+                                <StatusIcon status={stage?.status.status} width={15} />
+                            </Grid>
+                            <Grid item>{stageSpecName}</Grid>
+                        </Grid>
+                    ),
                 },
             ]}
             breadcrumbsExtraContent={
                 <Render condition={!!stage}>
                     <div style={{ marginBottom: rem(2) }}>
                         <Grid container alignItems={'center'} spacing={2}>
-                            <Grid item>
-                                <StatusIcon status={stage?.status.status} width={15} />
-                            </Grid>
                             <Grid item>
                                 <Tooltip title={'Trigger Type'}>
                                     {stage?.spec.triggerType === TRIGGER_TYPES.MANUAL ? (

@@ -317,10 +317,10 @@ export const CodebaseBranch = ({
                     </div>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={5}>
                         <Render condition={!jenkinsCiToolIsUsed}>
                             <Grid item xs={12}>
-                                <Grid container spacing={1}>
+                                <Grid container spacing={5}>
                                     <Render condition={!!pipelineRuns?.all?.length}>
                                         <Grid item xs={4}>
                                             <FormSelect
