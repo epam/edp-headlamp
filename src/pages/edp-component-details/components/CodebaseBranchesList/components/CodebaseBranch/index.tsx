@@ -34,11 +34,11 @@ import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRu
 import { useStorageSizeQuery } from '../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { useResourceActionListContext } from '../../../../../../providers/ResourceActionList/hooks';
+import { GENERATE_URL_SERVICE } from '../../../../../../services/url';
 import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
 import { parseTektonResourceStatus } from '../../../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
-import { createSonarLink } from '../../../../../../utils/url/createSonarLink';
 import { isDefaultBranch } from '../../utils';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
 import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
@@ -171,7 +171,11 @@ export const CodebaseBranch = ({
     );
 
     const sonarLink = React.useMemo(
-        () => createSonarLink(EDPComponentsURLS, codebaseBranchData.metadata.name),
+        () =>
+            GENERATE_URL_SERVICE.createSonarLink(
+                EDPComponentsURLS?.sonar,
+                codebaseBranchData.metadata.name
+            ),
         [codebaseBranchData.metadata.name, EDPComponentsURLS]
     );
 

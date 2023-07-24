@@ -8,7 +8,7 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
-import { createTektonPipelineRunLink } from '../../../../../utils/url/createTektonPipelineRunLink';
+import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 import { EDPStageDetailsRouteParams } from '../../../types';
 
@@ -43,8 +43,8 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
                 getter: ({ qualityGate: { stepName }, autotestPipelineRun }) => {
                     const tektonLink =
                         autotestPipelineRun &&
-                        createTektonPipelineRunLink(
-                            EDPComponentsURLS,
+                        GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+                            EDPComponentsURLS?.tekton,
                             autotestPipelineRun?.metadata?.namespace,
                             autotestPipelineRun?.metadata?.name
                         );

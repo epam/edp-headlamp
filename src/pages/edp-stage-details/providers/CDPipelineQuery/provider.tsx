@@ -5,11 +5,12 @@ import { EDPStageDetailsRouteParams } from '../../types';
 import { CDPipelineQueryContext } from './context';
 
 export const CDPipelineQueryContextProvider: React.FC = ({ children }) => {
-    const { CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
+    const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
 
     const query = useCDPipelineByNameQuery({
         props: {
             name: CDPipelineName,
+            namespace,
         },
         options: {
             enabled: !!CDPipelineName,

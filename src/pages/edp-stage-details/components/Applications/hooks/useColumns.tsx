@@ -9,9 +9,14 @@ import {
     CODEBASE_COMMON_LANGUAGES,
 } from '../../../../../configs/codebase-mappings';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
+import {
+    APPLICATION_LABEL_SELECTOR_APP_NAME,
+    APPLICATION_LABEL_SELECTOR_PIPELINE,
+    APPLICATION_LABEL_SELECTOR_STAGE,
+} from '../../../../../k8s/Application/labels';
 import { ApplicationKubeObjectInterface } from '../../../../../k8s/Application/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { createArgoCDApplicationLink } from '../../../../../utils/url/createArgoCDApplicationLink';
+import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 import { EnrichedApplicationWithArgoApplication } from '../../../types';
 import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
@@ -24,11 +29,11 @@ export const useColumns = (
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
     const _createArgoCDLink = React.useCallback(
         (argoApplication: ApplicationKubeObjectInterface) =>
-            createArgoCDApplicationLink(
-                EDPComponentsURLS,
-                argoApplication.metadata.labels['app.edp.epam.com/pipeline'],
-                argoApplication.metadata.labels['app.edp.epam.com/stage'],
-                argoApplication.metadata.labels['app.edp.epam.com/app-name']
+            GENERATE_URL_SERVICE.createArgoCDApplicationLink(
+                EDPComponentsURLS?.argocd,
+                argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_PIPELINE],
+                argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_STAGE],
+                argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_APP_NAME]
             ),
         [EDPComponentsURLS]
     );

@@ -1,4 +1,3 @@
-import { Tabs } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Chip, CircularProgress, Grid, Tooltip } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
@@ -7,6 +6,8 @@ import { PageWrapper } from '../../components/PageWrapper';
 import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { StatusIcon } from '../../components/StatusIcon';
+import { Tabs } from '../../components/Tabs';
+import { CI_TOOLS } from '../../constants/ciTools';
 import { PIPELINE_TYPES } from '../../constants/pipelineTypes';
 import { TEKTON_RESOURCE_STATUSES } from '../../constants/statuses';
 import { TRIGGER_TYPES } from '../../constants/triggerTypes';
@@ -16,12 +17,10 @@ import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPCo
 import { useStreamAutotestPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestPipelineRunList';
 import { useStreamAutotestRunnerPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestRunnerPipelineRunList';
 import { useStreamPipelineRunListByTypeAndPipelineNameLabels } from '../../k8s/PipelineRun/hooks/useStreamPipelineRunListByTypeAndPipelineNameLabels';
+import { GENERATE_URL_SERVICE } from '../../services/url';
 import { parseTektonResourceStatus } from '../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../utils/styling/rem';
-import { createArgoCDStageLink } from '../../utils/url/createArgoCDStageLink';
-import { createGrafanaLink } from '../../utils/url/createGrafanaLink';
-import { createKibanaLink } from '../../utils/url/createKibanaLink';
 import { routeEDPCDPipelineDetails } from '../edp-cdpipeline-details/route';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
 import { Applications } from './components/Applications';
@@ -123,23 +122,69 @@ export const PageView = () => {
         enrichedApplicationsWithArgoApplications
     );
 
-    const argoCDStageLink = React.useMemo(
-        () =>
-            createArgoCDStageLink(
-                EDPComponentsURLS,
-                CDPipelineQuery?.data?.metadata?.name,
-                stageSpecName
-            ),
-        [CDPipelineQuery?.data?.metadata?.name, EDPComponentsURLS, stageSpecName]
-    );
+    const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;
 
-    const grafanaLink = React.useMemo(
-        () => createGrafanaLink(EDPComponentsURLS, stage?.spec.namespace),
-        [EDPComponentsURLS, stage?.spec.namespace]
-    );
-    const kibanaLink = React.useMemo(
-        () => createKibanaLink(EDPComponentsURLS, stage?.spec.namespace),
-        [EDPComponentsURLS, stage?.spec.namespace]
+    const tabs = React.useMemo(
+        () => [
+            {
+                label: 'Applications',
+                id: 'applications',
+                component: (
+                    <Applications
+                        enrichedApplicationsWithArgoApplications={
+                            enrichedApplicationsWithArgoApplications
+                        }
+                        qualityGatePipelineIsRunning={latestDeployPipelineRunIsRunning}
+                    />
+                ),
+                disabled: ciTool === CI_TOOLS.JENKINS,
+            },
+            {
+                label: 'Quality Gates',
+                id: 'quality_gates',
+                component: (
+                    <QualityGates
+                        enrichedQualityGatesWithPipelineRuns={enrichedQualityGatesWithPipelineRuns}
+                        argoApplications={argoApplications}
+                        everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
+                        latestAutotestRunnerPipelineRuns={latestAutotestRunnerPipelineRuns}
+                        latestTenAutotestPipelineRuns={latestTenAutotestPipelineRuns}
+                    />
+                ),
+                disabled: ciTool === CI_TOOLS.JENKINS,
+            },
+            {
+                label: 'Custom Gates',
+                id: 'custom_gates',
+                component: (
+                    <CustomGates
+                        enrichedApplicationsWithArgoApplications={
+                            enrichedApplicationsWithArgoApplications
+                        }
+                        argoApplications={argoApplications}
+                        latestTenDeployPipelineRuns={latestTenDeployPipelineRuns}
+                        everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
+                    />
+                ),
+                disabled: ciTool === CI_TOOLS.JENKINS,
+            },
+            {
+                label: 'General Info',
+                id: 'general_info',
+                component: <GeneralInfo />,
+            },
+        ],
+        [
+            ciTool,
+            argoApplications,
+            enrichedApplicationsWithArgoApplications,
+            enrichedQualityGatesWithPipelineRuns,
+            everyArgoAppIsHealthyAndInSync,
+            latestAutotestRunnerPipelineRuns,
+            latestDeployPipelineRunIsRunning,
+            latestTenAutotestPipelineRuns,
+            latestTenDeployPipelineRuns,
+        ]
     );
 
     return (
@@ -199,24 +244,47 @@ export const PageView = () => {
             headerSlot={
                 <Grid container>
                     <Grid item>
-                        <ResourceIconLink
-                            icon={ICONS.ARGOCD}
-                            tooltipTitle={'Open in ArgoCD'}
-                            link={argoCDStageLink}
-                        />
+                        <Render condition={ciTool === CI_TOOLS.JENKINS}>
+                            <ResourceIconLink
+                                icon={ICONS.JENKINS}
+                                tooltipTitle={'Open in Jenkins'}
+                                link={GENERATE_URL_SERVICE.createJenkinsPipelineStageLink(
+                                    EDPComponentsURLS?.jenkins,
+                                    CDPipelineQuery?.data?.metadata?.name,
+                                    stageSpecName
+                                )}
+                            />
+                        </Render>
+                        <Render condition={ciTool === CI_TOOLS.TEKTON}>
+                            <ResourceIconLink
+                                icon={ICONS.ARGOCD}
+                                tooltipTitle={'Open in ArgoCD'}
+                                link={GENERATE_URL_SERVICE.createArgoCDStageLink(
+                                    EDPComponentsURLS?.argocd,
+                                    CDPipelineQuery?.data?.metadata?.name,
+                                    stageSpecName
+                                )}
+                            />
+                        </Render>
                     </Grid>
                     <Grid item>
                         <ResourceIconLink
                             icon={ICONS.GRAFANA}
                             tooltipTitle={'Open in Grafana'}
-                            link={grafanaLink}
+                            link={GENERATE_URL_SERVICE.createGrafanaLink(
+                                EDPComponentsURLS?.grafana,
+                                stage?.spec.namespace
+                            )}
                         />
                     </Grid>
                     <Grid item>
                         <ResourceIconLink
                             icon={ICONS.KIBANA}
                             tooltipTitle={'Open in Kibana'}
-                            link={kibanaLink}
+                            link={GENERATE_URL_SERVICE.createKibanaLink(
+                                EDPComponentsURLS?.kibana,
+                                stage?.spec.namespace
+                            )}
                         />
                     </Grid>
                     <Grid item>
@@ -232,67 +300,11 @@ export const PageView = () => {
                 </Grid>
             }
         >
-            {!!stage ? (
-                <>
-                    <Tabs
-                        ariaLabel={'CD Pipeline Stage Details'}
-                        className={classes.tabs}
-                        tabs={[
-                            {
-                                label: 'Applications',
-                                component: (
-                                    <Applications
-                                        enrichedApplicationsWithArgoApplications={
-                                            enrichedApplicationsWithArgoApplications
-                                        }
-                                        qualityGatePipelineIsRunning={
-                                            latestDeployPipelineRunIsRunning
-                                        }
-                                    />
-                                ),
-                            },
-                            {
-                                label: 'Quality Gates',
-                                component: (
-                                    <QualityGates
-                                        enrichedQualityGatesWithPipelineRuns={
-                                            enrichedQualityGatesWithPipelineRuns
-                                        }
-                                        argoApplications={argoApplications}
-                                        everyArgoAppIsHealthyAndInSync={
-                                            everyArgoAppIsHealthyAndInSync
-                                        }
-                                        latestAutotestRunnerPipelineRuns={
-                                            latestAutotestRunnerPipelineRuns
-                                        }
-                                        latestTenAutotestPipelineRuns={
-                                            latestTenAutotestPipelineRuns
-                                        }
-                                    />
-                                ),
-                            },
-                            {
-                                label: 'Custom Gates',
-                                component: (
-                                    <CustomGates
-                                        enrichedApplicationsWithArgoApplications={
-                                            enrichedApplicationsWithArgoApplications
-                                        }
-                                        argoApplications={argoApplications}
-                                        latestTenDeployPipelineRuns={latestTenDeployPipelineRuns}
-                                        everyArgoAppIsHealthyAndInSync={
-                                            everyArgoAppIsHealthyAndInSync
-                                        }
-                                    />
-                                ),
-                            },
-                            {
-                                label: 'General Info',
-                                component: <GeneralInfo />,
-                            },
-                        ]}
-                    />
-                </>
+            {!!stage && ciTool ? (
+                <Tabs
+                    tabs={tabs}
+                    initialTabIdx={ciTool === CI_TOOLS.JENKINS ? tabs.length - 1 : 0}
+                />
             ) : (
                 <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
             )}

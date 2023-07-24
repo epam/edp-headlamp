@@ -5,6 +5,7 @@ import { omit } from 'lodash';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Render } from '../../../../components/Render';
+import { TabPanel } from '../../../../components/TabPanel';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
@@ -13,7 +14,6 @@ import { CreateCDPipelineStage } from '../../../CreateCDPipelineStage';
 import { ApplicationsFormPart } from './components/ApplicationsFormPart';
 import { PipelineInfoFormPart } from './components/PipelineFormPart';
 import { StagesFormPart } from './components/StagesFormPart';
-import { TabPanel } from './components/TabPanel';
 import {
     FORM_PART_APPLICATIONS,
     FORM_PART_PIPELINE,

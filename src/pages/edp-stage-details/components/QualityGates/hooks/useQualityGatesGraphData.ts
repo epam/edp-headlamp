@@ -1,8 +1,8 @@
 import React from 'react';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { TaskRunKubeObjectInterface } from '../../../../../k8s/TaskRun/types';
+import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { parseTektonResourceStatus } from '../../../../../utils/parseTektonResourceStatus';
-import { createTektonPipelineRunLink } from '../../../../../utils/url/createTektonPipelineRunLink';
 import { EnrichedQualityGateWithAutotestPipelineRun } from '../../../types';
 
 export const useQualityGatesGraphData = (
@@ -20,8 +20,8 @@ export const useQualityGatesGraphData = (
             _enrichedQualityGatesWithPipelineRuns.map((el, idx) => {
                 const tektonLink =
                     el?.autotestPipelineRun &&
-                    createTektonPipelineRunLink(
-                        EDPComponentsURLS,
+                    GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+                        EDPComponentsURLS?.tekton,
                         el?.autotestPipelineRun?.metadata?.namespace,
                         el?.autotestPipelineRun?.metadata?.name
                     );

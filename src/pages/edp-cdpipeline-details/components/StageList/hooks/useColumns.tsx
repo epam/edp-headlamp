@@ -9,18 +9,18 @@ import { HeadlampSimpleTableGetterColumn } from '../../../../../components/Headl
 import { Render } from '../../../../../components/Render';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
+import { CI_TOOLS } from '../../../../../constants/ciTools';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { TRIGGER_TYPES } from '../../../../../constants/triggerTypes';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
+import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { rem } from '../../../../../utils/styling/rem';
-import { createArgoCDStageLink } from '../../../../../utils/url/createArgoCDStageLink';
-import { createGrafanaLink } from '../../../../../utils/url/createGrafanaLink';
-import { createKibanaLink } from '../../../../../utils/url/createKibanaLink';
 import { routeEDPStageDetails } from '../../../../edp-stage-details/route';
+import { useEnrichedApplicationsContext } from '../../../providers/EnrichedApplications/hooks';
 import { EDPCDPipelineRouteParams } from '../../../types';
 
 export const useColumns = (
@@ -30,6 +30,9 @@ export const useColumns = (
         useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
     const { name: CDPipelineName, namespace } = useParams<EDPCDPipelineRouteParams>();
+    const { enrichedApplications } = useEnrichedApplicationsContext();
+
+    const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;
 
     return React.useMemo(
         () => [
@@ -100,36 +103,50 @@ export const useColumns = (
             {
                 label: 'Links',
                 getter: stage => {
-                    const argoCDStageLink = createArgoCDStageLink(
-                        EDPComponentsURLS,
-                        CDPipelineName,
-                        stage.spec.name
-                    );
-
-                    const grafanaLink = createGrafanaLink(EDPComponentsURLS, stage.spec.namespace);
-                    const kibanaLink = createKibanaLink(EDPComponentsURLS, stage.spec.namespace);
-
                     return (
                         <Grid container spacing={1}>
                             <Grid item>
-                                <ResourceIconLink
-                                    icon={ICONS.ARGOCD}
-                                    tooltipTitle={'Open in ArgoCD'}
-                                    link={argoCDStageLink}
-                                />
+                                <Render condition={ciTool === CI_TOOLS.JENKINS}>
+                                    <ResourceIconLink
+                                        icon={ICONS.JENKINS}
+                                        tooltipTitle={'Open in Jenkins'}
+                                        link={GENERATE_URL_SERVICE.createJenkinsPipelineStageLink(
+                                            EDPComponentsURLS?.jenkins,
+                                            CDPipelineName,
+                                            stage.spec.name
+                                        )}
+                                    />
+                                </Render>
+                                <Render condition={ciTool === CI_TOOLS.TEKTON}>
+                                    <ResourceIconLink
+                                        icon={ICONS.ARGOCD}
+                                        tooltipTitle={'Open in ArgoCD'}
+                                        link={GENERATE_URL_SERVICE.createArgoCDStageLink(
+                                            EDPComponentsURLS?.argocd,
+                                            CDPipelineName,
+                                            stage.spec.name
+                                        )}
+                                    />
+                                </Render>
                             </Grid>
                             <Grid item>
                                 <ResourceIconLink
                                     icon={ICONS.GRAFANA}
                                     tooltipTitle={'Open in Grafana'}
-                                    link={grafanaLink}
+                                    link={GENERATE_URL_SERVICE.createGrafanaLink(
+                                        EDPComponentsURLS?.grafana,
+                                        stage.spec.namespace
+                                    )}
                                 />
                             </Grid>
                             <Grid item>
                                 <ResourceIconLink
                                     icon={ICONS.KIBANA}
                                     tooltipTitle={'Open in Kibana'}
-                                    link={kibanaLink}
+                                    link={GENERATE_URL_SERVICE.createKibanaLink(
+                                        EDPComponentsURLS?.kibana,
+                                        stage.spec.namespace
+                                    )}
                                 />
                             </Grid>
                             <Grid item>
@@ -162,6 +179,13 @@ export const useColumns = (
                 },
             },
         ],
-        [CDPipelineName, EDPComponentsURLS, classes, handleOpenResourceActionListMenu, namespace]
+        [
+            CDPipelineName,
+            EDPComponentsURLS,
+            ciTool,
+            classes,
+            handleOpenResourceActionListMenu,
+            namespace,
+        ]
     );
 };

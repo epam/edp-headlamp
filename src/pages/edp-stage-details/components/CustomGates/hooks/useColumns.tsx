@@ -4,10 +4,10 @@ import { HeadlampSimpleTableGetterColumn } from '../../../../../components/Headl
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
+import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { formatDateToDuration } from '../../../../../utils/format/formatDateToDuration';
 import { formatDateUTCToLocal } from '../../../../../utils/format/formatDateUTCToLocal';
 import { parseTektonResourceStatus } from '../../../../../utils/parseTektonResourceStatus';
-import { createTektonPipelineRunLink } from '../../../../../utils/url/createTektonPipelineRunLink';
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] => {
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
@@ -24,7 +24,11 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObj
                 label: 'Name',
                 getter: ({ metadata: { name, namespace } }) => (
                     <MuiLink
-                        href={createTektonPipelineRunLink(EDPComponentsURLS, namespace, name)}
+                        href={GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+                            EDPComponentsURLS?.tekton,
+                            namespace,
+                            name
+                        )}
                         target={'_blank'}
                     >
                         {name}

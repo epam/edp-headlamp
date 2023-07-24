@@ -5,10 +5,9 @@ import { HeadlampSimpleTableGetterColumn } from '../../../../../../../components
 import { StatusIcon } from '../../../../../../../components/StatusIcon';
 import { useEDPComponentsURLsQuery } from '../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../k8s/PipelineRun/types';
+import { GENERATE_URL_SERVICE } from '../../../../../../../services/url';
 import { formatFullYear, humanizeDefault } from '../../../../../../../utils/date/humanize';
 import { parseTektonResourceStatus } from '../../../../../../../utils/parseTektonResourceStatus';
-import { createTektonPipelineLink } from '../../../../../../../utils/url/createTektonPipelineLink';
-import { createTektonPipelineRunLink } from '../../../../../../../utils/url/createTektonPipelineRunLink';
 
 export const usePipelineRunsColumns =
     (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] => {
@@ -41,15 +40,17 @@ export const usePipelineRunsColumns =
                             return <>{name}</>;
                         }
 
-                        const pipelineRunLink = createTektonPipelineRunLink(
-                            EDPComponentsURLS,
-                            namespace,
-                            name
-                        );
-
                         return (
                             <>
-                                <Link href={pipelineRunLink} target="_blank" rel="noopener">
+                                <Link
+                                    href={GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+                                        EDPComponentsURLS?.tekton,
+                                        namespace,
+                                        name
+                                    )}
+                                    target="_blank"
+                                    rel="noopener"
+                                >
                                     {name}
                                 </Link>
                             </>
@@ -70,8 +71,8 @@ export const usePipelineRunsColumns =
                             return <>{pipelineRefName}</>;
                         }
 
-                        const pipelineLink = createTektonPipelineLink(
-                            EDPComponentsURLS,
+                        const pipelineLink = GENERATE_URL_SERVICE.createTektonPipelineLink(
+                            EDPComponentsURLS?.tekton,
                             namespace,
                             pipelineRefName
                         );
