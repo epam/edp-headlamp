@@ -1,6 +1,7 @@
 import { HoverInfoLabel } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { Link } from '@material-ui/core';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../../../components/StatusIcon';
 import { useEDPComponentsURLsQuery } from '../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
@@ -8,10 +9,12 @@ import { PipelineRunKubeObjectInterface } from '../../../../../../../k8s/Pipelin
 import { GENERATE_URL_SERVICE } from '../../../../../../../services/url';
 import { formatFullYear, humanizeDefault } from '../../../../../../../utils/date/humanize';
 import { parseTektonResourceStatus } from '../../../../../../../utils/parseTektonResourceStatus';
+import { EDPComponentDetailsRouteParams } from '../../../../../types';
 
 export const usePipelineRunsColumns =
     (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] => {
-        const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
+        const { namespace } = useParams<EDPComponentDetailsRouteParams>();
+        const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 
         return React.useMemo(
             () => [

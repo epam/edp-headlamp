@@ -119,7 +119,7 @@ describe('testing GENERATE_URL_SERVICE', () => {
                     'https://jenkins-test.com',
                     'test-pipeline-name'
                 )
-            ).toEqual('https://jenkins-test.com/job/test-pipeline-name');
+            ).toEqual('https://jenkins-test.com/job/test-pipeline-name-cd-pipeline');
         });
     });
 
@@ -131,7 +131,9 @@ describe('testing GENERATE_URL_SERVICE', () => {
                     'test-pipeline-name',
                     'test-stage-name'
                 )
-            ).toEqual('https://jenkins-test.com/job/test-pipeline-name/job/test-stage-name');
+            ).toEqual(
+                'https://jenkins-test.com/job/test-pipeline-name-cd-pipeline/job/test-stage-name'
+            );
         });
     });
 });

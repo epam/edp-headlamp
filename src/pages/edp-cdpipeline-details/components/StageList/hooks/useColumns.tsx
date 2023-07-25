@@ -28,8 +28,8 @@ export const useColumns = (
 ): HeadlampSimpleTableGetterColumn<EDPCDPipelineStageKubeObjectInterface>[] => {
     const { handleOpenResourceActionListMenu } =
         useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
     const { name: CDPipelineName, namespace } = useParams<EDPCDPipelineRouteParams>();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
     const { enrichedApplications } = useEnrichedApplicationsContext();
 
     const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;

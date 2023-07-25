@@ -1,15 +1,20 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { TaskRunKubeObjectInterface } from '../../../../../k8s/TaskRun/types';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { parseTektonResourceStatus } from '../../../../../utils/parseTektonResourceStatus';
-import { EnrichedQualityGateWithAutotestPipelineRun } from '../../../types';
+import {
+    EDPStageDetailsRouteParams,
+    EnrichedQualityGateWithAutotestPipelineRun,
+} from '../../../types';
 
 export const useQualityGatesGraphData = (
     taskRunList: TaskRunKubeObjectInterface[],
     enrichedQualityGatesWithPipelineRuns: EnrichedQualityGateWithAutotestPipelineRun[]
 ) => {
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
+    const { namespace } = useParams<EDPStageDetailsRouteParams>();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
     const _enrichedQualityGatesWithPipelineRuns = React.useMemo(
         () => enrichedQualityGatesWithPipelineRuns || [],
         [enrichedQualityGatesWithPipelineRuns]

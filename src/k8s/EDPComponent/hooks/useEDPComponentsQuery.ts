@@ -24,7 +24,7 @@ export const useEDPComponentsQuery = <
 }: UseEDPComponentsQueryProps<ReturnType>) => {
     const namespace = props?.namespace || getDefaultNamespace();
     return useQuery<KubeObjectListInterface<EDPComponentKubeObjectInterface>, Error, ReturnType>(
-        REQUEST_KEY_QUERY_EDP_COMPONENTS,
+        [REQUEST_KEY_QUERY_EDP_COMPONENTS, namespace],
         () => EDPComponentKubeObject.getList(namespace),
         options
     );

@@ -1,6 +1,7 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Link as MuiLink } from '@material-ui/core';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import {
@@ -18,7 +19,7 @@ import { ApplicationKubeObjectInterface } from '../../../../../k8s/Application/t
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
-import { EnrichedApplicationWithArgoApplication } from '../../../types';
+import { EDPStageDetailsRouteParams, EnrichedApplicationWithArgoApplication } from '../../../types';
 import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
 
 export const useColumns = (
@@ -26,7 +27,8 @@ export const useColumns = (
     handleRowClick: (event: React.MouseEvent<unknown>, name: string) => void,
     selected: string[]
 ): HeadlampSimpleTableGetterColumn<EnrichedApplicationWithArgoApplication>[] => {
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
+    const { namespace } = useParams<EDPStageDetailsRouteParams>();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
     const _createArgoCDLink = React.useCallback(
         (argoApplication: ApplicationKubeObjectInterface) =>
             GENERATE_URL_SERVICE.createArgoCDApplicationLink(

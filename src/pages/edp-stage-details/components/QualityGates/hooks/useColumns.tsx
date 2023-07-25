@@ -16,8 +16,8 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
     qualityGate: EDPCDPipelineStageSpecQualityGatesInterface;
     autotestPipelineRun: PipelineRunKubeObjectInterface;
 }>[] => {
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
     const { namespace } = useParams<EDPStageDetailsRouteParams>();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 
     return React.useMemo(
         () => [

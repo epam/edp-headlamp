@@ -1,5 +1,6 @@
 import { Link as MuiLink } from '@material-ui/core';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
@@ -8,9 +9,11 @@ import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { formatDateToDuration } from '../../../../../utils/format/formatDateToDuration';
 import { formatDateUTCToLocal } from '../../../../../utils/format/formatDateUTCToLocal';
 import { parseTektonResourceStatus } from '../../../../../utils/parseTektonResourceStatus';
+import { EDPStageDetailsRouteParams } from '../../../types';
 
 export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] => {
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
+    const { namespace } = useParams<EDPStageDetailsRouteParams>();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 
     return React.useMemo(
         () => [

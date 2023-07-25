@@ -44,7 +44,7 @@ export const PageView = () => {
     const { CDPipelineQuery } = useCDPipelineQueryContext();
     const { stage } = useCDPipelineStageContext();
     const { enrichedApplications } = useEnrichedApplicationsContext();
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 
     const stageSpecName = stage?.spec.name;
     const stageMetadataName = stage?.metadata.name;

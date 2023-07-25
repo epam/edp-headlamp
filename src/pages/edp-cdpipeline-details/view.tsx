@@ -21,11 +21,11 @@ import { useEnrichedApplicationsContext } from './providers/EnrichedApplications
 import { EDPCDPipelineRouteParams } from './types';
 
 export const PageView = () => {
-    const { name } = useParams<EDPCDPipelineRouteParams>();
+    const { name, namespace } = useParams<EDPCDPipelineRouteParams>();
 
     const { CDPipeline } = useCDPipelineContext();
     const { stages } = useCDPipelineStagesContext();
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
     const { enrichedApplications } = useEnrichedApplicationsContext();
 
     const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;

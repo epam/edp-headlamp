@@ -7,8 +7,11 @@ export type EDPComponentsURLS = {
     [componentName: EDPComponentName]: EDPComponentURL;
 };
 
-export const useEDPComponentsURLsQuery = () => {
+export const useEDPComponentsURLsQuery = (namespace?: string) => {
     return useEDPComponentsQuery<EDPComponentsURLS>({
+        props: {
+            namespace,
+        },
         options: {
             select: data =>
                 data.items.reduce((acc, cur) => {

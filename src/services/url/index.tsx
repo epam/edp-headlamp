@@ -128,7 +128,10 @@ export const GENERATE_URL_SERVICE = {
         }
 
         const jenkinsURLObject = createURLObjectFromURLOrigin(jenkinsURLOrigin);
-        const jenkinsPipelineURLObject = new URL(`/job/${pipelineName}`, jenkinsURLObject);
+        const jenkinsPipelineURLObject = new URL(
+            `/job/${pipelineName}-cd-pipeline`,
+            jenkinsURLObject
+        );
 
         return jenkinsPipelineURLObject.href;
     },
@@ -143,7 +146,7 @@ export const GENERATE_URL_SERVICE = {
 
         const jenkinsURLObject = createURLObjectFromURLOrigin(jenkinsURLOrigin);
         const jenkinsPipelineURLObject = new URL(
-            `/job/${pipelineName}/job/${stageName}`,
+            `/job/${pipelineName}-cd-pipeline/job/${stageName}`,
             jenkinsURLObject
         );
 

@@ -13,6 +13,7 @@ import {
 import clsx from 'clsx';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { HeadlampNameValueTable } from '../../../../../../components/HeadlampNameValueTable';
 import { HeadlampSimpleTable } from '../../../../../../components/HeadlampSimpleTable';
 import { Render } from '../../../../../../components/Render';
@@ -39,6 +40,7 @@ import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalize
 import { parseTektonResourceStatus } from '../../../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
+import { EDPComponentDetailsRouteParams } from '../../../../types';
 import { isDefaultBranch } from '../../utils';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
 import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
@@ -65,8 +67,8 @@ export const CodebaseBranch = ({
         control,
         formState: { errors },
     } = useForm();
-
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
+    const { namespace } = useParams<EDPComponentDetailsRouteParams>();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 
     const {
         spec: { ciTool },
