@@ -16,7 +16,7 @@ describe('testing createRegistrySecretInstance', () => {
                 name: 'test',
                 labels: { 'app.edp.epam.com/secret-type': 'registry' },
             },
-            type: 'Opaque',
+            type: 'kubernetes.io/dockerconfigjson',
             data: {
                 '.dockerconfigjson':
                     'eyJhdXRocyI6eyJ0ZXN0LXJlZ2lzdHJ5LWVuZHBvaW50LmNvbSI6eyJ1c2VybmFtZSI6InRlc3QtdXNlciIsInBhc3N3b3JkIjoidGVzdC1wYXNzd29yZCIsImF1dGgiOiJkR1Z6ZEMxMWMyVnlPblJsYzNRdGNHRnpjM2R2Y21RPSJ9fX0=',

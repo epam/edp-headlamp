@@ -25,7 +25,7 @@ export const useConfigurationList = () =>
             {
                 icon: ICONS.REGISTRY,
                 label: 'Registry',
-                description: 'Registry description.',
+                description: 'Establish platform integration with the Container Registry.',
                 routePath: routeEDPRegistryList.path,
             },
         ];

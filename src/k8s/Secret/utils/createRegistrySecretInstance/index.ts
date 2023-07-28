@@ -22,7 +22,7 @@ export const createRegistrySecretInstance = ({
                 [SECRET_LABEL_SECRET_TYPE]: 'registry',
             },
         },
-        type: 'Opaque',
+        type: 'kubernetes.io/dockerconfigjson',
         data: {
             '.dockerconfigjson': btoa(
                 unescape(
