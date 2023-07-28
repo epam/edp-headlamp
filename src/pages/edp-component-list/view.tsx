@@ -2,7 +2,7 @@ import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/Co
 import { Box, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CreateKubeObject } from '../../components/CreateKubeObject';
+import { CreateResourceFab } from '../../components/CreateResourceFab';
 import { DocLink } from '../../components/DocLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
@@ -11,9 +11,10 @@ import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../constants/urls';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { FormSelect } from '../../providers/Form/components/FormSelect';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
+import { FORM_MODES } from '../../types/forms';
 import { rem } from '../../utils/styling/rem';
 import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
-import { CreateCodebase } from '../../widgets/CreateCodebase';
+import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../widgets/CreateEditCodebase/constants';
 import { ComponentList } from './components/ComponentList';
 
 export const PageView = () => {
@@ -74,9 +75,10 @@ export const PageView = () => {
                     <ComponentList components={filteredComponents} error={error} />
                     <CodebaseActionsMenu />
                 </ResourceActionListContextProvider>
-                <CreateKubeObject>
-                    <CreateCodebase />
-                </CreateKubeObject>
+                <CreateResourceFab
+                    modalName={CREATE_EDIT_CODEBASE_DIALOG_NAME}
+                    forwardedProps={{ mode: FORM_MODES.CREATE }}
+                />
             </SectionBox>
         </PageWrapper>
     );

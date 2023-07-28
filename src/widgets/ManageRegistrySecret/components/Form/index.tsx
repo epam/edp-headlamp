@@ -1,9 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { Name } from './components/Name';
-import { Password } from './components/Password';
-import { RegistryEndpoint } from './components/RegistryEndpoint';
-import { User } from './components/User';
+import { Name, Password, RegistryEndpoint, User } from '../fields';
 
 export const Form = () => {
     return (

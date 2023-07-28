@@ -2,32 +2,31 @@ import { Icon } from '@iconify/react';
 import { Button, Grid, IconButton } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { DeleteKubeObject } from '../../../../components/DeleteKubeObject';
-import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { useRegistrySecretCRUD } from '../../../../k8s/Secret/hooks/useRegistrySecretCRUD';
 import { createRegistrySecretInstance } from '../../../../k8s/Secret/utils/createRegistrySecretInstance';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { useFormContext } from '../../../../providers/Form/hooks';
+import { FORM_MODES } from '../../../../types/forms';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
-import { ManageRegistrySecretFormDataContext, ManageRegistrySecretFormNames } from '../../types';
+import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../../DeleteKubeObject/constants';
+import { DeleteKubeObjectDialogForwardedProps } from '../../../DeleteKubeObject/types';
+import { ManageRegistrySecretFormDataContext, ManageRegistrySecretFormValues } from '../../types';
+import { FormActionsProps } from './types';
 
-export const FormActions = () => {
-    const { closeDialog } = useDialogContext();
-    const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
+export const FormActions = ({ mode }: FormActionsProps) => {
+    const { closeDialog, setDialog } = useDialogContext<DeleteKubeObjectDialogForwardedProps>();
     const {
         reset,
         formState: { isDirty },
         handleSubmit,
         getValues,
-    } = useReactHookFormContext<ManageRegistrySecretFormNames>();
+    } = useReactHookFormContext<ManageRegistrySecretFormValues>();
 
     const {
         formData: { currentElement, handleDeleteRow },
     } = useFormContext<ManageRegistrySecretFormDataContext>();
-
-    const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
 
     const {
         createRegistrySecret,
@@ -39,9 +38,10 @@ export const FormActions = () => {
         },
     } = useRegistrySecretCRUD({
         onSuccess: async () => {
-            closeDialog();
-            if (isPlaceholder) {
-                handleDeleteRow(isPlaceholder);
+            closeDialog(DELETE_KUBE_OBJECT_DIALOG_NAME);
+
+            if (mode === FORM_MODES.CREATE) {
+                handleDeleteRow(true);
             }
         },
     });
@@ -60,20 +60,28 @@ export const FormActions = () => {
             password,
         });
 
-        if (isPlaceholder) {
+        if (mode === FORM_MODES.CREATE) {
             await createRegistrySecret({ registrySecretData: registrySecretInstance });
         } else {
             await editRegistrySecret({ registrySecretData: registrySecretInstance });
         }
-    }, [getValues, isPlaceholder, createRegistrySecret, editRegistrySecret]);
+    }, [getValues, mode, createRegistrySecret, editRegistrySecret]);
 
     const handleDelete = React.useCallback(async () => {
-        if (isPlaceholder) {
-            handleDeleteRow(isPlaceholder);
+        if (mode === FORM_MODES.CREATE) {
+            handleDeleteRow(true);
         } else {
-            setDeleteActionPopupOpen(true);
+            setDialog({
+                modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+                forwardedProps: {
+                    kubeObject: SecretKubeObject,
+                    kubeObjectData: currentElement as EDPKubeObjectInterface,
+                    objectName: typeof currentElement !== 'string' && currentElement?.metadata.name,
+                    description: `Confirm the deletion of the registry secret`,
+                },
+            });
         }
-    }, [handleDeleteRow, isPlaceholder]);
+    }, [currentElement, handleDeleteRow, mode, setDialog]);
 
     return (
         <>
@@ -111,16 +119,6 @@ export const FormActions = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Render condition={!isPlaceholder}>
-                <DeleteKubeObject
-                    popupOpen={deleteActionPopupOpen}
-                    setPopupOpen={setDeleteActionPopupOpen}
-                    kubeObject={SecretKubeObject}
-                    kubeObjectData={currentElement as EDPKubeObjectInterface}
-                    objectName={typeof currentElement !== 'string' && currentElement?.metadata.name}
-                    description={`Confirm the deletion of the registry secret`}
-                />
-            </Render>
         </>
     );
 };

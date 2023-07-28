@@ -10,15 +10,4 @@ export const useStyles = makeStyles(theme => ({
     disabledTab: {
         backgroundColor: theme.palette.action.disabled,
     },
-    tabPanel: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'relative',
-
-        '&[hidden]': {
-            height: 0,
-            overflow: 'hidden',
-        },
-    },
 }));

@@ -14,7 +14,7 @@ export const createGitServerInstance = (
     formValues: {
         [key: string]: any;
     }
-): DeepPartial<EDPGitServerKubeObjectInterface> => {
+): EDPGitServerKubeObjectInterface => {
     const { gitHost, ...restProps } = formValues;
     const gitServerName = `${gitHost}-${createRandomString()}`;
 
@@ -35,5 +35,5 @@ export const createGitServerInstance = (
         set(base, propPath, propValue);
     }
 
-    return base;
+    return base as EDPGitServerKubeObjectInterface;
 };

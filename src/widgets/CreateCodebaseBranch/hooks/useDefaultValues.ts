@@ -1,40 +1,36 @@
 import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
-import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
-import { CreateCodebaseBranchFormKeys, CreateCodebaseBranchFormNames } from '../types';
+import { useDialogContext } from '../../../providers/Dialog/hooks';
+import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../constants';
+import { CODEBASE_BRANCH_FORM_NAMES } from '../names';
+import { CreateCodebaseBranchDialogForwardedProps, CreateCodebaseBranchFormValues } from '../types';
 
 interface useDefaultValuesProps {
-    names: CreateCodebaseBranchFormNames;
-    codebaseData: EDPCodebaseKubeObjectInterface;
     defaultBranchVersion: string;
 }
 
-export const useDefaultValues = ({
-    names,
-    codebaseData,
-    defaultBranchVersion,
-}: useDefaultValuesProps) => {
-    const {
-        spec: {
-            versioning: { type },
-        },
-    } = codebaseData;
+export const useDefaultValues = ({ defaultBranchVersion }: useDefaultValuesProps) => {
+    const { dialogProviderState } = useDialogContext<CreateCodebaseBranchDialogForwardedProps>();
+
+    const versioningType =
+        dialogProviderState?.[CREATE_CODEBASE_BRANCH_DIALOG_NAME].forwardedProps?.codebase?.spec
+            .versioning.type;
 
     return React.useMemo(() => {
-        let base: Partial<Record<CreateCodebaseBranchFormKeys, any>> = {
-            [names.fromCommit.name]: '',
-            [names.release.name]: false,
+        let base: Partial<CreateCodebaseBranchFormValues> = {
+            [CODEBASE_BRANCH_FORM_NAMES.fromCommit.name]: '',
+            [CODEBASE_BRANCH_FORM_NAMES.release.name]: false,
         };
 
-        if (type !== CODEBASE_VERSIONING_TYPES.EDP) {
+        if (versioningType !== CODEBASE_VERSIONING_TYPES.EDP) {
             return base;
         }
 
         base = {
             ...base,
-            [names.version.name]: defaultBranchVersion,
+            [CODEBASE_BRANCH_FORM_NAMES.version.name]: defaultBranchVersion,
         };
 
         return base;
-    }, [names, type, defaultBranchVersion]);
+    }, [versioningType, defaultBranchVersion]);
 };

@@ -15,7 +15,7 @@ export const createCodebaseInstance = (
     formValues: {
         [key: string]: any;
     }
-): DeepPartial<EDPCodebaseKubeObjectInterface> => {
+): EDPCodebaseKubeObjectInterface => {
     const { name, ...restProps } = formValues;
 
     const base: DeepPartial<EDPCodebaseKubeObjectInterface> = {
@@ -38,5 +38,5 @@ export const createCodebaseInstance = (
                 : `${slashSymbol}${base.spec.gitUrlPath}`;
     }
 
-    return base;
+    return base as EDPCodebaseKubeObjectInterface;
 };

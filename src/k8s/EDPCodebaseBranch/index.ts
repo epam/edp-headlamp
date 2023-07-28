@@ -49,6 +49,6 @@ export const streamCodebaseBranchesByCodebaseLabel = (
 ): (() => any) => {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, cb, errCb, {
-        labelSelector: `app.edp.epam.com/codebaseName=${codebaseName}`,
+        labelSelector: `${CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME}=${codebaseName}`,
     });
 };

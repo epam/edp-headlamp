@@ -2,19 +2,22 @@ import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../constants/creationStrategies';
 import { GIT_SERVERS } from '../../../constants/gitServers';
-import { EDPTemplateKubeObjectInterface } from '../../../k8s/EDPTemplate/types';
+import { useDialogContext } from '../../../providers/Dialog/hooks';
+import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../constants';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../names';
-
-interface useDefaultValuesProps {
-    template: EDPTemplateKubeObjectInterface;
-}
+import { CreateCodebaseFromTemplateDialogForwardedProps } from '../types';
 
 const defaultEDPVersioningValue = '0.1.0-SNAPSHOT';
 const defaultBranchName = 'main';
 const [defaultEDPVersioningVersion, defaultEDPVersioningVersionPostfix] =
     defaultEDPVersioningValue.split('-');
 
-export const useDefaultValues = ({ template }: useDefaultValuesProps) => {
+export const useDefaultValues = () => {
+    const { dialogProviderState } =
+        useDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>();
+    const template =
+        dialogProviderState?.[CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME]?.forwardedProps?.template;
+
     return React.useMemo(() => {
         return {
             [CODEBASE_FROM_TEMPLATE_FORM_NAMES.lang.name]: template?.spec.language,

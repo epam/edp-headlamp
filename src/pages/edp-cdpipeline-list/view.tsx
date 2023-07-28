@@ -1,14 +1,15 @@
 import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { CreateKubeObject } from '../../components/CreateKubeObject';
+import { CreateResourceFab } from '../../components/CreateResourceFab';
 import { DocLink } from '../../components/DocLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES } from '../../constants/urls';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
+import { FORM_MODES } from '../../types/forms';
 import { CDPipelineActionsMenu } from '../../widgets/CDPipelineActionsMenu';
-import { CreateCDPipeline } from '../../widgets/CreateCDPipeline';
+import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../widgets/CreateEditCDPipeline/constants';
 import { CDPipelineList } from './components/CDPipelineList';
 
 export const PageView = () => {
@@ -38,9 +39,10 @@ export const PageView = () => {
                     <CDPipelineList CDPipelines={items} error={error} />
                     <CDPipelineActionsMenu />
                 </ResourceActionListContextProvider>
-                <CreateKubeObject>
-                    <CreateCDPipeline />
-                </CreateKubeObject>
+                <CreateResourceFab
+                    modalName={CREATE_EDIT_CD_PIPELINE_DIALOG_NAME}
+                    forwardedProps={{ mode: FORM_MODES.CREATE }}
+                />
             </SectionBox>
         </PageWrapper>
     );

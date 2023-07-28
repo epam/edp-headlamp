@@ -3,7 +3,7 @@ const NAME_REGISTRY_ENDPOINT = 'registryEndpoint' as const;
 const NAME_USER = 'user' as const;
 const NAME_PASSWORD = 'password' as const;
 
-export const REGISTRY_SECRET_CREATION_FORM_NAMES = {
+export const REGISTRY_SECRET_FORM_NAMES = {
     [NAME_NAME]: {
         name: NAME_NAME,
         path: ['metadata', 'name'],

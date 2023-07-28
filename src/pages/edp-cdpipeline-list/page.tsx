@@ -1,6 +1,7 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../../components/ErrorBoundary';
+import { DialogContextProvider } from '../../providers/Dialog';
 import { PageView } from './view';
 
 export default function () {
@@ -17,7 +18,9 @@ export default function () {
     return (
         <QueryClientProvider client={queryClient}>
             <ErrorBoundary>
-                <PageView />
+                <DialogContextProvider>
+                    <PageView />
+                </DialogContextProvider>
             </ErrorBoundary>
         </QueryClientProvider>
     );

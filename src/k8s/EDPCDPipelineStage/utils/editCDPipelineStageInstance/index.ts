@@ -1,17 +1,16 @@
 import { set } from 'lodash';
 import { FormNameObject } from '../../../../types/forms';
-import { DeepPartial } from '../../../../types/global';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../types';
 
 export const editCDPipelineStageInstance = (
     names: {
         [key: string]: FormNameObject;
     },
-    kubeObjectData: DeepPartial<EDPCDPipelineStageKubeObjectInterface>,
+    kubeObjectData: EDPCDPipelineStageKubeObjectInterface,
     formValues: {
         [key: string]: any;
     }
-): DeepPartial<EDPCDPipelineStageKubeObjectInterface> => {
+): EDPCDPipelineStageKubeObjectInterface => {
     const base = { ...kubeObjectData };
 
     for (const [propKey, propValue] of Object.entries(formValues)) {

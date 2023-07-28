@@ -5,10 +5,10 @@ export const getUsedValues = (values: FieldValues, names: { [key: string]: FormN
     let result: FieldValues;
 
     for (const [key, value] of Object.entries(values)) {
-        const nameObject = names[key];
-        const isUsedInResourceCreation = Object.hasOwn(nameObject, 'path');
+        const nameObject = names?.[key];
+        const isUsedInResourceCreation = nameObject && Object.hasOwn(nameObject, 'path');
 
-        if (!nameObject || !isUsedInResourceCreation) {
+        if (value === '' || value === null || !nameObject || !isUsedInResourceCreation) {
             continue;
         }
 

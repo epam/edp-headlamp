@@ -1,55 +1,80 @@
 import React from 'react';
 import { DialogContext } from './context';
 import { MODAL_MAPPING } from './mapping';
-import { ActiveDialog } from './types';
-
-const renderModal = (activeDialog: ActiveDialog) => {
-    if (!activeDialog.modalName) {
-        return null;
-    }
-
-    return MODAL_MAPPING[activeDialog.modalName];
-};
+import { DialogProviderState, ModalName } from './types';
 
 export const DialogContextProvider: React.FC = ({ children }) => {
-    const [activeDialog, setActiveDialog] = React.useState<ActiveDialog<null>>({
-        modalName: null,
-        forwardedProps: null,
-        open: false,
-    });
+    const [dialogProviderState, setDialogProviderState] = React.useState<
+        DialogProviderState<unknown>
+    >({});
 
     const setDialog = React.useCallback(
-        ({ modalName, forwardedProps = null }: ActiveDialog<null>) => {
-            setActiveDialog({
-                modalName,
-                forwardedProps,
-                open: true,
-            });
+        ({
+            modalName,
+            forwardedProps = null,
+        }: {
+            modalName: ModalName;
+            forwardedProps: unknown;
+        }) => {
+            setDialogProviderState(prev => ({
+                ...prev,
+                [modalName]: {
+                    forwardedProps,
+                    open: true,
+                },
+            }));
         },
         []
     );
 
-    const openDialog = React.useCallback(() => {
-        setActiveDialog(prevState => ({
-            ...prevState,
-            open: true,
-        }));
-    }, []);
+    const openDialog = React.useCallback(
+        (modalName: ModalName) => {
+            if (dialogProviderState && Object.hasOwn(dialogProviderState, modalName)) {
+                setDialogProviderState(prev => ({
+                    ...prev,
+                    [modalName]: {
+                        ...prev[modalName],
+                        open: true,
+                    },
+                }));
+            }
+        },
+        [dialogProviderState]
+    );
 
-    const closeDialog = React.useCallback(() => {
-        setActiveDialog(prevState => ({
-            ...prevState,
-            open: false,
-        }));
-    }, []);
+    const closeDialog = React.useCallback(
+        (modalName: ModalName) => {
+            if (dialogProviderState && Object.hasOwn(dialogProviderState, modalName)) {
+                setDialogProviderState(prev => ({
+                    ...prev,
+                    [modalName]: {
+                        ...prev[modalName],
+                        open: false,
+                    },
+                }));
+            }
+        },
+        [dialogProviderState]
+    );
 
-    const modalComponent = renderModal(activeDialog);
+    console.log(dialogProviderState);
+
+    const entries = Object.entries(dialogProviderState);
 
     return (
-        <DialogContext.Provider value={{ activeDialog, setDialog, openDialog, closeDialog }}>
+        <DialogContext.Provider value={{ dialogProviderState, setDialog, openDialog, closeDialog }}>
             <>
                 {children}
-                {modalComponent}
+                {dialogProviderState &&
+                    entries.map(([modalName]) => {
+                        const key = `modal::${modalName}`;
+
+                        return (
+                            <React.Fragment key={key}>
+                                {MODAL_MAPPING?.[modalName] ? MODAL_MAPPING?.[modalName] : null}
+                            </React.Fragment>
+                        );
+                    })}
             </>
         </DialogContext.Provider>
     );

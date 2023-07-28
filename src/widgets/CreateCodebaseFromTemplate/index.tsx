@@ -1,31 +1,19 @@
-import {
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    Grid,
-    Typography,
-} from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { FormContextProvider } from '../../providers/Form';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
 import { FormDefaultValues } from './components/FormDefaultValues';
+import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from './constants';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { CreateCodebaseFromTemplateDialogForwardedProps } from './types';
 
 export const CreateCodebaseFromTemplate = () => {
-    const { activeDialog, closeDialog } =
+    const { dialogProviderState, closeDialog } =
         useDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>();
 
-    const baseDefaultValues = useDefaultValues({
-        template: activeDialog?.forwardedProps?.template,
-    });
-
-    if (!activeDialog) {
-        return null;
-    }
+    const baseDefaultValues = useDefaultValues();
 
     const {
         forwardedProps: {
@@ -33,25 +21,25 @@ export const CreateCodebaseFromTemplate = () => {
                 spec: { type: codebaseType, displayName: templateName },
             },
         },
-    } = activeDialog;
+    } = dialogProviderState?.[CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME];
 
     return (
-        <FormContextProvider
-            formSettings={{
-                defaultValues: baseDefaultValues,
-                mode: 'onBlur',
-            }}
+        <Dialog
+            open={dialogProviderState?.[CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME].open}
+            onClose={() => closeDialog(CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME)}
+            maxWidth={'md'}
+            fullWidth
         >
-            <Dialog open={activeDialog.open} onClose={closeDialog} maxWidth={'md'} fullWidth>
+            <FormContextProvider
+                formSettings={{
+                    defaultValues: baseDefaultValues,
+                    mode: 'onBlur',
+                }}
+            >
                 <DialogTitle>
-                    <Grid container alignItems={'center'} spacing={1}>
-                        <Grid item>
-                            <Typography variant={'h5'}>
-                                Creating {codebaseType} from <strong>"{templateName}"</strong>{' '}
-                                template
-                            </Typography>
-                        </Grid>
-                    </Grid>
+                    <Typography variant={'h5'}>
+                        Creating {codebaseType} from <strong>"{templateName}"</strong> template
+                    </Typography>
                 </DialogTitle>
                 <DialogContent>
                     <FormDefaultValues />
@@ -60,7 +48,7 @@ export const CreateCodebaseFromTemplate = () => {
                 <DialogActions>
                     <FormActions />
                 </DialogActions>
-            </Dialog>
-        </FormContextProvider>
+            </FormContextProvider>
+        </Dialog>
     );
 };

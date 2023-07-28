@@ -1,11 +1,11 @@
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
-import { CODEBASE_NAMES } from '../../../../widgets/CreateCodebase/names';
+import { CODEBASE_FORM_NAMES } from '../../../../widgets/CreateEditCodebase/names';
 import { createCodebaseInstance } from './index';
 
 describe('testing createCodebaseExample', () => {
     describe('codebase type: application', () => {
         it('should return valid kube object', () => {
-            const object = createCodebaseInstance(CODEBASE_NAMES, {
+            const object = createCodebaseInstance(CODEBASE_FORM_NAMES, {
                 strategy: 'create',
                 gitServer: 'gerrit',
                 ciTool: 'jenkins',
@@ -47,7 +47,7 @@ describe('testing createCodebaseExample', () => {
     });
     describe('codebase type: library', () => {
         it('should return valid kube object', () => {
-            const object = createCodebaseInstance(CODEBASE_NAMES, {
+            const object = createCodebaseInstance(CODEBASE_FORM_NAMES, {
                 strategy: 'create',
                 gitServer: 'gerrit',
                 ciTool: 'jenkins',
@@ -89,7 +89,7 @@ describe('testing createCodebaseExample', () => {
     });
     describe('codebase type: autotest', () => {
         it('should return valid kube object', () => {
-            const object = createCodebaseInstance(CODEBASE_NAMES, {
+            const object = createCodebaseInstance(CODEBASE_FORM_NAMES, {
                 strategy: 'clone',
                 gitServer: 'gerrit',
                 ciTool: 'jenkins',

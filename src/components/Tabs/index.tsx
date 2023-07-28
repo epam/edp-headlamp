@@ -38,12 +38,7 @@ export const Tabs = ({ tabs, initialTabIdx }) => {
                 ))}
             </MuiTabs>
             {tabs.map(({ component }, idx) => (
-                <TabPanel
-                    key={`tab::${idx}`}
-                    value={activeTabIdx}
-                    index={idx}
-                    className={classes.tabPanel}
-                >
+                <TabPanel key={`tab::${idx}`} value={activeTabIdx} index={idx}>
                     {component}
                 </TabPanel>
             ))}

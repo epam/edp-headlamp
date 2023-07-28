@@ -1,5 +1,6 @@
 import React from 'react';
-import { REGISTRY_SECRET_CREATION_FORM_NAMES } from '../names';
+import { CONTAINER_REGISTRY_ITEM_OPTIONS } from '../constants';
+import { REGISTRY_SECRET_FORM_NAMES } from '../names';
 import { ManageRegistrySecretFormDataContext } from '../types';
 
 const parseConfigJson = (configJson: string) => {
@@ -12,7 +13,7 @@ export const useDefaultValues = ({
 }: {
     formData: ManageRegistrySecretFormDataContext;
 }) => {
-    const { currentElement, registryEndpoint: dockerRegistryEndpoint } = formData;
+    const { currentElement, registryEndpoint: dockerRegistryEndpoint, secrets } = formData;
 
     const getUserNameAndPassword = React.useCallback(() => {
         if (typeof currentElement === 'string' && currentElement === 'placeholder') {
@@ -51,13 +52,29 @@ export const useDefaultValues = ({
     const { userName, password } = getUserNameAndPassword();
     const registryEndpoint = getRegistryEndpoint();
 
+    const typeOptions = React.useMemo(
+        () =>
+            Object.values(CONTAINER_REGISTRY_ITEM_OPTIONS).map(({ label, value }) => {
+                const alreadyExists = !!secrets?.find(secret => secret?.metadata?.name === value);
+
+                return {
+                    label: `${label} (${value})`,
+                    value: value,
+                    disabled: alreadyExists,
+                };
+            }),
+        [secrets]
+    );
+
     return React.useMemo(() => {
         return {
-            [REGISTRY_SECRET_CREATION_FORM_NAMES.name.name]:
-                typeof currentElement !== 'string' && currentElement?.metadata.name,
-            [REGISTRY_SECRET_CREATION_FORM_NAMES.registryEndpoint.name]: registryEndpoint,
-            [REGISTRY_SECRET_CREATION_FORM_NAMES.user.name]: userName,
-            [REGISTRY_SECRET_CREATION_FORM_NAMES.password.name]: password,
+            [REGISTRY_SECRET_FORM_NAMES.name.name]:
+                typeof currentElement === 'string' && currentElement === 'placeholder'
+                    ? typeOptions.filter(el => !el.disabled)?.[0]?.value
+                    : currentElement?.metadata.name,
+            [REGISTRY_SECRET_FORM_NAMES.registryEndpoint.name]: registryEndpoint,
+            [REGISTRY_SECRET_FORM_NAMES.user.name]: userName,
+            [REGISTRY_SECRET_FORM_NAMES.password.name]: password,
         };
-    }, [currentElement, password, registryEndpoint, userName]);
+    }, [currentElement, password, registryEndpoint, typeOptions, userName]);
 };

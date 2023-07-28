@@ -1,9 +1,9 @@
-import { CDPIPELINE_CREATION_FORM_NAMES } from '../../../../widgets/CreateCDPipeline/components/CreateCDPipelineForm/names';
+import { CDPIPELINE_FORM_NAMES } from '../../../../widgets/CreateEditCDPipeline/names';
 import { createCDPipelineInstance } from './index';
 
 describe('testing createCDPipelineInstance', () => {
     it('should return valid kube object', () => {
-        const object = createCDPipelineInstance(CDPIPELINE_CREATION_FORM_NAMES, {
+        const object = createCDPipelineInstance(CDPIPELINE_FORM_NAMES, {
             deploymentType: 'container',
             name: 'test-pipe',
             applications: ['test-app-2', 'test-application'],

@@ -3,7 +3,7 @@
  */
 
 import { jest } from '@jest/globals';
-import { GIT_SERVER_NAMES } from '../../../../widgets/CreateGitServer/components/CreateGitServerForm/names';
+import { GIT_SERVER_FORM_NAMES } from '../../../../widgets/CreateGitServer/names';
 import { createGitServerInstance } from './index';
 
 beforeEach(() => {
@@ -19,7 +19,7 @@ afterEach(() => {
 
 describe('testing createGitServerInstance', () => {
     it('should return valid kube object', () => {
-        const object = createGitServerInstance(GIT_SERVER_NAMES, {
+        const object = createGitServerInstance(GIT_SERVER_FORM_NAMES, {
             sshPort: 22,
             httpsPort: 443,
             gitUser: 'git',

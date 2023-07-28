@@ -3,7 +3,7 @@ import React from 'react';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { EDPKubeObjectInterface } from '../../../types/k8s';
-import { CodebaseAuthData } from '../../../widgets/CreateCodebase/types';
+import { CodebaseAuthData } from '../../../widgets/CreateEditCodebase/types';
 import { createCodebaseSecretInstance } from '../../Secret/utils/createCodebaseSecretInstance';
 import { EDPCodebaseKubeObject } from '../index';
 import { EDPCodebaseKubeObjectInterface } from '../types';

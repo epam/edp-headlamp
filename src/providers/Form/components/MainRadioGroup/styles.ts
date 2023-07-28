@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
         display: 'block',
         width: '100%',
         height: '100%',
-        padding: `${rem(20)} ${rem(10)}`,
+        padding: 0,
         borderRadius: rem(5),
         border: '1px solid transparent',
         backgroundColor: `${theme.palette.primary.main}10`,
@@ -32,7 +32,7 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
         justifyContent: 'center',
         margin: 0,
         gap: rem(20),
-        padding: `${rem(5)} ${rem(8)}`,
+        padding: `${rem(20)} ${rem(10)}`,
         width: '100%',
         height: '100%',
 

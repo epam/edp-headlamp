@@ -1,45 +1,26 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { DeleteKubeObject } from '../../components/DeleteKubeObject';
 import { KubeObjectActions } from '../../components/KubeObjectActions';
-import { Render } from '../../components/Render';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
+import { useDialogContext } from '../../providers/Dialog/hooks';
 import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../types/actions';
+import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
-import { EditCDPipeline } from '../EditCDPipeline';
+import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../CreateEditCDPipeline/constants';
+import { CreateEditCDPipelineDialogForwardedProps } from '../CreateEditCDPipeline/types';
+import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
+import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
 
 export const CDPipelineActionsMenu = () => {
     const history = useHistory();
+    const { setDialog } = useDialogContext();
 
     const { data, anchorEl, isDetailsPage, handleCloseResourceActionListMenu } =
         useResourceActionListContext<EDPCDPipelineKubeObjectInterface>();
-    const [editActionEditorOpen, setEditActionEditorOpen] = React.useState<boolean>(false);
-    const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
-
-    const actions: KubeObjectAction[] = React.useMemo(() => {
-        return [
-            createKubeAction({
-                name: RESOURCE_ACTIONS.EDIT,
-                icon: ICONS.PENCIL,
-                action: () => {
-                    handleCloseResourceActionListMenu();
-                    setEditActionEditorOpen(true);
-                },
-            }),
-            createKubeAction({
-                name: RESOURCE_ACTIONS.DELETE,
-                icon: ICONS.BUCKET,
-                action: () => {
-                    handleCloseResourceActionListMenu();
-                    setDeleteActionPopupOpen(true);
-                },
-            }),
-        ];
-    }, [handleCloseResourceActionListMenu, setEditActionEditorOpen, setDeleteActionPopupOpen]);
 
     const onSuccess = React.useCallback(() => {
         if (!isDetailsPage) {
@@ -49,31 +30,51 @@ export const CDPipelineActionsMenu = () => {
         history.goBack();
     }, [history, isDetailsPage]);
 
+    const actions: KubeObjectAction[] = React.useMemo(() => {
+        const createEditCDPipelineDialogForwardedProps: CreateEditCDPipelineDialogForwardedProps = {
+            CDPipelineData: data,
+            mode: FORM_MODES.EDIT,
+        };
+
+        const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+            objectName: data?.metadata.name,
+            kubeObject: EDPCDPipelineKubeObject,
+            kubeObjectData: data,
+            description: `Confirm the deletion of the CD Pipeline with all its components`,
+            onSuccess,
+        };
+
+        return [
+            createKubeAction({
+                name: RESOURCE_ACTIONS.EDIT,
+                icon: ICONS.PENCIL,
+                action: () => {
+                    handleCloseResourceActionListMenu();
+                    setDialog({
+                        modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
+                        forwardedProps: createEditCDPipelineDialogForwardedProps,
+                    });
+                },
+            }),
+            createKubeAction({
+                name: RESOURCE_ACTIONS.DELETE,
+                icon: ICONS.BUCKET,
+                action: () => {
+                    handleCloseResourceActionListMenu();
+                    setDialog({
+                        modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+                        forwardedProps: deleteKubeObjectDialogForwardedProps,
+                    });
+                },
+            }),
+        ];
+    }, [data, onSuccess, handleCloseResourceActionListMenu, setDialog]);
+
     return (
         <KubeObjectActions
             anchorEl={anchorEl}
             handleCloseActionsMenu={handleCloseResourceActionListMenu}
             actions={actions}
-        >
-            <Render condition={!!data}>
-                <>
-                    <EditCDPipeline
-                        CDPipelineData={data}
-                        onClose={() => setEditActionEditorOpen(false)}
-                        open={editActionEditorOpen}
-                        setOpen={setEditActionEditorOpen}
-                    />
-                    <DeleteKubeObject
-                        popupOpen={deleteActionPopupOpen}
-                        setPopupOpen={setDeleteActionPopupOpen}
-                        kubeObject={EDPCDPipelineKubeObject}
-                        kubeObjectData={data}
-                        objectName={data?.metadata.name}
-                        description={`Confirm the deletion of the CD Pipeline with all its components`}
-                        onSuccess={onSuccess}
-                    />
-                </>
-            </Render>
-        </KubeObjectActions>
+        />
     );
 };

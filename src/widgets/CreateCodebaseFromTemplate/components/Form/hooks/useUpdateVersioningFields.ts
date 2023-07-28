@@ -2,11 +2,12 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../../constants/codebaseVersioningTypes';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../../../names';
+import { CreateCodebaseFromTemplateFormValues } from '../../../types';
 
 const defaultEDPVersioningValue = '0.1.0-SNAPSHOT';
 
 export const useUpdateVersioningFields = (): void => {
-    const { watch, setValue } = useFormContext();
+    const { watch, setValue } = useFormContext<CreateCodebaseFromTemplateFormValues>();
     const versioningStartFromFieldValue = watch(
         CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFrom.name
     );

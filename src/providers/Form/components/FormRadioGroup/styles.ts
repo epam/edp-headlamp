@@ -30,6 +30,7 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
 
         '& .MuiRadio-root': {
             padding: 0,
+            position: 'static',
 
             '&:hover': {
                 backgroundColor: 'transparent',

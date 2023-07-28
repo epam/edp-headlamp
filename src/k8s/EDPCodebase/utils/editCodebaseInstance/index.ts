@@ -1,17 +1,16 @@
 import { set } from 'lodash';
 import { FormNameObject } from '../../../../types/forms';
-import { DeepPartial } from '../../../../types/global';
 import { EDPCodebaseKubeObjectInterface } from '../../types';
 
 export const editCodebaseInstance = (
     names: {
         [key: string]: FormNameObject;
     },
-    kubeObjectData: DeepPartial<EDPCodebaseKubeObjectInterface>,
+    kubeObjectData: EDPCodebaseKubeObjectInterface,
     formValues: {
         [key: string]: any;
     }
-): DeepPartial<EDPCodebaseKubeObjectInterface> => {
+): EDPCodebaseKubeObjectInterface => {
     const base = { ...kubeObjectData };
 
     for (const [propKey, propValue] of Object.entries(formValues)) {

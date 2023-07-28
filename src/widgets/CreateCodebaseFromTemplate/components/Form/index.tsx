@@ -1,10 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { CodebaseVersioning } from './components/CodebaseVersioning';
-import { Description } from './components/Description';
-import { GitServer } from './components/GitServer';
-import { GitUrlPath } from './components/GitUrlPath';
-import { Name } from './components/Name';
+import { CodebaseVersioning, Description, GitServer, GitUrlPath, Name } from '../fields';
 import { useUpdateDefaultValues } from './hooks/useUpdateDefaultValues';
 
 export const Form = () => {

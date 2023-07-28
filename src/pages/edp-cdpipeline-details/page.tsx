@@ -1,6 +1,7 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../../components/ErrorBoundary';
+import { DialogContextProvider } from '../../providers/Dialog';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { CDPipelineContextProvider } from './providers/CDPipeline/provider';
 import { CDPipelineStagesContextProvider } from './providers/CDPipelineStages/provider';
@@ -21,15 +22,17 @@ export default function () {
     return (
         <QueryClientProvider client={queryClient}>
             <ErrorBoundary>
-                <CDPipelineContextProvider>
-                    <CDPipelineStagesContextProvider>
-                        <EnrichedApplicationsContextProvider>
-                            <ResourceActionListContextProvider>
-                                <PageView />
-                            </ResourceActionListContextProvider>
-                        </EnrichedApplicationsContextProvider>
-                    </CDPipelineStagesContextProvider>
-                </CDPipelineContextProvider>
+                <DialogContextProvider>
+                    <CDPipelineContextProvider>
+                        <CDPipelineStagesContextProvider>
+                            <EnrichedApplicationsContextProvider>
+                                <ResourceActionListContextProvider>
+                                    <PageView />
+                                </ResourceActionListContextProvider>
+                            </EnrichedApplicationsContextProvider>
+                        </CDPipelineStagesContextProvider>
+                    </CDPipelineContextProvider>
+                </DialogContextProvider>
             </ErrorBoundary>
         </QueryClientProvider>
     );

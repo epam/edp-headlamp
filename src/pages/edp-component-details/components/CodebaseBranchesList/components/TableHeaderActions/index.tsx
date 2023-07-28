@@ -2,30 +2,31 @@ import { Icon } from '@iconify/react';
 import { Button, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { CreateCodebaseBranch } from '../../../../../../widgets/CreateCodebaseBranch';
+import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../../../../../widgets/CreateCodebaseBranch/constants';
+import { CreateCodebaseBranchDialogForwardedProps } from '../../../../../../widgets/CreateCodebaseBranch/types';
 import { TableHeaderActionsProps } from './types';
 
-export const TableHeaderActions = ({ kubeObjectData }: TableHeaderActionsProps) => {
-    const [createDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
-    const handleCloseDialog = React.useCallback(() => setCreateDialogOpen(false), []);
-    const handleOpenDialog = React.useCallback(() => setCreateDialogOpen(true), []);
+export const TableHeaderActions = ({ codebaseData }: TableHeaderActionsProps) => {
+    const { setDialog } = useDialogContext<CreateCodebaseBranchDialogForwardedProps>();
 
     return (
         <>
             <Tooltip title={'Create branch'}>
                 <Button
                     startIcon={<Icon icon={ICONS.DOCUMENT_ADD} />}
-                    onClick={() => setCreateDialogOpen(true)}
+                    onClick={() => {
+                        setDialog({
+                            modalName: CREATE_CODEBASE_BRANCH_DIALOG_NAME,
+                            forwardedProps: {
+                                codebase: codebaseData,
+                            },
+                        });
+                    }}
                 >
                     <Typography>Create</Typography>
                 </Button>
             </Tooltip>
-            <CreateCodebaseBranch
-                codebaseData={kubeObjectData}
-                open={createDialogOpen}
-                handleCloseDialog={handleCloseDialog}
-                handleOpenDialog={handleOpenDialog}
-            />
         </>
     );
 };

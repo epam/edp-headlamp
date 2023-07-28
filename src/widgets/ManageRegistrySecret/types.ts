@@ -1,6 +1,6 @@
 import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
-import { FormData } from '../../types/forms';
-import { REGISTRY_SECRET_CREATION_FORM_NAMES } from './names';
+import { FormValues } from '../../types/forms';
+import { REGISTRY_SECRET_FORM_NAMES } from './names';
 
 export interface ManageRegistrySecretFormDataContext {
     currentElement: SecretKubeObjectInterface | 'placeholder';
@@ -13,4 +13,4 @@ export interface ManageRegistrySecretProps {
     formData: ManageRegistrySecretFormDataContext;
 }
 
-export type ManageRegistrySecretFormNames = FormData<typeof REGISTRY_SECRET_CREATION_FORM_NAMES>;
+export type ManageRegistrySecretFormValues = FormValues<typeof REGISTRY_SECRET_FORM_NAMES>;

@@ -12,7 +12,7 @@ export interface FormRadioOption {
 
 export interface FormRadioProps {
     name: string;
-    control: Control;
+    control: Control<any>;
     errors: FieldErrors;
     label: string;
     title?: string;

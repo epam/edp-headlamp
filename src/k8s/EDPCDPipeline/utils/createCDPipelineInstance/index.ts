@@ -13,7 +13,7 @@ export const createCDPipelineInstance = (
     formValues: {
         [key: string]: any;
     }
-): DeepPartial<EDPCDPipelineKubeObjectInterface> => {
+): EDPCDPipelineKubeObjectInterface => {
     const { name, ...restProps } = formValues;
 
     const base: DeepPartial<EDPCDPipelineKubeObjectInterface> = {
@@ -32,5 +32,5 @@ export const createCDPipelineInstance = (
         set(base, propPath, propValue);
     }
 
-    return base;
+    return base as EDPCDPipelineKubeObjectInterface;
 };

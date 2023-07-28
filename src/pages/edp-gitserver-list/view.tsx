@@ -1,12 +1,12 @@
 import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { CreateKubeObject } from '../../components/CreateKubeObject';
+import { CreateResourceFab } from '../../components/CreateResourceFab';
 import { DocLink } from '../../components/DocLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVERS } from '../../constants/urls';
 import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
-import { CreateGitServer } from '../../widgets/CreateGitServer';
+import { CREATE_GIT_SERVER_DIALOG_NAME } from '../../widgets/CreateGitServer/constants';
 import { routeEDPConfiguration } from '../edp-configuration/route';
 import { GitServerList } from './components/GitServerList';
 
@@ -46,9 +46,7 @@ export const PageView = () => {
                 }
             >
                 <GitServerList gitServers={items} error={error} />
-                <CreateKubeObject>
-                    <CreateGitServer />
-                </CreateKubeObject>
+                <CreateResourceFab modalName={CREATE_GIT_SERVER_DIALOG_NAME} />
             </SectionBox>
         </PageWrapper>
     );

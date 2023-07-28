@@ -14,8 +14,8 @@ export const createCDPipelineStageInstance = (
     formValues: {
         [key: string]: any;
     },
-    CDPipeline: DeepPartial<EDPCDPipelineKubeObjectInterface>
-): DeepPartial<EDPCDPipelineStageKubeObjectInterface> => {
+    CDPipeline: EDPCDPipelineKubeObjectInterface
+): EDPCDPipelineStageKubeObjectInterface => {
     const { name, ...restProps } = formValues;
 
     const base: DeepPartial<EDPCDPipelineStageKubeObjectInterface> = {
@@ -36,5 +36,5 @@ export const createCDPipelineStageInstance = (
         set(base, propPath, propValue);
     }
 
-    return base;
+    return base as EDPCDPipelineStageKubeObjectInterface;
 };

@@ -1,6 +1,7 @@
 import { set } from 'lodash';
 import { FormNameObject } from '../../../../types/forms';
 import { EDPCodebaseBranchKubeObjectConfig } from '../../config';
+import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from '../../labels';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../types';
 
 const { kind, group, version } = EDPCodebaseBranchKubeObjectConfig;
@@ -27,7 +28,7 @@ export const createCodebaseBranchInstance = (
         metadata: {
             name: `${codebaseName}-${transformedBranchName || 'your branch name'}`,
             labels: {
-                'app.edp.epam.com/codebaseName': codebaseName,
+                [CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME]: codebaseName,
             },
         },
     };

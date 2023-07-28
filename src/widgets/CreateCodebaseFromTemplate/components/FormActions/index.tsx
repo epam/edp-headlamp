@@ -6,7 +6,9 @@ import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/type
 import { createCodebaseInstance } from '../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
+import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../constants';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../../names';
+import { CreateCodebaseFromTemplateFormValues } from '../../types';
 
 export const FormActions = () => {
     const { closeDialog } = useDialogContext();
@@ -16,14 +18,14 @@ export const FormActions = () => {
         formState: { isDirty },
         handleSubmit,
         getValues,
-    } = useFormContext();
+    } = useFormContext<CreateCodebaseFromTemplateFormValues>();
 
     const {
         createCodebase,
         mutations: { codebaseCreateMutation },
     } = useCreateCodebase({
         onSuccess: () => {
-            closeDialog();
+            closeDialog(CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME);
             reset();
         },
     });
@@ -48,7 +50,7 @@ export const FormActions = () => {
                 undo changes
             </Button>
             <Button
-                onClick={closeDialog}
+                onClick={() => closeDialog(CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME)}
                 size="small"
                 component={'button'}
                 style={{ marginLeft: 'auto' }}

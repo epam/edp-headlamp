@@ -35,17 +35,19 @@ export const FormTextField = React.forwardRef(
                         <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
                             <FormControl fullWidth>
                                 <Controller
-                                    render={({ field }) => (
-                                        <TextField
-                                            error={hasError}
-                                            placeholder={placeholder}
-                                            inputRef={ref}
-                                            disabled={disabled}
-                                            InputProps={InputProps}
-                                            {...TextFieldProps}
-                                            {...field}
-                                        />
-                                    )}
+                                    render={({ field }) => {
+                                        return (
+                                            <TextField
+                                                error={hasError}
+                                                placeholder={placeholder}
+                                                inputRef={ref}
+                                                disabled={disabled}
+                                                InputProps={InputProps}
+                                                {...TextFieldProps}
+                                                {...field}
+                                            />
+                                        );
+                                    }}
                                     name={name}
                                     defaultValue={defaultValue}
                                     control={control}

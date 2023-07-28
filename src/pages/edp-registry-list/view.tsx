@@ -22,16 +22,14 @@ import { rem } from '../../utils/styling/rem';
 import { ManageRegistrySecret } from '../../widgets/ManageRegistrySecret';
 import { routeEDPConfiguration } from '../edp-configuration/route';
 
-const findKanikoRegistrySecret = (items: Array<SecretKubeObjectInterface | 'placeholder'>) =>
-    items.find(el => typeof el !== 'string' && el.metadata.name === 'kaniko-docker-config');
+const findKanikoRegistrySecret = (items: SecretKubeObjectInterface[]) =>
+    items.find(el => el.metadata.name === 'kaniko-docker-config');
 
-const findRegcredRegistrySecret = (items: Array<SecretKubeObjectInterface | 'placeholder'>) =>
-    items.find(el => typeof el !== 'string' && el.metadata.name === 'regcred');
+const findRegcredRegistrySecret = (items: SecretKubeObjectInterface[]) =>
+    items.find(el => el.metadata.name === 'regcred');
 
-const generateItemName = (isPlaceholder: boolean, el: SecretKubeObjectInterface | 'placeholder') =>
-    el === 'placeholder'
-        ? 'Create Service Account'
-        : el?.metadata?.name === 'kaniko-docker-config'
+const generateItemName = (el: SecretKubeObjectInterface) =>
+    el?.metadata?.name === 'kaniko-docker-config'
         ? 'Read/write'
         : el?.metadata?.name === 'regcred'
         ? 'Read-only'
@@ -54,7 +52,8 @@ export const PageView = () => {
         setExpandedPanel(isExpanded ? panel : null);
     };
 
-    const [items, setItems] = React.useState<Array<SecretKubeObjectInterface | 'placeholder'>>([]);
+    const [secrets, setSecrets] = React.useState<SecretKubeObjectInterface[]>([]);
+    const [showPlaceholder, setShowPlaceholder] = React.useState<boolean>(false);
 
     React.useEffect(() => {
         const cancelStream = SecretKubeObject.streamRegistrySecrets({
@@ -65,7 +64,7 @@ export const PageView = () => {
                 const sortedKanikoAndRegcredSecrets =
                     sortKanikoAndRegcredSecrets(kanikoAndRegcredSecrets);
 
-                setItems(sortedKanikoAndRegcredSecrets);
+                setSecrets(sortedKanikoAndRegcredSecrets);
             },
             errorHandler: error => console.error(error),
         });
@@ -75,22 +74,22 @@ export const PageView = () => {
         };
     }, []);
 
-    const kanikoDockerConfigSecret = findKanikoRegistrySecret(items);
-    const regcredSecret = findRegcredRegistrySecret(items);
+    const kanikoDockerConfigSecret = findKanikoRegistrySecret(secrets);
+    const regcredSecret = findRegcredRegistrySecret(secrets);
 
     const creationButtonDisabled = React.useMemo(
-        () => (!!kanikoDockerConfigSecret && !!regcredSecret) || items.includes('placeholder'),
-        [items, kanikoDockerConfigSecret, regcredSecret]
+        () => (!!kanikoDockerConfigSecret && !!regcredSecret) || showPlaceholder,
+        [kanikoDockerConfigSecret, regcredSecret, showPlaceholder]
     );
 
     const handleCreateClick = () => {
-        setItems(prev => [...prev, 'placeholder']);
-        handleChange('placeholder')(null, true);
+        setShowPlaceholder(true);
+        setExpandedPanel('placeholder');
     };
 
     const handleDeleteRow = (isPlaceholder: boolean) => {
         if (isPlaceholder) {
-            setItems(prev => prev.filter(el => el !== 'placeholder'));
+            setShowPlaceholder(false);
         }
     };
 
@@ -135,13 +134,10 @@ export const PageView = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
-                            {items && items.length ? (
-                                items.map(el => {
-                                    const isPlaceholder = el === 'placeholder';
-                                    const key = isPlaceholder
-                                        ? 'placeholder'
-                                        : el?.metadata?.name || el?.metadata?.uid;
-                                    const name = generateItemName(isPlaceholder, el);
+                            {secrets && secrets.length ? (
+                                secrets.map(el => {
+                                    const key = el?.metadata?.name || el?.metadata?.uid;
+                                    const name = generateItemName(el);
 
                                     return (
                                         <Grid item xs={12} key={key}>
@@ -162,8 +158,8 @@ export const PageView = () => {
                                                                     formData={{
                                                                         currentElement: el,
                                                                         secrets: [
-                                                                            kanikoDockerConfigSecret as SecretKubeObjectInterface,
-                                                                            regcredSecret as SecretKubeObjectInterface,
+                                                                            kanikoDockerConfigSecret,
+                                                                            regcredSecret,
                                                                         ],
                                                                         registryEndpoint:
                                                                             dockerRegistryURL,
@@ -185,6 +181,41 @@ export const PageView = () => {
                                     </EmptyContent>
                                 </Grid>
                             )}
+                            {showPlaceholder ? (
+                                <Grid item xs={12}>
+                                    <Accordion
+                                        expanded={expandedPanel === 'placeholder'}
+                                        onChange={handleChange('placeholder')}
+                                    >
+                                        <AccordionSummary
+                                            expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
+                                        >
+                                            <Typography variant={'h6'}>
+                                                Create Service Account
+                                            </Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12}>
+                                                    <Render condition={!!dockerRegistryURL}>
+                                                        <ManageRegistrySecret
+                                                            formData={{
+                                                                currentElement: 'placeholder',
+                                                                secrets: [
+                                                                    kanikoDockerConfigSecret,
+                                                                    regcredSecret,
+                                                                ],
+                                                                registryEndpoint: dockerRegistryURL,
+                                                                handleDeleteRow,
+                                                            }}
+                                                        />
+                                                    </Render>
+                                                </Grid>
+                                            </Grid>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                </Grid>
+                            ) : null}
                         </Grid>
                     </Grid>
                 </Grid>

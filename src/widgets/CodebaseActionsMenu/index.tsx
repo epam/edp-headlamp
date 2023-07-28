@@ -1,48 +1,28 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { DeleteKubeObject } from '../../components/DeleteKubeObject';
 import { KubeObjectActions } from '../../components/KubeObjectActions';
-import { Render } from '../../components/Render';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { useDialogContext } from '../../providers/Dialog/hooks';
 import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../types/actions';
+import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
-import { EditCodebase } from '../EditCodebase';
+import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../CreateEditCodebase/constants';
+import { CreateEditCodebaseDialogForwardedProps } from '../CreateEditCodebase/types';
+import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
+import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
 import { CodebaseCDPipelineConflictError } from './components/CodebaseCDPipelineConflictError';
 import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
 
 export const CodebaseActionsMenu = () => {
     const history = useHistory();
+    const { setDialog } = useDialogContext();
 
     const { data, anchorEl, isDetailsPage, handleCloseResourceActionListMenu } =
         useResourceActionListContext<EDPCodebaseKubeObjectInterface>();
-
-    const [editActionPopupOpen, setEditActionPopupOpen] = React.useState<boolean>(false);
-    const [deleteActionPopupOpen, setDeleteActionPopupOpen] = React.useState<boolean>(false);
-
-    const actions: KubeObjectAction[] = React.useMemo(() => {
-        return [
-            createKubeAction({
-                name: RESOURCE_ACTIONS.EDIT,
-                icon: ICONS.PENCIL,
-                action: () => {
-                    handleCloseResourceActionListMenu();
-                    setEditActionPopupOpen(true);
-                },
-            }),
-            createKubeAction({
-                name: RESOURCE_ACTIONS.DELETE,
-                icon: ICONS.BUCKET,
-                action: () => {
-                    handleCloseResourceActionListMenu();
-                    setDeleteActionPopupOpen(true);
-                },
-            }),
-        ];
-    }, [handleCloseResourceActionListMenu]);
 
     const conflictedCDPipeline = useConflictedCDPipeline(data);
 
@@ -73,43 +53,52 @@ export const CodebaseActionsMenu = () => {
         history.goBack();
     }, [history, isDetailsPage]);
 
-    const onClose = React.useCallback(
-        (_?, reason?: string) => {
-            if (reason === 'backdropClick') {
-                return;
-            }
+    const actions: KubeObjectAction[] = React.useMemo(() => {
+        const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps = {
+            codebaseData: data,
+            mode: FORM_MODES.EDIT,
+        };
 
-            setEditActionPopupOpen(false);
-        },
-        [setEditActionPopupOpen]
-    );
+        const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+            objectName: data?.metadata?.name,
+            kubeObject: EDPCodebaseKubeObject,
+            kubeObjectData: data,
+            description: `Confirm the deletion of the codebase with all its components`,
+            onBeforeSubmit,
+            onSuccess,
+        };
+
+        return [
+            createKubeAction({
+                name: RESOURCE_ACTIONS.EDIT,
+                icon: ICONS.PENCIL,
+                action: () => {
+                    handleCloseResourceActionListMenu();
+                    setDialog({
+                        modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
+                        forwardedProps: createEditCodebaseDialogForwardedProps,
+                    });
+                },
+            }),
+            createKubeAction({
+                name: RESOURCE_ACTIONS.DELETE,
+                icon: ICONS.BUCKET,
+                action: () => {
+                    handleCloseResourceActionListMenu();
+                    setDialog({
+                        modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+                        forwardedProps: deleteKubeObjectDialogForwardedProps,
+                    });
+                },
+            }),
+        ];
+    }, [data, handleCloseResourceActionListMenu, onBeforeSubmit, onSuccess, setDialog]);
 
     return (
         <KubeObjectActions
             anchorEl={anchorEl}
             handleCloseActionsMenu={handleCloseResourceActionListMenu}
             actions={actions}
-        >
-            <Render condition={!!data}>
-                <div>
-                    <EditCodebase
-                        open={editActionPopupOpen}
-                        onClose={onClose}
-                        setOpen={setEditActionPopupOpen}
-                        codebaseData={data}
-                    />
-                    <DeleteKubeObject
-                        popupOpen={deleteActionPopupOpen}
-                        setPopupOpen={setDeleteActionPopupOpen}
-                        kubeObject={EDPCodebaseKubeObject}
-                        kubeObjectData={data}
-                        objectName={data?.metadata?.name}
-                        description={`Confirm the deletion of the codebase with all its components`}
-                        onBeforeSubmit={onBeforeSubmit}
-                        onSuccess={onSuccess}
-                    />
-                </div>
-            </Render>
-        </KubeObjectActions>
+        />
     );
 };

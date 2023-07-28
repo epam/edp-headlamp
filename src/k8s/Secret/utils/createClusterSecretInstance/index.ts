@@ -1,5 +1,5 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { ARGO_CD_SECRET_LABEL_SECRET_TYPE } from '../../labels';
+import { SecretKubeObjectInterface } from '../../types';
 
 export const createClusterSecretInstance = ({
     clusterName,
@@ -11,7 +11,7 @@ export const createClusterSecretInstance = ({
     clusterHost: string;
     clusterToken: string;
     clusterCertificate: string;
-}): KubeObjectInterface => {
+}): SecretKubeObjectInterface => {
     return {
         apiVersion: 'v1',
         kind: 'Secret',

@@ -3,15 +3,14 @@
  */
 
 import { renderHook } from '@testing-library/react-hooks';
-import { FieldEventTarget } from '../../types/forms';
-import {
-    CODEBASE_BACKWARDS_NAME_MAPPING,
-    CODEBASE_NAMES,
-} from '../../widgets/CreateCodebase/names';
 import {
     CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING,
     CODEBASE_BRANCH_FORM_NAMES,
 } from '../../widgets/CreateCodebaseBranch/names';
+import {
+    CODEBASE_BACKWARDS_NAME_MAPPING,
+    CODEBASE_FORM_NAMES,
+} from '../../widgets/CreateEditCodebase/names';
 import { useHandleEditorSave } from './index';
 import {
     applicationCloneStrategyEditorPropsObjectMock,
@@ -53,11 +52,10 @@ import {
 const executeMockState = () => {
     const formState = {}; // react-hook-form state
     const formValues = {}; // form&editor state
-    const handleFormFieldChange = ({ name, value }: FieldEventTarget): void => {
-        formValues[name] = value;
-    };
+
     const setValue = (name: string, value: any): void => {
         formState[name] = value;
+        formValues[name] = value;
     };
     const resetField = (name: string): void => {
         formState[name] = undefined;
@@ -66,7 +64,6 @@ const executeMockState = () => {
     return {
         formState,
         formValues,
-        handleFormFieldChange,
         setValue,
         resetField,
     };
@@ -75,8 +72,7 @@ const executeMockState = () => {
 describe('testing handleEditorSave function', () => {
     describe('APPLICATION CREATE STRATEGY', () => {
         it(`should result with similar values object as in react hook form state so on in formValues state`, () => {
-            const { formState, formValues, handleFormFieldChange, setValue, resetField } =
-                executeMockState();
+            const { formState, formValues, setValue, resetField } = executeMockState();
 
             const {
                 result: {
@@ -84,16 +80,19 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: CODEBASE_NAMES,
+                    names: CODEBASE_FORM_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
-                    handleFormFieldChange,
-                    formValues,
                     resetField,
                 })
             );
 
-            handleEditorSave(applicationCreateStrategyEditorPropsObjectMock);
+            handleEditorSave(
+                // @ts-ignore
+                applicationCreateStrategyEditorPropsObjectMock,
+                formValues
+            );
+
             expect(formState).toMatchObject(
                 applicationCreateStrategyEditorPropsObjectMockExpectedOutput
             );
@@ -105,8 +104,7 @@ describe('testing handleEditorSave function', () => {
     });
     describe('APPLICATION CLONE STRATEGY', () => {
         it('should result with similar values object as in react hook form state so on in formValues state', () => {
-            const { formState, formValues, handleFormFieldChange, setValue, resetField } =
-                executeMockState();
+            const { formState, formValues, setValue, resetField } = executeMockState();
 
             const {
                 result: {
@@ -114,16 +112,15 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: CODEBASE_NAMES,
+                    names: CODEBASE_FORM_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
-                    handleFormFieldChange,
-                    formValues,
                     resetField,
                 })
             );
 
-            handleEditorSave(applicationCloneStrategyEditorPropsObjectMock);
+            // @ts-ignore
+            handleEditorSave(applicationCloneStrategyEditorPropsObjectMock, formValues);
             expect(formState).toMatchObject(
                 applicationCloneStrategyEditorPropsObjectMockExpectedOutput
             );
@@ -135,8 +132,7 @@ describe('testing handleEditorSave function', () => {
     });
     describe('APPLICATION IMPORT STRATEGY', () => {
         it('should result with similar values object as in react hook form state so on in formValues state', () => {
-            const { formState, formValues, handleFormFieldChange, setValue, resetField } =
-                executeMockState();
+            const { formState, formValues, setValue, resetField } = executeMockState();
 
             const {
                 result: {
@@ -144,16 +140,15 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: CODEBASE_NAMES,
+                    names: CODEBASE_FORM_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
-                    handleFormFieldChange,
-                    formValues,
                     resetField,
                 })
             );
 
-            handleEditorSave(applicationImportStrategyEditorPropsObjectMock);
+            // @ts-ignore
+            handleEditorSave(applicationImportStrategyEditorPropsObjectMock, formValues);
 
             expect(formState).toMatchObject(
                 applicationImportStrategyEditorPropsObjectMockExpectedOutput
@@ -166,8 +161,7 @@ describe('testing handleEditorSave function', () => {
     });
     describe('LIBRARY CREATE STRATEGY', () => {
         it('should result with similar values object as in react hook form state so on in formValues state', () => {
-            const { formState, formValues, handleFormFieldChange, setValue, resetField } =
-                executeMockState();
+            const { formState, formValues, setValue, resetField } = executeMockState();
 
             const {
                 result: {
@@ -175,16 +169,15 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: CODEBASE_NAMES,
+                    names: CODEBASE_FORM_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
-                    handleFormFieldChange,
-                    formValues,
                     resetField,
                 })
             );
 
-            handleEditorSave(libraryCreateStrategyEditorPropsObjectMock);
+            // @ts-ignore
+            handleEditorSave(libraryCreateStrategyEditorPropsObjectMock, formValues);
 
             expect(formState).toMatchObject(
                 libraryCreateStrategyEditorPropsObjectMockExpectedOutput
@@ -197,8 +190,7 @@ describe('testing handleEditorSave function', () => {
     });
     describe('LIBRARY CLONE STRATEGY', () => {
         it('should result with similar values object as in react hook form state so on in formValues state', () => {
-            const { formState, formValues, handleFormFieldChange, setValue, resetField } =
-                executeMockState();
+            const { formState, formValues, setValue, resetField } = executeMockState();
 
             const {
                 result: {
@@ -206,16 +198,15 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: CODEBASE_NAMES,
+                    names: CODEBASE_FORM_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
-                    handleFormFieldChange,
-                    formValues,
                     resetField,
                 })
             );
 
-            handleEditorSave(libraryCloneStrategyEditorPropsObjectMock);
+            // @ts-ignore
+            handleEditorSave(libraryCloneStrategyEditorPropsObjectMock, formValues);
 
             expect(formState).toMatchObject(
                 libraryCloneStrategyEditorPropsObjectMockExpectedOutput
@@ -228,8 +219,7 @@ describe('testing handleEditorSave function', () => {
     });
     describe('LIBRARY IMPORT STRATEGY', () => {
         it('should result with similar values object as in react hook form state so on in formValues state', () => {
-            const { formState, formValues, handleFormFieldChange, setValue, resetField } =
-                executeMockState();
+            const { formState, formValues, setValue, resetField } = executeMockState();
 
             const {
                 result: {
@@ -237,16 +227,15 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: CODEBASE_NAMES,
+                    names: CODEBASE_FORM_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
-                    handleFormFieldChange,
-                    formValues,
                     resetField,
                 })
             );
 
-            handleEditorSave(libraryImportStrategyEditorPropsObjectMock);
+            // @ts-ignore
+            handleEditorSave(libraryImportStrategyEditorPropsObjectMock, formValues);
 
             expect(formState).toMatchObject(
                 libraryImportStrategyEditorPropsObjectMockExpectedOutput
@@ -259,8 +248,7 @@ describe('testing handleEditorSave function', () => {
     });
     describe('AUTOTEST CLONE STRATEGY', () => {
         it('should result with similar values object as in react hook form state so on in formValues state', () => {
-            const { formState, formValues, handleFormFieldChange, setValue, resetField } =
-                executeMockState();
+            const { formState, formValues, setValue, resetField } = executeMockState();
 
             const {
                 result: {
@@ -268,16 +256,15 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: CODEBASE_NAMES,
+                    names: CODEBASE_FORM_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
-                    handleFormFieldChange,
-                    formValues,
                     resetField,
                 })
             );
 
-            handleEditorSave(autotestCloneStrategyEditorPropsObjectMock);
+            // @ts-ignore
+            handleEditorSave(autotestCloneStrategyEditorPropsObjectMock, formValues);
 
             expect(formState).toMatchObject(
                 autotestCloneStrategyEditorPropsObjectMockExpectedOutput
@@ -290,8 +277,7 @@ describe('testing handleEditorSave function', () => {
     });
     describe('AUTOTEST IMPORT STRATEGY', () => {
         it('should result with similar values object as in react hook form state so on in formValues state', () => {
-            const { formState, formValues, handleFormFieldChange, setValue, resetField } =
-                executeMockState();
+            const { formState, formValues, setValue, resetField } = executeMockState();
 
             const {
                 result: {
@@ -299,16 +285,15 @@ describe('testing handleEditorSave function', () => {
                 },
             } = renderHook(() =>
                 useHandleEditorSave({
-                    names: CODEBASE_NAMES,
+                    names: CODEBASE_FORM_NAMES,
                     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
                     setValue,
-                    handleFormFieldChange,
-                    formValues,
                     resetField,
                 })
             );
 
-            handleEditorSave(autotestImportStrategyEditorPropsObjectMock);
+            // @ts-ignore
+            handleEditorSave(autotestImportStrategyEditorPropsObjectMock, formValues);
 
             expect(formState).toMatchObject(
                 autotestImportStrategyEditorPropsObjectMockExpectedOutput
@@ -321,8 +306,7 @@ describe('testing handleEditorSave function', () => {
     });
     describe('CODEBASE BRANCH', () => {
         it('should result with similar values object as in react hook form state so on in formValues state', () => {
-            const { formState, formValues, handleFormFieldChange, setValue, resetField } =
-                executeMockState();
+            const { formState, formValues, setValue, resetField } = executeMockState();
 
             const {
                 result: {
@@ -333,13 +317,12 @@ describe('testing handleEditorSave function', () => {
                     names: CODEBASE_BRANCH_FORM_NAMES,
                     backwardNames: CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING,
                     setValue,
-                    handleFormFieldChange,
-                    formValues,
                     resetField,
                 })
             );
 
-            handleEditorSave(codebaseBranchEditorPropsObjectMock);
+            // @ts-ignore
+            handleEditorSave(codebaseBranchEditorPropsObjectMock, formValues);
 
             expect(formState).toMatchObject(codebaseBranchEditorPropsObjectMockExpectedOutput);
 

@@ -1,10 +1,10 @@
-import { CDPIPELINE_STAGE_NAMES } from '../../../../widgets/CreateCDPipelineStage/components/CreateCDPipelineStageForm/names';
+import { STAGE_FORM_NAMES } from '../../../../widgets/CreateEditStage/names';
 import { createCDPipelineStageInstance } from './index';
 
 describe('testing createCDPipelineStageInstance', () => {
     it('should return valid kube object', () => {
         const object = createCDPipelineStageInstance(
-            CDPIPELINE_STAGE_NAMES,
+            STAGE_FORM_NAMES,
             {
                 order: 1,
                 triggerType: 'Manual',
@@ -26,9 +26,11 @@ describe('testing createCDPipelineStageInstance', () => {
             {
                 apiVersion: 'v2.edp.epam.com/v1',
                 kind: 'CDPipeline',
+                // @ts-ignore
                 metadata: {
                     name: 'vp-test-pipe-creation',
                 },
+                // @ts-ignore
                 spec: {
                     applications: ['vp-test-creation'],
                     deploymentType: 'container',

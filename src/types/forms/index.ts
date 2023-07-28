@@ -1,3 +1,5 @@
+import { ValueOf } from '../global';
+
 export interface FormNameObject {
     name: string;
     formPart?: string;
@@ -8,8 +10,8 @@ export interface FormNameObject {
 export interface FormNamesObject {
     [key: string]: FormNameObject;
 }
-export type FormData<T extends FormNamesObject> = Record<keyof T, any>;
-export type FormNameKeys<T extends FormNamesObject> = keyof FormData<T>;
+export type FormValues<T extends FormNamesObject> = Record<keyof T, any>;
+export type FormNameKeys<T extends FormNamesObject> = keyof FormValues<T>;
 
 export interface BackwardNameMappingChildren {
     formItemName?: string;
@@ -48,3 +50,10 @@ export interface FieldEventTarget {
 export interface FieldEvent {
     target: FieldEventTarget;
 }
+
+export const FORM_MODES = {
+    CREATE: 'create',
+    EDIT: 'edit',
+} as const;
+
+export type FormMode = ValueOf<typeof FORM_MODES>;

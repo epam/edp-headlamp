@@ -1,50 +1,24 @@
+import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from '../../k8s/EDPCodebaseBranch/labels';
 import { BackwardNameMapping } from '../../types/forms';
-import { FORM_PART_CODEBASE_INFO } from '../CreateCodebase/constants';
-
-const LABEL_CODEBASE_NAME = 'app.edp.epam.com/codebaseName';
+import { FORM_PART_CODEBASE_INFO } from '../CreateEditCodebase/constants';
 
 const NAMES = {
     NAME: 'name',
-    NAMESPACE: 'namespace',
-    CODEBASE_NAME: 'codebaseName',
-    BRANCH_VERSION_START: 'branchVersionStart',
-    BRANCH_VERSION_POSTFIX: 'branchVersionPostfix',
-    DEFAULT_BRANCH_VERSION_START: 'defaultBranchVersionStart',
-    DEFAULT_BRANCH_VERSION_POSTFIX: 'defaultBranchVersionPostfix',
     BRANCH_NAME: 'branchName',
     FROM_COMMIT: 'fromCommit',
     RELEASE: 'release',
     VERSION: 'version',
     CODEBASE_NAME_LABEL: 'codebaseNameLabel',
+
+    // NOT USED IN RESOURCE DATA
+    CODEBASE_NAME: 'codebaseName',
+    BRANCH_VERSION_START: 'branchVersionStart',
+    BRANCH_VERSION_POSTFIX: 'branchVersionPostfix',
+    DEFAULT_BRANCH_VERSION_START: 'defaultBranchVersionStart',
+    DEFAULT_BRANCH_VERSION_POSTFIX: 'defaultBranchVersionPostfix',
 } as const;
 
 export const CODEBASE_BRANCH_FORM_NAMES = {
-    [NAMES.BRANCH_VERSION_START]: {
-        name: NAMES.BRANCH_VERSION_START,
-        notUsedInFormData: true,
-    },
-    [NAMES.BRANCH_VERSION_POSTFIX]: {
-        name: NAMES.BRANCH_VERSION_POSTFIX,
-        notUsedInFormData: true,
-    },
-    [NAMES.DEFAULT_BRANCH_VERSION_START]: {
-        name: NAMES.DEFAULT_BRANCH_VERSION_START,
-        notUsedInFormData: true,
-    },
-    [NAMES.DEFAULT_BRANCH_VERSION_POSTFIX]: {
-        name: NAMES.DEFAULT_BRANCH_VERSION_POSTFIX,
-        notUsedInFormData: true,
-    },
-    [NAMES.CODEBASE_NAME]: {
-        name: NAMES.CODEBASE_NAME,
-        path: ['spec', 'codebaseName'],
-        notUsedInFormData: true,
-    },
-    [NAMES.NAMESPACE]: {
-        name: NAMES.NAMESPACE,
-        path: ['metadata', 'namespace'],
-        notUsedInFormData: true,
-    },
     [NAMES.NAME]: {
         name: NAMES.NAME,
         path: ['metadata', 'name'],
@@ -68,14 +42,37 @@ export const CODEBASE_BRANCH_FORM_NAMES = {
     [NAMES.CODEBASE_NAME_LABEL]: {
         name: NAMES.CODEBASE_NAME_LABEL,
         formPart: FORM_PART_CODEBASE_INFO,
-        path: ['metadata', 'labels', LABEL_CODEBASE_NAME],
+        path: ['metadata', 'labels', CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME],
+    },
+
+    // NOT USED IN RESOURCE DATA
+    [NAMES.BRANCH_VERSION_START]: {
+        name: NAMES.BRANCH_VERSION_START,
+        notUsedInFormData: true,
+    },
+    [NAMES.BRANCH_VERSION_POSTFIX]: {
+        name: NAMES.BRANCH_VERSION_POSTFIX,
+        notUsedInFormData: true,
+    },
+    [NAMES.DEFAULT_BRANCH_VERSION_START]: {
+        name: NAMES.DEFAULT_BRANCH_VERSION_START,
+        notUsedInFormData: true,
+    },
+    [NAMES.DEFAULT_BRANCH_VERSION_POSTFIX]: {
+        name: NAMES.DEFAULT_BRANCH_VERSION_POSTFIX,
+        notUsedInFormData: true,
+    },
+    [NAMES.CODEBASE_NAME]: {
+        name: NAMES.CODEBASE_NAME,
+        path: ['spec', 'codebaseName'],
+        notUsedInFormData: true,
     },
 };
 
 export const CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING: BackwardNameMapping = {
     labels: {
         children: {
-            [LABEL_CODEBASE_NAME]: {
+            [CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME]: {
                 formItemName: NAMES.CODEBASE_NAME_LABEL,
             },
         },

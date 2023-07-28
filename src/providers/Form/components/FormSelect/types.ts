@@ -8,7 +8,7 @@ export interface FormSelectProps {
     label?: string;
     title?: string | React.ReactElement;
     placeholder?: string;
-    control: Control;
+    control: Control<any>;
     defaultValue?: string;
     errors: FieldErrors;
     options: SelectOption[];

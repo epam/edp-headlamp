@@ -1,19 +1,21 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { useDialogContext } from '../../providers/Dialog/hooks';
 import { FormContextProvider } from '../../providers/Form';
+import { useFormContext } from '../../providers/Form/hooks';
+import { FORM_MODES } from '../../types/forms';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
 import { useDefaultValues } from './hooks/useDefaultValues';
-import { ManageRegistrySecretProps } from './types';
+import { ManageRegistrySecretFormDataContext, ManageRegistrySecretProps } from './types';
 
 export const ManageRegistrySecret = ({ formData }: ManageRegistrySecretProps) => {
-    const { activeDialog } = useDialogContext();
     const baseDefaultValues = useDefaultValues({ formData });
 
-    if (!activeDialog) {
-        return null;
-    }
+    const {
+        formData: { currentElement },
+    } = useFormContext<ManageRegistrySecretFormDataContext>();
+
+    const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
 
     return (
         <FormContextProvider
@@ -28,7 +30,7 @@ export const ManageRegistrySecret = ({ formData }: ManageRegistrySecretProps) =>
                     <Form />
                 </Grid>
                 <Grid item xs={12}>
-                    <FormActions />
+                    <FormActions mode={isPlaceholder ? FORM_MODES.CREATE : FORM_MODES.EDIT} />
                 </Grid>
             </Grid>
         </FormContextProvider>

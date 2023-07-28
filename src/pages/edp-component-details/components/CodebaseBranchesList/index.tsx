@@ -72,7 +72,7 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
                     headerStyle="label"
                 />
                 <div className={classes.tableHeaderActions}>
-                    <TableHeaderActions kubeObjectData={codebaseData} />
+                    <TableHeaderActions codebaseData={codebaseData} />
                 </div>
             </div>
             <CodebaseBranchActions defaultBranch={defaultBranch} codebase={codebaseData} />

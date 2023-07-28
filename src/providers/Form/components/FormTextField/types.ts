@@ -7,7 +7,7 @@ export interface FormTextFieldProps {
     name: string;
     label?: string;
     title?: string;
-    control: Control;
+    control: Control<any>;
     defaultValue?: string;
     placeholder?: string;
     disabled?: boolean;
