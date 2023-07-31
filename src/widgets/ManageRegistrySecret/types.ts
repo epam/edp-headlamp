@@ -10,6 +10,7 @@ export interface ManageRegistrySecretFormDataContext {
 }
 
 export interface ManageRegistrySecretProps {
+    currentElement: SecretKubeObjectInterface | 'placeholder';
     formData: ManageRegistrySecretFormDataContext;
 }
 

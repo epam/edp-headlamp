@@ -3,15 +3,14 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useCreateClusterSecret } from '../../../../k8s/Secret/hooks/useCreateClusterSecret';
 import { createClusterSecretInstance } from '../../../../k8s/Secret/utils/createClusterSecretInstance';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
-import { CreateCodebaseBranchDialogForwardedProps } from '../../../CreateCodebaseBranch/types';
 import { CREATE_CLUSTER_DIALOG_NAME } from '../../constants';
 import { CLUSTER_CREATION_FORM_NAMES } from '../../names';
 import { CreateClusterFormValues } from '../../types';
 
 export const FormActions = () => {
-    const { closeDialog } = useDialogContext<CreateCodebaseBranchDialogForwardedProps>();
+    const { closeDialog } = useSpecificDialogContext(CREATE_CLUSTER_DIALOG_NAME);
 
     const {
         reset,
@@ -19,6 +18,12 @@ export const FormActions = () => {
         getValues,
         handleSubmit,
     } = useFormContext<CreateClusterFormValues>();
+
+    const handleClose = React.useCallback(() => {
+        closeDialog();
+        reset();
+    }, [closeDialog, reset]);
+
     const handleResetFields = React.useCallback(() => {
         reset();
     }, [reset]);
@@ -27,9 +32,7 @@ export const FormActions = () => {
         createClusterSecret,
         mutations: { clusterSecretCreateMutation },
     } = useCreateClusterSecret({
-        onSuccess: () => {
-            closeDialog(CREATE_CLUSTER_DIALOG_NAME);
-        },
+        onSuccess: handleClose,
     });
 
     const isLoading = React.useMemo(
@@ -68,7 +71,7 @@ export const FormActions = () => {
                 undo changes
             </Button>
             <Button
-                onClick={() => closeDialog(CREATE_CLUSTER_DIALOG_NAME)}
+                onClick={closeDialog}
                 size="small"
                 component={'button'}
                 style={{ marginLeft: 'auto' }}

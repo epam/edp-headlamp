@@ -1,7 +1,7 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import React from 'react';
 import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
-import { useDialogContext } from '../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { FormContextProvider } from '../../providers/Form';
 import { DialogHeader } from './components/DialogHeader';
 import { Form } from './components/Form';
@@ -13,7 +13,7 @@ import { useStyles } from './styles';
 export const CreateGitServer = () => {
     const classes = useStyles();
 
-    const { dialogProviderState, closeDialog } = useDialogContext<{}>();
+    const { open, closeDialog } = useSpecificDialogContext<{}>(CREATE_GIT_SERVER_DIALOG_NAME);
 
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
     const [editorData, setEditorData] = React.useState<EDPGitServerKubeObjectInterface>(null);
@@ -22,8 +22,8 @@ export const CreateGitServer = () => {
 
     return (
         <Dialog
-            open={dialogProviderState?.[CREATE_GIT_SERVER_DIALOG_NAME].open}
-            onClose={() => closeDialog(CREATE_GIT_SERVER_DIALOG_NAME)}
+            open={open}
+            onClose={closeDialog}
             fullWidth
             maxWidth={'md'}
             className={classes.dialogRoot}

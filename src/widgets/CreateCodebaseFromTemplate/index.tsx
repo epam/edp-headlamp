@@ -1,6 +1,6 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core';
 import React from 'react';
-import { useDialogContext } from '../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { FormContextProvider } from '../../providers/Form';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
@@ -10,26 +10,22 @@ import { useDefaultValues } from './hooks/useDefaultValues';
 import { CreateCodebaseFromTemplateDialogForwardedProps } from './types';
 
 export const CreateCodebaseFromTemplate = () => {
-    const { dialogProviderState, closeDialog } =
-        useDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>();
+    const {
+        open,
+        forwardedProps: { template },
+        closeDialog,
+    } = useSpecificDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>(
+        CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME
+    );
 
     const baseDefaultValues = useDefaultValues();
 
     const {
-        forwardedProps: {
-            template: {
-                spec: { type: codebaseType, displayName: templateName },
-            },
-        },
-    } = dialogProviderState?.[CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME];
+        spec: { type: codebaseType, displayName: templateName },
+    } = template;
 
     return (
-        <Dialog
-            open={dialogProviderState?.[CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME].open}
-            onClose={() => closeDialog(CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME)}
-            maxWidth={'md'}
-            fullWidth
-        >
+        <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth>
             <FormContextProvider
                 formSettings={{
                     defaultValues: baseDefaultValues,

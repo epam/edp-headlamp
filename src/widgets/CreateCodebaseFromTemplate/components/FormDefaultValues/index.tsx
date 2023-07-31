@@ -7,7 +7,7 @@ import {
 } from '../../../../configs/icon-mappings';
 import { RESOURCE_ICON_NAMES } from '../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getCodebaseMappingByCodebaseType } from '../../../../utils/getCodebaseMappingByCodebaseType';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../constants';
 import { CreateCodebaseFromTemplateDialogForwardedProps } from '../../types';
@@ -15,16 +15,15 @@ import { useStyles } from './styles';
 
 export const FormDefaultValues = () => {
     const classes = useStyles();
-    const { dialogProviderState } =
-        useDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>();
+    const {
+        forwardedProps: { template },
+    } = useSpecificDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>(
+        CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME
+    );
 
     const {
-        forwardedProps: {
-            template: {
-                spec: { type: codebaseType, language, framework, buildTool, source },
-            },
-        },
-    } = dialogProviderState?.[CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME];
+        spec: { type: codebaseType, language, framework, buildTool, source },
+    } = template;
 
     const codebaseMapping = getCodebaseMappingByCodebaseType(codebaseType);
 

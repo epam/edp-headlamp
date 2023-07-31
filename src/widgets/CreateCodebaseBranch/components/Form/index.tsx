@@ -8,7 +8,7 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { useDefaultBranchQuery } from '../../../../k8s/EDPCodebaseBranch/hooks/useDefaultBranchQuery';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../constants';
 import { CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING, CODEBASE_BRANCH_FORM_NAMES } from '../../names';
@@ -32,9 +32,11 @@ export const Form = ({
     editorData,
     defaultBranchVersion,
 }: FormProps) => {
-    const { dialogProviderState } = useDialogContext<CreateCodebaseBranchDialogForwardedProps>();
-    const codebaseData =
-        dialogProviderState?.[CREATE_CODEBASE_BRANCH_DIALOG_NAME].forwardedProps?.codebase;
+    const {
+        forwardedProps: { codebase: codebaseData },
+    } = useSpecificDialogContext<CreateCodebaseBranchDialogForwardedProps>(
+        CREATE_CODEBASE_BRANCH_DIALOG_NAME
+    );
     const { watch, getValues, setValue, resetField } =
         useFormContext<CreateCodebaseBranchFormValues>();
 

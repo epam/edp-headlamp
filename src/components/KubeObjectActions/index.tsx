@@ -60,14 +60,11 @@ const ActionsList = ({ actions, menuOpen, anchorEl }: ActionsListProps) => {
     );
 };
 
-const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
-
 export const KubeObjectActions = ({
-    children,
     actions = [],
     anchorEl,
     handleCloseActionsMenu,
-}: React.PropsWithChildren<KubeObjectActionsProps>) => {
+}: KubeObjectActionsProps) => {
     const classes = useStyles();
 
     return (
@@ -86,14 +83,6 @@ export const KubeObjectActions = ({
                         />
                     </div>
                 </ClickAwayListener>
-                {/*eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events*/}
-                <div
-                    onClick={stopPropagation}
-                    onFocus={stopPropagation}
-                    className={classes.childrenWrapper}
-                >
-                    {children}
-                </div>
             </>
         </Render>
     );

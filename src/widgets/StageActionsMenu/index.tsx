@@ -1,4 +1,5 @@
 import React from 'react';
+import { KubeObjectActions } from '../../components/KubeObjectActions';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
@@ -9,11 +10,10 @@ import { useResourceActionListContext } from '../../providers/ResourceActionList
 import { KubeObjectAction } from '../../types/actions';
 import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
-import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../widgets/CreateEditStage/constants';
-import { CreateEditStageDialogForwardedProps } from '../../widgets/CreateEditStage/types';
-import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../widgets/DeleteKubeObject/constants';
-import { DeleteKubeObjectDialogForwardedProps } from '../../widgets/DeleteKubeObject/types';
-import { KubeObjectActions } from '../KubeObjectActions';
+import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../CreateEditStage/constants';
+import { CreateEditStageDialogForwardedProps } from '../CreateEditStage/types';
+import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
+import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
 import { createDeleteAction } from './utils';
 
 export const StageActionsMenu = ({ stages }) => {

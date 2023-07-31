@@ -4,14 +4,20 @@ import { useFormContext } from 'react-hook-form';
 import { useCreateCodebase } from '../../../../k8s/EDPCodebase/hooks/useCreateCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { createCodebaseInstance } from '../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../constants';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../../names';
-import { CreateCodebaseFromTemplateFormValues } from '../../types';
+import {
+    CreateCodebaseFromTemplateDialogForwardedProps,
+    CreateCodebaseFromTemplateFormValues,
+} from '../../types';
 
 export const FormActions = () => {
-    const { closeDialog } = useDialogContext();
+    const { closeDialog } =
+        useSpecificDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>(
+            CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME
+        );
 
     const {
         reset,
@@ -25,7 +31,7 @@ export const FormActions = () => {
         mutations: { codebaseCreateMutation },
     } = useCreateCodebase({
         onSuccess: () => {
-            closeDialog(CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME);
+            closeDialog();
             reset();
         },
     });
@@ -50,7 +56,7 @@ export const FormActions = () => {
                 undo changes
             </Button>
             <Button
-                onClick={() => closeDialog(CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME)}
+                onClick={closeDialog}
                 size="small"
                 component={'button'}
                 style={{ marginLeft: 'auto' }}

@@ -33,7 +33,7 @@ export const Form = ({
     stages,
     setStages,
 }: FormProps) => {
-    const { setDialog } = useDialogContext<CreateEditStageDialogForwardedProps>();
+    const { setDialog } = useDialogContext();
     const { getValues, setValue, resetField } = useFormContext<CreateEditCDPipelineFormValues>();
 
     const handleCloseEditor = React.useCallback(() => setEditorOpen(false), [setEditorOpen]);
@@ -98,18 +98,18 @@ export const Form = ({
         const formValues = getValues();
         const usedValues = getUsedValues(formValues, CDPIPELINE_FORM_NAMES);
         const newCDPipelineData = createCDPipelineInstance(CDPIPELINE_FORM_NAMES, usedValues);
-
+        const createStageDialogForwardedProps: CreateEditStageDialogForwardedProps = {
+            CDPipelineData: newCDPipelineData,
+            otherStages: stages,
+            mode: FORM_MODES.CREATE,
+            handleApply: ({ CDPipelineStageData }) => {
+                setStages(prev => [...prev, CDPipelineStageData]);
+            },
+            ciTool: defaultCITool,
+        };
         setDialog({
             modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
-            forwardedProps: {
-                CDPipelineData: newCDPipelineData,
-                otherStages: stages,
-                mode: FORM_MODES.CREATE,
-                handleApply: ({ CDPipelineStageData }) => {
-                    setStages(prev => [...prev, CDPipelineStageData]);
-                },
-                ciTool: defaultCITool,
-            },
+            forwardedProps: createStageDialogForwardedProps,
         });
     }, [defaultCITool, getValues, setDialog, setStages, stages]);
 

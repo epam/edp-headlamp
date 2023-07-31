@@ -2,7 +2,7 @@ import React from 'react';
 import { DialogContextProviderValue } from './types';
 
 export const DialogContext = React.createContext<DialogContextProviderValue<null>>({
-    dialogProviderState: {},
+    dialogState: {},
     setDialog: () => {
         // empty fn
     },

@@ -7,14 +7,16 @@ import {
     URL_EDP_HEADLAMP_USER_GUIDE_AUTOTEST_ADD,
     URL_EDP_HEADLAMP_USER_GUIDE_LIBRARY_ADD,
 } from '../../../../../../constants/urls';
-import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../constants';
 import { CreateEditCodebaseDialogForwardedProps } from '../../../../types';
 
 export const DialogHeader = () => {
-    const { dialogProviderState } = useDialogContext<CreateEditCodebaseDialogForwardedProps>();
-    const codebaseData =
-        dialogProviderState?.[CREATE_EDIT_CODEBASE_DIALOG_NAME].forwardedProps?.codebaseData;
+    const {
+        forwardedProps: { codebaseData },
+    } = useSpecificDialogContext<CreateEditCodebaseDialogForwardedProps>(
+        CREATE_EDIT_CODEBASE_DIALOG_NAME
+    );
 
     const docLink = React.useMemo(() => {
         switch (codebaseData?.spec.type) {

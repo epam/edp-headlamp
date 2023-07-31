@@ -3,16 +3,19 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useEditCDPipelineStage } from '../../../../../../k8s/EDPCDPipelineStage/hooks/useEditCDPipelineStage';
 import { editCDPipelineStageInstance } from '../../../../../../k8s/EDPCDPipelineStage/utils/editCDPipelineStageInstance';
-import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';
 import { STAGE_FORM_NAMES } from '../../../../names';
 import { CreateEditStageDialogForwardedProps, CreateEditStageFormValues } from '../../../../types';
 
 export const FormActions = () => {
-    const { dialogProviderState, closeDialog } =
-        useDialogContext<CreateEditStageDialogForwardedProps>();
-    const stage = dialogProviderState?.[CREATE_EDIT_STAGE_DIALOG_NAME].forwardedProps?.stage;
+    const {
+        forwardedProps: { stage },
+        closeDialog,
+    } = useSpecificDialogContext<CreateEditStageDialogForwardedProps>(
+        CREATE_EDIT_STAGE_DIALOG_NAME
+    );
     const {
         reset,
         formState: { isDirty },
@@ -20,7 +23,7 @@ export const FormActions = () => {
     } = useFormContext<CreateEditStageFormValues>();
 
     const handleClose = React.useCallback(() => {
-        closeDialog(CREATE_EDIT_STAGE_DIALOG_NAME);
+        closeDialog();
         reset();
     }, [closeDialog, reset]);
 
@@ -32,7 +35,7 @@ export const FormActions = () => {
         editCDPipelineStage,
         mutations: { CDPipelineStageEditMutation },
     } = useEditCDPipelineStage({
-        onSuccess: () => closeDialog(CREATE_EDIT_STAGE_DIALOG_NAME),
+        onSuccess: handleClose,
     });
 
     const isLoading = React.useMemo(

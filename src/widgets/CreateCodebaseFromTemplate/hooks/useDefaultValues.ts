@@ -2,7 +2,7 @@ import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../constants/creationStrategies';
 import { GIT_SERVERS } from '../../../constants/gitServers';
-import { useDialogContext } from '../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../providers/Dialog/hooks';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../constants';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../names';
 import { CreateCodebaseFromTemplateDialogForwardedProps } from '../types';
@@ -13,10 +13,11 @@ const [defaultEDPVersioningVersion, defaultEDPVersioningVersionPostfix] =
     defaultEDPVersioningValue.split('-');
 
 export const useDefaultValues = () => {
-    const { dialogProviderState } =
-        useDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>();
-    const template =
-        dialogProviderState?.[CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME]?.forwardedProps?.template;
+    const {
+        forwardedProps: { template },
+    } = useSpecificDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>(
+        CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME
+    );
 
     return React.useMemo(() => {
         return {

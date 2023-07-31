@@ -6,7 +6,7 @@ import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { useRegistrySecretCRUD } from '../../../../k8s/Secret/hooks/useRegistrySecretCRUD';
 import { createRegistrySecretInstance } from '../../../../k8s/Secret/utils/createRegistrySecretInstance';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { useDialogContext, useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
@@ -16,7 +16,10 @@ import { ManageRegistrySecretFormDataContext, ManageRegistrySecretFormValues } f
 import { FormActionsProps } from './types';
 
 export const FormActions = ({ mode }: FormActionsProps) => {
-    const { closeDialog, setDialog } = useDialogContext<DeleteKubeObjectDialogForwardedProps>();
+    const { setDialog } = useDialogContext();
+    const { closeDialog } = useSpecificDialogContext<DeleteKubeObjectDialogForwardedProps>(
+        DELETE_KUBE_OBJECT_DIALOG_NAME
+    );
     const {
         reset,
         formState: { isDirty },
@@ -38,7 +41,7 @@ export const FormActions = ({ mode }: FormActionsProps) => {
         },
     } = useRegistrySecretCRUD({
         onSuccess: async () => {
-            closeDialog(DELETE_KUBE_OBJECT_DIALOG_NAME);
+            closeDialog();
 
             if (mode === FORM_MODES.CREATE) {
                 handleDeleteRow(true);
@@ -59,6 +62,8 @@ export const FormActions = ({ mode }: FormActionsProps) => {
             user,
             password,
         });
+
+        console.log(mode);
 
         if (mode === FORM_MODES.CREATE) {
             await createRegistrySecret({ registrySecretData: registrySecretInstance });

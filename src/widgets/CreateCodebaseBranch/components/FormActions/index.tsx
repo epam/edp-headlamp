@@ -7,7 +7,7 @@ import { useDefaultBranchQuery } from '../../../../k8s/EDPCodebaseBranch/hooks/u
 import { REQUEST_KEY_QUERY_CODEBASE_BRANCH_LIST_BY_CODEBASE_NAME } from '../../../../k8s/EDPCodebaseBranch/requestKeys';
 import { createCodebaseBranchInstance } from '../../../../k8s/EDPCodebaseBranch/utils/createCodebaseBranchInstance';
 import { editCodebaseBranchInstance } from '../../../../k8s/EDPCodebaseBranch/utils/editCodebaseBranchInstance';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { createVersioningString } from '../../../../utils/createVersioningString';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../constants';
@@ -19,11 +19,12 @@ import {
 
 export const FormActions = () => {
     const queryClient = useQueryClient();
-    const { dialogProviderState, closeDialog } =
-        useDialogContext<CreateCodebaseBranchDialogForwardedProps>();
-
-    const codebaseData =
-        dialogProviderState?.[CREATE_CODEBASE_BRANCH_DIALOG_NAME].forwardedProps?.codebase;
+    const {
+        forwardedProps: { codebase: codebaseData },
+        closeDialog,
+    } = useSpecificDialogContext<CreateCodebaseBranchDialogForwardedProps>(
+        CREATE_CODEBASE_BRANCH_DIALOG_NAME
+    );
 
     const {
         reset,
@@ -62,7 +63,7 @@ export const FormActions = () => {
         mutations: { codebaseBranchCreateMutation, codebaseBranchEditMutation },
     } = useCreateCodebaseBranch({
         onSuccess: async () => {
-            closeDialog(CREATE_CODEBASE_BRANCH_DIALOG_NAME);
+            closeDialog();
             await queryClient.invalidateQueries([
                 REQUEST_KEY_QUERY_CODEBASE_BRANCH_LIST_BY_CODEBASE_NAME,
                 codebaseData.metadata.name,
@@ -128,7 +129,7 @@ export const FormActions = () => {
                 undo changes
             </Button>
             <Button
-                onClick={() => closeDialog(CREATE_CODEBASE_BRANCH_DIALOG_NAME)}
+                onClick={closeDialog}
                 size="small"
                 component={'button'}
                 style={{ marginLeft: 'auto' }}

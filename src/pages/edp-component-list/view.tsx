@@ -2,19 +2,20 @@ import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/Co
 import { Box, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CreateResourceFab } from '../../components/CreateResourceFab';
 import { DocLink } from '../../components/DocLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../constants/urls';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { CreateResourceFab } from '../../providers/Dialog/components/CreateResourceFab';
 import { FormSelect } from '../../providers/Form/components/FormSelect';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { FORM_MODES } from '../../types/forms';
 import { rem } from '../../utils/styling/rem';
 import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../widgets/CreateEditCodebase/constants';
+import { CreateEditCodebaseDialogForwardedProps } from '../../widgets/CreateEditCodebase/types';
 import { ComponentList } from './components/ComponentList';
 
 export const PageView = () => {
@@ -31,6 +32,9 @@ export const PageView = () => {
         () => (type !== CODEBASE_TYPES.ALL ? items.filter(el => el.spec.type === type) : items),
         [items, type]
     );
+
+    const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps =
+        React.useMemo(() => ({ mode: FORM_MODES.CREATE }), []);
 
     return (
         <PageWrapper>
@@ -77,7 +81,7 @@ export const PageView = () => {
                 </ResourceActionListContextProvider>
                 <CreateResourceFab
                     modalName={CREATE_EDIT_CODEBASE_DIALOG_NAME}
-                    forwardedProps={{ mode: FORM_MODES.CREATE }}
+                    forwardedProps={createEditCodebaseDialogForwardedProps}
                 />
             </SectionBox>
         </PageWrapper>

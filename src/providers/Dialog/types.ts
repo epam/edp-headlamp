@@ -14,7 +14,7 @@ export type DialogProviderState<ForwardedPropsType> =
     | {};
 
 export interface DialogContextProviderValue<ForwardedPropsType> {
-    dialogProviderState: DialogProviderState<ForwardedPropsType> | {};
+    dialogState: DialogProviderState<ForwardedPropsType> | {};
     setDialog: ({
         modalName,
         forwardedProps,

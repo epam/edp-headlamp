@@ -2,13 +2,16 @@ import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { DocLink } from '../../../../../../components/DocLink';
 import { URL_EDP_HEADLAMP_USER_GUIDE_STAGE_EDIT } from '../../../../../../constants/urls';
-import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';
 import { CreateEditStageDialogForwardedProps } from '../../../../types';
 
 export const DialogHeader = () => {
-    const { dialogProviderState } = useDialogContext<CreateEditStageDialogForwardedProps>();
-    const stage = dialogProviderState?.[CREATE_EDIT_STAGE_DIALOG_NAME].forwardedProps?.stage;
+    const {
+        forwardedProps: { stage },
+    } = useSpecificDialogContext<CreateEditStageDialogForwardedProps>(
+        CREATE_EDIT_STAGE_DIALOG_NAME
+    );
 
     return (
         <Grid container alignItems={'center'} justifyContent={'space-between'} spacing={1}>

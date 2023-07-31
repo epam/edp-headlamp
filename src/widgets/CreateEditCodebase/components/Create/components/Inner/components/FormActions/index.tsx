@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../../../../components/Render';
 import { useCreateCodebase } from '../../../../../../../../k8s/EDPCodebase/hooks/useCreateCodebase';
 import { createCodebaseInstance } from '../../../../../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
-import { useDialogContext } from '../../../../../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../../../utils/forms/getUsedValues';
 import {
     CREATE_EDIT_CODEBASE_DIALOG_NAME,
@@ -12,6 +12,7 @@ import {
     TAB_INDEXES,
 } from '../../../../../../constants';
 import { CODEBASE_FORM_NAMES } from '../../../../../../names';
+import { CreateEditCodebaseDialogForwardedProps } from '../../../../../../types';
 import { CreateCodebaseFormValues } from '../../../../types';
 import { FormActionsProps } from './types';
 
@@ -23,7 +24,9 @@ export const FormActions = ({
     setModalActiveTabIdx,
     formActiveTabIdx,
 }: FormActionsProps) => {
-    const { closeDialog } = useDialogContext();
+    const { closeDialog } = useSpecificDialogContext<CreateEditCodebaseDialogForwardedProps>(
+        CREATE_EDIT_CODEBASE_DIALOG_NAME
+    );
 
     const {
         reset,
@@ -37,7 +40,7 @@ export const FormActions = ({
     const strategyFieldValue = watch(CODEBASE_FORM_NAMES.strategy.name);
 
     const handleClose = React.useCallback(() => {
-        closeDialog(CREATE_EDIT_CODEBASE_DIALOG_NAME);
+        closeDialog();
         setTimeout(() => {
             reset({
                 ...baseDefaultValues,

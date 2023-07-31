@@ -1,13 +1,16 @@
 import React from 'react';
-import { useDialogContext } from '../../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../names';
 import { CreateEditCDPipelineDialogForwardedProps } from '../../../types';
 
 export const useDefaultValues = () => {
-    const { dialogProviderState } = useDialogContext<CreateEditCDPipelineDialogForwardedProps>();
-    const CDPipelineData =
-        dialogProviderState?.[CREATE_EDIT_CD_PIPELINE_DIALOG_NAME].forwardedProps?.CDPipelineData;
+    const {
+        forwardedProps: { CDPipelineData },
+    } = useSpecificDialogContext<CreateEditCDPipelineDialogForwardedProps>(
+        CREATE_EDIT_CD_PIPELINE_DIALOG_NAME
+    );
+
     return React.useMemo(
         () => ({
             [CDPIPELINE_FORM_NAMES.namespace.name]: CDPipelineData.metadata.namespace,

@@ -3,7 +3,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useEditCDPipeline } from '../../../../../../k8s/EDPCDPipeline/hooks/useEditCDPipeline';
 import { editCDPipelineInstance } from '../../../../../../k8s/EDPCDPipeline/utils/editCDPipelineInstance';
-import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../../names';
@@ -13,10 +13,12 @@ import {
 } from '../../../../types';
 
 export const FormActions = () => {
-    const { dialogProviderState, closeDialog } =
-        useDialogContext<CreateEditCDPipelineDialogForwardedProps>();
-    const CDPipelineData =
-        dialogProviderState?.[CREATE_EDIT_CD_PIPELINE_DIALOG_NAME].forwardedProps?.CDPipelineData;
+    const {
+        forwardedProps: { CDPipelineData },
+        closeDialog,
+    } = useSpecificDialogContext<CreateEditCDPipelineDialogForwardedProps>(
+        CREATE_EDIT_CD_PIPELINE_DIALOG_NAME
+    );
     const {
         reset,
         formState: { isDirty },
@@ -24,7 +26,7 @@ export const FormActions = () => {
     } = useFormContext<CreateEditCDPipelineFormValues>();
 
     const handleClose = React.useCallback(() => {
-        closeDialog(CREATE_EDIT_CD_PIPELINE_DIALOG_NAME);
+        closeDialog();
         reset();
     }, [closeDialog, reset]);
 
@@ -36,7 +38,7 @@ export const FormActions = () => {
         editCDPipeline,
         mutations: { CDPipelineEditMutation },
     } = useEditCDPipeline({
-        onSuccess: () => closeDialog(CREATE_EDIT_CD_PIPELINE_DIALOG_NAME),
+        onSuccess: handleClose,
     });
 
     const isLoading = React.useMemo(

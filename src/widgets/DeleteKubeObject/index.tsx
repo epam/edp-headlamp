@@ -12,7 +12,7 @@ import {
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Render } from '../../components/Render';
-import { useDialogContext } from '../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from './constants';
 import { useDeleteKubeObject } from './hooks/useDeleteKubeObject';
 import { DeleteKubeObjectDialogForwardedProps } from './types';
@@ -27,9 +27,21 @@ const getDialogTitle = (errorTemplate: React.ReactNode, objectName: string): str
         : `Cannot start deleting "${objectName}"`;
 
 export const DeleteKubeObject = () => {
-    const { dialogProviderState, closeDialog, openDialog } =
-        useDialogContext<DeleteKubeObjectDialogForwardedProps>();
-    const dialog = dialogProviderState?.[DELETE_KUBE_OBJECT_DIALOG_NAME];
+    const {
+        open,
+        forwardedProps: {
+            onSuccess,
+            objectName,
+            kubeObjectData,
+            kubeObject,
+            onBeforeSubmit,
+            description,
+        },
+        closeDialog,
+        openDialog,
+    } = useSpecificDialogContext<DeleteKubeObjectDialogForwardedProps>(
+        DELETE_KUBE_OBJECT_DIALOG_NAME
+    );
 
     const [errorTemplate, setErrorTemplate] = React.useState<React.ReactNode | string>(null);
     const [loadingActive, setLoadingActive] = React.useState<boolean>(false);
@@ -37,23 +49,18 @@ export const DeleteKubeObject = () => {
     const kubeObjectNameFieldValue = watch(NAMES.name);
 
     const handleClosePopup = React.useCallback(
-        (_?, reason?: string) =>
-            reason !== 'backdropClick' ? closeDialog(DELETE_KUBE_OBJECT_DIALOG_NAME) : false,
+        (_?, reason?: string) => (reason !== 'backdropClick' ? closeDialog() : false),
         [closeDialog]
     );
 
     const handleOpenPopup = React.useCallback(() => {
-        openDialog(DELETE_KUBE_OBJECT_DIALOG_NAME);
+        openDialog();
     }, [openDialog]);
 
     const { deleteKubeObject } = useDeleteKubeObject({
-        onSuccess: dialog?.forwardedProps?.onSuccess,
+        onSuccess: onSuccess,
         onError: handleOpenPopup,
     });
-
-    const objectName = dialog.forwardedProps?.objectName;
-    const kubeObjectData = dialog.forwardedProps?.kubeObjectData;
-    const onBeforeSubmit = dialog.forwardedProps?.onBeforeSubmit;
 
     const onSubmit = React.useCallback(
         async ({ name }) => {
@@ -63,25 +70,33 @@ export const DeleteKubeObject = () => {
 
             handleClosePopup();
             await deleteKubeObject({
-                kubeObject: dialog.forwardedProps?.kubeObject,
-                kubeObjectData: dialog.forwardedProps?.kubeObjectData,
+                kubeObject,
+                kubeObjectData,
             });
             reset();
         },
-        [errorTemplate, objectName, handleClosePopup, deleteKubeObject, dialog, reset]
+        [
+            errorTemplate,
+            objectName,
+            handleClosePopup,
+            deleteKubeObject,
+            kubeObject,
+            kubeObjectData,
+            reset,
+        ]
     );
 
     React.useEffect(() => {
         (async () => {
             const validateObject = async () => {
-                if (onBeforeSubmit !== undefined && dialog.open) {
+                if (onBeforeSubmit !== undefined && open) {
                     await onBeforeSubmit(setErrorTemplate, setLoadingActive);
                 }
             };
 
             await validateObject();
         })();
-    }, [onBeforeSubmit, dialog.open]);
+    }, [onBeforeSubmit, open]);
 
     const isSubmitNotAllowed = kubeObjectNameFieldValue !== objectName || !!errorTemplate;
     const dialogTitle = React.useMemo(
@@ -90,14 +105,14 @@ export const DeleteKubeObject = () => {
     );
 
     return (
-        <Dialog open={dialog.open} onClose={handleClosePopup} fullWidth>
+        <Dialog open={open} onClose={handleClosePopup} fullWidth>
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
                 <Grid container spacing={1}>
                     <Render condition={!loadingActive}>
                         <Render condition={!errorTemplate}>
                             <Grid item xs={12}>
-                                <Typography>{dialog.forwardedProps?.description}</Typography>
+                                <Typography>{description}</Typography>
                             </Grid>
                         </Render>
                     </Render>

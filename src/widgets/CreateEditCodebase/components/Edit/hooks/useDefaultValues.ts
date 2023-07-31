@@ -1,14 +1,15 @@
 import React from 'react';
-import { useDialogContext } from '../../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../constants';
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { EditCodebaseFormDialogForwardedProps } from '../types';
 
 export const useDefaultValues = () => {
-    const { dialogProviderState } = useDialogContext<EditCodebaseFormDialogForwardedProps>();
-
-    const codebaseData =
-        dialogProviderState?.[CREATE_EDIT_CODEBASE_DIALOG_NAME].forwardedProps?.codebaseData;
+    const {
+        forwardedProps: { codebaseData },
+    } = useSpecificDialogContext<EditCodebaseFormDialogForwardedProps>(
+        CREATE_EDIT_CODEBASE_DIALOG_NAME
+    );
 
     return React.useMemo(
         () => ({

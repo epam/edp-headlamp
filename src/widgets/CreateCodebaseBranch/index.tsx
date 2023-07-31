@@ -2,7 +2,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/
 import React from 'react';
 import { useDefaultBranchQuery } from '../../k8s/EDPCodebaseBranch/hooks/useDefaultBranchQuery';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
-import { useDialogContext } from '../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { FormContextProvider } from '../../providers/Form';
 import { DialogHeader } from './components/DialogHeader';
 import { Form } from './components/Form';
@@ -14,10 +14,13 @@ import { CreateCodebaseBranchDialogForwardedProps } from './types';
 export const CreateCodebaseBranch = () => {
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
     const [editorData, setEditorData] = React.useState<EDPCodebaseBranchKubeObjectInterface>(null);
-    const { dialogProviderState, closeDialog } =
-        useDialogContext<CreateCodebaseBranchDialogForwardedProps>();
-    const codebaseData =
-        dialogProviderState?.[CREATE_CODEBASE_BRANCH_DIALOG_NAME].forwardedProps?.codebase;
+    const {
+        open,
+        forwardedProps: { codebase: codebaseData },
+        closeDialog,
+    } = useSpecificDialogContext<CreateCodebaseBranchDialogForwardedProps>(
+        CREATE_CODEBASE_BRANCH_DIALOG_NAME
+    );
 
     const { data: defaultBranch } = useDefaultBranchQuery({
         props: {
@@ -36,11 +39,7 @@ export const CreateCodebaseBranch = () => {
     });
 
     return (
-        <Dialog
-            open={dialogProviderState?.[CREATE_CODEBASE_BRANCH_DIALOG_NAME].open}
-            onClose={() => closeDialog(CREATE_CODEBASE_BRANCH_DIALOG_NAME)}
-            fullWidth
-        >
+        <Dialog open={open} onClose={closeDialog} fullWidth>
             <FormContextProvider
                 formSettings={{
                     defaultValues: baseDefaultValues,

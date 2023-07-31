@@ -1,11 +1,11 @@
 import { Icon } from '@iconify/react';
 import { Fab } from '@material-ui/core';
-import { ICONS } from '../../icons/iconify-icons-mapping';
-import { useDialogContext } from '../../providers/Dialog/hooks';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { useDialogContext } from '../../hooks';
 import { useStyles } from './styles';
 import { CreateResourceFabProps } from './types';
 
-export const CreateResourceFab = ({ modalName, forwardedProps = {} }: CreateResourceFabProps) => {
+export const CreateResourceFab = ({ modalName, forwardedProps }: CreateResourceFabProps) => {
     const classes = useStyles();
 
     const { setDialog } = useDialogContext();

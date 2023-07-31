@@ -1,10 +1,10 @@
 import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { CreateResourceFab } from '../../components/CreateResourceFab';
 import { PageWrapper } from '../../components/PageWrapper';
 import { SecretKubeObject } from '../../k8s/Secret';
 import { ARGO_CD_SECRET_LABEL_SECRET_TYPE } from '../../k8s/Secret/labels';
+import { CreateResourceFab } from '../../providers/Dialog/components/CreateResourceFab';
 import { CREATE_CLUSTER_DIALOG_NAME } from '../../widgets/CreateCluster/constants';
 import { routeEDPConfiguration } from '../edp-configuration/route';
 import { ClusterList } from './components/ClusterList';

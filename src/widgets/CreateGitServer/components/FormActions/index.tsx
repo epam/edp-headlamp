@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { useCreateGitServer } from '../../../../k8s/EDPGitServer/hooks/useCreateGitServer';
 import { createGitServerInstance } from '../../../../k8s/EDPGitServer/utils/createGitServerInstance';
 import { createGitServerSecretInstance } from '../../../../k8s/Secret/utils/createGitServerSecretInstance';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { CREATE_GIT_SERVER_DIALOG_NAME } from '../../constants';
@@ -12,13 +12,18 @@ import { GIT_SERVER_FORM_NAMES } from '../../names';
 import { CreateGitServerFormValues } from '../../types';
 
 export const FormActions = () => {
-    const { closeDialog } = useDialogContext<{}>();
+    const { closeDialog } = useSpecificDialogContext<{}>(CREATE_GIT_SERVER_DIALOG_NAME);
     const {
         reset,
         formState: { isDirty },
         getValues,
         handleSubmit,
     } = useFormContext<CreateGitServerFormValues>();
+
+    const handleClose = React.useCallback(() => {
+        closeDialog();
+        reset();
+    }, [closeDialog, reset]);
 
     const handleResetFields = React.useCallback(() => {
         reset();
@@ -32,7 +37,7 @@ export const FormActions = () => {
             gitServerSecretDeleteMutation,
         },
     } = useCreateGitServer({
-        onSuccess: () => closeDialog(CREATE_GIT_SERVER_DIALOG_NAME),
+        onSuccess: handleClose,
     });
 
     const isApplying =
@@ -71,7 +76,7 @@ export const FormActions = () => {
                 undo changes
             </Button>
             <Button
-                onClick={() => closeDialog(CREATE_GIT_SERVER_DIALOG_NAME)}
+                onClick={closeDialog}
                 size="small"
                 component={'button'}
                 style={{ marginLeft: 'auto' }}

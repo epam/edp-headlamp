@@ -16,13 +16,22 @@ import { CREATE_GIT_SERVER_DIALOG_NAME } from '../../widgets/CreateGitServer/con
 import { DeleteKubeObject } from '../../widgets/DeleteKubeObject';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../widgets/DeleteKubeObject/constants';
 
+const MemoizedCreateEditCodebase = React.memo(CreateEditCodebase);
+const MemoizedCreateEditCDPipeline = React.memo(CreateEditCDPipeline);
+const MemoizedCreateEditStage = React.memo(CreateEditStage);
+const MemoizedCreateCluster = React.memo(CreateCluster);
+const MemoizedCreateCodebaseFromTemplate = React.memo(CreateCodebaseFromTemplate);
+const MemoizedCreateCodebaseBranch = React.memo(CreateCodebaseBranch);
+const MemoizedCreateGitServer = React.memo(CreateGitServer);
+const MemoizedDeleteKubeObject = React.memo(DeleteKubeObject);
+
 export const MODAL_MAPPING = {
-    [CREATE_EDIT_CODEBASE_DIALOG_NAME]: <CreateEditCodebase />,
-    [CREATE_EDIT_CD_PIPELINE_DIALOG_NAME]: <CreateEditCDPipeline />,
-    [CREATE_EDIT_STAGE_DIALOG_NAME]: <CreateEditStage />,
-    [CREATE_CLUSTER_DIALOG_NAME]: <CreateCluster />,
-    [CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME]: <CreateCodebaseFromTemplate />,
-    [CREATE_CODEBASE_BRANCH_DIALOG_NAME]: <CreateCodebaseBranch />,
-    [CREATE_GIT_SERVER_DIALOG_NAME]: <CreateGitServer />,
-    [DELETE_KUBE_OBJECT_DIALOG_NAME]: <DeleteKubeObject />,
+    [CREATE_EDIT_CODEBASE_DIALOG_NAME]: <MemoizedCreateEditCodebase />,
+    [CREATE_EDIT_CD_PIPELINE_DIALOG_NAME]: <MemoizedCreateEditCDPipeline />,
+    [CREATE_EDIT_STAGE_DIALOG_NAME]: <MemoizedCreateEditStage />,
+    [CREATE_CLUSTER_DIALOG_NAME]: <MemoizedCreateCluster />,
+    [CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME]: <MemoizedCreateCodebaseFromTemplate />,
+    [CREATE_CODEBASE_BRANCH_DIALOG_NAME]: <MemoizedCreateCodebaseBranch />,
+    [CREATE_GIT_SERVER_DIALOG_NAME]: <MemoizedCreateGitServer />,
+    [DELETE_KUBE_OBJECT_DIALOG_NAME]: <MemoizedDeleteKubeObject />,
 } as const;

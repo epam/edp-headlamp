@@ -6,7 +6,7 @@ import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../../components/Render';
 import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { useHandleEditorSave } from '../../../../../../hooks/useHandleEditorSave';
-import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { rem } from '../../../../../../utils/styling/rem';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';
@@ -24,10 +24,11 @@ import { Cluster } from '../../../fields/Cluster';
 import { FormProps } from './types';
 
 export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
-    const { dialogProviderState } = useDialogContext<CreateEditStageDialogForwardedProps>();
-    const ciTool = dialogProviderState?.[CREATE_EDIT_STAGE_DIALOG_NAME].forwardedProps?.ciTool;
-    const otherStages =
-        dialogProviderState?.[CREATE_EDIT_STAGE_DIALOG_NAME].forwardedProps?.otherStages;
+    const {
+        forwardedProps: { ciTool, otherStages },
+    } = useSpecificDialogContext<CreateEditStageDialogForwardedProps>(
+        CREATE_EDIT_STAGE_DIALOG_NAME
+    );
     const { getValues, setValue, resetField } = useFormContext<CreateEditStageFormValues>();
 
     const handleCloseEditor = React.useCallback(() => setEditorOpen(false), [setEditorOpen]);

@@ -155,6 +155,7 @@ export const PageView = () => {
                                                         <Grid item xs={12}>
                                                             <Render condition={!!dockerRegistryURL}>
                                                                 <ManageRegistrySecret
+                                                                    currentElement={el}
                                                                     formData={{
                                                                         currentElement: el,
                                                                         secrets: [
@@ -199,6 +200,7 @@ export const PageView = () => {
                                                 <Grid item xs={12}>
                                                     <Render condition={!!dockerRegistryURL}>
                                                         <ManageRegistrySecret
+                                                            currentElement={'placeholder'}
                                                             formData={{
                                                                 currentElement: 'placeholder',
                                                                 secrets: [

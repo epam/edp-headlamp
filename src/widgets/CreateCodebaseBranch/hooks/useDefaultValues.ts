@@ -1,6 +1,6 @@
 import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
-import { useDialogContext } from '../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../providers/Dialog/hooks';
 import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../constants';
 import { CODEBASE_BRANCH_FORM_NAMES } from '../names';
 import { CreateCodebaseBranchDialogForwardedProps, CreateCodebaseBranchFormValues } from '../types';
@@ -10,11 +10,13 @@ interface useDefaultValuesProps {
 }
 
 export const useDefaultValues = ({ defaultBranchVersion }: useDefaultValuesProps) => {
-    const { dialogProviderState } = useDialogContext<CreateCodebaseBranchDialogForwardedProps>();
+    const {
+        forwardedProps: { codebase: codebaseData },
+    } = useSpecificDialogContext<CreateCodebaseBranchDialogForwardedProps>(
+        CREATE_CODEBASE_BRANCH_DIALOG_NAME
+    );
 
-    const versioningType =
-        dialogProviderState?.[CREATE_CODEBASE_BRANCH_DIALOG_NAME].forwardedProps?.codebase?.spec
-            .versioning.type;
+    const versioningType = codebaseData?.spec.versioning.type;
 
     return React.useMemo(() => {
         let base: Partial<CreateCodebaseBranchFormValues> = {

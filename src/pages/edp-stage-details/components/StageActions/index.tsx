@@ -2,10 +2,10 @@ import { Icon } from '@iconify/react';
 import { IconButton, Tooltip } from '@material-ui/core';
 import React from 'react';
 import { Render } from '../../../../components/Render';
-import { StageActionsMenu } from '../../../../components/StageActionsMenu';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
+import { StageActionsMenu } from '../../../../widgets/StageActionsMenu';
 import { useCDPipelineStagesQueryContext } from '../../providers/CDPipelineStagesQuery/hooks';
 import { StageActionsProps } from './types';
 

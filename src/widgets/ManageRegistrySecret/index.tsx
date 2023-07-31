@@ -1,19 +1,14 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { FormContextProvider } from '../../providers/Form';
-import { useFormContext } from '../../providers/Form/hooks';
 import { FORM_MODES } from '../../types/forms';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
 import { useDefaultValues } from './hooks/useDefaultValues';
-import { ManageRegistrySecretFormDataContext, ManageRegistrySecretProps } from './types';
+import { ManageRegistrySecretProps } from './types';
 
-export const ManageRegistrySecret = ({ formData }: ManageRegistrySecretProps) => {
+export const ManageRegistrySecret = ({ currentElement, formData }: ManageRegistrySecretProps) => {
     const baseDefaultValues = useDefaultValues({ formData });
-
-    const {
-        formData: { currentElement },
-    } = useFormContext<ManageRegistrySecretFormDataContext>();
 
     const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
 

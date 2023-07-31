@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../../components/Render';
 import { useCreateCDPipeline } from '../../../../../../k8s/EDPCDPipeline/hooks/useCreateCDPipeline';
 import { createCDPipelineInstance } from '../../../../../../k8s/EDPCDPipeline/utils/createCDPipelineInstance';
-import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import {
     CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
@@ -12,7 +12,10 @@ import {
     TAB_INDEXES,
 } from '../../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../../names';
-import { CreateEditCDPipelineFormValues } from '../../../../types';
+import {
+    CreateEditCDPipelineDialogForwardedProps,
+    CreateEditCDPipelineFormValues,
+} from '../../../../types';
 import { FormActionsProps } from './types';
 
 const TAB_INDEXES_LAST_INDEX = Object.keys(TAB_INDEXES).length - 1;
@@ -23,7 +26,9 @@ export const FormActions = ({
     setStages,
     stages,
 }: FormActionsProps) => {
-    const { closeDialog } = useDialogContext();
+    const { closeDialog } = useSpecificDialogContext<CreateEditCDPipelineDialogForwardedProps>(
+        CREATE_EDIT_CD_PIPELINE_DIALOG_NAME
+    );
 
     const {
         reset,
@@ -33,7 +38,7 @@ export const FormActions = ({
     } = useFormContext<CreateEditCDPipelineFormValues>();
 
     const handleClose = React.useCallback(() => {
-        closeDialog(CREATE_EDIT_CD_PIPELINE_DIALOG_NAME);
+        closeDialog();
         reset();
         setFormActiveTabIdx(TAB_INDEXES[FORM_PART_PIPELINE]);
     }, [closeDialog, reset, setFormActiveTabIdx]);
@@ -86,7 +91,7 @@ export const FormActions = ({
             CDPipelineStageDeleteMutation,
         },
     } = useCreateCDPipeline({
-        onSuccess: () => closeDialog(CREATE_EDIT_CD_PIPELINE_DIALOG_NAME),
+        onSuccess: handleClose,
     });
 
     const isLoading = React.useMemo(

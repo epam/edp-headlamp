@@ -3,19 +3,19 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useCreateCDPipelineStage } from '../../../../../../k8s/EDPCDPipelineStage/hooks/useCreateCDPipelineStage';
 import { createCDPipelineStageInstance } from '../../../../../../k8s/EDPCDPipelineStage/utils/createCDPipelineStageInstance';
-import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';
 import { STAGE_FORM_NAMES } from '../../../../names';
 import { CreateEditStageDialogForwardedProps, CreateEditStageFormValues } from '../../../../types';
 
 export const FormActions = () => {
-    const { dialogProviderState, closeDialog } =
-        useDialogContext<CreateEditStageDialogForwardedProps>();
-    const CDPipelineData =
-        dialogProviderState?.[CREATE_EDIT_STAGE_DIALOG_NAME].forwardedProps?.CDPipelineData;
-    const customHandleApply =
-        dialogProviderState?.[CREATE_EDIT_STAGE_DIALOG_NAME].forwardedProps?.handleApply;
+    const {
+        forwardedProps: { CDPipelineData, handleApply: customHandleApply },
+        closeDialog,
+    } = useSpecificDialogContext<CreateEditStageDialogForwardedProps>(
+        CREATE_EDIT_STAGE_DIALOG_NAME
+    );
 
     const {
         reset,
@@ -25,7 +25,7 @@ export const FormActions = () => {
     } = useFormContext<CreateEditStageFormValues>();
 
     const handleClose = React.useCallback(() => {
-        closeDialog(CREATE_EDIT_STAGE_DIALOG_NAME);
+        closeDialog();
         reset();
     }, [closeDialog, reset]);
 
@@ -37,7 +37,7 @@ export const FormActions = () => {
         createCDPipelineStage,
         mutations: { CDPipelineStageCreateMutation },
     } = useCreateCDPipelineStage({
-        onSuccess: () => closeDialog(CREATE_EDIT_STAGE_DIALOG_NAME),
+        onSuccess: handleClose,
     });
 
     const isLoading = React.useMemo(
@@ -57,7 +57,7 @@ export const FormActions = () => {
                 customHandleApply({
                     CDPipelineStageData,
                 });
-                closeDialog(CREATE_EDIT_STAGE_DIALOG_NAME);
+                closeDialog();
             } else {
                 await createCDPipelineStage({
                     CDPipelineStageData,
