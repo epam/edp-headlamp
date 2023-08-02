@@ -12,6 +12,21 @@ export interface UseDataProps {
     error: unknown;
 }
 
+const createSortFunction =
+    (sortOrder: ValueOf<typeof SORT_ORDERS>, columnSortableValuePath: string | string[]) =>
+    (a, b) => {
+        const aProperty = get(a, columnSortableValuePath)?.toString().toLowerCase() || '';
+        const bProperty = get(b, columnSortableValuePath)?.toString().toLowerCase() || '';
+
+        if (sortOrder === SORT_ORDERS.DESC) {
+            return aProperty < bProperty ? -1 : 1;
+        } else if (sortOrder === SORT_ORDERS.ASC) {
+            return aProperty > bProperty ? -1 : 1;
+        } else {
+            return 0;
+        }
+    };
+
 export const useReadyData = ({
     data,
     filterFunction,
@@ -32,18 +47,7 @@ export const useReadyData = ({
         }
 
         if (columnSortableValuePath) {
-            result = result.sort((a, b) => {
-                const aProperty = get(a, columnSortableValuePath)?.toString().toLowerCase() || '';
-                const bProperty = get(b, columnSortableValuePath)?.toString().toLowerCase() || '';
-
-                if (sortOrder === SORT_ORDERS['DESC']) {
-                    return aProperty < bProperty ? -1 : 1;
-                } else if (sortOrder === SORT_ORDERS['ASC']) {
-                    return aProperty > bProperty ? -1 : 1;
-                } else {
-                    return 0;
-                }
-            });
+            result = result.sort(createSortFunction(sortOrder, columnSortableValuePath));
         }
 
         return result;

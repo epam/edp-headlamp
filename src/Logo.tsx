@@ -93,7 +93,7 @@ export const LogoWithText = () => {
                 <Logo />
             </Grid>
             <Grid item>
-                <Typography variant="h6">EDP Console</Typography>
+                <Typography variant="h6">EDP Portal</Typography>
             </Grid>
         </Grid>
     );

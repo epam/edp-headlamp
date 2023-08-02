@@ -12,6 +12,17 @@ import React from 'react';
 import { Render } from '../../../Render';
 import { TableBodyProps } from './types';
 
+const isSelectedRow = (isSelected: (row: unknown) => boolean, row: unknown) =>
+    isSelected ? isSelected(row) : false;
+
+const getRowStyles = (isSelected: boolean) =>
+    isSelected
+        ? {
+              backgroundColor: 'rgb(137 196 244 / 16%)',
+              cursor: 'pointer',
+          }
+        : { cursor: 'pointer' };
+
 export const TableBody = ({
     error,
     isLoading,
@@ -26,31 +37,28 @@ export const TableBody = ({
 }: TableBodyProps) => {
     const theme = useTheme();
 
-    const [selectedRowIndex, setSelectedRowIndex] = React.useState<number>(null);
-
-    const selectableRowProps = (row: any, idx: number) => {
-        const _isSelected = isSelected ? isSelected(row) : false;
-
+    const selectableRowProps = (row: unknown, isSelected: boolean) => {
         return handleRowClick
             ? {
                   hover: true,
                   role: 'radio',
-                  'aria-checked': selectedRowIndex === idx,
-                  selected: isSelected ? _isSelected : selectedRowIndex === idx,
+                  'aria-checked': isSelected,
+                  selected: isSelected,
                   tabIndex: -1,
                   onClick: (event: React.MouseEvent<HTMLTableRowElement>) => {
-                      setSelectedRowIndex(idx);
                       handleRowClick(event, row);
                   },
-                  style: _isSelected
-                      ? {
-                            backgroundColor: 'rgb(137 196 244 / 16%)',
-                            cursor: 'pointer',
-                        }
-                      : { cursor: 'pointer' },
+                  style: getRowStyles(isSelected),
               }
             : {};
     };
+
+    const getColumnStyles = React.useCallback(
+        (hasSortableValue: boolean) => ({
+            pl: hasSortableValue ? theme.typography.pxToRem(6) : 0,
+        }),
+        [theme]
+    );
 
     return (
         <MuiTableBody>
@@ -73,46 +81,46 @@ export const TableBody = ({
                     {readyData
                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((item, idx: number) => {
-                            const isItemSelected = isSelected ? isSelected(item) : false;
+                            const _isSelected = isSelectedRow(isSelected, item);
 
                             return (
                                 <TableRow
                                     key={`table-row-${idx}`}
-                                    {...selectableRowProps(item, idx)}
+                                    {...selectableRowProps(item, _isSelected)}
                                 >
                                     <Render condition={!!handleSelectRowClick}>
                                         <TableCell padding="checkbox">
                                             <Checkbox
                                                 color={'primary'}
-                                                checked={isItemSelected}
+                                                checked={_isSelected}
                                                 onClick={event => handleSelectRowClick(event, item)}
                                             />
                                         </TableCell>
                                     </Render>
                                     {columns.map(column => {
-                                        return column.show !== false ? (
-                                            <TableCell
-                                                key={column.id}
-                                                component="th"
-                                                scope="row"
-                                                align={column.textAlign || 'left'}
-                                                style={{
-                                                    padding: `${theme.typography.pxToRem(
-                                                        8
-                                                    )} ${theme.typography.pxToRem(16)}`,
-                                                }}
-                                            >
-                                                <Box
-                                                    sx={{
-                                                        pl: column.columnSortableValuePath
-                                                            ? theme.typography.pxToRem(6)
-                                                            : 0,
+                                        return (
+                                            <Render condition={column.show}>
+                                                <TableCell
+                                                    key={column.id}
+                                                    component="th"
+                                                    scope="row"
+                                                    align={column.textAlign || 'left'}
+                                                    style={{
+                                                        padding: `${theme.typography.pxToRem(
+                                                            8
+                                                        )} ${theme.typography.pxToRem(16)}`,
                                                     }}
                                                 >
-                                                    {column.render(item)}
-                                                </Box>
-                                            </TableCell>
-                                        ) : null;
+                                                    <Box
+                                                        sx={getColumnStyles(
+                                                            !!column.columnSortableValuePath
+                                                        )}
+                                                    >
+                                                        {column.render(item)}
+                                                    </Box>
+                                                </TableCell>
+                                            </Render>
+                                        );
                                     })}
                                 </TableRow>
                             );
