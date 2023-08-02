@@ -97,31 +97,38 @@ export const TableBody = ({
                                             />
                                         </TableCell>
                                     </Render>
-                                    {columns.map(column => {
-                                        return (
-                                            <Render condition={column.show}>
-                                                <TableCell
-                                                    key={column.id}
-                                                    component="th"
-                                                    scope="row"
-                                                    align={column.textAlign || 'left'}
-                                                    style={{
-                                                        padding: `${theme.typography.pxToRem(
-                                                            8
-                                                        )} ${theme.typography.pxToRem(16)}`,
-                                                    }}
-                                                >
-                                                    <Box
-                                                        sx={getColumnStyles(
-                                                            !!column.columnSortableValuePath
-                                                        )}
+                                    {columns.map(
+                                        ({
+                                            show = true,
+                                            id,
+                                            textAlign = 'left',
+                                            columnSortableValuePath,
+                                            render,
+                                        }) => {
+                                            return (
+                                                <Render condition={show} key={id}>
+                                                    <TableCell
+                                                        component="th"
+                                                        scope="row"
+                                                        align={textAlign || 'left'}
+                                                        style={{
+                                                            padding: `${theme.typography.pxToRem(
+                                                                8
+                                                            )} ${theme.typography.pxToRem(16)}`,
+                                                        }}
                                                     >
-                                                        {column.render(item)}
-                                                    </Box>
-                                                </TableCell>
-                                            </Render>
-                                        );
-                                    })}
+                                                        <Box
+                                                            sx={getColumnStyles(
+                                                                !!columnSortableValuePath
+                                                            )}
+                                                        >
+                                                            {render(item)}
+                                                        </Box>
+                                                    </TableCell>
+                                                </Render>
+                                            );
+                                        }
+                                    )}
                                 </TableRow>
                             );
                         })}

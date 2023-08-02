@@ -80,32 +80,40 @@ export const TableHead = ({
             <Render condition={!!upperColumns?.length}>
                 <TableRow>
                     {upperColumns?.length
-                        ? upperColumns.map(column => {
-                              return (
-                                  <Render condition={column.show}>
-                                      <TableCell
-                                          key={column.id}
-                                          component="th"
-                                          scope="row"
-                                          align={column.textAlign || 'left'}
-                                          colSpan={column.colSpan || 1}
-                                          style={{
-                                              color: theme.palette.tables.head.text,
-                                              backgroundColor: theme.palette.tables.head.background,
-                                              padding: `${theme.typography.pxToRem(
-                                                  8
-                                              )} ${theme.typography.pxToRem(16)}`,
-                                          }}
-                                      >
-                                          <Box
-                                              sx={getColumnStyles(!!column.columnSortableValuePath)}
+                        ? upperColumns.map(
+                              ({
+                                  show = true,
+                                  id,
+                                  textAlign = 'left',
+                                  colSpan = 1,
+                                  columnSortableValuePath,
+                                  render,
+                              }) => {
+                                  return (
+                                      <Render condition={show}>
+                                          <TableCell
+                                              key={id}
+                                              component="th"
+                                              scope="row"
+                                              align={textAlign || 'left'}
+                                              colSpan={colSpan || 1}
+                                              style={{
+                                                  color: theme.palette.tables.head.text,
+                                                  backgroundColor:
+                                                      theme.palette.tables.head.background,
+                                                  padding: `${theme.typography.pxToRem(
+                                                      8
+                                                  )} ${theme.typography.pxToRem(16)}`,
+                                              }}
                                           >
-                                              {column.render()}
-                                          </Box>
-                                      </TableCell>
-                                  </Render>
-                              );
-                          })
+                                              <Box sx={getColumnStyles(!!columnSortableValuePath)}>
+                                                  {render()}
+                                              </Box>
+                                          </TableCell>
+                                      </Render>
+                                  );
+                              }
+                          )
                         : null}
                 </TableRow>
             </Render>
@@ -127,25 +135,31 @@ export const TableHead = ({
                     </TableCell>
                 </Render>
                 {columns.map(column => {
-                    const activeColumnSort = sortBy === column.id;
+                    const {
+                        show = true,
+                        id,
+                        textAlign = 'left',
+                        columnSortableValuePath,
+                        label,
+                    } = column;
+                    const activeColumnSort = sortBy === id;
                     const { upperArrowColor, bottomArrowColor } = getArrowsColors(
                         activeColumnSort,
                         sortOrder
                     );
 
                     return (
-                        <Render condition={column.show}>
+                        <Render condition={show} key={id}>
                             <TableCell
-                                key={column.id}
-                                sortDirection={sortBy === column.id ? sortOrder : false}
-                                align={column.textAlign || 'left'}
+                                sortDirection={sortBy === id ? sortOrder : false}
+                                align={textAlign}
                                 style={{
                                     color: theme.palette.tables.head.text,
                                     backgroundColor: theme.palette.tables.head.background,
                                 }}
                             >
                                 <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-                                    <Render condition={!!column.columnSortableValuePath}>
+                                    <Render condition={!!columnSortableValuePath}>
                                         <Grid item>
                                             <ButtonBase
                                                 onClick={() => handleRequestSort(column)}
@@ -178,7 +192,7 @@ export const TableHead = ({
                                             variant={'body1'}
                                             style={{ fontWeight: 600, marginTop: rem(2) }}
                                         >
-                                            {column.label}
+                                            {label}
                                         </Typography>
                                     </Grid>
                                 </Grid>
