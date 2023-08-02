@@ -136,7 +136,7 @@ export const AdvancedJiraMapping = () => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <Grid container spacing={2}>
+                <Grid container spacing={0}>
                     <Render condition={!!advancedMappingRows.length}>
                         <>
                             {advancedMappingRows.map(({ label, value }, idx) => {

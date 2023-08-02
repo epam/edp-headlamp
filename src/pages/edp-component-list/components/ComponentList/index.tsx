@@ -20,7 +20,7 @@ export const ComponentList = ({ components, error }: ComponentListProps) => {
             <Resources />
             <Table
                 isLoading={!components}
-                data={[]}
+                data={components}
                 error={error?.toString()}
                 columns={columns}
                 filterFunction={filterFunc}

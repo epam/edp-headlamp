@@ -24,6 +24,7 @@ export const createCodebaseBranchInstance = (
         spec: {
             codebaseName: codebaseName,
             branchName: branchName || 'your branch name',
+            fromCommit: '',
         },
         metadata: {
             name: `${codebaseName}-${transformedBranchName || 'your branch name'}`,

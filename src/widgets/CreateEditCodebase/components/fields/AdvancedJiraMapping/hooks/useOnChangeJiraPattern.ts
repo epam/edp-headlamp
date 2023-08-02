@@ -23,7 +23,7 @@ export const useOnChangeJiraPattern = ({
                     if (el.value === value) {
                         return {
                             ...el,
-                            jiraPattern: event.target.value || '',
+                            jiraPattern: event.target.value,
                         };
                     }
                     return el;
