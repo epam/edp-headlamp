@@ -3,8 +3,8 @@ import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Button, Card, CardActions, CardContent, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { DocLink } from '../../../../components/DocLink';
-import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
 import { Render } from '../../../../components/Render';
+import { Table } from '../../../../components/Table';
 import { useViewModeContext } from '../../../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../../../providers/ViewMode/types';
 import { useColumns } from './hooks/useColumns';
@@ -20,7 +20,7 @@ export const ConfigurationList = () => {
     return (
         <>
             {viewMode === VIEW_MODES.TABLE ? (
-                <HeadlampSimpleTable data={data} columns={columns} rowsPerPage={[15, 25, 50]} />
+                <Table data={data} columns={columns} isLoading={!data} />
             ) : viewMode === VIEW_MODES.GRID ? (
                 <Grid container spacing={2}>
                     {data.map(({ icon, label, description, routePath, docLink }) => {

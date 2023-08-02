@@ -15,6 +15,7 @@ import { CreateCodebaseFormValues } from '../../Create/types';
 
 export const Lang = () => {
     const {
+        unregister,
         register,
         control,
         formState: { errors },
@@ -70,6 +71,7 @@ export const Lang = () => {
             resetField(CODEBASE_FORM_NAMES.jenkinsSlave.name);
             resetField(CODEBASE_FORM_NAMES.framework.name);
             resetField(CODEBASE_FORM_NAMES.buildTool.name);
+            unregister(CODEBASE_FORM_NAMES.framework.name);
 
             if (CIToolFieldValue !== CI_TOOLS.JENKINS) {
                 return;
@@ -83,7 +85,15 @@ export const Lang = () => {
 
             setValue(CODEBASE_FORM_NAMES.jenkinsSlave.name, recommendedJenkinsAgent);
         },
-        [CIToolFieldValue, buildToolValue, frameworkValue, resetField, setValue, typeFieldValue]
+        [
+            CIToolFieldValue,
+            buildToolValue,
+            frameworkValue,
+            resetField,
+            setValue,
+            typeFieldValue,
+            unregister,
+        ]
     );
 
     return (

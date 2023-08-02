@@ -5,10 +5,10 @@ import { ClassNameMap } from '@material-ui/styles';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { Render } from '../../../../../components/Render';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
+import { TableColumn } from '../../../../../components/Table/types';
 import { CI_TOOLS } from '../../../../../constants/ciTools';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { TRIGGER_TYPES } from '../../../../../constants/triggerTypes';
@@ -25,7 +25,7 @@ import { EDPCDPipelineRouteParams } from '../../../types';
 
 export const useColumns = (
     classes: ClassNameMap<'labelChip' | 'labelChipBlue' | 'labelChipGreen'>
-): HeadlampSimpleTableGetterColumn<EDPCDPipelineStageKubeObjectInterface>[] => {
+): TableColumn<EDPCDPipelineStageKubeObjectInterface>[] => {
     const { handleOpenResourceActionListMenu } =
         useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
     const { name: CDPipelineName, namespace } = useParams<EDPCDPipelineRouteParams>();
@@ -37,8 +37,9 @@ export const useColumns = (
     return React.useMemo(
         () => [
             {
+                id: 'status',
                 label: 'Status',
-                getter: ({ status }) => {
+                render: ({ status }) => {
                     return (
                         <StatusIcon
                             status={status?.status}
@@ -64,10 +65,12 @@ export const useColumns = (
                         />
                     );
                 },
+                width: '10%',
             },
             {
+                id: 'stage',
                 label: 'Stage',
-                getter: ({ spec: { name: specName }, metadata: { name: metadataName } }) => {
+                render: ({ spec: { name: specName }, metadata: { name: metadataName } }) => {
                     return (
                         <Link
                             routeName={routeEDPStageDetails.path}
@@ -81,10 +84,12 @@ export const useColumns = (
                         </Link>
                     );
                 },
+                width: '20%',
             },
             {
+                id: 'triggerType',
                 label: 'Trigger Type',
-                getter: ({ spec: { triggerType } }) => {
+                render: ({ spec: { triggerType } }) => {
                     const isManualTriggerType = triggerType === TRIGGER_TYPES.MANUAL;
 
                     return isManualTriggerType ? (
@@ -99,10 +104,12 @@ export const useColumns = (
                         />
                     );
                 },
+                width: '20%',
             },
             {
+                id: 'links',
                 label: 'Links',
-                getter: stage => {
+                render: stage => {
                     return (
                         <Grid container spacing={1}>
                             <Grid item>
@@ -159,10 +166,12 @@ export const useColumns = (
                         </Grid>
                     );
                 },
+                width: '40%',
             },
             {
+                id: 'actions',
                 label: '',
-                getter: stage => {
+                render: stage => {
                     const buttonRef = React.createRef<HTMLButtonElement>();
 
                     return (
@@ -177,6 +186,7 @@ export const useColumns = (
                         </IconButton>
                     );
                 },
+                textAlign: 'right',
             },
         ],
         [

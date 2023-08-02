@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import { NameValueTable } from '@kinvolk/headlamp-plugin/lib/components/common';
 import {
     Button,
     Dialog,
@@ -10,7 +11,6 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { HeadlampNameValueTable } from '../HeadlampNameValueTable';
 import { MetadataTableProps } from './types';
 
 const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
@@ -37,7 +37,7 @@ export const MetadataTable = ({ rows }: MetadataTableProps) => {
             <Dialog open={dialogOpen} onClose={handleDialogClose}>
                 <DialogTitle>Metadata</DialogTitle>
                 <DialogContent>
-                    <HeadlampNameValueTable rows={rows} />
+                    <NameValueTable rows={rows} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleDialogClose} size="small" component={'button'}>

@@ -17,6 +17,7 @@ import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPCo
 import { useStreamAutotestPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestPipelineRunList';
 import { useStreamAutotestRunnerPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestRunnerPipelineRunList';
 import { useStreamPipelineRunListByTypeAndPipelineNameLabels } from '../../k8s/PipelineRun/hooks/useStreamPipelineRunListByTypeAndPipelineNameLabels';
+import { FormContextProvider } from '../../providers/Form';
 import { GENERATE_URL_SERVICE } from '../../services/url';
 import { parseTektonResourceStatus } from '../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../utils/sort/sortKubeObjectsByCreationTimestamp';
@@ -130,12 +131,14 @@ export const PageView = () => {
                 label: 'Applications',
                 id: 'applications',
                 component: (
-                    <Applications
-                        enrichedApplicationsWithArgoApplications={
-                            enrichedApplicationsWithArgoApplications
-                        }
-                        qualityGatePipelineIsRunning={latestDeployPipelineRunIsRunning}
-                    />
+                    <FormContextProvider formSettings={{ mode: 'onBlur' }}>
+                        <Applications
+                            enrichedApplicationsWithArgoApplications={
+                                enrichedApplicationsWithArgoApplications
+                            }
+                            qualityGatePipelineIsRunning={latestDeployPipelineRunIsRunning}
+                        />
+                    </FormContextProvider>
                 ),
                 disabled: ciTool === CI_TOOLS.JENKINS,
             },

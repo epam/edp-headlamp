@@ -1,6 +1,6 @@
-import { Grid, Tooltip, Typography } from '@material-ui/core';
+import { Grid, Tooltip } from '@material-ui/core';
 import React from 'react';
-import { HeadlampSimpleTableGetterColumn } from '../../../../../../../components/HeadlampSimpleTable/types';
+import { TableColumn } from '../../../../../../../components/Table/types';
 import {
     BUILD_TOOL_ICON_MAPPING,
     FRAMEWORK_ICON_MAPPING,
@@ -10,45 +10,54 @@ import { RESOURCE_ICON_NAMES } from '../../../../../../../icons/sprites/Resource
 import { UseSpriteSymbol } from '../../../../../../../icons/UseSpriteSymbol';
 import { EDPTemplateKubeObjectInterface } from '../../../../../../../k8s/EDPTemplate/types';
 import { getCodebaseMappingByCodebaseType } from '../../../../../../../utils/getCodebaseMappingByCodebaseType';
-import { sortByName } from '../../../../../../../utils/sort/sortByName';
 import { rem } from '../../../../../../../utils/styling/rem';
-export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPTemplateKubeObjectInterface>[] => {
+export const useColumns = (): TableColumn<EDPTemplateKubeObjectInterface>[] => {
     return React.useMemo(
         () => [
             {
+                id: 'icon',
                 label: '',
-                getter: ({ spec: { icon } }) => {
+                render: ({ spec: { icon } }) => {
                     return (
                         <img
-                            style={{ height: rem(40), verticalAlign: 'middle' }}
+                            style={{ height: rem(30), verticalAlign: 'middle' }}
                             src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
                             alt=""
                         />
                     );
                 },
+                width: '3%',
             },
             {
+                id: 'name',
                 label: 'Name',
-                getter: ({ spec: { description, displayName } }) => (
+                columnSortableValuePath: 'spec.displayName',
+                render: ({ spec: { description, displayName } }) => (
                     <Tooltip title={description}>
-                        <Typography>{displayName}</Typography>
+                        <>{displayName}</>
                     </Tooltip>
                 ),
-                sort: (a, b) => sortByName(a.spec.displayName, b.spec.displayName),
+                width: '20%',
             },
             {
+                id: 'type',
                 label: 'Type',
-                getter: ({ spec: { type } }) => type,
-                sort: (a, b) => sortByName(a.spec.type, b.spec.type),
+                columnSortableValuePath: 'spec.type',
+                render: ({ spec: { type } }) => type,
+                width: '12%',
             },
             {
+                id: 'category',
                 label: 'Category',
-                getter: ({ spec: { category } }) => category,
-                sort: (a, b) => sortByName(a.spec.category, b.spec.category),
+                columnSortableValuePath: 'spec.category',
+                render: ({ spec: { category } }) => category,
+                width: '12%',
             },
             {
+                id: 'language',
                 label: 'Language',
-                getter: ({ spec: { language, type } }) => {
+                columnSortableValuePath: 'spec.language',
+                render: ({ spec: { language, type } }) => {
                     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
                     if (!codebaseMapping) {
                         return language;
@@ -72,11 +81,13 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPTemplateKubeObj
                         </Grid>
                     );
                 },
-                sort: (a, b) => sortByName(a.spec.language, b.spec.language),
+                width: '12%',
             },
             {
+                id: 'framework',
                 label: 'Framework',
-                getter: ({ spec: { language, framework, type } }) => {
+                columnSortableValuePath: 'spec.framework',
+                render: ({ spec: { language, framework, type } }) => {
                     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
                     if (!codebaseMapping) {
@@ -102,11 +113,13 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPTemplateKubeObj
                         </Grid>
                     );
                 },
-                sort: (a, b) => sortByName(a.spec.framework, b.spec.framework),
+                width: '12%',
             },
             {
+                id: 'buildTool',
                 label: 'Build Tool',
-                getter: ({ spec: { language, buildTool, type } }) => {
+                columnSortableValuePath: 'spec.buildTool',
+                render: ({ spec: { language, buildTool, type } }) => {
                     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
                     if (!codebaseMapping) {
@@ -132,12 +145,13 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<EDPTemplateKubeObj
                         </Grid>
                     );
                 },
-                sort: (a, b) => sortByName(a.spec.buildTool, b.spec.buildTool),
+                width: '12%',
             },
             {
+                id: 'maturity',
                 label: 'Maturity',
-                getter: ({ spec: { maturity } }) => maturity,
-                sort: (a, b) => sortByName(a.spec.maturity, b.spec.maturity),
+                columnSortableValuePath: 'spec.maturity',
+                render: ({ spec: { maturity } }) => maturity,
             },
         ],
         []

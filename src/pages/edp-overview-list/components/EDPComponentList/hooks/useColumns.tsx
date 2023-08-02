@@ -1,20 +1,20 @@
 import { Icon } from '@iconify/react';
 import { Link, Typography } from '@material-ui/core';
 import React from 'react';
-import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { Render } from '../../../../../components/Render';
+import { TableColumn } from '../../../../../components/Table/types';
 import { EDPComponentKubeObjectInterface } from '../../../../../k8s/EDPComponent/types';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
-import { sortByName } from '../../../../../utils/sort/sortByName';
 
 export const useColumns = (classes: {
     [key: string]: string;
-}): HeadlampSimpleTableGetterColumn<HeadlampKubeObject<EDPComponentKubeObjectInterface>>[] =>
+}): TableColumn<HeadlampKubeObject<EDPComponentKubeObjectInterface>>[] =>
     React.useMemo(
         () => [
             {
+                id: 'icon',
                 label: 'Icon',
-                getter: ({ spec: { url, visible, icon } }) => (
+                render: ({ spec: { url, visible, icon } }) => (
                     <>
                         <Render condition={!!visible}>
                             <Link href={url} target="_blank" rel="noopener">
@@ -31,10 +31,13 @@ export const useColumns = (classes: {
                         </Render>
                     </>
                 ),
+                width: '5%',
             },
             {
+                id: 'name',
                 label: 'Name',
-                getter: ({ spec: { url, type, visible } }) => {
+                columnSortableValuePath: 'spec.type',
+                render: ({ spec: { url, type, visible } }) => {
                     const _url = !/^https?:\/\//i.test(url) ? `https://${url}` : url;
 
                     return (
@@ -50,12 +53,13 @@ export const useColumns = (classes: {
                         </>
                     );
                 },
-                sort: (a, b) => sortByName(a.spec.type, b.spec.type),
+                width: '30%',
             },
             {
+                id: 'namespace',
                 label: 'Namespace',
-                getter: ({ metadata: { namespace } }) => <>{namespace}</>,
-                sort: (a, b) => sortByName(a.metadata.namespace, b.metadata.namespace),
+                columnSortableValuePath: 'metadata.namespace',
+                render: ({ metadata: { namespace } }) => <>{namespace}</>,
             },
         ],
         [classes]

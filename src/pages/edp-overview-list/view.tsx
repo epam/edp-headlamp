@@ -10,7 +10,8 @@ import { rem } from '../../utils/styling/rem';
 import { EDPComponentList } from './components/EDPComponentList';
 
 export const PageView = () => {
-    const [EDPComponents, setEDPComponents] = React.useState<EDPComponentKubeObjectInterface[]>([]);
+    const [EDPComponents, setEDPComponents] =
+        React.useState<EDPComponentKubeObjectInterface[]>(null);
     const [error, setError] = React.useState<unknown>(null);
 
     EDPComponentKubeObject.useApiList(

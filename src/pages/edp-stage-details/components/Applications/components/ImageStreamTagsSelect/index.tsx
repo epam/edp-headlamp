@@ -5,12 +5,12 @@ import { SelectOption } from '../../../../../../types/forms';
 import { ImageStreamTagsSelectProps } from './types';
 
 export const ImageStreamTagsSelect = ({
-    applicationImageStream,
-    applicationVerifiedImageStream,
-    application,
+    enrichedApplicationWithArgoApplication,
     selected,
-    handleRowClick,
+    handleSelectRowClick,
 }: ImageStreamTagsSelectProps) => {
+    const { applicationImageStream, applicationVerifiedImageStream, application } =
+        enrichedApplicationWithArgoApplication;
     const {
         control,
         formState: { errors },
@@ -55,7 +55,7 @@ export const ImageStreamTagsSelect = ({
                     required: selected.includes(application.metadata.name),
                     onChange: event =>
                         !selected.includes(application.metadata.name) &&
-                        handleRowClick(event, application.metadata.name),
+                        handleSelectRowClick(event, enrichedApplicationWithArgoApplication),
                 })}
                 control={control}
                 errors={errors}

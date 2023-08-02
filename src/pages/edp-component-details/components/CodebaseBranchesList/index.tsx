@@ -1,10 +1,13 @@
-import { EmptyContent, SectionHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, Typography } from '@material-ui/core';
+import { SectionHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { DocLink } from '../../../../components/DocLink';
+import { EmptyList } from '../../../../components/EmptyList';
 import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../../../constants/urls';
 import { streamCodebaseBranchesByCodebaseLabel } from '../../../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
+import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../../../widgets/CreateCodebaseBranch/constants';
 import { CodebaseBranch } from './components/CodebaseBranch';
 import { CodebaseBranchActions } from './components/CodebaseBranchActions';
 import { TableHeaderActions } from './components/TableHeaderActions';
@@ -13,15 +16,16 @@ import { CodebaseBranchesListProps } from './types';
 import { isDefaultBranch } from './utils';
 
 export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps) => {
+    const { setDialog } = useDialogContext();
+
     const {
         metadata: { name, namespace },
         spec: { defaultBranch },
     } = codebaseData;
 
     const classes = useStyles();
-    const [currentCodebaseBranches, setCurrentCodebaseBranches] = React.useState<
-        EDPCodebaseBranchKubeObjectInterface[]
-    >([]);
+    const [currentCodebaseBranches, setCurrentCodebaseBranches] =
+        React.useState<EDPCodebaseBranchKubeObjectInterface[]>(null);
     const [, setError] = React.useState<Error>(null);
     const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
 
@@ -76,7 +80,13 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
                 </div>
             </div>
             <CodebaseBranchActions defaultBranch={defaultBranch} codebase={codebaseData} />
-            {currentCodebaseBranches.length ? (
+            {!currentCodebaseBranches ? (
+                <Grid container justifyContent={'center'} alignItems={'center'}>
+                    <Grid item>
+                        <CircularProgress />
+                    </Grid>
+                </Grid>
+            ) : currentCodebaseBranches.length ? (
                 currentCodebaseBranches.map(
                     (codebaseBranchData: EDPCodebaseBranchKubeObjectInterface, idx: number) => {
                         const branchId = `${codebaseBranchData.spec.branchName}:${idx}`;
@@ -94,7 +104,17 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
                     }
                 )
             ) : (
-                <EmptyContent color={'textSecondary'}>No branches</EmptyContent>
+                <EmptyList
+                    missingItemName={'branches'}
+                    handleClick={() =>
+                        setDialog({
+                            modalName: CREATE_CODEBASE_BRANCH_DIALOG_NAME,
+                            forwardedProps: {
+                                codebase: codebaseData,
+                            },
+                        })
+                    }
+                />
             )}
         </>
     );

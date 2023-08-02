@@ -1,17 +1,17 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { Link as MuiLink } from '@material-ui/core';
 import React from 'react';
-import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
-import { sortByActiveStatus } from '../../../../../utils/sort/sortByActiveStatus';
+import { TableColumn } from '../../../../../components/Table/types';
 import { ConfigurationItem } from '../../../types';
-export const useColumns = (): HeadlampSimpleTableGetterColumn<ConfigurationItem>[] => {
+export const useColumns = (): TableColumn<ConfigurationItem>[] => {
     return React.useMemo(
         () => [
             {
+                id: 'name',
                 label: 'Name',
-                getter: ({ icon, label, routePath }) => {
+                render: ({ icon, label, routePath }) => {
                     return (
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item>
@@ -23,17 +23,18 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<ConfigurationItem>
                         </Grid>
                     );
                 },
-                sort: (a, b) => sortByActiveStatus(a.label, b.label),
+                width: '15%',
             },
             {
+                id: 'description',
                 label: 'Description',
-                getter: ({ description }) => {
-                    return <Typography variant={'subtitle1'}>{description}</Typography>;
-                },
+                render: ({ description }) => description,
+                width: '70%',
             },
             {
+                id: 'documentation',
                 label: 'Documentation',
-                getter: ({ docLink }) => {
+                render: ({ docLink }) => {
                     return docLink ? (
                         <MuiLink href={docLink} target={'_blank'}>
                             User guide

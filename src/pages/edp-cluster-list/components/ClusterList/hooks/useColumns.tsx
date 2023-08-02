@@ -1,17 +1,20 @@
 import React from 'react';
-import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
+import { TableColumn } from '../../../../../components/Table/types';
 import { SecretKubeObjectInterface } from '../../../../../k8s/Secret/types';
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<SecretKubeObjectInterface>[] => {
+export const useColumns = (): TableColumn<SecretKubeObjectInterface>[] => {
     return React.useMemo(
         () => [
             {
+                id: 'name',
                 label: 'Name',
-                getter: ({ data: { name } }) => atob(unescape(name)),
+                render: ({ data: { name } }) => atob(unescape(name)),
+                width: '30%',
             },
             {
+                id: 'host',
                 label: 'Host',
-                getter: ({ data: { server } }) => atob(unescape(server)),
+                render: ({ data: { server } }) => atob(unescape(server)),
             },
         ],
         []

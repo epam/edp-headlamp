@@ -33,7 +33,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
             <Grid item>
                 <Grid container spacing={1} alignItems={'center'}>
                     <Grid item>
-                        <Typography variant={'h5'}>Create New Branch</Typography>
+                        <Typography variant={'h5'}>Create New Cluster</Typography>
                     </Grid>
                 </Grid>
             </Grid>

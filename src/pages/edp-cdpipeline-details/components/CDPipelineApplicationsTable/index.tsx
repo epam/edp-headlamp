@@ -1,13 +1,11 @@
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
+import { Table } from '../../../../components/Table';
 import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
 import { useColumns } from './hooks/useColumns';
-import { useStyles } from './styles';
 
 export const CDPipelineApplicationsTable = () => {
     const columns = useColumns();
-    const classes = useStyles();
     const { enrichedApplications } = useEnrichedApplicationsContext();
 
     return (
@@ -20,9 +18,11 @@ export const CDPipelineApplicationsTable = () => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <Paper className={classes.tableRoot}>
-                    <HeadlampSimpleTable data={enrichedApplications} columns={columns} />
-                </Paper>
+                <Table
+                    data={enrichedApplications}
+                    columns={columns}
+                    isLoading={!enrichedApplications}
+                />
             </Grid>
         </Grid>
     );

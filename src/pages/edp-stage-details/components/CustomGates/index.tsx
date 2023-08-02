@@ -2,7 +2,8 @@ import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
+import { EmptyList } from '../../../../components/EmptyList';
+import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { usePipelineByTypeListQuery } from '../../../../k8s/Pipeline/hooks/usePipelineByTypeListQuery';
@@ -119,7 +120,7 @@ export const CustomGates = ({
 
     return (
         <Grid container spacing={2} justifyContent={'flex-end'}>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
                 <Grid container spacing={2} alignItems={'center'}>
                     <Grid item style={{ flexGrow: 1 }}>
                         <FormSelect
@@ -147,10 +148,11 @@ export const CustomGates = ({
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <HeadlampSimpleTable
+                <Table
                     columns={columns}
-                    rowsPerPage={[10]}
                     data={latestTenDeployPipelineRuns}
+                    isLoading={!latestTenDeployPipelineRuns}
+                    emptyListComponent={<EmptyList missingItemName={'custom gates'} />}
                 />
             </Grid>
         </Grid>

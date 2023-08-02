@@ -1,20 +1,35 @@
 import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import React from 'react';
-import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
+import { EmptyList } from '../../../../components/EmptyList';
+import { Table } from '../../../../components/Table';
+import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { CREATE_CLUSTER_DIALOG_NAME } from '../../../../widgets/CreateCluster/constants';
 import { useColumns } from './hooks/useColumns';
 import { ClusterListProps } from './types';
 
 export const ClusterList = ({ clusterSecrets, error }: ClusterListProps) => {
     const columns = useColumns();
-    const filterFunc = Utils.useFilterFunc();
+    const filterFunction = Utils.useFilterFunc();
+
+    const { setDialog } = useDialogContext();
 
     return (
-        <HeadlampSimpleTable
+        <Table
             data={clusterSecrets}
-            errorMessage={error?.toString()}
             columns={columns}
-            rowsPerPage={[15, 25, 50]}
-            filterFunction={filterFunc}
+            isLoading={!clusterSecrets}
+            error={error}
+            filterFunction={filterFunction}
+            emptyListComponent={
+                <EmptyList
+                    missingItemName={'clusters'}
+                    handleClick={() =>
+                        setDialog({
+                            modalName: CREATE_CLUSTER_DIALOG_NAME,
+                        })
+                    }
+                />
+            }
         />
     );
 };

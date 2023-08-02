@@ -1,7 +1,7 @@
 import { SectionBox, SectionHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { NameValueTable } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { Box } from '@material-ui/core';
 import React from 'react';
-import { HeadlampNameValueTable } from '../../../../components/HeadlampNameValueTable';
 import { useRows } from './hooks/useRows';
 import { CodebaseGeneralInfoTableProps } from './types';
 
@@ -11,7 +11,7 @@ export const CodebaseGeneralInfoTable = ({ codebaseData }: CodebaseGeneralInfoTa
     return (
         <SectionBox title={<SectionHeader title={'General Info'} headerStyle="label" />}>
             <Box>
-                <HeadlampNameValueTable rows={columns} />
+                <NameValueTable rows={columns} />
             </Box>
         </SectionBox>
     );

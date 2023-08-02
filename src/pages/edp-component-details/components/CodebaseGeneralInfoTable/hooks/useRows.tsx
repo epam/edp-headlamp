@@ -1,10 +1,9 @@
+import { NameValueTableRow } from '@kinvolk/headlamp-plugin/lib/components/common';
 import React from 'react';
-import { NameValueTableRow } from '../../../../../components/HeadlampNameValueTable/types';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../../constants/codebaseVersioningTypes';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
-import { DeepPartial } from '../../../../../types/global';
 
-export const useRows = (kubeObjectData: DeepPartial<EDPCodebaseKubeObjectInterface>) =>
+export const useRows = (kubeObjectData: EDPCodebaseKubeObjectInterface) =>
     React.useMemo(() => {
         const { spec, status } = kubeObjectData;
         const base: NameValueTableRow[] = [

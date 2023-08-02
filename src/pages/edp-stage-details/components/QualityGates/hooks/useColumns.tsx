@@ -2,8 +2,8 @@ import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Link as MuiLink } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
+import { TableColumn } from '../../../../../components/Table/types';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
@@ -12,7 +12,7 @@ import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 import { EDPStageDetailsRouteParams } from '../../../types';
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<{
+export const useColumns = (): TableColumn<{
     qualityGate: EDPCDPipelineStageSpecQualityGatesInterface;
     autotestPipelineRun: PipelineRunKubeObjectInterface;
 }>[] => {
@@ -22,8 +22,9 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
     return React.useMemo(
         () => [
             {
+                id: 'status',
                 label: 'Status',
-                getter: ({ autotestPipelineRun }) => {
+                render: ({ autotestPipelineRun }) => {
                     return (
                         <StatusIcon
                             status={
@@ -33,14 +34,18 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
                         />
                     );
                 },
+                width: '10%',
             },
             {
+                id: 'type',
                 label: 'Type',
-                getter: ({ qualityGate: { qualityGateType } }) => qualityGateType,
+                render: ({ qualityGate: { qualityGateType } }) => qualityGateType,
+                width: '15%',
             },
             {
+                id: 'step',
                 label: 'Step',
-                getter: ({ qualityGate: { stepName }, autotestPipelineRun }) => {
+                render: ({ qualityGate: { stepName }, autotestPipelineRun }) => {
                     const tektonLink =
                         autotestPipelineRun &&
                         GENERATE_URL_SERVICE.createTektonPipelineRunLink(
@@ -57,10 +62,12 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
                         stepName
                     );
                 },
+                width: '15%',
             },
             {
+                id: 'autotest',
                 label: 'Autotest',
-                getter: ({ qualityGate: { autotestName } }) => {
+                render: ({ qualityGate: { autotestName } }) => {
                     return autotestName ? (
                         <Link
                             routeName={routeEDPComponentDetails.path}
@@ -75,10 +82,12 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<{
                         autotestName
                     );
                 },
+                width: '40%',
             },
             {
+                id: 'branch',
                 label: 'Branch',
-                getter: ({ qualityGate: { branchName } }) => branchName,
+                render: ({ qualityGate: { branchName } }) => branchName,
             },
         ],
         [EDPComponentsURLS, namespace]

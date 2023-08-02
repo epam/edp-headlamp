@@ -2,9 +2,9 @@ import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, IconButton, Typography } from '@material-ui/core';
 import React from 'react';
-import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
+import { TableColumn } from '../../../../../components/Table/types';
 import {
     BUILD_TOOL_ICON_MAPPING,
     CI_TOOL_ICON_MAPPING,
@@ -20,22 +20,20 @@ import { useResourceActionListContext } from '../../../../../providers/ResourceA
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
-import { sortByName } from '../../../../../utils/sort/sortByName';
-import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<
-    HeadlampKubeObject<EDPCodebaseKubeObjectInterface>
->[] => {
+export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObjectInterface>>[] => {
     const { handleOpenResourceActionListMenu } =
         useResourceActionListContext<EDPCodebaseKubeObjectInterface>();
 
     return React.useMemo(
         () => [
             {
+                id: 'status',
                 label: 'Status',
-                getter: ({ status: codebaseStatus }) => {
+                columnSortableValuePath: 'status.status',
+                render: ({ status: codebaseStatus }) => {
                     const status = codebaseStatus
                         ? codebaseStatus.status
                         : CUSTOM_RESOURCE_STATUSES['UNKNOWN'];
@@ -55,11 +53,13 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
 
                     return <StatusIcon status={status} customTitle={title} />;
                 },
-                sort: (a, b) => sortByStatus(a.status.status, b.status.status),
+                width: '10%',
             },
             {
+                id: 'name',
                 label: 'Name',
-                getter: ({ metadata: { name, namespace } }) => {
+                columnSortableValuePath: 'metadata.name',
+                render: ({ metadata: { name, namespace } }) => {
                     return (
                         <Link
                             routeName={routeEDPComponentDetails.path}
@@ -72,15 +72,20 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                         </Link>
                     );
                 },
-                sort: (a, b) => sortByName(a.metadata.name, b.metadata.name),
+                width: '20%',
             },
             {
+                id: 'type',
                 label: 'Type',
-                getter: ({ spec: { type } }) => capitalizeFirstLetter(type),
+                columnSortableValuePath: 'spec.type',
+                render: ({ spec: { type } }) => capitalizeFirstLetter(type),
+                width: '15%',
             },
             {
+                id: 'language',
                 label: 'Language',
-                getter: ({ spec: { lang, type } }) => {
+                columnSortableValuePath: 'spec.lang',
+                render: ({ spec: { lang, type } }) => {
                     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
                     if (!codebaseMapping) {
                         return lang;
@@ -102,11 +107,13 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                         </Grid>
                     );
                 },
-                sort: (a, b) => sortByName(a.spec.lang, b.spec.lang),
+                width: '15%',
             },
             {
+                id: 'framework',
                 label: 'Framework',
-                getter: ({ spec: { lang, framework, type } }) => {
+                columnSortableValuePath: 'spec.lang',
+                render: ({ spec: { lang, framework, type } }) => {
                     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
                     if (!codebaseMapping) {
@@ -132,11 +139,13 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                         </Grid>
                     );
                 },
-                sort: (a, b) => sortByName(a.spec.framework, b.spec.framework),
+                width: '15%',
             },
             {
+                id: 'buildTool',
                 label: 'Build Tool',
-                getter: ({ spec: { lang, buildTool, type } }) => {
+                columnSortableValuePath: 'spec.buildTool',
+                render: ({ spec: { lang, buildTool, type } }) => {
                     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
                     if (!codebaseMapping) {
@@ -162,11 +171,13 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                         </Grid>
                     );
                 },
-                sort: (a, b) => sortByName(a.spec.buildTool, b.spec.buildTool),
+                width: '15%',
             },
             {
+                id: 'ciTool',
                 label: 'CI Tool',
-                getter: ({ spec: { ciTool } }) => {
+                columnSortableValuePath: 'spec.ciTool',
+                render: ({ spec: { ciTool } }) => {
                     return (
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item>
@@ -183,11 +194,12 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                         </Grid>
                     );
                 },
-                sort: (a, b) => sortByName(a.spec.ciTool, b.spec.ciTool),
+                width: '15%',
             },
             {
+                id: 'actions',
                 label: '',
-                getter: ({ jsonData }) => {
+                render: ({ jsonData }) => {
                     const buttonRef = React.createRef<HTMLButtonElement>();
 
                     return (

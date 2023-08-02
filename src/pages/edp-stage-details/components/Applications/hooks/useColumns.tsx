@@ -2,8 +2,8 @@ import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Link as MuiLink } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
+import { TableColumn } from '../../../../../components/Table/types';
 import {
     CODEBASE_COMMON_BUILD_TOOLS,
     CODEBASE_COMMON_FRAMEWORKS,
@@ -24,9 +24,12 @@ import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
 
 export const useColumns = (
     qualityGatePipelineIsRunning: boolean,
-    handleRowClick: (event: React.MouseEvent<unknown>, name: string) => void,
+    handleSelectRowClick: (
+        event: React.MouseEvent<unknown>,
+        row: EnrichedApplicationWithArgoApplication
+    ) => void,
     selected: string[]
-): HeadlampSimpleTableGetterColumn<EnrichedApplicationWithArgoApplication>[] => {
+): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
     const { namespace } = useParams<EDPStageDetailsRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
     const _createArgoCDLink = React.useCallback(
@@ -43,8 +46,9 @@ export const useColumns = (
     return React.useMemo(
         () => [
             {
+                id: 'health',
                 label: 'Health',
-                getter: ({ argoApplication }) =>
+                render: ({ argoApplication }) =>
                     //@ts-ignore
                     argoApplication?.status?.health?.status ? (
                         <StatusIcon
@@ -52,12 +56,14 @@ export const useColumns = (
                             status={argoApplication.status.health.status.toLowerCase()}
                         />
                     ) : (
-                        <StatusIcon status={CUSTOM_RESOURCE_STATUSES['UNKNOWN']} />
+                        <StatusIcon status={CUSTOM_RESOURCE_STATUSES.UNKNOWN} />
                     ),
+                width: '5%',
             },
             {
+                id: 'sync',
                 label: 'Sync',
-                getter: ({ argoApplication }) =>
+                render: ({ argoApplication }) =>
                     //@ts-ignore
                     argoApplication?.status?.sync?.status ? (
                         <StatusIcon
@@ -65,12 +71,14 @@ export const useColumns = (
                             status={argoApplication.status.sync.status.toLowerCase()}
                         />
                     ) : (
-                        <StatusIcon status={CUSTOM_RESOURCE_STATUSES['UNKNOWN']} />
+                        <StatusIcon status={CUSTOM_RESOURCE_STATUSES.UNKNOWN} />
                     ),
+                width: '5%',
             },
             {
+                id: 'application',
                 label: 'Application',
-                getter: ({
+                render: ({
                     application: {
                         metadata: { name, namespace },
                     },
@@ -87,10 +95,12 @@ export const useColumns = (
                         </Link>
                     );
                 },
+                width: '20%',
             },
             {
+                id: 'deployedVersion',
                 label: 'Deployed version',
-                getter: ({
+                render: ({
                     argoApplication,
                     application: {
                         spec: { lang, framework, buildTool },
@@ -117,26 +127,24 @@ export const useColumns = (
                         'No deploy'
                     );
                 },
+                width: '40%',
             },
             {
+                id: 'imageStreamVersion',
                 label: 'Image stream version',
-                getter: ({
-                    applicationImageStream,
-                    applicationVerifiedImageStream,
-                    application,
-                }) => {
+                render: enrichedApplicationWithArgoApplication => {
                     return (
                         <ImageStreamTagsSelect
-                            applicationImageStream={applicationImageStream}
-                            applicationVerifiedImageStream={applicationVerifiedImageStream}
-                            application={application}
+                            enrichedApplicationWithArgoApplication={
+                                enrichedApplicationWithArgoApplication
+                            }
                             selected={selected}
-                            handleRowClick={handleRowClick}
+                            handleSelectRowClick={handleSelectRowClick}
                         />
                     );
                 },
             },
         ],
-        [_createArgoCDLink, handleRowClick, selected]
+        [_createArgoCDLink, handleSelectRowClick, selected]
     );
 };

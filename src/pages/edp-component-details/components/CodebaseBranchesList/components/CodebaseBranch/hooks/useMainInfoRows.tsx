@@ -1,5 +1,5 @@
+import { NameValueTableRow } from '@kinvolk/headlamp-plugin/lib/components/common';
 import React from 'react';
-import { NameValueTableRow } from '../../../../../../../components/HeadlampNameValueTable/types';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../../../k8s/EDPCodebaseBranch/types';
 
 export const useMainInfoRows = (codebaseBranch: EDPCodebaseBranchKubeObjectInterface) =>

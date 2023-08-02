@@ -2,7 +2,7 @@ import { Button, CircularProgress, Grid } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Graph } from '../../../../components/Graph';
-import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
+import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useCreateAutotestRunnerPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateAutotestRunnerPipelineRun';
@@ -113,10 +113,10 @@ export const QualityGates = ({
     return (
         <Grid container spacing={2} justifyContent={'flex-end'}>
             <Grid item xs={12}>
-                <HeadlampSimpleTable
+                <Table
                     columns={columns}
-                    rowsPerPage={[15, 25, 50]}
                     data={enrichedQualityGatesWithPipelineRuns}
+                    isLoading={!enrichedQualityGatesWithPipelineRuns}
                 />
             </Grid>
             <Grid item xs={12}>

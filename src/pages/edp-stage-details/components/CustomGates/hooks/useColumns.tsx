@@ -1,8 +1,8 @@
 import { Link as MuiLink } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
+import { TableColumn } from '../../../../../components/Table/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
@@ -11,21 +11,24 @@ import { formatDateUTCToLocal } from '../../../../../utils/format/formatDateUTCT
 import { parseTektonResourceStatus } from '../../../../../utils/parseTektonResourceStatus';
 import { EDPStageDetailsRouteParams } from '../../../types';
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObjectInterface>[] => {
+export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
     const { namespace } = useParams<EDPStageDetailsRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 
     return React.useMemo(
         () => [
             {
+                id: 'status',
                 label: 'Status',
-                getter: pipelineRun => {
+                render: pipelineRun => {
                     return <StatusIcon status={parseTektonResourceStatus(pipelineRun)} />;
                 },
+                width: '10%',
             },
             {
+                id: 'name',
                 label: 'Name',
-                getter: ({ metadata: { name, namespace } }) => (
+                render: ({ metadata: { name, namespace } }) => (
                     <MuiLink
                         href={GENERATE_URL_SERVICE.createTektonPipelineRunLink(
                             EDPComponentsURLS?.tekton,
@@ -37,14 +40,17 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<PipelineRunKubeObj
                         {name}
                     </MuiLink>
                 ),
+                width: '50%',
             },
             {
+                id: 'startTime',
                 label: 'Start time',
-                getter: ({ status }) => formatDateUTCToLocal(status?.startTime),
+                render: ({ status }) => formatDateUTCToLocal(status?.startTime),
             },
             {
+                id: 'duration',
                 label: 'Duration',
-                getter: ({ status }) =>
+                render: ({ status }) =>
                     formatDateToDuration(status?.startTime, status?.completionTime),
             },
         ],

@@ -2,10 +2,9 @@ import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { IconButton, Typography } from '@material-ui/core';
 import React from 'react';
-import { HeadlampSimpleTableGetterColumn } from '../../../../../components/HeadlampSimpleTable/types';
-import { MappedProperties } from '../../../../../components/MappedProperties';
 import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
+import { TableColumn } from '../../../../../components/Table/types';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
@@ -13,11 +12,11 @@ import { useResourceActionListContext } from '../../../../../providers/ResourceA
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { sortByName } from '../../../../../utils/sort/sortByName';
-import { sortByStatus } from '../../../../../utils/sort/sortByStatus';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPCDPipelineDetails } from '../../../../edp-cdpipeline-details/route';
+import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 
-export const useColumns = (): HeadlampSimpleTableGetterColumn<
+export const useColumns = (): TableColumn<
     HeadlampKubeObject<EDPCDPipelineKubeObjectInterface>
 >[] => {
     const { handleOpenResourceActionListMenu } =
@@ -26,8 +25,10 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
     return React.useMemo(
         () => [
             {
+                id: 'status',
                 label: 'Status',
-                getter: ({ status: CDPipelineStatus }) => {
+                columnSortableValuePath: 'status.status',
+                render: ({ status: CDPipelineStatus }) => {
                     const status = CDPipelineStatus
                         ? CDPipelineStatus.status
                         : CUSTOM_RESOURCE_STATUSES['UNKNOWN'];
@@ -47,11 +48,13 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
 
                     return <StatusIcon status={status} customTitle={title} />;
                 },
-                sort: (a, b) => sortByStatus(a.status.status, b.status.status),
+                width: '10%',
             },
             {
+                id: 'cdPipeline',
                 label: 'CD Pipeline',
-                getter: ({ metadata: { name, namespace } }) => {
+                columnSortableValuePath: 'metadata.name',
+                render: ({ metadata: { name, namespace } }) => {
                     return (
                         <Link
                             routeName={routeEDPCDPipelineDetails.path}
@@ -65,16 +68,45 @@ export const useColumns = (): HeadlampSimpleTableGetterColumn<
                     );
                 },
                 sort: (a, b) => sortByName(a.metadata.name, b.metadata.name),
+                width: '30%',
             },
             {
+                id: 'applications',
                 label: 'Applications',
-                getter: ({ spec: { applications } }) => (
-                    <MappedProperties properties={applications} variant={'block'} />
-                ),
+                columnSortableValuePath: 'spec.applications',
+                render: ({ spec: { applications }, metadata: { namespace } }) => {
+                    return (
+                        <>
+                            {applications.map((el, idx) => {
+                                const propertyId = `${el}:${idx}`;
+
+                                return (
+                                    <React.Fragment key={propertyId}>
+                                        <>
+                                            <Render condition={idx !== 0}>
+                                                <Typography component="span">, </Typography>
+                                            </Render>
+                                            <Link
+                                                routeName={routeEDPComponentDetails.path}
+                                                params={{
+                                                    name: el,
+                                                    namespace,
+                                                }}
+                                            >
+                                                {el}
+                                            </Link>
+                                        </>
+                                    </React.Fragment>
+                                );
+                            })}
+                        </>
+                    );
+                },
             },
             {
+                id: 'actions',
                 label: '',
-                getter: ({ jsonData }) => {
+                render: ({ jsonData }) => {
                     const buttonRef = React.createRef<HTMLButtonElement>();
 
                     return (

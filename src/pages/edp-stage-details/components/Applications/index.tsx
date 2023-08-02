@@ -1,5 +1,7 @@
-import { FormProvider, useForm } from 'react-hook-form';
-import { Render } from '../../../../components/Render';
+import { Grid } from '@material-ui/core';
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+import { Table } from '../../../../components/Table';
 import {
     CODEBASE_COMMON_BUILD_TOOLS,
     CODEBASE_COMMON_FRAMEWORKS,
@@ -12,7 +14,7 @@ import { useCDPipelineQueryContext } from '../../providers/CDPipelineQuery/hooks
 import { useCDPipelineStageContext } from '../../providers/CDPipelineStage/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
 import { useColumns } from './hooks/useColumns';
-import { useStyles } from './styles';
+import { useUpperColumns } from './hooks/useUpperColumns';
 import { ApplicationsProps } from './types';
 
 const parseTagLabelValue = (tag: string) => {
@@ -30,21 +32,6 @@ interface ButtonsMap {
     uninstall: boolean;
 }
 
-import {
-    Button,
-    Checkbox,
-    Grid,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tooltip,
-    Typography,
-} from '@material-ui/core';
-import React from 'react';
-
 export const Applications = ({
     enrichedApplicationsWithArgoApplications,
     qualityGatePipelineIsRunning,
@@ -53,14 +40,12 @@ export const Applications = ({
     const { stage } = useCDPipelineStageContext();
     const { data: gitServers } = useGitServerListQuery({});
 
-    const classes = useStyles();
-
-    const methods = useForm();
-    const { getValues, setValue, reset, resetField, trigger } = methods;
+    const { getValues, setValue, resetField, trigger } = useFormContext();
     const [selected, setSelected] = React.useState<string[]>([]);
 
     const handleSelectAllClick = React.useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
+            console.log(event);
             if (event.target.checked) {
                 const newSelected = enrichedApplicationsWithArgoApplications.map(
                     ({
@@ -77,8 +62,9 @@ export const Applications = ({
         [enrichedApplicationsWithArgoApplications]
     );
 
-    const handleRowClick = React.useCallback(
-        (event: React.MouseEvent<unknown>, name: string) => {
+    const handleSelectRowClick = React.useCallback(
+        (event: React.MouseEvent<unknown>, row: EnrichedApplicationWithArgoApplication) => {
+            const name = row.application.metadata.name;
             const selectedIndex = selected.indexOf(name);
             let newSelected: string[] = [];
 
@@ -100,19 +86,7 @@ export const Applications = ({
         [selected]
     );
 
-    const columns = useColumns(qualityGatePipelineIsRunning, handleRowClick, selected);
-
-    const numSelected = React.useMemo(() => selected.length, [selected]);
-    const rowCount = React.useMemo(
-        () =>
-            enrichedApplicationsWithArgoApplications &&
-            enrichedApplicationsWithArgoApplications.length,
-        [enrichedApplicationsWithArgoApplications]
-    );
-    const isSelected = React.useCallback(
-        (name: string) => selected.indexOf(name) !== -1,
-        [selected]
-    );
+    const columns = useColumns(qualityGatePipelineIsRunning, handleSelectRowClick, selected);
 
     const enrichedApplicationsByApplicationName = React.useMemo(() => {
         return (
@@ -347,230 +321,32 @@ export const Applications = ({
         }
     }, [deleteArgoApplication, enrichedApplicationsByApplicationName, getValues, selected]);
 
+    const upperColumns = useUpperColumns({
+        selected,
+        buttonsEnabledMap,
+        onDeployClick,
+        onUpdateClick,
+        onUninstallClick,
+        onLatestClick,
+        onStableClick,
+        someArgoApplicationMutationIsLoading,
+        qualityGatePipelineIsRunning,
+    });
+
     return (
         <>
             <Grid container spacing={2} justifyContent={'flex-end'}>
                 <Grid item xs={12}>
-                    <FormProvider {...methods}>
-                        <div className={classes.tableRoot}>
-                            <TableContainer>
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell colSpan={4}>
-                                                <Render condition={numSelected > 0}>
-                                                    <Typography variant={'body1'}>
-                                                        {numSelected} item(s) selected
-                                                    </Typography>
-                                                </Render>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Grid container alignItems={'center'} spacing={2}>
-                                                    <Grid item>
-                                                        <Tooltip
-                                                            title={
-                                                                'Deploy selected applications with selected image stream version'
-                                                            }
-                                                        >
-                                                            <Button
-                                                                onClick={onDeployClick}
-                                                                variant={'contained'}
-                                                                color={'primary'}
-                                                                size="small"
-                                                                disabled={
-                                                                    !numSelected ||
-                                                                    !buttonsEnabledMap.deploy ||
-                                                                    someArgoApplicationMutationIsLoading ||
-                                                                    qualityGatePipelineIsRunning
-                                                                }
-                                                            >
-                                                                deploy
-                                                            </Button>
-                                                        </Tooltip>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Tooltip
-                                                            title={
-                                                                'Update selected applications with selected image stream version'
-                                                            }
-                                                        >
-                                                            <Button
-                                                                onClick={onUpdateClick}
-                                                                variant={'contained'}
-                                                                color={'primary'}
-                                                                size="small"
-                                                                disabled={
-                                                                    !numSelected ||
-                                                                    !buttonsEnabledMap.update ||
-                                                                    someArgoApplicationMutationIsLoading ||
-                                                                    qualityGatePipelineIsRunning
-                                                                }
-                                                            >
-                                                                update
-                                                            </Button>
-                                                        </Tooltip>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Tooltip
-                                                            title={
-                                                                'Uninstall selected applications'
-                                                            }
-                                                        >
-                                                            <Button
-                                                                onClick={onUninstallClick}
-                                                                variant={'contained'}
-                                                                color={'primary'}
-                                                                size="small"
-                                                                disabled={
-                                                                    !numSelected ||
-                                                                    !buttonsEnabledMap.update ||
-                                                                    someArgoApplicationMutationIsLoading ||
-                                                                    qualityGatePipelineIsRunning
-                                                                }
-                                                            >
-                                                                uninstall
-                                                            </Button>
-                                                        </Tooltip>
-                                                    </Grid>
-                                                </Grid>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Grid container alignItems={'center'} spacing={2}>
-                                                    <Grid item>
-                                                        <Tooltip
-                                                            title={
-                                                                'Set selected applications latest image stream version'
-                                                            }
-                                                        >
-                                                            <Button
-                                                                onClick={onLatestClick}
-                                                                variant={'outlined'}
-                                                                color={'primary'}
-                                                                size="small"
-                                                                fullWidth
-                                                                disabled={!numSelected}
-                                                            >
-                                                                latest
-                                                            </Button>
-                                                        </Tooltip>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Tooltip
-                                                            title={
-                                                                'Set selected applications stable image stream version'
-                                                            }
-                                                        >
-                                                            <Button
-                                                                onClick={onStableClick}
-                                                                variant={'outlined'}
-                                                                color={'primary'}
-                                                                size="small"
-                                                                fullWidth
-                                                                disabled={!numSelected}
-                                                            >
-                                                                stable
-                                                            </Button>
-                                                        </Tooltip>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Tooltip
-                                                            title={
-                                                                'Reset selected image stream versions'
-                                                            }
-                                                        >
-                                                            <Button
-                                                                onClick={() => reset()}
-                                                                variant={'outlined'}
-                                                                color={'primary'}
-                                                                size="small"
-                                                                fullWidth
-                                                                disabled={
-                                                                    !selected || !selected.length
-                                                                }
-                                                            >
-                                                                reset
-                                                            </Button>
-                                                        </Tooltip>
-                                                    </Grid>
-                                                </Grid>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    color={'primary'}
-                                                    indeterminate={
-                                                        numSelected > 0 && numSelected < rowCount
-                                                    }
-                                                    checked={
-                                                        rowCount > 0 && numSelected === rowCount
-                                                    }
-                                                    onChange={handleSelectAllClick}
-                                                />
-                                            </TableCell>
-                                            {columns.map(column => (
-                                                <TableCell key={column.label}>
-                                                    {column.label}
-                                                </TableCell>
-                                            ))}
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {enrichedApplicationsWithArgoApplications &&
-                                            enrichedApplicationsWithArgoApplications.length &&
-                                            enrichedApplicationsWithArgoApplications.map(
-                                                (row, index) => {
-                                                    const {
-                                                        application: {
-                                                            metadata: { name },
-                                                        },
-                                                    } = row;
-                                                    const isItemSelected = isSelected(name);
-                                                    const labelId = `enhanced-table-checkbox-${index}`;
-
-                                                    return (
-                                                        <TableRow
-                                                            hover
-                                                            role="checkbox"
-                                                            aria-checked={isItemSelected}
-                                                            tabIndex={-1}
-                                                            key={name}
-                                                            selected={isItemSelected}
-                                                            style={
-                                                                isItemSelected
-                                                                    ? {
-                                                                          backgroundColor:
-                                                                              'rgb(137 196 244 / 16%)',
-                                                                      }
-                                                                    : null
-                                                            }
-                                                        >
-                                                            <TableCell padding="checkbox">
-                                                                <Checkbox
-                                                                    color={'primary'}
-                                                                    checked={isItemSelected}
-                                                                    inputProps={{
-                                                                        'aria-labelledby': labelId,
-                                                                    }}
-                                                                    onClick={event =>
-                                                                        handleRowClick(event, name)
-                                                                    }
-                                                                />
-                                                            </TableCell>
-                                                            {columns.map(column => (
-                                                                <TableCell key={column.label}>
-                                                                    {column.getter(row)}
-                                                                </TableCell>
-                                                            ))}
-                                                        </TableRow>
-                                                    );
-                                                }
-                                            )}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                        </div>
-                    </FormProvider>
+                    <Table<EnrichedApplicationWithArgoApplication>
+                        data={enrichedApplicationsWithArgoApplications}
+                        isLoading={!enrichedApplicationsWithArgoApplications}
+                        columns={columns}
+                        upperColumns={upperColumns}
+                        handleSelectRowClick={handleSelectRowClick}
+                        handleSelectAllClick={handleSelectAllClick}
+                        selected={selected}
+                        isSelected={row => selected.indexOf(row.application.metadata.name) !== -1}
+                    />
                 </Grid>
             </Grid>
         </>

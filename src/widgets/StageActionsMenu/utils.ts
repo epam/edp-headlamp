@@ -9,8 +9,8 @@ const getStageOrder = (stage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>
     stage.spec.order;
 
 export const createDeleteAction = (
-    allStages: DeepPartial<EDPCDPipelineStageKubeObjectInterface>[],
-    currentStage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>,
+    allStages: EDPCDPipelineStageKubeObjectInterface[],
+    currentStage: EDPCDPipelineStageKubeObjectInterface,
     action: () => void
 ): KubeObjectAction => {
     // CD pipeline could publish artifacts without any stage
@@ -23,12 +23,12 @@ export const createDeleteAction = (
     // we don't let user remove last stage
     if (allStages.length === 1) {
         return createKubeAction({
-            name: RESOURCE_ACTIONS['DELETE'],
+            name: RESOURCE_ACTIONS.DELETE,
             disabled: {
                 status: true,
                 reason: 'CD pipeline should have at least one stage',
             },
-            icon: ICONS['BUCKET'],
+            icon: ICONS.BUCKET,
         });
     }
 
@@ -38,18 +38,18 @@ export const createDeleteAction = (
 
     if (currentStageOrder > highestOtherStagesOrder) {
         return createKubeAction({
-            name: RESOURCE_ACTIONS['DELETE'],
-            icon: ICONS['BUCKET'],
+            name: RESOURCE_ACTIONS.DELETE,
+            icon: ICONS.BUCKET,
             action: action,
         });
     }
 
     return createKubeAction({
-        name: RESOURCE_ACTIONS['DELETE'],
+        name: RESOURCE_ACTIONS.DELETE,
         disabled: {
             status: true,
             reason: 'You are able to delete only the last stage',
         },
-        icon: ICONS['BUCKET'],
+        icon: ICONS.BUCKET,
     });
 };

@@ -42,4 +42,6 @@ export enum ICONS {
     VIEW_GRID = 'ph:grid-nine',
     BASKET = 'mdi:shopping-outline',
     REGISTRY = 'carbon:container-registry',
+    UPDATE = 'radix-icons:update',
+    WARNING = 'ph:warning',
 }

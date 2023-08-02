@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import { NameValueTable } from '@kinvolk/headlamp-plugin/lib/components/common';
 import {
     Accordion,
     AccordionDetails,
@@ -6,7 +7,6 @@ import {
     Chip,
     Grid,
     IconButton,
-    Paper,
     Tooltip,
     Typography,
 } from '@material-ui/core';
@@ -14,11 +14,11 @@ import clsx from 'clsx';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { HeadlampNameValueTable } from '../../../../../../components/HeadlampNameValueTable';
-import { HeadlampSimpleTable } from '../../../../../../components/HeadlampSimpleTable';
+import { EmptyList } from '../../../../../../components/EmptyList';
 import { Render } from '../../../../../../components/Render';
 import { ResourceIconLink } from '../../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../../components/StatusIcon';
+import { Table } from '../../../../../../components/Table';
 import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import {
@@ -344,23 +344,26 @@ export const CodebaseBranch = ({
                                         </Grid>
                                     </Render>
                                     <Grid item xs={12}>
-                                        <Paper>
-                                            <HeadlampSimpleTable
-                                                columns={pipelineRunsColumns}
-                                                data={filteredPipelineRunsByType}
-                                                emptyMessage={
-                                                    pipelineRunType === PIPELINE_TYPES['ALL']
-                                                        ? 'No pipeline runs'
-                                                        : `No ${pipelineRunType} pipeline runs`
-                                                }
-                                            />
-                                        </Paper>
+                                        <Table
+                                            columns={pipelineRunsColumns}
+                                            data={filteredPipelineRunsByType}
+                                            isLoading={!pipelineRuns.all}
+                                            emptyListComponent={
+                                                <EmptyList
+                                                    missingItemName={
+                                                        pipelineRunType === PIPELINE_TYPES.ALL
+                                                            ? 'pipeline runs'
+                                                            : `${pipelineRunType} pipeline runs`
+                                                    }
+                                                />
+                                            }
+                                        />
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Render>
                         <Grid item xs={12}>
-                            <HeadlampNameValueTable rows={mainInfoRows} />
+                            <NameValueTable rows={mainInfoRows} />
                         </Grid>
                     </Grid>
                 </AccordionDetails>

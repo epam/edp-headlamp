@@ -1,7 +1,13 @@
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { HeadlampSimpleTable } from '../../../../components/HeadlampSimpleTable';
+import { EmptyList } from '../../../../components/EmptyList';
+import { Table } from '../../../../components/Table';
+import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { FORM_MODES } from '../../../../types/forms';
+import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../widgets/CreateEditStage/constants';
+import { CreateEditStageDialogForwardedProps } from '../../../../widgets/CreateEditStage/types';
 import { useCDPipelineStagesContext } from '../../providers/CDPipelineStages/hooks';
+import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
 import { TableHeaderActions } from '../TableHeaderActions';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
@@ -10,6 +16,20 @@ export const StageList = () => {
     const classes = useStyles();
     const columns = useColumns(classes);
     const { stages } = useCDPipelineStagesContext();
+
+    const { setDialog } = useDialogContext();
+
+    const { enrichedApplications } = useEnrichedApplicationsContext();
+
+    const createEditStageDialogForwardedProps: CreateEditStageDialogForwardedProps = React.useMemo(
+        () => ({
+            mode: FORM_MODES.CREATE,
+            ciTool: enrichedApplications?.[0]?.application.spec.ciTool,
+            otherStages: stages,
+        }),
+        [enrichedApplications, stages]
+    );
+
     return (
         <Grid container spacing={1}>
             <Grid item xs={12}>
@@ -23,9 +43,22 @@ export const StageList = () => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <Paper className={classes.tableRoot}>
-                    <HeadlampSimpleTable columns={columns} rowsPerPage={[10]} data={stages} />
-                </Paper>
+                <Table
+                    columns={columns}
+                    data={stages}
+                    isLoading={!stages}
+                    emptyListComponent={
+                        <EmptyList
+                            missingItemName={'stages'}
+                            handleClick={() => {
+                                setDialog({
+                                    modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
+                                    forwardedProps: createEditStageDialogForwardedProps,
+                                });
+                            }}
+                        />
+                    }
+                />
             </Grid>
         </Grid>
     );

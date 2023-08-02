@@ -1,3 +1,5 @@
-import { HeadlampNameValueTableProps } from '../HeadlampNameValueTable/types';
+import { NameValueTableRow } from '@kinvolk/headlamp-plugin/lib/components/common';
 
-export interface MetadataTableProps extends HeadlampNameValueTableProps {}
+export interface MetadataTableProps {
+    rows: NameValueTableRow[];
+}

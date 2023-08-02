@@ -3,11 +3,13 @@ import {
     Headlamp,
     Plugin,
     registerAppBarAction,
+    registerAppLogo,
     registerRoute,
     registerSidebarEntry,
 } from '@kinvolk/headlamp-plugin/lib';
 import { DocLink } from './components/DocLink';
 import { URL_EDP_HEADLAMP_USER_GUIDE } from './constants/urls';
+import { LogoWithText } from './Logo';
 import routes from './routes';
 import { SIDEBAR_LIST } from './routes/sidebar-list';
 
@@ -33,6 +35,8 @@ class EDPHeadlampPlugin extends Plugin {
         for (const route of routes) {
             registerRoute(route);
         }
+
+        registerAppLogo(LogoWithText);
 
         return true;
     }

@@ -1,6 +1,6 @@
+import { NameValueTableRow } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { Divider, Typography } from '@material-ui/core';
 import React from 'react';
-import { NameValueTableRow } from '../../../../../components/HeadlampNameValueTable/types';
 import { Render } from '../../../../../components/Render';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../../constants/creationStrategies';
 import { EDPCodebaseSpecInterface } from '../../../../../k8s/EDPCodebase/types';

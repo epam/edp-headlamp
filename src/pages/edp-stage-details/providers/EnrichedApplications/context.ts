@@ -3,5 +3,5 @@ import { EnrichedApplicationsContextProviderValue } from './types';
 
 export const EnrichedApplicationsContext =
     React.createContext<EnrichedApplicationsContextProviderValue>({
-        enrichedApplications: [],
+        enrichedApplications: null,
     });

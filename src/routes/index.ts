@@ -4,7 +4,6 @@ import { routeEDPClusterList } from '../pages/edp-cluster-list/route';
 import { routeEDPComponentDetails } from '../pages/edp-component-details/route';
 import { routeEDPComponentList } from '../pages/edp-component-list/route';
 import { routeEDPConfiguration } from '../pages/edp-configuration/route';
-import { routeEDPGitServerDetails } from '../pages/edp-gitserver-details/route';
 import { routeEDPGitServerList } from '../pages/edp-gitserver-list/route';
 import { routeEDPMarketplace } from '../pages/edp-marketplace/route';
 import { routeEDPOverviewList } from '../pages/edp-overview-list/route';
@@ -31,7 +30,6 @@ export default [
     routeEDPClusterList,
 
     routeEDPGitServerList,
-    routeEDPGitServerDetails,
 
     routeEDPRegistryList,
 

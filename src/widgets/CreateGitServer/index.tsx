@@ -8,11 +8,8 @@ import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
 import { CREATE_GIT_SERVER_DIALOG_NAME } from './constants';
 import { useDefaultValues } from './hooks/useDefaultValues';
-import { useStyles } from './styles';
 
 export const CreateGitServer = () => {
-    const classes = useStyles();
-
     const { open, closeDialog } = useSpecificDialogContext<{}>(CREATE_GIT_SERVER_DIALOG_NAME);
 
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
@@ -21,13 +18,7 @@ export const CreateGitServer = () => {
     const baseDefaultValues = useDefaultValues();
 
     return (
-        <Dialog
-            open={open}
-            onClose={closeDialog}
-            fullWidth
-            maxWidth={'md'}
-            className={classes.dialogRoot}
-        >
+        <Dialog open={open} onClose={closeDialog} fullWidth maxWidth={'md'}>
             <FormContextProvider
                 formSettings={{
                     defaultValues: baseDefaultValues,
