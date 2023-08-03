@@ -3,14 +3,21 @@ import { Button, Grid, useTheme } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
+import { useCodebaseBranchesByCodebaseNameLabelQuery } from '../../../../../../../k8s/EDPCodebaseBranch/hooks/useCodebaseBranchesByCodebaseNameLabelQuery';
+import { useSpecificDialogContext } from '../../../../../../../providers/Dialog/hooks';
 import { FormCheckbox } from '../../../../../../../providers/Form/components/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FormSelect } from '../../../../../../../providers/Form/components/FormSelect';
 import { FormTextField } from '../../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent, FieldEventTarget } from '../../../../../../../types/forms';
+import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../../../names';
-import { CreateEditCDPipelineFormValues } from '../../../../../types';
+import {
+    CreateEditCDPipelineDialogForwardedProps,
+    CreateEditCDPipelineFormValues,
+} from '../../../../../types';
 import { createApplicationRowName } from '../../constants';
+import { Application } from '../../types';
 import { useStyles } from './styles';
 import { ApplicationRowProps } from './types';
 
@@ -23,17 +30,77 @@ export const ApplicationRow = ({ application, setAppsWithBranches }: Application
         formState: { errors },
         resetField,
         setValue,
+        watch,
     } = useFormContext<CreateEditCDPipelineFormValues>();
 
-    const { value, availableBranches } = application;
+    const {
+        forwardedProps: { CDPipelineData },
+    } = useSpecificDialogContext<CreateEditCDPipelineDialogForwardedProps>(
+        CREATE_EDIT_CD_PIPELINE_DIALOG_NAME
+    );
 
-    const theme: DefaultTheme = useTheme();
+    const [availableBranches, setAvailableBranches] = React.useState<
+        Application['availableBranches']
+    >([]);
+
+    const { data } = useCodebaseBranchesByCodebaseNameLabelQuery({
+        props: {
+            codebaseName: application.value,
+            namespace: CDPipelineData?.metadata.namespace,
+        },
+        options: {
+            enabled: !!application.value,
+        },
+    });
+
+    const applicationsBranchesFieldValue = watch(CDPIPELINE_FORM_NAMES.inputDockerStreams.name);
+
+    const updateAppChosenBranch = React.useCallback(
+        (availableBranches: Application['availableBranches']) => {
+            if (!applicationsBranchesFieldValue || !applicationsBranchesFieldValue.length) {
+                return;
+            }
+
+            const applicationAvailableBranchesSet = new Set(
+                availableBranches.map(({ metadataBranchName }) => metadataBranchName)
+            );
+
+            for (const applicationBranch of applicationsBranchesFieldValue) {
+                if (!applicationAvailableBranchesSet.has(applicationBranch)) {
+                    continue;
+                }
+
+                const appBranchRowName = `${createApplicationRowName(
+                    application.value
+                )}-application-branch`;
+                // @ts-ignore
+                setValue(appBranchRowName, applicationBranch);
+                application.chosenBranch = applicationBranch;
+            }
+        },
+        [application, applicationsBranchesFieldValue, setValue]
+    );
+
+    React.useEffect(() => {
+        if (!data) {
+            return;
+        }
+
+        const branchesNames = data.items.map(el => ({
+            specBranchName: el.spec.branchName,
+            metadataBranchName: el.metadata.name,
+        }));
+        setAvailableBranches(branchesNames);
+        updateAppChosenBranch(branchesNames);
+    }, [data, updateAppChosenBranch]);
+
+    const theme = useTheme();
 
     const handleChangeApplicationBranch = React.useCallback(
         ({ value: targetValue }: FieldEventTarget) => {
             setAppsWithBranches(prev => {
                 const newApplications = prev.map(app => {
-                    if (app.value === value) {
+                    if (app.value === application.value) {
                         return {
                             ...app,
                             chosenBranch: targetValue,
@@ -54,14 +121,14 @@ export const ApplicationRow = ({ application, setAppsWithBranches }: Application
                 return newApplications;
             });
         },
-        [setAppsWithBranches, setValue, value]
+        [application.value, setAppsWithBranches, setValue]
     );
 
     const handleChangeApplicationToPromote = React.useCallback(
         ({ value: targetValue }: FieldEventTarget) => {
             setAppsWithBranches(prev => {
                 const newApplications = prev.map(app => {
-                    if (app.value === value) {
+                    if (app.value === application.value) {
                         return {
                             ...app,
                             toPromote: targetValue,
@@ -82,13 +149,13 @@ export const ApplicationRow = ({ application, setAppsWithBranches }: Application
                 return newApplications;
             });
         },
-        [setAppsWithBranches, setValue, value]
+        [application.value, setAppsWithBranches, setValue]
     );
 
     const handleDeleteApplicationRow = React.useCallback(() => {
         setAppsWithBranches(prev => {
             const newApplications = prev.map(app => {
-                if (app.value === value) {
+                if (app.value === application.value) {
                     return {
                         label: app.label,
                         value: app.value,
@@ -130,29 +197,35 @@ export const ApplicationRow = ({ application, setAppsWithBranches }: Application
         resetField(`${createApplicationRowName(value)}-application-branch`);
         // @ts-ignore
         resetField(`${createApplicationRowName(value)}-application-promote`);
-    }, [resetField, setAppsWithBranches, setValue, value]);
+    }, [resetField, setAppsWithBranches, setValue, application]);
 
     return (
         <Grid item xs={12} className={classes.application}>
-            <Grid container spacing={1} alignItems={'flex-end'}>
+            <Grid container spacing={1}>
                 <Grid item xs={4}>
                     <FormTextField
-                        // @ts-ignore
-                        {...register(`${createApplicationRowName(value)}-application-name`, {})}
+                        {...register(
+                            // @ts-ignore
+                            `${createApplicationRowName(application.value)}-application-name`,
+                            {}
+                        )}
                         disabled
-                        defaultValue={value}
+                        defaultValue={application.value}
                         control={control}
                         errors={errors}
                     />
                 </Grid>
                 <Grid item xs={4}>
                     <FormSelect
-                        // @ts-ignore
-                        {...register(`${createApplicationRowName(value)}-application-branch`, {
-                            required: 'Select branch',
-                            onChange: ({ target: { name, value } }: FieldEvent) =>
-                                handleChangeApplicationBranch({ name, value }),
-                        })}
+                        {...register(
+                            // @ts-ignore
+                            `${createApplicationRowName(application.value)}-application-branch`,
+                            {
+                                required: 'Select branch',
+                                onChange: ({ target: { name, value } }: FieldEvent) =>
+                                    handleChangeApplicationBranch({ name, value }),
+                            }
+                        )}
                         placeholder={'Select application branch'}
                         control={control}
                         errors={errors}
@@ -162,13 +235,16 @@ export const ApplicationRow = ({ application, setAppsWithBranches }: Application
                         }))}
                     />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={3} style={{ display: 'flex', alignItems: 'flex-end' }}>
                     <FormCheckbox
-                        // @ts-ignore
-                        {...register(`${createApplicationRowName(value)}-application-promote`, {
-                            onChange: ({ target: { name, value } }: FieldEvent) =>
-                                handleChangeApplicationToPromote({ name, value }),
-                        })}
+                        {...register(
+                            // @ts-ignore
+                            `${createApplicationRowName(application.value)}-application-promote`,
+                            {
+                                onChange: ({ target: { name, value } }: FieldEvent) =>
+                                    handleChangeApplicationToPromote({ name, value }),
+                            }
+                        )}
                         label={<FormControlLabelWithTooltip label={'Promote in pipeline'} />}
                         control={control}
                         errors={errors}

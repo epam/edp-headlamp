@@ -45,7 +45,6 @@ export const Applications = ({
 
     const handleSelectAllClick = React.useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
-            console.log(event);
             if (event.target.checked) {
                 const newSelected = enrichedApplicationsWithArgoApplications.map(
                     ({

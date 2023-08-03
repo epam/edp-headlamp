@@ -166,7 +166,13 @@ export const Applications = () => {
                                 </>
                             </Render>
                             <Render condition={isLoading}>
-                                <CircularProgress />
+                                <Grid
+                                    item
+                                    xs={12}
+                                    style={{ display: 'flex', justifyContent: 'center' }}
+                                >
+                                    <CircularProgress />
+                                </Grid>
                             </Render>
                             <Render condition={!!error}>
                                 <Typography color={'error'}>{error}</Typography>

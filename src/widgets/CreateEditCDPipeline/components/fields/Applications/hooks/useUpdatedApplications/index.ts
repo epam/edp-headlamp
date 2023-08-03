@@ -1,13 +1,15 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useQuery } from 'react-query';
 import { CODEBASE_TYPES } from '../../../../../../../constants/codebaseTypes';
-import { EDPCodebaseKubeObject } from '../../../../../../../k8s/EDPCodebase';
+import { useCodebasesByTypeLabelQuery } from '../../../../../../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../../../k8s/EDPCodebase/types';
-import { EDPCodebaseBranchKubeObject } from '../../../../../../../k8s/EDPCodebaseBranch';
-import { getDefaultNamespace } from '../../../../../../../utils/getDefaultNamespace';
+import { useSpecificDialogContext } from '../../../../../../../providers/Dialog/hooks';
+import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../../../names';
-import { CreateEditCDPipelineFormValues } from '../../../../../types';
+import {
+    CreateEditCDPipelineDialogForwardedProps,
+    CreateEditCDPipelineFormValues,
+} from '../../../../../types';
 import { createApplicationRowName } from '../../constants';
 import { Application } from '../../types';
 
@@ -16,36 +18,17 @@ interface UseUpdatedApplicationsProps {
     setAppsWithBranches: React.Dispatch<React.SetStateAction<Application[]>>;
 }
 
-const defaultNamespace = getDefaultNamespace();
-
-const getCodebaseWithBranchesList = (
-    codebaseList: EDPCodebaseKubeObjectInterface[]
-): Promise<Application>[] => {
-    return codebaseList.map(async ({ metadata: { name } }): Promise<Application> => {
-        const { items: codebaseBranches } = await EDPCodebaseBranchKubeObject.getListByCodebaseName(
-            defaultNamespace,
-            name
-        );
-
-        const branchesNames = codebaseBranches.map(el => ({
-            specBranchName: el.spec.branchName,
-            metadataBranchName: el.metadata.name,
-        }));
-
-        if (branchesNames.length) {
-            return {
-                label: name,
-                value: name,
-                isUsed: false,
-                availableBranches: branchesNames,
-                chosenBranch: null,
-                toPromote: false,
-            };
-        }
-
-        return null;
-    });
-};
+const enrichApplications = (codebaseList: EDPCodebaseKubeObjectInterface[]): Application[] =>
+    codebaseList.map(
+        ({ metadata: { name } }): Application => ({
+            label: name,
+            value: name,
+            isUsed: false,
+            availableBranches: [],
+            chosenBranch: null,
+            toPromote: false,
+        })
+    );
 
 export const useUpdatedApplications = ({
     appsWithBranches,
@@ -54,10 +37,15 @@ export const useUpdatedApplications = ({
     isLoading: boolean;
     error: unknown;
 } => {
+    const {
+        forwardedProps: { CDPipelineData },
+    } = useSpecificDialogContext<CreateEditCDPipelineDialogForwardedProps>(
+        CREATE_EDIT_CD_PIPELINE_DIALOG_NAME
+    );
+
     const { watch, setValue } = useFormContext<CreateEditCDPipelineFormValues>();
     const applicationsFieldValue = watch(CDPIPELINE_FORM_NAMES.applications.name);
     const applicationsToPromoteValue = watch(CDPIPELINE_FORM_NAMES.applicationsToPromote.name);
-    const applicationsBranchesFieldValue = watch(CDPIPELINE_FORM_NAMES.inputDockerStreams.name);
 
     const updateUsedApp = React.useCallback(
         (applicationsFieldValueSet: Set<string>, applications: Application[]) => {
@@ -78,34 +66,6 @@ export const useUpdatedApplications = ({
             }
         },
         [setValue]
-    );
-
-    const updateAppChosenBranch = React.useCallback(
-        (applications: Application[]) => {
-            if (!applicationsBranchesFieldValue || !applicationsBranchesFieldValue.length) {
-                return;
-            }
-
-            for (const app of applications) {
-                const applicationAvailableBranchesSet = new Set(
-                    app.availableBranches.map(({ metadataBranchName }) => metadataBranchName)
-                );
-
-                for (const applicationBranch of applicationsBranchesFieldValue) {
-                    if (!applicationAvailableBranchesSet.has(applicationBranch)) {
-                        continue;
-                    }
-
-                    const appBranchRowName = `${createApplicationRowName(
-                        app.value
-                    )}-application-branch`;
-                    // @ts-ignore
-                    setValue(appBranchRowName, applicationBranch);
-                    app.chosenBranch = applicationBranch;
-                }
-            }
-        },
-        [applicationsBranchesFieldValue, setValue]
     );
 
     const updatePromotedApp = React.useCallback(
@@ -131,26 +91,29 @@ export const useUpdatedApplications = ({
         [setValue]
     );
 
-    const { isLoading, error } = useQuery(
-        'applications',
-        () =>
-            EDPCodebaseKubeObject.getListByTypeLabel(defaultNamespace, CODEBASE_TYPES.APPLICATION),
-        {
-            onSuccess: async ({ items: applicationsList }) => {
-                const appsWithBranches = (
-                    await Promise.all(getCodebaseWithBranchesList(applicationsList))
-                ).filter(app => app !== null);
-                setAppsWithBranches(appsWithBranches);
-            },
+    const { data, isLoading, error } = useCodebasesByTypeLabelQuery({
+        props: {
+            namespace: CDPipelineData?.metadata.namespace,
+            codebaseType: CODEBASE_TYPES.APPLICATION,
+        },
+        options: {
             enabled: !appsWithBranches || !appsWithBranches.length,
+        },
+    });
+
+    React.useEffect(() => {
+        if (!data) {
+            return;
         }
-    );
+
+        const enrichedApplications = enrichApplications(data.items);
+        setAppsWithBranches(enrichedApplications);
+    }, [data, setAppsWithBranches]);
 
     const applicationsFieldValueSet = new Set<string>(applicationsFieldValue);
     const applicationsToPromoteValueSet = new Set<string>(applicationsToPromoteValue);
 
     updateUsedApp(applicationsFieldValueSet, appsWithBranches);
-    updateAppChosenBranch(appsWithBranches);
     updatePromotedApp(applicationsToPromoteValueSet, appsWithBranches);
 
     return { isLoading, error };

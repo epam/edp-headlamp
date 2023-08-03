@@ -63,8 +63,6 @@ export const FormActions = ({ mode }: FormActionsProps) => {
             password,
         });
 
-        console.log(mode);
-
         if (mode === FORM_MODES.CREATE) {
             await createRegistrySecret({ registrySecretData: registrySecretInstance });
         } else {
