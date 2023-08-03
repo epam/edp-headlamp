@@ -140,7 +140,7 @@ export const Form = ({
 
                     <Render condition={stages && !stages.length}>
                         <Grid item xs={12}>
-                            <Alert severity="info" elevation={2} variant="filled">
+                            <Alert severity="info" variant="outlined">
                                 Add at least one stage
                             </Alert>
                         </Grid>

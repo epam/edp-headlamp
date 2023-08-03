@@ -44,4 +44,5 @@ export enum ICONS {
     REGISTRY = 'carbon:container-registry',
     UPDATE = 'radix-icons:update',
     WARNING = 'ph:warning',
+    CLOUD_LOCK = 'mdi:cloud-lock-outline',
 }

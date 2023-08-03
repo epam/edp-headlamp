@@ -28,7 +28,7 @@ export const FormActions = ({ mode }: FormActionsProps) => {
     } = useReactHookFormContext<ManageRegistrySecretFormValues>();
 
     const {
-        formData: { currentElement, handleDeleteRow },
+        formData: { currentElement, handleDeleteRow, isReadOnly },
     } = useFormContext<ManageRegistrySecretFormDataContext>();
 
     const {
@@ -90,7 +90,7 @@ export const FormActions = ({ mode }: FormActionsProps) => {
         <>
             <Grid container spacing={2} justifyContent={'space-between'}>
                 <Grid item>
-                    <IconButton onClick={handleDelete}>
+                    <IconButton onClick={handleDelete} disabled={isReadOnly}>
                         <Icon icon={ICONS.BUCKET} color={'grey'} width="20" />
                     </IconButton>
                 </Grid>
@@ -101,7 +101,7 @@ export const FormActions = ({ mode }: FormActionsProps) => {
                                 onClick={() => reset()}
                                 size="small"
                                 component={'button'}
-                                disabled={!isDirty}
+                                disabled={!isDirty || isReadOnly}
                             >
                                 undo changes
                             </Button>
@@ -113,7 +113,7 @@ export const FormActions = ({ mode }: FormActionsProps) => {
                                 component={'button'}
                                 variant={'contained'}
                                 color={'primary'}
-                                disabled={isLoading}
+                                disabled={isLoading || isReadOnly}
                                 onClick={handleSubmit(onSubmit)}
                             >
                                 save

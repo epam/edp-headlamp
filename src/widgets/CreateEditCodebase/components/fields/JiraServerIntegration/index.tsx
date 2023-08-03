@@ -22,7 +22,7 @@ export const JiraServerIntegration = () => {
         <Grid container spacing={2}>
             <Render condition={jiraServersNames && !jiraServersNames.length}>
                 <Grid item xs={12}>
-                    <Alert severity="info" elevation={2} variant="filled">
+                    <Alert severity="info" variant="outlined">
                         There are no available Jira servers
                     </Alert>
                 </Grid>

@@ -198,7 +198,7 @@ export const Applications = () => {
             </Grid>
             <Render condition={!applicationsFieldValue || !applicationsFieldValue.length}>
                 <Grid item xs={12}>
-                    <Alert severity="info" elevation={2} variant="filled">
+                    <Alert severity="info" variant="outlined">
                         Add at least one application
                     </Alert>
                 </Grid>
@@ -211,7 +211,7 @@ export const Applications = () => {
                 }
             >
                 <Grid item xs={12}>
-                    <Alert severity="info" elevation={2} variant="filled">
+                    <Alert severity="info" variant="outlined">
                         Select the application branch
                     </Alert>
                 </Grid>

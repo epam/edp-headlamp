@@ -3,6 +3,7 @@ import { FormValues } from '../../types/forms';
 import { REGISTRY_SECRET_FORM_NAMES } from './names';
 
 export interface ManageRegistrySecretFormDataContext {
+    isReadOnly?: boolean;
     currentElement: SecretKubeObjectInterface | 'placeholder';
     secrets: SecretKubeObjectInterface[];
     registryEndpoint: string;

@@ -155,7 +155,7 @@ export const QualityGates = () => {
                 </Grid>
                 <Render condition={!qualityGatesFieldValue || !qualityGatesFieldValue.length}>
                     <Grid item xs={12}>
-                        <Alert severity="info" elevation={2} variant="filled">
+                        <Alert severity="info" variant="outlined">
                             Add at least one quality gate
                         </Alert>
                     </Grid>

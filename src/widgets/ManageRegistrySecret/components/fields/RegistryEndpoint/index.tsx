@@ -14,6 +14,7 @@ export const RegistryEndpoint = () => {
         <FormTextField
             {...register(REGISTRY_SECRET_FORM_NAMES.registryEndpoint.name)}
             label={`Registry Endpoint`}
+            title={'The URL or address of the Container registry.'}
             control={control}
             errors={errors}
             disabled

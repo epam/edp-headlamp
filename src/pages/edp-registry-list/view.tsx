@@ -30,9 +30,9 @@ const findRegcredRegistrySecret = (items: SecretKubeObjectInterface[]) =>
 
 const generateItemName = (el: SecretKubeObjectInterface) =>
     el?.metadata?.name === 'kaniko-docker-config'
-        ? 'Read/write'
+        ? 'Read / Write'
         : el?.metadata?.name === 'regcred'
-        ? 'Read-only'
+        ? 'Read Only'
         : el?.metadata?.name;
 
 const findKanikoAndRegcredSecrets = (secrets: SecretKubeObjectInterface[]) =>
@@ -138,6 +138,7 @@ export const PageView = () => {
                                 secrets.map(el => {
                                     const key = el?.metadata?.name || el?.metadata?.uid;
                                     const name = generateItemName(el);
+                                    const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
 
                                     return (
                                         <Grid item xs={12} key={key}>
@@ -148,7 +149,30 @@ export const PageView = () => {
                                                 <AccordionSummary
                                                     expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
                                                 >
-                                                    <Typography variant={'h6'}>{name}</Typography>
+                                                    <Grid
+                                                        container
+                                                        spacing={3}
+                                                        alignItems={'center'}
+                                                    >
+                                                        <Grid item>
+                                                            <Typography variant={'h6'}>
+                                                                {name}
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Render condition={!!ownerReference}>
+                                                            <Grid item>
+                                                                <Tooltip
+                                                                    title={`Managed by ${ownerReference}`}
+                                                                >
+                                                                    <Icon
+                                                                        icon={ICONS.CLOUD_LOCK}
+                                                                        width={20}
+                                                                        style={{ display: 'block' }}
+                                                                    />
+                                                                </Tooltip>
+                                                            </Grid>
+                                                        </Render>
+                                                    </Grid>
                                                 </AccordionSummary>
                                                 <AccordionDetails>
                                                     <Grid container spacing={2}>
@@ -157,6 +181,8 @@ export const PageView = () => {
                                                                 <ManageRegistrySecret
                                                                     currentElement={el}
                                                                     formData={{
+                                                                        isReadOnly:
+                                                                            !!ownerReference,
                                                                         currentElement: el,
                                                                         secrets: [
                                                                             kanikoDockerConfigSecret,

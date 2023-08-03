@@ -39,6 +39,9 @@ export const Name = () => {
                 required: 'Select type',
             })}
             label={'Type'}
+            title={
+                'Choose the access level - "Pull" for read-only access and "Push" for read-write access to the Container registry.'
+            }
             placeholder={'Select type'}
             control={control}
             errors={errors}

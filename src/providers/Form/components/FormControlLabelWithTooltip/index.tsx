@@ -16,7 +16,7 @@ export const FormControlLabelWithTooltip = ({ label, title }: FormControlLabelWi
             </Typography>
             <Render condition={!!title}>
                 <Tooltip title={title}>
-                    <Icon icon={ICONS.INFO_CIRCLE} width={20} />
+                    <Icon icon={ICONS.INFO_CIRCLE} width={18} />
                 </Tooltip>
             </Render>
             <Render condition={!title}>
