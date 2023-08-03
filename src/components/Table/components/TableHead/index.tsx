@@ -98,9 +98,8 @@ export const TableHead = ({
                                               align={textAlign || 'left'}
                                               colSpan={colSpan || 1}
                                               style={{
-                                                  color: theme.palette.tables.head.text,
-                                                  backgroundColor:
-                                                      theme.palette.tables.head.background,
+                                                  color: theme.palette.text.primary,
+                                                  backgroundColor: theme.palette.background.paper,
                                                   padding: `${theme.typography.pxToRem(
                                                       8
                                                   )} ${theme.typography.pxToRem(16)}`,
@@ -122,8 +121,8 @@ export const TableHead = ({
                     <TableCell
                         padding="checkbox"
                         style={{
-                            color: theme.palette.tables.head.text,
-                            backgroundColor: theme.palette.tables.head.background,
+                            color: theme.palette.text.primary,
+                            backgroundColor: theme.palette.background.paper,
                         }}
                     >
                         <Checkbox
@@ -154,8 +153,8 @@ export const TableHead = ({
                                 sortDirection={sortBy === id ? sortOrder : false}
                                 align={textAlign}
                                 style={{
-                                    color: theme.palette.tables.head.text,
-                                    backgroundColor: theme.palette.tables.head.background,
+                                    color: theme.palette.text.primary,
+                                    backgroundColor: theme.palette.background.paper,
                                 }}
                             >
                                 <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
