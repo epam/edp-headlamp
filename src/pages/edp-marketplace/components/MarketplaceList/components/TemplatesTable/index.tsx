@@ -1,3 +1,4 @@
+import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import React from 'react';
 import { EmptyList } from '../../../../../../components/EmptyList';
 import { Table } from '../../../../../../components/Table';
@@ -11,6 +12,7 @@ export const TemplatesTable = ({
     handleTemplateClick,
 }: TemplatesTableProps) => {
     const columns = useColumns();
+    const filterFunc = Utils.useFilterFunc();
 
     return (
         <Table<EDPTemplateKubeObjectInterface>
@@ -20,6 +22,7 @@ export const TemplatesTable = ({
             isSelected={row => row.metadata.uid === activeTemplate?.metadata.uid}
             handleRowClick={(event, row) => handleTemplateClick(event, row)}
             emptyListComponent={<EmptyList missingItemName={'templates'} />}
+            filterFunction={filterFunc}
         />
     );
 };
