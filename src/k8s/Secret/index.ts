@@ -29,4 +29,26 @@ export class SecretKubeObject extends K8s.secret.default {
             labelSelector: `${SECRET_LABEL_SECRET_TYPE}=registry`,
         });
     }
+
+    static streamSonarIntegrationSecrets({
+        namespace,
+        dataHandler,
+        errorHandler,
+    }: StreamRegistrySecretsProps): () => void {
+        const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
+        return streamResults(url, dataHandler, errorHandler, {
+            labelSelector: `${SECRET_LABEL_SECRET_TYPE}=sonar`,
+        });
+    }
+
+    static streamNexusIntegrationSecrets({
+        namespace,
+        dataHandler,
+        errorHandler,
+    }: StreamRegistrySecretsProps): () => void {
+        const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
+        return streamResults(url, dataHandler, errorHandler, {
+            labelSelector: `${SECRET_LABEL_SECRET_TYPE}=nexus`,
+        });
+    }
 }

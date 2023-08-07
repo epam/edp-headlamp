@@ -4,11 +4,11 @@ import React from 'react';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 
-interface CreateRegistrySecretProps {
-    registrySecretData: KubeObjectInterface;
+interface CreateSecretProps {
+    secretData: KubeObjectInterface;
 }
 
-export const useRegistrySecretCRUD = ({
+export const useSecretCRUD = ({
     onSuccess,
     onError,
 }: {
@@ -18,38 +18,27 @@ export const useRegistrySecretCRUD = ({
     const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
     const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-    const registrySecretCreateMutation = useResourceCRUDMutation<
-        KubeObjectInterface,
+    const secretCreateMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.CREATE>(
+        'secretCreateMutation',
+        K8s.secret.default,
         CRUD_TYPES.CREATE
-    >('registrySecretCreateMutation', K8s.secret.default, CRUD_TYPES.CREATE);
+    );
 
-    const registrySecretEditMutation = useResourceCRUDMutation<
-        KubeObjectInterface,
+    const secretEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.EDIT>(
+        'secretEditMutation',
+        K8s.secret.default,
         CRUD_TYPES.EDIT
-    >('registrySecretEditMutation', K8s.secret.default, CRUD_TYPES.EDIT);
+    );
 
-    const registrySecretDeleteMutation = useResourceCRUDMutation<
-        KubeObjectInterface,
+    const secretDeleteMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.DELETE>(
+        'secretDeleteMutation',
+        K8s.secret.default,
         CRUD_TYPES.DELETE
-    >('registrySecretDeleteMutation', K8s.secret.default, CRUD_TYPES.DELETE);
-
-    const createRegistrySecret = React.useCallback(
-        async ({ registrySecretData }: CreateRegistrySecretProps) => {
-            registrySecretCreateMutation.mutate(registrySecretData, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
-        },
-        [registrySecretCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
     );
 
-    const editRegistrySecret = React.useCallback(
-        async ({ registrySecretData }: CreateRegistrySecretProps) => {
-            registrySecretEditMutation.mutate(registrySecretData, {
+    const createSecret = React.useCallback(
+        async ({ secretData }: CreateSecretProps) => {
+            secretCreateMutation.mutate(secretData, {
                 onSuccess: () => {
                     invokeOnSuccessCallback();
                 },
@@ -58,12 +47,12 @@ export const useRegistrySecretCRUD = ({
                 },
             });
         },
-        [registrySecretEditMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
+        [secretCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
     );
 
-    const deleteRegistrySecret = React.useCallback(
-        async ({ registrySecretData }: CreateRegistrySecretProps) => {
-            registrySecretDeleteMutation.mutate(registrySecretData, {
+    const editSecret = React.useCallback(
+        async ({ secretData }: CreateSecretProps) => {
+            secretEditMutation.mutate(secretData, {
                 onSuccess: () => {
                     invokeOnSuccessCallback();
                 },
@@ -72,14 +61,28 @@ export const useRegistrySecretCRUD = ({
                 },
             });
         },
-        [registrySecretDeleteMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
+        [secretEditMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
+    );
+
+    const deleteSecret = React.useCallback(
+        async ({ secretData }: CreateSecretProps) => {
+            secretDeleteMutation.mutate(secretData, {
+                onSuccess: () => {
+                    invokeOnSuccessCallback();
+                },
+                onError: () => {
+                    invokeOnErrorCallback();
+                },
+            });
+        },
+        [secretDeleteMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
     );
 
     const mutations = {
-        registrySecretCreateMutation,
-        registrySecretEditMutation,
-        registrySecretDeleteMutation,
+        secretCreateMutation,
+        secretEditMutation,
+        secretDeleteMutation,
     };
 
-    return { createRegistrySecret, editRegistrySecret, deleteRegistrySecret, mutations };
+    return { createSecret, editSecret, deleteSecret, mutations };
 };

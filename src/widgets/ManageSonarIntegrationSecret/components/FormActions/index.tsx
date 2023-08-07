@@ -5,14 +5,17 @@ import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { useSecretCRUD } from '../../../../k8s/Secret/hooks/useRegistrySecretCRUD';
-import { createRegistrySecretInstance } from '../../../../k8s/Secret/utils/createRegistrySecretInstance';
+import { createSonarQubeIntegrationSecretInstance } from '../../../../k8s/Secret/utils/createSonarQubeIntegrationSecretInstance';
 import { useDialogContext, useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../../DeleteKubeObject/constants';
 import { DeleteKubeObjectDialogForwardedProps } from '../../../DeleteKubeObject/types';
-import { ManageRegistrySecretFormDataContext, ManageRegistrySecretFormValues } from '../../types';
+import {
+    ManageSonarIntegrationSecretFormDataContext,
+    ManageSonarIntegrationSecretFormValues,
+} from '../../types';
 import { FormActionsProps } from './types';
 
 export const FormActions = ({ mode }: FormActionsProps) => {
@@ -25,11 +28,11 @@ export const FormActions = ({ mode }: FormActionsProps) => {
         formState: { isDirty },
         handleSubmit,
         getValues,
-    } = useReactHookFormContext<ManageRegistrySecretFormValues>();
+    } = useReactHookFormContext<ManageSonarIntegrationSecretFormValues>();
 
     const {
         formData: { currentElement, handleDeleteRow, isReadOnly },
-    } = useFormContext<ManageRegistrySecretFormDataContext>();
+    } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
 
     const {
         createSecret,
@@ -51,18 +54,16 @@ export const FormActions = ({ mode }: FormActionsProps) => {
         secretDeleteMutation.isLoading;
 
     const onSubmit = React.useCallback(async () => {
-        const { name, registryEndpoint, user, password } = getValues();
-        const registrySecretInstance = createRegistrySecretInstance({
-            name,
-            registryEndpoint,
-            user,
-            password,
+        const { username, secret } = getValues();
+        const secretInstance = createSonarQubeIntegrationSecretInstance({
+            user: username,
+            secret,
         });
 
         if (mode === FORM_MODES.CREATE) {
-            await createSecret({ secretData: registrySecretInstance });
+            await createSecret({ secretData: secretInstance });
         } else {
-            await editSecret({ secretData: registrySecretInstance });
+            await editSecret({ secretData: secretInstance });
         }
     }, [getValues, mode, createSecret, editSecret]);
 
@@ -76,7 +77,7 @@ export const FormActions = ({ mode }: FormActionsProps) => {
                     kubeObject: SecretKubeObject,
                     kubeObjectData: currentElement as EDPKubeObjectInterface,
                     objectName: typeof currentElement !== 'string' && currentElement?.metadata.name,
-                    description: `Confirm the deletion of the registry secret`,
+                    description: `Confirm the deletion of the secret`,
                 },
             });
         }

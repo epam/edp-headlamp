@@ -7,7 +7,7 @@ import { URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVERS } from '../../constants/urls';
 import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { CreateResourceFab } from '../../providers/Dialog/components/CreateResourceFab';
 import { CREATE_GIT_SERVER_DIALOG_NAME } from '../../widgets/CreateGitServer/constants';
-import { routeEDPConfiguration } from '../edp-configuration/route';
+import { routeEDPConfiguration } from '../edp-configuration-list/route';
 import { GitServerList } from './components/GitServerList';
 
 export const PageView = () => {

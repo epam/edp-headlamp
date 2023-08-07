@@ -20,7 +20,7 @@ import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { rem } from '../../utils/styling/rem';
 import { ManageRegistrySecret } from '../../widgets/ManageRegistrySecret';
-import { routeEDPConfiguration } from '../edp-configuration/route';
+import { routeEDPConfiguration } from '../edp-configuration-list/route';
 
 const findKanikoRegistrySecret = (items: SecretKubeObjectInterface[]) =>
     items.find(el => el.metadata.name === 'kaniko-docker-config');
@@ -179,7 +179,6 @@ export const PageView = () => {
                                                         <Grid item xs={12}>
                                                             <Render condition={!!dockerRegistryURL}>
                                                                 <ManageRegistrySecret
-                                                                    currentElement={el}
                                                                     formData={{
                                                                         isReadOnly:
                                                                             !!ownerReference,
@@ -226,7 +225,6 @@ export const PageView = () => {
                                                 <Grid item xs={12}>
                                                     <Render condition={!!dockerRegistryURL}>
                                                         <ManageRegistrySecret
-                                                            currentElement={'placeholder'}
                                                             formData={{
                                                                 currentElement: 'placeholder',
                                                                 secrets: [

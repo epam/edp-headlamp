@@ -5,9 +5,9 @@ import { FORM_MODES } from '../../types/forms';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
 import { useDefaultValues } from './hooks/useDefaultValues';
-import { ManageRegistrySecretProps } from './types';
+import { ManageNexusIntegrationSecretProps } from './types';
 
-export const ManageRegistrySecret = ({ formData }: ManageRegistrySecretProps) => {
+export const ManageNexusIntegrationSecret = ({ formData }: ManageNexusIntegrationSecretProps) => {
     const baseDefaultValues = useDefaultValues({ formData });
 
     const isPlaceholder =

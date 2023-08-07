@@ -6,7 +6,7 @@ import { SecretKubeObject } from '../../k8s/Secret';
 import { ARGO_CD_SECRET_LABEL_SECRET_TYPE } from '../../k8s/Secret/labels';
 import { CreateResourceFab } from '../../providers/Dialog/components/CreateResourceFab';
 import { CREATE_CLUSTER_DIALOG_NAME } from '../../widgets/CreateCluster/constants';
-import { routeEDPConfiguration } from '../edp-configuration/route';
+import { routeEDPConfiguration } from '../edp-configuration-list/route';
 import { ClusterList } from './components/ClusterList';
 
 export const PageView = () => {
