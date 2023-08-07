@@ -12,6 +12,7 @@ export const EmptyList = ({
     linkText = 'Click here to add a new one',
     description,
     handleClick,
+    isSearch = false,
 }: EmptyListProps) => {
     const theme = useTheme();
     return (
@@ -38,7 +39,7 @@ export const EmptyList = ({
             >
                 <Box sx={{ mb: theme.typography.pxToRem(16) }}>
                     <Icon
-                        icon={ICONS.WARNING}
+                        icon={isSearch ? ICONS.SEARCH : ICONS.WARNING}
                         width={theme.typography.pxToRem(30)}
                         height={theme.typography.pxToRem(30)}
                     />

@@ -60,6 +60,7 @@ export const Table = <DataType extends unknown>({
     });
 
     const rowCount = readyData?.length || 0;
+    const hasEmptyResult = !!filterFunction && !readyData?.length;
 
     return (
         <Paper variant={'outlined'}>
@@ -95,6 +96,7 @@ export const Table = <DataType extends unknown>({
                     emptyListComponent={emptyListComponent}
                     page={page}
                     rowsPerPage={_rowsPerPage}
+                    hasEmptyResult={hasEmptyResult}
                 />
             </MuiTable>
             <Render condition={showPagination && data?.length > _rowsPerPage}>

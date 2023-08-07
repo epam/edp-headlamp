@@ -45,4 +45,5 @@ export enum ICONS {
     UPDATE = 'radix-icons:update',
     WARNING = 'ph:warning',
     CLOUD_LOCK = 'mdi:cloud-lock-outline',
+    SEARCH = 'material-symbols:search',
 }

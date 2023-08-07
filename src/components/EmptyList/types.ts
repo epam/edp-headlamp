@@ -4,4 +4,5 @@ export interface EmptyListProps {
     description?: string;
     linkText?: string;
     handleClick?: () => void;
+    isSearch?: boolean;
 }

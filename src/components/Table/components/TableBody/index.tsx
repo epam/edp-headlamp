@@ -9,6 +9,7 @@ import {
     useTheme,
 } from '@material-ui/core';
 import React from 'react';
+import { EmptyList } from '../../../EmptyList';
 import { Render } from '../../../Render';
 import { TableBodyProps } from './types';
 
@@ -34,6 +35,7 @@ export const TableBody = ({
     emptyListComponent,
     page,
     rowsPerPage,
+    hasEmptyResult,
 }: TableBodyProps) => {
     const theme = useTheme();
 
@@ -133,6 +135,12 @@ export const TableBody = ({
                             );
                         })}
                 </>
+            ) : hasEmptyResult ? (
+                <TableRow>
+                    <TableCell colSpan={columns.length} align={'center'}>
+                        <EmptyList customText={'No results found!'} isSearch />
+                    </TableCell>
+                </TableRow>
             ) : (
                 <TableRow>
                     <TableCell colSpan={columns.length} align={'center'}>
