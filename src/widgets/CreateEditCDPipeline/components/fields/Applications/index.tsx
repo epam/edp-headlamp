@@ -90,25 +90,18 @@ export const Applications = () => {
         [applicationsFieldValue, applicationList]
     );
 
-    const applicationsOptionsListIsDisabled = React.useMemo(() => {
-        if (!applicationList) {
-            return false;
-        }
+    const applicationsOptionsListIsDisabled = React.useMemo(
+        () => !namespace || usedApplications.length === applicationList?.items.length,
+        [applicationList, namespace, usedApplications.length]
+    );
 
-        return !namespace || usedApplications.length === applicationList.items.length;
-    }, [applicationList, namespace, usedApplications.length]);
-
-    const applicationsAddingButtonIsDisabled = React.useMemo(() => {
-        if (!applicationList) {
-            return false;
-        }
-
-        return (
+    const applicationsAddingButtonIsDisabled = React.useMemo(
+        () =>
             !namespace ||
             !applicationsToAddChooserFieldValue ||
-            usedApplications.length === applicationList.items.length
-        );
-    }, [applicationList, applicationsToAddChooserFieldValue, namespace, usedApplications.length]);
+            usedApplications.length === applicationList?.items.length,
+        [applicationList, applicationsToAddChooserFieldValue, namespace, usedApplications.length]
+    );
 
     return (
         <Grid container spacing={3}>
