@@ -1,6 +1,5 @@
 import { DialogActions, DialogContent, DialogTitle, Tab, Tabs } from '@material-ui/core';
 import React from 'react';
-import { DEPLOYMENT_TYPES } from '../../../../constants/deploymentTypes';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { FormContextProvider } from '../../../../providers/Form';
@@ -10,10 +9,10 @@ import {
     FORM_PART_STAGES,
     TAB_INDEXES,
 } from '../../constants';
-import { CDPIPELINE_FORM_NAMES } from '../../names';
 import { DialogHeader } from './components/DialogHeader';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
+import { useDefaultValues } from './hooks/useDefaultValues';
 import { useStyles } from './styles';
 
 const a11yProps = (index: any) => {
@@ -41,18 +40,13 @@ export const Create = () => {
 
     const [stages, setStages] = React.useState<EDPCDPipelineStageKubeObjectInterface[]>([]);
 
-    const defaultValues = React.useMemo(
-        () => ({
-            [CDPIPELINE_FORM_NAMES.deploymentType.name]: DEPLOYMENT_TYPES.CONTAINER,
-        }),
-        []
-    );
+    const baseDefaultValues = useDefaultValues();
 
     return (
         <FormContextProvider
             formSettings={{
                 mode: 'onBlur',
-                defaultValues: defaultValues,
+                defaultValues: baseDefaultValues,
             }}
         >
             <DialogTitle>

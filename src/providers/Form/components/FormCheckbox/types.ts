@@ -7,5 +7,6 @@ export interface FormCheckboxProps {
     label: React.ReactElement;
     control: Control<any>;
     errors: FieldErrors;
+    defaultValue?: boolean;
     disabled?: boolean;
 }

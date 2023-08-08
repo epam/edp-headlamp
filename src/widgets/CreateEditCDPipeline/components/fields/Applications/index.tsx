@@ -3,23 +3,26 @@ import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../components/Render';
+import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { useCodebasesByTypeLabelQuery } from '../../../../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
+import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
+import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../names';
-import { CreateEditCDPipelineFormValues } from '../../../types';
+import {
+    CreateEditCDPipelineDialogForwardedProps,
+    CreateEditCDPipelineFormValues,
+} from '../../../types';
 import { ApplicationRow } from './components/ApplicationRow';
-import { useUpdatedApplications } from './hooks/useUpdatedApplications';
-import { Application } from './types';
-
-const getUsedApplications = (applications: Application[]) => {
-    return applications.filter(el => el.isUsed);
-};
-
-const getUnusedApplications = (applications: Application[]) => {
-    return applications.filter(el => !el.isUsed);
-};
 
 export const Applications = () => {
+    const {
+        forwardedProps: { CDPipelineData },
+    } = useSpecificDialogContext<CreateEditCDPipelineDialogForwardedProps>(
+        CREATE_EDIT_CD_PIPELINE_DIALOG_NAME
+    );
+
     const {
         register,
         formState: { errors },
@@ -42,68 +45,70 @@ export const Applications = () => {
 
     const namespace = getDefaultNamespace();
 
-    const applicationsFieldValue = watch(CDPIPELINE_FORM_NAMES.applications.name);
     const applicationsBranchesFieldValue = watch(CDPIPELINE_FORM_NAMES.inputDockerStreams.name);
     const applicationsToAddChooserFieldValue = watch(
         CDPIPELINE_FORM_NAMES.applicationsToAddChooser.name
     );
-    const [appsWithBranches, setAppsWithBranches] = React.useState<Application[]>([]);
+    const applicationsFieldValue = watch(CDPIPELINE_FORM_NAMES.applications.name);
 
-    const { isLoading, error } = useUpdatedApplications({
-        appsWithBranches,
-        setAppsWithBranches,
+    const {
+        data: applicationList,
+        isLoading,
+        error,
+    } = useCodebasesByTypeLabelQuery({
+        props: {
+            namespace: CDPipelineData?.metadata.namespace,
+            codebaseType: CODEBASE_TYPES.APPLICATION,
+        },
     });
 
     const handleAddApplicationRow = React.useCallback(async () => {
-        setAppsWithBranches(prev => {
-            const newApplications = prev.map(application => {
-                if (application.value === applicationsToAddChooserFieldValue) {
-                    return {
-                        label: application.label,
-                        value: application.value,
-                        availableBranches: application.availableBranches,
-                        isUsed: true,
-                        chosenBranch: null,
-                        toPromote: false,
-                    };
-                }
-                return application;
-            });
+        const newApplications = [...applicationsFieldValue, applicationsToAddChooserFieldValue];
 
-            const pipelineApplications = getUsedApplications(newApplications).map(el => el.value);
-
-            setValue(CDPIPELINE_FORM_NAMES.applications.name, pipelineApplications);
-            trigger(CDPIPELINE_FORM_NAMES.applications.name);
-
-            return newApplications;
-        });
+        setValue(CDPIPELINE_FORM_NAMES.applications.name, newApplications);
+        await trigger(CDPIPELINE_FORM_NAMES.applications.name);
         resetField(CDPIPELINE_FORM_NAMES.applicationsToAddChooser.name);
-    }, [applicationsToAddChooserFieldValue, resetField, setAppsWithBranches, setValue, trigger]);
+    }, [applicationsFieldValue, applicationsToAddChooserFieldValue, resetField, setValue, trigger]);
 
-    const usedApplications = React.useMemo(() => {
-        return getUsedApplications(appsWithBranches);
-    }, [appsWithBranches]);
+    const usedApplications = React.useMemo(
+        () =>
+            applicationList
+                ? applicationList.items.filter(app =>
+                      applicationsFieldValue.includes(app.metadata.name)
+                  )
+                : [],
+        [applicationsFieldValue, applicationList]
+    );
 
-    const unusedApplications = React.useMemo(() => {
-        return getUnusedApplications(appsWithBranches);
-    }, [appsWithBranches]);
+    const unusedApplications = React.useMemo(
+        () =>
+            applicationList
+                ? applicationList.items.filter(
+                      app => !applicationsFieldValue.includes(app.metadata.name)
+                  )
+                : [],
+        [applicationsFieldValue, applicationList]
+    );
 
     const applicationsOptionsListIsDisabled = React.useMemo(() => {
-        return !namespace || usedApplications.length === appsWithBranches.length;
-    }, [appsWithBranches.length, namespace, usedApplications.length]);
+        if (!applicationList) {
+            return false;
+        }
+
+        return !namespace || usedApplications.length === applicationList.items.length;
+    }, [applicationList, namespace, usedApplications.length]);
 
     const applicationsAddingButtonIsDisabled = React.useMemo(() => {
+        if (!applicationList) {
+            return false;
+        }
+
         return (
             !namespace ||
             !applicationsToAddChooserFieldValue ||
-            usedApplications.length === appsWithBranches.length
+            usedApplications.length === applicationList.items.length
         );
-    }, [
-        appsWithBranches.length,
-        applicationsToAddChooserFieldValue,
-        namespace,
-        usedApplications.length,
-    ]);
+    }, [applicationList, applicationsToAddChooserFieldValue, namespace, usedApplications.length]);
 
     return (
         <Grid container spacing={3}>
@@ -117,7 +122,16 @@ export const Applications = () => {
                             control={control}
                             errors={errors}
                             disabled={applicationsOptionsListIsDisabled}
-                            options={unusedApplications}
+                            options={
+                                unusedApplications
+                                    ? unusedApplications.map(el => {
+                                          return {
+                                              label: el.metadata.name,
+                                              value: el.metadata.name,
+                                          };
+                                      })
+                                    : []
+                            }
                         />
                     </Grid>
                     <Grid
@@ -147,7 +161,7 @@ export const Applications = () => {
             </Grid>
             <Grid item xs={12}>
                 <Grid container>
-                    <Render condition={!!appsWithBranches.length}>
+                    <Render condition={!!applicationList && !!applicationList.items.length}>
                         <>
                             <Render condition={!!usedApplications.length}>
                                 <>
@@ -180,14 +194,10 @@ export const Applications = () => {
                             <Render condition={!isLoading && !error}>
                                 <>
                                     {usedApplications.map((application, idx) => {
-                                        const key = `${application.value}::${idx}`;
+                                        const key = `${application.metadata.name}::${idx}`;
 
                                         return (
-                                            <ApplicationRow
-                                                key={key}
-                                                application={application}
-                                                setAppsWithBranches={setAppsWithBranches}
-                                            />
+                                            <ApplicationRow key={key} application={application} />
                                         );
                                     })}
                                 </>

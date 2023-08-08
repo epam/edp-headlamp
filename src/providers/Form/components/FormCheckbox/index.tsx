@@ -8,7 +8,15 @@ import { FormCheckboxProps } from './types';
 
 export const FormCheckbox = React.forwardRef(
     (
-        { name, label, control, errors, disabled, ...props }: FormCheckboxProps,
+        {
+            name,
+            label,
+            control,
+            errors,
+            defaultValue = false,
+            disabled,
+            ...props
+        }: FormCheckboxProps,
         ref: React.RefObject<HTMLInputElement>
     ) => {
         const hasError = !!errors[name];
@@ -44,7 +52,7 @@ export const FormCheckbox = React.forwardRef(
                                     />
                                 );
                             }}
-                            defaultValue={false}
+                            defaultValue={defaultValue}
                             name={name}
                             control={control}
                             {...props}

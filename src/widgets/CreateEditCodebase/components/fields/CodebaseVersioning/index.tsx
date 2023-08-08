@@ -45,12 +45,28 @@ export const CodebaseVersioning = () => {
         [setValue, versioningStartFromSnapshotFieldValue]
     );
 
+    const handleVersioningTypeChange = React.useCallback(
+        ({ target: { value } }: FieldEvent): void => {
+            if (
+                value === CODEBASE_VERSIONING_TYPES.EDP &&
+                !versioningStartFromVersionFieldValue &&
+                !versioningStartFromSnapshotFieldValue
+            ) {
+                setValue(CODEBASE_FORM_NAMES.versioningStartFromVersion.name, '0.0.0');
+                setValue(CODEBASE_FORM_NAMES.versioningStartFromSnapshot.name, 'SNAPSHOT');
+                setValue(CODEBASE_FORM_NAMES.versioningStartFrom.name, '0.0.0-SNAPSHOT');
+            }
+        },
+        [setValue, versioningStartFromSnapshotFieldValue, versioningStartFromVersionFieldValue]
+    );
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={4}>
                 <FormSelect
                     {...register(CODEBASE_FORM_NAMES.versioningType.name, {
                         required: 'Select codebase versioning type',
+                        onChange: handleVersioningTypeChange,
                     })}
                     label={'Codebase versioning type'}
                     placeholder={'Select codebase versioning type'}
@@ -60,7 +76,7 @@ export const CodebaseVersioning = () => {
                     options={codebaseVersioningTypeSelectOptions}
                 />
             </Grid>
-            {codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPES['EDP'] ? (
+            {codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.EDP ? (
                 <>
                     <Grid item xs={4}>
                         <FormTextField
@@ -75,7 +91,6 @@ export const CodebaseVersioning = () => {
                             label={'Start version from'}
                             title={'Valid identifiers are in the set [A-Za-z0-9]'}
                             placeholder={'0.0.0'}
-                            defaultValue={'0.0.0'}
                             control={control}
                             errors={errors}
                         />
@@ -95,7 +110,6 @@ export const CodebaseVersioning = () => {
                                 onBlur: onStartVersionFromSnapshotStaticFieldChange,
                             })}
                             placeholder={'SNAPSHOT'}
-                            defaultValue={'SNAPSHOT'}
                             control={control}
                             errors={errors}
                         />
