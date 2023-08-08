@@ -14,7 +14,13 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
     return (
         <>
             <Render condition={!!breadcrumbs && !!breadcrumbs.length}>
-                <Grid container spacing={1} alignItems={'center'} justifyContent={'space-between'}>
+                <Grid
+                    container
+                    spacing={1}
+                    alignItems={'center'}
+                    justifyContent={'space-between'}
+                    style={{ marginTop: rem(20) }}
+                >
                     <Grid item>
                         <Grid container spacing={2} alignItems={'center'}>
                             <Grid item>

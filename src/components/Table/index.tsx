@@ -60,7 +60,13 @@ export const Table = <DataType extends unknown>({
     });
 
     const rowCount = readyData?.length || 0;
-    const hasEmptyResult = !!filterFunction && !readyData?.length;
+    const hasEmptyResult = React.useMemo(() => {
+        if (!data || !readyData) {
+            return;
+        }
+
+        return !!data.length && !readyData?.length;
+    }, [data, readyData]);
 
     return (
         <Paper variant={'outlined'}>

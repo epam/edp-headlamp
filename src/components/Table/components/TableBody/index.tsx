@@ -115,7 +115,7 @@ export const TableBody = ({
                                                         align={textAlign || 'left'}
                                                         style={{
                                                             padding: `${theme.typography.pxToRem(
-                                                                8
+                                                                12
                                                             )} ${theme.typography.pxToRem(16)}`,
                                                         }}
                                                     >
