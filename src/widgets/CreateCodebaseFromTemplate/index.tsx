@@ -25,7 +25,7 @@ export const CreateCodebaseFromTemplate = () => {
     } = template;
 
     return (
-        <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth>
+        <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth data-testid="dialog">
             <FormContextProvider
                 formSettings={{
                     defaultValues: baseDefaultValues,

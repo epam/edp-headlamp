@@ -8,18 +8,18 @@ const Utils = {
 };
 
 class Secret {
-    static default = {
-        apiEndpoint: {
-            post: () => {},
-            delete: () => {},
-        },
+    apiEndpoint: {
+        post: () => {};
+        delete: () => {};
     };
 }
 
 const K8s = {
     ApiProxy,
     cluster,
-    secret: Secret,
+    secret: {
+        default: Secret,
+    },
 };
 
 export { ApiProxy, K8s, Utils };

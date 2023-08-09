@@ -20,7 +20,7 @@ export const FormControlLabelWithTooltip = ({ label, title }: FormControlLabelWi
                 </Tooltip>
             </Render>
             <Render condition={!title}>
-                <Box style={{ height: rem(25) }} />
+                <Box style={{ height: rem(20) }} />
             </Render>
         </span>
     );

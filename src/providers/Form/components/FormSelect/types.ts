@@ -5,12 +5,13 @@ import { SelectOption } from '../../../../types/forms';
 
 export interface FormSelectProps {
     name: string;
+    errors: FieldErrors;
+    options: SelectOption[];
+    control: Control<any>;
     label?: string;
     title?: string | React.ReactElement;
     placeholder?: string;
-    control: Control<any>;
+    showLabelPlaceholder?: boolean;
     defaultValue?: string;
-    errors: FieldErrors;
-    options: SelectOption[];
     disabled?: boolean;
 }

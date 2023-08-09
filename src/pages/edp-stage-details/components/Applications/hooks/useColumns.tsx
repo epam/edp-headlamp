@@ -59,6 +59,7 @@ export const useColumns = (
                         <StatusIcon status={CUSTOM_RESOURCE_STATUSES.UNKNOWN} />
                     ),
                 width: '5%',
+                textAlign: 'center',
             },
             {
                 id: 'sync',
@@ -74,6 +75,7 @@ export const useColumns = (
                         <StatusIcon status={CUSTOM_RESOURCE_STATUSES.UNKNOWN} />
                     ),
                 width: '5%',
+                textAlign: 'center',
             },
             {
                 id: 'application',

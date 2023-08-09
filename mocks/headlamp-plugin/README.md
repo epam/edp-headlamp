@@ -1,0 +1,1 @@
+This folder contains Headlamp's components and logic mocks for testing.

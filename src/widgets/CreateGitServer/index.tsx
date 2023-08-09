@@ -18,7 +18,7 @@ export const CreateGitServer = () => {
     const baseDefaultValues = useDefaultValues();
 
     return (
-        <Dialog open={open} onClose={closeDialog} fullWidth maxWidth={'md'}>
+        <Dialog open={open} onClose={closeDialog} fullWidth maxWidth={'md'} data-testid="dialog">
             <FormContextProvider
                 formSettings={{
                     defaultValues: baseDefaultValues,

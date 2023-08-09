@@ -6,6 +6,4 @@ export const SectionBox: React.FC = ({ children }): ReactElement => {
 
 export const SectionFilterHeader = (): ReactElement => null;
 
-export const SimpleTable = (): ReactElement => null;
-
 export const EditorDialog = (): ReactElement => null;

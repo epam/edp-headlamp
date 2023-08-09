@@ -16,6 +16,9 @@ export const useAutotestsWithBranches = (): AutotestWithBranchesOption[] => {
         },
         options: {
             onSuccess: async data => {
+                if (!data) {
+                    return;
+                }
                 const autotestsWithBranches = await Promise.all(
                     data?.items.map(async ({ metadata: { name } }) => {
                         const { items: autotestsBranches } =

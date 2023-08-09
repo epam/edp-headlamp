@@ -105,7 +105,7 @@ export const DeleteKubeObject = () => {
     );
 
     return (
-        <Dialog open={open} onClose={handleClosePopup} fullWidth>
+        <Dialog open={open} onClose={handleClosePopup} fullWidth data-testid="dialog">
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
                 <Grid container spacing={1}>

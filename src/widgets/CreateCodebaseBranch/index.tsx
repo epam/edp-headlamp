@@ -39,7 +39,7 @@ export const CreateCodebaseBranch = () => {
     });
 
     return (
-        <Dialog open={open} onClose={closeDialog} fullWidth>
+        <Dialog open={open} onClose={closeDialog} fullWidth data-testid="dialog">
             <FormContextProvider
                 formSettings={{
                     defaultValues: baseDefaultValues,

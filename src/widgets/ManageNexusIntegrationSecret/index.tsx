@@ -21,7 +21,7 @@ export const ManageNexusIntegrationSecret = ({ formData }: ManageNexusIntegratio
             }}
             formData={formData}
         >
-            <Grid container spacing={2}>
+            <Grid container spacing={2} data-testid="form">
                 <Grid item xs={12}>
                     <Form />
                 </Grid>

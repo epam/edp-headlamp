@@ -5,13 +5,14 @@ import { FieldErrors } from 'react-hook-form/dist/types/errors';
 
 export interface FormTextFieldProps {
     name: string;
+    control: Control<any>;
+    errors: FieldErrors;
     label?: string;
     title?: string;
-    control: Control<any>;
     defaultValue?: string;
     placeholder?: string;
     disabled?: boolean;
-    errors: FieldErrors;
     InputProps?: InputProps;
+    showLabelPlaceholder?: boolean;
     TextFieldProps?: StandardTextFieldProps;
 }

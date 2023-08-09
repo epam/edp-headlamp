@@ -21,7 +21,7 @@ export const Cluster = () => {
     const { data, isLoading } = useClusterSecretListQuery({});
 
     const clusterOptions = React.useMemo(() => {
-        if (isLoading) {
+        if (isLoading || !data) {
             return [defaultClusterOption];
         }
         const clusters = data?.items.map(({ data: { name } }) => {
@@ -33,7 +33,7 @@ export const Cluster = () => {
         });
 
         return [defaultClusterOption, ...clusters];
-    }, [data?.items, isLoading]);
+    }, [data, isLoading]);
 
     return (
         <FormSelect

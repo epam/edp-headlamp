@@ -14,7 +14,7 @@ export const CreateCluster = () => {
     const [editorData, setEditorData] = React.useState<SecretKubeObjectInterface>(null);
 
     return (
-        <Dialog open={open} onClose={closeDialog} fullWidth>
+        <Dialog open={open} onClose={closeDialog} fullWidth data-testid="dialog">
             <FormContextProvider
                 formSettings={{
                     mode: 'onBlur',

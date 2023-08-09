@@ -1,0 +1,392 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders CreateCluster component 1`] = `
+<div
+  class="MuiDialog-root"
+  data-testid="dialog"
+  role="presentation"
+  style="position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;"
+>
+  <div
+    aria-hidden="true"
+    class="MuiBackdrop-root"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+  />
+  <div
+    data-test="sentinelStart"
+    tabindex="0"
+  />
+  <div
+    class="MuiDialog-container MuiDialog-scrollPaper"
+    role="none presentation"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+    tabindex="-1"
+  >
+    <div
+      class="MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded"
+      role="dialog"
+    >
+      <div
+        class="MuiDialogTitle-root"
+      >
+        <h2
+          class="MuiTypography-root MuiTypography-h6"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center MuiGrid-justify-content-xs-space-between"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item"
+                >
+                  <h5
+                    class="MuiTypography-root MuiTypography-h5"
+                  >
+                    Create New Cluster
+                  </h5>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+                style="flex-shrink: 0;"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  <span
+                    class="MuiButton-startIcon MuiButton-iconSizeSmall"
+                  >
+                    <span />
+                  </span>
+                  Edit YAML
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </h2>
+      </div>
+      <div
+        class="MuiDialogContent-root"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                  style="display: flex;"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="makeStyles-labelWrap-1"
+                      >
+                        <span
+                          class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
+                        >
+                          Cluster Name
+                        </span>
+                        <div
+                          class="MuiBox-root MuiBox-root-3"
+                          style="height: 1.25rem;"
+                        />
+                      </span>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      style="display: flex; align-items: flex-end;"
+                    >
+                      <div
+                        class="MuiFormControl-root MuiFormControl-fullWidth"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiTextField-root"
+                        >
+                          <div
+                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                          >
+                            <input
+                              aria-invalid="false"
+                              class="MuiInputBase-input MuiInput-input"
+                              name="clusterName"
+                              placeholder="Enter cluster name"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                  style="display: flex;"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="makeStyles-labelWrap-1"
+                      >
+                        <span
+                          class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
+                        >
+                          Cluster Host
+                        </span>
+                        <div
+                          class="MuiBox-root MuiBox-root-4"
+                          style="height: 1.25rem;"
+                        />
+                      </span>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      style="display: flex; align-items: flex-end;"
+                    >
+                      <div
+                        class="MuiFormControl-root MuiFormControl-fullWidth"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiTextField-root"
+                        >
+                          <div
+                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                          >
+                            <input
+                              aria-invalid="false"
+                              class="MuiInputBase-input MuiInput-input"
+                              name="clusterHost"
+                              placeholder="Enter cluster host"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                  style="display: flex;"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="makeStyles-labelWrap-1"
+                      >
+                        <span
+                          class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
+                        >
+                          Cluster Token
+                        </span>
+                        <div
+                          class="MuiBox-root MuiBox-root-5"
+                          style="height: 1.25rem;"
+                        />
+                      </span>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      style="display: flex; align-items: flex-end;"
+                    >
+                      <div
+                        class="MuiFormControl-root MuiFormControl-fullWidth"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiTextField-root"
+                        >
+                          <div
+                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                          >
+                            <input
+                              aria-invalid="false"
+                              class="MuiInputBase-input MuiInput-input"
+                              name="clusterToken"
+                              placeholder="Enter cluster token"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                  style="display: flex;"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    >
+                      <span
+                        class="makeStyles-labelWrap-1"
+                      >
+                        <span
+                          class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
+                        >
+                          Cluster Certificate
+                        </span>
+                        <div
+                          class="MuiBox-root MuiBox-root-6"
+                          style="height: 1.25rem;"
+                        />
+                      </span>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      style="display: flex; align-items: flex-end;"
+                    >
+                      <div
+                        class="MuiFormControl-root MuiFormControl-fullWidth"
+                      >
+                        <div
+                          class="MuiFormControl-root MuiTextField-root"
+                        >
+                          <div
+                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                          >
+                            <input
+                              aria-invalid="false"
+                              class="MuiInputBase-input MuiInput-input"
+                              name="clusterCertificate"
+                              placeholder="Enter cluster certificate"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiDialogActions-root MuiDialogActions-spacing"
+      >
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+          disabled=""
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            undo changes
+          </span>
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+          style="margin-left: auto;"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            cancel
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+          disabled=""
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            apply
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    data-test="sentinelEnd"
+    tabindex="0"
+  />
+</div>
+`;

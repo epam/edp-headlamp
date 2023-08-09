@@ -17,6 +17,7 @@ export const FormTextField = React.forwardRef(
             errors,
             placeholder,
             disabled = false,
+            showLabelPlaceholder = false,
             InputProps,
             TextFieldProps,
             ...props
@@ -29,9 +30,11 @@ export const FormTextField = React.forwardRef(
             <Grid container spacing={1}>
                 <Grid item xs={12} style={{ display: 'flex' }}>
                     <Grid container spacing={1}>
-                        <Grid item xs={12}>
-                            <FormControlLabelWithTooltip label={label} title={title} />
-                        </Grid>
+                        <Render condition={!!label || showLabelPlaceholder}>
+                            <Grid item xs={12}>
+                                <FormControlLabelWithTooltip label={label} title={title} />
+                            </Grid>
+                        </Render>
                         <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
                             <FormControl fullWidth>
                                 <Controller

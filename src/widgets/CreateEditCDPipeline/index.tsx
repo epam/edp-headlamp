@@ -17,7 +17,7 @@ export const CreateEditCDPipeline = () => {
     );
 
     return (
-        <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth>
+        <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth data-testid="dialog">
             {mode === FORM_MODES.CREATE ? <Create /> : mode === FORM_MODES.EDIT ? <Edit /> : null}
         </Dialog>
     );

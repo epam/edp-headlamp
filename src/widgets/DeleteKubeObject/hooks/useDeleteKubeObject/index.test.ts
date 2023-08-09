@@ -1,2 +1,2 @@
-// TODO: Write new tests
+// TODO: Write new mocks
 test('true', () => {});

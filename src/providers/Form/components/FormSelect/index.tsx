@@ -20,6 +20,7 @@ export const FormSelect = React.forwardRef(
             options = [],
             errors,
             placeholder,
+            showLabelPlaceholder = false,
             disabled,
             ...props
         }: FormSelectProps,
@@ -47,9 +48,11 @@ export const FormSelect = React.forwardRef(
             <Grid container spacing={1}>
                 <Grid item xs={12} style={{ display: 'flex' }}>
                     <Grid container spacing={1}>
-                        <Grid item xs={12}>
-                            <FormControlLabelWithTooltip label={label} title={title} />
-                        </Grid>
+                        <Render condition={!!label || showLabelPlaceholder}>
+                            <Grid item xs={12}>
+                                <FormControlLabelWithTooltip label={label} title={title} />
+                            </Grid>
+                        </Render>
                         <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
                             <FormControl fullWidth>
                                 <Controller

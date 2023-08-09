@@ -47,6 +47,7 @@ export const AdvancedJiraMappingRow = ({
                             placeholder={`Enter Jira pattern`}
                             control={control}
                             errors={errors}
+                            showLabelPlaceholder
                         />
                     </FormControl>
                 </Grid>
