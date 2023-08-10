@@ -79,28 +79,31 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
                     continue;
                 }
 
-                const appBranchRowName = `${createApplicationRowName(appName)}-application-branch`;
                 // @ts-ignore
-                setValue(appBranchRowName, applicationBranch);
+                setValue(rowAppBranchField, applicationBranch);
             }
         },
-        [appName, applicationsBranchesFieldValue, setValue]
+        [applicationsBranchesFieldValue, rowAppBranchField, setValue]
     );
 
     const handleChangeApplicationBranch = React.useCallback(
-        ({ value: targetValue }: FieldEventTarget) => {
-            const newApplicationsBranches = [...applicationsBranchesFieldValue, targetValue];
+        ({ value: newValue }: FieldEventTarget) => {
+            const oldValue = rowAppBranchFieldValue;
+            const newApplicationsBranches = [
+                ...applicationsBranchesFieldValue.filter(el => el !== oldValue),
+                newValue,
+            ];
 
             setValue(CDPIPELINE_FORM_NAMES.inputDockerStreams.name, newApplicationsBranches);
         },
-        [applicationsBranchesFieldValue, setValue]
+        [applicationsBranchesFieldValue, rowAppBranchFieldValue, setValue]
     );
 
     const handleChangeApplicationToPromote = React.useCallback(
-        ({ value: targetValue }: FieldEventTarget) => {
-            const newApplicationsToPromote = targetValue
+        ({ value: checkboxBoolean }: FieldEventTarget) => {
+            const newApplicationsToPromote = checkboxBoolean
                 ? [...applicationsToPromoteFieldValue, appName]
-                : applicationsToPromoteFieldValue;
+                : applicationsToPromoteFieldValue.filter(el => el !== appName);
 
             setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, newApplicationsToPromote);
         },

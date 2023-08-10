@@ -153,7 +153,7 @@ export const Applications = () => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <Grid container>
+                <Grid container spacing={2}>
                     <Render condition={!!applicationList && !!applicationList.items.length}>
                         <>
                             <Render condition={!!usedApplications.length}>
