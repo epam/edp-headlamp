@@ -63,22 +63,14 @@ spec:
             - name: http
               containerPort: 4466
               protocol: TCP
+          {{- if .Values.livenessProbe }}
           livenessProbe:
-            tcpSocket:
-              port: 4466
-            initialDelaySeconds: 20
-            timeoutSeconds: 1
-            periodSeconds: 20
-            successThreshold: 1
-            failureThreshold: 5
+{{ toYaml .Values.livenessProbe | indent 12 }}
+          {{- end }}
+          {{- if .Values.readinessProbe }}
           readinessProbe:
-            tcpSocket:
-              port: 4466
-            initialDelaySeconds: 20
-            timeoutSeconds: 1
-            periodSeconds: 20
-            successThreshold: 1
-            failureThreshold: 5
+{{ toYaml .Values.readinessProbe | indent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

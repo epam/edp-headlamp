@@ -43,10 +43,22 @@ A Helm chart for EDP Headlamp
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |
 | ingress.annotations | object | `{}` | Annotations for Ingress resource |
 | ingress.tls | list | `[]` | Ingress TLS configuration |
+| livenessProbe.failureThreshold | int | `5` |  |
+| livenessProbe.initialDelaySeconds | int | `5` |  |
+| livenessProbe.periodSeconds | int | `20` |  |
+| livenessProbe.successThreshold | int | `1` |  |
+| livenessProbe.tcpSocket.port | int | `4466` |  |
+| livenessProbe.timeoutSeconds | int | `1` |  |
 | nameOverride | string | `""` | Overrides the name of the chart |
 | nodeSelector | object | `{}` | Node labels for pod assignment |
 | podAnnotations | object | `{}` | Annotations to add to the pod |
 | podSecurityContext | object | `{}` | Headlamp pods' Security Context |
+| readinessProbe.failureThreshold | int | `5` |  |
+| readinessProbe.initialDelaySeconds | int | `5` |  |
+| readinessProbe.periodSeconds | int | `20` |  |
+| readinessProbe.successThreshold | int | `1` |  |
+| readinessProbe.tcpSocket.port | int | `4466` |  |
+| readinessProbe.timeoutSeconds | int | `1` |  |
 | replicaCount | int | `1` | Number of desired pods |
 | resources | object | `{}` | CPU/Memory resource requests/limits |
 | securityContext | object | `{}` | Headlamp containers Security Context |
