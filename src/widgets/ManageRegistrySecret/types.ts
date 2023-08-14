@@ -3,11 +3,11 @@ import { FormValues } from '../../types/forms';
 import { REGISTRY_SECRET_FORM_NAMES } from './names';
 
 export interface ManageRegistrySecretFormDataContext {
-    isReadOnly?: boolean;
     currentElement: SecretKubeObjectInterface | 'placeholder';
     secrets: SecretKubeObjectInterface[];
     registryEndpoint: string;
-    handleDeleteRow: (isPlaceholder: boolean) => void;
+    isReadOnly?: boolean;
+    handleClosePlaceholder?: () => void;
 }
 
 export interface ManageRegistrySecretProps {

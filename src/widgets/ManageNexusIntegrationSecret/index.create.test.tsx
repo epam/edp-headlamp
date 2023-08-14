@@ -13,7 +13,7 @@ test('renders ManageNexusIntegrationSecret Create component', () => {
             <ManageNexusIntegrationSecret
                 formData={{
                     currentElement: 'placeholder',
-                    handleDeleteRow: jest.fn(),
+                    handleClosePlaceholder: jest.fn(),
                 }}
             />
         </TestWrapper>

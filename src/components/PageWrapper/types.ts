@@ -1,3 +1,4 @@
+import { ContainerTypeMap } from '@material-ui/core/Container/Container';
 import React from 'react';
 
 export interface Breadcrumb {
@@ -12,4 +13,5 @@ export interface PageWrapperProps {
     breadcrumbs?: Breadcrumb[];
     headerSlot?: React.ReactElement;
     breadcrumbsExtraContent?: React.ReactElement;
+    containerMaxWidth?: ContainerTypeMap['props']['maxWidth'];
 }

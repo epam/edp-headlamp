@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react';
 import { Button, Grid, IconButton } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
+import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { useSecretCRUD } from '../../../../k8s/Secret/hooks/useRegistrySecretCRUD';
@@ -16,9 +17,8 @@ import {
     ManageNexusIntegrationSecretFormDataContext,
     ManageNexusIntegrationSecretFormValues,
 } from '../../types';
-import { FormActionsProps } from './types';
 
-export const FormActions = ({ mode }: FormActionsProps) => {
+export const FormActions = () => {
     const { setDialog } = useDialogContext();
     const { closeDialog } = useSpecificDialogContext<DeleteKubeObjectDialogForwardedProps>(
         DELETE_KUBE_OBJECT_DIALOG_NAME
@@ -31,8 +31,11 @@ export const FormActions = ({ mode }: FormActionsProps) => {
     } = useReactHookFormContext<ManageNexusIntegrationSecretFormValues>();
 
     const {
-        formData: { currentElement, handleDeleteRow, isReadOnly },
+        formData: { currentElement, handleClosePlaceholder, isReadOnly },
     } = useFormContext<ManageNexusIntegrationSecretFormDataContext>();
+
+    const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
+    const mode = isPlaceholder ? FORM_MODES.CREATE : FORM_MODES.EDIT;
 
     const {
         createSecret,
@@ -43,7 +46,7 @@ export const FormActions = ({ mode }: FormActionsProps) => {
             closeDialog();
 
             if (mode === FORM_MODES.CREATE) {
-                handleDeleteRow(true);
+                handleClosePlaceholder();
             }
         },
     });
@@ -68,28 +71,31 @@ export const FormActions = ({ mode }: FormActionsProps) => {
     }, [getValues, mode, createSecret, editSecret]);
 
     const handleDelete = React.useCallback(async () => {
-        if (mode === FORM_MODES.CREATE) {
-            handleDeleteRow(true);
-        } else {
-            setDialog({
-                modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-                forwardedProps: {
-                    kubeObject: SecretKubeObject,
-                    kubeObjectData: currentElement as EDPKubeObjectInterface,
-                    objectName: typeof currentElement !== 'string' && currentElement?.metadata.name,
-                    description: `Confirm the deletion of the secret`,
-                },
-            });
-        }
-    }, [currentElement, handleDeleteRow, mode, setDialog]);
+        setDialog({
+            modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+            forwardedProps: {
+                kubeObject: SecretKubeObject,
+                kubeObjectData: currentElement as EDPKubeObjectInterface,
+                objectName: typeof currentElement !== 'string' && currentElement?.metadata.name,
+                description: `Confirm the deletion of the secret`,
+            },
+        });
+    }, [currentElement, setDialog]);
 
     return (
         <>
             <Grid container spacing={2} justifyContent={'space-between'}>
                 <Grid item>
-                    <IconButton onClick={handleDelete} disabled={isReadOnly}>
-                        <Icon icon={ICONS.BUCKET} color={'grey'} width="20" />
-                    </IconButton>
+                    <Render condition={mode === FORM_MODES.EDIT}>
+                        <IconButton onClick={handleDelete} disabled={isReadOnly}>
+                            <Icon icon={ICONS.BUCKET} width="20" />
+                        </IconButton>
+                    </Render>
+                    <Render condition={mode === FORM_MODES.CREATE}>
+                        <Button onClick={handleClosePlaceholder} size="small" component={'button'}>
+                            cancel
+                        </Button>
+                    </Render>
                 </Grid>
                 <Grid item>
                     <Grid container spacing={2} alignItems={'center'}>

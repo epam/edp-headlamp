@@ -13,7 +13,7 @@ test('renders ManageSonarIntegrationSecret Create component', () => {
             <ManageSonarIntegrationSecret
                 formData={{
                     currentElement: 'placeholder',
-                    handleDeleteRow: jest.fn(),
+                    handleClosePlaceholder: jest.fn(),
                 }}
             />
         </TestWrapper>

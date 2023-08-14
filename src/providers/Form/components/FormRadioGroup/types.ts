@@ -14,7 +14,8 @@ export interface FormRadioProps {
     name: string;
     control: Control<any>;
     errors: FieldErrors;
+    options: FormRadioOption[];
     label: string;
     title?: string;
-    options: FormRadioOption[];
+    disabled?: boolean;
 }

@@ -3,9 +3,9 @@ import { FormValues } from '../../types/forms';
 import { NEXUS_INTEGRATION_SECRET_FORM_NAMES } from './names';
 
 export interface ManageNexusIntegrationSecretFormDataContext {
-    isReadOnly?: boolean;
     currentElement: SecretKubeObjectInterface | 'placeholder';
-    handleDeleteRow: (isPlaceholder: boolean) => void;
+    isReadOnly?: boolean;
+    handleClosePlaceholder?: () => void;
 }
 
 export interface ManageNexusIntegrationSecretProps {

@@ -141,14 +141,14 @@ exports[`renders ManageNexusIntegrationSecret Create component 1`] = `
         class="MuiGrid-root MuiGrid-item"
       >
         <button
-          class="MuiButtonBase-root MuiIconButton-root"
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
           tabindex="0"
           type="button"
         >
           <span
-            class="MuiIconButton-label"
+            class="MuiButton-label"
           >
-            <span />
+            cancel
           </span>
           <span
             class="MuiTouchRipple-root"

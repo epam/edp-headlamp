@@ -46,4 +46,5 @@ export enum ICONS {
     WARNING = 'ph:warning',
     CLOUD_LOCK = 'mdi:cloud-lock-outline',
     SEARCH = 'material-symbols:search',
+    NEXUS = 'clarity:archive-line',
 }

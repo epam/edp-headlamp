@@ -3,9 +3,9 @@ import { FormValues } from '../../types/forms';
 import { SONAR_INTEGRATION_SECRET_FORM_NAMES } from './names';
 
 export interface ManageSonarIntegrationSecretFormDataContext {
-    isReadOnly?: boolean;
     currentElement: SecretKubeObjectInterface | 'placeholder';
-    handleDeleteRow: (isPlaceholder: boolean) => void;
+    isReadOnly?: boolean;
+    handleClosePlaceholder?: () => void;
 }
 
 export interface ManageSonarIntegrationSecretProps {

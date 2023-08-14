@@ -1,5 +1,5 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Breadcrumbs, Button, Grid, Typography } from '@material-ui/core';
+import { Breadcrumbs, Button, Container, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { rem } from '../../utils/styling/rem';
 import { Render } from '../Render';
@@ -10,53 +10,55 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
     breadcrumbs,
     headerSlot,
     breadcrumbsExtraContent,
+    containerMaxWidth = 'lg',
 }) => {
     return (
         <>
             <Render condition={!!breadcrumbs && !!breadcrumbs.length}>
-                <Grid
-                    container
-                    spacing={1}
-                    alignItems={'center'}
-                    justifyContent={'space-between'}
-                    style={{ marginTop: rem(20) }}
-                >
-                    <Grid item>
-                        <Grid container spacing={2} alignItems={'center'}>
-                            <Grid item>
-                                <Breadcrumbs>
-                                    {breadcrumbs?.map(({ label, url }) => {
-                                        const key = `breadcrumb-${label}`;
+                <Container maxWidth={containerMaxWidth}>
+                    <Grid
+                        container
+                        spacing={1}
+                        alignItems={'center'}
+                        justifyContent={'space-between'}
+                    >
+                        <Grid item>
+                            <Grid container spacing={2} alignItems={'center'}>
+                                <Grid item>
+                                    <Breadcrumbs>
+                                        {breadcrumbs?.map(({ label, url }) => {
+                                            const key = `breadcrumb-${label}`;
 
-                                        return url ? (
-                                            <Button
-                                                key={key}
-                                                size="small"
-                                                component={Link}
-                                                routeName={url.pathname}
-                                                params={url.params}
-                                            >
-                                                {label}
-                                            </Button>
-                                        ) : (
-                                            <Typography
-                                                key={key}
-                                                color="textPrimary"
-                                                style={{ marginBottom: rem(1) }}
-                                            >
-                                                {label}
-                                            </Typography>
-                                        );
-                                    })}
-                                </Breadcrumbs>
+                                            return url ? (
+                                                <Button
+                                                    key={key}
+                                                    size="small"
+                                                    component={Link}
+                                                    routeName={url.pathname}
+                                                    params={url.params}
+                                                >
+                                                    {label}
+                                                </Button>
+                                            ) : (
+                                                <Typography
+                                                    key={key}
+                                                    color="textPrimary"
+                                                    style={{ marginBottom: rem(1) }}
+                                                >
+                                                    {label}
+                                                </Typography>
+                                            );
+                                        })}
+                                    </Breadcrumbs>
+                                </Grid>
+                                <Grid item>{breadcrumbsExtraContent}</Grid>
                             </Grid>
-                            <Grid item>{breadcrumbsExtraContent}</Grid>
                         </Grid>
+                        <Grid item>{headerSlot}</Grid>
                     </Grid>
-                    <Grid item>{headerSlot}</Grid>
-                </Grid>
+                </Container>
             </Render>
-            {children}
+            <Container maxWidth={containerMaxWidth}>{children}</Container>
         </>
     );
 };

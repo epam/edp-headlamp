@@ -1,7 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { FormContextProvider } from '../../providers/Form';
-import { FORM_MODES } from '../../types/forms';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
 import { useDefaultValues } from './hooks/useDefaultValues';
@@ -9,9 +8,6 @@ import { ManageNexusIntegrationSecretProps } from './types';
 
 export const ManageNexusIntegrationSecret = ({ formData }: ManageNexusIntegrationSecretProps) => {
     const baseDefaultValues = useDefaultValues({ formData });
-
-    const isPlaceholder =
-        typeof formData.currentElement === 'string' && formData.currentElement === 'placeholder';
 
     return (
         <FormContextProvider
@@ -26,7 +22,7 @@ export const ManageNexusIntegrationSecret = ({ formData }: ManageNexusIntegratio
                     <Form />
                 </Grid>
                 <Grid item xs={12}>
-                    <FormActions mode={isPlaceholder ? FORM_MODES.CREATE : FORM_MODES.EDIT} />
+                    <FormActions />
                 </Grid>
             </Grid>
         </FormContextProvider>

@@ -28,20 +28,18 @@ export const EmptyList = ({
                 flexDirection={'column'}
                 alignItems={'center'}
                 sx={{
-                    padding: `${theme.typography.pxToRem(32)} ${theme.typography.pxToRem(
-                        27
-                    )} ${theme.typography.pxToRem(24)}`,
-                    maxWidth: theme.typography.pxToRem(640),
+                    padding: rem(10),
+                    maxWidth: rem(640),
                     width: '100%',
                     border: `1px dashed ${theme.palette.divider}`,
-                    borderRadius: theme.typography.pxToRem(4),
+                    borderRadius: rem(4),
                 }}
             >
-                <Box sx={{ mb: theme.typography.pxToRem(16) }}>
+                <Box sx={{ mb: rem(16) }}>
                     <Icon
                         icon={isSearch ? ICONS.SEARCH : ICONS.WARNING}
-                        width={theme.typography.pxToRem(30)}
-                        height={theme.typography.pxToRem(30)}
+                        width={rem(30)}
+                        height={rem(30)}
                     />
                 </Box>
                 <Grid

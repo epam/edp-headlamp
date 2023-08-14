@@ -18,7 +18,16 @@ import { FormRadioProps } from './types';
 
 export const FormRadioGroup = React.forwardRef(
     (
-        { name, control, errors, label, title, options, ...props }: FormRadioProps,
+        {
+            name,
+            control,
+            errors,
+            label,
+            title,
+            options,
+            disabled = false,
+            ...props
+        }: FormRadioProps,
         ref: React.RefObject<HTMLInputElement>
     ) => {
         const hasError = !!errors[name];
@@ -38,7 +47,13 @@ export const FormRadioGroup = React.forwardRef(
                                         <RadioGroup {...field} row className={classes.radioGroup}>
                                             {options.map(
                                                 (
-                                                    { value, label, icon, checkedIcon, disabled },
+                                                    {
+                                                        value,
+                                                        label,
+                                                        icon,
+                                                        checkedIcon,
+                                                        disabled: optionDisabled,
+                                                    },
                                                     idx
                                                 ) => {
                                                     const isChecked = field.value === value;
@@ -54,7 +69,7 @@ export const FormRadioGroup = React.forwardRef(
                                                                         isChecked,
                                                                 }
                                                             )}
-                                                            disabled={disabled}
+                                                            disabled={disabled || optionDisabled}
                                                         >
                                                             <FormControlLabel
                                                                 value={value}
@@ -68,7 +83,9 @@ export const FormRadioGroup = React.forwardRef(
                                                                         inputRef={ref}
                                                                     />
                                                                 }
-                                                                disabled={disabled}
+                                                                disabled={
+                                                                    disabled || optionDisabled
+                                                                }
                                                                 label={label}
                                                                 className={
                                                                     classes.radioControlLabel
