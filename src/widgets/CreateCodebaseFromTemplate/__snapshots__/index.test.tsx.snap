@@ -51,128 +51,168 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
         class="MuiDialogContent-root"
       >
         <div
-          class="MuiPaper-root makeStyles-defaultValuesBoard-1 MuiPaper-elevation0 MuiPaper-rounded"
+          class="makeStyles-defaultValuesBoard-1"
         >
           <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-flex-start"
+            class="makeStyles-root-4"
           >
             <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4"
             >
-              <p
-                class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom"
-              >
-                Language
-              </p>
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-item"
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
                 >
-                  <span
-                    style="display: block; line-height: 0;"
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
                   >
-                    <svg
-                      height="20"
-                      width="20"
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom"
                     >
-                      <use
-                        xlink:href="#other"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item"
-                >
-                  test-language
+                      Language
+                    </p>
+                    <div
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <span
+                          style="display: block; line-height: 0;"
+                        >
+                          <svg
+                            height="20"
+                            width="20"
+                          >
+                            <use
+                              xlink:href="#other"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <span
+                          class="MuiTypography-root MuiTypography-caption"
+                          style="line-height: 1;"
+                        >
+                          test-language
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
+                  >
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom"
+                    >
+                      Framework
+                    </p>
+                    <div
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <span
+                          style="display: block; line-height: 0;"
+                        >
+                          <svg
+                            height="20"
+                            width="20"
+                          >
+                            <use
+                              xlink:href="#other"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <span
+                          class="MuiTypography-root MuiTypography-caption"
+                          style="line-height: 1;"
+                        >
+                          test-framework
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
+                  >
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom"
+                    >
+                      Build Tool
+                    </p>
+                    <div
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <span
+                          style="display: block; line-height: 0;"
+                        >
+                          <svg
+                            height="20"
+                            width="20"
+                          >
+                            <use
+                              xlink:href="#other"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <span
+                          class="MuiTypography-root MuiTypography-caption"
+                          style="line-height: 1;"
+                        >
+                          test-buildTool
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                  >
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom"
+                    >
+                      Source
+                    </p>
+                    <div
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <span
+                          class="MuiTypography-root MuiTypography-caption"
+                          style="line-height: 1;"
+                        >
+                          <a
+                            class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                            href="test-source"
+                            target="_blank"
+                          >
+                            test-source
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom"
-              >
-                Framework
-              </p>
-              <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
-              >
-                <div
-                  class="MuiGrid-root MuiGrid-item"
-                >
-                  <span
-                    style="display: block; line-height: 0;"
-                  >
-                    <svg
-                      height="20"
-                      width="20"
-                    >
-                      <use
-                        xlink:href="#other"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item"
-                >
-                  test-framework
-                </div>
-              </div>
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-2"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom"
-              >
-                Build Tool
-              </p>
-              <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
-              >
-                <div
-                  class="MuiGrid-root MuiGrid-item"
-                >
-                  <span
-                    style="display: block; line-height: 0;"
-                  >
-                    <svg
-                      height="20"
-                      width="20"
-                    >
-                      <use
-                        xlink:href="#other"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item"
-                >
-                  test-buildTool
-                </div>
-              </div>
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom"
-              >
-                Source
-              </p>
-              <a
-                class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-                href="test-source"
-                target="_blank"
-              >
-                test-source
-              </a>
             </div>
           </div>
         </div>
@@ -196,10 +236,10 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                   >
                     <span
-                      class="makeStyles-labelWrap-2"
+                      class="makeStyles-labelWrap-5"
                     >
                       <span
-                        class="MuiTypography-root makeStyles-label-3 MuiTypography-body1"
+                        class="MuiTypography-root makeStyles-label-6 MuiTypography-body1"
                       >
                         Component name
                       </span>
@@ -252,10 +292,10 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                   >
                     <span
-                      class="makeStyles-labelWrap-2"
+                      class="makeStyles-labelWrap-5"
                     >
                       <span
-                        class="MuiTypography-root makeStyles-label-3 MuiTypography-body1"
+                        class="MuiTypography-root makeStyles-label-6 MuiTypography-body1"
                       >
                         Description
                       </span>
@@ -314,10 +354,10 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                       >
                         <span
-                          class="makeStyles-labelWrap-2"
+                          class="makeStyles-labelWrap-5"
                         >
                           <span
-                            class="MuiTypography-root makeStyles-label-3 MuiTypography-body1"
+                            class="MuiTypography-root makeStyles-label-6 MuiTypography-body1"
                           >
                             Git server
                           </span>
@@ -387,15 +427,15 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                       >
                         <span
-                          class="makeStyles-labelWrap-2"
+                          class="makeStyles-labelWrap-5"
                         >
                           <span
-                            class="MuiTypography-root makeStyles-label-3 MuiTypography-body1"
+                            class="MuiTypography-root makeStyles-label-6 MuiTypography-body1"
                           >
                             Git repo relative path
                           </span>
                           <div
-                            class="MuiBox-root MuiBox-root-5"
+                            class="MuiBox-root MuiBox-root-8"
                             style="height: 1.25rem;"
                           />
                         </span>
@@ -463,10 +503,10 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                       >
                         <span
-                          class="makeStyles-labelWrap-2"
+                          class="makeStyles-labelWrap-5"
                         >
                           <span
-                            class="MuiTypography-root makeStyles-label-3 MuiTypography-body1"
+                            class="MuiTypography-root makeStyles-label-6 MuiTypography-body1"
                           >
                             Codebase versioning type
                           </span>
@@ -534,10 +574,10 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                       >
                         <span
-                          class="makeStyles-labelWrap-2"
+                          class="makeStyles-labelWrap-5"
                         >
                           <span
-                            class="MuiTypography-root makeStyles-label-3 MuiTypography-body1"
+                            class="MuiTypography-root makeStyles-label-6 MuiTypography-body1"
                           >
                             Start version from
                           </span>

@@ -1,7 +1,8 @@
-import { Chip, CircularProgress, Grid, Tooltip } from '@material-ui/core';
+import { Chip, CircularProgress, Grid } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
@@ -26,7 +27,6 @@ import { routeEDPCDPipelineDetails } from '../edp-cdpipeline-details/route';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
 import { Applications } from './components/Applications';
 import { CustomGates } from './components/CustomGates';
-import { GeneralInfo } from './components/GeneralInfo';
 import { QualityGates } from './components/QualityGates';
 import { StageActions } from './components/StageActions';
 import { useEnrichedApplicationsWithArgoApplications } from './hooks/useEnrichedApplicationsWithArgoApplication';
@@ -171,11 +171,6 @@ export const PageView = () => {
                 ),
                 disabled: ciTool === CI_TOOLS.JENKINS,
             },
-            {
-                label: 'General Info',
-                id: 'general_info',
-                component: <GeneralInfo />,
-            },
         ],
         [
             ciTool,
@@ -189,6 +184,31 @@ export const PageView = () => {
             latestTenDeployPipelineRuns,
         ]
     );
+
+    const infoColumns = [
+        [
+            {
+                label: 'Trigger Type',
+                text:
+                    stage?.spec.triggerType === TRIGGER_TYPES.MANUAL ? (
+                        <Chip
+                            label="manual"
+                            className={clsx([classes.labelChip, classes.labelChipBlue])}
+                        />
+                    ) : (
+                        <Chip
+                            label="auto"
+                            className={clsx([classes.labelChip, classes.labelChipGreen])}
+                        />
+                    ),
+            },
+            {
+                label: 'Description',
+                text: stage?.spec.description,
+                columnXs: 8,
+            },
+        ],
+    ];
 
     return (
         <PageWrapper
@@ -215,35 +235,6 @@ export const PageView = () => {
                     ),
                 },
             ]}
-            breadcrumbsExtraContent={
-                <Render condition={!!stage}>
-                    <div style={{ marginBottom: rem(2) }}>
-                        <Grid container alignItems={'center'} spacing={2}>
-                            <Grid item>
-                                <Tooltip title={'Trigger Type'}>
-                                    {stage?.spec.triggerType === TRIGGER_TYPES.MANUAL ? (
-                                        <Chip
-                                            label="manual"
-                                            className={clsx([
-                                                classes.labelChip,
-                                                classes.labelChipBlue,
-                                            ])}
-                                        />
-                                    ) : (
-                                        <Chip
-                                            label="auto"
-                                            className={clsx([
-                                                classes.labelChip,
-                                                classes.labelChipGreen,
-                                            ])}
-                                        />
-                                    )}
-                                </Tooltip>
-                            </Grid>
-                        </Grid>
-                    </div>
-                </Render>
-            }
             headerSlot={
                 <Grid container>
                     <Grid item>
@@ -304,10 +295,17 @@ export const PageView = () => {
             }
         >
             {!!stage && ciTool ? (
-                <Tabs
-                    tabs={tabs}
-                    initialTabIdx={ciTool === CI_TOOLS.JENKINS ? tabs.length - 1 : 0}
-                />
+                <Grid container spacing={2}>
+                    <Grid item xs={12} style={{ marginTop: rem(20) }}>
+                        <InfoColumnsAccordion title={'Stage Details'} infoRows={infoColumns} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Tabs
+                            tabs={tabs}
+                            initialTabIdx={ciTool === CI_TOOLS.JENKINS ? tabs.length - 1 : 0}
+                        />
+                    </Grid>
+                </Grid>
             ) : (
                 <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
             )}

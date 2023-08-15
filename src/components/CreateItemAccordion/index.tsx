@@ -20,7 +20,6 @@ export const CreateItemAccordion: React.FC<CreateItemAccordionProps> = ({
     children,
 }) => {
     const theme = useTheme();
-    console.log(theme);
     const classes = useStyles(isExpanded, disabled);
 
     return (

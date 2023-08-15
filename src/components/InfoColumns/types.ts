@@ -1,0 +1,18 @@
+import React from 'react';
+
+export interface InfoColumn {
+    label: string;
+    text: string | React.ReactElement;
+    icon?: string;
+    columnXs?: number;
+}
+
+export type InfoRow = InfoColumn[];
+
+export interface InfoColumnsProps {
+    infoRows: InfoRow[];
+}
+
+export interface InfoColumnsAccordionProps extends InfoColumnsProps {
+    title: string;
+}

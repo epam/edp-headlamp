@@ -1,6 +1,7 @@
 export enum ICONS {
     PENCIL = 'ci:edit',
     PLUS = 'akar-icons:plus',
+    MINUS = 'akar-icons:minus',
     DOCUMENT_ADD = 'carbon:document-add',
     THREE_DOTS = 'mi:options-vertical',
     ARROW_DOWN = 'dashicons:arrow-down-alt2',
