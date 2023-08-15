@@ -41,7 +41,7 @@ export const PageView = () => {
 
     return (
         <PageWithSubMenu list={menu}>
-            <PageWrapper containerMaxWidth={'md'}>
+            <PageWrapper containerMaxWidth={'lg'}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Typography variant={'h5'} gutterBottom>

@@ -1,5 +1,10 @@
+import { RootState } from '@kinvolk/headlamp-plugin/lib/redux/stores/store';
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { Render } from './components/Render';
+
+const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const Logo = props => {
     return (
@@ -10,6 +15,7 @@ export const Logo = props => {
             x={0}
             y={0}
             style={{
+                display: 'block',
                 enableBackground: 'new 0 0 1024 1024',
                 width: '30px',
             }}
@@ -87,14 +93,24 @@ export const Logo = props => {
 };
 
 export const LogoWithText = () => {
+    const sidebar = useTypedSelector(state => state.ui.sidebar);
+    const isSidebarOpen = sidebar.isSidebarOpen;
+
     return (
-        <Grid container spacing={2} alignItems={'center'}>
-            <Grid item>
+        <>
+            <Render condition={isSidebarOpen}>
+                <Grid container spacing={2} alignItems={'center'} wrap={'nowrap'}>
+                    <Grid item>
+                        <Logo />
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="h6">EDP Portal</Typography>
+                    </Grid>
+                </Grid>
+            </Render>
+            <Render condition={!isSidebarOpen}>
                 <Logo />
-            </Grid>
-            <Grid item>
-                <Typography variant="h6">EDP Portal</Typography>
-            </Grid>
-        </Grid>
+            </Render>
+        </>
     );
 };

@@ -4,10 +4,13 @@ import React from 'react';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { rem } from '../../utils/styling/rem';
 
+// TODO rollback styles when new ui is available
+
 const headerHeight = 64;
 const tabMenuHeight = 65;
-const sidebarOpenWidth = 240;
+const sidebarOpenWidth = 330;
 const sidebarClosedWidth = 73;
+const subMenuWidth = 240;
 
 const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useStyles = () => {
@@ -36,14 +39,16 @@ export const useStyles = () => {
         subMenu: {
             '& .MuiDrawer-paper': {
                 left: rem(subMenuLeftOffset),
-                top: rem(subMenuExtraHeight),
+                top: rem(subMenuExtraHeight + 10),
                 bottom: 0,
-                minWidth: rem(sidebarOpenWidth),
+                minWidth: rem(subMenuWidth),
                 padding: `${rem(30)} ${rem(20)}`,
                 transition: theme.transitions.create('left', {
                     easing: theme.transitions.easing.sharp,
                     duration: theme.transitions.duration.enteringScreen,
                 }),
+                backgroundColor: 'inherit',
+                borderRight: 'none',
             },
         },
         subMenuAndContentWrapper: {
@@ -52,7 +57,11 @@ export const useStyles = () => {
             gap: rem(20),
         },
         subMenuWrapper: {
-            width: rem(sidebarOpenWidth),
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            width: sidebar.isSidebarOpen ? rem(subMenuWidth / 2) : 0,
             flexShrink: 0,
         },
         contentWrapper: {

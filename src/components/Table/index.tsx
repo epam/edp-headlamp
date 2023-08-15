@@ -11,6 +11,8 @@ import { usePagination } from './hooks/usePagination';
 import { useReadyData } from './hooks/useReadyData';
 import { TableProps } from './types';
 
+// TODO rollback file when new ui is available
+
 export const Table = <DataType extends unknown>({
     data,
     columns,
@@ -69,7 +71,7 @@ export const Table = <DataType extends unknown>({
     }, [data, readyData]);
 
     return (
-        <Paper variant={'outlined'}>
+        <Paper elevation={0}>
             <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
                 <colgroup>
                     {handleSelectRowClick ? <col key={'select-checkbox'} width={'4%'} /> : null}
