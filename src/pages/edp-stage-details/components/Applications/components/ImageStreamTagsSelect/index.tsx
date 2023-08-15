@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { createImageStreamTags } from '../../../../../../k8s/EDPCodebaseImageStream/utils/createImageStreamTags';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { SelectOption } from '../../../../../../types/forms';
 import { ImageStreamTagsSelectProps } from './types';
@@ -17,36 +18,10 @@ export const ImageStreamTagsSelect = ({
         register,
     } = useFormContext();
 
-    const imageStreamTagsOptions: SelectOption[] = React.useMemo(() => {
-        let base =
-            applicationImageStream && applicationImageStream?.spec?.tags
-                ? applicationImageStream?.spec?.tags.map(({ name }) => ({
-                      label: name,
-                      value: name,
-                  }))
-                : [];
-
-        if (applicationImageStream && applicationImageStream?.spec?.tags) {
-            const latestTagValue = applicationImageStream?.spec?.tags.at(-1).name;
-            const latest = {
-                label: `[LATEST] - ${latestTagValue}`,
-                value: `latest::${latestTagValue}`,
-            };
-
-            base = [latest, ...base];
-        }
-
-        if (applicationVerifiedImageStream && applicationVerifiedImageStream?.spec?.tags) {
-            const verified = applicationVerifiedImageStream?.spec?.tags.map(({ name }) => ({
-                label: `[STABLE] - ${name}`,
-                value: `stable::${name}`,
-            }));
-
-            base = [...verified, ...base];
-        }
-
-        return base;
-    }, [applicationImageStream, applicationVerifiedImageStream]);
+    const imageStreamTagsOptions: SelectOption[] = React.useMemo(
+        () => createImageStreamTags(applicationImageStream, applicationVerifiedImageStream),
+        [applicationImageStream, applicationVerifiedImageStream]
+    );
 
     return (
         <div style={{ width: '100%' }}>
