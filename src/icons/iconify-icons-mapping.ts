@@ -33,6 +33,8 @@ export enum ICONS {
     KIBANA = 'simple-icons:kibana',
     KUBERNETES = 'simple-icons:kubernetes',
     SONAR = 'simple-icons:sonarsource',
+    DEFECT = 'fluent-mdl2:defect-solid',
+    JIRA = 'fontisto:jira',
     JENKINS = 'fluent-mdl2:jenkins-logo',
     DOC = 'bxs:book',
     DOC_PAGE = 'basil:document-outline',

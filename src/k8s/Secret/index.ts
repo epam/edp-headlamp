@@ -3,7 +3,7 @@ import { KubeObjectListInterface } from '../../types/k8s';
 import { streamResults } from '../common/streamResults';
 import { SecretKubeObjectConfig } from './config';
 import { ARGO_CD_SECRET_LABEL_SECRET_TYPE, SECRET_LABEL_SECRET_TYPE } from './labels';
-import { SecretKubeObjectInterface, StreamRegistrySecretsProps } from './types';
+import { SecretKubeObjectInterface, StreamSecretsProps } from './types';
 
 const {
     name: { pluralForm },
@@ -23,7 +23,7 @@ export class SecretKubeObject extends K8s.secret.default {
         namespace,
         dataHandler,
         errorHandler,
-    }: StreamRegistrySecretsProps): () => void {
+    }: StreamSecretsProps): () => void {
         const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
         return streamResults(url, dataHandler, errorHandler, {
             labelSelector: `${SECRET_LABEL_SECRET_TYPE}=registry`,
@@ -34,7 +34,7 @@ export class SecretKubeObject extends K8s.secret.default {
         namespace,
         dataHandler,
         errorHandler,
-    }: StreamRegistrySecretsProps): () => void {
+    }: StreamSecretsProps): () => void {
         const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
         return streamResults(url, dataHandler, errorHandler, {
             labelSelector: `${SECRET_LABEL_SECRET_TYPE}=sonar`,
@@ -45,10 +45,32 @@ export class SecretKubeObject extends K8s.secret.default {
         namespace,
         dataHandler,
         errorHandler,
-    }: StreamRegistrySecretsProps): () => void {
+    }: StreamSecretsProps): () => void {
         const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
         return streamResults(url, dataHandler, errorHandler, {
             labelSelector: `${SECRET_LABEL_SECRET_TYPE}=nexus`,
+        });
+    }
+
+    static streamDefectDojoIntegrationSecrets({
+        namespace,
+        dataHandler,
+        errorHandler,
+    }: StreamSecretsProps): () => void {
+        const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
+        return streamResults(url, dataHandler, errorHandler, {
+            labelSelector: `${SECRET_LABEL_SECRET_TYPE}=defectdojo`,
+        });
+    }
+
+    static streamJiraIntegrationSecrets({
+        namespace,
+        dataHandler,
+        errorHandler,
+    }: StreamSecretsProps): () => void {
+        const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
+        return streamResults(url, dataHandler, errorHandler, {
+            labelSelector: `${SECRET_LABEL_SECRET_TYPE}=jira`,
         });
     }
 }
