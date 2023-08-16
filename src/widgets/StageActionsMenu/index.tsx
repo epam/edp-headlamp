@@ -14,9 +14,10 @@ import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../CreateEditStage/constants';
 import { CreateEditStageDialogForwardedProps } from '../CreateEditStage/types';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
 import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
+import { StageActionsMenuProps } from './types';
 import { createDeleteAction } from './utils';
 
-export const StageActionsMenu = ({ stages }) => {
+export const StageActionsMenu = ({ stages, CDPipelineData }: StageActionsMenuProps) => {
     const { setDialog } = useDialogContext();
 
     const { anchorEl, data, handleCloseResourceActionListMenu } =
@@ -30,6 +31,7 @@ export const StageActionsMenu = ({ stages }) => {
             mode: FORM_MODES.EDIT,
             otherStages: stages,
             ciTool: defaultCITool,
+            CDPipelineData,
         };
 
         const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
@@ -63,7 +65,7 @@ export const StageActionsMenu = ({ stages }) => {
                 });
             }),
         ];
-    }, [data, stages, defaultCITool, handleCloseResourceActionListMenu, setDialog]);
+    }, [data, stages, defaultCITool, CDPipelineData, handleCloseResourceActionListMenu, setDialog]);
 
     return (
         <KubeObjectActions

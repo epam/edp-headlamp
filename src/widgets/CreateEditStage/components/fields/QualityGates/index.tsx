@@ -6,8 +6,10 @@ import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../components/Render';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { useAutotestsWithBranches } from '../../../../../k8s/EDPCodebase/hooks/useAutotestsWithBranches';
+import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
+import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../constants';
 import { STAGE_FORM_NAMES } from '../../../names';
-import { CreateEditStageFormValues } from '../../../types';
+import { CreateEditStageDialogForwardedProps, CreateEditStageFormValues } from '../../../types';
 import { QualityGateRow } from './components/QualityGateRow';
 import { QualityGate } from './types';
 import {
@@ -29,6 +31,12 @@ export const QualityGates = () => {
     const theme: DefaultTheme = useTheme();
 
     const { resetField, watch, setValue } = useFormContext<CreateEditStageFormValues>();
+
+    const {
+        forwardedProps: { CDPipelineData },
+    } = useSpecificDialogContext<CreateEditStageDialogForwardedProps>(
+        CREATE_EDIT_STAGE_DIALOG_NAME
+    );
 
     const qualityGatesFieldValue = watch(STAGE_FORM_NAMES.qualityGates.name);
 
@@ -84,7 +92,9 @@ export const QualityGates = () => {
         [resetField, setNewQualityGates]
     );
 
-    const autotestsWithBranchesOptions = useAutotestsWithBranches();
+    const autotestsWithBranchesOptions = useAutotestsWithBranches(
+        CDPipelineData?.metadata.namespace
+    );
 
     return (
         <>

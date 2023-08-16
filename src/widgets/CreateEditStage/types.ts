@@ -7,7 +7,7 @@ export type CreateEditStageFormValues = FormValues<typeof STAGE_FORM_NAMES>;
 
 export interface CreateEditStageDialogForwardedProps {
     mode: FormMode;
-    CDPipelineData?: EDPCDPipelineKubeObjectInterface;
+    CDPipelineData: EDPCDPipelineKubeObjectInterface;
     ciTool: string;
     otherStages: EDPCDPipelineStageKubeObjectInterface[];
     stage?: EDPCDPipelineStageKubeObjectInterface;

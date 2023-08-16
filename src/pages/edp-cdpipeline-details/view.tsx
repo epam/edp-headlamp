@@ -88,7 +88,7 @@ export const PageView = () => {
                     <Grid item xs={12}>
                         <ResourceActionListContextProvider>
                             <StageList />
-                            <StageActionsMenu stages={stages} />
+                            <StageActionsMenu stages={stages} CDPipelineData={CDPipeline} />
                         </ResourceActionListContextProvider>
                     </Grid>
                 </Grid>

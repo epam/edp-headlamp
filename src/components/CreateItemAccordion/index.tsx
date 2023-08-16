@@ -1,12 +1,5 @@
 import { Icon } from '@iconify/react';
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Grid,
-    Typography,
-    useTheme,
-} from '@material-ui/core';
+import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useStyles } from './styles';
@@ -19,7 +12,6 @@ export const CreateItemAccordion: React.FC<CreateItemAccordionProps> = ({
     disabled,
     children,
 }) => {
-    const theme = useTheme();
     const classes = useStyles(isExpanded, disabled);
 
     return (

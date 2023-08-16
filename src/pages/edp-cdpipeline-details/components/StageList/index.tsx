@@ -6,6 +6,7 @@ import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../widgets/CreateEditStage/constants';
 import { CreateEditStageDialogForwardedProps } from '../../../../widgets/CreateEditStage/types';
+import { useCDPipelineContext } from '../../providers/CDPipeline/hooks';
 import { useCDPipelineStagesContext } from '../../providers/CDPipelineStages/hooks';
 import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
 import { TableHeaderActions } from '../TableHeaderActions';
@@ -16,6 +17,7 @@ export const StageList = () => {
     const classes = useStyles();
     const columns = useColumns(classes);
     const { stages } = useCDPipelineStagesContext();
+    const { CDPipeline } = useCDPipelineContext();
 
     const { setDialog } = useDialogContext();
 
@@ -26,8 +28,9 @@ export const StageList = () => {
             mode: FORM_MODES.CREATE,
             ciTool: enrichedApplications?.[0]?.application.spec.ciTool,
             otherStages: stages,
+            CDPipelineData: CDPipeline,
         }),
-        [enrichedApplications, stages]
+        [CDPipeline, enrichedApplications, stages]
     );
 
     return (

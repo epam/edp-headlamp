@@ -6,6 +6,7 @@ import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { StageActionsMenu } from '../../../../widgets/StageActionsMenu';
+import { useCDPipelineQueryContext } from '../../providers/CDPipelineQuery/hooks';
 import { useCDPipelineStagesQueryContext } from '../../providers/CDPipelineStagesQuery/hooks';
 import { StageActionsProps } from './types';
 
@@ -14,6 +15,8 @@ export const StageActions = ({ stage }: StageActionsProps) => {
     const { handleOpenResourceActionListMenu } =
         useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
     const buttonRef = React.createRef<HTMLButtonElement>();
+
+    const { CDPipelineQuery } = useCDPipelineQueryContext();
 
     return (
         <>
@@ -27,7 +30,10 @@ export const StageActions = ({ stage }: StageActionsProps) => {
                 </IconButton>
             </Tooltip>
             <Render condition={!!stagesQuery.data}>
-                <StageActionsMenu stages={stagesQuery.data?.items} />
+                <StageActionsMenu
+                    stages={stagesQuery.data?.items}
+                    CDPipelineData={CDPipelineQuery?.data}
+                />
             </Render>
         </>
     );
