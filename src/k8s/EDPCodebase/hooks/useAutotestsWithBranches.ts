@@ -1,5 +1,6 @@
 import React from 'react';
 import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
+import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { AutotestWithBranchesOption } from '../../../widgets/CreateEditStage/components/fields/QualityGates/types';
 import { EDPCodebaseBranchKubeObject } from '../../EDPCodebaseBranch';
 import { useCodebasesByTypeLabelQuery } from './useCodebasesByTypeLabelQuery';
@@ -9,12 +10,15 @@ export const useAutotestsWithBranches = (namespace: string): AutotestWithBranche
         AutotestWithBranchesOption[]
     >([]);
 
+    const _namespace = namespace || getDefaultNamespace();
+
     useCodebasesByTypeLabelQuery({
         props: {
             codebaseType: CODEBASE_TYPES.AUTOTEST,
-            namespace,
+            namespace: _namespace,
         },
         options: {
+            cacheTime: 0,
             onSuccess: async data => {
                 if (!data) {
                     return;
@@ -23,7 +27,7 @@ export const useAutotestsWithBranches = (namespace: string): AutotestWithBranche
                     data?.items.map(async ({ metadata: { name } }) => {
                         const { items: autotestsBranches } =
                             await EDPCodebaseBranchKubeObject.getListByCodebaseName(
-                                namespace,
+                                _namespace,
                                 name
                             );
                         const branchesNames = autotestsBranches.map(el => el.spec.branchName);

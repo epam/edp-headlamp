@@ -6,6 +6,7 @@ import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks'
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../constants';
 import { STAGE_FORM_NAMES } from '../../../names';
 import { CreateEditStageDialogForwardedProps } from '../../../types';
+import { DEFAULT_QUALITY_GATE } from '../../fields/QualityGates/constants';
 
 export const useDefaultValues = () => {
     const {
@@ -24,6 +25,7 @@ export const useDefaultValues = () => {
             [STAGE_FORM_NAMES.sourceLibraryName.name]: 'default',
             [STAGE_FORM_NAMES.sourceType.name]: 'default',
             [STAGE_FORM_NAMES.cluster.name]: DEFAULT_CLUSTER,
+            [STAGE_FORM_NAMES.qualityGates.name]: [DEFAULT_QUALITY_GATE],
         }),
         [stagesQuantity]
     );

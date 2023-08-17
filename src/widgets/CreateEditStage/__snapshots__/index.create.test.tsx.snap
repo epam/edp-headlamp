@@ -554,7 +554,23 @@ exports[`renders CreateEditStage Create component 1`] = `
                       </div>
                       <div
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
-                      />
+                      >
+                        <button
+                          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+                          style="min-width: 0;"
+                          tabindex="0"
+                          type="button"
+                        >
+                          <span
+                            class="MuiButton-label"
+                          >
+                            <span />
+                          </span>
+                          <span
+                            class="MuiTouchRipple-root"
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -577,34 +593,6 @@ exports[`renders CreateEditStage Create component 1`] = `
                     class="MuiTouchRipple-root"
                   />
                 </button>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <div
-                  class="MuiPaper-root MuiAlert-root MuiAlert-outlinedInfo MuiPaper-elevation0"
-                  role="alert"
-                >
-                  <div
-                    class="MuiAlert-icon"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    class="MuiAlert-message"
-                  >
-                    Add at least one quality gate
-                  </div>
-                </div>
               </div>
             </div>
           </div>

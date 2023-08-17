@@ -11,21 +11,13 @@ import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../constants';
 import { STAGE_FORM_NAMES } from '../../../names';
 import { CreateEditStageDialogForwardedProps, CreateEditStageFormValues } from '../../../types';
 import { QualityGateRow } from './components/QualityGateRow';
-import { QualityGate } from './types';
+import { DEFAULT_QUALITY_GATE } from './constants';
 import {
     createQualityGateAutotestFieldName,
     createQualityGateStepNameFieldName,
     createQualityGateTypeAutotestsBranchFieldName,
     createQualityGateTypeFieldName,
 } from './utils';
-
-const createQualityGateBase = (idx: number): QualityGate => ({
-    id: idx,
-    qualityGateType: 'manual',
-    stepName: '',
-    autotestName: null,
-    branchName: null,
-});
 
 export const QualityGates = () => {
     const theme: DefaultTheme = useTheme();
@@ -40,56 +32,31 @@ export const QualityGates = () => {
 
     const qualityGatesFieldValue = watch(STAGE_FORM_NAMES.qualityGates.name);
 
-    const [qualityGates, setQualityGates] = React.useState<QualityGate[]>([
-        createQualityGateBase(0),
-    ]);
-
-    const setNewQualityGates = React.useCallback(
-        (newQualityGates: QualityGate[]): void => {
-            const newQualityGatesValue = newQualityGates.map(
-                ({ qualityGateType, stepName, autotestName, branchName }) => ({
-                    qualityGateType,
-                    stepName,
-                    autotestName,
-                    branchName,
-                })
-            );
-
-            setValue(STAGE_FORM_NAMES.qualityGates.name, newQualityGatesValue);
-        },
-        [setValue]
-    );
-
     const handleAddApplicationRow = React.useCallback(() => {
-        setQualityGates(prev => {
-            const newQualityGates = [...prev, createQualityGateBase(qualityGates.length + 1)];
-
-            setNewQualityGates(newQualityGates);
-
-            return newQualityGates;
-        });
-    }, [qualityGates.length, setNewQualityGates]);
+        setValue(STAGE_FORM_NAMES.qualityGates.name, [
+            ...qualityGatesFieldValue,
+            DEFAULT_QUALITY_GATE,
+        ]);
+    }, [qualityGatesFieldValue, setValue]);
 
     const handleRemoveApplicationRow = React.useCallback(
-        (idx: number) => {
-            setQualityGates(prev => {
-                const newQualityGates = prev.filter(el => el.id !== idx);
-
-                setNewQualityGates(newQualityGates);
-
-                // @ts-ignore
-                resetField(createQualityGateTypeFieldName(idx));
-                // @ts-ignore
-                resetField(createQualityGateStepNameFieldName(idx));
-                // @ts-ignore
-                resetField(createQualityGateAutotestFieldName(idx));
-                // @ts-ignore
-                resetField(createQualityGateTypeAutotestsBranchFieldName(idx));
-
-                return newQualityGates;
-            });
+        (rowIdx: number) => {
+            setValue(
+                STAGE_FORM_NAMES.qualityGates.name,
+                qualityGatesFieldValue.filter((el, qualityGateArrayIdx) => {
+                    return qualityGateArrayIdx !== rowIdx;
+                })
+            );
+            // @ts-ignore
+            resetField(createQualityGateTypeFieldName(rowIdx));
+            // @ts-ignore
+            resetField(createQualityGateStepNameFieldName(rowIdx));
+            // @ts-ignore
+            resetField(createQualityGateAutotestFieldName(rowIdx));
+            // @ts-ignore
+            resetField(createQualityGateTypeAutotestsBranchFieldName(rowIdx));
         },
-        [resetField, setNewQualityGates]
+        [qualityGatesFieldValue, resetField, setValue]
     );
 
     const autotestsWithBranchesOptions = useAutotestsWithBranches(
@@ -104,8 +71,8 @@ export const QualityGates = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
-                        {qualityGates.map(el => {
-                            const key = el.id;
+                        {qualityGatesFieldValue.map((el, idx) => {
+                            const key = `quality-gate-row::${idx}`;
 
                             return (
                                 <React.Fragment key={key}>
@@ -117,31 +84,24 @@ export const QualityGates = () => {
                                                         autotestsWithBranchesOptions={
                                                             autotestsWithBranchesOptions
                                                         }
-                                                        currentQualityGateData={el}
-                                                        setQualityGates={setQualityGates}
-                                                        setNewQualityGates={setNewQualityGates}
-                                                        qualityGates={qualityGates}
+                                                        currentQualityGateIdx={idx}
                                                     />
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={1}>
-                                                <Render condition={el.id !== 0}>
-                                                    <Button
-                                                        type={'button'}
-                                                        size={'small'}
-                                                        component={'button'}
-                                                        style={{ minWidth: 0 }}
-                                                        onClick={() =>
-                                                            handleRemoveApplicationRow(el.id)
-                                                        }
-                                                    >
-                                                        <Icon
-                                                            icon={ICONS['BUCKET']}
-                                                            width={20}
-                                                            color={theme.palette.grey['500']}
-                                                        />
-                                                    </Button>
-                                                </Render>
+                                                <Button
+                                                    type={'button'}
+                                                    size={'small'}
+                                                    component={'button'}
+                                                    style={{ minWidth: 0 }}
+                                                    onClick={() => handleRemoveApplicationRow(idx)}
+                                                >
+                                                    <Icon
+                                                        icon={ICONS['BUCKET']}
+                                                        width={20}
+                                                        color={theme.palette.grey['500']}
+                                                    />
+                                                </Button>
                                             </Grid>
                                         </Grid>
                                     </Grid>
