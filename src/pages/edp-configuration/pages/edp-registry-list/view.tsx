@@ -91,7 +91,7 @@ export const PageView = () => {
 
     const kanikoDockerConfigSecret = secrets.kanikoDockerConfig;
     const regcredSecret = secrets.regcred;
-    const secretsArray = [kanikoDockerConfigSecret, regcredSecret];
+    const secretsArray = [kanikoDockerConfigSecret, regcredSecret].filter(Boolean);
 
     const creationDisabled = React.useMemo(() => {
         if (kanikoDockerConfigSecret === null && regcredSecret === null) {

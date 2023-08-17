@@ -457,9 +457,9 @@ exports[`renders CreateEditStage Create component 1`] = `
                                           >
                                             <div
                                               aria-haspopup="listbox"
-                                              aria-labelledby="mui-component-select-quality-gate-type-0"
+                                              aria-labelledby="mui-component-select-quality-gate-type-123456789"
                                               class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
-                                              id="mui-component-select-quality-gate-type-0"
+                                              id="mui-component-select-quality-gate-type-123456789"
                                               role="button"
                                               tabindex="0"
                                             >
@@ -468,7 +468,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                                             <input
                                               aria-hidden="true"
                                               class="MuiSelect-nativeInput"
-                                              name="quality-gate-type-0"
+                                              name="quality-gate-type-123456789"
                                               tabindex="-1"
                                               value="manual"
                                             />
@@ -535,7 +535,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                                               <input
                                                 aria-invalid="false"
                                                 class="MuiInputBase-input MuiInput-input"
-                                                name="quality-gate-step-name-0"
+                                                name="quality-gate-step-name-123456789"
                                                 placeholder="Enter step name"
                                                 type="text"
                                                 value=""

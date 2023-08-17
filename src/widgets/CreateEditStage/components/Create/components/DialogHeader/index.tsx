@@ -27,7 +27,16 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
         const usedValues = getUsedValues(formValues, STAGE_FORM_NAMES);
         const newCDPipelineData = createCDPipelineStageInstance(
             STAGE_FORM_NAMES,
-            usedValues,
+            {
+                ...usedValues,
+                // removing unnecessary ID used in form
+                qualityGates: usedValues.qualityGates.map(el => ({
+                    qualityGateType: el.qualityGateType,
+                    stepName: el.stepName,
+                    autotestName: el.autotestName,
+                    branchName: el.branchName,
+                })),
+            },
             CDPipelineData
         );
         setEditorData(newCDPipelineData);

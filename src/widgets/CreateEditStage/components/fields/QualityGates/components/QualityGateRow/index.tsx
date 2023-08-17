@@ -18,7 +18,7 @@ import { QualityGateRowProps } from './types';
 
 export const QualityGateRow = ({
     autotestsWithBranchesOptions,
-    currentQualityGateIdx,
+    currentQualityGate,
 }: QualityGateRowProps) => {
     const {
         register,
@@ -29,15 +29,18 @@ export const QualityGateRow = ({
         setValue,
     } = useFormContext<CreateEditStageFormValues>();
 
+    const allValues = watch();
+    console.log(allValues);
+
     const qualityGatesFieldValue = watch(STAGE_FORM_NAMES.qualityGates.name);
 
     const currentQualityGateTypeFieldValue = watch(
         // @ts-ignore
-        createQualityGateTypeFieldName(currentQualityGateIdx)
+        createQualityGateTypeFieldName(currentQualityGate.id)
     ) as unknown as string;
     const currentQualityGateAutotestFieldValue = watch(
         // @ts-ignore
-        createQualityGateAutotestFieldName(currentQualityGateIdx)
+        createQualityGateAutotestFieldName(currentQualityGate.id)
     ) as unknown as string;
 
     const availableQualityGateTypeSelectOptions = React.useMemo(() => {
@@ -70,15 +73,15 @@ export const QualityGateRow = ({
 
             if (chosenQualityGateType === QUALITY_GATE_TYPES.MANUAL) {
                 // @ts-ignore
-                resetField(createQualityGateAutotestFieldName(currentQualityGateIdx));
+                resetField(createQualityGateAutotestFieldName(currentQualityGate.id));
                 resetField(
                     // @ts-ignore
-                    createQualityGateTypeAutotestsBranchFieldName(currentQualityGateIdx)
+                    createQualityGateTypeAutotestsBranchFieldName(currentQualityGate.id)
                 );
             }
 
-            const newQualityGates = qualityGatesFieldValue.map((qualityGate, qualityGateIdx) => {
-                if (qualityGateIdx !== currentQualityGateIdx) {
+            const newQualityGates = qualityGatesFieldValue.map(qualityGate => {
+                if (qualityGate.id !== currentQualityGate.id) {
                     return qualityGate;
                 }
 
@@ -99,15 +102,15 @@ export const QualityGateRow = ({
 
             setValue(STAGE_FORM_NAMES.qualityGates.name, newQualityGates);
         },
-        [currentQualityGateIdx, qualityGatesFieldValue, resetField, setValue]
+        [currentQualityGate.id, qualityGatesFieldValue, resetField, setValue]
     );
 
     const handleChangeQualityGateStepName = React.useCallback(
         event => {
             const chosenQualityGateStepName = event.target.value;
 
-            const newQualityGates = qualityGatesFieldValue.map((qualityGate, qualityGateIdx) => {
-                if (qualityGateIdx !== currentQualityGateIdx) {
+            const newQualityGates = qualityGatesFieldValue.map(qualityGate => {
+                if (qualityGate.id !== currentQualityGate.id) {
                     return qualityGate;
                 }
 
@@ -119,17 +122,17 @@ export const QualityGateRow = ({
 
             setValue(STAGE_FORM_NAMES.qualityGates.name, newQualityGates);
         },
-        [currentQualityGateIdx, qualityGatesFieldValue, setValue]
+        [currentQualityGate.id, qualityGatesFieldValue, setValue]
     );
 
     const handleChangeQualityGateAutotestName = React.useCallback(
         event => {
             const chosenQualityGateAutotest = event.target.value;
             // @ts-ignore
-            resetField(createQualityGateTypeAutotestsBranchFieldName(currentQualityGateIdx));
+            resetField(createQualityGateTypeAutotestsBranchFieldName(currentQualityGate.id));
 
-            const newQualityGates = qualityGatesFieldValue.map((qualityGate, qualityGateIdx) => {
-                if (qualityGateIdx !== currentQualityGateIdx) {
+            const newQualityGates = qualityGatesFieldValue.map(qualityGate => {
+                if (qualityGate.id !== currentQualityGate.id) {
                     return qualityGate;
                 }
 
@@ -141,15 +144,15 @@ export const QualityGateRow = ({
 
             setValue(STAGE_FORM_NAMES.qualityGates.name, newQualityGates);
         },
-        [currentQualityGateIdx, qualityGatesFieldValue, resetField, setValue]
+        [currentQualityGate.id, qualityGatesFieldValue, resetField, setValue]
     );
 
     const handleChangeQualityGateAutotestBranchName = React.useCallback(
         event => {
             const chosenQualityGateAutotestsBranch = event.target.value;
 
-            const newQualityGates = qualityGatesFieldValue.map((qualityGate, qualityGateIdx) => {
-                if (qualityGateIdx !== currentQualityGateIdx) {
+            const newQualityGates = qualityGatesFieldValue.map(qualityGate => {
+                if (qualityGate.id !== currentQualityGate.id) {
                     return qualityGate;
                 }
 
@@ -161,7 +164,7 @@ export const QualityGateRow = ({
 
             setValue(STAGE_FORM_NAMES.qualityGates.name, newQualityGates);
         },
-        [currentQualityGateIdx, qualityGatesFieldValue, setValue]
+        [currentQualityGate.id, qualityGatesFieldValue, setValue]
     );
 
     const availableAutotests = React.useMemo(
@@ -236,7 +239,7 @@ export const QualityGateRow = ({
                         <FormSelect
                             {...register(
                                 // @ts-ignore
-                                createQualityGateTypeFieldName(currentQualityGateIdx),
+                                createQualityGateTypeFieldName(currentQualityGate.id),
                                 {
                                     onChange: handleChangeQualityGateType,
                                 }
@@ -245,7 +248,7 @@ export const QualityGateRow = ({
                             placeholder={'Select quality gate type'}
                             control={control}
                             errors={errors}
-                            defaultValue={'manual'}
+                            defaultValue={currentQualityGate.qualityGateType}
                             options={availableQualityGateTypeSelectOptions}
                         />
                     </Grid>
@@ -253,7 +256,7 @@ export const QualityGateRow = ({
                         <FormTextField
                             {...register(
                                 // @ts-ignore
-                                createQualityGateStepNameFieldName(currentQualityGateIdx),
+                                createQualityGateStepNameFieldName(currentQualityGate.id),
                                 {
                                     required: 'Enter step name',
                                     onChange: handleChangeQualityGateStepName,
@@ -276,7 +279,7 @@ export const QualityGateRow = ({
                                 <FormSelect
                                     {...register(
                                         // @ts-ignore
-                                        createQualityGateAutotestFieldName(currentQualityGateIdx),
+                                        createQualityGateAutotestFieldName(currentQualityGate.id),
                                         {
                                             onChange: handleChangeQualityGateAutotestName,
                                         }
@@ -299,7 +302,7 @@ export const QualityGateRow = ({
                                     {...register(
                                         // @ts-ignore
                                         createQualityGateTypeAutotestsBranchFieldName(
-                                            currentQualityGateIdx
+                                            currentQualityGate.id
                                         ),
                                         {
                                             onChange: handleChangeQualityGateAutotestBranchName,

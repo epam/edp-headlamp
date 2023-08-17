@@ -2,11 +2,14 @@
  * @jest-environment jsdom
  */
 
+import { jest } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
 import { CreateEditStage } from './index';
 import { CreateEditStageDialogForwardedProps } from './types';
+
+jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
 const mockEditForwardedProps: CreateEditStageDialogForwardedProps = {
     mode: 'edit',

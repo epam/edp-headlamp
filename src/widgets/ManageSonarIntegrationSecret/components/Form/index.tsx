@@ -8,15 +8,18 @@ import { Secret, User } from '../fields';
 
 export const Form = () => {
     const {
-        formData: { isReadOnly },
+        formData: { currentElement, isReadOnly },
     } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
+
+    const owner =
+        currentElement !== 'placeholder' && currentElement?.metadata?.ownerReferences?.[0].kind;
 
     return (
         <Grid container spacing={2}>
             <Render condition={isReadOnly}>
                 <Grid item xs={12}>
                     <Alert severity="info" variant="outlined">
-                        Managed by External Secret
+                        Managed by {owner}
                     </Alert>
                 </Grid>
             </Render>

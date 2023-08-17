@@ -3,6 +3,7 @@ import { Button, Grid, Typography, useTheme } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
 import { Render } from '../../../../../components/Render';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { useAutotestsWithBranches } from '../../../../../k8s/EDPCodebase/hooks/useAutotestsWithBranches';
@@ -12,6 +13,7 @@ import { STAGE_FORM_NAMES } from '../../../names';
 import { CreateEditStageDialogForwardedProps, CreateEditStageFormValues } from '../../../types';
 import { QualityGateRow } from './components/QualityGateRow';
 import { DEFAULT_QUALITY_GATE } from './constants';
+import { QualityGate } from './types';
 import {
     createQualityGateAutotestFieldName,
     createQualityGateStepNameFieldName,
@@ -35,26 +37,29 @@ export const QualityGates = () => {
     const handleAddApplicationRow = React.useCallback(() => {
         setValue(STAGE_FORM_NAMES.qualityGates.name, [
             ...qualityGatesFieldValue,
-            DEFAULT_QUALITY_GATE,
+            {
+                ...DEFAULT_QUALITY_GATE,
+                id: uuidv4(),
+            },
         ]);
     }, [qualityGatesFieldValue, setValue]);
 
     const handleRemoveApplicationRow = React.useCallback(
-        (rowIdx: number) => {
+        qualityGateIdx => {
             setValue(
                 STAGE_FORM_NAMES.qualityGates.name,
-                qualityGatesFieldValue.filter((el, qualityGateArrayIdx) => {
-                    return qualityGateArrayIdx !== rowIdx;
+                qualityGatesFieldValue.filter(el => {
+                    return el.id !== qualityGateIdx;
                 })
             );
             // @ts-ignore
-            resetField(createQualityGateTypeFieldName(rowIdx));
+            resetField(createQualityGateTypeFieldName(qualityGateIdx));
             // @ts-ignore
-            resetField(createQualityGateStepNameFieldName(rowIdx));
+            resetField(createQualityGateStepNameFieldName(qualityGateIdx));
             // @ts-ignore
-            resetField(createQualityGateAutotestFieldName(rowIdx));
+            resetField(createQualityGateAutotestFieldName(qualityGateIdx));
             // @ts-ignore
-            resetField(createQualityGateTypeAutotestsBranchFieldName(rowIdx));
+            resetField(createQualityGateTypeAutotestsBranchFieldName(qualityGateIdx));
         },
         [qualityGatesFieldValue, resetField, setValue]
     );
@@ -71,8 +76,8 @@ export const QualityGates = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
-                        {qualityGatesFieldValue.map((el, idx) => {
-                            const key = `quality-gate-row::${idx}`;
+                        {(qualityGatesFieldValue as QualityGate[]).map(el => {
+                            const key = `quality-gate-row::${el.id}`;
 
                             return (
                                 <React.Fragment key={key}>
@@ -84,7 +89,7 @@ export const QualityGates = () => {
                                                         autotestsWithBranchesOptions={
                                                             autotestsWithBranchesOptions
                                                         }
-                                                        currentQualityGateIdx={idx}
+                                                        currentQualityGate={el}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -94,7 +99,9 @@ export const QualityGates = () => {
                                                     size={'small'}
                                                     component={'button'}
                                                     style={{ minWidth: 0 }}
-                                                    onClick={() => handleRemoveApplicationRow(idx)}
+                                                    onClick={() =>
+                                                        handleRemoveApplicationRow(el.id)
+                                                    }
                                                 >
                                                     <Icon
                                                         icon={ICONS['BUCKET']}

@@ -50,7 +50,16 @@ export const FormActions = () => {
             const usedValues = getUsedValues(values, STAGE_FORM_NAMES);
             const CDPipelineStageData = createCDPipelineStageInstance(
                 STAGE_FORM_NAMES,
-                usedValues,
+                {
+                    ...usedValues,
+                    // removing unnecessary ID used in form
+                    qualityGates: usedValues.qualityGates.map(el => ({
+                        qualityGateType: el.qualityGateType,
+                        stepName: el.stepName,
+                        autotestName: el.autotestName,
+                        branchName: el.branchName,
+                    })),
+                },
                 CDPipelineData
             );
             if (customHandleApply) {

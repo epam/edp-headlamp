@@ -1,6 +1,6 @@
-import { AutotestWithBranchesOption } from '../../types';
+import { AutotestWithBranchesOption, QualityGate } from '../../types';
 
 export interface QualityGateRowProps {
     autotestsWithBranchesOptions: AutotestWithBranchesOption[];
-    currentQualityGateIdx: number;
+    currentQualityGate: QualityGate;
 }
