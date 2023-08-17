@@ -15,9 +15,9 @@ A Helm chart for EDP Headlamp
 
 ## Source Code
 
+* <https://github.com/epam/edp-headlamp>
 * <https://github.com/kinvolk/headlamp>
 * <https://kinvolk.io/>
-* <https://github.com/epam/edp-headlamp>
 
 ## Values
 

@@ -5,7 +5,7 @@ name: edp-headlamp
 type: application
 version: 0.7.0-SNAPSHOT
 appVersion: 0.7.0-SNAPSHOT
-icon: https://raw.githubusercontent.com/kinvolk/headlamp/main/docs/headlamp_light.svg
+icon: https://epam.github.io/edp-install/assets/logo.png
 keywords:
   - edp
   - kubernetes
@@ -19,9 +19,9 @@ maintainers:
   - name: sergk
     url: https://github.com/SergK
 sources:
+  - https://github.com/epam/edp-headlamp
   - https://github.com/kinvolk/headlamp
   - https://kinvolk.io/
-  - https://github.com/epam/edp-headlamp
 annotations:
   artifacthub.io/license: Apache-2.0
   artifacthub.io/operator: "true"
