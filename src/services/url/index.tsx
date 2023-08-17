@@ -122,6 +122,19 @@ export const GENERATE_URL_SERVICE = {
 
         return tektonPipelineRunURLObject.href;
     },
+    createTektonTaskRunLink: (tektonURLOrigin: string, namespace: string, taskRunName: string) => {
+        if (!tektonURLOrigin) {
+            return;
+        }
+
+        const tektonURLObject = createURLObjectFromURLOrigin(tektonURLOrigin);
+        const tektonPipelineRunURLObject = new URL(
+            `/#/namespaces/${namespace}/taskruns/${taskRunName}`,
+            tektonURLObject
+        );
+
+        return tektonPipelineRunURLObject.href;
+    },
     createJenkinsPipelineLink: (jenkinsURLOrigin: string, pipelineName: string) => {
         if (!jenkinsURLOrigin) {
             return;

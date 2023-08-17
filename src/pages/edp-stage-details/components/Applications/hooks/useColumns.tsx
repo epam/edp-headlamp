@@ -1,5 +1,6 @@
+import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Link as MuiLink } from '@material-ui/core';
+import { Grid, Link as MuiLink, Tooltip, useTheme } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { StatusIcon } from '../../../../../components/StatusIcon';
@@ -10,6 +11,7 @@ import {
     CODEBASE_COMMON_LANGUAGES,
 } from '../../../../../configs/codebase-mappings';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
+import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import {
     APPLICATION_LABEL_SELECTOR_APP_NAME,
     APPLICATION_LABEL_SELECTOR_PIPELINE,
@@ -30,6 +32,7 @@ export const useColumns = (
     ) => void,
     selected: string[]
 ): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
+    const theme = useTheme();
     const { namespace } = useParams<EDPStageDetailsRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
     const _createArgoCDLink = React.useCallback(
@@ -120,11 +123,25 @@ export const useColumns = (
                         : argoApplication?.spec?.source?.targetRevision?.split('/').at(-1);
 
                     return argoApplication ? (
-                        <>
+                        <Tooltip
+                            title={
+                                <Grid container alignItems={'center'} spacing={1}>
+                                    <Grid item>Open in ArgoCD</Grid>
+                                    <span> </span>
+                                    <Grid item>
+                                        <Icon
+                                            icon={ICONS.NEW_WINDOW}
+                                            color={theme.palette.grey['500']}
+                                            width="15"
+                                        />
+                                    </Grid>
+                                </Grid>
+                            }
+                        >
                             <MuiLink href={_createArgoCDLink(argoApplication)} target={'_blank'}>
                                 {deployedVersion}
                             </MuiLink>
-                        </>
+                        </Tooltip>
                     ) : (
                         'No deploy'
                     );
@@ -147,6 +164,6 @@ export const useColumns = (
                 },
             },
         ],
-        [_createArgoCDLink, handleSelectRowClick, selected]
+        [_createArgoCDLink, handleSelectRowClick, selected, theme.palette.grey]
     );
 };

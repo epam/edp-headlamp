@@ -51,6 +51,8 @@ export const useQualityGatesGraphData = (
                 el => el.metadata.labels['tekton.dev/pipelineTask'] === 'init-autotest'
             );
 
+        console.log(initAutotestTaskRun);
+
         const promoteTaskRun =
             taskRunList &&
             taskRunList.length &&
@@ -62,6 +64,13 @@ export const useQualityGatesGraphData = (
             {
                 id: 'node::prepare',
                 status: parseTektonResourceStatus(initAutotestTaskRun),
+                url:
+                    initAutotestTaskRun &&
+                    GENERATE_URL_SERVICE.createTektonTaskRunLink(
+                        EDPComponentsURLS?.tekton,
+                        initAutotestTaskRun?.metadata?.namespace,
+                        initAutotestTaskRun?.metadata?.name
+                    ),
                 title: 'prepare',
                 height: 35,
                 width: 150,
@@ -70,6 +79,13 @@ export const useQualityGatesGraphData = (
             {
                 id: 'node::promote',
                 status: parseTektonResourceStatus(promoteTaskRun),
+                url:
+                    promoteTaskRun &&
+                    GENERATE_URL_SERVICE.createTektonTaskRunLink(
+                        EDPComponentsURLS?.tekton,
+                        promoteTaskRun?.metadata?.namespace,
+                        promoteTaskRun?.metadata?.name
+                    ),
                 title: 'promote',
                 height: 35,
                 width: 150,
@@ -77,7 +93,7 @@ export const useQualityGatesGraphData = (
             },
             ...extraNodes,
         ];
-    }, [extraNodes, taskRunList]);
+    }, [EDPComponentsURLS?.tekton, extraNodes, taskRunList]);
 
     const edges = React.useMemo(() => {
         const initAutotestTaskRun =

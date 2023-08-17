@@ -28,12 +28,12 @@ export const useStyles = () => {
     }, [isMobile, isSmallSideBar, sidebar.isSidebarOpen]);
 
     const subMenuLeftOffset = React.useMemo(() => {
-        if (sidebar.isSidebarOpen) {
-            return sidebarOpenWidth;
-        } else {
+        if (!(!isSmallSideBar && (sidebar.isSidebarOpen || isMobile))) {
             return sidebarClosedWidth;
+        } else {
+            return sidebarOpenWidth;
         }
-    }, [sidebar.isSidebarOpen]);
+    }, [isMobile, isSmallSideBar, sidebar.isSidebarOpen]);
 
     return makeStyles(() => ({
         subMenu: {
@@ -61,7 +61,7 @@ export const useStyles = () => {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
             }),
-            width: sidebar.isSidebarOpen ? rem(subMenuWidth / 2) : 0,
+            width: sidebar.isSidebarOpen ? rem(subMenuWidth) : 0,
             flexShrink: 0,
         },
         contentWrapper: {
