@@ -7,7 +7,7 @@
 ### {{ .Title }}
 
 {{ range .Commits -}}
-- {{ .Subject }} [{{ .Scope }}](https://jiraeu.epam.com/browse/{{ .Scope }})
+- {{ if .Scope }}**{{ .Scope }}:** {{ end }}{{ .Subject }}
 {{ end }}
 {{ end -}}
 {{ end -}}
@@ -20,7 +20,7 @@
 ### {{ .Title }}
 
 {{ range .Commits -}}
-- {{ .Subject }} [{{ .Scope }}](https://jiraeu.epam.com/browse/{{ .Scope }})
+- {{ if .Scope }}**{{ .Scope }}:** {{ end }}{{ .Subject }}
 {{ end }}
 {{ end -}}
 
@@ -29,6 +29,13 @@
 
 {{ range .RevertCommits -}}
 - {{ .Revert.Header }}
+{{ end }}
+{{ end -}}
+
+{{- if .MergeCommits -}}
+### Pull Requests
+{{ range .MergeCommits -}}
+- {{ .Header }}
 {{ end }}
 {{ end -}}
 

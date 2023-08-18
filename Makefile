@@ -39,9 +39,9 @@ test: node_modules	## test code
 .PHONY: changelog
 changelog: $(GITCHGLOG)	## generate changelog
 ifneq (${NEXT_RELEASE_TAG},)
-	$(GITCHGLOG) --next-tag v${NEXT_RELEASE_TAG} -o CHANGELOG.md v0.1.0..
+	$(GITCHGLOG) --next-tag v${NEXT_RELEASE_TAG} -o CHANGELOG.md v0.7.0..
 else
-	$(GITCHGLOG) -o CHANGELOG.md v0.1.0..
+	$(GITCHGLOG) -o CHANGELOG.md v0.7.0..
 endif
 
 .PHONY: validate-docs
