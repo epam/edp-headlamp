@@ -7,13 +7,12 @@ import {
     registerRoute,
     registerSidebarEntry,
 } from '@kinvolk/headlamp-plugin/lib';
-import { DocLink } from './components/DocLink';
-import { URL_EDP_HEADLAMP_USER_GUIDE } from './constants/urls';
 import { LogoWithText } from './Logo';
 import routes from './routes';
 import { SIDEBAR_LIST } from './routes/sidebar-list';
+import { HelpMenu } from './widgets/HelpMenu';
 
-const additionalActions = [<DocLink href={URL_EDP_HEADLAMP_USER_GUIDE} isDocRootPage />];
+const additionalActions = [<HelpMenu />];
 
 class EDPHeadlampPlugin extends Plugin {
     initialize() {

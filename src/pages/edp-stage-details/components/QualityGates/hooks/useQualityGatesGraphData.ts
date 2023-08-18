@@ -51,8 +51,6 @@ export const useQualityGatesGraphData = (
                 el => el.metadata.labels['tekton.dev/pipelineTask'] === 'init-autotest'
             );
 
-        console.log(initAutotestTaskRun);
-
         const promoteTaskRun =
             taskRunList &&
             taskRunList.length &&

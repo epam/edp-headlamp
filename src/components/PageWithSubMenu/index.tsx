@@ -34,7 +34,7 @@ export const PageWithSubMenu: React.FC<PageWithSubMenuProps> = ({ list, children
                                 icon
                             >
                                 <ListItemIcon>
-                                    <Icon icon={icon} width={20} />
+                                    <Icon icon={icon} width={20} height={20} />
                                 </ListItemIcon>
                                 <ListItemText style={{ margin: 0 }}>
                                     <Typography

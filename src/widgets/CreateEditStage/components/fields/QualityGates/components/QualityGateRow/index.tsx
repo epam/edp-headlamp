@@ -29,9 +29,6 @@ export const QualityGateRow = ({
         setValue,
     } = useFormContext<CreateEditStageFormValues>();
 
-    const allValues = watch();
-    console.log(allValues);
-
     const qualityGatesFieldValue = watch(STAGE_FORM_NAMES.qualityGates.name);
 
     const currentQualityGateTypeFieldValue = watch(

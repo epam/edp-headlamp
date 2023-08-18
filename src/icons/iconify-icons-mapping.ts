@@ -50,4 +50,7 @@ export enum ICONS {
     CLOUD_LOCK = 'mdi:cloud-lock-outline',
     SEARCH = 'material-symbols:search',
     NEXUS = 'clarity:archive-line',
+    HELP = 'material-symbols:help',
+    CHAT = 'material-symbols:chat-outline',
+    NEW_ISSUE = 'pajamas:issue-new',
 }
