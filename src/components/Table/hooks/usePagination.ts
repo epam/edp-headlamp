@@ -145,7 +145,7 @@ function usePageURLState(
     return [zeroIndexPage, setZeroIndexPage];
 }
 
-function getTablesRowsPerPage(defaultRowsPerPage: number = 5) {
+function getTablesRowsPerPage(defaultRowsPerPage: number = 15) {
     const perPageStr = localStorage.getItem('tables_rows_per_page');
     if (!perPageStr) {
         return defaultRowsPerPage;
