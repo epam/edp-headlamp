@@ -12,7 +12,7 @@ import React from 'react';
 import { CreateItemAccordion } from '../../../../components/CreateItemAccordion';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
-import { URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVERS } from '../../../../constants/urls';
+import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
@@ -45,7 +45,10 @@ export const PageView = () => {
                         </Typography>
                         <Typography variant={'body1'}>
                             {GIT_SERVER_LIST_PAGE_DESCRIPTION.description}{' '}
-                            <Link href={URL_EDP_HEADLAMP_USER_GUIDE_GIT_SERVERS} target={'_blank'}>
+                            <Link
+                                href={EDP_USER_GUIDE.GIT_SERVER_MANAGE.anchors.VIEW_DATA.url}
+                                target={'_blank'}
+                            >
                                 <Typography variant={'body2'} component={'span'}>
                                     Learn more.
                                 </Typography>

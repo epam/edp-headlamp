@@ -3,7 +3,7 @@ import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { DocLink } from '../../../../components/DocLink';
 import { EmptyList } from '../../../../components/EmptyList';
-import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../../../constants/urls';
+import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { streamCodebaseBranchesByCodebaseLabel } from '../../../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
@@ -69,7 +69,9 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
                                 <Typography variant={'h5'}>Branches</Typography>
                             </Grid>
                             <Grid item>
-                                <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS} />
+                                <DocLink
+                                    href={EDP_USER_GUIDE.BRANCHES_MANAGE.anchors.ADD_BRANCH.url}
+                                />
                             </Grid>
                         </Grid>
                     }

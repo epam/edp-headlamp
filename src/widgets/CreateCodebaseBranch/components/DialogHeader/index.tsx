@@ -3,7 +3,7 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { DocLink } from '../../../../components/DocLink';
-import { URL_EDP_HEADLAMP_USER_GUIDE_BRANCH_ADD } from '../../../../constants/urls';
+import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { createCodebaseBranchInstance } from '../../../../k8s/EDPCodebaseBranch/utils/createCodebaseBranchInstance';
 import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
@@ -45,7 +45,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
                         <Typography variant={'h5'}>Create New Branch</Typography>
                     </Grid>
                     <Grid item>
-                        <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_BRANCH_ADD} />
+                        <DocLink href={EDP_USER_GUIDE.BRANCHES_MANAGE.anchors.ADD_BRANCH.url} />
                     </Grid>
                 </Grid>
             </Grid>

@@ -4,7 +4,7 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { DocLink } from '../../components/DocLink';
 import { PageWrapper } from '../../components/PageWrapper';
-import { URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES } from '../../constants/urls';
+import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { useDialogContext } from '../../providers/Dialog/hooks';
@@ -34,7 +34,11 @@ export const PageView = () => {
                                 <Typography variant={'h5'}>Environments</Typography>
                             </Grid>
                             <Grid item>
-                                <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES} />
+                                <DocLink
+                                    href={
+                                        EDP_USER_GUIDE.CD_PIPELINE_CREATE.anchors.CREATE_VIA_UI.url
+                                    }
+                                />
                             </Grid>
                         </Grid>
                     }

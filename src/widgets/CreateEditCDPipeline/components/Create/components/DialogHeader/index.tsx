@@ -3,7 +3,7 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { DocLink } from '../../../../../../components/DocLink';
-import { URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES } from '../../../../../../constants/urls';
+import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { createCDPipelineInstance } from '../../../../../../k8s/EDPCDPipeline/utils/createCDPipelineInstance';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
@@ -30,7 +30,9 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
                         <Typography variant={'h5'}>Create CD Pipeline</Typography>
                     </Grid>
                     <Grid item>
-                        <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINES} />
+                        <DocLink
+                            href={EDP_USER_GUIDE.CD_PIPELINE_CREATE.anchors.CREATE_VIA_UI.url}
+                        />
                     </Grid>
                 </Grid>
             </Grid>

@@ -56,7 +56,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                   <a
                     aria-disabled="false"
                     class="MuiButtonBase-root MuiIconButton-root"
-                    href="https://epam.github.io/edp-install/headlamp-user-guide/add-cd-pipeline/"
+                    href="https://epam.github.io/edp-install/headlamp-user-guide/add-cd-pipeline/#create-cd-pipeline-in-the-dialog"
                     tabindex="0"
                     target="_blank"
                   >

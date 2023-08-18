@@ -1,7 +1,7 @@
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { DocLink } from '../../../../../../components/DocLink';
-import { URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINE_EDIT } from '../../../../../../constants/urls';
+import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../../constants';
 import { CreateEditCDPipelineDialogForwardedProps } from '../../../../types';
@@ -23,7 +23,7 @@ export const DialogHeader = () => {
                         >{`Edit ${CDPipelineData?.metadata.name}`}</Typography>
                     </Grid>
                     <Grid item>
-                        <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_CD_PIPELINE_EDIT} />
+                        <DocLink href={EDP_USER_GUIDE.CD_PIPELINE_MANAGE.anchors.EDIT.url} />
                     </Grid>
                 </Grid>
             </Grid>

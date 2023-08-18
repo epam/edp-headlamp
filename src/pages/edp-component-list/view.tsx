@@ -6,7 +6,7 @@ import { DocLink } from '../../components/DocLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
-import { URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS } from '../../constants/urls';
+import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { useDialogContext } from '../../providers/Dialog/hooks';
@@ -42,7 +42,12 @@ export const PageView = () => {
                                 <Typography variant={'h5'}>Components</Typography>
                             </Grid>
                             <Grid item>
-                                <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_APPLICATIONS} />
+                                <DocLink
+                                    href={
+                                        EDP_USER_GUIDE.APPLICATION_MANAGE.anchors.CHECK_AND_REMOVE
+                                            .url
+                                    }
+                                />
                             </Grid>
                         </Grid>
                     }

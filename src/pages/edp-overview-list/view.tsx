@@ -3,7 +3,7 @@ import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { DocLink } from '../../components/DocLink';
 import { PageWrapper } from '../../components/PageWrapper';
-import { URL_EDP_HEADLAMP_USER_GUIDE_OVERVIEW } from '../../constants/urls';
+import { EDP_USER_GUIDE } from '../../constants/urls';
 import { EDPComponentKubeObject } from '../../k8s/EDPComponent';
 import { EDPComponentKubeObjectInterface } from '../../k8s/EDPComponent/types';
 import { rem } from '../../utils/styling/rem';
@@ -33,7 +33,7 @@ export const PageView = () => {
                                     <Typography variant={'h5'}>Overview</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_OVERVIEW} />
+                                    <DocLink href={EDP_USER_GUIDE.OVERVIEW.url} />
                                 </Grid>
                             </Grid>
                         }

@@ -4,11 +4,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { DocLink } from '../../../../../../../../components/DocLink';
 import { CODEBASE_TYPES } from '../../../../../../../../constants/codebaseTypes';
-import {
-    URL_EDP_HEADLAMP_USER_GUIDE_APPLICATION_ADD,
-    URL_EDP_HEADLAMP_USER_GUIDE_AUTOTEST_ADD,
-    URL_EDP_HEADLAMP_USER_GUIDE_LIBRARY_ADD,
-} from '../../../../../../../../constants/urls';
+import { EDP_USER_GUIDE } from '../../../../../../../../constants/urls';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { createCodebaseInstance } from '../../../../../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
 import { capitalizeFirstLetter } from '../../../../../../../../utils/format/capitalizeFirstLetter';
@@ -33,13 +29,15 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
     const docLink = React.useMemo(() => {
         switch (typeFieldValue) {
             case CODEBASE_TYPES.APPLICATION:
-                return URL_EDP_HEADLAMP_USER_GUIDE_APPLICATION_ADD;
+                return EDP_USER_GUIDE.APPLICATION_CREATE.url;
             case CODEBASE_TYPES.AUTOTEST:
-                return URL_EDP_HEADLAMP_USER_GUIDE_AUTOTEST_ADD;
+                return EDP_USER_GUIDE.AUTOTEST_CREATE.url;
             case CODEBASE_TYPES.LIBRARY:
-                return URL_EDP_HEADLAMP_USER_GUIDE_LIBRARY_ADD;
+                return EDP_USER_GUIDE.LIBRARY_CREATE.url;
+            case CODEBASE_TYPES.INFRASTRUCTURE:
+                return EDP_USER_GUIDE.INFRASTRUCTURE_CREATE.url;
             default:
-                return URL_EDP_HEADLAMP_USER_GUIDE_APPLICATION_ADD;
+                return EDP_USER_GUIDE.APPLICATION_CREATE.url;
         }
     }, [typeFieldValue]);
 

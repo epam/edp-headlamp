@@ -3,7 +3,7 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { DocLink } from '../../../../../../components/DocLink';
-import { URL_EDP_HEADLAMP_USER_GUIDE_STAGE_ADD } from '../../../../../../constants/urls';
+import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { createCDPipelineStageInstance } from '../../../../../../k8s/EDPCDPipelineStage/utils/createCDPipelineStageInstance';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
@@ -52,7 +52,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
                         >{`Create stage for "${CDPipelineData?.metadata.name}"`}</Typography>
                     </Grid>
                     <Grid item>
-                        <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_STAGE_ADD} />
+                        <DocLink href={EDP_USER_GUIDE.CD_PIPELINE_MANAGE.anchors.ADD_STAGE.url} />
                     </Grid>
                 </Grid>
             </Grid>

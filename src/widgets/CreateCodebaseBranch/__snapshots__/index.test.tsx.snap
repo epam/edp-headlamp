@@ -56,7 +56,7 @@ exports[`renders CreateCodebaseBranch component 1`] = `
                   <a
                     aria-disabled="false"
                     class="MuiButtonBase-root MuiIconButton-root"
-                    href="https://epam.github.io/edp-install/headlamp-user-guide/application/#add-a-new-branch"
+                    href="https://epam.github.io/edp-install/headlamp-user-guide/manage-branches/#add-new-branch"
                     tabindex="0"
                     target="_blank"
                   >

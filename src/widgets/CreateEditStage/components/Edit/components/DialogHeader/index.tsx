@@ -1,7 +1,7 @@
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { DocLink } from '../../../../../../components/DocLink';
-import { URL_EDP_HEADLAMP_USER_GUIDE_STAGE_EDIT } from '../../../../../../constants/urls';
+import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';
 import { CreateEditStageDialogForwardedProps } from '../../../../types';
@@ -21,7 +21,7 @@ export const DialogHeader = () => {
                         <Typography variant={'h5'}>{`Edit ${stage?.metadata.name}`}</Typography>
                     </Grid>
                     <Grid item>
-                        <DocLink href={URL_EDP_HEADLAMP_USER_GUIDE_STAGE_EDIT} />
+                        <DocLink href={EDP_USER_GUIDE.CD_PIPELINE_MANAGE.anchors.EDIT_STAGE.url} />
                     </Grid>
                 </Grid>
             </Grid>

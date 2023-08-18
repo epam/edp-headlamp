@@ -14,7 +14,7 @@ import { CreateItemAccordion } from '../../../../components/CreateItemAccordion'
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { Render } from '../../../../components/Render';
-import { URL_EDP_HEADLAMP_USER_GUIDE } from '../../../../constants/urls';
+import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { ARGO_CD_SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
@@ -49,7 +49,10 @@ export const PageView = () => {
                         </Typography>
                         <Typography variant={'body1'}>
                             {CLUSTER_LIST_PAGE_DESCRIPTION.description}{' '}
-                            <Link href={URL_EDP_HEADLAMP_USER_GUIDE} target={'_blank'}>
+                            <Link
+                                href={EDP_USER_GUIDE.MANAGE_CLUSTER.anchors.VIEW_DATA.url}
+                                target={'_blank'}
+                            >
                                 <Typography variant={'body2'} component={'span'}>
                                     Learn more.
                                 </Typography>
