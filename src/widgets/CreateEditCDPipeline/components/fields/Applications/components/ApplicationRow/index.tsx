@@ -200,7 +200,9 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
                                     handleChangeApplicationToPromote({ name, value }),
                             }
                         )}
-                        defaultValue={CDPipelineData?.spec.applicationsToPromote.includes(appName)}
+                        defaultValue={CDPipelineData?.spec?.applicationsToPromote?.includes(
+                            appName
+                        )}
                         label={<FormControlLabelWithTooltip label={'Promote in pipeline'} />}
                         control={control}
                         errors={errors}

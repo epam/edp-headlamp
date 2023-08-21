@@ -13,8 +13,6 @@ export const ViewModeContextProvider: React.FC<ViewModeContextProviderProps> = (
             VIEW_MODES.TABLE
     );
 
-    console.log(viewMode);
-
     const handleChangeViewMode = React.useCallback(
         (viewMode: ViewMode) => {
             LOCAL_STORAGE_SERVICE.setItem(`VIEW_MODE::${entityID}`, viewMode);

@@ -3,7 +3,7 @@ import { UseQueryOptions } from 'react-query';
 import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
 import { KubeObjectListInterface } from '../../../types/k8s';
 import { EDPCDPipelineKubeObjectInterface } from '../../EDPCDPipeline/types';
-import { useCodebaseImageStreamListQuery } from '../../EDPCodebaseImageStream/hooks/useCodebaseImageStreamListQuery';
+import { EDPCodebaseImageStreamKubeObject } from '../../EDPCodebaseImageStream';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../EDPCodebaseImageStream/types';
 import { EDPCodebaseKubeObjectInterface } from '../types';
 import { useCodebasesByTypeLabelQuery } from './useCodebasesByTypeLabelQuery';
@@ -47,13 +47,8 @@ export const useEnrichedApplicationsWithImageStreamsQuery = ({
         [normalizedInputDockerStreamNames]
     );
 
-    const { data: codebaseImageStreams } = useCodebaseImageStreamListQuery({
-        props: {
-            namespace: CDPipelineData?.metadata.namespace,
-        },
-        options: {
-            enabled: !!CDPipelineData?.metadata.namespace,
-        },
+    const [codebaseImageStreams] = EDPCodebaseImageStreamKubeObject.useList({
+        namespace: CDPipelineData?.metadata.namespace,
     });
 
     return useCodebasesByTypeLabelQuery<EnrichedApplicationWithItsImageStreams[]>({
@@ -63,6 +58,7 @@ export const useEnrichedApplicationsWithImageStreamsQuery = ({
         },
         options: {
             enabled: !!codebaseImageStreams,
+            cacheTime: 0,
             select: data => {
                 return data?.items
                     .map(el => {
@@ -74,10 +70,9 @@ export const useEnrichedApplicationsWithImageStreamsQuery = ({
                             return;
                         }
 
-                        const codebaseImageStreamsByCodebaseName =
-                            codebaseImageStreams?.items.filter(
-                                ({ spec: { codebase } }) => codebase === name
-                            );
+                        const codebaseImageStreamsByCodebaseName = codebaseImageStreams?.filter(
+                            ({ spec: { codebase } }) => codebase === name
+                        );
 
                         const applicationImageStream =
                             codebaseImageStreamsByCodebaseName &&

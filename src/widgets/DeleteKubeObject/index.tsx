@@ -46,8 +46,6 @@ export const DeleteKubeObject = () => {
         DELETE_KUBE_OBJECT_DIALOG_NAME
     );
 
-    console.log(isDetailsPage);
-
     const [errorTemplate, setErrorTemplate] = React.useState<React.ReactNode | string>(null);
     const [loadingActive, setLoadingActive] = React.useState<boolean>(false);
     const { register, handleSubmit, watch, reset } = useForm();
@@ -79,8 +77,6 @@ export const DeleteKubeObject = () => {
                 kubeObjectData,
             });
             reset();
-
-            console.log(isDetailsPage);
 
             if (isDetailsPage) {
                 history.goBack();
