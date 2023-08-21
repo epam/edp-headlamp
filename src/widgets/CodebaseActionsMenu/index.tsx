@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { KubeObjectActions } from '../../components/KubeObjectActions';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
@@ -16,12 +15,12 @@ import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
 import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
 import { CodebaseCDPipelineConflictError } from './components/CodebaseCDPipelineConflictError';
 import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
+import { CodebaseActionsMenuProps } from './types';
 
-export const CodebaseActionsMenu = () => {
-    const history = useHistory();
+export const CodebaseActionsMenu = ({ isDetailsPage }: CodebaseActionsMenuProps) => {
     const { setDialog } = useDialogContext();
 
-    const { data, anchorEl, isDetailsPage, handleCloseResourceActionListMenu } =
+    const { data, anchorEl, handleCloseResourceActionListMenu } =
         useResourceActionListContext<EDPCodebaseKubeObjectInterface>();
 
     const conflictedCDPipeline = useConflictedCDPipeline(data);
@@ -45,14 +44,6 @@ export const CodebaseActionsMenu = () => {
         [conflictedCDPipeline, data]
     );
 
-    const onSuccess = React.useCallback(() => {
-        if (!isDetailsPage) {
-            return;
-        }
-
-        history.goBack();
-    }, [history, isDetailsPage]);
-
     const actions: KubeObjectAction[] = React.useMemo(() => {
         const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps = {
             codebaseData: data,
@@ -65,7 +56,7 @@ export const CodebaseActionsMenu = () => {
             kubeObjectData: data,
             description: `Confirm the deletion of the codebase with all its components`,
             onBeforeSubmit,
-            onSuccess,
+            isDetailsPage,
         };
 
         return [
@@ -92,7 +83,7 @@ export const CodebaseActionsMenu = () => {
                 },
             }),
         ];
-    }, [data, handleCloseResourceActionListMenu, onBeforeSubmit, onSuccess, setDialog]);
+    }, [data, handleCloseResourceActionListMenu, isDetailsPage, onBeforeSubmit, setDialog]);
 
     return (
         <KubeObjectActions

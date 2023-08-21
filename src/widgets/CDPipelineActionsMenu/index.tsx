@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { KubeObjectActions } from '../../components/KubeObjectActions';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
@@ -14,21 +13,13 @@ import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../CreateEditCDPipeline/con
 import { CreateEditCDPipelineDialogForwardedProps } from '../CreateEditCDPipeline/types';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
 import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
+import { CDPipelineActionsMenuProps } from './types';
 
-export const CDPipelineActionsMenu = () => {
-    const history = useHistory();
+export const CDPipelineActionsMenu = ({ isDetailsPage }: CDPipelineActionsMenuProps) => {
     const { setDialog } = useDialogContext();
 
-    const { data, anchorEl, isDetailsPage, handleCloseResourceActionListMenu } =
+    const { data, anchorEl, handleCloseResourceActionListMenu } =
         useResourceActionListContext<EDPCDPipelineKubeObjectInterface>();
-
-    const onSuccess = React.useCallback(() => {
-        if (!isDetailsPage) {
-            return;
-        }
-
-        history.goBack();
-    }, [history, isDetailsPage]);
 
     const actions: KubeObjectAction[] = React.useMemo(() => {
         const createEditCDPipelineDialogForwardedProps: CreateEditCDPipelineDialogForwardedProps = {
@@ -41,7 +32,7 @@ export const CDPipelineActionsMenu = () => {
             kubeObject: EDPCDPipelineKubeObject,
             kubeObjectData: data,
             description: `Confirm the deletion of the CD Pipeline with all its components`,
-            onSuccess,
+            isDetailsPage,
         };
 
         return [
@@ -68,7 +59,7 @@ export const CDPipelineActionsMenu = () => {
                 },
             }),
         ];
-    }, [data, onSuccess, handleCloseResourceActionListMenu, setDialog]);
+    }, [data, isDetailsPage, handleCloseResourceActionListMenu, setDialog]);
 
     return (
         <KubeObjectActions

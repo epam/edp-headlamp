@@ -7,7 +7,7 @@ import { useResourceActionListContext } from '../../../../providers/ResourceActi
 import { CodebaseActionsMenu } from '../../../../widgets/CodebaseActionsMenu';
 import { CodebaseActionsProps } from './types';
 
-export const CodebaseActions = ({ codebase }: CodebaseActionsProps) => {
+export const CodebaseActions = ({ codebase, isDetailsPage = false }: CodebaseActionsProps) => {
     const { handleOpenResourceActionListMenu } =
         useResourceActionListContext<EDPCodebaseKubeObjectInterface>();
     const buttonRef = React.createRef<HTMLButtonElement>();
@@ -18,14 +18,12 @@ export const CodebaseActions = ({ codebase }: CodebaseActionsProps) => {
                 <IconButton
                     aria-label={'Actions'}
                     ref={buttonRef}
-                    onClick={() =>
-                        handleOpenResourceActionListMenu(buttonRef.current, codebase, true)
-                    }
+                    onClick={() => handleOpenResourceActionListMenu(buttonRef.current, codebase)}
                 >
                     <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
                 </IconButton>
             </Tooltip>
-            <CodebaseActionsMenu />
+            <CodebaseActionsMenu isDetailsPage={isDetailsPage} />
         </>
     );
 };

@@ -3,7 +3,6 @@ import React from 'react';
 import { EDPKubeObjectInterface } from '../../types/k8s';
 
 export interface DeleteKubeObjectDialogForwardedProps {
-    onSuccess?: () => void;
     description: string;
     objectName: string;
     kubeObject: KubeObject;
@@ -12,4 +11,6 @@ export interface DeleteKubeObjectDialogForwardedProps {
         setErrorTemplate: React.Dispatch<React.SetStateAction<React.ReactNode>>,
         setLoadingActive: React.Dispatch<React.SetStateAction<boolean>>
     ): Promise<void>;
+    isDetailsPage?: boolean;
+    onSuccess?: () => void;
 }

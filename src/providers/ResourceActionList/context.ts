@@ -6,7 +6,6 @@ export const ResourceActionListContext = React.createContext<
 >({
     anchorEl: null,
     data: null,
-    isDetailsPage: false,
     handleOpenResourceActionListMenu: () => {},
     handleCloseResourceActionListMenu: () => {},
 });

@@ -24,7 +24,7 @@ export const StageActions = ({ stage }: StageActionsProps) => {
                 <IconButton
                     aria-label={'Actions'}
                     ref={buttonRef}
-                    onClick={() => handleOpenResourceActionListMenu(buttonRef.current, stage, true)}
+                    onClick={() => handleOpenResourceActionListMenu(buttonRef.current, stage)}
                 >
                     <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
                 </IconButton>

@@ -89,7 +89,7 @@ export const PageView = () => {
                             </Grid>
                             <Grid item>
                                 <ResourceActionListContextProvider>
-                                    <CodebaseActions codebase={component} />
+                                    <CodebaseActions codebase={component} isDetailsPage />
                                 </ResourceActionListContextProvider>
                             </Grid>
                         </Grid>

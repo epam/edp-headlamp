@@ -73,7 +73,7 @@ export const PageView = () => {
                                 <CDPipelineMetadataTable CDPipelineData={CDPipeline} />
                             </Grid>
                             <Grid item>
-                                <CDPipelineActions CDPipeline={CDPipeline} />
+                                <CDPipelineActions CDPipeline={CDPipeline} isDetailsPage />
                             </Grid>
                         </>
                     </Render>

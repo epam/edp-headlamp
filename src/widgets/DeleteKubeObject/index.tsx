@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import { Render } from '../../components/Render';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from './constants';
@@ -27,6 +28,7 @@ const getDialogTitle = (errorTemplate: React.ReactNode, objectName: string): str
         : `Cannot start deleting "${objectName}"`;
 
 export const DeleteKubeObject = () => {
+    const history = useHistory();
     const {
         open,
         forwardedProps: {
@@ -36,12 +38,15 @@ export const DeleteKubeObject = () => {
             kubeObject,
             onBeforeSubmit,
             description,
+            isDetailsPage,
         },
         closeDialog,
         openDialog,
     } = useSpecificDialogContext<DeleteKubeObjectDialogForwardedProps>(
         DELETE_KUBE_OBJECT_DIALOG_NAME
     );
+
+    console.log(isDetailsPage);
 
     const [errorTemplate, setErrorTemplate] = React.useState<React.ReactNode | string>(null);
     const [loadingActive, setLoadingActive] = React.useState<boolean>(false);
@@ -74,6 +79,12 @@ export const DeleteKubeObject = () => {
                 kubeObjectData,
             });
             reset();
+
+            console.log(isDetailsPage);
+
+            if (isDetailsPage) {
+                history.goBack();
+            }
         },
         [
             errorTemplate,
@@ -83,6 +94,8 @@ export const DeleteKubeObject = () => {
             kubeObject,
             kubeObjectData,
             reset,
+            isDetailsPage,
+            history,
         ]
     );
 

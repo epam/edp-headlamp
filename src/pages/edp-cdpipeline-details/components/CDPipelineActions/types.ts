@@ -2,4 +2,5 @@ import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/
 
 export interface CDPipelineActionsProps {
     CDPipeline: EDPCDPipelineKubeObjectInterface;
+    isDetailsPage?: boolean;
 }

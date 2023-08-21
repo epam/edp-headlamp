@@ -5,17 +5,12 @@ import { ResourceActionListContextProviderValue } from './types';
 export const ResourceActionListContextProvider: React.FC = ({ children }) => {
     const [data, setData] = React.useState<unknown>(null);
     const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-    const [isDetailsPage, setIsDetailsPage] = React.useState<boolean>(false);
 
     const handleOpenResourceActionListMenu: ResourceActionListContextProviderValue['handleOpenResourceActionListMenu'] =
         React.useCallback(
-            (anchorEl, kubeObject, isDetailsPage) => {
+            (anchorEl, kubeObject) => {
                 setAnchorEl(anchorEl);
                 setData(kubeObject);
-
-                if (isDetailsPage) {
-                    setIsDetailsPage(true);
-                }
             },
             [setAnchorEl]
         );
@@ -29,7 +24,6 @@ export const ResourceActionListContextProvider: React.FC = ({ children }) => {
             value={{
                 anchorEl,
                 data,
-                isDetailsPage,
                 handleCloseResourceActionListMenu,
                 handleOpenResourceActionListMenu,
             }}
