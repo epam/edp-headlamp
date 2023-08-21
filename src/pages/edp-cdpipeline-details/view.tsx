@@ -1,3 +1,4 @@
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -73,7 +74,10 @@ export const PageView = () => {
                                 <CDPipelineMetadataTable CDPipelineData={CDPipeline} />
                             </Grid>
                             <Grid item>
-                                <CDPipelineActions CDPipeline={CDPipeline} isDetailsPage />
+                                <CDPipelineActions
+                                    CDPipeline={CDPipeline}
+                                    backRoute={Router.createRouteURL(routeEDPCDPipelineList.path)}
+                                />
                             </Grid>
                         </>
                     </Render>

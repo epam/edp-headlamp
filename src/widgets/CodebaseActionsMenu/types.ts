@@ -1,3 +1,3 @@
 export interface CodebaseActionsMenuProps {
-    isDetailsPage?: boolean;
+    backRoute?: string;
 }

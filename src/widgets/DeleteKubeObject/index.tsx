@@ -1,3 +1,4 @@
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import {
     Button,
     CircularProgress,
@@ -38,7 +39,7 @@ export const DeleteKubeObject = () => {
             kubeObject,
             onBeforeSubmit,
             description,
-            isDetailsPage,
+            backRoute,
         },
         closeDialog,
         openDialog,
@@ -78,8 +79,8 @@ export const DeleteKubeObject = () => {
             });
             reset();
 
-            if (isDetailsPage) {
-                history.goBack();
+            if (backRoute) {
+                history.push(Router.createRouteURL(backRoute));
             }
         },
         [
@@ -90,7 +91,7 @@ export const DeleteKubeObject = () => {
             kubeObject,
             kubeObjectData,
             reset,
-            isDetailsPage,
+            backRoute,
             history,
         ]
     );

@@ -1,3 +1,4 @@
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Chip, Grid, Tooltip } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
@@ -89,7 +90,12 @@ export const PageView = () => {
                             </Grid>
                             <Grid item>
                                 <ResourceActionListContextProvider>
-                                    <CodebaseActions codebase={component} isDetailsPage />
+                                    <CodebaseActions
+                                        codebase={component}
+                                        backRoute={Router.createRouteURL(
+                                            routeEDPComponentList.path
+                                        )}
+                                    />
                                 </ResourceActionListContextProvider>
                             </Grid>
                         </Grid>

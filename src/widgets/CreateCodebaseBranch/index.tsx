@@ -13,7 +13,9 @@ import { CreateCodebaseBranchDialogForwardedProps } from './types';
 
 export const CreateCodebaseBranch = () => {
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
-    const [editorData, setEditorData] = React.useState<EDPCodebaseBranchKubeObjectInterface>(null);
+    const [editorData, setEditorData] = React.useState<EDPCodebaseBranchKubeObjectInterface>(
+        {} as EDPCodebaseBranchKubeObjectInterface
+    );
     const {
         open,
         forwardedProps: { codebase: codebaseData },

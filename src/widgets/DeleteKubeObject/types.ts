@@ -11,6 +11,6 @@ export interface DeleteKubeObjectDialogForwardedProps {
         setErrorTemplate: React.Dispatch<React.SetStateAction<React.ReactNode>>,
         setLoadingActive: React.Dispatch<React.SetStateAction<boolean>>
     ): Promise<void>;
-    isDetailsPage?: boolean;
+    backRoute?: string;
     onSuccess?: () => void;
 }

@@ -50,7 +50,9 @@ export const Inner = ({ baseDefaultValues }) => {
     } = useFormContext<CreateCodebaseFormValues>();
 
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
-    const [editorData, setEditorData] = React.useState<EDPCodebaseKubeObjectInterface>(null);
+    const [editorData, setEditorData] = React.useState<EDPCodebaseKubeObjectInterface>(
+        {} as EDPCodebaseKubeObjectInterface
+    );
     const [modalActiveTabIdx, setModalActiveTabIdx] = React.useState<number>(0);
     const [formActiveTabIdx, setFormActiveTabIdx] = React.useState<number>(
         TAB_INDEXES[FORM_PART_CODEBASE_INFO]

@@ -2,5 +2,5 @@ import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/type
 
 export interface CodebaseActionsProps {
     codebase: EDPCodebaseKubeObjectInterface;
-    isDetailsPage?: boolean;
+    backRoute?: string;
 }

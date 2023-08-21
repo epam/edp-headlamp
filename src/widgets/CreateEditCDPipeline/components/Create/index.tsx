@@ -26,7 +26,9 @@ export const Create = () => {
     const classes = useStyles();
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
 
-    const [editorData, setEditorData] = React.useState<EDPCDPipelineKubeObjectInterface>(null);
+    const [editorData, setEditorData] = React.useState<EDPCDPipelineKubeObjectInterface>(
+        {} as EDPCDPipelineKubeObjectInterface
+    );
 
     const [formActiveTabIdx, setFormActiveTabIdx] = React.useState<number>(
         TAB_INDEXES[FORM_PART_PIPELINE]

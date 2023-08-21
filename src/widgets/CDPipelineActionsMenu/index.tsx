@@ -15,7 +15,7 @@ import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
 import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
 import { CDPipelineActionsMenuProps } from './types';
 
-export const CDPipelineActionsMenu = ({ isDetailsPage }: CDPipelineActionsMenuProps) => {
+export const CDPipelineActionsMenu = ({ backRoute }: CDPipelineActionsMenuProps) => {
     const { setDialog } = useDialogContext();
 
     const { data, anchorEl, handleCloseResourceActionListMenu } =
@@ -32,7 +32,7 @@ export const CDPipelineActionsMenu = ({ isDetailsPage }: CDPipelineActionsMenuPr
             kubeObject: EDPCDPipelineKubeObject,
             kubeObjectData: data,
             description: `Confirm the deletion of the CD Pipeline with all its components`,
-            isDetailsPage,
+            backRoute,
         };
 
         return [
@@ -59,7 +59,7 @@ export const CDPipelineActionsMenu = ({ isDetailsPage }: CDPipelineActionsMenuPr
                 },
             }),
         ];
-    }, [data, isDetailsPage, handleCloseResourceActionListMenu, setDialog]);
+    }, [data, backRoute, handleCloseResourceActionListMenu, setDialog]);
 
     return (
         <KubeObjectActions

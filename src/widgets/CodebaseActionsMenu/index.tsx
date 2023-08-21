@@ -17,7 +17,7 @@ import { CodebaseCDPipelineConflictError } from './components/CodebaseCDPipeline
 import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
 import { CodebaseActionsMenuProps } from './types';
 
-export const CodebaseActionsMenu = ({ isDetailsPage }: CodebaseActionsMenuProps) => {
+export const CodebaseActionsMenu = ({ backRoute }: CodebaseActionsMenuProps) => {
     const { setDialog } = useDialogContext();
 
     const { data, anchorEl, handleCloseResourceActionListMenu } =
@@ -56,7 +56,7 @@ export const CodebaseActionsMenu = ({ isDetailsPage }: CodebaseActionsMenuProps)
             kubeObjectData: data,
             description: `Confirm the deletion of the codebase with all its components`,
             onBeforeSubmit,
-            isDetailsPage,
+            backRoute,
         };
 
         return [
@@ -83,7 +83,7 @@ export const CodebaseActionsMenu = ({ isDetailsPage }: CodebaseActionsMenuProps)
                 },
             }),
         ];
-    }, [data, handleCloseResourceActionListMenu, isDetailsPage, onBeforeSubmit, setDialog]);
+    }, [data, handleCloseResourceActionListMenu, backRoute, onBeforeSubmit, setDialog]);
 
     return (
         <KubeObjectActions

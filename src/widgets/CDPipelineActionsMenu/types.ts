@@ -1,3 +1,3 @@
 export interface CDPipelineActionsMenuProps {
-    isDetailsPage?: boolean;
+    backRoute?: string;
 }

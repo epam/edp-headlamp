@@ -9,7 +9,9 @@ import { useDefaultValues } from './hooks/useDefaultValues';
 
 export const Create = () => {
     const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
-    const [editorData, setEditorData] = React.useState<EDPCDPipelineStageKubeObjectInterface>(null);
+    const [editorData, setEditorData] = React.useState<EDPCDPipelineStageKubeObjectInterface>(
+        {} as EDPCDPipelineStageKubeObjectInterface
+    );
 
     const defaultValues = useDefaultValues();
 

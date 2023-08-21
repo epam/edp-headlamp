@@ -7,10 +7,7 @@ import { useResourceActionListContext } from '../../../../providers/ResourceActi
 import { CDPipelineActionsMenu } from '../../../../widgets/CDPipelineActionsMenu';
 import { CDPipelineActionsProps } from './types';
 
-export const CDPipelineActions = ({
-    CDPipeline,
-    isDetailsPage = false,
-}: CDPipelineActionsProps) => {
+export const CDPipelineActions = ({ CDPipeline, backRoute }: CDPipelineActionsProps) => {
     const { handleOpenResourceActionListMenu } =
         useResourceActionListContext<EDPCDPipelineKubeObjectInterface>();
     const buttonRef = React.createRef<HTMLButtonElement>();
@@ -26,7 +23,7 @@ export const CDPipelineActions = ({
                     <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
                 </IconButton>
             </Tooltip>
-            <CDPipelineActionsMenu isDetailsPage={isDetailsPage} />
+            <CDPipelineActionsMenu backRoute={backRoute} />
         </>
     );
 };
