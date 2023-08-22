@@ -1,4 +1,3 @@
-import { Router } from '@kinvolk/headlamp-plugin/lib';
 import {
     Button,
     CircularProgress,
@@ -80,7 +79,7 @@ export const DeleteKubeObject = () => {
             reset();
 
             if (backRoute) {
-                history.push(Router.createRouteURL(backRoute));
+                history.push(backRoute);
             }
         },
         [
