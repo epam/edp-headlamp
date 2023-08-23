@@ -1,6 +1,23 @@
+import { RootState } from '@kinvolk/headlamp-plugin/lib/redux/stores/store';
 import React from 'react';
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { useSettings } from './useSettings';
+// START: This code is a direct copy from headlamp origin
+const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+export const useSettings = (settingName?: string) => {
+    const storeSettingEntries = useTypedSelector(state =>
+        settingName ? state.config.settings[settingName] : state.config.settings
+    );
+    const [settingEntries, setSettingEntries] = React.useState(storeSettingEntries);
+
+    React.useEffect(() => {
+        setSettingEntries(settingEntries);
+    }, [settingEntries, storeSettingEntries]);
+
+    return settingEntries;
+};
+// END: This code is a direct copy from headlamp origin
 
 // START: This code is a direct copy from headlamp origin
 
@@ -145,28 +162,38 @@ function usePageURLState(
     return [zeroIndexPage, setZeroIndexPage];
 }
 
-function getTablesRowsPerPage(defaultRowsPerPage: number = 15) {
-    const perPageStr = localStorage.getItem('tables_rows_per_page');
-    if (!perPageStr) {
-        return defaultRowsPerPage;
-    }
-
-    return parseInt(perPageStr);
-}
-
 // END: This code is a direct copy from headlamp origin
 
-export const usePagination = ({ reflectInURL, prefix, initialPage, rowsPerPage }) => {
+export const usePagination = ({
+    reflectInURL,
+    prefix,
+    initialPage,
+    rowsPerPage,
+    entityName = 'table',
+}) => {
+    console.log(rowsPerPage);
+    const entityRowsPerPageLSKey = `${entityName}_rows_per_page`;
     const [page, setPage] = usePageURLState(reflectInURL ? 'p' : '', prefix, initialPage);
-    const storeRowsPerPageOptions = useSettings('tableRowsPerPageOptions');
+    const storeRowsPerPageOptions = useSettings(entityRowsPerPageLSKey);
 
     const rowsPerPageOptions = rowsPerPage || storeRowsPerPageOptions;
-    const defaultRowsPerPage = React.useMemo(
+    const getTablesRowsPerPage = React.useCallback(
+        (defaultRowsPerPage: number = rowsPerPage) => {
+            const perPageStr = localStorage.getItem(entityRowsPerPageLSKey);
+            if (!perPageStr) {
+                return defaultRowsPerPage;
+            }
+
+            return parseInt(perPageStr);
+        },
+        [rowsPerPage, entityRowsPerPageLSKey]
+    );
+    const _defaultRowsPerPage = React.useMemo(
         () => getTablesRowsPerPage(rowsPerPageOptions[0]),
-        [rowsPerPageOptions]
+        [getTablesRowsPerPage, rowsPerPageOptions]
     );
     const [_rowsPerPage, setRowsPerPage] = useURLState(reflectInURL ? 'perPage' : '', {
-        defaultValue: defaultRowsPerPage,
+        defaultValue: _defaultRowsPerPage,
         prefix,
     });
 
@@ -182,9 +209,9 @@ export const usePagination = ({ reflectInURL, prefix, initialPage, rowsPerPage }
             const numRows = parseInt(event.target.value, 10);
             setRowsPerPage(numRows);
             setPage(0);
-            localStorage.setItem('tables_rows_per_page', numRows.toString());
+            localStorage.setItem(entityRowsPerPageLSKey, numRows.toString());
         },
-        [setPage, setRowsPerPage]
+        [setPage, setRowsPerPage, entityRowsPerPageLSKey]
     );
 
     return React.useMemo(

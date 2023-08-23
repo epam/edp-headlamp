@@ -5,7 +5,6 @@ import { SORT_ORDERS } from './constants';
 
 export interface TableProps<DataType = unknown> {
     isLoading: boolean;
-    error?: unknown;
     data: DataType[];
     columns: readonly TableColumn<DataType>[];
     upperColumns?: readonly TableColumn<DataType>[];
@@ -17,11 +16,11 @@ export interface TableProps<DataType = unknown> {
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
         row: DataType
     ) => void;
+    error?: unknown;
     handleSelectAllClick?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     selected?: string[];
-    searchFunction?: (row: DataType) => boolean;
     isSelected?: (row: DataType) => boolean;
-    filterFunction?: ((...args: any[]) => boolean) | null;
+    filterFunction?: ((...args: DataType[]) => boolean) | null;
     showPagination?: boolean;
     reflectInURL?: boolean;
     initialPage?: number;

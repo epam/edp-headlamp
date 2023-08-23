@@ -1,5 +1,7 @@
+import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { Grid } from '@material-ui/core';
 import React from 'react';
+import { DataGrid } from '../../../../components/DataGrid';
 import { Resources } from '../../../../icons/sprites/Resources';
 import { EDPTemplateKubeObject } from '../../../../k8s/EDPTemplate';
 import { EDPTemplateKubeObjectInterface } from '../../../../k8s/EDPTemplate/types';
@@ -11,8 +13,8 @@ import { TemplatesTable } from './components/TemplatesTable';
 
 export const MarketplaceList = () => {
     const { viewMode } = useViewModeContext();
-    const [data] = EDPTemplateKubeObject.useList();
-
+    const [items, error] = EDPTemplateKubeObject.useList();
+    const filterFunction = Utils.useFilterFunc();
     const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
     const [activeTemplate, setActiveTemplate] =
         React.useState<EDPTemplateKubeObjectInterface>(null);
@@ -56,27 +58,31 @@ export const MarketplaceList = () => {
             />
             {viewMode === VIEW_MODES.TABLE ? (
                 <TemplatesTable
-                    data={data}
+                    data={items}
                     activeTemplate={activeTemplate}
                     handleTemplateClick={handleTemplateClick}
                 />
             ) : viewMode === VIEW_MODES.GRID ? (
-                <Grid container spacing={2}>
-                    {data &&
-                        data.map(item => {
-                            const key = `marketplace-item-${item?.spec?.displayName}`;
+                <DataGrid<EDPTemplateKubeObjectInterface>
+                    data={items}
+                    error={error}
+                    isLoading={items === null}
+                    spacing={2}
+                    filterFunction={filterFunction}
+                    renderItem={item => {
+                        const key = `marketplace-item-${item?.spec?.displayName}`;
 
-                            return (
-                                <Grid key={key} item xs={4}>
-                                    <TemplateCard
-                                        activeTemplate={activeTemplate}
-                                        handleTemplateClick={handleTemplateClick}
-                                        template={item}
-                                    />
-                                </Grid>
-                            );
-                        })}
-                </Grid>
+                        return (
+                            <Grid key={key} item xs={4}>
+                                <TemplateCard
+                                    activeTemplate={activeTemplate}
+                                    handleTemplateClick={handleTemplateClick}
+                                    template={item}
+                                />
+                            </Grid>
+                        );
+                    }}
+                />
             ) : null}
         </>
     );

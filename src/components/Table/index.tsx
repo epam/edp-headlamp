@@ -1,5 +1,6 @@
 import { Paper, Table as MuiTable } from '@material-ui/core';
 import React from 'react';
+import { usePagination } from '../../hooks/usePagination';
 import { ValueOf } from '../../types/global';
 import { rem } from '../../utils/styling/rem';
 import { Render } from '../Render';
@@ -7,7 +8,6 @@ import { TableBody } from './components/TableBody';
 import { TableHead } from './components/TableHead';
 import { TablePagination } from './components/TablePagination';
 import { SORT_ORDERS } from './constants';
-import { usePagination } from './hooks/usePagination';
 import { useReadyData } from './hooks/useReadyData';
 import { TableProps } from './types';
 
@@ -30,7 +30,7 @@ export const Table = <DataType extends unknown>({
     showPagination = true,
     reflectInURL = false,
     initialPage = 0,
-    rowsPerPage = 10,
+    rowsPerPage = 15,
     selected,
 }: TableProps<DataType>) => {
     const prefix = reflectInURL === true ? '' : reflectInURL || '';

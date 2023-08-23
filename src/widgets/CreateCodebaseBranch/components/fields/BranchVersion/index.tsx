@@ -82,6 +82,7 @@ export const BranchVersion = () => {
                     defaultValue={'SNAPSHOT'}
                     control={control}
                     errors={errors}
+                    showLabelPlaceholder
                 />
             </Grid>
         </Grid>
