@@ -9,8 +9,7 @@ export const ViewModeContextProvider: React.FC<ViewModeContextProviderProps> = (
 }) => {
     const [viewMode, setViewMode] = React.useState<ViewMode>(
         () =>
-            (LOCAL_STORAGE_SERVICE.getItem(`VIEW_MODE::${entityID}`) as ViewMode) ||
-            VIEW_MODES.TABLE
+            (LOCAL_STORAGE_SERVICE.getItem(`VIEW_MODE::${entityID}`) as ViewMode) || VIEW_MODES.GRID
     );
 
     const handleChangeViewMode = React.useCallback(

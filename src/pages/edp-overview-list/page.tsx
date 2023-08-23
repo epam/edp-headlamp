@@ -1,6 +1,7 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../../components/ErrorBoundary';
+import { ViewModeContextProvider } from '../../providers/ViewMode';
 import { PageView } from './view';
 
 export default function () {
@@ -17,7 +18,9 @@ export default function () {
     return (
         <QueryClientProvider client={queryClient}>
             <ErrorBoundary>
-                <PageView />
+                <ViewModeContextProvider entityID={'overview'}>
+                    <PageView />
+                </ViewModeContextProvider>
             </ErrorBoundary>
         </QueryClientProvider>
     );
