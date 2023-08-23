@@ -19,6 +19,75 @@ export const useSettings = (settingName?: string) => {
 };
 // END: This code is a direct copy from headlamp origin
 
+const getFullKey = (key: string, prefix: string) => {
+    return !key ? '' : !!prefix ? prefix + '.' + key : key;
+};
+
+const getURLValue = (fullKey: string, defaultValue: unknown, history: any) => {
+    // An empty key means that we don't want to use the state from the URL.
+
+    if (fullKey === '') {
+        return null;
+    }
+
+    const urlParams = new URLSearchParams(history.location.search);
+    const urlValue = urlParams.get(fullKey);
+    if (urlValue === null) {
+        return null;
+    }
+    let newValue: string | number = urlValue;
+    if (typeof defaultValue === 'number') {
+        newValue = Number(urlValue);
+        if (Number.isNaN(newValue)) {
+            return null;
+        }
+    }
+
+    return newValue;
+};
+
+const updateParams = (
+    fullKey: string,
+    defaultValue: unknown,
+    value: string | number,
+    hideDefault: boolean,
+    history: any
+) => {
+    const urlCurrentValue = getURLValue(fullKey, defaultValue, history);
+
+    if (urlCurrentValue === value) {
+        return;
+    }
+
+    const urlParams = new URLSearchParams(history.location.search);
+    let shouldUpdateURL = false;
+
+    if ((value === null || value === defaultValue) && hideDefault) {
+        if (urlParams.has(fullKey)) {
+            urlParams.delete(fullKey);
+            shouldUpdateURL = true;
+        }
+    } else if (value !== undefined) {
+        urlParams.set(fullKey, value.toString());
+        shouldUpdateURL = true;
+    }
+
+    if (shouldUpdateURL) {
+        history.replace({ search: urlParams.toString() });
+    }
+};
+
+const updateValue = (fullKey: string, defaultValue: unknown, value: string | number, setValue) => {
+    const newValue = getURLValue(fullKey, defaultValue, history);
+    if (newValue === null) {
+        if (defaultValue !== undefined && defaultValue !== value) {
+            setValue(defaultValue);
+        }
+    } else if (newValue !== value) {
+        setValue(newValue);
+    }
+};
+
 // START: This code is a direct copy from headlamp origin
 
 type URLStateParams<T> = {
@@ -53,50 +122,20 @@ export function useURLState<T extends string | number | undefined = string>(
     const { defaultValue, hideDefault = true, prefix = '' } = params;
     const history = useHistory();
     // Don't even use the prefix if the key is empty
-    const fullKey = !key ? '' : !!prefix ? prefix + '.' + key : key;
-
-    const getURLValue = React.useCallback(() => {
-        // An empty key means that we don't want to use the state from the URL.
-
-        if (fullKey === '') {
-            return null;
-        }
-
-        const urlParams = new URLSearchParams(history.location.search);
-        const urlValue = urlParams.get(fullKey);
-        if (urlValue === null) {
-            return null;
-        }
-        let newValue: string | number = urlValue;
-        if (typeof defaultValue === 'number') {
-            newValue = Number(urlValue);
-            if (Number.isNaN(newValue)) {
-                return null;
-            }
-        }
-
-        return newValue;
-    }, [defaultValue, fullKey, history.location.search]);
+    const fullKey = getFullKey(key, prefix);
 
     const initialValue = React.useMemo(() => {
-        const newValue = getURLValue();
+        const newValue = getURLValue(fullKey, defaultValue, history);
         if (newValue === null) {
             return defaultValue;
         }
         return newValue;
-    }, [defaultValue, getURLValue]);
+    }, [defaultValue, fullKey, history]);
     const [value, setValue] = React.useState<T>(initialValue as T);
 
     React.useEffect(
         () => {
-            const newValue = getURLValue();
-            if (newValue === null) {
-                if (defaultValue !== undefined && defaultValue !== value) {
-                    setValue(defaultValue);
-                }
-            } else if (newValue !== value) {
-                setValue(newValue as T);
-            }
+            updateValue(fullKey, defaultValue, value, setValue);
         },
         // eslint-disable-next-line
         [history]
@@ -108,31 +147,8 @@ export function useURLState<T extends string | number | undefined = string>(
             return;
         }
 
-        const urlCurrentValue = getURLValue();
-
-        if (urlCurrentValue === value) {
-            return;
-        }
-
-        const urlParams = new URLSearchParams(history.location.search);
-        let shouldUpdateURL = false;
-
-        if ((value === null || value === defaultValue) && hideDefault) {
-            if (urlParams.has(fullKey)) {
-                urlParams.delete(fullKey);
-                shouldUpdateURL = true;
-            }
-        } else if (value !== undefined) {
-            const urlValue = value as NonNullable<T>;
-
-            urlParams.set(fullKey, urlValue.toString());
-            shouldUpdateURL = true;
-        }
-
-        if (shouldUpdateURL) {
-            history.replace({ search: urlParams.toString() });
-        }
-    }, [defaultValue, fullKey, getURLValue, hideDefault, history, value]);
+        updateParams(fullKey, defaultValue, value, hideDefault, history);
+    }, [defaultValue, fullKey, hideDefault, history, value]);
 
     return [value, setValue] as [T, React.Dispatch<React.SetStateAction<T>>];
 }
@@ -171,7 +187,6 @@ export const usePagination = ({
     rowsPerPage,
     entityName = 'table',
 }) => {
-    console.log(rowsPerPage);
     const entityRowsPerPageLSKey = `${entityName}_rows_per_page`;
     const [page, setPage] = usePageURLState(reflectInURL ? 'p' : '', prefix, initialPage);
     const storeRowsPerPageOptions = useSettings(entityRowsPerPageLSKey);
