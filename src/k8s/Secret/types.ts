@@ -4,8 +4,9 @@ export interface SecretKubeObjectInterface extends KubeObjectInterface {
     data: any;
 }
 
-export interface StreamSecretsProps {
+export interface StreamSecretsByTypeProps {
     namespace: string;
+    type: string;
     dataHandler: (data: SecretKubeObjectInterface[]) => void;
     errorHandler: (err: Error) => void;
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
@@ -14,9 +13,9 @@ export const PageView = () => {
     const [sonarSecret, setSonarSecret] = React.useState<SecretKubeObjectInterface>(null);
 
     React.useEffect(() => {
-        const cancelStream = SecretKubeObject.streamSonarIntegrationSecrets({
+        const cancelStream = SecretKubeObject.streamSecretsByType({
             namespace: getDefaultNamespace(),
-
+            type: 'sonar',
             dataHandler: data => {
                 const sonarSecret = findSonarIntegrationSecret(data);
                 setSonarSecret(sonarSecret);
@@ -65,7 +64,6 @@ export const PageView = () => {
             pageData={{
                 label: SONAR_INTEGRATION_PAGE_DESCRIPTION.label,
                 description: SONAR_INTEGRATION_PAGE_DESCRIPTION.description,
-                docUrl: EDP_USER_GUIDE.OVERVIEW.url,
             }}
             renderPlaceHolderData={({ handleClosePlaceholder }) => ({
                 title: 'Create service account',

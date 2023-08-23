@@ -50,11 +50,13 @@ export const ConfigurationBody = ({
                         </Typography>
                         <Typography variant={'body1'}>
                             {description}{' '}
-                            <Link href={docUrl} target={'_blank'}>
-                                <Typography variant={'body2'} component={'span'}>
-                                    Learn more.
-                                </Typography>
-                            </Link>
+                            <Render condition={!!docUrl}>
+                                <Link href={docUrl} target={'_blank'}>
+                                    <Typography variant={'body2'} component={'span'}>
+                                        Learn more.
+                                    </Typography>
+                                </Link>
+                            </Render>
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>

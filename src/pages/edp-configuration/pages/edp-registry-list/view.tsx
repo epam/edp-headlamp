@@ -1,6 +1,5 @@
 import React from 'react';
 import { Render } from '../../../../components/Render';
-import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
@@ -48,9 +47,9 @@ export const PageView = () => {
     });
 
     React.useEffect(() => {
-        const cancelStream = SecretKubeObject.streamRegistrySecrets({
+        const cancelStream = SecretKubeObject.streamSecretsByType({
             namespace: getDefaultNamespace(),
-
+            type: 'registry',
             dataHandler: data => {
                 const { kanikoDockerConfig, regcred } = findKanikoAndRegcredSecrets(data);
 
@@ -111,7 +110,6 @@ export const PageView = () => {
             pageData={{
                 label: REGISTRY_LIST_PAGE_DESCRIPTION.label,
                 description: REGISTRY_LIST_PAGE_DESCRIPTION.description,
-                docUrl: EDP_USER_GUIDE.OVERVIEW.url,
             }}
             renderPlaceHolderData={({ handleClosePlaceholder }) => ({
                 title: 'Create service account',

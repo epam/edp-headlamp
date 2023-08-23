@@ -53,4 +53,5 @@ export enum ICONS {
     HELP = 'material-symbols:help',
     CHAT = 'material-symbols:chat-outline',
     NEW_ISSUE = 'pajamas:issue-new',
+    DEPENDENCY = 'mdi:dependency',
 }

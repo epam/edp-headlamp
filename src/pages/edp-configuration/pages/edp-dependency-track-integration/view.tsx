@@ -2,23 +2,24 @@ import React from 'react';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { ManageJiraIntegrationSecret } from '../../../../widgets/ManageJiraIntegrationSecret';
+import { ManageDependencyTrackIntegrationSecret } from '../../../../widgets/ManageDependencyTrackIntegrationSecret';
 import { ConfigurationBody } from '../../components/ConfigurationBody';
-import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './constants';
+import { DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
-const findJiraIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items?.find(el => el.metadata.name === 'jira-user');
+const findDependencyTrackIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
+    items?.find(el => el.metadata.name === 'ci-dependency-track');
 
 export const PageView = () => {
-    const [jiraSecret, setJiraSecret] = React.useState<SecretKubeObjectInterface>(null);
+    const [dependencyTrackSecret, setDependencyTrackSecret] =
+        React.useState<SecretKubeObjectInterface>(null);
 
     React.useEffect(() => {
         const cancelStream = SecretKubeObject.streamSecretsByType({
             namespace: getDefaultNamespace(),
-            type: 'jira',
+            type: 'dependency-track',
             dataHandler: data => {
-                const jiraSecret = findJiraIntegrationSecret(data);
-                setJiraSecret(jiraSecret);
+                const dependencyTrackSecret = findDependencyTrackIntegrationSecret(data);
+                setDependencyTrackSecret(dependencyTrackSecret);
             },
             errorHandler: error => {
                 console.error(error);
@@ -31,11 +32,11 @@ export const PageView = () => {
     }, []);
 
     const creationDisabled = React.useMemo(
-        () => (jiraSecret === null ? true : !!jiraSecret),
-        [jiraSecret]
+        () => (dependencyTrackSecret === null ? true : !!dependencyTrackSecret),
+        [dependencyTrackSecret]
     );
 
-    const secretsArray = [jiraSecret].filter(Boolean);
+    const secretsArray = [dependencyTrackSecret].filter(Boolean);
 
     const configurationItemList = React.useMemo(
         () =>
@@ -47,7 +48,7 @@ export const PageView = () => {
                     title: el?.metadata.name,
                     ownerReference,
                     component: (
-                        <ManageJiraIntegrationSecret
+                        <ManageDependencyTrackIntegrationSecret
                             formData={{
                                 isReadOnly: !!ownerReference,
                                 currentElement: el,
@@ -62,14 +63,14 @@ export const PageView = () => {
     return (
         <ConfigurationBody
             pageData={{
-                label: JIRA_INTEGRATION_PAGE_DESCRIPTION.label,
-                description: JIRA_INTEGRATION_PAGE_DESCRIPTION.description,
+                label: DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION.label,
+                description: DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION.description,
             }}
             renderPlaceHolderData={({ handleClosePlaceholder }) => ({
                 title: 'Create service account',
                 disabled: creationDisabled,
                 component: (
-                    <ManageJiraIntegrationSecret
+                    <ManageDependencyTrackIntegrationSecret
                         formData={{
                             currentElement: 'placeholder',
                             handleClosePlaceholder,
@@ -78,7 +79,7 @@ export const PageView = () => {
                 ),
             })}
             items={configurationItemList}
-            emptyMessage={'No Jira integration secrets found'}
+            emptyMessage={'No DependencyTrack integration secrets found'}
         />
     );
 };
