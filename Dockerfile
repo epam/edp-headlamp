@@ -1,4 +1,4 @@
-FROM ghcr.io/headlamp-k8s/headlamp:v0.18.0
+FROM ghcr.io/headlamp-k8s/headlamp:v0.19.1
 
 COPY --chown=100:101 assets/ /headlamp/frontend
 COPY --chown=100:101 dist/main.js /headlamp/plugins/edp/main.js

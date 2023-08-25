@@ -14,13 +14,12 @@
     "lint": "headlamp-plugin lint && tsc --noemit",
     "start": "headlamp-plugin start",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "storybook": "headlamp-plugin storybook",
+    "storybook-build": "headlamp-plugin storybook-build"
   },
   "prettier": "./.prettierrc.js",
   "eslintConfig": {
-    "plugins": [
-      "react-hooks"
-    ],
     "extends": [
       "@kinvolk",
       "prettier",
@@ -37,7 +36,7 @@
     "@carbon/charts-react": "0.58.2",
     "@hookform/error-message": "^2.0.0",
     "@iconify/react": "^3.2.1",
-    "@kinvolk/headlamp-plugin": "^0.6.0",
+    "@kinvolk/headlamp-plugin": "^0.6.1",
     "@material-ui/core": "^4.12.3",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/styles": "^4.11.5",

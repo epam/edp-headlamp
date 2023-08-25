@@ -42,7 +42,7 @@ export const ConfigurationBody = ({
 
     return (
         <PageWithSubMenu list={menu}>
-            <PageWrapper containerMaxWidth={'lg'}>
+            <PageWrapper containerMaxWidth={'xl'}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Typography variant={'h5'} gutterBottom>

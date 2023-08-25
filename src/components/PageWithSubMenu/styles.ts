@@ -4,13 +4,10 @@ import React from 'react';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { rem } from '../../utils/styling/rem';
 
-// TODO rollback styles when new ui is available
-
 const headerHeight = 64;
 const tabMenuHeight = 65;
-const sidebarOpenWidth = 330;
+const sidebarOpenWidth = 240;
 const sidebarClosedWidth = 73;
-const subMenuWidth = 240;
 
 const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useStyles = () => {
@@ -28,27 +25,25 @@ export const useStyles = () => {
     }, [isMobile, isSmallSideBar, sidebar.isSidebarOpen]);
 
     const subMenuLeftOffset = React.useMemo(() => {
-        if (!(!isSmallSideBar && (sidebar.isSidebarOpen || isMobile))) {
-            return sidebarClosedWidth;
-        } else {
+        if (sidebar.isSidebarOpen) {
             return sidebarOpenWidth;
+        } else {
+            return sidebarClosedWidth;
         }
-    }, [isMobile, isSmallSideBar, sidebar.isSidebarOpen]);
+    }, [sidebar.isSidebarOpen]);
 
     return makeStyles(() => ({
         subMenu: {
             '& .MuiDrawer-paper': {
                 left: rem(subMenuLeftOffset),
-                top: rem(subMenuExtraHeight + 10),
+                top: rem(subMenuExtraHeight),
                 bottom: 0,
-                minWidth: rem(subMenuWidth),
+                minWidth: rem(sidebarOpenWidth),
                 padding: `${rem(30)} ${rem(20)}`,
                 transition: theme.transitions.create('left', {
                     easing: theme.transitions.easing.sharp,
                     duration: theme.transitions.duration.enteringScreen,
                 }),
-                backgroundColor: 'inherit',
-                borderRight: 'none',
             },
         },
         subMenuAndContentWrapper: {
@@ -57,11 +52,7 @@ export const useStyles = () => {
             gap: rem(20),
         },
         subMenuWrapper: {
-            transition: theme.transitions.create('width', {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-            width: sidebar.isSidebarOpen ? rem(subMenuWidth) : 0,
+            width: rem(sidebarOpenWidth),
             flexShrink: 0,
         },
         contentWrapper: {

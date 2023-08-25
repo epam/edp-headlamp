@@ -99,7 +99,8 @@ export const TableHead = ({
                                               colSpan={colSpan || 1}
                                               style={{
                                                   color: theme.palette.text.primary,
-                                                  backgroundColor: theme.palette.background.paper,
+                                                  backgroundColor:
+                                                      theme.palette.tables.head.background,
                                                   padding: `${theme.typography.pxToRem(
                                                       8
                                                   )} ${theme.typography.pxToRem(16)}`,
@@ -122,7 +123,7 @@ export const TableHead = ({
                         padding="checkbox"
                         style={{
                             color: theme.palette.text.primary,
-                            backgroundColor: theme.palette.background.paper,
+                            backgroundColor: theme.palette.tables.head.background,
                         }}
                     >
                         <Checkbox
@@ -154,7 +155,7 @@ export const TableHead = ({
                                 align={textAlign}
                                 style={{
                                     color: theme.palette.text.primary,
-                                    backgroundColor: theme.palette.background.paper,
+                                    backgroundColor: theme.palette.tables.head.background,
                                 }}
                             >
                                 <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>

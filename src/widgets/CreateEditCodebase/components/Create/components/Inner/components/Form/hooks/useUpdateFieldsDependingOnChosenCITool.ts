@@ -29,7 +29,9 @@ export const useUpdateFieldsDependingOnChosenCITool = () => {
                 setValue(
                     CODEBASE_FORM_NAMES.jobProvisioning.name,
                     chosenJobProvisioningFieldValue,
-                    { shouldDirty: false }
+                    {
+                        shouldDirty: false,
+                    }
                 );
         }
     }, [

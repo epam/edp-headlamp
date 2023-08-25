@@ -10,7 +10,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
     breadcrumbs,
     headerSlot,
     breadcrumbsExtraContent,
-    containerMaxWidth = 'lg',
+    containerMaxWidth = 'xl',
 }) => {
     return (
         <>

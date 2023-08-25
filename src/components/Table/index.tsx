@@ -11,8 +11,6 @@ import { SORT_ORDERS } from './constants';
 import { useReadyData } from './hooks/useReadyData';
 import { TableProps } from './types';
 
-// TODO rollback file when new ui is available
-
 export const Table = <DataType extends unknown>({
     data,
     columns,
@@ -71,7 +69,7 @@ export const Table = <DataType extends unknown>({
     }, [data, readyData]);
 
     return (
-        <Paper elevation={0}>
+        <Paper variant={'outlined'}>
             <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
                 <colgroup>
                     {handleSelectRowClick ? <col key={'select-checkbox'} width={'4%'} /> : null}
