@@ -38,8 +38,6 @@ export const Form = ({ formActiveTabIdx, editorOpen, editorData, setEditorOpen }
         [getValues, handleCloseEditor, handleEditorSave]
     );
 
-    console.log('editorData', editorData);
-
     return (
         <>
             <TabPanel value={formActiveTabIdx} index={TAB_INDEXES[FORM_PART_CODEBASE_INFO]}>

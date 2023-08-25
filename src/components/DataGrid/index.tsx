@@ -1,6 +1,7 @@
 import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { usePagination } from '../../hooks/usePagination';
+import { EmptyList } from '../EmptyList';
 import { Render } from '../Render';
 import { Pagination } from './components/Pagination';
 import { useReadyData } from './hooks/useReadyData';
@@ -17,6 +18,7 @@ export const DataGrid = <DataType extends unknown>({
     reflectInURL = false,
     initialPage = 0,
     rowsPerPage = 9,
+    emptyListComponent,
 }: DataGridProps<DataType>) => {
     const prefix = reflectInURL === true ? '' : reflectInURL || '';
 
@@ -39,6 +41,14 @@ export const DataGrid = <DataType extends unknown>({
         isLoading: data === null,
         error,
     });
+
+    const hasEmptyResult = React.useMemo(() => {
+        if (!data || !readyData) {
+            return;
+        }
+
+        return !!data.length && !readyData?.length;
+    }, [data, readyData]);
 
     return (
         <Grid container spacing={2}>
@@ -65,6 +75,10 @@ export const DataGrid = <DataType extends unknown>({
                                 return <>{renderItem(item)}</>;
                             })}
                     </Grid>
+                ) : hasEmptyResult ? (
+                    <EmptyList customText={'No results found!'} isSearch />
+                ) : !data?.length ? (
+                    <>{emptyListComponent}</>
                 ) : null}
             </Grid>
             <Render condition={showPagination && data?.length > _rowsPerPage}>

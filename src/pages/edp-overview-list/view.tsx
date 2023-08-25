@@ -5,6 +5,7 @@ import { Grid, IconButton, Typography, useTheme } from '@material-ui/core';
 import React from 'react';
 import { DataGrid } from '../../components/DataGrid';
 import { DocLink } from '../../components/DocLink';
+import { EmptyList } from '../../components/EmptyList';
 import { PageWrapper } from '../../components/PageWrapper';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
@@ -100,6 +101,7 @@ export const PageView = () => {
                         isLoading={EDPComponents === null}
                         spacing={2}
                         filterFunction={filterFunction}
+                        emptyListComponent={<EmptyList missingItemName={'EDPComponents'} />}
                         renderItem={component => {
                             const key = `marketplace-item-${component?.metadata?.uid}`;
 

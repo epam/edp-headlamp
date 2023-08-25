@@ -12,4 +12,5 @@ export interface DataGridProps<DataType = unknown> {
     reflectInURL?: boolean;
     initialPage?: number;
     rowsPerPage?: number;
+    emptyListComponent?: React.ReactElement;
 }

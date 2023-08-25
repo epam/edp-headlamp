@@ -2,6 +2,7 @@ import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { DataGrid } from '../../../../components/DataGrid';
+import { EmptyList } from '../../../../components/EmptyList';
 import { Resources } from '../../../../icons/sprites/Resources';
 import { EDPTemplateKubeObject } from '../../../../k8s/EDPTemplate';
 import { EDPTemplateKubeObjectInterface } from '../../../../k8s/EDPTemplate/types';
@@ -14,7 +15,10 @@ import { TemplatesTable } from './components/TemplatesTable';
 export const MarketplaceList = () => {
     const { viewMode } = useViewModeContext();
     const [items, error] = EDPTemplateKubeObject.useList();
-    const filterFunction = Utils.useFilterFunc();
+    const filterFunction = Utils.useFilterFunc([
+        '.jsonData.spec.displayName',
+        '.jsonData.metadata.name',
+    ]);
     const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
     const [activeTemplate, setActiveTemplate] =
         React.useState<EDPTemplateKubeObjectInterface>(null);
@@ -69,6 +73,7 @@ export const MarketplaceList = () => {
                     isLoading={items === null}
                     spacing={2}
                     filterFunction={filterFunction}
+                    emptyListComponent={<EmptyList missingItemName={'templates'} />}
                     renderItem={item => {
                         const key = `marketplace-item-${item?.spec?.displayName}`;
 
