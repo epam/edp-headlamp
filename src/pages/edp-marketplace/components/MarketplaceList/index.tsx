@@ -65,6 +65,7 @@ export const MarketplaceList = () => {
                     data={items}
                     activeTemplate={activeTemplate}
                     handleTemplateClick={handleTemplateClick}
+                    filterFunction={filterFunction}
                 />
             ) : viewMode === VIEW_MODES.GRID ? (
                 <DataGrid<EDPTemplateKubeObjectInterface>

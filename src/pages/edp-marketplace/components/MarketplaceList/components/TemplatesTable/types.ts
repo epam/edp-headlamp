@@ -8,4 +8,5 @@ export interface TemplatesTableProps {
         template: EDPTemplateKubeObjectInterface
     ): void;
     activeTemplate: EDPTemplateKubeObjectInterface;
+    filterFunction?: ((...args: EDPTemplateKubeObjectInterface[]) => boolean) | null;
 }
