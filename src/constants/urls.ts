@@ -1,4 +1,4 @@
-const EDP_USER_GUIDE_ROOT_URL = 'https://epam.github.io/edp-install/headlamp-user-guide';
+const EDP_USER_GUIDE_ROOT_URL = 'https://epam.github.io/edp-install/user-guide';
 
 export const EDP_USER_GUIDE = {
     OVERVIEW: {
