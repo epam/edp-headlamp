@@ -71,6 +71,7 @@ export const FormActions = ({
 
     const handleProceed = React.useCallback(async () => {
         const activeTabFormPartNames = Object.values(CODEBASE_FORM_NAMES)
+            // @ts-ignore
             .filter(({ formPart }) => formPart === activeTabFormPartName)
             .map(({ name }) => name);
         const hasNoErrors = await trigger(activeTabFormPartNames);

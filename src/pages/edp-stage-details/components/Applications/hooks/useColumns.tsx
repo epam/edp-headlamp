@@ -23,6 +23,7 @@ import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 import { EDPStageDetailsRouteParams, EnrichedApplicationWithArgoApplication } from '../../../types';
 import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
+import { ValuesOverrideCheckbox } from '../components/ValuesOverrideCheckbox';
 
 export const useColumns = (
     qualityGatePipelineIsRunning: boolean,
@@ -146,7 +147,22 @@ export const useColumns = (
                         'No deploy'
                     );
                 },
-                width: '40%',
+                width: '30%',
+            },
+            {
+                id: 'valuesOverride',
+                label: 'Values override',
+                render: enrichedApplicationWithArgoApplication => (
+                    <ValuesOverrideCheckbox
+                        enrichedApplicationWithArgoApplication={
+                            enrichedApplicationWithArgoApplication
+                        }
+                        selected={selected}
+                        handleSelectRowClick={handleSelectRowClick}
+                    />
+                ),
+                width: '10%',
+                textAlign: 'center',
             },
             {
                 id: 'imageStreamVersion',

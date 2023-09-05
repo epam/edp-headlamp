@@ -154,7 +154,7 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
                 >
                   <div
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                    style="display: flex;"
+                    style="display: flex; justify-content: flex-start;"
                   >
                     <div
                       class="MuiFormControl-root"

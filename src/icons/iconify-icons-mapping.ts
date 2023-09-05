@@ -54,4 +54,6 @@ export enum ICONS {
     CHAT = 'material-symbols:chat-outline',
     NEW_ISSUE = 'pajamas:issue-new',
     DEPENDENCY = 'mdi:dependency',
+    SCREWDRIVER = 'heroicons:wrench-screwdriver',
+    GIT = 'mdi:git',
 }

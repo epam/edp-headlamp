@@ -14,7 +14,7 @@ export interface MainRadioGroupOption {
 
 export interface MainRadioGroupProps {
     name: string;
-    control: Control;
+    control: Control<any>;
     errors: FieldErrors;
     gridItemSize: GridSize;
     options: MainRadioGroupOption[];

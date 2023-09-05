@@ -1,7 +1,8 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, IconButton, Typography } from '@material-ui/core';
+import { Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
+import { ConditionalWrapper } from '../../../../../components/ConditionalWrapper';
 import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
@@ -11,6 +12,7 @@ import {
     FRAMEWORK_ICON_MAPPING,
     LANGUAGE_ICON_MAPPING,
 } from '../../../../../configs/icon-mappings';
+import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
@@ -33,10 +35,10 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                 id: 'status',
                 label: 'Status',
                 columnSortableValuePath: 'status.status',
-                render: ({ status: codebaseStatus }) => {
+                render: ({ status: codebaseStatus, spec: { type } }) => {
                     const status = codebaseStatus
                         ? codebaseStatus.status
-                        : CUSTOM_RESOURCE_STATUSES['UNKNOWN'];
+                        : CUSTOM_RESOURCE_STATUSES.UNKNOWN;
 
                     const title = (
                         <>
@@ -51,9 +53,37 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                         </>
                     );
 
-                    return <StatusIcon status={status} customTitle={title} />;
+                    return (
+                        <ConditionalWrapper
+                            condition={type === CODEBASE_TYPES.SYSTEM}
+                            wrapper={children => (
+                                <Grid
+                                    container
+                                    spacing={2}
+                                    alignItems={'center'}
+                                    style={{ margin: 0 }}
+                                >
+                                    {children}
+                                    <Grid item>
+                                        <Tooltip title={'System codebase'}>
+                                            <Icon
+                                                icon={ICONS.SCREWDRIVER}
+                                                width={25}
+                                                style={{
+                                                    display: 'block',
+                                                }}
+                                            />
+                                        </Tooltip>
+                                    </Grid>
+                                </Grid>
+                            )}
+                        >
+                            <StatusIcon status={status} customTitle={title} />
+                        </ConditionalWrapper>
+                    );
                 },
                 width: '10%',
+                textAlign: 'left',
             },
             {
                 id: 'name',
@@ -87,9 +117,6 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                 columnSortableValuePath: 'spec.lang',
                 render: ({ spec: { lang, type } }) => {
                     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
-                    if (!codebaseMapping) {
-                        return lang;
-                    }
 
                     return (
                         <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
@@ -103,7 +130,10 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                                     height={20}
                                 />
                             </Grid>
-                            <Grid item>{codebaseMapping?.[lang]?.language?.name || lang}</Grid>
+                            <Grid item>
+                                {codebaseMapping?.[lang]?.language?.name ||
+                                    capitalizeFirstLetter(lang)}
+                            </Grid>
                         </Grid>
                     );
                 },
@@ -115,10 +145,6 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                 columnSortableValuePath: 'spec.lang',
                 render: ({ spec: { lang, framework, type } }) => {
                     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
-
-                    if (!codebaseMapping) {
-                        return framework;
-                    }
 
                     return (
                         <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
@@ -134,7 +160,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                             </Grid>
                             <Grid item>
                                 {codebaseMapping?.[lang]?.frameworks?.[framework]?.name ||
-                                    framework}
+                                    capitalizeFirstLetter(framework)}
                             </Grid>
                         </Grid>
                     );
@@ -147,10 +173,6 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                 columnSortableValuePath: 'spec.buildTool',
                 render: ({ spec: { lang, buildTool, type } }) => {
                     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
-
-                    if (!codebaseMapping) {
-                        return buildTool;
-                    }
 
                     return (
                         <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
@@ -166,7 +188,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                             </Grid>
                             <Grid item>
                                 {codebaseMapping?.[lang]?.buildTools?.[buildTool]?.name ||
-                                    buildTool}
+                                    capitalizeFirstLetter(buildTool)}
                             </Grid>
                         </Grid>
                     );
@@ -199,7 +221,11 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
             {
                 id: 'actions',
                 label: '',
-                render: ({ jsonData }) => {
+                render: ({ jsonData, spec: { type } }) => {
+                    if (type === CODEBASE_TYPES.SYSTEM) {
+                        return null;
+                    }
+
                     const buttonRef = React.createRef<HTMLButtonElement>();
 
                     return (

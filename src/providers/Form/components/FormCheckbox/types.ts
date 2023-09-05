@@ -9,4 +9,5 @@ export interface FormCheckboxProps {
     errors: FieldErrors;
     defaultValue?: boolean;
     disabled?: boolean;
+    align?: React.CSSProperties['justifyContent'];
 }

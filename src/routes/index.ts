@@ -5,6 +5,7 @@ import { routeEDPComponentList } from '../pages/edp-component-list/route';
 import { routeEDPClusterList } from '../pages/edp-configuration/pages/edp-cluster-list/route';
 import { routeEDPDefectDojoIntegration } from '../pages/edp-configuration/pages/edp-defect-dojo-integration/route';
 import { routeEDPDependencyTrackIntegration } from '../pages/edp-configuration/pages/edp-dependency-track-integration/route';
+import { routeEDPGitOpsConfiguration } from '../pages/edp-configuration/pages/edp-gitops/route';
 import { routeEDPGitServerList } from '../pages/edp-configuration/pages/edp-gitserver-list/route';
 import { routeEDPJiraIntegration } from '../pages/edp-configuration/pages/edp-jira-integration/route';
 import { routeEDPNexusIntegration } from '../pages/edp-configuration/pages/edp-nexus-integration/route';
@@ -36,6 +37,7 @@ export default [
     routeEDPDefectDojoIntegration,
     routeEDPDependencyTrackIntegration,
     routeEDPJiraIntegration,
+    routeEDPGitOpsConfiguration,
     // Marketplace
 
     routeEDPMarketplace,

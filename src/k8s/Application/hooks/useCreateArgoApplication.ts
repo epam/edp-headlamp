@@ -18,6 +18,7 @@ interface CreateArgoApplicationProps {
     application: EDPCodebaseKubeObjectInterface;
     imageStream: EDPCodebaseImageStreamKubeObjectInterface;
     imageTag: string;
+    valuesOverride: boolean;
 }
 
 interface EditArgoApplicationProps {
@@ -54,6 +55,7 @@ export const useCreateArgoApplication = () => {
             application,
             imageStream,
             imageTag,
+            valuesOverride,
         }: CreateArgoApplicationProps): Promise<void> => {
             const [gitServer] = gitServers.filter(
                 el => el.metadata.name === application.spec.gitServer
@@ -66,6 +68,7 @@ export const useCreateArgoApplication = () => {
                 imageStream,
                 imageTag,
                 gitServer,
+                valuesOverride,
             });
 
             argoApplicationCreateMutation.mutate(argoApplicationData);

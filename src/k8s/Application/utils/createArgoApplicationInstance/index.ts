@@ -23,6 +23,7 @@ export const createArgoApplicationInstance = ({
     imageStream,
     imageTag,
     gitServer,
+    valuesOverride,
 }: {
     CDPipeline: EDPCDPipelineKubeObjectInterface;
     currentCDPipelineStage: EDPCDPipelineStageKubeObjectInterface;
@@ -30,6 +31,7 @@ export const createArgoApplicationInstance = ({
     imageStream: EDPCodebaseImageStreamKubeObjectInterface;
     imageTag: string;
     gitServer: EDPGitServerKubeObjectInterface;
+    valuesOverride: boolean;
 }): ApplicationKubeObjectInterface => {
     const {
         metadata: { namespace, name: pipelineName },
@@ -58,10 +60,17 @@ export const createArgoApplicationInstance = ({
         spec: { gitHost, sshPort, gitProvider },
     } = gitServer;
 
-    const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES['EDP'];
+    const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES.EDP;
     const repoUrlUser = gitProvider === GIT_PROVIDERS.GERRIT ? 'argocd' : 'git';
+    const repoURL = `ssh://${repoUrlUser}@${gitHost}:${sshPort}${gitUrlPath}`;
+    const targetRevision = isEDPVersioning ? `build/${imageTag}` : imageTag;
 
-    const base: ApplicationKubeObjectInterface = {
+    const isHelmApp =
+        lang === CODEBASE_COMMON_LANGUAGES.HELM &&
+        framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
+        buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
+
+    return {
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
@@ -85,21 +94,68 @@ export const createArgoApplicationInstance = ({
                 },
             ],
         },
+        // @ts-ignore
         spec: {
             project: namespace,
             destination: {
                 namespace: `${namespace}-${pipelineName}-${stageName}`,
                 name: currentCDPipelineStage.spec.clusterName,
             },
-            source: {
-                helm: {
-                    releaseName: appName,
-                    parameters: [],
-                },
-                path: 'deploy-templates',
-                repoURL: `ssh://${repoUrlUser}@${gitHost}:${sshPort}${gitUrlPath}`,
-                targetRevision: isEDPVersioning ? `build/${imageTag}` : imageTag,
-            },
+            ...(valuesOverride
+                ? {
+                      sources: [
+                          {
+                              repoURL: repoURL,
+                              targetRevision: targetRevision,
+                              ref: 'values',
+                          },
+                          {
+                              helm: {
+                                  valueFiles: [
+                                      `$values/${pipelineName}/${stageName}/${appName}-values.yaml`,
+                                  ],
+                                  parameters: [
+                                      {
+                                          name: 'image.tag',
+                                          value: imageTag,
+                                      },
+                                      {
+                                          name: 'image.repository',
+                                          value: imageName,
+                                      },
+                                  ],
+                                  releaseName: appName,
+                              },
+                              path: 'deploy-templates',
+                              repoURL: repoURL,
+                              targetRevision: targetRevision,
+                          },
+                      ],
+                  }
+                : {
+                      source: {
+                          helm: {
+                              releaseName: appName,
+                              parameters: [
+                                  ...(isHelmApp
+                                      ? []
+                                      : [
+                                            {
+                                                name: 'image.tag',
+                                                value: imageTag,
+                                            },
+                                            {
+                                                name: 'image.repository',
+                                                value: imageName,
+                                            },
+                                        ]),
+                              ],
+                          },
+                          path: 'deploy-templates',
+                          repoURL: repoURL,
+                          targetRevision: targetRevision,
+                      },
+                  }),
             syncPolicy: {
                 syncOptions: ['CreateNamespace=true'],
                 automated: {
@@ -109,26 +165,4 @@ export const createArgoApplicationInstance = ({
             },
         },
     };
-
-    if (
-        lang === CODEBASE_COMMON_LANGUAGES.HELM &&
-        framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
-        buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM
-    ) {
-        return base;
-    }
-
-    base.spec.source.helm.parameters = [
-        ...base.spec.source.helm.parameters,
-        {
-            name: 'image.tag',
-            value: imageTag,
-        },
-        {
-            name: 'image.repository',
-            value: imageName,
-        },
-    ];
-
-    return base;
 };

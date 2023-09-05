@@ -113,6 +113,11 @@ export const useUpperColumns = ({
                 },
             },
             {
+                id: 'valuesOverride',
+                label: '',
+                render: () => null,
+            },
+            {
                 id: 'latestStableReset',
                 label: '',
                 render: () => {

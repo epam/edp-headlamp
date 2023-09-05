@@ -8,7 +8,10 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../../EDPCDPipelineSta
 import { EDPCodebaseKubeObjectInterface } from '../../../EDPCodebase/types';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../EDPCodebaseImageStream/types';
 import { EDPGitServerKubeObjectInterface } from '../../../EDPGitServer/types';
-import { expectedApplicationOutputMock } from '../mocks/application.mock';
+import {
+    expectedApplicationOutputMock,
+    expectedApplicationOutputMockWithValuesOverride,
+} from '../mocks/application.mock';
 import { CDPipelineMock } from '../mocks/CDPipeline.mock';
 import { CDPipelineStageMock } from '../mocks/CDPipelineStage.mock';
 import { enrichedApplicationMock } from '../mocks/enrichedApplication.mock';
@@ -38,8 +41,25 @@ describe('testing createApplicationInstance', () => {
             imageStream: imageStreamMock as EDPCodebaseImageStreamKubeObjectInterface,
             imageTag: 'test-image-tag',
             gitServer: gitServerMock as EDPGitServerKubeObjectInterface,
+            valuesOverride: false,
         });
 
         expect(object).toEqual(expectedApplicationOutputMock);
+    });
+
+    it('should return valid kube object with values override', () => {
+        const object = createArgoApplicationInstance({
+            CDPipeline: CDPipelineMock as EDPCDPipelineKubeObjectInterface,
+            currentCDPipelineStage:
+                CDPipelineStageMock as unknown as EDPCDPipelineStageKubeObjectInterface,
+            application:
+                enrichedApplicationMock.application as unknown as EDPCodebaseKubeObjectInterface,
+            imageStream: imageStreamMock as EDPCodebaseImageStreamKubeObjectInterface,
+            imageTag: 'test-image-tag',
+            gitServer: gitServerMock as EDPGitServerKubeObjectInterface,
+            valuesOverride: true,
+        });
+
+        expect(object).toEqual(expectedApplicationOutputMockWithValuesOverride);
     });
 });

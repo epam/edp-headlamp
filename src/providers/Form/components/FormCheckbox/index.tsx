@@ -15,6 +15,7 @@ export const FormCheckbox = React.forwardRef(
             errors,
             defaultValue = false,
             disabled,
+            align = 'flex-start',
             ...props
         }: FormCheckboxProps,
         ref: React.RefObject<HTMLInputElement>
@@ -23,7 +24,7 @@ export const FormCheckbox = React.forwardRef(
 
         return (
             <Grid container spacing={1}>
-                <Grid item xs={12} style={{ display: 'flex' }}>
+                <Grid item xs={12} style={{ display: 'flex', justifyContent: align }}>
                     <FormControl>
                         <Controller
                             render={({ field }) => {

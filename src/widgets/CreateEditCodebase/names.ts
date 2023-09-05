@@ -36,7 +36,7 @@ const NAMES = {
     VERSIONING_START_FROM_SNAPSHOT: 'versioningStartFromSnapshot',
     ADVANCED_MAPPING_FIELD_NAME: 'advancedMappingFieldName',
     ADVANCED_MAPPING_JIRA_PATTERN: 'advancedMappingJiraPattern',
-};
+} as const;
 
 export const CODEBASE_FORM_NAMES = {
     // DEFAULT VALUES

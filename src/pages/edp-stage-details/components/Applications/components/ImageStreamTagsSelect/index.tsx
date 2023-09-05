@@ -26,7 +26,7 @@ export const ImageStreamTagsSelect = ({
     return (
         <div style={{ width: '100%' }}>
             <FormSelect
-                {...register(`image-tag-${application.metadata.name}`, {
+                {...register(`${application.metadata.name}::image-tag`, {
                     required: selected.includes(application.metadata.name),
                     onChange: event =>
                         !selected.includes(application.metadata.name) &&

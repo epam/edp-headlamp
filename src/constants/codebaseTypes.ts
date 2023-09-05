@@ -3,6 +3,7 @@ export enum CODEBASE_TYPES {
     AUTOTEST = 'autotest',
     LIBRARY = 'library',
     INFRASTRUCTURE = 'infrastructure',
+    SYSTEM = 'system',
 
     ALL = 'all',
 }

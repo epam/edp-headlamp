@@ -229,7 +229,6 @@ export const Applications = ({
             argoApplicationDeleteMutation.isLoading,
         [argoApplicationCreateMutation, argoApplicationEditMutation, argoApplicationDeleteMutation]
     );
-
     const onDeployClick = React.useCallback(async () => {
         const values = getValues();
         const valid = await trigger();
@@ -238,14 +237,17 @@ export const Applications = ({
             return;
         }
 
-        for (const [key, value] of Object.entries(values)) {
-            const appName = key.replace('image-tag-', '');
+        for (const enrichedApplication of enrichedApplicationsWithArgoApplications) {
+            const appName = enrichedApplication.application.metadata.name;
 
             if (!selected.includes(appName)) {
                 continue;
             }
 
-            const { value: tagValue, label: tagLabel } = parseTagLabelValue(value);
+            const imageTagFieldValue = values[`${appName}::image-tag`];
+            const valuesOverrideFieldValue = values[`${appName}::values-override`];
+
+            const { value: tagValue, label: tagLabel } = parseTagLabelValue(imageTagFieldValue);
             const application = enrichedApplicationsByApplicationName.get(appName)?.application;
             const applicationImageStream =
                 enrichedApplicationsByApplicationName.get(appName)?.applicationImageStream;
@@ -260,14 +262,16 @@ export const Applications = ({
                 imageStream:
                     tagLabel === 'stable' ? applicationVerifiedImageStream : applicationImageStream,
                 imageTag: tagValue,
+                valuesOverride: valuesOverrideFieldValue,
             });
         }
     }, [
         CDPipelineQuery,
         createArgoApplication,
         enrichedApplicationsByApplicationName,
+        enrichedApplicationsWithArgoApplications,
         getValues,
-        gitServers?.items,
+        gitServers,
         selected,
         stage,
         trigger,
@@ -281,14 +285,15 @@ export const Applications = ({
             return;
         }
 
-        for (const [key, value] of Object.entries(values)) {
-            const appName = key.replace('image-tag-', '');
+        for (const enrichedApplication of enrichedApplicationsWithArgoApplications) {
+            const appName = enrichedApplication.application.metadata.name;
 
             if (!selected.includes(appName)) {
                 continue;
             }
+            const imageTagFieldValue = values[`${appName}::image-tag`];
 
-            const { value: tagValue } = parseTagLabelValue(value);
+            const { value: tagValue } = parseTagLabelValue(imageTagFieldValue);
             const application = enrichedApplicationsByApplicationName.get(appName)?.application;
             const argoApplication =
                 enrichedApplicationsByApplicationName.get(appName)?.argoApplication;
@@ -299,13 +304,18 @@ export const Applications = ({
                 imageTag: tagValue,
             });
         }
-    }, [editArgoApplication, enrichedApplicationsByApplicationName, getValues, selected, trigger]);
+    }, [
+        editArgoApplication,
+        enrichedApplicationsByApplicationName,
+        enrichedApplicationsWithArgoApplications,
+        getValues,
+        selected,
+        trigger,
+    ]);
 
     const onUninstallClick = React.useCallback(async () => {
-        const values = getValues();
-
-        for (const [key] of Object.entries(values)) {
-            const appName = key.replace('image-tag-', '');
+        for (const enrichedApplication of enrichedApplicationsWithArgoApplications) {
+            const appName = enrichedApplication.application.metadata.name;
 
             if (!selected.includes(appName)) {
                 continue;
@@ -318,7 +328,12 @@ export const Applications = ({
                 argoApplication,
             });
         }
-    }, [deleteArgoApplication, enrichedApplicationsByApplicationName, getValues, selected]);
+    }, [
+        deleteArgoApplication,
+        enrichedApplicationsByApplicationName,
+        enrichedApplicationsWithArgoApplications,
+        selected,
+    ]);
 
     const upperColumns = useUpperColumns({
         selected,
