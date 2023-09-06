@@ -8,4 +8,5 @@ export interface ValuesOverrideCheckboxProps {
         event: React.MouseEvent<unknown>,
         row: EnrichedApplicationWithArgoApplication
     ) => void;
+    defaultValue: boolean;
 }

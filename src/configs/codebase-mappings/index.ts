@@ -39,6 +39,7 @@ export const CODEBASE_COMMON_FRAMEWORKS = {
     OPERATOR_SDK: 'operator-sdk',
     GIN: 'gin',
     AWS: 'aws',
+    GIT_OPS: 'gitops',
 } as const;
 
 export const CODEBASE_COMMON_BUILD_TOOLS = {

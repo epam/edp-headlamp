@@ -193,11 +193,20 @@ exports[`renders ManageGitOps Create component 1`] = `
                     class="MuiFormControl-root MuiTextField-root"
                   >
                     <div
-                      class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl"
+                      class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
                     >
+                      <div
+                        class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                      >
+                        <p
+                          class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
+                        >
+                          /
+                        </p>
+                      </div>
                       <input
                         aria-invalid="false"
-                        class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled"
+                        class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputAdornedStart"
                         disabled=""
                         name="name"
                         type="text"

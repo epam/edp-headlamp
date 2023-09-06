@@ -38,7 +38,7 @@ export const expectedApplicationOutputMock: DeepPartial<ApplicationKubeObjectInt
                     { name: 'image.tag', value: 'test-image-tag' },
                     {
                         name: 'image.repository',
-                        value: '012345678910.dkr.ecr.eu-central-1.amazonaws.com/test-namespace/test-app-name',
+                        value: 'test-registry/test-namespace/test-app-name',
                     },
                 ],
             },
@@ -86,8 +86,8 @@ export const expectedApplicationOutputMockWithValuesOverride: DeepPartial<Applic
             // @ts-ignore
             sources: [
                 {
-                    repoURL: 'ssh://git@github.com:22/test-namespace/test-app-name',
-                    targetRevision: 'test-image-tag',
+                    repoURL: 'ssh://git@github.com:22/edp-gitops',
+                    targetRevision: 'main',
                     ref: 'values',
                 },
                 {
@@ -99,7 +99,7 @@ export const expectedApplicationOutputMockWithValuesOverride: DeepPartial<Applic
                             { name: 'image.tag', value: 'test-image-tag' },
                             {
                                 name: 'image.repository',
-                                value: '012345678910.dkr.ecr.eu-central-1.amazonaws.com/test-namespace/test-app-name',
+                                value: 'test-registry/test-namespace/test-app-name',
                             },
                         ],
                         releaseName: 'test-app-name',
@@ -113,5 +113,89 @@ export const expectedApplicationOutputMockWithValuesOverride: DeepPartial<Applic
                 syncOptions: ['CreateNamespace=true'],
                 automated: { selfHeal: true, prune: true },
             },
+        },
+    };
+export const expectedApplicationAfterEditOutputMock: DeepPartial<ApplicationKubeObjectInterface> = {
+    apiVersion: 'argoproj.io/v1alpha1',
+    kind: 'Application',
+    metadata: {
+        labels: {
+            'app.edp.epam.com/app-name': 'test-app-name',
+            'app.edp.epam.com/pipeline': 'demo',
+            'app.edp.epam.com/stage': 'sit',
+        },
+        name: 'test-app-name-t2yfb',
+        namespace: 'test-namespace',
+    },
+    spec: {
+        destination: { name: 'in-cluster', namespace: 'test-namespace-demo-sit' },
+        project: 'test-namespace',
+        syncPolicy: {
+            automated: { prune: true, selfHeal: true },
+            syncOptions: ['CreateNamespace=true'],
+        },
+        source: {
+            helm: {
+                releaseName: 'test-app-name',
+                parameters: [
+                    { name: 'image.tag', value: 'test-image-tag' },
+                    {
+                        name: 'image.repository',
+                        value: 'test-registry/test-namespace/test-app-name',
+                    },
+                ],
+            },
+            path: 'deploy-templates',
+            repoURL: 'ssh://git@github.com:22/test-namespace/test-app-name',
+            targetRevision: 'test-image-tag',
+        },
+    },
+};
+export const expectedApplicationAfterEditOutputMockWithValuesOverride: DeepPartial<ApplicationKubeObjectInterface> =
+    {
+        apiVersion: 'argoproj.io/v1alpha1',
+        kind: 'Application',
+        metadata: {
+            labels: {
+                'app.edp.epam.com/app-name': 'test-app-name',
+                'app.edp.epam.com/pipeline': 'demo',
+                'app.edp.epam.com/stage': 'sit',
+            },
+            name: 'test-app-name-t2yfb',
+            namespace: 'test-namespace',
+        },
+        spec: {
+            destination: { name: 'in-cluster', namespace: 'test-namespace-demo-sit' },
+            project: 'test-namespace',
+            syncPolicy: {
+                automated: { prune: true, selfHeal: true },
+                syncOptions: ['CreateNamespace=true'],
+            },
+            // @ts-ignore
+            sources: [
+                {
+                    repoURL: 'ssh://git@github.com:22/edp-gitops',
+                    targetRevision: 'main',
+                    ref: 'values',
+                },
+                {
+                    helm: {
+                        valueFiles: [
+                            '$values/test-pipeline-name/test-stage-name/test-app-name-values.yaml',
+                        ],
+                        parameters: [
+                            { name: 'image.tag', value: 'test-image-tag' },
+                            {
+                                name: 'image.repository',
+                                value: 'test-registry/test-namespace/test-app-name',
+                            },
+                        ],
+                        releaseName: 'test-app-name',
+                    },
+                    path: 'deploy-templates',
+                    repoURL: 'ssh://git@github.com:22/test-namespace/test-app-name',
+                    targetRevision: 'test-image-tag',
+                },
+            ],
         },
     };

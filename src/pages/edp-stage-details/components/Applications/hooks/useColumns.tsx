@@ -18,6 +18,7 @@ import {
     APPLICATION_LABEL_SELECTOR_STAGE,
 } from '../../../../../k8s/Application/labels';
 import { ApplicationKubeObjectInterface } from '../../../../../k8s/Application/types';
+import { getDeployedVersion } from '../../../../../k8s/Application/utils/getDeployedVersion';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
@@ -117,11 +118,15 @@ export const useColumns = (
                         framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
                         buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
 
-                    const deployedVersion = !isHelm
-                        ? argoApplication?.spec?.source?.helm?.parameters?.find(
-                              el => el.name === 'image.tag'
-                          )?.value
-                        : argoApplication?.spec?.source?.targetRevision?.split('/').at(-1);
+                    const withValuesOverride = argoApplication
+                        ? Object.hasOwn(argoApplication?.spec, 'sources')
+                        : false;
+
+                    const deployedVersion = getDeployedVersion(
+                        withValuesOverride,
+                        isHelm,
+                        argoApplication
+                    );
 
                     return argoApplication ? (
                         <Tooltip
@@ -152,15 +157,26 @@ export const useColumns = (
             {
                 id: 'valuesOverride',
                 label: 'Values override',
-                render: enrichedApplicationWithArgoApplication => (
-                    <ValuesOverrideCheckbox
-                        enrichedApplicationWithArgoApplication={
-                            enrichedApplicationWithArgoApplication
-                        }
-                        selected={selected}
-                        handleSelectRowClick={handleSelectRowClick}
-                    />
-                ),
+                render: enrichedApplicationWithArgoApplication => {
+                    const withValuesOverride =
+                        enrichedApplicationWithArgoApplication?.argoApplication
+                            ? Object.hasOwn(
+                                  enrichedApplicationWithArgoApplication?.argoApplication?.spec,
+                                  'sources'
+                              )
+                            : false;
+
+                    return (
+                        <ValuesOverrideCheckbox
+                            enrichedApplicationWithArgoApplication={
+                                enrichedApplicationWithArgoApplication
+                            }
+                            selected={selected}
+                            handleSelectRowClick={handleSelectRowClick}
+                            defaultValue={withValuesOverride}
+                        />
+                    );
+                },
                 width: '10%',
                 textAlign: 'center',
             },

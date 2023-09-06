@@ -15,6 +15,7 @@ import {
 import { CDPipelineMock } from '../mocks/CDPipeline.mock';
 import { CDPipelineStageMock } from '../mocks/CDPipelineStage.mock';
 import { enrichedApplicationMock } from '../mocks/enrichedApplication.mock';
+import { gitOpsCodebaseMock } from '../mocks/gitOpsCodebase.mock';
 import { gitServerMock } from '../mocks/gitServer.mock';
 import { imageStreamMock } from '../mocks/imageStream.mock';
 import { createArgoApplicationInstance } from './index';
@@ -42,6 +43,7 @@ describe('testing createApplicationInstance', () => {
             imageTag: 'test-image-tag',
             gitServer: gitServerMock as EDPGitServerKubeObjectInterface,
             valuesOverride: false,
+            gitOpsCodebase: gitOpsCodebaseMock as unknown as EDPCodebaseKubeObjectInterface,
         });
 
         expect(object).toEqual(expectedApplicationOutputMock);
@@ -58,6 +60,7 @@ describe('testing createApplicationInstance', () => {
             imageTag: 'test-image-tag',
             gitServer: gitServerMock as EDPGitServerKubeObjectInterface,
             valuesOverride: true,
+            gitOpsCodebase: gitOpsCodebaseMock as unknown as EDPCodebaseKubeObjectInterface,
         });
 
         expect(object).toEqual(expectedApplicationOutputMockWithValuesOverride);

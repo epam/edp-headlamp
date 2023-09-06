@@ -24,6 +24,7 @@ export const createArgoApplicationInstance = ({
     imageTag,
     gitServer,
     valuesOverride,
+    gitOpsCodebase,
 }: {
     CDPipeline: EDPCDPipelineKubeObjectInterface;
     currentCDPipelineStage: EDPCDPipelineStageKubeObjectInterface;
@@ -32,6 +33,7 @@ export const createArgoApplicationInstance = ({
     imageTag: string;
     gitServer: EDPGitServerKubeObjectInterface;
     valuesOverride: boolean;
+    gitOpsCodebase: EDPCodebaseKubeObjectInterface;
 }): ApplicationKubeObjectInterface => {
     const {
         metadata: { namespace, name: pipelineName },
@@ -62,6 +64,7 @@ export const createArgoApplicationInstance = ({
 
     const isEDPVersioning = versioningType === CODEBASE_VERSIONING_TYPES.EDP;
     const repoUrlUser = gitProvider === GIT_PROVIDERS.GERRIT ? 'argocd' : 'git';
+    const valuesRepoURL = `ssh://${repoUrlUser}@${gitHost}:${sshPort}${gitOpsCodebase.spec.gitUrlPath}`;
     const repoURL = `ssh://${repoUrlUser}@${gitHost}:${sshPort}${gitUrlPath}`;
     const targetRevision = isEDPVersioning ? `build/${imageTag}` : imageTag;
 
@@ -105,8 +108,8 @@ export const createArgoApplicationInstance = ({
                 ? {
                       sources: [
                           {
-                              repoURL: repoURL,
-                              targetRevision: targetRevision,
+                              repoURL: valuesRepoURL,
+                              targetRevision: 'main',
                               ref: 'values',
                           },
                           {

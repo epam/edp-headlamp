@@ -19,12 +19,19 @@ interface CreateArgoApplicationProps {
     imageStream: EDPCodebaseImageStreamKubeObjectInterface;
     imageTag: string;
     valuesOverride: boolean;
+    gitOpsCodebase: EDPCodebaseKubeObjectInterface;
 }
 
 interface EditArgoApplicationProps {
     argoApplication: ApplicationKubeObjectInterface;
+    gitServers: EDPGitServerKubeObjectInterface[];
+    CDPipeline: EDPCDPipelineKubeObjectInterface;
+    currentCDPipelineStage: EDPCDPipelineStageKubeObjectInterface;
     application: EDPCodebaseKubeObjectInterface;
+    imageStream: EDPCodebaseImageStreamKubeObjectInterface;
     imageTag: string;
+    valuesOverride: boolean;
+    gitOpsCodebase: EDPCodebaseKubeObjectInterface;
 }
 
 interface DeleteArgoApplicationProps {
@@ -56,6 +63,7 @@ export const useCreateArgoApplication = () => {
             imageStream,
             imageTag,
             valuesOverride,
+            gitOpsCodebase,
         }: CreateArgoApplicationProps): Promise<void> => {
             const [gitServer] = gitServers.filter(
                 el => el.metadata.name === application.spec.gitServer
@@ -69,6 +77,7 @@ export const useCreateArgoApplication = () => {
                 imageTag,
                 gitServer,
                 valuesOverride,
+                gitOpsCodebase,
             });
 
             argoApplicationCreateMutation.mutate(argoApplicationData);
@@ -78,14 +87,30 @@ export const useCreateArgoApplication = () => {
 
     const editArgoApplication = React.useCallback(
         async ({
+            CDPipeline,
+            currentCDPipelineStage,
             argoApplication,
             application,
+            imageStream,
             imageTag,
+            gitServers,
+            valuesOverride,
+            gitOpsCodebase,
         }: EditArgoApplicationProps): Promise<void> => {
+            const [gitServer] = gitServers.filter(
+                el => el.metadata.name === application.spec.gitServer
+            );
+
             const argoApplicationData: ApplicationKubeObjectInterface = editApplicationInstance({
+                CDPipeline,
+                currentCDPipelineStage,
                 argoApplication,
                 application,
+                imageStream,
                 imageTag,
+                gitServer,
+                valuesOverride,
+                gitOpsCodebase,
             });
 
             argoApplicationEditMutation.mutate(argoApplicationData);

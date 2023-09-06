@@ -15,6 +15,59 @@ export const enrichedApplicationMock = {
             },
         },
     },
+    argoApplication: {
+        apiVersion: 'argoproj.io/v1alpha1',
+        kind: 'Application',
+        metadata: {
+            labels: {
+                'app.edp.epam.com/app-name': 'test-app-name',
+                'app.edp.epam.com/pipeline': 'demo',
+                'app.edp.epam.com/stage': 'sit',
+            },
+            name: 'test-app-name-t2yfb',
+            namespace: 'test-namespace',
+        },
+        spec: {
+            destination: {
+                name: 'in-cluster',
+                namespace: 'test-namespace-demo-sit',
+            },
+            project: 'test-namespace',
+            sources: [
+                {
+                    ref: 'values',
+                    repoURL: 'ssh://git@git.epam.com:22/epmd-edp/sk-dev/edp-gitops',
+                    targetRevision: 'main',
+                },
+                {
+                    helm: {
+                        parameters: [
+                            {
+                                name: 'image.tag',
+                                value: '0.1.0-SNAPSHOT.3',
+                            },
+                            {
+                                name: 'image.repository',
+                                value: 'registry.eks-sandbox.aws.main.edp.projects.epam.com/test-namespace/test-app-name',
+                            },
+                        ],
+                        releaseName: 'test-app-name',
+                        valueFiles: ['$values/demo/sit/test-app-name-values.yaml'],
+                    },
+                    path: 'deploy-templates',
+                    repoURL: 'ssh://git@git.epam.com:22/epmd-edp/sk-dev/test-app-name',
+                    targetRevision: 'build/0.1.0-SNAPSHOT.1',
+                },
+            ],
+            syncPolicy: {
+                automated: {
+                    prune: true,
+                    selfHeal: true,
+                },
+                syncOptions: ['CreateNamespace=true'],
+            },
+        },
+    },
     applicationImageStream: 'test-app-name-master',
     toPromote: true,
     applicationImageStreams: [

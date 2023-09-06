@@ -32,7 +32,7 @@ export const GitRepoPath = () => {
             {...register(CODEBASE_FORM_NAMES.gitRepoPath.name, {
                 required: 'Enter relative path to repository.',
                 pattern: {
-                    value: /^.*$/,
+                    value: /^(?!\/).*(?<!\/)$/,
                     message: 'Enter valid relative path to repository',
                 },
                 onChange: ({ target: { value } }: FieldEvent) => {

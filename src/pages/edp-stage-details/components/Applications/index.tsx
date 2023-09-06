@@ -7,8 +7,13 @@ import {
     CODEBASE_COMMON_FRAMEWORKS,
     CODEBASE_COMMON_LANGUAGES,
 } from '../../../../configs/codebase-mappings';
+import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { useCreateArgoApplication } from '../../../../k8s/Application/hooks/useCreateArgoApplication';
+import { getDeployedVersion } from '../../../../k8s/Application/utils/getDeployedVersion';
+import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
+import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE } from '../../../../k8s/EDPCodebase/labels';
 import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { mapEvery } from '../../../../utils/loops/mapEvery';
 import { useCDPipelineQueryContext } from '../../providers/CDPipelineQuery/hooks';
 import { useCDPipelineStageContext } from '../../providers/CDPipelineStage/hooks';
@@ -39,7 +44,17 @@ export const Applications = ({
     const { CDPipelineQuery } = useCDPipelineQueryContext();
     const { stage } = useCDPipelineStageContext();
     const { data: gitServers } = useGitServerListQuery({});
+    const [codebases] = EDPCodebaseKubeObject.useList({
+        namespace: getDefaultNamespace(),
+        labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPES.SYSTEM}`,
+    });
 
+    const codebasesArray = React.useMemo(
+        () => (codebases ? codebases.filter(Boolean) : []),
+        [codebases]
+    );
+
+    const gitOpsCodebase = codebasesArray.find(el => el.metadata.name === 'edp-gitops') ?? null;
     const { getValues, setValue, resetField, trigger } = useFormContext();
     const [selected, setSelected] = React.useState<string[]>([]);
 
@@ -183,11 +198,15 @@ export const Applications = ({
                     application?.spec?.framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
                     application?.spec?.buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
 
-                const deployedVersion = !isHelm
-                    ? argoApplicationBySelectedApplication?.spec?.source?.helm?.parameters?.find(
-                          el => el.name === 'image.tag'
-                      )?.value
-                    : argoApplicationBySelectedApplication?.spec?.source?.targetRevision;
+                const withValuesOverride = argoApplicationBySelectedApplication
+                    ? Object.hasOwn(argoApplicationBySelectedApplication?.spec, 'sources')
+                    : false;
+
+                const deployedVersion = getDeployedVersion(
+                    withValuesOverride,
+                    isHelm,
+                    argoApplicationBySelectedApplication
+                );
 
                 acc.set(selectedApplication, {
                     deploy: !deployedVersion,
@@ -263,15 +282,17 @@ export const Applications = ({
                     tagLabel === 'stable' ? applicationVerifiedImageStream : applicationImageStream,
                 imageTag: tagValue,
                 valuesOverride: valuesOverrideFieldValue,
+                gitOpsCodebase,
             });
         }
     }, [
-        CDPipelineQuery,
+        CDPipelineQuery?.data,
         createArgoApplication,
         enrichedApplicationsByApplicationName,
         enrichedApplicationsWithArgoApplications,
         getValues,
-        gitServers,
+        gitOpsCodebase,
+        gitServers?.items,
         selected,
         stage,
         trigger,
@@ -292,24 +313,40 @@ export const Applications = ({
                 continue;
             }
             const imageTagFieldValue = values[`${appName}::image-tag`];
+            const valuesOverrideFieldValue = values[`${appName}::values-override`];
 
-            const { value: tagValue } = parseTagLabelValue(imageTagFieldValue);
+            const { value: tagValue, label: tagLabel } = parseTagLabelValue(imageTagFieldValue);
+
             const application = enrichedApplicationsByApplicationName.get(appName)?.application;
             const argoApplication =
                 enrichedApplicationsByApplicationName.get(appName)?.argoApplication;
-
+            const applicationImageStream =
+                enrichedApplicationsByApplicationName.get(appName)?.applicationImageStream;
+            const applicationVerifiedImageStream =
+                enrichedApplicationsByApplicationName.get(appName)?.applicationVerifiedImageStream;
             await editArgoApplication({
                 argoApplication,
+                gitServers: gitServers?.items,
+                CDPipeline: CDPipelineQuery?.data,
+                currentCDPipelineStage: stage,
                 application,
+                imageStream:
+                    tagLabel === 'stable' ? applicationVerifiedImageStream : applicationImageStream,
                 imageTag: tagValue,
+                valuesOverride: valuesOverrideFieldValue,
+                gitOpsCodebase,
             });
         }
     }, [
+        CDPipelineQuery?.data,
         editArgoApplication,
         enrichedApplicationsByApplicationName,
         enrichedApplicationsWithArgoApplications,
         getValues,
+        gitOpsCodebase,
+        gitServers?.items,
         selected,
+        stage,
         trigger,
     ]);
 

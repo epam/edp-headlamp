@@ -10,7 +10,7 @@ export const imageStreamMock: DeepPartial<EDPCodebaseImageStreamKubeObjectInterf
     },
     spec: {
         codebase: 'test-app-name',
-        imageName: '012345678910.dkr.ecr.eu-central-1.amazonaws.com/test-namespace/test-app-name',
+        imageName: 'test-registry/test-namespace/test-app-name',
         tags: [
             {
                 created: "2023-01-10'T'12:49:28",

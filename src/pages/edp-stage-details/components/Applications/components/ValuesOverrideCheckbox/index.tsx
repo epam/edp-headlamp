@@ -7,6 +7,7 @@ export const ValuesOverrideCheckbox = ({
     enrichedApplicationWithArgoApplication,
     selected,
     handleSelectRowClick,
+    defaultValue,
 }: ValuesOverrideCheckboxProps) => {
     const { application } = enrichedApplicationWithArgoApplication;
     const {
@@ -25,6 +26,7 @@ export const ValuesOverrideCheckbox = ({
                         handleSelectRowClick(event, enrichedApplicationWithArgoApplication),
                 })}
                 align={'center'}
+                defaultValue={defaultValue}
                 control={control}
                 errors={errors}
             />

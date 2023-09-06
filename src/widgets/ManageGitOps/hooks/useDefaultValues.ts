@@ -42,9 +42,9 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
             };
         }
 
-        const gitUrlPathSplitBySlashArray = currentElement?.spec.gitUrlPath.split('/');
-        const gitRepoPath =
-            gitUrlPathSplitBySlashArray.length === 3 ? gitUrlPathSplitBySlashArray[1] : undefined;
+        const gitRepoPath = currentElement?.spec.gitUrlPath
+            .replace(`/${GIT_OPS_CODEBASE_NAME}`, '')
+            .replace('/', '');
 
         return {
             [CODEBASE_FORM_NAMES.gitServer.name]: currentElement?.spec.gitServer,

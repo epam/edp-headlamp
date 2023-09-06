@@ -16,6 +16,7 @@ import {
     Gin,
     Github,
     Gitlab,
+    GitOps,
     Go,
     Gradle,
     Groovy,
@@ -81,6 +82,7 @@ export const Resources = () => {
             <Gin />
             <NextJS />
             <Antora />
+            <GitOps />
         </svg>
     );
 };
