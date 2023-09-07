@@ -92,12 +92,14 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
                     <QualityGates />
                 </Grid>
             </Grid>
-            <EditorDialog
-                open={editorOpen}
-                item={editorData}
-                onClose={handleCloseEditor}
-                onSave={onEditorSave}
-            />
+            <Render condition={editorOpen}>
+                <EditorDialog
+                    open={editorOpen}
+                    item={editorData}
+                    onClose={handleCloseEditor}
+                    onSave={onEditorSave}
+                />
+            </Render>
         </>
     );
 };

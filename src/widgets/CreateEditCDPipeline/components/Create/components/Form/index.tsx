@@ -147,12 +147,14 @@ export const Form = ({
                     </Render>
                 </Grid>
             </TabPanel>
-            <EditorDialog
-                open={editorOpen}
-                item={editorData}
-                onClose={handleCloseEditor}
-                onSave={onEditorSave}
-            />
+            <Render condition={editorOpen}>
+                <EditorDialog
+                    open={editorOpen}
+                    item={editorData}
+                    onClose={handleCloseEditor}
+                    onSave={onEditorSave}
+                />
+            </Render>
         </>
     );
 };
