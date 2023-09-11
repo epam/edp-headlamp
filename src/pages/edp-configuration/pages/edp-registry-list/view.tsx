@@ -31,15 +31,15 @@ const findKanikoAndRegcredSecrets = (secrets: SecretKubeObjectInterface[]) => {
             return acc;
         },
         {
-            kanikoDockerConfig: null,
-            regcred: null,
+            kanikoDockerConfig: undefined,
+            regcred: undefined,
         } as Secrets
     );
 };
 
 export const PageView = () => {
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
-    const dockerRegistryURL = EDPComponentsURLS?.['docker-registry'];
+    const dockerRegistryURL = EDPComponentsURLS?.['container-registry'];
 
     const [secrets, setSecrets] = React.useState<Secrets>({
         kanikoDockerConfig: null,
@@ -128,7 +128,7 @@ export const PageView = () => {
                 ),
             })}
             items={configurationItemList}
-            emptyMessage={'No registry secrets found'}
+            emptyMessage={'No Registry secrets found'}
         />
     );
 };

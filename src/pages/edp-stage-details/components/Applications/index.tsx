@@ -114,7 +114,7 @@ export const Applications = ({
 
     const onLatestClick = React.useCallback(() => {
         for (const selectedApplication of selected) {
-            const selectFieldName = `image-tag-${selectedApplication}`;
+            const selectFieldName = `${selectedApplication}::image-tag`;
             resetField(selectFieldName);
 
             const imageStreamBySelectedApplication =
@@ -144,7 +144,7 @@ export const Applications = ({
 
     const onStableClick = React.useCallback(() => {
         for (const selectedApplication of selected) {
-            const selectFieldName = `image-tag-${selectedApplication}`;
+            const selectFieldName = `${selectedApplication}::image-tag`;
             resetField(selectFieldName);
 
             const imageStreamBySelectedApplication =
