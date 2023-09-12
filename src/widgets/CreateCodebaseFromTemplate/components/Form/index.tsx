@@ -1,10 +1,10 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { CodebaseVersioning, Description, GitServer, GitUrlPath, Name } from '../fields';
-import { useUpdateDefaultValues } from './hooks/useUpdateDefaultValues';
+import { useUpdateVersioningFields } from './hooks/useUpdateVersioningFields';
 
 export const Form = () => {
-    useUpdateDefaultValues();
+    useUpdateVersioningFields();
 
     return (
         <Grid container spacing={2}>

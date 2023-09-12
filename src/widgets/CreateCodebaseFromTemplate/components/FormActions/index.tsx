@@ -4,6 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { useCreateCodebase } from '../../../../k8s/EDPCodebase/hooks/useCreateCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { createCodebaseInstance } from '../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
+import { useDefaultCIToolQuery } from '../../../../k8s/EDPComponent/hooks/useDefaultCIToolQuery';
 import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../constants';
@@ -23,7 +24,6 @@ export const FormActions = () => {
         reset,
         formState: { isDirty },
         handleSubmit,
-        getValues,
     } = useFormContext<CreateCodebaseFromTemplateFormValues>();
 
     const {
@@ -36,19 +36,24 @@ export const FormActions = () => {
         },
     });
 
-    const onSubmit = React.useCallback(async () => {
-        const values = getValues();
-        const usedValues = getUsedValues(values, CODEBASE_FROM_TEMPLATE_FORM_NAMES);
-        const codebaseInstance = createCodebaseInstance(
-            CODEBASE_FROM_TEMPLATE_FORM_NAMES,
-            usedValues
-        );
+    const { data: defaultCITool } = useDefaultCIToolQuery();
 
-        await createCodebase({
-            codebaseData: codebaseInstance as EDPCodebaseKubeObjectInterface,
-            codebaseAuthData: null,
-        });
-    }, [getValues, createCodebase]);
+    const onSubmit = React.useCallback(
+        async values => {
+            const usedValues = getUsedValues(values, CODEBASE_FROM_TEMPLATE_FORM_NAMES);
+
+            const codebaseInstance = createCodebaseInstance(CODEBASE_FROM_TEMPLATE_FORM_NAMES, {
+                ...usedValues,
+                ciTool: defaultCITool,
+            });
+
+            await createCodebase({
+                codebaseData: codebaseInstance as EDPCodebaseKubeObjectInterface,
+                codebaseAuthData: null,
+            });
+        },
+        [defaultCITool, createCodebase]
+    );
 
     return (
         <>
