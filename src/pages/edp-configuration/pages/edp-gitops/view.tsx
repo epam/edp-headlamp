@@ -1,5 +1,8 @@
+import { Grid } from '@material-ui/core';
 import React from 'react';
+import { ResourceIconLink } from '../../../../components/ResourceIconLink';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE } from '../../../../k8s/EDPCodebase/labels';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
@@ -24,7 +27,18 @@ export const PageView = () => {
 
                 return {
                     id: el?.metadata?.name || el?.metadata?.uid,
-                    title: 'GitOps',
+                    title: (
+                        <Grid container spacing={1} alignItems={'center'}>
+                            <Grid item>GitOps</Grid>
+                            <Grid item>
+                                <ResourceIconLink
+                                    tooltipTitle={'Go to the Source Code'}
+                                    link={gitOpsCodebase?.status?.gitWebUrl}
+                                    icon={ICONS.GIT_BRANCH}
+                                />
+                            </Grid>
+                        </Grid>
+                    ),
                     ownerReference,
                     component: (
                         <ManageGitOps
@@ -36,7 +50,7 @@ export const PageView = () => {
                     ),
                 };
             }),
-        [itemsArray]
+        [gitOpsCodebase, itemsArray]
     );
 
     const creationDisabled = React.useMemo(

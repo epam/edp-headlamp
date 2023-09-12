@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface ConfigurationItem {
-    title: string;
+    title: string | React.ReactElement;
     component: React.ReactElement;
     id?: string;
     ownerReference?: string;
