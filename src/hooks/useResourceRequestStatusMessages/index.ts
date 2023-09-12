@@ -1,18 +1,23 @@
 import { useSnackbar } from 'notistack';
 import { CRUD_TYPES } from '../../constants/crudTypes';
 
+interface Options {
+    entityName: string;
+    customMessage?: string;
+}
+
 export const useRequestStatusMessages = () => {
     const { enqueueSnackbar } = useSnackbar();
 
-    const showBeforeRequestMessage = (kindName: string, resourceName: string, mode: CRUD_TYPES) => {
+    const showBeforeRequestMessage = (mode: CRUD_TYPES, { entityName, customMessage }: Options) => {
         const beforeRequestMessage = (() => {
             switch (mode) {
                 case CRUD_TYPES.CREATE:
-                    return `Applying ${kindName} ${resourceName}`;
+                    return customMessage || `Applying ${entityName}`;
                 case CRUD_TYPES.EDIT:
-                    return `Updating ${kindName} ${resourceName}`;
+                    return customMessage || `Updating ${entityName}`;
                 case CRUD_TYPES.DELETE:
-                    return `Deleting ${kindName} ${resourceName}`;
+                    return customMessage || `Deleting ${entityName}`;
             }
         })();
 
@@ -27,18 +32,17 @@ export const useRequestStatusMessages = () => {
     };
 
     const showRequestSuccessMessage = (
-        kindName: string,
-        resourceName: string,
-        mode: CRUD_TYPES
+        mode: CRUD_TYPES,
+        { entityName, customMessage }: Options
     ) => {
         const requestSuccessMessage = (() => {
             switch (mode) {
                 case CRUD_TYPES.CREATE:
-                    return `${kindName} ${resourceName} has been successfully applied`;
+                    return customMessage || `${entityName} has been successfully applied`;
                 case CRUD_TYPES.EDIT:
-                    return `${kindName} ${resourceName} has been successfully updated`;
+                    return customMessage || `${entityName} has been successfully updated`;
                 case CRUD_TYPES.DELETE:
-                    return `${kindName} ${resourceName} has been successfully deleted`;
+                    return customMessage || `${entityName} has been successfully deleted`;
             }
         })();
         enqueueSnackbar(requestSuccessMessage, {
@@ -51,15 +55,15 @@ export const useRequestStatusMessages = () => {
         });
     };
 
-    const showRequestErrorMessage = (kindName: string, resourceName: string, mode: CRUD_TYPES) => {
+    const showRequestErrorMessage = (mode: CRUD_TYPES, { entityName, customMessage }: Options) => {
         const requestErrorMessage = (() => {
             switch (mode) {
                 case CRUD_TYPES.CREATE:
-                    return `Failed to apply ${kindName} ${resourceName}`;
+                    return customMessage || `Failed to apply ${entityName}`;
                 case CRUD_TYPES.EDIT:
-                    return `Failed to update ${kindName} ${resourceName}`;
+                    return customMessage || `Failed to update ${entityName}`;
                 case CRUD_TYPES.DELETE:
-                    return `Failed to delete ${kindName} ${resourceName}`;
+                    return customMessage || `Failed to delete ${entityName}`;
             }
         })();
 

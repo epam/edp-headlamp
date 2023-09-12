@@ -47,24 +47,18 @@ export const useDeleteKubeObject = ({
         },
         {
             onMutate: ({ kubeObjectData }) =>
-                showBeforeRequestMessage(
-                    kubeObjectData.kind,
-                    kubeObjectData.metadata.name,
-                    CRUD_TYPES.DELETE
-                ),
+                showBeforeRequestMessage(CRUD_TYPES.DELETE, {
+                    entityName: `${kubeObjectData.kind} ${kubeObjectData.metadata.name}`,
+                }),
             onSuccess: (data, { kubeObjectData }) => {
-                showRequestSuccessMessage(
-                    kubeObjectData.kind,
-                    kubeObjectData.metadata.name,
-                    CRUD_TYPES.DELETE
-                );
+                showRequestSuccessMessage(CRUD_TYPES.DELETE, {
+                    entityName: `${kubeObjectData.kind} ${kubeObjectData.metadata.name}`,
+                });
             },
             onError: (error, { kubeObjectData }) => {
-                showRequestErrorMessage(
-                    kubeObjectData.kind,
-                    kubeObjectData.metadata.name,
-                    CRUD_TYPES.DELETE
-                );
+                showRequestErrorMessage(CRUD_TYPES.DELETE, {
+                    entityName: `${kubeObjectData.kind} ${kubeObjectData.metadata.name}`,
+                });
             },
         }
     );

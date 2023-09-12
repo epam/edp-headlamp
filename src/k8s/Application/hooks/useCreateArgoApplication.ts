@@ -42,17 +42,35 @@ export const useCreateArgoApplication = () => {
     const argoApplicationCreateMutation = useResourceCRUDMutation<
         ApplicationKubeObjectInterface,
         CRUD_TYPES.CREATE
-    >('argoApplicationCreateMutation', ApplicationKubeObject, CRUD_TYPES.CREATE, false);
+    >('argoApplicationCreateMutation', ApplicationKubeObject, CRUD_TYPES.CREATE, {
+        customMessages: {
+            onMutate: 'Creating application...',
+            onError: 'Failed to deploy application',
+            onSuccess: 'Start deploying application',
+        },
+    });
 
     const argoApplicationEditMutation = useResourceCRUDMutation<
         ApplicationKubeObjectInterface,
         CRUD_TYPES.EDIT
-    >('argoApplicationEditMutation', ApplicationKubeObject, CRUD_TYPES.EDIT, false);
+    >('argoApplicationEditMutation', ApplicationKubeObject, CRUD_TYPES.EDIT, {
+        customMessages: {
+            onMutate: 'Applying changes...',
+            onError: 'Failed to update application',
+            onSuccess: 'Start updating application',
+        },
+    });
 
     const argoApplicationDeleteMutation = useResourceCRUDMutation<
         ApplicationKubeObjectInterface,
         CRUD_TYPES.DELETE
-    >('argoApplicationDeleteMutation', ApplicationKubeObject, CRUD_TYPES.DELETE, false);
+    >('argoApplicationDeleteMutation', ApplicationKubeObject, CRUD_TYPES.DELETE, {
+        customMessages: {
+            onMutate: 'Uninstalling application...',
+            onError: 'Failed to uninstall application',
+            onSuccess: 'Start uninstalling application',
+        },
+    });
 
     const createArgoApplication = React.useCallback(
         async ({

@@ -10,6 +10,17 @@ type UseResourceCRUDMutationReturnType<
     Mode extends CRUD_TYPES
 > = Mode extends CRUD_TYPES.DELETE ? void : KubeObjectData;
 
+type CustomMessages = {
+    onMutate?: string;
+    onError?: string;
+    onSuccess?: string;
+};
+
+interface Options {
+    customMessages?: CustomMessages;
+    showMessages?: boolean;
+}
+
 export const useResourceCRUDMutation = <
     KubeObjectData extends EDPKubeObjectInterface,
     Mode extends CRUD_TYPES
@@ -17,12 +28,14 @@ export const useResourceCRUDMutation = <
     mutationKey: string,
     kubeObject: KubeObjectIface<any>,
     mode: Mode,
-    showMessages: boolean = true
+    options?: Options
 ): UseMutationResult<
     UseResourceCRUDMutationReturnType<KubeObjectData, Mode>,
     Error,
     KubeObjectData
 > => {
+    const showMessages = options?.showMessages ?? true;
+
     const {
         showBeforeRequestMessage,
         showRequestErrorMessage,
@@ -66,14 +79,23 @@ export const useResourceCRUDMutation = <
         {
             onMutate: variables =>
                 showMessages &&
-                showBeforeRequestMessage(variables.kind, variables.metadata.name, mode),
+                showBeforeRequestMessage(mode, {
+                    customMessage: options?.customMessages?.onMutate,
+                    entityName: `${variables.kind} ${variables.metadata.name}`,
+                }),
             onSuccess: (data, variables) => {
                 showMessages &&
-                    showRequestSuccessMessage(variables.kind, variables.metadata.name, mode);
+                    showRequestSuccessMessage(mode, {
+                        customMessage: options?.customMessages?.onSuccess,
+                        entityName: `${variables.kind} ${variables.metadata.name}`,
+                    });
             },
             onError: (error, variables) => {
                 showMessages &&
-                    showRequestErrorMessage(variables.kind, variables.metadata.name, mode);
+                    showRequestErrorMessage(mode, {
+                        customMessage: options?.customMessages?.onError,
+                        entityName: `${variables.kind} ${variables.metadata.name}`,
+                    });
                 showMessages && showRequestErrorDetailedMessage(error);
                 console.error(error);
             },
