@@ -19,6 +19,10 @@ export const useStreamPipelineRunListByTypeAndPipelineNameLabels = ({
     const [pipelineRunList, setPipelineRunList] = React.useState<TaskRunKubeObjectInterface[]>([]);
 
     React.useEffect(() => {
+        if (!stageMetadataName) {
+            return;
+        }
+
         const cancelStream = PipelineRunKubeObject.streamPipelineRunListByTypeAndPipelineNameLabels(
             {
                 namespace,

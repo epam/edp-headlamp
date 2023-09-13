@@ -20,6 +20,10 @@ export const useStreamApplicationListByPipelineStageLabel = ({
     );
 
     React.useEffect(() => {
+        if (!stageSpecName) {
+            return;
+        }
+
         const cancelStream = ApplicationKubeObject.streamApplicationListByPipelineStageLabel({
             namespace,
             stageSpecName,

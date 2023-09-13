@@ -30,6 +30,7 @@ export const FormCheckbox = React.forwardRef(
                             render={({ field }) => {
                                 return (
                                     <FormControlLabel
+                                        style={{ margin: 0 }}
                                         control={
                                             <Checkbox
                                                 {...field}

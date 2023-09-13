@@ -31,9 +31,7 @@ import { QualityGates } from './components/QualityGates';
 import { StageActions } from './components/StageActions';
 import { useEnrichedApplicationsWithArgoApplications } from './hooks/useEnrichedApplicationsWithArgoApplication';
 import { useEveryArgoAppIsHealthyAndInSync } from './hooks/useEveryArgoAppIsHealthyAndInSync';
-import { useCDPipelineQueryContext } from './providers/CDPipelineQuery/hooks';
-import { useCDPipelineStageContext } from './providers/CDPipelineStage/hooks';
-import { useEnrichedApplicationsContext } from './providers/EnrichedApplications/hooks';
+import { useDataContext } from './providers/Data/hooks';
 import { useStyles } from './styles';
 import { EnrichedQualityGateWithAutotestPipelineRun } from './types';
 import { EDPStageDetailsRouteParams } from './types';
@@ -42,9 +40,7 @@ export const PageView = () => {
     const classes = useStyles();
     const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
 
-    const { CDPipelineQuery } = useCDPipelineQueryContext();
-    const { stage } = useCDPipelineStageContext();
-    const { enrichedApplications } = useEnrichedApplicationsContext();
+    const { CDPipeline, stage, enrichedApplications } = useDataContext();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 
     const stageSpecName = stage?.spec.name;
@@ -244,7 +240,7 @@ export const PageView = () => {
                                 tooltipTitle={'Open in Jenkins'}
                                 link={GENERATE_URL_SERVICE.createJenkinsPipelineStageLink(
                                     EDPComponentsURLS?.jenkins,
-                                    CDPipelineQuery?.data?.metadata?.name,
+                                    CDPipeline?.metadata?.name,
                                     stageSpecName
                                 )}
                             />
@@ -255,7 +251,7 @@ export const PageView = () => {
                                 tooltipTitle={'Open in ArgoCD'}
                                 link={GENERATE_URL_SERVICE.createArgoCDStageLink(
                                     EDPComponentsURLS?.argocd,
-                                    CDPipelineQuery?.data?.metadata?.name,
+                                    CDPipeline?.metadata?.name,
                                     stageSpecName
                                 )}
                             />

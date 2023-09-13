@@ -3,9 +3,7 @@ import { ApplicationKubeObjectInterface } from '../../../k8s/Application/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../k8s/EDPCDPipelineStage/types';
 import { EnrichedApplicationWithItsImageStreams } from '../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../k8s/EDPCodebaseImageStream/types';
-import { useCDPipelineQueryContext } from '../providers/CDPipelineQuery/hooks';
-import { useCDPipelineStageContext } from '../providers/CDPipelineStage/hooks';
-import { useCDPipelineStagesQueryContext } from '../providers/CDPipelineStagesQuery/hooks';
+import { useDataContext } from '../providers/Data/hooks';
 
 const findPreviousStage = (
     stages: EDPCDPipelineStageKubeObjectInterface[],
@@ -23,13 +21,10 @@ export const useEnrichedApplicationsWithArgoApplications = ({
     enrichedApplicationsWithItsImageStreams,
     argoApplications,
 }: UseEnrichedApplicationsProps) => {
-    const { CDPipelineQuery } = useCDPipelineQueryContext();
-    const { stage } = useCDPipelineStageContext();
-    const { stagesQuery } = useCDPipelineStagesQueryContext();
+    const { CDPipeline, stage, stages } = useDataContext();
 
-    const inputDockerStreams = CDPipelineQuery?.data?.spec.inputDockerStreams;
-    const CDPipelineName = CDPipelineQuery?.data?.metadata.name;
-    const stages = stagesQuery?.data;
+    const inputDockerStreams = CDPipeline?.spec.inputDockerStreams;
+    const CDPipelineName = CDPipeline?.metadata.name;
     const stageOrder = stage?.spec.order;
 
     const normalizedInputDockerStreamNames = inputDockerStreams?.map(el => el.replaceAll('.', '-'));

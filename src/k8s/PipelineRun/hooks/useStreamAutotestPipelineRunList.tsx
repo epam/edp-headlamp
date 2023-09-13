@@ -22,6 +22,10 @@ export const useStreamAutotestPipelineRunList = ({
     );
 
     React.useEffect(() => {
+        if (!stageSpecName || !parentPipelineRunName) {
+            return;
+        }
+
         const cancelStream = PipelineRunKubeObject.streamAutotestsPipelineRunList({
             namespace,
             stageSpecName,

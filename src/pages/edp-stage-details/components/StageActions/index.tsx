@@ -6,17 +6,14 @@ import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { StageActionsMenu } from '../../../../widgets/StageActionsMenu';
-import { useCDPipelineQueryContext } from '../../providers/CDPipelineQuery/hooks';
-import { useCDPipelineStagesQueryContext } from '../../providers/CDPipelineStagesQuery/hooks';
+import { useDataContext } from '../../providers/Data/hooks';
 import { StageActionsProps } from './types';
 
 export const StageActions = ({ stage }: StageActionsProps) => {
-    const { stagesQuery } = useCDPipelineStagesQueryContext();
+    const { stages, CDPipeline } = useDataContext();
     const { handleOpenResourceActionListMenu } =
         useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
     const buttonRef = React.createRef<HTMLButtonElement>();
-
-    const { CDPipelineQuery } = useCDPipelineQueryContext();
 
     return (
         <>
@@ -29,11 +26,8 @@ export const StageActions = ({ stage }: StageActionsProps) => {
                     <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
                 </IconButton>
             </Tooltip>
-            <Render condition={!!stagesQuery.data}>
-                <StageActionsMenu
-                    stages={stagesQuery.data?.items}
-                    CDPipelineData={CDPipelineQuery?.data}
-                />
+            <Render condition={!!stages}>
+                <StageActionsMenu stages={stages?.items} CDPipelineData={CDPipeline} />
             </Render>
         </>
     );

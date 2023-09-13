@@ -3,6 +3,7 @@ import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Link as MuiLink, Tooltip, useTheme } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import {
@@ -10,6 +11,7 @@ import {
     CODEBASE_COMMON_FRAMEWORKS,
     CODEBASE_COMMON_LANGUAGES,
 } from '../../../../../configs/codebase-mappings';
+import { GIT_SERVERS } from '../../../../../constants/gitServers';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import {
@@ -22,6 +24,7 @@ import { getDeployedVersion } from '../../../../../k8s/Application/utils/getDepl
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
+import { useDataContext } from '../../../providers/Data/hooks';
 import { EDPStageDetailsRouteParams, EnrichedApplicationWithArgoApplication } from '../../../types';
 import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
 import { ValuesOverrideCheckbox } from '../components/ValuesOverrideCheckbox';
@@ -35,8 +38,9 @@ export const useColumns = (
     selected: string[]
 ): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
     const theme = useTheme();
-    const { namespace } = useParams<EDPStageDetailsRouteParams>();
+    const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+    const { stage, gitOpsCodebase } = useDataContext();
     const _createArgoCDLink = React.useCallback(
         (argoApplication: ApplicationKubeObjectInterface) =>
             GENERATE_URL_SERVICE.createArgoCDApplicationLink(
@@ -166,15 +170,39 @@ export const useColumns = (
                               )
                             : false;
 
+                    const {
+                        application: {
+                            metadata: { name: appName },
+                            spec: { gitServer },
+                        },
+                    } = enrichedApplicationWithArgoApplication;
+
                     return (
-                        <ValuesOverrideCheckbox
-                            enrichedApplicationWithArgoApplication={
-                                enrichedApplicationWithArgoApplication
-                            }
-                            selected={selected}
-                            handleSelectRowClick={handleSelectRowClick}
-                            defaultValue={withValuesOverride}
-                        />
+                        <Grid container spacing={1} alignItems={'center'}>
+                            <Grid item>
+                                <ValuesOverrideCheckbox
+                                    enrichedApplicationWithArgoApplication={
+                                        enrichedApplicationWithArgoApplication
+                                    }
+                                    selected={selected}
+                                    handleSelectRowClick={handleSelectRowClick}
+                                    defaultValue={withValuesOverride}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <ResourceIconLink
+                                    tooltipTitle={'Go to the Source Code'}
+                                    link={GENERATE_URL_SERVICE.createGitOpsValuesYamlFileLink(
+                                        gitOpsCodebase?.status.gitWebUrl,
+                                        CDPipelineName,
+                                        stage?.spec.name,
+                                        appName,
+                                        gitServer as GIT_SERVERS
+                                    )}
+                                    icon={ICONS.GIT_BRANCH}
+                                />
+                            </Grid>
+                        </Grid>
                     );
                 },
                 width: '10%',
@@ -196,6 +224,14 @@ export const useColumns = (
                 },
             },
         ],
-        [_createArgoCDLink, handleSelectRowClick, selected, theme.palette.grey]
+        [
+            CDPipelineName,
+            _createArgoCDLink,
+            gitOpsCodebase?.status.gitWebUrl,
+            handleSelectRowClick,
+            selected,
+            stage?.spec.name,
+            theme.palette.grey,
+        ]
     );
 };

@@ -7,16 +7,11 @@ import {
     CODEBASE_COMMON_FRAMEWORKS,
     CODEBASE_COMMON_LANGUAGES,
 } from '../../../../configs/codebase-mappings';
-import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { useCreateArgoApplication } from '../../../../k8s/Application/hooks/useCreateArgoApplication';
 import { getDeployedVersion } from '../../../../k8s/Application/utils/getDeployedVersion';
-import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
-import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE } from '../../../../k8s/EDPCodebase/labels';
 import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { mapEvery } from '../../../../utils/loops/mapEvery';
-import { useCDPipelineQueryContext } from '../../providers/CDPipelineQuery/hooks';
-import { useCDPipelineStageContext } from '../../providers/CDPipelineStage/hooks';
+import { useDataContext } from '../../providers/Data/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
 import { useColumns } from './hooks/useColumns';
 import { useUpperColumns } from './hooks/useUpperColumns';
@@ -41,20 +36,8 @@ export const Applications = ({
     enrichedApplicationsWithArgoApplications,
     qualityGatePipelineIsRunning,
 }: ApplicationsProps) => {
-    const { CDPipelineQuery } = useCDPipelineQueryContext();
-    const { stage } = useCDPipelineStageContext();
+    const { CDPipeline, stage, gitOpsCodebase } = useDataContext();
     const { data: gitServers } = useGitServerListQuery({});
-    const [codebases] = EDPCodebaseKubeObject.useList({
-        namespace: getDefaultNamespace(),
-        labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPES.SYSTEM}`,
-    });
-
-    const codebasesArray = React.useMemo(
-        () => (codebases ? codebases.filter(Boolean) : []),
-        [codebases]
-    );
-
-    const gitOpsCodebase = codebasesArray.find(el => el.metadata.name === 'edp-gitops') ?? null;
     const { getValues, setValue, resetField, trigger } = useFormContext();
     const [selected, setSelected] = React.useState<string[]>([]);
 
@@ -275,7 +258,7 @@ export const Applications = ({
 
             await createArgoApplication({
                 gitServers: gitServers?.items,
-                CDPipeline: CDPipelineQuery?.data,
+                CDPipeline,
                 currentCDPipelineStage: stage,
                 application,
                 imageStream:
@@ -286,7 +269,7 @@ export const Applications = ({
             });
         }
     }, [
-        CDPipelineQuery?.data,
+        CDPipeline,
         createArgoApplication,
         enrichedApplicationsByApplicationName,
         enrichedApplicationsWithArgoApplications,
@@ -327,7 +310,7 @@ export const Applications = ({
             await editArgoApplication({
                 argoApplication,
                 gitServers: gitServers?.items,
-                CDPipeline: CDPipelineQuery?.data,
+                CDPipeline,
                 currentCDPipelineStage: stage,
                 application,
                 imageStream:
@@ -338,7 +321,7 @@ export const Applications = ({
             });
         }
     }, [
-        CDPipelineQuery?.data,
+        CDPipeline,
         editArgoApplication,
         enrichedApplicationsByApplicationName,
         enrichedApplicationsWithArgoApplications,

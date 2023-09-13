@@ -11,8 +11,7 @@ import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useSt
 import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../utils/styling/rem';
-import { useCDPipelineStageContext } from '../../providers/CDPipelineStage/hooks';
-import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
+import { useDataContext } from '../../providers/Data/hooks';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { useColumns } from './hooks/useColumns';
 import { useQualityGatesGraphData } from './hooks/useQualityGatesGraphData';
@@ -28,8 +27,7 @@ export const QualityGates = ({
     const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
     const columns = useColumns();
 
-    const { enrichedApplications } = useEnrichedApplicationsContext();
-    const { stage } = useCDPipelineStageContext();
+    const { enrichedApplications, stage } = useDataContext();
     const stageSpecName = stage?.spec.name;
 
     const { createAutotestRunnerPipelineRun } = useCreateAutotestRunnerPipelineRun({});

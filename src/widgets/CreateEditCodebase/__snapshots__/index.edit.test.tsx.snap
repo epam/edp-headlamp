@@ -161,6 +161,7 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
                     >
                       <label
                         class="MuiFormControlLabel-root"
+                        style="margin: 0px;"
                       >
                         <span
                           aria-disabled="false"

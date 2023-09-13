@@ -3,10 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../../components/ErrorBoundary';
 import { DialogContextProvider } from '../../providers/Dialog';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
-import { CDPipelineQueryContextProvider } from './providers/CDPipelineQuery/provider';
-import { CDPipelineStageContextProvider } from './providers/CDPipelineStage/provider';
-import { CDPipelineStagesQueryContextProvider } from './providers/CDPipelineStagesQuery/provider';
-import { EnrichedApplicationsContextProvider } from './providers/EnrichedApplications/provider';
+import { DataContextProvider } from './providers/Data/provider';
 import { PageView } from './view';
 
 export default function () {
@@ -23,19 +20,13 @@ export default function () {
     return (
         <QueryClientProvider client={queryClient}>
             <ErrorBoundary>
-                <CDPipelineQueryContextProvider>
-                    <CDPipelineStagesQueryContextProvider>
-                        <EnrichedApplicationsContextProvider>
-                            <CDPipelineStageContextProvider>
-                                <DialogContextProvider>
-                                    <ResourceActionListContextProvider>
-                                        <PageView />
-                                    </ResourceActionListContextProvider>
-                                </DialogContextProvider>
-                            </CDPipelineStageContextProvider>
-                        </EnrichedApplicationsContextProvider>
-                    </CDPipelineStagesQueryContextProvider>
-                </CDPipelineQueryContextProvider>
+                <DataContextProvider>
+                    <DialogContextProvider>
+                        <ResourceActionListContextProvider>
+                            <PageView />
+                        </ResourceActionListContextProvider>
+                    </DialogContextProvider>
+                </DataContextProvider>
             </ErrorBoundary>
         </QueryClientProvider>
     );
