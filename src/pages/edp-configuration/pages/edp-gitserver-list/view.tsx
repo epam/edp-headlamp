@@ -53,7 +53,7 @@ export const PageView = () => {
                     />
                 ),
             })}
-            items={configurationItemList}
+            items={items === null ? null : configurationItemList}
             emptyMessage={'No Git Servers found'}
         />
     );

@@ -77,7 +77,7 @@ export const PageView = () => {
                     />
                 ),
             })}
-            items={configurationItemList}
+            items={jiraSecret === null ? null : configurationItemList}
             emptyMessage={'No Jira integration secrets found'}
         />
     );

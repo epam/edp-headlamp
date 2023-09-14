@@ -77,7 +77,7 @@ export const PageView = () => {
                     />
                 ),
             })}
-            items={configurationItemList}
+            items={nexusSecret === null ? null : configurationItemList}
             emptyMessage={'No Nexus integration secrets found'}
         />
     );

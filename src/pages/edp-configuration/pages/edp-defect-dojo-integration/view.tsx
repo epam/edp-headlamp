@@ -78,7 +78,7 @@ export const PageView = () => {
                     />
                 ),
             })}
-            items={configurationItemList}
+            items={defectDojoSecret === null ? null : configurationItemList}
             emptyMessage={'No DefectDojo integration secrets found'}
         />
     );

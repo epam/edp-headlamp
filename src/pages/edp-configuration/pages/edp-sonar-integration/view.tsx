@@ -77,7 +77,7 @@ export const PageView = () => {
                     />
                 ),
             })}
-            items={configurationItemList}
+            items={sonarSecret === null ? null : configurationItemList}
             emptyMessage={'No SonarQube integration secrets found'}
         />
     );

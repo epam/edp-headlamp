@@ -78,7 +78,7 @@ export const PageView = () => {
                     />
                 ),
             })}
-            items={configurationItemList}
+            items={dependencyTrackSecret === null ? null : configurationItemList}
             emptyMessage={'No DependencyTrack integration secrets found'}
         />
     );

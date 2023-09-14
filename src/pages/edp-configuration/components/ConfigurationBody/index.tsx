@@ -4,6 +4,7 @@ import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
+    CircularProgress,
     Grid,
     Link,
     Tooltip,
@@ -40,6 +41,8 @@ export const ConfigurationBody = ({
         [renderPlaceHolderData]
     );
 
+    const isLoading = items === null;
+
     return (
         <PageWithSubMenu list={menu}>
             <PageWrapper containerMaxWidth={'xl'}>
@@ -75,7 +78,15 @@ export const ConfigurationBody = ({
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
-                            {items && items.length ? (
+                            {isLoading ? (
+                                <Grid item xs={12}>
+                                    <Grid container justifyContent={'center'}>
+                                        <Grid item>
+                                            <CircularProgress />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            ) : items && items.length ? (
                                 items.map(configurationItem => {
                                     const key = configurationItem?.id;
                                     const ownerReference = configurationItem?.ownerReference;

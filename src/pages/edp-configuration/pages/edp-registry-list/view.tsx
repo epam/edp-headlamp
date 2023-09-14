@@ -127,7 +127,11 @@ export const PageView = () => {
                     </Render>
                 ),
             })}
-            items={configurationItemList}
+            items={
+                kanikoDockerConfigSecret === null || regcredSecret === null
+                    ? null
+                    : configurationItemList
+            }
             emptyMessage={'No Registry secrets found'}
         />
     );

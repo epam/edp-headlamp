@@ -1,5 +1,6 @@
 import { PageDescription } from '../../types/pages';
 import { CLUSTER_LIST_PAGE_DESCRIPTION } from './pages/edp-cluster-list/constants';
+import { EDP_COMPONENT_LIST_PAGE_DESCRIPTION } from './pages/edp-component-list/constants';
 import { DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-defect-dojo-integration/constants';
 import { DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-dependency-track-integration/constants';
 import { GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION } from './pages/edp-gitops/constants';
@@ -19,4 +20,5 @@ export const menu: PageDescription[] = [
     DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION,
     JIRA_INTEGRATION_PAGE_DESCRIPTION,
     GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION,
+    EDP_COMPONENT_LIST_PAGE_DESCRIPTION,
 ];
