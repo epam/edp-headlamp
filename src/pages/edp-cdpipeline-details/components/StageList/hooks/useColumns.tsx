@@ -20,7 +20,7 @@ import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPStageDetails } from '../../../../edp-stage-details/route';
-import { useEnrichedApplicationsContext } from '../../../providers/EnrichedApplications/hooks';
+import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { EDPCDPipelineRouteParams } from '../../../types';
 
 export const useColumns = (
@@ -30,7 +30,7 @@ export const useColumns = (
         useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
     const { name: CDPipelineName, namespace } = useParams<EDPCDPipelineRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-    const { enrichedApplications } = useEnrichedApplicationsContext();
+    const { enrichedApplications } = useDynamicDataContext();
 
     const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;
 

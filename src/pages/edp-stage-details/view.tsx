@@ -32,6 +32,7 @@ import { StageActions } from './components/StageActions';
 import { useEnrichedApplicationsWithArgoApplications } from './hooks/useEnrichedApplicationsWithArgoApplication';
 import { useEveryArgoAppIsHealthyAndInSync } from './hooks/useEveryArgoAppIsHealthyAndInSync';
 import { useDataContext } from './providers/Data/hooks';
+import { useDynamicDataContext } from './providers/DynamicData/hooks';
 import { useStyles } from './styles';
 import { EnrichedQualityGateWithAutotestPipelineRun } from './types';
 import { EDPStageDetailsRouteParams } from './types';
@@ -40,7 +41,8 @@ export const PageView = () => {
     const classes = useStyles();
     const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
 
-    const { CDPipeline, stage, enrichedApplications } = useDataContext();
+    const { CDPipeline, enrichedApplications } = useDataContext();
+    const { stage } = useDynamicDataContext();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 
     const stageSpecName = stage?.spec.name;

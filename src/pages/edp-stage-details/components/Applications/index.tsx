@@ -12,6 +12,7 @@ import { getDeployedVersion } from '../../../../k8s/Application/utils/getDeploye
 import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { mapEvery } from '../../../../utils/loops/mapEvery';
 import { useDataContext } from '../../providers/Data/hooks';
+import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
 import { useColumns } from './hooks/useColumns';
 import { useUpperColumns } from './hooks/useUpperColumns';
@@ -36,7 +37,8 @@ export const Applications = ({
     enrichedApplicationsWithArgoApplications,
     qualityGatePipelineIsRunning,
 }: ApplicationsProps) => {
-    const { CDPipeline, stage, gitOpsCodebase } = useDataContext();
+    const { CDPipeline, gitOpsCodebase } = useDataContext();
+    const { stage } = useDynamicDataContext();
     const { data: gitServers } = useGitServerListQuery({});
     const { getValues, setValue, resetField, trigger } = useFormContext();
     const [selected, setSelected] = React.useState<string[]>([]);

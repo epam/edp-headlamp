@@ -3,14 +3,13 @@ import { useParams } from 'react-router-dom';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { useCDPipelineByNameQuery } from '../../../../k8s/EDPCDPipeline/hooks/useCDPipelineByNameQuery';
 import { useCDPipelineStageListByCDPipelineNameQuery } from '../../../../k8s/EDPCDPipelineStage/hooks/useCDPipelineStageListByCDPipelineNameQuery';
-import { useStreamCDPipelineStage } from '../../../../k8s/EDPCDPipelineStage/hooks/useStreamCDPipelineStage';
 import { useCodebasesByTypeLabelQuery } from '../../../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
 import { useEnrichedApplicationsWithImageStreamsQuery } from '../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { DataContext } from './context';
 
 export const DataContextProvider: React.FC = ({ children }) => {
-    const { CDPipelineName, stageName, namespace } = useParams<EDPStageDetailsRouteParams>();
+    const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
 
     const CDPipelineQuery = useCDPipelineByNameQuery({
         props: {
@@ -20,11 +19,6 @@ export const DataContextProvider: React.FC = ({ children }) => {
         options: {
             enabled: !!CDPipelineName,
         },
-    });
-
-    const stage = useStreamCDPipelineStage({
-        namespace,
-        stageMetadataName: stageName,
     });
 
     const stagesQuery = useCDPipelineStageListByCDPipelineNameQuery({
@@ -58,7 +52,6 @@ export const DataContextProvider: React.FC = ({ children }) => {
     const DataContextValue = React.useMemo(
         () => ({
             CDPipeline: CDPipelineQuery.data,
-            stage,
             stages: stagesQuery.data,
             enrichedApplications:
                 !isEnrichedApplicationsWithImageStreamsQueryLoading && enrichedApplications,
@@ -69,7 +62,6 @@ export const DataContextProvider: React.FC = ({ children }) => {
             enrichedApplications,
             gitOpsCodebase,
             isEnrichedApplicationsWithImageStreamsQueryLoading,
-            stage,
             stagesQuery.data,
         ]
     );

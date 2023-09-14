@@ -16,18 +16,14 @@ import { CDPipelineActions } from './components/CDPipelineActions';
 import { CDPipelineApplicationsTable } from './components/CDPipelineApplicationsTable';
 import { CDPipelineMetadataTable } from './components/CDPipelineMetadataTable';
 import { StageList } from './components/StageList';
-import { useCDPipelineContext } from './providers/CDPipeline/hooks';
-import { useCDPipelineStagesContext } from './providers/CDPipelineStages/hooks';
-import { useEnrichedApplicationsContext } from './providers/EnrichedApplications/hooks';
+import { useDynamicDataContext } from './providers/DynamicData/hooks';
 import { EDPCDPipelineRouteParams } from './types';
 
 export const PageView = () => {
     const { name, namespace } = useParams<EDPCDPipelineRouteParams>();
 
-    const { CDPipeline } = useCDPipelineContext();
-    const { stages } = useCDPipelineStagesContext();
+    const { CDPipeline, stages, enrichedApplications } = useDynamicDataContext();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-    const { enrichedApplications } = useEnrichedApplicationsContext();
 
     const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;
 

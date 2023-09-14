@@ -10,7 +10,7 @@ import { usePipelineByTypeListQuery } from '../../../../k8s/Pipeline/hooks/usePi
 import { useCreateDeployPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateDeployPipelineRun';
 import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
-import { useDataContext } from '../../providers/Data/hooks';
+import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { useColumns } from './hooks/useColumns';
 import { CustomGatesProps } from './types';
@@ -25,7 +25,7 @@ export const CustomGates = ({
 }: CustomGatesProps) => {
     const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
     const columns = useColumns();
-    const { stage } = useDataContext();
+    const { stage } = useDynamicDataContext();
     const stageSpecName = stage?.spec.name;
 
     const {

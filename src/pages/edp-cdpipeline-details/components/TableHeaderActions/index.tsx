@@ -6,13 +6,11 @@ import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../widgets/CreateEditStage/constants';
 import { CreateEditStageDialogForwardedProps } from '../../../../widgets/CreateEditStage/types';
-import { useCDPipelineContext } from '../../providers/CDPipeline/hooks';
-import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
+import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { TableHeaderActionsProps } from './types';
 
 export const TableHeaderActions = ({ CDPipelineStages }: TableHeaderActionsProps) => {
-    const { CDPipeline } = useCDPipelineContext();
-    const { enrichedApplications } = useEnrichedApplicationsContext();
+    const { CDPipeline, enrichedApplications } = useDynamicDataContext();
     const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;
     const { setDialog } = useDialogContext<CreateEditStageDialogForwardedProps>();
 

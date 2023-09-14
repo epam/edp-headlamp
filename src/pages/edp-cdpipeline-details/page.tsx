@@ -3,9 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../../components/ErrorBoundary';
 import { DialogContextProvider } from '../../providers/Dialog';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
-import { CDPipelineContextProvider } from './providers/CDPipeline/provider';
-import { CDPipelineStagesContextProvider } from './providers/CDPipelineStages/provider';
-import { EnrichedApplicationsContextProvider } from './providers/EnrichedApplications/provider';
+import { DynamicDataContextProvider } from './providers/DynamicData/provider';
 import { PageView } from './view';
 
 export default function () {
@@ -23,15 +21,11 @@ export default function () {
         <QueryClientProvider client={queryClient}>
             <ErrorBoundary>
                 <DialogContextProvider>
-                    <CDPipelineContextProvider>
-                        <CDPipelineStagesContextProvider>
-                            <EnrichedApplicationsContextProvider>
-                                <ResourceActionListContextProvider>
-                                    <PageView />
-                                </ResourceActionListContextProvider>
-                            </EnrichedApplicationsContextProvider>
-                        </CDPipelineStagesContextProvider>
-                    </CDPipelineContextProvider>
+                    <ResourceActionListContextProvider>
+                        <DynamicDataContextProvider>
+                            <PageView />
+                        </DynamicDataContextProvider>
+                    </ResourceActionListContextProvider>
                 </DialogContextProvider>
             </ErrorBoundary>
         </QueryClientProvider>

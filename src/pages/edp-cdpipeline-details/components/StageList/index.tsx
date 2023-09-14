@@ -6,9 +6,7 @@ import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../widgets/CreateEditStage/constants';
 import { CreateEditStageDialogForwardedProps } from '../../../../widgets/CreateEditStage/types';
-import { useCDPipelineContext } from '../../providers/CDPipeline/hooks';
-import { useCDPipelineStagesContext } from '../../providers/CDPipelineStages/hooks';
-import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
+import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { TableHeaderActions } from '../TableHeaderActions';
 import { useColumns } from './hooks/useColumns';
 import { useStyles } from './styles';
@@ -16,12 +14,9 @@ import { useStyles } from './styles';
 export const StageList = () => {
     const classes = useStyles();
     const columns = useColumns(classes);
-    const { stages } = useCDPipelineStagesContext();
-    const { CDPipeline } = useCDPipelineContext();
+    const { stages, CDPipeline, enrichedApplications } = useDynamicDataContext();
 
     const { setDialog } = useDialogContext();
-
-    const { enrichedApplications } = useEnrichedApplicationsContext();
 
     const createEditStageDialogForwardedProps: CreateEditStageDialogForwardedProps = React.useMemo(
         () => ({

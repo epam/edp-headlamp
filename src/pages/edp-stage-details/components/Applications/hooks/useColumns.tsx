@@ -25,6 +25,7 @@ import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 import { useDataContext } from '../../../providers/Data/hooks';
+import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { EDPStageDetailsRouteParams, EnrichedApplicationWithArgoApplication } from '../../../types';
 import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
 import { ValuesOverrideCheckbox } from '../components/ValuesOverrideCheckbox';
@@ -40,7 +41,8 @@ export const useColumns = (
     const theme = useTheme();
     const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-    const { stage, gitOpsCodebase } = useDataContext();
+    const { gitOpsCodebase } = useDataContext();
+    const { stage } = useDynamicDataContext();
     const _createArgoCDLink = React.useCallback(
         (argoApplication: ApplicationKubeObjectInterface) =>
             GENERATE_URL_SERVICE.createArgoCDApplicationLink(

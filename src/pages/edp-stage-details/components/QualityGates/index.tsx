@@ -12,6 +12,7 @@ import { parseTektonResourceStatus } from '../../../../utils/parseTektonResource
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../utils/styling/rem';
 import { useDataContext } from '../../providers/Data/hooks';
+import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { useColumns } from './hooks/useColumns';
 import { useQualityGatesGraphData } from './hooks/useQualityGatesGraphData';
@@ -27,7 +28,8 @@ export const QualityGates = ({
     const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
     const columns = useColumns();
 
-    const { enrichedApplications, stage } = useDataContext();
+    const { enrichedApplications } = useDataContext();
+    const { stage } = useDynamicDataContext();
     const stageSpecName = stage?.spec.name;
 
     const { createAutotestRunnerPipelineRun } = useCreateAutotestRunnerPipelineRun({});

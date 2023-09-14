@@ -4,6 +4,7 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../../k8s/EDPCDPipelin
 import { EnrichedApplicationWithItsImageStreams } from '../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../k8s/EDPCodebaseImageStream/types';
 import { useDataContext } from '../providers/Data/hooks';
+import { useDynamicDataContext } from '../providers/DynamicData/hooks';
 
 const findPreviousStage = (
     stages: EDPCDPipelineStageKubeObjectInterface[],
@@ -21,7 +22,8 @@ export const useEnrichedApplicationsWithArgoApplications = ({
     enrichedApplicationsWithItsImageStreams,
     argoApplications,
 }: UseEnrichedApplicationsProps) => {
-    const { CDPipeline, stage, stages } = useDataContext();
+    const { CDPipeline, stages } = useDataContext();
+    const { stage } = useDynamicDataContext();
 
     const inputDockerStreams = CDPipeline?.spec.inputDockerStreams;
     const CDPipelineName = CDPipeline?.metadata.name;

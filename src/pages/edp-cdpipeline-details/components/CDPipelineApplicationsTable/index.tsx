@@ -1,12 +1,12 @@
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { Table } from '../../../../components/Table';
-import { useEnrichedApplicationsContext } from '../../providers/EnrichedApplications/hooks';
+import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { useColumns } from './hooks/useColumns';
 
 export const CDPipelineApplicationsTable = () => {
     const columns = useColumns();
-    const { enrichedApplications } = useEnrichedApplicationsContext();
+    const { enrichedApplications } = useDynamicDataContext();
 
     return (
         <Grid container spacing={1}>
