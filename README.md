@@ -98,7 +98,7 @@ In order to install the EDP Headlamp, follow the steps below:
 
 4. Install edp-hedlamp in the <edp-project> namespace with the helm command; find below the installation command example:
     ```bash
-    helm install edp-headlamp epamedp/edp-headlamp --namespace <edp-project> --version <chart_version> --set name=edp-headlamp --set global.edpName=<edp-project> --set global.platform=<platform_type>
+    helm install edp-headlamp epamedp/edp-headlamp --namespace <edp-project> --version <chart_version> --set name=edp-headlamp --set global.platform=<platform_type>
     ```
 5. Check the <edp-project> namespace that should contain edp-headlamp deployment in a running status.
 

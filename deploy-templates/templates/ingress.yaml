@@ -26,7 +26,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    - host: edp-headlamp-{{ .Values.global.edpName }}.{{ .Values.global.dnsWildCard }}
+    - host: edp-headlamp-{{ .Release.Namespace }}.{{ .Values.global.dnsWildCard }}
       http:
         paths:
           - path: /

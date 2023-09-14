@@ -6,8 +6,6 @@
 replicaCount: 1
 
 global:
-  # -- namespace or a project name (in case of OpenShift)
-  edpName: ""
   # -- a cluster DNS wildcard name
   dnsWildCard:
   # -- platform type that can be "kubernetes" or "openshift"

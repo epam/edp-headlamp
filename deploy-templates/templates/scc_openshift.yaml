@@ -6,14 +6,14 @@ metadata:
     {{- include "headlamp.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": "pre-install"
-  name: edp-headlamp-{{ .Values.global.edpName }}
+  name: edp-headlamp-{{ .Release.Namespace }}
 runAsUser:
   type: MustRunAs
   uid: 100
 seLinuxContext:
   type: MustRunAs
 users:
-  - system:serviceaccount:{{ .Values.global.edpName }}:{{ include "headlamp.serviceAccountName" . }}
+  - system:serviceaccount:{{ .Release.Namespace }}:{{ include "headlamp.serviceAccountName" . }}
 allowHostDirVolumePlugin: false
 allowHostIPC: true
 allowHostNetwork: false
