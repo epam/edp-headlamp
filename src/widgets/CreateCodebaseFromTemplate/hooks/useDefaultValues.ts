@@ -1,7 +1,7 @@
 import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../constants/creationStrategies';
-import { GIT_SERVERS } from '../../../constants/gitServers';
+import { useGitServerListQuery } from '../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { useSpecificDialogContext } from '../../../providers/Dialog/hooks';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../constants';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../names';
@@ -19,6 +19,12 @@ export const useDefaultValues = () => {
         CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME
     );
 
+    const { data: gitServers } = useGitServerListQuery({});
+    const gitServersOptions = React.useMemo(
+        () => gitServers?.items.map(({ metadata: { name } }) => ({ label: name, value: name })),
+        [gitServers?.items]
+    );
+
     return React.useMemo(() => {
         return {
             [CODEBASE_FROM_TEMPLATE_FORM_NAMES.lang.name]: template?.spec.language,
@@ -30,12 +36,12 @@ export const useDefaultValues = () => {
             [CODEBASE_FROM_TEMPLATE_FORM_NAMES.defaultBranch.name]: defaultBranchName,
             [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPES.EDP,
             [CODEBASE_FROM_TEMPLATE_FORM_NAMES.emptyProject.name]: false,
-            [CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitServer.name]: GIT_SERVERS.GERRIT,
+            [CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitServer.name]: gitServersOptions?.[0]?.value,
             [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFrom.name]: defaultEDPVersioningValue,
             [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFromVersion.name]:
                 defaultEDPVersioningVersion,
             [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFromPostfix.name]:
                 defaultEDPVersioningVersionPostfix,
         };
-    }, [template]);
+    }, [template, gitServersOptions]);
 };

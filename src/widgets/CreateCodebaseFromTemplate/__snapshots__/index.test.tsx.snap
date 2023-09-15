@@ -372,7 +372,7 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
                           class="MuiFormControl-root MuiFormControl-fullWidth"
                         >
                           <div
-                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                            class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-7 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
                           >
                             <div
                               aria-haspopup="listbox"
@@ -391,7 +391,7 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
                               class="MuiSelect-nativeInput"
                               name="gitServer"
                               tabindex="-1"
-                              value="gerrit"
+                              value=""
                             />
                             <svg
                               aria-hidden="true"

@@ -33,7 +33,7 @@ export const GitRepoPath = () => {
                 required: 'Enter relative path to repository.',
                 pattern: {
                     value: /^(?!\/).*(?<!\/)$/,
-                    message: 'Enter valid relative path to repository',
+                    message: 'Path cannot start or end with slash symbol',
                 },
                 onChange: ({ target: { value } }: FieldEvent) => {
                     const isGerrit = gitServerFieldValue === GIT_SERVERS.GERRIT;
