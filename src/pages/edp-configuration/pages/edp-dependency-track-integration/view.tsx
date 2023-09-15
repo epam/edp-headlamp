@@ -1,5 +1,6 @@
 import React from 'react';
 import { SecretKubeObject } from '../../../../k8s/Secret';
+import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageDependencyTrackIntegrationSecret } from '../../../../widgets/ManageDependencyTrackIntegrationSecret';
@@ -7,7 +8,7 @@ import { ConfigurationBody } from '../../components/ConfigurationBody';
 import { DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 const findDependencyTrackIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items?.find(el => el.metadata.name === 'ci-dependency-track');
+    items?.find(el => el.metadata.name === INTEGRATION_SECRET_NAMES.DEPENDENCY_TRACK);
 
 export const PageView = () => {
     const [dependencyTrackSecret, setDependencyTrackSecret] =

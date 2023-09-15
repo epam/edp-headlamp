@@ -24,10 +24,10 @@ export const Form = () => {
                 </Grid>
             </Render>
             <Grid item xs={6}>
-                <Url />
+                <Token />
             </Grid>
             <Grid item xs={6}>
-                <Token />
+                <Url />
             </Grid>
         </Grid>
     );

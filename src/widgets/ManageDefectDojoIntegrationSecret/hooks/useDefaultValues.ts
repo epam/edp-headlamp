@@ -1,4 +1,5 @@
 import React from 'react';
+import { safeDecode } from '../../../utils/decodeEncode';
 import { DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES } from '../names';
 import { ManageDefectDojoIntegrationSecretFormDataContext } from '../types';
 
@@ -17,11 +18,11 @@ export const useDefaultValues = ({
         }
 
         return {
-            [DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.token.name]: atob(
-                unescape(currentElement?.data?.token)
+            [DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.token.name]: safeDecode(
+                currentElement?.data?.token
             ),
-            [DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.url.name]: atob(
-                unescape(currentElement?.data?.url)
+            [DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.url.name]: safeDecode(
+                currentElement?.data?.url
             ),
         };
     }, [currentElement, isPlaceholder]);

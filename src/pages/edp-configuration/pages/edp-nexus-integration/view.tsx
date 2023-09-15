@@ -1,5 +1,6 @@
 import React from 'react';
 import { SecretKubeObject } from '../../../../k8s/Secret';
+import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageNexusIntegrationSecret } from '../../../../widgets/ManageNexusIntegrationSecret';
@@ -7,7 +8,7 @@ import { ConfigurationBody } from '../../components/ConfigurationBody';
 import { NEXUS_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 const findNexusIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items.find(el => el.metadata.name === 'nexus-ci.user');
+    items.find(el => el.metadata.name === INTEGRATION_SECRET_NAMES.NEXUS);
 
 export const PageView = () => {
     const [nexusSecret, setNexusSecret] = React.useState<SecretKubeObjectInterface>(null);

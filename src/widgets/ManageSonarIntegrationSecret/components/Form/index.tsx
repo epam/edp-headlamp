@@ -4,7 +4,7 @@ import React from 'react';
 import { Render } from '../../../../components/Render';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { ManageSonarIntegrationSecretFormDataContext } from '../../types';
-import { Secret, User } from '../fields';
+import { Token, Url } from '../fields';
 
 export const Form = () => {
     const {
@@ -24,10 +24,10 @@ export const Form = () => {
                 </Grid>
             </Render>
             <Grid item xs={6}>
-                <User />
+                <Token />
             </Grid>
             <Grid item xs={6}>
-                <Secret />
+                <Url />
             </Grid>
         </Grid>
     );

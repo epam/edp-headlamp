@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { INTEGRATION_SECRET_NAMES } from '../../k8s/Secret/constants';
 import { ManageSonarIntegrationSecret } from './index';
 
 test('renders ManageSonarIntegrationSecret Edit component', () => {
@@ -15,7 +16,7 @@ test('renders ManageSonarIntegrationSecret Edit component', () => {
                     currentElement: {
                         // @ts-ignore
                         metadata: {
-                            name: 'sonar-ciuser-token',
+                            name: INTEGRATION_SECRET_NAMES.SONAR,
                             uid: 'test-uid',
                             labels: {
                                 'app.edp.epam.com/secret-type': 'sonar',
@@ -24,7 +25,7 @@ test('renders ManageSonarIntegrationSecret Edit component', () => {
                                 {
                                     apiVersion: 'apiVersion',
                                     kind: 'ExternalSecret',
-                                    name: 'sonar-ciuser-token',
+                                    name: INTEGRATION_SECRET_NAMES.SONAR,
                                     uid: 'test-uid',
                                     controller: true,
                                     blockOwnerDeletion: true,
@@ -33,8 +34,8 @@ test('renders ManageSonarIntegrationSecret Edit component', () => {
                         },
                         immutable: false,
                         data: {
-                            secret: 'dGVzdC1wYXNzd29yZA==',
-                            username: 'dGVzdC11c2VybmFtZQ==',
+                            token: 'dGVzdC10b2tlbg==',
+                            url: 'dGVzdC11cmw=',
                         },
                         type: 'Opaque',
                     },

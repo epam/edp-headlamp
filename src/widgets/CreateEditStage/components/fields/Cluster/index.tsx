@@ -3,6 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
 import { useClusterSecretListQuery } from '../../../../../k8s/Secret/hooks/useClusterSecretListQuery';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
+import { safeDecode } from '../../../../../utils/decodeEncode';
 import { STAGE_FORM_NAMES } from '../../../names';
 import { CreateEditStageFormValues } from '../../../types';
 
@@ -25,7 +26,7 @@ export const Cluster = () => {
             return [defaultClusterOption];
         }
         const clusters = data?.items.map(({ data: { name } }) => {
-            const decodedName = atob(unescape(name));
+            const decodedName = safeDecode(name);
             return {
                 label: decodedName,
                 value: decodedName,

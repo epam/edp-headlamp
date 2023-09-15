@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { INTEGRATION_SECRET_NAMES } from '../../k8s/Secret/constants';
 import { ManageNexusIntegrationSecret } from './index';
 
 test('renders ManageNexusIntegrationSecret Edit component', () => {
@@ -15,7 +16,7 @@ test('renders ManageNexusIntegrationSecret Edit component', () => {
                     currentElement: {
                         // @ts-ignore
                         metadata: {
-                            name: 'nexus-ci.user',
+                            name: INTEGRATION_SECRET_NAMES.NEXUS,
                             uid: 'test-uid',
                             labels: {
                                 'app.edp.epam.com/secret-type': 'nexus',
@@ -24,7 +25,7 @@ test('renders ManageNexusIntegrationSecret Edit component', () => {
                                 {
                                     apiVersion: 'apiVersion',
                                     kind: 'ExternalSecret',
-                                    name: 'nexus-ci.user',
+                                    name: INTEGRATION_SECRET_NAMES.NEXUS,
                                     uid: 'test-uid',
                                     controller: true,
                                     blockOwnerDeletion: true,
@@ -35,6 +36,7 @@ test('renders ManageNexusIntegrationSecret Edit component', () => {
                         data: {
                             password: 'dGVzdC1wYXNzd29yZA==',
                             username: 'dGVzdC11c2VybmFtZQ==',
+                            url: 'aHR0cHM6Ly90ZXN0LXVybC5jb20=',
                         },
                         type: 'Opaque',
                     },

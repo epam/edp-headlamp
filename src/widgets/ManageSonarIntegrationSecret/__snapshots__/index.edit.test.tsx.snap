@@ -33,7 +33,7 @@ exports[`renders ManageSonarIntegrationSecret Edit component 1`] = `
                   <span
                     class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
                   >
-                    User
+                    Token
                   </span>
                   <div
                     class="MuiBox-root MuiBox-root-3"
@@ -57,10 +57,10 @@ exports[`renders ManageSonarIntegrationSecret Edit component 1`] = `
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiInput-input"
-                        name="username"
-                        placeholder="Enter user name"
-                        type="text"
-                        value="test-username"
+                        name="token"
+                        placeholder="Enter token"
+                        type="password"
+                        value="test-token"
                       />
                     </div>
                   </div>
@@ -92,7 +92,7 @@ exports[`renders ManageSonarIntegrationSecret Edit component 1`] = `
                   <span
                     class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
                   >
-                    Secret
+                    URL
                   </span>
                   <div
                     class="MuiBox-root MuiBox-root-4"
@@ -116,10 +116,10 @@ exports[`renders ManageSonarIntegrationSecret Edit component 1`] = `
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiInput-input"
-                        name="secret"
-                        placeholder="Enter secret"
-                        type="password"
-                        value="test-password"
+                        name="url"
+                        placeholder="Enter URL"
+                        type="text"
+                        value="test-url"
                       />
                     </div>
                   </div>

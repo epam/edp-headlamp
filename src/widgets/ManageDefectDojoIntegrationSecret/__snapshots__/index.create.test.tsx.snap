@@ -33,7 +33,7 @@ exports[`renders ManageDefectDojoIntegrationSecret Create component 1`] = `
                   <span
                     class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
                   >
-                    URL
+                    Token
                   </span>
                   <div
                     class="MuiBox-root MuiBox-root-3"
@@ -57,9 +57,9 @@ exports[`renders ManageDefectDojoIntegrationSecret Create component 1`] = `
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiInput-input"
-                        name="url"
-                        placeholder="Enter URL"
-                        type="text"
+                        name="token"
+                        placeholder="Enter token"
+                        type="password"
                         value=""
                       />
                     </div>
@@ -92,7 +92,7 @@ exports[`renders ManageDefectDojoIntegrationSecret Create component 1`] = `
                   <span
                     class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
                   >
-                    Token
+                    URL
                   </span>
                   <div
                     class="MuiBox-root MuiBox-root-4"
@@ -116,9 +116,9 @@ exports[`renders ManageDefectDojoIntegrationSecret Create component 1`] = `
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiInput-input"
-                        name="token"
-                        placeholder="Enter token"
-                        type="password"
+                        name="url"
+                        placeholder="Enter URL"
+                        type="text"
                         value=""
                       />
                     </div>

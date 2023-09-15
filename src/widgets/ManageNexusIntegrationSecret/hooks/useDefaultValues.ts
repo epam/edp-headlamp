@@ -1,4 +1,5 @@
 import React from 'react';
+import { safeDecode } from '../../../utils/decodeEncode';
 import { NEXUS_INTEGRATION_SECRET_FORM_NAMES } from '../names';
 import { ManageNexusIntegrationSecretFormDataContext } from '../types';
 
@@ -9,32 +10,21 @@ export const useDefaultValues = ({
 }) => {
     const { currentElement } = formData;
 
-    const getUserNameAndSecret = React.useCallback(() => {
-        if (typeof currentElement === 'string' && currentElement === 'placeholder') {
-            return { userName: undefined, password: undefined };
-        }
-        const data: {
-            username: string;
-            password: string;
-        } = currentElement?.data;
-
-        if (data) {
-            // @ts-ignore
-            const userName = atob(unescape(data.username));
-            // @ts-ignore
-            const password = atob(unescape(data.password));
-            return { userName, password };
-        } else {
-            return { userName: undefined, password: undefined };
-        }
-    }, [currentElement]);
-
-    const { userName, password } = getUserNameAndSecret();
+    const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
 
     return React.useMemo(() => {
+        if (isPlaceholder) {
+            return {};
+        }
+
         return {
-            [NEXUS_INTEGRATION_SECRET_FORM_NAMES.username.name]: userName,
-            [NEXUS_INTEGRATION_SECRET_FORM_NAMES.password.name]: password,
+            [NEXUS_INTEGRATION_SECRET_FORM_NAMES.username.name]: safeDecode(
+                currentElement?.data?.username
+            ),
+            [NEXUS_INTEGRATION_SECRET_FORM_NAMES.password.name]: safeDecode(
+                currentElement?.data?.password
+            ),
+            [NEXUS_INTEGRATION_SECRET_FORM_NAMES.url.name]: safeDecode(currentElement?.data?.url),
         };
-    }, [password, userName]);
+    }, [currentElement, isPlaceholder]);
 };

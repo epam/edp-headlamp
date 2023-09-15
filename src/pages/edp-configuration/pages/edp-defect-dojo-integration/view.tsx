@@ -1,5 +1,6 @@
 import React from 'react';
 import { SecretKubeObject } from '../../../../k8s/Secret';
+import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageDefectDojoIntegrationSecret } from '../../../../widgets/ManageDefectDojoIntegrationSecret';
@@ -7,7 +8,7 @@ import { ConfigurationBody } from '../../components/ConfigurationBody';
 import { DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 const findDefectDojoIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items?.find(el => el.metadata.name === 'defectdojo-ciuser-token');
+    items?.find(el => el.metadata.name === INTEGRATION_SECRET_NAMES.DEFECT_DOJO);
 
 export const PageView = () => {
     const [defectDojoSecret, setDefectDojoSecret] = React.useState<SecretKubeObjectInterface>(null);

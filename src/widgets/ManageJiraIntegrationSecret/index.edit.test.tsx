@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { INTEGRATION_SECRET_NAMES } from '../../k8s/Secret/constants';
 import { ManageJiraIntegrationSecret } from './index';
 
 test('renders ManageJiraIntegrationSecret Edit component', () => {
@@ -15,7 +16,7 @@ test('renders ManageJiraIntegrationSecret Edit component', () => {
                     currentElement: {
                         // @ts-ignore
                         metadata: {
-                            name: 'jira-user',
+                            name: INTEGRATION_SECRET_NAMES.JIRA,
                             uid: 'test-uid',
                             labels: {
                                 'app.edp.epam.com/secret-type': 'jira',
@@ -24,7 +25,7 @@ test('renders ManageJiraIntegrationSecret Edit component', () => {
                                 {
                                     apiVersion: 'apiVersion',
                                     kind: 'ExternalSecret',
-                                    name: 'jira-user',
+                                    name: INTEGRATION_SECRET_NAMES.JIRA,
                                     uid: 'test-uid',
                                     controller: true,
                                     blockOwnerDeletion: true,
@@ -32,7 +33,11 @@ test('renders ManageJiraIntegrationSecret Edit component', () => {
                             ],
                         },
                         immutable: false,
-                        data: { username: 'dGVzdC11c2Vy', password: 'dGVzdC1wYXNzd29yZA==' },
+                        data: {
+                            username: 'dGVzdC11c2Vy',
+                            password: 'dGVzdC1wYXNzd29yZA==',
+                            url: 'aHR0cHM6Ly90ZXN0LXVybC5jb20=',
+                        },
                         type: 'Opaque',
                     },
                     handleDeleteRow: jest.fn(),

@@ -1,4 +1,6 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { safeEncode } from '../../../../utils/decodeEncode';
+import { INTEGRATION_SECRET_NAMES } from '../../constants';
 import { SECRET_LABEL_SECRET_TYPE } from '../../labels';
 
 export const createDefectDojoIntegrationSecretInstance = ({
@@ -13,15 +15,15 @@ export const createDefectDojoIntegrationSecretInstance = ({
         kind: 'Secret',
         // @ts-ignore
         metadata: {
-            name: 'defectdojo-ciuser-token',
+            name: INTEGRATION_SECRET_NAMES.DEFECT_DOJO,
             labels: {
                 [SECRET_LABEL_SECRET_TYPE]: 'defectdojo',
             },
         },
         type: 'Opaque',
         data: {
-            token: btoa(unescape(token)),
-            url: btoa(unescape(url)),
+            token: safeEncode(token),
+            url: safeEncode(url),
         },
     };
 };

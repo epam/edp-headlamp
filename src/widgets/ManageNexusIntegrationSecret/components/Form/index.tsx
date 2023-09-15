@@ -4,7 +4,7 @@ import React from 'react';
 import { Render } from '../../../../components/Render';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { ManageNexusIntegrationSecretFormDataContext } from '../../types';
-import { Password, User } from '../fields';
+import { Password, Url, User } from '../fields';
 
 export const Form = () => {
     const {
@@ -22,11 +22,14 @@ export const Form = () => {
                     </Alert>
                 </Grid>
             </Render>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
                 <User />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
                 <Password />
+            </Grid>
+            <Grid item xs={4}>
+                <Url />
             </Grid>
         </Grid>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SecretKubeObject } from '../../../../k8s/Secret';
+import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageJiraIntegrationSecret } from '../../../../widgets/ManageJiraIntegrationSecret';
@@ -7,7 +8,7 @@ import { ConfigurationBody } from '../../components/ConfigurationBody';
 import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 const findJiraIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items?.find(el => el.metadata.name === 'jira-user');
+    items?.find(el => el.metadata.name === INTEGRATION_SECRET_NAMES.JIRA);
 
 export const PageView = () => {
     const [jiraSecret, setJiraSecret] = React.useState<SecretKubeObjectInterface>(null);

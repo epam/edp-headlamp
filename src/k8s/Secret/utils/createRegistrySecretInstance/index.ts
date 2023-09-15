@@ -1,4 +1,5 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { safeEncode } from '../../../../utils/decodeEncode';
 import { SECRET_LABEL_SECRET_TYPE } from '../../labels';
 
 export const createRegistrySecretInstance = ({
@@ -24,18 +25,16 @@ export const createRegistrySecretInstance = ({
         },
         type: 'kubernetes.io/dockerconfigjson',
         data: {
-            '.dockerconfigjson': btoa(
-                unescape(
-                    JSON.stringify({
-                        auths: {
-                            [registryEndpoint]: {
-                                username: user,
-                                password: password,
-                                auth: btoa(unescape(`${user}:${password}`)),
-                            },
+            '.dockerconfigjson': safeEncode(
+                JSON.stringify({
+                    auths: {
+                        [registryEndpoint]: {
+                            username: user,
+                            password: password,
+                            auth: safeEncode(`${user}:${password}`),
                         },
-                    })
-                )
+                    },
+                })
             ),
         },
     };

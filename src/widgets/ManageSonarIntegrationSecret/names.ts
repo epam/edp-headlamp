@@ -1,11 +1,13 @@
-const NAME_USERNAME = 'username' as const;
-const NAME_SECRET = 'secret' as const;
+const NAMES = {
+    TOKEN: 'token',
+    URL: 'url',
+} as const;
 
 export const SONAR_INTEGRATION_SECRET_FORM_NAMES = {
-    [NAME_USERNAME]: {
-        name: NAME_USERNAME,
+    [NAMES.TOKEN]: {
+        name: NAMES.TOKEN,
     },
-    [NAME_SECRET]: {
-        name: NAME_SECRET,
+    [NAMES.URL]: {
+        name: NAMES.URL,
     },
 };

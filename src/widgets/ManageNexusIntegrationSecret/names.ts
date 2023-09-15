@@ -1,11 +1,17 @@
-const NAME_USERNAME = 'username' as const;
-const NAME_PASSWORD = 'password' as const;
+const NAMES = {
+    USERNAME: 'username',
+    PASSWORD: 'password',
+    URL: 'url',
+} as const;
 
 export const NEXUS_INTEGRATION_SECRET_FORM_NAMES = {
-    [NAME_USERNAME]: {
-        name: NAME_USERNAME,
+    [NAMES.USERNAME]: {
+        name: NAMES.USERNAME,
     },
-    [NAME_PASSWORD]: {
-        name: NAME_PASSWORD,
+    [NAMES.PASSWORD]: {
+        name: NAMES.PASSWORD,
+    },
+    [NAMES.URL]: {
+        name: NAMES.URL,
     },
 };

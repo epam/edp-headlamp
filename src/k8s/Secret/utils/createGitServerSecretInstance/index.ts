@@ -1,5 +1,6 @@
 import { DeepPartial } from '../../../../types/global';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
+import { safeEncode } from '../../../../utils/decodeEncode';
 
 export const createGitServerSecretInstance = ({
     name,
@@ -19,9 +20,9 @@ export const createGitServerSecretInstance = ({
             name: `${name}-config`,
         },
         data: {
-            username: btoa(unescape(gitUser)),
-            id_rsa: btoa(unescape(sshPrivateKey.trim() + '\n')),
-            token: btoa(unescape(token)),
+            username: safeEncode(gitUser),
+            id_rsa: safeEncode(sshPrivateKey.trim() + '\n'),
+            token: safeEncode(token),
         },
     };
 };

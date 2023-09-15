@@ -1,10 +1,11 @@
 import React from 'react';
+import { safeDecode } from '../../../utils/decodeEncode';
 import { CONTAINER_REGISTRY_ITEM_OPTIONS } from '../constants';
 import { REGISTRY_SECRET_FORM_NAMES } from '../names';
 import { ManageRegistrySecretFormDataContext } from '../types';
 
 const parseConfigJson = (configJson: string) => {
-    const decodedConfigJson = atob(unescape(configJson));
+    const decodedConfigJson = safeDecode(configJson);
     return JSON.parse(decodedConfigJson);
 };
 

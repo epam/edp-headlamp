@@ -5,7 +5,7 @@ import { useFormContext } from '../../../../../providers/Form/hooks';
 import { SONAR_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageSonarIntegrationSecretFormDataContext } from '../../../types';
 
-export const Secret = () => {
+export const Url = () => {
     const {
         register,
         control,
@@ -18,14 +18,13 @@ export const Secret = () => {
 
     return (
         <FormTextField
-            {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.secret.name, {
-                required: 'Enter secret',
+            {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.url.name, {
+                required: 'Enter URL',
             })}
-            label={`Secret`}
-            placeholder={'Enter secret'}
+            label={`URL`}
+            placeholder={'Enter URL'}
             control={control}
             errors={errors}
-            TextFieldProps={{ type: 'password' }}
             disabled={isReadOnly}
         />
     );

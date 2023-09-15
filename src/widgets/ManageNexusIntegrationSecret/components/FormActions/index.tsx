@@ -27,7 +27,6 @@ export const FormActions = () => {
         reset,
         formState: { isDirty },
         handleSubmit,
-        getValues,
     } = useReactHookFormContext<ManageNexusIntegrationSecretFormValues>();
 
     const {
@@ -56,19 +55,18 @@ export const FormActions = () => {
         secretEditMutation.isLoading ||
         secretDeleteMutation.isLoading;
 
-    const onSubmit = React.useCallback(async () => {
-        const { username, password } = getValues();
-        const secretInstance = createNexusIntegrationSecretInstance({
-            user: username,
-            password,
-        });
+    const onSubmit = React.useCallback(
+        async (values: ManageNexusIntegrationSecretFormValues) => {
+            const secretInstance = createNexusIntegrationSecretInstance(values);
 
-        if (mode === FORM_MODES.CREATE) {
-            await createSecret({ secretData: secretInstance });
-        } else {
-            await editSecret({ secretData: secretInstance });
-        }
-    }, [getValues, mode, createSecret, editSecret]);
+            if (mode === FORM_MODES.CREATE) {
+                await createSecret({ secretData: secretInstance });
+            } else {
+                await editSecret({ secretData: secretInstance });
+            }
+        },
+        [mode, createSecret, editSecret]
+    );
 
     const handleDelete = React.useCallback(async () => {
         setDialog({

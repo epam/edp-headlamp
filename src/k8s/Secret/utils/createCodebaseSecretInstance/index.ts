@@ -1,5 +1,6 @@
 import { DeepPartial } from '../../../../types/global';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
+import { safeEncode } from '../../../../utils/decodeEncode';
 
 export const createCodebaseSecretInstance = ({
     codebaseName,
@@ -17,8 +18,8 @@ export const createCodebaseSecretInstance = ({
             name: `repository-codebase-${codebaseName}-temp`,
         },
         data: {
-            username: btoa(unescape(repositoryLogin)),
-            password: btoa(unescape(repositoryPassword)),
+            username: safeEncode(repositoryLogin),
+            password: safeEncode(repositoryPassword),
         },
     };
 };

@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { INTEGRATION_SECRET_NAMES } from '../../k8s/Secret/constants';
 import { ManageDefectDojoIntegrationSecret } from './index';
 
 test('renders ManageDefectDojoIntegrationSecret Edit component', () => {
@@ -15,7 +16,7 @@ test('renders ManageDefectDojoIntegrationSecret Edit component', () => {
                     currentElement: {
                         // @ts-ignore
                         metadata: {
-                            name: 'defectdojo-ciuser-token',
+                            name: INTEGRATION_SECRET_NAMES.DEFECT_DOJO,
                             uid: 'test-uid',
                             labels: {
                                 'app.edp.epam.com/secret-type': 'defectdojo',
@@ -24,7 +25,7 @@ test('renders ManageDefectDojoIntegrationSecret Edit component', () => {
                                 {
                                     apiVersion: 'apiVersion',
                                     kind: 'ExternalSecret',
-                                    name: 'defectdojo-ciuser-token',
+                                    name: INTEGRATION_SECRET_NAMES.DEFECT_DOJO,
                                     uid: 'test-uid',
                                     controller: true,
                                     blockOwnerDeletion: true,

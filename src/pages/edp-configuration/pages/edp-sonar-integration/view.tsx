@@ -1,5 +1,6 @@
 import React from 'react';
 import { SecretKubeObject } from '../../../../k8s/Secret';
+import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageSonarIntegrationSecret } from '../../../../widgets/ManageSonarIntegrationSecret';
@@ -7,7 +8,7 @@ import { ConfigurationBody } from '../../components/ConfigurationBody';
 import { SONAR_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 const findSonarIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items?.find(el => el.metadata.name === 'sonar-ciuser-token');
+    items?.find(el => el.metadata.name === INTEGRATION_SECRET_NAMES.SONAR);
 
 export const PageView = () => {
     const [sonarSecret, setSonarSecret] = React.useState<SecretKubeObjectInterface>(null);

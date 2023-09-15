@@ -27,7 +27,6 @@ export const FormActions = () => {
         reset,
         formState: { isDirty },
         handleSubmit,
-        getValues,
     } = useReactHookFormContext<ManageDependencyTrackIntegrationSecretFormValues>();
 
     const {
@@ -56,18 +55,18 @@ export const FormActions = () => {
         secretEditMutation.isLoading ||
         secretDeleteMutation.isLoading;
 
-    const onSubmit = React.useCallback(async () => {
-        const { token } = getValues();
-        const secretInstance = createDependencyTrackIntegrationSecretInstance({
-            token,
-        });
+    const onSubmit = React.useCallback(
+        async (values: ManageDependencyTrackIntegrationSecretFormValues) => {
+            const secretInstance = createDependencyTrackIntegrationSecretInstance(values);
 
-        if (mode === FORM_MODES.CREATE) {
-            await createSecret({ secretData: secretInstance });
-        } else {
-            await editSecret({ secretData: secretInstance });
-        }
-    }, [getValues, mode, createSecret, editSecret]);
+            if (mode === FORM_MODES.CREATE) {
+                await createSecret({ secretData: secretInstance });
+            } else {
+                await editSecret({ secretData: secretInstance });
+            }
+        },
+        [mode, createSecret, editSecret]
+    );
 
     const handleDelete = React.useCallback(async () => {
         setDialog({

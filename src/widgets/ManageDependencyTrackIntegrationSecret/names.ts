@@ -1,7 +1,13 @@
-const NAME_TOKEN = 'token' as const;
+const NAMES = {
+    TOKEN: 'token',
+    URL: 'url',
+} as const;
 
 export const DEPENDENCY_TRACK_INTEGRATION_SECRET_FORM_NAMES = {
-    [NAME_TOKEN]: {
-        name: NAME_TOKEN,
+    [NAMES.TOKEN]: {
+        name: NAMES.TOKEN,
+    },
+    [NAMES.URL]: {
+        name: NAMES.URL,
     },
 };

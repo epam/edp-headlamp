@@ -4,7 +4,7 @@ import React from 'react';
 import { Render } from '../../../../components/Render';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { ManageDependencyTrackIntegrationSecretFormDataContext } from '../../types';
-import { Token } from '../fields';
+import { Token, Url } from '../fields';
 
 export const Form = () => {
     const {
@@ -25,6 +25,9 @@ export const Form = () => {
             </Render>
             <Grid item xs={6}>
                 <Token />
+            </Grid>
+            <Grid item xs={6}>
+                <Url />
             </Grid>
         </Grid>
     );
