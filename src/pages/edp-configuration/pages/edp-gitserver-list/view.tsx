@@ -35,6 +35,8 @@ export const PageView = () => {
         [secretsArray]
     );
 
+    const creationDisabled = React.useMemo(() => items === null || items.length >= 1, [items]);
+
     return (
         <ConfigurationBody
             pageData={{
@@ -52,6 +54,7 @@ export const PageView = () => {
                         }}
                     />
                 ),
+                disabled: creationDisabled,
             })}
             items={items === null ? null : configurationItemList}
             emptyMessage={'No Git Servers found'}

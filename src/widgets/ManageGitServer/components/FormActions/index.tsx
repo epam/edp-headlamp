@@ -16,7 +16,6 @@ export const FormActions = () => {
     const {
         reset,
         formState: { isDirty },
-        getValues,
         handleSubmit,
     } = useReactHookFormContext<ManageGitServerValues>();
     const {
@@ -47,25 +46,28 @@ export const FormActions = () => {
         gitServerSecretCreateMutation.isLoading ||
         gitServerSecretDeleteMutation.isLoading;
 
-    const onSubmit = React.useCallback(async () => {
-        const values = getValues();
-        const usedValues = getUsedValues(values, GIT_SERVER_FORM_NAMES);
-        const gitServerData = createGitServerInstance(GIT_SERVER_FORM_NAMES, usedValues);
+    const onSubmit = React.useCallback(
+        async (values: ManageGitServerValues) => {
+            const usedValues = getUsedValues(values, GIT_SERVER_FORM_NAMES);
+            const gitServerData = createGitServerInstance(GIT_SERVER_FORM_NAMES, usedValues);
 
-        const { gitUser, sshPrivateKey, token } = values;
+            const { gitUser, sshPrivateKey, token, gitProvider } = values;
 
-        const gitServerSecretData = createGitServerSecretInstance({
-            name: gitServerData.metadata.name,
-            gitUser,
-            sshPrivateKey,
-            token,
-        });
+            const gitServerSecretData = createGitServerSecretInstance({
+                name: gitServerData.metadata.name,
+                gitUser,
+                sshPrivateKey,
+                token,
+                gitProvider,
+            });
 
-        await createGitServer({
-            gitServerData: gitServerData,
-            gitServerSecretData: gitServerSecretData as EDPKubeObjectInterface,
-        });
-    }, [createGitServer, getValues]);
+            await createGitServer({
+                gitServerData: gitServerData,
+                gitServerSecretData: gitServerSecretData as EDPKubeObjectInterface,
+            });
+        },
+        [createGitServer]
+    );
 
     return (
         <>

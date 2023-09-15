@@ -1,3 +1,4 @@
+import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { createGitServerSecretInstance } from './index';
 
 describe('testing createGitServerSecretInstance', () => {
@@ -7,6 +8,7 @@ describe('testing createGitServerSecretInstance', () => {
             gitUser: 'git',
             token: 'test access token',
             sshPrivateKey: 'test private ssh key',
+            gitProvider: GIT_PROVIDERS.GERRIT,
         });
 
         expect(object).toEqual({
