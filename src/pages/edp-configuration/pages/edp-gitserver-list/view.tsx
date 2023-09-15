@@ -1,7 +1,13 @@
+import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import { Render } from '../../../../components/Render';
+import { StatusIcon } from '../../../../components/StatusIcon';
+import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
+import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
+import { rem } from '../../../../utils/styling/rem';
 import { ManageGitServer } from '../../../../widgets/ManageGitServer';
 import { ConfigurationBody } from '../../components/ConfigurationBody';
 import { GIT_SERVER_LIST_PAGE_DESCRIPTION } from './constants';
@@ -13,6 +19,26 @@ export const PageView = () => {
 
     const secretsArray = React.useMemo(() => (items ? items.filter(Boolean) : []), [items]);
 
+    const firstGitServer = items?.[0];
+
+    const status = firstGitServer?.status?.status ?? CUSTOM_RESOURCE_STATUSES.UNKNOWN;
+
+    const statusTitle = React.useMemo(
+        () => (
+            <>
+                <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                    {capitalizeFirstLetter(status)}
+                </Typography>
+                <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
+                    <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                        {firstGitServer?.status?.detailedMessage}
+                    </Typography>
+                </Render>
+            </>
+        ),
+        [firstGitServer?.status?.detailedMessage, status]
+    );
+
     const configurationItemList = React.useMemo(
         () =>
             secretsArray.map(el => {
@@ -20,7 +46,14 @@ export const PageView = () => {
 
                 return {
                     id: el?.metadata?.name || el?.metadata?.uid,
-                    title: el?.metadata.name,
+                    title: (
+                        <Grid container spacing={1} alignItems={'center'}>
+                            <Grid item style={{ marginRight: rem(5) }}>
+                                <StatusIcon status={status} customTitle={statusTitle} />
+                            </Grid>
+                            <Grid item>{el?.metadata.name}</Grid>
+                        </Grid>
+                    ),
                     ownerReference,
                     component: (
                         <ManageGitServer
@@ -32,7 +65,7 @@ export const PageView = () => {
                     ),
                 };
             }),
-        [secretsArray]
+        [secretsArray, status, statusTitle]
     );
 
     const creationDisabled = React.useMemo(() => items === null || items.length >= 1, [items]);
