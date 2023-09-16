@@ -10,8 +10,6 @@ global:
   dnsWildCard:
   # -- platform type that can be "kubernetes" or "openshift"
   platform: "kubernetes"
-  # -- Keycloak URL
-  keycloakUrl: "https://keycloak.example.com"
 
 image:
   # -- EDP headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp)
@@ -32,6 +30,8 @@ config:
   baseURL: ""
   oidc:
     enabled: false
+    # -- Keycloak URL
+    keycloakUrl: "https://keycloak.example.com"
     # -- OIDC client ID
     clientID: ""
     # -- OIDC client secret name

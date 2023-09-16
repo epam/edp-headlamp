@@ -51,7 +51,7 @@ spec:
             - "-oidc-client-id={{ . }}"
             {{- end }}
             - "-oidc-client-secret=$(CLIENT_SECRET)"
-            - "-oidc-idp-issuer-url={{ .Values.global.keycloakUrl }}/auth/realms/{{ .Values.config.oidc.issuerRealm }}"
+            - "-oidc-idp-issuer-url={{ .Values.config.oidc.keycloakUrl }}/auth/realms/{{ .Values.config.oidc.issuerRealm }}"
             {{- with .Values.config.oidc.scopes }} issuerRealm
             - "-oidc-scopes={{ . }}"
             {{- end }}

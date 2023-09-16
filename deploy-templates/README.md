@@ -30,12 +30,12 @@ A Helm chart for EDP Headlamp
 | config.oidc.clientSecretName | string | `""` | OIDC client secret name |
 | config.oidc.enabled | bool | `false` |  |
 | config.oidc.issuerRealm | string | `""` | OIDC issuer realm |
+| config.oidc.keycloakUrl | string | `"https://keycloak.example.com"` | Keycloak URL |
 | config.oidc.scopes | string | `""` | OIDC scopes to be used |
 | extraVolumeMounts | list | `[]` | Additional volumeMounts to be added to the container |
 | extraVolumes | list | `[]` | Additional volumes to be added to the pod |
 | fullnameOverride | string | `""` | Overrides the full name of the chart |
 | global.dnsWildCard | string | `nil` | a cluster DNS wildcard name |
-| global.keycloakUrl | string | `"https://keycloak.example.com"` | Keycloak URL |
 | global.platform | string | `"kubernetes"` | platform type that can be "kubernetes" or "openshift" |
 | image.repository | string | `"epamedp/edp-headlamp"` | EDP headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp) |
 | image.tag | string | `nil` | EDP headlamp Docker image tag. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp/tags) |
