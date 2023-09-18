@@ -35,3 +35,5 @@ export * from './Gin';
 export * from './Nextjs';
 export * from './Antora';
 export * from './GitOps';
+export * from './ECR';
+export * from './Harbor';

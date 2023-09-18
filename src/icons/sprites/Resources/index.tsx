@@ -9,6 +9,7 @@ import {
     CSharp,
     Docker,
     DotNet,
+    ECR,
     Express,
     Fastapi,
     Flask,
@@ -20,6 +21,7 @@ import {
     Go,
     Gradle,
     Groovy,
+    Harbor,
     Helm,
     Java,
     JavaScript,
@@ -83,6 +85,8 @@ export const Resources = () => {
             <NextJS />
             <Antora />
             <GitOps />
+            <ECR />
+            <Harbor />
         </svg>
     );
 };

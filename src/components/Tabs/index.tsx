@@ -28,11 +28,12 @@ export const Tabs = ({ tabs, initialTabIdx }) => {
                 textColor={'primary'}
                 className={classes.tabs}
             >
-                {tabs.map(({ label, disabled = false }, idx) => (
+                {tabs.map(({ label, icon, disabled = false }, idx) => (
                     <Tab
                         key={`tab::${idx}`}
                         label={label}
                         disabled={disabled}
+                        icon={icon}
                         {...a11yProps(idx)}
                     />
                 ))}

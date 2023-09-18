@@ -7,7 +7,7 @@ const Utils = {
     getCluster: noop,
 };
 
-class Secret {
+class Resource {
     apiEndpoint: {
         post: () => {};
         delete: () => {};
@@ -18,7 +18,10 @@ const K8s = {
     ApiProxy,
     cluster,
     secret: {
-        default: Secret,
+        default: Resource,
+    },
+    serviceAccount: {
+        default: Resource,
     },
 };
 

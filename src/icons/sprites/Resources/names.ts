@@ -36,5 +36,7 @@ export const RESOURCE_ICON_NAMES = {
     GIN: 'GIN',
     ANTORA: 'antora',
     GIT_OPS: 'gitops',
+    ECR: 'ECR',
+    HARBOR: 'harbor',
     OTHER: 'other',
 } as const;

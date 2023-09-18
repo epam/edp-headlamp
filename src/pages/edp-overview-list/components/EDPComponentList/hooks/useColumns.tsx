@@ -14,23 +14,27 @@ export const useColumns = (classes: {
             {
                 id: 'icon',
                 label: 'Icon',
-                render: ({ spec: { url, visible, icon } }) => (
-                    <>
-                        <Render condition={!!visible}>
-                            <Link href={url} target="_blank" rel="noopener">
-                                <span className={classes.serviceItemIcon}>
-                                    <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
-                                </span>
-                            </Link>
-                        </Render>
-                        <Render condition={!visible}>
-                            <Icon
-                                icon={'ph:placeholder-light'}
-                                className={classes.serviceItemIcon}
-                            />
-                        </Render>
-                    </>
-                ),
+                render: ({ spec: { url, visible, icon } }) => {
+                    const _url = !/^https?:\/\//i.test(url) ? `https://${url}` : url;
+
+                    return (
+                        <>
+                            <Render condition={!!visible}>
+                                <Link href={_url} target="_blank" rel="noopener">
+                                    <span className={classes.serviceItemIcon}>
+                                        <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
+                                    </span>
+                                </Link>
+                            </Render>
+                            <Render condition={!visible}>
+                                <Icon
+                                    icon={'ph:placeholder-light'}
+                                    className={classes.serviceItemIcon}
+                                />
+                            </Render>
+                        </>
+                    );
+                },
                 width: '5%',
             },
             {

@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { Render } from '../../../../components/Render';
@@ -30,11 +30,20 @@ export const Form = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={6}>
-                <User />
-            </Grid>
-            <Grid item xs={6}>
-                <Password />
+            <Grid item xs={12}>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <Typography variant={'h6'} gutterBottom>
+                            Authentication
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <User />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Password />
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid item xs={12}>
                 <Grid container>

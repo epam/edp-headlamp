@@ -1,138 +1,53 @@
+import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { Render } from '../../../../components/Render';
-import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { SecretKubeObject } from '../../../../k8s/Secret';
-import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { ManageRegistrySecret } from '../../../../widgets/ManageRegistrySecret';
-import { ConfigurationBody } from '../../components/ConfigurationBody';
+import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
+import { PageWrapper } from '../../../../components/PageWrapper';
+import { Tabs } from '../../../../components/Tabs';
+import { Resources } from '../../../../icons/sprites/Resources';
+import { RESOURCE_ICON_NAMES } from '../../../../icons/sprites/Resources/names';
+import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
+import { menu } from '../../menu';
+import { ECRList } from './components/ECRList';
+import { HarborList } from './components/HarborList';
 import { REGISTRY_LIST_PAGE_DESCRIPTION } from './constants';
 
-interface Secrets {
-    kanikoDockerConfig: SecretKubeObjectInterface;
-    regcred: SecretKubeObjectInterface;
-}
-
-const generateItemName = (el: SecretKubeObjectInterface) =>
-    el?.metadata?.name === 'kaniko-docker-config'
-        ? 'Read / Write'
-        : el?.metadata?.name === 'regcred'
-        ? 'Read Only'
-        : el?.metadata?.name;
-
-const findKanikoAndRegcredSecrets = (secrets: SecretKubeObjectInterface[]) => {
-    return secrets.reduce(
-        (acc, el) => {
-            if (el?.metadata?.name === 'kaniko-docker-config') {
-                acc.kanikoDockerConfig = el;
-            } else if (el?.metadata?.name === 'regcred') {
-                acc.regcred = el;
-            }
-            return acc;
-        },
-        {
-            kanikoDockerConfig: undefined,
-            regcred: undefined,
-        } as Secrets
-    );
-};
-
 export const PageView = () => {
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
-    const dockerRegistryURL = EDPComponentsURLS?.['container-registry'];
-
-    const [secrets, setSecrets] = React.useState<Secrets>({
-        kanikoDockerConfig: null,
-        regcred: null,
-    });
-
-    React.useEffect(() => {
-        const cancelStream = SecretKubeObject.streamSecretsByType({
-            namespace: getDefaultNamespace(),
-            type: 'registry',
-            dataHandler: data => {
-                const { kanikoDockerConfig, regcred } = findKanikoAndRegcredSecrets(data);
-
-                setSecrets({
-                    kanikoDockerConfig,
-                    regcred,
-                });
+    const tabs = React.useMemo(
+        () => [
+            {
+                label: 'ECR',
+                id: 'ecr',
+                icon: <UseSpriteSymbol name={RESOURCE_ICON_NAMES.ECR} width={30} height={30} />,
+                component: <ECRList />,
             },
-            errorHandler: error => {
-                console.error(error);
+            {
+                label: 'Harbor',
+                id: 'harbor',
+                icon: <UseSpriteSymbol name={RESOURCE_ICON_NAMES.HARBOR} width={30} height={30} />,
+                component: <HarborList />,
             },
-        });
-
-        return () => {
-            cancelStream();
-        };
-    }, []);
-
-    const kanikoDockerConfigSecret = secrets.kanikoDockerConfig;
-    const regcredSecret = secrets.regcred;
-    const secretsArray = [kanikoDockerConfigSecret, regcredSecret].filter(Boolean);
-    const configurationItemList = React.useMemo(
-        () =>
-            secretsArray.map(el => {
-                const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
-
-                return {
-                    id: el?.metadata?.name || el?.metadata?.uid,
-                    title: generateItemName(el),
-                    ownerReference,
-                    component: (
-                        <Render condition={!!dockerRegistryURL}>
-                            <ManageRegistrySecret
-                                formData={{
-                                    isReadOnly: !!ownerReference,
-                                    currentElement: el,
-                                    secrets: [kanikoDockerConfigSecret, regcredSecret],
-                                    registryEndpoint: dockerRegistryURL,
-                                }}
-                            />
-                        </Render>
-                    ),
-                };
-            }),
-        [secretsArray, dockerRegistryURL, kanikoDockerConfigSecret, regcredSecret]
+        ],
+        []
     );
-
-    const creationDisabled = React.useMemo(() => {
-        if (kanikoDockerConfigSecret === null && regcredSecret === null) {
-            return true;
-        }
-
-        return !!kanikoDockerConfigSecret && !!regcredSecret;
-    }, [kanikoDockerConfigSecret, regcredSecret]);
 
     return (
-        <ConfigurationBody
-            pageData={{
-                label: REGISTRY_LIST_PAGE_DESCRIPTION.label,
-                description: REGISTRY_LIST_PAGE_DESCRIPTION.description,
-            }}
-            renderPlaceHolderData={({ handleClosePlaceholder }) => ({
-                title: 'Create service account',
-                disabled: creationDisabled,
-                component: (
-                    <Render condition={!!dockerRegistryURL}>
-                        <ManageRegistrySecret
-                            formData={{
-                                currentElement: 'placeholder',
-                                secrets: [kanikoDockerConfigSecret, regcredSecret],
-                                registryEndpoint: dockerRegistryURL,
-                                handleClosePlaceholder,
-                            }}
-                        />
-                    </Render>
-                ),
-            })}
-            items={
-                kanikoDockerConfigSecret === null || regcredSecret === null
-                    ? null
-                    : configurationItemList
-            }
-            emptyMessage={'No Registry secrets found'}
-        />
+        <PageWithSubMenu list={menu}>
+            <PageWrapper containerMaxWidth={'xl'}>
+                <Resources />
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Typography variant={'h5'} gutterBottom>
+                            {REGISTRY_LIST_PAGE_DESCRIPTION.label}
+                        </Typography>
+                        <Typography variant={'body1'}>
+                            {REGISTRY_LIST_PAGE_DESCRIPTION.description}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Tabs tabs={tabs} initialTabIdx={0} />
+                    </Grid>
+                </Grid>
+            </PageWrapper>
+        </PageWithSubMenu>
     );
 };

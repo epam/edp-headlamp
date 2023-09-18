@@ -11,3 +11,4 @@ export const makeKubeObject = () => {
 };
 
 export class SecretKubeObject extends makeKubeObject() {}
+export class ServiceAccountKubeObject extends makeKubeObject() {}
