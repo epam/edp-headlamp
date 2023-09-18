@@ -23,11 +23,11 @@ export const Form = () => {
                     </Alert>
                 </Grid>
             </Render>
-            <Grid item xs={6}>
-                <Token />
-            </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
                 <Url />
+            </Grid>
+            <Grid item xs={12}>
+                <Token />
             </Grid>
         </Grid>
     );

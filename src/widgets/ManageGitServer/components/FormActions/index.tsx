@@ -49,9 +49,9 @@ export const FormActions = () => {
     const onSubmit = React.useCallback(
         async (values: ManageGitServerValues) => {
             const usedValues = getUsedValues(values, GIT_SERVER_FORM_NAMES);
-            const gitServerData = createGitServerInstance(GIT_SERVER_FORM_NAMES, usedValues);
-
             const { gitUser, sshPrivateKey, token, gitProvider } = values;
+
+            const gitServerData = createGitServerInstance(GIT_SERVER_FORM_NAMES, usedValues);
 
             const gitServerSecretData = createGitServerSecretInstance({
                 name: gitServerData.metadata.name,

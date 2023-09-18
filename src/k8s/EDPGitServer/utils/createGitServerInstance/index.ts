@@ -1,4 +1,5 @@
 import { set } from 'lodash';
+import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { FormNameObject } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
 import { createRandomString } from '../../../../utils/createRandomString';
@@ -17,6 +18,10 @@ export const createGitServerInstance = (
 ): EDPGitServerKubeObjectInterface => {
     const { gitHost, ...restProps } = formValues;
     const gitServerName = `${gitHost}-${createRandomString()}`;
+    const nameSshKeySecret =
+        formValues.gitProvider === GIT_PROVIDERS.GERRIT
+            ? `${gitServerName}-config`
+            : `ci-${formValues.gitProvider}`;
 
     const base: DeepPartial<EDPGitServerKubeObjectInterface> = {
         apiVersion: `${group}/${version}`,
@@ -26,7 +31,7 @@ export const createGitServerInstance = (
         },
         spec: {
             gitHost,
-            nameSshKeySecret: `${gitServerName}-config`,
+            nameSshKeySecret,
         },
     };
 

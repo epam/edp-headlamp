@@ -22,14 +22,14 @@ export const Form = () => {
                     </Alert>
                 </Grid>
             </Render>
-            <Grid item xs={4}>
+            <Grid item xs={12}>
+                <Url />
+            </Grid>
+            <Grid item xs={6}>
                 <User />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
                 <Password />
-            </Grid>
-            <Grid item xs={4}>
-                <Url />
             </Grid>
         </Grid>
     );

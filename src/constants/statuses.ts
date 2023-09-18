@@ -9,6 +9,8 @@ export enum CUSTOM_RESOURCE_STATUSES {
     INITIALIZED = 'initialized',
     IN_PROGRESS = 'in-progress',
     FAILED = 'failed',
+    AVAILABLE = 'available',
+    UNAVAILABLE = 'unavailable',
 
     // User custom statuses
     UNKNOWN = 'unknown',

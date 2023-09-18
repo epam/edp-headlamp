@@ -20,6 +20,10 @@ export const Url = () => {
         <FormTextField
             {...register(NEXUS_INTEGRATION_SECRET_FORM_NAMES.url.name, {
                 required: 'Enter URL',
+                pattern: {
+                    value: /^(?!\/).*(?<!\/)$/,
+                    message: 'Path cannot start or end with slash symbol',
+                },
             })}
             label={`URL`}
             placeholder={'Enter URL'}

@@ -12,7 +12,66 @@ exports[`renders ManageJiraIntegrationSecret Create component 1`] = `
       class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
     >
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            style="display: flex;"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+              >
+                <span
+                  class="makeStyles-labelWrap-1"
+                >
+                  <span
+                    class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
+                  >
+                    URL
+                  </span>
+                  <div
+                    class="MuiBox-root MuiBox-root-3"
+                    style="height: 1.25rem;"
+                  />
+                </span>
+              </div>
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                style="display: flex; align-items: flex-end;"
+              >
+                <div
+                  class="MuiFormControl-root MuiFormControl-fullWidth"
+                >
+                  <div
+                    class="MuiFormControl-root MuiTextField-root"
+                  >
+                    <div
+                      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                    >
+                      <input
+                        aria-invalid="false"
+                        class="MuiInputBase-input MuiInput-input"
+                        name="url"
+                        placeholder="Enter URL"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
       >
         <div
           class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -36,7 +95,7 @@ exports[`renders ManageJiraIntegrationSecret Create component 1`] = `
                     User
                   </span>
                   <div
-                    class="MuiBox-root MuiBox-root-3"
+                    class="MuiBox-root MuiBox-root-4"
                     style="height: 1.25rem;"
                   />
                 </span>
@@ -71,7 +130,7 @@ exports[`renders ManageJiraIntegrationSecret Create component 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
       >
         <div
           class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -95,7 +154,7 @@ exports[`renders ManageJiraIntegrationSecret Create component 1`] = `
                     Password
                   </span>
                   <div
-                    class="MuiBox-root MuiBox-root-4"
+                    class="MuiBox-root MuiBox-root-5"
                     style="height: 1.25rem;"
                   />
                 </span>
@@ -119,65 +178,6 @@ exports[`renders ManageJiraIntegrationSecret Create component 1`] = `
                         name="password"
                         placeholder="Enter password"
                         type="password"
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
-      >
-        <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-        >
-          <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-            style="display: flex;"
-          >
-            <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
-            >
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-              >
-                <span
-                  class="makeStyles-labelWrap-1"
-                >
-                  <span
-                    class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
-                  >
-                    URL
-                  </span>
-                  <div
-                    class="MuiBox-root MuiBox-root-5"
-                    style="height: 1.25rem;"
-                  />
-                </span>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                style="display: flex; align-items: flex-end;"
-              >
-                <div
-                  class="MuiFormControl-root MuiFormControl-fullWidth"
-                >
-                  <div
-                    class="MuiFormControl-root MuiTextField-root"
-                  >
-                    <div
-                      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-                    >
-                      <input
-                        aria-invalid="false"
-                        class="MuiInputBase-input MuiInput-input"
-                        name="url"
-                        placeholder="Enter URL"
-                        type="text"
                         value=""
                       />
                     </div>

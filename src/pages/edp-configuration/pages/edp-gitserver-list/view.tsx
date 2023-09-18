@@ -21,22 +21,28 @@ export const PageView = () => {
 
     const firstGitServer = items?.[0];
 
+    const available =
+        firstGitServer?.status?.available === true
+            ? CUSTOM_RESOURCE_STATUSES.AVAILABLE
+            : firstGitServer?.status?.available === false
+            ? CUSTOM_RESOURCE_STATUSES.UNAVAILABLE
+            : CUSTOM_RESOURCE_STATUSES.UNKNOWN;
     const status = firstGitServer?.status?.status ?? CUSTOM_RESOURCE_STATUSES.UNKNOWN;
 
     const statusTitle = React.useMemo(
         () => (
             <>
                 <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                    {capitalizeFirstLetter(status)}
+                    {capitalizeFirstLetter(available)}
                 </Typography>
-                <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
+                <Render condition={status === CUSTOM_RESOURCE_STATUSES.FAILED}>
                     <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
                         {firstGitServer?.status?.detailedMessage}
                     </Typography>
                 </Render>
             </>
         ),
-        [firstGitServer?.status?.detailedMessage, status]
+        [available, firstGitServer, status]
     );
 
     const configurationItemList = React.useMemo(
