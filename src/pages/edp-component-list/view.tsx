@@ -1,14 +1,19 @@
 import { Icon } from '@iconify/react';
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Box, Button, Grid, MenuItem, Select, Typography } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { DocLink } from '../../components/DocLink';
+import { EmptyList } from '../../components/EmptyList';
 import { PageWrapper } from '../../components/PageWrapper';
+import { Render } from '../../components/Render';
 import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { FORM_MODES } from '../../types/forms';
@@ -16,11 +21,13 @@ import { rem } from '../../utils/styling/rem';
 import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../widgets/CreateEditCodebase/constants';
 import { CreateEditCodebaseDialogForwardedProps } from '../../widgets/CreateEditCodebase/types';
+import { routeEDPGitServerList } from '../edp-configuration/pages/edp-gitserver-list/route';
 import { ComponentList } from './components/ComponentList';
 
 export const PageView = () => {
     const [type, setType] = React.useState<CODEBASE_TYPES>(CODEBASE_TYPES.ALL);
     const [items, error] = EDPCodebaseKubeObject.useList();
+    const [gitServers] = EDPGitServerKubeObject.useList();
     const { setDialog } = useDialogContext();
 
     const filteredComponents = React.useMemo(
@@ -30,6 +37,11 @@ export const PageView = () => {
 
     const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps =
         React.useMemo(() => ({ mode: FORM_MODES.CREATE }), []);
+
+    const creationDisabled = gitServers === null || !gitServers?.length;
+    const history = useHistory();
+
+    const gitServersConfigurationPageRoute = Router.createRouteURL(routeEDPGitServerList.path);
 
     return (
         <PageWrapper>
@@ -83,6 +95,7 @@ export const PageView = () => {
                                         startIcon={<Icon icon={ICONS.PLUS} />}
                                         color={'primary'}
                                         variant={'contained'}
+                                        disabled={creationDisabled}
                                         onClick={() =>
                                             setDialog({
                                                 modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
@@ -99,7 +112,16 @@ export const PageView = () => {
                     ]}
                 />
                 <ResourceActionListContextProvider>
-                    <ComponentList components={filteredComponents} error={error} />
+                    <Render condition={items === null || !creationDisabled}>
+                        <ComponentList components={filteredComponents} error={error} />
+                    </Render>
+                    <Render condition={items !== null && creationDisabled}>
+                        <EmptyList
+                            customText={'Valid Git Server Required:'}
+                            linkText={'Click here to initiate the setup process.'}
+                            handleClick={() => history.push(gitServersConfigurationPageRoute)}
+                        />
+                    </Render>
                     <CodebaseActionsMenu />
                 </ResourceActionListContextProvider>
             </SectionBox>
