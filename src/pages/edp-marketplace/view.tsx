@@ -1,11 +1,17 @@
 import { Icon } from '@iconify/react';
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, IconButton, Typography, useTheme } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { EmptyList } from '../../components/EmptyList';
 import { PageWrapper } from '../../components/PageWrapper';
+import { Render } from '../../components/Render';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { useViewModeContext } from '../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../providers/ViewMode/types';
+import { routeEDPGitServerList } from '../edp-configuration/pages/edp-gitserver-list/route';
 import { MarketplaceList } from './components/MarketplaceList';
 import { useStyles } from './styles';
 
@@ -13,6 +19,11 @@ export const PageView = () => {
     const theme = useTheme();
     const classes = useStyles();
     const { viewMode, handleChangeViewMode } = useViewModeContext();
+
+    const [gitServers] = EDPGitServerKubeObject.useList();
+    const creationDisabled = gitServers === null || !gitServers?.length;
+    const history = useHistory();
+    const gitServersConfigurationPageRoute = Router.createRouteURL(routeEDPGitServerList.path);
 
     return (
         <PageWrapper>
@@ -71,7 +82,16 @@ export const PageView = () => {
                     className: classes.sectionRoot,
                 }}
             >
-                <MarketplaceList />
+                <Render condition={!creationDisabled}>
+                    <MarketplaceList />
+                </Render>
+                <Render condition={creationDisabled}>
+                    <EmptyList
+                        customText={'No Git Servers Connected.'}
+                        linkText={'Click here to add a Git Server.'}
+                        handleClick={() => history.push(gitServersConfigurationPageRoute)}
+                    />
+                </Render>
             </SectionBox>
         </PageWrapper>
     );

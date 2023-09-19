@@ -18,6 +18,7 @@ export enum STATUSES_COLORS {
 }
 
 export const getCustomResourceStatusIconByStatusName = (status: StatusType): IconProps => {
+    console.log(status);
     switch (status) {
         case CUSTOM_RESOURCE_STATUSES.CREATED:
             return [ICONS.CHECK_CIRCLE, STATUSES_COLORS.SUCCESS];
@@ -33,6 +34,12 @@ export const getCustomResourceStatusIconByStatusName = (status: StatusType): Ico
 
         case CUSTOM_RESOURCE_STATUSES.UNKNOWN:
             return [ICONS.UNKNOWN, STATUSES_COLORS.UNKNOWN];
+
+        case CUSTOM_RESOURCE_STATUSES.AVAILABLE:
+            return [ICONS.CHECK_CIRCLE, STATUSES_COLORS.SUCCESS];
+
+        case CUSTOM_RESOURCE_STATUSES.UNAVAILABLE:
+            return [ICONS.CROSS_CIRCLE, STATUSES_COLORS.ERROR];
 
         case CUSTOM_RESOURCE_ACTIVE_STATUSES.ACTIVE:
             return [ICONS.CHECK_CIRCLE, STATUSES_COLORS.SUCCESS];

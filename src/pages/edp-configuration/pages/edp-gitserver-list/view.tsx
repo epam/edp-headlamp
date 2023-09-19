@@ -27,7 +27,7 @@ export const PageView = () => {
             : firstGitServer?.status?.available === false
             ? CUSTOM_RESOURCE_STATUSES.UNAVAILABLE
             : CUSTOM_RESOURCE_STATUSES.UNKNOWN;
-    const status = firstGitServer?.status?.status ?? CUSTOM_RESOURCE_STATUSES.UNKNOWN;
+    const status = firstGitServer?.status?.status;
 
     const statusTitle = React.useMemo(
         () => (
@@ -55,7 +55,7 @@ export const PageView = () => {
                     title: (
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item style={{ marginRight: rem(5) }}>
-                                <StatusIcon status={status} customTitle={statusTitle} />
+                                <StatusIcon status={available} customTitle={statusTitle} />
                             </Grid>
                             <Grid item>{el?.metadata.name}</Grid>
                         </Grid>
@@ -71,7 +71,7 @@ export const PageView = () => {
                     ),
                 };
             }),
-        [secretsArray, status, statusTitle]
+        [available, secretsArray, statusTitle]
     );
 
     const creationDisabled = React.useMemo(() => items === null || items.length >= 1, [items]);

@@ -90,8 +90,8 @@ export const PageView = () => {
                     </Render>
                     <Render condition={!gitOpsCodebase}>
                         <EmptyList
-                            customText={'GitOps Repository Configuration Required:'}
-                            linkText={'Click here to initiate the setup process.'}
+                            customText={'No GitOps repository configured.'}
+                            linkText={'Click here to add a repository.'}
                             handleClick={() => history.push(gitOpsConfigurationPageRoute)}
                         />
                     </Render>

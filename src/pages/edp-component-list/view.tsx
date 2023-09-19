@@ -117,8 +117,8 @@ export const PageView = () => {
                     </Render>
                     <Render condition={items !== null && creationDisabled}>
                         <EmptyList
-                            customText={'Valid Git Server Required:'}
-                            linkText={'Click here to initiate the setup process.'}
+                            customText={'No Git Servers Connected.'}
+                            linkText={'Click here to add a Git Server.'}
                             handleClick={() => history.push(gitServersConfigurationPageRoute)}
                         />
                     </Render>

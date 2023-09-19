@@ -1,5 +1,9 @@
+import { Icon } from '@iconify/react';
+import { IconButton } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
+import React from 'react';
 import { CRUD_TYPES } from '../../constants/crudTypes';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 
 interface Options {
     entityName: string;
@@ -7,7 +11,7 @@ interface Options {
 }
 
 export const useRequestStatusMessages = () => {
-    const { enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const showBeforeRequestMessage = (mode: CRUD_TYPES, { entityName, customMessage }: Options) => {
         const beforeRequestMessage = (() => {
@@ -28,6 +32,11 @@ export const useRequestStatusMessages = () => {
                 vertical: 'bottom',
                 horizontal: 'left',
             },
+            action: key => (
+                <IconButton size="small" onClick={() => closeSnackbar(key)}>
+                    <Icon icon={ICONS.CROSS} />
+                </IconButton>
+            ),
         });
     };
 
@@ -52,6 +61,11 @@ export const useRequestStatusMessages = () => {
                 vertical: 'bottom',
                 horizontal: 'left',
             },
+            action: key => (
+                <IconButton size="small" onClick={() => closeSnackbar(key)}>
+                    <Icon icon={ICONS.CROSS} />
+                </IconButton>
+            ),
         });
     };
 
@@ -74,6 +88,11 @@ export const useRequestStatusMessages = () => {
                 vertical: 'bottom',
                 horizontal: 'left',
             },
+            action: key => (
+                <IconButton size="small" onClick={() => closeSnackbar(key)}>
+                    <Icon icon={ICONS.CROSS} />
+                </IconButton>
+            ),
         });
     };
 
@@ -85,6 +104,11 @@ export const useRequestStatusMessages = () => {
                 vertical: 'bottom',
                 horizontal: 'left',
             },
+            action: key => (
+                <IconButton size="small" onClick={() => closeSnackbar(key)}>
+                    <Icon icon={ICONS.CROSS} />
+                </IconButton>
+            ),
         });
     };
 

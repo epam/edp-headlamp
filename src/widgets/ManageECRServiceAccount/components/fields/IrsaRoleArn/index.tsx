@@ -16,6 +16,7 @@ export const IrsaRoleArn = () => {
                 required: 'Enter IRSA Role ARN',
             })}
             label={'IRSA Role ARN'}
+            title={'The IAM Role ARN with push permissions to ECR'}
             placeholder={'Enter IRSA Role ARN'}
             control={control}
             errors={errors}
