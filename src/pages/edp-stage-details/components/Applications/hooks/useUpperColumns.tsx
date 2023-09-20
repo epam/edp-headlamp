@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Button, Grid, Tooltip, Typography } from '@material-ui/core';
+import { Button, Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../components/Render';
@@ -49,12 +49,8 @@ export const useUpperColumns = ({
                                         'Deploy selected applications with selected image stream version'
                                     }
                                 >
-                                    <Button
+                                    <IconButton
                                         onClick={onDeployClick}
-                                        variant={'contained'}
-                                        color={'primary'}
-                                        size="small"
-                                        startIcon={<Icon icon={'solar:upload-linear'} />}
                                         disabled={
                                             !numSelected ||
                                             !buttonsEnabledMap.deploy ||
@@ -62,8 +58,8 @@ export const useUpperColumns = ({
                                             qualityGatePipelineIsRunning
                                         }
                                     >
-                                        deploy
-                                    </Button>
+                                        <Icon icon={'solar:upload-linear'} />
+                                    </IconButton>
                                 </Tooltip>
                             </Grid>
                             <Grid item>
@@ -72,12 +68,8 @@ export const useUpperColumns = ({
                                         'Update selected applications with selected image stream version'
                                     }
                                 >
-                                    <Button
+                                    <IconButton
                                         onClick={onUpdateClick}
-                                        variant={'contained'}
-                                        color={'primary'}
-                                        size="small"
-                                        startIcon={<Icon icon={ICONS.UPDATE} />}
                                         disabled={
                                             !numSelected ||
                                             !buttonsEnabledMap.update ||
@@ -85,18 +77,14 @@ export const useUpperColumns = ({
                                             qualityGatePipelineIsRunning
                                         }
                                     >
-                                        update
-                                    </Button>
+                                        <Icon icon={ICONS.UPDATE} />
+                                    </IconButton>
                                 </Tooltip>
                             </Grid>
                             <Grid item>
                                 <Tooltip title={'Uninstall selected applications'}>
-                                    <Button
+                                    <IconButton
                                         onClick={onUninstallClick}
-                                        variant={'contained'}
-                                        color={'primary'}
-                                        size="small"
-                                        startIcon={<Icon icon={ICONS.BUCKET} />}
                                         disabled={
                                             !numSelected ||
                                             !buttonsEnabledMap.update ||
@@ -104,8 +92,8 @@ export const useUpperColumns = ({
                                             qualityGatePipelineIsRunning
                                         }
                                     >
-                                        uninstall
-                                    </Button>
+                                        <Icon icon={ICONS.BUCKET} />
+                                    </IconButton>
                                 </Tooltip>
                             </Grid>
                         </Grid>
