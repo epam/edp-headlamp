@@ -1,5 +1,8 @@
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { EmptyList } from '../../../../components/EmptyList';
 import { Render } from '../../../../components/Render';
 import { ResourceIconLink } from '../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../components/StatusIcon';
@@ -8,11 +11,13 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE } from '../../../../k8s/EDPCodebase/labels';
+import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { rem } from '../../../../utils/styling/rem';
 import { ManageGitOps } from '../../../../widgets/ManageGitOps';
 import { ConfigurationBody } from '../../components/ConfigurationBody';
+import { routeEDPGitServerList } from '../edp-gitserver-list/route';
 import { GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
@@ -84,12 +89,26 @@ export const PageView = () => {
         [gitOpsCodebase]
     );
 
+    const [gitServers] = EDPGitServerKubeObject.useList();
+    const history = useHistory();
+
+    const gitServersConfigurationPageRoute = Router.createRouteURL(routeEDPGitServerList.path);
+
     return (
         <ConfigurationBody
             pageData={{
                 label: GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION.label,
                 description: GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION.description,
             }}
+            blocker={
+                gitServers !== null && !gitServers?.length ? (
+                    <EmptyList
+                        customText={'No Git Servers Connected.'}
+                        linkText={'Click here to add a Git Server.'}
+                        handleClick={() => history.push(gitServersConfigurationPageRoute)}
+                    />
+                ) : null
+            }
             renderPlaceHolderData={({ handleClosePlaceholder }) => ({
                 title: 'Add GitOps Repository',
                 disabled: creationDisabled,

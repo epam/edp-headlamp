@@ -21,4 +21,5 @@ export interface ConfigurationBodyProps {
     }) => ConfigurationItem;
     items: ConfigurationItem[];
     emptyMessage: string;
+    blocker?: React.ReactElement;
 }

@@ -13,7 +13,7 @@ export const FormTextField = React.forwardRef(
             label,
             title,
             control,
-            defaultValue = '',
+            defaultValue = undefined,
             errors,
             placeholder,
             disabled = false,

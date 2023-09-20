@@ -31,7 +31,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
                 [CODEBASE_FORM_NAMES.framework.name]: 'gitops',
                 [CODEBASE_FORM_NAMES.buildTool.name]: 'helm',
                 [CODEBASE_FORM_NAMES.ciTool.name]: defaultCITool,
-                [CODEBASE_FORM_NAMES.gitServer.name]: gitServersOptions?.[0].value,
+                [CODEBASE_FORM_NAMES.gitServer.name]: gitServersOptions?.[0]?.value,
                 [CODEBASE_FORM_NAMES.defaultBranch.name]: 'main',
                 [CODEBASE_FORM_NAMES.deploymentScript.name]: DEPLOYMENT_SCRIPTS.HELM_CHART,
                 [CODEBASE_FORM_NAMES.description.name]: 'Custom values for deploy applications',

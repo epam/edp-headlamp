@@ -17,8 +17,12 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
         }
 
         return {
-            [GIT_SERVER_FORM_NAMES.sshPort.name]: currentElement?.spec?.sshPort,
-            [GIT_SERVER_FORM_NAMES.httpsPort.name]: currentElement?.spec?.httpsPort,
+            [GIT_SERVER_FORM_NAMES.sshPort.name]: currentElement?.spec?.sshPort
+                ? Number(currentElement?.spec?.sshPort)
+                : undefined,
+            [GIT_SERVER_FORM_NAMES.httpsPort.name]: currentElement?.spec?.httpsPort
+                ? Number(currentElement?.spec?.httpsPort)
+                : undefined,
             [GIT_SERVER_FORM_NAMES.gitUser.name]: currentElement?.spec?.gitUser,
             [GIT_SERVER_FORM_NAMES.gitHost.name]: currentElement?.spec?.gitHost,
             [GIT_SERVER_FORM_NAMES.gitProvider.name]: currentElement?.spec?.gitProvider,

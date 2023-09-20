@@ -48,8 +48,14 @@ export const FormActions = () => {
 
     const onSubmit = React.useCallback(
         async (values: ManageGitServerValues) => {
-            const usedValues = getUsedValues(values, GIT_SERVER_FORM_NAMES);
-            const { gitUser, sshPrivateKey, token, gitProvider } = values;
+            // TODO: fix this
+            const transformedValues = {
+                ...values,
+                sshPort: Number(values.sshPort),
+                httpsPort: Number(values.httpsPort),
+            };
+            const usedValues = getUsedValues(transformedValues, GIT_SERVER_FORM_NAMES);
+            const { gitUser, sshPrivateKey, token, gitProvider } = transformedValues;
 
             const gitServerData = createGitServerInstance(GIT_SERVER_FORM_NAMES, usedValues);
 
