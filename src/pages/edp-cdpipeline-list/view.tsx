@@ -35,6 +35,8 @@ export const PageView = () => {
         [codebases]
     );
 
+    const codebasesIsLoading = codebases === null;
+
     const gitOpsCodebase = codebasesArray.find(el => el.metadata.name === 'edp-gitops') ?? null;
     const [items, error] = EDPCDPipelineKubeObject.useList();
 
@@ -85,10 +87,10 @@ export const PageView = () => {
                     headerStyle="label"
                 />
                 <ResourceActionListContextProvider>
-                    <Render condition={!!gitOpsCodebase}>
+                    <Render condition={codebasesIsLoading || !!gitOpsCodebase}>
                         <CDPipelineList CDPipelines={items} error={error} />
                     </Render>
-                    <Render condition={!gitOpsCodebase}>
+                    <Render condition={!codebasesIsLoading && !gitOpsCodebase}>
                         <EmptyList
                             customText={'No GitOps repository configured.'}
                             linkText={'Click here to add a repository.'}

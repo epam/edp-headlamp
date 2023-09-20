@@ -16,7 +16,7 @@ export const CDPipelineList = ({ CDPipelines, error }: CDPipelineListProps) => {
 
     return (
         <Table
-            isLoading={!CDPipelines}
+            isLoading={CDPipelines === null}
             data={CDPipelines}
             error={error?.toString()}
             columns={columns}

@@ -21,7 +21,8 @@ export const PageView = () => {
     const { viewMode, handleChangeViewMode } = useViewModeContext();
 
     const [gitServers] = EDPGitServerKubeObject.useList();
-    const creationDisabled = gitServers === null || !gitServers?.length;
+    const gitServersIsLoading = gitServers === null;
+    const noGitServers = !gitServers?.length;
     const history = useHistory();
     const gitServersConfigurationPageRoute = Router.createRouteURL(routeEDPGitServerList.path);
 
@@ -82,10 +83,10 @@ export const PageView = () => {
                     className: classes.sectionRoot,
                 }}
             >
-                <Render condition={!creationDisabled}>
+                <Render condition={gitServersIsLoading || !noGitServers}>
                     <MarketplaceList />
                 </Render>
-                <Render condition={creationDisabled}>
+                <Render condition={!gitServersIsLoading && noGitServers}>
                     <EmptyList
                         customText={'No Git Servers Connected.'}
                         linkText={'Click here to add a Git Server.'}
