@@ -6,29 +6,28 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 
-const clusterName = Utils.getCluster();
-
-const settingsRoute = Router.createRouteURL('settingsCluster', { cluster: clusterName });
-
 export const useDetectNamespaces = () => {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const history = useHistory();
 
     React.useEffect(() => {
+        const clusterName = Utils.getCluster();
+        const settingsRoute = Router.createRouteURL('settingsCluster', { cluster: clusterName });
         closeSnackbar();
-        const lsNamespaceObject = JSON.parse(
-            localStorage.getItem(`cluster_settings.${clusterName}`) || '{}'
-        );
+        const lsNamespaceItem = localStorage.getItem(`cluster_settings.${clusterName}`);
+
+        const parsedLsNamespaceItem = JSON.parse(lsNamespaceItem);
 
         if (
-            !!lsNamespaceObject?.defaultNamespace &&
-            !!lsNamespaceObject?.allowedNamespaces &&
-            !!lsNamespaceObject?.allowedNamespaces.length
+            lsNamespaceItem &&
+            parsedLsNamespaceItem?.defaultNamespace &&
+            parsedLsNamespaceItem?.allowedNamespaces &&
+            parsedLsNamespaceItem?.allowedNamespaces.length
         ) {
             return;
         }
 
-        if (!lsNamespaceObject?.defaultNamespace) {
+        if (!lsNamespaceItem && !parsedLsNamespaceItem?.defaultNamespace) {
             enqueueSnackbar(
                 <Typography>
                     <span>Default namespace is unset. Navigate to </span>
@@ -59,8 +58,9 @@ export const useDetectNamespaces = () => {
                 }
             );
         } else if (
-            !lsNamespaceObject?.allowedNamespaces ||
-            !lsNamespaceObject?.allowedNamespaces.length
+            !lsNamespaceItem ||
+            !parsedLsNamespaceItem?.allowedNamespaces ||
+            !parsedLsNamespaceItem?.allowedNamespaces.length
         ) {
             enqueueSnackbar(
                 <Typography>
