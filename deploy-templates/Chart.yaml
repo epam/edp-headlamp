@@ -3,8 +3,8 @@ description: A Helm chart for EDP Headlamp
 home: https://epam.github.io/edp-install/
 name: edp-headlamp
 type: application
-version: 0.9.0-SNAPSHOT
-appVersion: 0.9.0-SNAPSHOT
+version: 0.9.0
+appVersion: 0.9.0
 icon: https://epam.github.io/edp-install/assets/logo.png
 keywords:
   - edp
