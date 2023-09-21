@@ -15,6 +15,7 @@ export const useDetectNamespaces = () => {
     const history = useHistory();
 
     React.useEffect(() => {
+        closeSnackbar();
         const lsNamespaceObject = JSON.parse(
             localStorage.getItem(`cluster_settings.${clusterName}`) || '{}'
         );
@@ -28,7 +29,6 @@ export const useDetectNamespaces = () => {
         }
 
         if (!lsNamespaceObject?.defaultNamespace) {
-            closeSnackbar();
             enqueueSnackbar(
                 <Typography>
                     <span>Default namespace is unset. Navigate to </span>
@@ -47,7 +47,6 @@ export const useDetectNamespaces = () => {
                 </Typography>,
                 {
                     autoHideDuration: null,
-                    variant: 'warning',
                     anchorOrigin: {
                         vertical: 'bottom',
                         horizontal: 'left',
@@ -63,7 +62,6 @@ export const useDetectNamespaces = () => {
             !lsNamespaceObject?.allowedNamespaces ||
             !lsNamespaceObject?.allowedNamespaces.length
         ) {
-            closeSnackbar();
             enqueueSnackbar(
                 <Typography>
                     <span>Allowed namespaces are unset. Navigate to </span>
@@ -82,7 +80,6 @@ export const useDetectNamespaces = () => {
                 </Typography>,
                 {
                     autoHideDuration: null,
-                    variant: 'warning',
                     anchorOrigin: {
                         vertical: 'bottom',
                         horizontal: 'left',

@@ -2,7 +2,7 @@ import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { Render } from '../../../../components/Render';
-import { useCreateCodebase } from '../../../../k8s/EDPCodebase/hooks/useCreateCodebase';
+import { useCodebaseCRUD } from '../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
 import { createCodebaseInstance } from '../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../types/forms';
@@ -35,7 +35,7 @@ export const FormActions = () => {
             codebaseSecretCreateMutation,
             codebaseSecretDeleteMutation,
         },
-    } = useCreateCodebase({
+    } = useCodebaseCRUD({
         onSuccess: handleClose,
     });
 

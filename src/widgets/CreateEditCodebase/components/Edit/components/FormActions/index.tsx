@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useEditCodebase } from '../../../../../../k8s/EDPCodebase/hooks/useEditCodebase';
+import { useCodebaseCRUD } from '../../../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
 import { editCodebaseInstance } from '../../../../../../k8s/EDPCodebase/utils/editCodebaseInstance';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
@@ -33,7 +33,7 @@ export const FormActions = () => {
         reset();
     }, [closeDialog, reset]);
 
-    const { editCodebase } = useEditCodebase({
+    const { editCodebase } = useCodebaseCRUD({
         onSuccess: handleClose,
     });
 

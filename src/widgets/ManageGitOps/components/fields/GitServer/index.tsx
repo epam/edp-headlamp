@@ -5,7 +5,6 @@ import { useGitServerListQuery } from '../../../../../k8s/EDPGitServer/hooks/use
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FieldEvent } from '../../../../../types/forms';
-import { GIT_OPS_CODEBASE_NAME } from '../../../constants';
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { ManageGitOpsDataContext, ManageGitOpsValues } from '../../../types';
 
@@ -29,6 +28,7 @@ export const GitServer = () => {
     } = useFormContext<ManageGitOpsDataContext>();
 
     const gitRepoPathFieldValue = watch(CODEBASE_FORM_NAMES.gitRepoPath.name);
+    const nameFieldValue = watch(CODEBASE_FORM_NAMES.name.name);
 
     return (
         <FormSelect
@@ -40,8 +40,8 @@ export const GitServer = () => {
                     setValue(
                         CODEBASE_FORM_NAMES.gitUrlPath.name,
                         isGerrit
-                            ? `/${GIT_OPS_CODEBASE_NAME}`
-                            : `${gitRepoPathFieldValue}/${GIT_OPS_CODEBASE_NAME}`
+                            ? `/${nameFieldValue}`
+                            : `${gitRepoPathFieldValue}/${nameFieldValue}`
                     );
                 },
             })}

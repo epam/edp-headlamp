@@ -1,3 +1,5 @@
+import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../k8s/EDPCodebase/labels';
+
 const NAMES = {
     TYPE: 'type',
     STRATEGY: 'strategy',
@@ -16,6 +18,7 @@ const NAMES = {
     DEPLOYMENT_SCRIPT: 'deploymentScript',
     CI_TOOL: 'ciTool',
     GIT_REPO_PATH: 'gitRepoPath',
+    SYSTEM_TYPE_LABEL: 'systemTypeLabel',
 } as const;
 
 export const CODEBASE_FORM_NAMES = {
@@ -87,5 +90,9 @@ export const CODEBASE_FORM_NAMES = {
     },
     [NAMES.GIT_REPO_PATH]: {
         name: NAMES.GIT_REPO_PATH,
+    },
+    [NAMES.SYSTEM_TYPE_LABEL]: {
+        name: NAMES.SYSTEM_TYPE_LABEL,
+        path: ['metadata', 'labels', CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE],
     },
 };

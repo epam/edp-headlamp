@@ -20,7 +20,11 @@ interface CreateCodebaseProps {
     codebaseAuthData: CodebaseAuthData | null;
 }
 
-export const useCreateCodebase = ({
+interface EditCodebaseProps {
+    codebaseData: EDPCodebaseKubeObjectInterface;
+}
+
+export const useCodebaseCRUD = ({
     onSuccess,
     onError,
 }: {
@@ -88,6 +92,11 @@ export const useCreateCodebase = ({
         CRUD_TYPES.CREATE
     >('codebaseSecretCreateMutation', K8s.secret.default, CRUD_TYPES.CREATE);
 
+    const codebaseEditMutation = useResourceCRUDMutation<
+        EDPCodebaseKubeObjectInterface,
+        CRUD_TYPES.EDIT
+    >('codebaseEditMutation', EDPCodebaseKubeObject, CRUD_TYPES.EDIT);
+
     const createCodebase = React.useCallback(
         async ({ codebaseData, codebaseAuthData }: CreateCodebaseProps) => {
             if (codebaseAuthData === null) {
@@ -142,11 +151,26 @@ export const useCreateCodebase = ({
         ]
     );
 
+    const editCodebase = React.useCallback(
+        async ({ codebaseData }: EditCodebaseProps) => {
+            codebaseEditMutation.mutate(codebaseData, {
+                onSuccess: () => {
+                    invokeOnSuccessCallback(codebaseData);
+                },
+                onError: () => {
+                    invokeOnErrorCallback();
+                },
+            });
+        },
+        [codebaseEditMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
+    );
+
     const mutations = {
         codebaseCreateMutation,
         codebaseSecretCreateMutation,
         codebaseSecretDeleteMutation,
+        codebaseEditMutation,
     };
 
-    return { createCodebase, mutations };
+    return { createCodebase, editCodebase, mutations };
 };

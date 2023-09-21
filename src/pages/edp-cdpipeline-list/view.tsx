@@ -12,8 +12,8 @@ import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
-import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
-import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE } from '../../k8s/EDPCodebase/labels';
+import { useCodebasesByTypeLabelQuery } from '../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
+import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../k8s/EDPCodebase/labels';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { FORM_MODES } from '../../types/forms';
@@ -25,19 +25,22 @@ import { routeEDPGitOpsConfiguration } from '../edp-configuration/pages/edp-gito
 import { CDPipelineList } from './components/CDPipelineList';
 
 export const PageView = () => {
-    const [codebases] = EDPCodebaseKubeObject.useList({
-        namespace: getDefaultNamespace(),
-        labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPES.SYSTEM}`,
+    const { data: gitOpsCodebase, isLoading } = useCodebasesByTypeLabelQuery({
+        props: {
+            namespace: getDefaultNamespace(),
+            codebaseType: CODEBASE_TYPES.SYSTEM,
+        },
+        options: {
+            select: data => {
+                return data?.items.find(
+                    el =>
+                        el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] ===
+                        'gitops'
+                );
+            },
+        },
     });
 
-    const codebasesArray = React.useMemo(
-        () => (codebases ? codebases.filter(Boolean) : []),
-        [codebases]
-    );
-
-    const codebasesIsLoading = codebases === null;
-
-    const gitOpsCodebase = codebasesArray.find(el => el.metadata.name === 'edp-gitops') ?? null;
     const [items, error] = EDPCDPipelineKubeObject.useList();
 
     const { setDialog } = useDialogContext();
@@ -87,10 +90,10 @@ export const PageView = () => {
                     headerStyle="label"
                 />
                 <ResourceActionListContextProvider>
-                    <Render condition={codebasesIsLoading || !!gitOpsCodebase}>
+                    <Render condition={isLoading || !!gitOpsCodebase}>
                         <CDPipelineList CDPipelines={items} error={error} />
                     </Render>
-                    <Render condition={!codebasesIsLoading && !gitOpsCodebase}>
+                    <Render condition={!isLoading && !gitOpsCodebase}>
                         <EmptyList
                             customText={'No GitOps repository configured.'}
                             linkText={'Click here to add a repository.'}

@@ -39,6 +39,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
                 [CODEBASE_FORM_NAMES.type.name]: CODEBASE_TYPES.SYSTEM,
                 [CODEBASE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPES.EDP,
                 [CODEBASE_FORM_NAMES.versioningStartFrom.name]: '0.1.0-SNAPSHOT',
+                [CODEBASE_FORM_NAMES.systemTypeLabel.name]: 'gitops',
             };
         }
 

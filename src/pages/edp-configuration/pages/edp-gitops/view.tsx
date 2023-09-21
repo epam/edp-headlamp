@@ -10,7 +10,10 @@ import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
-import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE } from '../../../../k8s/EDPCodebase/labels';
+import {
+    CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE,
+    CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE,
+} from '../../../../k8s/EDPCodebase/labels';
 import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
@@ -28,7 +31,10 @@ export const PageView = () => {
 
     const itemsArray = React.useMemo(() => (items ? items.filter(Boolean) : []), [items]);
 
-    const gitOpsCodebase = itemsArray.find(el => el.metadata.name === 'edp-gitops') ?? null;
+    const gitOpsCodebase =
+        itemsArray.find(
+            el => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
+        ) ?? null;
 
     const status = gitOpsCodebase?.status?.status ?? CUSTOM_RESOURCE_STATUSES.UNKNOWN;
 

@@ -5,6 +5,7 @@ import { useCDPipelineByNameQuery } from '../../../../k8s/EDPCDPipeline/hooks/us
 import { useCDPipelineStageListByCDPipelineNameQuery } from '../../../../k8s/EDPCDPipelineStage/hooks/useCDPipelineStageListByCDPipelineNameQuery';
 import { useCodebasesByTypeLabelQuery } from '../../../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
 import { useEnrichedApplicationsWithImageStreamsQuery } from '../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../../../k8s/EDPCodebase/labels';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { DataContext } from './context';
 
@@ -47,7 +48,10 @@ export const DataContextProvider: React.FC = ({ children }) => {
         },
     });
 
-    const gitOpsCodebase = codebases?.items.find(el => el.metadata.name === 'edp-gitops') ?? null;
+    const gitOpsCodebase =
+        codebases?.items.find(
+            el => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
+        ) ?? null;
 
     const DataContextValue = React.useMemo(
         () => ({

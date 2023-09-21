@@ -11,3 +11,16 @@
 .MuiChip-label {
     line-height: 1;
 }
+
+nav[aria-label="Navigation Tabs"] li[class*="linkMainSelected"] {
+    background-color: #2ccfe2 !important;
+}
+
+nav[aria-label="Navigation Tabs"] li[class*="linkSelected"] .Mui-selected * {
+    color: #2ccfe2 !important;
+}
+
+div[class*="SnackbarItem-variantWarning"] {
+    color: #000;
+}
+

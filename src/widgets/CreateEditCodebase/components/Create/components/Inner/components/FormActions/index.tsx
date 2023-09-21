@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../../../../components/Render';
-import { useCreateCodebase } from '../../../../../../../../k8s/EDPCodebase/hooks/useCreateCodebase';
+import { useCodebaseCRUD } from '../../../../../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
 import { createCodebaseInstance } from '../../../../../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
 import { useSpecificDialogContext } from '../../../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../../../utils/forms/getUsedValues';
@@ -102,7 +102,7 @@ export const FormActions = ({
             codebaseSecretCreateMutation,
             codebaseSecretDeleteMutation,
         },
-    } = useCreateCodebase({
+    } = useCodebaseCRUD({
         onSuccess: handleClose,
     });
 

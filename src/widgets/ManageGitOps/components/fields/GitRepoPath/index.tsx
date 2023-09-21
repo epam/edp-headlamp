@@ -5,7 +5,6 @@ import { GIT_SERVERS } from '../../../../../constants/gitServers';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FieldEvent } from '../../../../../types/forms';
-import { GIT_OPS_CODEBASE_NAME } from '../../../constants';
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { ManageGitOpsDataContext, ManageGitOpsValues } from '../../../types';
 // relative path should always start with slash
@@ -26,6 +25,7 @@ export const GitRepoPath = () => {
     } = useFormContext<ManageGitOpsDataContext>();
 
     const gitServerFieldValue = watch(CODEBASE_FORM_NAMES.gitRepoPath.name);
+    const nameFieldValue = watch(CODEBASE_FORM_NAMES.name.name);
 
     return (
         <FormTextField
@@ -40,7 +40,7 @@ export const GitRepoPath = () => {
 
                     setValue(
                         CODEBASE_FORM_NAMES.gitUrlPath.name,
-                        isGerrit ? `/${GIT_OPS_CODEBASE_NAME}` : `${value}/${GIT_OPS_CODEBASE_NAME}`
+                        isGerrit ? `/${nameFieldValue}` : `${value}/${nameFieldValue}`
                     );
                 },
             })}

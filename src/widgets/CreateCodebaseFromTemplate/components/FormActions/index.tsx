@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useCreateCodebase } from '../../../../k8s/EDPCodebase/hooks/useCreateCodebase';
+import { useCodebaseCRUD } from '../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { createCodebaseInstance } from '../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
 import { useDefaultCIToolQuery } from '../../../../k8s/EDPComponent/hooks/useDefaultCIToolQuery';
@@ -29,7 +29,7 @@ export const FormActions = () => {
     const {
         createCodebase,
         mutations: { codebaseCreateMutation },
-    } = useCreateCodebase({
+    } = useCodebaseCRUD({
         onSuccess: () => {
             closeDialog();
             reset();
