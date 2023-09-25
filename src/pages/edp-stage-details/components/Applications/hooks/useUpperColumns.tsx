@@ -162,6 +162,11 @@ export const useUpperColumns = ({
                     );
                 },
             },
+            {
+                id: 'pods',
+                label: '',
+                render: () => null,
+            },
         ],
         [
             buttonsEnabledMap,

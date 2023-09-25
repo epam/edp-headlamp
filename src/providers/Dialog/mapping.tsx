@@ -11,6 +11,10 @@ import { CreateEditStage } from '../../widgets/CreateEditStage';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../widgets/CreateEditStage/constants';
 import { DeleteKubeObject } from '../../widgets/DeleteKubeObject';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../widgets/DeleteKubeObject/constants';
+import { PodsLogViewer } from '../../widgets/PodsLogViewer';
+import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../widgets/PodsLogViewer/constants';
+import PodsTerminal from '../../widgets/PodsTerminal';
+import { PODS_TERMINAL_DIALOG_NAME } from '../../widgets/PodsTerminal/constants';
 
 const MemoizedCreateEditCodebase = React.memo(CreateEditCodebase);
 const MemoizedCreateEditCDPipeline = React.memo(CreateEditCDPipeline);
@@ -18,6 +22,8 @@ const MemoizedCreateEditStage = React.memo(CreateEditStage);
 const MemoizedCreateCodebaseFromTemplate = React.memo(CreateCodebaseFromTemplate);
 const MemoizedCreateCodebaseBranch = React.memo(CreateCodebaseBranch);
 const MemoizedDeleteKubeObject = React.memo(DeleteKubeObject);
+const MemoizedPodsLogViewer = React.memo(PodsLogViewer);
+const MemoizedPodsTerminal = React.memo(PodsTerminal);
 
 export const MODAL_MAPPING = {
     [CREATE_EDIT_CODEBASE_DIALOG_NAME]: <MemoizedCreateEditCodebase />,
@@ -26,4 +32,6 @@ export const MODAL_MAPPING = {
     [CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME]: <MemoizedCreateCodebaseFromTemplate />,
     [CREATE_CODEBASE_BRANCH_DIALOG_NAME]: <MemoizedCreateCodebaseBranch />,
     [DELETE_KUBE_OBJECT_DIALOG_NAME]: <MemoizedDeleteKubeObject />,
+    [PODS_LOG_VIEWER_DIALOG_NAME]: <MemoizedPodsLogViewer />,
+    [PODS_TERMINAL_DIALOG_NAME]: <MemoizedPodsTerminal />,
 } as const;

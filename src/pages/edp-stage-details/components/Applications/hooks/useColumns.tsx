@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, Link as MuiLink, Tooltip, useTheme } from '@material-ui/core';
+import { Grid, IconButton, Link as MuiLink, Tooltip, useTheme } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
@@ -22,7 +22,10 @@ import {
 import { ApplicationKubeObjectInterface } from '../../../../../k8s/Application/types';
 import { getDeployedVersion } from '../../../../../k8s/Application/utils/getDeployedVersion';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { useDialogContext } from '../../../../../providers/Dialog/hooks';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
+import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../widgets/PodsLogViewer/constants';
+import { PODS_TERMINAL_DIALOG_NAME } from '../../../../../widgets/PodsTerminal/constants';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 import { useDataContext } from '../../../providers/Data/hooks';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
@@ -53,6 +56,8 @@ export const useColumns = (
             ),
         [EDPComponentsURLS]
     );
+
+    const { setDialog } = useDialogContext();
 
     return React.useMemo(
         () => [
@@ -158,7 +163,7 @@ export const useColumns = (
                         'No deploy'
                     );
                 },
-                width: '30%',
+                width: '20%',
             },
             {
                 id: 'valuesOverride',
@@ -224,16 +229,73 @@ export const useColumns = (
                         />
                     );
                 },
+                width: '25%',
+            },
+            {
+                id: 'pods',
+                label: 'Pods',
+                render: enrichedApplicationWithArgoApplication => {
+                    return (
+                        <Grid container spacing={1} alignItems={'center'}>
+                            <Grid item>
+                                <Tooltip title={'Show Logs'}>
+                                    <IconButton
+                                        onClick={() =>
+                                            setDialog({
+                                                modalName: PODS_LOG_VIEWER_DIALOG_NAME,
+                                                forwardedProps: {
+                                                    stageNamespace: stage?.spec.namespace,
+                                                    appName:
+                                                        enrichedApplicationWithArgoApplication
+                                                            ?.application?.metadata.name,
+                                                },
+                                            })
+                                        }
+                                        disabled={
+                                            !enrichedApplicationWithArgoApplication?.argoApplication
+                                        }
+                                    >
+                                        <Icon icon="mdi:file-document-box-outline" />
+                                    </IconButton>
+                                </Tooltip>
+                            </Grid>
+                            <Grid item>
+                                <Tooltip title={'Show Terminal'}>
+                                    <IconButton
+                                        onClick={() =>
+                                            setDialog({
+                                                modalName: PODS_TERMINAL_DIALOG_NAME,
+                                                forwardedProps: {
+                                                    stageNamespace: stage?.spec.namespace,
+                                                    appName:
+                                                        enrichedApplicationWithArgoApplication
+                                                            ?.application?.metadata.name,
+                                                },
+                                            })
+                                        }
+                                        disabled={
+                                            !enrichedApplicationWithArgoApplication?.argoApplication
+                                        }
+                                    >
+                                        <Icon icon="mdi:console" />
+                                    </IconButton>
+                                </Tooltip>
+                            </Grid>
+                        </Grid>
+                    );
+                },
+                textAlign: 'center',
             },
         ],
         [
             CDPipelineName,
             _createArgoCDLink,
-            gitOpsCodebase?.status.gitWebUrl,
+            gitOpsCodebase,
             handleSelectRowClick,
             selected,
-            stage?.spec.name,
-            theme.palette.grey,
+            setDialog,
+            stage,
+            theme,
         ]
     );
 };
