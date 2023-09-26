@@ -11,5 +11,6 @@ export const CDPipelineStageMock: DeepPartial<EDPCDPipelineStageKubeObjectInterf
     spec: {
         name: 'test-stage-name',
         clusterName: 'test-cluster-name',
+        namespace: 'test-namespace-test-pipeline-name-test-stage-name',
     },
 };

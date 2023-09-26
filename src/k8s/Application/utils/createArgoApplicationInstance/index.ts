@@ -101,7 +101,7 @@ export const createArgoApplicationInstance = ({
         spec: {
             project: namespace,
             destination: {
-                namespace: `${namespace}-${pipelineName}-${stageName}`,
+                namespace: currentCDPipelineStage.spec.namespace,
                 name: currentCDPipelineStage.spec.clusterName,
             },
             ...(valuesOverride
