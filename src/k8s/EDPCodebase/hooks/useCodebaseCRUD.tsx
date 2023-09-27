@@ -124,6 +124,9 @@ export const useCodebaseCRUD = ({
             codebaseSecretCreateMutation.mutate(codebaseSecretData as EDPKubeObjectInterface, {
                 onSuccess: () => {
                     codebaseCreateMutation.mutate(codebaseData, {
+                        onSuccess: () => {
+                            invokeOnSuccessCallback(codebaseData);
+                        },
                         onError: () => {
                             codebaseSecretDeleteMutation.mutate(
                                 codebaseSecretData as EDPKubeObjectInterface
