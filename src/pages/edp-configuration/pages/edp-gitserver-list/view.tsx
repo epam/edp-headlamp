@@ -30,7 +30,7 @@ export const PageView = () => {
                         : connected === false
                         ? CUSTOM_RESOURCE_STATUSES.DISCONNECTED
                         : CUSTOM_RESOURCE_STATUSES.UNKNOWN;
-                const error = el?.status.error;
+                const error = el?.status?.error;
 
                 return {
                     id: el?.metadata?.name || el?.metadata?.uid,
