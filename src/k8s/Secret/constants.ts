@@ -4,4 +4,5 @@ export const INTEGRATION_SECRET_NAMES = {
     DEPENDENCY_TRACK: 'ci-dependency-track',
     NEXUS: 'ci-nexus',
     SONAR: 'ci-sonarqube',
+    SSO: 'keycloak',
 } as const;

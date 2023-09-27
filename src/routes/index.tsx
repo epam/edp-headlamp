@@ -26,6 +26,8 @@ import RouteEDPRegistryListPage from '../pages/edp-configuration/pages/edp-regis
 import { routeEDPRegistryList } from '../pages/edp-configuration/pages/edp-registry-list/route';
 import RouteEDPSonarIntegrationPage from '../pages/edp-configuration/pages/edp-sonar-integration/page';
 import { routeEDPSonarIntegration } from '../pages/edp-configuration/pages/edp-sonar-integration/route';
+import RouteEDPSSOIntegrationPage from '../pages/edp-configuration/pages/edp-sso-integration/page';
+import { routeEDPSSOIntegration } from '../pages/edp-configuration/pages/edp-sso-integration/route';
 import RouteEDPMarketplacePage from '../pages/edp-marketplace/page';
 import { routeEDPMarketplace } from '../pages/edp-marketplace/route';
 import RouteEDPOverviewListPage from '../pages/edp-overview-list/page';
@@ -59,6 +61,7 @@ export default [
     },
     { ...routeEDPJiraIntegration, component: () => <RouteEDPJiraIntegrationPage /> },
     { ...routeEDPGitOpsConfiguration, component: () => <RouteEDPGitOpsConfigurationPage /> },
+    { ...routeEDPSSOIntegration, component: () => <RouteEDPSSOIntegrationPage /> },
     {
         ...routeConfigurationEDPComponentList,
         component: () => <RouteEDPConfigurationEDPComponentListPage />,

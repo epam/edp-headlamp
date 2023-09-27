@@ -56,4 +56,5 @@ export enum ICONS {
     DEPENDENCY = 'mdi:dependency',
     SCREWDRIVER = 'heroicons:wrench-screwdriver',
     GIT = 'mdi:git',
+    SSO = 'wpf:key-security',
 }

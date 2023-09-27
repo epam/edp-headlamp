@@ -9,6 +9,7 @@ import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-jira-integration/
 import { NEXUS_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-nexus-integration/constants';
 import { REGISTRY_LIST_PAGE_DESCRIPTION } from './pages/edp-registry-list/constants';
 import { SONAR_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-sonar-integration/constants';
+import { SSO_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-sso-integration/constants';
 
 export const menu: PageDescription[] = [
     GIT_SERVER_LIST_PAGE_DESCRIPTION,
@@ -21,4 +22,5 @@ export const menu: PageDescription[] = [
     JIRA_INTEGRATION_PAGE_DESCRIPTION,
     GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION,
     EDP_COMPONENT_LIST_PAGE_DESCRIPTION,
+    SSO_INTEGRATION_PAGE_DESCRIPTION,
 ];
