@@ -19,43 +19,45 @@ export const PageView = () => {
 
     const secretsArray = React.useMemo(() => (items ? items.filter(Boolean) : []), [items]);
 
-    const firstGitServer = items?.[0];
-
-    const available =
-        firstGitServer?.status?.available === true
-            ? CUSTOM_RESOURCE_STATUSES.AVAILABLE
-            : firstGitServer?.status?.available === false
-            ? CUSTOM_RESOURCE_STATUSES.UNAVAILABLE
-            : CUSTOM_RESOURCE_STATUSES.UNKNOWN;
-    const status = firstGitServer?.status?.status;
-
-    const statusTitle = React.useMemo(
-        () => (
-            <>
-                <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                    {capitalizeFirstLetter(available)}
-                </Typography>
-                <Render condition={status === CUSTOM_RESOURCE_STATUSES.FAILED}>
-                    <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                        {firstGitServer?.status?.detailedMessage}
-                    </Typography>
-                </Render>
-            </>
-        ),
-        [available, firstGitServer, status]
-    );
-
     const configurationItemList = React.useMemo(
         () =>
             secretsArray.map(el => {
                 const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
+                const connected = el?.status?.connected;
+                const status =
+                    connected === true
+                        ? CUSTOM_RESOURCE_STATUSES.CONNECTED
+                        : connected === false
+                        ? CUSTOM_RESOURCE_STATUSES.DISCONNECTED
+                        : CUSTOM_RESOURCE_STATUSES.UNKNOWN;
+                const error = el?.status.error;
 
                 return {
                     id: el?.metadata?.name || el?.metadata?.uid,
                     title: (
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item style={{ marginRight: rem(5) }}>
-                                <StatusIcon status={available} customTitle={statusTitle} />
+                                <StatusIcon
+                                    status={status}
+                                    customTitle={
+                                        <>
+                                            <Typography
+                                                variant={'subtitle2'}
+                                                style={{ fontWeight: 600 }}
+                                            >
+                                                {capitalizeFirstLetter(status)}
+                                            </Typography>
+                                            <Render condition={!!error}>
+                                                <Typography
+                                                    variant={'subtitle2'}
+                                                    style={{ marginTop: rem(10) }}
+                                                >
+                                                    {error}
+                                                </Typography>
+                                            </Render>
+                                        </>
+                                    }
+                                />
                             </Grid>
                             <Grid item>{el?.metadata.name}</Grid>
                         </Grid>
@@ -71,7 +73,7 @@ export const PageView = () => {
                     ),
                 };
             }),
-        [available, secretsArray, statusTitle]
+        [secretsArray]
     );
 
     const creationDisabled = React.useMemo(() => items === null || items.length >= 1, [items]);
