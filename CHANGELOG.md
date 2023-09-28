@@ -2,6 +2,26 @@
 ## [Unreleased]
 
 
+<a name="v0.10.0"></a>
+## [v0.10.0] - 2023-09-28
+### Features
+
+- Update GitServer status handling ([#58](https://github.com/epam/edp-headlamp/issues/58))
+- Update argo application resource creation ([#56](https://github.com/epam/edp-headlamp/issues/56))
+- Add logs viewer and terminal into stage applications deploy table columns ([#55](https://github.com/epam/edp-headlamp/issues/55))
+
+### Bug Fixes
+
+- Fix terminal update ([#55](https://github.com/epam/edp-headlamp/issues/55))
+- Fix git server status error ([#58](https://github.com/epam/edp-headlamp/issues/58))
+- Fix onSuccess callback invoke when creating codebase with clone strategy ([#59](https://github.com/epam/edp-headlamp/issues/59))
+- Add terminal, logviewer files into exclusions of sonar-project.properties ([#56](https://github.com/epam/edp-headlamp/issues/56))
+
+### Routine
+
+- Update current development version ([#54](https://github.com/epam/edp-headlamp/issues/54))
+
+
 <a name="v0.9.0"></a>
 ## [v0.9.0] - 2023-09-21
 ### Features
@@ -76,7 +96,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.10.0...HEAD
+[v0.10.0]: https://github.com/epam/edp-headlamp/compare/v0.9.0...v0.10.0
 [v0.9.0]: https://github.com/epam/edp-headlamp/compare/v0.8.0...v0.9.0
 [v0.8.0]: https://github.com/epam/edp-headlamp/compare/v0.7.0...v0.8.0
 [v0.7.0]: https://github.com/epam/edp-headlamp/compare/v0.6.0...v0.7.0
