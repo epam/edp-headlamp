@@ -1,4 +1,4 @@
-import { Dialog as HeadlampDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
+import { Dialog } from '@kinvolk/headlamp-plugin/lib/components/common';
 import {
     Box,
     DialogContent,
@@ -26,11 +26,11 @@ const decoder = new TextDecoder('utf-8');
 const encoder = new TextEncoder();
 
 enum Channel {
-    // StdIn = 0,
+    StdIn = 0,
     StdOut,
-    // StdErr,
+    StdErr,
     ServerError,
-    // Resize,
+    Resize,
 }
 
 const useStyle = makeStyles(theme => ({
@@ -65,36 +65,35 @@ const useStyle = makeStyles(theme => ({
     },
 }));
 
-interface TerminalProps {
-    isAttach?: boolean;
-}
-
 interface XTerminalConnected {
     xterm: XTerminal;
     connected: boolean;
     reconnectOnEnter: boolean;
 }
 
-type execReturn = ReturnType<PodKubeObjectInterface['exec']>;
+type execReturn = ReturnType<PodKubeObject['exec']>;
 
-const getDefaultContainer = (pod: PodKubeObjectInterface) => {
-    return pod.spec.containers.length > 0 ? pod.spec.containers[0].name : '';
-};
-
-export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
+export default function Terminal() {
     const {
         open,
         closeDialog,
-        forwardedProps: { stageNamespace, appName },
+        forwardedProps: { stageNamespace, appName, isAttach },
     } = useSpecificDialogContext<PodsTerminalDialogForwardedProps>(PODS_TERMINAL_DIALOG_NAME);
 
-    const [pods, setPods] = React.useState<PodKubeObjectInterface[]>(null);
-    const [activePod, setActivePod] = React.useState<PodKubeObjectInterface>(null);
-    const [container, setContainer] = React.useState<string>(null);
+    const [items, setItems] = React.useState<PodKubeObjectInterface[]>(null);
+    const [item, setItem] = React.useState<PodKubeObjectInterface>(null);
     const [, setError] = React.useState<unknown>(null);
     PodKubeObject.useApiList(
         (pods: PodKubeObjectInterface[]) => {
-            setPods(pods);
+            setItems(pods);
+            const newActivePod = pods[0];
+
+            setItem(newActivePod);
+            setContainer(
+                newActivePod?.spec.containers.length > 0
+                    ? newActivePod?.spec.containers[0].name
+                    : ''
+            );
         },
         error => {
             setError(error);
@@ -105,20 +104,11 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
         }
     );
 
-    React.useEffect(() => {
-        if (!pods || activePod) {
-            return;
-        }
-
-        const newActivePod = pods[0];
-        setActivePod(newActivePod);
-        setContainer(getDefaultContainer(newActivePod));
-    }, [activePod, pods]);
-
     const classes = useStyle();
     const [terminalContainerRef, setTerminalContainerRef] = React.useState<HTMLElement | null>(
         null
     );
+    const [container, setContainer] = React.useState<string | null>(null);
     const execOrAttachRef = React.useRef<execReturn | null>(null);
     const fitAddonRef = React.useRef<FitAddon | null>(null);
     const xtermRef = React.useRef<XTerminalConnected | null>(null);
@@ -127,6 +117,10 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
         currentIdx: 0,
     });
     const { t } = useTranslation('resource');
+
+    function getDefaultContainer() {
+        return item?.spec.containers.length > 0 ? item?.spec.containers[0].name : '';
+    }
 
     // @todo: Give the real exec type when we have it.
     function setupTerminal(containerRef: HTMLElement, xterm: XTerminal, fitAddon: FitAddon) {
@@ -246,6 +240,7 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
             }
             text = text.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
         }
+        console.log(text);
         xterm.write(text);
     }
 
@@ -334,7 +329,7 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
                             '\n'
                     );
 
-                    execOrAttachRef.current = await activePod?.attach(
+                    execOrAttachRef.current = await item?.attach(
                         container,
                         (items: ArrayBuffer) => onData(xtermRef.current!, items),
                         { failCb: () => shellConnectFailed(xtermRef.current!) }
@@ -342,11 +337,9 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
                 } else {
                     const command = getCurrentShellCommand();
 
-                    xtermRef?.current?.xterm.writeln(
-                        t('Trying to run "{{command}}"…', { command }) + '\n'
-                    );
+                    xtermRef?.current?.xterm.writeln(`Trying to run "${command}"…\n`);
 
-                    execOrAttachRef.current = await activePod?.exec(
+                    execOrAttachRef.current = await item?.exec(
                         container,
                         (items: ArrayBuffer) => onData(xtermRef.current!, items),
                         { command: [command], failCb: () => shellConnectFailed(xtermRef.current!) }
@@ -373,12 +366,8 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
 
     React.useEffect(
         () => {
-            if (!activePod) {
-                return;
-            }
-
             if (open && container === null) {
-                setContainer(getDefaultContainer(activePod));
+                setContainer(getDefaultContainer());
             }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -393,10 +382,10 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activePod, isAttach, shells.available.length]);
+    }, [item]);
 
     function getAvailableShells() {
-        const selector = activePod?.spec?.nodeSelector || {};
+        const selector = item?.spec?.nodeSelector || {};
         const os = selector['kubernetes.io/os'] || selector['beta.kubernetes.io/os'];
         if (os === 'linux') {
             return ['bash', '/bin/bash', 'sh', '/bin/sh'];
@@ -410,14 +399,9 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
         setContainer(event.target.value);
     }
 
-    const handlePodChange = (event: any) => {
-        const newPodName = event.target.value;
-        const newPod = pods.find(({ metadata: { name } }) => name === newPodName);
-        if (newPod) {
-            setActivePod(newPod);
-            setContainer(getDefaultContainer(newPod));
-        }
-    };
+    function handlePodChange(event: any) {
+        setItem(event.target.value);
+    }
 
     function isSuccessfulExitError(channel: number, text: string): boolean {
         // Linux container Error
@@ -456,9 +440,9 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
     }
 
     return (
-        <HeadlampDialog
+        <Dialog
             open={open}
-            onClose={() => closeDialog()}
+            onClose={closeDialog}
             onFullScreenToggled={() => {
                 setTimeout(() => {
                     fitAddonRef.current!.fit();
@@ -466,30 +450,25 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
             }}
             keepMounted
             withFullScreen
-            title={
-                isAttach
-                    ? `Attach: ${activePod?.metadata.name}`
-                    : `Terminal: ${activePod?.metadata.name}`
-            }
-            {...other}
+            title={isAttach ? `Attach: ${item?.metadata.name}` : `Terminal: ${item?.metadata.name}`}
         >
             <DialogContent className={classes.dialogContent}>
                 <Box>
-                    <Grid container spacing={1} alignItems={'center'}>
+                    <Grid container spacing={2}>
                         <Grid item>
-                            <FormControl>
+                            <FormControl className={classes.containerFormControl}>
                                 <InputLabel shrink id="pod-name-chooser-terminal-label">
-                                    {'Pod'}{' '}
+                                    Pod
                                 </InputLabel>
                                 <Select
                                     labelId="pod-name-chooser-terminal-label"
                                     id="pod-name-chooser-terminal"
-                                    value={activePod ? activePod.metadata.name : ''}
+                                    value={item ? item.metadata.name : ''}
                                     onChange={handlePodChange}
                                 >
-                                    {pods &&
-                                        pods.length &&
-                                        pods.map(({ metadata: { name } }) => (
+                                    {items &&
+                                        items.length &&
+                                        items.map(({ metadata: { name } }) => (
                                             <MenuItem value={name} key={name}>
                                                 {name}
                                             </MenuItem>
@@ -499,17 +478,17 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
                         </Grid>
                         <Grid item>
                             <FormControl className={classes.containerFormControl}>
-                                <InputLabel shrink id="container-name-chooser-terminal-label">
-                                    {'Container'}
+                                <InputLabel shrink id="container-name-chooser-label">
+                                    Container
                                 </InputLabel>
                                 <Select
-                                    labelId="container-name-chooser-terminal-label"
-                                    id="container-name-chooser-terminal"
-                                    value={container}
+                                    labelId="container-name-chooser-label"
+                                    id="container-name-chooser"
+                                    value={container !== null ? container : getDefaultContainer()}
                                     onChange={handleContainerChange}
                                 >
-                                    {activePod &&
-                                        activePod.spec.containers.map(({ name }) => (
+                                    {item &&
+                                        item?.spec.containers.map(({ name }) => (
                                             <MenuItem value={name} key={name}>
                                                 {name}
                                             </MenuItem>
@@ -527,6 +506,6 @@ export default function PodsTerminal({ isAttach, ...other }: TerminalProps) {
                     />
                 </Box>
             </DialogContent>
-        </HeadlampDialog>
+        </Dialog>
     );
 }
