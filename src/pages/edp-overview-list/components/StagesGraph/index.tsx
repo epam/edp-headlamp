@@ -4,6 +4,7 @@ import React from 'react';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 
 export const StagesGraph = () => {
     const [StagesInfo, setStagesInfo] = React.useState<{
@@ -11,9 +12,9 @@ export const StagesGraph = () => {
         green: number;
         red: number;
     }>({
-        total: 0,
-        green: 0,
-        red: 0,
+        total: null,
+        green: null,
+        red: null,
     });
     const [, setError] = React.useState<unknown>(null);
     EDPCDPipelineStageKubeObject.useApiList(
@@ -25,7 +26,6 @@ export const StagesGraph = () => {
             };
 
             for (const item of stages) {
-                console.log(item);
                 if (item?.status?.status === CUSTOM_RESOURCE_STATUSES.CREATED) {
                     newStagesInfo.green++;
                 } else if (item?.status?.status === CUSTOM_RESOURCE_STATUSES.FAILED) {
@@ -38,12 +38,15 @@ export const StagesGraph = () => {
 
             setStagesInfo(newStagesInfo);
         },
-        error => setError(error)
+        error => setError(error),
+        {
+            namespace: getDefaultNamespace(),
+        }
     );
 
     return (
         <TileChart
-            total={StagesInfo.total === 0 ? -1 : StagesInfo.total}
+            total={StagesInfo.total === null ? -1 : StagesInfo.total}
             data={[
                 {
                     name: 'OK',

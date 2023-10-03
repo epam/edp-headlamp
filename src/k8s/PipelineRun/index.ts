@@ -14,6 +14,7 @@ import {
     StreamAutotestsPipelineRunListProps,
     StreamPipelineRunListByCodebaseBranchLabelProps,
     StreamPipelineRunListByTypeAndPipelineNameLabelsProps,
+    StreamPipelineRunListByTypeLabelProps,
 } from './types';
 
 const {
@@ -91,5 +92,22 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
         return streamResults(url, dataHandler, errorHandler, {
             labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN}=${parentPipelineRunName},${PIPELINE_RUN_LABEL_SELECTOR_STAGE}=${stageSpecName},${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE}=${CDPipelineMetadataName}`,
         });
+    }
+
+    static streamPipelineRunListByTypeLabel({
+        namespace,
+        type,
+        dataHandler,
+        errorHandler,
+    }: StreamPipelineRunListByTypeLabelProps): () => void {
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+
+        if (type) {
+            return streamResults(url, dataHandler, errorHandler, {
+                labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${type}`,
+            });
+        }
+
+        return streamResults(url, dataHandler, errorHandler);
     }
 }

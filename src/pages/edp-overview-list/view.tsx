@@ -5,6 +5,7 @@ import { PageWrapper } from '../../components/PageWrapper';
 import { CDPipelinesGraph } from './components/CDPipelinesGraph';
 import { CodebaseBranchesGraph } from './components/CodebaseBranchesGraph';
 import { CodebasesGraph } from './components/CodebasesGraph';
+import { PipelineRunList } from './components/PipelineRunList';
 import { PipelineRunsGraph } from './components/PipelineRunsGraph';
 import { StagesGraph } from './components/StagesGraph';
 
@@ -35,6 +36,13 @@ export const PageView = () => {
                     </Grid>
                     <Grid item xs className={classes.chartItem}>
                         <StagesGraph />
+                    </Grid>
+                </Grid>
+            </SectionBox>
+            <SectionBox title={'Pipelines'} py={2} mt={[4, 0, 0]}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <PipelineRunList />
                     </Grid>
                 </Grid>
             </SectionBox>

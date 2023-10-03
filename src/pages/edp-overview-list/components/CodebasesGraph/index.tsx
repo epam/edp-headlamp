@@ -4,6 +4,7 @@ import React from 'react';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 
 export const CodebasesGraph = () => {
     const [codebasesInfo, setCodebasesInfo] = React.useState<{
@@ -11,9 +12,9 @@ export const CodebasesGraph = () => {
         green: number;
         red: number;
     }>({
-        total: 0,
-        green: 0,
-        red: 0,
+        total: null,
+        green: null,
+        red: null,
     });
     const [, setError] = React.useState<unknown>(null);
     EDPCodebaseKubeObject.useApiList(
@@ -35,12 +36,15 @@ export const CodebasesGraph = () => {
 
             setCodebasesInfo(newCodebasesInfo);
         },
-        error => setError(error)
+        error => setError(error),
+        {
+            namespace: getDefaultNamespace(),
+        }
     );
 
     return (
         <TileChart
-            total={codebasesInfo.total}
+            total={codebasesInfo.total === null ? -1 : codebasesInfo.total}
             data={[
                 {
                     name: 'OK',

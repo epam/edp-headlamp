@@ -4,6 +4,7 @@ import React from 'react';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 
 export const CodebaseBranchesGraph = () => {
     const [codebaseBranchesInfo, setCodebaseBranchesInfo] = React.useState<{
@@ -11,9 +12,9 @@ export const CodebaseBranchesGraph = () => {
         green: number;
         red: number;
     }>({
-        total: 0,
-        green: 0,
-        red: 0,
+        total: null,
+        green: null,
+        red: null,
     });
     const [, setError] = React.useState<unknown>(null);
     EDPCodebaseBranchKubeObject.useApiList(
@@ -35,12 +36,15 @@ export const CodebaseBranchesGraph = () => {
 
             setCodebaseBranchesInfo(newCodebaseBranchesInfo);
         },
-        error => setError(error)
+        error => setError(error),
+        {
+            namespace: getDefaultNamespace(),
+        }
     );
 
     return (
         <TileChart
-            total={codebaseBranchesInfo.total}
+            total={codebaseBranchesInfo.total === null ? -1 : codebaseBranchesInfo.total}
             data={[
                 {
                     name: 'OK',

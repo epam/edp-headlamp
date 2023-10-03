@@ -4,6 +4,7 @@ import React from 'react';
 import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 
 export const PipelineRunsGraph = () => {
@@ -12,9 +13,9 @@ export const PipelineRunsGraph = () => {
         green: number;
         red: number;
     }>({
-        total: 0,
-        green: 0,
-        red: 0,
+        total: null,
+        green: null,
+        red: null,
     });
     const [, setError] = React.useState<unknown>(null);
     PipelineRunKubeObject.useApiList(
@@ -37,12 +38,15 @@ export const PipelineRunsGraph = () => {
 
             setPipelineRunsInfo(newPipelineRunsInfo);
         },
-        error => setError(error)
+        error => setError(error),
+        {
+            namespace: getDefaultNamespace(),
+        }
     );
 
     return (
         <TileChart
-            total={pipelineRunsInfo.total === 0 ? -1 : pipelineRunsInfo.total}
+            total={pipelineRunsInfo.total === null ? -1 : pipelineRunsInfo.total}
             data={[
                 {
                     name: 'Passed',

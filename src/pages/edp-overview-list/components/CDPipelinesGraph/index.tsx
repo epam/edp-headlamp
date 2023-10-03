@@ -4,6 +4,7 @@ import React from 'react';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { EDPCDPipelineKubeObject } from '../../../../k8s/EDPCDPipeline';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 
 export const CDPipelinesGraph = () => {
     const [CDPipelinesInfo, setCDPipelinesInfo] = React.useState<{
@@ -11,9 +12,9 @@ export const CDPipelinesGraph = () => {
         green: number;
         red: number;
     }>({
-        total: 0,
-        green: 0,
-        red: 0,
+        total: null,
+        green: null,
+        red: null,
     });
     const [, setError] = React.useState<unknown>(null);
     EDPCDPipelineKubeObject.useApiList(
@@ -35,12 +36,15 @@ export const CDPipelinesGraph = () => {
 
             setCDPipelinesInfo(newCDPipelinesInfo);
         },
-        error => setError(error)
+        error => setError(error),
+        {
+            namespace: getDefaultNamespace(),
+        }
     );
 
     return (
         <TileChart
-            total={CDPipelinesInfo.total === 0 ? -1 : CDPipelinesInfo.total}
+            total={CDPipelinesInfo.total === null ? -1 : CDPipelinesInfo.total}
             data={[
                 {
                     name: 'OK',

@@ -2,16 +2,16 @@ import { HoverInfoLabel } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { Link } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { NewStatusIcon } from '../../../../../../../components/NewStatusIcon';
-import { TableColumn } from '../../../../../../../components/Table/types';
-import { useEDPComponentsURLsQuery } from '../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { PipelineRunKubeObjectInterface } from '../../../../../../../k8s/PipelineRun/types';
-import { getStatusIcon } from '../../../../../../../k8s/PipelineRun/utils/getStatusInfo';
-import { GENERATE_URL_SERVICE } from '../../../../../../../services/url';
-import { formatFullYear, humanizeDefault } from '../../../../../../../utils/date/humanize';
-import { EDPComponentDetailsRouteParams } from '../../../../../types';
+import { NewStatusIcon } from '../../../../../components/NewStatusIcon';
+import { TableColumn } from '../../../../../components/Table/types';
+import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
+import { getStatusIcon } from '../../../../../k8s/PipelineRun/utils/getStatusInfo';
+import { GENERATE_URL_SERVICE } from '../../../../../services/url';
+import { formatFullYear, humanizeDefault } from '../../../../../utils/date/humanize';
+import { EDPComponentDetailsRouteParams } from '../../../../edp-component-details/types';
 
-export const usePipelineRunsColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
+export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
     const { namespace } = useParams<EDPComponentDetailsRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 

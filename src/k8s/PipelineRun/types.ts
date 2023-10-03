@@ -1,4 +1,5 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { PIPELINE_TYPES } from '../../constants/pipelineTypes';
 
 export interface PipelineRunKubeObjectInterface extends KubeObjectInterface {}
 
@@ -30,6 +31,13 @@ export interface StreamAutotestsPipelineRunListProps {
     stageSpecName: string;
     CDPipelineMetadataName: string;
     parentPipelineRunName: string;
+    dataHandler: (data: PipelineRunKubeObjectInterface[]) => void;
+    errorHandler: (err: Error) => void;
+}
+
+export interface StreamPipelineRunListByTypeLabelProps {
+    namespace: string;
+    type: PIPELINE_TYPES;
     dataHandler: (data: PipelineRunKubeObjectInterface[]) => void;
     errorHandler: (err: Error) => void;
 }

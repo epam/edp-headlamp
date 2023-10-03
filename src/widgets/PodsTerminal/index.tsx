@@ -240,7 +240,6 @@ export default function Terminal() {
             }
             text = text.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
         }
-        console.log(text);
         xterm.write(text);
     }
 
