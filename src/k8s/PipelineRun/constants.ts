@@ -1,20 +1,20 @@
 import { SelectOption } from '../../types/forms';
 
 export const PIPELINE_RUN_REASON = {
-    STARTED: 'Started',
-    RUNNING: 'Running',
-    CANCELLED: 'Cancelled',
-    SUCCEEDED: 'Succeeded',
-    COMPLETED: 'Completed',
-    FAILED: 'Failed',
-    PIPELINE_RUN_TIMEOUT: 'PipelineRunTimeout',
-    CREATE_RUN_FAILED: 'CreateRunFailed',
+    STARTED: 'started',
+    RUNNING: 'running',
+    CANCELLED: 'cancelled',
+    SUCCEEDED: 'succeeded',
+    COMPLETED: 'completed',
+    FAILED: 'failed',
+    PIPELINE_RUN_TIMEOUT: 'pipelineruntimeout',
+    CREATE_RUN_FAILED: 'createrunfailed',
 } as const;
 
 export const PIPELINE_RUN_STATUS = {
-    TRUE: 'True',
-    FALSE: 'False',
-    UNKNOWN: 'Unknown',
+    TRUE: 'true',
+    FALSE: 'false',
+    UNKNOWN: 'unknown',
 } as const;
 
 export const PIPELINE_RUN_STATUS_SELECT_OPTIONS: SelectOption[] = [

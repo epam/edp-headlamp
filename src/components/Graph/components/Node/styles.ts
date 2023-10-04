@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { STATUSES_COLORS } from '../../../../utils/styling/getCustomResourceStatusIconByStatusName';
+import { STATUS_COLOR } from '../../../../constants/colors';
 
 export const useStyles = makeStyles(() => ({
     node: {
@@ -8,19 +8,19 @@ export const useStyles = makeStyles(() => ({
         fontFamily: 'inherit !important',
 
         '&.card-status-succeeded': {
-            borderColor: STATUSES_COLORS.SUCCESS,
+            borderColor: STATUS_COLOR.SUCCESS,
         },
         '&.card-status-pending': {
-            borderColor: STATUSES_COLORS.IN_PROGRESS,
+            borderColor: STATUS_COLOR.IN_PROGRESS,
         },
         '&.card-status-running': {
-            borderColor: STATUSES_COLORS.IN_PROGRESS,
+            borderColor: STATUS_COLOR.IN_PROGRESS,
         },
         '&.card-status-failed': {
-            borderColor: STATUSES_COLORS.ERROR,
+            borderColor: STATUS_COLOR.ERROR,
         },
         '&.card-status-unknown': {
-            borderColor: STATUSES_COLORS.UNKNOWN,
+            borderColor: STATUS_COLOR.UNKNOWN,
         },
 
         '& .bx--cc--card-node__column': {

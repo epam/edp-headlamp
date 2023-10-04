@@ -19,13 +19,13 @@ export const Password = () => {
     return (
         <FormTextField
             {...register(REGISTRY_SECRET_FORM_NAMES.password.name, {
-                required: 'Enter password',
+                required: 'Enter password or token',
             })}
-            label={`Password`}
+            label={`Password / Token`}
             title={
                 'Enter the confidential combination used for authenticating your access to the Container registry.'
             }
-            placeholder={'Enter password'}
+            placeholder={'Enter password or token'}
             control={control}
             errors={errors}
             TextFieldProps={{ type: 'password' }}

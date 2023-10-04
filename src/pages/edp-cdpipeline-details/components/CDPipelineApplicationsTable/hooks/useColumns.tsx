@@ -1,11 +1,17 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Grid, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
+import { ConditionalWrapper } from '../../../../../components/ConditionalWrapper';
+import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
+import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
+import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
 import { EnrichedApplicationWithItsImageStreams } from '../../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
+import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 
 export const useColumns = (): TableColumn<EnrichedApplicationWithItsImageStreams>[] =>
@@ -14,10 +20,60 @@ export const useColumns = (): TableColumn<EnrichedApplicationWithItsImageStreams
             {
                 id: 'status',
                 label: 'Status',
-                render: ({ application }) => {
-                    const status = application.status.status;
+                render: ({
+                    application: {
+                        spec: { type },
+                        status: { status, detailedMessage },
+                    },
+                }) => {
+                    const [icon, color, isRotating] = EDPCodebaseKubeObject.getStatusIcon(status);
 
-                    return <StatusIcon status={status || CUSTOM_RESOURCE_STATUSES.UNKNOWN} />;
+                    const title = (
+                        <>
+                            <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                                {`Status: ${status || 'Unknown'}`}
+                            </Typography>
+                            <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
+                                <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                                    {detailedMessage}
+                                </Typography>
+                            </Render>
+                        </>
+                    );
+
+                    return (
+                        <ConditionalWrapper
+                            condition={type === CODEBASE_TYPES.SYSTEM}
+                            wrapper={children => (
+                                <Grid
+                                    container
+                                    spacing={2}
+                                    alignItems={'center'}
+                                    style={{ margin: 0 }}
+                                >
+                                    {children}
+                                    <Grid item>
+                                        <Tooltip title={'System codebase'}>
+                                            <Icon
+                                                icon={ICONS.SCREWDRIVER}
+                                                width={25}
+                                                style={{
+                                                    display: 'block',
+                                                }}
+                                            />
+                                        </Tooltip>
+                                    </Grid>
+                                </Grid>
+                            )}
+                        >
+                            <StatusIcon
+                                icon={icon}
+                                isRotating={isRotating}
+                                color={color}
+                                Title={title}
+                            />
+                        </ConditionalWrapper>
+                    );
                 },
                 width: '10%',
             },
@@ -46,11 +102,7 @@ export const useColumns = (): TableColumn<EnrichedApplicationWithItsImageStreams
             {
                 id: 'imageStream',
                 label: 'Image stream',
-                render: ({
-                    applicationImageStream: {
-                        metadata: { name },
-                    },
-                }) => name,
+                render: ({ applicationImageStream }) => applicationImageStream?.metadata?.name,
                 width: '40%',
             },
             {

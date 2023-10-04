@@ -16,8 +16,7 @@ import { REGISTRY_LIST_PAGE_DESCRIPTION } from './constants';
 export const PageView = () => {
     const { data: EDPComponentsURLS, isLoading } = useEDPComponentsURLsQuery();
     const containerRegistryComponentURL = EDPComponentsURLS?.['container-registry'];
-    const isDockerHubUsed =
-        !isLoading && containerRegistryComponentURL?.includes('index.docker.io/v1/');
+    const isDockerHubUsed = !isLoading && containerRegistryComponentURL?.includes('docker.io');
 
     const tabs = React.useMemo(
         () => [

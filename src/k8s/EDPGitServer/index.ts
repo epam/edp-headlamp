@@ -1,6 +1,7 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
+import { STATUS_COLOR } from '../../constants/colors';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { streamResult } from '../common/streamResult';
 import { EDPGitServerKubeObjectConfig } from './config';
 import { EDPGitServerKubeObjectInterface, EDPGitServerSpec, EDPGitServerStatus } from './types';
 
@@ -27,6 +28,17 @@ export class EDPGitServerKubeObject extends K8s.cluster.makeKubeObject<EDPGitSer
         return this.jsonData!.status;
     }
 
+    static getStatusIcon(connected: boolean): [string, string, boolean?] {
+        if (connected === undefined) {
+            return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        }
+
+        if (connected) {
+            return [ICONS.CHECK_CIRCLE, STATUS_COLOR.SUCCESS];
+        }
+        return [ICONS.CROSS_CIRCLE, STATUS_COLOR.ERROR];
+    }
+
     static getList(
         namespace: string
     ): Promise<KubeObjectListInterface<EDPGitServerKubeObjectInterface>> {
@@ -35,13 +47,3 @@ export class EDPGitServerKubeObject extends K8s.cluster.makeKubeObject<EDPGitSer
         return ApiProxy.request(url);
     }
 }
-
-export const streamGitServer = (
-    name: string,
-    namespace: string,
-    cb: (data: EDPGitServerKubeObjectInterface | EDPGitServerKubeObjectInterface[]) => void,
-    errCb: (err: Error) => void
-): (() => void) => {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResult(url, name, cb, errCb);
-};

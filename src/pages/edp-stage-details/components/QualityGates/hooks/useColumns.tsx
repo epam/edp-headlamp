@@ -4,9 +4,9 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
@@ -25,12 +25,21 @@ export const useColumns = (): TableColumn<{
                 id: 'status',
                 label: 'Status',
                 render: ({ autotestPipelineRun }) => {
+                    const status = autotestPipelineRun?.status?.conditions?.[0]?.status;
+                    const reason = autotestPipelineRun?.status?.conditions?.[0]?.reason;
+
+                    const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(
+                        status,
+                        reason
+                    );
+
                     return (
                         <StatusIcon
-                            status={
-                                autotestPipelineRun?.status?.conditions?.[0]?.reason?.toLowerCase() ||
-                                CUSTOM_RESOURCE_STATUSES.UNKNOWN
-                            }
+                            icon={icon}
+                            color={color}
+                            isRotating={isRotating}
+                            width={25}
+                            Title={`Status: ${status || 'Unknown'}. Reason: ${reason || 'Unknown'}`}
                         />
                     );
                 },

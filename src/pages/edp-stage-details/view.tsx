@@ -1,4 +1,4 @@
-import { Chip, CircularProgress, Grid } from '@material-ui/core';
+import { Chip, CircularProgress, Grid, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -10,17 +10,17 @@ import { StatusIcon } from '../../components/StatusIcon';
 import { Tabs } from '../../components/Tabs';
 import { CI_TOOLS } from '../../constants/ciTools';
 import { PIPELINE_TYPES } from '../../constants/pipelineTypes';
-import { TEKTON_RESOURCE_STATUSES } from '../../constants/statuses';
 import { TRIGGER_TYPES } from '../../constants/triggerTypes';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useStreamApplicationListByPipelineStageLabel } from '../../k8s/Application/hooks/useStreamApplicationListByPipelineStageLabel';
+import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { PIPELINE_RUN_REASON } from '../../k8s/PipelineRun/constants';
 import { useStreamAutotestPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestPipelineRunList';
 import { useStreamAutotestRunnerPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestRunnerPipelineRunList';
 import { useStreamPipelineRunListByTypeAndPipelineNameLabels } from '../../k8s/PipelineRun/hooks/useStreamPipelineRunListByTypeAndPipelineNameLabels';
 import { FormContextProvider } from '../../providers/Form';
 import { GENERATE_URL_SERVICE } from '../../services/url';
-import { parseTektonResourceStatus } from '../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../utils/styling/rem';
 import { routeEDPCDPipelineDetails } from '../edp-cdpipeline-details/route';
@@ -101,8 +101,8 @@ export const PageView = () => {
 
     const latestDeployPipelineRunIsRunning = React.useMemo(
         () =>
-            parseTektonResourceStatus(latestTenDeployPipelineRuns[0]) ===
-            TEKTON_RESOURCE_STATUSES.PENDING,
+            latestTenDeployPipelineRuns[0]?.status?.conditions?.[0]?.reason ===
+            PIPELINE_RUN_REASON.RUNNING,
         [latestTenDeployPipelineRuns]
     );
 
@@ -208,6 +208,10 @@ export const PageView = () => {
         ],
     ];
 
+    const [icon, color, isRotating] = EDPCDPipelineStageKubeObject.getStatusIcon(
+        stage?.status?.status
+    );
+
     return (
         <PageWrapper
             breadcrumbs={[
@@ -226,7 +230,30 @@ export const PageView = () => {
                     label: (
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item>
-                                <StatusIcon status={stage?.status.status} width={15} />
+                                <StatusIcon
+                                    icon={icon}
+                                    color={color}
+                                    isRotating={isRotating}
+                                    width={15}
+                                    Title={
+                                        <>
+                                            <Typography
+                                                variant={'subtitle2'}
+                                                style={{ fontWeight: 600 }}
+                                            >
+                                                {`Status: ${stage?.status?.status || 'unknown'}`}
+                                            </Typography>
+                                            <Render condition={!!stage?.status?.detailed_message}>
+                                                <Typography
+                                                    variant={'subtitle2'}
+                                                    style={{ marginTop: rem(10) }}
+                                                >
+                                                    {stage?.status?.detailed_message}
+                                                </Typography>
+                                            </Render>
+                                        </>
+                                    }
+                                />
                             </Grid>
                             <Grid item>{stageSpecName}</Grid>
                         </Grid>

@@ -12,8 +12,8 @@ import {
     CODEBASE_COMMON_LANGUAGES,
 } from '../../../../../configs/codebase-mappings';
 import { GIT_SERVERS } from '../../../../../constants/gitServers';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
+import { ApplicationKubeObject } from '../../../../../k8s/Application';
 import {
     APPLICATION_LABEL_SELECTOR_APP_NAME,
     APPLICATION_LABEL_SELECTOR_PIPELINE,
@@ -64,32 +64,41 @@ export const useColumns = (
             {
                 id: 'health',
                 label: 'Health',
-                render: ({ argoApplication }) =>
-                    //@ts-ignore
-                    argoApplication?.status?.health?.status ? (
+                render: ({ argoApplication }) => {
+                    const health = argoApplication?.status?.health?.status;
+
+                    const [icon, color, isRotating] =
+                        ApplicationKubeObject.getHealthStatusIcon(health);
+
+                    return (
                         <StatusIcon
-                            //@ts-ignore
-                            status={argoApplication.status.health.status.toLowerCase()}
+                            Title={`Health status: ${health || 'Unknown'}`}
+                            icon={icon}
+                            color={color}
+                            isRotating={isRotating}
                         />
-                    ) : (
-                        <StatusIcon status={CUSTOM_RESOURCE_STATUSES.UNKNOWN} />
-                    ),
+                    );
+                },
                 width: '5%',
                 textAlign: 'center',
             },
             {
                 id: 'sync',
                 label: 'Sync',
-                render: ({ argoApplication }) =>
-                    //@ts-ignore
-                    argoApplication?.status?.sync?.status ? (
+                render: ({ argoApplication }) => {
+                    const sync = argoApplication?.status?.sync?.status;
+
+                    const [icon, color, isRotating] = ApplicationKubeObject.getSyncStatusIcon(sync);
+
+                    return (
                         <StatusIcon
-                            //@ts-ignore
-                            status={argoApplication.status.sync.status.toLowerCase()}
+                            Title={`Sync status: ${sync || 'Unknown'}`}
+                            icon={icon}
+                            color={color}
+                            isRotating={isRotating}
                         />
-                    ) : (
-                        <StatusIcon status={CUSTOM_RESOURCE_STATUSES.UNKNOWN} />
-                    ),
+                    );
+                },
                 width: '5%',
                 textAlign: 'center',
             },

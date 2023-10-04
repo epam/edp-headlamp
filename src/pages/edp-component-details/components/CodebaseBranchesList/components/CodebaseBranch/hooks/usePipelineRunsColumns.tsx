@@ -2,11 +2,11 @@ import { HoverInfoLabel } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { Link } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { NewStatusIcon } from '../../../../../../../components/NewStatusIcon';
+import { StatusIcon } from '../../../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../../../components/Table/types';
 import { useEDPComponentsURLsQuery } from '../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { PipelineRunKubeObject } from '../../../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../k8s/PipelineRun/types';
-import { getStatusIcon } from '../../../../../../../k8s/PipelineRun/utils/getStatusInfo';
 import { GENERATE_URL_SERVICE } from '../../../../../../../services/url';
 import { formatFullYear, humanizeDefault } from '../../../../../../../utils/date/humanize';
 import { EDPComponentDetailsRouteParams } from '../../../../../types';
@@ -24,15 +24,18 @@ export const usePipelineRunsColumns = (): TableColumn<PipelineRunKubeObjectInter
                     const status = resource?.status?.conditions?.[0]?.status;
                     const reason = resource?.status?.conditions?.[0]?.reason;
 
-                    const [icon, color, isRotating] = getStatusIcon(status, reason);
+                    const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(
+                        status,
+                        reason
+                    );
 
                     return (
-                        <NewStatusIcon
+                        <StatusIcon
                             icon={icon}
                             color={color}
                             isRotating={isRotating}
                             width={25}
-                            Title={`Status: ${status}. Reason: ${reason}`}
+                            Title={`Status: ${status || 'Unknown'}. Reason: ${reason || 'Unknown'}`}
                         />
                     );
                 },

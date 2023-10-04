@@ -1,7 +1,9 @@
 import React from 'react';
 
 export interface StatusIconProps {
-    status: string;
-    customTitle?: string | React.ReactElement;
+    Title: string | React.ReactElement;
+    icon: string;
+    color: string;
+    isRotating?: boolean;
     width?: number;
 }

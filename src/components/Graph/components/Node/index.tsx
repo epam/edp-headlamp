@@ -6,7 +6,18 @@ import { StatusIcon } from '../../../StatusIcon';
 import { useStyles } from './styles';
 import { NodeProps } from './types';
 
-export const Node = ({ x, y, height, width, status, title, url }: NodeProps) => {
+export const Node = ({
+    x,
+    y,
+    height,
+    width,
+    title,
+    url,
+    icon,
+    color,
+    isRotating,
+    status,
+}: NodeProps) => {
     const classes = useStyles();
 
     return (
@@ -19,7 +30,12 @@ export const Node = ({ x, y, height, width, status, title, url }: NodeProps) => 
             <Paper style={{ height, width, overflow: 'hidden' }}>
                 <CardNode className={clsx(classes.node, `card-status-${status}`)}>
                     <CardNodeColumn>
-                        <StatusIcon status={status} width={20} />
+                        <StatusIcon
+                            icon={icon}
+                            color={color}
+                            isRotating={isRotating}
+                            Title={status}
+                        />
                     </CardNodeColumn>
                     <CardNodeColumn>
                         <CardNodeTitle>

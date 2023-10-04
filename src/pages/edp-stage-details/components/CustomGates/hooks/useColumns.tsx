@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { formatDateToDuration } from '../../../../../utils/format/formatDateToDuration';
 import { formatDateUTCToLocal } from '../../../../../utils/format/formatDateUTCToLocal';
-import { parseTektonResourceStatus } from '../../../../../utils/parseTektonResourceStatus';
 import { EDPStageDetailsRouteParams } from '../../../types';
 
 export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
@@ -21,7 +21,23 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                 id: 'status',
                 label: 'Status',
                 render: pipelineRun => {
-                    return <StatusIcon status={parseTektonResourceStatus(pipelineRun)} />;
+                    const status = pipelineRun?.status?.conditions?.[0]?.status;
+                    const reason = pipelineRun?.status?.conditions?.[0]?.reason;
+
+                    const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(
+                        status,
+                        reason
+                    );
+
+                    return (
+                        <StatusIcon
+                            icon={icon}
+                            color={color}
+                            isRotating={isRotating}
+                            width={25}
+                            Title={`Status: ${status || 'Unknown'}. Reason: ${reason || 'Unknown'}`}
+                        />
+                    );
                 },
                 width: '10%',
             },

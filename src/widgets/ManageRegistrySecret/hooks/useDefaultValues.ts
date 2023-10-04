@@ -18,8 +18,7 @@ export const useDefaultValues = ({
     const { currentElement, registryEndpoint: dockerRegistryEndpoint, secrets } = formData;
     const { data: EDPComponentsURLS, isLoading } = useEDPComponentsURLsQuery();
     const containerRegistryComponentURL = EDPComponentsURLS?.['container-registry'];
-    const isDockerHubUsed =
-        !isLoading && containerRegistryComponentURL?.includes('index.docker.io/v1/');
+    const isDockerHubUsed = !isLoading && containerRegistryComponentURL?.includes('docker.io');
 
     const getUserNameAndPassword = React.useCallback(() => {
         if (typeof currentElement === 'string' && currentElement === 'placeholder') {

@@ -5,11 +5,10 @@ import { useParams } from 'react-router-dom';
 import { EmptyList } from '../../../../components/EmptyList';
 import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
-import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { usePipelineByTypeListQuery } from '../../../../k8s/Pipeline/hooks/usePipelineByTypeListQuery';
+import { PIPELINE_RUN_REASON } from '../../../../k8s/PipelineRun/constants';
 import { useCreateDeployPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateDeployPipelineRun';
 import { FormSelect } from '../../../../providers/Form/components/FormSelect';
-import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { useColumns } from './hooks/useColumns';
@@ -96,8 +95,8 @@ export const CustomGates = ({
 
     const latestDeployPipelineRunIsRunning = React.useMemo(
         () =>
-            parseTektonResourceStatus(latestTenDeployPipelineRuns[0]) ===
-            TEKTON_RESOURCE_STATUSES.PENDING,
+            latestTenDeployPipelineRuns?.[0]?.status?.conditions?.[0]?.reason ===
+            PIPELINE_RUN_REASON.RUNNING,
         [latestTenDeployPipelineRuns]
     );
 

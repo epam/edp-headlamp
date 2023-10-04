@@ -1,11 +1,9 @@
 import { TileChart } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Typography } from '@material-ui/core';
 import React from 'react';
-import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 
 export const PipelineRunsGraph = () => {
     const [pipelineRunsInfo, setPipelineRunsInfo] = React.useState<{
@@ -27,8 +25,7 @@ export const PipelineRunsGraph = () => {
             };
 
             for (const item of pipelineRuns) {
-                const status = parseTektonResourceStatus(item);
-                if (status === TEKTON_RESOURCE_STATUSES.SUCCEEDED) {
+                if (item?.status?.conditions?.[0]?.status === 'True') {
                     newPipelineRunsInfo.green++;
                 } else {
                     newPipelineRunsInfo.red++;

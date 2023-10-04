@@ -168,7 +168,7 @@ exports[`renders ManageRegistrySecret Edit component 1`] = `
                       <span
                         class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
                       >
-                        Password
+                        Password / Token
                       </span>
                       <span />
                     </span>
@@ -190,7 +190,7 @@ exports[`renders ManageRegistrySecret Edit component 1`] = `
                             aria-invalid="false"
                             class="MuiInputBase-input MuiInput-input"
                             name="password"
-                            placeholder="Enter password"
+                            placeholder="Enter password or token"
                             type="password"
                             value="dGVzdC1wYXNzd29yZA=="
                           />

@@ -1,6 +1,9 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
+import { STATUS_COLOR } from '../../constants/colors';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { streamResults } from '../common/streamResults';
 import { ApplicationKubeObjectConfig } from './config';
+import { APPLICATION_HEALTH_STATUS, APPLICATION_SYNC_STATUS } from './constants';
 import { APPLICATION_LABEL_SELECTOR_PIPELINE, APPLICATION_LABEL_SELECTOR_STAGE } from './labels';
 import {
     ApplicationKubeObjectInterface,
@@ -30,6 +33,51 @@ export class ApplicationKubeObject extends K8s.cluster.makeKubeObject<Applicatio
 
     get status(): ApplicationStatus {
         return this.jsonData!.status;
+    }
+
+    static getHealthStatusIcon(health: string): [string, string, boolean?] {
+        if (health === undefined) {
+            return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        }
+        const _health = health.toLowerCase();
+
+        switch (_health) {
+            case APPLICATION_HEALTH_STATUS.HEALTHY:
+                return [ICONS.HEART, STATUS_COLOR.SUCCESS];
+
+            case APPLICATION_HEALTH_STATUS.PROGRESSING:
+                return [ICONS.LOADER_CIRCLE, STATUS_COLOR.IN_PROGRESS, true];
+
+            case APPLICATION_HEALTH_STATUS.DEGRADED:
+                return [ICONS.HEART_BROKEN, STATUS_COLOR.ERROR];
+
+            case APPLICATION_HEALTH_STATUS.SUSPENDED:
+                return [ICONS.PAUSE, STATUS_COLOR.SUSPENDED];
+
+            case APPLICATION_HEALTH_STATUS.MISSING:
+                return [ICONS.GHOST, STATUS_COLOR.MISSING];
+
+            default:
+                return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        }
+    }
+
+    static getSyncStatusIcon(sync: string): [string, string, boolean?] {
+        if (sync === undefined) {
+            return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        }
+        const _sync = sync.toLowerCase();
+
+        switch (_sync) {
+            case APPLICATION_SYNC_STATUS.SYNCED:
+                return [ICONS.ARROW_CHECK, STATUS_COLOR.SUCCESS];
+
+            case APPLICATION_SYNC_STATUS.OUT_OF_SYNC:
+                return [ICONS.ARROW_CIRCLE_UP, STATUS_COLOR.MISSING];
+
+            default:
+                return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        }
     }
 
     static streamApplicationListByPipelineStageLabel({

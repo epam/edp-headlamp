@@ -7,10 +7,10 @@ import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
+import { EDPCDPipelineKubeObject } from '../../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
-import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPCDPipelineDetails } from '../../../../edp-cdpipeline-details/route';
@@ -28,25 +28,30 @@ export const useColumns = (): TableColumn<
                 id: 'status',
                 label: 'Status',
                 columnSortableValuePath: 'status.status',
-                render: ({ status: CDPipelineStatus }) => {
-                    const status = CDPipelineStatus
-                        ? CDPipelineStatus.status
-                        : CUSTOM_RESOURCE_STATUSES['UNKNOWN'];
+                render: ({ status: { status, detailed_message } }) => {
+                    const [icon, color, isRotating] = EDPCDPipelineKubeObject.getStatusIcon(status);
 
                     const title = (
                         <>
                             <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                                {capitalizeFirstLetter(status)}
+                                {`Status: ${status || 'Unknown'}`}
                             </Typography>
                             <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
                                 <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                                    {CDPipelineStatus?.detailed_message}
+                                    {detailed_message}
                                 </Typography>
                             </Render>
                         </>
                     );
 
-                    return <StatusIcon status={status} customTitle={title} />;
+                    return (
+                        <StatusIcon
+                            icon={icon}
+                            color={color}
+                            isRotating={isRotating}
+                            Title={title}
+                        />
+                    );
                 },
                 width: '10%',
             },

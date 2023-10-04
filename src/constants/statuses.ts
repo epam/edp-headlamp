@@ -3,17 +3,10 @@ interface StatusType {
 }
 
 export enum CUSTOM_RESOURCE_STATUSES {
-    // K8s Custom Resources statuses
-
     CREATED = 'created',
     INITIALIZED = 'initialized',
     IN_PROGRESS = 'in-progress',
     FAILED = 'failed',
-    CONNECTED = 'connected',
-    DISCONNECTED = 'disconnected',
-
-    // User custom statuses
-    UNKNOWN = 'unknown',
 }
 
 export enum CUSTOM_RESOURCE_ACTIVE_STATUSES {

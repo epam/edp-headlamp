@@ -2,10 +2,8 @@ import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { Render } from '../../../../components/Render';
 import { StatusIcon } from '../../../../components/StatusIcon';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
-import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { rem } from '../../../../utils/styling/rem';
 import { ManageGitServer } from '../../../../widgets/ManageGitServer';
@@ -24,12 +22,7 @@ export const PageView = () => {
             secretsArray.map(el => {
                 const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
                 const connected = el?.status?.connected;
-                const status =
-                    connected === true
-                        ? CUSTOM_RESOURCE_STATUSES.CONNECTED
-                        : connected === false
-                        ? CUSTOM_RESOURCE_STATUSES.DISCONNECTED
-                        : CUSTOM_RESOURCE_STATUSES.UNKNOWN;
+                const [icon, color] = EDPGitServerKubeObject.getStatusIcon(connected);
                 const error = el?.status?.error;
 
                 return {
@@ -38,14 +31,17 @@ export const PageView = () => {
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item style={{ marginRight: rem(5) }}>
                                 <StatusIcon
-                                    status={status}
-                                    customTitle={
+                                    icon={icon}
+                                    color={color}
+                                    Title={
                                         <>
                                             <Typography
                                                 variant={'subtitle2'}
                                                 style={{ fontWeight: 600 }}
                                             >
-                                                {capitalizeFirstLetter(status)}
+                                                {`Connected: ${
+                                                    connected === undefined ? 'Unknown' : connected
+                                                }`}
                                             </Typography>
                                             <Render condition={!!error}>
                                                 <Typography

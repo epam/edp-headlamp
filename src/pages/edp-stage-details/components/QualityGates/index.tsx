@@ -4,11 +4,10 @@ import { useParams } from 'react-router-dom';
 import { Graph } from '../../../../components/Graph';
 import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
-import { TEKTON_RESOURCE_STATUSES } from '../../../../constants/statuses';
+import { PIPELINE_RUN_REASON } from '../../../../k8s/PipelineRun/constants';
 import { useCreateAutotestRunnerPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateAutotestRunnerPipelineRun';
 import { useStreamTaskRunListByPipelineNameAndPipelineType } from '../../../../k8s/TaskRun/hooks/useStreamTaskRunListByPipelineNameAndPipelineType';
 import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
-import { parseTektonResourceStatus } from '../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../utils/styling/rem';
 import { useDataContext } from '../../providers/Data/hooks';
@@ -71,15 +70,15 @@ export const QualityGates = ({
 
     const latestAutotestPipelineRunIsRunning = React.useMemo(
         () =>
-            parseTektonResourceStatus(latestTenAutotestPipelineRuns[0]) ===
-            TEKTON_RESOURCE_STATUSES.RUNNING,
+            latestTenAutotestPipelineRuns?.[0]?.status?.conditions?.[0]?.reason ===
+            PIPELINE_RUN_REASON.RUNNING,
         [latestTenAutotestPipelineRuns]
     );
 
     const latestAutotestRunnerIsRunning = React.useMemo(
         () =>
-            parseTektonResourceStatus(latestAutotestRunnerPipelineRuns?.[0]) ===
-            TEKTON_RESOURCE_STATUSES.RUNNING,
+            latestAutotestRunnerPipelineRuns?.[0]?.status?.conditions?.[0]?.reason ===
+            PIPELINE_RUN_REASON.RUNNING,
         [latestAutotestRunnerPipelineRuns]
     );
 

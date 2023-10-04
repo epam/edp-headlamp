@@ -15,7 +15,6 @@ import {
     CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE,
 } from '../../../../k8s/EDPCodebase/labels';
 import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
-import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { rem } from '../../../../utils/styling/rem';
 import { ManageGitOps } from '../../../../widgets/ManageGitOps';
@@ -36,13 +35,13 @@ export const PageView = () => {
             el => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
         ) ?? null;
 
-    const status = gitOpsCodebase?.status?.status ?? CUSTOM_RESOURCE_STATUSES.UNKNOWN;
+    const status = gitOpsCodebase?.status?.status;
 
     const statusTitle = React.useMemo(
         () => (
             <>
                 <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                    {capitalizeFirstLetter(status)}
+                    {`Status: ${status || 'Unknown'}`}
                 </Typography>
                 <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
                     <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
@@ -59,12 +58,20 @@ export const PageView = () => {
             itemsArray.map(el => {
                 const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
 
+                const status = el?.status?.status;
+                const [icon, color, isRotating] = EDPCodebaseKubeObject.getStatusIcon(status);
+
                 return {
                     id: el?.metadata?.name || el?.metadata?.uid,
                     title: (
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item style={{ marginRight: rem(5) }}>
-                                <StatusIcon status={status} customTitle={statusTitle} />
+                                <StatusIcon
+                                    icon={icon}
+                                    color={color}
+                                    isRotating={isRotating}
+                                    Title={statusTitle}
+                                />
                             </Grid>
                             <Grid item>GitOps</Grid>
                             <Grid item>
@@ -87,7 +94,7 @@ export const PageView = () => {
                     ),
                 };
             }),
-        [gitOpsCodebase, itemsArray, status, statusTitle]
+        [gitOpsCodebase, itemsArray, statusTitle]
     );
 
     const creationDisabled = React.useMemo(

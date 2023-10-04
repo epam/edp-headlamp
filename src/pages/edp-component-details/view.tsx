@@ -1,5 +1,5 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { Chip, Grid, Tooltip } from '@material-ui/core';
+import { Chip, Grid, Tooltip, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { PageWrapper } from '../../components/PageWrapper';
 import { Render } from '../../components/Render';
 import { StatusIcon } from '../../components/StatusIcon';
 import { Resources } from '../../icons/sprites/Resources';
-import { streamCodebase } from '../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { rem } from '../../utils/styling/rem';
@@ -35,12 +35,21 @@ export const PageView = () => {
     }, []);
 
     React.useEffect(() => {
-        const cancelStream = streamCodebase(name, namespace, handleStoreComponent, handleError);
+        const cancelStream = EDPCodebaseKubeObject.streamItem(
+            name,
+            namespace,
+            handleStoreComponent,
+            handleError
+        );
 
         return () => cancelStream();
     }, [handleError, handleStoreComponent, name, namespace]);
 
     const infoRows = useInfoRows(component);
+
+    const [icon, color, isRotating] = EDPCodebaseKubeObject.getStatusIcon(
+        component?.status?.status
+    );
 
     return (
         <PageWrapper
@@ -55,7 +64,34 @@ export const PageView = () => {
                     label: (
                         <Grid container spacing={1} alignItems={'center'}>
                             <Grid item>
-                                <StatusIcon status={component?.status.status} width={15} />
+                                <StatusIcon
+                                    icon={icon}
+                                    color={color}
+                                    isRotating={isRotating}
+                                    width={15}
+                                    Title={
+                                        <>
+                                            <Typography
+                                                variant={'subtitle2'}
+                                                style={{ fontWeight: 600 }}
+                                            >
+                                                {`Status: ${
+                                                    component?.status?.status || 'Unknown'
+                                                }`}
+                                            </Typography>
+                                            <Render
+                                                condition={!!component?.status?.detailedMessage}
+                                            >
+                                                <Typography
+                                                    variant={'subtitle2'}
+                                                    style={{ marginTop: rem(10) }}
+                                                >
+                                                    {component?.status?.detailedMessage}
+                                                </Typography>
+                                            </Render>
+                                        </>
+                                    }
+                                />
                             </Grid>
                             <Grid item>{name}</Grid>
                         </Grid>

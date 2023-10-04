@@ -13,11 +13,11 @@ import { CI_TOOLS } from '../../../../../constants/ciTools';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { TRIGGER_TYPES } from '../../../../../constants/triggerTypes';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
+import { EDPCDPipelineStageKubeObject } from '../../../../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
-import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPStageDetails } from '../../../../edp-stage-details/route';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
@@ -39,25 +39,25 @@ export const useColumns = (
             {
                 id: 'status',
                 label: 'Status',
-                render: ({ status }) => {
+                render: ({ status: { status, detailed_message } }) => {
+                    const [icon, color, isRotating] =
+                        EDPCDPipelineStageKubeObject.getStatusIcon(status);
                     return (
                         <StatusIcon
-                            status={status?.status}
-                            customTitle={
+                            icon={icon}
+                            color={color}
+                            isRotating={isRotating}
+                            Title={
                                 <>
                                     <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                                        {capitalizeFirstLetter(status?.status)}
+                                        {`Status: ${status || 'Unknown'}`}
                                     </Typography>
-                                    <Render
-                                        condition={
-                                            status?.status === CUSTOM_RESOURCE_STATUSES.FAILED
-                                        }
-                                    >
+                                    <Render condition={status === CUSTOM_RESOURCE_STATUSES.FAILED}>
                                         <Typography
                                             variant={'subtitle2'}
                                             style={{ marginTop: rem(10) }}
                                         >
-                                            {status?.detailed_message}
+                                            {detailed_message}
                                         </Typography>
                                     </Render>
                                 </>

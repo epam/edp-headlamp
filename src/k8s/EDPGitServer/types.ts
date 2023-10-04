@@ -10,14 +10,8 @@ export interface EDPGitServerSpec {
 }
 
 export interface EDPGitServerStatus {
-    action: string;
-    available: boolean;
-    detailed_message: string;
-    last_time_updated: string;
-    result: string;
-    status: string;
-    username: string;
-    value: string;
+    connected?: boolean;
+    error?: string;
 }
 
 export interface EDPGitServerKubeObjectInterface extends KubeObjectInterface {

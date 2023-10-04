@@ -21,15 +21,14 @@ import { StatusIcon } from '../../../../../../components/StatusIcon';
 import { Table } from '../../../../../../components/Table';
 import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
-import {
-    CUSTOM_RESOURCE_STATUSES,
-    TEKTON_RESOURCE_STATUSES,
-} from '../../../../../../constants/statuses';
+import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
+import { EDPCodebaseBranchKubeObject } from '../../../../../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../../k8s/EDPCodebaseBranch/types';
 import { useEDPComponentsURLsQuery } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useGitServerByCodebaseQuery } from '../../../../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
 import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
+import { PIPELINE_RUN_REASON } from '../../../../../../k8s/PipelineRun/constants';
 import { useCreateBuildPipelineRun } from '../../../../../../k8s/PipelineRun/hooks/useCreateBuildPipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
 import { useStorageSizeQuery } from '../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
@@ -37,7 +36,6 @@ import { FormSelect } from '../../../../../../providers/Form/components/FormSele
 import { useResourceActionListContext } from '../../../../../../providers/ResourceActionList/hooks';
 import { GENERATE_URL_SERVICE } from '../../../../../../services/url';
 import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
-import { parseTektonResourceStatus } from '../../../../../../utils/parseTektonResourceStatus';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
 import { EDPComponentDetailsRouteParams } from '../../../../types';
@@ -83,10 +81,10 @@ export const CodebaseBranch = ({
 
     const [pipelineRuns, setPipelineRuns] = React.useState<{
         all: PipelineRunKubeObjectInterface[];
-        latestBuildRunStatus: string;
+        latestBuildPipelineRun: PipelineRunKubeObjectInterface;
     }>({
         all: null,
-        latestBuildRunStatus: CUSTOM_RESOURCE_STATUSES['UNKNOWN'],
+        latestBuildPipelineRun: null,
     });
 
     const [, setError] = React.useState<Error>(null);
@@ -115,19 +113,17 @@ export const CodebaseBranch = ({
 
             if (
                 latestBuildPipelineRun?.status?.conditions?.[0]?.reason ===
-                pipelineRuns.latestBuildRunStatus
+                pipelineRuns.latestBuildPipelineRun?.status?.conditions?.[0]?.reason
             ) {
                 return;
             }
 
-            const pipelineRunStatus = parseTektonResourceStatus(latestBuildPipelineRun);
-
             setPipelineRuns({
                 all: sortedPipelineRuns,
-                latestBuildRunStatus: pipelineRunStatus,
+                latestBuildPipelineRun,
             });
         },
-        [jenkinsCiToolIsUsed, pipelineRuns.latestBuildRunStatus]
+        [jenkinsCiToolIsUsed, pipelineRuns.latestBuildPipelineRun]
     );
 
     const handleStreamError = React.useCallback((error: Error) => {
@@ -154,23 +150,6 @@ export const CodebaseBranch = ({
         codebaseBranchData,
         jenkinsCiToolIsUsed,
     ]);
-
-    const status = codebaseBranchData.status
-        ? codebaseBranchData.status.status
-        : CUSTOM_RESOURCE_STATUSES.UNKNOWN;
-
-    const statusTitle = (
-        <>
-            <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                {capitalizeFirstLetter(status)}
-            </Typography>
-            <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
-                <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                    {codebaseBranchData?.status?.detailedMessage}
-                </Typography>
-            </Render>
-        </>
-    );
 
     const sonarLink = React.useMemo(
         () =>
@@ -229,12 +208,44 @@ export const CodebaseBranch = ({
         [codebaseBranchData, codebaseData, createBuildPipelineRun, gitServerByCodebase, storageSize]
     );
 
+    const {
+        status: { status, detailedMessage },
+    } = codebaseBranchData;
+
+    const [codebaseBranchIcon, codebaseBranchColor, codebaseBranchIsRotating] =
+        EDPCodebaseBranchKubeObject.getStatusIcon(status);
+
+    const [lastPipelineRunIcon, lastPipelineRunColor, lastPipelineRunIsRotating] =
+        PipelineRunKubeObject.getStatusIcon(
+            pipelineRuns.latestBuildPipelineRun?.status?.conditions?.[0]?.status,
+            pipelineRuns.latestBuildPipelineRun?.status?.conditions?.[0]?.reason
+        );
+
     return (
         <div style={{ paddingBottom: rem(16) }}>
             <Accordion expanded={expandedPanel === id} onChange={handlePanelChange(id)}>
                 <AccordionSummary expandIcon={<Icon icon={ICONS['ARROW_DOWN']} />}>
                     <div className={classes.branchHeader}>
-                        <StatusIcon status={status} customTitle={statusTitle} />
+                        <StatusIcon
+                            icon={codebaseBranchIcon}
+                            color={codebaseBranchColor}
+                            isRotating={codebaseBranchIsRotating}
+                            Title={
+                                <>
+                                    <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                                        {`Status: ${status || 'Unknown'}`}
+                                    </Typography>
+                                    <Render condition={status === CUSTOM_RESOURCE_STATUSES.FAILED}>
+                                        <Typography
+                                            variant={'subtitle2'}
+                                            style={{ marginTop: rem(10) }}
+                                        >
+                                            {detailedMessage}
+                                        </Typography>
+                                    </Render>
+                                </>
+                            }
+                        />
                         <Typography variant={'h6'} style={{ lineHeight: 1, marginTop: rem(2) }}>
                             {codebaseBranchData.spec.branchName}
                         </Typography>
@@ -256,9 +267,22 @@ export const CodebaseBranch = ({
                                     <Grid item>
                                         <div className={classes.pipelineRunStatus}>
                                             <StatusIcon
-                                                status={pipelineRuns.latestBuildRunStatus}
-                                                customTitle={`Last pipeline run status: ${pipelineRuns.latestBuildRunStatus}`}
+                                                icon={lastPipelineRunIcon}
+                                                color={lastPipelineRunColor}
+                                                isRotating={lastPipelineRunIsRotating}
                                                 width={18}
+                                                Title={
+                                                    <>
+                                                        <Typography
+                                                            variant={'subtitle2'}
+                                                            style={{ fontWeight: 600 }}
+                                                        >
+                                                            {`Last Build Pipeline Run Status: ${
+                                                                status || 'Unknown'
+                                                            }`}
+                                                        </Typography>
+                                                    </>
+                                                }
                                             />
                                         </div>
                                     </Grid>
@@ -287,8 +311,9 @@ export const CodebaseBranch = ({
                                             <IconButton
                                                 onClick={onBuildButtonClick}
                                                 disabled={
-                                                    pipelineRuns.latestBuildRunStatus ===
-                                                    TEKTON_RESOURCE_STATUSES.RUNNING
+                                                    pipelineRuns.latestBuildPipelineRun?.status
+                                                        ?.conditions?.[0]?.reason ===
+                                                    PIPELINE_RUN_REASON.RUNNING
                                                 }
                                             >
                                                 <Icon icon={ICONS.PLAY} />
@@ -339,7 +364,7 @@ export const CodebaseBranch = ({
                                                 name={'type'}
                                                 label={'Type'}
                                                 options={pipelineRunTypeSelectOptions}
-                                                defaultValue={PIPELINE_TYPES['ALL']}
+                                                defaultValue={PIPELINE_TYPES.ALL}
                                             />
                                         </Grid>
                                     </Render>
@@ -347,7 +372,7 @@ export const CodebaseBranch = ({
                                         <Table
                                             columns={pipelineRunsColumns}
                                             data={filteredPipelineRunsByType}
-                                            isLoading={!pipelineRuns.all}
+                                            isLoading={pipelineRuns.all === null}
                                             emptyListComponent={
                                                 <EmptyList
                                                     missingItemName={

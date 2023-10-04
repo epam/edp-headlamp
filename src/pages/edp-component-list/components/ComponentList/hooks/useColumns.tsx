@@ -17,6 +17,7 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
+import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
@@ -35,19 +36,17 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                 id: 'status',
                 label: 'Status',
                 columnSortableValuePath: 'status.status',
-                render: ({ status: codebaseStatus, spec: { type } }) => {
-                    const status = codebaseStatus
-                        ? codebaseStatus.status
-                        : CUSTOM_RESOURCE_STATUSES.UNKNOWN;
+                render: ({ status: { status, detailedMessage }, spec: { type } }) => {
+                    const [icon, color, isRotating] = EDPCodebaseKubeObject.getStatusIcon(status);
 
                     const title = (
                         <>
                             <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                                {capitalizeFirstLetter(status)}
+                                {`Status: ${status || 'Unknown'}`}
                             </Typography>
                             <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
                                 <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                                    {codebaseStatus?.detailedMessage}
+                                    {detailedMessage}
                                 </Typography>
                             </Render>
                         </>
@@ -78,7 +77,12 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                                 </Grid>
                             )}
                         >
-                            <StatusIcon status={status} customTitle={title} />
+                            <StatusIcon
+                                icon={icon}
+                                isRotating={isRotating}
+                                color={color}
+                                Title={title}
+                            />
                         </ConditionalWrapper>
                     );
                 },

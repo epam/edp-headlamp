@@ -4,7 +4,7 @@ import React from 'react';
 import { DocLink } from '../../../../components/DocLink';
 import { EmptyList } from '../../../../components/EmptyList';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
-import { streamCodebaseBranchesByCodebaseLabel } from '../../../../k8s/EDPCodebaseBranch';
+import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../../../widgets/CreateCodebaseBranch/constants';
@@ -48,7 +48,7 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
     }, []);
 
     React.useEffect(() => {
-        const cancelStream = streamCodebaseBranchesByCodebaseLabel(
+        const cancelStream = EDPCodebaseBranchKubeObject.streamListByCodebaseLabel(
             name,
             handleStoreCodebaseBranches,
             handleError,
@@ -82,7 +82,7 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
                 </div>
             </div>
             <CodebaseBranchActions defaultBranch={defaultBranch} codebase={codebaseData} />
-            {!currentCodebaseBranches ? (
+            {currentCodebaseBranches === null ? (
                 <Grid container justifyContent={'center'} alignItems={'center'}>
                     <Grid item>
                         <CircularProgress />
