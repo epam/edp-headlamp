@@ -14,7 +14,7 @@ export const getStatusIcon = (status: string, reason: string): [string, string, 
             }
 
             if (reason === PIPELINE_RUN_REASON.CANCELLED) {
-                return [ICONS.CROSS_CIRCLE, STATUSES_COLORS.ERROR];
+                return [ICONS.CROSS_CIRCLE, STATUSES_COLORS.SUSPENDED];
             }
             break;
         case PIPELINE_RUN_STATUS.TRUE:

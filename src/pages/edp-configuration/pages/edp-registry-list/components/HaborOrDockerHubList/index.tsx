@@ -48,7 +48,7 @@ const findKanikoAndRegcredSecrets = (secrets: SecretKubeObjectInterface[]) => {
     );
 };
 
-export const HarborList = () => {
+export const HarborOrDockerHubList = () => {
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
     const dockerRegistryURL = EDPComponentsURLS?.['container-registry'];
 

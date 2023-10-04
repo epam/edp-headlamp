@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEDPComponentsURLsQuery } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { safeDecode } from '../../../utils/decodeEncode';
 import { CONTAINER_REGISTRY_ITEM_OPTIONS } from '../constants';
 import { REGISTRY_SECRET_FORM_NAMES } from '../names';
@@ -15,6 +16,10 @@ export const useDefaultValues = ({
     formData: ManageRegistrySecretFormDataContext;
 }) => {
     const { currentElement, registryEndpoint: dockerRegistryEndpoint, secrets } = formData;
+    const { data: EDPComponentsURLS, isLoading } = useEDPComponentsURLsQuery();
+    const containerRegistryComponentURL = EDPComponentsURLS?.['container-registry'];
+    const isDockerHubUsed =
+        !isLoading && containerRegistryComponentURL?.includes('index.docker.io/v1/');
 
     const getUserNameAndPassword = React.useCallback(() => {
         if (typeof currentElement === 'string' && currentElement === 'placeholder') {
@@ -36,8 +41,9 @@ export const useDefaultValues = ({
 
     const getRegistryEndpoint = React.useCallback(() => {
         if (typeof currentElement === 'string' && currentElement === 'placeholder') {
-            return dockerRegistryEndpoint;
+            return isDockerHubUsed ? 'https://index.docker.io/v1/' : dockerRegistryEndpoint;
         }
+
         const configJson = currentElement?.data?.['.dockerconfigjson'];
         if (configJson) {
             const parsedConfigJson = parseConfigJson(configJson);
@@ -48,7 +54,7 @@ export const useDefaultValues = ({
         } else {
             return dockerRegistryEndpoint;
         }
-    }, [currentElement, dockerRegistryEndpoint]);
+    }, [currentElement, dockerRegistryEndpoint, isDockerHubUsed]);
 
     const { userName, password } = getUserNameAndPassword();
     const registryEndpoint = getRegistryEndpoint();

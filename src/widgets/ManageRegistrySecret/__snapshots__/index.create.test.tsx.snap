@@ -79,7 +79,7 @@ exports[`renders ManageRegistrySecret Create component 1`] = `
         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
       >
         <div
-          class="MuiGrid-root MuiGrid-container"
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
         >
           <div
             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"

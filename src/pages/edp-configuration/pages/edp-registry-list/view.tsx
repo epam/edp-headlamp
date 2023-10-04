@@ -1,17 +1,24 @@
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { Tabs } from '../../../../components/Tabs';
 import { Resources } from '../../../../icons/sprites/Resources';
 import { RESOURCE_ICON_NAMES } from '../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
+import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { menu } from '../../menu';
 import { ECRList } from './components/ECRList';
-import { HarborList } from './components/HarborList';
+import { HarborOrDockerHubList } from './components/HaborOrDockerHubList';
 import { REGISTRY_LIST_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
+    const { data: EDPComponentsURLS, isLoading } = useEDPComponentsURLsQuery();
+    const containerRegistryComponentURL = EDPComponentsURLS?.['container-registry'];
+    const isDockerHubUsed =
+        !isLoading && containerRegistryComponentURL?.includes('index.docker.io/v1/');
+
     const tabs = React.useMemo(
         () => [
             {
@@ -21,13 +28,23 @@ export const PageView = () => {
                 component: <ECRList />,
             },
             {
-                label: 'Harbor',
-                id: 'harbor',
-                icon: <UseSpriteSymbol name={RESOURCE_ICON_NAMES.HARBOR} width={30} height={30} />,
-                component: <HarborList />,
+                label: isDockerHubUsed ? 'Docker Hub' : 'Harbor',
+                id: 'harborOrDockerHub',
+                icon: (
+                    <UseSpriteSymbol
+                        name={
+                            isDockerHubUsed
+                                ? RESOURCE_ICON_NAMES.DOCKER
+                                : RESOURCE_ICON_NAMES.HARBOR
+                        }
+                        width={30}
+                        height={30}
+                    />
+                ),
+                component: <HarborOrDockerHubList />,
             },
         ],
-        []
+        [isDockerHubUsed]
     );
 
     return (
@@ -44,7 +61,9 @@ export const PageView = () => {
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Tabs tabs={tabs} initialTabIdx={0} />
+                        <LoadingWrapper isLoading={isLoading}>
+                            <Tabs tabs={tabs} initialTabIdx={0} />
+                        </LoadingWrapper>
                     </Grid>
                 </Grid>
             </PageWrapper>
