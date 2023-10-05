@@ -28,7 +28,10 @@ export const useColumns = (): TableColumn<
                 id: 'status',
                 label: 'Status',
                 columnSortableValuePath: 'status.status',
-                render: ({ status: { status, detailed_message } }) => {
+                render: CDPipeline => {
+                    const status = CDPipeline?.status?.status;
+                    const detailedMessage = CDPipeline?.status?.detailed_message;
+
                     const [icon, color, isRotating] = EDPCDPipelineKubeObject.getStatusIcon(status);
 
                     const title = (
@@ -38,7 +41,7 @@ export const useColumns = (): TableColumn<
                             </Typography>
                             <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
                                 <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                                    {detailed_message}
+                                    {detailedMessage}
                                 </Typography>
                             </Render>
                         </>

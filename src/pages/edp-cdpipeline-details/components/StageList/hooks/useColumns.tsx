@@ -39,7 +39,10 @@ export const useColumns = (
             {
                 id: 'status',
                 label: 'Status',
-                render: ({ status: { status, detailed_message } }) => {
+                render: CDPipeline => {
+                    const status = CDPipeline?.status?.status;
+                    const detailedMessage = CDPipeline?.status?.detailed_message;
+
                     const [icon, color, isRotating] =
                         EDPCDPipelineStageKubeObject.getStatusIcon(status);
                     return (
@@ -57,7 +60,7 @@ export const useColumns = (
                                             variant={'subtitle2'}
                                             style={{ marginTop: rem(10) }}
                                         >
-                                            {detailed_message}
+                                            {detailedMessage}
                                         </Typography>
                                     </Render>
                                 </>

@@ -35,24 +35,6 @@ export const PageView = () => {
             el => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
         ) ?? null;
 
-    const status = gitOpsCodebase?.status?.status;
-
-    const statusTitle = React.useMemo(
-        () => (
-            <>
-                <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                    {`Status: ${status || 'Unknown'}`}
-                </Typography>
-                <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
-                    <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                        {gitOpsCodebase?.status?.detailedMessage}
-                    </Typography>
-                </Render>
-            </>
-        ),
-        [gitOpsCodebase?.status?.detailedMessage, status]
-    );
-
     const configurationItemList = React.useMemo(
         () =>
             itemsArray.map(el => {
@@ -70,14 +52,35 @@ export const PageView = () => {
                                     icon={icon}
                                     color={color}
                                     isRotating={isRotating}
-                                    Title={statusTitle}
+                                    Title={
+                                        <>
+                                            <Typography
+                                                variant={'subtitle2'}
+                                                style={{ fontWeight: 600 }}
+                                            >
+                                                {`Status: ${status || 'Unknown'}`}
+                                            </Typography>
+                                            <Render
+                                                condition={
+                                                    status === CUSTOM_RESOURCE_STATUSES['FAILED']
+                                                }
+                                            >
+                                                <Typography
+                                                    variant={'subtitle2'}
+                                                    style={{ marginTop: rem(10) }}
+                                                >
+                                                    {el?.status?.detailedMessage}
+                                                </Typography>
+                                            </Render>
+                                        </>
+                                    }
                                 />
                             </Grid>
                             <Grid item>GitOps</Grid>
                             <Grid item>
                                 <ResourceIconLink
                                     tooltipTitle={'Go to the Source Code'}
-                                    link={gitOpsCodebase?.status?.gitWebUrl}
+                                    link={el?.status?.gitWebUrl}
                                     icon={ICONS.GIT_BRANCH}
                                 />
                             </Grid>
@@ -94,7 +97,7 @@ export const PageView = () => {
                     ),
                 };
             }),
-        [gitOpsCodebase, itemsArray, statusTitle]
+        [itemsArray]
     );
 
     const creationDisabled = React.useMemo(

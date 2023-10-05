@@ -20,12 +20,11 @@ export const useColumns = (): TableColumn<EnrichedApplicationWithItsImageStreams
             {
                 id: 'status',
                 label: 'Status',
-                render: ({
-                    application: {
-                        spec: { type },
-                        status: { status, detailedMessage },
-                    },
-                }) => {
+                render: ({ application }) => {
+                    const status = application?.status?.status;
+                    const detailedMessage = application?.status?.detailedMessage;
+                    const type = application?.spec?.type;
+
                     const [icon, color, isRotating] = EDPCodebaseKubeObject.getStatusIcon(status);
 
                     const title = (

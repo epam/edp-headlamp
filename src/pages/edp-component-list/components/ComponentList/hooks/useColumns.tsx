@@ -36,7 +36,11 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                 id: 'status',
                 label: 'Status',
                 columnSortableValuePath: 'status.status',
-                render: ({ status: { status, detailedMessage }, spec: { type } }) => {
+                render: codebase => {
+                    const status = codebase?.status?.status;
+                    const detailedMessage = codebase?.status?.detailedMessage;
+                    const type = codebase?.spec?.type;
+
                     const [icon, color, isRotating] = EDPCodebaseKubeObject.getStatusIcon(status);
 
                     const title = (

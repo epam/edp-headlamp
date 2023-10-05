@@ -208,9 +208,8 @@ export const CodebaseBranch = ({
         [codebaseBranchData, codebaseData, createBuildPipelineRun, gitServerByCodebase, storageSize]
     );
 
-    const {
-        status: { status, detailedMessage },
-    } = codebaseBranchData;
+    const status = codebaseBranchData?.status?.status;
+    const detailedMessage = codebaseBranchData?.status?.detailedMessage;
 
     const [codebaseBranchIcon, codebaseBranchColor, codebaseBranchIsRotating] =
         EDPCodebaseBranchKubeObject.getStatusIcon(status);
