@@ -6,7 +6,6 @@ describe('testing createJiraIntegrationSecretInstance', () => {
         const object = createJiraIntegrationSecretInstance({
             username: 'test-user',
             password: 'test-password',
-            url: 'https://test-url.com',
         });
 
         expect(object).toEqual({
@@ -20,7 +19,6 @@ describe('testing createJiraIntegrationSecretInstance', () => {
             data: {
                 username: 'dGVzdC11c2Vy',
                 password: 'dGVzdC1wYXNzd29yZA==',
-                url: 'aHR0cHM6Ly90ZXN0LXVybC5jb20=',
             },
         });
     });

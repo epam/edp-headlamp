@@ -4,7 +4,7 @@ import React from 'react';
 import { Render } from '../../../../components/Render';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { ManageJiraIntegrationSecretFormDataContext } from '../../types';
-import { Password, Url, User } from '../fields';
+import { Password, User } from '../fields';
 
 export const Form = () => {
     const {
@@ -23,9 +23,6 @@ export const Form = () => {
                     </Alert>
                 </Grid>
             </Render>
-            <Grid item xs={12}>
-                <Url />
-            </Grid>
             <Grid item xs={6}>
                 <User />
             </Grid>

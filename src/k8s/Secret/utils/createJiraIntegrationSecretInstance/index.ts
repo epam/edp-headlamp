@@ -6,11 +6,9 @@ import { SECRET_LABEL_SECRET_TYPE } from '../../labels';
 export const createJiraIntegrationSecretInstance = ({
     username,
     password,
-    url,
 }: {
     username: string;
     password: string;
-    url: string;
 }): KubeObjectInterface => {
     return {
         apiVersion: 'v1',
@@ -26,7 +24,6 @@ export const createJiraIntegrationSecretInstance = ({
         data: {
             username: safeEncode(username),
             password: safeEncode(password),
-            url: safeEncode(url),
         },
     };
 };

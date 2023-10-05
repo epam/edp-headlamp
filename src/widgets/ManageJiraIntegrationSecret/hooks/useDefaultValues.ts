@@ -24,7 +24,6 @@ export const useDefaultValues = ({
             [JIRA_INTEGRATION_SECRET_FORM_NAMES.password.name]: safeDecode(
                 currentElement?.data?.password
             ),
-            [JIRA_INTEGRATION_SECRET_FORM_NAMES.url.name]: safeDecode(currentElement?.data?.url),
         };
     }, [currentElement, isPlaceholder]);
 };

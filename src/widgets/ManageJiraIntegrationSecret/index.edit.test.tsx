@@ -36,7 +36,6 @@ test('renders ManageJiraIntegrationSecret Edit component', () => {
                         data: {
                             username: 'dGVzdC11c2Vy',
                             password: 'dGVzdC1wYXNzd29yZA==',
-                            url: 'aHR0cHM6Ly90ZXN0LXVybC5jb20=',
                         },
                         type: 'Opaque',
                     },
