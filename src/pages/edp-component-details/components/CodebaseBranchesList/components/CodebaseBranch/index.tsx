@@ -276,8 +276,14 @@ export const CodebaseBranch = ({
                                                             variant={'subtitle2'}
                                                             style={{ fontWeight: 600 }}
                                                         >
-                                                            {`Last Build Pipeline Run Status: ${
-                                                                status || 'Unknown'
+                                                            {`Last Build PipelineRun status: ${
+                                                                pipelineRuns.latestBuildPipelineRun
+                                                                    ?.status?.conditions?.[0]
+                                                                    ?.status || 'Unknown'
+                                                            }. Reason: ${
+                                                                pipelineRuns.latestBuildPipelineRun
+                                                                    ?.status?.conditions?.[0]
+                                                                    ?.reason || 'Unknown'
                                                             }`}
                                                         </Typography>
                                                     </>

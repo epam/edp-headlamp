@@ -27,7 +27,7 @@ export const PIPELINE_RUN_STATUS_SELECT_OPTIONS: SelectOption[] = [
         value: PIPELINE_RUN_STATUS.FALSE,
     },
     {
-        label: PIPELINE_RUN_STATUS.UNKNOWN,
+        label: 'Unknown',
         value: PIPELINE_RUN_STATUS.UNKNOWN,
     },
 ];
