@@ -24,7 +24,6 @@ export const PipelineRunsGraph = () => {
         grey: null,
         purple: null,
     });
-    console.log(pipelineRunsInfo);
     const [, setError] = React.useState<unknown>(null);
     PipelineRunKubeObject.useApiList(
         (pipelineRuns: PipelineRunKubeObjectInterface[]) => {

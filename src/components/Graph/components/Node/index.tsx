@@ -1,6 +1,5 @@
 import CardNode, { CardNodeColumn, CardNodeTitle } from '@carbon/charts-react/diagrams/CardNode';
-import { Link, Paper } from '@material-ui/core';
-import clsx from 'clsx';
+import { Link, Paper, Typography } from '@material-ui/core';
 import React from 'react';
 import { StatusIcon } from '../../../StatusIcon';
 import { useStyles } from './styles';
@@ -18,7 +17,7 @@ export const Node = ({
     isRotating,
     status,
 }: NodeProps) => {
-    const classes = useStyles();
+    const classes = useStyles(color);
 
     return (
         <foreignObject
@@ -28,13 +27,14 @@ export const Node = ({
             style={{ overflow: 'visible' }}
         >
             <Paper style={{ height, width, overflow: 'hidden' }}>
-                <CardNode className={clsx(classes.node, `card-status-${status}`)}>
+                <CardNode className={classes.node}>
                     <CardNodeColumn>
                         <StatusIcon
                             icon={icon}
                             color={color}
                             isRotating={isRotating}
                             Title={status}
+                            width={15}
                         />
                     </CardNodeColumn>
                     <CardNodeColumn>
@@ -44,7 +44,9 @@ export const Node = ({
                                     {title}
                                 </Link>
                             ) : (
-                                <span title={title}>{title}</span>
+                                <Typography variant={'subtitle2'} title={title}>
+                                    {title}
+                                </Typography>
                             )}
                         </CardNodeTitle>
                     </CardNodeColumn>

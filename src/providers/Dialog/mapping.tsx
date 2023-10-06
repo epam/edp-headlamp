@@ -11,6 +11,8 @@ import { CreateEditStage } from '../../widgets/CreateEditStage';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../widgets/CreateEditStage/constants';
 import { DeleteKubeObject } from '../../widgets/DeleteKubeObject';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../widgets/DeleteKubeObject/constants';
+import { PipelineRunGraph } from '../../widgets/PipelineRunGraph';
+import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../widgets/PipelineRunGraph/constants';
 import { PodsLogViewer } from '../../widgets/PodsLogViewer';
 import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../widgets/PodsLogViewer/constants';
 import PodsTerminal from '../../widgets/PodsTerminal';
@@ -24,6 +26,7 @@ const MemoizedCreateCodebaseBranch = React.memo(CreateCodebaseBranch);
 const MemoizedDeleteKubeObject = React.memo(DeleteKubeObject);
 const MemoizedPodsLogViewer = React.memo(PodsLogViewer);
 const MemoizedPodsTerminal = React.memo(PodsTerminal);
+const MemoizedPipelineRunGraph = React.memo(PipelineRunGraph);
 
 export const MODAL_MAPPING = {
     [CREATE_EDIT_CODEBASE_DIALOG_NAME]: <MemoizedCreateEditCodebase />,
@@ -34,4 +37,5 @@ export const MODAL_MAPPING = {
     [DELETE_KUBE_OBJECT_DIALOG_NAME]: <MemoizedDeleteKubeObject />,
     [PODS_LOG_VIEWER_DIALOG_NAME]: <MemoizedPodsLogViewer />,
     [PODS_TERMINAL_DIALOG_NAME]: <MemoizedPodsTerminal />,
+    [PIPELINE_RUN_GRAPH_DIALOG_NAME]: <MemoizedPipelineRunGraph />,
 } as const;

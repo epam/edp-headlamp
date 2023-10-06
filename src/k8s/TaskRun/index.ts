@@ -67,7 +67,7 @@ export class TaskRunKubeObject extends K8s.cluster.makeKubeObject<TaskRunKubeObj
                     return [ICONS.CROSS_CIRCLE, STATUS_COLOR.SUSPENDED];
                 }
 
-                break;
+                return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
             case TASK_RUN_STATUS.TRUE:
                 return [ICONS.CHECK_CIRCLE, STATUS_COLOR.SUCCESS];
             case TASK_RUN_STATUS.FALSE:

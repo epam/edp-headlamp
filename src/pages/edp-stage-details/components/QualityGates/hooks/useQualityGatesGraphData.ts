@@ -42,7 +42,7 @@ export const useQualityGatesGraphData = (
 
                 return {
                     id: `node::${idx}`,
-                    status: `Status: ${status || 'Unknown'}. Reason: ${reason || 'Unknown'}`,
+                    status: `Status: ${status}. Reason: ${reason}`,
                     icon,
                     color,
                     isRotating,
@@ -97,9 +97,7 @@ export const useQualityGatesGraphData = (
         return [
             {
                 id: 'node::prepare',
-                status: `Status: ${initAutotestTaskRunStatus || 'Unknown'}. Reason: ${
-                    initAutotestTaskRunReason || 'Unknown'
-                }`,
+                status: `Status: ${initAutotestTaskRunStatus}. Reason: ${initAutotestTaskRunReason}`,
                 icon: initAutotestTaskRunStatusIcon,
                 color: initAutotestTaskRunStatusColor,
                 isRotating: initAutotestTaskRunStatusIsRotating,
@@ -117,9 +115,7 @@ export const useQualityGatesGraphData = (
             },
             {
                 id: 'node::promote',
-                status: `Status: ${promoteAutotestTaskRunStatus || 'Unknown'}. Reason: ${
-                    promoteAutotestTaskRunReason || 'Unknown'
-                }`,
+                status: `Status: ${promoteAutotestTaskRunStatus}. Reason: ${promoteAutotestTaskRunReason}`,
                 icon: promoteAutotestTaskRunStatusIcon,
                 color: promoteAutotestTaskRunStatusColor,
                 isRotating: promoteAutotestTaskRunStatusIsRotating,

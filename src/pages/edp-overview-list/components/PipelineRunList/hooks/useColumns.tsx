@@ -1,19 +1,25 @@
+import { Icon } from '@iconify/react';
 import { HoverInfoLabel } from '@kinvolk/headlamp-plugin/lib/components/common';
-import { Link } from '@material-ui/core';
+import { IconButton, Link } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
+import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
+import { useDialogContext } from '../../../../../providers/Dialog/hooks';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { formatFullYear, humanizeDefault } from '../../../../../utils/date/humanize';
+import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../../../../widgets/PipelineRunGraph/constants';
 import { EDPComponentDetailsRouteParams } from '../../../../edp-component-details/types';
 
 export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
     const { namespace } = useParams<EDPComponentDetailsRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+
+    const { setDialog } = useDialogContext();
 
     return React.useMemo(
         () => [
@@ -35,7 +41,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                             color={color}
                             isRotating={isRotating}
                             width={25}
-                            Title={`Status: ${status || 'Unknown'}. Reason: ${reason || 'Unknown'}`}
+                            Title={`Status: ${status}. Reason: ${reason}`}
                         />
                     );
                 },
@@ -125,7 +131,27 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                     );
                 },
             },
+            {
+                id: 'diagram',
+                label: 'Diagram',
+                render: resource => {
+                    return (
+                        <IconButton
+                            onClick={() =>
+                                setDialog({
+                                    modalName: PIPELINE_RUN_GRAPH_DIALOG_NAME,
+                                    forwardedProps: {
+                                        pipelineRun: resource,
+                                    },
+                                })
+                            }
+                        >
+                            <Icon icon={ICONS.DIAGRAM} />
+                        </IconButton>
+                    );
+                },
+            },
         ],
-        [EDPComponentsURLS]
+        [EDPComponentsURLS?.tekton, setDialog]
     );
 };

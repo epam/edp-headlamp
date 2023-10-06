@@ -35,7 +35,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                             color={color}
                             isRotating={isRotating}
                             width={25}
-                            Title={`Status: ${status || 'Unknown'}. Reason: ${reason || 'Unknown'}`}
+                            Title={`Status: ${status}. Reason: ${reason}`}
                         />
                     );
                 },

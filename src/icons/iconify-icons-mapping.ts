@@ -57,4 +57,5 @@ export enum ICONS {
     SCREWDRIVER = 'heroicons:wrench-screwdriver',
     GIT = 'mdi:git',
     SSO = 'wpf:key-security',
+    DIAGRAM = 'icon-park-outline:tree-diagram',
 }
