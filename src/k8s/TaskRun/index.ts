@@ -1,6 +1,7 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { STATUS_COLOR } from '../../constants/colors';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { ValueOf } from '../../types/global';
 import { streamResults } from '../common/streamResults';
 import { TaskRunKubeObjectConfig } from './config';
 import { TASK_RUN_REASON, TASK_RUN_STATUS } from './constants';
@@ -35,6 +36,14 @@ export class TaskRunKubeObject extends K8s.cluster.makeKubeObject<TaskRunKubeObj
 
     get status(): any {
         return this.jsonData!.status;
+    }
+
+    static parseStatus(taskRun: TaskRunKubeObjectInterface): ValueOf<typeof TASK_RUN_STATUS> {
+        return taskRun?.status?.conditions?.[0]?.status || 'Unknown';
+    }
+
+    static parseStatusReason(taskRun: TaskRunKubeObjectInterface): ValueOf<typeof TASK_RUN_REASON> {
+        return taskRun?.status?.conditions?.[0]?.reason || 'Unknown';
     }
 
     static getStatusIcon(status: string, reason: string): [string, string, boolean?] {

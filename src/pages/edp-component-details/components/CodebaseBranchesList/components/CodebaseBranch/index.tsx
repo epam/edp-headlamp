@@ -112,8 +112,8 @@ export const CodebaseBranch = ({
             const [latestBuildPipelineRun] = sortedPipelineRuns;
 
             if (
-                latestBuildPipelineRun?.status?.conditions?.[0]?.reason ===
-                pipelineRuns.latestBuildPipelineRun?.status?.conditions?.[0]?.reason
+                PipelineRunKubeObject.parseStatusReason(latestBuildPipelineRun) ===
+                PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun)
             ) {
                 return;
             }
@@ -216,8 +216,8 @@ export const CodebaseBranch = ({
 
     const [lastPipelineRunIcon, lastPipelineRunColor, lastPipelineRunIsRotating] =
         PipelineRunKubeObject.getStatusIcon(
-            pipelineRuns.latestBuildPipelineRun?.status?.conditions?.[0]?.status,
-            pipelineRuns.latestBuildPipelineRun?.status?.conditions?.[0]?.reason
+            PipelineRunKubeObject.parseStatus(pipelineRuns.latestBuildPipelineRun),
+            PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun)
         );
 
     return (
@@ -276,15 +276,11 @@ export const CodebaseBranch = ({
                                                             variant={'subtitle2'}
                                                             style={{ fontWeight: 600 }}
                                                         >
-                                                            {`Last Build PipelineRun status: ${
+                                                            {`Last Build PipelineRun status: ${PipelineRunKubeObject.parseStatus(
                                                                 pipelineRuns.latestBuildPipelineRun
-                                                                    ?.status?.conditions?.[0]
-                                                                    ?.status || 'Unknown'
-                                                            }. Reason: ${
+                                                            )}. Reason: ${PipelineRunKubeObject.parseStatusReason(
                                                                 pipelineRuns.latestBuildPipelineRun
-                                                                    ?.status?.conditions?.[0]
-                                                                    ?.reason || 'Unknown'
-                                                            }`}
+                                                            )}`}
                                                         </Typography>
                                                     </>
                                                 }
@@ -316,9 +312,9 @@ export const CodebaseBranch = ({
                                             <IconButton
                                                 onClick={onBuildButtonClick}
                                                 disabled={
-                                                    pipelineRuns.latestBuildPipelineRun?.status
-                                                        ?.conditions?.[0]?.reason ===
-                                                    PIPELINE_RUN_REASON.RUNNING
+                                                    PipelineRunKubeObject.parseStatusReason(
+                                                        pipelineRuns.latestBuildPipelineRun
+                                                    ) === PIPELINE_RUN_REASON.RUNNING
                                                 }
                                             >
                                                 <Icon icon={ICONS.PLAY} />

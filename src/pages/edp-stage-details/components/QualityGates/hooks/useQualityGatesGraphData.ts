@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
+import { TaskRunKubeObject } from '../../../../../k8s/TaskRun';
 import { TaskRunKubeObjectInterface } from '../../../../../k8s/TaskRun/types';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import {
@@ -31,8 +32,8 @@ export const useQualityGatesGraphData = (
                         el?.autotestPipelineRun?.metadata?.name
                     );
 
-                const status = el?.autotestPipelineRun?.status?.conditions?.[0]?.status;
-                const reason = el?.autotestPipelineRun?.status?.conditions?.[0]?.reason;
+                const status = PipelineRunKubeObject.parseStatus(el?.autotestPipelineRun);
+                const reason = PipelineRunKubeObject.parseStatusReason(el?.autotestPipelineRun);
 
                 const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(
                     status,
@@ -62,8 +63,8 @@ export const useQualityGatesGraphData = (
                 el => el.metadata.labels['tekton.dev/pipelineTask'] === 'init-autotest'
             );
 
-        const initAutotestTaskRunStatus = initAutotestTaskRun?.status?.conditions?.[0]?.status;
-        const initAutotestTaskRunReason = initAutotestTaskRun?.status?.conditions?.[0]?.reason;
+        const initAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(initAutotestTaskRun);
+        const initAutotestTaskRunReason = TaskRunKubeObject.parseStatusReason(initAutotestTaskRun);
 
         const [
             initAutotestTaskRunStatusIcon,
@@ -81,8 +82,8 @@ export const useQualityGatesGraphData = (
                 el => el.metadata.labels['tekton.dev/pipelineTask'] === 'promote-images'
             );
 
-        const promoteAutotestTaskRunStatus = promoteTaskRun?.status?.conditions?.[0]?.status;
-        const promoteAutotestTaskRunReason = promoteTaskRun?.status?.conditions?.[0]?.reason;
+        const promoteAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(promoteTaskRun);
+        const promoteAutotestTaskRunReason = TaskRunKubeObject.parseStatusReason(promoteTaskRun);
 
         const [
             promoteAutotestTaskRunStatusIcon,
@@ -146,8 +147,8 @@ export const useQualityGatesGraphData = (
                 el => el.metadata.labels['tekton.dev/pipelineTask'] === 'init-autotest'
             );
 
-        const initAutotestTaskRunStatus = initAutotestTaskRun?.status?.conditions?.[0]?.status;
-        const initAutotestTaskRunReason = initAutotestTaskRun?.status?.conditions?.[0]?.reason;
+        const initAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(initAutotestTaskRun);
+        const initAutotestTaskRunReason = TaskRunKubeObject.parseStatusReason(initAutotestTaskRun);
 
         const [, initAutotestTaskRunStatusColor] = PipelineRunKubeObject.getStatusIcon(
             initAutotestTaskRunStatus,
@@ -161,8 +162,8 @@ export const useQualityGatesGraphData = (
                 el => el.metadata.labels['tekton.dev/pipelineTask'] === 'promote-images'
             );
 
-        const promoteAutotestTaskRunStatus = promoteTaskRun?.status?.conditions?.[0]?.status;
-        const promoteAutotestTaskRunReason = promoteTaskRun?.status?.conditions?.[0]?.reason;
+        const promoteAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(promoteTaskRun);
+        const promoteAutotestTaskRunReason = TaskRunKubeObject.parseStatusReason(promoteTaskRun);
 
         const [, promoteAutotestTaskRunStatusColor] = PipelineRunKubeObject.getStatusIcon(
             promoteAutotestTaskRunStatus,

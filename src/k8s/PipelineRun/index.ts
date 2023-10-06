@@ -1,6 +1,7 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { STATUS_COLOR } from '../../constants/colors';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { ValueOf } from '../../types/global';
 import { streamResults } from '../common/streamResults';
 import { PipelineRunKubeObjectConfig } from './config';
 import { PIPELINE_RUN_REASON, PIPELINE_RUN_STATUS } from './constants';
@@ -41,6 +42,18 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
 
     get status(): any {
         return this.jsonData!.status;
+    }
+
+    static parseStatus(
+        pipelineRun: PipelineRunKubeObjectInterface
+    ): ValueOf<typeof PIPELINE_RUN_STATUS> {
+        return pipelineRun?.status?.conditions?.[0]?.status || 'Unknown';
+    }
+
+    static parseStatusReason(
+        pipelineRun: PipelineRunKubeObjectInterface
+    ): ValueOf<typeof PIPELINE_RUN_REASON> {
+        return pipelineRun?.status?.conditions?.[0]?.reason || 'Unknown';
     }
 
     static getStatusIcon(status: string, reason: string): [string, string, boolean?] {

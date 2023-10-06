@@ -15,6 +15,7 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useStreamApplicationListByPipelineStageLabel } from '../../k8s/Application/hooks/useStreamApplicationListByPipelineStageLabel';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { PipelineRunKubeObject } from '../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../k8s/PipelineRun/constants';
 import { useStreamAutotestPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestPipelineRunList';
 import { useStreamAutotestRunnerPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestRunnerPipelineRunList';
@@ -101,7 +102,7 @@ export const PageView = () => {
 
     const latestDeployPipelineRunIsRunning = React.useMemo(
         () =>
-            latestTenDeployPipelineRuns[0]?.status?.conditions?.[0]?.reason ===
+            PipelineRunKubeObject.parseStatusReason(latestTenDeployPipelineRuns?.[0]) ===
             PIPELINE_RUN_REASON.RUNNING,
         [latestTenDeployPipelineRuns]
     );

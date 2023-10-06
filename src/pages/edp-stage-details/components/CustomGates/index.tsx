@@ -6,6 +6,7 @@ import { EmptyList } from '../../../../components/EmptyList';
 import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { usePipelineByTypeListQuery } from '../../../../k8s/Pipeline/hooks/usePipelineByTypeListQuery';
+import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../k8s/PipelineRun/constants';
 import { useCreateDeployPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateDeployPipelineRun';
 import { FormSelect } from '../../../../providers/Form/components/FormSelect';
@@ -95,7 +96,7 @@ export const CustomGates = ({
 
     const latestDeployPipelineRunIsRunning = React.useMemo(
         () =>
-            latestTenDeployPipelineRuns?.[0]?.status?.conditions?.[0]?.reason ===
+            PipelineRunKubeObject.parseStatusReason(latestTenDeployPipelineRuns?.[0]) ===
             PIPELINE_RUN_REASON.RUNNING,
         [latestTenDeployPipelineRuns]
     );

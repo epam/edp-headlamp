@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Graph } from '../../../../components/Graph';
 import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
+import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../k8s/PipelineRun/constants';
 import { useCreateAutotestRunnerPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateAutotestRunnerPipelineRun';
 import { useStreamTaskRunListByPipelineNameAndPipelineType } from '../../../../k8s/TaskRun/hooks/useStreamTaskRunListByPipelineNameAndPipelineType';
@@ -70,14 +71,14 @@ export const QualityGates = ({
 
     const latestAutotestPipelineRunIsRunning = React.useMemo(
         () =>
-            latestTenAutotestPipelineRuns?.[0]?.status?.conditions?.[0]?.reason ===
+            PipelineRunKubeObject.parseStatusReason(latestTenAutotestPipelineRuns?.[0]) ===
             PIPELINE_RUN_REASON.RUNNING,
         [latestTenAutotestPipelineRuns]
     );
 
     const latestAutotestRunnerIsRunning = React.useMemo(
         () =>
-            latestAutotestRunnerPipelineRuns?.[0]?.status?.conditions?.[0]?.reason ===
+            PipelineRunKubeObject.parseStatusReason(latestAutotestRunnerPipelineRuns?.[0]) ===
             PIPELINE_RUN_REASON.RUNNING,
         [latestAutotestRunnerPipelineRuns]
     );

@@ -21,8 +21,8 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                 id: 'status',
                 label: 'Status',
                 render: pipelineRun => {
-                    const status = pipelineRun?.status?.conditions?.[0]?.status;
-                    const reason = pipelineRun?.status?.conditions?.[0]?.reason;
+                    const status = PipelineRunKubeObject.parseStatus(pipelineRun);
+                    const reason = PipelineRunKubeObject.parseStatusReason(pipelineRun);
 
                     const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(
                         status,

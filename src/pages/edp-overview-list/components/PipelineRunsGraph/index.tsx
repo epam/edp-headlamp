@@ -3,7 +3,6 @@ import { Typography } from '@material-ui/core';
 import React from 'react';
 import { Render } from '../../../../components/Render';
 import { STATUS_COLOR } from '../../../../constants/colors';
-import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON, PIPELINE_RUN_STATUS } from '../../../../k8s/PipelineRun/constants';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
@@ -39,12 +38,9 @@ export const PipelineRunsGraph = () => {
             };
 
             for (const item of pipelineRuns) {
-                const status = item?.status?.conditions?.[0]?.status;
-                const reason = item?.status?.conditions?.[0]?.reason;
+                const status = PipelineRunKubeObject.parseStatus(item);
+                const reason = PipelineRunKubeObject.parseStatusReason(item);
 
-                if (status === undefined || reason === undefined) {
-                    return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
-                }
                 const _status = status.toLowerCase();
                 const _reason = reason.toLowerCase();
 
