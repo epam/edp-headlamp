@@ -222,7 +222,7 @@ export const EDP_USER_GUIDE = {
         url: `${EDP_USER_GUIDE_ROOT_URL}/git-server-overview`,
         anchors: {
             VIEW_DATA: {
-                url: `${EDP_USER_GUIDE_ROOT_URL}/git-server-overview/#view-authentication-data`,
+                url: `${EDP_USER_GUIDE_ROOT_URL}/git-server-overview`,
             },
             DELETE: {
                 url: `${EDP_USER_GUIDE_ROOT_URL}/git-server-overview/#delete-git-server`,
