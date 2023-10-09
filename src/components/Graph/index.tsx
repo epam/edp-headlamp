@@ -3,9 +3,11 @@ import { ArrowRightMarker } from '@carbon/charts-react/diagrams/Marker';
 import { ElkNode } from 'elkjs';
 import ELK from 'elkjs/lib/elk.bundled';
 import React, { useEffect, useState } from 'react';
+import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import { Edge } from './components/Edge';
 import { Node } from './components/Node';
 import { GraphProps } from './components/types';
+
 export const Graph = ({ direction = 'RIGHT', id, nodes, edges, type = 'detailed' }: GraphProps) => {
     const elk = React.useMemo(
         () =>
@@ -45,6 +47,8 @@ export const Graph = ({ direction = 'RIGHT', id, nodes, edges, type = 'detailed'
             .catch(console.error);
     }, [direction, elk, graph]);
 
+    const transformComponentRef = React.useRef<ReactZoomPanPinchRef | null>(null);
+
     if (!positions) return null;
 
     const {
@@ -55,19 +59,31 @@ export const Graph = ({ direction = 'RIGHT', id, nodes, edges, type = 'detailed'
     } = positions;
 
     return (
-        <div className="tkn--pipeline-graph">
-            <svg style={{ height: graphHeight, width: graphWidth }}>
-                <defs>
-                    <ArrowRightMarker id="arrowRight" />
-                </defs>
-                {graphEdges.map((edge, i) => {
-                    return <Edge direction={direction} key={`edge_${i}`} {...edge} />;
-                })}
-                {graphNodes.map((node, i) => {
-                    //@ts-ignore
-                    return <Node key={`node_${i}`} {...node} />;
-                })}
-            </svg>
-        </div>
+        <TransformWrapper
+            initialScale={1}
+            minScale={0.8}
+            initialPositionX={0}
+            initialPositionY={0}
+            ref={transformComponentRef}
+        >
+            <TransformComponent>
+                <svg
+                    style={{ height: graphHeight + 100, width: graphWidth }}
+                    viewBox={`0 0 ${graphWidth} ${graphHeight + 100 - graphHeight / 2}`}
+                    id="graph-svg"
+                >
+                    <defs>
+                        <ArrowRightMarker id="arrowRight" />
+                    </defs>
+                    {graphEdges.map((edge, i) => {
+                        return <Edge direction={direction} key={`edge_${i}`} {...edge} />;
+                    })}
+                    {graphNodes.map((node, i) => {
+                        //@ts-ignore
+                        return <Node key={`node_${i}`} {...node} />;
+                    })}
+                </svg>
+            </TransformComponent>
+        </TransformWrapper>
     );
 };

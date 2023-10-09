@@ -24,3 +24,8 @@ div[class*="SnackbarItem-variantWarning"] {
     color: #000;
 }
 
+.react-transform-wrapper {
+    width: auto !important;
+    height: auto !important;
+}
+
