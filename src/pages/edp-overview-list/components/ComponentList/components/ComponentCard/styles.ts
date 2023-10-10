@@ -1,0 +1,54 @@
+import { alpha, darken, makeStyles } from '@material-ui/core';
+import { rem } from '../../../../../../utils/styling/rem';
+
+export const useStyles = makeStyles(theme => ({
+    cardRoot: {
+        height: '100%',
+        position: 'relative',
+
+        '&:hover $cardBack': {
+            opacity: 1,
+        },
+    },
+    cardContent: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: rem(16),
+        backgroundColor: theme.palette.squareButton.background,
+
+        '&:last-child': {
+            paddingBottom: rem(16),
+        },
+    },
+    cardBack: {
+        padding: rem(5),
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 1,
+        opacity: 0,
+        backgroundColor: alpha(darken(theme.palette.squareButton.background, 0.25), 0.8),
+        transition: 'opacity 300ms ease',
+    },
+    cardTitle: {
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+    },
+    serviceItemIcon: {
+        display: 'block',
+        width: rem(50),
+        height: rem(50),
+
+        '& img': {
+            width: '100%',
+            height: '100%',
+        },
+    },
+}));
