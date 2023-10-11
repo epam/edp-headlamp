@@ -1,6 +1,6 @@
-import { TileChart } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Typography } from '@material-ui/core';
 import React from 'react';
+import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
 import { Render } from '../../../../components/Render';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
@@ -78,7 +78,7 @@ export const PipelineRunsGraph = () => {
     );
 
     return (
-        <TileChart
+        <HeadlampTileChart
             total={pipelineRunsInfo.total === null ? -1 : pipelineRunsInfo.total}
             data={[
                 {

@@ -5,6 +5,7 @@ export const useStyles = makeStyles(theme => ({
     formControl: {
         margin: 0,
         height: '100%',
+        display: 'block',
 
         '& > .MuiTypography-root': {
             height: '100%',

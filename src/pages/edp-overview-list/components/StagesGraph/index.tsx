@@ -1,6 +1,6 @@
-import { TileChart } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Typography } from '@material-ui/core';
 import React from 'react';
+import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
 import { Render } from '../../../../components/Render';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
@@ -66,7 +66,7 @@ export const StagesGraph = () => {
     );
 
     return (
-        <TileChart
+        <HeadlampTileChart
             total={StagesInfo.total === null ? -1 : StagesInfo.total}
             data={[
                 {

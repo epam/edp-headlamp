@@ -15,19 +15,19 @@ export const PageView = () => {
         <PageWrapper>
             <SectionBox title={'Overview'} py={2} mt={[4, 0, 0]}>
                 <Grid container spacing={2}>
-                    <Grid item style={{ flexGrow: 1 }}>
+                    <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
                         <CodebasesGraph />
                     </Grid>
-                    <Grid item style={{ flexGrow: 1 }}>
+                    <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
                         <CodebaseBranchesGraph />
                     </Grid>
-                    <Grid item style={{ flexGrow: 1 }}>
+                    <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
                         <PipelineRunsGraph />
                     </Grid>
-                    <Grid item style={{ flexGrow: 1 }}>
+                    <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
                         <CDPipelinesGraph />
                     </Grid>
-                    <Grid item style={{ flexGrow: 1 }}>
+                    <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
                         <StagesGraph />
                     </Grid>
                 </Grid>

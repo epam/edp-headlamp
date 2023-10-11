@@ -15,7 +15,7 @@ export const ComponentList = () => {
                 {items
                     ? items.map(el => {
                           return el?.spec.visible ? (
-                              <Grid item xs={6} xl={1} key={el.metadata.uid}>
+                              <Grid item xs={6} sm={4} md={3} lg={2} xl={1} key={el.metadata.uid}>
                                   <ComponentCard component={el} />
                               </Grid>
                           ) : null;

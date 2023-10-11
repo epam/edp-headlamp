@@ -1,4 +1,5 @@
 const EDP_USER_GUIDE_ROOT_URL = 'https://epam.github.io/edp-install/user-guide';
+const EDP_OPERATOR_GUIDE_ROOT_URL = 'https://epam.github.io/edp-install/operator-guide';
 
 export const EDP_USER_GUIDE = {
     OVERVIEW: {
@@ -240,6 +241,37 @@ export const EDP_USER_GUIDE = {
             },
             DELETE: {
                 url: `${EDP_USER_GUIDE_ROOT_URL}/cluster/#delete-cluster`,
+            },
+        },
+    },
+};
+
+export const EDP_OPERATOR_GUIDE = {
+    NEXUS: {
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/nexus-sonatype`,
+        anchors: {
+            PREREQUISITES: {
+                url: `${EDP_USER_GUIDE_ROOT_URL}/nexus-sonatype/#prerequisites`,
+            },
+            INSTALLATION: {
+                url: `${EDP_USER_GUIDE_ROOT_URL}/nexus-sonatype/#installation`,
+            },
+            CONFIGURATION: {
+                url: `${EDP_USER_GUIDE_ROOT_URL}/nexus-sonatype/#configuration`,
+            },
+        },
+    },
+    SONAR: {
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/sonarqube`,
+        anchors: {
+            PREREQUISITES: {
+                url: `${EDP_USER_GUIDE_ROOT_URL}/sonarqube/#prerequisites`,
+            },
+            INSTALLATION: {
+                url: `${EDP_USER_GUIDE_ROOT_URL}/sonarqube/#installation`,
+            },
+            CONFIGURATION: {
+                url: `${EDP_USER_GUIDE_ROOT_URL}/sonarqube/#configuration`,
             },
         },
     },

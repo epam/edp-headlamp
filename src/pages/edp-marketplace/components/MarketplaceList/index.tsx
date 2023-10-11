@@ -79,7 +79,7 @@ export const MarketplaceList = () => {
                         const key = `marketplace-item-${item?.spec?.displayName}`;
 
                         return (
-                            <Grid key={key} item xs={4}>
+                            <Grid key={key} item xs={12} md={6} lg={4}>
                                 <TemplateCard
                                     activeTemplate={activeTemplate}
                                     handleTemplateClick={handleTemplateClick}

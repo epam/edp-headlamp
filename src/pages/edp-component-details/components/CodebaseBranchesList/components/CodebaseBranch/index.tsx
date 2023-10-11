@@ -109,6 +109,14 @@ export const CodebaseBranch = ({
 
             const sortedPipelineRuns = socketPipelineRuns.sort(sortKubeObjectByCreationTimestamp);
 
+            if (sortedPipelineRuns.length === 0) {
+                setPipelineRuns({
+                    all: [],
+                    latestBuildPipelineRun: undefined,
+                });
+                return;
+            }
+
             const [latestBuildPipelineRun] = sortedPipelineRuns;
 
             if (

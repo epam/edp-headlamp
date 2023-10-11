@@ -8,6 +8,9 @@ export const useStyles = makeStyles(theme => ({
 
         '&:hover $cardBack': {
             opacity: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
         },
     },
     cardContent: {
@@ -23,9 +26,6 @@ export const useStyles = makeStyles(theme => ({
     },
     cardBack: {
         padding: rem(5),
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -34,7 +34,8 @@ export const useStyles = makeStyles(theme => ({
         zIndex: 1,
         opacity: 0,
         backgroundColor: alpha(darken(theme.palette.squareButton.background, 0.25), 0.8),
-        transition: 'opacity 300ms ease',
+        transition: 'opacity 300ms ease, pointer-events 500ms ease',
+        display: 'none',
     },
     cardTitle: {
         textOverflow: 'ellipsis',

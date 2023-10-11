@@ -1,6 +1,6 @@
-import { TileChart } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Typography } from '@material-ui/core';
 import React from 'react';
+import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
 import { Render } from '../../../../components/Render';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
@@ -66,7 +66,7 @@ export const CodebaseBranchesGraph = () => {
     );
 
     return (
-        <TileChart
+        <HeadlampTileChart
             total={codebaseBranchesInfo.total === null ? -1 : codebaseBranchesInfo.total}
             data={[
                 {
