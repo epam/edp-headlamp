@@ -1,25 +1,16 @@
 import { ElkExtendedEdge, ElkNode } from 'elkjs';
 
-export interface MyNode extends ElkNode {
-    id: string;
-    color: string;
-    icon: string;
-    status: string;
-    isRotating: boolean;
-    title: string;
-    height: number;
-    width: number;
-    url?: string;
-}
-
-export interface MyEdge extends ElkExtendedEdge {
+export interface MyNode<T = unknown> extends ElkNode {
+    data: T;
     color: string;
 }
 
 export interface GraphProps {
     id: string;
-    nodes: MyNode[];
-    edges: MyEdge[];
+    nodes: ElkNode[];
+    edges: ElkExtendedEdge[];
     type?: string;
     direction?: string;
+    renderEdge: (edge: ElkExtendedEdge) => JSX.Element;
+    renderNode: (node: ElkNode) => JSX.Element;
 }

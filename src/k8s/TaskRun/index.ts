@@ -4,7 +4,12 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { ValueOf } from '../../types/global';
 import { streamResults } from '../common/streamResults';
 import { TaskRunKubeObjectConfig } from './config';
-import { TASK_RUN_REASON, TASK_RUN_STATUS } from './constants';
+import {
+    TASK_RUN_REASON,
+    TASK_RUN_STATUS,
+    TASK_RUN_STEP_REASON,
+    TASK_RUN_STEP_STATUS,
+} from './constants';
 import {
     TASK_RUN_LABEL_SELECTOR_CD_PIPELINE_NAME,
     TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN,
@@ -46,7 +51,10 @@ export class TaskRunKubeObject extends K8s.cluster.makeKubeObject<TaskRunKubeObj
         return taskRun?.status?.conditions?.[0]?.reason || 'Unknown';
     }
 
-    static getStatusIcon(status: string, reason: string): [string, string, boolean?] {
+    static getStatusIcon(
+        status: ValueOf<typeof TASK_RUN_STATUS>,
+        reason: ValueOf<typeof TASK_RUN_REASON>
+    ): [string, string, boolean?] {
         if (status === undefined || reason === undefined) {
             return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
         }
@@ -71,6 +79,32 @@ export class TaskRunKubeObject extends K8s.cluster.makeKubeObject<TaskRunKubeObj
             case TASK_RUN_STATUS.TRUE:
                 return [ICONS.CHECK_CIRCLE, STATUS_COLOR.SUCCESS];
             case TASK_RUN_STATUS.FALSE:
+                return [ICONS.CROSS_CIRCLE, STATUS_COLOR.ERROR];
+            default:
+                return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        }
+    }
+
+    static getStepStatusIcon(
+        status: ValueOf<typeof TASK_RUN_STEP_STATUS>,
+        reason: ValueOf<typeof TASK_RUN_STEP_REASON>
+    ): [string, string, boolean?] {
+        if (status === undefined) {
+            return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        }
+        const _status = status.toLowerCase();
+        const _reason = reason.toLowerCase();
+
+        switch (_status) {
+            case TASK_RUN_STEP_STATUS.RUNNING:
+                return [ICONS.LOADER_CIRCLE, STATUS_COLOR.IN_PROGRESS, true];
+            case TASK_RUN_STEP_STATUS.WAITING:
+                return [ICONS.LOADER_CIRCLE, STATUS_COLOR.IN_PROGRESS, true];
+            case TASK_RUN_STEP_STATUS.TERMINATED:
+                if (_reason === TASK_RUN_STEP_REASON.COMPLETED) {
+                    return [ICONS.CHECK_CIRCLE, STATUS_COLOR.SUCCESS];
+                }
+
                 return [ICONS.CROSS_CIRCLE, STATUS_COLOR.ERROR];
             default:
                 return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];

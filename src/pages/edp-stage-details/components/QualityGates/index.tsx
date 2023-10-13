@@ -1,14 +1,27 @@
-import { Button, CircularProgress, Grid } from '@material-ui/core';
+import { CardNodeColumn, CardNodeTitle } from '@carbon/charts-react/diagrams/CardNode';
+import { Button, CircularProgress, Grid, Link, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { Graph } from '../../../../components/Graph';
+import { Edge } from '../../../../components/Graph/components/Edge';
+import { Node } from '../../../../components/Graph/components/Node';
+import { MyNode } from '../../../../components/Graph/components/types';
+import { StatusIcon } from '../../../../components/StatusIcon';
 import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
+import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../k8s/PipelineRun/constants';
 import { useCreateAutotestRunnerPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateAutotestRunnerPipelineRun';
+import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
+import { TaskRunKubeObject } from '../../../../k8s/TaskRun';
+import { TASK_RUN_STEP_REASON, TASK_RUN_STEP_STATUS } from '../../../../k8s/TaskRun/constants';
 import { useStreamTaskRunListByPipelineNameAndPipelineType } from '../../../../k8s/TaskRun/hooks/useStreamTaskRunListByPipelineNameAndPipelineType';
+import { TaskRunKubeObjectInterface } from '../../../../k8s/TaskRun/types';
 import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
+import { GENERATE_URL_SERVICE } from '../../../../services/url';
+import { ValueOf } from '../../../../types/global';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../utils/styling/rem';
 import { useDataContext } from '../../providers/Data/hooks';
@@ -17,6 +30,98 @@ import { EDPStageDetailsRouteParams } from '../../types';
 import { useColumns } from './hooks/useColumns';
 import { useQualityGatesGraphData } from './hooks/useQualityGatesGraphData';
 import { QualityGatesProps } from './types';
+
+interface TaskRunStep {
+    // @ts-ignore
+    name: string;
+    [key: string]: {
+        reason?: ValueOf<typeof TASK_RUN_STEP_REASON>;
+    };
+}
+
+const parseTaskRunStepStatus = (step: TaskRunStep) => {
+    return step?.[TASK_RUN_STEP_STATUS.RUNNING]
+        ? TASK_RUN_STEP_STATUS.RUNNING
+        : step?.[TASK_RUN_STEP_STATUS.WAITING]
+        ? TASK_RUN_STEP_STATUS.WAITING
+        : step?.[TASK_RUN_STEP_STATUS.TERMINATED]
+        ? TASK_RUN_STEP_STATUS.TERMINATED
+        : undefined;
+};
+
+const parseTaskRunStepStatusObject = (step: TaskRunStep) => {
+    return (
+        step?.[TASK_RUN_STEP_STATUS.RUNNING] ||
+        step?.[TASK_RUN_STEP_STATUS.WAITING] ||
+        step?.[TASK_RUN_STEP_STATUS.TERMINATED]
+    );
+};
+
+const parseTaskRunStepReason = (step: TaskRunStep): ValueOf<typeof TASK_RUN_STEP_REASON> => {
+    const statusObject = parseTaskRunStepStatusObject(step);
+    return statusObject?.reason;
+};
+
+const getStatusByResourceType = (
+    resourceType: 'pipelinerun' | 'taskrun',
+    resource: PipelineRunKubeObjectInterface | TaskRunKubeObjectInterface
+): [string, string] => {
+    if (resourceType === 'taskrun') {
+        const status = TaskRunKubeObject.parseStatus(resource);
+        const reason = TaskRunKubeObject.parseStatusReason(resource);
+        return [status, reason];
+    } else if (resourceType === 'pipelinerun') {
+        const status = PipelineRunKubeObject.parseStatus(resource);
+        const reason = PipelineRunKubeObject.parseStatusReason(resource);
+        return [status, reason];
+    }
+
+    return [undefined, undefined];
+};
+
+const getStatusIconByResourceType = (
+    resourceType: 'pipelinerun' | 'taskrun',
+    status: string,
+    reason: string
+): [string, string, boolean] => {
+    if (resourceType === 'taskrun') {
+        // @ts-ignore
+        const [icon, color, isRotating] = TaskRunKubeObject.getStatusIcon(status, reason);
+        return [icon, color, isRotating];
+    } else if (resourceType === 'pipelinerun') {
+        // @ts-ignore
+        const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(status, reason);
+        return [icon, color, isRotating];
+    }
+
+    return [undefined, undefined, undefined];
+};
+
+const getResourceURLByResourceType = (
+    resourceType: 'pipelinerun' | 'taskrun',
+    resource: PipelineRunKubeObjectInterface | TaskRunKubeObjectInterface,
+    tektonBaseURL
+) => {
+    if (resourceType === 'taskrun') {
+        return (
+            resource &&
+            GENERATE_URL_SERVICE.createTektonTaskRunLink(
+                tektonBaseURL,
+                resource?.metadata?.namespace,
+                resource?.metadata?.name
+            )
+        );
+    } else if (resourceType === 'pipelinerun') {
+        return (
+            resource &&
+            GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+                tektonBaseURL,
+                resource?.metadata?.namespace,
+                resource?.metadata?.name
+            )
+        );
+    }
+};
 
 export const QualityGates = ({
     enrichedQualityGatesWithPipelineRuns,
@@ -27,6 +132,7 @@ export const QualityGates = ({
 }: QualityGatesProps) => {
     const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
     const columns = useColumns();
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 
     const { enrichedApplications } = useDataContext();
     const { stage } = useDynamicDataContext();
@@ -110,6 +216,112 @@ export const QualityGates = ({
         enrichedQualityGatesWithPipelineRuns
     );
 
+    const renderSteps = React.useCallback((steps: TaskRunStep[]) => {
+        if (!steps) {
+            return null;
+        }
+
+        return steps.map(step => {
+            const stepName = step?.name;
+            const status = parseTaskRunStepStatus(step);
+            const reason = parseTaskRunStepReason(step);
+            const [icon, color, isRotating] = TaskRunKubeObject.getStepStatusIcon(status, reason);
+            return (
+                <Grid item xs={12}>
+                    <Grid container spacing={1} alignItems={'center'}>
+                        <Grid item>
+                            <StatusIcon
+                                icon={icon}
+                                color={color}
+                                isRotating={isRotating}
+                                Title={`Status: ${status}. Reason: ${reason}`}
+                                width={15}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Typography variant={'subtitle2'} title={stepName}>
+                                {stepName}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            );
+        });
+    }, []);
+
+    const renderNode = React.useCallback(
+        (
+            node: MyNode<{
+                title?: string;
+                resourceType?: 'pipelinerun' | 'taskrun';
+                resource?: PipelineRunKubeObjectInterface | TaskRunKubeObjectInterface;
+            }>
+        ) => {
+            const {
+                data: { resourceType, resource, title },
+            } = node;
+
+            const [status, reason] = getStatusByResourceType(resourceType, resource);
+
+            const [icon, color, isRotating] = getStatusIconByResourceType(
+                resourceType,
+                status,
+                reason
+            );
+            const steps = resource?.status?.steps;
+            const Steps = renderSteps(steps);
+            const url = getResourceURLByResourceType(
+                resourceType,
+                resource,
+                EDPComponentsURLS?.tekton
+            );
+            return (
+                // @ts-ignore
+                <Node {...node}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <CardNodeColumn>
+                            <StatusIcon
+                                icon={icon}
+                                color={color}
+                                isRotating={isRotating}
+                                Title={`Status: ${status}. Reason: ${reason}`}
+                                width={15}
+                            />
+                        </CardNodeColumn>
+                        <CardNodeColumn>
+                            <ConditionalWrapper
+                                condition={!!steps}
+                                wrapper={children => (
+                                    <Tooltip
+                                        title={<>{Steps}</>}
+                                        interactive
+                                        arrow
+                                        placement={'bottom'}
+                                    >
+                                        {children}
+                                    </Tooltip>
+                                )}
+                            >
+                                <div>
+                                    <CardNodeTitle>
+                                        {url ? (
+                                            <Link href={url} target={'_blank'}>
+                                                {title}
+                                            </Link>
+                                        ) : (
+                                            <Typography variant={'subtitle2'}>{title}</Typography>
+                                        )}
+                                    </CardNodeTitle>
+                                </div>
+                            </ConditionalWrapper>
+                        </CardNodeColumn>
+                    </div>
+                </Node>
+            );
+        },
+        [EDPComponentsURLS?.tekton, renderSteps]
+    );
+
     return (
         <Grid container spacing={2} justifyContent={'flex-end'}>
             <Grid item xs={12}>
@@ -121,21 +333,14 @@ export const QualityGates = ({
             </Grid>
             <Grid item xs={12}>
                 {!!nodes && !!nodes.length && !!edges && !!edges.length ? (
-                    <div
-                        style={{
-                            height: rem(200),
-                            width: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Graph
-                            direction={'RIGHT'}
-                            nodes={nodes}
-                            edges={edges}
-                            id={'quality-gates'}
-                        />
-                    </div>
+                    <Graph
+                        direction={'RIGHT'}
+                        nodes={nodes}
+                        edges={edges}
+                        id={'quality-gates'}
+                        renderEdge={edge => <Edge direction={'RIGHT'} {...edge} />}
+                        renderNode={renderNode}
+                    />
                 ) : (
                     <CircularProgress />
                 )}

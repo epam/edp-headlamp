@@ -1,22 +1,10 @@
-import CardNode, { CardNodeColumn, CardNodeTitle } from '@carbon/charts-react/diagrams/CardNode';
-import { Link, Paper, Typography } from '@material-ui/core';
+import CardNode from '@carbon/charts-react/diagrams/CardNode';
+import { Paper } from '@material-ui/core';
 import React from 'react';
-import { StatusIcon } from '../../../StatusIcon';
 import { useStyles } from './styles';
 import { NodeProps } from './types';
 
-export const Node = ({
-    x,
-    y,
-    height,
-    width,
-    title,
-    url,
-    icon,
-    color,
-    isRotating,
-    status,
-}: NodeProps) => {
+export const Node: React.FC<NodeProps> = ({ x, y, height, width, color, children }) => {
     const classes = useStyles(color);
 
     return (
@@ -27,30 +15,7 @@ export const Node = ({
             style={{ overflow: 'visible' }}
         >
             <Paper style={{ height, width, overflow: 'hidden' }}>
-                <CardNode className={classes.node}>
-                    <CardNodeColumn>
-                        <StatusIcon
-                            icon={icon}
-                            color={color}
-                            isRotating={isRotating}
-                            Title={status}
-                            width={15}
-                        />
-                    </CardNodeColumn>
-                    <CardNodeColumn>
-                        <CardNodeTitle>
-                            {url ? (
-                                <Link href={url} target={'_blank'}>
-                                    {title}
-                                </Link>
-                            ) : (
-                                <Typography variant={'subtitle2'} title={title}>
-                                    {title}
-                                </Typography>
-                            )}
-                        </CardNodeTitle>
-                    </CardNodeColumn>
-                </CardNode>
+                <CardNode className={classes.node}>{children as React.ReactElement}</CardNode>
             </Paper>
         </foreignObject>
     );

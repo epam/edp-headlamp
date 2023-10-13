@@ -24,8 +24,8 @@ div[class*="SnackbarItem-variantWarning"] {
     color: #000;
 }
 
-.react-transform-wrapper {
-    width: auto !important;
+.react-transform-wrapper, .react-transform-component {
+    width: 100% !important;
     height: auto !important;
 }
 

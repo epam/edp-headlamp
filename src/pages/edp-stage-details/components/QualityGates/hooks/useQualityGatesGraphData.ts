@@ -1,21 +1,13 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
 import { TaskRunKubeObject } from '../../../../../k8s/TaskRun';
 import { TaskRunKubeObjectInterface } from '../../../../../k8s/TaskRun/types';
-import { GENERATE_URL_SERVICE } from '../../../../../services/url';
-import {
-    EDPStageDetailsRouteParams,
-    EnrichedQualityGateWithAutotestPipelineRun,
-} from '../../../types';
+import { EnrichedQualityGateWithAutotestPipelineRun } from '../../../types';
 
 export const useQualityGatesGraphData = (
     taskRunList: TaskRunKubeObjectInterface[],
     enrichedQualityGatesWithPipelineRuns: EnrichedQualityGateWithAutotestPipelineRun[]
 ) => {
-    const { namespace } = useParams<EDPStageDetailsRouteParams>();
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
     const _enrichedQualityGatesWithPipelineRuns = React.useMemo(
         () => enrichedQualityGatesWithPipelineRuns || [],
         [enrichedQualityGatesWithPipelineRuns]
@@ -24,35 +16,24 @@ export const useQualityGatesGraphData = (
     const extraNodes = React.useMemo(
         () =>
             _enrichedQualityGatesWithPipelineRuns.map((el, idx) => {
-                const tektonLink =
-                    el?.autotestPipelineRun &&
-                    GENERATE_URL_SERVICE.createTektonPipelineRunLink(
-                        EDPComponentsURLS?.tekton,
-                        el?.autotestPipelineRun?.metadata?.namespace,
-                        el?.autotestPipelineRun?.metadata?.name
-                    );
-
                 const status = PipelineRunKubeObject.parseStatus(el?.autotestPipelineRun);
                 const reason = PipelineRunKubeObject.parseStatusReason(el?.autotestPipelineRun);
 
-                const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(
-                    status,
-                    reason
-                );
+                const [color] = PipelineRunKubeObject.getStatusIcon(status, reason);
 
                 return {
                     id: `node::${idx}`,
-                    status: `Status: ${status}. Reason: ${reason}`,
-                    icon,
                     color,
-                    isRotating,
-                    url: tektonLink,
-                    title: el.qualityGate.stepName,
                     height: 35,
                     width: 150,
+                    data: {
+                        resourceType: 'pipelinerun',
+                        resource: el.autotestPipelineRun,
+                        title: el.qualityGate.stepName,
+                    },
                 };
             }),
-        [EDPComponentsURLS, _enrichedQualityGatesWithPipelineRuns]
+        [_enrichedQualityGatesWithPipelineRuns]
     );
 
     const nodes = React.useMemo(() => {
@@ -66,11 +47,7 @@ export const useQualityGatesGraphData = (
         const initAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(initAutotestTaskRun);
         const initAutotestTaskRunReason = TaskRunKubeObject.parseStatusReason(initAutotestTaskRun);
 
-        const [
-            initAutotestTaskRunStatusIcon,
-            initAutotestTaskRunStatusColor,
-            initAutotestTaskRunStatusIsRotating,
-        ] = PipelineRunKubeObject.getStatusIcon(
+        const [, initAutotestTaskRunStatusColor] = PipelineRunKubeObject.getStatusIcon(
             initAutotestTaskRunStatus,
             initAutotestTaskRunReason
         );
@@ -85,11 +62,7 @@ export const useQualityGatesGraphData = (
         const promoteAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(promoteTaskRun);
         const promoteAutotestTaskRunReason = TaskRunKubeObject.parseStatusReason(promoteTaskRun);
 
-        const [
-            promoteAutotestTaskRunStatusIcon,
-            promoteAutotestTaskRunStatusColor,
-            promoteAutotestTaskRunStatusIsRotating,
-        ] = PipelineRunKubeObject.getStatusIcon(
+        const [, promoteAutotestTaskRunStatusColor] = PipelineRunKubeObject.getStatusIcon(
             promoteAutotestTaskRunStatus,
             promoteAutotestTaskRunReason
         );
@@ -97,43 +70,29 @@ export const useQualityGatesGraphData = (
         return [
             {
                 id: 'node::prepare',
-                status: `Status: ${initAutotestTaskRunStatus}. Reason: ${initAutotestTaskRunReason}`,
-                icon: initAutotestTaskRunStatusIcon,
                 color: initAutotestTaskRunStatusColor,
-                isRotating: initAutotestTaskRunStatusIsRotating,
-                url:
-                    initAutotestTaskRun &&
-                    GENERATE_URL_SERVICE.createTektonTaskRunLink(
-                        EDPComponentsURLS?.tekton,
-                        initAutotestTaskRun?.metadata?.namespace,
-                        initAutotestTaskRun?.metadata?.name
-                    ),
-                title: 'prepare',
                 height: 35,
                 width: 150,
-                y: 0,
+                data: {
+                    resourceType: 'taskrun',
+                    resource: initAutotestTaskRun,
+                    title: 'prepare',
+                },
             },
             {
                 id: 'node::promote',
-                status: `Status: ${promoteAutotestTaskRunStatus}. Reason: ${promoteAutotestTaskRunReason}`,
-                icon: promoteAutotestTaskRunStatusIcon,
                 color: promoteAutotestTaskRunStatusColor,
-                isRotating: promoteAutotestTaskRunStatusIsRotating,
-                url:
-                    promoteTaskRun &&
-                    GENERATE_URL_SERVICE.createTektonTaskRunLink(
-                        EDPComponentsURLS?.tekton,
-                        promoteTaskRun?.metadata?.namespace,
-                        promoteTaskRun?.metadata?.name
-                    ),
-                title: 'promote',
                 height: 35,
                 width: 150,
-                y: 0,
+                data: {
+                    resourceType: 'taskrun',
+                    resource: promoteTaskRun,
+                    title: 'promote',
+                },
             },
             ...extraNodes,
         ];
-    }, [EDPComponentsURLS?.tekton, extraNodes, taskRunList]);
+    }, [extraNodes, taskRunList]);
 
     const edges = React.useMemo(() => {
         const initAutotestTaskRun =

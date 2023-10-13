@@ -14,3 +14,13 @@ export const TASK_RUN_STATUS = {
     FALSE: 'false',
     UNKNOWN: 'unknown',
 } as const;
+
+export const TASK_RUN_STEP_STATUS = {
+    RUNNING: 'running',
+    TERMINATED: 'terminated',
+    WAITING: 'waiting',
+} as const;
+
+export const TASK_RUN_STEP_REASON = {
+    COMPLETED: 'completed',
+} as const;

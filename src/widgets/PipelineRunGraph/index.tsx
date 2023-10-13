@@ -1,3 +1,4 @@
+import { CardNodeColumn, CardNodeTitle } from '@carbon/charts-react/diagrams/CardNode';
 import { Icon } from '@iconify/react';
 import {
     Dialog,
@@ -5,21 +6,59 @@ import {
     DialogTitle,
     Grid,
     IconButton,
+    Tooltip,
     Typography,
 } from '@material-ui/core';
 import React from 'react';
 import { Graph } from '../../components/Graph';
+import { Edge } from '../../components/Graph/components/Edge';
+import { Node } from '../../components/Graph/components/Node';
+import { MyNode } from '../../components/Graph/components/types';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { Render } from '../../components/Render';
+import { StatusIcon } from '../../components/StatusIcon';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../k8s/PipelineRun';
 import { TaskRunKubeObject } from '../../k8s/TaskRun';
+import { TASK_RUN_STEP_REASON, TASK_RUN_STEP_STATUS } from '../../k8s/TaskRun/constants';
 import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../k8s/TaskRun/labels';
 import { TaskRunKubeObjectInterface } from '../../k8s/TaskRun/types';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
+import { ValueOf } from '../../types/global';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from './constants';
 import { useStyles } from './styles';
 import { PipelineRunGraphDialogForwardedProps } from './types';
+
+interface TaskRunStep {
+    // @ts-ignore
+    name: string;
+    [key: string]: {
+        reason?: ValueOf<typeof TASK_RUN_STEP_REASON>;
+    };
+}
+
+const parseTaskRunStepStatus = (step: TaskRunStep) => {
+    return step?.[TASK_RUN_STEP_STATUS.RUNNING]
+        ? TASK_RUN_STEP_STATUS.RUNNING
+        : step?.[TASK_RUN_STEP_STATUS.WAITING]
+        ? TASK_RUN_STEP_STATUS.WAITING
+        : step?.[TASK_RUN_STEP_STATUS.TERMINATED]
+        ? TASK_RUN_STEP_STATUS.TERMINATED
+        : undefined;
+};
+
+const parseTaskRunStepStatusObject = (step: TaskRunStep) => {
+    return (
+        step?.[TASK_RUN_STEP_STATUS.RUNNING] ||
+        step?.[TASK_RUN_STEP_STATUS.WAITING] ||
+        step?.[TASK_RUN_STEP_STATUS.TERMINATED]
+    );
+};
+
+const parseTaskRunStepReason = (step: TaskRunStep): ValueOf<typeof TASK_RUN_STEP_REASON> => {
+    const statusObject = parseTaskRunStepStatusObject(step);
+    return statusObject?.reason;
+};
 
 export const PipelineRunGraph = () => {
     const classes = useStyles();
@@ -73,21 +112,17 @@ export const PipelineRunGraph = () => {
             const TaskRunByName = TaskRunListByNameMap.get(name);
             const status = TaskRunKubeObject.parseStatus(TaskRunByName);
             const reason = TaskRunKubeObject.parseStatusReason(TaskRunByName);
-            const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(status, reason);
+            const [, color] = PipelineRunKubeObject.getStatusIcon(status, reason);
 
             _nodes = [
-                ..._nodes,
                 {
                     id: `task::${name}`,
-                    status: `Status: ${status}. Reason: ${reason}`,
-                    icon,
-                    color,
-                    isRotating,
-                    url: null,
-                    title: name,
                     height: 35,
                     width: 150,
+                    color,
+                    data: { name, TaskRunByName },
                 },
+                ..._nodes,
             ];
         }
 
@@ -130,6 +165,81 @@ export const PipelineRunGraph = () => {
 
     const diagramIsReady = nodes !== null && edges !== null;
 
+    const renderSteps = React.useCallback((steps: TaskRunStep[]) => {
+        if (!steps) {
+            return null;
+        }
+
+        return steps.map(step => {
+            const stepName = step?.name;
+            const status = parseTaskRunStepStatus(step);
+            const reason = parseTaskRunStepReason(step);
+            const [icon, color, isRotating] = TaskRunKubeObject.getStepStatusIcon(status, reason);
+            return (
+                <Grid item xs={12}>
+                    <Grid container spacing={1} alignItems={'center'}>
+                        <Grid item>
+                            <StatusIcon
+                                icon={icon}
+                                color={color}
+                                isRotating={isRotating}
+                                Title={`Status: ${status}. Reason: ${reason}`}
+                                width={15}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Typography variant={'subtitle2'} title={stepName}>
+                                {stepName}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            );
+        });
+    }, []);
+
+    const renderNode = React.useCallback(
+        (node: MyNode<{ name: string; TaskRunByName: TaskRunKubeObjectInterface }>) => {
+            const {
+                data: { name, TaskRunByName },
+            } = node;
+
+            const steps = TaskRunByName?.status?.steps;
+
+            const status = TaskRunKubeObject.parseStatus(TaskRunByName);
+            const reason = TaskRunKubeObject.parseStatusReason(TaskRunByName);
+            const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(status, reason);
+            const Steps = renderSteps(steps);
+
+            return (
+                // @ts-ignore
+                <Node {...node}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <CardNodeColumn>
+                            <StatusIcon
+                                icon={icon}
+                                color={color}
+                                isRotating={isRotating}
+                                Title={`Status: ${status}. Reason: ${reason}`}
+                                width={15}
+                            />
+                        </CardNodeColumn>
+                        <CardNodeColumn>
+                            <Tooltip title={<>{Steps}</>} interactive arrow placement={'bottom'}>
+                                <div>
+                                    <CardNodeTitle>
+                                        <Typography variant={'subtitle2'}>{name}</Typography>
+                                    </CardNodeTitle>
+                                </div>
+                            </Tooltip>
+                        </CardNodeColumn>
+                    </div>
+                </Node>
+            );
+        },
+        [renderSteps]
+    );
+
     return (
         <Dialog
             open={open}
@@ -161,6 +271,8 @@ export const PipelineRunGraph = () => {
                                 nodes={nodes}
                                 edges={edges}
                                 id={'pipeline-run-steps'}
+                                renderEdge={edge => <Edge direction={'RIGHT'} {...edge} />}
+                                renderNode={renderNode}
                             />
                         </div>
                     </Render>

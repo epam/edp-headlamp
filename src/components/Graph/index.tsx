@@ -1,14 +1,22 @@
 import '@carbon/charts/styles-g90.css';
 import { ArrowRightMarker } from '@carbon/charts-react/diagrams/Marker';
+import { Icon } from '@iconify/react';
+import { IconButton } from '@material-ui/core';
 import { ElkNode } from 'elkjs';
 import ELK from 'elkjs/lib/elk.bundled';
 import React, { useEffect, useState } from 'react';
 import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
-import { Edge } from './components/Edge';
-import { Node } from './components/Node';
 import { GraphProps } from './components/types';
 
-export const Graph = ({ direction = 'RIGHT', id, nodes, edges, type = 'detailed' }: GraphProps) => {
+export const Graph = ({
+    direction = 'RIGHT',
+    id,
+    nodes,
+    edges,
+    renderEdge,
+    renderNode,
+    type = 'detailed',
+}: GraphProps) => {
     const elk = React.useMemo(
         () =>
             new ELK({
@@ -66,24 +74,48 @@ export const Graph = ({ direction = 'RIGHT', id, nodes, edges, type = 'detailed'
             initialPositionY={0}
             ref={transformComponentRef}
         >
-            <TransformComponent>
-                <svg
-                    style={{ height: graphHeight + 100, width: graphWidth }}
-                    viewBox={`0 0 ${graphWidth} ${graphHeight + 100 - graphHeight / 2}`}
-                    id="graph-svg"
-                >
-                    <defs>
-                        <ArrowRightMarker id="arrowRight" />
-                    </defs>
-                    {graphEdges.map((edge, i) => {
-                        return <Edge direction={direction} key={`edge_${i}`} {...edge} />;
-                    })}
-                    {graphNodes.map((node, i) => {
-                        //@ts-ignore
-                        return <Node key={`node_${i}`} {...node} />;
-                    })}
-                </svg>
-            </TransformComponent>
+            {({ zoomIn, zoomOut, resetTransform }) => {
+                return (
+                    <React.Fragment>
+                        <TransformComponent>
+                            <svg
+                                style={{ height: graphHeight + 100, width: graphWidth }}
+                                viewBox={`0 0 ${graphWidth} ${graphHeight + 100 - graphHeight / 2}`}
+                                id="graph-svg"
+                            >
+                                <defs>
+                                    <ArrowRightMarker id="arrowRight" />
+                                </defs>
+                                {graphEdges.map((edge, i) => {
+                                    return (
+                                        <React.Fragment key={`edge_${i}`}>
+                                            {renderEdge(edge)}
+                                        </React.Fragment>
+                                    );
+                                })}
+                                {graphNodes.map((node, i) => {
+                                    return (
+                                        <React.Fragment key={`node_${i}`}>
+                                            {renderNode(node)}
+                                        </React.Fragment>
+                                    );
+                                })}
+                            </svg>
+                        </TransformComponent>
+                        <div className="tools">
+                            <IconButton onClick={() => zoomIn()}>
+                                <Icon icon={'ic:baseline-zoom-in'} />
+                            </IconButton>
+                            <IconButton onClick={() => zoomOut()}>
+                                <Icon icon={'ic:baseline-zoom-out'} />
+                            </IconButton>
+                            <IconButton onClick={() => resetTransform()}>
+                                <Icon icon={'ic:baseline-zoom-in-map'} />
+                            </IconButton>
+                        </div>
+                    </React.Fragment>
+                );
+            }}
         </TransformWrapper>
     );
 };
