@@ -30,6 +30,7 @@ import { useGitServerByCodebaseQuery } from '../../../../../../k8s/EDPGitServer/
 import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../../../k8s/PipelineRun/constants';
 import { useCreateBuildPipelineRun } from '../../../../../../k8s/PipelineRun/hooks/useCreateBuildPipelineRun';
+import { PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE } from '../../../../../../k8s/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
 import { useStorageSizeQuery } from '../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
@@ -52,6 +53,17 @@ const pipelineRunTypeSelectOptions = pipelineRunTypes.map(([, value]) => ({
     label: capitalizeFirstLetter(value),
     value: value,
 }));
+
+const filterPipelineRunsByType = (
+    pipelineRunType: PIPELINE_TYPES,
+    pipelineRuns: PipelineRunKubeObjectInterface[]
+) =>
+    pipelineRunType === PIPELINE_TYPES.ALL
+        ? pipelineRuns
+        : pipelineRuns.filter(
+              ({ metadata: { labels } }) =>
+                  labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] === pipelineRunType
+          );
 
 export const CodebaseBranch = ({
     codebaseBranchData,
@@ -89,18 +101,13 @@ export const CodebaseBranch = ({
 
     const [, setError] = React.useState<Error>(null);
     const [pipelineRunType, setPipelineRunType] = React.useState<PIPELINE_TYPES>(
-        PIPELINE_TYPES['ALL']
+        PIPELINE_TYPES.ALL
     );
     const filteredPipelineRunsByType = React.useMemo(
-        () =>
-            pipelineRunType === 'all'
-                ? pipelineRuns.all
-                : pipelineRuns.all.filter(
-                      ({ metadata: { labels } }) =>
-                          labels['app.edp.epam.com/pipelinetype'] === pipelineRunType
-                  ),
+        () => filterPipelineRunsByType(pipelineRunType, pipelineRuns.all),
         [pipelineRunType, pipelineRuns.all]
     );
+
     const handleStorePipelineRuns = React.useCallback(
         (socketPipelineRuns: PipelineRunKubeObjectInterface[]) => {
             if (jenkinsCiToolIsUsed) {
