@@ -38,11 +38,15 @@ const InfoColumnsRenderer = ({ infoRows }: InfoColumnsProps) => {
                                             <Grid container spacing={1} alignItems={'center'}>
                                                 <Render condition={!!icon}>
                                                     <Grid item>
-                                                        <UseSpriteSymbol
-                                                            name={icon}
-                                                            width={20}
-                                                            height={20}
-                                                        />
+                                                        {typeof icon === 'string' ? (
+                                                            <UseSpriteSymbol
+                                                                name={icon}
+                                                                width={20}
+                                                                height={20}
+                                                            />
+                                                        ) : (
+                                                            icon
+                                                        )}
                                                     </Grid>
                                                 </Render>
                                                 <Grid item>

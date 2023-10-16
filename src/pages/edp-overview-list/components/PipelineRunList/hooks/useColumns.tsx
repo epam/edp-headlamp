@@ -112,7 +112,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                 label: 'Time',
                 render: resource => {
                     if (!resource?.status?.startTime || !resource?.status?.completionTime) {
-                        return <HoverInfoLabel label={''} hoverInfo={''} icon="mdi:calendar" />;
+                        return <HoverInfoLabel label={''} hoverInfo={''} icon={ICONS.CALENDAR} />;
                     }
 
                     const startTimeDate = new Date(resource?.status?.startTime);
@@ -125,8 +125,10 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                     return (
                         <HoverInfoLabel
                             label={time}
-                            hoverInfo={formatFullYear(startTimeDate)}
-                            icon="mdi:calendar"
+                            hoverInfo={`Start: ${formatFullYear(
+                                startTimeDate
+                            )}. End: ${formatFullYear(completionTimeDate)}`}
+                            icon={ICONS.CALENDAR}
                         />
                     );
                 },

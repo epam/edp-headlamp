@@ -4,6 +4,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { StatusIcon } from '../../../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../../../components/Table/types';
+import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
 import { useEDPComponentsURLsQuery } from '../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../k8s/PipelineRun/types';
@@ -106,7 +107,7 @@ export const usePipelineRunsColumns = (): TableColumn<PipelineRunKubeObjectInter
                 label: 'Time',
                 render: resource => {
                     if (!resource?.status?.startTime || !resource?.status?.completionTime) {
-                        return <HoverInfoLabel label={''} hoverInfo={''} icon="mdi:calendar" />;
+                        return <HoverInfoLabel label={''} hoverInfo={''} icon={ICONS.CALENDAR} />;
                     }
 
                     const startTimeDate = new Date(resource?.status?.startTime);

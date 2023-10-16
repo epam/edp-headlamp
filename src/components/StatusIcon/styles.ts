@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(() => ({
     icon: {
-        willChange: 'transform',
         display: 'block',
         lineHeight: 0,
     },

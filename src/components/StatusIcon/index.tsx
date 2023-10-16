@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react';
 import { Tooltip } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
+import { ConditionalWrapper } from '../ConditionalWrapper';
 import { useStyles } from './styles';
 import { StatusIconProps } from './types';
 
@@ -19,7 +20,14 @@ export const StatusIcon = ({
     return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
         <div onClick={stopPropagation}>
-            <Tooltip title={Title} interactive>
+            <ConditionalWrapper
+                condition={!!Title}
+                wrapper={children => (
+                    <Tooltip title={Title} interactive>
+                        {children}
+                    </Tooltip>
+                )}
+            >
                 <Icon
                     icon={icon}
                     color={color}
@@ -28,7 +36,7 @@ export const StatusIcon = ({
                         [classes.rotateIcon]: isRotating,
                     })}
                 />
-            </Tooltip>
+            </ConditionalWrapper>
         </div>
     );
 };

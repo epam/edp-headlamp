@@ -19,7 +19,7 @@ export const useQualityGatesGraphData = (
                 const status = PipelineRunKubeObject.parseStatus(el?.autotestPipelineRun);
                 const reason = PipelineRunKubeObject.parseStatusReason(el?.autotestPipelineRun);
 
-                const [color] = PipelineRunKubeObject.getStatusIcon(status, reason);
+                const [, color] = PipelineRunKubeObject.getStatusIcon(status, reason);
 
                 return {
                     id: `node::${idx}`,

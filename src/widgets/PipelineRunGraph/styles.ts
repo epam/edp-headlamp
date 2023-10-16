@@ -6,8 +6,9 @@ export const useStyles = makeStyles(() => ({
             minHeight: '50vh',
         },
     },
-    dialogContent: {
-        display: 'flex',
-        alignItems: 'center',
+    treeItemTitle: {
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
     },
 }));

@@ -18,6 +18,7 @@ export const useEDPComponentsURLsQuery = (namespace?: string) => {
                     acc[cur.spec.type] = cur.spec.url;
                     return acc;
                 }, {}),
+            enabled: !!namespace,
         },
     });
 };

@@ -39,7 +39,6 @@ export enum ICONS {
     DOC = 'bxs:book',
     DOC_PAGE = 'basil:document-outline',
     CLUSTERS = 'vaadin:cluster',
-    TIMEOUT = 'fluent-mdl2:unsync-occurence',
     SETTINGS = 'solar:settings-outline',
     VIEW_TABLE = 'ph:table',
     VIEW_GRID = 'ph:grid-nine',
@@ -58,4 +57,9 @@ export enum ICONS {
     GIT = 'mdi:git',
     SSO = 'wpf:key-security',
     DIAGRAM = 'icon-park-outline:tree-diagram',
+    ZOOM_IN = 'ic:baseline-zoom-in',
+    ZOOM_OUT = 'ic:baseline-zoom-out',
+    FIT_TO_SCREEN = 'material-symbols:pan-zoom-rounded',
+    ZOOM_OUT_MAP = 'material-symbols:zoom-out-map',
+    CALENDAR = 'mdi:calendar',
 }

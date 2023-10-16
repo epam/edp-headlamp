@@ -56,6 +56,12 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
         return pipelineRun?.status?.conditions?.[0]?.reason || 'Unknown';
     }
 
+    static parseStatusMessage(
+        pipelineRun: PipelineRunKubeObjectInterface
+    ): ValueOf<typeof PIPELINE_RUN_STATUS> {
+        return pipelineRun?.status?.conditions?.[0]?.message || 'No message';
+    }
+
     static getStatusIcon(status: string, reason: string): [string, string, boolean?] {
         if (status === undefined || reason === undefined) {
             return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
