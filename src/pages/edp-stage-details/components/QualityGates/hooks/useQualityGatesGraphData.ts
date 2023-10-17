@@ -1,6 +1,7 @@
 import React from 'react';
 import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
 import { TaskRunKubeObject } from '../../../../../k8s/TaskRun';
+import { TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK } from '../../../../../k8s/TaskRun/labels';
 import { TaskRunKubeObjectInterface } from '../../../../../k8s/TaskRun/types';
 import { EnrichedQualityGateWithAutotestPipelineRun } from '../../../types';
 
@@ -41,7 +42,7 @@ export const useQualityGatesGraphData = (
             taskRunList &&
             taskRunList.length &&
             taskRunList.find(
-                el => el.metadata.labels['tekton.dev/pipelineTask'] === 'init-autotest'
+                el => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'init-autotest'
             );
 
         const initAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(initAutotestTaskRun);
@@ -56,7 +57,7 @@ export const useQualityGatesGraphData = (
             taskRunList &&
             taskRunList.length &&
             taskRunList.find(
-                el => el.metadata.labels['tekton.dev/pipelineTask'] === 'promote-images'
+                el => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'promote-images'
             );
 
         const promoteAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(promoteTaskRun);
@@ -99,7 +100,7 @@ export const useQualityGatesGraphData = (
             taskRunList &&
             taskRunList.length &&
             taskRunList.find(
-                el => el.metadata.labels['tekton.dev/pipelineTask'] === 'init-autotest'
+                el => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'init-autotest'
             );
 
         const initAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(initAutotestTaskRun);
@@ -114,7 +115,7 @@ export const useQualityGatesGraphData = (
             taskRunList &&
             taskRunList.length &&
             taskRunList.find(
-                el => el.metadata.labels['tekton.dev/pipelineTask'] === 'promote-images'
+                el => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'promote-images'
             );
 
         const promoteAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(promoteTaskRun);

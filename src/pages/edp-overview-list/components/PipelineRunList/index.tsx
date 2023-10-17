@@ -2,8 +2,6 @@ import { Grid, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { EmptyList } from '../../../../components/EmptyList';
-import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import {
@@ -17,7 +15,7 @@ import { ValueOf } from '../../../../types/global';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
-import { useColumns } from './hooks/useColumns';
+import { PipelineRunList } from '../../../../widgets/PipelineRunList';
 
 const pipelineRunTypes = [
     PIPELINE_TYPES.ALL,
@@ -31,8 +29,7 @@ const pipelineRunTypeSelectOptions = pipelineRunTypes.map(value => ({
     value: value,
 }));
 
-export const PipelineRunList = () => {
-    const columns = useColumns();
+export const PipelineRunListOverview = () => {
     const {
         register,
         control,
@@ -182,11 +179,9 @@ export const PipelineRunList = () => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <Table
-                    columns={columns}
-                    data={filteredPipelineRuns}
+                <PipelineRunList
+                    pipelineRuns={filteredPipelineRuns}
                     isLoading={pipelineRuns === null}
-                    emptyListComponent={<EmptyList missingItemName={'pipeline runs'} />}
                 />
             </Grid>
         </Grid>

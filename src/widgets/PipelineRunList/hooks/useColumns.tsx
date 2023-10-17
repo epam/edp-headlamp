@@ -2,16 +2,16 @@ import { Icon } from '@iconify/react';
 import { HoverInfoLabel } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { IconButton, Link } from '@material-ui/core';
 import React from 'react';
-import { StatusIcon } from '../../../../../components/StatusIcon';
-import { TableColumn } from '../../../../../components/Table/types';
-import { ICONS } from '../../../../../icons/iconify-icons-mapping';
-import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
-import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
-import { useDialogContext } from '../../../../../providers/Dialog/hooks';
-import { GENERATE_URL_SERVICE } from '../../../../../services/url';
-import { formatFullYear, humanizeDefault } from '../../../../../utils/date/humanize';
-import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../../../../widgets/PipelineRunGraph/constants';
+import { StatusIcon } from '../../../components/StatusIcon';
+import { TableColumn } from '../../../components/Table/types';
+import { ICONS } from '../../../icons/iconify-icons-mapping';
+import { useEDPComponentsURLsQuery } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
+import { PipelineRunKubeObjectInterface } from '../../../k8s/PipelineRun/types';
+import { useDialogContext } from '../../../providers/Dialog/hooks';
+import { GENERATE_URL_SERVICE } from '../../../services/url';
+import { formatFullYear, humanizeDefault } from '../../../utils/date/humanize';
+import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../PipelineRunGraph/constants';
 
 export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();

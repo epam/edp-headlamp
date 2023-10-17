@@ -109,7 +109,9 @@ export const GENERATE_URL_SERVICE = {
     createTektonPipelineRunLink: (
         tektonURLOrigin: string,
         namespace: string,
-        pipelineRunName: string
+        pipelineRunName: string,
+        taskRunName?: string,
+        taskRunStepName?: string
     ) => {
         if (!tektonURLOrigin) {
             return;
@@ -121,7 +123,17 @@ export const GENERATE_URL_SERVICE = {
             tektonURLObject
         );
 
-        return tektonPipelineRunURLObject.href;
+        if (!taskRunName && !taskRunStepName) {
+            return tektonPipelineRunURLObject.href;
+        }
+
+        if (taskRunName && !taskRunStepName) {
+            return `${tektonPipelineRunURLObject.href}?pipelineTask=${taskRunName}`;
+        }
+
+        if (taskRunName && taskRunStepName) {
+            return `${tektonPipelineRunURLObject.href}?pipelineTask=${taskRunName}&step=${taskRunStepName}`;
+        }
     },
     createTektonTaskRunLink: (tektonURLOrigin: string, namespace: string, taskRunName: string) => {
         if (!tektonURLOrigin) {

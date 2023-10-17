@@ -27,7 +27,7 @@ export const Graph = ({
                 defaultLayoutOptions: {
                     'elk.algorithm': 'layered',
                     'elk.direction': direction,
-                    'elk.edgeRouting': 'ORTHOGONAL',
+                    'elk.edgeRouting': 'POLYLINE',
                     'elk.layered.mergeEdges': true as unknown as string,
                     'elk.layered.nodePlacement.strategy': 'NETWORK_SIMPLEX',
                     separateConnectedComponents: false as unknown as string,

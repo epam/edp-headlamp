@@ -6,7 +6,7 @@ import { CDPipelinesGraph } from './components/CDPipelinesGraph';
 import { CodebaseBranchesGraph } from './components/CodebaseBranchesGraph';
 import { CodebasesGraph } from './components/CodebasesGraph';
 import { ComponentList } from './components/ComponentList';
-import { PipelineRunList } from './components/PipelineRunList';
+import { PipelineRunListOverview } from './components/PipelineRunList';
 import { PipelineRunsGraph } from './components/PipelineRunsGraph';
 import { StagesGraph } from './components/StagesGraph';
 
@@ -38,7 +38,7 @@ export const PageView = () => {
             <SectionBox title={'Pipelines'} py={2} mt={[4, 0, 0]}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <PipelineRunList />
+                        <PipelineRunListOverview />
                     </Grid>
                 </Grid>
             </SectionBox>

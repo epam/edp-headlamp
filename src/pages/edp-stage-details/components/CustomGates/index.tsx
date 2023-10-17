@@ -2,17 +2,15 @@ import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { EmptyList } from '../../../../components/EmptyList';
-import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { usePipelineByTypeListQuery } from '../../../../k8s/Pipeline/hooks/usePipelineByTypeListQuery';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../k8s/PipelineRun/constants';
 import { useCreateDeployPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateDeployPipelineRun';
 import { FormSelect } from '../../../../providers/Form/components/FormSelect';
+import { PipelineRunList } from '../../../../widgets/PipelineRunList';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { EDPStageDetailsRouteParams } from '../../types';
-import { useColumns } from './hooks/useColumns';
 import { CustomGatesProps } from './types';
 
 const pipelineNameFieldName = 'pipelineName';
@@ -24,7 +22,6 @@ export const CustomGates = ({
     everyArgoAppIsHealthyAndInSync,
 }: CustomGatesProps) => {
     const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
-    const columns = useColumns();
     const { stage } = useDynamicDataContext();
     const stageSpecName = stage?.spec.name;
 
@@ -148,11 +145,9 @@ export const CustomGates = ({
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <Table
-                    columns={columns}
-                    data={latestTenDeployPipelineRuns}
+                <PipelineRunList
+                    pipelineRuns={latestTenDeployPipelineRuns}
                     isLoading={!latestTenDeployPipelineRuns}
-                    emptyListComponent={<EmptyList missingItemName={'custom gates'} />}
                 />
             </Grid>
         </Grid>

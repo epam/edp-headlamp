@@ -14,11 +14,9 @@ import clsx from 'clsx';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { EmptyList } from '../../../../../../components/EmptyList';
 import { Render } from '../../../../../../components/Render';
 import { ResourceIconLink } from '../../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../../components/StatusIcon';
-import { Table } from '../../../../../../components/Table';
 import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../constants/statuses';
@@ -39,10 +37,10 @@ import { GENERATE_URL_SERVICE } from '../../../../../../services/url';
 import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
+import { PipelineRunList } from '../../../../../../widgets/PipelineRunList';
 import { EDPComponentDetailsRouteParams } from '../../../../types';
 import { isDefaultBranch } from '../../utils';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
-import { usePipelineRunsColumns } from './hooks/usePipelineRunsColumns';
 import { useStyles } from './styles';
 import { CodebaseBranchProps } from './types';
 
@@ -88,7 +86,6 @@ export const CodebaseBranch = ({
 
     const classes = useStyles();
     const mainInfoRows = useMainInfoRows(codebaseBranchData);
-    const pipelineRunsColumns = usePipelineRunsColumns();
     const normalizedCodebaseBranchName = codebaseBranchData.metadata.name.replaceAll('/', '-');
 
     const [pipelineRuns, setPipelineRuns] = React.useState<{
@@ -385,19 +382,9 @@ export const CodebaseBranch = ({
                                         </Grid>
                                     </Render>
                                     <Grid item xs={12}>
-                                        <Table
-                                            columns={pipelineRunsColumns}
-                                            data={filteredPipelineRunsByType}
+                                        <PipelineRunList
+                                            pipelineRuns={filteredPipelineRunsByType}
                                             isLoading={pipelineRuns.all === null}
-                                            emptyListComponent={
-                                                <EmptyList
-                                                    missingItemName={
-                                                        pipelineRunType === PIPELINE_TYPES.ALL
-                                                            ? 'pipeline runs'
-                                                            : `${pipelineRunType} pipeline runs`
-                                                    }
-                                                />
-                                            }
                                         />
                                     </Grid>
                                 </Grid>
