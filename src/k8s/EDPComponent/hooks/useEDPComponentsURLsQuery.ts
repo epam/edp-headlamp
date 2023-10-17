@@ -1,3 +1,4 @@
+import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { useEDPComponentsQuery } from './useEDPComponentsQuery';
 
 type EDPComponentName = string;
@@ -10,7 +11,7 @@ export type EDPComponentsURLS = {
 export const useEDPComponentsURLsQuery = (namespace?: string) => {
     return useEDPComponentsQuery<EDPComponentsURLS>({
         props: {
-            namespace,
+            namespace: namespace || getDefaultNamespace(),
         },
         options: {
             select: data =>
@@ -18,7 +19,6 @@ export const useEDPComponentsURLsQuery = (namespace?: string) => {
                     acc[cur.spec.type] = cur.spec.url;
                     return acc;
                 }, {}),
-            enabled: !!namespace,
         },
     });
 };

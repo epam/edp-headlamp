@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import { HoverInfoLabel } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { IconButton, Link } from '@material-ui/core';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
@@ -13,11 +12,9 @@ import { useDialogContext } from '../../../../../providers/Dialog/hooks';
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { formatFullYear, humanizeDefault } from '../../../../../utils/date/humanize';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../../../../widgets/PipelineRunGraph/constants';
-import { EDPComponentDetailsRouteParams } from '../../../../edp-component-details/types';
 
 export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
-    const { namespace } = useParams<EDPComponentDetailsRouteParams>();
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
 
     const { setDialog } = useDialogContext();
 
@@ -125,9 +122,18 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                     return (
                         <HoverInfoLabel
                             label={time}
-                            hoverInfo={`Start: ${formatFullYear(
-                                startTimeDate
-                            )}. End: ${formatFullYear(completionTimeDate)}`}
+                            hoverInfo={
+                                <>
+                                    <div>Start: {formatFullYear(startTimeDate)}.</div>
+                                    <div>
+                                        End:{' '}
+                                        {completionTimeDate
+                                            ? formatFullYear(completionTimeDate)
+                                            : ''}
+                                        .
+                                    </div>
+                                </>
+                            }
                             icon={ICONS.CALENDAR}
                         />
                     );
@@ -154,6 +160,6 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                 },
             },
         ],
-        [EDPComponentsURLS?.tekton, setDialog]
+        [EDPComponentsURLS, setDialog]
     );
 };

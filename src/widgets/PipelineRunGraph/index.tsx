@@ -308,9 +308,8 @@ export const PipelineRunGraph = () => {
               )
             : pipelineRefName;
 
-        const startTimeDate = new Date(pipelineRun?.status?.startTime);
-        const completionTimeDate = new Date(pipelineRun?.status?.completionTime);
-        const durationTime = humanizeDefault(completionTimeDate.getTime(), startTimeDate.getTime());
+        const startTime = pipelineRun?.status?.startTime;
+        const completionTime = pipelineRun?.status?.completionTime;
 
         const pipelineRunStatus = PipelineRunKubeObject.parseStatus(pipelineRun);
         const pipelineRunReason = PipelineRunKubeObject.parseStatusReason(pipelineRun);
@@ -346,15 +345,21 @@ export const PipelineRunGraph = () => {
                 },
                 {
                     label: 'Started at',
-                    text: formatFullYear(startTimeDate),
+                    text: startTime ? formatFullYear(new Date(startTime)) : null,
                 },
                 {
                     label: 'Ended at',
-                    text: formatFullYear(completionTimeDate),
+                    text: completionTime ? formatFullYear(new Date(completionTime)) : null,
                 },
                 {
                     label: 'Duration',
-                    text: durationTime,
+                    text:
+                        startTime && completionTime
+                            ? humanizeDefault(
+                                  new Date(completionTime).getTime(),
+                                  new Date(startTime).getTime()
+                              )
+                            : null,
                 },
             ],
             [

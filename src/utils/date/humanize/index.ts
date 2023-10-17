@@ -13,20 +13,40 @@ humanize.languages['en-mini'] = {
     ms: () => 'ms',
 };
 
-export const humanizeDefault = (timeA: number, timeB: number) =>
-    humanize(timeA - timeB, {
-        language: 'en-mini',
-        spacer: '',
-        delimiter: ' ',
-        fallbacks: ['en'],
-        largest: 2,
-        round: false,
-        units: ['m', 's'],
-    });
+export const humanizeDefault = (timeA: number, timeB: number) => {
+    if (!timeA || !timeB) {
+        console.error('Invalid time');
+        return 'Invalid time';
+    }
 
-export const formatFullYear = (date: Date) =>
-    new Intl.DateTimeFormat('en-US', {
-        dateStyle: 'full',
-        timeStyle: 'long',
-        timeZone: 'UTC',
-    }).format(date);
+    try {
+        return humanize(timeA - timeB, {
+            language: 'en-mini',
+            spacer: '',
+            delimiter: ' ',
+            fallbacks: ['en'],
+            largest: 2,
+            round: false,
+            units: ['m', 's'],
+        });
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+export const formatFullYear = (date: Date) => {
+    if (!date || !(date instanceof Date)) {
+        console.error('Invalid date');
+        return 'Invalid date';
+    }
+
+    try {
+        return new Intl.DateTimeFormat('en-US', {
+            dateStyle: 'full',
+            timeStyle: 'long',
+            timeZone: 'UTC',
+        }).format(date);
+    } catch (e) {
+        console.error(e);
+    }
+};
