@@ -20,7 +20,7 @@ export const useStreamAutotestRunnerPipelineRunList = ({
     );
 
     React.useEffect(() => {
-        if (!stageSpecName) {
+        if (!stageSpecName || !CDPipelineMetadataName) {
             return;
         }
 

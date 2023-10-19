@@ -74,10 +74,8 @@ export class EDPCDPipelineStageKubeObject extends K8s.cluster.makeKubeObject<EDP
         namespace: string,
         CDPipelineMetadataName: string
     ): Promise<KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>> {
-        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-        return ApiProxy.request(url, {
-            labelSelector: `${STAGE_LABEL_SELECTOR_CD_PIPELINE_NAME}=${CDPipelineMetadataName}`,
-        });
+        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${STAGE_LABEL_SELECTOR_CD_PIPELINE_NAME}=${CDPipelineMetadataName}`;
+        return ApiProxy.request(url);
     }
 
     static streamCDPipelineStage({
