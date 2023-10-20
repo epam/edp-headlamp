@@ -8,6 +8,7 @@ import {
     PIPELINE_RUN_STATUS,
     PIPELINE_RUN_STATUS_SELECT_OPTIONS,
 } from '../../../../k8s/PipelineRun/constants';
+import { PIPELINE_RUN_LABEL_SELECTOR_CODEBASE } from '../../../../k8s/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { FormControlLabelWithTooltip } from '../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FormSelect } from '../../../../providers/Form/components/FormSelect';
@@ -57,13 +58,14 @@ export const PipelineRunListOverview = () => {
 
         if (filters.status && filters.status !== 'All') {
             newPipelineRuns = newPipelineRuns.filter(
-                ({ status: { conditions } }) => conditions[0].status === filters.status
+                ({ status: { conditions } }) =>
+                    conditions?.[0]?.status?.toLowerCase() === filters.status
             );
         }
 
         if (filters.codebases && !!filters.codebases.length) {
             newPipelineRuns = newPipelineRuns.filter(({ metadata: { labels } }) =>
-                filters.codebases.includes(labels['app.edp.epam.com/codebase'])
+                filters.codebases.includes(labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE])
             );
         }
 
@@ -73,7 +75,7 @@ export const PipelineRunListOverview = () => {
     const pipelineCodebases = React.useMemo(() => {
         return new Set(
             pipelineRuns
-                ?.map(({ metadata: { labels } }) => labels['app.edp.epam.com/codebase'])
+                ?.map(({ metadata: { labels } }) => labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE])
                 .filter(Boolean)
         );
     }, [pipelineRuns]);

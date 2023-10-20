@@ -22,6 +22,7 @@ export const CDPipelineApplicationsTable = () => {
                     data={enrichedApplications}
                     columns={columns}
                     isLoading={!enrichedApplications}
+                    rowsPerPage={5}
                 />
             </Grid>
         </Grid>
