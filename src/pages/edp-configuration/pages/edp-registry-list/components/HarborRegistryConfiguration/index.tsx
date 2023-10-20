@@ -165,10 +165,6 @@ export const HarborRegistryConfiguration = ({ setActiveStep }) => {
     ]);
 
     const resourcesToUpdate = React.useMemo(() => {
-        if (!data) {
-            return;
-        }
-
         return [
             {
                 actionType: CRUD_TYPES.EDIT,
