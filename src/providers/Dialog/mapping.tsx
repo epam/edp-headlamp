@@ -1,4 +1,6 @@
 import React from 'react';
+import { ConfirmResourcesUpdates } from '../../widgets/ConfirmResourcesUpdates';
+import { CONFIRM_RESOURCES_UPDATES_DIALOG_NAME } from '../../widgets/ConfirmResourcesUpdates/constants';
 import { CreateCodebaseBranch } from '../../widgets/CreateCodebaseBranch';
 import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../widgets/CreateCodebaseBranch/constants';
 import { CreateCodebaseFromTemplate } from '../../widgets/CreateCodebaseFromTemplate';
@@ -27,6 +29,7 @@ const MemoizedDeleteKubeObject = React.memo(DeleteKubeObject);
 const MemoizedPodsLogViewer = React.memo(PodsLogViewer);
 const MemoizedPodsTerminal = React.memo(PodsTerminal);
 const MemoizedPipelineRunGraph = React.memo(PipelineRunGraph);
+const MemoizedConfirmResourcesUpdates = React.memo(ConfirmResourcesUpdates);
 
 export const MODAL_MAPPING = {
     [CREATE_EDIT_CODEBASE_DIALOG_NAME]: <MemoizedCreateEditCodebase />,
@@ -38,4 +41,5 @@ export const MODAL_MAPPING = {
     [PODS_LOG_VIEWER_DIALOG_NAME]: <MemoizedPodsLogViewer />,
     [PODS_TERMINAL_DIALOG_NAME]: <MemoizedPodsTerminal />,
     [PIPELINE_RUN_GRAPH_DIALOG_NAME]: <MemoizedPipelineRunGraph />,
+    [CONFIRM_RESOURCES_UPDATES_DIALOG_NAME]: <MemoizedConfirmResourcesUpdates />,
 } as const;

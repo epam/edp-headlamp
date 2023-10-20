@@ -39,3 +39,25 @@ export const createRegistrySecretInstance = ({
         },
     };
 };
+
+export const createECRSecretInstance = ({ name }: { name: string }): KubeObjectInterface => {
+    return {
+        apiVersion: 'v1',
+        kind: 'Secret',
+        // @ts-ignore
+        metadata: {
+            name,
+            labels: {
+                [SECRET_LABEL_SECRET_TYPE]: 'registry',
+            },
+        },
+        type: 'kubernetes.io/dockerconfigjson',
+        data: {
+            '.dockerconfigjson': safeEncode(
+                JSON.stringify({
+                    credsStore: 'ecr-login',
+                })
+            ),
+        },
+    };
+};

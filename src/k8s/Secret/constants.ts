@@ -6,3 +6,8 @@ export const INTEGRATION_SECRET_NAMES = {
     SONAR: 'ci-sonarqube',
     SSO: 'keycloak',
 } as const;
+
+export const REGISTRY_SECRET_NAMES = {
+    KANIKO_DOCKER_CONFIG: 'kaniko-docker-config',
+    REGCRED: 'regcred',
+} as const;

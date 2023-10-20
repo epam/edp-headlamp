@@ -28,6 +28,9 @@ const K8s = {
     serviceAccount: {
         default: Resource,
     },
+    configMap: {
+        default: Resource,
+    },
 };
 
 export { ApiProxy, K8s, Utils, Router };

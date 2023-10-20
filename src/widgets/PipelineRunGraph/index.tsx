@@ -79,6 +79,14 @@ export const PipelineRunGraph = () => {
         PIPELINE_RUN_GRAPH_DIALOG_NAME
     );
 
+    const pipelineRunStatus = pipelineRun?.status?.conditions?.[0]?.status || 'Unknown';
+    const pipelineRunReason = pipelineRun?.status?.conditions?.[0]?.reason || 'Unknown';
+    const pipelineRunMessage = pipelineRun?.status?.conditions?.[0]?.message || 'No message';
+    const pipelineRunName = pipelineRun?.metadata.name;
+    const pipelineRefName = pipelineRun?.spec?.pipelineRef?.name;
+    const startTime = pipelineRun?.status?.startTime;
+    const completionTime = pipelineRun?.status?.completionTime;
+
     const namespace = pipelineRun?.metadata.namespace;
 
     const [taskRuns] = TaskRunKubeObject.useList({
@@ -354,9 +362,6 @@ export const PipelineRunGraph = () => {
     );
 
     const infoRows = React.useMemo(() => {
-        const pipelineRunName = pipelineRun?.metadata.name;
-        const pipelineRefName = pipelineRun?.spec?.pipelineRef?.name;
-
         const pipelineRunLink = GENERATE_URL_SERVICE.createTektonPipelineRunLink(
             tektonBaseURL,
             namespace,
@@ -371,13 +376,6 @@ export const PipelineRunGraph = () => {
               )
             : pipelineRefName;
 
-        const startTime = pipelineRun?.status?.startTime;
-        const completionTime = pipelineRun?.status?.completionTime;
-
-        const pipelineRunStatus = PipelineRunKubeObject.parseStatus(pipelineRun);
-        const pipelineRunReason = PipelineRunKubeObject.parseStatusReason(pipelineRun);
-        const pipelineRunMessage = PipelineRunKubeObject.parseStatusMessage(pipelineRun);
-
         const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(
             pipelineRunStatus,
             pipelineRunReason
@@ -387,7 +385,7 @@ export const PipelineRunGraph = () => {
             [
                 {
                     label: 'Name',
-                    text: pipelineRun?.metadata.name,
+                    text: pipelineRunName,
                 },
                 {
                     label: 'Status',
@@ -444,7 +442,18 @@ export const PipelineRunGraph = () => {
                 },
             ],
         ];
-    }, [pipelineRun, tektonBaseURL, namespace]);
+    }, [
+        tektonBaseURL,
+        namespace,
+        pipelineRunName,
+        pipelineRun,
+        pipelineRefName,
+        pipelineRunStatus,
+        pipelineRunReason,
+        pipelineRunMessage,
+        startTime,
+        completionTime,
+    ]);
 
     return (
         <Dialog

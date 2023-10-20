@@ -9,17 +9,18 @@ export interface ConfigurationItem {
 }
 
 export interface ConfigurationBodyProps {
-    pageData: {
-        label: string;
-        description: string;
+    pageData?: {
+        label?: string;
+        description?: string;
         docUrl?: string;
     };
-    renderPlaceHolderData: ({
+    renderPlaceHolderData?: ({
         handleClosePlaceholder,
     }: {
         handleClosePlaceholder: () => void;
     }) => ConfigurationItem;
-    items: ConfigurationItem[];
-    emptyMessage: string;
+    items?: ConfigurationItem[];
+    emptyMessage?: string;
     blocker?: React.ReactElement;
+    bodyOnly?: boolean;
 }

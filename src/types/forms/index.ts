@@ -11,7 +11,6 @@ export interface FormNamesObject {
     [key: string]: FormNameObject;
 }
 export type FormValues<T extends FormNamesObject> = Record<keyof T, any>;
-export type FormNameKeys<T extends FormNamesObject> = keyof FormValues<T>;
 
 export interface BackwardNameMappingChildren {
     formItemName?: string;
@@ -25,15 +24,6 @@ export interface BackwardNameMapping {
             [key: string]: BackwardNameMappingChildren;
         };
     };
-}
-
-export interface CreationFormFieldInterface<
-    Names = {
-        [key: string]: FormNameObject;
-    }
-> {
-    names: Names;
-    handleFormFieldChange?(eventTarget: FieldEventTarget): void;
 }
 
 export interface SelectOption {

@@ -251,13 +251,13 @@ export const EDP_OPERATOR_GUIDE = {
         url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/nexus-sonatype`,
         anchors: {
             PREREQUISITES: {
-                url: `${EDP_USER_GUIDE_ROOT_URL}/nexus-sonatype/#prerequisites`,
+                url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/nexus-sonatype/#prerequisites`,
             },
             INSTALLATION: {
-                url: `${EDP_USER_GUIDE_ROOT_URL}/nexus-sonatype/#installation`,
+                url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/nexus-sonatype/#installation`,
             },
             CONFIGURATION: {
-                url: `${EDP_USER_GUIDE_ROOT_URL}/nexus-sonatype/#configuration`,
+                url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/nexus-sonatype/#configuration`,
             },
         },
     },
@@ -265,13 +265,24 @@ export const EDP_OPERATOR_GUIDE = {
         url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/sonarqube`,
         anchors: {
             PREREQUISITES: {
-                url: `${EDP_USER_GUIDE_ROOT_URL}/sonarqube/#prerequisites`,
+                url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/sonarqube/#prerequisites`,
             },
             INSTALLATION: {
-                url: `${EDP_USER_GUIDE_ROOT_URL}/sonarqube/#installation`,
+                url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/sonarqube/#installation`,
             },
             CONFIGURATION: {
-                url: `${EDP_USER_GUIDE_ROOT_URL}/sonarqube/#configuration`,
+                url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/sonarqube/#configuration`,
+            },
+        },
+    },
+    CONTAINER_REGISTRY_HARBOR: {
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/container-registry-harbor-integration-tekton-ci/`,
+        anchors: {
+            OVERVIEW: {
+                url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/container-registry-harbor-integration-tekton-ci/#overview`,
+            },
+            INTEGRATION_PROCEDURE: {
+                url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/container-registry-harbor-integration-tekton-ci/#integration-procedure`,
             },
         },
     },
