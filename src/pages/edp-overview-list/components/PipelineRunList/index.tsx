@@ -12,11 +12,18 @@ import { PIPELINE_RUN_LABEL_SELECTOR_CODEBASE } from '../../../../k8s/PipelineRu
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { FormControlLabelWithTooltip } from '../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FormSelect } from '../../../../providers/Form/components/FormSelect';
+import { LOCAL_STORAGE_SERVICE } from '../../../../services/local-storage';
 import { ValueOf } from '../../../../types/global';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { PipelineRunList } from '../../../../widgets/PipelineRunList';
+
+interface Filters {
+    type: PIPELINE_TYPES;
+    status: ValueOf<typeof PIPELINE_RUN_STATUS> | 'All';
+    codebases: string[];
+}
 
 const pipelineRunTypes = [
     PIPELINE_TYPES.ALL,
@@ -30,23 +37,28 @@ const pipelineRunTypeSelectOptions = pipelineRunTypes.map(value => ({
     value: value,
 }));
 
+const defaultFilterCfg = {
+    type: null,
+    status: null,
+    codebases: null,
+};
+
 export const PipelineRunListOverview = () => {
     const {
         register,
         control,
         formState: { errors },
+        setValue,
     } = useForm();
 
+    const lsFilterItemName = `edp_overview_pipeline_list_filter::${getDefaultNamespace()}`;
+
+    const lsFilterCfg = LOCAL_STORAGE_SERVICE.getItem(lsFilterItemName);
+
+    const filterCfg: Filters = lsFilterCfg ?? defaultFilterCfg;
+
     const [pipelineRuns, setPipelineRuns] = React.useState<PipelineRunKubeObjectInterface[]>(null);
-    const [filters, setFilters] = React.useState<{
-        type: PIPELINE_TYPES;
-        status: ValueOf<typeof PIPELINE_RUN_STATUS> | 'All';
-        codebases: string[];
-    }>({
-        type: null,
-        status: null,
-        codebases: null,
-    });
+    const [filters, setFilters] = React.useState<Filters>(filterCfg);
 
     const [, setError] = React.useState<Error>(null);
 
@@ -94,6 +106,13 @@ export const PipelineRunListOverview = () => {
     }, []);
 
     React.useEffect(() => {
+        if (lsFilterCfg) {
+            setValue('type', filters.type);
+            setValue('status', filters.status);
+        }
+    }, [filters.status, filters.type, lsFilterCfg, setValue]);
+
+    React.useEffect(() => {
         const cancelStream = PipelineRunKubeObject.streamPipelineRunListByTypeLabel({
             namespace: getDefaultNamespace(),
             type: filters.type === PIPELINE_TYPES.ALL ? null : filters.type,
@@ -111,11 +130,16 @@ export const PipelineRunListOverview = () => {
                     <Grid item xs={2}>
                         <FormSelect
                             {...register('type', {
-                                onChange: ({ target: { value } }) =>
-                                    setFilters({
-                                        ...filters,
-                                        type: value,
-                                    }),
+                                onChange: ({ target: { value } }) => {
+                                    setFilters(prev => {
+                                        const newFilters = {
+                                            ...prev,
+                                            type: value as Filters['type'],
+                                        };
+                                        LOCAL_STORAGE_SERVICE.setItem(lsFilterItemName, newFilters);
+                                        return newFilters;
+                                    });
+                                },
                             })}
                             control={control}
                             errors={errors}
@@ -128,11 +152,16 @@ export const PipelineRunListOverview = () => {
                     <Grid item xs={2}>
                         <FormSelect
                             {...register('status', {
-                                onChange: ({ target: { value } }) =>
-                                    setFilters({
-                                        ...filters,
-                                        status: value,
-                                    }),
+                                onChange: ({ target: { value } }) => {
+                                    setFilters(prev => {
+                                        const newFilters = {
+                                            ...prev,
+                                            status: value as Filters['status'],
+                                        };
+                                        LOCAL_STORAGE_SERVICE.setItem(lsFilterItemName, newFilters);
+                                        return newFilters;
+                                    });
+                                },
                             })}
                             control={control}
                             errors={errors}
@@ -166,14 +195,22 @@ export const PipelineRunListOverview = () => {
                                     freeSolo
                                     getOptionLabel={option => option}
                                     onChange={(event, value) => {
-                                        setFilters({
-                                            ...filters,
-                                            codebases: value,
+                                        setFilters(prev => {
+                                            const newFilters = {
+                                                ...prev,
+                                                codebases: value as Filters['codebases'],
+                                            };
+                                            LOCAL_STORAGE_SERVICE.setItem(
+                                                lsFilterItemName,
+                                                newFilters
+                                            );
+                                            return newFilters;
                                         });
                                     }}
                                     renderInput={params => (
                                         <TextField {...params} placeholder="Select codebases" />
                                     )}
+                                    value={filters.codebases ?? []}
                                 />
                             </Grid>
                         </Grid>
