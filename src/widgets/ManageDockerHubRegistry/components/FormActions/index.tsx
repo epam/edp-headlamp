@@ -75,7 +75,7 @@ export const FormActions = () => {
         });
 
         const newEDPConfigMap = editEDPConfigConfigMap(EDP_CONFIG_MAP_NAMES, data, {
-            registryHost,
+            registryHost: 'docker.io',
             registrySpace,
         });
 
