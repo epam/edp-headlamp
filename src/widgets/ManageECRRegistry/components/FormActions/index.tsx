@@ -48,7 +48,7 @@ export const FormActions = () => {
     const configMapIsLoading = data === null;
     const { editConfigMap } = useConfigMapCRUD({});
 
-    const { createSecret } = useSecretCRUD({
+    const { createSecret, editSecret } = useSecretCRUD({
         onSuccess: async () => {
             closeDialog();
 
@@ -83,10 +83,23 @@ export const FormActions = () => {
 
             await editConfigMap({ configMapData: newEDPConfigMap });
             await editServiceAccount({ serviceAccount: editedServiceAccount });
-            await createSecret({ secretData: newECRSecretInstance });
+            if (mode === FORM_MODES.CREATE) {
+                await createSecret({ secretData: newECRSecretInstance });
+            } else {
+                await editSecret({ secretData: newECRSecretInstance });
+            }
             setTimeout(() => reset(), 100);
         },
-        [createSecret, data, editConfigMap, editServiceAccount, reset, tektonServiceAccount]
+        [
+            createSecret,
+            data,
+            editConfigMap,
+            editSecret,
+            editServiceAccount,
+            mode,
+            reset,
+            tektonServiceAccount,
+        ]
     );
 
     return (
