@@ -21,6 +21,7 @@ import {
     TriggerType,
 } from '../../../fields';
 import { Cluster } from '../../../fields/Cluster';
+import { Namespace } from '../../../fields/Namespace';
 import { FormProps } from './types';
 
 export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
@@ -63,6 +64,9 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
                 </Grid>
                 <Grid item xs={6}>
                     <StageName otherStagesNames={otherStagesNames} />
+                </Grid>
+                <Grid item xs={6}>
+                    <Namespace />
                 </Grid>
                 <Grid item xs={6}>
                     <Description />

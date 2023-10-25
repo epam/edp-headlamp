@@ -10,9 +10,11 @@ export const useDefaultValues = () => {
     } = useSpecificDialogContext<CreateEditStageDialogForwardedProps>(
         CREATE_EDIT_STAGE_DIALOG_NAME
     );
+
     return React.useMemo(
         () => ({
             [STAGE_FORM_NAMES.triggerType.name]: stage?.spec.triggerType,
+            [STAGE_FORM_NAMES.deployNamespace.name]: stage?.spec.namespace,
         }),
         [stage]
     );

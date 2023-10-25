@@ -3,6 +3,7 @@ import { BackwardNameMapping } from '../../types/forms';
 const NAMES = {
     NAME: 'name',
     NAMESPACE: 'namespace',
+    DEPLOY_NAMESPACE: 'deployNamespace',
     DESCRIPTION: 'description',
     QUALITY_GATES: 'qualityGates',
     SOURCE_LIBRARY_BRANCH: 'sourceLibraryBranch',
@@ -26,6 +27,10 @@ export const STAGE_FORM_NAMES = {
     [NAMES.NAMESPACE]: {
         name: NAMES.NAMESPACE,
         path: ['metadata', 'namespace'],
+    },
+    [NAMES.DEPLOY_NAMESPACE]: {
+        name: NAMES.DEPLOY_NAMESPACE,
+        path: ['spec', 'namespace'],
     },
     [NAMES.DESCRIPTION]: {
         name: NAMES.DESCRIPTION,
