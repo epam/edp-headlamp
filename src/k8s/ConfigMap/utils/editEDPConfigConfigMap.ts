@@ -14,7 +14,6 @@ export const editEDPConfigConfigMap = (
     const base = { ...currentConfigMap };
 
     for (const [propKey, propValue] of Object.entries(formValues)) {
-        console.log(propKey, propValue, names);
         if (names[propKey]?.notUsedInFormData) {
             continue;
         }

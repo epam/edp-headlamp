@@ -1,12 +1,19 @@
 import { Grid, Link, Typography } from '@material-ui/core';
 import React from 'react';
+import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
+import { ManageRegistry } from '../../../../widgets/ManageRegistry';
 import { menu } from '../../menu';
-import { CreateRegistryStepper } from './components/CreateRegistryStepper';
 import { REGISTRY_LIST_PAGE_DESCRIPTION } from './constants';
+import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
+    const {
+        data: { EDPConfigMap, pullAccountSecret, pushAccountSecret, tektonServiceAccount },
+        isLoading,
+    } = useDynamicDataContext();
+
     return (
         <PageWithSubMenu list={menu}>
             <PageWrapper containerMaxWidth={'xl'}>
@@ -25,7 +32,16 @@ export const PageView = () => {
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <CreateRegistryStepper />
+                        <LoadingWrapper isLoading={isLoading}>
+                            <ManageRegistry
+                                formData={{
+                                    EDPConfigMap,
+                                    pullAccountSecret,
+                                    pushAccountSecret,
+                                    tektonServiceAccount,
+                                }}
+                            />
+                        </LoadingWrapper>
                     </Grid>
                 </Grid>
             </PageWrapper>

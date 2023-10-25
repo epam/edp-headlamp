@@ -20,7 +20,7 @@ import { ConfirmResourcesUpdatesDialogForwardedProps } from './types';
 export const ConfirmResourcesUpdates = () => {
     const {
         open,
-        forwardedProps: { deleteCallback, customText, resourcesArray },
+        forwardedProps: { deleteCallback, text, resourcesArray },
         closeDialog,
     } = useSpecificDialogContext<ConfirmResourcesUpdatesDialogForwardedProps>(
         CONFIRM_RESOURCES_UPDATES_DIALOG_NAME
@@ -45,55 +45,57 @@ export const ConfirmResourcesUpdates = () => {
                 <div style={{ marginBottom: rem(40) }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography variant={'body1'}>
-                                Are you sure you want to update resources below?
-                            </Typography>
-                            <Render condition={!!customText}>
-                                <Typography variant={'subtitle1'}>{customText}</Typography>
+                            <Render condition={!!text}>
+                                <Typography variant={'subtitle1'}>{text}</Typography>
                             </Render>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Render condition={!!resourcesArray}>
+                        <Render condition={!!resourcesArray}>
+                            <Grid item xs={12}>
                                 <Grid container spacing={1}>
-                                    {resourcesArray.map(({ name, kind, actionType }) => {
-                                        return (
-                                            <Grid item xs={12} key={name}>
-                                                <Typography
-                                                    variant={'body2'}
-                                                    component={'span'}
-                                                    style={{
-                                                        fontStyle: 'italic',
-                                                        marginRight: '5px',
-                                                    }}
-                                                >
-                                                    {kind}
-                                                </Typography>
-                                                <Typography
-                                                    variant={'body2'}
-                                                    component={'span'}
-                                                    style={{
-                                                        fontWeight: 'bold',
-                                                        marginRight: '5px',
-                                                    }}
-                                                >
-                                                    {name}
-                                                </Typography>
-                                                <Typography variant={'body2'} component={'span'}>
-                                                    will be{' '}
-                                                    {actionType === CRUD_TYPES.EDIT
-                                                        ? 'updated'
-                                                        : CRUD_TYPES.DELETE
-                                                        ? 'deleted'
-                                                        : CRUD_TYPES.CREATE
-                                                        ? 'created'
-                                                        : ''}
-                                                </Typography>
-                                            </Grid>
-                                        );
-                                    })}
+                                    {resourcesArray
+                                        ? resourcesArray.map(({ name, kind, actionType }) => {
+                                              return (
+                                                  <Grid item xs={12} key={name}>
+                                                      <Typography
+                                                          variant={'body2'}
+                                                          component={'span'}
+                                                          style={{
+                                                              fontStyle: 'italic',
+                                                              marginRight: '5px',
+                                                          }}
+                                                      >
+                                                          {kind}
+                                                      </Typography>
+                                                      <Typography
+                                                          variant={'body2'}
+                                                          component={'span'}
+                                                          style={{
+                                                              fontWeight: 'bold',
+                                                              marginRight: '5px',
+                                                          }}
+                                                      >
+                                                          {name}
+                                                      </Typography>
+                                                      <Typography
+                                                          variant={'body2'}
+                                                          component={'span'}
+                                                      >
+                                                          will be{' '}
+                                                          {actionType === CRUD_TYPES.EDIT
+                                                              ? 'updated'
+                                                              : CRUD_TYPES.DELETE
+                                                              ? 'deleted'
+                                                              : CRUD_TYPES.CREATE
+                                                              ? 'created'
+                                                              : ''}
+                                                      </Typography>
+                                                  </Grid>
+                                              );
+                                          })
+                                        : null}
                                 </Grid>
-                            </Render>
-                        </Grid>
+                            </Grid>
+                        </Render>
                         <Grid item xs={12}>
                             <TextField
                                 {...register('confirm', { required: true })}

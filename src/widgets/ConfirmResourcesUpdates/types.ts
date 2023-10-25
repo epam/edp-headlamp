@@ -8,6 +8,6 @@ export interface ResourceToUpdate {
 
 export interface ConfirmResourcesUpdatesDialogForwardedProps {
     deleteCallback: (...any) => Promise<void>;
-    customText?: string;
+    text?: string;
     resourcesArray: ResourceToUpdate[];
 }
