@@ -19,6 +19,12 @@ export class SecretKubeObject extends K8s.secret.default {
         return ApiProxy.request(url);
     }
 
+    static getSecretByName(namespace: string, name: string): Promise<SecretKubeObjectInterface> {
+        const url = `/api/${version}/namespaces/${namespace}/${pluralForm}/${name}`;
+
+        return ApiProxy.request(url);
+    }
+
     static streamSecretsByType({
         namespace,
         type,

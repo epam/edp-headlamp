@@ -30,6 +30,7 @@ import { PIPELINE_RUN_REASON } from '../../../../../../k8s/PipelineRun/constants
 import { useCreateBuildPipelineRun } from '../../../../../../k8s/PipelineRun/hooks/useCreateBuildPipelineRun';
 import { PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE } from '../../../../../../k8s/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
+import { useSecretByNameQuery } from '../../../../../../k8s/Secret/hooks/useSecretByName';
 import { useStorageSizeQuery } from '../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { useResourceActionListContext } from '../../../../../../providers/ResourceActionList/hooks';
@@ -77,12 +78,26 @@ export const CodebaseBranch = ({
     } = useForm();
     const { namespace } = useParams<EDPComponentDetailsRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+    const { data: ciDependencyTrackURL } = useSecretByNameQuery<string>({
+        props: {
+            namespace,
+            name: 'ci-dependency-track',
+        },
+        options: {
+            select: data => {
+                const url = data?.data?.url;
+
+                if (!url) {
+                    return null;
+                }
+                return window.atob(url);
+            },
+        },
+    });
 
     const {
         spec: { ciTool },
     } = codebaseData;
-
-    const jenkinsCiToolIsUsed = ciTool === CI_TOOLS['JENKINS'];
 
     const classes = useStyles();
     const mainInfoRows = useMainInfoRows(codebaseBranchData);
@@ -107,10 +122,6 @@ export const CodebaseBranch = ({
 
     const handleStorePipelineRuns = React.useCallback(
         (socketPipelineRuns: PipelineRunKubeObjectInterface[]) => {
-            if (jenkinsCiToolIsUsed) {
-                return;
-            }
-
             const sortedPipelineRuns = socketPipelineRuns.sort(sortKubeObjectByCreationTimestamp);
 
             if (sortedPipelineRuns.length === 0) {
@@ -135,7 +146,7 @@ export const CodebaseBranch = ({
                 latestBuildPipelineRun,
             });
         },
-        [jenkinsCiToolIsUsed, pipelineRuns.latestBuildPipelineRun]
+        [pipelineRuns.latestBuildPipelineRun]
     );
 
     const handleStreamError = React.useCallback((error: Error) => {
@@ -143,10 +154,6 @@ export const CodebaseBranch = ({
     }, []);
 
     React.useEffect(() => {
-        if (jenkinsCiToolIsUsed) {
-            return;
-        }
-
         const cancelStream = PipelineRunKubeObject.streamPipelineRunListByCodebaseBranchLabel({
             namespace: codebaseBranchData.metadata.namespace,
             codebaseBranchLabel: normalizedCodebaseBranchName,
@@ -160,7 +167,6 @@ export const CodebaseBranch = ({
         handleStreamError,
         handleStorePipelineRuns,
         codebaseBranchData,
-        jenkinsCiToolIsUsed,
     ]);
 
     const sonarLink = React.useMemo(
@@ -274,32 +280,30 @@ export const CodebaseBranch = ({
                         </Render>
                         <div style={{ marginLeft: 'auto' }}>
                             <Grid container spacing={1} alignItems={'center'}>
-                                <Render condition={!jenkinsCiToolIsUsed}>
-                                    <Grid item>
-                                        <div className={classes.pipelineRunStatus}>
-                                            <StatusIcon
-                                                icon={lastPipelineRunIcon}
-                                                color={lastPipelineRunColor}
-                                                isRotating={lastPipelineRunIsRotating}
-                                                width={18}
-                                                Title={
-                                                    <>
-                                                        <Typography
-                                                            variant={'subtitle2'}
-                                                            style={{ fontWeight: 600 }}
-                                                        >
-                                                            {`Last Build PipelineRun status: ${PipelineRunKubeObject.parseStatus(
-                                                                pipelineRuns.latestBuildPipelineRun
-                                                            )}. Reason: ${PipelineRunKubeObject.parseStatusReason(
-                                                                pipelineRuns.latestBuildPipelineRun
-                                                            )}`}
-                                                        </Typography>
-                                                    </>
-                                                }
-                                            />
-                                        </div>
-                                    </Grid>
-                                </Render>
+                                <Grid item>
+                                    <div className={classes.pipelineRunStatus}>
+                                        <StatusIcon
+                                            icon={lastPipelineRunIcon}
+                                            color={lastPipelineRunColor}
+                                            isRotating={lastPipelineRunIsRotating}
+                                            width={18}
+                                            Title={
+                                                <>
+                                                    <Typography
+                                                        variant={'subtitle2'}
+                                                        style={{ fontWeight: 600 }}
+                                                    >
+                                                        {`Last Build PipelineRun status: ${PipelineRunKubeObject.parseStatus(
+                                                            pipelineRuns.latestBuildPipelineRun
+                                                        )}. Reason: ${PipelineRunKubeObject.parseStatusReason(
+                                                            pipelineRuns.latestBuildPipelineRun
+                                                        )}`}
+                                                    </Typography>
+                                                </>
+                                            }
+                                        />
+                                    </div>
+                                </Grid>
                                 <Render condition={!!EDPComponentsURLS?.sonar}>
                                     <Grid item>
                                         <ResourceIconLink
@@ -326,7 +330,9 @@ export const CodebaseBranch = ({
                                                 disabled={
                                                     PipelineRunKubeObject.parseStatusReason(
                                                         pipelineRuns.latestBuildPipelineRun
-                                                    ) === PIPELINE_RUN_REASON.RUNNING
+                                                    ) === PIPELINE_RUN_REASON.RUNNING ||
+                                                    codebaseBranchData?.status?.status !==
+                                                        CUSTOM_RESOURCE_STATUSES.CREATED
                                                 }
                                             >
                                                 <Icon icon={ICONS.PLAY} />
@@ -362,37 +368,47 @@ export const CodebaseBranch = ({
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={5}>
-                        <Render condition={!jenkinsCiToolIsUsed}>
-                            <Grid item xs={12}>
-                                <Grid container spacing={5}>
-                                    <Render condition={!!pipelineRuns?.all?.length}>
-                                        <Grid item xs={4}>
-                                            <FormSelect
-                                                {...register('type', {
-                                                    onChange: ({ target: { value } }) =>
-                                                        setPipelineRunType(value),
-                                                })}
-                                                control={control}
-                                                errors={errors}
-                                                name={'type'}
-                                                label={'Type'}
-                                                options={pipelineRunTypeSelectOptions}
-                                                defaultValue={PIPELINE_TYPES.ALL}
-                                            />
-                                        </Grid>
-                                    </Render>
-                                    <Grid item xs={12}>
-                                        <PipelineRunList
-                                            pipelineRuns={filteredPipelineRunsByType}
-                                            isLoading={pipelineRuns.all === null}
+                        <Grid item xs={12}>
+                            <Render condition={!!ciDependencyTrackURL}>
+                                <div>
+                                    <img
+                                        src={`${ciDependencyTrackURL}/api/v1/badge/vulns/project/${codebaseData.metadata.name}/${codebaseBranchData.spec.branchName}`}
+                                        alt=""
+                                    />
+                                </div>
+                            </Render>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Grid container spacing={5}>
+                                <Render condition={!!pipelineRuns?.all?.length}>
+                                    <Grid item xs={4}>
+                                        <FormSelect
+                                            {...register('type', {
+                                                onChange: ({ target: { value } }) =>
+                                                    setPipelineRunType(value),
+                                            })}
+                                            control={control}
+                                            errors={errors}
+                                            name={'type'}
+                                            label={'Type'}
+                                            options={pipelineRunTypeSelectOptions}
+                                            defaultValue={PIPELINE_TYPES.ALL}
                                         />
                                     </Grid>
+                                </Render>
+                                <Grid item xs={12}>
+                                    <PipelineRunList
+                                        pipelineRuns={filteredPipelineRunsByType}
+                                        isLoading={pipelineRuns.all === null}
+                                    />
                                 </Grid>
                             </Grid>
-                        </Render>
-                        <Grid item xs={12}>
-                            <NameValueTable rows={mainInfoRows} />
                         </Grid>
+                        <Render condition={!!mainInfoRows?.length}>
+                            <Grid item xs={12}>
+                                <NameValueTable rows={mainInfoRows} />
+                            </Grid>
+                        </Render>
                     </Grid>
                 </AccordionDetails>
             </Accordion>
