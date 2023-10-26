@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Button, Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { Button, ButtonGroup, Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../components/Render';
@@ -112,36 +112,40 @@ export const useUpperColumns = ({
                     return (
                         <Grid container alignItems={'center'} spacing={2}>
                             <Grid item>
-                                <Tooltip
-                                    title={'Set selected applications latest image stream version'}
-                                >
-                                    <Button
-                                        onClick={onLatestClick}
-                                        variant={'outlined'}
-                                        color={'primary'}
-                                        size="small"
-                                        fullWidth
-                                        disabled={!numSelected}
+                                <ButtonGroup>
+                                    <Tooltip
+                                        title={
+                                            'Set selected applications latest image stream version'
+                                        }
                                     >
-                                        latest
-                                    </Button>
-                                </Tooltip>
-                            </Grid>
-                            <Grid item>
-                                <Tooltip
-                                    title={'Set selected applications stable image stream version'}
-                                >
-                                    <Button
-                                        onClick={onStableClick}
-                                        variant={'outlined'}
-                                        color={'primary'}
-                                        size="small"
-                                        fullWidth
-                                        disabled={!numSelected}
+                                        <Button
+                                            onClick={onLatestClick}
+                                            variant={'outlined'}
+                                            color={'primary'}
+                                            size="small"
+                                            fullWidth
+                                            disabled={!numSelected}
+                                        >
+                                            latest
+                                        </Button>
+                                    </Tooltip>
+                                    <Tooltip
+                                        title={
+                                            'Set selected applications stable image stream version'
+                                        }
                                     >
-                                        stable
-                                    </Button>
-                                </Tooltip>
+                                        <Button
+                                            onClick={onStableClick}
+                                            variant={'outlined'}
+                                            color={'primary'}
+                                            size="small"
+                                            fullWidth
+                                            disabled={!numSelected}
+                                        >
+                                            stable
+                                        </Button>
+                                    </Tooltip>
+                                </ButtonGroup>
                             </Grid>
                             <Grid item>
                                 <Tooltip title={'Reset selected image stream versions'}>
@@ -164,6 +168,11 @@ export const useUpperColumns = ({
             },
             {
                 id: 'pods',
+                label: '',
+                render: () => null,
+            },
+            {
+                id: 'ingress',
                 label: '',
                 render: () => null,
             },

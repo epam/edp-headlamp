@@ -295,6 +295,45 @@ export const useColumns = (
                 },
                 textAlign: 'center',
             },
+            {
+                id: 'ingress',
+                label: 'Ingress',
+                render: enrichedApplicationWithArgoApplication => {
+                    const externalURLs =
+                        // @ts-ignore
+                        enrichedApplicationWithArgoApplication?.argoApplication?.status?.summary
+                            ?.externalURLs;
+
+                    if (!externalURLs) {
+                        return null;
+                    }
+
+                    return (
+                        <Tooltip
+                            title={
+                                <Grid container spacing={2}>
+                                    {externalURLs.map(el => (
+                                        <Grid item xs={12}>
+                                            <MuiLink
+                                                href={el}
+                                                target={'_blank'}
+                                                style={{ color: 'white', wordBreak: 'break-all' }}
+                                            >
+                                                {el}
+                                            </MuiLink>
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            }
+                            interactive
+                        >
+                            <div style={{ lineHeight: 0 }}>
+                                <Icon icon={ICONS.NEW_WINDOW} width={24} />
+                            </div>
+                        </Tooltip>
+                    );
+                },
+            },
         ],
         [
             CDPipelineName,

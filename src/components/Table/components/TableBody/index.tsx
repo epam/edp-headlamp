@@ -57,6 +57,8 @@ export const TableBody = ({
 
     const getColumnStyles = React.useCallback(
         (hasSortableValue: boolean) => ({
+            display: 'flex',
+            alignItems: 'center',
             pl: hasSortableValue ? theme.typography.pxToRem(6) : 0,
         }),
         [theme]
