@@ -10,7 +10,6 @@ const NAMES = {
     SOURCE_LIBRARY_NAME: 'sourceLibraryName',
     SOURCE_TYPE: 'sourceType',
     TRIGGER_TYPE: 'triggerType',
-    JOB_PROVISIONING: 'jobProvisioning',
     ORDER: 'order',
     CDPIPELINE: 'cdPipeline',
     CLUSTER_NAME: 'cluster',
@@ -55,10 +54,6 @@ export const STAGE_FORM_NAMES = {
     [NAMES.TRIGGER_TYPE]: {
         name: NAMES.TRIGGER_TYPE,
         path: ['spec', 'triggerType'],
-    },
-    [NAMES.JOB_PROVISIONING]: {
-        name: NAMES.JOB_PROVISIONING,
-        path: ['spec', 'jobProvisioning'],
     },
     [NAMES.ORDER]: {
         name: NAMES.ORDER,

@@ -24,7 +24,6 @@ export const RESOURCE_ICON_NAMES = {
     KUSTOMIZE: 'kustomize',
     OPA: 'opa',
     TEKTON: 'tekton',
-    JENKINS: 'jenkins',
     GITHUB: 'github',
     GITLAB: 'gitlab',
     GERRIT: 'gerrit',

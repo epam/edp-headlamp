@@ -6,9 +6,9 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../../components/Render';
 import { TabPanel } from '../../../../../../components/TabPanel';
+import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { useHandleEditorSave } from '../../../../../../hooks/useHandleEditorSave';
 import { createCDPipelineInstance } from '../../../../../../k8s/EDPCDPipeline/utils/createCDPipelineInstance';
-import { useDefaultCIToolQuery } from '../../../../../../k8s/EDPComponent/hooks/useDefaultCIToolQuery';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../../../../../types/forms';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
@@ -92,8 +92,6 @@ export const Form = ({
         [setStages]
     );
 
-    const { data: defaultCITool } = useDefaultCIToolQuery();
-
     const handleClickAddStage = React.useCallback(() => {
         const formValues = getValues();
         const usedValues = getUsedValues(formValues, CDPIPELINE_FORM_NAMES);
@@ -105,13 +103,13 @@ export const Form = ({
             handleApply: ({ CDPipelineStageData }) => {
                 setStages(prev => [...prev, CDPipelineStageData]);
             },
-            ciTool: defaultCITool,
+            ciTool: CI_TOOLS.TEKTON,
         };
         setDialog({
             modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
             forwardedProps: createStageDialogForwardedProps,
         });
-    }, [defaultCITool, getValues, setDialog, setStages, stages]);
+    }, [getValues, setDialog, setStages, stages]);
 
     return (
         <>

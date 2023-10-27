@@ -1,9 +1,9 @@
 import React from 'react';
+import { CI_TOOLS } from '../../../constants/ciTools';
 import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../constants/creationStrategies';
 import { DEPLOYMENT_SCRIPTS } from '../../../constants/deploymentScripts';
-import { useDefaultCIToolQuery } from '../../../k8s/EDPComponent/hooks/useDefaultCIToolQuery';
 import { useGitServerListQuery } from '../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { GIT_OPS_CODEBASE_NAME } from '../constants';
 import { CODEBASE_FORM_NAMES } from '../names';
@@ -13,7 +13,6 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
     const { currentElement } = formData;
 
     const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
-    const { data: defaultCITool } = useDefaultCIToolQuery();
 
     const { data: gitServers } = useGitServerListQuery({});
     const gitServersOptions = React.useMemo(
@@ -30,7 +29,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
                 [CODEBASE_FORM_NAMES.lang.name]: 'helm',
                 [CODEBASE_FORM_NAMES.framework.name]: 'gitops',
                 [CODEBASE_FORM_NAMES.buildTool.name]: 'helm',
-                [CODEBASE_FORM_NAMES.ciTool.name]: defaultCITool,
+                [CODEBASE_FORM_NAMES.ciTool.name]: CI_TOOLS.TEKTON,
                 [CODEBASE_FORM_NAMES.gitServer.name]: gitServersOptions?.[0]?.value,
                 [CODEBASE_FORM_NAMES.defaultBranch.name]: 'main',
                 [CODEBASE_FORM_NAMES.deploymentScript.name]: DEPLOYMENT_SCRIPTS.HELM_CHART,
@@ -52,5 +51,5 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
             [CODEBASE_FORM_NAMES.gitRepoPath.name]: gitRepoPath,
             [CODEBASE_FORM_NAMES.name.name]: currentElement?.metadata.name,
         };
-    }, [currentElement, defaultCITool, gitServersOptions, isPlaceholder]);
+    }, [currentElement, gitServersOptions, isPlaceholder]);
 };

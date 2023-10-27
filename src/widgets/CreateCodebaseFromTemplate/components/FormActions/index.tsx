@@ -1,10 +1,10 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { CI_TOOLS } from '../../../../constants/ciTools';
 import { useCodebaseCRUD } from '../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { createCodebaseInstance } from '../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
-import { useDefaultCIToolQuery } from '../../../../k8s/EDPComponent/hooks/useDefaultCIToolQuery';
 import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../constants';
@@ -36,15 +36,13 @@ export const FormActions = () => {
         },
     });
 
-    const { data: defaultCITool } = useDefaultCIToolQuery();
-
     const onSubmit = React.useCallback(
         async values => {
             const usedValues = getUsedValues(values, CODEBASE_FROM_TEMPLATE_FORM_NAMES);
 
             const codebaseInstance = createCodebaseInstance(CODEBASE_FROM_TEMPLATE_FORM_NAMES, {
                 ...usedValues,
-                ciTool: defaultCITool,
+                ciTool: CI_TOOLS.TEKTON,
             });
 
             await createCodebase({
@@ -52,7 +50,7 @@ export const FormActions = () => {
                 codebaseAuthData: null,
             });
         },
-        [defaultCITool, createCodebase]
+        [createCodebase]
     );
 
     return (

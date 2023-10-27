@@ -6,7 +6,6 @@ import {
     FRAMEWORK_ICON_MAPPING,
     LANGUAGE_ICON_MAPPING,
 } from '../../../configs/icon-mappings';
-import { CI_TOOLS } from '../../../constants/ciTools';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { RESOURCE_ICON_NAMES } from '../../../icons/sprites/Resources/names';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
@@ -60,14 +59,6 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
                     icon:
                         CI_TOOL_ICON_MAPPING?.[ciTool?.toLowerCase()] || RESOURCE_ICON_NAMES.OTHER,
                 },
-                ...(ciTool === CI_TOOLS.JENKINS && !!component?.spec.jenkinsSlave
-                    ? [
-                          {
-                              label: 'Jenkins Agent',
-                              text: component?.spec.jenkinsSlave,
-                          },
-                      ]
-                    : []),
             ],
             [
                 {

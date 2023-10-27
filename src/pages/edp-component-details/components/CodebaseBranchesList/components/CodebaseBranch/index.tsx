@@ -17,7 +17,6 @@ import { useParams } from 'react-router-dom';
 import { Render } from '../../../../../../components/Render';
 import { ResourceIconLink } from '../../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../../components/StatusIcon';
-import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
@@ -94,10 +93,6 @@ export const CodebaseBranch = ({
             },
         },
     });
-
-    const {
-        spec: { ciTool },
-    } = codebaseData;
 
     const classes = useStyles();
     const mainInfoRows = useMainInfoRows(codebaseBranchData);
@@ -322,24 +317,22 @@ export const CodebaseBranch = ({
                                         />
                                     </Grid>
                                 </Render>
-                                <Render condition={ciTool === CI_TOOLS.TEKTON}>
-                                    <Grid item>
-                                        <Tooltip title={'Trigger build pipeline run'}>
-                                            <IconButton
-                                                onClick={onBuildButtonClick}
-                                                disabled={
-                                                    PipelineRunKubeObject.parseStatusReason(
-                                                        pipelineRuns.latestBuildPipelineRun
-                                                    ) === PIPELINE_RUN_REASON.RUNNING ||
-                                                    codebaseBranchData?.status?.status !==
-                                                        CUSTOM_RESOURCE_STATUSES.CREATED
-                                                }
-                                            >
-                                                <Icon icon={ICONS.PLAY} />
-                                            </IconButton>
-                                        </Tooltip>
-                                    </Grid>
-                                </Render>
+                                <Grid item>
+                                    <Tooltip title={'Trigger build pipeline run'}>
+                                        <IconButton
+                                            onClick={onBuildButtonClick}
+                                            disabled={
+                                                PipelineRunKubeObject.parseStatusReason(
+                                                    pipelineRuns.latestBuildPipelineRun
+                                                ) === PIPELINE_RUN_REASON.RUNNING ||
+                                                codebaseBranchData?.status?.status !==
+                                                    CUSTOM_RESOURCE_STATUSES.CREATED
+                                            }
+                                        >
+                                            <Icon icon={ICONS.PLAY} />
+                                        </IconButton>
+                                    </Tooltip>
+                                </Grid>
 
                                 <Grid item>
                                     <Tooltip title={'Actions'}>

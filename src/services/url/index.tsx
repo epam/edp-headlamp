@@ -148,36 +148,6 @@ export const GENERATE_URL_SERVICE = {
 
         return tektonPipelineRunURLObject.href;
     },
-    createJenkinsPipelineLink: (jenkinsURLOrigin: string, pipelineName: string) => {
-        if (!jenkinsURLOrigin) {
-            return;
-        }
-
-        const jenkinsURLObject = createURLObjectFromURLOrigin(jenkinsURLOrigin);
-        const jenkinsPipelineURLObject = new URL(
-            `/job/${pipelineName}-cd-pipeline`,
-            jenkinsURLObject
-        );
-
-        return jenkinsPipelineURLObject.href;
-    },
-    createJenkinsPipelineStageLink: (
-        jenkinsURLOrigin: string,
-        pipelineName: string,
-        stageName: string
-    ) => {
-        if (!jenkinsURLOrigin) {
-            return;
-        }
-
-        const jenkinsURLObject = createURLObjectFromURLOrigin(jenkinsURLOrigin);
-        const jenkinsPipelineURLObject = new URL(
-            `/job/${pipelineName}-cd-pipeline/job/${stageName}`,
-            jenkinsURLObject
-        );
-
-        return jenkinsPipelineURLObject.href;
-    },
     createGitOpsValuesYamlFileLink: (
         gitOpsWebUrl: string,
         pipelineName: string,

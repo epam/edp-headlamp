@@ -24,20 +24,6 @@ export const useRows = (
             });
         }
 
-        if (codebaseSpec.jobProvisioning) {
-            base.push({
-                name: 'Job Provisioning',
-                value: codebaseSpec.jobProvisioning,
-            });
-        }
-
-        if (codebaseSpec.jenkinsSlave) {
-            base.push({
-                name: 'Jenkins Agent',
-                value: codebaseSpec.jenkinsSlave,
-            });
-        }
-
         if (codebaseSpec.gitUrlPath) {
             base.push({
                 name: 'Git URL Path',

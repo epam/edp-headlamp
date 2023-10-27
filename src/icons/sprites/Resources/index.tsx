@@ -25,7 +25,6 @@ import {
     Helm,
     Java,
     JavaScript,
-    Jenkins,
     Kaniko,
     Kustomize,
     Maven,
@@ -76,7 +75,6 @@ export const Resources = () => {
             <Gerrit />
             <Github />
             <Gitlab />
-            <Jenkins />
             <Vue />
             <Express />
             <Angular />

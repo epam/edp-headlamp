@@ -26,7 +26,6 @@ export * from './Tekton';
 export * from './Gerrit';
 export * from './Github';
 export * from './Gitlab';
-export * from './Jenkins';
 export * from './Vue';
 export * from './Express';
 export * from './Angular';

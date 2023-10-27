@@ -35,7 +35,6 @@ export enum ICONS {
     SONAR = 'simple-icons:sonarsource',
     DEFECT = 'fluent-mdl2:defect-solid',
     JIRA = 'fontisto:jira',
-    JENKINS = 'fluent-mdl2:jenkins-logo',
     DOC = 'bxs:book',
     DOC_PAGE = 'basil:document-outline',
     CLUSTERS = 'vaadin:cluster',

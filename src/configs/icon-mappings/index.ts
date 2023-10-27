@@ -66,7 +66,6 @@ export const BUILD_TOOL_ICON_MAPPING = {
 } as const;
 
 export const CI_TOOL_ICON_MAPPING = {
-    [CI_TOOLS.JENKINS]: RESOURCE_ICON_NAMES.JENKINS,
     [CI_TOOLS.TEKTON]: RESOURCE_ICON_NAMES.TEKTON,
 } as const;
 

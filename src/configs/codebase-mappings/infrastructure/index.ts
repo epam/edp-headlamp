@@ -1,4 +1,3 @@
-import { CI_TOOLS } from '../../../constants/ciTools';
 import {
     BUILD_TOOL_ICON_MAPPING,
     FRAMEWORK_ICON_MAPPING,
@@ -25,14 +24,12 @@ export const INFRASTRUCTURE_MAPPING: InfrastructureMapping = {
             name: 'HCL',
             value: CODEBASE_COMMON_LANGUAGES.HCL,
             icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.HCL],
-            availableCITools: [CI_TOOLS.TEKTON],
         },
         frameworks: {
             [CODEBASE_COMMON_FRAMEWORKS.AWS]: {
                 name: 'AWS',
                 value: CODEBASE_COMMON_FRAMEWORKS.AWS,
                 icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.AWS],
-                availableCITools: [CI_TOOLS.TEKTON],
             },
         },
         buildTools: {
@@ -40,7 +37,6 @@ export const INFRASTRUCTURE_MAPPING: InfrastructureMapping = {
                 name: 'Terraform',
                 value: CODEBASE_COMMON_BUILD_TOOLS.TERRAFORM,
                 icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.TERRAFORM],
-                availableCITools: [CI_TOOLS.TEKTON],
             },
         },
     },

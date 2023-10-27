@@ -10,7 +10,6 @@ export interface EDPCDPipelineStageSpecQualityGatesInterface {
 export interface EDPCDPipelineStageSpecInterface {
     cdPipeline: string;
     description: string;
-    jobProvisioning: string;
     name: string;
     order: number;
     qualityGates: EDPCDPipelineStageSpecQualityGatesInterface[];

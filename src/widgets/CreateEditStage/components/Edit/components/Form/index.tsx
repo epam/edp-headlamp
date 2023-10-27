@@ -1,7 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { TriggerType } from '../../../fields';
-import { Namespace } from '../../../fields/Namespace';
+import { Namespace, TriggerType } from '../../../fields';
 
 export const Form = () => {
     return (

@@ -9,7 +9,6 @@ import { Render } from '../../../../../components/Render';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
-import { CI_TOOLS } from '../../../../../constants/ciTools';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { TRIGGER_TYPES } from '../../../../../constants/triggerTypes';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
@@ -20,7 +19,6 @@ import { useResourceActionListContext } from '../../../../../providers/ResourceA
 import { GENERATE_URL_SERVICE } from '../../../../../services/url';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPStageDetails } from '../../../../edp-stage-details/route';
-import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { EDPCDPipelineRouteParams } from '../../../types';
 
 export const useColumns = (
@@ -30,9 +28,6 @@ export const useColumns = (
         useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
     const { name: CDPipelineName, namespace } = useParams<EDPCDPipelineRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-    const { enrichedApplications } = useDynamicDataContext();
-
-    const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;
 
     return React.useMemo(
         () => [
@@ -116,28 +111,15 @@ export const useColumns = (
                     return (
                         <Grid container spacing={1}>
                             <Grid item>
-                                <Render condition={ciTool === CI_TOOLS.JENKINS}>
-                                    <ResourceIconLink
-                                        icon={ICONS.JENKINS}
-                                        tooltipTitle={'Open in Jenkins'}
-                                        link={GENERATE_URL_SERVICE.createJenkinsPipelineStageLink(
-                                            EDPComponentsURLS?.jenkins,
-                                            CDPipelineName,
-                                            stage.spec.name
-                                        )}
-                                    />
-                                </Render>
-                                <Render condition={ciTool === CI_TOOLS.TEKTON}>
-                                    <ResourceIconLink
-                                        icon={ICONS.ARGOCD}
-                                        tooltipTitle={'Open in ArgoCD'}
-                                        link={GENERATE_URL_SERVICE.createArgoCDStageLink(
-                                            EDPComponentsURLS?.argocd,
-                                            CDPipelineName,
-                                            stage.spec.name
-                                        )}
-                                    />
-                                </Render>
+                                <ResourceIconLink
+                                    icon={ICONS.ARGOCD}
+                                    tooltipTitle={'Open in ArgoCD'}
+                                    link={GENERATE_URL_SERVICE.createArgoCDStageLink(
+                                        EDPComponentsURLS?.argocd,
+                                        CDPipelineName,
+                                        stage.spec.name
+                                    )}
+                                />
                             </Grid>
                             <Grid item>
                                 <ResourceIconLink
@@ -192,13 +174,6 @@ export const useColumns = (
                 textAlign: 'right',
             },
         ],
-        [
-            CDPipelineName,
-            EDPComponentsURLS,
-            ciTool,
-            classes,
-            handleOpenResourceActionListMenu,
-            namespace,
-        ]
+        [CDPipelineName, EDPComponentsURLS, classes, handleOpenResourceActionListMenu, namespace]
     );
 };

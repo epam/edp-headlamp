@@ -113,31 +113,6 @@ describe('testing GENERATE_URL_SERVICE', () => {
         });
     });
 
-    describe('test createJenkinsPipelineLink util', () => {
-        it('should successfully create jenkins pipeline url based on given jenkinsURLOrigin and pipeline name params', () => {
-            expect(
-                GENERATE_URL_SERVICE.createJenkinsPipelineLink(
-                    'https://jenkins-test.com',
-                    'test-pipeline-name'
-                )
-            ).toEqual('https://jenkins-test.com/job/test-pipeline-name-cd-pipeline');
-        });
-    });
-
-    describe('test createJenkinsPipelineStageLink util', () => {
-        it('should successfully create jenkins pipeline stage url based on given jenkinsURLOrigin, pipeline name and stage name params', () => {
-            expect(
-                GENERATE_URL_SERVICE.createJenkinsPipelineStageLink(
-                    'https://jenkins-test.com',
-                    'test-pipeline-name',
-                    'test-stage-name'
-                )
-            ).toEqual(
-                'https://jenkins-test.com/job/test-pipeline-name-cd-pipeline/job/test-stage-name'
-            );
-        });
-    });
-
     describe('test createGitOpsValuesYamlFileLink util', () => {
         it('should successfully create git ops value file url  based on given gitOpsWebUrl, pipeline name,  stage name, app name and git server params', () => {
             expect(

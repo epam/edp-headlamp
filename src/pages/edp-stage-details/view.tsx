@@ -8,7 +8,6 @@ import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { StatusIcon } from '../../components/StatusIcon';
 import { Tabs } from '../../components/Tabs';
-import { CI_TOOLS } from '../../constants/ciTools';
 import { PIPELINE_TYPES } from '../../constants/pipelineTypes';
 import { TRIGGER_TYPES } from '../../constants/triggerTypes';
 import { ICONS } from '../../icons/iconify-icons-mapping';
@@ -122,8 +121,6 @@ export const PageView = () => {
         enrichedApplicationsWithArgoApplications
     );
 
-    const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;
-
     const tabs = React.useMemo(
         () => [
             {
@@ -139,7 +136,6 @@ export const PageView = () => {
                         />
                     </FormContextProvider>
                 ),
-                disabled: ciTool === CI_TOOLS.JENKINS,
             },
             {
                 label: 'Quality Gates',
@@ -153,7 +149,6 @@ export const PageView = () => {
                         latestTenAutotestPipelineRuns={latestTenAutotestPipelineRuns}
                     />
                 ),
-                disabled: ciTool === CI_TOOLS.JENKINS,
             },
             {
                 label: 'Custom Gates',
@@ -168,11 +163,9 @@ export const PageView = () => {
                         everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
                     />
                 ),
-                disabled: ciTool === CI_TOOLS.JENKINS,
             },
         ],
         [
-            ciTool,
             argoApplications,
             enrichedApplicationsWithArgoApplications,
             enrichedQualityGatesWithPipelineRuns,
@@ -264,28 +257,15 @@ export const PageView = () => {
             headerSlot={
                 <Grid container>
                     <Grid item>
-                        <Render condition={ciTool === CI_TOOLS.JENKINS}>
-                            <ResourceIconLink
-                                icon={ICONS.JENKINS}
-                                tooltipTitle={'Open in Jenkins'}
-                                link={GENERATE_URL_SERVICE.createJenkinsPipelineStageLink(
-                                    EDPComponentsURLS?.jenkins,
-                                    CDPipeline?.metadata?.name,
-                                    stageSpecName
-                                )}
-                            />
-                        </Render>
-                        <Render condition={ciTool === CI_TOOLS.TEKTON}>
-                            <ResourceIconLink
-                                icon={ICONS.ARGOCD}
-                                tooltipTitle={'Open in ArgoCD'}
-                                link={GENERATE_URL_SERVICE.createArgoCDStageLink(
-                                    EDPComponentsURLS?.argocd,
-                                    CDPipeline?.metadata?.name,
-                                    stageSpecName
-                                )}
-                            />
-                        </Render>
+                        <ResourceIconLink
+                            icon={ICONS.ARGOCD}
+                            tooltipTitle={'Open in ArgoCD'}
+                            link={GENERATE_URL_SERVICE.createArgoCDStageLink(
+                                EDPComponentsURLS?.argocd,
+                                CDPipeline?.metadata?.name,
+                                stageSpecName
+                            )}
+                        />
                     </Grid>
                     <Grid item>
                         <ResourceIconLink
@@ -320,16 +300,13 @@ export const PageView = () => {
                 </Grid>
             }
         >
-            {!!stage && ciTool ? (
+            {!!stage ? (
                 <Grid container spacing={2}>
                     <Grid item xs={12} style={{ marginTop: rem(20) }}>
                         <InfoColumnsAccordion title={'Stage Details'} infoRows={infoColumns} />
                     </Grid>
                     <Grid item xs={12}>
-                        <Tabs
-                            tabs={tabs}
-                            initialTabIdx={ciTool === CI_TOOLS.JENKINS ? tabs.length - 1 : 0}
-                        />
+                        <Tabs tabs={tabs} initialTabIdx={0} />
                     </Grid>
                 </Grid>
             ) : (

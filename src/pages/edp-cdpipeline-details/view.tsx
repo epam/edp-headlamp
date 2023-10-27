@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
-import { CI_TOOLS } from '../../constants/ciTools';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
@@ -22,10 +21,8 @@ import { EDPCDPipelineRouteParams } from './types';
 export const PageView = () => {
     const { name, namespace } = useParams<EDPCDPipelineRouteParams>();
 
-    const { CDPipeline, stages, enrichedApplications } = useDynamicDataContext();
+    const { CDPipeline, stages } = useDynamicDataContext();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-
-    const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;
 
     return (
         <PageWrapper
@@ -43,26 +40,14 @@ export const PageView = () => {
             headerSlot={
                 <Grid container>
                     <Grid item>
-                        <Render condition={ciTool === CI_TOOLS.JENKINS}>
-                            <ResourceIconLink
-                                icon={ICONS.JENKINS}
-                                tooltipTitle={'Open in Jenkins'}
-                                link={GENERATE_URL_SERVICE.createJenkinsPipelineLink(
-                                    EDPComponentsURLS?.jenkins,
-                                    CDPipeline?.metadata?.name
-                                )}
-                            />
-                        </Render>
-                        <Render condition={ciTool === CI_TOOLS.TEKTON}>
-                            <ResourceIconLink
-                                icon={ICONS.ARGOCD}
-                                tooltipTitle={'Open in ArgoCD'}
-                                link={GENERATE_URL_SERVICE.createArgoCDPipelineLink(
-                                    EDPComponentsURLS?.argocd,
-                                    name
-                                )}
-                            />
-                        </Render>
+                        <ResourceIconLink
+                            icon={ICONS.ARGOCD}
+                            tooltipTitle={'Open in ArgoCD'}
+                            link={GENERATE_URL_SERVICE.createArgoCDPipelineLink(
+                                EDPComponentsURLS?.argocd,
+                                name
+                            )}
+                        />
                     </Grid>
                     <Render condition={!!CDPipeline}>
                         <>

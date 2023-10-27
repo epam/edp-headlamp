@@ -16,8 +16,6 @@ const NAMES = {
     FRAMEWORK: 'framework',
     BUILD_TOOL: 'buildTool',
     TEST_REPORT_FRAMEWORK: 'testReportFramework',
-    JOB_PROVISIONING: 'jobProvisioning',
-    JENKINS_SLAVE: 'jenkinsSlave',
     VERSIONING_TYPE: 'versioningType',
     VERSIONING_START_FROM: 'versioningStartFrom',
     DEPLOYMENT_SCRIPT: 'deploymentScript',
@@ -113,16 +111,6 @@ export const CODEBASE_FORM_NAMES = {
         name: NAMES.TEST_REPORT_FRAMEWORK,
         formPart: FORM_PART_CODEBASE_INFO,
         path: ['spec', 'testReportFramework'],
-    },
-    [NAMES.JOB_PROVISIONING]: {
-        name: NAMES.JOB_PROVISIONING,
-        formPart: FORM_PART_ADVANCED_SETTINGS,
-        path: ['spec', 'jobProvisioning'],
-    },
-    [NAMES.JENKINS_SLAVE]: {
-        name: NAMES.JENKINS_SLAVE,
-        formPart: FORM_PART_ADVANCED_SETTINGS,
-        path: ['spec', 'jenkinsSlave'],
     },
     [NAMES.VERSIONING_TYPE]: {
         name: NAMES.VERSIONING_TYPE,

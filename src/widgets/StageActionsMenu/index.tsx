@@ -1,10 +1,10 @@
 import React from 'react';
 import { KubeObjectActions } from '../../components/KubeObjectActions';
+import { CI_TOOLS } from '../../constants/ciTools';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
-import { useDefaultCIToolQuery } from '../../k8s/EDPComponent/hooks/useDefaultCIToolQuery';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../types/actions';
@@ -23,14 +23,12 @@ export const StageActionsMenu = ({ stages, CDPipelineData }: StageActionsMenuPro
     const { anchorEl, data, handleCloseResourceActionListMenu } =
         useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
 
-    const { data: defaultCITool } = useDefaultCIToolQuery();
-
     const actions: KubeObjectAction[] = React.useMemo(() => {
         const createEditStageDialogForwardedProps: CreateEditStageDialogForwardedProps = {
             stage: data,
             mode: FORM_MODES.EDIT,
             otherStages: stages,
-            ciTool: defaultCITool,
+            ciTool: CI_TOOLS.TEKTON,
             CDPipelineData,
         };
 
@@ -65,7 +63,7 @@ export const StageActionsMenu = ({ stages, CDPipelineData }: StageActionsMenuPro
                 });
             }),
         ];
-    }, [data, stages, defaultCITool, CDPipelineData, handleCloseResourceActionListMenu, setDialog]);
+    }, [data, stages, CDPipelineData, handleCloseResourceActionListMenu, setDialog]);
 
     return (
         <KubeObjectActions

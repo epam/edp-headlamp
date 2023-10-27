@@ -13,10 +13,8 @@ interface EDPCodebaseSpecInterface {
     framework: string | null;
     gitServer: string;
     gitUrlPath: string | null;
-    jenkinsSlave: string | null;
     jiraIssueMetadataPayload: string | null;
     jiraServer: string | null;
-    jobProvisioning: string | null;
     lang: string;
     perf: {
         dataSources: string[];

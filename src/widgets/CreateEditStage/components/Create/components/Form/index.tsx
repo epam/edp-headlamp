@@ -4,7 +4,6 @@ import { Divider, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../../components/Render';
-import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { useHandleEditorSave } from '../../../../../../hooks/useHandleEditorSave';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
@@ -13,20 +12,18 @@ import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';
 import { STAGE_FORM_BACKWARD_NAME_MAPPING, STAGE_FORM_NAMES } from '../../../../names';
 import { CreateEditStageDialogForwardedProps, CreateEditStageFormValues } from '../../../../types';
 import {
+    Cluster,
     Description,
-    GroovyPipelineLibrary,
-    JobProvisioner,
+    Namespace,
     QualityGates,
     StageName,
     TriggerType,
 } from '../../../fields';
-import { Cluster } from '../../../fields/Cluster';
-import { Namespace } from '../../../fields/Namespace';
 import { FormProps } from './types';
 
 export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
     const {
-        forwardedProps: { ciTool, otherStages },
+        forwardedProps: { otherStages },
     } = useSpecificDialogContext<CreateEditStageDialogForwardedProps>(
         CREATE_EDIT_STAGE_DIALOG_NAME
     );
@@ -74,16 +71,6 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
                 <Grid item xs={6}>
                     <TriggerType />
                 </Grid>
-                <Render condition={ciTool && ciTool === CI_TOOLS.JENKINS}>
-                    <>
-                        <Grid item xs={6}>
-                            <JobProvisioner />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <GroovyPipelineLibrary />
-                        </Grid>
-                    </>
-                </Render>
                 <Grid item xs={12}>
                     <Divider
                         style={{

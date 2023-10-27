@@ -8,7 +8,6 @@ describe('testing createCDPipelineStageInstance', () => {
             {
                 order: 1,
                 triggerType: 'Manual',
-                jobProvisioning: 'default',
                 sourceLibraryName: 'default',
                 sourceType: 'default',
                 name: 'test-stage-name',
@@ -51,7 +50,6 @@ describe('testing createCDPipelineStageInstance', () => {
                 cdPipeline: 'vp-test-pipe-creation',
                 order: 1,
                 triggerType: 'Manual',
-                jobProvisioning: 'default',
                 source: { library: { name: 'default' }, type: 'default' },
                 description: 'test-description',
                 qualityGates: [
