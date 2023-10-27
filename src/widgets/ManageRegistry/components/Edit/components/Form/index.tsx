@@ -1,23 +1,35 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Icon } from '@iconify/react';
+import { Grid, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormDataContext } from 'react-hook-form';
 import { Render } from '../../../../../../components/Render';
+import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
+import { useFormContext } from '../../../../../../providers/Form/hooks';
+import { FORM_MODES } from '../../../../../../types/forms';
 import { REGISTRY_NAMES } from '../../../../names';
+import { ManageRegistryDataContext } from '../../../../types';
 import {
     IrsaRoleArn,
-    Password,
+    PullAccountPassword,
+    PullAccountUser,
+    PushAccountPassword,
+    PushAccountUser,
     RegistryEndpoint,
     RegistrySpace,
-    User,
     UseSameAccount,
 } from '../../../fields';
 
 export const Form = () => {
     const { watch } = useReactHookFormDataContext();
+    const {
+        formData: { pushAccountSecret, pullAccountSecret },
+    } = useFormContext<ManageRegistryDataContext>();
 
     const registryTypeFieldValue = watch(REGISTRY_NAMES.REGISTRY_TYPE);
     const useSameAccountFieldValue = watch(REGISTRY_NAMES.USE_SAME_ACCOUNT);
+    const pushAccountOwnerReference = pushAccountSecret?.metadata?.ownerReferences?.[0].kind;
+    const pullAccountOwnerReference = pullAccountSecret?.metadata?.ownerReferences?.[0].kind;
 
     return (
         <Grid container spacing={4}>
@@ -53,20 +65,50 @@ export const Form = () => {
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <Typography variant={'h6'}>Push Account</Typography>
+                                <Grid container spacing={1} alignItems={'center'}>
+                                    <Grid item>
+                                        <Typography variant={'h6'}>Push Account</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Tooltip title={`Managed by ${pushAccountOwnerReference}`}>
+                                            <Icon
+                                                icon={ICONS.CLOUD_LOCK}
+                                                width={20}
+                                                style={{
+                                                    display: 'block',
+                                                }}
+                                            />
+                                        </Tooltip>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item xs={6}>
-                                <User name={REGISTRY_NAMES.PUSH_ACCOUNT_USER} />
+                                <PushAccountUser mode={FORM_MODES.EDIT} />
                             </Grid>
                             <Grid item xs={6}>
-                                <Password name={REGISTRY_NAMES.PUSH_ACCOUNT_PASSWORD} />
+                                <PushAccountPassword mode={FORM_MODES.EDIT} />
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <Typography variant={'h6'}>Pull Account</Typography>
+                                <Grid container spacing={1} alignItems={'center'}>
+                                    <Grid item>
+                                        <Typography variant={'h6'}>Pull Account</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Tooltip title={`Managed by ${pullAccountOwnerReference}`}>
+                                            <Icon
+                                                icon={ICONS.CLOUD_LOCK}
+                                                width={20}
+                                                style={{
+                                                    display: 'block',
+                                                }}
+                                            />
+                                        </Tooltip>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item xs={12}>
                                 <UseSameAccount />
@@ -74,10 +116,10 @@ export const Form = () => {
                             <Render condition={!useSameAccountFieldValue}>
                                 <>
                                     <Grid item xs={6}>
-                                        <User name={REGISTRY_NAMES.PULL_ACCOUNT_USER} />
+                                        <PullAccountUser mode={FORM_MODES.EDIT} />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <Password name={REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD} />
+                                        <PullAccountPassword mode={FORM_MODES.EDIT} />
                                     </Grid>
                                 </>
                             </Render>

@@ -17,9 +17,11 @@ export const Namespace = () => {
                 required: `Enter namespace to deploy to`,
             })}
             label={'Namespace'}
+            title={'Target namespace for deploying stage workload.'}
             placeholder={'Enter namespace to deploy to'}
             control={control}
             errors={errors}
+            partiallyDisabled
         />
     );
 };

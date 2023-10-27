@@ -177,8 +177,50 @@ export const PageView = () => {
         ]
     );
 
+    const [icon, color, isRotating] = EDPCDPipelineStageKubeObject.getStatusIcon(
+        stage?.status?.status
+    );
+
     const infoColumns = [
         [
+            {
+                label: 'Status',
+                text: (
+                    <Grid container spacing={1} alignItems={'center'}>
+                        <Grid item>
+                            <StatusIcon
+                                icon={icon}
+                                color={color}
+                                isRotating={isRotating}
+                                width={20}
+                                Title={
+                                    <>
+                                        <Typography
+                                            variant={'subtitle2'}
+                                            style={{ fontWeight: 600 }}
+                                        >
+                                            {`Status: ${stage?.status?.status || 'unknown'}`}
+                                        </Typography>
+                                        <Render condition={!!stage?.status?.detailed_message}>
+                                            <Typography
+                                                variant={'subtitle2'}
+                                                style={{ marginTop: rem(10) }}
+                                            >
+                                                {stage?.status?.detailed_message}
+                                            </Typography>
+                                        </Render>
+                                    </>
+                                }
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Typography variant={'body2'}>
+                                {stage?.status?.status || 'unknown'}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                ),
+            },
             {
                 label: 'Trigger Type',
                 text:
@@ -195,16 +237,16 @@ export const PageView = () => {
                     ),
             },
             {
+                label: 'Namespace',
+                text: stage?.spec.namespace,
+            },
+            {
                 label: 'Description',
                 text: stage?.spec.description,
                 columnXs: 8,
             },
         ],
     ];
-
-    const [icon, color, isRotating] = EDPCDPipelineStageKubeObject.getStatusIcon(
-        stage?.status?.status
-    );
 
     return (
         <PageWrapper
@@ -221,37 +263,7 @@ export const PageView = () => {
                     },
                 },
                 {
-                    label: (
-                        <Grid container spacing={1} alignItems={'center'}>
-                            <Grid item>
-                                <StatusIcon
-                                    icon={icon}
-                                    color={color}
-                                    isRotating={isRotating}
-                                    width={15}
-                                    Title={
-                                        <>
-                                            <Typography
-                                                variant={'subtitle2'}
-                                                style={{ fontWeight: 600 }}
-                                            >
-                                                {`Status: ${stage?.status?.status || 'unknown'}`}
-                                            </Typography>
-                                            <Render condition={!!stage?.status?.detailed_message}>
-                                                <Typography
-                                                    variant={'subtitle2'}
-                                                    style={{ marginTop: rem(10) }}
-                                                >
-                                                    {stage?.status?.detailed_message}
-                                                </Typography>
-                                            </Render>
-                                        </>
-                                    }
-                                />
-                            </Grid>
-                            <Grid item>{stageSpecName}</Grid>
-                        </Grid>
-                    ),
+                    label: stageSpecName,
                 },
             ]}
             headerSlot={

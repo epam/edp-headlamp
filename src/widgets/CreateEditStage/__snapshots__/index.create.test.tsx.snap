@@ -259,10 +259,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                       >
                         Namespace
                       </span>
-                      <div
-                        class="MuiBox-root MuiBox-root-5"
-                        style="height: 1.25rem;"
-                      />
+                      <span />
                     </span>
                   </div>
                   <div
@@ -276,16 +273,35 @@ exports[`renders CreateEditStage Create component 1`] = `
                         class="MuiFormControl-root MuiTextField-root"
                       >
                         <div
-                          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                          class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
                         >
                           <input
                             aria-invalid="false"
-                            class="MuiInputBase-input MuiInput-input"
+                            class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputAdornedEnd"
+                            disabled=""
                             name="deployNamespace"
                             placeholder="Enter namespace to deploy to"
                             type="text"
                             value="default-test-cdpipeline-name"
                           />
+                          <div
+                            class="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+                          >
+                            <button
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                              tabindex="0"
+                              type="button"
+                            >
+                              <span
+                                class="MuiIconButton-label"
+                              >
+                                <span />
+                              </span>
+                              <span
+                                class="MuiTouchRipple-root"
+                              />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -319,7 +335,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                         Description
                       </span>
                       <div
-                        class="MuiBox-root MuiBox-root-6"
+                        class="MuiBox-root MuiBox-root-5"
                         style="height: 1.25rem;"
                       />
                     </span>
@@ -378,7 +394,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                         Trigger type
                       </span>
                       <div
-                        class="MuiBox-root MuiBox-root-7"
+                        class="MuiBox-root MuiBox-root-6"
                         style="height: 1.25rem;"
                       />
                     </span>
@@ -499,7 +515,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                                             Quality gate type
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-8"
+                                            class="MuiBox-root MuiBox-root-7"
                                             style="height: 1.25rem;"
                                           />
                                         </span>
@@ -573,7 +589,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                                             Step name
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-9"
+                                            class="MuiBox-root MuiBox-root-8"
                                             style="height: 1.25rem;"
                                           />
                                         </span>

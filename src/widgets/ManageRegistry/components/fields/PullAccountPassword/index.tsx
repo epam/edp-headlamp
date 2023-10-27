@@ -1,22 +1,28 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { useFormContext } from '../../../../../providers/Form/hooks';
+import { FORM_MODES } from '../../../../../types/forms';
+import { ValueOf } from '../../../../../types/global';
 import { REGISTRY_NAMES } from '../../../names';
+import { ManageRegistryDataContext } from '../../../types';
 
-export const Password = ({
-    name,
-}: {
-    name: typeof REGISTRY_NAMES.PUSH_ACCOUNT_PASSWORD | typeof REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD;
-}) => {
+export const PullAccountPassword = ({ mode }: { mode: ValueOf<typeof FORM_MODES> }) => {
     const {
         register,
         control,
         formState: { errors },
     } = useReactHookFormContext();
 
+    const {
+        formData: { pullAccountSecret },
+    } = useFormContext<ManageRegistryDataContext>();
+
+    const hasOwnerReference = !!pullAccountSecret?.metadata?.ownerReferences;
+
     return (
         <FormTextField
-            {...register(name, {
+            {...register(REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD, {
                 required: 'Enter password or token',
             })}
             label={`Password / Token`}
@@ -27,6 +33,7 @@ export const Password = ({
             control={control}
             errors={errors}
             TextFieldProps={{ type: 'password' }}
+            disabled={mode === FORM_MODES.EDIT && hasOwnerReference}
         />
     );
 };

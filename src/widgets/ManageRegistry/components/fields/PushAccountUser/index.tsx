@@ -1,22 +1,28 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { useFormContext } from '../../../../../providers/Form/hooks';
+import { FORM_MODES } from '../../../../../types/forms';
+import { ValueOf } from '../../../../../types/global';
 import { REGISTRY_NAMES } from '../../../names';
+import { ManageRegistryDataContext } from '../../../types';
 
-export const User = ({
-    name,
-}: {
-    name: typeof REGISTRY_NAMES.PUSH_ACCOUNT_USER | typeof REGISTRY_NAMES.PULL_ACCOUNT_USER;
-}) => {
+export const PushAccountUser = ({ mode }: { mode: ValueOf<typeof FORM_MODES> }) => {
     const {
         register,
         control,
         formState: { errors },
     } = useReactHookFormContext();
 
+    const {
+        formData: { pushAccountSecret },
+    } = useFormContext<ManageRegistryDataContext>();
+
+    const hasOwnerReference = !!pushAccountSecret?.metadata?.ownerReferences;
+
     return (
         <FormTextField
-            {...register(name, {
+            {...register(REGISTRY_NAMES.PUSH_ACCOUNT_USER, {
                 required: 'Enter user name',
             })}
             label={`User`}
@@ -26,6 +32,7 @@ export const User = ({
             placeholder={'Enter user name'}
             control={control}
             errors={errors}
+            disabled={mode === FORM_MODES.EDIT && hasOwnerReference}
         />
     );
 };

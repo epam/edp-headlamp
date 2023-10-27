@@ -3,14 +3,17 @@ import React from 'react';
 import { useFormContext as useReactHookFormDataContext } from 'react-hook-form';
 import { Render } from '../../../../../../components/Render';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
+import { FORM_MODES } from '../../../../../../types/forms';
 import { REGISTRY_NAMES } from '../../../../names';
 import {
     IrsaRoleArn,
-    Password,
+    PullAccountPassword,
+    PullAccountUser,
+    PushAccountPassword,
+    PushAccountUser,
     RegistryEndpoint,
     RegistrySpace,
     Type,
-    User,
     UseSameAccount,
 } from '../../../fields';
 
@@ -64,10 +67,10 @@ export const Form = () => {
                                 <Typography variant={'h6'}>Push Account</Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <User name={REGISTRY_NAMES.PUSH_ACCOUNT_USER} />
+                                <PushAccountUser mode={FORM_MODES.CREATE} />
                             </Grid>
                             <Grid item xs={6}>
-                                <Password name={REGISTRY_NAMES.PUSH_ACCOUNT_PASSWORD} />
+                                <PushAccountPassword mode={FORM_MODES.CREATE} />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -82,10 +85,10 @@ export const Form = () => {
                             <Render condition={!useSameAccountFieldValue}>
                                 <>
                                     <Grid item xs={6}>
-                                        <User name={REGISTRY_NAMES.PULL_ACCOUNT_USER} />
+                                        <PullAccountUser mode={FORM_MODES.CREATE} />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <Password name={REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD} />
+                                        <PullAccountPassword mode={FORM_MODES.CREATE} />
                                     </Grid>
                                 </>
                             </Render>

@@ -54,7 +54,7 @@ export const ConfigurationBody = ({
                     <PageWrapper containerMaxWidth={'xl'}>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
-                                <Typography variant={'h5'} gutterBottom>
+                                <Typography variant={'h1'} gutterBottom>
                                     {label}
                                 </Typography>
                                 <Typography variant={'body1'}>

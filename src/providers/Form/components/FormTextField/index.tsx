@@ -1,8 +1,17 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { FormControl, Grid, TextField, Typography } from '@material-ui/core';
+import { Icon } from '@iconify/react';
+import {
+    FormControl,
+    Grid,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Typography,
+} from '@material-ui/core';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { Render } from '../../../../components/Render';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { FormTextFieldProps } from './types';
 
@@ -18,12 +27,14 @@ export const FormTextField = React.forwardRef(
             placeholder,
             disabled = false,
             showLabelPlaceholder = false,
+            partiallyDisabled = false,
             InputProps,
             TextFieldProps,
             ...props
         }: FormTextFieldProps,
         ref: React.RefObject<HTMLInputElement>
     ) => {
+        const [_partiallyDisabled, setPartiallyDisabled] = React.useState(partiallyDisabled);
         const hasError = !!errors[name];
 
         return (
@@ -44,8 +55,30 @@ export const FormTextField = React.forwardRef(
                                                 error={hasError}
                                                 placeholder={placeholder}
                                                 inputRef={ref}
-                                                disabled={disabled}
-                                                InputProps={InputProps}
+                                                disabled={disabled || _partiallyDisabled}
+                                                InputProps={{
+                                                    ...InputProps,
+                                                    ...(_partiallyDisabled
+                                                        ? {
+                                                              endAdornment: (
+                                                                  <InputAdornment position="end">
+                                                                      <IconButton
+                                                                          size={'small'}
+                                                                          onClick={() =>
+                                                                              setPartiallyDisabled(
+                                                                                  false
+                                                                              )
+                                                                          }
+                                                                      >
+                                                                          <Icon
+                                                                              icon={ICONS.PENCIL}
+                                                                          />
+                                                                      </IconButton>
+                                                                  </InputAdornment>
+                                                              ),
+                                                          }
+                                                        : {}),
+                                                }}
                                                 {...TextFieldProps}
                                                 {...field}
                                             />

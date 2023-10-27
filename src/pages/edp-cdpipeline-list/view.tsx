@@ -60,7 +60,7 @@ export const PageView = () => {
                     title={
                         <Grid container alignItems={'center'} spacing={1}>
                             <Grid item>
-                                <Typography variant={'h5'}>Environments</Typography>
+                                <Typography variant={'h1'}>Environments</Typography>
                             </Grid>
                             <Grid item>
                                 <DocLink
