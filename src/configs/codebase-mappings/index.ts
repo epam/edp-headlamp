@@ -1,7 +1,6 @@
 export const CODEBASE_COMMON_LANGUAGES = {
     JAVA: 'java',
     JAVASCRIPT: 'javascript',
-    DOTNET: 'dotnet',
     PYTHON: 'python',
     GROOVY_PIPELINE: 'groovy-pipeline',
     HCL: 'hcl',

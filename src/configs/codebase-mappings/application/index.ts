@@ -13,7 +13,6 @@ import { CodebaseInterface, CodebaseMappingKey } from '../types';
 export type ApplicationLanguageKeys =
     | typeof CODEBASE_COMMON_LANGUAGES.JAVA
     | typeof CODEBASE_COMMON_LANGUAGES.JAVASCRIPT
-    | typeof CODEBASE_COMMON_LANGUAGES.DOTNET
     | typeof CODEBASE_COMMON_LANGUAGES.PYTHON
     | typeof CODEBASE_COMMON_LANGUAGES.GO
     | typeof CODEBASE_COMMON_LANGUAGES.C_SHARP
@@ -106,27 +105,6 @@ export const APPLICATION_MAPPING: ApplicationMapping = {
                 name: 'NPM',
                 value: CODEBASE_COMMON_BUILD_TOOLS.NPM,
                 icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.NPM],
-            },
-        },
-    },
-    [CODEBASE_COMMON_LANGUAGES.DOTNET]: {
-        language: {
-            name: '.NET',
-            value: CODEBASE_COMMON_LANGUAGES.DOTNET,
-            icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.DOTNET],
-        },
-        frameworks: {
-            [CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1]: {
-                name: '.NET 3.1',
-                value: CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1,
-                icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.DOTNET_3_1],
-            },
-        },
-        buildTools: {
-            [CODEBASE_COMMON_BUILD_TOOLS.DOTNET]: {
-                name: '.NET',
-                value: CODEBASE_COMMON_BUILD_TOOLS.DOTNET,
-                icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.DOTNET],
             },
         },
     },
