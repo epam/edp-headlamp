@@ -1,8 +1,15 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { GitProvider, HostName, HTTPSPort, NameSSHKeySecret, SSHPort, UserName } from '../fields';
+import {
+    GitProvider,
+    HostName,
+    HTTPSPort,
+    NameSSHKeySecret,
+    SSHPort,
+    UserName,
+} from '../../../fields';
 
-export const View = () => {
+export const Form = () => {
     return (
         <>
             <Grid container spacing={2}>

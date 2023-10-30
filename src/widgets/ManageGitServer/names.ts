@@ -36,6 +36,7 @@ export const GIT_SERVER_FORM_NAMES = {
     [NAMES.NAME_SSH_KEY_SECRET]: {
         name: NAMES.NAME_SSH_KEY_SECRET,
         path: ['spec', 'nameSshKeySecret'],
+        notUsedInFormData: true,
     },
     [NAMES.SSH_PORT]: {
         name: NAMES.SSH_PORT,

@@ -9,6 +9,8 @@ import { CreateCodebaseFromTemplateFormValues } from '../../../types';
 const normalizeNameValue = (value: string): string =>
     typeof value === 'string' ? value.trim() : value;
 
+const nameRequirementLabel = `Component name must be not less than two characters long. It must contain only lowercase letters, numbers, and dashes. It cannot start or end with a dash, and cannot have whitespaces`;
+
 export const Name = () => {
     const {
         register,
@@ -20,7 +22,6 @@ export const Name = () => {
 
     const gitServerFieldValue = watch(CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitServer.name);
 
-    const nameRequirementLabel = `Component name must be not less than two characters long. It must contain only lowercase letters, numbers, and dashes. It cannot start or end with a dash, and cannot have whitespaces`;
     const onChange = ({ target: { value } }: FieldEvent): void => {
         const normalizedValue = normalizeNameValue(value);
         if (

@@ -2,7 +2,7 @@ import { CONTAINER_REGISTRY_TYPE } from '../../../../../../../k8s/ConfigMap/cons
 import { useConfigMapCRUD } from '../../../../../../../k8s/ConfigMap/hooks/useConfigMapCRUD';
 import { editEDPConfigConfigMap } from '../../../../../../../k8s/ConfigMap/utils/editEDPConfigConfigMap';
 import { REGISTRY_SECRET_NAMES } from '../../../../../../../k8s/Secret/constants';
-import { useSecretCRUD } from '../../../../../../../k8s/Secret/hooks/useRegistrySecretCRUD';
+import { useSecretCRUD } from '../../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import {
     createECRSecretInstance,
     createRegistrySecretInstance,

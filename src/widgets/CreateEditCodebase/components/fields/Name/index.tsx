@@ -4,14 +4,14 @@ import { FormTextField } from '../../../../../providers/Form/components/FormText
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { CreateCodebaseFormValues } from '../../Create/types';
 
+const nameRequirementLabel = `Component name must be not less than two characters long. It must contain only lowercase letters, numbers, and dashes. It cannot start or end with a dash, and cannot have whitespaces`;
+
 export const Name = () => {
     const {
         register,
         control,
         formState: { errors },
     } = useFormContext<CreateCodebaseFormValues>();
-
-    const nameRequirementLabel = `Component name must be not less than two characters long. It must contain only lowercase letters, numbers, and dashes. It cannot start or end with a dash, and cannot have whitespaces`;
 
     return (
         <FormTextField

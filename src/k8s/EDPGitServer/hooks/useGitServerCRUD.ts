@@ -11,7 +11,11 @@ interface CreateGitServerProps {
     gitServerSecretData: EDPKubeObjectInterface;
 }
 
-export const useCreateGitServer = ({
+interface EditGitServerProps {
+    gitServerData: EDPGitServerKubeObjectInterface;
+}
+
+export const useGitServerCRUD = ({
     onSuccess,
     onError,
 }: {
@@ -25,6 +29,11 @@ export const useCreateGitServer = ({
         EDPGitServerKubeObjectInterface,
         CRUD_TYPES.CREATE
     >('gitServerCreateMutation', EDPGitServerKubeObject, CRUD_TYPES.CREATE);
+
+    const gitServerEditMutation = useResourceCRUDMutation<
+        EDPGitServerKubeObjectInterface,
+        CRUD_TYPES.EDIT
+    >('gitServerEditMutation', EDPGitServerKubeObject, CRUD_TYPES.EDIT);
 
     const gitServerSecretDeleteMutation = useResourceCRUDMutation<
         EDPKubeObjectInterface,
@@ -66,11 +75,25 @@ export const useCreateGitServer = ({
         ]
     );
 
+    const editGitServer = React.useCallback(
+        async ({ gitServerData }: EditGitServerProps) => {
+            gitServerEditMutation.mutate(gitServerData, {
+                onSuccess: () => {
+                    invokeOnSuccessCallback();
+                },
+                onError: () => {
+                    invokeOnErrorCallback();
+                },
+            });
+        },
+        [gitServerEditMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
+    );
+
     const mutations = {
         gitServerCreateMutation,
         gitServerSecretCreateMutation,
         gitServerSecretDeleteMutation,
     };
 
-    return { createGitServer, mutations };
+    return { createGitServer, editGitServer, mutations };
 };

@@ -1,9 +1,8 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
-import { useFormContext } from '../../../../../providers/Form/hooks';
 import { GIT_SERVER_FORM_NAMES } from '../../../names';
-import { ManageGitServerDataContext, ManageGitServerValues } from '../../../types';
+import { ManageGitServerValues } from '../../../types';
 
 export const UserName = () => {
     const {
@@ -12,10 +11,6 @@ export const UserName = () => {
         formState: { errors },
     } = useReactHookFormContext<ManageGitServerValues>();
 
-    const {
-        formData: { isReadOnly },
-    } = useFormContext<ManageGitServerDataContext>();
-
     return (
         <FormTextField
             {...register(GIT_SERVER_FORM_NAMES.gitUser.name)}
@@ -23,7 +18,6 @@ export const UserName = () => {
             title={`Git user name, usually "git"`}
             control={control}
             errors={errors}
-            disabled={isReadOnly}
         />
     );
 };

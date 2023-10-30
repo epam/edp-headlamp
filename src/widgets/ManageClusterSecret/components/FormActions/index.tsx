@@ -2,7 +2,7 @@ import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { Render } from '../../../../components/Render';
-import { useCreateClusterSecret } from '../../../../k8s/Secret/hooks/useCreateClusterSecret';
+import { useSecretCRUD } from '../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createClusterSecretInstance } from '../../../../k8s/Secret/utils/createClusterSecretInstance';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../types/forms';
@@ -12,7 +12,7 @@ import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../..
 
 export const FormActions = () => {
     const {
-        formData: { currentElement, handleClosePlaceholder, isReadOnly },
+        formData: { currentElement, handleClosePlaceholder },
     } = useFormContext<ManageClusterSecretDataContext>();
 
     const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
@@ -26,20 +26,23 @@ export const FormActions = () => {
     } = useReactHookFormContext<ManageClusterSecretValues>();
 
     const handleClose = React.useCallback(() => {
-        reset();
-        handleClosePlaceholder();
-    }, [handleClosePlaceholder, reset]);
+        if (mode === FORM_MODES.CREATE) {
+            reset();
+            handleClosePlaceholder();
+        }
+    }, [handleClosePlaceholder, mode, reset]);
 
     const {
-        createClusterSecret,
-        mutations: { clusterSecretCreateMutation },
-    } = useCreateClusterSecret({
+        createSecret,
+        editSecret,
+        mutations: { secretCreateMutation, secretEditMutation },
+    } = useSecretCRUD({
         onSuccess: handleClose,
     });
 
     const isLoading = React.useMemo(
-        () => clusterSecretCreateMutation.isLoading,
-        [clusterSecretCreateMutation.isLoading]
+        () => secretCreateMutation.isLoading || secretEditMutation.isLoading,
+        [secretCreateMutation, secretEditMutation]
     );
 
     const onSubmit = React.useCallback(async () => {
@@ -56,11 +59,18 @@ export const FormActions = () => {
             clusterCertificate,
         });
 
-        await createClusterSecret({
-            clusterSecretData: newClusterSecretData,
-        });
+        if (mode === FORM_MODES.CREATE) {
+            await createSecret({
+                secretData: newClusterSecretData,
+            });
+        } else {
+            await editSecret({
+                secretData: newClusterSecretData,
+            });
+        }
+
         reset();
-    }, [createClusterSecret, getValues, reset]);
+    }, [createSecret, editSecret, getValues, mode, reset]);
 
     return (
         <>
@@ -79,7 +89,7 @@ export const FormActions = () => {
                                 onClick={() => reset()}
                                 size="small"
                                 component={'button'}
-                                disabled={!isDirty || isReadOnly}
+                                disabled={!isDirty}
                             >
                                 undo changes
                             </Button>
@@ -91,7 +101,7 @@ export const FormActions = () => {
                                 component={'button'}
                                 variant={'contained'}
                                 color={'primary'}
-                                disabled={isLoading || isReadOnly || !isDirty}
+                                disabled={isLoading || !isDirty}
                                 onClick={handleSubmit(onSubmit)}
                             >
                                 save

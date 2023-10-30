@@ -1,10 +1,11 @@
 import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
-import { FormValues } from '../../types/forms';
+import { FORM_MODES, FormValues } from '../../types/forms';
+import { ValueOf } from '../../types/global';
 import { GIT_SERVER_FORM_NAMES } from './names';
 
 export interface ManageGitServerDataContext {
     currentElement: EDPGitServerKubeObjectInterface | 'placeholder';
-    isReadOnly?: boolean;
+    mode?: ValueOf<typeof FORM_MODES>;
     handleClosePlaceholder?: () => void;
 }
 

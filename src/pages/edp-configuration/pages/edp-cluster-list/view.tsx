@@ -28,7 +28,6 @@ export const PageView = () => {
                         <ManageClusterSecret
                             formData={{
                                 currentElement: el,
-                                isReadOnly: true,
                             }}
                         />
                     ),

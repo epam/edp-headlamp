@@ -4,7 +4,6 @@ import { CLUSTER_CREATION_FORM_NAMES } from './names';
 
 export interface ManageClusterSecretDataContext {
     currentElement: SecretKubeObjectInterface | 'placeholder';
-    isReadOnly?: boolean;
     handleClosePlaceholder?: () => void;
 }
 

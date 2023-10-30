@@ -7,6 +7,7 @@ import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/name
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { FormRadioGroup } from '../../../../../providers/Form/components/FormRadioGroup';
 import { useFormContext } from '../../../../../providers/Form/hooks';
+import { FORM_MODES } from '../../../../../types/forms';
 import { GIT_SERVER_FORM_NAMES } from '../../../names';
 import { ManageGitServerDataContext, ManageGitServerValues } from '../../../types';
 
@@ -18,7 +19,7 @@ export const GitProvider = () => {
     } = useReactHookFormContext<ManageGitServerValues>();
 
     const {
-        formData: { isReadOnly },
+        formData: { mode },
     } = useFormContext<ManageGitServerDataContext>();
 
     return (
@@ -56,7 +57,7 @@ export const GitProvider = () => {
                         ),
                     };
                 })}
-                disabled={isReadOnly}
+                disabled={mode === FORM_MODES.EDIT}
             />
         </>
     );

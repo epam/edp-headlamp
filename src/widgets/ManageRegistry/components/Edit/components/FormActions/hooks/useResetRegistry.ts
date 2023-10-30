@@ -1,7 +1,7 @@
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../../k8s/ConfigMap/constants';
 import { useConfigMapCRUD } from '../../../../../../../k8s/ConfigMap/hooks/useConfigMapCRUD';
 import { editEDPConfigConfigMap } from '../../../../../../../k8s/ConfigMap/utils/editEDPConfigConfigMap';
-import { useSecretCRUD } from '../../../../../../../k8s/Secret/hooks/useRegistrySecretCRUD';
+import { useSecretCRUD } from '../../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { useEditServiceAccount } from '../../../../../../../k8s/ServiceAccount/hooks/useEditServiceAccount';
 import { ServiceAccountKubeObjectInterface } from '../../../../../../../k8s/ServiceAccount/types';
 import { editServiceAccountInstance } from '../../../../../../../k8s/ServiceAccount/utils/editServiceAccount';

@@ -4,6 +4,7 @@ import { Render } from '../../../../components/Render';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
+import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { rem } from '../../../../utils/styling/rem';
 import { ManageGitServer } from '../../../../widgets/ManageGitServer';
@@ -62,8 +63,8 @@ export const PageView = () => {
                     component: (
                         <ManageGitServer
                             formData={{
-                                currentElement: el,
-                                isReadOnly: true,
+                                currentElement: el.jsonData,
+                                mode: FORM_MODES.EDIT,
                             }}
                         />
                     ),
@@ -87,6 +88,7 @@ export const PageView = () => {
                     <ManageGitServer
                         formData={{
                             currentElement: 'placeholder',
+                            mode: FORM_MODES.CREATE,
                             handleClosePlaceholder,
                         }}
                     />

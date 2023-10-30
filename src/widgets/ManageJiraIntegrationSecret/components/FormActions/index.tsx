@@ -5,7 +5,7 @@ import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/Secret';
-import { useSecretCRUD } from '../../../../k8s/Secret/hooks/useRegistrySecretCRUD';
+import { useSecretCRUD } from '../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createJiraIntegrationSecretInstance } from '../../../../k8s/Secret/utils/createJiraIntegrationSecretInstance';
 import { useDialogContext, useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { useFormContext } from '../../../../providers/Form/hooks';

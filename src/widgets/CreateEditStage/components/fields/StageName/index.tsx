@@ -9,6 +9,8 @@ import { STAGE_FORM_NAMES } from '../../../names';
 import { CreateEditStageDialogForwardedProps, CreateEditStageFormValues } from '../../../types';
 import { StageNameProps } from './types';
 
+const nameRequirementLabel = `Name must be not less than two characters long. It must contain only lowercase letters, numbers, and dashes. It cannot start or end with a dash, and cannot have whitespaces`;
+
 export const StageName = ({ otherStagesNames }: StageNameProps) => {
     const {
         register,
@@ -30,6 +32,10 @@ export const StageName = ({ otherStagesNames }: StageNameProps) => {
         <FormTextField
             {...register(STAGE_FORM_NAMES.name.name, {
                 required: `Enter stage name`,
+                pattern: {
+                    value: /^[a-z](?!.*--[^-])[a-z0-9-]*[a-z0-9]$/,
+                    message: nameRequirementLabel,
+                },
                 onChange: ({ target: { value } }: FieldEvent) => {
                     setValue(
                         STAGE_FORM_NAMES.deployNamespace.name,

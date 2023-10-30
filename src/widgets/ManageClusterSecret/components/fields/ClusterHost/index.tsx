@@ -2,9 +2,8 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
-import { useFormContext } from '../../../../../providers/Form/hooks';
 import { CLUSTER_CREATION_FORM_NAMES } from '../../../names';
-import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../types';
+import { ManageClusterSecretValues } from '../../../types';
 
 export const ClusterHost = () => {
     const {
@@ -12,10 +11,6 @@ export const ClusterHost = () => {
         control,
         formState: { errors },
     } = useReactHookFormContext<ManageClusterSecretValues>();
-
-    const {
-        formData: { isReadOnly },
-    } = useFormContext<ManageClusterSecretDataContext>();
 
     return (
         <Grid item xs={12}>
@@ -27,7 +22,6 @@ export const ClusterHost = () => {
                 placeholder={'Enter cluster host'}
                 control={control}
                 errors={errors}
-                disabled={isReadOnly}
             />
         </Grid>
     );
