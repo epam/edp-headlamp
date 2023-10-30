@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { Render } from '../../../../../components/Render';
 import { TableColumn } from '../../../../../components/Table/types';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
+import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../../types';
 
 export const useUpperColumns = ({
@@ -20,6 +21,7 @@ export const useUpperColumns = ({
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
     const numSelected = React.useMemo(() => selected.length, [selected]);
     const { reset } = useFormContext();
+    const { stage } = useDynamicDataContext();
 
     return React.useMemo(
         () => [
@@ -166,11 +168,15 @@ export const useUpperColumns = ({
                     );
                 },
             },
-            {
-                id: 'pods',
-                label: '',
-                render: () => null,
-            },
+            ...(stage?.spec.clusterName === 'in-cluster'
+                ? ([
+                      {
+                          id: 'pods',
+                          label: 'Pods',
+                          render: () => null,
+                      },
+                  ] as TableColumn<EnrichedApplicationWithArgoApplication>[])
+                : []),
             {
                 id: 'ingress',
                 label: '',
@@ -189,6 +195,7 @@ export const useUpperColumns = ({
             reset,
             selected,
             someArgoApplicationMutationIsLoading,
+            stage,
         ]
     );
 };

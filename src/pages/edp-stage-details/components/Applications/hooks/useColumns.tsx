@@ -240,61 +240,65 @@ export const useColumns = (
                 },
                 width: '25%',
             },
-            {
-                id: 'pods',
-                label: 'Pods',
-                render: enrichedApplicationWithArgoApplication => {
-                    return (
-                        <Grid container spacing={1} alignItems={'center'}>
-                            <Grid item>
-                                <Tooltip title={'Show Logs'}>
-                                    <IconButton
-                                        onClick={() =>
-                                            setDialog({
-                                                modalName: PODS_LOG_VIEWER_DIALOG_NAME,
-                                                forwardedProps: {
-                                                    stageNamespace: stage?.spec.namespace,
-                                                    appName:
-                                                        enrichedApplicationWithArgoApplication
-                                                            ?.application?.metadata.name,
-                                                },
-                                            })
-                                        }
-                                        disabled={
-                                            !enrichedApplicationWithArgoApplication?.argoApplication
-                                        }
-                                    >
-                                        <Icon icon="mdi:file-document-box-outline" />
-                                    </IconButton>
-                                </Tooltip>
-                            </Grid>
-                            <Grid item>
-                                <Tooltip title={'Show Terminal'}>
-                                    <IconButton
-                                        onClick={() =>
-                                            setDialog({
-                                                modalName: PODS_TERMINAL_DIALOG_NAME,
-                                                forwardedProps: {
-                                                    stageNamespace: stage?.spec.namespace,
-                                                    appName:
-                                                        enrichedApplicationWithArgoApplication
-                                                            ?.application?.metadata.name,
-                                                },
-                                            })
-                                        }
-                                        disabled={
-                                            !enrichedApplicationWithArgoApplication?.argoApplication
-                                        }
-                                    >
-                                        <Icon icon="mdi:console" />
-                                    </IconButton>
-                                </Tooltip>
-                            </Grid>
-                        </Grid>
-                    );
-                },
-                textAlign: 'center',
-            },
+            ...(stage?.spec.clusterName === 'in-cluster'
+                ? ([
+                      {
+                          id: 'pods',
+                          label: 'Pods',
+                          render: enrichedApplicationWithArgoApplication => {
+                              return (
+                                  <Grid container spacing={1} alignItems={'center'}>
+                                      <Grid item>
+                                          <Tooltip title={'Show Logs'}>
+                                              <IconButton
+                                                  onClick={() =>
+                                                      setDialog({
+                                                          modalName: PODS_LOG_VIEWER_DIALOG_NAME,
+                                                          forwardedProps: {
+                                                              stageNamespace: stage?.spec.namespace,
+                                                              appName:
+                                                                  enrichedApplicationWithArgoApplication
+                                                                      ?.application?.metadata.name,
+                                                          },
+                                                      })
+                                                  }
+                                                  disabled={
+                                                      !enrichedApplicationWithArgoApplication?.argoApplication
+                                                  }
+                                              >
+                                                  <Icon icon="mdi:file-document-box-outline" />
+                                              </IconButton>
+                                          </Tooltip>
+                                      </Grid>
+                                      <Grid item>
+                                          <Tooltip title={'Show Terminal'}>
+                                              <IconButton
+                                                  onClick={() =>
+                                                      setDialog({
+                                                          modalName: PODS_TERMINAL_DIALOG_NAME,
+                                                          forwardedProps: {
+                                                              stageNamespace: stage?.spec.namespace,
+                                                              appName:
+                                                                  enrichedApplicationWithArgoApplication
+                                                                      ?.application?.metadata.name,
+                                                          },
+                                                      })
+                                                  }
+                                                  disabled={
+                                                      !enrichedApplicationWithArgoApplication?.argoApplication
+                                                  }
+                                              >
+                                                  <Icon icon="mdi:console" />
+                                              </IconButton>
+                                          </Tooltip>
+                                      </Grid>
+                                  </Grid>
+                              );
+                          },
+                          textAlign: 'center',
+                      },
+                  ] as TableColumn<EnrichedApplicationWithArgoApplication>[])
+                : []),
             {
                 id: 'ingress',
                 label: 'Ingress',
