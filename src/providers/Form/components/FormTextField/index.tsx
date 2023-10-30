@@ -34,8 +34,49 @@ export const FormTextField = React.forwardRef(
         }: FormTextFieldProps,
         ref: React.RefObject<HTMLInputElement>
     ) => {
+        const { type } = TextFieldProps || { type: 'text' };
         const [_partiallyDisabled, setPartiallyDisabled] = React.useState(partiallyDisabled);
         const hasError = !!errors[name];
+        const [_type, setType] = React.useState(type);
+
+        const handleToggleType = () => {
+            setType(prev => (prev === 'text' ? 'password' : 'text'));
+        };
+
+        const _InputProps = React.useMemo(
+            () => ({
+                ...InputProps,
+                ...(_partiallyDisabled
+                    ? {
+                          endAdornment: (
+                              <InputAdornment position="end">
+                                  <IconButton
+                                      size={'small'}
+                                      onClick={() => setPartiallyDisabled(false)}
+                                  >
+                                      <Icon icon={ICONS.PENCIL} />
+                                  </IconButton>
+                              </InputAdornment>
+                          ),
+                      }
+                    : {}),
+                ...(type === 'password'
+                    ? {
+                          endAdornment: (
+                              <InputAdornment position="end">
+                                  <IconButton size={'small'} onClick={handleToggleType}>
+                                      <Icon
+                                          icon={_type === 'text' ? ICONS.EYE : ICONS.CROSSED_EYE}
+                                      />
+                                  </IconButton>
+                              </InputAdornment>
+                          ),
+                      }
+                    : {}),
+                type: _type,
+            }),
+            [InputProps, _partiallyDisabled, _type, type]
+        );
 
         return (
             <Grid container spacing={1}>
@@ -56,29 +97,7 @@ export const FormTextField = React.forwardRef(
                                                 placeholder={placeholder}
                                                 inputRef={ref}
                                                 disabled={disabled || _partiallyDisabled}
-                                                InputProps={{
-                                                    ...InputProps,
-                                                    ...(_partiallyDisabled
-                                                        ? {
-                                                              endAdornment: (
-                                                                  <InputAdornment position="end">
-                                                                      <IconButton
-                                                                          size={'small'}
-                                                                          onClick={() =>
-                                                                              setPartiallyDisabled(
-                                                                                  false
-                                                                              )
-                                                                          }
-                                                                      >
-                                                                          <Icon
-                                                                              icon={ICONS.PENCIL}
-                                                                          />
-                                                                      </IconButton>
-                                                                  </InputAdornment>
-                                                              ),
-                                                          }
-                                                        : {}),
-                                                }}
+                                                InputProps={_InputProps}
                                                 {...TextFieldProps}
                                                 {...field}
                                             />

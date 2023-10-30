@@ -22,7 +22,7 @@ export const ClusterToken = () => {
                 placeholder={'Enter cluster token'}
                 control={control}
                 errors={errors}
-                InputProps={{
+                TextFieldProps={{
                     type: 'password',
                 }}
             />

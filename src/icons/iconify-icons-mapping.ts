@@ -61,4 +61,6 @@ export enum ICONS {
     FIT_TO_SCREEN = 'material-symbols:pan-zoom-rounded',
     ZOOM_OUT_MAP = 'material-symbols:zoom-out-map',
     CALENDAR = 'mdi:calendar',
+    EYE = 'mdi:eye-outline',
+    CROSSED_EYE = 'mdi:eye-off-outline',
 }
