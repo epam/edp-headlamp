@@ -88,13 +88,13 @@ export const useSetupRegistry = ({ onSuccess }) => {
             const registrySecretInstances = [
                 createRegistrySecretInstance({
                     name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
-                    registryEndpoint: registryHost,
+                    registryEndpoint: 'https://index.docker.io/v1/',
                     user: pushAccountUser,
                     password: pushAccountPassword,
                 }),
                 createRegistrySecretInstance({
                     name: REGISTRY_SECRET_NAMES.REGCRED,
-                    registryEndpoint: registryHost,
+                    registryEndpoint: 'https://index.docker.io/v1/',
                     user: pullAccountUser,
                     password: pullAccountPassword,
                 }),

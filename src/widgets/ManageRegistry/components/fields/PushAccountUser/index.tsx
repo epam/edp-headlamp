@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { useFormContext } from '../../../../../providers/Form/hooks';
-import { FORM_MODES } from '../../../../../types/forms';
+import { FieldEvent, FORM_MODES } from '../../../../../types/forms';
 import { ValueOf } from '../../../../../types/global';
 import { REGISTRY_NAMES } from '../../../names';
 import { ManageRegistryDataContext } from '../../../types';
@@ -12,11 +12,15 @@ export const PushAccountUser = ({ mode }: { mode: ValueOf<typeof FORM_MODES> }) 
         register,
         control,
         formState: { errors },
+        setValue,
+        watch,
     } = useReactHookFormContext();
 
     const {
         formData: { pushAccountSecret },
     } = useFormContext<ManageRegistryDataContext>();
+
+    const useSameAccountFieldValue = watch(REGISTRY_NAMES.USE_SAME_ACCOUNT);
 
     const hasOwnerReference = !!pushAccountSecret?.metadata?.ownerReferences;
 
@@ -24,6 +28,13 @@ export const PushAccountUser = ({ mode }: { mode: ValueOf<typeof FORM_MODES> }) 
         <FormTextField
             {...register(REGISTRY_NAMES.PUSH_ACCOUNT_USER, {
                 required: 'Enter user name',
+                onChange: ({ target: { value } }: FieldEvent) => {
+                    if (!useSameAccountFieldValue) {
+                        return;
+                    }
+
+                    setValue(REGISTRY_NAMES.PULL_ACCOUNT_USER, value);
+                },
             })}
             label={`User`}
             title={
