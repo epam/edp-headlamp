@@ -12,47 +12,61 @@ import { CODEBASE_BRANCH_FORM_NAMES } from '../../../names';
 import { CreateCodebaseBranchFormValues } from '../../../types';
 import { ReleaseBranchProps } from './types';
 
+const createReleaseName = (versionFieldValue: string) => {
+    if (!versionFieldValue) {
+        return;
+    }
+    const { version } = getVersionAndPostfixFromVersioningString(versionFieldValue);
+    const { major, minor } = getMajorMinorPatchOfVersion(version);
+
+    return createReleaseNameString(major, minor);
+};
+
 export const ReleaseBranch = ({ defaultBranchVersion }: ReleaseBranchProps) => {
     const {
         register,
         control,
         formState: { errors },
         setValue,
-        watch,
+        getValues,
     } = useFormContext<CreateCodebaseBranchFormValues>();
-
-    const versionFieldValue = watch(CODEBASE_BRANCH_FORM_NAMES.version.name);
-    const versionStartFieldValue = watch(CODEBASE_BRANCH_FORM_NAMES.branchVersionStart.name);
-
-    const releaseName = React.useMemo(() => {
-        if (!versionFieldValue || !defaultBranchVersion) {
-            return;
-        }
-        const { version } = getVersionAndPostfixFromVersioningString(versionFieldValue);
-        const { major, minor } = getMajorMinorPatchOfVersion(version);
-
-        return createReleaseNameString(major, minor);
-    }, [defaultBranchVersion, versionFieldValue]);
 
     const handleReleaseValueChange = React.useCallback(
         ({ target: { value } }: FieldEvent) => {
-            if (!versionFieldValue || !defaultBranchVersion) {
+            const { version, releaseBranchVersionStart, defaultBranchVersionPostfix } = getValues();
+            if (!version || !defaultBranchVersion) {
                 return;
             }
 
             const { postfix } = getVersionAndPostfixFromVersioningString(defaultBranchVersion);
-
-            const branchName = value ? releaseName : undefined;
+            const newReleaseName = createReleaseName(version);
+            const newReleaseBranchName = value ? newReleaseName : undefined;
             const branchVersionPostfix = value ? RELEASE_BRANCH_POSTFIX : postfix;
             const newVersion = value
-                ? createVersioningString(versionStartFieldValue, RELEASE_BRANCH_POSTFIX)
-                : createVersioningString(versionStartFieldValue, postfix);
+                ? createVersioningString(releaseBranchVersionStart, RELEASE_BRANCH_POSTFIX)
+                : createVersioningString(releaseBranchVersionStart, postfix);
 
-            setValue(CODEBASE_BRANCH_FORM_NAMES.branchName.name, branchName);
-            setValue(CODEBASE_BRANCH_FORM_NAMES.branchVersionPostfix.name, branchVersionPostfix);
+            const [currentBranchVersion] = newVersion.split('-');
+            const { major, minor, patch } = getMajorMinorPatchOfVersion(currentBranchVersion);
+            const newDefaultBranchMinor = minor + 1;
+            const defaultBranchNewVersion = [major, newDefaultBranchMinor, patch].join('.');
+
+            setValue(CODEBASE_BRANCH_FORM_NAMES.releaseBranchName.name, newReleaseBranchName);
+            setValue(
+                CODEBASE_BRANCH_FORM_NAMES.releaseBranchVersionPostfix.name,
+                branchVersionPostfix
+            );
             setValue(CODEBASE_BRANCH_FORM_NAMES.version.name, newVersion);
+            setValue(
+                CODEBASE_BRANCH_FORM_NAMES.defaultBranchVersionStart.name,
+                defaultBranchNewVersion
+            );
+
+            if (!defaultBranchVersionPostfix) {
+                setValue(CODEBASE_BRANCH_FORM_NAMES.defaultBranchVersionPostfix.name, postfix);
+            }
         },
-        [defaultBranchVersion, releaseName, setValue, versionFieldValue, versionStartFieldValue]
+        [defaultBranchVersion, getValues, setValue]
     );
 
     return (

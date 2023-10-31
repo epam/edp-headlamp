@@ -4,18 +4,23 @@ import { FORM_PART_CODEBASE_INFO } from '../CreateEditCodebase/constants';
 
 const NAMES = {
     NAME: 'name',
-    BRANCH_NAME: 'branchName',
     FROM_COMMIT: 'fromCommit',
     RELEASE: 'release',
     VERSION: 'version',
     CODEBASE_NAME_LABEL: 'codebaseNameLabel',
 
-    // NOT USED IN RESOURCE DATA
-    CODEBASE_NAME: 'codebaseName',
-    BRANCH_VERSION_START: 'branchVersionStart',
-    BRANCH_VERSION_POSTFIX: 'branchVersionPostfix',
+    // NON RELEASE RELATED FIELDS
+    BRANCH_NAME: 'branchName',
+
+    // RELEASE RELATED FIELDS
+    RELEASE_BRANCH_NAME: 'releaseBranchName',
+    RELEASE_BRANCH_VERSION_START: 'releaseBranchVersionStart',
+    RELEASE_BRANCH_VERSION_POSTFIX: 'releaseBranchVersionPostfix',
     DEFAULT_BRANCH_VERSION_START: 'defaultBranchVersionStart',
     DEFAULT_BRANCH_VERSION_POSTFIX: 'defaultBranchVersionPostfix',
+
+    // NOT USED IN RESOURCE DATA
+    CODEBASE_NAME: 'codebaseName',
 } as const;
 
 export const CODEBASE_BRANCH_FORM_NAMES = {
@@ -25,6 +30,10 @@ export const CODEBASE_BRANCH_FORM_NAMES = {
     },
     [NAMES.BRANCH_NAME]: {
         name: NAMES.BRANCH_NAME,
+        path: ['spec', 'branchName'],
+    },
+    [NAMES.RELEASE_BRANCH_NAME]: {
+        name: NAMES.RELEASE_BRANCH_NAME,
         path: ['spec', 'branchName'],
     },
     [NAMES.FROM_COMMIT]: {
@@ -46,12 +55,12 @@ export const CODEBASE_BRANCH_FORM_NAMES = {
     },
 
     // NOT USED IN RESOURCE DATA
-    [NAMES.BRANCH_VERSION_START]: {
-        name: NAMES.BRANCH_VERSION_START,
+    [NAMES.RELEASE_BRANCH_VERSION_START]: {
+        name: NAMES.RELEASE_BRANCH_VERSION_START,
         notUsedInFormData: true,
     },
-    [NAMES.BRANCH_VERSION_POSTFIX]: {
-        name: NAMES.BRANCH_VERSION_POSTFIX,
+    [NAMES.RELEASE_BRANCH_VERSION_POSTFIX]: {
+        name: NAMES.RELEASE_BRANCH_VERSION_POSTFIX,
         notUsedInFormData: true,
     },
     [NAMES.DEFAULT_BRANCH_VERSION_START]: {

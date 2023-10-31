@@ -23,7 +23,7 @@ import {
     FromCommit,
     ReleaseBranch,
 } from '../fields';
-import { useUpdateBranchVersionFields } from './hooks/useUpdateBranchVersionFields';
+import { ReleaseBranchName } from '../fields/ReleaseBranchName';
 import { FormProps } from './types';
 
 export const Form = ({
@@ -76,10 +76,6 @@ export const Form = ({
         [getValues, handleCloseEditor, handleEditorSave]
     );
 
-    useUpdateBranchVersionFields({
-        defaultBranchVersion,
-    });
-
     return (
         <>
             <Grid container spacing={2}>
@@ -88,9 +84,16 @@ export const Form = ({
                         <ReleaseBranch defaultBranchVersion={defaultBranchVersion} />
                     </Grid>
                 </Render>
-                <Grid item xs={12}>
-                    <BranchName defaultBranchVersion={defaultBranchVersion} />
-                </Grid>
+                <Render condition={!!releaseFieldValue}>
+                    <Grid item xs={12}>
+                        <ReleaseBranchName defaultBranchVersion={defaultBranchVersion} />
+                    </Grid>
+                </Render>
+                <Render condition={!releaseFieldValue}>
+                    <Grid item xs={12}>
+                        <BranchName defaultBranchVersion={defaultBranchVersion} />
+                    </Grid>
+                </Render>
                 <Grid item xs={12}>
                     <FromCommit />
                 </Grid>

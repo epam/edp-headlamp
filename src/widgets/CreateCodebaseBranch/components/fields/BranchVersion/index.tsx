@@ -15,49 +15,52 @@ export const BranchVersion = () => {
         register,
         control,
         formState: { errors },
-        watch,
         setValue,
+        getValues,
     } = useFormContext<CreateCodebaseBranchFormValues>();
-
-    const releaseFieldValue = watch(CODEBASE_BRANCH_FORM_NAMES.release.name);
-    const branchVersionStartFieldValue =
-        watch(CODEBASE_BRANCH_FORM_NAMES.branchVersionStart.name) || '';
-    const branchVersionPostfixFieldValue =
-        watch(CODEBASE_BRANCH_FORM_NAMES.branchVersionPostfix.name) || '';
 
     const onBranchVersionStartFieldValueChange = React.useCallback(
         ({ target: { value } }: FieldEvent): void => {
-            const branchVersion = createVersioningString(value, branchVersionPostfixFieldValue);
+            const { release, releaseBranchVersionPostfix } = getValues();
+            const branchVersion = createVersioningString(value, releaseBranchVersionPostfix);
 
             setValue(CODEBASE_BRANCH_FORM_NAMES.version.name, branchVersion);
 
-            if (!releaseFieldValue) {
+            if (!release) {
                 return;
             }
 
             const { version } = getVersionAndPostfixFromVersioningString(branchVersion);
-            const { major, minor } = getMajorMinorPatchOfVersion(version);
+            const { major, minor, patch } = getMajorMinorPatchOfVersion(version);
+            const newDefaultBranchMinor = minor + 1;
+            const defaultBranchNewVersion = [major, newDefaultBranchMinor, patch].join('.');
             setValue(
-                CODEBASE_BRANCH_FORM_NAMES.branchName.name,
+                CODEBASE_BRANCH_FORM_NAMES.releaseBranchName.name,
                 createReleaseNameString(major, minor)
             );
+            setValue(
+                CODEBASE_BRANCH_FORM_NAMES.defaultBranchVersionStart.name,
+                defaultBranchNewVersion
+            );
         },
-        [branchVersionPostfixFieldValue, releaseFieldValue, setValue]
+        [getValues, setValue]
     );
 
     const onBranchVersionPostfixFieldValueChange = React.useCallback(
         ({ target: { value } }: FieldEvent): void => {
-            const branchVersion = createVersioningString(branchVersionStartFieldValue, value);
+            const { releaseBranchVersionStart } = getValues();
+
+            const branchVersion = createVersioningString(releaseBranchVersionStart, value);
             setValue(CODEBASE_BRANCH_FORM_NAMES.version.name, branchVersion);
         },
-        [branchVersionStartFieldValue, setValue]
+        [getValues, setValue]
     );
 
     return (
         <Grid container spacing={2}>
             <Grid item xs={6}>
                 <FormTextField
-                    {...register(CODEBASE_BRANCH_FORM_NAMES.branchVersionStart.name, {
+                    {...register(CODEBASE_BRANCH_FORM_NAMES.releaseBranchVersionStart.name, {
                         required: 'Branch version',
                         onBlur: onBranchVersionStartFieldValueChange,
                         pattern: {
@@ -68,18 +71,16 @@ export const BranchVersion = () => {
                     label={'Branch version'}
                     title={'Valid identifiers are in the set [A-Za-z0-9]'}
                     placeholder={'0.0.0'}
-                    defaultValue={'0.0.0'}
                     control={control}
                     errors={errors}
                 />
             </Grid>
             <Grid item xs={6}>
                 <FormTextField
-                    {...register(CODEBASE_BRANCH_FORM_NAMES.branchVersionPostfix.name, {
+                    {...register(CODEBASE_BRANCH_FORM_NAMES.releaseBranchVersionPostfix.name, {
                         onBlur: onBranchVersionPostfixFieldValueChange,
                     })}
                     placeholder={'SNAPSHOT'}
-                    defaultValue={'SNAPSHOT'}
                     control={control}
                     errors={errors}
                     showLabelPlaceholder

@@ -9,7 +9,7 @@ import { CODEBASE_BRANCH_FORM_NAMES } from '../../../names';
 import { CreateCodebaseBranchFormValues } from '../../../types';
 import { BranchNameProps } from './types';
 
-export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
+export const ReleaseBranchName = ({ defaultBranchVersion }: BranchNameProps) => {
     const {
         register,
         control,
@@ -31,7 +31,7 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
             const { postfix } = getVersionAndPostfixFromVersioningString(defaultBranchVersion);
             const newValue = value === '' ? postfix : `${value}-${postfix}`;
 
-            setValue(CODEBASE_BRANCH_FORM_NAMES.releaseBranchVersionPostfix.name, newValue);
+            setValue(CODEBASE_BRANCH_FORM_NAMES.releaseBranchVersionStart.name, newValue);
             setValue(
                 CODEBASE_BRANCH_FORM_NAMES.version.name,
                 createVersioningString(releaseBranchVersionStart, newValue)
@@ -43,7 +43,7 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
     return (
         <Grid item xs={12}>
             <FormTextField
-                {...register(CODEBASE_BRANCH_FORM_NAMES.branchName.name, {
+                {...register(CODEBASE_BRANCH_FORM_NAMES.releaseBranchName.name, {
                     pattern: {
                         value: /^[a-z0-9][a-z0-9\/\-.]*[a-z0-9]$/,
                         message: 'Enter valid release branch name',
