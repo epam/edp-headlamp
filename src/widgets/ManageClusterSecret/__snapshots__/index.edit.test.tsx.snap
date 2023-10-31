@@ -55,11 +55,12 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                       class="MuiFormControl-root MuiTextField-root"
                     >
                       <div
-                        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                        class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl"
                       >
                         <input
                           aria-invalid="false"
-                          class="MuiInputBase-input MuiInput-input"
+                          class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled"
+                          disabled=""
                           name="clusterName"
                           placeholder="Enter cluster name"
                           type="text"
