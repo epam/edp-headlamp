@@ -1,13 +1,17 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
+import { Render } from '../../components/Render';
 import { FormContextProvider } from '../../providers/Form';
-import { Form } from './components/Form';
-import { FormActions } from './components/FormActions';
-import { useDefaultValues } from './hooks/useDefaultValues';
+import { FORM_MODES } from '../../types/forms';
+import { Create } from './components/Create';
+import { Edit } from './components/Edit';
+import { useDefaultValues } from './components/Edit/hooks/useDefaultValues';
 import { ManageClusterSecretProps } from './types';
 
 export const ManageClusterSecret = ({ formData }: ManageClusterSecretProps) => {
     const baseDefaultValues = useDefaultValues({ formData });
+
+    const { mode } = formData;
 
     return (
         <FormContextProvider
@@ -19,10 +23,12 @@ export const ManageClusterSecret = ({ formData }: ManageClusterSecretProps) => {
         >
             <Grid container spacing={2} data-testid="form">
                 <Grid item xs={12}>
-                    <Form />
-                </Grid>
-                <Grid item xs={12}>
-                    <FormActions />
+                    <Render condition={mode === FORM_MODES.CREATE}>
+                        <Create formData={formData} />
+                    </Render>
+                    <Render condition={mode === FORM_MODES.EDIT}>
+                        <Edit formData={formData} />
+                    </Render>
                 </Grid>
             </Grid>
         </FormContextProvider>

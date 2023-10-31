@@ -237,13 +237,17 @@ export const PageView = () => {
                     ),
             },
             {
+                label: 'Cluster',
+                text: stage?.spec.clusterName,
+            },
+            {
                 label: 'Namespace',
                 text: stage?.spec.namespace,
             },
             {
                 label: 'Description',
                 text: stage?.spec.description,
-                columnXs: 8,
+                columnXs: 6,
             },
         ],
     ];

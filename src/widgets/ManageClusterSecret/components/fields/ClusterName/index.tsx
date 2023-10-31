@@ -15,11 +15,8 @@ export const ClusterName = () => {
     } = useReactHookFormContext<ManageClusterSecretValues>();
 
     const {
-        formData: { currentElement },
+        formData: { mode },
     } = useFormContext<ManageClusterSecretDataContext>();
-
-    const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
-    const mode = isPlaceholder ? FORM_MODES.CREATE : FORM_MODES.EDIT;
 
     return (
         <Grid item xs={12}>

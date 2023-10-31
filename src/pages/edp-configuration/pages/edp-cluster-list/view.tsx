@@ -2,6 +2,7 @@ import React from 'react';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { ARGO_CD_SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
+import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageClusterSecret } from '../../../../widgets/ManageClusterSecret';
 import { ConfigurationBody } from '../../components/ConfigurationBody';
@@ -27,7 +28,8 @@ export const PageView = () => {
                     component: (
                         <ManageClusterSecret
                             formData={{
-                                currentElement: el,
+                                currentElement: el.jsonData,
+                                mode: FORM_MODES.EDIT,
                             }}
                         />
                     ),
@@ -48,7 +50,7 @@ export const PageView = () => {
                 component: (
                     <ManageClusterSecret
                         formData={{
-                            currentElement: 'placeholder',
+                            mode: FORM_MODES.CREATE,
                             handleClosePlaceholder,
                         }}
                     />

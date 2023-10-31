@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { FORM_MODES } from '../../types/forms';
 import { ManageClusterSecret } from './index';
 
 test('renders ManageClusterSecret Create component', () => {
@@ -12,8 +13,8 @@ test('renders ManageClusterSecret Create component', () => {
         <TestWrapper>
             <ManageClusterSecret
                 formData={{
-                    currentElement: 'placeholder',
                     handleClosePlaceholder: jest.fn(),
+                    mode: FORM_MODES.CREATE,
                 }}
             />
         </TestWrapper>

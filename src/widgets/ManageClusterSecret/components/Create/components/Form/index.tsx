@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { ClusterCertificate, ClusterHost, ClusterName, ClusterToken } from '../fields';
+import { ClusterCertificate, ClusterHost, ClusterName, ClusterToken } from '../../../fields';
 
 export const Form = () => {
     return (

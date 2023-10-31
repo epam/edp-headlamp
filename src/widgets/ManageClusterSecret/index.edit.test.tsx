@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { FORM_MODES } from '../../types/forms';
 import { ManageClusterSecret } from './index';
 
 test('renders ManageClusterSecret Edit component', () => {
@@ -27,6 +28,7 @@ test('renders ManageClusterSecret Edit component', () => {
                             config: 'eyJ0bHNDbGllbnRDb25maWciOnsiaW5zZWN1cmUiOmZhbHNlLCJjYURhdGEiOiJ0ZXN0LWNsdXN0ZXItY2VydGlmaWNhdGUifSwiYmVhcmVyVG9rZW4iOiJ0ZXN0LWNsdXN0ZXItdG9rZW4ifQ==',
                         },
                     },
+                    mode: FORM_MODES.EDIT,
                     handleDeleteRow: jest.fn(),
                 }}
             />

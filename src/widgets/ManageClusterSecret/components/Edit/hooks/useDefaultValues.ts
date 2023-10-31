@@ -1,7 +1,7 @@
 import React from 'react';
-import { safeDecode } from '../../../utils/decodeEncode';
-import { CLUSTER_CREATION_FORM_NAMES } from '../names';
-import { ManageClusterSecretDataContext } from '../types';
+import { safeDecode } from '../../../../../utils/decodeEncode';
+import { CLUSTER_CREATION_FORM_NAMES } from '../../../names';
+import { ManageClusterSecretDataContext } from '../../../types';
 
 const parseConfigJson = (configJson: string) => {
     const decodedConfigJson = safeDecode(configJson);
@@ -14,7 +14,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageClusterSecretDa
     const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
 
     return React.useMemo(() => {
-        if (isPlaceholder) {
+        if (isPlaceholder || !currentElement) {
             return {};
         }
 
