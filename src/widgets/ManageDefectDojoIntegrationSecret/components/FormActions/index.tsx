@@ -47,6 +47,9 @@ export const FormActions = () => {
 
             if (mode === FORM_MODES.CREATE) {
                 handleClosePlaceholder();
+            } else {
+                const values = getValues();
+                reset(values);
             }
         },
     });
@@ -56,19 +59,22 @@ export const FormActions = () => {
         secretEditMutation.isLoading ||
         secretDeleteMutation.isLoading;
 
-    const onSubmit = React.useCallback(async () => {
-        const { token, url } = getValues();
-        const secretInstance = createDefectDojoIntegrationSecretInstance({
-            token,
-            url,
-        });
+    const onSubmit = React.useCallback(
+        async (values: ManageDefectDojoIntegrationSecretFormValues) => {
+            const { token, url } = values;
+            const secretInstance = createDefectDojoIntegrationSecretInstance({
+                token,
+                url,
+            });
 
-        if (mode === FORM_MODES.CREATE) {
-            await createSecret({ secretData: secretInstance });
-        } else {
-            await editSecret({ secretData: secretInstance });
-        }
-    }, [getValues, mode, createSecret, editSecret]);
+            if (mode === FORM_MODES.CREATE) {
+                await createSecret({ secretData: secretInstance });
+            } else {
+                await editSecret({ secretData: secretInstance });
+            }
+        },
+        [mode, createSecret, editSecret]
+    );
 
     const handleDelete = React.useCallback(async () => {
         setDialog({

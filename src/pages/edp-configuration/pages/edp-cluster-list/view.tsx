@@ -14,29 +14,26 @@ export const PageView = () => {
         labelSelector: `${ARGO_CD_SECRET_LABEL_SECRET_TYPE}=cluster`,
     });
 
-    const secretsArray = React.useMemo(() => (items ? items.filter(Boolean) : []), [items]);
+    const configurationItemList = React.useMemo(() => {
+        const secretsArray = items ? items.filter(Boolean) : [];
+        return secretsArray.map(el => {
+            const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
 
-    const configurationItemList = React.useMemo(
-        () =>
-            secretsArray.map(el => {
-                const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
-
-                return {
-                    id: el?.metadata?.name || el?.metadata?.uid,
-                    title: el?.metadata.name,
-                    ownerReference,
-                    component: (
-                        <ManageClusterSecret
-                            formData={{
-                                currentElement: el.jsonData,
-                                mode: FORM_MODES.EDIT,
-                            }}
-                        />
-                    ),
-                };
-            }),
-        [secretsArray]
-    );
+            return {
+                id: el?.metadata?.name || el?.metadata?.uid,
+                title: el?.metadata.name,
+                ownerReference,
+                component: (
+                    <ManageClusterSecret
+                        formData={{
+                            currentElement: el.jsonData,
+                            mode: FORM_MODES.EDIT,
+                        }}
+                    />
+                ),
+            };
+        });
+    }, [items]);
 
     return (
         <ConfigurationBody

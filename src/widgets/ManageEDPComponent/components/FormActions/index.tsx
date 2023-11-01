@@ -16,6 +16,7 @@ export const FormActions = () => {
         reset,
         formState: { isDirty },
         handleSubmit,
+        getValues,
     } = useReactHookFormContext<ManageEDPComponentValues>();
     const {
         formData: { currentElement, handleClosePlaceholder, isReadOnly },
@@ -24,24 +25,25 @@ export const FormActions = () => {
     const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
     const mode = isPlaceholder ? FORM_MODES.CREATE : FORM_MODES.EDIT;
 
-    const handleClose = React.useCallback(() => {
-        if (mode === FORM_MODES.CREATE) {
-            handleClosePlaceholder();
-        }
-    }, [handleClosePlaceholder, mode]);
-
     const {
         createEDPComponent,
         editEDPComponent,
         mutations: { EDPComponentEditMutation, EDPComponentCreateMutation },
     } = useCreateEDPComponent({
-        onSuccess: handleClose,
+        onSuccess: () => {
+            if (mode === FORM_MODES.CREATE) {
+                handleClosePlaceholder();
+            } else {
+                const values = getValues();
+                reset(values);
+            }
+        },
     });
 
     const isLoading = EDPComponentEditMutation.isLoading || EDPComponentCreateMutation.isLoading;
 
     const onSubmit = React.useCallback(
-        async values => {
+        async (values: ManageEDPComponentValues) => {
             const EDPComponentCreateInstance = createEDPComponentInstance(
                 EDP_COMPONENT_FORM_NAMES,
                 values

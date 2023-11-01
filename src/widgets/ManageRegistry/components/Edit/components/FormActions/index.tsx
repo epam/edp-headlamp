@@ -27,7 +27,8 @@ export const FormActions = () => {
 
     const { updateRegistry, isLoading: updateRegistryIsLoading } = useUpdateRegistry({
         onSuccess: () => {
-            handleClosePanel();
+            const values = getValues();
+            reset(values);
         },
     });
 
@@ -46,8 +47,15 @@ export const FormActions = () => {
 
     const isLoading = updateRegistryIsLoading || resetRegistryIsLoading;
 
-    const secretsArray = [pushAccountSecret, pullAccountSecret].filter(Boolean);
-    const someOfTheSecretsHasExternalOwner = secretsArray.some(el => el?.metadata?.ownerReferences);
+    const someOfTheSecretsHasExternalOwner = React.useMemo(() => {
+        if (pushAccountSecret && pushAccountSecret.metadata.ownerReferences) {
+            return true;
+        } else if (pullAccountSecret && pullAccountSecret.metadata.ownerReferences) {
+            return true;
+        }
+
+        return false;
+    }, [pullAccountSecret, pushAccountSecret]);
 
     return (
         <>
@@ -82,7 +90,7 @@ export const FormActions = () => {
                                 });
                             }}
                             startIcon={<Icon icon={ICONS.WARNING} />}
-                            disabled={someOfTheSecretsHasExternalOwner || !secretsArray.length}
+                            disabled={someOfTheSecretsHasExternalOwner}
                         >
                             Reset registry
                         </Button>

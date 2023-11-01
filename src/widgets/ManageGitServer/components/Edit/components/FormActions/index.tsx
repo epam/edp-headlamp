@@ -13,6 +13,7 @@ export const FormActions = () => {
         reset,
         formState: { isDirty },
         handleSubmit,
+        getValues,
     } = useReactHookFormContext<ManageGitServerValues>();
     const {
         formData: { currentElement },
@@ -25,7 +26,12 @@ export const FormActions = () => {
             gitServerSecretCreateMutation,
             gitServerSecretDeleteMutation,
         },
-    } = useGitServerCRUD({});
+    } = useGitServerCRUD({
+        onSuccess: () => {
+            const values = getValues();
+            reset(values);
+        },
+    });
 
     const isLoading =
         gitServerCreateMutation.isLoading ||

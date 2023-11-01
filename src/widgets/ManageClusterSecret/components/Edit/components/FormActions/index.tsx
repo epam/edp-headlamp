@@ -25,12 +25,18 @@ export const FormActions = () => {
         reset,
         formState: { isDirty },
         handleSubmit,
+        getValues,
     } = useReactHookFormContext<ManageClusterSecretValues>();
 
     const {
         editSecret,
         mutations: { secretEditMutation },
-    } = useSecretCRUD({});
+    } = useSecretCRUD({
+        onSuccess: () => {
+            const values = getValues();
+            reset(values);
+        },
+    });
 
     const isLoading = React.useMemo(() => secretEditMutation.isLoading, [secretEditMutation]);
 
@@ -51,10 +57,8 @@ export const FormActions = () => {
             await editSecret({
                 secretData: newClusterSecretData,
             });
-
-            reset();
         },
-        [editSecret, reset]
+        [editSecret]
     );
 
     const clusterName = currentElement.metadata.name;

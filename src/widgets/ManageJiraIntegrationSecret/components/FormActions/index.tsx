@@ -27,6 +27,7 @@ export const FormActions = () => {
         reset,
         formState: { isDirty },
         handleSubmit,
+        getValues,
     } = useReactHookFormContext<ManageJiraIntegrationSecretFormValues>();
 
     const {
@@ -46,6 +47,9 @@ export const FormActions = () => {
 
             if (mode === FORM_MODES.CREATE) {
                 handleClosePlaceholder();
+            } else {
+                const values = getValues();
+                reset(values);
             }
         },
     });
