@@ -25,7 +25,6 @@ export const FormActions = () => {
     const {
         reset,
         formState: { isDirty },
-        getValues,
         watch,
         handleSubmit,
     } = useFormContext<CreateCodebaseBranchFormValues>();
@@ -34,7 +33,6 @@ export const FormActions = () => {
         reset();
     }, [reset]);
 
-    const releaseFieldValue = watch(CODEBASE_BRANCH_FORM_NAMES.release.name);
     const defaultBranchVersionFieldValue = watch(
         CODEBASE_BRANCH_FORM_NAMES.defaultBranchVersionStart.name
     );
@@ -61,46 +59,47 @@ export const FormActions = () => {
         [codebaseBranchCreateMutation.isLoading, codebaseBranchEditMutation.isLoading]
     );
 
-    const onSubmit = React.useCallback(async () => {
-        const values = getValues();
-        const usedValues = getUsedValues(values, CODEBASE_BRANCH_FORM_NAMES);
+    const onSubmit = React.useCallback(
+        async (values: CreateCodebaseBranchFormValues) => {
+            console.log(values);
+            const usedValues = getUsedValues(values, CODEBASE_BRANCH_FORM_NAMES);
 
-        const codebaseBranchInstance = createCodebaseBranchInstance(
-            CODEBASE_BRANCH_FORM_NAMES,
-            usedValues,
-            codebaseData.metadata.name
-        );
-
-        if (!!releaseFieldValue) {
-            const newDefaultBranch = editCodebaseBranchInstance(
-                {
-                    version: {
-                        name: 'version',
-                        path: ['spec', 'version'],
-                    },
-                },
-                defaultBranch,
-                { version: newDefaultBranchVersion }
+            const codebaseBranchInstance = createCodebaseBranchInstance(
+                CODEBASE_BRANCH_FORM_NAMES,
+                usedValues,
+                codebaseData.metadata.name
             );
-            await createCodebaseBranch({
-                codebaseBranchData: codebaseBranchInstance,
-                defaultCodebaseBranchData: newDefaultBranch,
-            });
-        } else {
-            await createCodebaseBranch({
-                codebaseBranchData: codebaseBranchInstance,
-            });
-        }
-        reset();
-    }, [
-        getValues,
-        codebaseData.metadata.name,
-        releaseFieldValue,
-        reset,
-        defaultBranch,
-        newDefaultBranchVersion,
-        createCodebaseBranch,
-    ]);
+
+            if (!!values.release) {
+                const newDefaultBranch = editCodebaseBranchInstance(
+                    {
+                        version: {
+                            name: 'version',
+                            path: ['spec', 'version'],
+                        },
+                    },
+                    defaultBranch,
+                    { version: newDefaultBranchVersion }
+                );
+                await createCodebaseBranch({
+                    codebaseBranchData: codebaseBranchInstance,
+                    defaultCodebaseBranchData: newDefaultBranch,
+                });
+            } else {
+                await createCodebaseBranch({
+                    codebaseBranchData: codebaseBranchInstance,
+                });
+            }
+            reset();
+        },
+        [
+            codebaseData.metadata.name,
+            reset,
+            defaultBranch,
+            newDefaultBranchVersion,
+            createCodebaseBranch,
+        ]
+    );
 
     return (
         <>

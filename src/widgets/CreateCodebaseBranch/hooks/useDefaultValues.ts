@@ -20,14 +20,14 @@ export const useDefaultValues = ({ defaultBranchVersion }: useDefaultValuesProps
     const versioningType = codebaseData?.spec.versioning.type;
 
     return React.useMemo(() => {
-        if (!defaultBranchVersion) {
-            return {};
-        }
-
         let base: Partial<CreateCodebaseBranchFormValues> = {
             [CODEBASE_BRANCH_FORM_NAMES.fromCommit.name]: '',
             [CODEBASE_BRANCH_FORM_NAMES.release.name]: false,
         };
+
+        if (!defaultBranchVersion) {
+            return base;
+        }
 
         if (versioningType !== CODEBASE_VERSIONING_TYPES.EDP) {
             return base;

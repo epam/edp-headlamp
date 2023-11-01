@@ -67,8 +67,6 @@ export const useCreateCDPipeline = ({
                     }
                 },
                 onError: () => {
-                    CDPipelineDeleteMutation.mutate(CDPipelineData);
-
                     invokeOnErrorCallback();
                 },
             });
