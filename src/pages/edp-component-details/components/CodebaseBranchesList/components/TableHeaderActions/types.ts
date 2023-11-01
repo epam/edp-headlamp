@@ -1,5 +1,7 @@
 import { EDPCodebaseKubeObjectInterface } from '../../../../../../k8s/EDPCodebase/types';
+import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../../k8s/EDPCodebaseBranch/types';
 
 export interface TableHeaderActionsProps {
-    codebaseData: EDPCodebaseKubeObjectInterface;
+    codebase: EDPCodebaseKubeObjectInterface;
+    defaultBranch: EDPCodebaseBranchKubeObjectInterface;
 }

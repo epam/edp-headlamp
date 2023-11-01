@@ -1,6 +1,5 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import React from 'react';
-import { useDefaultBranchQuery } from '../../k8s/EDPCodebaseBranch/hooks/useDefaultBranchQuery';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { FormContextProvider } from '../../providers/Form';
@@ -18,18 +17,11 @@ export const CreateCodebaseBranch = () => {
     );
     const {
         open,
-        forwardedProps: { codebase: codebaseData },
+        forwardedProps: { defaultBranch },
         closeDialog,
     } = useSpecificDialogContext<CreateCodebaseBranchDialogForwardedProps>(
         CREATE_CODEBASE_BRANCH_DIALOG_NAME
     );
-
-    const { data: defaultBranch } = useDefaultBranchQuery({
-        props: {
-            defaultBranchName: codebaseData.spec.defaultBranch,
-            codebaseName: codebaseData.metadata.name,
-        },
-    });
 
     const defaultBranchVersion = React.useMemo(
         () => (defaultBranch ? defaultBranch.spec.version : undefined),

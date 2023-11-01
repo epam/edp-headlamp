@@ -78,7 +78,10 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
                     headerStyle="label"
                 />
                 <div className={classes.tableHeaderActions}>
-                    <TableHeaderActions codebaseData={codebaseData} />
+                    <TableHeaderActions
+                        codebase={codebaseData}
+                        defaultBranch={currentCodebaseBranches?.[0]}
+                    />
                 </div>
             </div>
             <CodebaseBranchActions defaultBranch={defaultBranch} codebase={codebaseData} />

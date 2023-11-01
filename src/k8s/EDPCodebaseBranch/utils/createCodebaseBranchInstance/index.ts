@@ -15,15 +15,16 @@ export const createCodebaseBranchInstance = (
     },
     codebaseName: string
 ): EDPCodebaseBranchKubeObjectInterface => {
-    const { branchName, ...restProps } = formValues;
-    const transformedBranchName = branchName ? branchName.replaceAll('/', '-') : '';
+    const { branchName, releaseBranchName, ...restProps } = formValues;
+    const _branchName = formValues.release ? releaseBranchName : branchName;
+    const transformedBranchName = _branchName ? _branchName.replaceAll('/', '-') : '';
 
     const base = {
         apiVersion: `${group}/${version}`,
         kind,
         spec: {
             codebaseName: codebaseName,
-            branchName: branchName || 'your branch name',
+            branchName: _branchName || 'your branch name',
             fromCommit: '',
         },
         metadata: {

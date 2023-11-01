@@ -6,7 +6,6 @@ import { Render } from '../../../../components/Render';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
-import { useDefaultBranchQuery } from '../../../../k8s/EDPCodebaseBranch/hooks/useDefaultBranchQuery';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
@@ -33,19 +32,12 @@ export const Form = ({
     defaultBranchVersion,
 }: FormProps) => {
     const {
-        forwardedProps: { codebase: codebaseData },
+        forwardedProps: { codebase: codebaseData, defaultBranch },
     } = useSpecificDialogContext<CreateCodebaseBranchDialogForwardedProps>(
         CREATE_CODEBASE_BRANCH_DIALOG_NAME
     );
     const { watch, getValues, setValue, resetField } =
         useFormContext<CreateCodebaseBranchFormValues>();
-
-    const { data: defaultBranch } = useDefaultBranchQuery({
-        props: {
-            defaultBranchName: codebaseData.spec.defaultBranch,
-            codebaseName: codebaseData.metadata.name,
-        },
-    });
 
     const canCreateReleaseBranch = React.useMemo(
         () =>

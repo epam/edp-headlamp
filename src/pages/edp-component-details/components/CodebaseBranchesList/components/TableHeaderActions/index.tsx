@@ -7,7 +7,7 @@ import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../../../../../widgets/Cr
 import { CreateCodebaseBranchDialogForwardedProps } from '../../../../../../widgets/CreateCodebaseBranch/types';
 import { TableHeaderActionsProps } from './types';
 
-export const TableHeaderActions = ({ codebaseData }: TableHeaderActionsProps) => {
+export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActionsProps) => {
     const { setDialog } = useDialogContext<CreateCodebaseBranchDialogForwardedProps>();
 
     return (
@@ -19,7 +19,8 @@ export const TableHeaderActions = ({ codebaseData }: TableHeaderActionsProps) =>
                         setDialog({
                             modalName: CREATE_CODEBASE_BRANCH_DIALOG_NAME,
                             forwardedProps: {
-                                codebase: codebaseData,
+                                codebase,
+                                defaultBranch,
                             },
                         });
                     }}

@@ -1,10 +1,7 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useQueryClient } from 'react-query';
 import { useCreateCodebaseBranch } from '../../../../k8s/EDPCodebaseBranch/hooks/useCreateCodebaseBranch';
-import { useDefaultBranchQuery } from '../../../../k8s/EDPCodebaseBranch/hooks/useDefaultBranchQuery';
-import { REQUEST_KEY_QUERY_CODEBASE_BRANCH_LIST_BY_CODEBASE_NAME } from '../../../../k8s/EDPCodebaseBranch/requestKeys';
 import { createCodebaseBranchInstance } from '../../../../k8s/EDPCodebaseBranch/utils/createCodebaseBranchInstance';
 import { editCodebaseBranchInstance } from '../../../../k8s/EDPCodebaseBranch/utils/editCodebaseBranchInstance';
 import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
@@ -18,9 +15,8 @@ import {
 } from '../../types';
 
 export const FormActions = () => {
-    const queryClient = useQueryClient();
     const {
-        forwardedProps: { codebase: codebaseData },
+        forwardedProps: { codebase: codebaseData, defaultBranch },
         closeDialog,
     } = useSpecificDialogContext<CreateCodebaseBranchDialogForwardedProps>(
         CREATE_CODEBASE_BRANCH_DIALOG_NAME
@@ -51,24 +47,12 @@ export const FormActions = () => {
         [defaultBranchPostfixFieldValue, defaultBranchVersionFieldValue]
     );
 
-    const { data: defaultBranch, refetch } = useDefaultBranchQuery({
-        props: {
-            defaultBranchName: codebaseData.spec.defaultBranch,
-            codebaseName: codebaseData.metadata.name,
-        },
-    });
-
     const {
         createCodebaseBranch,
         mutations: { codebaseBranchCreateMutation, codebaseBranchEditMutation },
     } = useCreateCodebaseBranch({
         onSuccess: async () => {
             closeDialog();
-            await queryClient.invalidateQueries([
-                REQUEST_KEY_QUERY_CODEBASE_BRANCH_LIST_BY_CODEBASE_NAME,
-                codebaseData.metadata.name,
-            ]);
-            await refetch();
         },
     });
 
