@@ -54,12 +54,7 @@ export const PageView = () => {
                                 <Typography variant={'h1'}>Components</Typography>
                             </Grid>
                             <Grid item>
-                                <DocLink
-                                    href={
-                                        EDP_USER_GUIDE.APPLICATION_MANAGE.anchors.CHECK_AND_REMOVE
-                                            .url
-                                    }
-                                />
+                                <DocLink href={EDP_USER_GUIDE.APPLICATION_CREATE.url} />
                             </Grid>
                         </Grid>
                     }

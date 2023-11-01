@@ -8,6 +8,7 @@ import { ResourceIconLink } from '../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
+import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import {
@@ -115,6 +116,7 @@ export const PageView = () => {
             pageData={{
                 label: GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION.label,
                 description: GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION.description,
+                docUrl: EDP_USER_GUIDE.GIT_OPS.url,
             }}
             blocker={
                 gitServers !== null && !gitServers?.length ? (

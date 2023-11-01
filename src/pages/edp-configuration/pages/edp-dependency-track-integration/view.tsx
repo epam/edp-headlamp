@@ -1,4 +1,5 @@
 import React from 'react';
+import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
@@ -66,6 +67,7 @@ export const PageView = () => {
             pageData={{
                 label: DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION.label,
                 description: DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION.description,
+                docUrl: EDP_OPERATOR_GUIDE.DEPENDENCY_TRACK.url,
             }}
             renderPlaceHolderData={({ handleClosePlaceholder }) => ({
                 title: 'Create service account',

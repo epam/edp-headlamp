@@ -40,7 +40,7 @@ export const PageView = () => {
             pageData={{
                 label: CLUSTER_LIST_PAGE_DESCRIPTION.label,
                 description: CLUSTER_LIST_PAGE_DESCRIPTION.description,
-                docUrl: EDP_USER_GUIDE.MANAGE_CLUSTER.anchors.VIEW_DATA.url,
+                docUrl: EDP_USER_GUIDE.MANAGE_CLUSTER.url,
             }}
             renderPlaceHolderData={({ handleClosePlaceholder }) => ({
                 title: 'Add Cluster',

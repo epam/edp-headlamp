@@ -244,6 +244,9 @@ export const EDP_USER_GUIDE = {
             },
         },
     },
+    GIT_OPS: {
+        url: `${EDP_USER_GUIDE_ROOT_URL}/gitops`,
+    },
 };
 
 export const EDP_OPERATOR_GUIDE = {
@@ -285,5 +288,11 @@ export const EDP_OPERATOR_GUIDE = {
                 url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/container-registry-harbor-integration-tekton-ci/#integration-procedure`,
             },
         },
+    },
+    DEPENDENCY_TRACK: {
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/dependency-track/`,
+    },
+    JIRA: {
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/jira-integration/`,
     },
 };

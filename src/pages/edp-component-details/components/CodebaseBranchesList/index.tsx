@@ -69,9 +69,7 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
                                 <Typography variant={'h5'}>Branches</Typography>
                             </Grid>
                             <Grid item>
-                                <DocLink
-                                    href={EDP_USER_GUIDE.BRANCHES_MANAGE.anchors.ADD_BRANCH.url}
-                                />
+                                <DocLink href={EDP_USER_GUIDE.BRANCHES_MANAGE.url} />
                             </Grid>
                         </Grid>
                     }
