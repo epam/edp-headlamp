@@ -271,8 +271,9 @@ exports[`renders ManageGitOps Create component 1`] = `
             class="MuiGrid-root MuiGrid-item"
           >
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall"
-              tabindex="0"
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+              disabled=""
+              tabindex="-1"
               type="button"
             >
               <span
@@ -280,9 +281,6 @@ exports[`renders ManageGitOps Create component 1`] = `
               >
                 save
               </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
             </button>
           </div>
         </div>

@@ -24,6 +24,9 @@ export const RepositoryPasswordOrApiToken = () => {
             placeholder={'Enter the repository password or access token'}
             control={control}
             errors={errors}
+            TextFieldProps={{
+                type: 'password',
+            }}
         />
     );
 };
