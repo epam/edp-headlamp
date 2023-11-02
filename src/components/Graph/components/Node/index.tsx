@@ -14,7 +14,7 @@ export const Node: React.FC<NodeProps> = ({ x, y, height, width, color, children
             width={width}
             style={{ overflow: 'visible' }}
         >
-            <Paper style={{ height, width, overflow: 'hidden' }} elevation={0}>
+            <Paper style={{ height, width }} elevation={0}>
                 <CardNode className={classes.node}>{children as React.ReactElement}</CardNode>
             </Paper>
         </foreignObject>

@@ -6,6 +6,10 @@ export const useStyles = makeStyles(theme => {
         root: {
             padding: rem(10),
             backgroundColor: lighten(theme.palette.background.paper, 0.1),
+
+            '& .bx--cc--marker': {
+                fill: 'currentColor !important',
+            },
         },
     };
 });

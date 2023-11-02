@@ -11,19 +11,10 @@ export const useStyles = (color: string) =>
             borderTop: `1px solid ${color} !important`,
             borderBottom: `1px solid ${color} !important`,
             borderRadius: '4px',
+            transition: 'box-shadow 300ms ease',
 
-            '& .bx--cc--card-node__column': {
-                display: 'flex',
-                alignItems: 'center',
-                overflow: 'hidden',
-                padding: '0 0.3rem !important',
-            },
-
-            '& .bx--cc--card-node__title': {
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',
-                overflow: 'hidden',
-                fontWeight: 400,
+            '&:hover': {
+                boxShadow: `0 0 0px 2px ${color}`,
             },
         },
     }))();

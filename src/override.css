@@ -1,7 +1,7 @@
 .MuiTooltip-tooltip {
     padding: 0.375rem 0.75rem !important;
     font-size: 0.8125rem !important;
-    box-shadow: 0 0 9px -4px white;
+    box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.35);
 }
 
 .MuiTooltip-arrow {
