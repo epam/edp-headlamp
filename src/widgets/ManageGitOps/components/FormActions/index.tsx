@@ -93,7 +93,7 @@ export const FormActions = () => {
                                 component={'button'}
                                 variant={'contained'}
                                 color={'primary'}
-                                disabled={isLoading || isReadOnly || !isDirty}
+                                disabled={isLoading || isReadOnly}
                                 onClick={handleSubmit(onSubmit)}
                             >
                                 save
