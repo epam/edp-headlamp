@@ -7,6 +7,7 @@ import {
     Chip,
     Grid,
     IconButton,
+    Link,
     Tooltip,
     Typography,
 } from '@material-ui/core';
@@ -362,14 +363,14 @@ export const CodebaseBranch = ({
                 <AccordionDetails>
                     <Grid container spacing={5}>
                         <Grid item xs={12}>
-                            <Render condition={!!ciDependencyTrackURL}>
-                                <div>
+                            {!!ciDependencyTrackURL && (
+                                <Link href={ciDependencyTrackURL} target={'_blank'}>
                                     <img
                                         src={`${ciDependencyTrackURL}/api/v1/badge/vulns/project/${codebaseData.metadata.name}/${codebaseBranchData.spec.branchName}`}
                                         alt=""
                                     />
-                                </div>
-                            </Render>
+                                </Link>
+                            )}
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container spacing={5}>
