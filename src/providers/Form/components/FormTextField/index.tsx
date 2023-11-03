@@ -22,7 +22,7 @@ export const FormTextField = React.forwardRef(
             label,
             title,
             control,
-            defaultValue = undefined,
+            defaultValue = '',
             errors,
             placeholder,
             disabled = false,

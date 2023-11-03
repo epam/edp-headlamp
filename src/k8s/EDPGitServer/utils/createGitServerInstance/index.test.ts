@@ -24,16 +24,16 @@ describe('testing createGitServerInstance', () => {
             httpsPort: 443,
             gitUser: 'git',
             gitProvider: 'gerrit',
-            gitHost: 'github.com',
+            gitHost: 'gerrit.com',
         });
 
         expect(object).toEqual({
             apiVersion: 'v2.edp.epam.com/v1',
             kind: 'GitServer',
-            metadata: { name: 'github.com-8ygse' },
+            metadata: { name: 'gerrit.com-8ygse' },
             spec: {
-                gitHost: 'github.com',
-                nameSshKeySecret: 'github.com-8ygse-config',
+                gitHost: 'gerrit.com',
+                nameSshKeySecret: 'gerrit-ciuser-sshkey',
                 sshPort: 22,
                 httpsPort: 443,
                 gitUser: 'git',

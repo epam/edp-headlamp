@@ -9,7 +9,9 @@ const NAMES = {
 
     // NOT USED IN RESOURCE DATA
     SSH_PRIVATE_KEY: 'sshPrivateKey',
+    SSH_PUBLIC_KEY: 'sshPublicKey',
     TOKEN: 'token',
+    SECRET_STRING: 'secretString',
 } as const;
 
 export const GIT_SERVER_FORM_NAMES = {
@@ -48,8 +50,16 @@ export const GIT_SERVER_FORM_NAMES = {
         name: NAMES.SSH_PRIVATE_KEY,
         notUsedInFormData: true,
     },
+    [NAMES.SSH_PUBLIC_KEY]: {
+        name: NAMES.SSH_PUBLIC_KEY,
+        notUsedInFormData: true,
+    },
     [NAMES.TOKEN]: {
         name: NAMES.TOKEN,
+        notUsedInFormData: true,
+    },
+    [NAMES.SECRET_STRING]: {
+        name: NAMES.SECRET_STRING,
         notUsedInFormData: true,
     },
 };

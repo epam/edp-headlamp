@@ -1,102 +1,56 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Link, Typography } from '@material-ui/core';
 import React from 'react';
-import { Render } from '../../../../components/Render';
-import { StatusIcon } from '../../../../components/StatusIcon';
+import { LoadingWrapper } from '../../../../components/LoadingWrapper';
+import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
+import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
-import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
 import { FORM_MODES } from '../../../../types/forms';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { rem } from '../../../../utils/styling/rem';
 import { ManageGitServer } from '../../../../widgets/ManageGitServer';
-import { ConfigurationBody } from '../../components/ConfigurationBody';
+import { menu } from '../../menu';
 import { GIT_SERVER_LIST_PAGE_DESCRIPTION } from './constants';
+import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
-    const [items] = EDPGitServerKubeObject.useList({
-        namespace: getDefaultNamespace(),
-    });
+    const {
+        data: { gitServer, gitServerSecret },
+        isLoading,
+    } = useDynamicDataContext();
 
-    const secretsArray = React.useMemo(() => (items ? items.filter(Boolean) : []), [items]);
-
-    const configurationItemList = React.useMemo(
-        () =>
-            secretsArray.map(el => {
-                const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
-                const connected = el?.status?.connected;
-                const [icon, color] = EDPGitServerKubeObject.getStatusIcon(connected);
-                const error = el?.status?.error;
-
-                return {
-                    id: el?.metadata?.name || el?.metadata?.uid,
-                    title: (
-                        <Grid container spacing={1} alignItems={'center'}>
-                            <Grid item style={{ marginRight: rem(5) }}>
-                                <StatusIcon
-                                    icon={icon}
-                                    color={color}
-                                    Title={
-                                        <>
-                                            <Typography
-                                                variant={'subtitle2'}
-                                                style={{ fontWeight: 600 }}
-                                            >
-                                                {`Connected: ${
-                                                    connected === undefined ? 'Unknown' : connected
-                                                }`}
-                                            </Typography>
-                                            <Render condition={!!error}>
-                                                <Typography
-                                                    variant={'subtitle2'}
-                                                    style={{ marginTop: rem(10) }}
-                                                >
-                                                    {error}
-                                                </Typography>
-                                            </Render>
-                                        </>
-                                    }
-                                />
-                            </Grid>
-                            <Grid item>{el?.metadata.name}</Grid>
-                        </Grid>
-                    ),
-                    ownerReference,
-                    component: (
-                        <ManageGitServer
-                            formData={{
-                                currentElement: el.jsonData,
-                                mode: FORM_MODES.EDIT,
-                            }}
-                        />
-                    ),
-                };
-            }),
-        [secretsArray]
-    );
-
-    const creationDisabled = React.useMemo(() => items === null || items.length >= 1, [items]);
+    const mode = !!gitServer ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
     return (
-        <ConfigurationBody
-            pageData={{
-                label: GIT_SERVER_LIST_PAGE_DESCRIPTION.label,
-                description: GIT_SERVER_LIST_PAGE_DESCRIPTION.description,
-                docUrl: EDP_USER_GUIDE.GIT_SERVER_MANAGE.anchors.VIEW_DATA.url,
-            }}
-            renderPlaceHolderData={({ handleClosePlaceholder }) => ({
-                title: 'Create Git Server',
-                component: (
-                    <ManageGitServer
-                        formData={{
-                            currentElement: 'placeholder',
-                            mode: FORM_MODES.CREATE,
-                            handleClosePlaceholder,
-                        }}
-                    />
-                ),
-                disabled: creationDisabled,
-            })}
-            items={items === null ? null : configurationItemList}
-            emptyMessage={'No Git Servers found'}
-        />
+        <PageWithSubMenu list={menu}>
+            <PageWrapper containerMaxWidth={'xl'}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Typography variant={'h1'} gutterBottom>
+                            {GIT_SERVER_LIST_PAGE_DESCRIPTION.label}
+                        </Typography>
+                        <Typography variant={'body1'}>
+                            {GIT_SERVER_LIST_PAGE_DESCRIPTION.description}{' '}
+                            <Link
+                                href={EDP_USER_GUIDE.GIT_SERVER_MANAGE.anchors.VIEW_DATA.url}
+                                target={'_blank'}
+                            >
+                                <Typography variant={'body2'} component={'span'}>
+                                    Learn more.
+                                </Typography>
+                            </Link>
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <LoadingWrapper isLoading={isLoading}>
+                            <ManageGitServer
+                                formData={{
+                                    gitServer,
+                                    gitServerSecret,
+                                    mode,
+                                }}
+                            />
+                        </LoadingWrapper>
+                    </Grid>
+                </Grid>
+            </PageWrapper>
+        </PageWithSubMenu>
     );
 };

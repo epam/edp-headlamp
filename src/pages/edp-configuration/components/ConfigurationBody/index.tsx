@@ -45,6 +45,7 @@ export const ConfigurationBody = ({
     );
 
     const isLoading = items === null;
+    const singleItem = items?.length === 1;
 
     return (
         <ConditionalWrapper
@@ -116,13 +117,22 @@ export const ConfigurationBody = ({
                                         return (
                                             <Grid item xs={12} key={key}>
                                                 <Accordion
-                                                    expanded={expandedPanel === key}
+                                                    expanded={
+                                                        singleItem ? true : expandedPanel === key
+                                                    }
                                                     onChange={handleChange(key)}
                                                 >
                                                     <AccordionSummary
                                                         expandIcon={
-                                                            <Icon icon={ICONS.ARROW_DOWN} />
+                                                            singleItem ? null : (
+                                                                <Icon icon={ICONS.ARROW_DOWN} />
+                                                            )
                                                         }
+                                                        style={{
+                                                            cursor: singleItem
+                                                                ? 'default'
+                                                                : 'pointer',
+                                                        }}
                                                     >
                                                         <Grid
                                                             container

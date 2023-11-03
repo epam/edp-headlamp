@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { FORM_MODES } from '../../types/forms';
 import { ManageGitServer } from './index';
 
 test('renders ManageGitServer Edit component', () => {
@@ -12,22 +13,51 @@ test('renders ManageGitServer Edit component', () => {
         <TestWrapper>
             <ManageGitServer
                 formData={{
-                    currentElement: {
+                    mode: FORM_MODES.EDIT,
+                    gitServer: {
                         apiVersion: 'v2.edp.epam.com/v1',
                         kind: 'GitServer',
                         // @ts-ignore
-                        metadata: { name: 'github.com-8ygse' },
+                        metadata: { name: 'gitlab.com-8ygse' },
                         spec: {
-                            gitHost: 'github.com',
-                            nameSshKeySecret: 'github.com-8ygse-config',
+                            gitHost: 'test-githost.com',
+                            nameSshKeySecret: 'ci-gitlab',
                             sshPort: 22,
                             httpsPort: 443,
                             gitUser: 'git',
-                            gitProvider: 'gerrit',
+                            gitProvider: 'gitlab',
                         },
                     },
-                    isReadOnly: true,
-                    handleDeleteRow: jest.fn(),
+                    gitServerSecret: {
+                        // @ts-ignore
+                        metadata: {
+                            name: 'ci-gitlab',
+                            namespace: 'test-namespace',
+                            labels: {
+                                'app.kubernetes.io/managed-by': 'Helm',
+                            },
+                            ownerReferences: [
+                                {
+                                    apiVersion: 'external-secrets.io/v1beta1',
+                                    kind: 'ExternalSecret',
+                                    name: 'ci-gitlab',
+                                    uid: 'c2579e7a-2638-40fd-9ef6-be034067cc74',
+                                    controller: true,
+                                    blockOwnerDeletion: true,
+                                },
+                            ],
+                        },
+                        immutable: false,
+                        data: {
+                            id_rsa: 'dGVzdC1pZC1yc2E=',
+                            secretString: 'dGVzdC1zZWNyZXQtc3RyaW5n',
+                            token: 'dGVzdC10b2tlbg==',
+                        },
+                        type: 'Opaque',
+                    },
+                    handleClosePanel: () => {
+                        //
+                    },
                 }}
             />
         </TestWrapper>

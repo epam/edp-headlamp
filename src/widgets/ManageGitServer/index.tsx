@@ -1,36 +1,94 @@
-import { Grid } from '@material-ui/core';
+import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import { CreateItemAccordion } from '../../components/CreateItemAccordion';
 import { Render } from '../../components/Render';
-import { FormContextProvider } from '../../providers/Form';
+import { StatusIcon } from '../../components/StatusIcon';
+import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { FORM_MODES } from '../../types/forms';
+import { rem } from '../../utils/styling/rem';
 import { Create } from './components/Create';
 import { Edit } from './components/Edit';
-import { useDefaultValues } from './hooks/useDefaultValues';
 import { ManageGitServerProps } from './types';
 
 export const ManageGitServer = ({ formData }: ManageGitServerProps) => {
-    const baseDefaultValues = useDefaultValues({ formData });
+    const { gitServer, mode } = formData;
 
-    const { mode } = formData;
+    const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
+    const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+        setExpandedPanel(isExpanded ? panel : null);
+    };
+    const handleClosePanel = () => setExpandedPanel(null);
+
+    const _formData = { ...formData, handleClosePanel };
+
+    const connected = gitServer?.status?.connected;
+    const error = gitServer?.status?.error;
+    const [icon, color] = EDPGitServerKubeObject.getStatusIcon(connected);
 
     return (
-        <FormContextProvider
-            formSettings={{
-                defaultValues: baseDefaultValues,
-                mode: 'onBlur',
-            }}
-            formData={formData}
-        >
-            <Grid container spacing={2} data-testid="form">
+        <Grid container spacing={2} data-testid="form">
+            {mode === FORM_MODES.CREATE ? (
                 <Grid item xs={12}>
-                    <Render condition={mode === FORM_MODES.CREATE}>
-                        <Create />
-                    </Render>
-                    <Render condition={mode === FORM_MODES.EDIT}>
-                        <Edit />
-                    </Render>
+                    <CreateItemAccordion
+                        isExpanded={expandedPanel === mode}
+                        onChange={handleChange(mode)}
+                        title={'Add Git Server'}
+                    >
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <Create formData={_formData} />
+                            </Grid>
+                        </Grid>
+                    </CreateItemAccordion>
                 </Grid>
-            </Grid>
-        </FormContextProvider>
+            ) : mode === FORM_MODES.EDIT ? (
+                <Grid item xs={12}>
+                    <Accordion expanded>
+                        <AccordionSummary style={{ cursor: 'default' }}>
+                            <Typography variant={'h6'}>
+                                <Grid container spacing={1} alignItems={'center'}>
+                                    <Grid item style={{ marginRight: rem(5) }}>
+                                        <StatusIcon
+                                            icon={icon}
+                                            color={color}
+                                            Title={
+                                                <>
+                                                    <Typography
+                                                        variant={'subtitle2'}
+                                                        style={{ fontWeight: 600 }}
+                                                    >
+                                                        {`Connected: ${
+                                                            connected === undefined
+                                                                ? 'Unknown'
+                                                                : connected
+                                                        }`}
+                                                    </Typography>
+                                                    <Render condition={!!error}>
+                                                        <Typography
+                                                            variant={'subtitle2'}
+                                                            style={{ marginTop: rem(10) }}
+                                                        >
+                                                            {error}
+                                                        </Typography>
+                                                    </Render>
+                                                </>
+                                            }
+                                        />
+                                    </Grid>
+                                    <Grid item>{gitServer.metadata.name}</Grid>
+                                </Grid>
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Edit formData={_formData} />
+                                </Grid>
+                            </Grid>
+                        </AccordionDetails>
+                    </Accordion>
+                </Grid>
+            ) : null}
+        </Grid>
     );
 };

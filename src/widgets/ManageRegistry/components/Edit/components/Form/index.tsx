@@ -69,17 +69,21 @@ export const Form = () => {
                                     <Grid item>
                                         <Typography variant={'h6'}>Push Account</Typography>
                                     </Grid>
-                                    <Grid item>
-                                        <Tooltip title={`Managed by ${pushAccountOwnerReference}`}>
-                                            <Icon
-                                                icon={ICONS.CLOUD_LOCK}
-                                                width={20}
-                                                style={{
-                                                    display: 'block',
-                                                }}
-                                            />
-                                        </Tooltip>
-                                    </Grid>
+                                    <Render condition={!!pushAccountOwnerReference}>
+                                        <Grid item>
+                                            <Tooltip
+                                                title={`Managed by ${pushAccountOwnerReference}`}
+                                            >
+                                                <Icon
+                                                    icon={ICONS.CLOUD_LOCK}
+                                                    width={20}
+                                                    style={{
+                                                        display: 'block',
+                                                    }}
+                                                />
+                                            </Tooltip>
+                                        </Grid>
+                                    </Render>
                                 </Grid>
                             </Grid>
                             <Grid item xs={6}>
@@ -97,17 +101,21 @@ export const Form = () => {
                                     <Grid item>
                                         <Typography variant={'h6'}>Pull Account</Typography>
                                     </Grid>
-                                    <Grid item>
-                                        <Tooltip title={`Managed by ${pullAccountOwnerReference}`}>
-                                            <Icon
-                                                icon={ICONS.CLOUD_LOCK}
-                                                width={20}
-                                                style={{
-                                                    display: 'block',
-                                                }}
-                                            />
-                                        </Tooltip>
-                                    </Grid>
+                                    <Render condition={!!pullAccountOwnerReference}>
+                                        <Grid item>
+                                            <Tooltip
+                                                title={`Managed by ${pullAccountOwnerReference}`}
+                                            >
+                                                <Icon
+                                                    icon={ICONS.CLOUD_LOCK}
+                                                    width={20}
+                                                    style={{
+                                                        display: 'block',
+                                                    }}
+                                                />
+                                            </Tooltip>
+                                        </Grid>
+                                    </Render>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>

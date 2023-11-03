@@ -6,7 +6,7 @@ import { FORM_MODES } from '../../../../../types/forms';
 import { GIT_SERVER_FORM_NAMES } from '../../../names';
 import { ManageGitServerDataContext, ManageGitServerValues } from '../../../types';
 
-export const SSHPrivateKey = () => {
+export const SecretString = () => {
     const {
         register,
         control,
@@ -20,11 +20,10 @@ export const SSHPrivateKey = () => {
 
     return (
         <FormTextField
-            {...register(GIT_SERVER_FORM_NAMES.sshPrivateKey.name, {
-                required: 'Enter your private SSH key',
+            {...register(GIT_SERVER_FORM_NAMES.secretString.name, {
+                required: 'Enter your secret string',
             })}
-            label={'Private SSH key'}
-            placeholder={'-----BEGIN OPENSSH PRIVATE KEY-----\n'}
+            label={'Secret string'}
             control={control}
             errors={errors}
             TextFieldProps={{

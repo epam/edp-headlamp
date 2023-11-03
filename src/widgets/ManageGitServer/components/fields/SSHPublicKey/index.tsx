@@ -6,7 +6,7 @@ import { FORM_MODES } from '../../../../../types/forms';
 import { GIT_SERVER_FORM_NAMES } from '../../../names';
 import { ManageGitServerDataContext, ManageGitServerValues } from '../../../types';
 
-export const NameSSHKeySecret = () => {
+export const SSHPublicKey = () => {
     const {
         register,
         control,
@@ -14,16 +14,25 @@ export const NameSSHKeySecret = () => {
     } = useReactHookFormContext<ManageGitServerValues>();
 
     const {
-        formData: { mode },
+        formData: { mode, gitServerSecret },
     } = useFormContext<ManageGitServerDataContext>();
+    const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 
     return (
         <FormTextField
-            {...register(GIT_SERVER_FORM_NAMES.nameSshKeySecret.name)}
-            label={'SSH Key Secret Name'}
+            {...register(GIT_SERVER_FORM_NAMES.sshPublicKey.name, {
+                required: 'Enter your public SSH key',
+            })}
+            label={'Public SSH key'}
+            placeholder={'ssh-rsa PUBLIC KEY'}
             control={control}
             errors={errors}
-            disabled={mode === FORM_MODES.EDIT}
+            TextFieldProps={{
+                multiline: true,
+                minRows: 4,
+                maxRows: 4,
+            }}
+            disabled={mode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
         />
     );
 };

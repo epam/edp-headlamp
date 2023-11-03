@@ -1,12 +1,8 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { useGitServerCRUD } from '../../../../../../k8s/EDPGitServer/hooks/useGitServerCRUD';
-import { editGitServerInstance } from '../../../../../../k8s/EDPGitServer/utils/editGitServerInstance';
-import { useFormContext } from '../../../../../../providers/Form/hooks';
-import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
-import { GIT_SERVER_FORM_NAMES } from '../../../../names';
-import { ManageGitServerDataContext, ManageGitServerValues } from '../../../../types';
+import { ManageGitServerValues } from '../../../../types';
+import { useUpdateGitServer } from './hooks/useUpdateGitServer';
 
 export const FormActions = () => {
     const {
@@ -15,54 +11,19 @@ export const FormActions = () => {
         handleSubmit,
         getValues,
     } = useReactHookFormContext<ManageGitServerValues>();
-    const {
-        formData: { currentElement },
-    } = useFormContext<ManageGitServerDataContext>();
 
-    const {
-        editGitServer,
-        mutations: {
-            gitServerCreateMutation,
-            gitServerSecretCreateMutation,
-            gitServerSecretDeleteMutation,
-        },
-    } = useGitServerCRUD({
+    const { editGitServer, isLoading } = useUpdateGitServer({
         onSuccess: () => {
             const values = getValues();
             reset(values);
         },
     });
 
-    const isLoading =
-        gitServerCreateMutation.isLoading ||
-        gitServerSecretCreateMutation.isLoading ||
-        gitServerSecretDeleteMutation.isLoading;
-
     const onSubmit = React.useCallback(
         async (values: ManageGitServerValues) => {
-            if (typeof currentElement === 'string') {
-                return;
-            }
-
-            // TODO: fix this
-            const transformedValues = {
-                ...values,
-                sshPort: Number(values.sshPort),
-                httpsPort: Number(values.httpsPort),
-            };
-            const usedValues = getUsedValues(transformedValues, GIT_SERVER_FORM_NAMES);
-
-            const gitServerData = editGitServerInstance(
-                GIT_SERVER_FORM_NAMES,
-                currentElement,
-                usedValues
-            );
-
-            await editGitServer({
-                gitServerData: gitServerData,
-            });
+            await editGitServer(values);
         },
-        [currentElement, editGitServer]
+        [editGitServer]
     );
 
     return (

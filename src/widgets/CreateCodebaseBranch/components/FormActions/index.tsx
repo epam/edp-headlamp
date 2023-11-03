@@ -61,7 +61,6 @@ export const FormActions = () => {
 
     const onSubmit = React.useCallback(
         async (values: CreateCodebaseBranchFormValues) => {
-            console.log(values);
             const usedValues = getUsedValues(values, CODEBASE_BRANCH_FORM_NAMES);
 
             const codebaseBranchInstance = createCodebaseBranchInstance(

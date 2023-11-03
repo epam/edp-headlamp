@@ -16,7 +16,6 @@ export const createCodebaseBranchInstance = (
     codebaseName: string
 ): EDPCodebaseBranchKubeObjectInterface => {
     const { branchName, releaseBranchName, ...restProps } = formValues;
-    console.log(formValues);
     const _branchName = formValues.release ? releaseBranchName : branchName;
     const transformedBranchName = _branchName ? _branchName.replaceAll('/', '-') : '';
 

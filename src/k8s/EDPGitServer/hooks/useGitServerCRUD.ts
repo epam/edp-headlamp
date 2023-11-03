@@ -13,6 +13,7 @@ interface CreateGitServerProps {
 
 interface EditGitServerProps {
     gitServerData: EDPGitServerKubeObjectInterface;
+    gitServerSecretData: EDPKubeObjectInterface;
 }
 
 export const useGitServerCRUD = ({
@@ -45,6 +46,11 @@ export const useGitServerCRUD = ({
         CRUD_TYPES.CREATE
     >('gitServerSecretCreateMutation', K8s.secret.default, CRUD_TYPES.CREATE);
 
+    const gitServerSecretEditMutation = useResourceCRUDMutation<
+        EDPKubeObjectInterface,
+        CRUD_TYPES.EDIT
+    >('gitServerSecretEditMutation', K8s.secret.default, CRUD_TYPES.EDIT);
+
     const createGitServer = React.useCallback(
         async ({ gitServerData, gitServerSecretData }: CreateGitServerProps) => {
             gitServerSecretCreateMutation.mutate(gitServerSecretData, {
@@ -60,8 +66,6 @@ export const useGitServerCRUD = ({
                     invokeOnSuccessCallback();
                 },
                 onError: () => {
-                    gitServerSecretDeleteMutation.mutate(gitServerSecretData);
-
                     invokeOnErrorCallback();
                 },
             });
@@ -76,7 +80,7 @@ export const useGitServerCRUD = ({
     );
 
     const editGitServer = React.useCallback(
-        async ({ gitServerData }: EditGitServerProps) => {
+        async ({ gitServerData, gitServerSecretData }: EditGitServerProps) => {
             gitServerEditMutation.mutate(gitServerData, {
                 onSuccess: () => {
                     invokeOnSuccessCallback();
@@ -85,8 +89,22 @@ export const useGitServerCRUD = ({
                     invokeOnErrorCallback();
                 },
             });
+
+            gitServerSecretEditMutation.mutate(gitServerSecretData, {
+                onSuccess: () => {
+                    invokeOnSuccessCallback();
+                },
+                onError: () => {
+                    invokeOnErrorCallback();
+                },
+            });
         },
-        [gitServerEditMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
+        [
+            gitServerEditMutation,
+            gitServerSecretEditMutation,
+            invokeOnErrorCallback,
+            invokeOnSuccessCallback,
+        ]
     );
 
     const mutations = {

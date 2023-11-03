@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { FORM_MODES } from '../../types/forms';
 import { ManageGitServer } from './index';
 
 test('renders ManageGitServer Create component', () => {
@@ -12,8 +13,12 @@ test('renders ManageGitServer Create component', () => {
         <TestWrapper>
             <ManageGitServer
                 formData={{
-                    currentElement: 'placeholder',
-                    handleClosePlaceholder: jest.fn(),
+                    mode: FORM_MODES.CREATE,
+                    gitServer: undefined,
+                    gitServerSecret: undefined,
+                    handleClosePanel: () => {
+                        //
+                    },
                 }}
             />
         </TestWrapper>

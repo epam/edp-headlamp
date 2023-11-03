@@ -20,7 +20,7 @@ export const createGitServerInstance = (
     const gitServerName = `${gitHost}-${createRandomString()}`;
     const nameSshKeySecret =
         formValues.gitProvider === GIT_PROVIDERS.GERRIT
-            ? `${gitServerName}-config`
+            ? 'gerrit-ciuser-sshkey'
             : `ci-${formValues.gitProvider}`;
 
     const base: DeepPartial<EDPGitServerKubeObjectInterface> = {

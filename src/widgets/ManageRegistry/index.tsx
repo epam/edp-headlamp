@@ -1,9 +1,7 @@
-import { Icon } from '@iconify/react';
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { CreateItemAccordion } from '../../components/CreateItemAccordion';
 import { Render } from '../../components/Render';
-import { ICONS } from '../../icons/iconify-icons-mapping';
 import { CONTAINER_REGISTRY_TYPE } from '../../k8s/ConfigMap/constants';
 import { FORM_MODES } from '../../types/forms';
 import { ValueOf } from '../../types/global';
@@ -58,8 +56,8 @@ export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
             </Render>
             <Render condition={mode === FORM_MODES.EDIT}>
                 <Grid item xs={12}>
-                    <Accordion expanded={expandedPanel === mode} onChange={handleChange(mode)}>
-                        <AccordionSummary expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}>
+                    <Accordion expanded>
+                        <AccordionSummary style={{ cursor: 'default' }}>
                             <Typography variant={'h6'}>
                                 {generateNameBasedOnType(registryType)}
                             </Typography>

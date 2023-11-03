@@ -32,8 +32,11 @@ export class SecretKubeObject extends K8s.secret.default {
         errorHandler,
     }: StreamSecretsByTypeProps): () => void {
         const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
-        return streamResults(url, dataHandler, errorHandler, {
-            labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${type}`,
-        });
+        if (type) {
+            return streamResults(url, dataHandler, errorHandler, {
+                labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${type}`,
+            });
+        }
+        return streamResults(url, dataHandler, errorHandler);
     }
 }
