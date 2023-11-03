@@ -42,7 +42,9 @@ export const createBuildPipelineRunInstance = ({
     storageSize: string;
 }): PipelineRunKubeObjectInterface => {
     const truncatedCodebaseType = codebaseType.slice(0, 3);
-    const normalizedCodebaseBranchName = codebaseBranchName.replaceAll('/', '-');
+    const normalizedCodebaseBranchName = codebaseBranchName
+        .replaceAll('/', '-')
+        .replaceAll('.', '-');
     const trimmedPipelineRunNameStartValue =
         `${codebaseName}-${normalizedCodebaseBranchName}`.slice(0, 33); // 33 max length for name before random postfix
 
