@@ -1,7 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../../../../../../../components/Render';
 import { CODEBASE_TYPES } from '../../../../../../../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../../../../../../../constants/creationStrategies';
 import { Resources } from '../../../../../../../../../../icons/sprites/Resources';
@@ -76,29 +75,29 @@ export const Info = () => {
                 <Grid item xs={12}>
                     <Description />
                 </Grid>
-                <Render condition={strategyFieldValue === CODEBASE_CREATION_STRATEGIES.CREATE}>
+                {strategyFieldValue === CODEBASE_CREATION_STRATEGIES.CREATE && (
                     <Grid item xs={12}>
                         <EmptyProject />
                     </Grid>
-                </Render>
+                )}
                 <Grid item xs={12}>
                     <Lang />
                 </Grid>
-                <Render condition={langFieldValue}>
+                {langFieldValue && (
                     <Grid item xs={12}>
                         <Framework />
                     </Grid>
-                </Render>
-                {langFieldValue ? (
+                )}
+                {langFieldValue && (
                     <Grid item xs={12}>
                         <BuildTool />
                     </Grid>
-                ) : null}
-                <Render condition={typeFieldValue === CODEBASE_TYPES.AUTOTEST}>
+                )}
+                {typeFieldValue === CODEBASE_TYPES.AUTOTEST && (
                     <Grid item xs={12}>
                         <TestReportFramework />
                     </Grid>
-                </Render>
+                )}
             </Grid>
         </>
     );

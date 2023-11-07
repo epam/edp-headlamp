@@ -12,7 +12,6 @@ import {
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { Render } from '../../components/Render';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from './constants';
 import { useDeleteKubeObject } from './hooks/useDeleteKubeObject';
@@ -118,40 +117,36 @@ export const DeleteKubeObject = () => {
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogContent>
                 <Grid container spacing={1}>
-                    <Render condition={!loadingActive}>
-                        <Render condition={!errorTemplate}>
-                            <Grid item xs={12}>
-                                <Typography>{description}</Typography>
-                            </Grid>
-                        </Render>
-                    </Render>
+                    {!loadingActive && !errorTemplate && (
+                        <Grid item xs={12}>
+                            <Typography>{description}</Typography>
+                        </Grid>
+                    )}
                     <Grid item xs={12}>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <Grid container spacing={1}>
-                                <Render condition={!!loadingActive}>
+                                {!!loadingActive && (
                                     <Grid container justifyContent="center">
                                         <Grid item>
                                             <CircularProgress />
                                         </Grid>
                                     </Grid>
-                                </Render>
-                                <Render condition={!!errorTemplate && !loadingActive}>
+                                )}
+                                {!!errorTemplate && !loadingActive && (
                                     <Grid item xs={12}>
                                         {errorTemplate}
                                     </Grid>
-                                </Render>
-                                <Render condition={!loadingActive}>
-                                    <Render condition={!errorTemplate}>
-                                        <Grid item xs={12}>
-                                            <TextField
-                                                {...register(NAMES.name, { required: true })}
-                                                label={`Enter ${kubeObjectData?.kind} name to delete`}
-                                                variant="outlined"
-                                                fullWidth
-                                            />
-                                        </Grid>
-                                    </Render>
-                                </Render>
+                                )}
+                                {!loadingActive && !errorTemplate && (
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            {...register(NAMES.name, { required: true })}
+                                            label={`Enter ${kubeObjectData?.kind} name to delete`}
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Grid>
+                                )}
                                 <Grid item xs={12}>
                                     <DialogActions>
                                         <Button type={'button'} onClick={handleClosePopup}>

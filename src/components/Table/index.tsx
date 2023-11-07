@@ -3,7 +3,6 @@ import React from 'react';
 import { usePagination } from '../../hooks/usePagination';
 import { ValueOf } from '../../types/global';
 import { rem } from '../../utils/styling/rem';
-import { Render } from '../Render';
 import { TableBody } from './components/TableBody';
 import { TableHead } from './components/TableHead';
 import { TablePagination } from './components/TablePagination';
@@ -72,7 +71,7 @@ export const Table = <DataType extends unknown>({
         <Paper variant={'outlined'} style={{ maxWidth: '100%', overflowX: 'auto' }}>
             <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
                 <colgroup>
-                    {handleSelectRowClick ? <col key={'select-checkbox'} width={'4%'} /> : null}
+                    {handleSelectRowClick && <col key={'select-checkbox'} width={'4%'} />}
                     {columns.map(
                         column =>
                             column.show !== false && (
@@ -105,7 +104,7 @@ export const Table = <DataType extends unknown>({
                     hasEmptyResult={hasEmptyResult}
                 />
             </MuiTable>
-            <Render condition={showPagination && data?.length > _rowsPerPage}>
+            {showPagination && data?.length > _rowsPerPage && (
                 <TablePagination
                     dataCount={readyData && readyData.length}
                     page={page}
@@ -113,7 +112,7 @@ export const Table = <DataType extends unknown>({
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
                 />
-            </Render>
+            )}
         </Paper>
     );
 };

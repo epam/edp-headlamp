@@ -13,7 +13,6 @@ import {
 import React from 'react';
 import { ValueOf } from '../../../../types/global';
 import { rem } from '../../../../utils/styling/rem';
-import { Render } from '../../../Render';
 import { SORT_ORDERS } from '../../constants';
 import { TableColumn } from '../../types';
 import { TableHeadProps } from './types';
@@ -77,7 +76,7 @@ export const TableHead = ({
 
     return (
         <MuiTableHead>
-            <Render condition={!!upperColumns?.length}>
+            {!!upperColumns?.length ? (
                 <TableRow>
                     {upperColumns?.length
                         ? upperColumns.map(
@@ -89,36 +88,33 @@ export const TableHead = ({
                                   columnSortableValuePath,
                                   render,
                               }) => {
-                                  return (
-                                      <Render condition={show}>
-                                          <TableCell
-                                              key={id}
-                                              component="th"
-                                              scope="row"
-                                              align={textAlign || 'left'}
-                                              colSpan={colSpan || 1}
-                                              style={{
-                                                  color: theme.palette.text.primary,
-                                                  backgroundColor:
-                                                      theme.palette.tables.head.background,
-                                                  padding: `${theme.typography.pxToRem(
-                                                      8
-                                                  )} ${theme.typography.pxToRem(16)}`,
-                                              }}
-                                          >
-                                              <Box sx={getColumnStyles(!!columnSortableValuePath)}>
-                                                  {render()}
-                                              </Box>
-                                          </TableCell>
-                                      </Render>
-                                  );
+                                  return show ? (
+                                      <TableCell
+                                          key={id}
+                                          component="th"
+                                          scope="row"
+                                          align={textAlign || 'left'}
+                                          colSpan={colSpan || 1}
+                                          style={{
+                                              color: theme.palette.text.primary,
+                                              backgroundColor: theme.palette.tables.head.background,
+                                              padding: `${theme.typography.pxToRem(
+                                                  8
+                                              )} ${theme.typography.pxToRem(16)}`,
+                                          }}
+                                      >
+                                          <Box sx={getColumnStyles(!!columnSortableValuePath)}>
+                                              {render()}
+                                          </Box>
+                                      </TableCell>
+                                  ) : null;
                               }
                           )
                         : null}
                 </TableRow>
-            </Render>
+            ) : null}
             <TableRow>
-                <Render condition={!!handleSelectAllClick}>
+                {!!handleSelectAllClick && (
                     <TableCell
                         padding="checkbox"
                         style={{
@@ -133,7 +129,7 @@ export const TableHead = ({
                             onChange={handleSelectAllClick}
                         />
                     </TableCell>
-                </Render>
+                )}
                 {columns.map(column => {
                     const {
                         show = true,
@@ -148,57 +144,56 @@ export const TableHead = ({
                         sortOrder
                     );
 
-                    return (
-                        <Render condition={show} key={id}>
-                            <TableCell
-                                sortDirection={sortBy === id ? sortOrder : false}
-                                align={textAlign}
-                                style={{
-                                    color: theme.palette.text.primary,
-                                    backgroundColor: theme.palette.tables.head.background,
-                                }}
-                            >
-                                <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-                                    <Render condition={!!columnSortableValuePath}>
-                                        <Grid item>
-                                            <ButtonBase
-                                                onClick={() => handleRequestSort(column)}
-                                                disableRipple
-                                            >
-                                                <SvgIcon
-                                                    viewBox={'0 0 18 18'}
-                                                    width={theme.typography.pxToRem(18)}
-                                                    height={theme.typography.pxToRem(18)}
-                                                    style={{
-                                                        width: theme.typography.pxToRem(18),
-                                                        height: theme.typography.pxToRem(18),
-                                                        display: 'block',
-                                                    }}
-                                                >
-                                                    <path
-                                                        d="M5.25 6L9 2.25L12.75 6H5.25Z"
-                                                        fill={upperArrowColor}
-                                                    />
-                                                    <path
-                                                        d="M5.25 12L9 15.75L12.75 12H5.25Z"
-                                                        fill={bottomArrowColor}
-                                                    />
-                                                </SvgIcon>
-                                            </ButtonBase>
-                                        </Grid>
-                                    </Render>
+                    return show ? (
+                        <TableCell
+                            key={id}
+                            sortDirection={sortBy === id ? sortOrder : false}
+                            align={textAlign}
+                            style={{
+                                color: theme.palette.text.primary,
+                                backgroundColor: theme.palette.tables.head.background,
+                            }}
+                        >
+                            <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                                {!!columnSortableValuePath && (
                                     <Grid item>
-                                        <Typography
-                                            variant={'body1'}
-                                            style={{ fontWeight: 600, marginTop: rem(2) }}
+                                        <ButtonBase
+                                            onClick={() => handleRequestSort(column)}
+                                            disableRipple
                                         >
-                                            {label}
-                                        </Typography>
+                                            <SvgIcon
+                                                viewBox={'0 0 18 18'}
+                                                width={theme.typography.pxToRem(18)}
+                                                height={theme.typography.pxToRem(18)}
+                                                style={{
+                                                    width: theme.typography.pxToRem(18),
+                                                    height: theme.typography.pxToRem(18),
+                                                    display: 'block',
+                                                }}
+                                            >
+                                                <path
+                                                    d="M5.25 6L9 2.25L12.75 6H5.25Z"
+                                                    fill={upperArrowColor}
+                                                />
+                                                <path
+                                                    d="M5.25 12L9 15.75L12.75 12H5.25Z"
+                                                    fill={bottomArrowColor}
+                                                />
+                                            </SvgIcon>
+                                        </ButtonBase>
                                     </Grid>
+                                )}
+                                <Grid item>
+                                    <Typography
+                                        variant={'body1'}
+                                        style={{ fontWeight: 600, marginTop: rem(2) }}
+                                    >
+                                        {label}
+                                    </Typography>
                                 </Grid>
-                            </TableCell>
-                        </Render>
-                    );
+                            </Grid>
+                        </TableCell>
+                    ) : null;
                 })}
             </TableRow>
         </MuiTableHead>

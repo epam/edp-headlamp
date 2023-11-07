@@ -1,6 +1,5 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { Render } from '../../components/Render';
 import { FormContextProvider } from '../../providers/Form';
 import { Create } from './components/Create';
 import { FormActions } from './components/FormActions';
@@ -23,12 +22,7 @@ export const ManageGitOps = ({ formData }: ManageGitOpsProps) => {
         >
             <Grid container spacing={2} data-testid="form">
                 <Grid item xs={12}>
-                    <Render condition={!isReadOnly}>
-                        <Create />
-                    </Render>
-                    <Render condition={isReadOnly}>
-                        <View />
-                    </Render>
+                    {isReadOnly ? <View /> : <Create />}
                 </Grid>
                 <Grid item xs={12}>
                     <FormActions />

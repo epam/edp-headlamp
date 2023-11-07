@@ -4,7 +4,6 @@ import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import { Render } from '../../../../../components/Render';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { useAutotestsWithBranches } from '../../../../../k8s/EDPCodebase/hooks/useAutotestsWithBranches';
 import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
@@ -130,13 +129,13 @@ export const QualityGates = () => {
                         add
                     </Button>
                 </Grid>
-                <Render condition={!qualityGatesFieldValue || !qualityGatesFieldValue.length}>
+                {(!qualityGatesFieldValue || !qualityGatesFieldValue.length) && (
                     <Grid item xs={12}>
                         <Alert severity="info" variant="outlined">
                             Add at least one quality gate
                         </Alert>
                     </Grid>
-                </Render>
+                )}
             </Grid>
         </>
     );

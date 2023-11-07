@@ -11,7 +11,6 @@ import {
 import clsx from 'clsx';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Render } from '../../../../components/Render';
 import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { useStyles } from './styles';
 import { FormRadioProps } from './types';
@@ -105,13 +104,13 @@ export const FormRadioGroup = React.forwardRef(
                         </Grid>
                     </FormControl>
                 </Grid>
-                <Render condition={hasError}>
+                {hasError && (
                     <Grid item xs={12}>
                         <Typography component={'span'} variant={'subtitle2'} color={'error'}>
                             <ErrorMessage errors={errors} name={name} />
                         </Typography>
                     </Grid>
-                </Render>
+                )}
             </Grid>
         );
     }

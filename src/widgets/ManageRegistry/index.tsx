@@ -1,7 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { CreateItemAccordion } from '../../components/CreateItemAccordion';
-import { Render } from '../../components/Render';
 import { CONTAINER_REGISTRY_TYPE } from '../../k8s/ConfigMap/constants';
 import { FORM_MODES } from '../../types/forms';
 import { ValueOf } from '../../types/global';
@@ -39,7 +38,7 @@ export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
 
     return (
         <Grid container spacing={2} data-testid="form">
-            <Render condition={mode === FORM_MODES.CREATE}>
+            {mode === FORM_MODES.CREATE && (
                 <Grid item xs={12}>
                     <CreateItemAccordion
                         isExpanded={expandedPanel === mode}
@@ -53,8 +52,8 @@ export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
                         </Grid>
                     </CreateItemAccordion>
                 </Grid>
-            </Render>
-            <Render condition={mode === FORM_MODES.EDIT}>
+            )}
+            {mode === FORM_MODES.EDIT && (
                 <Grid item xs={12}>
                     <Accordion expanded>
                         <AccordionSummary style={{ cursor: 'default' }}>
@@ -71,7 +70,7 @@ export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
                         </AccordionDetails>
                     </Accordion>
                 </Grid>
-            </Render>
+            )}
         </Grid>
     );
 };

@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import { DocLink } from '../../components/DocLink';
 import { EmptyList } from '../../components/EmptyList';
 import { PageWrapper } from '../../components/PageWrapper';
-import { Render } from '../../components/Render';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
@@ -90,16 +89,16 @@ export const PageView = () => {
                     headerStyle="label"
                 />
                 <ResourceActionListContextProvider>
-                    <Render condition={isLoading || !!gitOpsCodebase}>
+                    {(isLoading || !!gitOpsCodebase) && (
                         <CDPipelineList CDPipelines={items} error={error} />
-                    </Render>
-                    <Render condition={!isLoading && !gitOpsCodebase}>
+                    )}
+                    {!isLoading && !gitOpsCodebase && (
                         <EmptyList
                             customText={'No GitOps repository configured.'}
                             linkText={'Click here to add a repository.'}
                             handleClick={() => history.push(gitOpsConfigurationPageRoute)}
                         />
-                    </Render>
+                    )}
                     <CDPipelineActionsMenu />
                 </ResourceActionListContextProvider>
             </SectionBox>

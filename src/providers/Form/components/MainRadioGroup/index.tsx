@@ -11,7 +11,6 @@ import {
 import clsx from 'clsx';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Render } from '../../../../components/Render';
 import { useStyles } from './styles';
 import { MainRadioGroupProps } from './types';
 
@@ -113,11 +112,7 @@ export const MainRadioGroup = React.forwardRef(
                                                                                         {label}
                                                                                     </Typography>
                                                                                 </Grid>
-                                                                                <Render
-                                                                                    condition={
-                                                                                        !!description
-                                                                                    }
-                                                                                >
+                                                                                {!!description && (
                                                                                     <Grid
                                                                                         item
                                                                                         xs={12}
@@ -141,7 +136,7 @@ export const MainRadioGroup = React.forwardRef(
                                                                                             }
                                                                                         </Typography>
                                                                                     </Grid>
-                                                                                </Render>
+                                                                                )}
                                                                             </Grid>
                                                                         }
                                                                         className={
@@ -164,13 +159,13 @@ export const MainRadioGroup = React.forwardRef(
                         </Grid>
                     </FormControl>
                 </Grid>
-                <Render condition={hasError}>
+                {hasError && (
                     <Grid item xs={12}>
                         <Typography component={'span'} variant={'subtitle2'} color={'error'}>
                             <ErrorMessage errors={errors} name={name} />
                         </Typography>
                     </Grid>
-                </Render>
+                )}
             </Grid>
         );
     }

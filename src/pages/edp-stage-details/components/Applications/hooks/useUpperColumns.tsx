@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import { Button, ButtonGroup, Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../../components/Render';
 import { TableColumn } from '../../../../../components/Table/types';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
@@ -29,13 +28,9 @@ export const useUpperColumns = ({
                 id: 'selected',
                 label: '',
                 render: () => {
-                    return (
-                        <Render condition={numSelected > 0}>
-                            <Typography variant={'body1'}>
-                                {numSelected} item(s) selected
-                            </Typography>
-                        </Render>
-                    );
+                    return numSelected > 0 ? (
+                        <Typography variant={'body1'}>{numSelected} item(s) selected</Typography>
+                    ) : null;
                 },
                 colSpan: 4,
             },

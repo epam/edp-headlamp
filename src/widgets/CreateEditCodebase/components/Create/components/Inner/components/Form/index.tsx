@@ -2,7 +2,6 @@ import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../../../../../components/Render';
 import { TabPanel } from '../../../../../../../../components/TabPanel';
 import { useHandleEditorSave } from '../../../../../../../../hooks/useHandleEditorSave';
 import { getUsedValues } from '../../../../../../../../utils/forms/getUsedValues';
@@ -47,14 +46,14 @@ export const Form = ({ formActiveTabIdx, editorOpen, editorData, setEditorOpen }
             <TabPanel value={formActiveTabIdx} index={TAB_INDEXES[FORM_PART_ADVANCED_SETTINGS]}>
                 <Advanced />
             </TabPanel>
-            <Render condition={editorOpen}>
+            {editorOpen && (
                 <EditorDialog
                     open={editorOpen}
                     item={editorData}
                     onClose={handleCloseEditor}
                     onSave={onEditorSave}
                 />
-            </Render>
+            )}
         </>
     );
 };

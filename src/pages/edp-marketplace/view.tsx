@@ -6,7 +6,6 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { EmptyList } from '../../components/EmptyList';
 import { PageWrapper } from '../../components/PageWrapper';
-import { Render } from '../../components/Render';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { useViewModeContext } from '../../providers/ViewMode/hooks';
@@ -83,16 +82,14 @@ export const PageView = () => {
                     className: classes.sectionRoot,
                 }}
             >
-                <Render condition={gitServersIsLoading || !noGitServers}>
-                    <MarketplaceList />
-                </Render>
-                <Render condition={!gitServersIsLoading && noGitServers}>
+                {(gitServersIsLoading || !noGitServers) && <MarketplaceList />}
+                {!gitServersIsLoading && noGitServers && (
                     <EmptyList
                         customText={'No Git Servers Connected.'}
                         linkText={'Click here to add a Git Server.'}
                         handleClick={() => history.push(gitServersConfigurationPageRoute)}
                     />
-                </Render>
+                )}
             </SectionBox>
         </PageWrapper>
     );

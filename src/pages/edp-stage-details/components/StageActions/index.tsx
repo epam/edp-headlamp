@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react';
 import { IconButton, Tooltip } from '@material-ui/core';
 import React from 'react';
-import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
@@ -26,9 +25,7 @@ export const StageActions = ({ stage }: StageActionsProps) => {
                     <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
                 </IconButton>
             </Tooltip>
-            <Render condition={!!stages}>
-                <StageActionsMenu stages={stages?.items} CDPipelineData={CDPipeline} />
-            </Render>
+            {!!stages && <StageActionsMenu stages={stages?.items} CDPipelineData={CDPipeline} />}
         </>
     );
 };

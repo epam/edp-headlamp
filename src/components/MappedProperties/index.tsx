@@ -1,6 +1,5 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
-import { Render } from '../Render';
 import { MappedPropertiesProps } from './types';
 
 export const MappedProperties = ({ properties, variant }: MappedPropertiesProps) => {
@@ -11,20 +10,16 @@ export const MappedProperties = ({ properties, variant }: MappedPropertiesProps)
 
                 return (
                     <React.Fragment key={propertyId}>
-                        <Render condition={variant === 'inline'}>
+                        {variant === 'inline' && (
                             <>
-                                <Render condition={idx !== 0}>
-                                    <Typography component="span">, </Typography>
-                                </Render>
+                                {idx !== 0 && <Typography component="span">, </Typography>}
                                 <Typography component="span" variant={'caption'}>
                                     {el}
                                 </Typography>
                             </>
-                        </Render>
+                        )}
 
-                        <Render condition={variant === 'block'}>
-                            <Typography component="div">{el}</Typography>
-                        </Render>
+                        {variant === 'block' && <Typography component="div">{el}</Typography>}
                     </React.Fragment>
                 );
             })}

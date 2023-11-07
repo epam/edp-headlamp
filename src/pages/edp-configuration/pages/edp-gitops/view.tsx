@@ -3,7 +3,6 @@ import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { EmptyList } from '../../../../components/EmptyList';
-import { Render } from '../../../../components/Render';
 import { ResourceIconLink } from '../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
@@ -61,18 +60,14 @@ export const PageView = () => {
                                             >
                                                 {`Status: ${status || 'Unknown'}`}
                                             </Typography>
-                                            <Render
-                                                condition={
-                                                    status === CUSTOM_RESOURCE_STATUSES['FAILED']
-                                                }
-                                            >
+                                            {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
                                                 <Typography
                                                     variant={'subtitle2'}
                                                     style={{ marginTop: rem(10) }}
                                                 >
                                                     {el?.status?.detailedMessage}
                                                 </Typography>
-                                            </Render>
+                                            )}
                                         </>
                                     }
                                 />

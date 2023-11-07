@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../../../components/Render';
 import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
 import { DEPLOYMENT_SCRIPTS } from '../../../../../../constants/deploymentScripts';
 import { TEST_REPORT_FRAMEWORKS } from '../../../../../../constants/testReportFrameworks';
@@ -70,7 +69,7 @@ export const Inner = ({ baseDefaultValues }) => {
 
     return (
         <>
-            <Render condition={modalActiveTabIdx === 0}>
+            {modalActiveTabIdx === 0 && (
                 <Box p={rem(20)}>
                     <Typography variant={'h4'} style={{ marginBottom: rem(20) }}>
                         Create new component
@@ -121,8 +120,8 @@ export const Inner = ({ baseDefaultValues }) => {
                         </Grid>
                     </div>
                 </Box>
-            </Render>
-            <Render condition={modalActiveTabIdx === 1}>
+            )}
+            {modalActiveTabIdx === 1 && (
                 <>
                     <DialogTitle>
                         <DialogHeader setEditorOpen={setEditorOpen} setEditorData={setEditorData} />
@@ -165,7 +164,7 @@ export const Inner = ({ baseDefaultValues }) => {
                         />
                     </DialogActions>
                 </>
-            </Render>
+            )}
         </>
     );
 };

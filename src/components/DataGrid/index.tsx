@@ -2,7 +2,6 @@ import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { usePagination } from '../../hooks/usePagination';
 import { EmptyList } from '../EmptyList';
-import { Render } from '../Render';
 import { Pagination } from './components/Pagination';
 import { useReadyData } from './hooks/useReadyData';
 import { DataGridProps } from './types';
@@ -81,7 +80,7 @@ export const DataGrid = <DataType extends unknown>({
                     <>{emptyListComponent}</>
                 ) : null}
             </Grid>
-            <Render condition={showPagination && data?.length > _rowsPerPage}>
+            {showPagination && data?.length > _rowsPerPage && (
                 <Grid item xs={12}>
                     <Pagination
                         dataCount={readyData && readyData.length}
@@ -91,7 +90,7 @@ export const DataGrid = <DataType extends unknown>({
                         handleChangeRowsPerPage={handleChangeRowsPerPage}
                     />
                 </Grid>
-            </Render>
+            )}
         </Grid>
     );
 };

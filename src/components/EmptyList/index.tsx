@@ -3,7 +3,6 @@ import { Box, Grid, Link, Typography, useTheme } from '@material-ui/core';
 import React from 'react';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { rem } from '../../utils/styling/rem';
-import { Render } from '../Render';
 import { EmptyListProps } from './types';
 
 export const EmptyList = ({
@@ -54,19 +53,19 @@ export const EmptyList = ({
                             {customText ? customText : `There are no ${missingItemName} here.`}
                         </Typography>
                     </Grid>
-                    <Render condition={!!linkText && !!handleClick}>
+                    {!!linkText && !!handleClick && (
                         <Grid item>
                             <Link onClick={handleClick} component={'button'}>
                                 <Typography>{linkText}</Typography>
                             </Link>
                         </Grid>
-                    </Render>
+                    )}
                 </Grid>
-                <Render condition={!!description}>
+                {!!description && (
                     <Typography variant={'body2'} color={'textSecondary'}>
                         {description}
                     </Typography>
-                </Render>
+                )}
             </Box>
         </Box>
     );

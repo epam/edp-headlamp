@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import { Grid, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormDataContext } from 'react-hook-form';
-import { Render } from '../../../../../../components/Render';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
@@ -43,7 +42,7 @@ export const Form = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Render condition={registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.ECR}>
+            {registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.ECR && (
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -54,13 +53,9 @@ export const Form = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Render>
-            <Render
-                condition={
-                    registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.DOCKER_HUB ||
-                    registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.HARBOR
-                }
-            >
+            )}
+            {(registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.DOCKER_HUB ||
+                registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.HARBOR) && (
                 <>
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
@@ -69,7 +64,7 @@ export const Form = () => {
                                     <Grid item>
                                         <Typography variant={'h6'}>Push Account</Typography>
                                     </Grid>
-                                    <Render condition={!!pushAccountOwnerReference}>
+                                    {!!pushAccountOwnerReference && (
                                         <Grid item>
                                             <Tooltip
                                                 title={`Managed by ${pushAccountOwnerReference}`}
@@ -83,7 +78,7 @@ export const Form = () => {
                                                 />
                                             </Tooltip>
                                         </Grid>
-                                    </Render>
+                                    )}
                                 </Grid>
                             </Grid>
                             <Grid item xs={6}>
@@ -101,7 +96,7 @@ export const Form = () => {
                                     <Grid item>
                                         <Typography variant={'h6'}>Pull Account</Typography>
                                     </Grid>
-                                    <Render condition={!!pullAccountOwnerReference}>
+                                    {!!pullAccountOwnerReference && (
                                         <Grid item>
                                             <Tooltip
                                                 title={`Managed by ${pullAccountOwnerReference}`}
@@ -115,13 +110,13 @@ export const Form = () => {
                                                 />
                                             </Tooltip>
                                         </Grid>
-                                    </Render>
+                                    )}
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
                                 <UseSameAccount />
                             </Grid>
-                            <Render condition={!useSameAccountFieldValue}>
+                            {!useSameAccountFieldValue && (
                                 <>
                                     <Grid item xs={6}>
                                         <PullAccountUser mode={FORM_MODES.EDIT} />
@@ -130,11 +125,11 @@ export const Form = () => {
                                         <PullAccountPassword mode={FORM_MODES.EDIT} />
                                     </Grid>
                                 </>
-                            </Render>
+                            )}
                         </Grid>
                     </Grid>
                 </>
-            </Render>
+            )}
         </Grid>
     );
 };

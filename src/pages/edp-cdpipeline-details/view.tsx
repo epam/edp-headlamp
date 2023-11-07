@@ -3,7 +3,6 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { PageWrapper } from '../../components/PageWrapper';
-import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
@@ -49,7 +48,7 @@ export const PageView = () => {
                             )}
                         />
                     </Grid>
-                    <Render condition={!!CDPipeline}>
+                    {!!CDPipeline && (
                         <>
                             <Grid item>
                                 <CDPipelineMetadataTable CDPipelineData={CDPipeline} />
@@ -61,11 +60,11 @@ export const PageView = () => {
                                 />
                             </Grid>
                         </>
-                    </Render>
+                    )}
                 </Grid>
             }
         >
-            <Render condition={!!CDPipeline}>
+            {!!CDPipeline && (
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <CDPipelineApplicationsTable />
@@ -77,7 +76,7 @@ export const PageView = () => {
                         </ResourceActionListContextProvider>
                     </Grid>
                 </Grid>
-            </Render>
+            )}
         </PageWrapper>
     );
 };

@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Render } from '../../../../../../components/Render';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { routeEDPComponentList } from '../../../../../edp-configuration/pages/edp-component-list/route';
 import { useStyles } from './styles';
@@ -41,21 +40,18 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
                         wrap={'nowrap'}
                     >
                         <Grid item>
-                            <>
-                                <Render condition={!!visible}>
-                                    <Link href={url} target="_blank" rel="noopener">
-                                        <span className={classes.serviceItemIcon}>
-                                            <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
-                                        </span>
-                                    </Link>
-                                </Render>
-                                <Render condition={!visible}>
-                                    <Icon
-                                        icon={'ph:placeholder-light'}
-                                        className={classes.serviceItemIcon}
-                                    />
-                                </Render>
-                            </>
+                            {!!visible ? (
+                                <Link href={url} target="_blank" rel="noopener">
+                                    <span className={classes.serviceItemIcon}>
+                                        <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
+                                    </span>
+                                </Link>
+                            ) : (
+                                <Icon
+                                    icon={'ph:placeholder-light'}
+                                    className={classes.serviceItemIcon}
+                                />
+                            )}
                         </Grid>
                     </Grid>
                 </div>
@@ -79,7 +75,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
                                     <Grid container alignItems={'center'} spacing={1}>
                                         <Grid item>{'Open in new tab'}</Grid>
                                         <span> </span>
-                                        <Render condition={!!_url}>
+                                        {!!_url && (
                                             <Grid item>
                                                 <Icon
                                                     icon={ICONS.NEW_WINDOW}
@@ -87,7 +83,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
                                                     width="15"
                                                 />
                                             </Grid>
-                                        </Render>
+                                        )}
                                     </Grid>
                                 }
                             >

@@ -1,7 +1,6 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { Render } from '../../../../components/Render';
 import { editResource } from '../../../../k8s/common/editResource';
 import { useCreateEDPComponent } from '../../../../k8s/EDPComponent/hooks/useCreateEDPComponent';
 import { EDPComponentKubeObjectInterface } from '../../../../k8s/EDPComponent/types';
@@ -68,11 +67,11 @@ export const FormActions = () => {
         <>
             <Grid container spacing={2} justifyContent={'space-between'}>
                 <Grid item>
-                    <Render condition={mode === FORM_MODES.CREATE}>
+                    {mode === FORM_MODES.CREATE && (
                         <Button onClick={handleClosePlaceholder} size="small" component={'button'}>
                             cancel
                         </Button>
-                    </Render>
+                    )}
                 </Grid>
                 <Grid item>
                     <Grid container spacing={2} alignItems={'center'}>

@@ -4,7 +4,6 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
-import { Render } from '../../components/Render';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { StatusIcon } from '../../components/StatusIcon';
 import { Tabs } from '../../components/Tabs';
@@ -201,14 +200,14 @@ export const PageView = () => {
                                         >
                                             {`Status: ${stage?.status?.status || 'unknown'}`}
                                         </Typography>
-                                        <Render condition={!!stage?.status?.detailed_message}>
+                                        {!!stage?.status?.detailed_message && (
                                             <Typography
                                                 variant={'subtitle2'}
                                                 style={{ marginTop: rem(10) }}
                                             >
                                                 {stage?.status?.detailed_message}
                                             </Typography>
-                                        </Render>
+                                        )}
                                     </>
                                 }
                             />

@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
-import { Render } from '../../../../components/Render';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON, PIPELINE_RUN_STATUS } from '../../../../k8s/PipelineRun/constants';
@@ -114,31 +113,31 @@ export const PipelineRunsGraph = () => {
                     <Typography component={'div'} variant={'body2'}>
                         Total: {pipelineRunsInfo.total}
                     </Typography>
-                    <Render condition={!!pipelineRunsInfo.green}>
+                    {!!pipelineRunsInfo.green && (
                         <Typography component={'div'} variant={'body2'}>
                             Passed: {pipelineRunsInfo.green}
                         </Typography>
-                    </Render>
-                    <Render condition={!!pipelineRunsInfo.blue}>
+                    )}
+                    {!!pipelineRunsInfo.blue && (
                         <Typography component={'div'} variant={'body2'}>
                             In Progress: {pipelineRunsInfo.blue}
                         </Typography>
-                    </Render>
-                    <Render condition={!!pipelineRunsInfo.purple}>
+                    )}
+                    {!!pipelineRunsInfo.purple && (
                         <Typography component={'div'} variant={'body2'}>
                             Suspended: {pipelineRunsInfo.purple}
                         </Typography>
-                    </Render>
-                    <Render condition={!!pipelineRunsInfo.red}>
+                    )}
+                    {!!pipelineRunsInfo.red && (
                         <Typography component={'div'} variant={'body2'}>
                             Failed: {pipelineRunsInfo.red}
                         </Typography>
-                    </Render>
-                    <Render condition={!!pipelineRunsInfo.grey}>
+                    )}
+                    {!!pipelineRunsInfo.grey && (
                         <Typography component={'div'} variant={'body2'}>
                             Unknown: {pipelineRunsInfo.grey}
                         </Typography>
-                    </Render>
+                    )}
                 </>
             }
             label={`${pipelineRunsInfo.green}/${pipelineRunsInfo.total}`}

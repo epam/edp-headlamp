@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import { DocLink } from '../../components/DocLink';
 import { EmptyList } from '../../components/EmptyList';
 import { PageWrapper } from '../../components/PageWrapper';
-import { Render } from '../../components/Render';
 import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
@@ -107,16 +106,16 @@ export const PageView = () => {
                     ]}
                 />
                 <ResourceActionListContextProvider>
-                    <Render condition={items === null || !creationDisabled}>
+                    {(items === null || !creationDisabled) && (
                         <ComponentList components={filteredComponents} error={error} />
-                    </Render>
-                    <Render condition={items !== null && creationDisabled}>
+                    )}
+                    {items !== null && creationDisabled && (
                         <EmptyList
                             customText={'No Git Servers Connected.'}
                             linkText={'Click here to add a Git Server.'}
                             handleClick={() => history.push(gitServersConfigurationPageRoute)}
                         />
-                    </Render>
+                    )}
                     <CodebaseActionsMenu />
                 </ResourceActionListContextProvider>
             </SectionBox>

@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { FormTextFieldProps } from './types';
@@ -82,11 +81,11 @@ export const FormTextField = React.forwardRef(
             <Grid container spacing={1}>
                 <Grid item xs={12} style={{ display: 'flex' }}>
                     <Grid container spacing={1}>
-                        <Render condition={!!label || showLabelPlaceholder}>
+                        {(!!label || showLabelPlaceholder) && (
                             <Grid item xs={12}>
                                 <FormControlLabelWithTooltip label={label} title={title} />
                             </Grid>
-                        </Render>
+                        )}
                         <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
                             <FormControl fullWidth>
                                 <Controller
@@ -112,13 +111,13 @@ export const FormTextField = React.forwardRef(
                         </Grid>
                     </Grid>
                 </Grid>
-                <Render condition={hasError}>
+                {hasError && (
                     <Grid item xs={12}>
                         <Typography component={'span'} variant={'subtitle2'} color={'error'}>
                             <ErrorMessage errors={errors} name={name} />
                         </Typography>
                     </Grid>
-                </Render>
+                )}
             </Grid>
         );
     }

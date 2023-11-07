@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Render } from '../../components/Render';
 import { CRUD_TYPES } from '../../constants/crudTypes';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { rem } from '../../utils/styling/rem';
@@ -44,12 +43,12 @@ export const ConfirmResourcesUpdates = () => {
             <DialogContent>
                 <div style={{ marginBottom: rem(40) }}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Render condition={!!text}>
+                        {!!text && (
+                            <Grid item xs={12}>
                                 <Typography variant={'subtitle1'}>{text}</Typography>
-                            </Render>
-                        </Grid>
-                        <Render condition={!!resourcesArray}>
+                            </Grid>
+                        )}
+                        {!!resourcesArray && (
                             <Grid item xs={12}>
                                 <Grid container spacing={1}>
                                     {resourcesArray
@@ -95,7 +94,7 @@ export const ConfirmResourcesUpdates = () => {
                                         : null}
                                 </Grid>
                             </Grid>
-                        </Render>
+                        )}
                         <Grid item xs={12}>
                             <TextField
                                 {...register('confirm', { required: true })}

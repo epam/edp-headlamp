@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
-import { Render } from '../../../../components/Render';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
 import { EDP_CDPIPELINE_STAGE_STATUS } from '../../../../k8s/EDPCDPipelineStage/constants';
@@ -97,26 +96,26 @@ export const StagesGraph = () => {
                     <Typography component={'div'} variant={'body2'}>
                         Total: {StagesInfo.total}
                     </Typography>
-                    <Render condition={!!StagesInfo.green}>
+                    {!!StagesInfo.green && (
                         <Typography component={'div'} variant={'body2'}>
                             OK: {StagesInfo.green}
                         </Typography>
-                    </Render>
-                    <Render condition={!!StagesInfo.blue}>
+                    )}
+                    {!!StagesInfo.blue && (
                         <Typography component={'div'} variant={'body2'}>
                             In Progress: {StagesInfo.blue}
                         </Typography>
-                    </Render>
-                    <Render condition={!!StagesInfo.red}>
+                    )}
+                    {!!StagesInfo.red && (
                         <Typography component={'div'} variant={'body2'}>
                             Failed: {StagesInfo.red}
                         </Typography>
-                    </Render>
-                    <Render condition={!!StagesInfo.grey}>
+                    )}
+                    {!!StagesInfo.grey && (
                         <Typography component={'div'} variant={'body2'}>
                             Unknown: {StagesInfo.grey}
                         </Typography>
-                    </Render>
+                    )}
                 </>
             }
             label={`${StagesInfo.green}/${StagesInfo.total}`}

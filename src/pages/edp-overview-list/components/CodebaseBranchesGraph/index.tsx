@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
-import { Render } from '../../../../components/Render';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
 import { EDP_CODEBASE_BRANCH_STATUS } from '../../../../k8s/EDPCodebaseBranch/constants';
@@ -97,26 +96,26 @@ export const CodebaseBranchesGraph = () => {
                     <Typography component={'div'} variant={'body2'}>
                         Total: {codebaseBranchesInfo.total}
                     </Typography>
-                    <Render condition={!!codebaseBranchesInfo.green}>
+                    {!!codebaseBranchesInfo.green && (
                         <Typography component={'div'} variant={'body2'}>
                             OK: {codebaseBranchesInfo.green}
                         </Typography>
-                    </Render>
-                    <Render condition={!!codebaseBranchesInfo.blue}>
+                    )}
+                    {!!codebaseBranchesInfo.blue && (
                         <Typography component={'div'} variant={'body2'}>
                             In Progress: {codebaseBranchesInfo.blue}
                         </Typography>
-                    </Render>
-                    <Render condition={!!codebaseBranchesInfo.red}>
+                    )}
+                    {!!codebaseBranchesInfo.red && (
                         <Typography component={'div'} variant={'body2'}>
                             Failed: {codebaseBranchesInfo.red}
                         </Typography>
-                    </Render>
-                    <Render condition={!!codebaseBranchesInfo.grey}>
+                    )}
+                    {!!codebaseBranchesInfo.grey && (
                         <Typography component={'div'} variant={'body2'}>
                             Unknown: {codebaseBranchesInfo.grey}
                         </Typography>
-                    </Render>
+                    )}
                 </>
             }
             label={`${codebaseBranchesInfo.green}/${codebaseBranchesInfo.total}`}

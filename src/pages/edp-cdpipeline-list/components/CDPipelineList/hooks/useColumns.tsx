@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { IconButton, Typography } from '@material-ui/core';
 import React from 'react';
-import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
@@ -39,11 +38,11 @@ export const useColumns = (): TableColumn<
                             <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
                                 {`Status: ${status || 'Unknown'}`}
                             </Typography>
-                            <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
+                            {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
                                 <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
                                     {detailedMessage}
                                 </Typography>
-                            </Render>
+                            )}
                         </>
                     );
 
@@ -91,9 +90,9 @@ export const useColumns = (): TableColumn<
                                 return (
                                     <React.Fragment key={propertyId}>
                                         <>
-                                            <Render condition={idx !== 0}>
+                                            {idx !== 0 && (
                                                 <Typography component="span">, </Typography>
-                                            </Render>
+                                            )}
                                             <Link
                                                 routeName={routeEDPComponentDetails.path}
                                                 params={{

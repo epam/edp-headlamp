@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import { Button, Grid, IconButton } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { useSecretCRUD } from '../../../../k8s/Secret/hooks/useSecretCRUD';
@@ -88,16 +87,16 @@ export const FormActions = () => {
         <>
             <Grid container spacing={2} justifyContent={'space-between'}>
                 <Grid item>
-                    <Render condition={mode === FORM_MODES.EDIT}>
+                    {mode === FORM_MODES.EDIT && (
                         <IconButton onClick={handleDelete} disabled={isReadOnly}>
                             <Icon icon={ICONS.BUCKET} width="20" />
                         </IconButton>
-                    </Render>
-                    <Render condition={mode === FORM_MODES.CREATE}>
+                    )}
+                    {mode === FORM_MODES.CREATE && (
                         <Button onClick={handleClosePlaceholder} size="small" component={'button'}>
                             cancel
                         </Button>
-                    </Render>
+                    )}
                 </Grid>
                 <Grid item>
                     <Grid container spacing={2} alignItems={'center'}>

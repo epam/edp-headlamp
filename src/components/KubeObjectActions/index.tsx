@@ -10,7 +10,6 @@ import {
 import React from 'react';
 import { KubeObjectAction } from '../../types/actions';
 import { ConditionalWrapper } from '../ConditionalWrapper';
-import { Render } from '../Render';
 import { useStyles } from './styles';
 import { KubeObjectActionsProps } from './types';
 
@@ -23,41 +22,39 @@ type ActionsListProps = {
 const ActionsList = ({ actions, menuOpen, anchorEl }: ActionsListProps) => {
     const classes = useStyles();
 
-    return (
-        <Render condition={Boolean(anchorEl)}>
-            <Popper
-                open={menuOpen}
-                anchorEl={anchorEl}
-                disablePortal
-                className={classes.popper}
-                placement={'bottom-end'}
-            >
-                <div role="list" className={classes.actionList}>
-                    {actions.map(({ name, label, action, disabled, icon }, idx) => {
-                        const actionId = `${name}:${idx}`;
+    return anchorEl ? (
+        <Popper
+            open={menuOpen}
+            anchorEl={anchorEl}
+            disablePortal
+            className={classes.popper}
+            placement={'bottom-end'}
+        >
+            <div role="list" className={classes.actionList}>
+                {actions.map(({ name, label, action, disabled, icon }, idx) => {
+                    const actionId = `${name}:${idx}`;
 
-                        return (
-                            <div key={actionId}>
-                                <ConditionalWrapper
-                                    condition={disabled.status}
-                                    wrapper={children => (
-                                        <Tooltip title={disabled.reason}>{children}</Tooltip>
-                                    )}
-                                >
-                                    <ListItem button disabled={disabled.status} onClick={action}>
-                                        <ListItemIcon>
-                                            <Icon icon={icon} width={'25'} />
-                                        </ListItemIcon>
-                                        <ListItemText primary={label} />
-                                    </ListItem>
-                                </ConditionalWrapper>
-                            </div>
-                        );
-                    })}
-                </div>
-            </Popper>
-        </Render>
-    );
+                    return (
+                        <div key={actionId}>
+                            <ConditionalWrapper
+                                condition={disabled.status}
+                                wrapper={children => (
+                                    <Tooltip title={disabled.reason}>{children}</Tooltip>
+                                )}
+                            >
+                                <ListItem button disabled={disabled.status} onClick={action}>
+                                    <ListItemIcon>
+                                        <Icon icon={icon} width={'25'} />
+                                    </ListItemIcon>
+                                    <ListItemText primary={label} />
+                                </ListItem>
+                            </ConditionalWrapper>
+                        </div>
+                    );
+                })}
+            </div>
+        </Popper>
+    ) : null;
 };
 
 export const KubeObjectActions = ({
@@ -67,23 +64,15 @@ export const KubeObjectActions = ({
 }: KubeObjectActionsProps) => {
     const classes = useStyles();
 
-    return (
-        <Render condition={!!actions.length}>
-            <>
-                <ClickAwayListener
-                    onClickAway={handleCloseActionsMenu}
-                    mouseEvent="onMouseDown"
-                    touchEvent="onTouchStart"
-                >
-                    <div className={classes.actions}>
-                        <ActionsList
-                            actions={actions}
-                            menuOpen={Boolean(anchorEl)}
-                            anchorEl={anchorEl}
-                        />
-                    </div>
-                </ClickAwayListener>
-            </>
-        </Render>
-    );
+    return !!actions.length ? (
+        <ClickAwayListener
+            onClickAway={handleCloseActionsMenu}
+            mouseEvent="onMouseDown"
+            touchEvent="onTouchStart"
+        >
+            <div className={classes.actions}>
+                <ActionsList actions={actions} menuOpen={Boolean(anchorEl)} anchorEl={anchorEl} />
+            </div>
+        </ClickAwayListener>
+    ) : null;
 };

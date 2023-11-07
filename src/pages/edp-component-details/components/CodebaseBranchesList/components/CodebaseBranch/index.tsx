@@ -15,7 +15,6 @@ import clsx from 'clsx';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { Render } from '../../../../../../components/Render';
 import { ResourceIconLink } from '../../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../../components/StatusIcon';
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
@@ -248,32 +247,32 @@ export const CodebaseBranch = ({
                                     <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
                                         {`Status: ${status || 'Unknown'}`}
                                     </Typography>
-                                    <Render condition={status === CUSTOM_RESOURCE_STATUSES.FAILED}>
+                                    {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
                                         <Typography
                                             variant={'subtitle2'}
                                             style={{ marginTop: rem(10) }}
                                         >
                                             {detailedMessage}
                                         </Typography>
-                                    </Render>
+                                    )}
                                 </>
                             }
                         />
                         <Typography variant={'h6'} style={{ lineHeight: 1, marginTop: rem(2) }}>
                             {codebaseBranchData.spec.branchName}
                         </Typography>
-                        <Render condition={isDefaultBranch(codebaseData, codebaseBranchData)}>
+                        {isDefaultBranch(codebaseData, codebaseBranchData) && (
                             <Chip
                                 label="default"
                                 className={clsx([classes.labelChip, classes.labelChipBlue])}
                             />
-                        </Render>
-                        <Render condition={codebaseBranchData.spec.release}>
+                        )}
+                        {codebaseBranchData.spec.release && (
                             <Chip
                                 label="release"
                                 className={clsx([classes.labelChip, classes.labelChipGreen])}
                             />
-                        </Render>
+                        )}
                         <div style={{ marginLeft: 'auto' }}>
                             <Grid container spacing={1} alignItems={'center'}>
                                 <Grid item>
@@ -300,7 +299,7 @@ export const CodebaseBranch = ({
                                         />
                                     </div>
                                 </Grid>
-                                <Render condition={!!EDPComponentsURLS?.sonar}>
+                                {!!EDPComponentsURLS?.sonar && (
                                     <Grid item>
                                         <ResourceIconLink
                                             tooltipTitle={'Go to the Quality Gates'}
@@ -308,8 +307,8 @@ export const CodebaseBranch = ({
                                             icon={ICONS.SONAR}
                                         />
                                     </Grid>
-                                </Render>
-                                <Render condition={!!codebaseData?.status?.gitWebUrl}>
+                                )}
+                                {!!codebaseData?.status?.gitWebUrl && (
                                     <Grid item>
                                         <ResourceIconLink
                                             tooltipTitle={'Go to the Source Code'}
@@ -317,7 +316,7 @@ export const CodebaseBranch = ({
                                             icon={ICONS.GIT_BRANCH}
                                         />
                                     </Grid>
-                                </Render>
+                                )}
                                 <Grid item>
                                     <Tooltip title={'Trigger build pipeline run'}>
                                         <IconButton
@@ -374,7 +373,7 @@ export const CodebaseBranch = ({
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container spacing={5}>
-                                <Render condition={!!pipelineRuns?.all?.length}>
+                                {!!pipelineRuns?.all?.length ? (
                                     <Grid item xs={4}>
                                         <FormSelect
                                             {...register('type', {
@@ -389,7 +388,7 @@ export const CodebaseBranch = ({
                                             defaultValue={PIPELINE_TYPES.ALL}
                                         />
                                     </Grid>
-                                </Render>
+                                ) : null}
                                 <Grid item xs={12}>
                                     <PipelineRunList
                                         pipelineRuns={filteredPipelineRunsByType}
@@ -398,11 +397,11 @@ export const CodebaseBranch = ({
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Render condition={!!mainInfoRows?.length}>
+                        {!!mainInfoRows?.length ? (
                             <Grid item xs={12}>
                                 <NameValueTable rows={mainInfoRows} />
                             </Grid>
-                        </Render>
+                        ) : null}
                     </Grid>
                 </AccordionDetails>
             </Accordion>

@@ -1,7 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../../../../components/Render';
 import { qualityGateTypeSelectOptions } from '../../../../../../../configs/select-options/qualityGateTypes';
 import { QUALITY_GATE_TYPES } from '../../../../../../../constants/qualityGateTypes';
 import { FormSelect } from '../../../../../../../providers/Form/components/FormSelect';
@@ -265,12 +264,8 @@ export const QualityGateRow = ({
                             errors={errors}
                         />
                     </Grid>
-                    <Render
-                        condition={
-                            !!autotestsWithBranchesOptions.length &&
-                            currentQualityGateTypeFieldValue === QUALITY_GATE_TYPES.AUTOTESTS
-                        }
-                    >
+                    {!!autotestsWithBranchesOptions.length &&
+                    currentQualityGateTypeFieldValue === QUALITY_GATE_TYPES.AUTOTESTS ? (
                         <>
                             <Grid item xs={3}>
                                 <FormSelect
@@ -314,7 +309,7 @@ export const QualityGateRow = ({
                                 />
                             </Grid>
                         </>
-                    </Render>
+                    ) : null}
                 </Grid>
             </Grid>
         </>

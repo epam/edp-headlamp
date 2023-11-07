@@ -1,7 +1,6 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../../../../../components/Render';
 import { useCodebaseCRUD } from '../../../../../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
 import { createCodebaseInstance } from '../../../../../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
 import { useSpecificDialogContext } from '../../../../../../../../providers/Dialog/hooks';
@@ -159,7 +158,7 @@ export const FormActions = ({
             >
                 cancel
             </Button>
-            <Render condition={formActiveTabIdx < TAB_INDEXES_LAST_INDEX}>
+            {formActiveTabIdx < TAB_INDEXES_LAST_INDEX && (
                 <Button
                     onClick={handleProceed}
                     variant={'contained'}
@@ -168,8 +167,8 @@ export const FormActions = ({
                 >
                     proceed
                 </Button>
-            </Render>
-            <Render condition={formActiveTabIdx === TAB_INDEXES_LAST_INDEX}>
+            )}
+            {formActiveTabIdx === TAB_INDEXES_LAST_INDEX && (
                 <Button
                     onClick={handleSubmit(onSubmit, handleValidationError)}
                     variant={'contained'}
@@ -179,7 +178,7 @@ export const FormActions = ({
                 >
                     apply
                 </Button>
-            </Render>
+            )}
         </>
     );
 };

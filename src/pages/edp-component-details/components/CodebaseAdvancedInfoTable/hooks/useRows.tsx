@@ -1,7 +1,6 @@
 import { NameValueTableRow } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { Divider, Typography } from '@material-ui/core';
 import React from 'react';
-import { Render } from '../../../../../components/Render';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../../constants/creationStrategies';
 import { EDPCodebaseSpecInterface } from '../../../../../k8s/EDPCodebase/types';
 
@@ -60,63 +59,52 @@ export const useRows = (
 
             base.push({
                 name: 'Jira Issue Metadata Payload',
-                value: (
-                    <Render condition={!!codebaseSpec.jiraIssueMetadataPayload}>
-                        <>
-                            {parsedJiraConfigurationEntries.map(([name, value], idx) => {
-                                const key = `jiraProp::${idx}`;
+                value: !!codebaseSpec.jiraIssueMetadataPayload ? (
+                    <>
+                        {parsedJiraConfigurationEntries.map(([name, value], idx) => {
+                            const key = `jiraProp::${idx}`;
 
-                                return (
-                                    <div key={key}>
-                                        <Render condition={idx !== 0}>
-                                            <Divider className={classes.divider} />
-                                        </Render>
-                                        <div>
-                                            <Typography
-                                                className={classes.statusLabel}
-                                                component="span"
-                                            >
-                                                {name}:
-                                            </Typography>
-                                            <Typography
-                                                component="div"
-                                                className={classes.valueField}
-                                            >
-                                                "{value}"
-                                            </Typography>
-                                        </div>
+                            return (
+                                <div key={key}>
+                                    {idx !== 0 && <Divider className={classes.divider} />}
+                                    <div>
+                                        <Typography
+                                            className={classes.statusLabel}
+                                            component="span"
+                                        >
+                                            {name}:
+                                        </Typography>
+                                        <Typography component="div" className={classes.valueField}>
+                                            "{value}"
+                                        </Typography>
                                     </div>
-                                );
-                            })}
-                        </>
-                    </Render>
-                ),
+                                </div>
+                            );
+                        })}
+                    </>
+                ) : null,
             });
         }
 
         if (codebaseSpec.commitMessagePattern) {
             base.push({
                 name: 'Commit Message Pattern',
-                value: (
-                    <Render condition={!!codebaseSpec.commitMessagePattern}>
-                        <Typography className={classes.statusLabel} component="span">
-                            {codebaseSpec.commitMessagePattern}
-                        </Typography>
-                    </Render>
-                ),
+                value: !!codebaseSpec.commitMessagePattern ? (
+                    <Typography className={classes.statusLabel} component="span">
+                        {codebaseSpec.commitMessagePattern}
+                    </Typography>
+                ) : null,
             });
         }
 
         if (codebaseSpec.ticketNamePattern) {
             base.push({
                 name: 'Ticket Name Pattern',
-                value: (
-                    <Render condition={!!codebaseSpec.ticketNamePattern}>
-                        <Typography className={classes.statusLabel} component="span">
-                            {codebaseSpec.ticketNamePattern}
-                        </Typography>
-                    </Render>
-                ),
+                value: !!codebaseSpec.ticketNamePattern ? (
+                    <Typography className={classes.statusLabel} component="span">
+                        {codebaseSpec.ticketNamePattern}
+                    </Typography>
+                ) : null,
             });
         }
 

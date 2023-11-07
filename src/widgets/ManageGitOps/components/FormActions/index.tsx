@@ -1,7 +1,6 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { Render } from '../../../../components/Render';
 import { useCodebaseCRUD } from '../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
 import { createCodebaseInstance } from '../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
 import { useFormContext } from '../../../../providers/Form/hooks';
@@ -68,11 +67,11 @@ export const FormActions = () => {
         <>
             <Grid container spacing={2} justifyContent={'space-between'}>
                 <Grid item>
-                    <Render condition={mode === FORM_MODES.CREATE}>
+                    {mode === FORM_MODES.CREATE && (
                         <Button onClick={handleClosePlaceholder} size="small" component={'button'}>
                             cancel
                         </Button>
-                    </Render>
+                    )}
                 </Grid>
                 <Grid item>
                     <Grid container spacing={2} alignItems={'center'}>

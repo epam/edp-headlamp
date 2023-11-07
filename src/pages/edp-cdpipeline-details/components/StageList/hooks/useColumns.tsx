@@ -5,7 +5,6 @@ import { ClassNameMap } from '@material-ui/styles';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Render } from '../../../../../components/Render';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
@@ -50,14 +49,14 @@ export const useColumns = (
                                     <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
                                         {`Status: ${status || 'Unknown'}`}
                                     </Typography>
-                                    <Render condition={status === CUSTOM_RESOURCE_STATUSES.FAILED}>
+                                    {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
                                         <Typography
                                             variant={'subtitle2'}
                                             style={{ marginTop: rem(10) }}
                                         >
                                             {detailedMessage}
                                         </Typography>
-                                    </Render>
+                                    )}
                                 </>
                             }
                         />

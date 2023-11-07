@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
-import { Render } from '../../../../components/Render';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { EDP_CODEBASE_STATUS } from '../../../../k8s/EDPCodebase/constants';
@@ -96,26 +95,26 @@ export const CodebasesGraph = () => {
                     <Typography component={'div'} variant={'body2'}>
                         Total: {codebasesInfo.total}
                     </Typography>
-                    <Render condition={!!codebasesInfo.green}>
+                    {!!codebasesInfo.green && (
                         <Typography component={'div'} variant={'body2'}>
                             OK: {codebasesInfo.green}
                         </Typography>
-                    </Render>
-                    <Render condition={!!codebasesInfo.blue}>
+                    )}
+                    {!!codebasesInfo.blue && (
                         <Typography component={'div'} variant={'body2'}>
                             In Progress: {codebasesInfo.blue}
                         </Typography>
-                    </Render>
-                    <Render condition={!!codebasesInfo.red}>
+                    )}
+                    {!!codebasesInfo.red && (
                         <Typography component={'div'} variant={'body2'}>
                             Failed: {codebasesInfo.red}
                         </Typography>
-                    </Render>
-                    <Render condition={!!codebasesInfo.grey}>
+                    )}
+                    {!!codebasesInfo.grey && (
                         <Typography component={'div'} variant={'body2'}>
                             Unknown: {codebasesInfo.grey}
                         </Typography>
-                    </Render>
+                    )}
                 </>
             }
             label={`${codebasesInfo.green}/${codebasesInfo.total}`}

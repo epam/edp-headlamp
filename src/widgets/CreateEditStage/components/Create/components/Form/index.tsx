@@ -3,7 +3,6 @@ import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluste
 import { Divider, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../../../components/Render';
 import { useHandleEditorSave } from '../../../../../../hooks/useHandleEditorSave';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
@@ -83,14 +82,14 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
                     <QualityGates />
                 </Grid>
             </Grid>
-            <Render condition={editorOpen}>
+            {editorOpen && (
                 <EditorDialog
                     open={editorOpen}
                     item={editorData}
                     onClose={handleCloseEditor}
                     onSave={onEditorSave}
                 />
-            </Render>
+            )}
         </>
     );
 };

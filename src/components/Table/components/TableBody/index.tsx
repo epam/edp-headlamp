@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { EmptyList } from '../../../EmptyList';
-import { Render } from '../../../Render';
 import { TableBodyProps } from './types';
 
 const isSelectedRow = (isSelected: (row: unknown) => boolean, row: unknown) =>
@@ -92,7 +91,7 @@ export const TableBody = ({
                                     key={`table-row-${idx}`}
                                     {...selectableRowProps(item, _isSelected)}
                                 >
-                                    <Render condition={!!handleSelectRowClick}>
+                                    {!!handleSelectRowClick && (
                                         <TableCell padding="checkbox">
                                             <Checkbox
                                                 color={'primary'}
@@ -100,7 +99,7 @@ export const TableBody = ({
                                                 onClick={event => handleSelectRowClick(event, item)}
                                             />
                                         </TableCell>
-                                    </Render>
+                                    )}
                                     {columns.map(
                                         ({
                                             show = true,
@@ -109,28 +108,27 @@ export const TableBody = ({
                                             columnSortableValuePath,
                                             render,
                                         }) => {
-                                            return (
-                                                <Render condition={show} key={id}>
-                                                    <TableCell
-                                                        component="th"
-                                                        scope="row"
-                                                        align={textAlign || 'left'}
-                                                        style={{
-                                                            padding: `${theme.typography.pxToRem(
-                                                                12
-                                                            )} ${theme.typography.pxToRem(16)}`,
-                                                        }}
+                                            return show ? (
+                                                <TableCell
+                                                    key={id}
+                                                    component="th"
+                                                    scope="row"
+                                                    align={textAlign || 'left'}
+                                                    style={{
+                                                        padding: `${theme.typography.pxToRem(
+                                                            12
+                                                        )} ${theme.typography.pxToRem(16)}`,
+                                                    }}
+                                                >
+                                                    <Box
+                                                        sx={getColumnStyles(
+                                                            !!columnSortableValuePath
+                                                        )}
                                                     >
-                                                        <Box
-                                                            sx={getColumnStyles(
-                                                                !!columnSortableValuePath
-                                                            )}
-                                                        >
-                                                            {render(item)}
-                                                        </Box>
-                                                    </TableCell>
-                                                </Render>
-                                            );
+                                                        {render(item)}
+                                                    </Box>
+                                                </TableCell>
+                                            ) : null;
                                         }
                                     )}
                                 </TableRow>

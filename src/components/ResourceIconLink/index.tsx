@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import { Grid, IconButton, Link as MuiLink, Tooltip, useTheme } from '@material-ui/core';
 import React from 'react';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { Render } from '../Render';
 import { ResourceIconLinkProps } from './types';
 
 const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
@@ -18,7 +17,7 @@ export const ResourceIconLink = ({ tooltipTitle, icon, link }: ResourceIconLinkP
                     <Grid container alignItems={'center'} spacing={1}>
                         <Grid item>{tooltipTitle}</Grid>
                         <span> </span>
-                        <Render condition={!!link}>
+                        {!!link && (
                             <Grid item>
                                 <Icon
                                     icon={ICONS.NEW_WINDOW}
@@ -26,7 +25,7 @@ export const ResourceIconLink = ({ tooltipTitle, icon, link }: ResourceIconLinkP
                                     width="15"
                                 />
                             </Grid>
-                        </Render>
+                        )}
                     </Grid>
                 }
             >

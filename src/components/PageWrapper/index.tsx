@@ -2,7 +2,6 @@ import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Breadcrumbs, Button, Container, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { rem } from '../../utils/styling/rem';
-import { Render } from '../Render';
 import { PageWrapperProps } from './types';
 
 export const PageWrapper: React.FC<PageWrapperProps> = ({
@@ -14,7 +13,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
 }) => {
     return (
         <>
-            <Render condition={!!breadcrumbs && !!breadcrumbs.length}>
+            {!!breadcrumbs && !!breadcrumbs.length ? (
                 <Container maxWidth={containerMaxWidth}>
                     <Grid
                         container
@@ -57,7 +56,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
                         <Grid item>{headerSlot}</Grid>
                     </Grid>
                 </Container>
-            </Render>
+            ) : null}
             <Container maxWidth={containerMaxWidth}>{children}</Container>
         </>
     );

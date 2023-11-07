@@ -13,7 +13,6 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { UseSpriteSymbol } from '../../icons/UseSpriteSymbol';
 import { LOCAL_STORAGE_SERVICE } from '../../services/local-storage';
 import { LS_KEY_SHOW_INFO_COLUMNS_BY_DEFAULT } from '../../services/local-storage/keys';
-import { Render } from '../Render';
 import { useStyles } from './styles';
 import { InfoColumnsAccordionProps, InfoColumnsProps } from './types';
 
@@ -30,13 +29,13 @@ const InfoColumnsRenderer = ({ infoRows }: InfoColumnsProps) => {
                         <Grid container spacing={2}>
                             {row.map(({ label, text, icon, columnXs = 2 }, index) => (
                                 <React.Fragment key={`column::${index}`}>
-                                    <Render condition={!!label && !!text}>
+                                    {!!label && !!text && (
                                         <Grid item xs={columnXs as GridSize}>
                                             <Typography variant={'body2'} gutterBottom>
                                                 {label}
                                             </Typography>
                                             <Grid container spacing={1} alignItems={'center'}>
-                                                <Render condition={!!icon}>
+                                                {!!icon && (
                                                     <Grid item>
                                                         {typeof icon === 'string' ? (
                                                             <UseSpriteSymbol
@@ -48,7 +47,7 @@ const InfoColumnsRenderer = ({ infoRows }: InfoColumnsProps) => {
                                                             icon
                                                         )}
                                                     </Grid>
-                                                </Render>
+                                                )}
                                                 <Grid item>
                                                     <Typography
                                                         variant={'caption'}
@@ -59,7 +58,7 @@ const InfoColumnsRenderer = ({ infoRows }: InfoColumnsProps) => {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                    </Render>
+                                    )}
                                 </React.Fragment>
                             ))}
                         </Grid>

@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Button, Grid, Typography, useTheme } from '@material-ui/core';
 import React from 'react';
-import { Render } from '../../../../../components/Render';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { StagesProps } from './types';
 
@@ -15,7 +14,7 @@ export const Stages = ({ stages, handleDeleteStage, handleClickAddStage }: Stage
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={1} alignItems={'center'}>
-                    <Render condition={!!stages.length}>
+                    {!!stages.length ? (
                         <>
                             {stages.map(({ spec: { name } }, idx) => {
                                 const key = `stage::${name}::${idx}`;
@@ -44,7 +43,7 @@ export const Stages = ({ stages, handleDeleteStage, handleClickAddStage }: Stage
                                 );
                             })}
                         </>
-                    </Render>
+                    ) : null}
                 </Grid>
             </Grid>
             <Grid item xs={12}>

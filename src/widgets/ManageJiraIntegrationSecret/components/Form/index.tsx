@@ -1,7 +1,6 @@
 import { Grid } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
-import { Render } from '../../../../components/Render';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { ManageJiraIntegrationSecretFormDataContext } from '../../types';
 import { Password, User } from '../fields';
@@ -16,13 +15,13 @@ export const Form = () => {
 
     return (
         <Grid container spacing={2}>
-            <Render condition={isReadOnly}>
+            {isReadOnly && (
                 <Grid item xs={12}>
                     <Alert severity="info" variant="outlined">
                         Managed by {owner}
                     </Alert>
                 </Grid>
-            </Render>
+            )}
             <Grid item xs={6}>
                 <User />
             </Grid>

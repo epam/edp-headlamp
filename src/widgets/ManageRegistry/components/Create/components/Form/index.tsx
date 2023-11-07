@@ -1,7 +1,6 @@
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormDataContext } from 'react-hook-form';
-import { Render } from '../../../../../../components/Render';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
 import { FORM_MODES } from '../../../../../../types/forms';
 import { REGISTRY_NAMES } from '../../../../names';
@@ -42,7 +41,7 @@ export const Form = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Render condition={registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.ECR}>
+            {registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.ECR && (
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -53,13 +52,9 @@ export const Form = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Render>
-            <Render
-                condition={
-                    registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.DOCKER_HUB ||
-                    registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.HARBOR
-                }
-            >
+            )}
+            {(registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.DOCKER_HUB ||
+                registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.HARBOR) && (
                 <>
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
@@ -82,7 +77,7 @@ export const Form = () => {
                             <Grid item xs={12}>
                                 <UseSameAccount />
                             </Grid>
-                            <Render condition={!useSameAccountFieldValue}>
+                            {!useSameAccountFieldValue && (
                                 <>
                                     <Grid item xs={6}>
                                         <PullAccountUser mode={FORM_MODES.CREATE} />
@@ -91,11 +86,11 @@ export const Form = () => {
                                         <PullAccountPassword mode={FORM_MODES.CREATE} />
                                     </Grid>
                                 </>
-                            </Render>
+                            )}
                         </Grid>
                     </Grid>
                 </>
-            </Render>
+            )}
         </Grid>
     );
 };

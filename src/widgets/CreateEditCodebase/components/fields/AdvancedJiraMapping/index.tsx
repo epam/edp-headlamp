@@ -1,7 +1,6 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../../components/Render';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
 import { SelectOption } from '../../../../../types/forms';
 import { CODEBASE_FORM_NAMES } from '../../../names';
@@ -137,7 +136,7 @@ export const AdvancedJiraMapping = () => {
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={0}>
-                    <Render condition={!!advancedMappingRows.length}>
+                    {!!advancedMappingRows.length ? (
                         <>
                             {advancedMappingRows.map(({ label, value }, idx) => {
                                 const key = `${value}::${idx}`;
@@ -153,7 +152,7 @@ export const AdvancedJiraMapping = () => {
                                 );
                             })}
                         </>
-                    </Render>
+                    ) : null}
                 </Grid>
             </Grid>
         </Grid>

@@ -4,7 +4,6 @@ import { Grid } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../../../components/Render';
 import { TabPanel } from '../../../../../../components/TabPanel';
 import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { useHandleEditorSave } from '../../../../../../hooks/useHandleEditorSave';
@@ -136,23 +135,23 @@ export const Form = ({
                         />
                     </Grid>
 
-                    <Render condition={stages && !stages.length}>
+                    {stages && !stages.length ? (
                         <Grid item xs={12}>
                             <Alert severity="info" variant="outlined">
                                 Add at least one stage
                             </Alert>
                         </Grid>
-                    </Render>
+                    ) : null}
                 </Grid>
             </TabPanel>
-            <Render condition={editorOpen}>
+            {editorOpen && (
                 <EditorDialog
                     open={editorOpen}
                     item={editorData}
                     onClose={handleCloseEditor}
                     onSave={onEditorSave}
                 />
-            </Render>
+            )}
         </>
     );
 };

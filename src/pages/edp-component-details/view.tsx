@@ -5,7 +5,6 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
-import { Render } from '../../components/Render';
 import { Resources } from '../../icons/sprites/Resources';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
@@ -58,30 +57,32 @@ export const PageView = () => {
                 },
             ]}
             headerSlot={
-                <div style={{ marginLeft: 'auto' }}>
-                    <Render condition={!!component}>
-                        <Grid container spacing={1}>
-                            <Grid item>
-                                <CodebaseMetadataTable codebaseData={component} />
+                <>
+                    {!!component && (
+                        <div style={{ marginLeft: 'auto' }}>
+                            <Grid container spacing={1}>
+                                <Grid item>
+                                    <CodebaseMetadataTable codebaseData={component} />
+                                </Grid>
+                                <Grid item>
+                                    <ResourceActionListContextProvider>
+                                        <CodebaseActions
+                                            codebase={component}
+                                            backRoute={Router.createRouteURL(
+                                                routeEDPComponentList.path
+                                            )}
+                                        />
+                                    </ResourceActionListContextProvider>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <ResourceActionListContextProvider>
-                                    <CodebaseActions
-                                        codebase={component}
-                                        backRoute={Router.createRouteURL(
-                                            routeEDPComponentList.path
-                                        )}
-                                    />
-                                </ResourceActionListContextProvider>
-                            </Grid>
-                        </Grid>
-                    </Render>
-                </div>
+                        </div>
+                    )}
+                </>
             }
         >
             <SectionBox>
                 <Resources />
-                <Render condition={!!component}>
+                {!!component && (
                     <>
                         <Grid container spacing={2}>
                             <Grid item xs={12} style={{ marginTop: rem(20) }}>
@@ -97,7 +98,7 @@ export const PageView = () => {
                             </Grid>
                         </Grid>
                     </>
-                </Render>
+                )}
             </SectionBox>
         </PageWrapper>
     );

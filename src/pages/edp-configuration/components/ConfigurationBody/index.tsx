@@ -15,7 +15,6 @@ import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { CreateItemAccordion } from '../../../../components/CreateItemAccordion';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
-import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { menu } from '../../menu';
 import { ConfigurationBodyProps } from './types';
@@ -60,13 +59,13 @@ export const ConfigurationBody = ({
                                 </Typography>
                                 <Typography variant={'body1'}>
                                     {description}{' '}
-                                    <Render condition={!!docUrl}>
+                                    {!!docUrl && (
                                         <Link href={docUrl} target={'_blank'}>
                                             <Typography variant={'body2'} component={'span'}>
                                                 Learn more.
                                             </Typography>
                                         </Link>
-                                    </Render>
+                                    )}
                                 </Typography>
                             </Grid>
                             {children}
@@ -76,14 +75,14 @@ export const ConfigurationBody = ({
             )}
         >
             <Grid container spacing={2}>
-                <Render condition={!!blocker}>
+                {!!blocker && (
                     <Grid item xs={12}>
                         {blocker}
                     </Grid>
-                </Render>
-                <Render condition={!blocker}>
+                )}
+                {!blocker && (
                     <>
-                        <Render condition={!!placeholderData}>
+                        {!!placeholderData && (
                             <Grid item xs={12}>
                                 <CreateItemAccordion
                                     isExpanded={expandedPanel === 'placeholder'}
@@ -98,7 +97,7 @@ export const ConfigurationBody = ({
                                     </Grid>
                                 </CreateItemAccordion>
                             </Grid>
-                        </Render>
+                        )}
                         <Grid item xs={12}>
                             <Grid container spacing={2}>
                                 {isLoading ? (
@@ -144,7 +143,7 @@ export const ConfigurationBody = ({
                                                                     {configurationItem.title}
                                                                 </Typography>
                                                             </Grid>
-                                                            <Render condition={!!ownerReference}>
+                                                            {!!ownerReference && (
                                                                 <Grid item>
                                                                     <Tooltip
                                                                         title={`Managed by ${ownerReference}`}
@@ -158,7 +157,7 @@ export const ConfigurationBody = ({
                                                                         />
                                                                     </Tooltip>
                                                                 </Grid>
-                                                            </Render>
+                                                            )}
                                                         </Grid>
                                                     </AccordionSummary>
                                                     <AccordionDetails>
@@ -182,7 +181,7 @@ export const ConfigurationBody = ({
                             </Grid>
                         </Grid>
                     </>
-                </Render>
+                )}
             </Grid>
         </ConditionalWrapper>
     );

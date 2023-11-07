@@ -2,7 +2,6 @@ import { ErrorMessage } from '@hookform/error-message';
 import { Checkbox, FormControl, FormControlLabel, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Render } from '../../../../components/Render';
 import { rem } from '../../../../utils/styling/rem';
 import { FormCheckboxProps } from './types';
 
@@ -61,13 +60,13 @@ export const FormCheckbox = React.forwardRef(
                         />
                     </FormControl>
                 </Grid>
-                <Render condition={hasError}>
+                {hasError && (
                     <Grid item xs={12}>
                         <Typography component={'span'} variant={'subtitle2'} color={'error'}>
                             <ErrorMessage errors={errors} name={name} />
                         </Typography>
                     </Grid>
-                </Render>
+                )}
             </Grid>
         );
     }

@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Box, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
-import { Render } from '../../../../components/Render';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { rem } from '../../../../utils/styling/rem';
 import { useStyles } from './styles';
@@ -14,14 +13,13 @@ export const FormControlLabelWithTooltip = ({ label, title }: FormControlLabelWi
             <Typography component={'span'} className={classes.label}>
                 {label}
             </Typography>
-            <Render condition={!!title}>
+            {title ? (
                 <Tooltip title={title}>
                     <Icon icon={ICONS.INFO_CIRCLE} width={18} />
                 </Tooltip>
-            </Render>
-            <Render condition={!title}>
+            ) : (
                 <Box style={{ height: rem(20) }} />
-            </Render>
+            )}
         </span>
     );
 };

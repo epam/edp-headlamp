@@ -4,7 +4,6 @@ import { FormControl, MenuItem, Select, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Render } from '../../../../components/Render';
 import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { useStyles } from './styles';
 import { FormSelectProps } from './types';
@@ -48,11 +47,11 @@ export const FormSelect = React.forwardRef(
             <Grid container spacing={1}>
                 <Grid item xs={12} style={{ display: 'flex' }}>
                     <Grid container spacing={1}>
-                        <Render condition={!!label || showLabelPlaceholder}>
+                        {(!!label || showLabelPlaceholder) && (
                             <Grid item xs={12}>
                                 <FormControlLabelWithTooltip label={label} title={title} />
                             </Grid>
-                        </Render>
+                        )}
                         <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
                             <FormControl fullWidth>
                                 <Controller
@@ -102,13 +101,13 @@ export const FormSelect = React.forwardRef(
                         </Grid>
                     </Grid>
                 </Grid>
-                <Render condition={hasError}>
+                {hasError && (
                     <Grid item xs={12}>
                         <Typography component={'span'} variant={'subtitle2'} color={'error'}>
                             <ErrorMessage errors={errors} name={name} />
                         </Typography>
                     </Grid>
-                </Render>
+                )}
             </Grid>
         );
     }

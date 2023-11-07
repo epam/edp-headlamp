@@ -2,7 +2,6 @@ import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../components/Render';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
@@ -71,45 +70,44 @@ export const Form = ({
     return (
         <>
             <Grid container spacing={2}>
-                <Render condition={canCreateReleaseBranch}>
+                {canCreateReleaseBranch && (
                     <Grid item xs={12}>
                         <ReleaseBranch defaultBranchVersion={defaultBranchVersion} />
                     </Grid>
-                </Render>
-                <Render condition={!!releaseFieldValue}>
+                )}
+                {!!releaseFieldValue ? (
                     <Grid item xs={12}>
                         <ReleaseBranchName defaultBranchVersion={defaultBranchVersion} />
                     </Grid>
-                </Render>
-                <Render condition={!releaseFieldValue}>
+                ) : (
                     <Grid item xs={12}>
                         <BranchName defaultBranchVersion={defaultBranchVersion} />
                     </Grid>
-                </Render>
+                )}
                 <Grid item xs={12}>
                     <FromCommit />
                 </Grid>
-                <Render condition={canCreateReleaseBranch}>
+                {canCreateReleaseBranch && (
                     <>
                         <Grid item xs={12}>
                             <BranchVersion />
                         </Grid>
-                        <Render condition={!!releaseFieldValue}>
+                        {!!releaseFieldValue && (
                             <Grid item xs={12}>
                                 <DefaultBranchVersion />
                             </Grid>
-                        </Render>
+                        )}
                     </>
-                </Render>
+                )}
             </Grid>
-            <Render condition={editorOpen}>
+            {editorOpen && (
                 <EditorDialog
                     open={editorOpen}
                     item={editorData}
                     onClose={handleCloseEditor}
                     onSave={onEditorSave}
                 />
-            </Render>
+            )}
         </>
     );
 };

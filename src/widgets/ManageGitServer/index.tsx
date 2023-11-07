@@ -1,7 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { CreateItemAccordion } from '../../components/CreateItemAccordion';
-import { Render } from '../../components/Render';
 import { StatusIcon } from '../../components/StatusIcon';
 import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { FORM_MODES } from '../../types/forms';
@@ -63,14 +62,14 @@ export const ManageGitServer = ({ formData }: ManageGitServerProps) => {
                                                                 : connected
                                                         }`}
                                                     </Typography>
-                                                    <Render condition={!!error}>
+                                                    {!!error && (
                                                         <Typography
                                                             variant={'subtitle2'}
                                                             style={{ marginTop: rem(10) }}
                                                         >
                                                             {error}
                                                         </Typography>
-                                                    </Render>
+                                                    )}
                                                 </>
                                             }
                                         />

@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
-import { Render } from '../../../../components/Render';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { EDPCDPipelineKubeObject } from '../../../../k8s/EDPCDPipeline';
 import { EDP_CDPIPELINE_STATUS } from '../../../../k8s/EDPCDPipeline/constants';
@@ -97,26 +96,26 @@ export const CDPipelinesGraph = () => {
                     <Typography component={'div'} variant={'body2'}>
                         Total: {CDPipelinesInfo.total}
                     </Typography>
-                    <Render condition={!!CDPipelinesInfo.green}>
+                    {!!CDPipelinesInfo.green && (
                         <Typography component={'div'} variant={'body2'}>
                             OK: {CDPipelinesInfo.green}
                         </Typography>
-                    </Render>
-                    <Render condition={!!CDPipelinesInfo.blue}>
+                    )}
+                    {!!CDPipelinesInfo.blue && (
                         <Typography component={'div'} variant={'body2'}>
                             In Progress: {CDPipelinesInfo.blue}
                         </Typography>
-                    </Render>
-                    <Render condition={!!CDPipelinesInfo.red}>
+                    )}
+                    {!!CDPipelinesInfo.red && (
                         <Typography component={'div'} variant={'body2'}>
                             Failed: {CDPipelinesInfo.red}
                         </Typography>
-                    </Render>
-                    <Render condition={!!CDPipelinesInfo.grey}>
+                    )}
+                    {!!CDPipelinesInfo.grey && (
                         <Typography component={'div'} variant={'body2'}>
                             Unknown: {CDPipelinesInfo.grey}
                         </Typography>
-                    </Render>
+                    )}
                 </>
             }
             label={`${CDPipelinesInfo.green}/${CDPipelinesInfo.total}`}

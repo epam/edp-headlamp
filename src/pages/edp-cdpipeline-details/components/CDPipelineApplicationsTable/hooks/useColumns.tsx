@@ -3,7 +3,6 @@ import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { ConditionalWrapper } from '../../../../../components/ConditionalWrapper';
-import { Render } from '../../../../../components/Render';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
@@ -32,11 +31,11 @@ export const useColumns = (): TableColumn<EnrichedApplicationWithItsImageStreams
                             <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
                                 {`Status: ${status || 'Unknown'}`}
                             </Typography>
-                            <Render condition={status === CUSTOM_RESOURCE_STATUSES['FAILED']}>
+                            {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
                                 <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
                                     {detailedMessage}
                                 </Typography>
-                            </Render>
+                            )}
                         </>
                     );
 

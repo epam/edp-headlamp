@@ -2,7 +2,6 @@ import { Chip, Grid, makeStyles, Tooltip, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { InfoRow } from '../../../components/InfoColumns/types';
-import { Render } from '../../../components/Render';
 import { StatusIcon } from '../../../components/StatusIcon';
 import {
     BUILD_TOOL_ICON_MAPPING,
@@ -82,16 +81,14 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
                                                     component?.status?.status || 'unknown'
                                                 }`}
                                             </Typography>
-                                            <Render
-                                                condition={!!component?.status?.detailedMessage}
-                                            >
+                                            {!!component?.status?.detailedMessage && (
                                                 <Typography
                                                     variant={'subtitle2'}
                                                     style={{ marginTop: rem(10) }}
                                                 >
                                                     {component?.status?.detailedMessage}
                                                 </Typography>
-                                            </Render>
+                                            )}
                                         </>
                                     }
                                 />

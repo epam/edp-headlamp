@@ -2,7 +2,6 @@ import { Button, CircularProgress, Grid, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Render } from '../../../../../components/Render';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { useCodebasesByTypeLabelQuery } from '../../../../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
 import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
@@ -154,9 +153,9 @@ export const Applications = () => {
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={2}>
-                    <Render condition={!!applicationList && !!applicationList.items.length}>
+                    {!!applicationList && !!applicationList.items.length ? (
                         <>
-                            <Render condition={!!usedApplications.length}>
+                            {!!usedApplications.length ? (
                                 <>
                                     <Grid item xs={4}>
                                         <Typography>Application</Typography>
@@ -171,8 +170,8 @@ export const Applications = () => {
                                         <Typography>Delete</Typography>
                                     </Grid>
                                 </>
-                            </Render>
-                            <Render condition={isLoading}>
+                            ) : null}
+                            {isLoading && (
                                 <Grid
                                     item
                                     xs={12}
@@ -180,11 +179,9 @@ export const Applications = () => {
                                 >
                                     <CircularProgress />
                                 </Grid>
-                            </Render>
-                            <Render condition={!!error}>
-                                <Typography color={'error'}>{error}</Typography>
-                            </Render>
-                            <Render condition={!isLoading && !error}>
+                            )}
+                            {!!error && <Typography color={'error'}>{error}</Typography>}
+                            {!isLoading && !error && (
                                 <>
                                     {usedApplications.map((application, idx) => {
                                         const key = `${application.metadata.name}::${idx}`;
@@ -194,31 +191,27 @@ export const Applications = () => {
                                         );
                                     })}
                                 </>
-                            </Render>
+                            )}
                         </>
-                    </Render>
+                    ) : null}
                 </Grid>
             </Grid>
-            <Render condition={!applicationsFieldValue || !applicationsFieldValue.length}>
+            {(!applicationsFieldValue || !applicationsFieldValue.length) && (
                 <Grid item xs={12}>
                     <Alert severity="info" variant="outlined">
                         Add at least one application
                     </Alert>
                 </Grid>
-            </Render>
-            <Render
-                condition={
-                    (!applicationsBranchesFieldValue || !applicationsBranchesFieldValue.length) &&
-                    applicationsFieldValue &&
-                    applicationsFieldValue.length
-                }
-            >
+            )}
+            {(!applicationsBranchesFieldValue || !applicationsBranchesFieldValue.length) &&
+            applicationsFieldValue &&
+            applicationsFieldValue.length ? (
                 <Grid item xs={12}>
                     <Alert severity="info" variant="outlined">
                         Select the application branch
                     </Alert>
                 </Grid>
-            </Render>
+            ) : null}
         </Grid>
     );
 };

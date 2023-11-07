@@ -16,7 +16,6 @@ import { Node } from '../../components/Graph/components/Node';
 import { MyNode } from '../../components/Graph/components/types';
 import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
-import { Render } from '../../components/Render';
 import { StatusIcon } from '../../components/StatusIcon';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
@@ -229,7 +228,7 @@ export const PipelineRunGraph = () => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Render condition={!!steps && !!steps.length}>
+                        {!!steps && !!steps.length ? (
                             <>
                                 <Grid item xs={12}>
                                     <Typography variant={'subtitle1'}>Steps:</Typography>
@@ -291,7 +290,7 @@ export const PipelineRunGraph = () => {
                                         : null}
                                 </Grid>
                             </>
-                        </Render>
+                        ) : null}
                     </Grid>
                 </div>
             );
@@ -482,7 +481,7 @@ export const PipelineRunGraph = () => {
                     </Grid>
                     <Grid item xs={12} style={{ minHeight: rem(300) }}>
                         <LoadingWrapper isLoading={taskRuns === null && !diagramIsReady}>
-                            <Render condition={diagramIsReady}>
+                            {diagramIsReady && (
                                 <div>
                                     <Graph
                                         direction={'RIGHT'}
@@ -493,17 +492,17 @@ export const PipelineRunGraph = () => {
                                         renderNode={renderNode}
                                     />
                                 </div>
-                            </Render>
-                            <Render condition={!pipelineRunTasks || !pipelineRunTasks?.length}>
+                            )}
+                            {(!pipelineRunTasks || !pipelineRunTasks?.length) && (
                                 <Typography variant={'body1'} align={'center'}>
                                     The PipelineRun has no tasks
                                 </Typography>
-                            </Render>
-                            <Render condition={!taskRuns?.length}>
+                            )}
+                            {!taskRuns?.length ? (
                                 <Typography variant={'body1'} align={'center'}>
                                     Couldn't find TaskRuns for the PipelineRun
                                 </Typography>
-                            </Render>
+                            ) : null}
                         </LoadingWrapper>
                     </Grid>
                 </Grid>
