@@ -1,8 +1,8 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { editResource } from '../../../../../../k8s/common/editResource';
 import { useCodebaseCRUD } from '../../../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
-import { editCodebaseInstance } from '../../../../../../k8s/EDPCodebase/utils/editCodebaseInstance';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../constants';
@@ -51,11 +51,7 @@ export const FormActions = () => {
                       jiraIssueMetadataPayload: null,
                   };
 
-            const updatedCodebaseData = editCodebaseInstance(
-                CODEBASE_FORM_NAMES,
-                codebaseData,
-                formValues
-            );
+            const updatedCodebaseData = editResource(CODEBASE_FORM_NAMES, codebaseData, formValues);
 
             await editCodebase({
                 codebaseData: updatedCodebaseData,

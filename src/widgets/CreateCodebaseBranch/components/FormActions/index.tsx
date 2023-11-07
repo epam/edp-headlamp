@@ -1,9 +1,9 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { editResource } from '../../../../k8s/common/editResource';
 import { useCreateCodebaseBranch } from '../../../../k8s/EDPCodebaseBranch/hooks/useCreateCodebaseBranch';
 import { createCodebaseBranchInstance } from '../../../../k8s/EDPCodebaseBranch/utils/createCodebaseBranchInstance';
-import { editCodebaseBranchInstance } from '../../../../k8s/EDPCodebaseBranch/utils/editCodebaseBranchInstance';
 import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { createVersioningString } from '../../../../utils/createVersioningString';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
@@ -70,7 +70,7 @@ export const FormActions = () => {
             );
 
             if (!!values.release) {
-                const newDefaultBranch = editCodebaseBranchInstance(
+                const newDefaultBranch = editResource(
                     {
                         version: {
                             name: 'version',

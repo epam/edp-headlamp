@@ -1,8 +1,8 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { editResource } from '../../../../../../k8s/common/editResource';
 import { useEditCDPipelineStage } from '../../../../../../k8s/EDPCDPipelineStage/hooks/useEditCDPipelineStage';
-import { editCDPipelineStageInstance } from '../../../../../../k8s/EDPCDPipelineStage/utils/editCDPipelineStageInstance';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';
@@ -46,11 +46,7 @@ export const FormActions = () => {
     const onSubmit = React.useCallback(
         async (values: CreateEditStageFormValues) => {
             const usedValues = getUsedValues(values, STAGE_FORM_NAMES);
-            const newCDPipelineStageData = editCDPipelineStageInstance(
-                STAGE_FORM_NAMES,
-                stage,
-                usedValues
-            );
+            const newCDPipelineStageData = editResource(STAGE_FORM_NAMES, stage, usedValues);
 
             await editCDPipelineStage({ CDPipelineStageData: newCDPipelineStageData });
         },

@@ -2,10 +2,10 @@ import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { Render } from '../../../../components/Render';
+import { editResource } from '../../../../k8s/common/editResource';
 import { useCreateEDPComponent } from '../../../../k8s/EDPComponent/hooks/useCreateEDPComponent';
 import { EDPComponentKubeObjectInterface } from '../../../../k8s/EDPComponent/types';
 import { createEDPComponentInstance } from '../../../../k8s/EDPComponent/utils/createEDPComponentInstance';
-import { editEDPComponentInstance } from '../../../../k8s/EDPComponent/utils/editEDPComponentInstance';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { EDP_COMPONENT_FORM_NAMES } from '../../names';
@@ -49,7 +49,7 @@ export const FormActions = () => {
                 values
             );
 
-            const EDPComponentEditedInstance = editEDPComponentInstance(
+            const EDPComponentEditedInstance = editResource(
                 EDP_COMPONENT_FORM_NAMES,
                 currentElement as EDPComponentKubeObjectInterface,
                 values

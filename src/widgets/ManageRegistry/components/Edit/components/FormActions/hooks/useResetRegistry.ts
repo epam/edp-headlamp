@@ -1,10 +1,9 @@
+import { editResource } from '../../../../../../../k8s/common/editResource';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../../k8s/ConfigMap/constants';
 import { useConfigMapCRUD } from '../../../../../../../k8s/ConfigMap/hooks/useConfigMapCRUD';
-import { editEDPConfigConfigMap } from '../../../../../../../k8s/ConfigMap/utils/editEDPConfigConfigMap';
 import { useSecretCRUD } from '../../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { useEditServiceAccount } from '../../../../../../../k8s/ServiceAccount/hooks/useEditServiceAccount';
 import { ServiceAccountKubeObjectInterface } from '../../../../../../../k8s/ServiceAccount/types';
-import { editServiceAccountInstance } from '../../../../../../../k8s/ServiceAccount/utils/editServiceAccount';
 import { EDP_CONFIG_MAP_NAMES } from '../../../../../../../pages/edp-configuration/pages/edp-registry-list/names';
 import { useFormContext } from '../../../../../../../providers/Form/hooks';
 import { ManageRegistryDataContext, ManageRegistryValues } from '../../../../../types';
@@ -40,13 +39,13 @@ export const useResetRegistry = ({ onSuccess }) => {
         const { registryType, irsaRoleArn } = formValues;
 
         const resetECR = async () => {
-            const newEDPConfigMap = editEDPConfigConfigMap(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
+            const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
                 registryHost: '',
                 registrySpace: '',
                 registryType: '',
             });
 
-            const editedServiceAccount = editServiceAccountInstance(
+            const editedServiceAccount = editResource(
                 {
                     irsaRoleArn: {
                         name: irsaRoleArn,
@@ -71,7 +70,7 @@ export const useResetRegistry = ({ onSuccess }) => {
         };
 
         const resetDockerHub = async () => {
-            const newEDPConfigMap = editEDPConfigConfigMap(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
+            const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
                 registryHost: '',
                 registrySpace: '',
                 registryType: '',
@@ -88,7 +87,7 @@ export const useResetRegistry = ({ onSuccess }) => {
         };
 
         const resetHarbor = async () => {
-            const newEDPConfigMap = editEDPConfigConfigMap(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
+            const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
                 registryHost: '',
                 registrySpace: '',
                 registryType: '',

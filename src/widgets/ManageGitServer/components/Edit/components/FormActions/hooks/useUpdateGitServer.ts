@@ -1,7 +1,6 @@
 import { GIT_PROVIDERS } from '../../../../../../../constants/gitProviders';
+import { editResource } from '../../../../../../../k8s/common/editResource';
 import { useGitServerCRUD } from '../../../../../../../k8s/EDPGitServer/hooks/useGitServerCRUD';
-import { editGitServerInstance } from '../../../../../../../k8s/EDPGitServer/utils/editGitServerInstance';
-import { editGitServerSecretInstance } from '../../../../../../../k8s/Secret/utils/editGitServerSecretInstance';
 import { useFormContext } from '../../../../../../../providers/Form/hooks';
 import { EDPKubeObjectInterface } from '../../../../../../../types/k8s';
 import { safeEncode } from '../../../../../../../utils/decodeEncode';
@@ -37,16 +36,12 @@ export const useUpdateGitServer = ({ onSuccess }) => {
             httpsPort: Number(formValues.httpsPort),
         };
         const usedValues = getUsedValues(transformedValues, GIT_SERVER_FORM_NAMES);
-        const gitServerData = editGitServerInstance(
-            GIT_SERVER_FORM_NAMES,
-            gitServer.jsonData,
-            usedValues
-        );
+        const gitServerData = editResource(GIT_SERVER_FORM_NAMES, gitServer.jsonData, usedValues);
 
         const editGerrit = async () => {
             const { sshPrivateKey, sshPublicKey, gitUser } = formValues;
 
-            const gitServerSecretData = editGitServerSecretInstance(
+            const gitServerSecretData = editResource(
                 {
                     sshPrivateKey: {
                         name: 'sshPrivateKey',
@@ -82,7 +77,7 @@ export const useUpdateGitServer = ({ onSuccess }) => {
         const editGithub = async () => {
             const { sshPrivateKey, token, gitUser } = formValues;
 
-            const gitServerSecretData = editGitServerSecretInstance(
+            const gitServerSecretData = editResource(
                 {
                     sshPrivateKey: {
                         name: 'sshPrivateKey',
@@ -118,7 +113,7 @@ export const useUpdateGitServer = ({ onSuccess }) => {
         const editGitlab = async () => {
             const { sshPrivateKey, secretString, token } = formValues;
 
-            const gitServerSecretData = editGitServerSecretInstance(
+            const gitServerSecretData = editResource(
                 {
                     sshPrivateKey: {
                         name: 'sshPrivateKey',

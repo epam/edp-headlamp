@@ -1,8 +1,8 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { editResource } from '../../../../../../k8s/common/editResource';
 import { useEditCDPipeline } from '../../../../../../k8s/EDPCDPipeline/hooks/useEditCDPipeline';
-import { editCDPipelineInstance } from '../../../../../../k8s/EDPCDPipeline/utils/editCDPipelineInstance';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../../constants';
@@ -49,7 +49,7 @@ export const FormActions = () => {
     const onSubmit = React.useCallback(
         async (values: CreateEditCDPipelineFormValues) => {
             const usedValues = getUsedValues(values, CDPIPELINE_FORM_NAMES);
-            const newCDPipelineData = editCDPipelineInstance(
+            const newCDPipelineData = editResource(
                 CDPIPELINE_FORM_NAMES,
                 CDPipelineData,
                 usedValues

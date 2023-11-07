@@ -1,17 +1,17 @@
 import { set } from 'lodash';
 import { FormNameObject } from '../../../types/forms';
-import { ConfigMapKubeObjectInterface } from '../types';
+import { EDPKubeObjectInterface } from '../../../types/k8s';
 
-export const editEDPConfigConfigMap = (
+export const editResource = <T extends EDPKubeObjectInterface>(
     names: {
         [key: string]: FormNameObject;
     },
-    currentConfigMap: ConfigMapKubeObjectInterface,
+    currentResource: T,
     formValues: {
         [key: string]: any;
     }
-): ConfigMapKubeObjectInterface => {
-    const base = { ...currentConfigMap };
+): T => {
+    const base = { ...currentResource };
 
     for (const [propKey, propValue] of Object.entries(formValues)) {
         if (names[propKey]?.notUsedInFormData) {
