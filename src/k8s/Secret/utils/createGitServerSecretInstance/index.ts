@@ -1,5 +1,6 @@
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { safeEncode } from '../../../../utils/decodeEncode';
+import { SECRET_LABEL_SECRET_TYPE } from '../../labels';
 
 export const createGerritGitServerSecretInstance = ({
     sshPrivateKey,
@@ -14,6 +15,9 @@ export const createGerritGitServerSecretInstance = ({
         apiVersion: 'v1',
         kind: 'Secret',
         metadata: {
+            labels: {
+                [SECRET_LABEL_SECRET_TYPE]: 'repository',
+            },
             name: 'gerrit-ciuser-sshkey',
         },
         data: {
@@ -37,6 +41,9 @@ export const createGithubGitServerSecretInstance = ({
         apiVersion: 'v1',
         kind: 'Secret',
         metadata: {
+            labels: {
+                [SECRET_LABEL_SECRET_TYPE]: 'repository',
+            },
             name: 'ci-github',
         },
         data: {
@@ -60,7 +67,10 @@ export const createGitlabGitServerSecretInstance = ({
         apiVersion: 'v1',
         kind: 'Secret',
         metadata: {
-            name: 'ci-github',
+            labels: {
+                [SECRET_LABEL_SECRET_TYPE]: 'repository',
+            },
+            name: 'ci-gitlab',
         },
         data: {
             id_rsa: safeEncode(sshPrivateKey.trim() + '\n'),

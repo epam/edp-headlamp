@@ -15,7 +15,12 @@ describe('testing createGitServerSecretInstance', () => {
         expect(object).toEqual({
             apiVersion: 'v1',
             kind: 'Secret',
-            metadata: { name: 'gerrit-ciuser-sshkey' },
+            metadata: {
+                labels: {
+                    'app.edp.epam.com/secret-type': 'repository',
+                },
+                name: 'gerrit-ciuser-sshkey',
+            },
             data: {
                 id_rsa: 'dGVzdCBwcml2YXRlIHNzaCBrZXkK',
                 'id_rsa.pub': 'dGVzdCBwdWJsaWMgc3NoIGtleQ==',
@@ -34,7 +39,12 @@ describe('testing createGitServerSecretInstance', () => {
         expect(object).toEqual({
             apiVersion: 'v1',
             kind: 'Secret',
-            metadata: { name: 'ci-github' },
+            metadata: {
+                labels: {
+                    'app.edp.epam.com/secret-type': 'repository',
+                },
+                name: 'ci-github',
+            },
             data: {
                 id_rsa: 'dGVzdCBwcml2YXRlIHNzaCBrZXkK',
                 token: 'dGVzdC10b2tlbg==',
@@ -53,7 +63,12 @@ describe('testing createGitServerSecretInstance', () => {
         expect(object).toEqual({
             apiVersion: 'v1',
             kind: 'Secret',
-            metadata: { name: 'ci-github' },
+            metadata: {
+                labels: {
+                    'app.edp.epam.com/secret-type': 'repository',
+                },
+                name: 'ci-gitlab',
+            },
             data: {
                 id_rsa: 'dGVzdCBwcml2YXRlIHNzaCBrZXkK',
                 secretString: 'dGVzdC1zZWNyZXQtc3RyaW5n',

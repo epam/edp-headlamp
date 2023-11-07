@@ -23,12 +23,13 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
 
     React.useEffect(() => {
         if (!gitServerSecretName) {
+            setGitServerSecret(undefined);
             return;
         }
 
         const cancelStream = SecretKubeObject.streamSecretsByType({
             namespace: getDefaultNamespace(),
-            type: undefined,
+            type: 'repository',
             dataHandler: data => {
                 const gitServerSecret = data?.find(
                     el => el?.metadata?.name === gitServerSecretName
@@ -54,7 +55,6 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         () => ({
             data: {
                 gitServer: gitServers?.[0],
-                // gitServer: undefined,
                 gitServerSecret,
             },
             isLoading,

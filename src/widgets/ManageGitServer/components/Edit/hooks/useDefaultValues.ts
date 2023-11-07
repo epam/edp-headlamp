@@ -25,10 +25,10 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
             base = {
                 ...base,
                 [GIT_SERVER_FORM_NAMES.sshPrivateKey.name]: safeDecode(
-                    gitServerSecret.data['id_rsa']
+                    gitServerSecret?.data['id_rsa']
                 ),
                 [GIT_SERVER_FORM_NAMES.sshPublicKey.name]: safeDecode(
-                    gitServerSecret.data['id_rsa.pub']
+                    gitServerSecret?.data['id_rsa.pub']
                 ),
             };
         }
@@ -37,12 +37,12 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
             base = {
                 ...base,
                 [GIT_SERVER_FORM_NAMES.sshPrivateKey.name]: safeDecode(
-                    gitServerSecret.data['id_rsa']
+                    gitServerSecret?.data['id_rsa']
                 ),
                 [GIT_SERVER_FORM_NAMES.secretString.name]: safeDecode(
-                    gitServerSecret.data.secretString
+                    gitServerSecret?.data.secretString
                 ),
-                [GIT_SERVER_FORM_NAMES.token.name]: safeDecode(gitServerSecret.data.token),
+                [GIT_SERVER_FORM_NAMES.token.name]: safeDecode(gitServerSecret?.data.token),
             };
         }
 
@@ -50,9 +50,9 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
             base = {
                 ...base,
                 [GIT_SERVER_FORM_NAMES.sshPrivateKey.name]: safeDecode(
-                    gitServerSecret.data['id_rsa']
+                    gitServerSecret?.data['id_rsa']
                 ),
-                [GIT_SERVER_FORM_NAMES.token.name]: safeDecode(gitServerSecret.data.token),
+                [GIT_SERVER_FORM_NAMES.token.name]: safeDecode(gitServerSecret?.data.token),
             };
         }
 
