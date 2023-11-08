@@ -57,7 +57,6 @@ export const FormRadioGroup = React.forwardRef(
                                                 ) => {
                                                     const isChecked = field.value === value;
                                                     const key = `${value}::${idx}`;
-
                                                     return (
                                                         <ButtonBase
                                                             key={key}
@@ -82,13 +81,15 @@ export const FormRadioGroup = React.forwardRef(
                                                                         inputRef={ref}
                                                                     />
                                                                 }
-                                                                disabled={
-                                                                    disabled || optionDisabled
-                                                                }
+                                                                className={clsx(
+                                                                    classes.radioControlLabel,
+                                                                    {
+                                                                        [classes.radioControlLabelDisabled]:
+                                                                            disabled ||
+                                                                            optionDisabled,
+                                                                    }
+                                                                )}
                                                                 label={label}
-                                                                className={
-                                                                    classes.radioControlLabel
-                                                                }
                                                             />
                                                         </ButtonBase>
                                                     );

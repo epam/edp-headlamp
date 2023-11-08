@@ -1426,10 +1426,10 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                     >
                                       <span
-                                        class="makeStyles-labelWrap-8"
+                                        class="makeStyles-labelWrap-9"
                                       >
                                         <span
-                                          class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                          class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
                                         >
                                           Git provider
                                         </span>
@@ -1450,19 +1450,17 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                           type="button"
                                         >
                                           <label
-                                            class="MuiFormControlLabel-root makeStyles-radioControlLabel-7 Mui-disabled"
+                                            class="MuiFormControlLabel-root makeStyles-radioControlLabel-7 makeStyles-radioControlLabelDisabled-8"
                                           >
                                             <span
-                                              aria-disabled="true"
-                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-10 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-disabled-12 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled"
-                                              tabindex="-1"
+                                              aria-disabled="false"
+                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
                                             >
                                               <span
                                                 class="MuiIconButton-label"
                                               >
                                                 <input
-                                                  class="PrivateSwitchBase-input-13"
-                                                  disabled=""
+                                                  class="PrivateSwitchBase-input-14"
                                                   name="gitProvider"
                                                   type="radio"
                                                   value="gerrit"
@@ -1482,7 +1480,7 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                               </span>
                                             </span>
                                             <span
-                                              class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
+                                              class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
                                             >
                                               Gerrit
                                             </span>
@@ -1495,20 +1493,18 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                           type="button"
                                         >
                                           <label
-                                            class="MuiFormControlLabel-root makeStyles-radioControlLabel-7 Mui-disabled"
+                                            class="MuiFormControlLabel-root makeStyles-radioControlLabel-7 makeStyles-radioControlLabelDisabled-8"
                                           >
                                             <span
-                                              aria-disabled="true"
-                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-10 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-checked-11 Mui-checked PrivateSwitchBase-disabled-12 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled"
-                                              tabindex="-1"
+                                              aria-disabled="false"
+                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-checked-12 Mui-checked MuiIconButton-colorPrimary"
                                             >
                                               <span
                                                 class="MuiIconButton-label"
                                               >
                                                 <input
                                                   checked=""
-                                                  class="PrivateSwitchBase-input-13"
-                                                  disabled=""
+                                                  class="PrivateSwitchBase-input-14"
                                                   name="gitProvider"
                                                   type="radio"
                                                   value="gitlab"
@@ -1528,7 +1524,7 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                               </span>
                                             </span>
                                             <span
-                                              class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
+                                              class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
                                             >
                                               Gitlab
                                             </span>
@@ -1541,19 +1537,17 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                           type="button"
                                         >
                                           <label
-                                            class="MuiFormControlLabel-root makeStyles-radioControlLabel-7 Mui-disabled"
+                                            class="MuiFormControlLabel-root makeStyles-radioControlLabel-7 makeStyles-radioControlLabelDisabled-8"
                                           >
                                             <span
-                                              aria-disabled="true"
-                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-10 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-disabled-12 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled"
-                                              tabindex="-1"
+                                              aria-disabled="false"
+                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
                                             >
                                               <span
                                                 class="MuiIconButton-label"
                                               >
                                                 <input
-                                                  class="PrivateSwitchBase-input-13"
-                                                  disabled=""
+                                                  class="PrivateSwitchBase-input-14"
                                                   name="gitProvider"
                                                   type="radio"
                                                   value="github"
@@ -1573,7 +1567,7 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                               </span>
                                             </span>
                                             <span
-                                              class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
+                                              class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
                                             >
                                               Github
                                             </span>
@@ -1609,15 +1603,15 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-9"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
                                           >
                                             Host
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-14"
+                                            class="MuiBox-root MuiBox-root-15"
                                             style="height: 1.25rem;"
                                           />
                                         </span>
@@ -1668,10 +1662,10 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-9"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
                                           >
                                             User
                                           </span>
@@ -1751,15 +1745,15 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-9"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
                                           >
                                             SSH port
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-15"
+                                            class="MuiBox-root MuiBox-root-16"
                                             style="height: 1.25rem;"
                                           />
                                         </span>
@@ -1810,15 +1804,15 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-9"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
                                           >
                                             HTTPS port
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-16"
+                                            class="MuiBox-root MuiBox-root-17"
                                             style="height: 1.25rem;"
                                           />
                                         </span>
@@ -1886,69 +1880,97 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                                    style="display: flex;"
+                                    class="MuiGrid-root MuiGrid-item"
+                                    style="flex-grow: 1;"
                                   >
                                     <div
                                       class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
                                     >
                                       <div
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                                      >
-                                        <span
-                                          class="makeStyles-labelWrap-8"
-                                        >
-                                          <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
-                                          >
-                                            Private SSH key
-                                          </span>
-                                          <div
-                                            class="MuiBox-root MuiBox-root-17"
-                                            style="height: 1.25rem;"
-                                          />
-                                        </span>
-                                      </div>
-                                      <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                                        style="display: flex; align-items: flex-end;"
+                                        style="display: flex;"
                                       >
                                         <div
-                                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
                                         >
                                           <div
-                                            class="MuiFormControl-root MuiTextField-root"
+                                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                          >
+                                            <span
+                                              class="makeStyles-labelWrap-9"
+                                            >
+                                              <span
+                                                class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
+                                              >
+                                                Private SSH key
+                                              </span>
+                                              <div
+                                                class="MuiBox-root MuiBox-root-18"
+                                                style="height: 1.25rem;"
+                                              />
+                                            </span>
+                                          </div>
+                                          <div
+                                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                            style="display: flex; align-items: flex-end;"
                                           >
                                             <div
-                                              class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+                                              class="MuiFormControl-root MuiFormControl-fullWidth"
                                             >
-                                              <textarea
-                                                aria-invalid="false"
-                                                class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                                disabled=""
-                                                name="sshPrivateKey"
-                                                placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
-"
-                                                rows="4"
-                                                style="height: 0px; overflow: hidden;"
+                                              <div
+                                                class="MuiFormControl-root MuiTextField-root"
                                               >
-                                                test-id-rsa
-                                              </textarea>
-                                              <textarea
-                                                aria-hidden="true"
-                                                class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                                readonly=""
-                                                style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
-                                                tabindex="-1"
-                                              />
+                                                <div
+                                                  class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+                                                >
+                                                  <textarea
+                                                    aria-invalid="false"
+                                                    class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                                                    disabled=""
+                                                    name="sshPrivateKey"
+                                                    placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
+"
+                                                    rows="4"
+                                                    style="height: 0px; overflow: hidden;"
+                                                  >
+                                                    dGVzdC1pZC1yc2E=
+                                                  </textarea>
+                                                  <textarea
+                                                    aria-hidden="true"
+                                                    class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                                                    readonly=""
+                                                    style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
+                                                    tabindex="-1"
+                                                  />
+                                                </div>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
+                                  </div>
+                                  <div
+                                    class="MuiGrid-root MuiGrid-item"
+                                    style="flex-shrink: 0;"
+                                  >
+                                    <button
+                                      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                                      tabindex="0"
+                                      type="button"
+                                    >
+                                      <span
+                                        class="MuiIconButton-label"
+                                      >
+                                        <span />
+                                      </span>
+                                      <span
+                                        class="MuiTouchRipple-root"
+                                      />
+                                    </button>
                                   </div>
                                 </div>
                               </div>
@@ -1969,15 +1991,15 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-9"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
                                           >
                                             Secret string
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-18"
+                                            class="MuiBox-root MuiBox-root-19"
                                             style="height: 1.25rem;"
                                           />
                                         </span>
@@ -2037,15 +2059,15 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-9"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
                                           >
                                             Access token
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-19"
+                                            class="MuiBox-root MuiBox-root-20"
                                             style="height: 1.25rem;"
                                           />
                                         </span>

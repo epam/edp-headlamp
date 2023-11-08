@@ -1422,10 +1422,10 @@ exports[`renders ManageGitServer Create component 1`] = `
                                       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                     >
                                       <span
-                                        class="makeStyles-labelWrap-7"
+                                        class="makeStyles-labelWrap-8"
                                       >
                                         <span
-                                          class="MuiTypography-root makeStyles-label-8 MuiTypography-body1"
+                                          class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
                                         >
                                           Git provider
                                         </span>
@@ -1449,13 +1449,13 @@ exports[`renders ManageGitServer Create component 1`] = `
                                           >
                                             <span
                                               aria-disabled="false"
-                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-9 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-10 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
                                             >
                                               <span
                                                 class="MuiIconButton-label"
                                               >
                                                 <input
-                                                  class="PrivateSwitchBase-input-12"
+                                                  class="PrivateSwitchBase-input-13"
                                                   name="gitProvider"
                                                   type="radio"
                                                   value="gerrit"
@@ -1494,13 +1494,13 @@ exports[`renders ManageGitServer Create component 1`] = `
                                           >
                                             <span
                                               aria-disabled="false"
-                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-9 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-10 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
                                             >
                                               <span
                                                 class="MuiIconButton-label"
                                               >
                                                 <input
-                                                  class="PrivateSwitchBase-input-12"
+                                                  class="PrivateSwitchBase-input-13"
                                                   name="gitProvider"
                                                   type="radio"
                                                   value="gitlab"
@@ -1539,13 +1539,13 @@ exports[`renders ManageGitServer Create component 1`] = `
                                           >
                                             <span
                                               aria-disabled="false"
-                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-9 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-10 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
                                             >
                                               <span
                                                 class="MuiIconButton-label"
                                               >
                                                 <input
-                                                  class="PrivateSwitchBase-input-12"
+                                                  class="PrivateSwitchBase-input-13"
                                                   name="gitProvider"
                                                   type="radio"
                                                   value="github"
@@ -1604,15 +1604,15 @@ exports[`renders ManageGitServer Create component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-7"
+                                          class="makeStyles-labelWrap-8"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-8 MuiTypography-body1"
+                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
                                           >
                                             Host
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-13"
+                                            class="MuiBox-root MuiBox-root-14"
                                             style="height: 1.25rem;"
                                           />
                                         </span>
@@ -1663,10 +1663,10 @@ exports[`renders ManageGitServer Create component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-7"
+                                          class="makeStyles-labelWrap-8"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-8 MuiTypography-body1"
+                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
                                           >
                                             User
                                           </span>
@@ -1746,15 +1746,15 @@ exports[`renders ManageGitServer Create component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-7"
+                                          class="makeStyles-labelWrap-8"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-8 MuiTypography-body1"
+                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
                                           >
                                             SSH port
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-14"
+                                            class="MuiBox-root MuiBox-root-15"
                                             style="height: 1.25rem;"
                                           />
                                         </span>
@@ -1805,15 +1805,15 @@ exports[`renders ManageGitServer Create component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-7"
+                                          class="makeStyles-labelWrap-8"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-8 MuiTypography-body1"
+                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
                                           >
                                             HTTPS port
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-15"
+                                            class="MuiBox-root MuiBox-root-16"
                                             style="height: 1.25rem;"
                                           />
                                         </span>

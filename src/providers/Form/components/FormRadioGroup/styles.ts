@@ -37,4 +37,9 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
             },
         },
     },
+    radioControlLabelDisabled: {
+        '& .MuiFormControlLabel-label': {
+            color: theme.palette.text.disabled,
+        },
+    },
 }));
