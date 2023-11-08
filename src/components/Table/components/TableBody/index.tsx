@@ -1,27 +1,17 @@
 import {
-    Box,
-    Checkbox,
     CircularProgress,
     TableBody as MuiTableBody,
     TableCell,
-    TableRow,
+    TableRow as MuiTableRow,
     Typography,
-    useTheme,
 } from '@material-ui/core';
 import React from 'react';
 import { EmptyList } from '../../../EmptyList';
+import { TableRow } from './components/TableRow';
 import { TableBodyProps } from './types';
 
 const isSelectedRow = (isSelected: (row: unknown) => boolean, row: unknown) =>
     isSelected ? isSelected(row) : false;
-
-const getRowStyles = (isSelected: boolean) =>
-    isSelected
-        ? {
-              backgroundColor: 'rgb(137 196 244 / 16%)',
-              cursor: 'pointer',
-          }
-        : { cursor: 'pointer' };
 
 export const TableBody = ({
     error,
@@ -36,117 +26,53 @@ export const TableBody = ({
     rowsPerPage,
     hasEmptyResult,
 }: TableBodyProps) => {
-    const theme = useTheme();
-
-    const selectableRowProps = (row: unknown, isSelected: boolean) => {
-        return handleRowClick
-            ? {
-                  hover: true,
-                  role: 'radio',
-                  'aria-checked': isSelected,
-                  selected: isSelected,
-                  tabIndex: -1,
-                  onClick: (event: React.MouseEvent<HTMLTableRowElement>) => {
-                      handleRowClick(event, row);
-                  },
-                  style: getRowStyles(isSelected),
-              }
-            : {};
-    };
-
-    const getColumnStyles = React.useCallback(
-        (hasSortableValue: boolean) => ({
-            display: 'flex',
-            alignItems: 'center',
-            pl: hasSortableValue ? theme.typography.pxToRem(6) : 0,
-        }),
-        [theme]
-    );
-
     return (
         <MuiTableBody>
             {error ? (
-                <TableRow>
+                <MuiTableRow>
                     <TableCell colSpan={columns.length} align={'center'}>
                         <Typography color={'error'} variant={'h6'}>
                             {error.toString()}
                         </Typography>
                     </TableCell>
-                </TableRow>
+                </MuiTableRow>
             ) : isLoading ? (
-                <TableRow>
+                <MuiTableRow>
                     <TableCell colSpan={columns.length} align={'center'}>
                         <CircularProgress />
                     </TableCell>
-                </TableRow>
+                </MuiTableRow>
             ) : readyData?.length ? (
                 <>
                     {readyData
                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        .map((item, idx: number) => {
-                            const _isSelected = isSelectedRow(isSelected, item);
+                        .map((row, idx: number) => {
+                            const _isSelected = isSelectedRow(isSelected, row);
 
                             return (
                                 <TableRow
                                     key={`table-row-${idx}`}
-                                    {...selectableRowProps(item, _isSelected)}
-                                >
-                                    {!!handleSelectRowClick && (
-                                        <TableCell padding="checkbox">
-                                            <Checkbox
-                                                color={'primary'}
-                                                checked={_isSelected}
-                                                onClick={event => handleSelectRowClick(event, item)}
-                                            />
-                                        </TableCell>
-                                    )}
-                                    {columns.map(
-                                        ({
-                                            show = true,
-                                            id,
-                                            textAlign = 'left',
-                                            columnSortableValuePath,
-                                            render,
-                                        }) => {
-                                            return show ? (
-                                                <TableCell
-                                                    key={id}
-                                                    component="th"
-                                                    scope="row"
-                                                    align={textAlign || 'left'}
-                                                    style={{
-                                                        padding: `${theme.typography.pxToRem(
-                                                            12
-                                                        )} ${theme.typography.pxToRem(16)}`,
-                                                    }}
-                                                >
-                                                    <Box
-                                                        sx={getColumnStyles(
-                                                            !!columnSortableValuePath
-                                                        )}
-                                                    >
-                                                        {render(item)}
-                                                    </Box>
-                                                </TableCell>
-                                            ) : null;
-                                        }
-                                    )}
-                                </TableRow>
+                                    item={row}
+                                    columns={columns}
+                                    isSelected={_isSelected}
+                                    handleRowClick={handleRowClick}
+                                    handleSelectRowClick={handleSelectRowClick}
+                                />
                             );
                         })}
                 </>
             ) : hasEmptyResult ? (
-                <TableRow>
+                <MuiTableRow>
                     <TableCell colSpan={columns.length} align={'center'}>
                         <EmptyList customText={'No results found!'} isSearch />
                     </TableCell>
-                </TableRow>
+                </MuiTableRow>
             ) : (
-                <TableRow>
+                <MuiTableRow>
                     <TableCell colSpan={columns.length} align={'center'}>
                         <>{emptyListComponent}</>
                     </TableCell>
-                </TableRow>
+                </MuiTableRow>
             )}
         </MuiTableBody>
     );

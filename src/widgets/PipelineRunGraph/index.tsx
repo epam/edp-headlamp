@@ -22,17 +22,15 @@ import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPCo
 import { PipelineRunKubeObject } from '../../k8s/PipelineRun';
 import { TaskRunKubeObject } from '../../k8s/TaskRun';
 import { TASK_RUN_STEP_REASON, TASK_RUN_STEP_STATUS } from '../../k8s/TaskRun/constants';
-import {
-    TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN,
-    TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK,
-} from '../../k8s/TaskRun/labels';
+import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../k8s/TaskRun/labels';
 import { TaskRunKubeObjectInterface } from '../../k8s/TaskRun/types';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { GENERATE_URL_SERVICE } from '../../services/url';
 import { ValueOf } from '../../types/global';
-import { formatFullYear, humanizeDefault } from '../../utils/date/humanize';
 import { rem } from '../../utils/styling/rem';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from './constants';
+import { useInfoRows } from './hooks/useInfoRows';
+import { usePipelineRunGraphData } from './hooks/usePipelineRunGraphData';
 import { useStyles } from './styles';
 import { PipelineRunGraphDialogForwardedProps } from './types';
 
@@ -78,110 +76,18 @@ export const PipelineRunGraph = () => {
         PIPELINE_RUN_GRAPH_DIALOG_NAME
     );
 
-    const pipelineRunStatus = pipelineRun?.status?.conditions?.[0]?.status || 'Unknown';
-    const pipelineRunReason = pipelineRun?.status?.conditions?.[0]?.reason || 'Unknown';
-    const pipelineRunMessage = pipelineRun?.status?.conditions?.[0]?.message || 'No message';
-    const pipelineRunName = pipelineRun?.metadata.name;
-    const pipelineRefName = pipelineRun?.spec?.pipelineRef?.name;
-    const startTime = pipelineRun?.status?.startTime;
-    const completionTime = pipelineRun?.status?.completionTime;
-
     const namespace = pipelineRun?.metadata.namespace;
+
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+    const tektonBaseURL = EDPComponentsURLS?.tekton;
 
     const [taskRuns] = TaskRunKubeObject.useList({
         labelSelector: `${TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN}=${pipelineRun.metadata.name}`,
     });
 
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-    const tektonBaseURL = EDPComponentsURLS?.tekton;
-
     const pipelineRunTasks = pipelineRun?.status?.pipelineSpec?.tasks;
 
-    const PipelineRunTaskRunListByNameMap = React.useMemo(() => {
-        if (taskRuns === null || !pipelineRunTasks) {
-            return;
-        }
-
-        const map = new Map<string, TaskRunKubeObjectInterface>();
-        pipelineRunTasks?.forEach(item => {
-            map.set(item.name, item);
-        });
-        return map;
-    }, [taskRuns, pipelineRunTasks]);
-
-    const TaskRunListByNameMap = React.useMemo(() => {
-        if (taskRuns === null) {
-            return;
-        }
-
-        const map = new Map<string, TaskRunKubeObjectInterface>();
-        taskRuns.forEach(item => {
-            map.set(item.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK], item);
-        });
-        return map;
-    }, [taskRuns]);
-
-    const nodes = React.useMemo(() => {
-        if (!PipelineRunTaskRunListByNameMap) {
-            return null;
-        }
-
-        let _nodes = [];
-
-        for (const name of PipelineRunTaskRunListByNameMap.keys()) {
-            const TaskRunByName = TaskRunListByNameMap.get(name);
-            const status = TaskRunKubeObject.parseStatus(TaskRunByName);
-            const reason = TaskRunKubeObject.parseStatusReason(TaskRunByName);
-            const [, color] = PipelineRunKubeObject.getStatusIcon(status, reason);
-
-            _nodes = [
-                {
-                    id: `task::${name}`,
-                    height: 40,
-                    width: 180,
-                    color,
-                    data: { name, TaskRunByName },
-                },
-                ..._nodes,
-            ];
-        }
-
-        return _nodes;
-    }, [PipelineRunTaskRunListByNameMap, TaskRunListByNameMap]);
-
-    const edges = React.useMemo(() => {
-        if (!PipelineRunTaskRunListByNameMap) {
-            return null;
-        }
-
-        let _edges = [];
-
-        for (const [name, value] of PipelineRunTaskRunListByNameMap.entries()) {
-            const TaskRunByName = TaskRunListByNameMap.get(name);
-            const status = TaskRunKubeObject.parseStatus(TaskRunByName);
-            const reason = TaskRunKubeObject.parseStatusReason(TaskRunByName);
-
-            const [, color] = PipelineRunKubeObject.getStatusIcon(status, reason);
-
-            if (!value?.runAfter) {
-                continue;
-            }
-
-            for (const item of value.runAfter) {
-                _edges = [
-                    {
-                        id: `edge::${name}::${item}`,
-                        source: `task::${item}`,
-                        color,
-                        target: `task::${name}`,
-                    },
-                    ..._edges,
-                ];
-            }
-        }
-
-        return _edges;
-    }, [PipelineRunTaskRunListByNameMap, TaskRunListByNameMap]);
+    const { nodes, edges } = usePipelineRunGraphData(taskRuns, pipelineRunTasks);
 
     const diagramIsReady = nodes !== null && edges !== null;
 
@@ -234,60 +140,51 @@ export const PipelineRunGraph = () => {
                                     <Typography variant={'subtitle1'}>Steps:</Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    {steps
-                                        ? steps.map(step => {
-                                              const stepName = step?.name;
-                                              const status = parseTaskRunStepStatus(step);
-                                              const reason = parseTaskRunStepReason(step);
-                                              const [icon, color, isRotating] =
-                                                  TaskRunKubeObject.getStepStatusIcon(
-                                                      status,
-                                                      reason
-                                                  );
+                                    {steps.map(step => {
+                                        const stepName = step?.name;
+                                        const status = parseTaskRunStepStatus(step);
+                                        const reason = parseTaskRunStepReason(step);
+                                        const [icon, color, isRotating] =
+                                            TaskRunKubeObject.getStepStatusIcon(status, reason);
 
-                                              const taskRunStepLink =
-                                                  GENERATE_URL_SERVICE.createTektonPipelineRunLink(
-                                                      tektonBaseURL,
-                                                      namespace,
-                                                      pipelineRun.metadata.name,
-                                                      taskRunName,
-                                                      stepName
-                                                  );
+                                        const taskRunStepLink =
+                                            GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+                                                tektonBaseURL,
+                                                namespace,
+                                                pipelineRun.metadata.name,
+                                                taskRunName,
+                                                stepName
+                                            );
 
-                                              return (
-                                                  <Grid item xs={12}>
-                                                      <Grid
-                                                          container
-                                                          spacing={1}
-                                                          alignItems={'center'}
-                                                      >
-                                                          <Grid item>
-                                                              <StatusIcon
-                                                                  icon={icon}
-                                                                  color={color}
-                                                                  isRotating={isRotating}
-                                                                  Title={`Status: ${status}. Reason: ${reason}`}
-                                                                  width={15}
-                                                              />
-                                                          </Grid>
-                                                          <Grid item>
-                                                              <Link
-                                                                  href={taskRunStepLink}
-                                                                  target={'_blank'}
-                                                              >
-                                                                  <Typography
-                                                                      variant={'subtitle2'}
-                                                                      title={stepName}
-                                                                  >
-                                                                      {stepName}
-                                                                  </Typography>
-                                                              </Link>
-                                                          </Grid>
-                                                      </Grid>
-                                                  </Grid>
-                                              );
-                                          })
-                                        : null}
+                                        return (
+                                            <Grid item xs={12}>
+                                                <Grid container spacing={1} alignItems={'center'}>
+                                                    <Grid item>
+                                                        <StatusIcon
+                                                            icon={icon}
+                                                            color={color}
+                                                            isRotating={isRotating}
+                                                            Title={`Status: ${status}. Reason: ${reason}`}
+                                                            width={15}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Link
+                                                            href={taskRunStepLink}
+                                                            target={'_blank'}
+                                                        >
+                                                            <Typography
+                                                                variant={'subtitle2'}
+                                                                title={stepName}
+                                                            >
+                                                                {stepName}
+                                                            </Typography>
+                                                        </Link>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        );
+                                    })}
                                 </Grid>
                             </>
                         ) : null}
@@ -360,99 +257,7 @@ export const PipelineRunGraph = () => {
         ]
     );
 
-    const infoRows = React.useMemo(() => {
-        const pipelineRunLink = GENERATE_URL_SERVICE.createTektonPipelineRunLink(
-            tektonBaseURL,
-            namespace,
-            pipelineRunName
-        );
-
-        const pipelineLink = pipelineRun?.status?.pipelineSpec?.params?.[0]?.default
-            ? GENERATE_URL_SERVICE.createTektonPipelineLink(
-                  tektonBaseURL,
-                  namespace,
-                  pipelineRefName
-              )
-            : pipelineRefName;
-
-        const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(
-            pipelineRunStatus,
-            pipelineRunReason
-        );
-
-        return [
-            [
-                {
-                    label: 'Name',
-                    text: pipelineRunName,
-                },
-                {
-                    label: 'Status',
-                    text: `${pipelineRunStatus}. Reason: ${pipelineRunReason}.`,
-                    icon: (
-                        <StatusIcon
-                            Title={`${pipelineRunStatus}. Reason: ${pipelineRunReason}`}
-                            icon={icon}
-                            color={color}
-                            isRotating={isRotating}
-                            width={15}
-                        />
-                    ),
-                },
-                {
-                    label: 'Message',
-                    text: pipelineRunMessage,
-                },
-                {
-                    label: 'Started at',
-                    text: startTime ? formatFullYear(new Date(startTime)) : null,
-                },
-                {
-                    label: 'Ended at',
-                    text: completionTime ? formatFullYear(new Date(completionTime)) : null,
-                },
-                {
-                    label: 'Duration',
-                    text:
-                        startTime && completionTime
-                            ? humanizeDefault(
-                                  new Date(completionTime).getTime(),
-                                  new Date(startTime).getTime()
-                              )
-                            : null,
-                },
-            ],
-            [
-                {
-                    label: 'PipelineRun',
-                    text: (
-                        <Link href={pipelineRunLink} target="_blank" rel="noopener">
-                            {pipelineRunName}
-                        </Link>
-                    ),
-                },
-                {
-                    label: 'Pipeline',
-                    text: (
-                        <Link href={pipelineLink} target="_blank" rel="noopener">
-                            {pipelineRefName}
-                        </Link>
-                    ),
-                },
-            ],
-        ];
-    }, [
-        tektonBaseURL,
-        namespace,
-        pipelineRunName,
-        pipelineRun,
-        pipelineRefName,
-        pipelineRunStatus,
-        pipelineRunReason,
-        pipelineRunMessage,
-        startTime,
-        completionTime,
-    ]);
+    const infoRows = useInfoRows(tektonBaseURL);
 
     return (
         <Dialog

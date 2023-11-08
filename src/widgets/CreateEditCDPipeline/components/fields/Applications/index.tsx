@@ -4,8 +4,10 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { useCodebasesByTypeLabelQuery } from '../../../../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
+import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
+import { KubeObjectListInterface } from '../../../../../types/k8s';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../names';
@@ -14,6 +16,24 @@ import {
     CreateEditCDPipelineFormValues,
 } from '../../../types';
 import { ApplicationRow } from './components/ApplicationRow';
+
+const getUsedApps = (
+    applicationList: KubeObjectListInterface<EDPCodebaseKubeObjectInterface>,
+    applicationsFieldValue: string[]
+) => {
+    return applicationList
+        ? applicationList.items.filter(app => applicationsFieldValue.includes(app.metadata.name))
+        : [];
+};
+
+const getUnusedApps = (
+    applicationList: KubeObjectListInterface<EDPCodebaseKubeObjectInterface>,
+    applicationsFieldValue: string[]
+) => {
+    return applicationList
+        ? applicationList.items.filter(app => !applicationsFieldValue.includes(app.metadata.name))
+        : [];
+};
 
 export const Applications = () => {
     const {
@@ -70,22 +90,12 @@ export const Applications = () => {
     }, [applicationsFieldValue, applicationsToAddChooserFieldValue, resetField, setValue, trigger]);
 
     const usedApplications = React.useMemo(
-        () =>
-            applicationList
-                ? applicationList.items.filter(app =>
-                      applicationsFieldValue.includes(app.metadata.name)
-                  )
-                : [],
+        () => getUsedApps(applicationList, applicationsFieldValue),
         [applicationsFieldValue, applicationList]
     );
 
     const unusedApplications = React.useMemo(
-        () =>
-            applicationList
-                ? applicationList.items.filter(
-                      app => !applicationsFieldValue.includes(app.metadata.name)
-                  )
-                : [],
+        () => getUnusedApps(applicationList, applicationsFieldValue),
         [applicationsFieldValue, applicationList]
     );
 

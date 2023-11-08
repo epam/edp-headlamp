@@ -5,8 +5,10 @@ import { qualityGateTypeSelectOptions } from '../../../../../../../configs/selec
 import { QUALITY_GATE_TYPES } from '../../../../../../../constants/qualityGateTypes';
 import { FormSelect } from '../../../../../../../providers/Form/components/FormSelect';
 import { FormTextField } from '../../../../../../../providers/Form/components/FormTextField';
+import { SelectOption } from '../../../../../../../types/forms';
 import { STAGE_FORM_NAMES } from '../../../../../names';
 import { CreateEditStageFormValues } from '../../../../../types';
+import { AutotestWithBranchesOption, QualityGate } from '../../types';
 import {
     createQualityGateAutotestFieldName,
     createQualityGateStepNameFieldName,
@@ -14,6 +16,98 @@ import {
     createQualityGateTypeFieldName,
 } from '../../utils';
 import { QualityGateRowProps } from './types';
+
+const getAvailableAutotests = (
+    autotestsWithBranchesOptions: AutotestWithBranchesOption[],
+    qualityGatesFieldValue: QualityGate[]
+) => {
+    return autotestsWithBranchesOptions.map(autotest => {
+        const { name, branches } = autotest;
+        const alreadyChosenAutotest = qualityGatesFieldValue.find(
+            ({ autotestName }) => autotestName === name
+        );
+
+        const qualityGatesByChosenAutotest = qualityGatesFieldValue.filter(
+            ({ autotestName }) => autotestName === name
+        );
+
+        const allBranchesAreChosen =
+            qualityGatesByChosenAutotest.length === branches.length &&
+            qualityGatesByChosenAutotest.every(qualityGate =>
+                branches.includes(qualityGate.branchName)
+            );
+
+        if (alreadyChosenAutotest && branches.length <= 1) {
+            return {
+                ...autotest,
+                disabled: true,
+            };
+        }
+
+        if (allBranchesAreChosen) {
+            return {
+                ...autotest,
+                disabled: true,
+            };
+        }
+
+        return autotest;
+    });
+};
+
+const getAvailableAutotestBranches = (
+    currentQualityGateBranchesOptions: SelectOption[],
+    qualityGatesFieldValue: QualityGate[],
+    currentQualityGateAutotestFieldValue: string
+) => {
+    return currentQualityGateBranchesOptions.map(branchOption => {
+        const qualityGatesByChosenAutotest = qualityGatesFieldValue.filter(
+            ({ autotestName }) => autotestName === currentQualityGateAutotestFieldValue
+        );
+
+        const alreadyChosenAutotestBranch = qualityGatesByChosenAutotest.find(
+            qualityGate => qualityGate.branchName === branchOption.value
+        );
+
+        if (alreadyChosenAutotestBranch) {
+            return {
+                ...branchOption,
+                disabled: true,
+            };
+        }
+
+        return branchOption;
+    });
+};
+
+const getCurrentQualityGateBranchesOptions = (
+    autotestsWithBranchesOptions: AutotestWithBranchesOption[],
+    currentQualityGateAutotestFieldValue: string
+) => {
+    return autotestsWithBranchesOptions.length && currentQualityGateAutotestFieldValue
+        ? autotestsWithBranchesOptions
+              .filter(el => el.name === currentQualityGateAutotestFieldValue)[0]
+              .branches.map(el => ({
+                  label: el,
+                  value: el,
+              }))
+        : [];
+};
+
+const getAvailableQualityGateTypeSelectOptions = (
+    autotestsWithBranchesOptions: AutotestWithBranchesOption[]
+) => {
+    return qualityGateTypeSelectOptions.map(el => {
+        if (el.value === QUALITY_GATE_TYPES.AUTOTESTS && !autotestsWithBranchesOptions.length) {
+            return {
+                ...el,
+                disabled: true,
+            };
+        }
+
+        return el;
+    });
+};
 
 export const QualityGateRow = ({
     autotestsWithBranchesOptions,
@@ -39,29 +133,25 @@ export const QualityGateRow = ({
         createQualityGateAutotestFieldName(currentQualityGate.id)
     ) as unknown as string;
 
-    const availableQualityGateTypeSelectOptions = React.useMemo(() => {
-        return qualityGateTypeSelectOptions.map(el => {
-            if (el.value === QUALITY_GATE_TYPES.AUTOTESTS && !autotestsWithBranchesOptions.length) {
-                return {
-                    ...el,
-                    disabled: true,
-                };
-            }
+    const availableQualityGateTypeSelectOptions = getAvailableQualityGateTypeSelectOptions(
+        autotestsWithBranchesOptions
+    );
 
-            return el;
-        });
-    }, [autotestsWithBranchesOptions]);
+    const currentQualityGateBranchesOptions = getCurrentQualityGateBranchesOptions(
+        autotestsWithBranchesOptions,
+        currentQualityGateAutotestFieldValue
+    );
 
-    const currentQualityGateBranchesOptions = React.useMemo(() => {
-        return autotestsWithBranchesOptions.length && currentQualityGateAutotestFieldValue
-            ? autotestsWithBranchesOptions
-                  .filter(el => el.name === currentQualityGateAutotestFieldValue)[0]
-                  .branches.map(el => ({
-                      label: el,
-                      value: el,
-                  }))
-            : [];
-    }, [autotestsWithBranchesOptions, currentQualityGateAutotestFieldValue]);
+    const availableAutotests = getAvailableAutotests(
+        autotestsWithBranchesOptions,
+        qualityGatesFieldValue
+    );
+
+    const availableAutotestBranches = getAvailableAutotestBranches(
+        currentQualityGateBranchesOptions,
+        qualityGatesFieldValue,
+        currentQualityGateAutotestFieldValue
+    );
 
     const handleChangeQualityGateType = React.useCallback(
         event => {
@@ -161,70 +251,6 @@ export const QualityGateRow = ({
             setValue(STAGE_FORM_NAMES.qualityGates.name, newQualityGates);
         },
         [currentQualityGate.id, qualityGatesFieldValue, setValue]
-    );
-
-    const availableAutotests = React.useMemo(
-        () =>
-            autotestsWithBranchesOptions.map(autotest => {
-                const { name, branches } = autotest;
-                const alreadyChosenAutotest = qualityGatesFieldValue.find(
-                    ({ autotestName }) => autotestName === name
-                );
-
-                const qualityGatesByChosenAutotest = qualityGatesFieldValue.filter(
-                    ({ autotestName }) => autotestName === name
-                );
-
-                const allBranchesAreChosen =
-                    qualityGatesByChosenAutotest.length === branches.length &&
-                    qualityGatesByChosenAutotest.every(qualityGate =>
-                        branches.includes(qualityGate.branchName)
-                    );
-
-                if (alreadyChosenAutotest && branches.length <= 1) {
-                    return {
-                        ...autotest,
-                        disabled: true,
-                    };
-                }
-
-                if (allBranchesAreChosen) {
-                    return {
-                        ...autotest,
-                        disabled: true,
-                    };
-                }
-
-                return autotest;
-            }),
-        [autotestsWithBranchesOptions, qualityGatesFieldValue]
-    );
-
-    const availableAutotestBranches = React.useMemo(
-        () =>
-            currentQualityGateBranchesOptions.map(branchOption => {
-                const qualityGatesByChosenAutotest = qualityGatesFieldValue.filter(
-                    ({ autotestName }) => autotestName === currentQualityGateAutotestFieldValue
-                );
-
-                const alreadyChosenAutotestBranch = qualityGatesByChosenAutotest.find(
-                    qualityGate => qualityGate.branchName === branchOption.value
-                );
-
-                if (alreadyChosenAutotestBranch) {
-                    return {
-                        ...branchOption,
-                        disabled: true,
-                    };
-                }
-
-                return branchOption;
-            }),
-        [
-            currentQualityGateAutotestFieldValue,
-            currentQualityGateBranchesOptions,
-            qualityGatesFieldValue,
-        ]
     );
 
     return (

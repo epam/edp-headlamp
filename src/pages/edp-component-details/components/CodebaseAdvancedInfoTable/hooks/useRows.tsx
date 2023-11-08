@@ -32,7 +32,7 @@ export const useRows = (
 
         if (codebaseSpec.repository) {
             const title =
-                codebaseSpec.strategy === CODEBASE_CREATION_STRATEGIES['CLONE']
+                codebaseSpec.strategy === CODEBASE_CREATION_STRATEGIES.CLONE
                     ? 'Forked from'
                     : 'Repository URL';
 
@@ -59,7 +59,7 @@ export const useRows = (
 
             base.push({
                 name: 'Jira Issue Metadata Payload',
-                value: !!codebaseSpec.jiraIssueMetadataPayload ? (
+                value: (
                     <>
                         {parsedJiraConfigurationEntries.map(([name, value], idx) => {
                             const key = `jiraProp::${idx}`;
@@ -82,29 +82,29 @@ export const useRows = (
                             );
                         })}
                     </>
-                ) : null,
+                ),
             });
         }
 
         if (codebaseSpec.commitMessagePattern) {
             base.push({
                 name: 'Commit Message Pattern',
-                value: !!codebaseSpec.commitMessagePattern ? (
+                value: (
                     <Typography className={classes.statusLabel} component="span">
                         {codebaseSpec.commitMessagePattern}
                     </Typography>
-                ) : null,
+                ),
             });
         }
 
         if (codebaseSpec.ticketNamePattern) {
             base.push({
                 name: 'Ticket Name Pattern',
-                value: !!codebaseSpec.ticketNamePattern ? (
+                value: (
                     <Typography className={classes.statusLabel} component="span">
                         {codebaseSpec.ticketNamePattern}
                     </Typography>
-                ) : null,
+                ),
             });
         }
 
