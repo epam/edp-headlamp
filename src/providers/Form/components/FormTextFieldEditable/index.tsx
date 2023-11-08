@@ -1,11 +1,20 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { FormControl, Grid, TextField, Typography } from '@material-ui/core';
+import { Icon } from '@iconify/react';
+import {
+    FormControl,
+    Grid,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Typography,
+} from '@material-ui/core';
 import React from 'react';
 import { Controller } from 'react-hook-form';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { FormTextFieldProps } from './types';
 
-export const FormTextField = React.forwardRef(
+export const FormTextFieldEditable = React.forwardRef(
     (
         {
             name,
@@ -23,7 +32,22 @@ export const FormTextField = React.forwardRef(
         }: FormTextFieldProps,
         ref: React.RefObject<HTMLInputElement>
     ) => {
+        const [_partiallyDisabled, setPartiallyDisabled] = React.useState(true);
         const hasError = !!errors[name];
+
+        const _InputProps = React.useMemo(
+            () => ({
+                ...InputProps,
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton size={'small'} onClick={() => setPartiallyDisabled(false)}>
+                            <Icon icon={ICONS.PENCIL} />
+                        </IconButton>
+                    </InputAdornment>
+                ),
+            }),
+            [InputProps]
+        );
 
         return (
             <Grid container spacing={1}>
@@ -43,8 +67,8 @@ export const FormTextField = React.forwardRef(
                                                 error={hasError}
                                                 placeholder={placeholder}
                                                 inputRef={ref}
-                                                disabled={disabled}
-                                                InputProps={InputProps}
+                                                disabled={disabled || _partiallyDisabled}
+                                                InputProps={_InputProps}
                                                 {...TextFieldProps}
                                                 {...field}
                                             />

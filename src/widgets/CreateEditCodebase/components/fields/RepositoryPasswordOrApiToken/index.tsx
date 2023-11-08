@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { FormTextFieldPassword } from '../../../../../providers/Form/components/FormTextFieldPassword';
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { CreateCodebaseFormValues } from '../../Create/types';
 
@@ -12,7 +12,7 @@ export const RepositoryPasswordOrApiToken = () => {
     } = useFormContext<CreateCodebaseFormValues>();
 
     return (
-        <FormTextField
+        <FormTextFieldPassword
             {...register(CODEBASE_FORM_NAMES.repositoryPasswordOrApiToken.name, {
                 required: 'Enter the repository password or access token',
                 pattern: {
@@ -24,9 +24,6 @@ export const RepositoryPasswordOrApiToken = () => {
             placeholder={'Enter the repository password or access token'}
             control={control}
             errors={errors}
-            TextFieldProps={{
-                type: 'password',
-            }}
         />
     );
 };

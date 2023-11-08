@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { FormTextFieldPassword } from '../../../../../providers/Form/components/FormTextFieldPassword';
 import { CLUSTER_CREATION_FORM_NAMES } from '../../../names';
 import { ManageClusterSecretValues } from '../../../types';
 
@@ -14,7 +14,7 @@ export const ClusterToken = () => {
 
     return (
         <Grid item xs={12}>
-            <FormTextField
+            <FormTextFieldPassword
                 {...register(CLUSTER_CREATION_FORM_NAMES.clusterToken.name, {
                     required: 'Enter cluster token',
                 })}
@@ -22,9 +22,6 @@ export const ClusterToken = () => {
                 placeholder={'Enter cluster token'}
                 control={control}
                 errors={errors}
-                TextFieldProps={{
-                    type: 'password',
-                }}
             />
         </Grid>
     );

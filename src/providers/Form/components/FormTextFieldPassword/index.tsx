@@ -1,11 +1,20 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { FormControl, Grid, TextField, Typography } from '@material-ui/core';
+import { Icon } from '@iconify/react';
+import {
+    FormControl,
+    Grid,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Typography,
+} from '@material-ui/core';
 import React from 'react';
 import { Controller } from 'react-hook-form';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { FormTextFieldProps } from './types';
 
-export const FormTextField = React.forwardRef(
+export const FormTextFieldPassword = React.forwardRef(
     (
         {
             name,
@@ -24,6 +33,26 @@ export const FormTextField = React.forwardRef(
         ref: React.RefObject<HTMLInputElement>
     ) => {
         const hasError = !!errors[name];
+        const [_type, setType] = React.useState('password');
+
+        const handleToggleType = () => {
+            setType(prev => (prev === 'text' ? 'password' : 'text'));
+        };
+
+        const _InputProps = React.useMemo(
+            () => ({
+                ...InputProps,
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton size={'small'} onClick={handleToggleType}>
+                            <Icon icon={_type === 'text' ? ICONS.EYE : ICONS.CROSSED_EYE} />
+                        </IconButton>
+                    </InputAdornment>
+                ),
+                type: _type,
+            }),
+            [InputProps, _type]
+        );
 
         return (
             <Grid container spacing={1}>
@@ -44,7 +73,7 @@ export const FormTextField = React.forwardRef(
                                                 placeholder={placeholder}
                                                 inputRef={ref}
                                                 disabled={disabled}
-                                                InputProps={InputProps}
+                                                InputProps={_InputProps}
                                                 {...TextFieldProps}
                                                 {...field}
                                             />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { FormTextFieldEditable } from '../../../../../providers/Form/components/FormTextFieldEditable';
 import { STAGE_FORM_NAMES } from '../../../names';
 import { CreateEditStageFormValues } from '../../../types';
 
@@ -14,7 +14,7 @@ export const Namespace = () => {
     } = useFormContext<CreateEditStageFormValues>();
 
     return (
-        <FormTextField
+        <FormTextFieldEditable
             {...register(STAGE_FORM_NAMES.deployNamespace.name, {
                 required: `Enter namespace to deploy to`,
                 pattern: {
@@ -27,7 +27,6 @@ export const Namespace = () => {
             placeholder={'Enter namespace to deploy to'}
             control={control}
             errors={errors}
-            partiallyDisabled
         />
     );
 };
