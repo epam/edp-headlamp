@@ -33,6 +33,11 @@ export const FormTextFieldEditable = React.forwardRef(
         ref: React.RefObject<HTMLInputElement>
     ) => {
         const [_partiallyDisabled, setPartiallyDisabled] = React.useState(true);
+
+        const handleTogglePartiallyDisabled = () => {
+            setPartiallyDisabled(prev => !prev);
+        };
+
         const hasError = !!errors[name];
 
         const _InputProps = React.useMemo(
@@ -40,13 +45,13 @@ export const FormTextFieldEditable = React.forwardRef(
                 ...InputProps,
                 endAdornment: (
                     <InputAdornment position="end">
-                        <IconButton size={'small'} onClick={() => setPartiallyDisabled(false)}>
-                            <Icon icon={ICONS.PENCIL} />
+                        <IconButton size={'small'} onClick={handleTogglePartiallyDisabled}>
+                            <Icon icon={_partiallyDisabled ? ICONS.PENCIL : ICONS.CROSS} />
                         </IconButton>
                     </InputAdornment>
                 ),
             }),
-            [InputProps]
+            [InputProps, _partiallyDisabled]
         );
 
         return (

@@ -29,8 +29,8 @@ export const SSHPrivateKey = () => {
             errors={errors}
             TextFieldProps={{
                 multiline: true,
-                minRows: 4,
-                maxRows: 4,
+                minRows: 6,
+                maxRows: 6,
             }}
             disabled={mode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
         />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { FormTextFieldPassword } from '../../../../../providers/Form/components/FormTextFieldPassword';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
 import { GIT_SERVER_FORM_NAMES } from '../../../names';
@@ -19,18 +19,13 @@ export const Token = () => {
     const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 
     return (
-        <FormTextField
+        <FormTextFieldPassword
             {...register(GIT_SERVER_FORM_NAMES.token.name, {
                 required: 'Enter your access token',
             })}
             label={'Access token'}
             control={control}
             errors={errors}
-            TextFieldProps={{
-                multiline: true,
-                minRows: 4,
-                maxRows: 4,
-            }}
             disabled={mode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
         />
     );

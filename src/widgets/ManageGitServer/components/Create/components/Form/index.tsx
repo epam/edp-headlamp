@@ -24,10 +24,10 @@ export const Form = () => {
             case GIT_PROVIDERS.GERRIT:
                 return (
                     <>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <SSHPrivateKey />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <SSHPublicKey />
                         </Grid>
                     </>
@@ -35,10 +35,10 @@ export const Form = () => {
             case GIT_PROVIDERS.GITHUB:
                 return (
                     <>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <SSHPrivateKey />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <Token />
                         </Grid>
                     </>
@@ -46,13 +46,13 @@ export const Form = () => {
             case GIT_PROVIDERS.GITLAB:
                 return (
                     <>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <SSHPrivateKey />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <SecretString />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <Token />
                         </Grid>
                     </>

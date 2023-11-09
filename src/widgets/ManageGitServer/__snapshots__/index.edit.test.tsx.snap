@@ -1877,75 +1877,84 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                 </div>
                               </div>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item"
-                                    style="flex-grow: 1;"
+                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                    style="display: flex;"
                                   >
                                     <div
                                       class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
                                     >
                                       <div
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                                        style="display: flex;"
+                                      >
+                                        <span
+                                          class="makeStyles-labelWrap-9"
+                                        >
+                                          <span
+                                            class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
+                                          >
+                                            Private SSH key
+                                          </span>
+                                          <div
+                                            class="MuiBox-root MuiBox-root-18"
+                                            style="height: 1.25rem;"
+                                          />
+                                        </span>
+                                      </div>
+                                      <div
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        style="display: flex; align-items: flex-end;"
                                       >
                                         <div
-                                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                          class="MuiFormControl-root MuiFormControl-fullWidth"
                                         >
                                           <div
-                                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                                          >
-                                            <span
-                                              class="makeStyles-labelWrap-9"
-                                            >
-                                              <span
-                                                class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
-                                              >
-                                                Private SSH key
-                                              </span>
-                                              <div
-                                                class="MuiBox-root MuiBox-root-18"
-                                                style="height: 1.25rem;"
-                                              />
-                                            </span>
-                                          </div>
-                                          <div
-                                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-                                            style="display: flex; align-items: flex-end;"
+                                            class="MuiFormControl-root MuiTextField-root"
                                           >
                                             <div
-                                              class="MuiFormControl-root MuiFormControl-fullWidth"
+                                              class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline MuiInputBase-adornedEnd"
                                             >
-                                              <div
-                                                class="MuiFormControl-root MuiTextField-root"
-                                              >
-                                                <div
-                                                  class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
-                                                >
-                                                  <textarea
-                                                    aria-invalid="false"
-                                                    class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                                    disabled=""
-                                                    name="sshPrivateKey"
-                                                    placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
+                                              <textarea
+                                                aria-invalid="false"
+                                                class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline MuiInputBase-inputAdornedEnd"
+                                                disabled=""
+                                                name="sshPrivateKey"
+                                                placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
 "
-                                                    rows="4"
-                                                    style="height: 0px; overflow: hidden;"
+                                                rows="6"
+                                                style="height: 0px; overflow: hidden;"
+                                              >
+                                                dGVzdC1pZC1yc2E=
+                                              </textarea>
+                                              <textarea
+                                                aria-hidden="true"
+                                                class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline MuiInputBase-inputAdornedEnd"
+                                                readonly=""
+                                                style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
+                                                tabindex="-1"
+                                              />
+                                              <div
+                                                class="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+                                              >
+                                                <button
+                                                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                                                  tabindex="0"
+                                                  type="button"
+                                                >
+                                                  <span
+                                                    class="MuiIconButton-label"
                                                   >
-                                                    dGVzdC1pZC1yc2E=
-                                                  </textarea>
-                                                  <textarea
-                                                    aria-hidden="true"
-                                                    class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                                    readonly=""
-                                                    style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
-                                                    tabindex="-1"
+                                                    <span />
+                                                  </span>
+                                                  <span
+                                                    class="MuiTouchRipple-root"
                                                   />
-                                                </div>
+                                                </button>
                                               </div>
                                             </div>
                                           </div>
@@ -1953,29 +1962,10 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                  <div
-                                    class="MuiGrid-root MuiGrid-item"
-                                    style="flex-shrink: 0;"
-                                  >
-                                    <button
-                                      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="MuiIconButton-label"
-                                      >
-                                        <span />
-                                      </span>
-                                      <span
-                                        class="MuiTouchRipple-root"
-                                      />
-                                    </button>
-                                  </div>
                                 </div>
                               </div>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                               >
                                 <div
                                   class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -2015,25 +2005,34 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                             class="MuiFormControl-root MuiTextField-root"
                                           >
                                             <div
-                                              class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+                                              class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
                                             >
-                                              <textarea
+                                              <input
                                                 aria-invalid="false"
-                                                class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                                                class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputAdornedEnd"
                                                 disabled=""
                                                 name="secretString"
-                                                rows="4"
-                                                style="height: 0px; overflow: hidden;"
-                                              >
-                                                test-secret-string
-                                              </textarea>
-                                              <textarea
-                                                aria-hidden="true"
-                                                class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                                readonly=""
-                                                style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
-                                                tabindex="-1"
+                                                type="password"
+                                                value="test-secret-string"
                                               />
+                                              <div
+                                                class="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+                                              >
+                                                <button
+                                                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                                                  tabindex="0"
+                                                  type="button"
+                                                >
+                                                  <span
+                                                    class="MuiIconButton-label"
+                                                  >
+                                                    <span />
+                                                  </span>
+                                                  <span
+                                                    class="MuiTouchRipple-root"
+                                                  />
+                                                </button>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
@@ -2043,7 +2042,7 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                 </div>
                               </div>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                               >
                                 <div
                                   class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
@@ -2083,25 +2082,34 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                             class="MuiFormControl-root MuiTextField-root"
                                           >
                                             <div
-                                              class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+                                              class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
                                             >
-                                              <textarea
+                                              <input
                                                 aria-invalid="false"
-                                                class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                                                class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputAdornedEnd"
                                                 disabled=""
                                                 name="token"
-                                                rows="4"
-                                                style="height: 0px; overflow: hidden;"
-                                              >
-                                                test-token
-                                              </textarea>
-                                              <textarea
-                                                aria-hidden="true"
-                                                class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                                                readonly=""
-                                                style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); width: 100%;"
-                                                tabindex="-1"
+                                                type="password"
+                                                value="test-token"
                                               />
+                                              <div
+                                                class="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+                                              >
+                                                <button
+                                                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                                                  tabindex="0"
+                                                  type="button"
+                                                >
+                                                  <span
+                                                    class="MuiIconButton-label"
+                                                  >
+                                                    <span />
+                                                  </span>
+                                                  <span
+                                                    class="MuiTouchRipple-root"
+                                                  />
+                                                </button>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>

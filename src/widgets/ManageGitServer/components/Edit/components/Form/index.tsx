@@ -75,33 +75,33 @@ export const Form = () => {
                         </Grid>
                         {gitServer.spec.gitProvider === GIT_PROVIDERS.GERRIT && (
                             <>
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SSHPrivateKey />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SSHPublicKey />
                                 </Grid>
                             </>
                         )}
                         {gitServer.spec.gitProvider === GIT_PROVIDERS.GITLAB && (
                             <>
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SSHPrivateKey />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SecretString />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <Token />
                                 </Grid>
                             </>
                         )}
                         {gitServer.spec.gitProvider === GIT_PROVIDERS.GITHUB && (
                             <>
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SSHPrivateKey />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <Token />
                                 </Grid>
                             </>
