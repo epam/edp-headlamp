@@ -20,7 +20,7 @@ export const useSecretByNameQuery = <ReturnType = SecretKubeObjectInterface>({
     const { name } = props;
 
     return useQuery<SecretKubeObjectInterface, Error, ReturnType>(
-        REQUEST_KEY_QUERY_SECRET_BY_NAME,
+        [REQUEST_KEY_QUERY_SECRET_BY_NAME, name],
         () => SecretKubeObject.getSecretByName(namespace, name),
         options
     );

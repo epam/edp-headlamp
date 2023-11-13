@@ -174,4 +174,18 @@ export const GENERATE_URL_SERVICE = {
             return `${gitHostURLObject.href}/blob/main/${pipelineName}/${stageName}/${appName}-values.yaml`;
         }
     },
+    createSonarQubeLinkByIssueType: (
+        sonarQubeBaseURL: string,
+        issueType: string,
+        projectID: string
+    ) => {
+        return `${sonarQubeBaseURL}/project/issues?id=${projectID}&resolved=false&types=${issueType}`;
+    },
+    createSonarQubeLinkByMetricName: (
+        sonarQubeBaseURL: string,
+        metricName: string,
+        projectID: string
+    ) => {
+        return `${sonarQubeBaseURL}/component_measures?id=${projectID}&metric=${metricName}`;
+    },
 };

@@ -39,6 +39,10 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
                 isDefaultBranch(codebaseData, a) ? -1 : 1
             );
             setCurrentCodebaseBranches(sortedCodebaseBranches);
+
+            if (sortedCodebaseBranches.length === 1) {
+                setExpandedPanel(`${sortedCodebaseBranches[0].spec.branchName}:0`);
+            }
         },
         [setCurrentCodebaseBranches, codebaseData]
     );

@@ -4,14 +4,18 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { PIPELINE_TYPES } from '../../../../../../../../constants/pipelineTypes';
+import { useEDPComponentsURLsQuery } from '../../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE } from '../../../../../../../../k8s/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../../k8s/PipelineRun/types';
 import { useSecretByNameQuery } from '../../../../../../../../k8s/Secret/hooks/useSecretByName';
 import { FormSelect } from '../../../../../../../../providers/Form/components/FormSelect';
+import { safeDecode } from '../../../../../../../../utils/decodeEncode';
 import { capitalizeFirstLetter } from '../../../../../../../../utils/format/capitalizeFirstLetter';
 import { PipelineRunList } from '../../../../../../../../widgets/PipelineRunList';
+import { SonarQubeMetrics } from '../../../../../../../../widgets/SonarQubeMetrics';
 import { EDPComponentDetailsRouteParams } from '../../../../../../types';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
+import { useSonarQubeMetrics } from './hooks/useSonarQubeMetrics';
 import { DetailsProps } from './types';
 
 const pipelineRunTypes = Object.entries(PIPELINE_TYPES).filter(
@@ -50,12 +54,7 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
         },
         options: {
             select: data => {
-                const url = data?.data?.url;
-
-                if (!url) {
-                    return null;
-                }
-                return window.atob(url);
+                return safeDecode(data?.data?.url);
             },
         },
     });
@@ -67,18 +66,36 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
     } = useForm();
 
     const mainInfoRows = useMainInfoRows(codebaseBranchData);
+    const dependencyTrackWidgetRef = React.useRef(null);
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+    const sonarQubeBaseURL = EDPComponentsURLS?.sonar;
+    const metrics = useSonarQubeMetrics(codebaseBranchData.metadata.name);
 
     return (
-        <Grid container spacing={5}>
+        <Grid container spacing={2}>
             <Grid item xs={12}>
-                {!!ciDependencyTrackURL && (
-                    <Link href={ciDependencyTrackURL} target={'_blank'}>
-                        <img
-                            src={`${ciDependencyTrackURL}/api/v1/badge/vulns/project/${codebaseData.metadata.name}/${codebaseBranchData.spec.branchName}`}
-                            alt=""
-                        />
-                    </Link>
-                )}
+                <Grid container alignItems={'center'}>
+                    {!!metrics ? (
+                        <Grid item>
+                            <SonarQubeMetrics
+                                metrics={metrics}
+                                projectID={codebaseBranchData.metadata.name}
+                                sonarQubeBaseURL={sonarQubeBaseURL}
+                            />
+                        </Grid>
+                    ) : null}
+                    <Grid item style={{ marginLeft: 'auto' }} ref={dependencyTrackWidgetRef}>
+                        {!!ciDependencyTrackURL && (
+                            <Link href={ciDependencyTrackURL} target={'_blank'}>
+                                <img
+                                    src={`${ciDependencyTrackURL}/api/v1/badge/vulns/project/${codebaseData.metadata.name}/${codebaseBranchData.spec.branchName}`}
+                                    alt=""
+                                    onError={() => dependencyTrackWidgetRef.current.remove()}
+                                />
+                            </Link>
+                        )}
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={5}>
