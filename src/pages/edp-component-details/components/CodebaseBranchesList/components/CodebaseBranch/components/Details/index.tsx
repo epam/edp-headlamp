@@ -66,7 +66,6 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
     } = useForm();
 
     const mainInfoRows = useMainInfoRows(codebaseBranchData);
-    const dependencyTrackWidgetRef = React.useRef(null);
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
     const sonarQubeBaseURL = EDPComponentsURLS?.sonar;
     const metrics = useSonarQubeMetrics(codebaseBranchData.metadata.name);
@@ -84,13 +83,12 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
                             />
                         </Grid>
                     ) : null}
-                    <Grid item style={{ marginLeft: 'auto' }} ref={dependencyTrackWidgetRef}>
+                    <Grid item style={{ marginLeft: 'auto' }}>
                         {!!ciDependencyTrackURL && (
                             <Link href={ciDependencyTrackURL} target={'_blank'}>
                                 <img
                                     src={`${ciDependencyTrackURL}/api/v1/badge/vulns/project/${codebaseData.metadata.name}/${codebaseBranchData.spec.branchName}`}
                                     alt=""
-                                    onError={() => dependencyTrackWidgetRef.current.remove()}
                                 />
                             </Link>
                         )}
