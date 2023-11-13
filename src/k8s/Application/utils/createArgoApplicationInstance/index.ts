@@ -76,6 +76,7 @@ export const createArgoApplicationInstance = ({
     return {
         apiVersion: `${group}/${version}`,
         kind,
+        // @ts-ignore
         metadata: {
             name: `${appName}-${createRandomString()}`,
             namespace,

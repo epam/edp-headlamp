@@ -18,6 +18,7 @@ export const createAutotestRunnerPipelineRunInstance = ({
     return {
         apiVersion: `${group}/${version}`,
         kind,
+        // @ts-ignore
         metadata: {
             // @ts-ignore
             generateName: `${CDPipelineName}-${stageSpecName}-${createRandomString()}`,
