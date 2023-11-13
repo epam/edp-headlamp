@@ -56,7 +56,6 @@ describe('testing createGitServerSecretInstance', () => {
     it('should create correct gitlab git server secret', () => {
         const object = createGitlabGitServerSecretInstance({
             sshPrivateKey: 'test private ssh key',
-            secretString: 'test-secret-string',
             token: 'test-token',
         });
 
@@ -71,7 +70,6 @@ describe('testing createGitServerSecretInstance', () => {
             },
             data: {
                 id_rsa: 'dGVzdCBwcml2YXRlIHNzaCBrZXkK',
-                secretString: 'dGVzdC1zZWNyZXQtc3RyaW5n',
                 token: 'dGVzdC10b2tlbg==',
             },
         });

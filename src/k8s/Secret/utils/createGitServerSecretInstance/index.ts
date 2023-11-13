@@ -56,11 +56,9 @@ export const createGithubGitServerSecretInstance = ({
 
 export const createGitlabGitServerSecretInstance = ({
     sshPrivateKey,
-    secretString,
     token,
 }: {
     sshPrivateKey: string;
-    secretString: string;
     token: string;
 }): EDPKubeObjectInterface => {
     return {
@@ -74,7 +72,6 @@ export const createGitlabGitServerSecretInstance = ({
         },
         data: {
             id_rsa: safeEncode(sshPrivateKey.trim() + '\n'),
-            secretString: safeEncode(secretString),
             token: safeEncode(token),
         },
     };

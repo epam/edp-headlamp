@@ -9,7 +9,6 @@ import {
     GitProvider,
     HostName,
     HTTPSPort,
-    SecretString,
     SSHPort,
     SSHPrivateKey,
     SSHPublicKey,
@@ -87,9 +86,6 @@ export const Form = () => {
                             <>
                                 <Grid item xs={12}>
                                     <SSHPrivateKey />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <SecretString />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Token />

@@ -77,11 +77,10 @@ export const useSetupGitServer = ({ onSuccess }) => {
         };
 
         const setupGitlab = async () => {
-            const { sshPrivateKey, secretString, token } = formValues;
+            const { sshPrivateKey, token } = formValues;
 
             const gitServerSecretData = createGitlabGitServerSecretInstance({
                 sshPrivateKey,
-                secretString,
                 token,
             });
 

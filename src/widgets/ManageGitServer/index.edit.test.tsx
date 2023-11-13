@@ -50,7 +50,6 @@ test('renders ManageGitServer Edit component', () => {
                         immutable: false,
                         data: {
                             id_rsa: 'dGVzdC1pZC1yc2E=',
-                            secretString: 'dGVzdC1zZWNyZXQtc3RyaW5n',
                             token: 'dGVzdC10b2tlbg==',
                         },
                         type: 'Opaque',

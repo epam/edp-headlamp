@@ -35,9 +35,6 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
             base = {
                 ...base,
                 [GIT_SERVER_FORM_NAMES.sshPrivateKey.name]: gitServerSecret?.data['id_rsa'],
-                [GIT_SERVER_FORM_NAMES.secretString.name]: safeDecode(
-                    gitServerSecret?.data.secretString
-                ),
                 [GIT_SERVER_FORM_NAMES.token.name]: safeDecode(gitServerSecret?.data.token),
             };
         }

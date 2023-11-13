@@ -111,17 +111,13 @@ export const useUpdateGitServer = ({ onSuccess }) => {
         };
 
         const editGitlab = async () => {
-            const { sshPrivateKey, secretString, token } = formValues;
+            const { sshPrivateKey, token } = formValues;
 
             const gitServerSecretData = editResource(
                 {
                     sshPrivateKey: {
                         name: 'sshPrivateKey',
                         path: ['data', 'id_rsa'],
-                    },
-                    secretString: {
-                        name: 'secretString',
-                        path: ['data', 'secretString'],
                     },
                     token: {
                         name: 'token',
@@ -131,7 +127,6 @@ export const useUpdateGitServer = ({ onSuccess }) => {
                 gitServerSecret,
                 {
                     sshPrivateKey: safeEncode(sshPrivateKey),
-                    secretString: safeEncode(secretString),
                     token: safeEncode(token),
                 }
             );
