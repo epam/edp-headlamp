@@ -93,6 +93,7 @@ service:
   port: 80
 
 ingress:
+  enabled: true
   # -- Annotations for Ingress resource
   annotations:
     {}

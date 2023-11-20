@@ -1,4 +1,5 @@
 {{ if eq .Values.global.platform "kubernetes" }}
+{{- if .Values.ingress.enabled }}
 {{- $svcPort := .Values.service.port -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
@@ -36,4 +37,5 @@ spec:
                 name: {{ .Chart.Name }}
                 port:
                   number: {{ $svcPort }}
+{{- end }}
 {{- end }}

@@ -41,6 +41,7 @@ A Helm chart for EDP Headlamp
 | image.tag | string | `nil` | EDP headlamp Docker image tag. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp/tags) |
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |
 | ingress.annotations | object | `{}` | Annotations for Ingress resource |
+| ingress.enabled | bool | `true` |  |
 | ingress.tls | list | `[]` | Ingress TLS configuration |
 | livenessProbe.failureThreshold | int | `5` |  |
 | livenessProbe.initialDelaySeconds | int | `5` |  |
