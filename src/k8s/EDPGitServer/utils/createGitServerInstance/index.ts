@@ -2,7 +2,6 @@ import { set } from 'lodash';
 import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { FormNameObject } from '../../../../types/forms';
 import { DeepPartial } from '../../../../types/global';
-import { createRandomString } from '../../../../utils/createRandomString';
 import { EDPGitServerKubeObjectConfig } from '../../config';
 import { EDPGitServerKubeObjectInterface } from '../../types';
 
@@ -17,7 +16,6 @@ export const createGitServerInstance = (
     }
 ): EDPGitServerKubeObjectInterface => {
     const { gitHost, ...restProps } = formValues;
-    const gitServerName = `${gitHost}-${createRandomString()}`;
     const nameSshKeySecret =
         formValues.gitProvider === GIT_PROVIDERS.GERRIT
             ? 'gerrit-ciuser-sshkey'
@@ -27,7 +25,7 @@ export const createGitServerInstance = (
         apiVersion: `${group}/${version}`,
         kind,
         metadata: {
-            name: gitServerName,
+            name: formValues.gitProvider,
         },
         spec: {
             gitHost,

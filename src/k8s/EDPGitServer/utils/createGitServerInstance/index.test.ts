@@ -30,7 +30,7 @@ describe('testing createGitServerInstance', () => {
         expect(object).toEqual({
             apiVersion: 'v2.edp.epam.com/v1',
             kind: 'GitServer',
-            metadata: { name: 'gerrit.com-8ygse' },
+            metadata: { name: 'gerrit' },
             spec: {
                 gitHost: 'gerrit.com',
                 nameSshKeySecret: 'gerrit-ciuser-sshkey',
