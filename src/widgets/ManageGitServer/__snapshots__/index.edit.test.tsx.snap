@@ -1923,13 +1923,12 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                                 aria-invalid="false"
                                                 class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiInput-inputMultiline MuiInputBase-inputAdornedEnd"
                                                 disabled=""
-                                                name="sshPrivateKey"
                                                 placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
 "
                                                 rows="6"
                                                 style="height: 0px; overflow: hidden;"
                                               >
-                                                dGVzdC1pZC1yc2E=
+                                                ••••••••
                                               </textarea>
                                               <textarea
                                                 aria-hidden="true"

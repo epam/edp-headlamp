@@ -24,7 +24,9 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
         if (gitProvider === GIT_PROVIDERS.GERRIT) {
             base = {
                 ...base,
-                [GIT_SERVER_FORM_NAMES.sshPrivateKey.name]: gitServerSecret?.data['id_rsa'],
+                [GIT_SERVER_FORM_NAMES.sshPrivateKey.name]: safeDecode(
+                    gitServerSecret?.data['id_rsa']
+                ),
                 [GIT_SERVER_FORM_NAMES.sshPublicKey.name]: safeDecode(
                     gitServerSecret?.data['id_rsa.pub']
                 ),
@@ -34,7 +36,9 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
         if (gitProvider === GIT_PROVIDERS.GITLAB) {
             base = {
                 ...base,
-                [GIT_SERVER_FORM_NAMES.sshPrivateKey.name]: gitServerSecret?.data['id_rsa'],
+                [GIT_SERVER_FORM_NAMES.sshPrivateKey.name]: safeDecode(
+                    gitServerSecret?.data['id_rsa']
+                ),
                 [GIT_SERVER_FORM_NAMES.token.name]: safeDecode(gitServerSecret?.data.token),
             };
         }
@@ -42,7 +46,9 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
         if (gitProvider === GIT_PROVIDERS.GITHUB) {
             base = {
                 ...base,
-                [GIT_SERVER_FORM_NAMES.sshPrivateKey.name]: gitServerSecret?.data['id_rsa'],
+                [GIT_SERVER_FORM_NAMES.sshPrivateKey.name]: safeDecode(
+                    gitServerSecret?.data['id_rsa']
+                ),
                 [GIT_SERVER_FORM_NAMES.token.name]: safeDecode(gitServerSecret?.data.token),
             };
         }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { FormTextFieldDecodeable } from '../../../../../providers/Form/components/FormTextFieldDecodeable';
+import { FormTextFieldEncoded } from '../../../../../providers/Form/components/FormTextFieldEncoded';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
 import { GIT_SERVER_FORM_NAMES } from '../../../names';
@@ -19,7 +19,7 @@ export const SSHPrivateKey = () => {
     const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 
     return (
-        <FormTextFieldDecodeable
+        <FormTextFieldEncoded
             {...register(GIT_SERVER_FORM_NAMES.sshPrivateKey.name, {
                 required: 'Enter your private SSH key',
             })}
