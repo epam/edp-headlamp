@@ -19,7 +19,7 @@ import { useStreamAutotestPipelineRunList } from '../../k8s/PipelineRun/hooks/us
 import { useStreamAutotestRunnerPipelineRunList } from '../../k8s/PipelineRun/hooks/useStreamAutotestRunnerPipelineRunList';
 import { useStreamPipelineRunListByTypeAndPipelineNameLabels } from '../../k8s/PipelineRun/hooks/useStreamPipelineRunListByTypeAndPipelineNameLabels';
 import { FormContextProvider } from '../../providers/Form';
-import { GENERATE_URL_SERVICE } from '../../services/url';
+import { LinkCreationService } from '../../services/link-creation';
 import { sortKubeObjectByCreationTimestamp } from '../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../utils/styling/rem';
 import { routeEDPCDPipelineDetails } from '../edp-cdpipeline-details/route';
@@ -275,7 +275,7 @@ export const PageView = () => {
                         <ResourceIconLink
                             icon={ICONS.ARGOCD}
                             tooltipTitle={'Open in ArgoCD'}
-                            link={GENERATE_URL_SERVICE.createArgoCDStageLink(
+                            link={LinkCreationService.argocd.createStageLink(
                                 EDPComponentsURLS?.argocd,
                                 CDPipeline?.metadata?.name,
                                 stageSpecName
@@ -286,7 +286,7 @@ export const PageView = () => {
                         <ResourceIconLink
                             icon={ICONS.GRAFANA}
                             tooltipTitle={'Open in Grafana'}
-                            link={GENERATE_URL_SERVICE.createGrafanaLink(
+                            link={LinkCreationService.grafana.createDashboardLink(
                                 EDPComponentsURLS?.grafana,
                                 stage?.spec.namespace
                             )}
@@ -296,7 +296,7 @@ export const PageView = () => {
                         <ResourceIconLink
                             icon={ICONS.KIBANA}
                             tooltipTitle={'Open in Kibana'}
-                            link={GENERATE_URL_SERVICE.createKibanaLink(
+                            link={LinkCreationService.kibana.createDashboardLink(
                                 EDPComponentsURLS?.kibana,
                                 stage?.spec.namespace
                             )}

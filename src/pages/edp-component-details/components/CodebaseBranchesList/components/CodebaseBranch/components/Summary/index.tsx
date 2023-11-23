@@ -16,7 +16,7 @@ import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/PipelineRun/con
 import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/PipelineRun/hooks/useCreateBuildPipelineRun';
 import { useStorageSizeQuery } from '../../../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { useResourceActionListContext } from '../../../../../../../../providers/ResourceActionList/hooks';
-import { GENERATE_URL_SERVICE } from '../../../../../../../../services/url';
+import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { rem } from '../../../../../../../../utils/styling/rem';
 import { EDPComponentDetailsRouteParams } from '../../../../../../types';
 import { isDefaultBranch } from '../../../../utils';
@@ -29,7 +29,7 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
 
     const sonarLink = React.useMemo(
         () =>
-            GENERATE_URL_SERVICE.createSonarLink(
+            LinkCreationService.sonar.createDashboardLink(
                 EDPComponentsURLS?.sonar,
                 codebaseBranchData.metadata.name
             ),

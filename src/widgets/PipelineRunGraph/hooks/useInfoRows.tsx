@@ -3,7 +3,7 @@ import React from 'react';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
 import { useSpecificDialogContext } from '../../../providers/Dialog/hooks';
-import { GENERATE_URL_SERVICE } from '../../../services/url';
+import { LinkCreationService } from '../../../services/link-creation';
 import { formatFullYear, humanizeDefault } from '../../../utils/date/humanize';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../constants';
 import { PipelineRunGraphDialogForwardedProps } from '../types';
@@ -24,14 +24,14 @@ export const useInfoRows = (tektonBaseURL: string) => {
     const namespace = pipelineRun?.metadata.namespace;
 
     return React.useMemo(() => {
-        const pipelineRunLink = GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+        const pipelineRunLink = LinkCreationService.tekton.createPipelineRunLink(
             tektonBaseURL,
             namespace,
             pipelineRunName
         );
 
         const pipelineLink = pipelineRun?.status?.pipelineSpec?.params?.[0]?.default
-            ? GENERATE_URL_SERVICE.createTektonPipelineLink(
+            ? LinkCreationService.tekton.createPipelineLink(
                   tektonBaseURL,
                   namespace,
                   pipelineRefName

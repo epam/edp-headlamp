@@ -9,7 +9,7 @@ import { useEDPComponentsURLsQuery } from '../../../k8s/EDPComponent/hooks/useED
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/PipelineRun/types';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
-import { GENERATE_URL_SERVICE } from '../../../services/url';
+import { LinkCreationService } from '../../../services/link-creation';
 import { formatFullYear, humanizeDefault } from '../../../utils/date/humanize';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../PipelineRunGraph/constants';
 
@@ -59,7 +59,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                     return (
                         <>
                             <Link
-                                href={GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+                                href={LinkCreationService.tekton.createPipelineRunLink(
                                     EDPComponentsURLS?.tekton,
                                     namespace,
                                     name
@@ -89,7 +89,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                         return <>{pipelineRefName}</>;
                     }
 
-                    const pipelineLink = GENERATE_URL_SERVICE.createTektonPipelineLink(
+                    const pipelineLink = LinkCreationService.tekton.createPipelineLink(
                         EDPComponentsURLS?.tekton,
                         namespace,
                         pipelineRefName

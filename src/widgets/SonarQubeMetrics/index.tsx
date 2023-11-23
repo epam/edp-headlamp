@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { PercentageCircle } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { GENERATE_URL_SERVICE } from '../../services/url';
+import { LinkCreationService } from '../../services/link-creation';
 import { MetricsItem } from './components/MetricsItem';
 import { Rating } from './components/Rating';
 import { Value } from './components/Value';
@@ -43,7 +43,7 @@ export const SonarQubeMetrics = ({
                 <MetricsItem
                     titleIcon={<Icon icon={'mdi:bug'} />}
                     title="Bugs"
-                    link={GENERATE_URL_SERVICE.createSonarQubeLinkByIssueType(
+                    link={LinkCreationService.sonar.createLinkByIssueType(
                         sonarQubeBaseURL,
                         'BUG',
                         projectID
@@ -62,7 +62,7 @@ export const SonarQubeMetrics = ({
                         )
                     }
                     title="Vulnerabilities"
-                    link={GENERATE_URL_SERVICE.createSonarQubeLinkByIssueType(
+                    link={LinkCreationService.sonar.createLinkByIssueType(
                         sonarQubeBaseURL,
                         'VULNERABILITY',
                         projectID
@@ -81,7 +81,7 @@ export const SonarQubeMetrics = ({
                         )
                     }
                     title="Code Smells"
-                    link={GENERATE_URL_SERVICE.createSonarQubeLinkByIssueType(
+                    link={LinkCreationService.sonar.createLinkByIssueType(
                         sonarQubeBaseURL,
                         'CODE_SMELL',
                         projectID
@@ -111,7 +111,7 @@ export const SonarQubeMetrics = ({
             )}
             <Grid item>
                 <MetricsItem
-                    link={GENERATE_URL_SERVICE.createSonarQubeLinkByMetricName(
+                    link={LinkCreationService.sonar.createLinkByMetricName(
                         sonarQubeBaseURL,
                         'Coverage',
                         projectID
@@ -146,7 +146,7 @@ export const SonarQubeMetrics = ({
             <Grid item>
                 <MetricsItem
                     title="Duplications"
-                    link={GENERATE_URL_SERVICE.createSonarQubeLinkByMetricName(
+                    link={LinkCreationService.sonar.createLinkByMetricName(
                         sonarQubeBaseURL,
                         'Duplications',
                         projectID

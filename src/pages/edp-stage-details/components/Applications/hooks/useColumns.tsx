@@ -23,7 +23,7 @@ import { ApplicationKubeObjectInterface } from '../../../../../k8s/Application/t
 import { getDeployedVersion } from '../../../../../k8s/Application/utils/getDeployedVersion';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
-import { GENERATE_URL_SERVICE } from '../../../../../services/url';
+import { LinkCreationService } from '../../../../../services/link-creation';
 import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../widgets/PodsLogViewer/constants';
 import { PODS_TERMINAL_DIALOG_NAME } from '../../../../../widgets/PodsTerminal/constants';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
@@ -48,7 +48,7 @@ export const useColumns = (
     const { stage } = useDynamicDataContext();
     const _createArgoCDLink = React.useCallback(
         (argoApplication: ApplicationKubeObjectInterface) =>
-            GENERATE_URL_SERVICE.createArgoCDApplicationLink(
+            LinkCreationService.argocd.createApplicationLink(
                 EDPComponentsURLS?.argocd,
                 argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_PIPELINE],
                 argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_STAGE],
@@ -208,7 +208,7 @@ export const useColumns = (
                             <Grid item>
                                 <ResourceIconLink
                                     tooltipTitle={'Go to the Source Code'}
-                                    link={GENERATE_URL_SERVICE.createGitOpsValuesYamlFileLink(
+                                    link={LinkCreationService.git.createGitOpsValuesYamlFileLink(
                                         gitOpsCodebase?.status.gitWebUrl,
                                         CDPipelineName,
                                         stage?.spec.name,

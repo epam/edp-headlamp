@@ -15,7 +15,7 @@ import { EDPCDPipelineStageKubeObject } from '../../../../../k8s/EDPCDPipelineSt
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
-import { GENERATE_URL_SERVICE } from '../../../../../services/url';
+import { LinkCreationService } from '../../../../../services/link-creation';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPStageDetails } from '../../../../edp-stage-details/route';
 import { EDPCDPipelineRouteParams } from '../../../types';
@@ -113,7 +113,7 @@ export const useColumns = (
                                 <ResourceIconLink
                                     icon={ICONS.ARGOCD}
                                     tooltipTitle={'Open in ArgoCD'}
-                                    link={GENERATE_URL_SERVICE.createArgoCDStageLink(
+                                    link={LinkCreationService.argocd.createStageLink(
                                         EDPComponentsURLS?.argocd,
                                         CDPipelineName,
                                         stage.spec.name
@@ -124,7 +124,7 @@ export const useColumns = (
                                 <ResourceIconLink
                                     icon={ICONS.GRAFANA}
                                     tooltipTitle={'Open in Grafana'}
-                                    link={GENERATE_URL_SERVICE.createGrafanaLink(
+                                    link={LinkCreationService.grafana.createDashboardLink(
                                         EDPComponentsURLS?.grafana,
                                         stage.spec.namespace
                                     )}
@@ -134,7 +134,7 @@ export const useColumns = (
                                 <ResourceIconLink
                                     icon={ICONS.KIBANA}
                                     tooltipTitle={'Open in Kibana'}
-                                    link={GENERATE_URL_SERVICE.createKibanaLink(
+                                    link={LinkCreationService.kibana.createDashboardLink(
                                         EDPComponentsURLS?.kibana,
                                         stage.spec.namespace
                                     )}

@@ -8,7 +8,7 @@ import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../k8s/
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
-import { GENERATE_URL_SERVICE } from '../../../../../services/url';
+import { LinkCreationService } from '../../../../../services/link-creation';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 import { EDPStageDetailsRouteParams } from '../../../types';
 
@@ -57,7 +57,7 @@ export const useColumns = (): TableColumn<{
                 render: ({ qualityGate: { stepName }, autotestPipelineRun }) => {
                     const tektonLink =
                         autotestPipelineRun &&
-                        GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+                        LinkCreationService.tekton.createPipelineRunLink(
                             EDPComponentsURLS?.tekton,
                             autotestPipelineRun?.metadata?.namespace,
                             autotestPipelineRun?.metadata?.name

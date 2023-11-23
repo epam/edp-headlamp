@@ -7,7 +7,7 @@ import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
-import { GENERATE_URL_SERVICE } from '../../services/url';
+import { LinkCreationService } from '../../services/link-creation';
 import { StageActionsMenu } from '../../widgets/StageActionsMenu';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
 import { CDPipelineActions } from './components/CDPipelineActions';
@@ -42,7 +42,7 @@ export const PageView = () => {
                         <ResourceIconLink
                             icon={ICONS.ARGOCD}
                             tooltipTitle={'Open in ArgoCD'}
-                            link={GENERATE_URL_SERVICE.createArgoCDPipelineLink(
+                            link={LinkCreationService.argocd.createPipelineLink(
                                 EDPComponentsURLS?.argocd,
                                 name
                             )}

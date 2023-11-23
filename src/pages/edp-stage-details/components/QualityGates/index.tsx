@@ -20,7 +20,7 @@ import { TASK_RUN_STEP_REASON, TASK_RUN_STEP_STATUS } from '../../../../k8s/Task
 import { useStreamTaskRunListByPipelineNameAndPipelineType } from '../../../../k8s/TaskRun/hooks/useStreamTaskRunListByPipelineNameAndPipelineType';
 import { TaskRunKubeObjectInterface } from '../../../../k8s/TaskRun/types';
 import { useStorageSizeQuery } from '../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
-import { GENERATE_URL_SERVICE } from '../../../../services/url';
+import { LinkCreationService } from '../../../../services/link-creation';
 import { ValueOf } from '../../../../types/global';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../utils/styling/rem';
@@ -105,7 +105,7 @@ const getResourceURLByResourceType = (
     if (resourceType === 'taskrun') {
         return (
             resource &&
-            GENERATE_URL_SERVICE.createTektonTaskRunLink(
+            LinkCreationService.tekton.createTaskRunLink(
                 tektonBaseURL,
                 resource?.metadata?.namespace,
                 resource?.metadata?.name
@@ -114,7 +114,7 @@ const getResourceURLByResourceType = (
     } else if (resourceType === 'pipelinerun') {
         return (
             resource &&
-            GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+            LinkCreationService.tekton.createPipelineRunLink(
                 tektonBaseURL,
                 resource?.metadata?.namespace,
                 resource?.metadata?.name

@@ -25,7 +25,7 @@ import { TASK_RUN_STEP_REASON, TASK_RUN_STEP_STATUS } from '../../k8s/TaskRun/co
 import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../k8s/TaskRun/labels';
 import { TaskRunKubeObjectInterface } from '../../k8s/TaskRun/types';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
-import { GENERATE_URL_SERVICE } from '../../services/url';
+import { LinkCreationService } from '../../services/link-creation';
 import { ValueOf } from '../../types/global';
 import { rem } from '../../utils/styling/rem';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from './constants';
@@ -101,7 +101,7 @@ export const PipelineRunGraph = () => {
                 taskRunReason
             );
 
-            const taskRunAnchorLink = GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+            const taskRunAnchorLink = LinkCreationService.tekton.createPipelineRunLink(
                 tektonBaseURL,
                 namespace,
                 pipelineRun.metadata.name,
@@ -148,7 +148,7 @@ export const PipelineRunGraph = () => {
                                             TaskRunKubeObject.getStepStatusIcon(status, reason);
 
                                         const taskRunStepLink =
-                                            GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+                                            LinkCreationService.tekton.createPipelineRunLink(
                                                 tektonBaseURL,
                                                 namespace,
                                                 pipelineRun.metadata.name,
@@ -207,7 +207,7 @@ export const PipelineRunGraph = () => {
             const reason = TaskRunKubeObject.parseStatusReason(TaskRunByName);
             const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(status, reason);
 
-            const taskRunAnchorLink = GENERATE_URL_SERVICE.createTektonPipelineRunLink(
+            const taskRunAnchorLink = LinkCreationService.tekton.createPipelineRunLink(
                 tektonBaseURL,
                 namespace,
                 pipelineRun.metadata.name,
