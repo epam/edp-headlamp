@@ -16,9 +16,9 @@
 
 ## Overview
 
-EDP Portal is  built on the top of [EDP documentation](https://epam.github.io/edp-install/?utm_source=github&utm_medium=referral&utm_campaign=edp-portal). All EDP-specific functionality is written as Headlamp plugins.
+EDP Portal is  built on the top of [Headlamp](https://github.com/headlamp-k8s/headlamp). All EDP-specific functionality is written as Headlamp plugins.
 
-https://github.com/epam/edp-headlamp/assets/42180137/3bf51f80-4d08-48de-a255-c98dbbaab704
+https://github-production-user-asset-6210df.s3.amazonaws.com/42180137/285478565-df7f5393-233f-40f2-8acc-b8b0d90cb687.mp4
 
 ### Assets
 
