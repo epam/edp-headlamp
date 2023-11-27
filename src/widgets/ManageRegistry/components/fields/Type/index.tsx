@@ -2,10 +2,12 @@ import React from 'react';
 import { useFormContext as useReactHookFormDataContext } from 'react-hook-form';
 import {
     CONTAINER_REGISTRY_PLATFORM,
+    CONTAINER_REGISTRY_TYPE,
     CONTAINER_REGISTRY_TYPE_BY_PLATFORM,
 } from '../../../../../k8s/ConfigMap/constants';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
 import { useFormContext } from '../../../../../providers/Form/hooks';
+import { FieldEvent } from '../../../../../types/forms';
 import { ValueOf } from '../../../../../types/global';
 import { REGISTRY_NAMES } from '../../../names';
 import { ManageRegistryDataContext } from '../../../types';
@@ -26,6 +28,7 @@ export const Type = () => {
         register,
         control,
         formState: { errors },
+        setValue,
     } = useReactHookFormDataContext();
 
     const {
@@ -43,6 +46,11 @@ export const Type = () => {
         <FormSelect
             {...register(REGISTRY_NAMES.REGISTRY_TYPE, {
                 required: 'Select a registry type you would like to create.',
+                onChange: ({ target: { value } }: FieldEvent) => {
+                    if (value === CONTAINER_REGISTRY_TYPE.DOCKER_HUB) {
+                        setValue(REGISTRY_NAMES.REGISTRY_HOST, 'docker.io');
+                    }
+                },
             })}
             label={'Registry Type'}
             title={'Select a registry type you would like to create'}

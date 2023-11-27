@@ -24,7 +24,7 @@ const generateNameBasedOnType = (type: ValueOf<typeof CONTAINER_REGISTRY_TYPE>) 
 export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
     const { EDPConfigMap } = formData;
     const registryType = EDPConfigMap?.data.container_registry_type;
-    const mode = registryType ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+    const mode = !registryType ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
     const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
 
