@@ -21,7 +21,7 @@ import {
 } from '../../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../../names';
 import { CreateEditCDPipelineFormValues } from '../../../../types';
-import { Applications, DeploymentType, PipelineName, Stages } from '../../../fields';
+import { Applications, PipelineName, Stages } from '../../../fields';
 import { FormProps } from './types';
 
 export const Form = ({
@@ -116,9 +116,6 @@ export const Form = ({
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <PipelineName onPipelineNameChange={onPipelineNameChange} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <DeploymentType />
                     </Grid>
                 </Grid>
             </TabPanel>
