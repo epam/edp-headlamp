@@ -1,5 +1,5 @@
-import { PageDescription } from '../../types/pages';
+import { SubMenuGroup } from '../../pages/edp-configuration/menu';
 
 export interface PageWithSubMenuProps {
-    list: PageDescription[];
+    list: SubMenuGroup[];
 }

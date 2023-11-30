@@ -57,6 +57,9 @@ export const FormActions = () => {
         return false;
     }, [pullAccountSecret, pushAccountSecret]);
 
+    const resetButtonDisabled =
+        !pushAccountSecret || !pullAccountSecret || someOfTheSecretsHasExternalOwner;
+
     return (
         <>
             <Grid container spacing={2} alignItems={'center'} justifyContent={'space-between'}>
@@ -90,7 +93,7 @@ export const FormActions = () => {
                                 });
                             }}
                             startIcon={<Icon icon={ICONS.WARNING} />}
-                            disabled={someOfTheSecretsHasExternalOwner}
+                            disabled={resetButtonDisabled}
                         >
                             Reset registry
                         </Button>

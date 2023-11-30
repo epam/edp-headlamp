@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import {
     Drawer,
+    Grid,
     ListItem,
     ListItemIcon,
     ListItemText,
@@ -22,31 +23,54 @@ export const PageWithSubMenu: React.FC<PageWithSubMenuProps> = ({ list, children
         <div className={classes.subMenuAndContentWrapper}>
             <div className={classes.subMenuWrapper}>
                 <Drawer variant="permanent" className={classes.subMenu}>
-                    {list.map(({ icon, label, routePath }) => {
-                        const isSelected = pathname.includes(routePath);
+                    <div style={{ paddingBottom: theme.typography.pxToRem(20) }}>
+                        <Grid container spacing={2}>
+                            {list.map(({ label, icon, children }) => (
+                                <Grid item xs={12} key={label} className={classes.subMenuGroup}>
+                                    {label && (
+                                        <ListItem className={classes.listItemRoot}>
+                                            <ListItemIcon className={classes.listItemIcon}>
+                                                <Icon icon={icon} width={20} height={20} />
+                                            </ListItemIcon>
+                                            <ListItemText>
+                                                <Typography
+                                                    variant={'body1'}
+                                                    className={classes.listItemRootText}
+                                                >
+                                                    {label}
+                                                </Typography>
+                                            </ListItemText>
+                                        </ListItem>
+                                    )}
+                                    {children.map(({ label, routePath }) => {
+                                        const isSelected = pathname.includes(routePath);
 
-                        return (
-                            <ListItem
-                                component={Link}
-                                button
-                                selected={isSelected}
-                                routeName={routePath}
-                                icon
-                            >
-                                <ListItemIcon>
-                                    <Icon icon={icon} width={20} height={20} />
-                                </ListItemIcon>
-                                <ListItemText style={{ margin: 0 }}>
-                                    <Typography
-                                        variant={'body2'}
-                                        style={{ color: theme.palette.text.primary }}
-                                    >
-                                        {label}
-                                    </Typography>
-                                </ListItemText>
-                            </ListItem>
-                        );
-                    })}
+                                        return (
+                                            <ListItem
+                                                key={label}
+                                                component={Link}
+                                                button
+                                                selected={isSelected}
+                                                routeName={routePath}
+                                                className={classes.listItemButton}
+                                            >
+                                                <ListItemText style={{ margin: 0 }}>
+                                                    <Typography
+                                                        variant={'body2'}
+                                                        style={{
+                                                            color: theme.palette.text.primary,
+                                                        }}
+                                                    >
+                                                        {label}
+                                                    </Typography>
+                                                </ListItemText>
+                                            </ListItem>
+                                        );
+                                    })}
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </div>
                 </Drawer>
             </div>
             <div className={classes.contentWrapper}>{children}</div>
