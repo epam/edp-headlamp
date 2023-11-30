@@ -20,6 +20,11 @@ export interface SubMenuGroup {
 
 export const menu: SubMenuGroup[] = [
     {
+        label: 'Quick Access',
+        icon: ICONS.LIGHTNING,
+        children: [EDP_COMPONENT_LIST_PAGE_DESCRIPTION],
+    },
+    {
         label: 'Artifacts Storage',
         icon: ICONS.REGISTRY,
         children: [NEXUS_INTEGRATION_PAGE_DESCRIPTION, REGISTRY_LIST_PAGE_DESCRIPTION],
@@ -31,7 +36,7 @@ export const menu: SubMenuGroup[] = [
     },
     {
         label: 'Security',
-        icon: 'material-symbols:security',
+        icon: ICONS.SECURITY,
         children: [
             DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION,
             DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION,
@@ -53,8 +58,8 @@ export const menu: SubMenuGroup[] = [
         children: [JIRA_INTEGRATION_PAGE_DESCRIPTION],
     },
     {
-        label: null,
-        icon: null,
-        children: [EDP_COMPONENT_LIST_PAGE_DESCRIPTION, SSO_INTEGRATION_PAGE_DESCRIPTION],
+        label: 'Access',
+        icon: ICONS.SSO,
+        children: [SSO_INTEGRATION_PAGE_DESCRIPTION],
     },
 ];
