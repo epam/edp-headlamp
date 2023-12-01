@@ -1,24 +1,22 @@
 import { Grid } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
-import { useFormContext } from '../../../../providers/Form/hooks';
-import { ManageJiraIntegrationSecretFormDataContext } from '../../types';
-import { Password, User } from '../fields';
+import { useFormContext } from '../../../../../../providers/Form/hooks';
+import { ManageJiraIntegrationSecretFormDataContext } from '../../../../types';
+import { Password, User } from '../../../fields';
 
 export const Form = () => {
     const {
-        formData: { currentElement, isReadOnly },
+        formData: { jiraServerSecret },
     } = useFormContext<ManageJiraIntegrationSecretFormDataContext>();
-
-    const owner =
-        currentElement !== 'placeholder' && currentElement?.metadata?.ownerReferences?.[0].kind;
+    const jiraServerSecretOwner = jiraServerSecret?.metadata?.ownerReferences?.[0].kind;
 
     return (
         <Grid container spacing={2}>
-            {isReadOnly && (
+            {jiraServerSecretOwner && (
                 <Grid item xs={12}>
                     <Alert severity="info" variant="outlined">
-                        Managed by {owner}
+                        Managed by {jiraServerSecretOwner}
                     </Alert>
                 </Grid>
             )}

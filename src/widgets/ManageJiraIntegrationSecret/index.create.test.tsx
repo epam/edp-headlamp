@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { FORM_MODES } from '../../types/forms';
 import { ManageJiraIntegrationSecret } from './index';
 
 test('renders ManageJiraIntegrationSecret Create component', () => {
@@ -12,8 +13,10 @@ test('renders ManageJiraIntegrationSecret Create component', () => {
         <TestWrapper>
             <ManageJiraIntegrationSecret
                 formData={{
-                    currentElement: 'placeholder',
-                    handleClosePlaceholder: jest.fn(),
+                    jiraServer: null,
+                    jiraServerSecret: null,
+                    mode: FORM_MODES.CREATE,
+                    handleClosePanel: jest.fn(),
                 }}
             />
         </TestWrapper>

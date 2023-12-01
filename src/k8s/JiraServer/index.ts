@@ -1,6 +1,9 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
+import { STATUS_COLOR } from '../../constants/colors';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { KubeObjectListInterface } from '../../types/k8s';
 import { JiraServerKubeObjectConfig } from './config';
+import { JIRA_SERVER_STATUS } from './constants';
 import { JiraServerKubeObjectInterface, JiraServerSpec, JiraServerStatus } from './types';
 
 const {
@@ -32,5 +35,24 @@ export class JiraServerKubeObject extends K8s.cluster.makeKubeObject<JiraServerK
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
 
         return ApiProxy.request(url);
+    }
+
+    static getStatusIcon(status: string): [string, string, boolean?] {
+        if (status === undefined) {
+            return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        }
+
+        const _status = status.toLowerCase();
+
+        switch (_status) {
+            case JIRA_SERVER_STATUS.FINISHED:
+                return [ICONS.CHECK_CIRCLE, STATUS_COLOR.SUCCESS];
+
+            case JIRA_SERVER_STATUS.ERROR:
+                return [ICONS.CROSS_CIRCLE, STATUS_COLOR.ERROR];
+
+            default:
+                return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        }
     }
 }

@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
 import { INTEGRATION_SECRET_NAMES } from '../../k8s/Secret/constants';
+import { FORM_MODES } from '../../types/forms';
 import { ManageJiraIntegrationSecret } from './index';
 
 test('renders ManageJiraIntegrationSecret Edit component', () => {
@@ -13,7 +14,21 @@ test('renders ManageJiraIntegrationSecret Edit component', () => {
         <TestWrapper>
             <ManageJiraIntegrationSecret
                 formData={{
-                    currentElement: {
+                    jiraServer: {
+                        apiVersion: 'v2.edp.epam.com/v1',
+                        kind: 'JiraServer',
+                        // @ts-ignore
+                        metadata: {
+                            name: 'test-jira',
+                            namespace: 'test-namespace',
+                        },
+                        // @ts-ignore
+                        status: {
+                            available: true,
+                            status: 'finished',
+                        },
+                    },
+                    jiraServerSecret: {
                         // @ts-ignore
                         metadata: {
                             name: INTEGRATION_SECRET_NAMES.JIRA,
@@ -39,7 +54,8 @@ test('renders ManageJiraIntegrationSecret Edit component', () => {
                         },
                         type: 'Opaque',
                     },
-                    handleDeleteRow: jest.fn(),
+                    mode: FORM_MODES.EDIT,
+                    handleClosePanel: jest.fn(),
                 }}
             />
         </TestWrapper>
