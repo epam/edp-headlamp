@@ -24,7 +24,7 @@ export const GitServer = () => {
                 required: 'Select an existing Git server',
             })}
             label={'Git server'}
-            title={'Select an existing Git server'}
+            title={'Choose the Git server for hosting your repository.'}
             control={control}
             errors={errors}
             options={gitServersOptions}

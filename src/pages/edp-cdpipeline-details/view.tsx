@@ -4,6 +4,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { PageWrapper } from '../../components/PageWrapper';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
+import { Section } from '../../components/Section';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
@@ -64,19 +65,21 @@ export const PageView = () => {
                 </Grid>
             }
         >
-            {!!CDPipeline && (
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <CDPipelineApplicationsTable />
+            <Section title={name}>
+                {!!CDPipeline && (
+                    <Grid container spacing={8}>
+                        <Grid item xs={12}>
+                            <CDPipelineApplicationsTable />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <ResourceActionListContextProvider>
+                                <StageList />
+                                <StageActionsMenu stages={stages} CDPipelineData={CDPipeline} />
+                            </ResourceActionListContextProvider>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <ResourceActionListContextProvider>
-                            <StageList />
-                            <StageActionsMenu stages={stages} CDPipelineData={CDPipeline} />
-                        </ResourceActionListContextProvider>
-                    </Grid>
-                </Grid>
-            )}
+                )}
+            </Section>
         </PageWrapper>
     );
 };

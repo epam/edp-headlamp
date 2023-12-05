@@ -14,14 +14,16 @@ export const DefaultBranch = () => {
     return (
         <FormTextField
             {...register(CODEBASE_FORM_NAMES.defaultBranch.name, {
-                required: 'Enter a new or existing branch name',
+                required: 'Specify a branch to work in.',
                 pattern: {
                     value: /^[a-z0-9][a-z0-9\/\-\.]*[a-z0-9]$/,
                     message: 'Enter valid default branch name',
                 },
             })}
             label={'Default branch'}
-            title={'Enter a new or existing branch name'}
+            title={
+                'Set the default branch for your repository (e.g., main, master). This branch is typically used as the base for new development and integration work.'
+            }
             placeholder={'Enter the default branch name'}
             control={control}
             errors={errors}

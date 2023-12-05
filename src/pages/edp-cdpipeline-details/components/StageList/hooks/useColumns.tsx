@@ -150,7 +150,7 @@ export const useColumns = (
                         </Grid>
                     );
                 },
-                width: '40%',
+                width: '45%',
             },
             {
                 id: 'actions',

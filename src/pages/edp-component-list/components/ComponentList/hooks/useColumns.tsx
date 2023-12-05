@@ -7,7 +7,6 @@ import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import {
     BUILD_TOOL_ICON_MAPPING,
-    CI_TOOL_ICON_MAPPING,
     FRAMEWORK_ICON_MAPPING,
     LANGUAGE_ICON_MAPPING,
 } from '../../../../../configs/icon-mappings';
@@ -109,7 +108,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                         </Link>
                     );
                 },
-                width: '20%',
+                width: '35%',
             },
             {
                 id: 'type',
@@ -197,29 +196,6 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                                 {codebaseMapping?.[lang]?.buildTools?.[buildTool]?.name ||
                                     capitalizeFirstLetter(buildTool)}
                             </Grid>
-                        </Grid>
-                    );
-                },
-                width: '15%',
-            },
-            {
-                id: 'ciTool',
-                label: 'CI Tool',
-                columnSortableValuePath: 'spec.ciTool',
-                render: ({ spec: { ciTool } }) => {
-                    return (
-                        <Grid container spacing={1} alignItems={'center'}>
-                            <Grid item>
-                                <UseSpriteSymbol
-                                    name={
-                                        CI_TOOL_ICON_MAPPING?.[ciTool?.toLowerCase()] ||
-                                        RESOURCE_ICON_NAMES.OTHER
-                                    }
-                                    width={20}
-                                    height={20}
-                                />
-                            </Grid>
-                            <Grid item>{capitalizeFirstLetter(ciTool)}</Grid>
                         </Grid>
                     );
                 },

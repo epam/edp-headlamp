@@ -62,7 +62,9 @@ export const Framework = () => {
                             message: 'Invalid language version/framework name: [a-z]',
                         },
                     })}
-                    label={`Language version/framework`}
+                    label={
+                        'Indicate the version of the programming language or framework your component relies on. '
+                    }
                     placeholder={`Enter language version/framework`}
                     control={control}
                     errors={errors}
@@ -74,7 +76,9 @@ export const Framework = () => {
                     })}
                     control={control}
                     errors={errors}
-                    label={`Language version/framework`}
+                    label={
+                        'Indicate the version of the programming language or framework your component relies on. '
+                    }
                     options={frameworkOptions}
                 />
             )}

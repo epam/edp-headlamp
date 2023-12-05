@@ -1,12 +1,13 @@
 import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Button, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { DocLink } from '../../components/DocLink';
 import { EmptyList } from '../../components/EmptyList';
+import { Filter } from '../../components/Filter';
 import { PageWrapper } from '../../components/PageWrapper';
+import { Section } from '../../components/Section';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
@@ -53,55 +54,67 @@ export const PageView = () => {
 
     return (
         <PageWrapper>
-            <SectionBox>
-                <SectionFilterHeader
-                    // @ts-ignore
-                    title={
-                        <Grid container alignItems={'center'} spacing={1}>
+            <Section
+                title={
+                    <Grid container alignItems={'center'} spacing={1}>
+                        <Grid item>
+                            <Typography variant={'h1'}>Environments</Typography>
+                        </Grid>
+                        <Grid item>
+                            <DocLink
+                                href={EDP_USER_GUIDE.CD_PIPELINE_CREATE.anchors.CREATE_VIA_UI.url}
+                            />
+                        </Grid>
+                    </Grid>
+                }
+            >
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Grid
+                            container
+                            spacing={2}
+                            alignItems={'flex-end'}
+                            justifyContent={'flex-end'}
+                        >
                             <Grid item>
-                                <Typography variant={'h1'}>Environments</Typography>
+                                <Filter />
                             </Grid>
                             <Grid item>
-                                <DocLink
-                                    href={
-                                        EDP_USER_GUIDE.CD_PIPELINE_CREATE.anchors.CREATE_VIA_UI.url
+                                <Button
+                                    startIcon={<Icon icon={ICONS.PLUS} />}
+                                    color={'primary'}
+                                    variant={'contained'}
+                                    onClick={() =>
+                                        setDialog({
+                                            modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
+                                            forwardedProps:
+                                                createEditCDPipelineDialogForwardedProps,
+                                        })
                                     }
-                                />
+                                    disabled={!gitOpsCodebase}
+                                >
+                                    create
+                                </Button>
                             </Grid>
                         </Grid>
-                    }
-                    actions={[
-                        <Button
-                            startIcon={<Icon icon={ICONS.PLUS} />}
-                            color={'primary'}
-                            variant={'contained'}
-                            onClick={() =>
-                                setDialog({
-                                    modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
-                                    forwardedProps: createEditCDPipelineDialogForwardedProps,
-                                })
-                            }
-                            disabled={!gitOpsCodebase}
-                        >
-                            create
-                        </Button>,
-                    ]}
-                    headerStyle="label"
-                />
-                <ResourceActionListContextProvider>
-                    {(isLoading || !!gitOpsCodebase) && (
-                        <CDPipelineList CDPipelines={items} error={error} />
-                    )}
-                    {!isLoading && !gitOpsCodebase && (
-                        <EmptyList
-                            customText={'No GitOps repository configured.'}
-                            linkText={'Click here to add a repository.'}
-                            handleClick={() => history.push(gitOpsConfigurationPageRoute)}
-                        />
-                    )}
-                    <CDPipelineActionsMenu />
-                </ResourceActionListContextProvider>
-            </SectionBox>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ResourceActionListContextProvider>
+                            {(isLoading || !!gitOpsCodebase) && (
+                                <CDPipelineList CDPipelines={items} error={error} />
+                            )}
+                            {!isLoading && !gitOpsCodebase && (
+                                <EmptyList
+                                    customText={'No GitOps repository configured.'}
+                                    linkText={'Click here to add a repository.'}
+                                    handleClick={() => history.push(gitOpsConfigurationPageRoute)}
+                                />
+                            )}
+                            <CDPipelineActionsMenu />
+                        </ResourceActionListContextProvider>
+                    </Grid>
+                </Grid>
+            </Section>
         </PageWrapper>
     );
 };

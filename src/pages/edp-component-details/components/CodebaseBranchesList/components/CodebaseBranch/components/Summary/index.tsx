@@ -161,7 +161,7 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
                     {!!EDPComponentsURLS?.sonar && (
                         <Grid item>
                             <ResourceIconLink
-                                tooltipTitle={'Go to the Quality Gates'}
+                                tooltipTitle={'Open the Quality Gates'}
                                 link={sonarLink}
                                 icon={ICONS.SONAR}
                             />
@@ -170,7 +170,7 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
                     {!!codebaseData?.status?.gitWebUrl && (
                         <Grid item>
                             <ResourceIconLink
-                                tooltipTitle={'Go to the Source Code'}
+                                tooltipTitle={'Open the Source Code'}
                                 link={codebaseData?.status?.gitWebUrl}
                                 icon={ICONS.GIT_BRANCH}
                             />

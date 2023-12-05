@@ -25,7 +25,10 @@ export const GitUrlPath = () => {
                     message: 'Enter valid relative path to repository',
                 },
             })}
-            label={'Git repo relative path'}
+            label={'Repository name'}
+            title={
+                'Enter a unique repository name. If GitLab is used as a Git server, use the: username/repository_name.'
+            }
             placeholder={
                 'Indicate the repository relative path in the following format project/repository'
             }

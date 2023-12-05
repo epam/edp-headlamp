@@ -2,6 +2,8 @@ import { Grid } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { DocLink } from '../../../../../components/DocLink';
+import { EDP_OPERATOR_GUIDE } from '../../../../../constants/urls';
 import { useJiraServerNameListQuery } from '../../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
 import { FormCheckbox } from '../../../../../providers/Form/components/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../providers/Form/components/FormControlLabelWithTooltip';
@@ -27,13 +29,22 @@ export const JiraServerIntegration = () => {
                 </Grid>
             ) : null}
             <Grid item xs={12}>
-                <FormCheckbox
-                    {...register(CODEBASE_FORM_NAMES.hasJiraServerIntegration.name)}
-                    label={<FormControlLabelWithTooltip label={'Integrate with Jira server'} />}
-                    control={control}
-                    errors={errors}
-                    disabled={jiraServersNames && !jiraServersNames.length}
-                />
+                <Grid container spacing={1} alignItems={'center'}>
+                    <Grid item>
+                        <FormCheckbox
+                            {...register(CODEBASE_FORM_NAMES.hasJiraServerIntegration.name)}
+                            label={
+                                <FormControlLabelWithTooltip label={'Integrate with Jira server'} />
+                            }
+                            control={control}
+                            errors={errors}
+                            disabled={jiraServersNames && !jiraServersNames.length}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <DocLink href={EDP_OPERATOR_GUIDE.JIRA.url} />
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     );

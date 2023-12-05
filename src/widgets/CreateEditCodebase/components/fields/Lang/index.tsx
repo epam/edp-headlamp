@@ -5,7 +5,6 @@ import { CODEBASE_CREATION_STRATEGIES } from '../../../../../constants/creationS
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { FormRadioGroup } from '../../../../../providers/Form/components/FormRadioGroup';
 import { FormRadioOption } from '../../../../../providers/Form/components/FormRadioGroup/types';
-import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { CreateCodebaseFormValues } from '../../Create/types';
@@ -22,8 +21,6 @@ export const Lang = () => {
 
     const typeFieldValue = watch(CODEBASE_FORM_NAMES.type.name);
     const strategyValue = watch(CODEBASE_FORM_NAMES.strategy.name);
-
-    const capitalizedCodebaseType = capitalizeFirstLetter(typeFieldValue);
 
     const langOptions = React.useMemo(() => {
         const codebaseMapping = getCodebaseMappingByCodebaseType(typeFieldValue);
@@ -66,7 +63,7 @@ export const Lang = () => {
             })}
             control={control}
             errors={errors}
-            label={`${capitalizedCodebaseType} code language`}
+            label={'Specify the primary programming language used in your component.'}
             options={langOptions}
         />
     );

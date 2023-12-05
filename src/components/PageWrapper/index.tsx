@@ -11,10 +11,12 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
     breadcrumbsExtraContent,
     containerMaxWidth = 'xl',
 }) => {
+    const hasBreadcrumbs = !!breadcrumbs && !!breadcrumbs.length;
+
     return (
         <>
-            {!!breadcrumbs && !!breadcrumbs.length ? (
-                <Container maxWidth={containerMaxWidth}>
+            {hasBreadcrumbs ? (
+                <Container maxWidth={containerMaxWidth} style={{ marginTop: rem(48) }}>
                     <Grid
                         container
                         spacing={1}
@@ -57,7 +59,12 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
                     </Grid>
                 </Container>
             ) : null}
-            <Container maxWidth={containerMaxWidth}>{children}</Container>
+            <Container
+                maxWidth={containerMaxWidth}
+                style={{ marginTop: rem(hasBreadcrumbs ? 16 : 48) }}
+            >
+                {children}
+            </Container>
         </>
     );
 };

@@ -180,7 +180,12 @@ export const PipelineRunListOverview = () => {
                     <Grid item xs={8}>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
-                                <FormControlLabelWithTooltip label={'Codebases'} />
+                                <FormControlLabelWithTooltip
+                                    label={'Codebases'}
+                                    title={
+                                        'Applications, libraries, autotests and infrastructures pipelines.'
+                                    }
+                                />
                             </Grid>
                             <Grid item xs={12}>
                                 <Autocomplete

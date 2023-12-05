@@ -64,6 +64,10 @@ export const useDetectNamespaces = () => {
         ) {
             enqueueSnackbar(
                 <Typography>
+                    <span>
+                        Your allowed namespaces are unset. To get started, please set your
+                        namespaces by navigating to the{' '}
+                    </span>
                     <span>Allowed namespaces are unset. Navigate to </span>
                     <Link
                         component="button"
@@ -74,9 +78,9 @@ export const useDetectNamespaces = () => {
                             closeSnackbar();
                         }}
                     >
-                        cluster settings
+                        Cluster Settings
                     </Link>
-                    <span> page</span>
+                    <span> page.</span>
                 </Typography>,
                 {
                     autoHideDuration: null,

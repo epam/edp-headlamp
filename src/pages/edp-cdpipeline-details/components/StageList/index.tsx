@@ -1,7 +1,10 @@
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import { DocLink } from '../../../../components/DocLink';
 import { EmptyList } from '../../../../components/EmptyList';
+import { Section } from '../../../../components/Section';
 import { Table } from '../../../../components/Table';
+import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../widgets/CreateEditStage/constants';
@@ -29,35 +32,37 @@ export const StageList = () => {
     );
 
     return (
-        <Grid container spacing={1}>
-            <Grid item xs={12}>
-                <Grid container spacing={1} alignItems={'center'} justifyContent={'space-between'}>
+        <Section
+            title={
+                <Grid container alignItems={'center'} spacing={1}>
                     <Grid item>
-                        <Typography variant={'h5'}>Stages</Typography>
+                        <Typography variant={'h1'}>Stages</Typography>
                     </Grid>
                     <Grid item>
+                        <DocLink href={EDP_USER_GUIDE.BRANCHES_MANAGE.url} />
+                    </Grid>
+                    <Grid item style={{ marginLeft: 'auto' }}>
                         <TableHeaderActions CDPipelineStages={stages} />
                     </Grid>
                 </Grid>
-            </Grid>
-            <Grid item xs={12}>
-                <Table
-                    columns={columns}
-                    data={stages}
-                    isLoading={!stages}
-                    emptyListComponent={
-                        <EmptyList
-                            missingItemName={'stages'}
-                            handleClick={() => {
-                                setDialog({
-                                    modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
-                                    forwardedProps: createEditStageDialogForwardedProps,
-                                });
-                            }}
-                        />
-                    }
-                />
-            </Grid>
-        </Grid>
+            }
+        >
+            <Table
+                columns={columns}
+                data={stages}
+                isLoading={!stages}
+                emptyListComponent={
+                    <EmptyList
+                        missingItemName={'stages'}
+                        handleClick={() => {
+                            setDialog({
+                                modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
+                                forwardedProps: createEditStageDialogForwardedProps,
+                            });
+                        }}
+                    />
+                }
+            />
+        </Section>
     );
 };

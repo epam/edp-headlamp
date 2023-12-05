@@ -85,17 +85,14 @@ export const InfoColumnsAccordion = ({ infoRows, title }: InfoColumnsAccordionPr
     const toShow = expandedPanel === 'info_columns';
 
     return (
-        <Accordion
-            elevation={0}
-            expanded={toShow}
-            onChange={handleChange('info_columns')}
-            className={classes.accordionRoot}
-        >
+        <Accordion elevation={1} expanded={toShow} onChange={handleChange('info_columns')}>
             <AccordionSummary
                 expandIcon={<Icon icon={toShow ? ICONS.MINUS : ICONS.PLUS} />}
                 className={classes.accordionSummary}
             >
-                <Typography>{title}</Typography>
+                <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                    {title}
+                </Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <InfoColumnsRenderer infoRows={infoRows} />

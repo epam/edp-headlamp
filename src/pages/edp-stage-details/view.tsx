@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
+import { Section } from '../../components/Section';
 import { StatusIcon } from '../../components/StatusIcon';
 import { Tabs } from '../../components/Tabs';
 import { PIPELINE_TYPES } from '../../constants/pipelineTypes';
@@ -315,18 +316,20 @@ export const PageView = () => {
                 </Grid>
             }
         >
-            {!!stage ? (
-                <Grid container spacing={2}>
-                    <Grid item xs={12} style={{ marginTop: rem(20) }}>
-                        <InfoColumnsAccordion title={'Stage Details'} infoRows={infoColumns} />
+            <Section title={stage?.spec.name}>
+                {!!stage ? (
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} style={{ marginTop: rem(20) }}>
+                            <InfoColumnsAccordion title={'Stage Details'} infoRows={infoColumns} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Tabs tabs={tabs} initialTabIdx={0} />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Tabs tabs={tabs} initialTabIdx={0} />
-                    </Grid>
-                </Grid>
-            ) : (
-                <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
-            )}
+                ) : (
+                    <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
+                )}
+            </Section>
         </PageWrapper>
     );
 };

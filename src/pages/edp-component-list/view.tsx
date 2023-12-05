@@ -1,12 +1,19 @@
 import { Icon } from '@iconify/react';
-import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { SectionBox, SectionFilterHeader } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Box, Button, Grid, MenuItem, Select, Typography } from '@material-ui/core';
+import {
+    Box,
+    Button,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
+    Typography,
+} from '@material-ui/core';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { DocLink } from '../../components/DocLink';
-import { EmptyList } from '../../components/EmptyList';
+import { Filter } from '../../components/Filter';
 import { PageWrapper } from '../../components/PageWrapper';
+import { Section } from '../../components/Section';
 import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
@@ -16,11 +23,9 @@ import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { FORM_MODES } from '../../types/forms';
-import { rem } from '../../utils/styling/rem';
 import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../widgets/CreateEditCodebase/constants';
 import { CreateEditCodebaseDialogForwardedProps } from '../../widgets/CreateEditCodebase/types';
-import { routeEDPGitServerList } from '../edp-configuration/pages/edp-gitserver-list/route';
 import { ComponentList } from './components/ComponentList';
 
 export const PageView = () => {
@@ -37,88 +42,109 @@ export const PageView = () => {
     const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps =
         React.useMemo(() => ({ mode: FORM_MODES.CREATE }), []);
 
-    const creationDisabled = gitServers === null || !gitServers?.length;
-    const history = useHistory();
-
-    const gitServersConfigurationPageRoute = Router.createRouteURL(routeEDPGitServerList.path);
+    const noGitServers = gitServers === null || !gitServers?.length;
 
     return (
         <PageWrapper>
-            <SectionBox>
-                <SectionFilterHeader
-                    // @ts-ignore
-                    title={
-                        <Grid container alignItems={'center'} spacing={1}>
+            <Section
+                title={
+                    <Grid container alignItems={'center'} spacing={1}>
+                        <Grid item>
+                            <Typography variant={'h1'}>Components</Typography>
+                        </Grid>
+                        <Grid item>
+                            <DocLink href={EDP_USER_GUIDE.APPLICATION_CREATE.url} />
+                        </Grid>
+                    </Grid>
+                }
+                description={
+                    <>
+                        Generate diverse codebases, encompassing applications, libraries, autotests,
+                        and Terraform infrastructure code. <br />
+                        Manage your code by building codebases, creating branches, and accessing
+                        detailed build pipeline diagrams.
+                    </>
+                }
+            >
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Grid
+                            container
+                            spacing={2}
+                            alignItems={'flex-end'}
+                            justifyContent={'flex-end'}
+                        >
                             <Grid item>
-                                <Typography variant={'h1'}>Components</Typography>
+                                <Filter
+                                    actions={
+                                        <Box width="15rem">
+                                            <FormControl fullWidth>
+                                                <InputLabel shrink id="codebase-type">
+                                                    Codebase Type
+                                                </InputLabel>
+                                                <Select
+                                                    labelId="codebase-type"
+                                                    onChange={e =>
+                                                        setType(e.target.value as CODEBASE_TYPES)
+                                                    }
+                                                    defaultValue={CODEBASE_TYPES.ALL}
+                                                    fullWidth
+                                                >
+                                                    {codebaseTypeSelectOptions.map(
+                                                        (
+                                                            { label, value, disabled = false },
+                                                            idx
+                                                        ) => {
+                                                            const key = `${label}::${idx}`;
+
+                                                            return (
+                                                                <MenuItem
+                                                                    value={value}
+                                                                    key={key}
+                                                                    disabled={disabled}
+                                                                >
+                                                                    {label}
+                                                                </MenuItem>
+                                                            );
+                                                        }
+                                                    )}
+                                                </Select>
+                                            </FormControl>
+                                        </Box>
+                                    }
+                                    onReset={() => setType(CODEBASE_TYPES.ALL)}
+                                />
                             </Grid>
                             <Grid item>
-                                <DocLink href={EDP_USER_GUIDE.APPLICATION_CREATE.url} />
+                                <Button
+                                    startIcon={<Icon icon={ICONS.PLUS} />}
+                                    color={'primary'}
+                                    variant={'contained'}
+                                    disabled={noGitServers}
+                                    onClick={() =>
+                                        setDialog({
+                                            modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
+                                            forwardedProps: createEditCodebaseDialogForwardedProps,
+                                        })
+                                    }
+                                >
+                                    create
+                                </Button>
                             </Grid>
                         </Grid>
-                    }
-                    headerStyle={'label'}
-                    actions={[
-                        <Box>
-                            <Grid container spacing={1}>
-                                <Grid item style={{ minWidth: rem(200) }}>
-                                    <Select
-                                        onChange={e => setType(e.target.value as CODEBASE_TYPES)}
-                                        defaultValue={CODEBASE_TYPES.ALL}
-                                        fullWidth
-                                    >
-                                        {codebaseTypeSelectOptions.map(
-                                            ({ label, value, disabled = false }, idx) => {
-                                                const key = `${label}::${idx}`;
-
-                                                return (
-                                                    <MenuItem
-                                                        value={value}
-                                                        key={key}
-                                                        disabled={disabled}
-                                                    >
-                                                        {label}
-                                                    </MenuItem>
-                                                );
-                                            }
-                                        )}
-                                    </Select>
-                                </Grid>
-                                <Grid item>
-                                    <Button
-                                        startIcon={<Icon icon={ICONS.PLUS} />}
-                                        color={'primary'}
-                                        variant={'contained'}
-                                        disabled={creationDisabled}
-                                        onClick={() =>
-                                            setDialog({
-                                                modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-                                                forwardedProps:
-                                                    createEditCodebaseDialogForwardedProps,
-                                            })
-                                        }
-                                    >
-                                        create
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </Box>,
-                    ]}
-                />
-                <ResourceActionListContextProvider>
-                    {(items === null || !creationDisabled) && (
-                        <ComponentList components={filteredComponents} error={error} />
-                    )}
-                    {items !== null && creationDisabled && (
-                        <EmptyList
-                            customText={'No Git Servers Connected.'}
-                            linkText={'Click here to add a Git Server.'}
-                            handleClick={() => history.push(gitServersConfigurationPageRoute)}
-                        />
-                    )}
-                    <CodebaseActionsMenu />
-                </ResourceActionListContextProvider>
-            </SectionBox>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ResourceActionListContextProvider>
+                            <ComponentList
+                                items={filteredComponents}
+                                error={error}
+                                noGitServers={noGitServers}
+                            />
+                            <CodebaseActionsMenu />
+                        </ResourceActionListContextProvider>
+                    </Grid>
+                </Grid>
+            </Section>
         </PageWrapper>
     );
 };

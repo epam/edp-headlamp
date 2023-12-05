@@ -1,7 +1,7 @@
-import { SectionBox } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { PageWrapper } from '../../components/PageWrapper';
+import { Section } from '../../components/Section';
 import { CDPipelinesGraph } from './components/CDPipelinesGraph';
 import { CodebaseBranchesGraph } from './components/CodebaseBranchesGraph';
 import { CodebasesGraph } from './components/CodebasesGraph';
@@ -13,35 +13,60 @@ import { StagesGraph } from './components/StagesGraph';
 export const PageView = () => {
     return (
         <PageWrapper>
-            <SectionBox title={'Overview'} py={2} mt={[4, 0, 0]}>
-                <Grid container spacing={2}>
-                    <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
-                        <CodebasesGraph />
-                    </Grid>
-                    <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
-                        <CodebaseBranchesGraph />
-                    </Grid>
-                    <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
-                        <PipelineRunsGraph />
-                    </Grid>
-                    <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
-                        <CDPipelinesGraph />
-                    </Grid>
-                    <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
-                        <StagesGraph />
-                    </Grid>
+            <Grid container spacing={6}>
+                <Grid item xs={12}>
+                    <Section
+                        title={'Overview'}
+                        description={
+                            <>
+                                Gain real-time insights about codebase activities, pipeline runs,
+                                branches, stages, and CD pipelines.
+                                <br />
+                                Explore services through convenient links and monitor overall
+                                pipeline runs.
+                            </>
+                        }
+                    >
+                        <Grid container spacing={2}>
+                            <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
+                                <CodebasesGraph />
+                            </Grid>
+                            <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
+                                <CodebaseBranchesGraph />
+                            </Grid>
+                            <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
+                                <PipelineRunsGraph />
+                            </Grid>
+                            <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
+                                <CDPipelinesGraph />
+                            </Grid>
+                            <Grid item xs={6} sm={4} lg={3} xl={'auto'} style={{ flexGrow: 1 }}>
+                                <StagesGraph />
+                            </Grid>
+                        </Grid>
+                    </Section>
                 </Grid>
-            </SectionBox>
-            <SectionBox title={'Links'} py={2} mt={[4, 0, 0]}>
-                <ComponentList />
-            </SectionBox>
-            <SectionBox title={'Pipelines'} py={2} mt={[4, 0, 0]}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
+                <Grid item xs={12}>
+                    <Section
+                        title={'Links'}
+                        titleTooltip={
+                            'Access direct links connecting you to a comprehensive list of tools.'
+                        }
+                    >
+                        <ComponentList />
+                    </Section>
+                </Grid>
+                <Grid item xs={12}>
+                    <Section
+                        title={'Pipelines'}
+                        titleTooltip={
+                            'Monitor the progress of overall pipeline runs launched within the platform.'
+                        }
+                    >
                         <PipelineRunListOverview />
-                    </Grid>
+                    </Section>
                 </Grid>
-            </SectionBox>
+            </Grid>
         </PageWrapper>
     );
 };

@@ -1,10 +1,10 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { SectionBox } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
+import { Section } from '../../components/Section';
 import { Resources } from '../../icons/sprites/Resources';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
@@ -80,11 +80,16 @@ export const PageView = () => {
                 </>
             }
         >
-            <SectionBox>
+            <Section
+                title={name}
+                description={
+                    'Review your codebases, monitor their status, and execute build pipelines.'
+                }
+            >
                 <Resources />
                 {!!component && (
                     <>
-                        <Grid container spacing={2}>
+                        <Grid container spacing={8}>
                             <Grid item xs={12} style={{ marginTop: rem(20) }}>
                                 <InfoColumnsAccordion
                                     infoRows={infoRows}
@@ -99,7 +104,7 @@ export const PageView = () => {
                         </Grid>
                     </>
                 )}
-            </SectionBox>
+            </Section>
         </PageWrapper>
     );
 };

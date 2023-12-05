@@ -24,7 +24,7 @@ export const Name = () => {
                 setValueAs: value => (typeof value === 'string' ? value.trim() : value),
             })}
             label={`Component name`}
-            title={nameRequirementLabel}
+            title={'Provide a clear and concise name for your component.'}
             placeholder={`Enter the Component name`}
             control={control}
             errors={errors}
