@@ -29,7 +29,7 @@ export const MetricsItem = ({
                     </Grid>
                 </Grid>
                 <Grid item className={classes.cardTitle}>
-                    <Typography variant="body1" className={classes.wrapIcon}>
+                    <Typography variant="body2" className={classes.wrapIcon}>
                         {titleIcon} {title}
                     </Typography>
                 </Grid>

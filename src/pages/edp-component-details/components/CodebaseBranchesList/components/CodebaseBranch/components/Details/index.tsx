@@ -87,7 +87,11 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
                         {!!ciDependencyTrackURL && (
                             <Link href={ciDependencyTrackURL} target={'_blank'}>
                                 <img
-                                    src={`${ciDependencyTrackURL}/api/v1/badge/vulns/project/${codebaseData.metadata.name}/${codebaseBranchData.spec.branchName}`}
+                                    src={`${ciDependencyTrackURL}/api/v1/badge/vulns/project/${window.encodeURIComponent(
+                                        codebaseData.metadata.name
+                                    )}/${window.encodeURIComponent(
+                                        codebaseBranchData.spec.branchName
+                                    )}`}
                                     alt=""
                                 />
                             </Link>
