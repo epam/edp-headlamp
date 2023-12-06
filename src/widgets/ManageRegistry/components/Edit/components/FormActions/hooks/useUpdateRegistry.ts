@@ -43,6 +43,7 @@ export const useUpdateRegistry = ({ onSuccess }) => {
             registryType,
             registryHost,
             registrySpace,
+            awsRegion,
             irsaRoleArn,
             pullAccountPassword,
             pullAccountUser,
@@ -72,6 +73,7 @@ export const useUpdateRegistry = ({ onSuccess }) => {
                 registryHost,
                 registrySpace,
                 registryType,
+                awsRegion,
             });
 
             await editConfigMap({ configMapData: newEDPConfigMap });

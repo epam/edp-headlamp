@@ -43,6 +43,7 @@ export const useResetRegistry = ({ onSuccess }) => {
                 registryHost: '',
                 registrySpace: '',
                 registryType: '',
+                awsRegion: '',
             });
 
             const editedServiceAccount = editResource(
@@ -61,6 +62,7 @@ export const useResetRegistry = ({ onSuccess }) => {
             for (const secret of secretsArray) {
                 await deleteSecret({ secretData: secret });
             }
+
             await editServiceAccount({ serviceAccount: editedServiceAccount });
             await editConfigMap({ configMapData: newEDPConfigMap });
 

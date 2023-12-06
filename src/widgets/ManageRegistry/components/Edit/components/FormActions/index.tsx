@@ -4,6 +4,7 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
+import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
 import { CONFIRM_RESOURCES_UPDATES_DIALOG_NAME } from '../../../../../ConfirmResourcesUpdates/constants';
@@ -20,8 +21,10 @@ export const FormActions = () => {
     } = useReactHookFormContext<ManageRegistryValues>();
 
     const {
-        formData: { handleClosePanel, pullAccountSecret, pushAccountSecret },
+        formData: { EDPConfigMap, handleClosePanel, pullAccountSecret, pushAccountSecret },
     } = useFormContext<ManageRegistryDataContext>();
+
+    const registryType = EDPConfigMap?.data?.container_registry_type;
 
     const { setDialog } = useDialogContext();
 
@@ -58,7 +61,9 @@ export const FormActions = () => {
     }, [pullAccountSecret, pushAccountSecret]);
 
     const resetButtonDisabled =
-        !pushAccountSecret || !pullAccountSecret || someOfTheSecretsHasExternalOwner;
+        registryType === CONTAINER_REGISTRY_TYPE.ECR
+            ? someOfTheSecretsHasExternalOwner
+            : !pushAccountSecret || !pullAccountSecret || someOfTheSecretsHasExternalOwner;
 
     return (
         <>

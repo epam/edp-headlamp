@@ -8,4 +8,5 @@ export const REGISTRY_NAMES = {
     PULL_ACCOUNT_USER: 'pullAccountUser',
     PULL_ACCOUNT_PASSWORD: 'pullAccountPassword',
     IRSA_ROLE_ARN: 'irsaRoleArn',
+    AWS_REGION: 'awsRegion',
 } as const;

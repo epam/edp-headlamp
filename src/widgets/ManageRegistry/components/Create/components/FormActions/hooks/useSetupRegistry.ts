@@ -15,7 +15,7 @@ import { ManageRegistryDataContext, ManageRegistryValues } from '../../../../../
 
 export const useSetupRegistry = ({ onSuccess }) => {
     const {
-        formData: { tektonServiceAccount, EDPConfigMap },
+        formData: { tektonServiceAccount, EDPConfigMap, pushAccountSecret, pullAccountSecret },
     } = useFormContext<ManageRegistryDataContext>();
 
     const {
@@ -25,7 +25,8 @@ export const useSetupRegistry = ({ onSuccess }) => {
 
     const {
         createSecret,
-        mutations: { secretCreateMutation },
+        editSecret,
+        mutations: { secretCreateMutation, secretEditMutation },
     } = useSecretCRUD({});
 
     const {
@@ -36,13 +37,15 @@ export const useSetupRegistry = ({ onSuccess }) => {
     const isLoading =
         serviceAccountEditMutation.isLoading ||
         secretCreateMutation.isLoading ||
-        configMapEditMutation.isLoading;
+        configMapEditMutation.isLoading ||
+        secretEditMutation.isLoading;
 
     const setupRegistry = async (formValues: ManageRegistryValues) => {
         const {
             registryType,
             registryHost,
             registrySpace,
+            awsRegion,
             irsaRoleArn,
             pullAccountPassword,
             pullAccountUser,
@@ -72,11 +75,17 @@ export const useSetupRegistry = ({ onSuccess }) => {
                 registryHost,
                 registrySpace,
                 registryType,
+                awsRegion,
             });
 
             await editConfigMap({ configMapData: newEDPConfigMap });
             await editServiceAccount({ serviceAccount: editedServiceAccount });
-            await createSecret({ secretData: newECRSecretInstance });
+
+            if (!!pushAccountSecret) {
+                await editSecret({ secretData: newECRSecretInstance });
+            } else {
+                await createSecret({ secretData: newECRSecretInstance });
+            }
 
             if (onSuccess) {
                 await onSuccess();
@@ -84,20 +93,19 @@ export const useSetupRegistry = ({ onSuccess }) => {
         };
 
         const setupDockerHub = async () => {
-            const registrySecretInstances = [
-                createRegistrySecretInstance({
-                    name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
-                    registryEndpoint: 'https://index.docker.io/v1/',
-                    user: pushAccountUser,
-                    password: pushAccountPassword,
-                }),
-                createRegistrySecretInstance({
-                    name: REGISTRY_SECRET_NAMES.REGCRED,
-                    registryEndpoint: 'https://index.docker.io/v1/',
-                    user: pullAccountUser,
-                    password: pullAccountPassword,
-                }),
-            ];
+            const newKanikoSecretInstance = createRegistrySecretInstance({
+                name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
+                registryEndpoint: 'https://index.docker.io/v1/',
+                user: pushAccountUser,
+                password: pushAccountPassword,
+            });
+
+            const newRegcredSecretInstance = createRegistrySecretInstance({
+                name: REGISTRY_SECRET_NAMES.REGCRED,
+                registryEndpoint: 'https://index.docker.io/v1/',
+                user: pullAccountUser,
+                password: pullAccountPassword,
+            });
 
             const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
                 registryHost: 'docker.io',
@@ -107,8 +115,16 @@ export const useSetupRegistry = ({ onSuccess }) => {
 
             await editConfigMap({ configMapData: newEDPConfigMap });
 
-            for (const registrySecretInstance of registrySecretInstances) {
-                await createSecret({ secretData: registrySecretInstance });
+            if (!!pushAccountSecret) {
+                await editSecret({ secretData: newKanikoSecretInstance });
+            } else {
+                await createSecret({ secretData: newKanikoSecretInstance });
+            }
+
+            if (!!pullAccountSecret) {
+                await editSecret({ secretData: newRegcredSecretInstance });
+            } else {
+                await createSecret({ secretData: newRegcredSecretInstance });
             }
 
             if (onSuccess) {
@@ -117,20 +133,19 @@ export const useSetupRegistry = ({ onSuccess }) => {
         };
 
         const setupHarbor = async () => {
-            const registrySecretInstances = [
-                createRegistrySecretInstance({
-                    name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
-                    registryEndpoint: registryHost,
-                    user: pushAccountUser,
-                    password: pushAccountPassword,
-                }),
-                createRegistrySecretInstance({
-                    name: REGISTRY_SECRET_NAMES.REGCRED,
-                    registryEndpoint: registryHost,
-                    user: pullAccountUser,
-                    password: pullAccountPassword,
-                }),
-            ];
+            const newKanikoSecretInstance = createRegistrySecretInstance({
+                name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
+                registryEndpoint: registryHost,
+                user: pushAccountUser,
+                password: pushAccountPassword,
+            });
+
+            const newRegcredSecretInstance = createRegistrySecretInstance({
+                name: REGISTRY_SECRET_NAMES.REGCRED,
+                registryEndpoint: registryHost,
+                user: pullAccountUser,
+                password: pullAccountPassword,
+            });
 
             const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
                 registryHost,
@@ -140,8 +155,16 @@ export const useSetupRegistry = ({ onSuccess }) => {
 
             await editConfigMap({ configMapData: newEDPConfigMap });
 
-            for (const registrySecretInstance of registrySecretInstances) {
-                await createSecret({ secretData: registrySecretInstance });
+            if (!!pushAccountSecret) {
+                await editSecret({ secretData: newKanikoSecretInstance });
+            } else {
+                await createSecret({ secretData: newKanikoSecretInstance });
+            }
+
+            if (!!pullAccountSecret) {
+                await editSecret({ secretData: newRegcredSecretInstance });
+            } else {
+                await createSecret({ secretData: newRegcredSecretInstance });
             }
 
             if (onSuccess) {

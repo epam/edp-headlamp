@@ -2,12 +2,10 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextFieldPassword } from '../../../../../providers/Form/components/FormTextFieldPassword';
 import { useFormContext } from '../../../../../providers/Form/hooks';
-import { FORM_MODES } from '../../../../../types/forms';
-import { ValueOf } from '../../../../../types/global';
 import { REGISTRY_NAMES } from '../../../names';
 import { ManageRegistryDataContext } from '../../../types';
 
-export const PullAccountPassword = ({ mode }: { mode: ValueOf<typeof FORM_MODES> }) => {
+export const PullAccountPassword = () => {
     const {
         register,
         control,
@@ -32,7 +30,7 @@ export const PullAccountPassword = ({ mode }: { mode: ValueOf<typeof FORM_MODES>
             placeholder={'Enter password or token'}
             control={control}
             errors={errors}
-            disabled={mode === FORM_MODES.EDIT && hasOwnerReference}
+            disabled={hasOwnerReference}
         />
     );
 };

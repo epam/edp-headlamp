@@ -2,12 +2,11 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextFieldPassword } from '../../../../../providers/Form/components/FormTextFieldPassword';
 import { useFormContext } from '../../../../../providers/Form/hooks';
-import { FieldEvent, FORM_MODES } from '../../../../../types/forms';
-import { ValueOf } from '../../../../../types/global';
+import { FieldEvent } from '../../../../../types/forms';
 import { REGISTRY_NAMES } from '../../../names';
 import { ManageRegistryDataContext } from '../../../types';
 
-export const PushAccountPassword = ({ mode }: { mode: ValueOf<typeof FORM_MODES> }) => {
+export const PushAccountPassword = () => {
     const {
         register,
         control,
@@ -43,7 +42,7 @@ export const PushAccountPassword = ({ mode }: { mode: ValueOf<typeof FORM_MODES>
             placeholder={'Enter password or token'}
             control={control}
             errors={errors}
-            disabled={mode === FORM_MODES.EDIT && hasOwnerReference}
+            disabled={hasOwnerReference}
         />
     );
 };

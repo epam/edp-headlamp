@@ -2,12 +2,10 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { useFormContext } from '../../../../../providers/Form/hooks';
-import { FORM_MODES } from '../../../../../types/forms';
-import { ValueOf } from '../../../../../types/global';
 import { REGISTRY_NAMES } from '../../../names';
 import { ManageRegistryDataContext } from '../../../types';
 
-export const PullAccountUser = ({ mode }: { mode: ValueOf<typeof FORM_MODES> }) => {
+export const PullAccountUser = () => {
     const {
         register,
         control,
@@ -32,7 +30,7 @@ export const PullAccountUser = ({ mode }: { mode: ValueOf<typeof FORM_MODES> }) 
             placeholder={'Enter user name'}
             control={control}
             errors={errors}
-            disabled={mode === FORM_MODES.EDIT && hasOwnerReference}
+            disabled={hasOwnerReference}
         />
     );
 };

@@ -30,6 +30,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageRegistryDataCon
     const registryHost = EDPConfigMap?.data?.container_registry_host;
     const registrySpace = EDPConfigMap?.data?.container_registry_space;
     const registryType = EDPConfigMap?.data?.container_registry_type;
+    const awsRegion = EDPConfigMap?.data?.aws_region;
 
     const handleECR = React.useCallback(() => {
         const irsaRoleArn =
@@ -40,8 +41,15 @@ export const useDefaultValues = ({ formData }: { formData: ManageRegistryDataCon
             [REGISTRY_NAMES.REGISTRY_HOST]: registryHost,
             [REGISTRY_NAMES.REGISTRY_SPACE]: registrySpace,
             [REGISTRY_NAMES.IRSA_ROLE_ARN]: irsaRoleArn,
+            [REGISTRY_NAMES.AWS_REGION]: awsRegion,
         };
-    }, [registryHost, registrySpace, registryType, tektonServiceAccount]);
+    }, [
+        awsRegion,
+        registryHost,
+        registrySpace,
+        registryType,
+        tektonServiceAccount?.metadata?.annotations,
+    ]);
 
     const handleDockerHubOrHarbor = React.useCallback(() => {
         const { userName: pullUserName, password: pullPassword } =

@@ -5,7 +5,6 @@ import { useFormContext as useReactHookFormDataContext } from 'react-hook-form';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
-import { FORM_MODES } from '../../../../../../types/forms';
 import { REGISTRY_NAMES } from '../../../../names';
 import { ManageRegistryDataContext } from '../../../../types';
 import {
@@ -18,6 +17,7 @@ import {
     RegistrySpace,
     UseSameAccount,
 } from '../../../fields';
+import { AWSRegion } from '../../../fields/AWSRegion';
 
 export const Form = () => {
     const { watch } = useReactHookFormDataContext();
@@ -43,16 +43,21 @@ export const Form = () => {
                 </Grid>
             </Grid>
             {registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.ECR && (
-                <Grid item xs={12}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Typography variant={'h6'}>Authentication</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <IrsaRoleArn />
+                <>
+                    <Grid item xs={12}>
+                        <AWSRegion />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <Typography variant={'h6'}>Authentication</Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <IrsaRoleArn />
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
+                </>
             )}
             {(registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.DOCKER_HUB ||
                 registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.HARBOR) && (
@@ -82,10 +87,10 @@ export const Form = () => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={6}>
-                                <PushAccountUser mode={FORM_MODES.EDIT} />
+                                <PushAccountUser />
                             </Grid>
                             <Grid item xs={6}>
-                                <PushAccountPassword mode={FORM_MODES.EDIT} />
+                                <PushAccountPassword />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -119,10 +124,10 @@ export const Form = () => {
                             {!useSameAccountFieldValue && (
                                 <>
                                     <Grid item xs={6}>
-                                        <PullAccountUser mode={FORM_MODES.EDIT} />
+                                        <PullAccountUser />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <PullAccountPassword mode={FORM_MODES.EDIT} />
+                                        <PullAccountPassword />
                                     </Grid>
                                 </>
                             )}
