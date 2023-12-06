@@ -43,7 +43,7 @@ describe('testing createBuildPipelineRunInstance', () => {
         });
 
         expect(object).toEqual({
-            apiVersion: 'tekton.dev/v1beta1',
+            apiVersion: 'tekton.dev/v1',
             kind: 'PipelineRun',
             metadata: {
                 namespace: 'test-namespace',
@@ -74,8 +74,12 @@ describe('testing createBuildPipelineRunInstance', () => {
                 pipelineRef: {
                     name: 'test-git-provider-test-build-tool-test-framework-app-build-test-versioning-type',
                 },
-                serviceAccountName: 'tekton',
-                timeout: '1h0m0s',
+                taskRunTemplate: {
+                    serviceAccountName: 'tekton',
+                },
+                timeouts: {
+                    pipeline: '1h0m0s',
+                },
                 workspaces: [
                     {
                         name: 'settings',

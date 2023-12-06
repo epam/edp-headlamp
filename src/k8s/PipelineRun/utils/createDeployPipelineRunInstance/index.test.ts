@@ -27,7 +27,7 @@ describe('testing createDeployPipelineRunInstance', () => {
         });
 
         expect(object).toEqual({
-            apiVersion: 'tekton.dev/v1beta1',
+            apiVersion: 'tekton.dev/v1',
             kind: 'PipelineRun',
             metadata: {
                 namespace: 'test-namespace',

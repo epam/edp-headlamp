@@ -68,7 +68,6 @@ export const useDetectNamespaces = () => {
                         Your allowed namespaces are unset. To get started, please set your
                         namespaces by navigating to the{' '}
                     </span>
-                    <span>Allowed namespaces are unset. Navigate to </span>
                     <Link
                         component="button"
                         variant="body2"

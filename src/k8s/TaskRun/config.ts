@@ -7,5 +7,5 @@ export const TaskRunKubeObjectConfig: KubeObjectConfig = {
         pluralForm: 'taskruns',
     },
     group: 'tekton.dev',
-    version: 'v1beta1',
+    version: 'v1',
 };

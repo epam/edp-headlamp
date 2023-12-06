@@ -7,5 +7,5 @@ export const PipelineRunKubeObjectConfig: KubeObjectConfig = {
         pluralForm: 'pipelineruns',
     },
     group: 'tekton.dev',
-    version: 'v1beta1',
+    version: 'v1',
 };

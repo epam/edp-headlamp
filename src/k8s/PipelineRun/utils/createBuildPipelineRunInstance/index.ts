@@ -82,8 +82,12 @@ export const createBuildPipelineRunInstance = ({
             pipelineRef: {
                 name: `${gitProvider}-${codebaseBuildTool}-${codebaseFramework}-${truncatedCodebaseType}-build-${codebaseVersioningType}`,
             },
-            serviceAccountName: 'tekton',
-            timeout: '1h0m0s',
+            taskRunTemplate: {
+                serviceAccountName: 'tekton',
+            },
+            timeouts: {
+                pipeline: '1h0m0s',
+            },
             workspaces: [
                 {
                     name: 'settings',
