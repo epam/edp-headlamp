@@ -23,8 +23,10 @@ import { useHistory, useLocation } from 'react-router-dom';
 // NOTE This file has code blocks taken from headlamp-origin, because those are hard to customize and aren't exported correctly.
 
 export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
-export const FILTER_SET_NAMESPACE = 'FILTER_SET_NAMESPACE';
-export const FILTER_SET_SEARCH = 'FILTER_SET_SEARCH';
+export const FILTER_SET_NAMESPACE =
+    process.env.NODE_ENV === 'development' ? 'FILTER_SET_NAMESPACE' : 'filter/setNamespaceFilter';
+export const FILTER_SET_SEARCH =
+    process.env.NODE_ENV === 'development' ? 'FILTER_SET_SEARCH' : 'filter/setSearchFilter';
 export const FILTER_RESET = 'FILTER_RESET';
 export function setSearchFilter(searchTerms: string) {
     return { type: FILTER_SET_SEARCH, search: searchTerms };
@@ -248,6 +250,8 @@ export const Filter = (props: FilterProps) => {
 
     const { noNamespaceFilter = false, noSearch = false, actions: propsActions, onReset } = props;
     const filter = useTypedSelector(state => state.filter);
+
+    console.log(filter);
 
     const hasNamespaceFilters = !noNamespaceFilter && filter.namespaces.size > 0;
     const hasSearch = !noSearch && !!filter.search;
