@@ -18,13 +18,7 @@ export const PageView = () => {
                     <Section
                         title={'Overview'}
                         description={
-                            <>
-                                Gain real-time insights about codebase activities, pipeline runs,
-                                branches, stages, and CD pipelines.
-                                <br />
-                                Explore services through convenient links and monitor overall
-                                pipeline runs.
-                            </>
+                            'Gain essential information on your codebase insights. Organize your menu for faster and more convenient access to different parts of the portal.'
                         }
                     >
                         <Grid container spacing={2}>
@@ -50,7 +44,7 @@ export const PageView = () => {
                     <Section
                         title={'Links'}
                         titleTooltip={
-                            'Access direct links connecting you to a comprehensive list of tools.'
+                            'A set of icons with links that redirect you to corresponding tools.'
                         }
                     >
                         <ComponentList />

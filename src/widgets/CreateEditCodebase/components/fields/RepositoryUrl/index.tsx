@@ -16,7 +16,7 @@ export const RepositoryUrl = () => {
     } = useFormContext<CreateCodebaseFormValues>();
 
     const fieldRequirementLabel =
-        'Specify the application URL in the following format: http(s)://git.sample.com/sample';
+        'Specify the application URL in the following format: http(s)://git.example.com/example.';
     const { data: gitServers } = useGitServerListQuery({});
 
     const hasGerritGitServer = React.useMemo(() => {

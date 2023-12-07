@@ -58,12 +58,7 @@ export const PageView = () => {
                     </Grid>
                 }
                 description={
-                    <>
-                        Generate diverse codebases, encompassing applications, libraries, autotests,
-                        and Terraform infrastructure code. <br />
-                        Manage your code by building codebases, creating branches, and accessing
-                        detailed build pipeline diagrams.
-                    </>
+                    'Create, view, and manage diverse codebases, encompassing applications, libraries, autotests, and Terraform infrastructure code.'
                 }
             >
                 <Grid container spacing={2}>

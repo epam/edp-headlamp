@@ -62,7 +62,8 @@ export const BuildTool = () => {
                             message: 'Invalid build tool name: [a-z]',
                         },
                     })}
-                    label={
+                    label={'Build tool'}
+                    title={
                         'Choose the build tool your project uses. This information is crucial for accurate build pipeline configuration.'
                     }
                     placeholder={`Enter build tool`}
@@ -76,7 +77,8 @@ export const BuildTool = () => {
                     })}
                     control={control}
                     errors={errors}
-                    label={
+                    label={'Build tool'}
+                    title={
                         'Choose the build tool your project uses. This information is crucial for accurate build pipeline configuration.'
                     }
                     options={buildToolOptions}

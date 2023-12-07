@@ -8,6 +8,7 @@ export interface FormRadioOption {
     icon: React.ReactElement;
     checkedIcon: React.ReactElement;
     disabled?: boolean;
+    disabledTooltip?: string;
 }
 
 export interface FormRadioProps {

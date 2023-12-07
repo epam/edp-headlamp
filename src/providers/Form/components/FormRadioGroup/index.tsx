@@ -6,11 +6,13 @@ import {
     Grid,
     Radio,
     RadioGroup,
+    Tooltip,
     Typography,
 } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { Controller } from 'react-hook-form';
+import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
 import { useStyles } from './styles';
 import { FormRadioProps } from './types';
@@ -52,46 +54,62 @@ export const FormRadioGroup = React.forwardRef(
                                                         icon,
                                                         checkedIcon,
                                                         disabled: optionDisabled,
+                                                        disabledTooltip,
                                                     },
                                                     idx
                                                 ) => {
                                                     const isChecked = field.value === value;
                                                     const key = `${value}::${idx}`;
                                                     return (
-                                                        <ButtonBase
-                                                            key={key}
-                                                            className={clsx(
-                                                                classes.radioControlButton,
-                                                                {
-                                                                    [classes.radioControlButtonActive]:
-                                                                        isChecked,
-                                                                }
+                                                        <ConditionalWrapper
+                                                            condition={!!disabledTooltip}
+                                                            wrapper={children => (
+                                                                <Tooltip
+                                                                    key={key}
+                                                                    title={disabledTooltip}
+                                                                >
+                                                                    <div>{children}</div>
+                                                                </Tooltip>
                                                             )}
-                                                            disabled={disabled || optionDisabled}
                                                         >
-                                                            <FormControlLabel
-                                                                value={value}
-                                                                control={
-                                                                    <Radio
-                                                                        color={'primary'}
-                                                                        checked={isChecked}
-                                                                        icon={icon}
-                                                                        checkedIcon={checkedIcon}
-                                                                        disableRipple
-                                                                        inputRef={ref}
-                                                                    />
-                                                                }
+                                                            <ButtonBase
                                                                 className={clsx(
-                                                                    classes.radioControlLabel,
+                                                                    classes.radioControlButton,
                                                                     {
-                                                                        [classes.radioControlLabelDisabled]:
-                                                                            disabled ||
-                                                                            optionDisabled,
+                                                                        [classes.radioControlButtonActive]:
+                                                                            isChecked,
                                                                     }
                                                                 )}
-                                                                label={label}
-                                                            />
-                                                        </ButtonBase>
+                                                                disabled={
+                                                                    disabled || optionDisabled
+                                                                }
+                                                            >
+                                                                <FormControlLabel
+                                                                    value={value}
+                                                                    control={
+                                                                        <Radio
+                                                                            color={'primary'}
+                                                                            checked={isChecked}
+                                                                            icon={icon}
+                                                                            checkedIcon={
+                                                                                checkedIcon
+                                                                            }
+                                                                            disableRipple
+                                                                            inputRef={ref}
+                                                                        />
+                                                                    }
+                                                                    className={clsx(
+                                                                        classes.radioControlLabel,
+                                                                        {
+                                                                            [classes.radioControlLabelDisabled]:
+                                                                                disabled ||
+                                                                                optionDisabled,
+                                                                        }
+                                                                    )}
+                                                                    label={label}
+                                                                />
+                                                            </ButtonBase>
+                                                        </ConditionalWrapper>
                                                     );
                                                 }
                                             )}
