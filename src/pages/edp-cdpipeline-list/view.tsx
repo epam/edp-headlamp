@@ -5,7 +5,6 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { DocLink } from '../../components/DocLink';
 import { EmptyList } from '../../components/EmptyList';
-import { Filter } from '../../components/Filter';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
@@ -15,6 +14,8 @@ import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
 import { useCodebasesByTypeLabelQuery } from '../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
 import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../k8s/EDPCodebase/labels';
 import { useDialogContext } from '../../providers/Dialog/hooks';
+import { Filter } from '../../providers/Filter/components/Filter';
+import { useFilterContext } from '../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { FORM_MODES } from '../../types/forms';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
@@ -52,6 +53,8 @@ export const PageView = () => {
 
     const gitOpsConfigurationPageRoute = Router.createRouteURL(routeEDPGitOpsConfiguration.path);
 
+    const { filter, setFilter, filterFunction } = useFilterContext();
+
     return (
         <PageWrapper>
             <Section
@@ -77,7 +80,11 @@ export const PageView = () => {
                             justifyContent={'flex-end'}
                         >
                             <Grid item>
-                                <Filter />
+                                <Filter
+                                    controls={{ namespace: true, search: true }}
+                                    filter={filter}
+                                    setFilter={setFilter}
+                                />
                             </Grid>
                             <Grid item>
                                 <Button
@@ -101,7 +108,11 @@ export const PageView = () => {
                     <Grid item xs={12}>
                         <ResourceActionListContextProvider>
                             {(isLoading || !!gitOpsCodebase) && (
-                                <CDPipelineList CDPipelines={items} error={error} />
+                                <CDPipelineList
+                                    CDPipelines={items}
+                                    error={error}
+                                    filterFunction={filterFunction}
+                                />
                             )}
                             {!isLoading && !gitOpsCodebase && (
                                 <EmptyList

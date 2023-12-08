@@ -1,4 +1,3 @@
-import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { DataGrid } from '../../../../components/DataGrid';
@@ -11,14 +10,12 @@ import { VIEW_MODES } from '../../../../providers/ViewMode/types';
 import { BottomDrawer } from './components/BottomDrawer';
 import { TemplateCard } from './components/TemplateCard';
 import { TemplatesTable } from './components/TemplatesTable';
+import { MarketplaceListProps } from './types';
 
-export const MarketplaceList = () => {
+export const MarketplaceList = ({ filterFunction }: MarketplaceListProps) => {
     const { viewMode } = useViewModeContext();
     const [items, error] = EDPTemplateKubeObject.useList();
-    const filterFunction = Utils.useFilterFunc([
-        '.jsonData.spec.displayName',
-        '.jsonData.metadata.name',
-    ]);
+
     const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
     const [activeTemplate, setActiveTemplate] =
         React.useState<EDPTemplateKubeObjectInterface>(null);

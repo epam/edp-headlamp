@@ -1,4 +1,4 @@
-import { Router, Utils } from '@kinvolk/headlamp-plugin/lib';
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { EmptyList } from '../../../../components/EmptyList';
@@ -11,9 +11,13 @@ import { routeEDPGitServerList } from '../../../edp-configuration/pages/edp-gits
 import { useColumns } from './hooks/useColumns';
 import { ComponentListProps } from './types';
 
-export const ComponentList = ({ items, error, noGitServers }: ComponentListProps) => {
+export const ComponentList = ({
+    items,
+    error,
+    noGitServers,
+    filterFunction,
+}: ComponentListProps) => {
     const columns = useColumns();
-    const filterFunc = Utils.useFilterFunc();
 
     const { setDialog } = useDialogContext();
     const gitServersConfigurationPageRoute = Router.createRouteURL(routeEDPGitServerList.path);
@@ -27,7 +31,7 @@ export const ComponentList = ({ items, error, noGitServers }: ComponentListProps
                 data={items}
                 error={error?.toString()}
                 columns={columns}
-                filterFunction={filterFunc}
+                filterFunction={filterFunction}
                 emptyListComponent={
                     items !== null && noGitServers ? (
                         <EmptyList

@@ -3,4 +3,5 @@ import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/
 export interface CDPipelineListProps {
     CDPipelines: EDPCDPipelineKubeObjectInterface[];
     error: unknown;
+    filterFunction: (item: EDPCDPipelineKubeObjectInterface) => boolean;
 }

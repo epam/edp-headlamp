@@ -9,8 +9,6 @@ import { CreateProps } from './types';
 export const Create = ({ formData }: CreateProps) => {
     const baseDefaultValues = useDefaultValues({ formData });
 
-    console.log(baseDefaultValues);
-
     return (
         <FormContextProvider
             formSettings={{

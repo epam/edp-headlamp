@@ -1,4 +1,3 @@
-import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import React from 'react';
 import { EmptyList } from '../../../../components/EmptyList';
 import { Table } from '../../../../components/Table';
@@ -8,9 +7,8 @@ import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../../widgets/CreateE
 import { useColumns } from './hooks/useColumns';
 import { CDPipelineListProps } from './types';
 
-export const CDPipelineList = ({ CDPipelines, error }: CDPipelineListProps) => {
+export const CDPipelineList = ({ CDPipelines, error, filterFunction }: CDPipelineListProps) => {
     const columns = useColumns();
-    const filterFunc = Utils.useFilterFunc();
 
     const { setDialog } = useDialogContext();
 
@@ -20,7 +18,7 @@ export const CDPipelineList = ({ CDPipelines, error }: CDPipelineListProps) => {
             data={CDPipelines}
             error={error?.toString()}
             columns={columns}
-            filterFunction={filterFunc}
+            filterFunction={filterFunction}
             emptyListComponent={
                 <EmptyList
                     missingItemName={'CD Pipelines'}

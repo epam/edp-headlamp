@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { DocLink } from '../../components/DocLink';
-import { Filter } from '../../components/Filter';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { codebaseTypeSelectOptions } from '../../configs/select-options/codebaseTypeSelectOptions';
@@ -21,6 +20,8 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { useDialogContext } from '../../providers/Dialog/hooks';
+import { Filter } from '../../providers/Filter/components/Filter';
+import { useFilterContext } from '../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { FORM_MODES } from '../../types/forms';
 import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
@@ -28,21 +29,19 @@ import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../widgets/CreateEditCodeba
 import { CreateEditCodebaseDialogForwardedProps } from '../../widgets/CreateEditCodebase/types';
 import { ComponentList } from './components/ComponentList';
 
+type PageFilterExtraControls = 'codebaseType';
+
 export const PageView = () => {
-    const [type, setType] = React.useState<CODEBASE_TYPES>(CODEBASE_TYPES.ALL);
     const [items, error] = EDPCodebaseKubeObject.useList();
     const [gitServers] = EDPGitServerKubeObject.useList();
     const { setDialog } = useDialogContext();
-
-    const filteredComponents = React.useMemo(
-        () => (type !== CODEBASE_TYPES.ALL ? items.filter(el => el.spec.type === type) : items),
-        [items, type]
-    );
 
     const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps =
         React.useMemo(() => ({ mode: FORM_MODES.CREATE }), []);
 
     const noGitServers = gitServers === null || !gitServers?.length;
+
+    const { filter, setFilter, filterFunction } = useFilterContext<PageFilterExtraControls>();
 
     return (
         <PageWrapper>
@@ -70,44 +69,71 @@ export const PageView = () => {
                             justifyContent={'flex-end'}
                         >
                             <Grid item>
-                                <Filter
-                                    actions={
-                                        <Box width="15rem">
-                                            <FormControl fullWidth>
-                                                <InputLabel shrink id="codebase-type">
-                                                    Codebase Type
-                                                </InputLabel>
-                                                <Select
-                                                    labelId="codebase-type"
-                                                    onChange={e =>
-                                                        setType(e.target.value as CODEBASE_TYPES)
-                                                    }
-                                                    defaultValue={CODEBASE_TYPES.ALL}
-                                                    fullWidth
-                                                >
-                                                    {codebaseTypeSelectOptions.map(
-                                                        (
-                                                            { label, value, disabled = false },
-                                                            idx
-                                                        ) => {
-                                                            const key = `${label}::${idx}`;
+                                <Filter<PageFilterExtraControls>
+                                    controls={{
+                                        search: true,
+                                        namespace: true,
+                                        codebaseType: (
+                                            <Box width="15rem">
+                                                <FormControl fullWidth>
+                                                    <InputLabel shrink id="codebase-type">
+                                                        Codebase Type
+                                                    </InputLabel>
+                                                    <Select
+                                                        labelId="codebase-type"
+                                                        onChange={e =>
+                                                            setFilter(prev => ({
+                                                                ...prev,
+                                                                values: {
+                                                                    ...prev.values,
+                                                                    codebaseType: e.target.value,
+                                                                },
+                                                                matchFunctions: {
+                                                                    ...prev.matchFunctions,
+                                                                    codebaseType: item => {
+                                                                        if (
+                                                                            e.target.value ===
+                                                                            CODEBASE_TYPES.ALL
+                                                                        ) {
+                                                                            return true;
+                                                                        }
 
-                                                            return (
-                                                                <MenuItem
-                                                                    value={value}
-                                                                    key={key}
-                                                                    disabled={disabled}
-                                                                >
-                                                                    {label}
-                                                                </MenuItem>
-                                                            );
+                                                                        return (
+                                                                            item.spec.type ===
+                                                                            e.target.value
+                                                                        );
+                                                                    },
+                                                                },
+                                                            }))
                                                         }
-                                                    )}
-                                                </Select>
-                                            </FormControl>
-                                        </Box>
-                                    }
-                                    onReset={() => setType(CODEBASE_TYPES.ALL)}
+                                                        defaultValue={CODEBASE_TYPES.ALL}
+                                                        fullWidth
+                                                    >
+                                                        {codebaseTypeSelectOptions.map(
+                                                            (
+                                                                { label, value, disabled = false },
+                                                                idx
+                                                            ) => {
+                                                                const key = `${label}::${idx}`;
+
+                                                                return (
+                                                                    <MenuItem
+                                                                        value={value}
+                                                                        key={key}
+                                                                        disabled={disabled}
+                                                                    >
+                                                                        {label}
+                                                                    </MenuItem>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </Select>
+                                                </FormControl>
+                                            </Box>
+                                        ),
+                                    }}
+                                    filter={filter}
+                                    setFilter={setFilter}
                                 />
                             </Grid>
                             <Grid item>
@@ -131,9 +157,10 @@ export const PageView = () => {
                     <Grid item xs={12}>
                         <ResourceActionListContextProvider>
                             <ComponentList
-                                items={filteredComponents}
+                                items={items}
                                 error={error}
                                 noGitServers={noGitServers}
+                                filterFunction={filterFunction}
                             />
                             <CodebaseActionsMenu />
                         </ResourceActionListContextProvider>
