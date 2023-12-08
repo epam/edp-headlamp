@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Button, Grid, Typography, useTheme } from '@material-ui/core';
+import { Button, Grid, Tooltip, Typography, useTheme } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -71,7 +71,20 @@ export const QualityGates = () => {
         <>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography variant={'h6'}>Quality gates</Typography>
+                    <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                        <Grid item>
+                            <Typography variant={'h6'}>Quality gates</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Tooltip
+                                title={
+                                    'Define quality gates to ensure specific criteria are met before progressing to the next stage.'
+                                }
+                            >
+                                <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+                            </Tooltip>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container spacing={2}>

@@ -4,6 +4,7 @@ import {
     CONTAINER_REGISTRY_PLATFORM,
     CONTAINER_REGISTRY_TYPE,
     CONTAINER_REGISTRY_TYPE_BY_PLATFORM,
+    CONTAINER_REGISTRY_TYPE_LABEL_MAP,
 } from '../../../../../k8s/ConfigMap/constants';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
 import { useFormContext } from '../../../../../providers/Form/hooks';
@@ -18,7 +19,7 @@ const createRegistryTypeOptions = (platformName: ValueOf<typeof CONTAINER_REGIST
     }
 
     return CONTAINER_REGISTRY_TYPE_BY_PLATFORM[platformName].map(value => ({
-        label: value,
+        label: CONTAINER_REGISTRY_TYPE_LABEL_MAP[value],
         value: value,
     }));
 };
@@ -52,7 +53,7 @@ export const Type = () => {
                     }
                 },
             })}
-            label={'Registry Type'}
+            label={'Registry Provider'}
             title={'Select a registry type you would like to create'}
             placeholder={'Select a registry type you would like to create'}
             control={control}

@@ -215,10 +215,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                           >
                             Pipeline name
                           </span>
-                          <div
-                            class="MuiBox-root MuiBox-root-11"
-                            style="height: 1.25rem;"
-                          />
+                          <span />
                         </span>
                       </div>
                       <div
@@ -292,10 +289,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                               >
                                 Applications
                               </span>
-                              <div
-                                class="MuiBox-root MuiBox-root-13"
-                                style="height: 1.25rem;"
-                              />
+                              <span />
                             </span>
                           </div>
                           <div
@@ -306,7 +300,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                               class="MuiFormControl-root MuiFormControl-fullWidth"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-12 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                                class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-11 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
                               >
                                 <div
                                   aria-haspopup="listbox"
@@ -418,11 +412,24 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                   <div
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                   >
-                    <h6
-                      class="MuiTypography-root MuiTypography-h6"
+                    <div
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-wrap-xs-nowrap MuiGrid-align-items-xs-center"
                     >
-                      Stages
-                    </h6>
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <h6
+                          class="MuiTypography-root MuiTypography-h6"
+                        >
+                          Stages
+                        </h6>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <span />
+                      </div>
+                    </div>
                   </div>
                   <div
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"

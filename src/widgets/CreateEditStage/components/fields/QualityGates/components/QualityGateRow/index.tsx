@@ -267,6 +267,9 @@ export const QualityGateRow = ({
                                 }
                             )}
                             label={'Quality gate type'}
+                            title={
+                                'Quality gates can be either manual approvals or autotests. To select autotest, create the corresponding codebase beforehand.'
+                            }
                             placeholder={'Select quality gate type'}
                             control={control}
                             errors={errors}
@@ -280,11 +283,14 @@ export const QualityGateRow = ({
                                 // @ts-ignore
                                 createQualityGateStepNameFieldName(currentQualityGate.id),
                                 {
-                                    required: 'Enter step name',
+                                    required: 'Enter step name.',
                                     onChange: handleChangeQualityGateStepName,
                                 }
                             )}
                             label={'Step name'}
+                            title={
+                                'Name the deployment step within the stage to distinguish different phases of the deployment process.'
+                            }
                             placeholder={'Enter step name'}
                             control={control}
                             errors={errors}
@@ -303,6 +309,9 @@ export const QualityGateRow = ({
                                         }
                                     )}
                                     label={'Autotest'}
+                                    title={
+                                        'Specify an automated test to associate with this stage.'
+                                    }
                                     placeholder={'Select autotest'}
                                     control={control}
                                     errors={errors}
@@ -327,6 +336,7 @@ export const QualityGateRow = ({
                                         }
                                     )}
                                     label={'Autotest branch'}
+                                    title={'Specify the branch for the automated tests.'}
                                     placeholder={'Select autotest branch'}
                                     control={control}
                                     errors={errors}

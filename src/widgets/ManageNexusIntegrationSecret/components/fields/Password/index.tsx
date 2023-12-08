@@ -19,9 +19,10 @@ export const Password = () => {
     return (
         <FormTextFieldPassword
             {...register(NEXUS_INTEGRATION_SECRET_FORM_NAMES.password.name, {
-                required: 'Enter password',
+                required: 'Provide the password associated with your Nexus repository username.',
             })}
             label={`Password`}
+            title={'Enter the password associated with your Nexus repository username.'}
             placeholder={'Enter password'}
             control={control}
             errors={errors}

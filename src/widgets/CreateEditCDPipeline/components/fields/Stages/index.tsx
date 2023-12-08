@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Button, Grid, Typography, useTheme } from '@material-ui/core';
+import { Button, Grid, Tooltip, Typography, useTheme } from '@material-ui/core';
 import React from 'react';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { StagesProps } from './types';
@@ -10,7 +10,20 @@ export const Stages = ({ stages, handleDeleteStage, handleClickAddStage }: Stage
     return (
         <Grid container spacing={1}>
             <Grid item xs={12}>
-                <Typography variant={'h6'}>Stages</Typography>
+                <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                    <Grid item>
+                        <Typography variant={'h6'}>Stages</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Tooltip
+                            title={
+                                'Stages serve as namespaces for application deployments. While this namespace can be manually configured, the default naming convention follows the format: <environment-name>-<stage-name>-<application-name>.'
+                            }
+                        >
+                            <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+                        </Tooltip>
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={1} alignItems={'center'}>

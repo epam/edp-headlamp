@@ -70,6 +70,7 @@ export const PageView = () => {
                         </Grid>
                     </Grid>
                 }
+                description={'Manage your environments with deployed applications.'}
             >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>

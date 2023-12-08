@@ -19,9 +19,12 @@ export const Token = () => {
     return (
         <FormTextFieldPassword
             {...register(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.token.name, {
-                required: 'Enter token',
+                required: 'Enter the API token for DefectDojo authentication.',
             })}
             label={`Token`}
+            title={
+                'Provide an API token for authentication with DefectDojo. Generate the token from your DefectDojo instance and paste it here.'
+            }
             placeholder={'Enter token'}
             control={control}
             errors={errors}

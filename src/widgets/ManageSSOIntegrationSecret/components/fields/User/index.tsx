@@ -19,9 +19,12 @@ export const User = () => {
     return (
         <FormTextField
             {...register(SSO_INTEGRATION_SECRET_FORM_NAMES.username.name, {
-                required: 'Enter user name',
+                required: 'Enter your realm provisioner username.',
             })}
-            label={`User`}
+            label={'User'}
+            title={
+                'Enter your realm provisioner username associated with your Keycloak SSO account.'
+            }
             placeholder={'Enter user name'}
             control={control}
             errors={errors}

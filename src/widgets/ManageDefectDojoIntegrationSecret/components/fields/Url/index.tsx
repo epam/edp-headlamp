@@ -19,13 +19,16 @@ export const Url = () => {
     return (
         <FormTextField
             {...register(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.url.name, {
-                required: 'Enter URL',
+                required: 'Enter the DefectDojo URL.',
                 pattern: {
                     value: /^(?!\/).*(?<!\/)$/,
                     message: 'Path cannot start or end with slash symbol',
                 },
             })}
-            label={`URL`}
+            label={'URL'}
+            title={
+                'Enter the URL of your DefectDojo instance. This is the address where DefectDojo is hosted (e.g., https://defectdojo.example.com).'
+            }
             placeholder={'Enter URL'}
             control={control}
             errors={errors}

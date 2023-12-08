@@ -21,9 +21,12 @@ export const SSHPublicKey = () => {
     return (
         <FormTextFieldPassword
             {...register(GIT_SERVER_FORM_NAMES.sshPublicKey.name, {
-                required: 'Enter your public SSH key',
+                required: 'Paste your public SSH key.',
             })}
             label={'Public SSH key'}
+            title={
+                'Paste your public SSH key corresponding to the private key provided. Register this key on your Git server.'
+            }
             placeholder={'ssh-rsa PUBLIC KEY'}
             control={control}
             errors={errors}

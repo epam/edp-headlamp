@@ -44,10 +44,7 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                         >
                           Cluster Name
                         </span>
-                        <div
-                          class="MuiBox-root MuiBox-root-3"
-                          style="height: 1.25rem;"
-                        />
+                        <span />
                       </span>
                     </div>
                     <div
@@ -108,10 +105,7 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                         >
                           Cluster Host
                         </span>
-                        <div
-                          class="MuiBox-root MuiBox-root-4"
-                          style="height: 1.25rem;"
-                        />
+                        <span />
                       </span>
                     </div>
                     <div
@@ -171,10 +165,7 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                         >
                           Cluster Token
                         </span>
-                        <div
-                          class="MuiBox-root MuiBox-root-5"
-                          style="height: 1.25rem;"
-                        />
+                        <span />
                       </span>
                     </div>
                     <div
@@ -252,10 +243,7 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                         >
                           Cluster Certificate
                         </span>
-                        <div
-                          class="MuiBox-root MuiBox-root-6"
-                          style="height: 1.25rem;"
-                        />
+                        <span />
                       </span>
                     </div>
                     <div

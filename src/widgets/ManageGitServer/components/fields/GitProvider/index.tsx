@@ -29,7 +29,7 @@ export const GitProvider = () => {
             <Resources />
             <FormRadioGroup
                 {...register(GIT_SERVER_FORM_NAMES.gitProvider.name, {
-                    required: `Select Git provider`,
+                    required: 'Select your Git provider.',
                     onChange: ({ target: { value } }: FieldEvent) => {
                         if (dirtyFields?.gitUser) {
                             return value;
@@ -51,7 +51,7 @@ export const GitProvider = () => {
                 control={control}
                 errors={errors}
                 label={'Git provider'}
-                title={'Select Git provider'}
+                title={'Select your Git provider.'}
                 options={gitProviderOptions.map(({ label, value }) => {
                     return {
                         value,

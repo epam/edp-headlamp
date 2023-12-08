@@ -42,6 +42,9 @@ export const Cluster = () => {
                 required: 'Select cluster',
             })}
             label={'Cluster'}
+            title={
+                'Select the Kubernetes cluster for the stage deployment. Make sure it matches the deployment needs.'
+            }
             placeholder={'Select cluster'}
             control={control}
             errors={errors}

@@ -13,10 +13,12 @@ export const IrsaRoleArn = () => {
     return (
         <FormTextField
             {...register(REGISTRY_NAMES.IRSA_ROLE_ARN, {
-                required: 'Enter IRSA Role ARN',
+                required: 'Enter the IAM role ARN for AWS ECR.',
             })}
             label={'IRSA Role ARN'}
-            title={'The IAM Role ARN with push permissions to ECR'}
+            title={
+                "Enter the IAM Role ARN for Service Accounts (IRSA). This role will be assigned to the platform's service account for accessing the registry on your behalf."
+            }
             placeholder={'Enter IRSA Role ARN'}
             control={control}
             errors={errors}

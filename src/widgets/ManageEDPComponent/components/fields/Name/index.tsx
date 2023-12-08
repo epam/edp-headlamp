@@ -14,9 +14,12 @@ export const Name = () => {
     return (
         <FormTextField
             {...register(EDP_COMPONENT_FORM_NAMES.name.name, {
-                required: 'Enter component name',
+                required: 'Enter a component name.',
             })}
             label={'Name'}
+            title={
+                'Enter a service name for the link. This name will be displayed on the overview page. Ensure the name is in lowercase.'
+            }
             placeholder={'My component name'}
             control={control}
             errors={errors}

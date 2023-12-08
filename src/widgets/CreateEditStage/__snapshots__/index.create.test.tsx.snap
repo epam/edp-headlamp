@@ -129,10 +129,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                       >
                         Cluster
                       </span>
-                      <div
-                        class="MuiBox-root MuiBox-root-4"
-                        style="height: 1.25rem;"
-                      />
+                      <span />
                     </span>
                   </div>
                   <div
@@ -334,10 +331,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                       >
                         Description
                       </span>
-                      <div
-                        class="MuiBox-root MuiBox-root-5"
-                        style="height: 1.25rem;"
-                      />
+                      <span />
                     </span>
                   </div>
                   <div
@@ -393,10 +387,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                       >
                         Trigger type
                       </span>
-                      <div
-                        class="MuiBox-root MuiBox-root-6"
-                        style="height: 1.25rem;"
-                      />
+                      <span />
                     </span>
                   </div>
                   <div
@@ -460,11 +451,24 @@ exports[`renders CreateEditStage Create component 1`] = `
               <div
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
               >
-                <h6
-                  class="MuiTypography-root MuiTypography-h6"
+                <div
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-wrap-xs-nowrap MuiGrid-align-items-xs-center"
                 >
-                  Quality gates
-                </h6>
+                  <div
+                    class="MuiGrid-root MuiGrid-item"
+                  >
+                    <h6
+                      class="MuiTypography-root MuiTypography-h6"
+                    >
+                      Quality gates
+                    </h6>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item"
+                  >
+                    <span />
+                  </div>
+                </div>
               </div>
               <div
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
@@ -514,10 +518,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                                           >
                                             Quality gate type
                                           </span>
-                                          <div
-                                            class="MuiBox-root MuiBox-root-7"
-                                            style="height: 1.25rem;"
-                                          />
+                                          <span />
                                         </span>
                                       </div>
                                       <div
@@ -588,10 +589,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                                           >
                                             Step name
                                           </span>
-                                          <div
-                                            class="MuiBox-root MuiBox-root-8"
-                                            style="height: 1.25rem;"
-                                          />
+                                          <span />
                                         </span>
                                       </div>
                                       <div

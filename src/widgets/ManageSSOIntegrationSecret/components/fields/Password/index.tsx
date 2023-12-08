@@ -19,9 +19,10 @@ export const Password = () => {
     return (
         <FormTextFieldPassword
             {...register(SSO_INTEGRATION_SECRET_FORM_NAMES.password.name, {
-                required: 'Enter password',
+                required: 'Enter your Keycloak SSO password.',
             })}
-            label={`Password`}
+            label={'Password'}
+            title={'Provide the password associated with your Keycloak SSO account.'}
             placeholder={'Enter password'}
             control={control}
             errors={errors}

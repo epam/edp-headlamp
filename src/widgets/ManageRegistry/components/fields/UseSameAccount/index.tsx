@@ -30,7 +30,12 @@ export const UseSameAccount = () => {
                     }
                 },
             })}
-            label={<FormControlLabelWithTooltip label={`Use the Push Account's credentials`} />}
+            label={
+                <FormControlLabelWithTooltip
+                    label={`Use the Push Account's credentials`}
+                    title={'Enables using the same account for both pull and push purposes.'}
+                />
+            }
             control={control}
             errors={errors}
         />

@@ -316,7 +316,12 @@ export const PageView = () => {
                 </Grid>
             }
         >
-            <Section title={stage?.spec.name}>
+            <Section
+                title={stage?.spec.name}
+                description={
+                    'Manage, deploy, test, and troubleshoot your applications across distinct  stages.'
+                }
+            >
                 {!!stage ? (
                     <Grid container spacing={2}>
                         <Grid item xs={12} style={{ marginTop: rem(20) }}>

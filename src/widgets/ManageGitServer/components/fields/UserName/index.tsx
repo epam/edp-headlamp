@@ -21,9 +21,11 @@ export const UserName = () => {
 
     return (
         <FormTextFieldEditable
-            {...register(GIT_SERVER_FORM_NAMES.gitUser.name)}
+            {...register(GIT_SERVER_FORM_NAMES.gitUser.name, {
+                required: 'Enter the username associated with your Git account.',
+            })}
             label={'User'}
-            title={`Git user name, usually "git"`}
+            title={'Provide the username associated with your Git account.'}
             placeholder={'git'}
             control={control}
             errors={errors}

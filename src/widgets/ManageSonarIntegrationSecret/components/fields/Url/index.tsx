@@ -19,13 +19,16 @@ export const Url = () => {
     return (
         <FormTextField
             {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.url.name, {
-                required: 'Enter URL',
+                required: 'Enter the SonarQube URL.',
                 pattern: {
                     value: /^(?!\/).*(?<!\/)$/,
                     message: 'Path cannot start or end with slash symbol',
                 },
             })}
-            label={`URL`}
+            label={'URL'}
+            title={
+                'Enter the URL of your SonarQube instance. This is typically the address where SonarQube is hosted (e.g., https://sonarqube.example.com:9000).'
+            }
             placeholder={'Enter URL'}
             control={control}
             errors={errors}

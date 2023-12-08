@@ -23,9 +23,12 @@ export const User = () => {
     return (
         <FormTextField
             {...register(JIRA_INTEGRATION_SECRET_FORM_NAMES.username.name, {
-                required: 'Enter user name',
+                required: 'Enter your Jira username.',
             })}
-            label={`User`}
+            label={'User'}
+            title={
+                'Enter your Jira username for authentication. This is typically the username associated with your Jira account.'
+            }
             placeholder={'Enter user name'}
             control={control}
             errors={errors}

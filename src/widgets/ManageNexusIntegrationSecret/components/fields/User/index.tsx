@@ -19,9 +19,10 @@ export const User = () => {
     return (
         <FormTextField
             {...register(NEXUS_INTEGRATION_SECRET_FORM_NAMES.username.name, {
-                required: 'Enter user name',
+                required: 'Enter your Nexus username.',
             })}
             label={`User`}
+            title={'Provide your Nexus repository username for authentication.'}
             placeholder={'Enter user name'}
             control={control}
             errors={errors}

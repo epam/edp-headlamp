@@ -24,6 +24,7 @@ import { getDeployedVersion } from '../../../../../k8s/Application/utils/getDepl
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../../../services/link-creation';
+import { rem } from '../../../../../utils/styling/rem';
 import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../widgets/PodsLogViewer/constants';
 import { PODS_TERMINAL_DIALOG_NAME } from '../../../../../widgets/PodsTerminal/constants';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
@@ -172,11 +173,24 @@ export const useColumns = (
                         'No deploy'
                     );
                 },
-                width: '20%',
+                width: '15%',
             },
             {
                 id: 'valuesOverride',
-                label: 'Values override',
+                label: (
+                    <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                        <Grid item>Values override</Grid>
+                        <Grid item>
+                            <Tooltip
+                                title={
+                                    'Redefines pipeline settings, thus enabling a GitOps approach for the Environment .'
+                                }
+                            >
+                                <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+                            </Tooltip>
+                        </Grid>
+                    </Grid>
+                ),
                 render: enrichedApplicationWithArgoApplication => {
                     const withValuesOverride =
                         enrichedApplicationWithArgoApplication?.argoApplication
@@ -221,7 +235,7 @@ export const useColumns = (
                         </Grid>
                     );
                 },
-                width: '10%',
+                width: '15%',
                 textAlign: 'center',
             },
             {
@@ -238,13 +252,13 @@ export const useColumns = (
                         />
                     );
                 },
-                width: '25%',
+                width: '20%',
             },
             ...(stage?.spec.clusterName === 'in-cluster'
                 ? ([
                       {
                           id: 'pods',
-                          label: 'Pods',
+                          label: <div style={{ paddingLeft: rem(10) }}>Pods</div>,
                           render: enrichedApplicationWithArgoApplication => {
                               return (
                                   <Grid container spacing={1} alignItems={'center'}>
@@ -296,12 +310,26 @@ export const useColumns = (
                               );
                           },
                           textAlign: 'center',
+                          width: '10%',
                       },
                   ] as TableColumn<EnrichedApplicationWithArgoApplication>[])
                 : []),
             {
                 id: 'ingress',
-                label: 'Ingress',
+                label: (
+                    <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                        <Grid item>Ingress</Grid>
+                        <Grid item>
+                            <Tooltip
+                                title={
+                                    'The Ingress endpoint directs you to the deployed application. To view the link, ensure your application is deployed with an Ingress controller.'
+                                }
+                            >
+                                <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+                            </Tooltip>
+                        </Grid>
+                    </Grid>
+                ),
                 render: enrichedApplicationWithArgoApplication => {
                     const externalURLs =
                         // @ts-ignore

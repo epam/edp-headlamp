@@ -1610,10 +1610,7 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                           >
                                             Host
                                           </span>
-                                          <div
-                                            class="MuiBox-root MuiBox-root-15"
-                                            style="height: 1.25rem;"
-                                          />
+                                          <span />
                                         </span>
                                       </div>
                                       <div
@@ -1750,10 +1747,10 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                           <span
                                             class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
                                           >
-                                            SSH port
+                                            Specify the SSH port used for Git server communication (default is 22).
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-16"
+                                            class="MuiBox-root MuiBox-root-15"
                                             style="height: 1.25rem;"
                                           />
                                         </span>
@@ -1811,10 +1808,7 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                           >
                                             HTTPS port
                                           </span>
-                                          <div
-                                            class="MuiBox-root MuiBox-root-17"
-                                            style="height: 1.25rem;"
-                                          />
+                                          <span />
                                         </span>
                                       </div>
                                       <div
@@ -1900,10 +1894,7 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                           >
                                             Private SSH key
                                           </span>
-                                          <div
-                                            class="MuiBox-root MuiBox-root-18"
-                                            style="height: 1.25rem;"
-                                          />
+                                          <span />
                                         </span>
                                       </div>
                                       <div
@@ -1988,7 +1979,7 @@ exports[`renders ManageGitServer Edit component 1`] = `
                                             Access token
                                           </span>
                                           <div
-                                            class="MuiBox-root MuiBox-root-19"
+                                            class="MuiBox-root MuiBox-root-16"
                                             style="height: 1.25rem;"
                                           />
                                         </span>

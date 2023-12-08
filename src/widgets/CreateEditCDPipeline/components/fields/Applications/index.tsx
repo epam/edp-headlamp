@@ -1,8 +1,10 @@
-import { Button, CircularProgress, Grid, Typography } from '@material-ui/core';
+import { Icon } from '@iconify/react';
+import { Button, CircularProgress, Grid, Tooltip, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { useCodebasesByTypeLabelQuery } from '../../../../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
 import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
@@ -121,6 +123,7 @@ export const Applications = () => {
                             {...register(CDPIPELINE_FORM_NAMES.applicationsToAddChooser.name)}
                             label={'Applications'}
                             placeholder={'Select applications'}
+                            title={'Select the applications linked to this environment.'}
                             control={control}
                             errors={errors}
                             disabled={applicationsOptionsListIsDisabled}
@@ -171,10 +174,44 @@ export const Applications = () => {
                                         <Typography>Application</Typography>
                                     </Grid>
                                     <Grid item xs={4}>
-                                        <Typography>Branch</Typography>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems={'center'}
+                                            wrap={'nowrap'}
+                                        >
+                                            <Grid item>Branch</Grid>
+                                            <Grid item>
+                                                <Tooltip
+                                                    title={
+                                                        'Specify the branch of the selected applications for deployment within this environment.'
+                                                    }
+                                                >
+                                                    <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+                                                </Tooltip>
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
                                     <Grid item xs={3}>
-                                        <Typography>To promote</Typography>
+                                        <Typography>
+                                            <Grid
+                                                container
+                                                spacing={1}
+                                                alignItems={'center'}
+                                                wrap={'nowrap'}
+                                            >
+                                                <Grid item>To promote</Grid>
+                                                <Grid item>
+                                                    <Tooltip
+                                                        title={
+                                                            'Enables the promotion of applications to the next pipeline stage upon the successful pass through all quality gates.'
+                                                        }
+                                                    >
+                                                        <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+                                                    </Tooltip>
+                                                </Grid>
+                                            </Grid>
+                                        </Typography>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography>Delete</Typography>

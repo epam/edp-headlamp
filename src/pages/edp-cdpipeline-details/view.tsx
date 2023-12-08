@@ -65,7 +65,7 @@ export const PageView = () => {
                 </Grid>
             }
         >
-            <Section title={name}>
+            <Section title={name} description={'Inspect the Environment and operate stages.'}>
                 {!!CDPipeline && (
                     <Grid container spacing={8}>
                         <Grid item xs={12}>

@@ -31,7 +31,7 @@ export const StageName = ({ otherStagesNames }: StageNameProps) => {
     return (
         <FormTextField
             {...register(STAGE_FORM_NAMES.name.name, {
-                required: `Enter stage name`,
+                required: `Enter a stage name. `,
                 pattern: {
                     value: /^[a-z](?!.*--[^-])[a-z0-9-]*[a-z0-9]$/,
                     message: nameRequirementLabel,
@@ -49,9 +49,9 @@ export const StageName = ({ otherStagesNames }: StageNameProps) => {
                 },
             })}
             label={'Stage name'}
-            title={`Stage name may contain only: lower-case letters, numbers and dashes and cannot start and end
-                            with dash. Minimum 2 characters.
-                        `}
+            title={
+                'Specify a stage name. This name identifies the specific environment within your deployment pipeline.'
+            }
             placeholder={'Enter stage name'}
             control={control}
             errors={errors}

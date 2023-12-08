@@ -90,10 +90,7 @@ exports[`renders ManageJiraIntegrationSecret Create component 1`] = `
                                   >
                                     User
                                   </span>
-                                  <div
-                                    class="MuiBox-root MuiBox-root-5"
-                                    style="height: 1.25rem;"
-                                  />
+                                  <span />
                                 </span>
                               </div>
                               <div
@@ -149,10 +146,7 @@ exports[`renders ManageJiraIntegrationSecret Create component 1`] = `
                                   >
                                     Password
                                   </span>
-                                  <div
-                                    class="MuiBox-root MuiBox-root-6"
-                                    style="height: 1.25rem;"
-                                  />
+                                  <span />
                                 </span>
                               </div>
                               <div

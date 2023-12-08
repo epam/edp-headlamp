@@ -111,10 +111,7 @@ exports[`renders CreateEditCDPipeline Edit component 1`] = `
                           >
                             Applications
                           </span>
-                          <div
-                            class="MuiBox-root MuiBox-root-4"
-                            style="height: 1.25rem;"
-                          />
+                          <span />
                         </span>
                       </div>
                       <div

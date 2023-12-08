@@ -19,9 +19,12 @@ export const Token = () => {
     return (
         <FormTextFieldPassword
             {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.token.name, {
-                required: 'Enter token',
+                required: 'Enter the authentication token for SonarQube.',
             })}
             label={`Token`}
+            title={
+                'Provide an authentication token for SonarQube. Generate the token from your SonarQube instance.'
+            }
             placeholder={'Enter token'}
             control={control}
             errors={errors}

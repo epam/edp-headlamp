@@ -19,13 +19,16 @@ export const Url = () => {
     return (
         <FormTextField
             {...register(DEPENDENCY_TRACK_INTEGRATION_SECRET_FORM_NAMES.url.name, {
-                required: 'Enter URL',
+                required: 'Enter the DependencyTrack URL.',
                 pattern: {
                     value: /^(?!\/).*(?<!\/)$/,
                     message: 'Path cannot start or end with slash symbol',
                 },
             })}
-            label={`URL`}
+            label={'URL'}
+            title={
+                'Enter the URL of your DependencyTrack instance. This is typically the address where DependencyTrack is hosted (e.g., https://deptrack.example.com).'
+            }
             placeholder={'Enter URL'}
             control={control}
             errors={errors}

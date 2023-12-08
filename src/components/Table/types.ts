@@ -29,7 +29,7 @@ export interface TableProps<DataType = unknown> {
 
 export interface TableColumn<DataType> {
     id: any;
-    label: string;
+    label: string | React.ReactElement;
     columnSortableValuePath?: string | string[];
     render: (data?: DataType) => React.ReactElement | string | number;
     show?: boolean;

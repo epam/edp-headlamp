@@ -16,9 +16,12 @@ export const ClusterToken = () => {
         <Grid item xs={12}>
             <FormTextFieldPassword
                 {...register(CLUSTER_CREATION_FORM_NAMES.clusterToken.name, {
-                    required: 'Enter cluster token',
+                    required: 'Provide the cluster token.',
                 })}
                 label={'Cluster Token'}
+                title={
+                    'Provide a Kubernetes  token with permissions to access the cluster. This token is required for proper authorization.'
+                }
                 placeholder={'Enter cluster token'}
                 control={control}
                 errors={errors}

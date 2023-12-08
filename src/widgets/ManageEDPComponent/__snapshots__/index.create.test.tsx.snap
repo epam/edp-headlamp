@@ -41,10 +41,7 @@ exports[`renders ManageEDPComponent Create component 1`] = `
                       >
                         Name
                       </span>
-                      <div
-                        class="MuiBox-root MuiBox-root-3"
-                        style="height: 1.25rem;"
-                      />
+                      <span />
                     </span>
                   </div>
                   <div
@@ -100,10 +97,7 @@ exports[`renders ManageEDPComponent Create component 1`] = `
                       >
                         URL
                       </span>
-                      <div
-                        class="MuiBox-root MuiBox-root-4"
-                        style="height: 1.25rem;"
-                      />
+                      <span />
                     </span>
                   </div>
                   <div
@@ -167,10 +161,7 @@ exports[`renders ManageEDPComponent Create component 1`] = `
                       >
                         Icon(svg in base64)
                       </span>
-                      <div
-                        class="MuiBox-root MuiBox-root-5"
-                        style="height: 1.25rem;"
-                      />
+                      <span />
                     </span>
                   </div>
                   <div
@@ -213,7 +204,7 @@ exports[`renders ManageEDPComponent Create component 1`] = `
             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
           >
             <div
-              class="makeStyles-icon-7"
+              class="makeStyles-icon-4"
             >
               <img
                 alt=""

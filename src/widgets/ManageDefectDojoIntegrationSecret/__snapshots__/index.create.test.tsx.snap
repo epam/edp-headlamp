@@ -35,10 +35,7 @@ exports[`renders ManageDefectDojoIntegrationSecret Create component 1`] = `
                   >
                     URL
                   </span>
-                  <div
-                    class="MuiBox-root MuiBox-root-3"
-                    style="height: 1.25rem;"
-                  />
+                  <span />
                 </span>
               </div>
               <div
@@ -94,10 +91,7 @@ exports[`renders ManageDefectDojoIntegrationSecret Create component 1`] = `
                   >
                     Token
                   </span>
-                  <div
-                    class="MuiBox-root MuiBox-root-4"
-                    style="height: 1.25rem;"
-                  />
+                  <span />
                 </span>
               </div>
               <div

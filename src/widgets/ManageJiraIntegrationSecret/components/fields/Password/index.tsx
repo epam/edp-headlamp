@@ -23,9 +23,10 @@ export const Password = () => {
     return (
         <FormTextFieldPassword
             {...register(JIRA_INTEGRATION_SECRET_FORM_NAMES.password.name, {
-                required: 'Enter password',
+                required: 'Enter your Jira password.',
             })}
-            label={`Password`}
+            label={'Password'}
+            title={'Provide the password associated with your Jira account.'}
             placeholder={'Enter password'}
             control={control}
             errors={errors}

@@ -105,10 +105,7 @@ exports[`renders CreateEditStage Edit component 1`] = `
                       >
                         Trigger type
                       </span>
-                      <div
-                        class="MuiBox-root MuiBox-root-4"
-                        style="height: 1.25rem;"
-                      />
+                      <span />
                     </span>
                   </div>
                   <div

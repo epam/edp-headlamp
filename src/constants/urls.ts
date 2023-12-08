@@ -295,4 +295,7 @@ export const EDP_OPERATOR_GUIDE = {
     JIRA: {
         url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/jira-integration/`,
     },
+    DEFECT_DOJO: {
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/install-defectdojo/`,
+    },
 };

@@ -21,9 +21,12 @@ export const Icon = () => {
             <Grid item xs={9}>
                 <FormTextField
                     {...register(EDP_COMPONENT_FORM_NAMES.icon.name, {
-                        required: 'Enter icon in base64 svg format',
+                        required: 'Paste the SVG code for the icon, encoded in base64 format.',
                     })}
                     label={'Icon(svg in base64)'}
+                    title={
+                        'Paste the SVG code for your desired icon, encoded in base64 format. Ensure the SVG is simple, clear, and recognizable even in a small size.'
+                    }
                     placeholder={'svg in base64'}
                     control={control}
                     errors={errors}

@@ -19,9 +19,12 @@ export const Token = () => {
     return (
         <FormTextFieldPassword
             {...register(DEPENDENCY_TRACK_INTEGRATION_SECRET_FORM_NAMES.token.name, {
-                required: 'Enter token',
+                required: 'Enter the API token for DependencyTrack authentication.',
             })}
             label={`Token`}
+            title={
+                'Provide an API token for authentication with DependencyTrack. Generate the token from your DependencyTrack instance.'
+            }
             placeholder={'Enter token'}
             control={control}
             errors={errors}

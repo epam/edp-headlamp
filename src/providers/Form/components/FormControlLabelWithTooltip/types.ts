@@ -1,6 +1,6 @@
 import React from 'react';
 
 export interface FormControlLabelWithTooltipProps {
-    label: string;
+    label: string | React.ReactElement;
     title?: string | React.ReactElement;
 }

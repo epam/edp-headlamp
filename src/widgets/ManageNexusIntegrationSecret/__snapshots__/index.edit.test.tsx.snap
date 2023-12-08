@@ -35,10 +35,7 @@ exports[`renders ManageNexusIntegrationSecret Edit component 1`] = `
                   >
                     URL
                   </span>
-                  <div
-                    class="MuiBox-root MuiBox-root-3"
-                    style="height: 1.25rem;"
-                  />
+                  <span />
                 </span>
               </div>
               <div
@@ -94,10 +91,7 @@ exports[`renders ManageNexusIntegrationSecret Edit component 1`] = `
                   >
                     User
                   </span>
-                  <div
-                    class="MuiBox-root MuiBox-root-4"
-                    style="height: 1.25rem;"
-                  />
+                  <span />
                 </span>
               </div>
               <div
@@ -153,10 +147,7 @@ exports[`renders ManageNexusIntegrationSecret Edit component 1`] = `
                   >
                     Password
                   </span>
-                  <div
-                    class="MuiBox-root MuiBox-root-5"
-                    style="height: 1.25rem;"
-                  />
+                  <span />
                 </span>
               </div>
               <div
