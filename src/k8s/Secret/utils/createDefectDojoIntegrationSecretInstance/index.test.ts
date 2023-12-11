@@ -1,4 +1,4 @@
-import { INTEGRATION_SECRET_NAMES } from '../../constants';
+import { DefectDojoCISecretMock } from '../../mocks/defectdojo-ci-secret.mock';
 import { createDefectDojoIntegrationSecretInstance } from './index';
 
 describe('testing createDefectDojoIntegrationSecretInstance', () => {
@@ -8,15 +8,6 @@ describe('testing createDefectDojoIntegrationSecretInstance', () => {
             url: 'https://test-url.com',
         });
 
-        expect(object).toEqual({
-            apiVersion: 'v1',
-            kind: 'Secret',
-            metadata: {
-                name: INTEGRATION_SECRET_NAMES.DEFECT_DOJO,
-                labels: { 'app.edp.epam.com/secret-type': 'defectdojo' },
-            },
-            type: 'Opaque',
-            data: { token: 'dGVzdC10b2tlbg==', url: 'aHR0cHM6Ly90ZXN0LXVybC5jb20=' },
-        });
+        expect(object).toEqual(DefectDojoCISecretMock);
     });
 });

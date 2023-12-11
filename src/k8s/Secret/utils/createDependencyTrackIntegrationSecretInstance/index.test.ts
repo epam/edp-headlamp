@@ -1,4 +1,4 @@
-import { INTEGRATION_SECRET_NAMES } from '../../constants';
+import { DependencyTrackCISecretMock } from '../../mocks/dependencytrack-ci-secret.mock';
 import { createDependencyTrackIntegrationSecretInstance } from './index';
 
 describe('testing createDependencyTrackIntegrationSecretInstance', () => {
@@ -8,15 +8,6 @@ describe('testing createDependencyTrackIntegrationSecretInstance', () => {
             url: 'https://test-url.com',
         });
 
-        expect(object).toEqual({
-            apiVersion: 'v1',
-            kind: 'Secret',
-            metadata: {
-                name: INTEGRATION_SECRET_NAMES.DEPENDENCY_TRACK,
-                labels: { 'app.edp.epam.com/secret-type': 'dependency-track' },
-            },
-            type: 'Opaque',
-            data: { token: 'dGVzdC10b2tlbg==', url: 'aHR0cHM6Ly90ZXN0LXVybC5jb20=' },
-        });
+        expect(object).toEqual(DependencyTrackCISecretMock);
     });
 });

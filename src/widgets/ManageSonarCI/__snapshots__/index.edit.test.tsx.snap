@@ -1,0 +1,338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders ManageSonarCI Edit component 1`] = `
+<div
+  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+  data-testid="form"
+>
+  <div
+    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+  >
+    <div
+      class="MuiPaper-root MuiAccordion-root makeStyles-accordion-1 Mui-disabled MuiAccordion-rounded MuiPaper-elevation0 MuiPaper-rounded"
+    >
+      <div
+        aria-disabled="true"
+        aria-expanded="false"
+        class="MuiButtonBase-root MuiAccordionSummary-root Mui-disabled Mui-disabled"
+        role="button"
+        tabindex="-1"
+      >
+        <div
+          class="MuiAccordionSummary-content"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item"
+            >
+              <span />
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item"
+            >
+              <h6
+                class="MuiTypography-root MuiTypography-h6"
+              >
+                Add SonarQube Integration
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiCollapse-root MuiCollapse-hidden"
+        style="min-height: 0px;"
+      >
+        <div
+          class="MuiCollapse-wrapper"
+        >
+          <div
+            class="MuiCollapse-wrapperInner"
+          >
+            <div
+              role="region"
+            >
+              <div
+                class="MuiAccordionDetails-root"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+  >
+    <div
+      class="MuiPaper-root MuiAccordion-root Mui-expanded MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+    >
+      <div
+        aria-disabled="false"
+        aria-expanded="true"
+        class="MuiButtonBase-root MuiAccordionSummary-root Mui-expanded"
+        role="button"
+        style="cursor: default;"
+        tabindex="0"
+      >
+        <div
+          class="MuiAccordionSummary-content Mui-expanded"
+        >
+          <h6
+            class="MuiTypography-root MuiTypography-h6"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-item"
+                style="margin-right: 0.3125rem;"
+              >
+                <div>
+                  <span />
+                </div>
+              </div>
+              <div
+                class="MuiGrid-root MuiGrid-item"
+              >
+                ci-sonarqube
+              </div>
+            </div>
+          </h6>
+        </div>
+      </div>
+      <div
+        class="MuiCollapse-root MuiCollapse-entered"
+        style="min-height: 0px;"
+      >
+        <div
+          class="MuiCollapse-wrapper"
+        >
+          <div
+            class="MuiCollapse-wrapperInner"
+          >
+            <div
+              role="region"
+            >
+              <div
+                class="MuiAccordionDetails-root"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                        >
+                          <div
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                            style="display: flex;"
+                          >
+                            <div
+                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                            >
+                              <div
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                              >
+                                <span
+                                  class="makeStyles-labelWrap-6"
+                                >
+                                  <span
+                                    class="MuiTypography-root makeStyles-label-7 MuiTypography-body1"
+                                  >
+                                    URL
+                                  </span>
+                                  <span />
+                                </span>
+                              </div>
+                              <div
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                style="display: flex; align-items: flex-end;"
+                              >
+                                <div
+                                  class="MuiFormControl-root MuiFormControl-fullWidth"
+                                >
+                                  <div
+                                    class="MuiFormControl-root MuiTextField-root"
+                                  >
+                                    <div
+                                      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                                    >
+                                      <input
+                                        aria-invalid="false"
+                                        class="MuiInputBase-input MuiInput-input"
+                                        name="url"
+                                        placeholder="Enter URL"
+                                        type="text"
+                                        value="https://test-url.com"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                        >
+                          <div
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                            style="display: flex;"
+                          >
+                            <div
+                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                            >
+                              <div
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                              >
+                                <span
+                                  class="makeStyles-labelWrap-6"
+                                >
+                                  <span
+                                    class="MuiTypography-root makeStyles-label-7 MuiTypography-body1"
+                                  >
+                                    Token
+                                  </span>
+                                  <span />
+                                </span>
+                              </div>
+                              <div
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                style="display: flex; align-items: flex-end;"
+                              >
+                                <div
+                                  class="MuiFormControl-root MuiFormControl-fullWidth"
+                                >
+                                  <div
+                                    class="MuiFormControl-root MuiTextField-root"
+                                  >
+                                    <div
+                                      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
+                                    >
+                                      <input
+                                        aria-invalid="false"
+                                        class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                        name="token"
+                                        placeholder="Enter token"
+                                        type="password"
+                                        value="test-token"
+                                      />
+                                      <div
+                                        class="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+                                      >
+                                        <button
+                                          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                                          tabindex="0"
+                                          type="button"
+                                        >
+                                          <span
+                                            class="MuiIconButton-label"
+                                          >
+                                            <span />
+                                          </span>
+                                          <span
+                                            class="MuiTouchRipple-root"
+                                          />
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                  >
+                    <div
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-justify-content-xs-space-between"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <button
+                          class="MuiButtonBase-root MuiIconButton-root"
+                          tabindex="0"
+                          type="button"
+                        >
+                          <span
+                            class="MuiIconButton-label"
+                          >
+                            <span />
+                          </span>
+                          <span
+                            class="MuiTouchRipple-root"
+                          />
+                        </button>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
+                        >
+                          <div
+                            class="MuiGrid-root MuiGrid-item"
+                          >
+                            <button
+                              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+                              disabled=""
+                              tabindex="-1"
+                              type="button"
+                            >
+                              <span
+                                class="MuiButton-label"
+                              >
+                                undo changes
+                              </span>
+                            </button>
+                          </div>
+                          <div
+                            class="MuiGrid-root MuiGrid-item"
+                          >
+                            <button
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+                              disabled=""
+                              tabindex="-1"
+                              type="button"
+                            >
+                              <span
+                                class="MuiButton-label"
+                              >
+                                save
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

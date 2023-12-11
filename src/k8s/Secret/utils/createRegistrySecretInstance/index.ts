@@ -1,6 +1,6 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { safeEncode } from '../../../../utils/decodeEncode';
-import { SECRET_LABEL_SECRET_TYPE } from '../../labels';
+import { SECRET_LABEL_INTEGRATION_SECRET, SECRET_LABEL_SECRET_TYPE } from '../../labels';
 
 export const createRegistrySecretInstance = ({
     name,
@@ -21,6 +21,7 @@ export const createRegistrySecretInstance = ({
             name,
             labels: {
                 [SECRET_LABEL_SECRET_TYPE]: 'registry',
+                [SECRET_LABEL_INTEGRATION_SECRET]: 'true',
             },
         },
         type: 'kubernetes.io/dockerconfigjson',

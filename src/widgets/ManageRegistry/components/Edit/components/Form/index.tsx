@@ -2,9 +2,16 @@ import { Icon } from '@iconify/react';
 import { Grid, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormDataContext } from 'react-hook-form';
+import { StatusIcon } from '../../../../../../components/StatusIcon';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
+import { SecretKubeObject } from '../../../../../../k8s/Secret';
+import {
+    SECRET_ANNOTATION_INTEGRATION_SECRET_CONNECTED,
+    SECRET_ANNOTATION_INTEGRATION_SECRET_ERROR,
+} from '../../../../../../k8s/Secret/annotations';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
+import { rem } from '../../../../../../utils/styling/rem';
 import { REGISTRY_NAMES } from '../../../../names';
 import { ManageRegistryDataContext } from '../../../../types';
 import {
@@ -29,6 +36,22 @@ export const Form = () => {
     const useSameAccountFieldValue = watch(REGISTRY_NAMES.USE_SAME_ACCOUNT);
     const pushAccountOwnerReference = pushAccountSecret?.metadata?.ownerReferences?.[0].kind;
     const pullAccountOwnerReference = pullAccountSecret?.metadata?.ownerReferences?.[0].kind;
+
+    const pushAccountConnected =
+        pushAccountSecret?.metadata?.annotations?.[SECRET_ANNOTATION_INTEGRATION_SECRET_CONNECTED];
+    const pushAccountError =
+        pushAccountSecret?.metadata?.annotations?.[SECRET_ANNOTATION_INTEGRATION_SECRET_ERROR];
+
+    const [pushAccountIcon, pushAccountIconColor] =
+        SecretKubeObject.getStatusIcon(pushAccountConnected);
+
+    const pullAccountConnected =
+        pullAccountSecret?.metadata?.annotations?.[SECRET_ANNOTATION_INTEGRATION_SECRET_CONNECTED];
+    const pullAccountError =
+        pullAccountSecret?.metadata?.annotations?.[SECRET_ANNOTATION_INTEGRATION_SECRET_ERROR];
+
+    const [pullAccountIcon, pullAccountIconColor] =
+        SecretKubeObject.getStatusIcon(pullAccountConnected);
 
     return (
         <Grid container spacing={4}>
@@ -67,6 +90,35 @@ export const Form = () => {
                             <Grid item xs={12}>
                                 <Grid container spacing={1} alignItems={'center'}>
                                     <Grid item>
+                                        <StatusIcon
+                                            icon={pushAccountIcon}
+                                            color={pushAccountIconColor}
+                                            Title={
+                                                <>
+                                                    <Typography
+                                                        variant={'subtitle2'}
+                                                        style={{ fontWeight: 600 }}
+                                                    >
+                                                        {`Connected: ${
+                                                            pushAccountConnected === undefined
+                                                                ? 'Unknown'
+                                                                : pushAccountConnected
+                                                        }`}
+                                                    </Typography>
+                                                    {!!pushAccountError && (
+                                                        <Typography
+                                                            variant={'subtitle2'}
+                                                            style={{ marginTop: rem(10) }}
+                                                        >
+                                                            {pushAccountError}
+                                                        </Typography>
+                                                    )}
+                                                </>
+                                            }
+                                            width={20}
+                                        />
+                                    </Grid>
+                                    <Grid item>
                                         <Typography variant={'h6'}>Push Account</Typography>
                                     </Grid>
                                     {!!pushAccountOwnerReference && (
@@ -98,6 +150,35 @@ export const Form = () => {
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <Grid container spacing={1} alignItems={'center'}>
+                                    <Grid item>
+                                        <StatusIcon
+                                            icon={pullAccountIcon}
+                                            color={pullAccountIconColor}
+                                            Title={
+                                                <>
+                                                    <Typography
+                                                        variant={'subtitle2'}
+                                                        style={{ fontWeight: 600 }}
+                                                    >
+                                                        {`Connected: ${
+                                                            pullAccountConnected === undefined
+                                                                ? 'Unknown'
+                                                                : pullAccountConnected
+                                                        }`}
+                                                    </Typography>
+                                                    {!!pullAccountError && (
+                                                        <Typography
+                                                            variant={'subtitle2'}
+                                                            style={{ marginTop: rem(10) }}
+                                                        >
+                                                            {pullAccountError}
+                                                        </Typography>
+                                                    )}
+                                                </>
+                                            }
+                                            width={20}
+                                        />
+                                    </Grid>
                                     <Grid item>
                                         <Typography variant={'h6'}>Pull Account</Typography>
                                     </Grid>

@@ -26,21 +26,21 @@ export const ManageGitServer = ({ formData }: ManageGitServerProps) => {
 
     return (
         <Grid container spacing={2} data-testid="form">
-            {mode === FORM_MODES.CREATE ? (
-                <Grid item xs={12}>
-                    <CreateItemAccordion
-                        isExpanded={expandedPanel === mode}
-                        onChange={handleChange(mode)}
-                        title={'Add Git Server'}
-                    >
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <Create formData={_formData} />
-                            </Grid>
+            <Grid item xs={12}>
+                <CreateItemAccordion
+                    isExpanded={expandedPanel === mode}
+                    onChange={handleChange(mode)}
+                    title={'Add Git Server'}
+                    disabled={mode === FORM_MODES.EDIT}
+                >
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Create formData={_formData} />
                         </Grid>
-                    </CreateItemAccordion>
-                </Grid>
-            ) : mode === FORM_MODES.EDIT ? (
+                    </Grid>
+                </CreateItemAccordion>
+            </Grid>
+            {mode === FORM_MODES.EDIT ? (
                 <Grid item xs={12}>
                     <Accordion expanded>
                         <AccordionSummary style={{ cursor: 'default' }}>

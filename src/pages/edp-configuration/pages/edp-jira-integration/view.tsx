@@ -10,7 +10,7 @@ import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
 import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { ManageJiraIntegrationSecret } from '../../../../widgets/ManageJiraIntegrationSecret';
+import { ManageJiraCI } from '../../../../widgets/ManageJiraCI';
 import { menu } from '../../menu';
 import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
@@ -48,7 +48,7 @@ export const PageView = () => {
     }, []);
 
     const mode = !!jiraServer && !!jiraServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
-
+    const ownerReference = jiraServerSecret?.metadata?.ownerReferences?.[0]?.kind;
     const isLoading = !jiraServer && jiraServerSecret === null;
 
     return (
@@ -70,10 +70,12 @@ export const PageView = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <LoadingWrapper isLoading={isLoading}>
-                            <ManageJiraIntegrationSecret
+                            <ManageJiraCI
                                 formData={{
                                     jiraServer,
                                     jiraServerSecret,
+                                    ownerReference,
+                                    isReadOnly: !!ownerReference,
                                     mode,
                                 }}
                             />

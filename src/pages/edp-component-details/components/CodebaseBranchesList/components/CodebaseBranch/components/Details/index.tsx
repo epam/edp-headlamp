@@ -15,7 +15,6 @@ import { PipelineRunList } from '../../../../../../../../widgets/PipelineRunList
 import { SonarQubeMetrics } from '../../../../../../../../widgets/SonarQubeMetrics';
 import { EDPComponentDetailsRouteParams } from '../../../../../../types';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
-import { useSonarQubeMetrics } from './hooks/useSonarQubeMetrics';
 import { DetailsProps } from './types';
 
 const pipelineRunTypes = Object.entries(PIPELINE_TYPES).filter(
@@ -68,7 +67,7 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
     const mainInfoRows = useMainInfoRows(codebaseBranchData);
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
     const sonarQubeBaseURL = EDPComponentsURLS?.sonar;
-    const metrics = useSonarQubeMetrics(codebaseBranchData.metadata.name);
+    const metrics = {};
 
     return (
         <Grid container spacing={2}>

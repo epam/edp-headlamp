@@ -1,11 +1,16 @@
+import { Grid, Link, Typography } from '@material-ui/core';
 import React from 'react';
+import { LoadingWrapper } from '../../../../components/LoadingWrapper';
+import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
+import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
+import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { ManageNexusIntegrationSecret } from '../../../../widgets/ManageNexusIntegrationSecret';
-import { ConfigurationBody } from '../../components/ConfigurationBody';
+import { ManageNexusCI } from '../../../../widgets/ManageNexusCI';
+import { menu } from '../../menu';
 import { NEXUS_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 const findNexusIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
@@ -32,56 +37,41 @@ export const PageView = () => {
         };
     }, []);
 
-    const creationDisabled = React.useMemo(
-        () => (nexusSecret === null ? true : !!nexusSecret),
-        [nexusSecret]
-    );
-
-    const secretsArray = [nexusSecret].filter(Boolean);
-
-    const configurationItemList = React.useMemo(
-        () =>
-            secretsArray.map(el => {
-                const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
-
-                return {
-                    id: el?.metadata?.name || el?.metadata?.uid,
-                    title: el?.metadata.name,
-                    ownerReference,
-                    component: (
-                        <ManageNexusIntegrationSecret
-                            formData={{
-                                isReadOnly: !!ownerReference,
-                                currentElement: el,
-                            }}
-                        />
-                    ),
-                };
-            }),
-        [secretsArray]
-    );
+    const mode = !!nexusSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+    const ownerReference = nexusSecret?.metadata?.ownerReferences?.[0]?.kind;
+    const isLoading = nexusSecret === null;
 
     return (
-        <ConfigurationBody
-            pageData={{
-                label: NEXUS_INTEGRATION_PAGE_DESCRIPTION.label,
-                description: NEXUS_INTEGRATION_PAGE_DESCRIPTION.description,
-                docUrl: EDP_OPERATOR_GUIDE.NEXUS.url,
-            }}
-            renderPlaceHolderData={({ handleClosePlaceholder }) => ({
-                title: 'Create service account',
-                disabled: creationDisabled,
-                component: (
-                    <ManageNexusIntegrationSecret
-                        formData={{
-                            currentElement: 'placeholder',
-                            handleClosePlaceholder,
-                        }}
-                    />
-                ),
-            })}
-            items={nexusSecret === null ? null : configurationItemList}
-            emptyMessage={'No Nexus integration secrets found'}
-        />
+        <PageWithSubMenu list={menu}>
+            <PageWrapper containerMaxWidth={'xl'}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Typography variant={'h1'} gutterBottom>
+                            {NEXUS_INTEGRATION_PAGE_DESCRIPTION.label}
+                        </Typography>
+                        <Typography variant={'body1'}>
+                            {NEXUS_INTEGRATION_PAGE_DESCRIPTION.description}{' '}
+                            <Link href={EDP_OPERATOR_GUIDE.NEXUS.url} target={'_blank'}>
+                                <Typography variant={'body2'} component={'span'}>
+                                    Learn more.
+                                </Typography>
+                            </Link>
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <LoadingWrapper isLoading={isLoading}>
+                            <ManageNexusCI
+                                formData={{
+                                    nexusSecret,
+                                    ownerReference,
+                                    isReadOnly: !!ownerReference,
+                                    mode,
+                                }}
+                            />
+                        </LoadingWrapper>
+                    </Grid>
+                </Grid>
+            </PageWrapper>
+        </PageWithSubMenu>
     );
 };

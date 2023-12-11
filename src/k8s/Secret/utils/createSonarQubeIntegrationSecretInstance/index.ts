@@ -1,7 +1,7 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { safeEncode } from '../../../../utils/decodeEncode';
 import { INTEGRATION_SECRET_NAMES } from '../../constants';
-import { SECRET_LABEL_SECRET_TYPE } from '../../labels';
+import { SECRET_LABEL_INTEGRATION_SECRET, SECRET_LABEL_SECRET_TYPE } from '../../labels';
 
 export const createSonarQubeIntegrationSecretInstance = ({
     token,
@@ -18,6 +18,7 @@ export const createSonarQubeIntegrationSecretInstance = ({
             name: INTEGRATION_SECRET_NAMES.SONAR,
             labels: {
                 [SECRET_LABEL_SECRET_TYPE]: 'sonar',
+                [SECRET_LABEL_INTEGRATION_SECRET]: 'true',
             },
         },
         type: 'Opaque',

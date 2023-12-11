@@ -1748,12 +1748,9 @@ exports[`renders ManageGitServer Create component 1`] = `
                                           <span
                                             class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
                                           >
-                                            Specify the SSH port used for Git server communication (default is 22).
+                                            SSH port
                                           </span>
-                                          <div
-                                            class="MuiBox-root MuiBox-root-14"
-                                            style="height: 1.25rem;"
-                                          />
+                                          <span />
                                         </span>
                                       </div>
                                       <div

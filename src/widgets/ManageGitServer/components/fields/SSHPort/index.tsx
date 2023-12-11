@@ -21,7 +21,8 @@ export const SSHPort = () => {
                 },
                 setValueAs: (value: string) => (value ? Number(value) : value),
             })}
-            label={'Specify the SSH port used for Git server communication (default is 22).'}
+            label={'SSH port'}
+            title={'Specify the SSH port used for Git server communication (default is 22).'}
             placeholder={'Enter SSH port'}
             control={control}
             errors={errors}

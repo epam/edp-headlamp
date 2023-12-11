@@ -1,10 +1,15 @@
+import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import { LoadingWrapper } from '../../../../components/LoadingWrapper';
+import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
+import { PageWrapper } from '../../../../components/PageWrapper';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
+import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { ManageSSOIntegrationSecret } from '../../../../widgets/ManageSSOIntegrationSecret';
-import { ConfigurationBody } from '../../components/ConfigurationBody';
+import { ManageSSOCI } from '../../../../widgets/ManageSSOCI';
+import { menu } from '../../menu';
 import { SSO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 const findSSOIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
@@ -31,55 +36,36 @@ export const PageView = () => {
         };
     }, []);
 
-    const creationDisabled = React.useMemo(
-        () => (ssoSecret === null ? true : !!ssoSecret),
-        [ssoSecret]
-    );
-
-    const secretsArray = [ssoSecret].filter(Boolean);
-
-    const configurationItemList = React.useMemo(
-        () =>
-            secretsArray.map(el => {
-                const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
-
-                return {
-                    id: el?.metadata?.name || el?.metadata?.uid,
-                    title: el?.metadata.name,
-                    ownerReference,
-                    component: (
-                        <ManageSSOIntegrationSecret
-                            formData={{
-                                isReadOnly: !!ownerReference,
-                                currentElement: el,
-                            }}
-                        />
-                    ),
-                };
-            }),
-        [secretsArray]
-    );
+    const mode = !!ssoSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+    const ownerReference = ssoSecret?.metadata?.ownerReferences?.[0]?.kind;
+    const isLoading = ssoSecret === null;
 
     return (
-        <ConfigurationBody
-            pageData={{
-                label: SSO_INTEGRATION_PAGE_DESCRIPTION.label,
-                description: SSO_INTEGRATION_PAGE_DESCRIPTION.description,
-            }}
-            renderPlaceHolderData={({ handleClosePlaceholder }) => ({
-                title: 'Create service account',
-                disabled: creationDisabled,
-                component: (
-                    <ManageSSOIntegrationSecret
-                        formData={{
-                            currentElement: 'placeholder',
-                            handleClosePlaceholder,
-                        }}
-                    />
-                ),
-            })}
-            items={ssoSecret === null ? null : configurationItemList}
-            emptyMessage={'No SSO integration secrets found'}
-        />
+        <PageWithSubMenu list={menu}>
+            <PageWrapper containerMaxWidth={'xl'}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Typography variant={'h1'} gutterBottom>
+                            {SSO_INTEGRATION_PAGE_DESCRIPTION.label}
+                        </Typography>
+                        <Typography variant={'body1'}>
+                            {SSO_INTEGRATION_PAGE_DESCRIPTION.description}{' '}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <LoadingWrapper isLoading={isLoading}>
+                            <ManageSSOCI
+                                formData={{
+                                    ssoSecret,
+                                    ownerReference,
+                                    isReadOnly: !!ownerReference,
+                                    mode,
+                                }}
+                            />
+                        </LoadingWrapper>
+                    </Grid>
+                </Grid>
+            </PageWrapper>
+        </PageWithSubMenu>
     );
 };

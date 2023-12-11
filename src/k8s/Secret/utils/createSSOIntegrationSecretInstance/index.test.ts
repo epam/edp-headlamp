@@ -1,25 +1,13 @@
-import { INTEGRATION_SECRET_NAMES } from '../../constants';
+import { SSOCISecretMock } from '../../mocks/sso-ci-secret.mock';
 import { createSSOIntegrationSecretInstance } from './index';
 
 describe('testing createSSOIntegrationSecretInstance', () => {
     it('should create correct object', () => {
         const object = createSSOIntegrationSecretInstance({
-            username: 'test-user',
+            username: 'test-username',
             password: 'test-password',
         });
 
-        expect(object).toEqual({
-            apiVersion: 'v1',
-            kind: 'Secret',
-            metadata: {
-                name: INTEGRATION_SECRET_NAMES.SSO,
-                labels: { 'app.edp.epam.com/secret-type': 'keycloak' },
-            },
-            type: 'Opaque',
-            data: {
-                username: 'dGVzdC11c2Vy',
-                password: 'dGVzdC1wYXNzd29yZA==',
-            },
-        });
+        expect(object).toEqual(SSOCISecretMock);
     });
 });

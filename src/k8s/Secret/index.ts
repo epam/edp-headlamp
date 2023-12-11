@@ -1,4 +1,6 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
+import { STATUS_COLOR } from '../../constants/colors';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { KubeObjectListInterface } from '../../types/k8s';
 import { streamResults } from '../common/streamResults';
 import { SecretKubeObjectConfig } from './config';
@@ -38,5 +40,16 @@ export class SecretKubeObject extends K8s.secret.default {
             });
         }
         return streamResults(url, dataHandler, errorHandler);
+    }
+
+    static getStatusIcon(connected: string): [string, string, boolean?] {
+        if (connected === undefined) {
+            return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        }
+
+        if (connected === 'true') {
+            return [ICONS.CHECK_CIRCLE, STATUS_COLOR.SUCCESS];
+        }
+        return [ICONS.CROSS_CIRCLE, STATUS_COLOR.ERROR];
     }
 }

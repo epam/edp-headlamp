@@ -1,11 +1,16 @@
+import { Grid, Link, Typography } from '@material-ui/core';
 import React from 'react';
+import { LoadingWrapper } from '../../../../components/LoadingWrapper';
+import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
+import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
 import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
+import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { ManageDefectDojoIntegrationSecret } from '../../../../widgets/ManageDefectDojoIntegrationSecret';
-import { ConfigurationBody } from '../../components/ConfigurationBody';
+import { ManageDefectDojoCI } from '../../../../widgets/ManageDefectDojoCI';
+import { menu } from '../../menu';
 import { DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 const findDefectDojoIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
@@ -33,56 +38,41 @@ export const PageView = () => {
         };
     }, []);
 
-    const creationDisabled = React.useMemo(
-        () => (defectDojoSecret === null ? true : !!defectDojoSecret),
-        [defectDojoSecret]
-    );
-
-    const secretsArray = [defectDojoSecret].filter(Boolean);
-
-    const configurationItemList = React.useMemo(
-        () =>
-            secretsArray.map(el => {
-                const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
-
-                return {
-                    id: el?.metadata?.name || el?.metadata?.uid,
-                    title: el?.metadata.name,
-                    ownerReference,
-                    component: (
-                        <ManageDefectDojoIntegrationSecret
-                            formData={{
-                                isReadOnly: !!ownerReference,
-                                currentElement: el,
-                            }}
-                        />
-                    ),
-                };
-            }),
-        [secretsArray]
-    );
+    const mode = !!defectDojoSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+    const ownerReference = defectDojoSecret?.metadata?.ownerReferences?.[0]?.kind;
+    const isLoading = defectDojoSecret === null;
 
     return (
-        <ConfigurationBody
-            pageData={{
-                label: DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION.label,
-                description: DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION.description,
-                docUrl: EDP_OPERATOR_GUIDE.DEFECT_DOJO.url,
-            }}
-            renderPlaceHolderData={({ handleClosePlaceholder }) => ({
-                title: 'Create service account',
-                disabled: creationDisabled,
-                component: (
-                    <ManageDefectDojoIntegrationSecret
-                        formData={{
-                            currentElement: 'placeholder',
-                            handleClosePlaceholder,
-                        }}
-                    />
-                ),
-            })}
-            items={defectDojoSecret === null ? null : configurationItemList}
-            emptyMessage={'No DefectDojo integration secrets found'}
-        />
+        <PageWithSubMenu list={menu}>
+            <PageWrapper containerMaxWidth={'xl'}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Typography variant={'h1'} gutterBottom>
+                            {DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION.label}
+                        </Typography>
+                        <Typography variant={'body1'}>
+                            {DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION.description}{' '}
+                            <Link href={EDP_OPERATOR_GUIDE.DEFECT_DOJO.url} target={'_blank'}>
+                                <Typography variant={'body2'} component={'span'}>
+                                    Learn more.
+                                </Typography>
+                            </Link>
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <LoadingWrapper isLoading={isLoading}>
+                            <ManageDefectDojoCI
+                                formData={{
+                                    defectDojoSecret,
+                                    ownerReference,
+                                    isReadOnly: !!ownerReference,
+                                    mode,
+                                }}
+                            />
+                        </LoadingWrapper>
+                    </Grid>
+                </Grid>
+            </PageWrapper>
+        </PageWithSubMenu>
     );
 };

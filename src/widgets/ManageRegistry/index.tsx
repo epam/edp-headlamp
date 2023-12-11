@@ -24,22 +24,17 @@ export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
 
     return (
         <Grid container spacing={2} data-testid="form">
-            {mode === FORM_MODES.CREATE && (
-                <Grid item xs={12}>
-                    <CreateItemAccordion
-                        isExpanded={expandedPanel === mode}
-                        onChange={handleChange(mode)}
-                        title={'Add Registry'}
-                    >
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <Create formData={_formData} />
-                            </Grid>
-                        </Grid>
-                    </CreateItemAccordion>
-                </Grid>
-            )}
-            {mode === FORM_MODES.EDIT && (
+            <Grid item xs={12}>
+                <CreateItemAccordion
+                    isExpanded={expandedPanel === mode}
+                    onChange={handleChange(mode)}
+                    title={'Add Registry'}
+                    disabled={mode === FORM_MODES.EDIT}
+                >
+                    <Create formData={_formData} />
+                </CreateItemAccordion>
+            </Grid>
+            {mode === FORM_MODES.EDIT ? (
                 <Grid item xs={12}>
                     <Accordion expanded>
                         <AccordionSummary style={{ cursor: 'default' }}>
@@ -56,7 +51,7 @@ export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
                         </AccordionDetails>
                     </Accordion>
                 </Grid>
-            )}
+            ) : null}
         </Grid>
     );
 };

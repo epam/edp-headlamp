@@ -1,7 +1,7 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { safeEncode } from '../../../../utils/decodeEncode';
 import { INTEGRATION_SECRET_NAMES } from '../../constants';
-import { SECRET_LABEL_SECRET_TYPE } from '../../labels';
+import { SECRET_LABEL_INTEGRATION_SECRET, SECRET_LABEL_SECRET_TYPE } from '../../labels';
 
 export const createDependencyTrackIntegrationSecretInstance = ({
     token,
@@ -18,6 +18,7 @@ export const createDependencyTrackIntegrationSecretInstance = ({
             name: INTEGRATION_SECRET_NAMES.DEPENDENCY_TRACK,
             labels: {
                 [SECRET_LABEL_SECRET_TYPE]: 'dependency-track',
+                [SECRET_LABEL_INTEGRATION_SECRET]: 'true',
             },
         },
         type: 'Opaque',
