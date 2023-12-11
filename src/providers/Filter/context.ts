@@ -6,6 +6,8 @@ export const FilterContext = React.createContext<FilterContextProviderValue<any>
         values: {},
         matchFunctions: {},
     },
-    setFilter: () => {},
+    setFilter: () => {
+        //
+    },
     filterFunction: null,
 });
