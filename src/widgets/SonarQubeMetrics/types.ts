@@ -35,7 +35,6 @@ export type DuplicationRating = {
 };
 
 export interface SonarQubeMetricsProps {
-    metrics: { [key in MetricKey]?: string };
-    projectID: string;
-    sonarQubeBaseURL: string;
+    codebaseBranchMetadataName: string;
+    namespace: string;
 }

@@ -43,8 +43,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     const tektonServiceAccount = items?.find(el => el?.metadata?.name === 'tekton')?.jsonData;
 
     const [secrets, setSecrets] = React.useState<Secrets>({
-        kanikoDockerConfig: undefined,
-        regcred: undefined,
+        kanikoDockerConfig: null,
+        regcred: null,
     });
 
     React.useEffect(() => {

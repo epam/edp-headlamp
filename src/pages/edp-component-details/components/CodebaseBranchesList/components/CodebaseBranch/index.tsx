@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core';
+import { Accordion, AccordionDetails, AccordionSummary, alpha, useTheme } from '@material-ui/core';
 import React from 'react';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
@@ -78,10 +78,15 @@ export const CodebaseBranch = ({
         codebaseBranchData,
     ]);
 
+    const theme = useTheme();
+
     return (
         <div style={{ paddingBottom: rem(16) }}>
             <Accordion expanded={expandedPanel === id} onChange={handlePanelChange(id)}>
-                <AccordionSummary expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}>
+                <AccordionSummary
+                    expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
+                    style={{ borderBottom: `1px solid ${alpha(theme.palette.common.black, 0.2)}` }}
+                >
                     <Summary
                         codebaseData={codebaseData}
                         codebaseBranchData={codebaseBranchData}

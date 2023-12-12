@@ -1,4 +1,5 @@
 import { lighten, makeStyles } from '@material-ui/core';
+import { rem } from '../../../../utils/styling/rem';
 
 const okColor = '#1DB954';
 const abortedColor = '#757575';
@@ -8,9 +9,10 @@ const errorColor = '#F84C55';
 
 export const useStyles = makeStyles(theme => {
     const commonCardRating = {
-        height: theme.spacing(3),
-        width: theme.spacing(3),
+        height: rem(16),
+        width: rem(16),
         color: theme.palette.common.white,
+        fontSize: rem(12),
     };
 
     return {

@@ -89,7 +89,7 @@ export const useDetectNamespaces = () => {
                     },
                     action: key => (
                         <IconButton size="small" onClick={() => closeSnackbar(key)}>
-                            <Icon icon={ICONS.CROSS} />
+                            <Icon icon={ICONS.CROSS} color={'white'} />
                         </IconButton>
                     ),
                 }

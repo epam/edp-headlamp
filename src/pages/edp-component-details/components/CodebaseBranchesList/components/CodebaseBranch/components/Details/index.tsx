@@ -1,16 +1,17 @@
 import { NameValueTable } from '@kinvolk/headlamp-plugin/lib/components/common';
-import { Grid, Link } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { PIPELINE_TYPES } from '../../../../../../../../constants/pipelineTypes';
-import { useEDPComponentsURLsQuery } from '../../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE } from '../../../../../../../../k8s/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../../k8s/PipelineRun/types';
 import { useSecretByNameQuery } from '../../../../../../../../k8s/Secret/hooks/useSecretByName';
 import { FormSelect } from '../../../../../../../../providers/Form/components/FormSelect';
 import { safeDecode } from '../../../../../../../../utils/decodeEncode';
 import { capitalizeFirstLetter } from '../../../../../../../../utils/format/capitalizeFirstLetter';
+import { rem } from '../../../../../../../../utils/styling/rem';
+import { DependencyTrackMetrics } from '../../../../../../../../widgets/DeeptrackVulnerabilities';
 import { PipelineRunList } from '../../../../../../../../widgets/PipelineRunList';
 import { SonarQubeMetrics } from '../../../../../../../../widgets/SonarQubeMetrics';
 import { EDPComponentDetailsRouteParams } from '../../../../../../types';
@@ -65,43 +66,34 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
     } = useForm();
 
     const mainInfoRows = useMainInfoRows(codebaseBranchData);
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-    const sonarQubeBaseURL = EDPComponentsURLS?.sonar;
-    const metrics = {};
 
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={4} style={{ marginTop: rem(20) }}>
             <Grid item xs={12}>
+                <Typography variant={'h6'}>Code Quality</Typography>
                 <Grid container alignItems={'center'}>
-                    {!!metrics ? (
-                        <Grid item>
-                            <SonarQubeMetrics
-                                metrics={metrics}
-                                projectID={codebaseBranchData.metadata.name}
-                                sonarQubeBaseURL={sonarQubeBaseURL}
-                            />
-                        </Grid>
-                    ) : null}
+                    <Grid item>
+                        <SonarQubeMetrics
+                            codebaseBranchMetadataName={codebaseBranchData.metadata.name}
+                            namespace={namespace}
+                        />
+                    </Grid>
                     <Grid item style={{ marginLeft: 'auto' }}>
-                        {!!ciDependencyTrackURL && (
-                            <Link href={ciDependencyTrackURL} target={'_blank'}>
-                                <img
-                                    src={`${ciDependencyTrackURL}/api/v1/badge/vulns/project/${window.encodeURIComponent(
-                                        codebaseData.metadata.name
-                                    )}/${window.encodeURIComponent(
-                                        codebaseBranchData.spec.branchName
-                                    )}`}
-                                    alt=""
-                                />
-                            </Link>
-                        )}
+                        <DependencyTrackMetrics
+                            ciDependencyTrackURL={ciDependencyTrackURL}
+                            codebaseBranchName={codebaseBranchData.spec.branchName}
+                            codebaseName={codebaseData.metadata.name}
+                        />
                     </Grid>
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <Grid container spacing={5}>
+                <Grid container spacing={2} alignItems={'flex-end'}>
+                    <Grid item>
+                        <Typography variant={'h6'}>Pipeline Runs</Typography>
+                    </Grid>
                     {!!pipelineRuns?.all?.length ? (
-                        <Grid item xs={4}>
+                        <Grid item style={{ minWidth: rem(300), marginLeft: 'auto' }}>
                             <FormSelect
                                 {...register('type', {
                                     onChange: ({ target: { value } }) => setPipelineRunType(value),
@@ -125,6 +117,7 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
             </Grid>
             {!!mainInfoRows?.length ? (
                 <Grid item xs={12}>
+                    <Typography variant={'h6'}>Build Info</Typography>
                     <NameValueTable rows={mainInfoRows} />
                 </Grid>
             ) : null}

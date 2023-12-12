@@ -4,8 +4,7 @@ import { rem } from '../../../../utils/styling/rem';
 export const useStyles = makeStyles(theme => {
     return {
         root: {
-            margin: theme.spacing(1, 0),
-            minWidth: rem(120),
+            minWidth: rem(70),
         },
         upper: {
             display: 'flex',
