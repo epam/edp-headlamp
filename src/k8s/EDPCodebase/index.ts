@@ -78,6 +78,4 @@ export class EDPCodebaseKubeObject extends K8s.cluster.makeKubeObject<EDPCodebas
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
         return streamResult(url, name, cb, errCb);
     }
-
-    static generateReviewPipeline() {}
 }
