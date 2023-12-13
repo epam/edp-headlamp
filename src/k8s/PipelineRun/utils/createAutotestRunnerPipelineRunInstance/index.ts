@@ -43,7 +43,9 @@ export const createAutotestRunnerPipelineRunInstance = ({
                     value: stageSpecName,
                 },
             ],
-            serviceAccountName: 'tekton',
+            taskRunTemplate: {
+                serviceAccountName: 'tekton',
+            },
             workspaces: [
                 {
                     name: 'shared-workspace',

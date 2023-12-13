@@ -30,7 +30,9 @@ export const createDeployPipelineRunInstance = ({
             },
         },
         spec: {
-            serviceAccountName: 'tekton',
+            taskRunTemplate: {
+                serviceAccountName: 'tekton',
+            },
             params: [
                 {
                     name: 'CODEBASE_TAG',
