@@ -14,7 +14,7 @@ export const FormControlLabelWithTooltip = ({ label, title }: FormControlLabelWi
                 {label}
             </Typography>
             {title ? (
-                <Tooltip title={title}>
+                <Tooltip title={title} interactive>
                     <Icon icon={ICONS.INFO_CIRCLE} width={18} />
                 </Tooltip>
             ) : (

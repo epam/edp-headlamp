@@ -25,7 +25,7 @@ export const PullAccountPassword = () => {
             })}
             label={`Password / Token`}
             title={
-                'Enter the confidential combination used for authenticating your access to the Container registry.'
+                'Enter the confidential combination used for authenticating your access to the container registry.'
             }
             placeholder={'Enter password or token'}
             control={control}

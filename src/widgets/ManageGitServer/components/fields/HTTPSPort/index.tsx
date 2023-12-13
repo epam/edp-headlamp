@@ -23,7 +23,7 @@ export const HTTPSPort = () => {
             })}
             label={'HTTPS port'}
             title={
-                'Specify the HTTPS port used for Git server communication (the default value is 443 ).'
+                'Specify the HTTPS port used for Git server communication (the default value is 443).'
             }
             placeholder={'Enter HTTPS port'}
             control={control}

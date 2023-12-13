@@ -39,6 +39,7 @@ export const Name = () => {
                 },
             })}
             label={'Repository Name'}
+            title={'Specify a unique repository name.'}
             control={control}
             errors={errors}
             InputProps={{

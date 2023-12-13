@@ -37,7 +37,7 @@ export const PushAccountUser = () => {
             })}
             label={`User`}
             title={
-                'Provide the unique identifier linked to your user account on the Container registry.'
+                'Provide the unique identifier linked to your user account on the container registry.'
             }
             placeholder={'Enter user name'}
             control={control}

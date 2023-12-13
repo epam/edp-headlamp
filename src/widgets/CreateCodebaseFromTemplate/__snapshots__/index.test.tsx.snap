@@ -432,12 +432,9 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
                           <span
                             class="MuiTypography-root makeStyles-label-6 MuiTypography-body1"
                           >
-                            Git repo relative path
+                            Repository name
                           </span>
-                          <div
-                            class="MuiBox-root MuiBox-root-8"
-                            style="height: 1.25rem;"
-                          />
+                          <span />
                         </span>
                       </div>
                       <div
@@ -627,6 +624,20 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
                     <div
                       class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
                     >
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      >
+                        <span
+                          class="makeStyles-labelWrap-5"
+                        >
+                          <span
+                            class="MuiTypography-root makeStyles-label-6 MuiTypography-body1"
+                          >
+                            Suffix
+                          </span>
+                          <span />
+                        </span>
+                      </div>
                       <div
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                         style="display: flex; align-items: flex-end;"

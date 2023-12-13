@@ -17,7 +17,7 @@ export const Stages = ({ stages, handleDeleteStage, handleClickAddStage }: Stage
                     <Grid item>
                         <Tooltip
                             title={
-                                'Stages serve as namespaces for application deployments. While this namespace can be manually configured, the default naming convention follows the format: <environment-name>-<stage-name>-<application-name>.'
+                                'Stages serve as namespaces for application deployments. While this namespace can be manually configured, the default naming convention follows the format: <edp-namespace-name>-<environment-name>-<stage-name>.'
                             }
                         >
                             <Icon icon={ICONS.INFO_CIRCLE} width={18} />

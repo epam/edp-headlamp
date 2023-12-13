@@ -55,7 +55,7 @@ export const FormActions = () => {
 
     return (
         <>
-            <Button onClick={reset} size="small" component={'button'} disabled={!isDirty}>
+            <Button onClick={() => reset()} size="small" component={'button'} disabled={!isDirty}>
                 undo changes
             </Button>
             <Button

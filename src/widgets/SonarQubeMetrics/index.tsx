@@ -69,14 +69,13 @@ export const SonarQubeMetrics = ({
                         No metrics available.
                     </Typography>
                     <Typography variant={'body2'} component={'div'}>
-                        Please, ensure that{' '}
                         <Link
                             onClick={() => history.push(sonarConfigurationPage)}
                             component={'button'}
                         >
-                            <Typography>SonarQube is configured</Typography>
+                            <Typography>Set up SonarQube configuration</Typography>
                         </Link>{' '}
-                        and PipelineRun has SonarQube reporting.
+                        and enable reporting in your pipeline.
                     </Typography>
                 </>
             }

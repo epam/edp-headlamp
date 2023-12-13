@@ -20,7 +20,7 @@ export const Description = () => {
                 required: `Enter ${typeFieldValue} description`,
             })}
             label={'Description'}
-            title={'Description'}
+            title={'Add a brief description highlighting key features or functionality.'}
             placeholder={`Enter ${typeFieldValue} description`}
             control={control}
             errors={errors}

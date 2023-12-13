@@ -21,6 +21,7 @@ export const CodebaseVersioning = () => {
     const codebaseVersioningTypeFieldValue = watch(
         CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningType.name
     );
+
     const versioningStartFromVersionFieldValue = watch(
         CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFromVersion.name
     );
@@ -50,7 +51,7 @@ export const CodebaseVersioning = () => {
                     })}
                     label={'Codebase versioning type'}
                     placeholder={'Select codebase versioning type'}
-                    title={'Define the versioning strategy for source code and artifacts'}
+                    title={'Define the versioning strategy for source code and artifacts.'}
                     control={control}
                     errors={errors}
                     options={codebaseVersioningTypeSelectOptions}
@@ -63,7 +64,7 @@ export const CodebaseVersioning = () => {
                             {...register(
                                 CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFromVersion.name,
                                 {
-                                    required: 'Enter start version from',
+                                    required: 'Specify the initial version.',
                                     onBlur: onStartVersionFromVersionChange,
                                     pattern: {
                                         value: /^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/,
@@ -72,7 +73,9 @@ export const CodebaseVersioning = () => {
                                 }
                             )}
                             label={'Start version from'}
-                            title={'Valid identifiers are in the set [A-Za-z0-9]'}
+                            title={
+                                'Define the initial version number or identifier for your codebase to mark the starting point for version control.'
+                            }
                             placeholder={'0.0.0'}
                             control={control}
                             errors={errors}
@@ -91,11 +94,15 @@ export const CodebaseVersioning = () => {
                             {...register(
                                 CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFromPostfix.name,
                                 {
-                                    required: 'Enter start version from',
+                                    required: 'Add a suffix.',
                                     onBlur: onStartVersionFromSnapshotStaticFieldChange,
                                 }
                             )}
                             placeholder={'SNAPSHOT'}
+                            label={'Suffix'}
+                            title={
+                                'Add a suffix to your version name to provide categorization. E.g. SNAPSHOT, unstable, test.'
+                            }
                             control={control}
                             errors={errors}
                         />

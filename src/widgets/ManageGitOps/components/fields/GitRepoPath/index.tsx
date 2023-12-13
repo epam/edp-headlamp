@@ -45,6 +45,7 @@ export const GitRepoPath = () => {
                 },
             })}
             label={'Git repo relative path'}
+            title={'Enter your account name where the repository will be stored.'}
             placeholder={
                 'Indicate the repository relative path in the following format project/repository'
             }

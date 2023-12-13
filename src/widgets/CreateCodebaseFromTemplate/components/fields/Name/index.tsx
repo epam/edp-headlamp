@@ -36,7 +36,7 @@ export const Name = () => {
     return (
         <FormTextField
             {...register(CODEBASE_FROM_TEMPLATE_FORM_NAMES.name.name, {
-                required: `Enter the Component name`,
+                required: `Enter the Component name.`,
                 pattern: {
                     value: /^[a-z](?!.*--[^-])[a-z0-9-]*[a-z0-9]$/,
                     message: nameRequirementLabel,
@@ -45,7 +45,7 @@ export const Name = () => {
                 onChange: onChange,
             })}
             label={`Component name`}
-            title={nameRequirementLabel}
+            title={'Provide a clear and concise name for your component.'}
             placeholder={`Enter the Component name`}
             control={control}
             errors={errors}

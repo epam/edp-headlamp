@@ -32,14 +32,13 @@ export const DependencyTrackMetrics = ({
                         No metrics available.
                     </Typography>
                     <Typography variant={'body2'} component={'div'}>
-                        Please, ensure that{' '}
                         <Link
                             onClick={() => history.push(dependencyTrackConfigurationPage)}
                             component={'button'}
                         >
-                            <Typography>DependencyTrack is configured</Typography>
+                            <Typography>Set up DependencyTrack configuration</Typography>
                         </Link>{' '}
-                        and PipelineRun has DependencyTrack reporting.
+                        and enable reporting in your pipeline.
                     </Typography>
                 </>
             }

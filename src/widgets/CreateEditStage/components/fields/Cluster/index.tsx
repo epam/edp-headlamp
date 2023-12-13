@@ -1,6 +1,8 @@
+import { Link } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
+import { EDP_USER_GUIDE } from '../../../../../constants/urls';
 import { useClusterSecretListQuery } from '../../../../../k8s/Secret/hooks/useClusterSecretListQuery';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
 import { safeDecode } from '../../../../../utils/decodeEncode';
@@ -43,7 +45,15 @@ export const Cluster = () => {
             })}
             label={'Cluster'}
             title={
-                'Select the Kubernetes cluster for the stage deployment. Make sure it matches the deployment needs.'
+                <>
+                    Select the Kubernetes cluster for the stage deployment. Make sure it matches the
+                    deployment needs. If you need to add a new cluster or connect an external one,
+                    refer to our{' '}
+                    <Link href={EDP_USER_GUIDE.CLUSTER_CREATE.url} target={'_blank'}>
+                        documentation
+                    </Link>{' '}
+                    for step-by-step instructions.
+                </>
             }
             placeholder={'Select cluster'}
             control={control}
