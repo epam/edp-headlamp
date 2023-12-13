@@ -5,37 +5,20 @@ import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
-import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
-import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
+import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageNexusCI } from '../../../../widgets/ManageNexusCI';
 import { menu } from '../../menu';
 import { NEXUS_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
-const findNexusIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items.find(el => el.metadata.name === INTEGRATION_SECRET_NAMES.NEXUS);
-
 export const PageView = () => {
-    const [nexusSecret, setNexusSecret] = React.useState<SecretKubeObjectInterface>(null);
+    const [nexusSecrets] = SecretKubeObject.useList({
+        namespace: getDefaultNamespace(),
+        labelSelector: `${SECRET_LABEL_SECRET_TYPE}=nexus`,
+    });
 
-    React.useEffect(() => {
-        const cancelStream = SecretKubeObject.streamSecretsByType({
-            namespace: getDefaultNamespace(),
-            type: 'nexus',
-            dataHandler: data => {
-                const nexusSecret = findNexusIntegrationSecret(data);
-                setNexusSecret(nexusSecret);
-            },
-            errorHandler: error => {
-                console.error(error);
-            },
-        });
-
-        return () => {
-            cancelStream();
-        };
-    }, []);
+    const nexusSecret = nexusSecrets?.[0].jsonData;
 
     const mode = !!nexusSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = nexusSecret?.metadata?.ownerReferences?.[0]?.kind;

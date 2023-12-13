@@ -5,42 +5,24 @@ import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
-import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
-import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
+import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageDependencyTrackCI } from '../../../../widgets/ManageDependencyTrackCI';
 import { menu } from '../../menu';
 import { DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
-const findDependencyTrackIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items?.find(el => el.metadata.name === INTEGRATION_SECRET_NAMES.DEPENDENCY_TRACK);
-
 export const PageView = () => {
-    const [dependencyTrackSecret, setDependencyTrackSecret] =
-        React.useState<SecretKubeObjectInterface>(null);
+    const [dependencyTrackSecrets] = SecretKubeObject.useList({
+        namespace: getDefaultNamespace(),
+        labelSelector: `${SECRET_LABEL_SECRET_TYPE}=dependency-track`,
+    });
 
-    React.useEffect(() => {
-        const cancelStream = SecretKubeObject.streamSecretsByType({
-            namespace: getDefaultNamespace(),
-            type: 'dependency-track',
-            dataHandler: data => {
-                const dependencyTrackSecret = findDependencyTrackIntegrationSecret(data);
-                setDependencyTrackSecret(dependencyTrackSecret);
-            },
-            errorHandler: error => {
-                console.error(error);
-            },
-        });
-
-        return () => {
-            cancelStream();
-        };
-    }, []);
+    const dependencyTrackSecret = dependencyTrackSecrets?.[0].jsonData;
 
     const mode = !!dependencyTrackSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = dependencyTrackSecret?.metadata?.ownerReferences?.[0]?.kind;
-    const isLoading = dependencyTrackSecret === null;
+    const isLoading = dependencyTrackSecrets === null;
 
     return (
         <PageWithSubMenu list={menu}>

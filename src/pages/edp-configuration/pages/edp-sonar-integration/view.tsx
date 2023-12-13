@@ -5,41 +5,24 @@ import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
-import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
-import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
+import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageSonarCI } from '../../../../widgets/ManageSonarCI';
 import { menu } from '../../menu';
 import { SONAR_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
-const findSonarIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items?.find(el => el.metadata.name === INTEGRATION_SECRET_NAMES.SONAR);
-
 export const PageView = () => {
-    const [sonarSecret, setSonarSecret] = React.useState<SecretKubeObjectInterface>(null);
+    const [sonarSecrets] = SecretKubeObject.useList({
+        namespace: getDefaultNamespace(),
+        labelSelector: `${SECRET_LABEL_SECRET_TYPE}=sonar`,
+    });
 
-    React.useEffect(() => {
-        const cancelStream = SecretKubeObject.streamSecretsByType({
-            namespace: getDefaultNamespace(),
-            type: 'sonar',
-            dataHandler: data => {
-                const sonarSecret = findSonarIntegrationSecret(data);
-                setSonarSecret(sonarSecret);
-            },
-            errorHandler: error => {
-                console.error(error);
-            },
-        });
-
-        return () => {
-            cancelStream();
-        };
-    }, []);
+    const sonarSecret = sonarSecrets?.[0].jsonData;
 
     const mode = !!sonarSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = sonarSecret?.metadata?.ownerReferences?.[0]?.kind;
-    const isLoading = sonarSecret === null;
+    const isLoading = sonarSecrets === null;
 
     return (
         <PageWithSubMenu list={menu}>

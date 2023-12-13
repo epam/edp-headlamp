@@ -6,16 +6,12 @@ import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { useJiraServerListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerListQuery';
 import { SecretKubeObject } from '../../../../k8s/Secret';
-import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
-import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
+import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageJiraCI } from '../../../../widgets/ManageJiraCI';
 import { menu } from '../../menu';
 import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './constants';
-
-const findJiraIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items?.find(el => el.metadata.name === INTEGRATION_SECRET_NAMES.JIRA);
 
 export const PageView = () => {
     const { data: jiraServer } = useJiraServerListQuery({
@@ -27,25 +23,12 @@ export const PageView = () => {
         },
     });
 
-    const [jiraServerSecret, setJiraServerSecret] = React.useState<SecretKubeObjectInterface>(null);
+    const [jiraServerSecrets] = SecretKubeObject.useList({
+        namespace: getDefaultNamespace(),
+        labelSelector: `${SECRET_LABEL_SECRET_TYPE}=jira`,
+    });
 
-    React.useEffect(() => {
-        const cancelStream = SecretKubeObject.streamSecretsByType({
-            namespace: getDefaultNamespace(),
-            type: 'jira',
-            dataHandler: data => {
-                const jiraServerSecret = findJiraIntegrationSecret(data);
-                setJiraServerSecret(jiraServerSecret);
-            },
-            errorHandler: error => {
-                console.error(error);
-            },
-        });
-
-        return () => {
-            cancelStream();
-        };
-    }, []);
+    const jiraServerSecret = jiraServerSecrets?.[0].jsonData;
 
     const mode = !!jiraServer && !!jiraServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = jiraServerSecret?.metadata?.ownerReferences?.[0]?.kind;

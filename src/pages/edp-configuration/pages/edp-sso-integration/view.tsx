@@ -4,37 +4,20 @@ import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { SecretKubeObject } from '../../../../k8s/Secret';
-import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/Secret/constants';
-import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
+import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageSSOCI } from '../../../../widgets/ManageSSOCI';
 import { menu } from '../../menu';
 import { SSO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
-const findSSOIntegrationSecret = (items: SecretKubeObjectInterface[]) =>
-    items.find(el => el.metadata.name === INTEGRATION_SECRET_NAMES.SSO);
-
 export const PageView = () => {
-    const [ssoSecret, setSSOSecret] = React.useState<SecretKubeObjectInterface>(null);
+    const [ssoSecrets] = SecretKubeObject.useList({
+        namespace: getDefaultNamespace(),
+        labelSelector: `${SECRET_LABEL_SECRET_TYPE}=keycloak`,
+    });
 
-    React.useEffect(() => {
-        const cancelStream = SecretKubeObject.streamSecretsByType({
-            namespace: getDefaultNamespace(),
-            type: 'keycloak',
-            dataHandler: data => {
-                const ssoSecret = findSSOIntegrationSecret(data);
-                setSSOSecret(ssoSecret);
-            },
-            errorHandler: error => {
-                console.error(error);
-            },
-        });
-
-        return () => {
-            cancelStream();
-        };
-    }, []);
+    const ssoSecret = ssoSecrets?.[0].jsonData;
 
     const mode = !!ssoSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = ssoSecret?.metadata?.ownerReferences?.[0]?.kind;
