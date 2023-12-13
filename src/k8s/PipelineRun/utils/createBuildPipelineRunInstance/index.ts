@@ -2,6 +2,7 @@ import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { createRandomString } from '../../../../utils/createRandomString';
 import { PipelineRunKubeObjectConfig } from '../../config';
 import { PipelineRunKubeObjectInterface } from '../../types';
+import { generateBuildPipelineRef } from '../index';
 
 const { kind, group, version } = PipelineRunKubeObjectConfig;
 
@@ -41,7 +42,6 @@ export const createBuildPipelineRunInstance = ({
     };
     storageSize: string;
 }): PipelineRunKubeObjectInterface => {
-    const truncatedCodebaseType = codebaseType.slice(0, 3);
     const normalizedCodebaseBranchName = codebaseBranchName
         .replaceAll('/', '-')
         .replaceAll('.', '-');
@@ -80,7 +80,13 @@ export const createBuildPipelineRunInstance = ({
                 },
             ],
             pipelineRef: {
-                name: `${gitProvider}-${codebaseBuildTool}-${codebaseFramework}-${truncatedCodebaseType}-build-${codebaseVersioningType}`,
+                name: generateBuildPipelineRef({
+                    gitProvider,
+                    codebaseBuildTool,
+                    codebaseFramework,
+                    codebaseType,
+                    codebaseVersioningType,
+                }),
             },
             taskRunTemplate: {
                 serviceAccountName: 'tekton',

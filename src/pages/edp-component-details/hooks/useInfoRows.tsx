@@ -1,6 +1,7 @@
-import { Chip, Grid, makeStyles, Tooltip, Typography } from '@material-ui/core';
+import { Chip, Grid, Link, makeStyles, Tooltip, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { InfoRow } from '../../../components/InfoColumns/types';
 import { StatusIcon } from '../../../components/StatusIcon';
 import {
@@ -13,9 +14,17 @@ import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioning
 import { RESOURCE_ICON_NAMES } from '../../../icons/sprites/Resources/names';
 import { EDPCodebaseKubeObject } from '../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
+import { useEDPComponentsURLsQuery } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { useGitServerByCodebaseQuery } from '../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
+import {
+    generateBuildPipelineRef,
+    generateReviewPipelineRef,
+} from '../../../k8s/PipelineRun/utils';
+import { LinkCreationService } from '../../../services/link-creation';
 import { capitalizeFirstLetter } from '../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../utils/getCodebaseMappingByCodebaseType';
 import { rem } from '../../../utils/styling/rem';
+import { EDPComponentDetailsRouteParams } from '../types';
 
 const useStyles = makeStyles(() => ({
     labelChip: {
@@ -36,8 +45,17 @@ const useStyles = makeStyles(() => ({
 export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[] | null => {
     const classes = useStyles();
 
+    const { namespace } = useParams<EDPComponentDetailsRouteParams>();
+
+    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+    const tektonBaseURL = EDPComponentsURLS?.tekton;
+
+    const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
+        props: { codebaseGitServer: component?.spec.gitServer },
+    });
+
     return React.useMemo(() => {
-        if (!component) {
+        if (!component || !gitServerByCodebase) {
             return null;
         }
         const {
@@ -57,6 +75,33 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
 
         const [icon, color, isRotating] = EDPCodebaseKubeObject.getStatusIcon(
             component?.status?.status
+        );
+
+        const reviewPipelineRefName = generateReviewPipelineRef({
+            gitProvider: gitServerByCodebase.spec.gitProvider,
+            codebaseBuildTool: component.spec.buildTool,
+            codebaseFramework: component.spec.framework,
+            codebaseType: component.spec.type,
+        });
+
+        const buildPipelineRefName = generateBuildPipelineRef({
+            gitProvider: gitServerByCodebase.spec.gitProvider,
+            codebaseBuildTool: component.spec.buildTool,
+            codebaseFramework: component.spec.framework,
+            codebaseType: component.spec.type,
+            codebaseVersioningType: component.spec.versioning.type,
+        });
+
+        const reviewPipelineLink = LinkCreationService.tekton.createPipelineLink(
+            tektonBaseURL,
+            namespace,
+            reviewPipelineRefName
+        );
+
+        const buildPipelineLink = LinkCreationService.tekton.createPipelineLink(
+            tektonBaseURL,
+            namespace,
+            buildPipelineRefName
         );
 
         return [
@@ -164,6 +209,32 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
                     text: deploymentScript,
                 },
             ],
+            [
+                ...(reviewPipelineLink
+                    ? [
+                          {
+                              label: 'Review Pipeline',
+                              text: (
+                                  <Link href={reviewPipelineLink} target={'_blank'}>
+                                      {reviewPipelineRefName}
+                                  </Link>
+                              ),
+                          },
+                      ]
+                    : []),
+                ...(buildPipelineLink
+                    ? [
+                          {
+                              label: 'Build Pipeline',
+                              text: (
+                                  <Link href={buildPipelineLink} target={'_blank'}>
+                                      {buildPipelineRefName}
+                                  </Link>
+                              ),
+                          },
+                      ]
+                    : []),
+            ],
         ];
-    }, [classes, component]);
+    }, [classes, component, gitServerByCodebase, namespace, tektonBaseURL]);
 };

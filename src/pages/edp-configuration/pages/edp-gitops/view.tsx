@@ -135,7 +135,7 @@ export const PageView = () => {
                 ),
             })}
             items={items === null ? null : configurationItemList}
-            emptyMessage={'No Custom Values found'}
+            emptyMessage={'No GitOps repositories found'}
         />
     );
 };
