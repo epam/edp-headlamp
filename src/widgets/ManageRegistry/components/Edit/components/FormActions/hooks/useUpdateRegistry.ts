@@ -4,7 +4,8 @@ import { useConfigMapCRUD } from '../../../../../../../k8s/ConfigMap/hooks/useCo
 import { REGISTRY_SECRET_NAMES } from '../../../../../../../k8s/Secret/constants';
 import { useSecretCRUD } from '../../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import {
-    createECRSecretInstance,
+    createECRPushSecretInstance,
+    createOpenshiftPushSecretInstance,
     createRegistrySecretInstance,
 } from '../../../../../../../k8s/Secret/utils/createRegistrySecretInstance';
 import { useEditServiceAccount } from '../../../../../../../k8s/ServiceAccount/hooks/useEditServiceAccount';
@@ -52,7 +53,7 @@ export const useUpdateRegistry = ({ onSuccess }) => {
         } = formValues;
 
         const updateECR = async () => {
-            const newECRSecretInstance = createECRSecretInstance({
+            const newECRSecretInstance = createECRPushSecretInstance({
                 name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
             });
 
@@ -89,13 +90,13 @@ export const useUpdateRegistry = ({ onSuccess }) => {
             const registrySecretInstances = [
                 createRegistrySecretInstance({
                     name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
-                    registryEndpoint: registryHost,
+                    registryEndpoint: 'https://index.docker.io/v1/',
                     user: pushAccountUser,
                     password: pushAccountPassword,
                 }),
                 createRegistrySecretInstance({
                     name: REGISTRY_SECRET_NAMES.REGCRED,
-                    registryEndpoint: registryHost,
+                    registryEndpoint: 'https://index.docker.io/v1/',
                     user: pullAccountUser,
                     password: pullAccountPassword,
                 }),
@@ -151,6 +152,28 @@ export const useUpdateRegistry = ({ onSuccess }) => {
             }
         };
 
+        const updateOpenshift = async () => {
+            const newKanikoSecretInstance = createOpenshiftPushSecretInstance({
+                name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
+                registryEndpoint: registryHost,
+                token: pushAccountPassword,
+            });
+
+            const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
+                registryHost,
+                registrySpace,
+                registryType,
+            });
+
+            await editConfigMap({ configMapData: newEDPConfigMap });
+
+            await editSecret({ secretData: newKanikoSecretInstance });
+
+            if (onSuccess) {
+                await onSuccess();
+            }
+        };
+
         switch (registryType) {
             case CONTAINER_REGISTRY_TYPE.ECR:
                 await updateECR();
@@ -162,6 +185,7 @@ export const useUpdateRegistry = ({ onSuccess }) => {
                 await updateHarbor();
                 break;
             case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
+                await updateOpenshift();
                 break;
         }
     };

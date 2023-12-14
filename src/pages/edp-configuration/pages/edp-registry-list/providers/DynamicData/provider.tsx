@@ -1,7 +1,10 @@
 import React from 'react';
-import { useStreamEDPConfigMap } from '../../../../../../k8s/ConfigMap/hooks/useStreamCDPipelineStage';
+import { ConfigMapKubeObject } from '../../../../../../k8s/ConfigMap';
+import { EDP_CONFIG_CONFIG_MAP_NAME } from '../../../../../../k8s/ConfigMap/constants';
+import { ConfigMapKubeObjectInterface } from '../../../../../../k8s/ConfigMap/types';
 import { SecretKubeObject } from '../../../../../../k8s/Secret';
 import { REGISTRY_SECRET_NAMES } from '../../../../../../k8s/Secret/constants';
+import { SECRET_LABEL_SECRET_TYPE } from '../../../../../../k8s/Secret/labels';
 import { SecretKubeObjectInterface } from '../../../../../../k8s/Secret/types';
 import { ServiceAccountKubeObject } from '../../../../../../k8s/ServiceAccount';
 import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
@@ -15,12 +18,12 @@ interface Secrets {
 const findKanikoAndRegcredSecrets = (secrets: SecretKubeObjectInterface[]) => {
     return secrets.reduce(
         (acc, el) => {
-            const itemName = el?.metadata.name;
+            const itemName = el.metadata.name;
 
             if (itemName === REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG) {
-                acc.kanikoDockerConfig = el;
+                acc.kanikoDockerConfig = el.jsonData;
             } else if (itemName === REGISTRY_SECRET_NAMES.REGCRED) {
-                acc.regcred = el;
+                acc.regcred = el.jsonData;
             }
             return acc;
         },
@@ -32,9 +35,20 @@ const findKanikoAndRegcredSecrets = (secrets: SecretKubeObjectInterface[]) => {
 };
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
-    const EDPConfigMap = useStreamEDPConfigMap({
-        namespace: getDefaultNamespace(),
-    });
+    const [EDPConfigMap, setEDPConfigMap] = React.useState<ConfigMapKubeObjectInterface>(null);
+
+    ConfigMapKubeObject.useApiList(
+        (configMaps: ConfigMapKubeObjectInterface[]) => {
+            const EDPConfigMap = configMaps.find(
+                item => item.metadata.name === EDP_CONFIG_CONFIG_MAP_NAME
+            );
+            setEDPConfigMap(EDPConfigMap.jsonData);
+        },
+        error => console.error(error),
+        {
+            namespace: getDefaultNamespace(),
+        }
+    );
 
     const [items] = ServiceAccountKubeObject.useList({
         namespace: getDefaultNamespace(),
@@ -47,27 +61,21 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         regcred: null,
     });
 
-    React.useEffect(() => {
-        const cancelStream = SecretKubeObject.streamSecretsByType({
+    SecretKubeObject.useApiList(
+        (secrets: SecretKubeObjectInterface[]) => {
+            const { kanikoDockerConfig, regcred } = findKanikoAndRegcredSecrets(secrets);
+
+            setSecrets({
+                kanikoDockerConfig,
+                regcred,
+            });
+        },
+        error => console.error(error),
+        {
+            labelSelector: `${SECRET_LABEL_SECRET_TYPE}=registry`,
             namespace: getDefaultNamespace(),
-            type: 'registry',
-            dataHandler: data => {
-                const { kanikoDockerConfig, regcred } = findKanikoAndRegcredSecrets(data);
-
-                setSecrets({
-                    kanikoDockerConfig,
-                    regcred,
-                });
-            },
-            errorHandler: error => {
-                console.error(error);
-            },
-        });
-
-        return () => {
-            cancelStream();
-        };
-    }, []);
+        }
+    );
 
     const isLoading = React.useMemo(
         () =>

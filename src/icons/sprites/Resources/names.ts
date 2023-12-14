@@ -37,5 +37,6 @@ export const RESOURCE_ICON_NAMES = {
     GIT_OPS: 'gitops',
     ECR: 'ECR',
     HARBOR: 'harbor',
+    OPENSHIFT: 'openshift',
     OTHER: 'other',
 } as const;

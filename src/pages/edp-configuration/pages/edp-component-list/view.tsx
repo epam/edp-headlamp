@@ -33,7 +33,7 @@ export const PageView = () => {
                     component: (
                         <ManageEDPComponent
                             formData={{
-                                currentElement: el.jsonData,
+                                currentElement: el?.jsonData,
                             }}
                         />
                     ),

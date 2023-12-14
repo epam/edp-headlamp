@@ -28,7 +28,7 @@ export const PageView = () => {
         labelSelector: `${SECRET_LABEL_SECRET_TYPE}=jira`,
     });
 
-    const jiraServerSecret = jiraServerSecrets?.[0].jsonData;
+    const jiraServerSecret = jiraServerSecrets?.[0]?.jsonData;
 
     const mode = !!jiraServer && !!jiraServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = jiraServerSecret?.metadata?.ownerReferences?.[0]?.kind;

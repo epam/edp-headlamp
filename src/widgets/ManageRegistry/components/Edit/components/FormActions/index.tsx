@@ -37,10 +37,10 @@ export const FormActions = () => {
 
     const { resetRegistry, isLoading: resetRegistryIsLoading } = useResetRegistry({
         onSuccess: () => {
+            reset({});
             handleClosePanel();
         },
     });
-
     const onSubmit = React.useCallback(
         async (values: ManageRegistryValues) => {
             await updateRegistry(values);
@@ -60,10 +60,17 @@ export const FormActions = () => {
         return false;
     }, [pullAccountSecret, pushAccountSecret]);
 
-    const resetButtonDisabled =
-        registryType === CONTAINER_REGISTRY_TYPE.ECR
-            ? someOfTheSecretsHasExternalOwner
-            : !pushAccountSecret || !pullAccountSecret || someOfTheSecretsHasExternalOwner;
+    const resetButtonDisabled = React.useMemo(() => {
+        switch (registryType) {
+            case CONTAINER_REGISTRY_TYPE.ECR:
+                return !pushAccountSecret || someOfTheSecretsHasExternalOwner;
+            case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
+            case CONTAINER_REGISTRY_TYPE.HARBOR:
+                return !pushAccountSecret || !pullAccountSecret || someOfTheSecretsHasExternalOwner;
+            case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
+                return !pushAccountSecret || someOfTheSecretsHasExternalOwner;
+        }
+    }, [pullAccountSecret, pushAccountSecret, registryType, someOfTheSecretsHasExternalOwner]);
 
     return (
         <>

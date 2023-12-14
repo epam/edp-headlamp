@@ -18,7 +18,7 @@ export const PageView = () => {
         labelSelector: `${SECRET_LABEL_SECRET_TYPE}=defectdojo`,
     });
 
-    const defectDojoSecret = defectDojoSecrets?.[0].jsonData;
+    const defectDojoSecret = defectDojoSecrets?.[0]?.jsonData;
 
     const mode = !!defectDojoSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = defectDojoSecret?.metadata?.ownerReferences?.[0]?.kind;

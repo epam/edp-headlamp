@@ -18,7 +18,7 @@ export const PageView = () => {
         labelSelector: `${SECRET_LABEL_SECRET_TYPE}=sonar`,
     });
 
-    const sonarSecret = sonarSecrets?.[0].jsonData;
+    const sonarSecret = sonarSecrets?.[0]?.jsonData;
 
     const mode = !!sonarSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = sonarSecret?.metadata?.ownerReferences?.[0]?.kind;

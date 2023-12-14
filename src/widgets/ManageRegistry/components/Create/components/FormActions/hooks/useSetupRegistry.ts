@@ -4,7 +4,8 @@ import { useConfigMapCRUD } from '../../../../../../../k8s/ConfigMap/hooks/useCo
 import { REGISTRY_SECRET_NAMES } from '../../../../../../../k8s/Secret/constants';
 import { useSecretCRUD } from '../../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import {
-    createECRSecretInstance,
+    createECRPushSecretInstance,
+    createOpenshiftPushSecretInstance,
     createRegistrySecretInstance,
 } from '../../../../../../../k8s/Secret/utils/createRegistrySecretInstance';
 import { useEditServiceAccount } from '../../../../../../../k8s/ServiceAccount/hooks/useEditServiceAccount';
@@ -54,7 +55,7 @@ export const useSetupRegistry = ({ onSuccess }) => {
         } = formValues;
 
         const setupECR = async () => {
-            const newECRSecretInstance = createECRSecretInstance({
+            const newECRSecretInstance = createECRPushSecretInstance({
                 name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
             });
 
@@ -172,6 +173,32 @@ export const useSetupRegistry = ({ onSuccess }) => {
             }
         };
 
+        const setupOpenshift = async () => {
+            const newKanikoSecretInstance = createOpenshiftPushSecretInstance({
+                name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
+                registryEndpoint: registryHost,
+                token: pushAccountPassword,
+            });
+
+            const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
+                registryHost,
+                registrySpace,
+                registryType,
+            });
+
+            await editConfigMap({ configMapData: newEDPConfigMap });
+
+            if (!!pushAccountSecret) {
+                await editSecret({ secretData: newKanikoSecretInstance });
+            } else {
+                await createSecret({ secretData: newKanikoSecretInstance });
+            }
+
+            if (onSuccess) {
+                await onSuccess();
+            }
+        };
+
         switch (registryType) {
             case CONTAINER_REGISTRY_TYPE.ECR:
                 await setupECR();
@@ -183,6 +210,7 @@ export const useSetupRegistry = ({ onSuccess }) => {
                 await setupHarbor();
                 break;
             case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
+                await setupOpenshift();
                 break;
         }
     };

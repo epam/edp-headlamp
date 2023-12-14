@@ -41,7 +41,7 @@ export const createRegistrySecretInstance = ({
     };
 };
 
-export const createECRSecretInstance = ({ name }: { name: string }): KubeObjectInterface => {
+export const createECRPushSecretInstance = ({ name }: { name: string }): KubeObjectInterface => {
     return {
         apiVersion: 'v1',
         kind: 'Secret',
@@ -57,6 +57,40 @@ export const createECRSecretInstance = ({ name }: { name: string }): KubeObjectI
             '.dockerconfigjson': safeEncode(
                 JSON.stringify({
                     credsStore: 'ecr-login',
+                })
+            ),
+        },
+    };
+};
+
+export const createOpenshiftPushSecretInstance = ({
+    name,
+    registryEndpoint,
+    token,
+}: {
+    name: string;
+    registryEndpoint: string;
+    token: string;
+}): KubeObjectInterface => {
+    return {
+        apiVersion: 'v1',
+        kind: 'Secret',
+        // @ts-ignore
+        metadata: {
+            name,
+            labels: {
+                [SECRET_LABEL_SECRET_TYPE]: 'registry',
+            },
+        },
+        type: 'kubernetes.io/dockerconfigjson',
+        data: {
+            '.dockerconfigjson': safeEncode(
+                JSON.stringify({
+                    auths: {
+                        [registryEndpoint]: {
+                            auth: safeEncode(token),
+                        },
+                    },
                 })
             ),
         },

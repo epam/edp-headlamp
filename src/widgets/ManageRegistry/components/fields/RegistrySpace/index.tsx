@@ -4,6 +4,13 @@ import { CONTAINER_REGISTRY_TYPE } from '../../../../../k8s/ConfigMap/constants'
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { REGISTRY_NAMES } from '../../../names';
 
+const TYPE_LABEL_MAP = {
+    [CONTAINER_REGISTRY_TYPE.HARBOR]: 'Registry Space',
+    [CONTAINER_REGISTRY_TYPE.ECR]: 'Registry Space',
+    [CONTAINER_REGISTRY_TYPE.DOCKER_HUB]: 'Registry Space',
+    [CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY]: 'Project',
+};
+
 const TYPE_TITLE_MAP = {
     [CONTAINER_REGISTRY_TYPE.HARBOR]: 'Provide the username for authentication.',
     [CONTAINER_REGISTRY_TYPE.ECR]:
@@ -33,10 +40,10 @@ export const RegistrySpace = () => {
     return (
         <FormTextField
             {...register(REGISTRY_NAMES.REGISTRY_SPACE, {
-                required: TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue],
+                required: TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue] || 'Enter registry space.',
             })}
-            label={`Registry Space`}
-            title={TYPE_TITLE_MAP[registryTypeFieldValue]}
+            label={TYPE_LABEL_MAP[registryTypeFieldValue] || 'Registry Space'}
+            title={TYPE_TITLE_MAP[registryTypeFieldValue] || 'Specify registry space.'}
             placeholder={'Enter registry space'}
             control={control}
             errors={errors}

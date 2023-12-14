@@ -26,7 +26,7 @@ export const PageView = () => {
                 component: (
                     <ManageClusterSecret
                         formData={{
-                            currentElement: el.jsonData,
+                            currentElement: el?.jsonData,
                             mode: FORM_MODES.EDIT,
                         }}
                     />

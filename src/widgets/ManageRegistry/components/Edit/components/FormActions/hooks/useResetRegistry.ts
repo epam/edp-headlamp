@@ -103,13 +103,25 @@ export const useResetRegistry = ({ onSuccess }) => {
             if (onSuccess) {
                 await onSuccess();
             }
+        };
+
+        const resetOpenshift = async () => {
+            const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
+                registryHost: '',
+                registrySpace: '',
+                registryType: '',
+            });
+
+            await deleteSecret({ secretData: pushAccountSecret });
+
+            await editConfigMap({ configMapData: newEDPConfigMap });
 
             if (onSuccess) {
                 await onSuccess();
             }
         };
 
-        switch (registryType) {
+        switch (registryType || EDPConfigMap?.data?.container_registry_type) {
             case CONTAINER_REGISTRY_TYPE.ECR:
                 await resetECR();
                 break;
@@ -120,6 +132,7 @@ export const useResetRegistry = ({ onSuccess }) => {
                 await resetHarbor();
                 break;
             case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
+                await resetOpenshift();
                 break;
         }
     };

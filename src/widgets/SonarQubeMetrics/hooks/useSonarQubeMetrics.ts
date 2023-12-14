@@ -60,5 +60,5 @@ export const useSonarQubeMetrics = (codebaseBranchName: string) => {
         }
     );
 
-    return { data, isLoading: !isFetched };
+    return { data, isLoading: !isFetched && !!ciSonarQubeToken };
 };

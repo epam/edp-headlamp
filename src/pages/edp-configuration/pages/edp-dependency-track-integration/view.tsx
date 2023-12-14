@@ -18,7 +18,7 @@ export const PageView = () => {
         labelSelector: `${SECRET_LABEL_SECRET_TYPE}=dependency-track`,
     });
 
-    const dependencyTrackSecret = dependencyTrackSecrets?.[0].jsonData;
+    const dependencyTrackSecret = dependencyTrackSecrets?.[0]?.jsonData;
 
     const mode = !!dependencyTrackSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = dependencyTrackSecret?.metadata?.ownerReferences?.[0]?.kind;

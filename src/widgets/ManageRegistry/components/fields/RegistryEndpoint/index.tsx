@@ -35,11 +35,13 @@ export const RegistryEndpoint = () => {
     return (
         <FormTextField
             {...register(REGISTRY_NAMES.REGISTRY_HOST, {
-                required: TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue],
+                required:
+                    TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue] ||
+                    'Enter registry endpoint URL.',
             })}
-            label={`Registry Endpoint`}
+            label={'Registry Endpoint'}
             placeholder={'Enter registry endpoint'}
-            title={TYPE_TITLE_MAP[registryTypeFieldValue]}
+            title={TYPE_TITLE_MAP[registryTypeFieldValue] || 'Enter registry endpoint URL.'}
             control={control}
             errors={errors}
             disabled={registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.DOCKER_HUB}

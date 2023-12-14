@@ -31,6 +31,7 @@ import {
     NextJS,
     Npm,
     Opa,
+    Openshift,
     OperatorSDK,
     Other,
     Python,
@@ -85,6 +86,7 @@ export const Resources = () => {
             <GitOps />
             <ECR />
             <Harbor />
+            <Openshift />
         </svg>
     );
 };

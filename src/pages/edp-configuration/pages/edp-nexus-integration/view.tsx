@@ -18,7 +18,7 @@ export const PageView = () => {
         labelSelector: `${SECRET_LABEL_SECRET_TYPE}=nexus`,
     });
 
-    const nexusSecret = nexusSecrets?.[0].jsonData;
+    const nexusSecret = nexusSecrets?.[0]?.jsonData;
 
     const mode = !!nexusSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = nexusSecret?.metadata?.ownerReferences?.[0]?.kind;

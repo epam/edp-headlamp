@@ -17,7 +17,7 @@ export const PageView = () => {
         labelSelector: `${SECRET_LABEL_SECRET_TYPE}=keycloak`,
     });
 
-    const ssoSecret = ssoSecrets?.[0].jsonData;
+    const ssoSecret = ssoSecrets?.[0]?.jsonData;
 
     const mode = !!ssoSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = ssoSecret?.metadata?.ownerReferences?.[0]?.kind;
