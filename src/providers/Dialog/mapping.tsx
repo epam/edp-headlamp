@@ -13,6 +13,8 @@ import { CreateEditStage } from '../../widgets/CreateEditStage';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../widgets/CreateEditStage/constants';
 import { DeleteKubeObject } from '../../widgets/DeleteKubeObject';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../widgets/DeleteKubeObject/constants';
+import { PipelineGraph } from '../../widgets/PipelineGraph';
+import { PIPELINE_GRAPH_DIALOG_NAME } from '../../widgets/PipelineGraph/constants';
 import { PipelineRunGraph } from '../../widgets/PipelineRunGraph';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../widgets/PipelineRunGraph/constants';
 import { PodsLogViewer } from '../../widgets/PodsLogViewer';
@@ -29,6 +31,7 @@ const MemoizedDeleteKubeObject = React.memo(DeleteKubeObject);
 const MemoizedPodsLogViewer = React.memo(PodsLogViewer);
 const MemoizedPodsTerminal = React.memo(PodsTerminal);
 const MemoizedPipelineRunGraph = React.memo(PipelineRunGraph);
+const MemoizedPipelineGraph = React.memo(PipelineGraph);
 const MemoizedConfirmResourcesUpdates = React.memo(ConfirmResourcesUpdates);
 
 export const MODAL_MAPPING = {
@@ -41,5 +44,6 @@ export const MODAL_MAPPING = {
     [PODS_LOG_VIEWER_DIALOG_NAME]: <MemoizedPodsLogViewer />,
     [PODS_TERMINAL_DIALOG_NAME]: <MemoizedPodsTerminal />,
     [PIPELINE_RUN_GRAPH_DIALOG_NAME]: <MemoizedPipelineRunGraph />,
+    [PIPELINE_GRAPH_DIALOG_NAME]: <MemoizedPipelineGraph />,
     [CONFIRM_RESOURCES_UPDATES_DIALOG_NAME]: <MemoizedConfirmResourcesUpdates />,
 } as const;

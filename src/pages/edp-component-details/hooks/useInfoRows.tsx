@@ -1,4 +1,4 @@
-import { Chip, Grid, Link, makeStyles, Tooltip, Typography } from '@material-ui/core';
+import { Chip, Grid, makeStyles, Tooltip, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -24,6 +24,7 @@ import { LinkCreationService } from '../../../services/link-creation';
 import { capitalizeFirstLetter } from '../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../utils/getCodebaseMappingByCodebaseType';
 import { rem } from '../../../utils/styling/rem';
+import { Pipeline } from '../components/Pipeline';
 import { EDPComponentDetailsRouteParams } from '../types';
 
 const useStyles = makeStyles(() => ({
@@ -215,9 +216,11 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
                           {
                               label: 'Review Pipeline',
                               text: (
-                                  <Link href={reviewPipelineLink} target={'_blank'}>
-                                      {reviewPipelineRefName}
-                                  </Link>
+                                  <Pipeline
+                                      pipelineLink={reviewPipelineLink}
+                                      pipelineName={reviewPipelineRefName}
+                                      namespace={namespace}
+                                  />
                               ),
                           },
                       ]
@@ -227,9 +230,11 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
                           {
                               label: 'Build Pipeline',
                               text: (
-                                  <Link href={buildPipelineLink} target={'_blank'}>
-                                      {buildPipelineRefName}
-                                  </Link>
+                                  <Pipeline
+                                      pipelineLink={buildPipelineLink}
+                                      pipelineName={buildPipelineRefName}
+                                      namespace={namespace}
+                                  />
                               ),
                           },
                       ]

@@ -73,10 +73,10 @@ export const Graph = ({
     return (
         <Paper className={classes.root} elevation={2}>
             <TransformWrapper
-                initialScale={1.5}
+                initialScale={1}
                 minScale={0.8}
                 initialPositionX={0}
-                initialPositionY={-50}
+                initialPositionY={0}
                 ref={transformComponentRef}
             >
                 {({ zoomIn, zoomOut, resetTransform, setTransform }) => {
