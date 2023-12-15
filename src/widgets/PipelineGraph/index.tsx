@@ -45,7 +45,7 @@ export const PipelineGraph = () => {
                 <Node {...node}>
                     <Tooltip title={name} interactive arrow placement={'bottom'}>
                         <Grid container alignItems={'center'}>
-                            <Grid item>
+                            <Grid item style={{ overflow: 'hidden' }}>
                                 <Typography variant={'subtitle2'} className={classes.treeItemTitle}>
                                     {name}
                                 </Typography>
