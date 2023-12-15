@@ -44,9 +44,13 @@ export const PipelineGraph = () => {
                 // @ts-ignore
                 <Node {...node}>
                     <Tooltip title={name} interactive arrow placement={'bottom'}>
-                        <Typography variant={'subtitle2'} className={classes.treeItemTitle}>
-                            {name}
-                        </Typography>
+                        <Grid container alignItems={'center'}>
+                            <Grid item>
+                                <Typography variant={'subtitle2'} className={classes.treeItemTitle}>
+                                    {name}
+                                </Typography>
+                            </Grid>
+                        </Grid>
                     </Tooltip>
                 </Node>
             );

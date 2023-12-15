@@ -12,7 +12,7 @@ export const Pipeline = ({ pipelineLink, pipelineName, namespace }) => {
     const { setDialog } = useDialogContext();
 
     return (
-        <Grid container spacing={1} alignItems={'center'}>
+        <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
             <Grid item>
                 <Link href={pipelineLink} target={'_blank'}>
                     {pipelineName}

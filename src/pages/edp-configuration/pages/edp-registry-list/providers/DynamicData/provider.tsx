@@ -96,7 +96,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
             },
             isLoading,
         }),
-        [EDPConfigMap, isLoading, secrets.kanikoDockerConfig, secrets.regcred, tektonServiceAccount]
+        [EDPConfigMap, isLoading, secrets, tektonServiceAccount]
     );
 
     return (
