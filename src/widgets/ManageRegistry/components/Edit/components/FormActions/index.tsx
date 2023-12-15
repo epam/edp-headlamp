@@ -4,7 +4,6 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
 import { CONFIRM_RESOURCES_UPDATES_DIALOG_NAME } from '../../../../../ConfirmResourcesUpdates/constants';
@@ -21,10 +20,8 @@ export const FormActions = () => {
     } = useReactHookFormContext<ManageRegistryValues>();
 
     const {
-        formData: { EDPConfigMap, handleClosePanel, pullAccountSecret, pushAccountSecret },
+        formData: { handleClosePanel, pullAccountSecret, pushAccountSecret },
     } = useFormContext<ManageRegistryDataContext>();
-
-    const registryType = EDPConfigMap?.data?.container_registry_type;
 
     const { setDialog } = useDialogContext();
 
@@ -37,7 +34,6 @@ export const FormActions = () => {
 
     const { resetRegistry, isLoading: resetRegistryIsLoading } = useResetRegistry({
         onSuccess: () => {
-            reset({});
             handleClosePanel();
         },
     });
@@ -59,18 +55,6 @@ export const FormActions = () => {
 
         return false;
     }, [pullAccountSecret, pushAccountSecret]);
-
-    const resetButtonDisabled = React.useMemo(() => {
-        switch (registryType) {
-            case CONTAINER_REGISTRY_TYPE.ECR:
-                return !pushAccountSecret || someOfTheSecretsHasExternalOwner;
-            case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
-            case CONTAINER_REGISTRY_TYPE.HARBOR:
-                return !pushAccountSecret || !pullAccountSecret || someOfTheSecretsHasExternalOwner;
-            case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
-                return !pushAccountSecret || someOfTheSecretsHasExternalOwner;
-        }
-    }, [pullAccountSecret, pushAccountSecret, registryType, someOfTheSecretsHasExternalOwner]);
 
     return (
         <>
@@ -95,17 +79,16 @@ export const FormActions = () => {
                             color="primary"
                             style={{ pointerEvents: 'auto' }}
                             onClick={() => {
-                                const formValues = getValues();
                                 setDialog({
                                     modalName: CONFIRM_RESOURCES_UPDATES_DIALOG_NAME,
                                     forwardedProps: {
-                                        deleteCallback: () => resetRegistry(formValues),
+                                        deleteCallback: () => resetRegistry(),
                                         text: 'Are you sure you want to reset the registry?',
                                     },
                                 });
                             }}
                             startIcon={<Icon icon={ICONS.WARNING} />}
-                            disabled={resetButtonDisabled}
+                            disabled={someOfTheSecretsHasExternalOwner}
                         >
                             Reset registry
                         </Button>

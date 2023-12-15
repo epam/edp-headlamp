@@ -20,11 +20,6 @@ export const useSetupRegistry = ({ onSuccess }) => {
     } = useFormContext<ManageRegistryDataContext>();
 
     const {
-        editConfigMap,
-        mutations: { configMapEditMutation },
-    } = useConfigMapCRUD({});
-
-    const {
         createSecret,
         editSecret,
         mutations: { secretCreateMutation, secretEditMutation },
@@ -34,6 +29,13 @@ export const useSetupRegistry = ({ onSuccess }) => {
         editServiceAccount,
         mutations: { serviceAccountEditMutation },
     } = useEditServiceAccount({});
+
+    const {
+        editConfigMap,
+        mutations: { configMapEditMutation },
+    } = useConfigMapCRUD({
+        onSuccess: onSuccess,
+    });
 
     const isLoading =
         serviceAccountEditMutation.isLoading ||
@@ -79,7 +81,6 @@ export const useSetupRegistry = ({ onSuccess }) => {
                 awsRegion,
             });
 
-            await editConfigMap({ configMapData: newEDPConfigMap });
             await editServiceAccount({ serviceAccount: editedServiceAccount });
 
             if (!!pushAccountSecret) {
@@ -88,9 +89,7 @@ export const useSetupRegistry = ({ onSuccess }) => {
                 await createSecret({ secretData: newECRSecretInstance });
             }
 
-            if (onSuccess) {
-                await onSuccess();
-            }
+            await editConfigMap({ configMapData: newEDPConfigMap });
         };
 
         const setupDockerHub = async () => {
@@ -114,8 +113,6 @@ export const useSetupRegistry = ({ onSuccess }) => {
                 registryType,
             });
 
-            await editConfigMap({ configMapData: newEDPConfigMap });
-
             if (!!pushAccountSecret) {
                 await editSecret({ secretData: newKanikoSecretInstance });
             } else {
@@ -128,9 +125,7 @@ export const useSetupRegistry = ({ onSuccess }) => {
                 await createSecret({ secretData: newRegcredSecretInstance });
             }
 
-            if (onSuccess) {
-                await onSuccess();
-            }
+            await editConfigMap({ configMapData: newEDPConfigMap });
         };
 
         const setupHarbor = async () => {
@@ -154,8 +149,6 @@ export const useSetupRegistry = ({ onSuccess }) => {
                 registryType,
             });
 
-            await editConfigMap({ configMapData: newEDPConfigMap });
-
             if (!!pushAccountSecret) {
                 await editSecret({ secretData: newKanikoSecretInstance });
             } else {
@@ -168,9 +161,7 @@ export const useSetupRegistry = ({ onSuccess }) => {
                 await createSecret({ secretData: newRegcredSecretInstance });
             }
 
-            if (onSuccess) {
-                await onSuccess();
-            }
+            await editConfigMap({ configMapData: newEDPConfigMap });
         };
 
         const setupOpenshift = async () => {
@@ -186,17 +177,13 @@ export const useSetupRegistry = ({ onSuccess }) => {
                 registryType,
             });
 
-            await editConfigMap({ configMapData: newEDPConfigMap });
-
             if (!!pushAccountSecret) {
                 await editSecret({ secretData: newKanikoSecretInstance });
             } else {
                 await createSecret({ secretData: newKanikoSecretInstance });
             }
 
-            if (onSuccess) {
-                await onSuccess();
-            }
+            await editConfigMap({ configMapData: newEDPConfigMap });
         };
 
         switch (registryType) {

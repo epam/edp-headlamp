@@ -1,6 +1,7 @@
-import React from 'react';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../k8s/ConfigMap/constants';
+import { ConfigMapKubeObjectInterface } from '../../../../../k8s/ConfigMap/types';
 import { SecretKubeObjectInterface } from '../../../../../k8s/Secret/types';
+import { ServiceAccountKubeObjectInterface } from '../../../../../k8s/ServiceAccount/types';
 import { safeDecode } from '../../../../../utils/decodeEncode';
 import { REGISTRY_NAMES } from '../../../names';
 import { ManageRegistryDataContext } from '../../../types';
@@ -36,74 +37,73 @@ const getAuth = (secret: SecretKubeObjectInterface) => {
     return { auth };
 };
 
+const handleECR = (
+    EDPConfigMap: ConfigMapKubeObjectInterface,
+    tektonServiceAccount: ServiceAccountKubeObjectInterface
+) => {
+    return {
+        [REGISTRY_NAMES.REGISTRY_TYPE]: EDPConfigMap?.data?.container_registry_type,
+        [REGISTRY_NAMES.REGISTRY_HOST]: EDPConfigMap?.data?.container_registry_host,
+        [REGISTRY_NAMES.REGISTRY_SPACE]: EDPConfigMap?.data?.container_registry_space,
+        [REGISTRY_NAMES.IRSA_ROLE_ARN]:
+            tektonServiceAccount?.metadata?.annotations?.['eks.amazonaws.com/role-arn'],
+        [REGISTRY_NAMES.AWS_REGION]: EDPConfigMap?.data?.aws_region,
+    };
+};
+
+const handleDockerHubOrHarbor = (
+    EDPConfigMap: ConfigMapKubeObjectInterface,
+    pushAccountSecret: SecretKubeObjectInterface,
+    pullAccountSecret: SecretKubeObjectInterface
+) => {
+    const { userName: pullUserName, password: pullPassword } =
+        getUsernameAndPassword(pullAccountSecret);
+    const { userName: pushUserName, password: pushPassword } =
+        getUsernameAndPassword(pushAccountSecret);
+
+    return {
+        [REGISTRY_NAMES.REGISTRY_TYPE]: EDPConfigMap?.data?.container_registry_type,
+        [REGISTRY_NAMES.REGISTRY_HOST]: EDPConfigMap?.data?.container_registry_host,
+        [REGISTRY_NAMES.REGISTRY_SPACE]: EDPConfigMap?.data?.container_registry_space,
+        [REGISTRY_NAMES.PUSH_ACCOUNT_USER]: pushUserName,
+        [REGISTRY_NAMES.PUSH_ACCOUNT_PASSWORD]: pushPassword,
+        [REGISTRY_NAMES.PULL_ACCOUNT_USER]: pullUserName,
+        [REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD]: pullPassword,
+        [REGISTRY_NAMES.USE_SAME_ACCOUNT]: !pullUserName && !pullPassword,
+    };
+};
+
+const handleOpenshift = (
+    EDPConfigMap: ConfigMapKubeObjectInterface,
+    pushAccountSecret: SecretKubeObjectInterface
+) => {
+    const { auth } = getAuth(pushAccountSecret);
+
+    return {
+        [REGISTRY_NAMES.REGISTRY_TYPE]: EDPConfigMap?.data?.container_registry_type,
+        [REGISTRY_NAMES.REGISTRY_HOST]: EDPConfigMap?.data?.container_registry_host,
+        [REGISTRY_NAMES.REGISTRY_SPACE]: EDPConfigMap?.data?.container_registry_space,
+        [REGISTRY_NAMES.PUSH_ACCOUNT_PASSWORD]: auth,
+    };
+};
+
 export const useDefaultValues = ({ formData }: { formData: ManageRegistryDataContext }) => {
     const { EDPConfigMap, tektonServiceAccount, pullAccountSecret, pushAccountSecret } = formData;
 
-    const registryHost = EDPConfigMap?.data?.container_registry_host;
-    const registrySpace = EDPConfigMap?.data?.container_registry_space;
-    const registryType = EDPConfigMap?.data?.container_registry_type;
-    const awsRegion = EDPConfigMap?.data?.aws_region;
+    if (!EDPConfigMap?.data?.container_registry_type) {
+        return {};
+    }
 
-    const handleECR = React.useCallback(() => {
-        const irsaRoleArn =
-            tektonServiceAccount?.metadata?.annotations?.['eks.amazonaws.com/role-arn'];
-
-        return {
-            [REGISTRY_NAMES.REGISTRY_TYPE]: registryType,
-            [REGISTRY_NAMES.REGISTRY_HOST]: registryHost,
-            [REGISTRY_NAMES.REGISTRY_SPACE]: registrySpace,
-            [REGISTRY_NAMES.IRSA_ROLE_ARN]: irsaRoleArn,
-            [REGISTRY_NAMES.AWS_REGION]: awsRegion,
-        };
-    }, [
-        awsRegion,
-        registryHost,
-        registrySpace,
-        registryType,
-        tektonServiceAccount?.metadata?.annotations,
-    ]);
-
-    const handleDockerHubOrHarbor = React.useCallback(() => {
-        const { userName: pullUserName, password: pullPassword } =
-            getUsernameAndPassword(pullAccountSecret);
-        const { userName: pushUserName, password: pushPassword } =
-            getUsernameAndPassword(pushAccountSecret);
-
-        return {
-            [REGISTRY_NAMES.REGISTRY_TYPE]: registryType,
-            [REGISTRY_NAMES.REGISTRY_HOST]: registryHost,
-            [REGISTRY_NAMES.REGISTRY_SPACE]: registrySpace,
-            [REGISTRY_NAMES.PUSH_ACCOUNT_USER]: pushUserName,
-            [REGISTRY_NAMES.PUSH_ACCOUNT_PASSWORD]: pushPassword,
-            [REGISTRY_NAMES.PULL_ACCOUNT_USER]: pullUserName,
-            [REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD]: pullPassword,
-            [REGISTRY_NAMES.USE_SAME_ACCOUNT]: !pullUserName && !pullPassword,
-        };
-    }, [pullAccountSecret, pushAccountSecret, registryHost, registrySpace, registryType]);
-
-    const handleOpenshift = React.useCallback(() => {
-        const { auth } = getAuth(pushAccountSecret);
-
-        return {
-            [REGISTRY_NAMES.REGISTRY_TYPE]: registryType,
-            [REGISTRY_NAMES.REGISTRY_HOST]: registryHost,
-            [REGISTRY_NAMES.REGISTRY_SPACE]: registrySpace,
-            [REGISTRY_NAMES.PUSH_ACCOUNT_PASSWORD]: auth,
-        };
-    }, [pushAccountSecret, registryHost, registrySpace, registryType]);
-
-    return React.useMemo(() => {
-        switch (registryType) {
-            case CONTAINER_REGISTRY_TYPE.ECR:
-                return handleECR();
-            case CONTAINER_REGISTRY_TYPE.HARBOR:
-                return handleDockerHubOrHarbor();
-            case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
-                return handleDockerHubOrHarbor();
-            case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
-                return handleOpenshift();
-            default:
-                break;
-        }
-    }, [handleDockerHubOrHarbor, handleECR, handleOpenshift, registryType]);
+    switch (EDPConfigMap.data.container_registry_type) {
+        case CONTAINER_REGISTRY_TYPE.ECR:
+            return handleECR(EDPConfigMap, tektonServiceAccount);
+        case CONTAINER_REGISTRY_TYPE.HARBOR:
+            return handleDockerHubOrHarbor(EDPConfigMap, pushAccountSecret, pullAccountSecret);
+        case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
+            return handleDockerHubOrHarbor(EDPConfigMap, pushAccountSecret, pullAccountSecret);
+        case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
+            return handleOpenshift(EDPConfigMap, pushAccountSecret);
+        default:
+            break;
+    }
 };

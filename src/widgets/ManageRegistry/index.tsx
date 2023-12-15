@@ -9,7 +9,7 @@ import { ManageRegistryProps } from './types';
 
 export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
     const { EDPConfigMap } = formData;
-    const registryType = EDPConfigMap?.data.container_registry_type;
+    const registryType = EDPConfigMap && EDPConfigMap.data.container_registry_type;
     const mode = !!registryType ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
     const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
@@ -22,6 +22,8 @@ export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
 
     const _formData = React.useMemo(() => ({ ...formData, handleClosePanel }), [formData]);
 
+    console.log('render ManageRegistry', 'registryType', registryType);
+
     return (
         <Grid container spacing={2} data-testid="form">
             <Grid item xs={12}>
@@ -31,7 +33,7 @@ export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
                     title={'Add Registry'}
                     disabled={mode === FORM_MODES.EDIT}
                 >
-                    <Create formData={_formData} />
+                    {mode === FORM_MODES.CREATE && <Create formData={_formData} />}
                 </CreateItemAccordion>
             </Grid>
             {mode === FORM_MODES.EDIT ? (

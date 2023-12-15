@@ -22,7 +22,9 @@ export const useUpdateRegistry = ({ onSuccess }) => {
     const {
         editConfigMap,
         mutations: { configMapEditMutation },
-    } = useConfigMapCRUD({});
+    } = useConfigMapCRUD({
+        onSuccess: onSuccess,
+    });
 
     const {
         editSecret,
@@ -77,13 +79,9 @@ export const useUpdateRegistry = ({ onSuccess }) => {
                 awsRegion,
             });
 
-            await editConfigMap({ configMapData: newEDPConfigMap });
             await editServiceAccount({ serviceAccount: editedServiceAccount });
             await editSecret({ secretData: newECRSecretInstance });
-
-            if (onSuccess) {
-                await onSuccess();
-            }
+            await editConfigMap({ configMapData: newEDPConfigMap });
         };
 
         const updateDockerHub = async () => {
@@ -108,15 +106,11 @@ export const useUpdateRegistry = ({ onSuccess }) => {
                 registryType,
             });
 
-            await editConfigMap({ configMapData: newEDPConfigMap });
-
             for (const registrySecretInstance of registrySecretInstances) {
                 await editSecret({ secretData: registrySecretInstance });
             }
 
-            if (onSuccess) {
-                await onSuccess();
-            }
+            await editConfigMap({ configMapData: newEDPConfigMap });
         };
 
         const updateHarbor = async () => {
@@ -141,15 +135,11 @@ export const useUpdateRegistry = ({ onSuccess }) => {
                 registryType,
             });
 
-            await editConfigMap({ configMapData: newEDPConfigMap });
-
             for (const registrySecretInstance of registrySecretInstances) {
                 await editSecret({ secretData: registrySecretInstance });
             }
 
-            if (onSuccess) {
-                await onSuccess();
-            }
+            await editConfigMap({ configMapData: newEDPConfigMap });
         };
 
         const updateOpenshift = async () => {
@@ -165,13 +155,9 @@ export const useUpdateRegistry = ({ onSuccess }) => {
                 registryType,
             });
 
-            await editConfigMap({ configMapData: newEDPConfigMap });
-
             await editSecret({ secretData: newKanikoSecretInstance });
 
-            if (onSuccess) {
-                await onSuccess();
-            }
+            await editConfigMap({ configMapData: newEDPConfigMap });
         };
 
         switch (registryType) {
