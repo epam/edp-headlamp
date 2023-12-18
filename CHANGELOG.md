@@ -1,9 +1,76 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Bug Fixes
+
+- Fix image name in release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
+- Bump GO version for release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
+
+
+<a name="v0.12.0"></a>
+## [v0.12.0] - 2023-12-18
 ### Features
 
+- Add graph for review and build pipeline on component page ([#120](https://github.com/epam/edp-headlamp/issues/120))
+- Add openshift registry flow ([#119](https://github.com/epam/edp-headlamp/issues/119))
+- Add review and build pipeline links to component details ([#118](https://github.com/epam/edp-headlamp/issues/118))
+- Update tooltips on some widget fields ([#113](https://github.com/epam/edp-headlamp/issues/113))
+- Show sonarqube and deptrack widgets even with no data ([#117](https://github.com/epam/edp-headlamp/issues/117))
+- Add statuses to integrations defectdojo, dependencytrack, registry, nexus, sonar ([#29](https://github.com/epam/edp-headlamp/issues/29))
+- Update EDP Portal labels, tooltips ([#113](https://github.com/epam/edp-headlamp/issues/113))
+- Update catalog filter ([#113](https://github.com/epam/edp-headlamp/issues/113))
+- Update tooltips and labels ([#113](https://github.com/epam/edp-headlamp/issues/113))
+- Update tekton k8s resources version to v1 ([#115](https://github.com/epam/edp-headlamp/issues/115))
+- Update registry widget logic ([#116](https://github.com/epam/edp-headlamp/issues/116))
+- Update the EDP Portal l11n ([#113](https://github.com/epam/edp-headlamp/issues/113))
+- Update jira server integration page to handle and show jiraserver status ([#112](https://github.com/epam/edp-headlamp/issues/112))
+- Structure sso and links pages in configuration menu ([#111](https://github.com/epam/edp-headlamp/issues/111))
+- Structure configuration page menu into groups ([#111](https://github.com/epam/edp-headlamp/issues/111))
+- Fix mode variable in registry widget component ([#110](https://github.com/epam/edp-headlamp/issues/110))
+- Remove deployment type field from cdpipeline creation ([#109](https://github.com/epam/edp-headlamp/issues/109))
+- Update README, add new overview video ([#106](https://github.com/epam/edp-headlamp/issues/106))
+- Update FormTextFieldEncoded component to show centered dots instead of encoded value ([#104](https://github.com/epam/edp-headlamp/issues/104))
+- Add ingress-enabled parameter with a check before creating the ingress resource ([#101](https://github.com/epam/edp-headlamp/issues/101))
+- Remove secretString field from GitServer creation widget Gitlab flow ([#100](https://github.com/epam/edp-headlamp/issues/100))
+- Add sonarqube metrics widget into codebasebranch widget ([#98](https://github.com/epam/edp-headlamp/issues/98))
+- Update git server form, disable FormTextFieldDecodeable if toDecode is true ([#96](https://github.com/epam/edp-headlamp/issues/96))
+- Add a new textfield component with ability to decode and to encode values ([#97](https://github.com/epam/edp-headlamp/issues/97))
 - Update GitServer create, edit forms ([#86](https://github.com/epam/edp-headlamp/issues/86))
+
+### Bug Fixes
+
+- Fix registry form update issues ([#118](https://github.com/epam/edp-headlamp/issues/118))
+- Fix step name overflow in pipeline graph node ([#120](https://github.com/epam/edp-headlamp/issues/120))
+- Fix pipeline name wrap, fix registry secret status showing ([#120](https://github.com/epam/edp-headlamp/issues/120))
+- Fix sonar critical ([#118](https://github.com/epam/edp-headlamp/issues/118))
+- Fix issues related to changing tekton k8s resources version to v1 ([#115](https://github.com/epam/edp-headlamp/issues/115))
+- Fix integration widgets status updating ([#29](https://github.com/epam/edp-headlamp/issues/29))
+- Fix sonar issues ([#113](https://github.com/epam/edp-headlamp/issues/113))
+- Fix filter actions different names in dev and prod modes ([#113](https://github.com/epam/edp-headlamp/issues/113))
+- Fix dependency track widget url ([#114](https://github.com/epam/edp-headlamp/issues/114))
+- Auto update field registry host value to docker.io in registry setup if registry type is dockerhub ([#107](https://github.com/epam/edp-headlamp/issues/107))
+- Fix git server creation flow ([#102](https://github.com/epam/edp-headlamp/issues/102))
+- Fix crash with ref.current.remove ([#98](https://github.com/epam/edp-headlamp/issues/98))
+- Fix bug with encoding already encoded values ([#96](https://github.com/epam/edp-headlamp/issues/96))
+- Fix git servers page issues ([#86](https://github.com/epam/edp-headlamp/issues/86))
+
+### Code Refactoring
+
+- Segregate url creation services ([#103](https://github.com/epam/edp-headlamp/issues/103))
+- Refactor textField component - restructure and segregate sub-types ([#96](https://github.com/epam/edp-headlamp/issues/96))
+- Fix sonar issues by restructuring code ([#95](https://github.com/epam/edp-headlamp/issues/95))
+- Remove Render component everywhere ([#95](https://github.com/epam/edp-headlamp/issues/95))
+- Create generic editResource function ([#94](https://github.com/epam/edp-headlamp/issues/94))
+
+### Routine
+
+- Update GH Actions ([#99](https://github.com/epam/edp-headlamp/issues/99))
+- Update headlamp to v. 0.21.0 ([#99](https://github.com/epam/edp-headlamp/issues/99))
+- Update current development version ([#93](https://github.com/epam/edp-headlamp/issues/93))
+
+### Documentation
+
+- Update documentation ([#105](https://github.com/epam/edp-headlamp/issues/105))
 
 
 <a name="v0.11.0"></a>
@@ -170,7 +237,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.12.0...HEAD
+[v0.12.0]: https://github.com/epam/edp-headlamp/compare/v0.11.0...v0.12.0
 [v0.11.0]: https://github.com/epam/edp-headlamp/compare/v0.10.0...v0.11.0
 [v0.10.0]: https://github.com/epam/edp-headlamp/compare/v0.9.0...v0.10.0
 [v0.9.0]: https://github.com/epam/edp-headlamp/compare/v0.8.0...v0.9.0
