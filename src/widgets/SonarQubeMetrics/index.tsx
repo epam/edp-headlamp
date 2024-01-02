@@ -52,10 +52,13 @@ export const SonarQubeMetrics = ({
 }: SonarQubeMetricsProps) => {
     const projectID = codebaseBranchMetadataName;
 
-    const { data: metrics, isLoading } = useSonarQubeMetrics(codebaseBranchMetadataName);
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
     const sonarQubeBaseURL = EDPComponentsURLS?.sonar;
 
+    const { data: metrics, isLoading } = useSonarQubeMetrics(
+        sonarQubeBaseURL,
+        codebaseBranchMetadataName
+    );
     const sonarConfigurationPage = Router.createRouteURL(routeEDPSonarIntegration.path);
     const history = useHistory();
 

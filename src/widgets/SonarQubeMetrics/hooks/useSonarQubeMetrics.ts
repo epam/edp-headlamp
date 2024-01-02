@@ -1,6 +1,5 @@
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { useEDPComponentsURLsQuery } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useSecretByNameQuery } from '../../../k8s/Secret/hooks/useSecretByName';
 import { EDPComponentDetailsRouteParams } from '../../../pages/edp-component-details/types';
 import { safeDecode, safeEncode } from '../../../utils/decodeEncode';
@@ -16,11 +15,9 @@ const getMetricsValues = (metrics: SonarQubeMetricsResponse) => {
     return values;
 };
 
-export const useSonarQubeMetrics = (codebaseBranchName: string) => {
+export const useSonarQubeMetrics = (sonarQubeBaseURL: string, codebaseBranchName: string) => {
     const { namespace } = useParams<EDPComponentDetailsRouteParams>();
 
-    const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-    const sonarQubeBaseURL = EDPComponentsURLS?.sonar;
     const { data: ciSonarQubeToken } = useSecretByNameQuery<string>({
         props: {
             namespace,
@@ -60,5 +57,5 @@ export const useSonarQubeMetrics = (codebaseBranchName: string) => {
         }
     );
 
-    return { data, isLoading: !isFetched && !!ciSonarQubeToken };
+    return { data, isLoading: !sonarQubeBaseURL ? false : !isFetched && !!ciSonarQubeToken };
 };
