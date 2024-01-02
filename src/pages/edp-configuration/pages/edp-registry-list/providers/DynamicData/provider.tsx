@@ -42,6 +42,12 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
             const EDPConfigMap = configMaps.find(
                 item => item.metadata.name === EDP_CONFIG_CONFIG_MAP_NAME
             );
+
+            if (!EDPConfigMap) {
+                setEDPConfigMap(EDPConfigMap);
+                return;
+            }
+
             setEDPConfigMap(EDPConfigMap.jsonData);
         },
         error => console.error(error),

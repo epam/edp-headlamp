@@ -1,3 +1,4 @@
+import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
@@ -47,6 +48,13 @@ export const PageView = () => {
                             />
                         </LoadingWrapper>
                     </Grid>
+                    {!ssoSecret && !isLoading && (
+                        <Grid item xs={12}>
+                            <EmptyContent color={'textSecondary'}>
+                                No SSO integration secrets found
+                            </EmptyContent>
+                        </Grid>
+                    )}
                 </Grid>
             </PageWrapper>
         </PageWithSubMenu>

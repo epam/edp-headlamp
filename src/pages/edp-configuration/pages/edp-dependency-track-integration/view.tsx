@@ -1,3 +1,4 @@
+import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Link, Typography } from '@material-ui/core';
 import React from 'react';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
@@ -53,6 +54,13 @@ export const PageView = () => {
                             />
                         </LoadingWrapper>
                     </Grid>
+                    {!dependencyTrackSecret && !isLoading && (
+                        <Grid item xs={12}>
+                            <EmptyContent color={'textSecondary'}>
+                                No DependencyTrack integration secrets found
+                            </EmptyContent>
+                        </Grid>
+                    )}
                 </Grid>
             </PageWrapper>
         </PageWithSubMenu>
