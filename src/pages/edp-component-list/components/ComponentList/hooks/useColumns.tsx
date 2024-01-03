@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
+import { Box, Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
 import { ConditionalWrapper } from '../../../../../components/ConditionalWrapper';
 import { StatusIcon } from '../../../../../components/StatusIcon';
@@ -37,7 +37,6 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                 render: codebase => {
                     const status = codebase?.status?.status;
                     const detailedMessage = codebase?.status?.detailedMessage;
-                    const type = codebase?.spec?.type;
 
                     const [icon, color, isRotating] = EDPCodebaseKubeObject.getStatusIcon(status);
 
@@ -55,37 +54,12 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                     );
 
                     return (
-                        <ConditionalWrapper
-                            condition={type === CODEBASE_TYPES.SYSTEM}
-                            wrapper={children => (
-                                <Grid
-                                    container
-                                    spacing={2}
-                                    alignItems={'center'}
-                                    style={{ margin: 0 }}
-                                >
-                                    {children}
-                                    <Grid item>
-                                        <Tooltip title={'System codebase'}>
-                                            <Icon
-                                                icon={ICONS.SCREWDRIVER}
-                                                width={25}
-                                                style={{
-                                                    display: 'block',
-                                                }}
-                                            />
-                                        </Tooltip>
-                                    </Grid>
-                                </Grid>
-                            )}
-                        >
-                            <StatusIcon
-                                icon={icon}
-                                isRotating={isRotating}
-                                color={color}
-                                Title={title}
-                            />
-                        </ConditionalWrapper>
+                        <StatusIcon
+                            icon={icon}
+                            isRotating={isRotating}
+                            color={color}
+                            Title={title}
+                        />
                     );
                 },
                 width: '10%',
@@ -95,17 +69,35 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                 id: 'name',
                 label: 'Name',
                 columnSortableValuePath: 'metadata.name',
-                render: ({ metadata: { name, namespace } }) => {
+                render: ({ metadata: { name, namespace }, spec: { type } }) => {
                     return (
-                        <Link
-                            routeName={routeEDPComponentDetails.path}
-                            params={{
-                                name,
-                                namespace,
-                            }}
+                        <ConditionalWrapper
+                            condition={type === CODEBASE_TYPES.SYSTEM}
+                            wrapper={children => (
+                                <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                                    <Grid item>{children}</Grid>
+                                    <Grid item>
+                                        <Tooltip title={'System component'}>
+                                            <Icon
+                                                icon={ICONS.INFO_CIRCLE}
+                                                width={18}
+                                                style={{ display: 'block' }}
+                                            />
+                                        </Tooltip>
+                                    </Grid>
+                                </Grid>
+                            )}
                         >
-                            {name}
-                        </Link>
+                            <Link
+                                routeName={routeEDPComponentDetails.path}
+                                params={{
+                                    name,
+                                    namespace,
+                                }}
+                            >
+                                {name}
+                            </Link>
+                        </ConditionalWrapper>
                     );
                 },
                 width: '35%',
@@ -206,7 +198,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
                 label: '',
                 render: ({ jsonData, spec: { type } }) => {
                     if (type === CODEBASE_TYPES.SYSTEM) {
-                        return null;
+                        return <Box sx={{ height: rem(44) }} />;
                     }
 
                     const buttonRef = React.createRef<HTMLButtonElement>();
