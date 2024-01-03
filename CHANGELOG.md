@@ -1,10 +1,25 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="v0.13.0"></a>
+## [v0.13.0] - 2024-01-03
+### Features
+
+- Update system codebase icon ([#127](https://github.com/epam/edp-headlamp/issues/127))
+- Add quality gate passed or failed status ([#125](https://github.com/epam/edp-headlamp/issues/125))
+
 ### Bug Fixes
 
+- Hide codebase page controls and diagrams for system components ([#126](https://github.com/epam/edp-headlamp/issues/126))
+- Add no secret found messages into configuration page list ([#118](https://github.com/epam/edp-headlamp/issues/118))
+- Fix sonar widget loading status when there is no sonar component ([#118](https://github.com/epam/edp-headlamp/issues/118))
 - Fix image name in release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
 - Bump GO version for release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
+
+### Routine
+
+- Update current development version ([#121](https://github.com/epam/edp-headlamp/issues/121))
 
 
 <a name="v0.12.0"></a>
@@ -237,7 +252,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.12.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.13.0...HEAD
+[v0.13.0]: https://github.com/epam/edp-headlamp/compare/v0.12.0...v0.13.0
 [v0.12.0]: https://github.com/epam/edp-headlamp/compare/v0.11.0...v0.12.0
 [v0.11.0]: https://github.com/epam/edp-headlamp/compare/v0.10.0...v0.11.0
 [v0.10.0]: https://github.com/epam/edp-headlamp/compare/v0.9.0...v0.10.0
