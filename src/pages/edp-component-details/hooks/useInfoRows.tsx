@@ -10,6 +10,7 @@ import {
     FRAMEWORK_ICON_MAPPING,
     LANGUAGE_ICON_MAPPING,
 } from '../../../configs/icon-mappings';
+import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { RESOURCE_ICON_NAMES } from '../../../icons/sprites/Resources/names';
 import { EDPCodebaseKubeObject } from '../../../k8s/EDPCodebase';
@@ -104,6 +105,8 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
             namespace,
             buildPipelineRefName
         );
+
+        const isCodebaseTypeSystem = type === CODEBASE_TYPES.SYSTEM;
 
         return [
             [
@@ -211,7 +214,7 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
                 },
             ],
             [
-                ...(reviewPipelineLink
+                ...(reviewPipelineLink && !isCodebaseTypeSystem
                     ? [
                           {
                               label: 'Review Pipeline',
@@ -225,7 +228,7 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
                           },
                       ]
                     : []),
-                ...(buildPipelineLink
+                ...(buildPipelineLink && !isCodebaseTypeSystem
                     ? [
                           {
                               label: 'Build Pipeline',

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
+import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { Resources } from '../../icons/sprites/Resources';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
@@ -43,6 +44,8 @@ export const PageView = () => {
 
     const infoRows = useInfoRows(component);
 
+    const componentType = component?.spec?.type;
+
     return (
         <PageWrapper
             breadcrumbs={[
@@ -64,16 +67,18 @@ export const PageView = () => {
                                 <Grid item>
                                     <CodebaseMetadataTable codebaseData={component} />
                                 </Grid>
-                                <Grid item>
-                                    <ResourceActionListContextProvider>
-                                        <CodebaseActions
-                                            codebase={component}
-                                            backRoute={Router.createRouteURL(
-                                                routeEDPComponentList.path
-                                            )}
-                                        />
-                                    </ResourceActionListContextProvider>
-                                </Grid>
+                                {componentType !== CODEBASE_TYPES.SYSTEM && (
+                                    <Grid item>
+                                        <ResourceActionListContextProvider>
+                                            <CodebaseActions
+                                                codebase={component}
+                                                backRoute={Router.createRouteURL(
+                                                    routeEDPComponentList.path
+                                                )}
+                                            />
+                                        </ResourceActionListContextProvider>
+                                    </Grid>
+                                )}
                             </Grid>
                         </div>
                     )}
