@@ -70,7 +70,6 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
     return (
         <Grid container spacing={4} style={{ marginTop: rem(20) }}>
             <Grid item xs={12}>
-                <Typography variant={'h6'}>Code Quality</Typography>
                 <Grid container alignItems={'center'}>
                     <Grid item>
                         <SonarQubeMetrics

@@ -1,7 +1,8 @@
 import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { PercentageCircle } from '@kinvolk/headlamp-plugin/lib/components/common';
-import { Grid, Link, Typography } from '@material-ui/core';
+import { Chip, Grid, Link, makeStyles, Typography } from '@material-ui/core';
+import clsx from 'clsx';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
@@ -9,6 +10,7 @@ import { NoDataWidgetWrapper } from '../../components/NoDataWidgetWrapper';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { routeEDPSonarIntegration } from '../../pages/edp-configuration/pages/edp-sonar-integration/route';
 import { LinkCreationService } from '../../services/link-creation';
+import { rem } from '../../utils/styling/rem';
 import { MetricsItem } from './components/MetricsItem';
 import { Rating } from './components/Rating';
 import { Value } from './components/Value';
@@ -25,6 +27,22 @@ const defaultDuplicationRatings: DuplicationRating[] = [
 
 const total = 100;
 const size = 55;
+
+const useStyles = makeStyles(() => ({
+    labelChip: {
+        height: rem(20),
+        lineHeight: 1,
+        paddingTop: rem(2),
+        backgroundColor: '#5b5b5b',
+        color: '#fff',
+    },
+    labelChipGreen: {
+        backgroundColor: '#1DB954',
+    },
+    labelChipRed: {
+        backgroundColor: '#ff2222',
+    },
+}));
 
 const getDuplicationRating = (metrics: any) => {
     if (!metrics) {
@@ -46,10 +64,32 @@ const getDuplicationRating = (metrics: any) => {
     return rating;
 };
 
+const statusMap = {
+    OK: 'Passed',
+    ERROR: 'Failed',
+};
+
+const getStatusLabel = (status: string) => statusMap?.[status] || 'Unknown';
+
+const getIconVulnerability = (value: string) =>
+    value === '0' ? (
+        <Icon icon={'material-symbols:lock-outline'} />
+    ) : (
+        <Icon icon={'material-symbols:lock-open-outline'} />
+    );
+
+const getIconCodeSmells = (value: string) =>
+    value === '0' ? (
+        <Icon icon={'material-symbols:sentiment-satisfied-outline'} />
+    ) : (
+        <Icon icon={'material-symbols:sentiment-dissatisfied-outline'} />
+    );
+
 export const SonarQubeMetrics = ({
     codebaseBranchMetadataName,
     namespace,
 }: SonarQubeMetricsProps) => {
+    const classes = useStyles();
     const projectID = codebaseBranchMetadataName;
 
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
@@ -85,6 +125,27 @@ export const SonarQubeMetrics = ({
         >
             <LoadingWrapper isLoading={isLoading}>
                 <Grid container spacing={2} alignItems={'center'}>
+                    <Grid item xs={12}>
+                        <Grid container spacing={2} alignItems={'center'}>
+                            <Grid item>
+                                <Typography variant={'h6'}>Code Quality</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Chip
+                                    label={getStatusLabel(metrics?.alert_status)}
+                                    className={clsx([
+                                        classes.labelChip,
+                                        {
+                                            [classes.labelChipGreen]:
+                                                metrics?.alert_status === 'OK',
+                                            [classes.labelChipRed]:
+                                                metrics?.alert_status === 'ERROR',
+                                        },
+                                    ])}
+                                />
+                            </Grid>
+                        </Grid>
+                    </Grid>
                     <Grid item>
                         <MetricsItem
                             titleIcon={<Icon icon={'mdi:bug'} />}
@@ -100,13 +161,7 @@ export const SonarQubeMetrics = ({
                     </Grid>
                     <Grid item>
                         <MetricsItem
-                            titleIcon={
-                                metrics?.vulnerabilities === '0' ? (
-                                    <Icon icon={'material-symbols:lock-outline'} />
-                                ) : (
-                                    <Icon icon={'material-symbols:lock-open-outline'} />
-                                )
-                            }
+                            titleIcon={getIconVulnerability(metrics?.vulnerabilities)}
                             title="Vulnerabilities"
                             link={LinkCreationService.sonar.createLinkByIssueType(
                                 sonarQubeBaseURL,
@@ -119,15 +174,7 @@ export const SonarQubeMetrics = ({
                     </Grid>
                     <Grid item>
                         <MetricsItem
-                            titleIcon={
-                                metrics?.code_smells === '0' ? (
-                                    <Icon icon={'material-symbols:sentiment-satisfied-outline'} />
-                                ) : (
-                                    <Icon
-                                        icon={'material-symbols:sentiment-dissatisfied-outline'}
-                                    />
-                                )
-                            }
+                            titleIcon={getIconCodeSmells(metrics?.code_smells)}
                             title="Code Smells"
                             link={LinkCreationService.sonar.createLinkByIssueType(
                                 sonarQubeBaseURL,

@@ -13,9 +13,10 @@ export const DependencyTrackMetrics = ({
     codebaseName,
     codebaseBranchName,
 }: DeeptrackVulnerabilitiesProps) => {
+    const hasCIDepTrackURL = !!ciDependencyTrackURL;
     const classes = useStyles();
     const [error, setError] = React.useState<boolean>(false);
-    const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
     const dependencyTrackConfigurationPage = Router.createRouteURL(
         routeEDPDependencyTrackIntegration.path
@@ -24,7 +25,7 @@ export const DependencyTrackMetrics = ({
 
     return (
         <NoDataWidgetWrapper
-            hasData={!error && !isLoading}
+            hasData={!error && !isLoading && hasCIDepTrackURL}
             isLoading={isLoading}
             text={
                 <>
@@ -57,6 +58,7 @@ export const DependencyTrackMetrics = ({
                                     )}/${window.encodeURIComponent(codebaseBranchName)}`}
                                     alt=""
                                     className={classes.img}
+                                    onLoadStart={() => setIsLoading(true)}
                                     onError={() => {
                                         setError(true);
                                         setIsLoading(false);
