@@ -1,30 +1,20 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import ErrorBoundary from '../../components/ErrorBoundary';
+import { PageLogicWrapper } from '../../components/PageLogicWrapper';
 import { DialogContextProvider } from '../../providers/Dialog';
 import { FilterContextProvider } from '../../providers/Filter';
+import { NamespacesGuardWrapper } from '../../providers/NamespacesGuardWrapper';
 import { PageView } from './view';
 
 export default function () {
-    const queryClient = new QueryClient({
-        defaultOptions: {
-            queries: {
-                staleTime: Infinity,
-                refetchOnWindowFocus: false,
-                retry: false,
-            },
-        },
-    });
-
     return (
-        <QueryClientProvider client={queryClient}>
-            <ErrorBoundary>
-                <DialogContextProvider>
-                    <FilterContextProvider>
+        <PageLogicWrapper>
+            <DialogContextProvider>
+                <FilterContextProvider>
+                    <NamespacesGuardWrapper>
                         <PageView />
-                    </FilterContextProvider>
-                </DialogContextProvider>
-            </ErrorBoundary>
-        </QueryClientProvider>
+                    </NamespacesGuardWrapper>
+                </FilterContextProvider>
+            </DialogContextProvider>
+        </PageLogicWrapper>
     );
 }

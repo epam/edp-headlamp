@@ -1,6 +1,5 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useDetectNamespaces } from '../../hooks/useDetectNamespaces';
 import ErrorBoundary from '../ErrorBoundary';
 
 export const PageLogicWrapper: React.FC = ({ children }) => {
@@ -13,8 +12,6 @@ export const PageLogicWrapper: React.FC = ({ children }) => {
             },
         },
     });
-
-    useDetectNamespaces();
 
     return (
         <QueryClientProvider client={queryClient}>
