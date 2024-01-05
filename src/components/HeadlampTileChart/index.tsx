@@ -1,6 +1,7 @@
 import { TileChart } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { TileChartProps } from '@kinvolk/headlamp-plugin/lib/components/common/TileChart/TileChart';
 import { makeStyles } from '@material-ui/core';
+import React from 'react';
 
 const useStyles = makeStyles(() => ({
     root: {

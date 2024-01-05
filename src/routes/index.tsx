@@ -1,3 +1,4 @@
+import React from 'react';
 import RouteEDPCDPipelineDetailsPage from '../pages/edp-cdpipeline-details/page';
 import { routeEDPCDPipelineDetails } from '../pages/edp-cdpipeline-details/route';
 import RouteEDPCDPipelineListPage from '../pages/edp-cdpipeline-list/page';

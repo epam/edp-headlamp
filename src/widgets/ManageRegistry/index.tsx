@@ -22,8 +22,6 @@ export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
 
     const _formData = React.useMemo(() => ({ ...formData, handleClosePanel }), [formData]);
 
-    console.log('render ManageRegistry', 'registryType', registryType);
-
     return (
         <Grid container spacing={2} data-testid="form">
             <Grid item xs={12}>

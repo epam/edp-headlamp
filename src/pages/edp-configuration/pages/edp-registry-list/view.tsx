@@ -15,6 +15,8 @@ export const PageView = () => {
         isLoading,
     } = useDynamicDataContext();
 
+    console.log(EDPConfigMap, pullAccountSecret, pushAccountSecret, tektonServiceAccount);
+
     return (
         <PageWithSubMenu list={menu}>
             <PageWrapper containerMaxWidth={'xl'}>

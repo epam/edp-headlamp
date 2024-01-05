@@ -1,3 +1,4 @@
+import React from 'react';
 import { MetadataTable } from '../../../../components/MetadataTable';
 import { useRows } from './hooks/useRows';
 import { CodebaseMetadataTableProps } from './types';

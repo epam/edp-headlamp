@@ -4,7 +4,8 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "baseUrl": "./src",
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "jsx": "react"
   },
   "include": ["./src/**/*"],
   "extends": "./node_modules/@kinvolk/headlamp-plugin/config/plugins-tsconfig.json",

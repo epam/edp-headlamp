@@ -7,6 +7,7 @@ import {
     registerRoute,
     registerSidebarEntry,
 } from '@kinvolk/headlamp-plugin/lib';
+import React from 'react';
 import { LogoWithText } from './Logo';
 import routes from './routes';
 import { SIDEBAR_LIST } from './routes/sidebar-list';

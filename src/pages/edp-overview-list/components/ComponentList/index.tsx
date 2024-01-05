@@ -1,4 +1,5 @@
 import { Grid } from '@material-ui/core';
+import React from 'react';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { EDPComponentKubeObject } from '../../../../k8s/EDPComponent';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
