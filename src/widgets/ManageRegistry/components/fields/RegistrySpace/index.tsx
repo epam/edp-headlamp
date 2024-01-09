@@ -12,7 +12,8 @@ const TYPE_LABEL_MAP = {
 };
 
 const TYPE_TITLE_MAP = {
-    [CONTAINER_REGISTRY_TYPE.HARBOR]: 'Provide the username for authentication.',
+    [CONTAINER_REGISTRY_TYPE.HARBOR]:
+        'Specify the Kubernetes namespace that corresponds to the project name in Harbor.',
     [CONTAINER_REGISTRY_TYPE.ECR]:
         'Specify the Kubernetes namespace name to associate with AWS ECR.',
     [CONTAINER_REGISTRY_TYPE.DOCKER_HUB]:

@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Button, Tooltip, Typography } from '@material-ui/core';
+import { Button, Tooltip } from '@material-ui/core';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
@@ -18,8 +18,10 @@ export const TableHeaderActions = ({ CDPipelineStages }: TableHeaderActionsProps
         <>
             <Tooltip title={'Create stage'}>
                 <Button
-                    startIcon={<Icon icon={ICONS['DOCUMENT_ADD']} />}
-                    onClick={() =>
+                    startIcon={<Icon icon={ICONS.PLUS} />}
+                    color={'primary'}
+                    variant={'contained'}
+                    onClick={() => {
                         setDialog({
                             modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
                             forwardedProps: {
@@ -28,10 +30,10 @@ export const TableHeaderActions = ({ CDPipelineStages }: TableHeaderActionsProps
                                 mode: FORM_MODES.CREATE,
                                 ciTool,
                             },
-                        })
-                    }
+                        });
+                    }}
                 >
-                    <Typography>Create</Typography>
+                    create
                 </Button>
             </Tooltip>
         </>
