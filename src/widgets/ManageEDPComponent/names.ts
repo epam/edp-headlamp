@@ -2,6 +2,7 @@ const NAMES = {
     ICON: 'icon',
     NAME: 'name',
     URL: 'url',
+    VISIBLE: 'visible',
 } as const;
 
 export const EDP_COMPONENT_FORM_NAMES = {
@@ -16,5 +17,10 @@ export const EDP_COMPONENT_FORM_NAMES = {
     [NAMES.URL]: {
         name: NAMES.URL,
         path: ['spec', 'url'],
+    },
+
+    [NAMES.VISIBLE]: {
+        name: NAMES.VISIBLE,
+        path: ['spec', 'visible'],
     },
 };

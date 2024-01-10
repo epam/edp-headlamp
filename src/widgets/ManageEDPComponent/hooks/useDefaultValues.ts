@@ -9,13 +9,16 @@ export const useDefaultValues = ({ formData }: { formData: ManageEDPComponentDat
 
     return React.useMemo(() => {
         if (isPlaceholder) {
-            return {};
+            return {
+                [EDP_COMPONENT_FORM_NAMES.visible.name]: true,
+            };
         }
 
         return {
             [EDP_COMPONENT_FORM_NAMES.icon.name]: currentElement?.spec?.icon,
             [EDP_COMPONENT_FORM_NAMES.name.name]: currentElement?.spec?.type,
             [EDP_COMPONENT_FORM_NAMES.url.name]: currentElement?.spec?.url,
+            [EDP_COMPONENT_FORM_NAMES.visible.name]: currentElement?.spec?.visible,
         };
     }, [currentElement, isPlaceholder]);
 };

@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { Icon, Name, URL } from '../fields';
+import { Icon, Name, URL, Visible } from '../fields';
 
 export const Form = () => {
     return (
@@ -8,11 +8,14 @@ export const Form = () => {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <Name />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <URL />
+                        </Grid>
+                        <Grid item xs={4} style={{ marginTop: 'auto' }}>
+                            <Visible />
                         </Grid>
                     </Grid>
                 </Grid>
