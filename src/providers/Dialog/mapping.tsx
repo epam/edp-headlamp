@@ -13,6 +13,8 @@ import { CreateEditStage } from '../../widgets/CreateEditStage';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../widgets/CreateEditStage/constants';
 import { DeleteKubeObject } from '../../widgets/DeleteKubeObject';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../widgets/DeleteKubeObject/constants';
+import { ManageEDPComponent } from '../../widgets/ManageEDPComponent';
+import { MANAGE_EDP_COMPONENT_DIALOG_NAME } from '../../widgets/ManageEDPComponent/constants';
 import { PipelineGraph } from '../../widgets/PipelineGraph';
 import { PIPELINE_GRAPH_DIALOG_NAME } from '../../widgets/PipelineGraph/constants';
 import { PipelineRunGraph } from '../../widgets/PipelineRunGraph';
@@ -36,6 +38,7 @@ const MemoizedPipelineRunGraph = React.memo(PipelineRunGraph);
 const MemoizedPipelineGraph = React.memo(PipelineGraph);
 const MemoizedConfirmResourcesUpdates = React.memo(ConfirmResourcesUpdates);
 const MemoizedNamespacesGuard = React.memo(NamespacesGuard);
+const MemoizedManageEDPComponent = React.memo(ManageEDPComponent);
 
 export const MODAL_MAPPING = {
     [CREATE_EDIT_CODEBASE_DIALOG_NAME]: <MemoizedCreateEditCodebase />,
@@ -50,4 +53,5 @@ export const MODAL_MAPPING = {
     [PIPELINE_GRAPH_DIALOG_NAME]: <MemoizedPipelineGraph />,
     [CONFIRM_RESOURCES_UPDATES_DIALOG_NAME]: <MemoizedConfirmResourcesUpdates />,
     [NAMESPACES_GUARD_DIALOG_NAME]: <MemoizedNamespacesGuard />,
+    [MANAGE_EDP_COMPONENT_DIALOG_NAME]: <MemoizedManageEDPComponent />,
 } as const;

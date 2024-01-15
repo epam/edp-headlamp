@@ -10,7 +10,7 @@ export const GitURLService = {
         gitServer: GIT_SERVERS
     ) => {
         if (!gitOpsWebUrl) {
-            return;
+            return undefined;
         }
 
         const gitHostURLObject = createURLObjectFromURLOrigin(gitOpsWebUrl);

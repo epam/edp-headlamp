@@ -2,8 +2,8 @@ import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { EDPComponentExternalLink } from '../../components/EDPComponentExternalLink';
 import { PageWrapper } from '../../components/PageWrapper';
-import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { Section } from '../../components/Section';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
@@ -40,13 +40,14 @@ export const PageView = () => {
             headerSlot={
                 <Grid container>
                     <Grid item>
-                        <ResourceIconLink
+                        <EDPComponentExternalLink
+                            name={{ label: 'ArgoCD', value: 'argocd' }}
                             icon={ICONS.ARGOCD}
-                            tooltipTitle={'Open in ArgoCD'}
-                            link={LinkCreationService.argocd.createPipelineLink(
+                            externalLink={LinkCreationService.argocd.createPipelineLink(
                                 EDPComponentsURLS?.argocd,
                                 name
                             )}
+                            namespace={namespace}
                         />
                     </Grid>
                     {!!CDPipeline && (

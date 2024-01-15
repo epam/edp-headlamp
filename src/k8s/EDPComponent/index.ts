@@ -26,7 +26,9 @@ export class EDPComponentKubeObject extends K8s.cluster.makeKubeObject<EDPCompon
         return this.jsonData!.status;
     }
 
-    static getList(namespace): Promise<KubeObjectListInterface<EDPComponentKubeObjectInterface>> {
+    static getList(
+        namespace: string
+    ): Promise<KubeObjectListInterface<EDPComponentKubeObjectInterface>> {
         const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
 
         return ApiProxy.request(url);

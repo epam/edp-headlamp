@@ -5,6 +5,7 @@ import { ClassNameMap } from '@material-ui/styles';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { EDPComponentExternalLink } from '../../../../../components/EDPComponentExternalLink';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
@@ -110,34 +111,37 @@ export const useColumns = (
                     return (
                         <Grid container spacing={1}>
                             <Grid item>
-                                <ResourceIconLink
+                                <EDPComponentExternalLink
+                                    name={{ label: 'ArgoCD', value: 'argocd' }}
                                     icon={ICONS.ARGOCD}
-                                    tooltipTitle={'Open in ArgoCD'}
-                                    link={LinkCreationService.argocd.createStageLink(
+                                    externalLink={LinkCreationService.argocd.createStageLink(
                                         EDPComponentsURLS?.argocd,
-                                        CDPipelineName,
+                                        stage.spec.namespace,
                                         stage.spec.name
                                     )}
+                                    namespace={namespace}
                                 />
                             </Grid>
                             <Grid item>
-                                <ResourceIconLink
+                                <EDPComponentExternalLink
+                                    name={{ label: 'Grafana', value: 'grafana' }}
                                     icon={ICONS.GRAFANA}
-                                    tooltipTitle={'Open in Grafana'}
-                                    link={LinkCreationService.grafana.createDashboardLink(
+                                    externalLink={LinkCreationService.grafana.createDashboardLink(
                                         EDPComponentsURLS?.grafana,
                                         stage.spec.namespace
                                     )}
+                                    namespace={namespace}
                                 />
                             </Grid>
                             <Grid item>
-                                <ResourceIconLink
+                                <EDPComponentExternalLink
+                                    name={{ label: 'Kibana', value: 'kibana' }}
                                     icon={ICONS.KIBANA}
-                                    tooltipTitle={'Open in Kibana'}
-                                    link={LinkCreationService.kibana.createDashboardLink(
+                                    externalLink={LinkCreationService.kibana.createDashboardLink(
                                         EDPComponentsURLS?.kibana,
                                         stage.spec.namespace
                                     )}
+                                    namespace={namespace}
                                 />
                             </Grid>
                             <Grid item>
@@ -145,6 +149,8 @@ export const useColumns = (
                                     icon={ICONS.KUBERNETES}
                                     tooltipTitle={stage?.spec.clusterName}
                                     link={null}
+                                    disabled
+                                    withoutDisabledStyle
                                 />
                             </Grid>
                         </Grid>

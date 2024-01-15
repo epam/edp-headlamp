@@ -1,5 +1,7 @@
 export interface ResourceIconLinkProps {
-    tooltipTitle: string;
-    link?: string;
+    tooltipTitle: string | React.ReactElement;
     icon: string;
+    link?: string;
+    disabled?: boolean;
+    withoutDisabledStyle?: boolean;
 }

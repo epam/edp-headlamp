@@ -2,6 +2,7 @@ import { Chip, CircularProgress, Grid, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { EDPComponentExternalLink } from '../../components/EDPComponentExternalLink';
 import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
 import { ResourceIconLink } from '../../components/ResourceIconLink';
@@ -34,8 +35,7 @@ import { useEveryArgoAppIsHealthyAndInSync } from './hooks/useEveryArgoAppIsHeal
 import { useDataContext } from './providers/Data/hooks';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 import { useStyles } from './styles';
-import { EnrichedQualityGateWithAutotestPipelineRun } from './types';
-import { EDPStageDetailsRouteParams } from './types';
+import { EDPStageDetailsRouteParams, EnrichedQualityGateWithAutotestPipelineRun } from './types';
 
 export const PageView = () => {
     const classes = useStyles();
@@ -273,34 +273,37 @@ export const PageView = () => {
             headerSlot={
                 <Grid container>
                     <Grid item>
-                        <ResourceIconLink
+                        <EDPComponentExternalLink
+                            name={{ label: 'ArgoCD', value: 'argocd' }}
                             icon={ICONS.ARGOCD}
-                            tooltipTitle={'Open in ArgoCD'}
-                            link={LinkCreationService.argocd.createStageLink(
+                            externalLink={LinkCreationService.argocd.createStageLink(
                                 EDPComponentsURLS?.argocd,
                                 CDPipeline?.metadata?.name,
                                 stageSpecName
                             )}
+                            namespace={namespace}
                         />
                     </Grid>
                     <Grid item>
-                        <ResourceIconLink
+                        <EDPComponentExternalLink
+                            name={{ label: 'Grafana', value: 'grafana' }}
                             icon={ICONS.GRAFANA}
-                            tooltipTitle={'Open in Grafana'}
-                            link={LinkCreationService.grafana.createDashboardLink(
+                            externalLink={LinkCreationService.grafana.createDashboardLink(
                                 EDPComponentsURLS?.grafana,
                                 stage?.spec.namespace
                             )}
+                            namespace={namespace}
                         />
                     </Grid>
                     <Grid item>
-                        <ResourceIconLink
+                        <EDPComponentExternalLink
+                            name={{ label: 'Kibana', value: 'kibana' }}
                             icon={ICONS.KIBANA}
-                            tooltipTitle={'Open in Kibana'}
-                            link={LinkCreationService.kibana.createDashboardLink(
+                            externalLink={LinkCreationService.kibana.createDashboardLink(
                                 EDPComponentsURLS?.kibana,
                                 stage?.spec.namespace
                             )}
+                            namespace={namespace}
                         />
                     </Grid>
                     <Grid item>
@@ -308,6 +311,8 @@ export const PageView = () => {
                             icon={ICONS.KUBERNETES}
                             tooltipTitle={stage?.spec.clusterName}
                             link={null}
+                            disabled
+                            withoutDisabledStyle
                         />
                     </Grid>
                     <Grid item style={{ marginLeft: rem(20) }}>

@@ -9,6 +9,8 @@ import RouteEDPComponentListPage from '../pages/edp-component-list/page';
 import { routeEDPComponentList } from '../pages/edp-component-list/route';
 import RouteEDPClusterListPage from '../pages/edp-configuration/pages/edp-cluster-list/page';
 import { routeEDPClusterList } from '../pages/edp-configuration/pages/edp-cluster-list/route';
+import RouteEDPConfigurationEDPComponentDetailsPage from '../pages/edp-configuration/pages/edp-component-details/page';
+import { routeEDPComponentDetails as routeConfigurationEDPComponentDetails } from '../pages/edp-configuration/pages/edp-component-details/route';
 import RouteEDPConfigurationEDPComponentListPage from '../pages/edp-configuration/pages/edp-component-list/page';
 import { routeEDPComponentList as routeConfigurationEDPComponentList } from '../pages/edp-configuration/pages/edp-component-list/route';
 import RouteEDPDefectDojoIntegrationPage from '../pages/edp-configuration/pages/edp-defect-dojo-integration/page';
@@ -66,6 +68,10 @@ export default [
     {
         ...routeConfigurationEDPComponentList,
         component: () => <RouteEDPConfigurationEDPComponentListPage />,
+    },
+    {
+        ...routeConfigurationEDPComponentDetails,
+        component: () => <RouteEDPConfigurationEDPComponentDetailsPage />,
     },
     // Marketplace
 

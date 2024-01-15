@@ -3,7 +3,7 @@ import { Chip, Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { ResourceIconLink } from '../../../../../../../../components/ResourceIconLink';
+import { EDPComponentExternalLink } from '../../../../../../../../components/EDPComponentExternalLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
@@ -26,15 +26,6 @@ import { SummaryProps } from './types';
 export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: SummaryProps) => {
     const { namespace } = useParams<EDPComponentDetailsRouteParams>();
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-
-    const sonarLink = React.useMemo(
-        () =>
-            LinkCreationService.sonar.createDashboardLink(
-                EDPComponentsURLS?.sonar,
-                codebaseBranchData.metadata.name
-            ),
-        [codebaseBranchData.metadata.name, EDPComponentsURLS]
-    );
 
     const buttonRef = React.createRef<HTMLButtonElement>();
 
@@ -158,24 +149,28 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
                             />
                         </div>
                     </Grid>
-                    {!!EDPComponentsURLS?.sonar && (
-                        <Grid item>
-                            <ResourceIconLink
-                                tooltipTitle={'Open the Quality Gates'}
-                                link={sonarLink}
-                                icon={ICONS.SONAR}
-                            />
-                        </Grid>
-                    )}
-                    {!!codebaseData?.status?.gitWebUrl && (
-                        <Grid item>
-                            <ResourceIconLink
-                                tooltipTitle={'Open the Source Code'}
-                                link={codebaseData?.status?.gitWebUrl}
-                                icon={ICONS.GIT_BRANCH}
-                            />
-                        </Grid>
-                    )}
+                    <Grid item>
+                        <EDPComponentExternalLink
+                            name={{ label: 'Sonar', value: 'sonar' }}
+                            enabledText="Open the Quality Gates"
+                            icon={ICONS.SONAR}
+                            externalLink={LinkCreationService.sonar.createDashboardLink(
+                                EDPComponentsURLS?.sonar,
+                                codebaseBranchData.metadata.name
+                            )}
+                            namespace={namespace}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <EDPComponentExternalLink
+                            enabledText="Open the Source Code"
+                            name={{ label: 'the Source Code' }}
+                            icon={ICONS.GIT_BRANCH}
+                            externalLink={codebaseData?.status?.gitWebUrl}
+                            namespace={namespace}
+                            noConfigurationLink
+                        />
+                    </Grid>
                     <Grid item>
                         <Tooltip title={'Trigger build pipeline run'}>
                             <IconButton

@@ -1,30 +1,24 @@
-import { Grid } from '@material-ui/core';
+import { Dialog } from '@material-ui/core';
 import React from 'react';
-import { FormContextProvider } from '../../providers/Form';
-import { Form } from './components/Form';
-import { FormActions } from './components/FormActions';
-import { useDefaultValues } from './hooks/useDefaultValues';
-import { ManageEDPComponentProps } from './types';
+import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
+import { FORM_MODES } from '../../types/forms';
+import { Create } from './components/Create';
+import { Edit } from './components/Edit';
+import { MANAGE_EDP_COMPONENT_DIALOG_NAME } from './constants';
+import { ManageEDPComponentDialogForwardedProps } from './types';
 
-export const ManageEDPComponent = ({ formData }: ManageEDPComponentProps) => {
-    const baseDefaultValues = useDefaultValues({ formData });
+export const ManageEDPComponent = () => {
+    const {
+        open,
+        forwardedProps: { mode },
+        closeDialog,
+    } = useSpecificDialogContext<ManageEDPComponentDialogForwardedProps>(
+        MANAGE_EDP_COMPONENT_DIALOG_NAME
+    );
 
     return (
-        <FormContextProvider
-            formSettings={{
-                defaultValues: baseDefaultValues,
-                mode: 'onBlur',
-            }}
-            formData={formData}
-        >
-            <Grid container spacing={2} data-testid="form">
-                <Grid item xs={12}>
-                    <Form />
-                </Grid>
-                <Grid item xs={12}>
-                    <FormActions />
-                </Grid>
-            </Grid>
-        </FormContextProvider>
+        <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth data-testid="dialog">
+            {mode === FORM_MODES.CREATE ? <Create /> : mode === FORM_MODES.EDIT ? <Edit /> : null}
+        </Dialog>
     );
 };

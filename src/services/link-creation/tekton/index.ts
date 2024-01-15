@@ -3,7 +3,7 @@ import { createURLObjectFromURLOrigin } from '../index';
 export const TektonURLService = {
     createPipelineLink: (tektonURLOrigin: string, namespace: string, pipelineName: string) => {
         if (!tektonURLOrigin) {
-            return;
+            return undefined;
         }
 
         const tektonURLObject = createURLObjectFromURLOrigin(tektonURLOrigin);
@@ -22,7 +22,7 @@ export const TektonURLService = {
         taskRunStepName?: string
     ) => {
         if (!tektonURLOrigin) {
-            return;
+            return undefined;
         }
 
         const tektonURLObject = createURLObjectFromURLOrigin(tektonURLOrigin);
@@ -45,7 +45,7 @@ export const TektonURLService = {
     },
     createTaskRunLink: (tektonURLOrigin: string, namespace: string, taskRunName: string) => {
         if (!tektonURLOrigin) {
-            return;
+            return undefined;
         }
 
         const tektonURLObject = createURLObjectFromURLOrigin(tektonURLOrigin);

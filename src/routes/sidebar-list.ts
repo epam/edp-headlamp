@@ -1,5 +1,5 @@
 import { ICONS } from '../icons/iconify-icons-mapping';
-import { routeEDPGitServerList } from '../pages/edp-configuration/pages/edp-gitserver-list/route';
+import { routeEDPComponentList } from '../pages/edp-configuration/pages/edp-component-list/route';
 import { routeEDPOverviewList } from '../pages/edp-overview-list/route';
 import { createNewSidebarItem } from '../utils/routes/createNewSidebarItem';
 import { createSidebarItemName } from '../utils/routes/createSidebarItemName';
@@ -51,7 +51,7 @@ export const SIDEBAR_LIST: SidebarItem[] = [
         parentName: createSidebarItemName(EDP_ROOT_ROUTE_NAME),
         itemLabel: 'Configuration',
         itemName: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
-        url: routeEDPGitServerList.path,
+        url: routeEDPComponentList.path,
         opts: {
             icon: ICONS.SETTINGS,
         },

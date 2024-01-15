@@ -4,6 +4,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { NoDataWidgetWrapper } from '../../components/NoDataWidgetWrapper';
 import { routeEDPDependencyTrackIntegration } from '../../pages/edp-configuration/pages/edp-dependency-track-integration/route';
+import { LinkCreationService } from '../../services/link-creation';
 import { NoDataSvg } from './components/NoDataSvg';
 import { useStyles } from './styles';
 import { DeeptrackVulnerabilitiesProps } from './types';
@@ -53,9 +54,11 @@ export const DependencyTrackMetrics = ({
                         {!!ciDependencyTrackURL && (
                             <Link href={ciDependencyTrackURL} target={'_blank'}>
                                 <img
-                                    src={`${ciDependencyTrackURL}/api/v1/badge/vulns/project/${window.encodeURIComponent(
-                                        codebaseName
-                                    )}/${window.encodeURIComponent(codebaseBranchName)}`}
+                                    src={LinkCreationService.depTrack.createDepTrackWidgetImageHref(
+                                        ciDependencyTrackURL,
+                                        codebaseName,
+                                        codebaseBranchName
+                                    )}
                                     alt=""
                                     className={classes.img}
                                     onLoadStart={() => setIsLoading(true)}

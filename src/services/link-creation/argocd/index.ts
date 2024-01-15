@@ -8,7 +8,7 @@ import { createURLObjectFromURLOrigin } from '../index';
 export const ArgoCDURLService = {
     createPipelineLink: (argoCDURLOrigin: string, pipelineName: string) => {
         if (!argoCDURLOrigin) {
-            return;
+            return undefined;
         }
 
         const argoCDURLObject = createURLObjectFromURLOrigin(argoCDURLOrigin);
@@ -27,7 +27,7 @@ export const ArgoCDURLService = {
         appName: string
     ) => {
         if (!argoCDURLOrigin) {
-            return;
+            return undefined;
         }
 
         const argoCDURLObject = createURLObjectFromURLOrigin(argoCDURLOrigin);
@@ -41,7 +41,7 @@ export const ArgoCDURLService = {
     },
     createStageLink: (argoCDURLOrigin: string, pipelineName: string, stageName: string) => {
         if (!argoCDURLOrigin) {
-            return;
+            return undefined;
         }
 
         const argoCDURLObject = createURLObjectFromURLOrigin(argoCDURLOrigin);
