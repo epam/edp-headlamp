@@ -58,3 +58,44 @@ export const GIT_SERVER_FORM_NAMES = {
         notUsedInFormData: true,
     },
 };
+
+export const GIT_SERVER_GERRIT_SECRET_FORM_NAMES = {
+    sshPrivateKey: {
+        name: 'sshPrivateKey',
+        path: ['data', 'id_rsa'],
+    },
+    sshPublicKey: {
+        name: 'sshPublicKey',
+        path: ['data', 'id_rsa.pub'],
+    },
+    gitUser: {
+        name: 'gitUser',
+        path: ['data', 'username'],
+    },
+};
+
+export const GIT_SERVER_GITHUB_SECRET_FORM_NAMES = {
+    sshPrivateKey: {
+        name: 'sshPrivateKey',
+        path: ['data', 'id_rsa'],
+    },
+    token: {
+        name: 'token',
+        path: ['data', 'token'],
+    },
+    gitUser: {
+        name: 'gitUser',
+        path: ['data', 'username'],
+    },
+};
+
+export const GIT_SERVER_GITLAB_SECRET_FORM_NAMES = {
+    sshPrivateKey: {
+        name: 'sshPrivateKey',
+        path: ['data', 'id_rsa'],
+    },
+    token: {
+        name: 'token',
+        path: ['data', 'token'],
+    },
+}

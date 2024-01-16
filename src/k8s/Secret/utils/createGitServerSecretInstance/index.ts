@@ -1,6 +1,6 @@
-import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { safeEncode } from '../../../../utils/decodeEncode';
 import { SECRET_LABEL_SECRET_TYPE } from '../../labels';
+import { SecretKubeObjectInterface } from '../../types';
 
 export const createGerritGitServerSecretInstance = ({
     sshPrivateKey,
@@ -10,10 +10,11 @@ export const createGerritGitServerSecretInstance = ({
     sshPrivateKey: string;
     sshPublicKey: string;
     username: string;
-}): EDPKubeObjectInterface => {
+}): SecretKubeObjectInterface => {
     return {
         apiVersion: 'v1',
         kind: 'Secret',
+        // @ts-ignore
         metadata: {
             labels: {
                 [SECRET_LABEL_SECRET_TYPE]: 'repository',
@@ -36,10 +37,11 @@ export const createGithubGitServerSecretInstance = ({
     sshPrivateKey: string;
     token: string;
     username: string;
-}): EDPKubeObjectInterface => {
+}): SecretKubeObjectInterface => {
     return {
         apiVersion: 'v1',
         kind: 'Secret',
+        // @ts-ignore
         metadata: {
             labels: {
                 [SECRET_LABEL_SECRET_TYPE]: 'repository',
@@ -60,10 +62,11 @@ export const createGitlabGitServerSecretInstance = ({
 }: {
     sshPrivateKey: string;
     token: string;
-}): EDPKubeObjectInterface => {
+}): SecretKubeObjectInterface => {
     return {
         apiVersion: 'v1',
         kind: 'Secret',
+        // @ts-ignore
         metadata: {
             labels: {
                 [SECRET_LABEL_SECRET_TYPE]: 'repository',

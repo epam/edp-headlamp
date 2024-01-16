@@ -1,12 +1,23 @@
 import React from 'react';
 import { GIT_PROVIDERS } from '../../../../../constants/gitProviders';
+import { createGitServerSecretName } from '../../../../../k8s/EDPGitServer/utils/createGitServerInstance';
+import { ValueOf } from '../../../../../types/global';
 import { safeDecode } from '../../../../../utils/decodeEncode';
 import { GIT_SERVER_FORM_NAMES } from '../../../names';
 import { ManageGitServerDataContext, ManageGitServerValues } from '../../../types';
 
 export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataContext }) => {
-    const { gitServer, gitServerSecret } = formData;
+    const { gitServer, repositorySecrets } = formData;
+
     const gitProvider = gitServer.spec.gitProvider;
+
+    const gitServerSecretToFindName = createGitServerSecretName(
+        gitProvider as ValueOf<typeof GIT_PROVIDERS>
+    );
+
+    const gitServerSecret = repositorySecrets.find(
+        secret => secret.metadata.name === gitServerSecretToFindName
+    )?.jsonData;
 
     return React.useMemo(() => {
         let base: Partial<ManageGitServerValues> = {

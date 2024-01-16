@@ -1,10 +1,13 @@
 import { Icon } from '@iconify/react';
 import { Grid, Tooltip, Typography } from '@material-ui/core';
 import React from 'react';
+import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { GIT_PROVIDERS } from '../../../../../../constants/gitProviders';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
+import { GIT_SERVER_FORM_NAMES } from '../../../../names';
 import { ManageGitServerDataContext } from '../../../../types';
+import { getGitServerSecret } from '../../../../utils/getGitServerSecret';
 import {
     GitProvider,
     HostName,
@@ -18,8 +21,18 @@ import {
 
 export const Form = () => {
     const {
-        formData: { gitServer, gitServerSecret },
+        formData: { gitServer, repositorySecrets },
     } = useFormContext<ManageGitServerDataContext>();
+
+    const { watch } = useReactHookFormContext();
+
+    const gitProviderFieldValue = watch(GIT_SERVER_FORM_NAMES.gitProvider.name);
+
+    const gitServerSecret = React.useMemo(
+        () => getGitServerSecret(gitServer, repositorySecrets, gitProviderFieldValue),
+        [gitProviderFieldValue, gitServer, repositorySecrets]
+    );
+
     const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 
     return (

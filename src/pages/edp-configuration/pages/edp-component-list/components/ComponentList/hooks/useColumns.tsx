@@ -56,7 +56,7 @@ export const useColumns = (): TableColumn<
                 render: ({ spec: { url } }) => {
                     const _url = !/^https?:\/\//i.test(url) ? `https://${url}` : url;
 
-                    return (
+                    return url ? (
                         <MuiLink href={_url} target="_blank" rel="noopener">
                             <Grid container alignItems={'center'} spacing={1}>
                                 <Grid item>Open in a new tab</Grid>
@@ -70,7 +70,7 @@ export const useColumns = (): TableColumn<
                                 </Grid>
                             </Grid>
                         </MuiLink>
-                    );
+                    ) : null;
                 },
                 width: '40%',
             },

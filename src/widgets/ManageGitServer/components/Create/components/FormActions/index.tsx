@@ -2,8 +2,8 @@ import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
+import { useSetupGitServer } from '../../../../hooks/useSetupGitServer';
 import { ManageGitServerDataContext, ManageGitServerValues } from '../../../../types';
-import { useSetupGitServer } from './hooks/useSetupGitServer';
 
 export const FormActions = () => {
     const {

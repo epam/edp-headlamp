@@ -5,17 +5,27 @@ import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
 import { GIT_SERVER_FORM_NAMES } from '../../../names';
 import { ManageGitServerDataContext, ManageGitServerValues } from '../../../types';
+import { getGitServerSecret } from '../../../utils/getGitServerSecret';
 
 export const Token = () => {
     const {
         register,
         control,
         formState: { errors },
+        watch,
     } = useReactHookFormContext<ManageGitServerValues>();
 
     const {
-        formData: { mode, gitServerSecret },
+        formData: { mode, gitServer, repositorySecrets },
     } = useFormContext<ManageGitServerDataContext>();
+
+    const gitProviderFieldValue = watch(GIT_SERVER_FORM_NAMES.gitProvider.name);
+
+    const gitServerSecret = React.useMemo(
+        () => getGitServerSecret(gitServer, repositorySecrets, gitProviderFieldValue),
+        [gitProviderFieldValue, gitServer, repositorySecrets]
+    );
+
     const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 
     return (

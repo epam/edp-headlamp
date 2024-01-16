@@ -1,8 +1,8 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
+import { useSetupGitServer } from '../../../../hooks/useSetupGitServer';
 import { ManageGitServerValues } from '../../../../types';
-import { useUpdateGitServer } from './hooks/useUpdateGitServer';
 
 export const FormActions = () => {
     const {
@@ -12,7 +12,7 @@ export const FormActions = () => {
         getValues,
     } = useReactHookFormContext<ManageGitServerValues>();
 
-    const { editGitServer, isLoading } = useUpdateGitServer({
+    const { setupGitServer, isLoading } = useSetupGitServer({
         onSuccess: () => {
             const values = getValues();
             reset(values);
@@ -21,9 +21,9 @@ export const FormActions = () => {
 
     const onSubmit = React.useCallback(
         async (values: ManageGitServerValues) => {
-            await editGitServer(values);
+            await setupGitServer(values);
         },
-        [editGitServer]
+        [setupGitServer]
     );
 
     return (

@@ -13,7 +13,7 @@ import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
     const {
-        data: { gitServer, gitServerSecret },
+        data: { gitServer, repositorySecrets },
         isLoading,
     } = useDynamicDataContext();
 
@@ -44,7 +44,7 @@ export const PageView = () => {
                             <ManageGitServer
                                 formData={{
                                     gitServer,
-                                    gitServerSecret,
+                                    repositorySecrets,
                                     mode,
                                 }}
                             />

@@ -6,7 +6,7 @@ import { GIT_SERVER_FORM_NAMES } from './names';
 
 export interface ManageGitServerDataContext {
     gitServer: EDPGitServerKubeObjectInterface;
-    gitServerSecret: SecretKubeObjectInterface;
+    repositorySecrets: SecretKubeObjectInterface[];
     mode: ValueOf<typeof FORM_MODES>;
     handleClosePanel?: () => void;
 }

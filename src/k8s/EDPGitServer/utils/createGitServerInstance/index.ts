@@ -1,11 +1,15 @@
 import { set } from 'lodash';
 import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { FormNameObject } from '../../../../types/forms';
-import { DeepPartial } from '../../../../types/global';
+import { DeepPartial, ValueOf } from '../../../../types/global';
 import { EDPGitServerKubeObjectConfig } from '../../config';
 import { EDPGitServerKubeObjectInterface } from '../../types';
 
 const { kind, group, version } = EDPGitServerKubeObjectConfig;
+
+export const createGitServerSecretName = (gitProvider: ValueOf<typeof GIT_PROVIDERS>): string => {
+    return gitProvider === GIT_PROVIDERS.GERRIT ? 'gerrit-ciuser-sshkey' : `ci-${gitProvider}`;
+};
 
 export const createGitServerInstance = (
     names: {

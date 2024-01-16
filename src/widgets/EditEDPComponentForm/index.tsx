@@ -17,8 +17,6 @@ export const EditEDPComponentForm = ({ EDPComponent }: EditEDPComponentFormProps
 
     const defaultValues = useDefaultValues({ EDPComponent });
 
-    console.log(defaultValues);
-
     return (
         <Paper style={{ padding: rem(20) }}>
             <FormContextProvider
