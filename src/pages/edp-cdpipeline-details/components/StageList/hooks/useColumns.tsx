@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { EDPComponentExternalLink } from '../../../../../components/EDPComponentExternalLink';
-import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
@@ -105,6 +104,12 @@ export const useColumns = (
                 width: '20%',
             },
             {
+                id: 'cluster',
+                label: 'Cluster',
+                render: stage => stage?.spec.clusterName,
+                width: '25%',
+            },
+            {
                 id: 'links',
                 label: 'Links',
                 render: stage => {
@@ -144,19 +149,10 @@ export const useColumns = (
                                     namespace={namespace}
                                 />
                             </Grid>
-                            <Grid item>
-                                <ResourceIconLink
-                                    icon={ICONS.KUBERNETES}
-                                    tooltipTitle={stage?.spec.clusterName}
-                                    link={null}
-                                    disabled
-                                    withoutDisabledStyle
-                                />
-                            </Grid>
                         </Grid>
                     );
                 },
-                width: '45%',
+                width: '25%',
             },
             {
                 id: 'actions',

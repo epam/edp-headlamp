@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import { Chip, CircularProgress, Grid, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
@@ -5,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { EDPComponentExternalLink } from '../../components/EDPComponentExternalLink';
 import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
-import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { Section } from '../../components/Section';
 import { StatusIcon } from '../../components/StatusIcon';
 import { Tabs } from '../../components/Tabs';
@@ -238,7 +238,14 @@ export const PageView = () => {
             },
             {
                 label: 'Cluster',
-                text: stage?.spec.clusterName,
+                text: (
+                    <Grid container spacing={1} alignItems={'center'}>
+                        <Grid item>
+                            <Icon icon={ICONS.KUBERNETES} width={20} height={20} />
+                        </Grid>
+                        <Grid item>{stage?.spec.clusterName}</Grid>
+                    </Grid>
+                ),
             },
             {
                 label: 'Namespace',
@@ -303,16 +310,6 @@ export const PageView = () => {
                                 EDPComponentsURLS?.kibana,
                                 stage?.spec.namespace
                             )}
-                            namespace={namespace}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <ResourceIconLink
-                            icon={ICONS.KUBERNETES}
-                            tooltipTitle={stage?.spec.clusterName}
-                            link={null}
-                            disabled
-                            withoutDisabledStyle
                         />
                     </Grid>
                     <Grid item style={{ marginLeft: rem(20) }}>
