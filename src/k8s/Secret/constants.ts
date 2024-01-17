@@ -5,6 +5,7 @@ export const INTEGRATION_SECRET_NAMES = {
     NEXUS: 'ci-nexus',
     SONAR: 'ci-sonarqube',
     SSO: 'keycloak',
+    ARGO_CD: 'ci-argocd',
 } as const;
 
 export const REGISTRY_SECRET_NAMES = {

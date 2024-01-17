@@ -1,5 +1,6 @@
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { PageDescription } from '../../types/pages';
+import { ARGOCD_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-argocd-integration/constants';
 import { CLUSTER_LIST_PAGE_DESCRIPTION } from './pages/edp-cluster-list/constants';
 import { EDP_COMPONENT_LIST_PAGE_DESCRIPTION } from './pages/edp-component-list/constants';
 import { DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-defect-dojo-integration/constants';
@@ -32,7 +33,11 @@ export const menu: SubMenuGroup[] = [
     {
         label: 'Deployment',
         icon: ICONS.CLUSTERS,
-        children: [CLUSTER_LIST_PAGE_DESCRIPTION, GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION],
+        children: [
+            CLUSTER_LIST_PAGE_DESCRIPTION,
+            GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION,
+            ARGOCD_INTEGRATION_PAGE_DESCRIPTION,
+        ],
     },
     {
         label: 'Security',

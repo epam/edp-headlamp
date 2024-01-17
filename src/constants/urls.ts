@@ -298,4 +298,7 @@ export const EDP_OPERATOR_GUIDE = {
     DEFECT_DOJO: {
         url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/install-defectdojo/`,
     },
+    ARGO_CD: {
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/argocd-integration/`,
+    },
 };

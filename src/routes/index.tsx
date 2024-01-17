@@ -7,6 +7,8 @@ import RouteEDPComponentDetailsPage from '../pages/edp-component-details/page';
 import { routeEDPComponentDetails } from '../pages/edp-component-details/route';
 import RouteEDPComponentListPage from '../pages/edp-component-list/page';
 import { routeEDPComponentList } from '../pages/edp-component-list/route';
+import RouteEDPArgoCDIntegrationPage from '../pages/edp-configuration/pages/edp-argocd-integration/page';
+import { routeEDPArgoCDIntegration } from '../pages/edp-configuration/pages/edp-argocd-integration/route';
 import RouteEDPClusterListPage from '../pages/edp-configuration/pages/edp-cluster-list/page';
 import { routeEDPClusterList } from '../pages/edp-configuration/pages/edp-cluster-list/route';
 import RouteEDPConfigurationEDPComponentDetailsPage from '../pages/edp-configuration/pages/edp-component-details/page';
@@ -56,6 +58,7 @@ export default [
     { ...routeEDPGitServerList, component: () => <RouteEDPGitServerListPage /> },
     { ...routeEDPRegistryList, component: () => <RouteEDPRegistryListPage /> },
     { ...routeEDPSonarIntegration, component: () => <RouteEDPSonarIntegrationPage /> },
+    { ...routeEDPArgoCDIntegration, component: () => <RouteEDPArgoCDIntegrationPage /> },
     { ...routeEDPNexusIntegration, component: () => <RouteEDPNexusIntegrationPage /> },
     { ...routeEDPDefectDojoIntegration, component: () => <RouteEDPDefectDojoIntegrationPage /> },
     {
