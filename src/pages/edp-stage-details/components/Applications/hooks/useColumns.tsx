@@ -153,7 +153,7 @@ export const useColumns = (
                         <Tooltip
                             title={
                                 <Grid container alignItems={'center'} spacing={1}>
-                                    <Grid item>Open in ArgoCD</Grid>
+                                    <Grid item>Open in Argo CD</Grid>
                                     <span> </span>
                                     <Grid item>
                                         <Icon

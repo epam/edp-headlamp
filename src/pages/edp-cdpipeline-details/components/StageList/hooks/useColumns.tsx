@@ -117,7 +117,7 @@ export const useColumns = (
                         <Grid container spacing={1}>
                             <Grid item>
                                 <EDPComponentExternalLink
-                                    name={{ label: 'ArgoCD', value: 'argocd' }}
+                                    name={{ label: 'Argo CD', value: 'argocd' }}
                                     icon={ICONS.ARGOCD}
                                     externalLink={LinkCreationService.argocd.createStageLink(
                                         EDPComponentsURLS?.argocd,

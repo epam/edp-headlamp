@@ -20,14 +20,14 @@ export const URL = () => {
     return (
         <FormTextField
             {...register(ARGOCD_INTEGRATION_SECRET_FORM_NAMES.url.name, {
-                required: 'Enter the ArgoCD URL.',
+                required: 'Enter the Argo CD URL.',
                 pattern: {
                     value: /^(?!\/).*(?<!\/)$/,
                     message: 'Path cannot start or end with slash symbol',
                 },
             })}
             label={'URL'}
-            title={'Enter the URL of your ArgoCD instance.'}
+            title={'Enter the URL of your Argo CD instance.'}
             placeholder={'Enter URL'}
             control={control}
             errors={errors}

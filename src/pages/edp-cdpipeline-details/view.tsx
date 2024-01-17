@@ -41,7 +41,7 @@ export const PageView = () => {
                 <Grid container>
                     <Grid item>
                         <EDPComponentExternalLink
-                            name={{ label: 'ArgoCD', value: 'argocd' }}
+                            name={{ label: 'Argo CD', value: 'argocd' }}
                             icon={ICONS.ARGOCD}
                             externalLink={LinkCreationService.argocd.createPipelineLink(
                                 EDPComponentsURLS?.argocd,

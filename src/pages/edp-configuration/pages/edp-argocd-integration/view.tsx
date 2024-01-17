@@ -57,7 +57,7 @@ export const PageView = () => {
                     {!argoCDSecret && !isLoading && (
                         <Grid item xs={12}>
                             <EmptyContent color={'textSecondary'}>
-                                No ArgoCD integration secrets found
+                                No Argo CD integration secrets found
                             </EmptyContent>
                         </Grid>
                     )}

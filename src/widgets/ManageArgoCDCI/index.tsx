@@ -44,7 +44,7 @@ export const ManageArgoCDCI = ({ formData }: ManageArgoCDIntegrationSecretProps)
                 <CreateItemAccordion
                     isExpanded={expandedPanel === mode}
                     onChange={handleChange(mode)}
-                    title={'Add ArgoCD Integration'}
+                    title={'Add Argo CD Integration'}
                     disabled={mode === FORM_MODES.EDIT}
                 >
                     {mode === FORM_MODES.CREATE ? <Create formData={_formData} /> : null}
