@@ -2,10 +2,11 @@
 ## [Unreleased]
 
 
-<a name="v0.13.0"></a>
-## v0.13.0 - 2024-01-03
+<a name="v0.13.1"></a>
+## v0.13.1 - 2024-01-16
 ### Features
 
+- Update GitServer management flow ([#134](https://github.com/epam/edp-headlamp/issues/134))
 - Update system codebase icon ([#127](https://github.com/epam/edp-headlamp/issues/127))
 - Add quality gate passed or failed status ([#125](https://github.com/epam/edp-headlamp/issues/125))
 - Add graph for review and build pipeline on component page ([#120](https://github.com/epam/edp-headlamp/issues/120))
@@ -180,4 +181,4 @@
 - Fix link to gitservers documentation([#63](https://github.com/epam/edp-headlamp/issues/63))
 
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.13.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.13.1...HEAD
