@@ -28,8 +28,8 @@ annotations:
   artifacthub.io/images: |
     - name: ghcr.io/headlamp-k8s/headlamp:v0.21.0
       image: ghcr.io/headlamp-k8s/headlamp:v0.21.0
-    - name: edp-headlamp:0.13.0
-      image: epamedp/edp-headlamp:0.13.0
+    - name: edp-headlamp:0.13.1
+      image: epamedp/edp-headlamp:0.13.1
   artifacthub.io/operatorCapabilities: Full Lifecycle
   artifacthub.io/links: |
     - name: EDP Documentation

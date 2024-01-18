@@ -1,6 +1,33 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Features
+
+- Add ArgoCD integration configuration page ([#135](https://github.com/epam/edp-headlamp/issues/135))
+- Update GitServer management flow ([#134](https://github.com/epam/edp-headlamp/issues/134))
+- Add cluster column into stages table, remove cluster button ([#133](https://github.com/epam/edp-headlamp/issues/133))
+- Update links configuration, add tooltips for disabled links ([#132](https://github.com/epam/edp-headlamp/issues/132))
+- Add visible checkbox in edpcomponent creation ([#132](https://github.com/epam/edp-headlamp/issues/132))
+- Update create buttons in branch and stages sections ([#131](https://github.com/epam/edp-headlamp/issues/131))
+- Add namespaces unset dialog window, update notification logic ([#129](https://github.com/epam/edp-headlamp/issues/129))
+
+### Bug Fixes
+
+- Rename ArgoCD to Argo CD ([#135](https://github.com/epam/edp-headlamp/issues/135))
+- Fix hiding namespace notification after setting namespaces ([#129](https://github.com/epam/edp-headlamp/issues/129))
+
+### Routine
+
+- Add snapshot tests for registry configuration ([#130](https://github.com/epam/edp-headlamp/issues/130))
+- Update current development version ([#128](https://github.com/epam/edp-headlamp/issues/128))
+
+
+<a name="v0.13.1"></a>
+## [v0.13.1] - 2024-01-18
+### Features
+
+- Update GitServer management flow ([#134](https://github.com/epam/edp-headlamp/issues/134))
+
 
 <a name="v0.13.0"></a>
 ## [v0.13.0] - 2024-01-03
@@ -252,7 +279,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.13.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.13.1...HEAD
+[v0.13.1]: https://github.com/epam/edp-headlamp/compare/v0.13.0...v0.13.1
 [v0.13.0]: https://github.com/epam/edp-headlamp/compare/v0.12.0...v0.13.0
 [v0.12.0]: https://github.com/epam/edp-headlamp/compare/v0.11.0...v0.12.0
 [v0.11.0]: https://github.com/epam/edp-headlamp/compare/v0.10.0...v0.11.0
