@@ -6,6 +6,7 @@ const NAMES = {
     HTTPS_PORT: 'httpsPort',
     NAME_SSH_KEY_SECRET: 'nameSshKeySecret',
     SSH_PORT: 'sshPort',
+    SKIP_WEBHOOK_SSL: 'skipWebhookSSLVerification',
 
     // NOT USED IN RESOURCE DATA
     SSH_PRIVATE_KEY: 'sshPrivateKey',
@@ -42,6 +43,10 @@ export const GIT_SERVER_FORM_NAMES = {
     [NAMES.SSH_PORT]: {
         name: NAMES.SSH_PORT,
         path: ['spec', 'sshPort'],
+    },
+    [NAMES.SKIP_WEBHOOK_SSL]: {
+        name: NAMES.SKIP_WEBHOOK_SSL,
+        path: ['spec', 'skipWebhookSSLVerification'],
     },
 
     // NOT USED IN RESOURCE DATA
@@ -98,4 +103,4 @@ export const GIT_SERVER_GITLAB_SECRET_FORM_NAMES = {
         name: 'token',
         path: ['data', 'token'],
     },
-}
+};

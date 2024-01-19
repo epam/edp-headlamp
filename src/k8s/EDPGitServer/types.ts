@@ -7,6 +7,7 @@ export interface EDPGitServerSpec {
     httpsPort: number;
     nameSshKeySecret: string;
     sshPort: number;
+    skipWebhookSSLVerification?: boolean;
 }
 
 export interface EDPGitServerStatus {

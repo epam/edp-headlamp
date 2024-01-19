@@ -7,6 +7,7 @@ import {
     GitProvider,
     HostName,
     HTTPSPort,
+    SkipWebHookSSL,
     SSHPort,
     SSHPrivateKey,
     SSHPublicKey,
@@ -79,6 +80,13 @@ export const Form = () => {
                         </Grid>
                         <Grid item xs={6}>
                             <HTTPSPort />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <SkipWebHookSSL />
                         </Grid>
                     </Grid>
                 </Grid>

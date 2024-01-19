@@ -30,6 +30,8 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
             [GIT_SERVER_FORM_NAMES.gitUser.name]: gitServer.spec.gitUser,
             [GIT_SERVER_FORM_NAMES.gitHost.name]: gitServer.spec.gitHost,
             [GIT_SERVER_FORM_NAMES.gitProvider.name]: gitServer.spec.gitProvider,
+            [GIT_SERVER_FORM_NAMES.skipWebhookSSLVerification.name]:
+                gitServer.spec.skipWebhookSSLVerification,
         };
 
         if (gitProvider === GIT_PROVIDERS.GERRIT) {
