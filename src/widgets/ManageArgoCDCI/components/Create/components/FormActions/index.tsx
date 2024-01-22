@@ -1,6 +1,8 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
+import { editResource } from '../../../../../../k8s/common/editResource';
+import { useEDPComponentCRUD } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentCRUD';
 import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createArgoCDIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createArgoCDIntegrationSecretInstance';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
@@ -17,8 +19,13 @@ export const FormActions = () => {
     } = useReactHookFormContext<ManageArgoCDIntegrationSecretFormValues>();
 
     const {
-        formData: { handleClosePanel },
+        formData: { handleClosePanel, argoCDEDPComponent, ownerReference },
     } = useFormContext<ManageArgoCDIntegrationSecretFormDataContext>();
+
+    const {
+        editEDPComponent,
+        mutations: { EDPComponentEditMutation },
+    } = useEDPComponentCRUD({});
 
     const {
         createSecret,
@@ -32,15 +39,37 @@ export const FormActions = () => {
     const isLoading =
         secretCreateMutation.isLoading ||
         secretEditMutation.isLoading ||
-        secretDeleteMutation.isLoading;
+        secretDeleteMutation.isLoading ||
+        EDPComponentEditMutation.isLoading;
 
     const onSubmit = React.useCallback(
         async (values: ManageArgoCDIntegrationSecretFormValues) => {
+            const newEDPComponentData = editResource(
+                {
+                    url: {
+                        name: 'url',
+                        path: ['spec', 'url'],
+                    },
+                },
+                argoCDEDPComponent,
+                {
+                    url: values.externalUrl,
+                }
+            );
+
+            await editEDPComponent({
+                EDPComponentData: newEDPComponentData,
+            });
+
+            if (!!ownerReference) {
+                return;
+            }
+
             const secretInstance = createArgoCDIntegrationSecretInstance(values);
 
             await createSecret({ secretData: secretInstance });
         },
-        [createSecret]
+        [argoCDEDPComponent, createSecret, editEDPComponent, ownerReference]
     );
 
     return (

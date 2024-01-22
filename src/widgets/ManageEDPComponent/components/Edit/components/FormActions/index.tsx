@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { editResource } from '../../../../../../k8s/common/editResource';
-import { useCreateEDPComponent } from '../../../../../../k8s/EDPComponent/hooks/useCreateEDPComponent';
+import { useEDPComponentCRUD } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentCRUD';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { MANAGE_EDP_COMPONENT_DIALOG_NAME } from '../../../../constants';
 import { EDP_COMPONENT_FORM_NAMES } from '../../../../names';
@@ -37,7 +37,7 @@ export const FormActions = () => {
     const {
         editEDPComponent,
         mutations: { EDPComponentEditMutation },
-    } = useCreateEDPComponent({
+    } = useEDPComponentCRUD({
         onSuccess: handleClose,
     });
 

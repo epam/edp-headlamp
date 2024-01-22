@@ -2,7 +2,7 @@ import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { EDP_COMPONENT_FORM_NAMES } from '../../names';
@@ -11,7 +11,7 @@ import { Icon, Name, URL, Visible } from '../fields';
 import { FormProps } from './types';
 
 export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
-    const { getValues, setValue, resetField } = useFormContext<ManageEDPComponentValues>();
+    const { getValues, setValue, resetField } = useReactHookFormContext<ManageEDPComponentValues>();
 
     const handleCloseEditor = React.useCallback(() => setEditorOpen(false), [setEditorOpen]);
 

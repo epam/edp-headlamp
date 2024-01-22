@@ -14,8 +14,8 @@ test('renders ManageArgoCDCI Create component', () => {
             <ManageArgoCDCI
                 formData={{
                     argoCDSecret: null,
+                    argoCDEDPComponent: null,
                     ownerReference: undefined,
-                    isReadOnly: false,
                     mode: FORM_MODES.CREATE,
                     handleClosePanel: jest.fn(),
                 }}

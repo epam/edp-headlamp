@@ -8,7 +8,7 @@ export const useDefaultValues = ({
 }: {
     formData: ManageArgoCDIntegrationSecretFormDataContext;
 }) => {
-    const { argoCDSecret } = formData;
+    const { argoCDSecret, argoCDEDPComponent } = formData;
 
     return React.useMemo(() => {
         return {
@@ -16,6 +16,7 @@ export const useDefaultValues = ({
                 argoCDSecret?.data?.token
             ),
             [ARGOCD_INTEGRATION_SECRET_FORM_NAMES.url.name]: safeDecode(argoCDSecret?.data?.url),
+            [ARGOCD_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: argoCDEDPComponent?.spec.url,
         };
-    }, [argoCDSecret]);
+    }, [argoCDSecret, argoCDEDPComponent]);
 };

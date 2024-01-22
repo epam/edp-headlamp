@@ -18,19 +18,23 @@ import { DialogHeaderProps } from './types';
 
 export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps) => {
     const {
-        forwardedProps: { EDPComponent },
+        forwardedProps: { EDPComponent, isSystem },
     } = useSpecificDialogContext<ManageEDPComponentDialogForwardedProps>(
         MANAGE_EDP_COMPONENT_DIALOG_NAME
     );
     const { getValues } = useFormContext<ManageEDPComponentValues>();
 
     const handleOpenEditor = React.useCallback(() => {
+        if (isSystem) {
+            return;
+        }
+
         setEditorOpen(true);
         const formValues = getValues();
         const usedValues = getUsedValues(formValues, EDP_COMPONENT_FORM_NAMES);
         const editedEDPComponent = editResource(EDP_COMPONENT_FORM_NAMES, EDPComponent, usedValues);
         setEditorData(editedEDPComponent);
-    }, [EDPComponent, getValues, setEditorData, setEditorOpen]);
+    }, [EDPComponent, getValues, isSystem, setEditorData, setEditorOpen]);
 
     return (
         <Grid container alignItems={'center'} justifyContent={'space-between'} spacing={1}>
@@ -51,6 +55,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
                     component={'button'}
                     onClick={handleOpenEditor}
                     style={{ flexShrink: 0 }}
+                    disabled={isSystem}
                 >
                     Edit YAML
                 </Button>

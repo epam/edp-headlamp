@@ -1,6 +1,7 @@
 import { Grid, Paper } from '@material-ui/core';
 import React from 'react';
 import { EDPComponentKubeObjectInterface } from '../../k8s/EDPComponent/types';
+import { isSystemEDPComponent } from '../../k8s/EDPComponent/utils/isSystemEDPComponent';
 import { FormContextProvider } from '../../providers/Form';
 import { rem } from '../../utils/styling/rem';
 import { DialogHeader } from './components/DialogHeader';
@@ -17,6 +18,8 @@ export const EditEDPComponentForm = ({ EDPComponent }: EditEDPComponentFormProps
 
     const defaultValues = useDefaultValues({ EDPComponent });
 
+    const isSystem = isSystemEDPComponent(EDPComponent);
+
     return (
         <Paper style={{ padding: rem(20) }}>
             <FormContextProvider
@@ -24,14 +27,11 @@ export const EditEDPComponentForm = ({ EDPComponent }: EditEDPComponentFormProps
                     mode: 'onBlur',
                     defaultValues: defaultValues,
                 }}
+                formData={{ EDPComponent, isSystem }}
             >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <DialogHeader
-                            EDPComponent={EDPComponent}
-                            setEditorData={setEditorData}
-                            setEditorOpen={setEditorOpen}
-                        />
+                        <DialogHeader setEditorData={setEditorData} setEditorOpen={setEditorOpen} />
                     </Grid>
                     <Grid item xs={12}>
                         <Form
@@ -41,7 +41,7 @@ export const EditEDPComponentForm = ({ EDPComponent }: EditEDPComponentFormProps
                         />
                     </Grid>
                     <Grid item xs={12} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <FormActions EDPComponent={EDPComponent} />
+                        <FormActions />
                     </Grid>
                 </Grid>
             </FormContextProvider>

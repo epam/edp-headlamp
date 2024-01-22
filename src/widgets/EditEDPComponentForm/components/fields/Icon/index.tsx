@@ -3,8 +3,9 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { SvgBase64Icon } from '../../../../../components/SvgBase64Icon';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { useFormContext } from '../../../../../providers/Form/hooks';
 import { EDP_COMPONENT_FORM_NAMES } from '../../../names';
-import { ManageEDPComponentValues } from '../../../types';
+import { ManageEDPComponentDataContext, ManageEDPComponentValues } from '../../../types';
 
 export const Icon = () => {
     const {
@@ -13,6 +14,10 @@ export const Icon = () => {
         formState: { errors },
         watch,
     } = useReactHookFormContext<ManageEDPComponentValues>();
+
+    const {
+        formData: { isSystem },
+    } = useFormContext<ManageEDPComponentDataContext>();
 
     const fieldValue = watch(EDP_COMPONENT_FORM_NAMES.icon.name);
 
@@ -35,6 +40,7 @@ export const Icon = () => {
                         minRows: 5,
                         maxRows: 5,
                     }}
+                    disabled={isSystem}
                 />
             </Grid>
             <Grid item xs={3}>

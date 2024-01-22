@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { FormTextFieldEditable } from '../../../../../providers/Form/components/FormTextFieldEditable';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
 import { SONAR_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
@@ -14,11 +14,11 @@ export const URL = () => {
     } = useReactHookFormContext();
 
     const {
-        formData: { mode, isReadOnly },
+        formData: { mode, ownerReference },
     } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
 
     return (
-        <FormTextField
+        <FormTextFieldEditable
             {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.url.name, {
                 required: 'Enter the SonarQube URL.',
                 pattern: {
@@ -33,7 +33,7 @@ export const URL = () => {
             placeholder={'Enter URL'}
             control={control}
             errors={errors}
-            disabled={mode === FORM_MODES.EDIT && isReadOnly}
+            disabled={mode === FORM_MODES.EDIT && !!ownerReference}
         />
     );
 };

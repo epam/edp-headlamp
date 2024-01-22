@@ -6,6 +6,7 @@ import { EDP_COMPONENT_FORM_NAMES } from './names';
 export interface ManageEDPComponentDialogForwardedProps {
     EDPComponent?: EDPComponentKubeObjectInterface;
     mode: ValueOf<typeof FORM_MODES>;
+    isSystem: boolean;
     handleApply?: ({
         EDPComponentData,
     }: {

@@ -1,6 +1,8 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
+import { editResource } from '../../../../../../k8s/common/editResource';
+import { useEDPComponentCRUD } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentCRUD';
 import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createSonarQubeIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createSonarQubeIntegrationSecretInstance';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
@@ -17,7 +19,7 @@ export const FormActions = () => {
     } = useReactHookFormContext<ManageSonarIntegrationSecretFormValues>();
 
     const {
-        formData: { handleClosePanel },
+        formData: { handleClosePanel, ownerReference, sonarEDPComponent },
     } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
 
     const {
@@ -29,18 +31,45 @@ export const FormActions = () => {
         },
     });
 
+    const {
+        editEDPComponent,
+        mutations: { EDPComponentEditMutation },
+    } = useEDPComponentCRUD({});
+
     const isLoading =
         secretCreateMutation.isLoading ||
         secretEditMutation.isLoading ||
-        secretDeleteMutation.isLoading;
+        secretDeleteMutation.isLoading ||
+        EDPComponentEditMutation.isLoading;
 
     const onSubmit = React.useCallback(
         async (values: ManageSonarIntegrationSecretFormValues) => {
+            const newEDPComponentData = editResource(
+                {
+                    url: {
+                        name: 'url',
+                        path: ['spec', 'url'],
+                    },
+                },
+                sonarEDPComponent,
+                {
+                    url: values.externalUrl,
+                }
+            );
+
+            await editEDPComponent({
+                EDPComponentData: newEDPComponentData,
+            });
+
+            if (!!ownerReference) {
+                return;
+            }
+
             const secretInstance = createSonarQubeIntegrationSecretInstance(values);
 
             await createSecret({ secretData: secretInstance });
         },
-        [createSecret]
+        [createSecret, editEDPComponent, ownerReference, sonarEDPComponent]
     );
 
     return (

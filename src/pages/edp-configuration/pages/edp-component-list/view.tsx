@@ -98,9 +98,7 @@ export const PageView = () => {
                     </Grid>
                     {!isLoading && items?.length === 0 && (
                         <Grid item xs={12}>
-                            <EmptyContent color={'textSecondary'}>
-                                No registry integrations found
-                            </EmptyContent>
+                            <EmptyContent color={'textSecondary'}>No components found</EmptyContent>
                         </Grid>
                     )}
                 </Grid>

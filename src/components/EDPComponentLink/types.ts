@@ -5,7 +5,11 @@ export interface EDPComponentExternalLinkProps {
         label?: string;
         value?: string;
     };
-    namespace?: string;
     enabledText?: string;
-    noConfigurationLink?: boolean;
+    configurationLink?: {
+        routeName?: string;
+        routeParams?: {
+            [key: string]: string;
+        };
+    };
 }

@@ -88,6 +88,62 @@ exports[`renders ManageNexusCI Create component 1`] = `
                                   <span
                                     class="MuiTypography-root makeStyles-label-4 MuiTypography-body1"
                                   >
+                                    External URL
+                                  </span>
+                                  <span />
+                                </span>
+                              </div>
+                              <div
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                style="display: flex; align-items: flex-end;"
+                              >
+                                <div
+                                  class="MuiFormControl-root MuiFormControl-fullWidth"
+                                >
+                                  <div
+                                    class="MuiFormControl-root MuiTextField-root"
+                                  >
+                                    <div
+                                      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                                    >
+                                      <input
+                                        aria-invalid="false"
+                                        class="MuiInputBase-input MuiInput-input"
+                                        name="externalUrl"
+                                        placeholder="Enter URL"
+                                        type="text"
+                                        value=""
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                        >
+                          <div
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                            style="display: flex;"
+                          >
+                            <div
+                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                            >
+                              <div
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                              >
+                                <span
+                                  class="makeStyles-labelWrap-3"
+                                >
+                                  <span
+                                    class="MuiTypography-root makeStyles-label-4 MuiTypography-body1"
+                                  >
                                     URL
                                   </span>
                                   <span />

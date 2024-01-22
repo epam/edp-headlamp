@@ -8,7 +8,7 @@ export const useDefaultValues = ({
 }: {
     formData: ManageNexusIntegrationSecretFormDataContext;
 }) => {
-    const { nexusSecret } = formData;
+    const { nexusSecret, nexusEDPComponent } = formData;
 
     return React.useMemo(() => {
         return {
@@ -19,6 +19,7 @@ export const useDefaultValues = ({
                 nexusSecret?.data?.password
             ),
             [NEXUS_INTEGRATION_SECRET_FORM_NAMES.url.name]: safeDecode(nexusSecret?.data?.url),
+            [NEXUS_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: nexusEDPComponent?.spec.url,
         };
-    }, [nexusSecret]);
+    }, [nexusEDPComponent, nexusSecret]);
 };

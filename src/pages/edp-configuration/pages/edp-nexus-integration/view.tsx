@@ -5,6 +5,8 @@ import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
+import { EDPComponentKubeObject } from '../../../../k8s/EDPComponent';
+import { SYSTEM_EDP_COMPONENTS } from '../../../../k8s/EDPComponent/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
@@ -16,14 +18,19 @@ import { NEXUS_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 export const PageView = () => {
     const [nexusSecrets] = SecretKubeObject.useList({
         namespace: getDefaultNamespace(),
-        labelSelector: `${SECRET_LABEL_SECRET_TYPE}=nexus`,
+        labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_EDP_COMPONENTS.NEXUS}`,
     });
+
+    const [nexusEDPComponent] = EDPComponentKubeObject.useGet(
+        SYSTEM_EDP_COMPONENTS.NEXUS,
+        getDefaultNamespace()
+    );
 
     const nexusSecret = nexusSecrets?.[0]?.jsonData;
 
     const mode = !!nexusSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
     const ownerReference = nexusSecret?.metadata?.ownerReferences?.[0]?.kind;
-    const isLoading = nexusSecret === null;
+    const isLoading = nexusSecret === null || nexusEDPComponent === null;
 
     return (
         <PageWithSubMenu list={menu}>
@@ -47,8 +54,8 @@ export const PageView = () => {
                             <ManageNexusCI
                                 formData={{
                                     nexusSecret,
+                                    nexusEDPComponent: nexusEDPComponent?.jsonData,
                                     ownerReference,
-                                    isReadOnly: !!ownerReference,
                                     mode,
                                 }}
                             />

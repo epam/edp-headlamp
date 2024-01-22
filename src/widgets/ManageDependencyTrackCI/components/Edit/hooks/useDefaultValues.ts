@@ -8,7 +8,7 @@ export const useDefaultValues = ({
 }: {
     formData: ManageDependencyTrackIntegrationSecretFormDataContext;
 }) => {
-    const { dependencyTrackSecret } = formData;
+    const { dependencyTrackSecret, depTrackEDPComponent } = formData;
 
     return React.useMemo(() => {
         return {
@@ -18,6 +18,8 @@ export const useDefaultValues = ({
             [DEPENDENCY_TRACK_INTEGRATION_SECRET_FORM_NAMES.url.name]: safeDecode(
                 dependencyTrackSecret?.data?.url
             ),
+            [DEPENDENCY_TRACK_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]:
+                depTrackEDPComponent?.spec.url,
         };
-    }, [dependencyTrackSecret]);
+    }, [dependencyTrackSecret, depTrackEDPComponent]);
 };

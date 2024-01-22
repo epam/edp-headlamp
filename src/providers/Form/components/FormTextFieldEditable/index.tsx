@@ -43,15 +43,15 @@ export const FormTextFieldEditable = React.forwardRef(
         const _InputProps = React.useMemo(
             () => ({
                 ...InputProps,
-                endAdornment: (
+                endAdornment: !disabled ? (
                     <InputAdornment position="end">
                         <IconButton size={'small'} onClick={handleTogglePartiallyDisabled}>
                             <Icon icon={_partiallyDisabled ? ICONS.PENCIL : ICONS.CROSS} />
                         </IconButton>
                     </InputAdornment>
-                ),
+                ) : null,
             }),
-            [InputProps, _partiallyDisabled]
+            [InputProps, _partiallyDisabled, disabled]
         );
 
         return (

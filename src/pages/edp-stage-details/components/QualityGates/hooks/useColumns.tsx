@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
+import { SYSTEM_EDP_COMPONENTS } from '../../../../../k8s/EDPComponent/constants';
 import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
@@ -58,7 +59,7 @@ export const useColumns = (): TableColumn<{
                     const tektonLink =
                         autotestPipelineRun &&
                         LinkCreationService.tekton.createPipelineRunLink(
-                            EDPComponentsURLS?.tekton,
+                            EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.TEKTON],
                             autotestPipelineRun?.metadata?.namespace,
                             autotestPipelineRun?.metadata?.name
                         );

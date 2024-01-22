@@ -1,6 +1,8 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
+import { editResource } from '../../../../../../k8s/common/editResource';
+import { useEDPComponentCRUD } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentCRUD';
 import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createDependencyTrackIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createDependencyTrackIntegrationSecretInstance';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
@@ -17,8 +19,13 @@ export const FormActions = () => {
     } = useReactHookFormContext<ManageDependencyTrackIntegrationSecretFormValues>();
 
     const {
-        formData: { handleClosePanel },
+        formData: { handleClosePanel, ownerReference, depTrackEDPComponent },
     } = useFormContext<ManageDependencyTrackIntegrationSecretFormDataContext>();
+
+    const {
+        editEDPComponent,
+        mutations: { EDPComponentEditMutation },
+    } = useEDPComponentCRUD({});
 
     const {
         createSecret,
@@ -32,15 +39,37 @@ export const FormActions = () => {
     const isLoading =
         secretCreateMutation.isLoading ||
         secretEditMutation.isLoading ||
-        secretDeleteMutation.isLoading;
+        secretDeleteMutation.isLoading ||
+        EDPComponentEditMutation.isLoading;
 
     const onSubmit = React.useCallback(
         async (values: ManageDependencyTrackIntegrationSecretFormValues) => {
+            const newEDPComponentData = editResource(
+                {
+                    url: {
+                        name: 'url',
+                        path: ['spec', 'url'],
+                    },
+                },
+                depTrackEDPComponent,
+                {
+                    url: values.externalUrl,
+                }
+            );
+
+            await editEDPComponent({
+                EDPComponentData: newEDPComponentData,
+            });
+
+            if (!!ownerReference) {
+                return;
+            }
+
             const secretInstance = createDependencyTrackIntegrationSecretInstance(values);
 
             await createSecret({ secretData: secretInstance });
         },
-        [createSecret]
+        [createSecret, depTrackEDPComponent, editEDPComponent, ownerReference]
     );
 
     return (

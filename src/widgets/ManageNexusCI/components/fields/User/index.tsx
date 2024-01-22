@@ -14,7 +14,7 @@ export const User = () => {
     } = useReactHookFormContext();
 
     const {
-        formData: { mode, isReadOnly },
+        formData: { mode, ownerReference },
     } = useFormContext<ManageNexusIntegrationSecretFormDataContext>();
 
     return (
@@ -27,7 +27,7 @@ export const User = () => {
             placeholder={'Enter user name'}
             control={control}
             errors={errors}
-            disabled={mode === FORM_MODES.EDIT && isReadOnly}
+            disabled={mode === FORM_MODES.EDIT && !!ownerReference}
         />
     );
 };

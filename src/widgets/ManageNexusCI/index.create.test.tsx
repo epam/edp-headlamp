@@ -15,7 +15,7 @@ test('renders ManageNexusCI Create component', () => {
                 formData={{
                     nexusSecret: null,
                     ownerReference: undefined,
-                    isReadOnly: false,
+                    nexusEDPComponent: null,
                     mode: FORM_MODES.CREATE,
                     handleClosePanel: jest.fn(),
                 }}

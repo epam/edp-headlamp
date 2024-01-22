@@ -3,7 +3,7 @@ import { Chip, CircularProgress, Grid, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { EDPComponentExternalLink } from '../../components/EDPComponentExternalLink';
+import { EDPComponentLink } from '../../components/EDPComponentLink';
 import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
@@ -14,6 +14,10 @@ import { TRIGGER_TYPES } from '../../constants/triggerTypes';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useStreamApplicationListByPipelineStageLabel } from '../../k8s/Application/hooks/useStreamApplicationListByPipelineStageLabel';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
+import {
+    SYSTEM_EDP_COMPONENTS,
+    SYSTEM_EDP_COMPONENTS_LABELS,
+} from '../../k8s/EDPComponent/constants';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../k8s/PipelineRun/constants';
@@ -26,6 +30,8 @@ import { sortKubeObjectByCreationTimestamp } from '../../utils/sort/sortKubeObje
 import { rem } from '../../utils/styling/rem';
 import { routeEDPCDPipelineDetails } from '../edp-cdpipeline-details/route';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
+import { routeEDPArgoCDIntegration } from '../edp-configuration/pages/edp-argocd-integration/route';
+import { routeEDPComponentDetails } from '../edp-configuration/pages/edp-component-details/route';
 import { Applications } from './components/Applications';
 import { CustomGates } from './components/CustomGates';
 import { QualityGates } from './components/QualityGates';
@@ -280,36 +286,60 @@ export const PageView = () => {
             headerSlot={
                 <Grid container>
                     <Grid item>
-                        <EDPComponentExternalLink
-                            name={{ label: 'Argo CD', value: 'argocd' }}
+                        <EDPComponentLink
+                            name={{
+                                label: SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.ARGOCD],
+                                value: SYSTEM_EDP_COMPONENTS.ARGOCD,
+                            }}
                             icon={ICONS.ARGOCD}
                             externalLink={LinkCreationService.argocd.createStageLink(
-                                EDPComponentsURLS?.argocd,
+                                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.ARGOCD],
                                 CDPipeline?.metadata?.name,
                                 stageSpecName
                             )}
-                            namespace={namespace}
+                            configurationLink={{
+                                routeName: routeEDPArgoCDIntegration.path,
+                            }}
                         />
                     </Grid>
                     <Grid item>
-                        <EDPComponentExternalLink
-                            name={{ label: 'Grafana', value: 'grafana' }}
+                        <EDPComponentLink
+                            name={{
+                                label: SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.GRAFANA],
+                                value: SYSTEM_EDP_COMPONENTS.GRAFANA,
+                            }}
                             icon={ICONS.GRAFANA}
                             externalLink={LinkCreationService.grafana.createDashboardLink(
-                                EDPComponentsURLS?.grafana,
+                                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.GRAFANA],
                                 stage?.spec.namespace
                             )}
-                            namespace={namespace}
+                            configurationLink={{
+                                routeName: routeEDPComponentDetails.path,
+                                routeParams: {
+                                    name: SYSTEM_EDP_COMPONENTS.GRAFANA,
+                                    namespace,
+                                },
+                            }}
                         />
                     </Grid>
                     <Grid item>
-                        <EDPComponentExternalLink
-                            name={{ label: 'Kibana', value: 'kibana' }}
+                        <EDPComponentLink
+                            name={{
+                                label: SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.KIBANA],
+                                value: SYSTEM_EDP_COMPONENTS.KIBANA,
+                            }}
                             icon={ICONS.KIBANA}
                             externalLink={LinkCreationService.kibana.createDashboardLink(
-                                EDPComponentsURLS?.kibana,
+                                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.KIBANA],
                                 stage?.spec.namespace
                             )}
+                            configurationLink={{
+                                routeName: routeEDPComponentDetails.path,
+                                routeParams: {
+                                    name: SYSTEM_EDP_COMPONENTS.KIBANA,
+                                    namespace,
+                                },
+                            }}
                         />
                     </Grid>
                     <Grid item style={{ marginLeft: rem(20) }}>

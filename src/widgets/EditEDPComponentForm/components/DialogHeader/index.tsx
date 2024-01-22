@@ -1,24 +1,33 @@
 import { Icon } from '@iconify/react';
 import { Button, Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { editResource } from '../../../../k8s/common/editResource';
+import { useFormContext } from '../../../../providers/Form/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { EDP_COMPONENT_FORM_NAMES } from '../../names';
-import { ManageEDPComponentValues } from '../../types';
+import { ManageEDPComponentDataContext, ManageEDPComponentValues } from '../../types';
 import { DialogHeaderProps } from './types';
 
-export const DialogHeader = ({ EDPComponent, setEditorData, setEditorOpen }: DialogHeaderProps) => {
-    const { getValues } = useFormContext<ManageEDPComponentValues>();
+export const DialogHeader = ({ setEditorData, setEditorOpen }: DialogHeaderProps) => {
+    const { getValues } = useReactHookFormContext<ManageEDPComponentValues>();
+
+    const {
+        formData: { EDPComponent, isSystem },
+    } = useFormContext<ManageEDPComponentDataContext>();
 
     const handleOpenEditor = React.useCallback(() => {
+        if (isSystem) {
+            return;
+        }
+
         setEditorOpen(true);
         const formValues = getValues();
         const usedValues = getUsedValues(formValues, EDP_COMPONENT_FORM_NAMES);
         const editedEDPComponent = editResource(EDP_COMPONENT_FORM_NAMES, EDPComponent, usedValues);
         setEditorData(editedEDPComponent);
-    }, [EDPComponent, getValues, setEditorData, setEditorOpen]);
+    }, [EDPComponent, getValues, isSystem, setEditorData, setEditorOpen]);
 
     return (
         <Grid container alignItems={'center'} justifyContent={'space-between'} spacing={1}>
@@ -36,6 +45,7 @@ export const DialogHeader = ({ EDPComponent, setEditorData, setEditorOpen }: Dia
                     component={'button'}
                     onClick={handleOpenEditor}
                     style={{ flexShrink: 0 }}
+                    disabled={isSystem}
                 >
                     Edit YAML
                 </Button>

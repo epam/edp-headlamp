@@ -3,7 +3,7 @@ import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
 import { ManageArgoCDIntegrationSecretFormDataContext } from '../../../../types';
-import { Token, URL } from '../../../fields';
+import { ExternalURL, Token, URL } from '../../../fields';
 
 export const Form = () => {
     const {
@@ -19,10 +19,13 @@ export const Form = () => {
                     </Alert>
                 </Grid>
             )}
-            <Grid item xs={6}>
+            <Grid item xs={12}>
+                <ExternalURL />
+            </Grid>
+            <Grid item xs={12}>
                 <URL />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
                 <Token />
             </Grid>
         </Grid>

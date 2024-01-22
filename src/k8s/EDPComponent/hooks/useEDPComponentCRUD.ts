@@ -12,7 +12,7 @@ interface EditEDPComponentProps {
     EDPComponentData: EDPComponentKubeObjectInterface;
 }
 
-export const useCreateEDPComponent = ({
+export const useEDPComponentCRUD = ({
     onSuccess,
     onError,
 }: {

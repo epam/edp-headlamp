@@ -10,6 +10,7 @@ import { MyNode } from '../../../../components/Graph/components/types';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
+import { SYSTEM_EDP_COMPONENTS } from '../../../../k8s/EDPComponent/constants';
 import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../k8s/PipelineRun/constants';
@@ -273,7 +274,7 @@ export const QualityGates = ({
             const url = getResourceURLByResourceType(
                 resourceType,
                 resource,
-                EDPComponentsURLS?.tekton
+                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.TEKTON]
             );
             return (
                 // @ts-ignore
@@ -319,7 +320,7 @@ export const QualityGates = ({
                 </Node>
             );
         },
-        [EDPComponentsURLS?.tekton, renderSteps]
+        [EDPComponentsURLS, renderSteps]
     );
 
     return (

@@ -7,9 +7,10 @@ export interface EditEDPComponentFormProps {
     EDPComponent: EDPComponentKubeObjectInterface;
 }
 
-export interface ManageEDPComponentDialogForwardedProps {
+export interface ManageEDPComponentDataContext {
     EDPComponent?: EDPComponentKubeObjectInterface;
     mode: ValueOf<typeof FORM_MODES>;
+    isSystem: boolean;
     handleApply?: ({
         EDPComponentData,
     }: {

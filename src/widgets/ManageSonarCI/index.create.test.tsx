@@ -14,8 +14,8 @@ test('renders ManageSonarCI Create component', () => {
             <ManageSonarCI
                 formData={{
                     sonarSecret: null,
-                    ownerReference: undefined,
-                    isReadOnly: false,
+                    sonarEDPComponent: null,
+                    ownerReference: null,
                     mode: FORM_MODES.CREATE,
                     handleClosePanel: jest.fn(),
                 }}

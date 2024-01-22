@@ -7,6 +7,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { NoDataWidgetWrapper } from '../../components/NoDataWidgetWrapper';
+import { SYSTEM_EDP_COMPONENTS } from '../../k8s/EDPComponent/constants';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { routeEDPSonarIntegration } from '../../pages/edp-configuration/pages/edp-sonar-integration/route';
 import { LinkCreationService } from '../../services/link-creation';
@@ -93,7 +94,7 @@ export const SonarQubeMetrics = ({
     const projectID = codebaseBranchMetadataName;
 
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-    const sonarQubeBaseURL = EDPComponentsURLS?.sonar;
+    const sonarQubeBaseURL = EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.SONAR];
 
     const { data: metrics, isLoading } = useSonarQubeMetrics(
         sonarQubeBaseURL,

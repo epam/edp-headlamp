@@ -2,9 +2,11 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { SvgBase64Icon } from '../../../../../components/SvgBase64Icon';
+import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { MANAGE_EDP_COMPONENT_DIALOG_NAME } from '../../../constants';
 import { EDP_COMPONENT_FORM_NAMES } from '../../../names';
-import { ManageEDPComponentValues } from '../../../types';
+import { ManageEDPComponentDialogForwardedProps, ManageEDPComponentValues } from '../../../types';
 
 export const Icon = () => {
     const {
@@ -13,6 +15,12 @@ export const Icon = () => {
         formState: { errors },
         watch,
     } = useReactHookFormContext<ManageEDPComponentValues>();
+
+    const {
+        forwardedProps: { isSystem },
+    } = useSpecificDialogContext<ManageEDPComponentDialogForwardedProps>(
+        MANAGE_EDP_COMPONENT_DIALOG_NAME
+    );
 
     const fieldValue = watch(EDP_COMPONENT_FORM_NAMES.icon.name);
 
@@ -35,6 +43,7 @@ export const Icon = () => {
                         minRows: 5,
                         maxRows: 5,
                     }}
+                    disabled={isSystem}
                 />
             </Grid>
             <Grid item xs={3}>

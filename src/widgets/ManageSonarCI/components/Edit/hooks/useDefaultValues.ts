@@ -8,12 +8,13 @@ export const useDefaultValues = ({
 }: {
     formData: ManageSonarIntegrationSecretFormDataContext;
 }) => {
-    const { sonarSecret } = formData;
+    const { sonarSecret, sonarEDPComponent } = formData;
 
     return React.useMemo(() => {
         return {
             [SONAR_INTEGRATION_SECRET_FORM_NAMES.token.name]: safeDecode(sonarSecret?.data?.token),
             [SONAR_INTEGRATION_SECRET_FORM_NAMES.url.name]: safeDecode(sonarSecret?.data?.url),
+            [SONAR_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: sonarEDPComponent?.spec.url,
         };
-    }, [sonarSecret]);
+    }, [sonarEDPComponent, sonarSecret]);
 };

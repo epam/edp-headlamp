@@ -1,8 +1,10 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
+import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { MANAGE_EDP_COMPONENT_DIALOG_NAME } from '../../../constants';
 import { EDP_COMPONENT_FORM_NAMES } from '../../../names';
-import { ManageEDPComponentValues } from '../../../types';
+import { ManageEDPComponentDialogForwardedProps, ManageEDPComponentValues } from '../../../types';
 
 export const Name = () => {
     const {
@@ -10,6 +12,12 @@ export const Name = () => {
         control,
         formState: { errors },
     } = useReactHookFormContext<ManageEDPComponentValues>();
+
+    const {
+        forwardedProps: { isSystem },
+    } = useSpecificDialogContext<ManageEDPComponentDialogForwardedProps>(
+        MANAGE_EDP_COMPONENT_DIALOG_NAME
+    );
 
     return (
         <FormTextField
@@ -23,6 +31,7 @@ export const Name = () => {
             placeholder={'My component name'}
             control={control}
             errors={errors}
+            disabled={isSystem}
         />
     );
 };

@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Grid, Tooltip, Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { GIT_PROVIDERS } from '../../../../../../constants/gitProviders';
@@ -93,6 +94,13 @@ export const Form = () => {
                                 )}
                             </Grid>
                         </Grid>
+                        {gitServerSecretOwnerReference && (
+                            <Grid item xs={12}>
+                                <Alert severity="info" variant="outlined">
+                                    Managed by {gitServerSecretOwnerReference}
+                                </Alert>
+                            </Grid>
+                        )}
                         {gitServer.spec.gitProvider === GIT_PROVIDERS.GERRIT && (
                             <>
                                 <Grid item xs={12}>

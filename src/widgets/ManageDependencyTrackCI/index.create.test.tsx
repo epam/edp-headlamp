@@ -14,8 +14,8 @@ test('renders ManageDependencyTrackCI Create component', () => {
             <ManageDependencyTrackCI
                 formData={{
                     dependencyTrackSecret: null,
+                    depTrackEDPComponent: null,
                     ownerReference: undefined,
-                    isReadOnly: false,
                     mode: FORM_MODES.CREATE,
                     handleClosePanel: jest.fn(),
                 }}

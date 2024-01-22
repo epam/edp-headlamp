@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { SYSTEM_EDP_COMPONENTS } from '../../k8s/EDPComponent/constants';
 import { SonarCISecretWithOwnerMock } from '../../k8s/Secret/mocks/sonar-ci-secret.mock';
 import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
 import { FORM_MODES } from '../../types/forms';
@@ -19,7 +20,23 @@ test('renders ManageSonarCI Edit component (read-only)', () => {
                 formData={{
                     sonarSecret: SonarCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
                     ownerReference: ownerReference,
-                    isReadOnly: !!ownerReference,
+                    sonarEDPComponent: {
+                        apiVersion: 'v1.edp.epam.com/v1',
+                        kind: 'EDPComponent',
+                        metadata: {
+                            name: SYSTEM_EDP_COMPONENTS.SONAR,
+                            namespace: 'test-namespace',
+                            creationTimestamp: '',
+                            uid: '',
+                        },
+                        spec: {
+                            type: SYSTEM_EDP_COMPONENTS.SONAR,
+                            url: 'https://test-nexus.com',
+                            visible: true,
+                            icon: '',
+                        },
+                        status: '',
+                    },
                     mode: FORM_MODES.EDIT,
                     handleClosePanel: jest.fn(),
                 }}

@@ -3,6 +3,7 @@ import { KubeObjectActions } from '../../components/KubeObjectActions';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPComponentKubeObjectInterface } from '../../k8s/EDPComponent/types';
+import { isSystemEDPComponent } from '../../k8s/EDPComponent/utils/isSystemEDPComponent';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
 import { KubeObjectAction } from '../../types/actions';
@@ -19,9 +20,16 @@ export const EDPComponentActionsMenu = ({}: EDPComponentActionsMenuProps) => {
         useResourceActionListContext<EDPComponentKubeObjectInterface>();
 
     const actions: KubeObjectAction[] = React.useMemo(() => {
+        if (!data) {
+            return [];
+        }
+
+        const isSystemEDPComponentBool = isSystemEDPComponent(data);
+
         const manageEDPComponentDialogForwardedProps: ManageEDPComponentDialogForwardedProps = {
             EDPComponent: data,
             mode: FORM_MODES.EDIT,
+            isSystem: isSystemEDPComponentBool,
         };
 
         return [

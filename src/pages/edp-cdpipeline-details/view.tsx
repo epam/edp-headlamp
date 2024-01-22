@@ -2,15 +2,20 @@ import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { EDPComponentExternalLink } from '../../components/EDPComponentExternalLink';
+import { EDPComponentLink } from '../../components/EDPComponentLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import {
+    SYSTEM_EDP_COMPONENTS,
+    SYSTEM_EDP_COMPONENTS_LABELS,
+} from '../../k8s/EDPComponent/constants';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { LinkCreationService } from '../../services/link-creation';
 import { StageActionsMenu } from '../../widgets/StageActionsMenu';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
+import { routeEDPSonarIntegration } from '../edp-configuration/pages/edp-sonar-integration/route';
 import { CDPipelineActions } from './components/CDPipelineActions';
 import { CDPipelineApplicationsTable } from './components/CDPipelineApplicationsTable';
 import { CDPipelineMetadataTable } from './components/CDPipelineMetadataTable';
@@ -40,14 +45,19 @@ export const PageView = () => {
             headerSlot={
                 <Grid container>
                     <Grid item>
-                        <EDPComponentExternalLink
-                            name={{ label: 'Argo CD', value: 'argocd' }}
+                        <EDPComponentLink
+                            name={{
+                                label: SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.ARGOCD],
+                                value: SYSTEM_EDP_COMPONENTS.ARGOCD,
+                            }}
                             icon={ICONS.ARGOCD}
                             externalLink={LinkCreationService.argocd.createPipelineLink(
-                                EDPComponentsURLS?.argocd,
+                                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.ARGOCD],
                                 name
                             )}
-                            namespace={namespace}
+                            configurationLink={{
+                                routeName: routeEDPSonarIntegration.path,
+                            }}
                         />
                     </Grid>
                     {!!CDPipeline && (

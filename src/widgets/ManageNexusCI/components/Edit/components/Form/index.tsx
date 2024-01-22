@@ -3,7 +3,7 @@ import { Alert } from '@material-ui/lab';
 import React from 'react';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
 import { ManageNexusIntegrationSecretFormDataContext } from '../../../../types';
-import { Password, URL, User } from '../../../fields';
+import { ExternalURL, Password, URL, User } from '../../../fields';
 
 export const Form = () => {
     const {
@@ -19,6 +19,9 @@ export const Form = () => {
                     </Alert>
                 </Grid>
             )}
+            <Grid item xs={12}>
+                <ExternalURL />
+            </Grid>
             <Grid item xs={12}>
                 <URL />
             </Grid>

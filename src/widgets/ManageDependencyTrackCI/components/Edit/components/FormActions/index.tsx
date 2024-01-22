@@ -4,6 +4,8 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
+import { editResource } from '../../../../../../k8s/common/editResource';
+import { useEDPComponentCRUD } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentCRUD';
 import { SecretKubeObject } from '../../../../../../k8s/Secret';
 import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createDependencyTrackIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createDependencyTrackIntegrationSecretInstance';
@@ -33,8 +35,13 @@ export const FormActions = () => {
     } = useReactHookFormContext<ManageDependencyTrackIntegrationSecretFormValues>();
 
     const {
-        formData: { dependencyTrackSecret, isReadOnly },
+        formData: { dependencyTrackSecret, ownerReference, depTrackEDPComponent },
     } = useFormContext<ManageDependencyTrackIntegrationSecretFormDataContext>();
+
+    const {
+        editEDPComponent,
+        mutations: { EDPComponentEditMutation },
+    } = useEDPComponentCRUD({});
 
     const {
         editSecret,
@@ -47,15 +54,39 @@ export const FormActions = () => {
         },
     });
 
-    const isLoading = secretEditMutation.isLoading || secretDeleteMutation.isLoading;
+    const isLoading =
+        secretEditMutation.isLoading ||
+        secretDeleteMutation.isLoading ||
+        EDPComponentEditMutation.isLoading;
 
     const onSubmit = React.useCallback(
         async (values: ManageDependencyTrackIntegrationSecretFormValues) => {
+            const newEDPComponentData = editResource(
+                {
+                    url: {
+                        name: 'url',
+                        path: ['spec', 'url'],
+                    },
+                },
+                depTrackEDPComponent,
+                {
+                    url: values.externalUrl,
+                }
+            );
+
+            await editEDPComponent({
+                EDPComponentData: newEDPComponentData,
+            });
+
+            if (!!ownerReference) {
+                return;
+            }
+
             const secretInstance = createDependencyTrackIntegrationSecretInstance(values);
 
             await editSecret({ secretData: secretInstance });
         },
-        [editSecret]
+        [depTrackEDPComponent, editEDPComponent, editSecret, ownerReference]
     );
 
     const handleDelete = React.useCallback(async () => {
@@ -75,7 +106,7 @@ export const FormActions = () => {
             <Grid container spacing={2} justifyContent={'space-between'}>
                 <Grid item>
                     <ConditionalWrapper
-                        condition={isReadOnly}
+                        condition={!!ownerReference}
                         wrapper={children => (
                             <Tooltip
                                 title={
@@ -86,7 +117,7 @@ export const FormActions = () => {
                             </Tooltip>
                         )}
                     >
-                        <IconButton onClick={handleDelete} disabled={isReadOnly}>
+                        <IconButton onClick={handleDelete} disabled={!!ownerReference}>
                             <Icon icon={ICONS.BUCKET} width="20" />
                         </IconButton>
                     </ConditionalWrapper>
@@ -98,7 +129,7 @@ export const FormActions = () => {
                                 onClick={() => reset()}
                                 size="small"
                                 component={'button'}
-                                disabled={isReadOnly || !isDirty}
+                                disabled={!isDirty}
                             >
                                 undo changes
                             </Button>
@@ -110,7 +141,7 @@ export const FormActions = () => {
                                 component={'button'}
                                 variant={'contained'}
                                 color={'primary'}
-                                disabled={isReadOnly || isLoading || !isDirty}
+                                disabled={isLoading || !isDirty}
                                 onClick={handleSubmit(onSubmit)}
                             >
                                 save

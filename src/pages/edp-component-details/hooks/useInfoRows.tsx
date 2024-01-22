@@ -15,6 +15,7 @@ import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioning
 import { RESOURCE_ICON_NAMES } from '../../../icons/sprites/Resources/names';
 import { EDPCodebaseKubeObject } from '../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
+import { SYSTEM_EDP_COMPONENTS } from '../../../k8s/EDPComponent/constants';
 import { useEDPComponentsURLsQuery } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useGitServerByCodebaseQuery } from '../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
 import {
@@ -50,7 +51,7 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
     const { namespace } = useParams<EDPComponentDetailsRouteParams>();
 
     const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-    const tektonBaseURL = EDPComponentsURLS?.tekton;
+    const tektonBaseURL = EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.TEKTON];
 
     const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
         props: { codebaseGitServer: component?.spec.gitServer },

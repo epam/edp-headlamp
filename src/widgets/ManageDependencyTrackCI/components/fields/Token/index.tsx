@@ -13,7 +13,7 @@ export const Token = () => {
     } = useReactHookFormContext();
 
     const {
-        formData: { isReadOnly },
+        formData: { ownerReference },
     } = useFormContext<ManageDependencyTrackIntegrationSecretFormDataContext>();
 
     return (
@@ -28,7 +28,7 @@ export const Token = () => {
             placeholder={'Enter token'}
             control={control}
             errors={errors}
-            disabled={isReadOnly}
+            disabled={!!ownerReference}
         />
     );
 };

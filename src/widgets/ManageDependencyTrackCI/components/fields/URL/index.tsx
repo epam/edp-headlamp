@@ -14,7 +14,7 @@ export const URL = () => {
     } = useReactHookFormContext();
 
     const {
-        formData: { mode, isReadOnly },
+        formData: { mode, ownerReference },
     } = useFormContext<ManageDependencyTrackIntegrationSecretFormDataContext>();
 
     return (
@@ -33,7 +33,7 @@ export const URL = () => {
             placeholder={'Enter URL'}
             control={control}
             errors={errors}
-            disabled={mode === FORM_MODES.EDIT && isReadOnly}
+            disabled={mode === FORM_MODES.EDIT && !!ownerReference}
         />
     );
 };

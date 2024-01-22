@@ -3,12 +3,16 @@ import { Chip, Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { EDPComponentExternalLink } from '../../../../../../../../components/EDPComponentExternalLink';
+import { EDPComponentLink } from '../../../../../../../../components/EDPComponentLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { EDPCodebaseBranchKubeObject } from '../../../../../../../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../../../../k8s/EDPCodebaseBranch/types';
+import {
+    SYSTEM_EDP_COMPONENTS,
+    SYSTEM_EDP_COMPONENTS_LABELS,
+} from '../../../../../../../../k8s/EDPComponent/constants';
 import { useEDPComponentsURLsQuery } from '../../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useGitServerByCodebaseQuery } from '../../../../../../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/PipelineRun';
@@ -18,6 +22,7 @@ import { useStorageSizeQuery } from '../../../../../../../../k8s/TriggerTemplate
 import { useResourceActionListContext } from '../../../../../../../../providers/ResourceActionList/hooks';
 import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { rem } from '../../../../../../../../utils/styling/rem';
+import { routeEDPSonarIntegration } from '../../../../../../../edp-configuration/pages/edp-sonar-integration/route';
 import { EDPComponentDetailsRouteParams } from '../../../../../../types';
 import { isDefaultBranch } from '../../../../utils';
 import { useStyles } from './styles';
@@ -150,25 +155,28 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
                         </div>
                     </Grid>
                     <Grid item>
-                        <EDPComponentExternalLink
-                            name={{ label: 'Sonar', value: 'sonar' }}
+                        <EDPComponentLink
+                            name={{
+                                label: SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.SONAR],
+                                value: SYSTEM_EDP_COMPONENTS.SONAR,
+                            }}
                             enabledText="Open the Quality Gates"
                             icon={ICONS.SONAR}
                             externalLink={LinkCreationService.sonar.createDashboardLink(
-                                EDPComponentsURLS?.sonar,
+                                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.SONAR],
                                 codebaseBranchData.metadata.name
                             )}
-                            namespace={namespace}
+                            configurationLink={{
+                                routeName: routeEDPSonarIntegration.path,
+                            }}
                         />
                     </Grid>
                     <Grid item>
-                        <EDPComponentExternalLink
+                        <EDPComponentLink
                             enabledText="Open the Source Code"
                             name={{ label: 'the Source Code' }}
                             icon={ICONS.GIT_BRANCH}
                             externalLink={codebaseData?.status?.gitWebUrl}
-                            namespace={namespace}
-                            noConfigurationLink
                         />
                     </Grid>
                     <Grid item>
