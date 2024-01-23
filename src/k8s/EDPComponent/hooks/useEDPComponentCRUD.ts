@@ -5,65 +5,65 @@ import { EDPComponentKubeObject } from '../index';
 import { EDPComponentKubeObjectInterface } from '../types';
 
 interface CreateEDPComponentProps {
-    EDPComponentData: EDPComponentKubeObjectInterface;
+  EDPComponentData: EDPComponentKubeObjectInterface;
 }
 
 interface EditEDPComponentProps {
-    EDPComponentData: EDPComponentKubeObjectInterface;
+  EDPComponentData: EDPComponentKubeObjectInterface;
 }
 
 export const useEDPComponentCRUD = ({
-    onSuccess,
-    onError,
+  onSuccess,
+  onError,
 }: {
-    onSuccess?: () => void;
-    onError?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
+  const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+  const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-    const EDPComponentCreateMutation = useResourceCRUDMutation<
-        EDPComponentKubeObjectInterface,
-        CRUD_TYPES.CREATE
-    >('EDPComponentCreateMutation', EDPComponentKubeObject, CRUD_TYPES.CREATE);
+  const EDPComponentCreateMutation = useResourceCRUDMutation<
+    EDPComponentKubeObjectInterface,
+    CRUD_TYPES.CREATE
+  >('EDPComponentCreateMutation', EDPComponentKubeObject, CRUD_TYPES.CREATE);
 
-    const EDPComponentEditMutation = useResourceCRUDMutation<
-        EDPComponentKubeObjectInterface,
-        CRUD_TYPES.EDIT
-    >('EDPComponentEditMutation', EDPComponentKubeObject, CRUD_TYPES.EDIT);
+  const EDPComponentEditMutation = useResourceCRUDMutation<
+    EDPComponentKubeObjectInterface,
+    CRUD_TYPES.EDIT
+  >('EDPComponentEditMutation', EDPComponentKubeObject, CRUD_TYPES.EDIT);
 
-    const createEDPComponent = React.useCallback(
-        async ({ EDPComponentData }: CreateEDPComponentProps) => {
-            EDPComponentCreateMutation.mutate(EDPComponentData, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+  const createEDPComponent = React.useCallback(
+    async ({ EDPComponentData }: CreateEDPComponentProps) => {
+      EDPComponentCreateMutation.mutate(EDPComponentData, {
+        onSuccess: () => {
+          invokeOnSuccessCallback();
         },
-        [EDPComponentCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
-    );
-
-    const editEDPComponent = React.useCallback(
-        async ({ EDPComponentData }: EditEDPComponentProps) => {
-            EDPComponentEditMutation.mutate(EDPComponentData, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+        onError: () => {
+          invokeOnErrorCallback();
         },
-        [EDPComponentEditMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
-    );
+      });
+    },
+    [EDPComponentCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
+  );
 
-    const mutations = {
-        EDPComponentCreateMutation,
-        EDPComponentEditMutation,
-    };
+  const editEDPComponent = React.useCallback(
+    async ({ EDPComponentData }: EditEDPComponentProps) => {
+      EDPComponentEditMutation.mutate(EDPComponentData, {
+        onSuccess: () => {
+          invokeOnSuccessCallback();
+        },
+        onError: () => {
+          invokeOnErrorCallback();
+        },
+      });
+    },
+    [EDPComponentEditMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
+  );
 
-    return { createEDPComponent, editEDPComponent, mutations };
+  const mutations = {
+    EDPComponentCreateMutation,
+    EDPComponentEditMutation,
+  };
+
+  return { createEDPComponent, editEDPComponent, mutations };
 };

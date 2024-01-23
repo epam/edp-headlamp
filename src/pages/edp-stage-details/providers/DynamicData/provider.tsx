@@ -5,23 +5,21 @@ import { EDPStageDetailsRouteParams } from '../../types';
 import { DynamicDataContext } from './context';
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
-    const { stageName, namespace } = useParams<EDPStageDetailsRouteParams>();
+  const { stageName, namespace } = useParams<EDPStageDetailsRouteParams>();
 
-    const stage = useStreamCDPipelineStage({
-        namespace,
-        stageMetadataName: stageName,
-    });
+  const stage = useStreamCDPipelineStage({
+    namespace,
+    stageMetadataName: stageName,
+  });
 
-    const DataContextValue = React.useMemo(
-        () => ({
-            stage,
-        }),
-        [stage]
-    );
+  const DataContextValue = React.useMemo(
+    () => ({
+      stage,
+    }),
+    [stage]
+  );
 
-    return (
-        <DynamicDataContext.Provider value={DataContextValue}>
-            {children}
-        </DynamicDataContext.Provider>
-    );
+  return (
+    <DynamicDataContext.Provider value={DataContextValue}>{children}</DynamicDataContext.Provider>
+  );
 };

@@ -4,20 +4,16 @@ import { SSO_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageSSOIntegrationSecretFormDataContext } from '../../../types';
 
 export const useDefaultValues = ({
-    formData,
+  formData,
 }: {
-    formData: ManageSSOIntegrationSecretFormDataContext;
+  formData: ManageSSOIntegrationSecretFormDataContext;
 }) => {
-    const { ssoSecret } = formData;
+  const { ssoSecret } = formData;
 
-    return React.useMemo(() => {
-        return {
-            [SSO_INTEGRATION_SECRET_FORM_NAMES.username.name]: safeDecode(
-                ssoSecret?.data?.username
-            ),
-            [SSO_INTEGRATION_SECRET_FORM_NAMES.password.name]: safeDecode(
-                ssoSecret?.data?.password
-            ),
-        };
-    }, [ssoSecret]);
+  return React.useMemo(() => {
+    return {
+      [SSO_INTEGRATION_SECRET_FORM_NAMES.username.name]: safeDecode(ssoSecret?.data?.username),
+      [SSO_INTEGRATION_SECRET_FORM_NAMES.password.name]: safeDecode(ssoSecret?.data?.password),
+    };
+  }, [ssoSecret]);
 };

@@ -1,5 +1,5 @@
 export enum GIT_PROVIDERS {
-    GERRIT = 'gerrit',
-    GITLAB = 'gitlab',
-    GITHUB = 'github',
+  GERRIT = 'gerrit',
+  GITLAB = 'gitlab',
+  GITHUB = 'github',
 }

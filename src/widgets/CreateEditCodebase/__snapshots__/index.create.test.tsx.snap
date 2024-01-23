@@ -2,117 +2,112 @@
 
 exports[`renders CreateEditCodebase Create component 1`] = `
 <div
-  class="MuiDialog-root"
+  class="MuiDialog-root MuiModal-root css-zw3mfo-MuiModal-root-MuiDialog-root"
   data-testid="dialog"
   role="presentation"
-  style="position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;"
 >
   <div
     aria-hidden="true"
-    class="MuiBackdrop-root"
+    class="MuiBackdrop-root MuiModal-backdrop css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop"
     style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
   />
   <div
-    data-test="sentinelStart"
+    data-testid="sentinelStart"
     tabindex="0"
   />
   <div
-    class="MuiDialog-container MuiDialog-scrollPaper"
-    role="none presentation"
+    class="MuiDialog-container MuiDialog-scrollPaper css-hz1bth-MuiDialog-container"
+    role="presentation"
     style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
     tabindex="-1"
   >
     <div
-      class="MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded"
+      aria-labelledby="mui-1"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth css-1ntld2w-MuiPaper-root-MuiDialog-paper"
       role="dialog"
     >
       <div
-        class="MuiBox-root MuiBox-root-4"
+        class="MuiBox-root css-1lf5jyw"
       >
         <h4
-          class="MuiTypography-root MuiTypography-h4"
+          class="MuiTypography-root MuiTypography-h4 css-1nsdt9j-MuiTypography-root"
           style="margin-bottom: 1.25rem;"
         >
           Create new component
         </h4>
         <div>
           <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-zow5z4-MuiGrid-root"
           >
             <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                 >
                   <div
-                    class="MuiFormControl-root"
+                    class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
                     style="width: 100%;"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                     >
                       <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       >
                         <div
-                          class="MuiFormGroup-root makeStyles-radioGroup-5 MuiFormGroup-row"
+                          class="MuiFormGroup-root MuiFormGroup-row makeStyles-radioGroup-4 css-qfz70r-MuiFormGroup-root"
                           role="radiogroup"
                         >
                           <div
-                            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
                           >
                             <div
-                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                             >
                               <button
-                                class="MuiButtonBase-root makeStyles-radioControlButton-6"
+                                class="MuiButtonBase-root makeStyles-radioControlButton-5 css-10d1a0h-MuiButtonBase-root"
                                 tabindex="0"
                                 type="button"
                               >
                                 <label
-                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-8"
+                                  class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-7 css-j204z7-MuiFormControlLabel-root"
                                 >
                                   <span
-                                    aria-disabled="false"
-                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-9 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                                    class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                                   >
-                                    <span
-                                      class="MuiIconButton-label"
-                                    >
-                                      <input
-                                        class="PrivateSwitchBase-input-12"
-                                        name="type"
-                                        type="radio"
-                                        value="infrastructure"
-                                      />
-                                      <span />
-                                    </span>
+                                    <input
+                                      class="PrivateSwitchBase-input css-1m9pwf3"
+                                      name="type"
+                                      type="radio"
+                                      value="infrastructure"
+                                    />
+                                    <span />
                                   </span>
                                   <span
-                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                    class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
                                   >
                                     <span
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-start"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-gjtr4m-MuiGrid-root"
                                       style="height: auto;"
                                     >
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
                                         >
                                           Infrastructure
                                         </div>
                                       </span>
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
                                         >
                                           Deploys and manages the infrastructure components in cloud environments using Infrastructure as Code (IaC) approach. Manage, Version and Promote your IaC environments here.
                                         </div>
@@ -121,58 +116,53 @@ exports[`renders CreateEditCodebase Create component 1`] = `
                                   </span>
                                 </label>
                                 <span
-                                  class="MuiTouchRipple-root"
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                                 />
                               </button>
                             </div>
                             <div
-                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                             >
                               <button
-                                class="MuiButtonBase-root makeStyles-radioControlButton-6"
+                                class="MuiButtonBase-root makeStyles-radioControlButton-5 css-10d1a0h-MuiButtonBase-root"
                                 tabindex="0"
                                 type="button"
                               >
                                 <label
-                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-8"
+                                  class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-7 css-j204z7-MuiFormControlLabel-root"
                                 >
                                   <span
-                                    aria-disabled="false"
-                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-9 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                                    class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                                   >
-                                    <span
-                                      class="MuiIconButton-label"
-                                    >
-                                      <input
-                                        class="PrivateSwitchBase-input-12"
-                                        name="type"
-                                        type="radio"
-                                        value="application"
-                                      />
-                                      <span />
-                                    </span>
+                                    <input
+                                      class="PrivateSwitchBase-input css-1m9pwf3"
+                                      name="type"
+                                      type="radio"
+                                      value="application"
+                                    />
+                                    <span />
                                   </span>
                                   <span
-                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                    class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
                                   >
                                     <span
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-start"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-gjtr4m-MuiGrid-root"
                                       style="height: auto;"
                                     >
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
                                         >
                                           Application
                                         </div>
                                       </span>
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
                                         >
                                           Deploys services and includes configuration files, deployment scripts, and other resources needed to create and manage the application's infrastructure.
                                         </div>
@@ -181,58 +171,53 @@ exports[`renders CreateEditCodebase Create component 1`] = `
                                   </span>
                                 </label>
                                 <span
-                                  class="MuiTouchRipple-root"
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                                 />
                               </button>
                             </div>
                             <div
-                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                             >
                               <button
-                                class="MuiButtonBase-root makeStyles-radioControlButton-6"
+                                class="MuiButtonBase-root makeStyles-radioControlButton-5 css-10d1a0h-MuiButtonBase-root"
                                 tabindex="0"
                                 type="button"
                               >
                                 <label
-                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-8"
+                                  class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-7 css-j204z7-MuiFormControlLabel-root"
                                 >
                                   <span
-                                    aria-disabled="false"
-                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-9 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                                    class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                                   >
-                                    <span
-                                      class="MuiIconButton-label"
-                                    >
-                                      <input
-                                        class="PrivateSwitchBase-input-12"
-                                        name="type"
-                                        type="radio"
-                                        value="library"
-                                      />
-                                      <span />
-                                    </span>
+                                    <input
+                                      class="PrivateSwitchBase-input css-1m9pwf3"
+                                      name="type"
+                                      type="radio"
+                                      value="library"
+                                    />
+                                    <span />
                                   </span>
                                   <span
-                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                    class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
                                   >
                                     <span
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-start"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-gjtr4m-MuiGrid-root"
                                       style="height: auto;"
                                     >
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
                                         >
                                           Library
                                         </div>
                                       </span>
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
                                         >
                                           Provides reusable code that can be incorporated into services. It includes additional functions, modules that might be shared across services.
                                         </div>
@@ -241,58 +226,53 @@ exports[`renders CreateEditCodebase Create component 1`] = `
                                   </span>
                                 </label>
                                 <span
-                                  class="MuiTouchRipple-root"
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                                 />
                               </button>
                             </div>
                             <div
-                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                             >
                               <button
-                                class="MuiButtonBase-root makeStyles-radioControlButton-6"
+                                class="MuiButtonBase-root makeStyles-radioControlButton-5 css-10d1a0h-MuiButtonBase-root"
                                 tabindex="0"
                                 type="button"
                               >
                                 <label
-                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-8"
+                                  class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-7 css-j204z7-MuiFormControlLabel-root"
                                 >
                                   <span
-                                    aria-disabled="false"
-                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-9 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                                    class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                                   >
-                                    <span
-                                      class="MuiIconButton-label"
-                                    >
-                                      <input
-                                        class="PrivateSwitchBase-input-12"
-                                        name="type"
-                                        type="radio"
-                                        value="autotest"
-                                      />
-                                      <span />
-                                    </span>
+                                    <input
+                                      class="PrivateSwitchBase-input css-1m9pwf3"
+                                      name="type"
+                                      type="radio"
+                                      value="autotest"
+                                    />
+                                    <span />
                                   </span>
                                   <span
-                                    class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                    class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
                                   >
                                     <span
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-start"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-gjtr4m-MuiGrid-root"
                                       style="height: auto;"
                                     >
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
                                         >
                                           Autotest
                                         </div>
                                       </span>
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
                                         >
                                           Onboard and start defining Quality Gate for deployment pipelines here.
                                         </div>
@@ -301,7 +281,7 @@ exports[`renders CreateEditCodebase Create component 1`] = `
                                   </span>
                                 </label>
                                 <span
-                                  class="MuiTouchRipple-root"
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                                 />
                               </button>
                             </div>
@@ -314,90 +294,86 @@ exports[`renders CreateEditCodebase Create component 1`] = `
               </div>
             </div>
             <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
             >
               <hr
-                class="MuiDivider-root"
+                class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
                 style="margin: 0px auto; width: 70%;"
               />
             </div>
             <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                 >
                   <div
-                    class="MuiFormControl-root"
+                    class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
                     style="width: 100%;"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                     >
                       <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       >
                         <div
-                          class="MuiFormGroup-root makeStyles-radioGroup-5 MuiFormGroup-row"
+                          class="MuiFormGroup-root MuiFormGroup-row makeStyles-radioGroup-4 css-qfz70r-MuiFormGroup-root"
                           role="radiogroup"
                         >
                           <div
-                            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
                           >
                             <div
-                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
+                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
                             >
                               <button
-                                class="MuiButtonBase-root makeStyles-radioControlButton-6 Mui-disabled"
+                                class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-5 css-10d1a0h-MuiButtonBase-root"
                                 disabled=""
                                 tabindex="-1"
                                 type="button"
                               >
                                 <label
-                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-8 Mui-disabled"
+                                  class="MuiFormControlLabel-root Mui-disabled MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-7 css-j204z7-MuiFormControlLabel-root"
                                 >
                                   <span
                                     aria-disabled="true"
-                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-9 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-disabled-11 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled"
+                                    class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary Mui-disabled PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary Mui-disabled MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                                     tabindex="-1"
                                   >
-                                    <span
-                                      class="MuiIconButton-label"
-                                    >
-                                      <input
-                                        class="PrivateSwitchBase-input-12"
-                                        disabled=""
-                                        name="strategy"
-                                        type="radio"
-                                        value="create"
-                                      />
-                                      <span />
-                                    </span>
+                                    <input
+                                      class="PrivateSwitchBase-input css-1m9pwf3"
+                                      disabled=""
+                                      name="strategy"
+                                      type="radio"
+                                      value="create"
+                                    />
+                                    <span />
                                   </span>
                                   <span
-                                    class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
+                                    class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label Mui-disabled css-1ezega9-MuiTypography-root"
                                   >
                                     <span
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-start"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-gjtr4m-MuiGrid-root"
                                       style="height: auto;"
                                     >
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
                                         >
                                           Create from template
                                         </div>
                                       </span>
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
                                         >
                                           Create a sample project from a template to start quickly.
                                         </div>
@@ -408,56 +384,52 @@ exports[`renders CreateEditCodebase Create component 1`] = `
                               </button>
                             </div>
                             <div
-                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
+                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
                             >
                               <button
-                                class="MuiButtonBase-root makeStyles-radioControlButton-6 Mui-disabled"
+                                class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-5 css-10d1a0h-MuiButtonBase-root"
                                 disabled=""
                                 tabindex="-1"
                                 type="button"
                               >
                                 <label
-                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-8 Mui-disabled"
+                                  class="MuiFormControlLabel-root Mui-disabled MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-7 css-j204z7-MuiFormControlLabel-root"
                                 >
                                   <span
                                     aria-disabled="true"
-                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-9 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-disabled-11 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled"
+                                    class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary Mui-disabled PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary Mui-disabled MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                                     tabindex="-1"
                                   >
-                                    <span
-                                      class="MuiIconButton-label"
-                                    >
-                                      <input
-                                        class="PrivateSwitchBase-input-12"
-                                        disabled=""
-                                        name="strategy"
-                                        type="radio"
-                                        value="clone"
-                                      />
-                                      <span />
-                                    </span>
+                                    <input
+                                      class="PrivateSwitchBase-input css-1m9pwf3"
+                                      disabled=""
+                                      name="strategy"
+                                      type="radio"
+                                      value="clone"
+                                    />
+                                    <span />
                                   </span>
                                   <span
-                                    class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
+                                    class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label Mui-disabled css-1ezega9-MuiTypography-root"
                                   >
                                     <span
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-start"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-gjtr4m-MuiGrid-root"
                                       style="height: auto;"
                                     >
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
                                         >
                                           Clone project
                                         </div>
                                       </span>
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
                                         >
                                           Clone code from third-party VCS providers.
                                         </div>
@@ -468,56 +440,52 @@ exports[`renders CreateEditCodebase Create component 1`] = `
                               </button>
                             </div>
                             <div
-                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
+                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
                             >
                               <button
-                                class="MuiButtonBase-root makeStyles-radioControlButton-6 Mui-disabled"
+                                class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-5 css-10d1a0h-MuiButtonBase-root"
                                 disabled=""
                                 tabindex="-1"
                                 type="button"
                               >
                                 <label
-                                  class="MuiFormControlLabel-root makeStyles-radioControlLabel-8 Mui-disabled"
+                                  class="MuiFormControlLabel-root Mui-disabled MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-7 css-j204z7-MuiFormControlLabel-root"
                                 >
                                   <span
                                     aria-disabled="true"
-                                    class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-9 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-disabled-11 Mui-disabled MuiIconButton-colorPrimary Mui-disabled Mui-disabled"
+                                    class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary Mui-disabled PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary Mui-disabled MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                                     tabindex="-1"
                                   >
-                                    <span
-                                      class="MuiIconButton-label"
-                                    >
-                                      <input
-                                        class="PrivateSwitchBase-input-12"
-                                        disabled=""
-                                        name="strategy"
-                                        type="radio"
-                                        value="import"
-                                      />
-                                      <span />
-                                    </span>
+                                    <input
+                                      class="PrivateSwitchBase-input css-1m9pwf3"
+                                      disabled=""
+                                      name="strategy"
+                                      type="radio"
+                                      value="import"
+                                    />
+                                    <span />
                                   </span>
                                   <span
-                                    class="MuiTypography-root MuiFormControlLabel-label Mui-disabled MuiTypography-body1"
+                                    class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label Mui-disabled css-1ezega9-MuiTypography-root"
                                   >
                                     <span
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-flex-start"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-gjtr4m-MuiGrid-root"
                                       style="height: auto;"
                                     >
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
                                         >
                                           Import project
                                         </div>
                                       </span>
                                       <span
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <div
-                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft"
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
                                         >
                                           Onboard your existing code to the EDP platform.
                                         </div>
@@ -541,7 +509,7 @@ exports[`renders CreateEditCodebase Create component 1`] = `
     </div>
   </div>
   <div
-    data-test="sentinelEnd"
+    data-testid="sentinelEnd"
     tabindex="0"
   />
 </div>

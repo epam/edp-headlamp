@@ -5,18 +5,18 @@ import { ValueOf } from '../../types/global';
 import { JIRA_INTEGRATION_SECRET_FORM_NAMES } from './names';
 
 export interface ManageJiraIntegrationSecretFormDataContext {
-    jiraServer: JiraServerKubeObjectInterface;
-    jiraServerSecret: SecretKubeObjectInterface;
-    ownerReference: string | undefined;
-    isReadOnly: boolean;
-    mode: ValueOf<typeof FORM_MODES>;
-    handleClosePanel?: () => void;
+  jiraServer: JiraServerKubeObjectInterface;
+  jiraServerSecret: SecretKubeObjectInterface;
+  ownerReference: string | undefined;
+  isReadOnly: boolean;
+  mode: ValueOf<typeof FORM_MODES>;
+  handleClosePanel?: () => void;
 }
 
 export interface ManageJiraIntegrationSecretProps {
-    formData: ManageJiraIntegrationSecretFormDataContext;
+  formData: ManageJiraIntegrationSecretFormDataContext;
 }
 
 export type ManageJiraIntegrationSecretFormValues = FormValues<
-    typeof JIRA_INTEGRATION_SECRET_FORM_NAMES
+  typeof JIRA_INTEGRATION_SECRET_FORM_NAMES
 >;

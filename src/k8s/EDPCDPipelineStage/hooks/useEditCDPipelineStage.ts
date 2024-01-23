@@ -5,41 +5,41 @@ import { EDPCDPipelineStageKubeObject } from '../index';
 import { EDPCDPipelineStageKubeObjectInterface } from '../types';
 
 interface EditCDPipelineStageProps {
-    CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface;
+  CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface;
 }
 
 export const useEditCDPipelineStage = ({
-    onSuccess,
-    onError,
+  onSuccess,
+  onError,
 }: {
-    onSuccess?: () => void;
-    onError?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
+  const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+  const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-    const CDPipelineStageEditMutation = useResourceCRUDMutation<
-        EDPCDPipelineStageKubeObjectInterface,
-        CRUD_TYPES.EDIT
-    >('CDPipelineStageEditMutation', EDPCDPipelineStageKubeObject, CRUD_TYPES.EDIT);
+  const CDPipelineStageEditMutation = useResourceCRUDMutation<
+    EDPCDPipelineStageKubeObjectInterface,
+    CRUD_TYPES.EDIT
+  >('CDPipelineStageEditMutation', EDPCDPipelineStageKubeObject, CRUD_TYPES.EDIT);
 
-    const editCDPipelineStage = React.useCallback(
-        async ({ CDPipelineStageData }: EditCDPipelineStageProps) => {
-            CDPipelineStageEditMutation.mutate(CDPipelineStageData, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+  const editCDPipelineStage = React.useCallback(
+    async ({ CDPipelineStageData }: EditCDPipelineStageProps) => {
+      CDPipelineStageEditMutation.mutate(CDPipelineStageData, {
+        onSuccess: () => {
+          invokeOnSuccessCallback();
         },
-        [CDPipelineStageEditMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
-    );
+        onError: () => {
+          invokeOnErrorCallback();
+        },
+      });
+    },
+    [CDPipelineStageEditMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
+  );
 
-    const mutations = {
-        CDPipelineStageEditMutation,
-    };
+  const mutations = {
+    CDPipelineStageEditMutation,
+  };
 
-    return { editCDPipelineStage, mutations };
+  return { editCDPipelineStage, mutations };
 };

@@ -7,38 +7,38 @@ import { DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageDefectDojoIntegrationSecretFormDataContext } from '../../../types';
 
 export const ExternalURL = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-        setValue,
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+    setValue,
+  } = useReactHookFormContext();
 
-    const {
-        formData: { mode },
-    } = useFormContext<ManageDefectDojoIntegrationSecretFormDataContext>();
+  const {
+    formData: { mode },
+  } = useFormContext<ManageDefectDojoIntegrationSecretFormDataContext>();
 
-    return (
-        <FormTextField
-            {...register(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name, {
-                required: 'Enter the external DefectDojo URL.',
-                pattern: {
-                    value: /^(?!\/).*(?<!\/)$/,
-                    message: 'Path cannot start or end with slash symbol',
-                },
-                onChange: ({ target: { value } }) => {
-                    if (mode === FORM_MODES.EDIT) {
-                        return;
-                    }
+  return (
+    <FormTextField
+      {...register(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name, {
+        required: 'Enter the external DefectDojo URL.',
+        pattern: {
+          value: /^(?!\/).*(?<!\/)$/,
+          message: 'Path cannot start or end with slash symbol',
+        },
+        onChange: ({ target: { value } }) => {
+          if (mode === FORM_MODES.EDIT) {
+            return;
+          }
 
-                    setValue(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.url.name, value);
-                },
-            })}
-            label={'External URL'}
-            title={'Enter the external URL of your DefectDojo instance.'}
-            placeholder={'Enter URL'}
-            control={control}
-            errors={errors}
-        />
-    );
+          setValue(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.url.name, value);
+        },
+      })}
+      label={'External URL'}
+      title={'Enter the external URL of your DefectDojo instance.'}
+      placeholder={'Enter URL'}
+      control={control}
+      errors={errors}
+    />
+  );
 };

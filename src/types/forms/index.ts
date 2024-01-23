@@ -1,49 +1,49 @@
 import { ValueOf } from '../global';
 
 export interface FormNameObject {
-    name: string;
-    formPart?: string;
-    path?: string[];
-    notUsedInFormData?: boolean;
-    value?: any;
+  name: string;
+  formPart?: string;
+  path?: string[];
+  notUsedInFormData?: boolean;
+  value?: any;
 }
 export interface FormNamesObject {
-    [key: string]: FormNameObject;
+  [key: string]: FormNameObject;
 }
 export type FormValues<T extends FormNamesObject> = Record<keyof T, any>;
 
 export interface BackwardNameMappingChildren {
-    formItemName?: string;
-    children?: {
-        [key: string]: BackwardNameMappingChildren;
-    };
+  formItemName?: string;
+  children?: {
+    [key: string]: BackwardNameMappingChildren;
+  };
 }
 export interface BackwardNameMapping {
-    [key: string]: {
-        children?: {
-            [key: string]: BackwardNameMappingChildren;
-        };
+  [key: string]: {
+    children?: {
+      [key: string]: BackwardNameMappingChildren;
     };
+  };
 }
 
 export interface SelectOption {
-    label: string;
-    value: string;
-    disabled?: boolean;
+  label: string;
+  value: string;
+  disabled?: boolean;
 }
 
 export interface FieldEventTarget {
-    name: string;
-    value: any;
+  name: string;
+  value: any;
 }
 
 export interface FieldEvent {
-    target: FieldEventTarget;
+  target: FieldEventTarget;
 }
 
 export const FORM_MODES = {
-    CREATE: 'create',
-    EDIT: 'edit',
+  CREATE: 'create',
+  EDIT: 'edit',
 } as const;
 
 export type FormMode = ValueOf<typeof FORM_MODES>;

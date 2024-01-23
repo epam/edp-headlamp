@@ -3,42 +3,42 @@ import { ApplicationKubeObject } from '../index';
 import { ApplicationKubeObjectInterface } from '../types';
 
 interface UseStreamApplicationListByPipelineStageLabelProps {
-    namespace: string;
-    stageSpecName: string;
-    CDPipelineMetadataName: string;
-    select?: (data: ApplicationKubeObjectInterface[]) => ApplicationKubeObjectInterface[];
+  namespace: string;
+  stageSpecName: string;
+  CDPipelineMetadataName: string;
+  select?: (data: ApplicationKubeObjectInterface[]) => ApplicationKubeObjectInterface[];
 }
 
 export const useStreamApplicationListByPipelineStageLabel = ({
-    namespace,
-    stageSpecName,
-    CDPipelineMetadataName,
-    select,
+  namespace,
+  stageSpecName,
+  CDPipelineMetadataName,
+  select,
 }: UseStreamApplicationListByPipelineStageLabelProps) => {
-    const [applicationList, setApplicationList] = React.useState<ApplicationKubeObjectInterface[]>(
-        []
-    );
+  const [applicationList, setApplicationList] = React.useState<ApplicationKubeObjectInterface[]>(
+    []
+  );
 
-    React.useEffect(() => {
-        if (!stageSpecName) {
-            return;
-        }
+  React.useEffect(() => {
+    if (!stageSpecName) {
+      return;
+    }
 
-        const cancelStream = ApplicationKubeObject.streamApplicationListByPipelineStageLabel({
-            namespace,
-            stageSpecName,
-            CDPipelineMetadataName,
-            dataHandler: data => {
-                const selectedData = select ? select(data) : data;
-                setApplicationList(selectedData);
-            },
-            errorHandler: error => console.error(error),
-        });
+    const cancelStream = ApplicationKubeObject.streamApplicationListByPipelineStageLabel({
+      namespace,
+      stageSpecName,
+      CDPipelineMetadataName,
+      dataHandler: data => {
+        const selectedData = select ? select(data) : data;
+        setApplicationList(selectedData);
+      },
+      errorHandler: error => console.error(error),
+    });
 
-        return () => {
-            cancelStream();
-        };
-    }, [CDPipelineMetadataName, namespace, select, stageSpecName]);
+    return () => {
+      cancelStream();
+    };
+  }, [CDPipelineMetadataName, namespace, select, stageSpecName]);
 
-    return applicationList;
+  return applicationList;
 };

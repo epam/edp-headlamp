@@ -10,122 +10,122 @@ import { useFormContext } from '../../../../../../../providers/Form/hooks';
 import { ManageRegistryDataContext } from '../../../../../types';
 
 export const useResetRegistry = ({ onSuccess }) => {
-    const { getValues } = useReactHookFormContext();
-    const {
-        formData: { tektonServiceAccount, EDPConfigMap, pushAccountSecret, pullAccountSecret },
-    } = useFormContext<ManageRegistryDataContext>();
+  const { getValues } = useReactHookFormContext();
+  const {
+    formData: { tektonServiceAccount, EDPConfigMap, pushAccountSecret, pullAccountSecret },
+  } = useFormContext<ManageRegistryDataContext>();
 
-    const secretsArray = [pushAccountSecret, pullAccountSecret].filter(Boolean);
+  const secretsArray = [pushAccountSecret, pullAccountSecret].filter(Boolean);
 
-    const {
-        editConfigMap,
-        mutations: { configMapEditMutation },
-    } = useConfigMapCRUD({
-        onSuccess: onSuccess,
-    });
+  const {
+    editConfigMap,
+    mutations: { configMapEditMutation },
+  } = useConfigMapCRUD({
+    onSuccess: onSuccess,
+  });
 
-    const {
-        deleteSecret,
-        mutations: { secretDeleteMutation },
-    } = useSecretCRUD({});
+  const {
+    deleteSecret,
+    mutations: { secretDeleteMutation },
+  } = useSecretCRUD({});
 
-    const {
-        editServiceAccount,
-        mutations: { serviceAccountEditMutation },
-    } = useEditServiceAccount({});
+  const {
+    editServiceAccount,
+    mutations: { serviceAccountEditMutation },
+  } = useEditServiceAccount({});
 
-    const isLoading =
-        serviceAccountEditMutation.isLoading ||
-        secretDeleteMutation.isLoading ||
-        configMapEditMutation.isLoading;
+  const isLoading =
+    serviceAccountEditMutation.isLoading ||
+    secretDeleteMutation.isLoading ||
+    configMapEditMutation.isLoading;
 
-    const resetRegistry = async () => {
-        const formValues = getValues();
+  const resetRegistry = async () => {
+    const formValues = getValues();
 
-        const { registryType, irsaRoleArn } = formValues;
+    const { registryType, irsaRoleArn } = formValues;
 
-        const resetECR = async () => {
-            const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
-                registryHost: '',
-                registrySpace: '',
-                registryType: '',
-                awsRegion: '',
-            });
+    const resetECR = async () => {
+      const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
+        registryHost: '',
+        registrySpace: '',
+        registryType: '',
+        awsRegion: '',
+      });
 
-            const editedServiceAccount = editResource(
-                {
-                    irsaRoleArn: {
-                        name: irsaRoleArn,
-                        path: ['metadata', 'annotations', 'eks.amazonaws.com/role-arn'],
-                    },
-                },
-                tektonServiceAccount as ServiceAccountKubeObjectInterface,
-                {
-                    irsaRoleArn: '',
-                }
-            );
-
-            for (const secret of secretsArray) {
-                await deleteSecret({ secretData: secret });
-            }
-
-            await editServiceAccount({ serviceAccount: editedServiceAccount });
-            await editConfigMap({ configMapData: newEDPConfigMap });
-        };
-
-        const resetDockerHub = async () => {
-            const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
-                registryHost: '',
-                registrySpace: '',
-                registryType: '',
-            });
-
-            for (const secret of secretsArray) {
-                await deleteSecret({ secretData: secret });
-            }
-            await editConfigMap({ configMapData: newEDPConfigMap });
-        };
-
-        const resetHarbor = async () => {
-            const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
-                registryHost: '',
-                registrySpace: '',
-                registryType: '',
-            });
-
-            for (const secret of secretsArray) {
-                await deleteSecret({ secretData: secret });
-            }
-            await editConfigMap({ configMapData: newEDPConfigMap });
-        };
-
-        const resetOpenshift = async () => {
-            const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
-                registryHost: '',
-                registrySpace: '',
-                registryType: '',
-            });
-
-            await deleteSecret({ secretData: pushAccountSecret });
-
-            await editConfigMap({ configMapData: newEDPConfigMap });
-        };
-
-        switch (registryType) {
-            case CONTAINER_REGISTRY_TYPE.ECR:
-                await resetECR();
-                break;
-            case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
-                await resetDockerHub();
-                break;
-            case CONTAINER_REGISTRY_TYPE.HARBOR:
-                await resetHarbor();
-                break;
-            case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
-                await resetOpenshift();
-                break;
+      const editedServiceAccount = editResource(
+        {
+          irsaRoleArn: {
+            name: irsaRoleArn,
+            path: ['metadata', 'annotations', 'eks.amazonaws.com/role-arn'],
+          },
+        },
+        tektonServiceAccount as ServiceAccountKubeObjectInterface,
+        {
+          irsaRoleArn: '',
         }
+      );
+
+      for (const secret of secretsArray) {
+        await deleteSecret({ secretData: secret });
+      }
+
+      await editServiceAccount({ serviceAccount: editedServiceAccount });
+      await editConfigMap({ configMapData: newEDPConfigMap });
     };
 
-    return { resetRegistry, isLoading };
+    const resetDockerHub = async () => {
+      const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
+        registryHost: '',
+        registrySpace: '',
+        registryType: '',
+      });
+
+      for (const secret of secretsArray) {
+        await deleteSecret({ secretData: secret });
+      }
+      await editConfigMap({ configMapData: newEDPConfigMap });
+    };
+
+    const resetHarbor = async () => {
+      const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
+        registryHost: '',
+        registrySpace: '',
+        registryType: '',
+      });
+
+      for (const secret of secretsArray) {
+        await deleteSecret({ secretData: secret });
+      }
+      await editConfigMap({ configMapData: newEDPConfigMap });
+    };
+
+    const resetOpenshift = async () => {
+      const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
+        registryHost: '',
+        registrySpace: '',
+        registryType: '',
+      });
+
+      await deleteSecret({ secretData: pushAccountSecret });
+
+      await editConfigMap({ configMapData: newEDPConfigMap });
+    };
+
+    switch (registryType) {
+      case CONTAINER_REGISTRY_TYPE.ECR:
+        await resetECR();
+        break;
+      case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
+        await resetDockerHub();
+        break;
+      case CONTAINER_REGISTRY_TYPE.HARBOR:
+        await resetHarbor();
+        break;
+      case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
+        await resetOpenshift();
+        break;
+    }
+  };
+
+  return { resetRegistry, isLoading };
 };

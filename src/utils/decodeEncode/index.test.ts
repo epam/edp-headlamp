@@ -1,22 +1,22 @@
 import { safeDecode, safeEncode } from './index';
 
 describe('testing safeDecode function', () => {
-    it('should return decoded value', () => {
-        const value = 'dGVzdC10b2tlbg==';
-        const decodedValue = safeDecode(value);
-        expect(decodedValue).toEqual('test-token');
-    });
-    it('should return safe value when given parameter is undefined', () => {
-        const value = undefined;
-        const decodedValue = safeDecode(value);
-        expect(decodedValue).toBeUndefined();
-    });
+  it('should return decoded value', () => {
+    const value = 'dGVzdC10b2tlbg==';
+    const decodedValue = safeDecode(value);
+    expect(decodedValue).toEqual('test-token');
+  });
+  it('should return safe value when given parameter is undefined', () => {
+    const value = undefined;
+    const decodedValue = safeDecode(value);
+    expect(decodedValue).toBeUndefined();
+  });
 });
 
 describe('testing safeEncode function', () => {
-    it('should return encoded value', () => {
-        const value = 'test-token';
-        const encodedValue = safeEncode(value);
-        expect(encodedValue).toEqual('dGVzdC10b2tlbg==');
-    });
+  it('should return encoded value', () => {
+    const value = 'test-token';
+    const encodedValue = safeEncode(value);
+    expect(encodedValue).toEqual('dGVzdC10b2tlbg==');
+  });
 });

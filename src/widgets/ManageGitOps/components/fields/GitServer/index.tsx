@@ -9,48 +9,46 @@ import { CODEBASE_FORM_NAMES } from '../../../names';
 import { ManageGitOpsDataContext, ManageGitOpsValues } from '../../../types';
 
 export const GitServer = () => {
-    const { data: gitServers } = useGitServerListQuery({});
-    const gitServersOptions = React.useMemo(
-        () => gitServers?.items.map(({ metadata: { name } }) => ({ label: name, value: name })),
-        [gitServers?.items]
-    );
+  const { data: gitServers } = useGitServerListQuery({});
+  const gitServersOptions = React.useMemo(
+    () => gitServers?.items.map(({ metadata: { name } }) => ({ label: name, value: name })),
+    [gitServers?.items]
+  );
 
-    const {
-        register,
-        control,
-        formState: { errors },
-        watch,
-        setValue,
-    } = useReactHookFormContext<ManageGitOpsValues>();
+  const {
+    register,
+    control,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useReactHookFormContext<ManageGitOpsValues>();
 
-    const {
-        formData: { isReadOnly },
-    } = useFormContext<ManageGitOpsDataContext>();
+  const {
+    formData: { isReadOnly },
+  } = useFormContext<ManageGitOpsDataContext>();
 
-    const gitRepoPathFieldValue = watch(CODEBASE_FORM_NAMES.gitRepoPath.name);
-    const nameFieldValue = watch(CODEBASE_FORM_NAMES.name.name);
+  const gitRepoPathFieldValue = watch(CODEBASE_FORM_NAMES.gitRepoPath.name);
+  const nameFieldValue = watch(CODEBASE_FORM_NAMES.name.name);
 
-    return (
-        <FormSelect
-            {...register(CODEBASE_FORM_NAMES.gitServer.name, {
-                required: 'Select an existing Git server',
-                onChange: ({ target: { value } }: FieldEvent) => {
-                    const isGerrit = value === GIT_SERVERS.GERRIT;
+  return (
+    <FormSelect
+      {...register(CODEBASE_FORM_NAMES.gitServer.name, {
+        required: 'Select an existing Git server',
+        onChange: ({ target: { value } }: FieldEvent) => {
+          const isGerrit = value === GIT_SERVERS.GERRIT;
 
-                    setValue(
-                        CODEBASE_FORM_NAMES.gitUrlPath.name,
-                        isGerrit
-                            ? `/${nameFieldValue}`
-                            : `${gitRepoPathFieldValue}/${nameFieldValue}`
-                    );
-                },
-            })}
-            label={'Git server'}
-            title={'Select an existing Git server'}
-            control={control}
-            errors={errors}
-            options={gitServersOptions}
-            disabled={isReadOnly}
-        />
-    );
+          setValue(
+            CODEBASE_FORM_NAMES.gitUrlPath.name,
+            isGerrit ? `/${nameFieldValue}` : `${gitRepoPathFieldValue}/${nameFieldValue}`
+          );
+        },
+      })}
+      label={'Git server'}
+      title={'Select an existing Git server'}
+      control={control}
+      errors={errors}
+      options={gitServersOptions}
+      disabled={isReadOnly}
+    />
+  );
 };

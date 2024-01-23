@@ -4,19 +4,17 @@ import { ARGOCD_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageArgoCDIntegrationSecretFormDataContext } from '../../../types';
 
 export const useDefaultValues = ({
-    formData,
+  formData,
 }: {
-    formData: ManageArgoCDIntegrationSecretFormDataContext;
+  formData: ManageArgoCDIntegrationSecretFormDataContext;
 }) => {
-    const { argoCDSecret, argoCDEDPComponent } = formData;
+  const { argoCDSecret, argoCDEDPComponent } = formData;
 
-    return React.useMemo(() => {
-        return {
-            [ARGOCD_INTEGRATION_SECRET_FORM_NAMES.token.name]: safeDecode(
-                argoCDSecret?.data?.token
-            ),
-            [ARGOCD_INTEGRATION_SECRET_FORM_NAMES.url.name]: safeDecode(argoCDSecret?.data?.url),
-            [ARGOCD_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: argoCDEDPComponent?.spec.url,
-        };
-    }, [argoCDSecret, argoCDEDPComponent]);
+  return React.useMemo(() => {
+    return {
+      [ARGOCD_INTEGRATION_SECRET_FORM_NAMES.token.name]: safeDecode(argoCDSecret?.data?.token),
+      [ARGOCD_INTEGRATION_SECRET_FORM_NAMES.url.name]: safeDecode(argoCDSecret?.data?.url),
+      [ARGOCD_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: argoCDEDPComponent?.spec.url,
+    };
+  }, [argoCDSecret, argoCDEDPComponent]);
 };

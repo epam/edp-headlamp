@@ -1,4 +1,4 @@
 export interface EDPCDPipelineRouteParams {
-    name: string;
-    namespace: string;
+  name: string;
+  namespace: string;
 }

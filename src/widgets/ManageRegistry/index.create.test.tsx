@@ -11,21 +11,21 @@ import { ConfigMapKubeObjectInterface } from '../../k8s/ConfigMap/types';
 import { ManageRegistry } from './index';
 
 test('renders ManageRegistry Kubernetes Create component', () => {
-    render(
-        <TestWrapper>
-            <ManageRegistry
-                formData={{
-                    EDPConfigMap: createEmptyEdpConfigMapMock(
-                        CONTAINER_REGISTRY_PLATFORM.KUBERNETES
-                    ) as unknown as ConfigMapKubeObjectInterface,
-                    pullAccountSecret: null,
-                    pushAccountSecret: null,
-                    tektonServiceAccount: null,
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageRegistry
+        formData={{
+          EDPConfigMap: createEmptyEdpConfigMapMock(
+            CONTAINER_REGISTRY_PLATFORM.KUBERNETES
+          ) as unknown as ConfigMapKubeObjectInterface,
+          pullAccountSecret: null,
+          pushAccountSecret: null,
+          tektonServiceAccount: null,
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

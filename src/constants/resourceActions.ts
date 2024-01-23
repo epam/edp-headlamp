@@ -1,5 +1,5 @@
 export enum RESOURCE_ACTIONS {
-    EDIT = 'EDIT',
-    DELETE = 'DELETE',
-    DEFINE = 'DEFINE',
+  EDIT = 'EDIT',
+  DELETE = 'DELETE',
+  DEFINE = 'DEFINE',
 }

@@ -4,14 +4,14 @@ import { FieldErrors } from 'react-hook-form/dist/types/errors';
 import { SelectOption } from '../../../../types/forms';
 
 export interface FormSelectProps {
-    name: string;
-    errors: FieldErrors;
-    options: SelectOption[];
-    control: Control<any>;
-    label?: string;
-    title?: string | React.ReactElement;
-    placeholder?: string;
-    showLabelPlaceholder?: boolean;
-    defaultValue?: string;
-    disabled?: boolean;
+  name: string;
+  errors: FieldErrors;
+  options: SelectOption[];
+  control: Control<any>;
+  label?: string;
+  title?: string | React.ReactElement;
+  placeholder?: string;
+  showLabelPlaceholder?: boolean;
+  defaultValue?: string;
+  disabled?: boolean;
 }

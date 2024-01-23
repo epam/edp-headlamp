@@ -7,29 +7,27 @@ import { SSO_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageSSOIntegrationSecretFormDataContext } from '../../../types';
 
 export const User = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useReactHookFormContext();
 
-    const {
-        formData: { mode, isReadOnly },
-    } = useFormContext<ManageSSOIntegrationSecretFormDataContext>();
+  const {
+    formData: { mode, isReadOnly },
+  } = useFormContext<ManageSSOIntegrationSecretFormDataContext>();
 
-    return (
-        <FormTextField
-            {...register(SSO_INTEGRATION_SECRET_FORM_NAMES.username.name, {
-                required: 'Enter your realm provisioner username.',
-            })}
-            label={'User'}
-            title={
-                'Enter your realm provisioner username associated with your Keycloak SSO account.'
-            }
-            placeholder={'Enter user name'}
-            control={control}
-            errors={errors}
-            disabled={mode === FORM_MODES.EDIT && isReadOnly}
-        />
-    );
+  return (
+    <FormTextField
+      {...register(SSO_INTEGRATION_SECRET_FORM_NAMES.username.name, {
+        required: 'Enter your realm provisioner username.',
+      })}
+      label={'User'}
+      title={'Enter your realm provisioner username associated with your Keycloak SSO account.'}
+      placeholder={'Enter user name'}
+      control={control}
+      errors={errors}
+      disabled={mode === FORM_MODES.EDIT && isReadOnly}
+    />
+  );
 };

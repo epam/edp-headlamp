@@ -7,33 +7,33 @@ import { SONAR_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageSonarIntegrationSecretFormDataContext } from '../../../types';
 
 export const URL = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useReactHookFormContext();
 
-    const {
-        formData: { mode, ownerReference },
-    } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
+  const {
+    formData: { mode, ownerReference },
+  } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
 
-    return (
-        <FormTextFieldEditable
-            {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.url.name, {
-                required: 'Enter the SonarQube URL.',
-                pattern: {
-                    value: /^(?!\/).*(?<!\/)$/,
-                    message: 'Path cannot start or end with slash symbol',
-                },
-            })}
-            label={'URL'}
-            title={
-                'Enter the URL of your SonarQube instance. This is typically the address where SonarQube is hosted (e.g., https://sonarqube.example.com:9000).'
-            }
-            placeholder={'Enter URL'}
-            control={control}
-            errors={errors}
-            disabled={mode === FORM_MODES.EDIT && !!ownerReference}
-        />
-    );
+  return (
+    <FormTextFieldEditable
+      {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.url.name, {
+        required: 'Enter the SonarQube URL.',
+        pattern: {
+          value: /^(?!\/).*(?<!\/)$/,
+          message: 'Path cannot start or end with slash symbol',
+        },
+      })}
+      label={'URL'}
+      title={
+        'Enter the URL of your SonarQube instance. This is typically the address where SonarQube is hosted (e.g., https://sonarqube.example.com:9000).'
+      }
+      placeholder={'Enter URL'}
+      control={control}
+      errors={errors}
+      disabled={mode === FORM_MODES.EDIT && !!ownerReference}
+    />
+  );
 };

@@ -5,84 +5,84 @@ import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 
 interface CreateSecretProps {
-    secretData: KubeObjectInterface;
+  secretData: KubeObjectInterface;
 }
 
 export const useSecretCRUD = ({
-    onSuccess,
-    onError,
+  onSuccess,
+  onError,
 }: {
-    onSuccess?: () => void;
-    onError?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
+  const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+  const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-    const secretCreateMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.CREATE>(
-        'secretCreateMutation',
-        K8s.secret.default,
-        CRUD_TYPES.CREATE
-    );
+  const secretCreateMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.CREATE>(
+    'secretCreateMutation',
+    K8s.secret.default,
+    CRUD_TYPES.CREATE
+  );
 
-    const secretEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.EDIT>(
-        'secretEditMutation',
-        K8s.secret.default,
-        CRUD_TYPES.EDIT
-    );
+  const secretEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.EDIT>(
+    'secretEditMutation',
+    K8s.secret.default,
+    CRUD_TYPES.EDIT
+  );
 
-    const secretDeleteMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.DELETE>(
-        'secretDeleteMutation',
-        K8s.secret.default,
-        CRUD_TYPES.DELETE
-    );
+  const secretDeleteMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.DELETE>(
+    'secretDeleteMutation',
+    K8s.secret.default,
+    CRUD_TYPES.DELETE
+  );
 
-    const createSecret = React.useCallback(
-        async ({ secretData }: CreateSecretProps) => {
-            secretCreateMutation.mutate(secretData, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+  const createSecret = React.useCallback(
+    async ({ secretData }: CreateSecretProps) => {
+      secretCreateMutation.mutate(secretData, {
+        onSuccess: () => {
+          invokeOnSuccessCallback();
         },
-        [secretCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
-    );
-
-    const editSecret = React.useCallback(
-        async ({ secretData }: CreateSecretProps) => {
-            secretEditMutation.mutate(secretData, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+        onError: () => {
+          invokeOnErrorCallback();
         },
-        [secretEditMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
-    );
+      });
+    },
+    [secretCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
+  );
 
-    const deleteSecret = React.useCallback(
-        async ({ secretData }: CreateSecretProps) => {
-            secretDeleteMutation.mutate(secretData, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+  const editSecret = React.useCallback(
+    async ({ secretData }: CreateSecretProps) => {
+      secretEditMutation.mutate(secretData, {
+        onSuccess: () => {
+          invokeOnSuccessCallback();
         },
-        [secretDeleteMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
-    );
+        onError: () => {
+          invokeOnErrorCallback();
+        },
+      });
+    },
+    [secretEditMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
+  );
 
-    const mutations = {
-        secretCreateMutation,
-        secretEditMutation,
-        secretDeleteMutation,
-    };
+  const deleteSecret = React.useCallback(
+    async ({ secretData }: CreateSecretProps) => {
+      secretDeleteMutation.mutate(secretData, {
+        onSuccess: () => {
+          invokeOnSuccessCallback();
+        },
+        onError: () => {
+          invokeOnErrorCallback();
+        },
+      });
+    },
+    [secretDeleteMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
+  );
 
-    return { createSecret, editSecret, deleteSecret, mutations };
+  const mutations = {
+    secretCreateMutation,
+    secretEditMutation,
+    secretDeleteMutation,
+  };
+
+  return { createSecret, editSecret, deleteSecret, mutations };
 };

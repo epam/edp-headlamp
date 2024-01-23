@@ -7,48 +7,48 @@ exports[`KubeObjectActions renders correctly 1`] = `
 >
   <div>
     <div
-      aria-disabled="false"
-      class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-button"
+      class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-nrxwcn-MuiButtonBase-root-MuiListItem-root"
       role="button"
       tabindex="0"
     >
       <div
-        class="MuiListItemIcon-root"
+        class="MuiListItemIcon-root css-cveggr-MuiListItemIcon-root"
       >
         <span />
       </div>
       <div
-        class="MuiListItemText-root"
+        class="MuiListItemText-root css-tlelie-MuiListItemText-root"
       >
         <span
-          class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+          class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-nqgwvn-MuiTypography-root"
         >
           Testkubeaction
         </span>
       </div>
       <span
-        class="MuiTouchRipple-root"
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
       />
     </div>
   </div>
   <div>
     <div
       aria-disabled="true"
-      class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters Mui-disabled MuiListItem-button Mui-disabled"
+      aria-label="For testing"
+      class="MuiButtonBase-root Mui-disabled MuiListItem-root MuiListItem-gutters MuiListItem-padding Mui-disabled MuiListItem-button css-nrxwcn-MuiButtonBase-root-MuiListItem-root"
+      data-mui-internal-clone-element="true"
       role="button"
       tabindex="-1"
-      title="For testing"
     >
       <div
-        class="MuiListItemIcon-root"
+        class="MuiListItemIcon-root css-cveggr-MuiListItemIcon-root"
       >
         <span />
       </div>
       <div
-        class="MuiListItemText-root"
+        class="MuiListItemText-root css-tlelie-MuiListItemText-root"
       >
         <span
-          class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+          class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-nqgwvn-MuiTypography-root"
         >
           Testdisabledkubeaction
         </span>

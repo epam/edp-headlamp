@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, Typography } from '@material-ui/core';
+import { CircularProgress, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { DocLink } from '../../../../components/DocLink';
 import { EmptyList } from '../../../../components/EmptyList';
@@ -15,107 +15,105 @@ import { CodebaseBranchesListProps } from './types';
 import { isDefaultBranch } from './utils';
 
 export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps) => {
-    const { setDialog } = useDialogContext();
+  const { setDialog } = useDialogContext();
 
-    const {
-        metadata: { name, namespace },
-        spec: { defaultBranch },
-    } = codebaseData;
+  const {
+    metadata: { name, namespace },
+    spec: { defaultBranch },
+  } = codebaseData;
 
-    const [currentCodebaseBranches, setCurrentCodebaseBranches] =
-        React.useState<EDPCodebaseBranchKubeObjectInterface[]>(null);
-    const [, setError] = React.useState<Error>(null);
-    const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
+  const [currentCodebaseBranches, setCurrentCodebaseBranches] =
+    React.useState<EDPCodebaseBranchKubeObjectInterface[]>(null);
+  const [, setError] = React.useState<Error>(null);
+  const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
 
-    const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-        setExpandedPanel(isExpanded ? panel : null);
-    };
+  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpandedPanel(isExpanded ? panel : null);
+  };
 
-    const handleStoreCodebaseBranches = React.useCallback(
-        (data: EDPCodebaseBranchKubeObjectInterface[]) => {
-            const sortedCodebaseBranches = data.sort(a =>
-                isDefaultBranch(codebaseData, a) ? -1 : 1
+  const handleStoreCodebaseBranches = React.useCallback(
+    (data: EDPCodebaseBranchKubeObjectInterface[]) => {
+      const sortedCodebaseBranches = data.sort(a => (isDefaultBranch(codebaseData, a) ? -1 : 1));
+      setCurrentCodebaseBranches(sortedCodebaseBranches);
+
+      if (sortedCodebaseBranches.length === 1) {
+        setExpandedPanel(`${sortedCodebaseBranches[0].spec.branchName}:0`);
+      }
+    },
+    [setCurrentCodebaseBranches, codebaseData]
+  );
+
+  const handleError = React.useCallback((error: Error) => {
+    setError(error);
+  }, []);
+
+  React.useEffect(() => {
+    const cancelStream = EDPCodebaseBranchKubeObject.streamListByCodebaseLabel(
+      name,
+      handleStoreCodebaseBranches,
+      handleError,
+      namespace
+    );
+
+    return () => cancelStream();
+  }, [name, namespace, handleStoreCodebaseBranches, handleError]);
+
+  return (
+    <Section
+      title={
+        <Grid container alignItems={'center'} spacing={1}>
+          <Grid item>
+            <Typography variant={'h1'}>Branches</Typography>
+          </Grid>
+          <Grid item>
+            <DocLink href={EDP_USER_GUIDE.BRANCHES_MANAGE.url} />
+          </Grid>
+          <Grid item style={{ marginLeft: 'auto' }}>
+            <TableHeaderActions
+              codebase={codebaseData}
+              defaultBranch={currentCodebaseBranches?.[0]}
+            />
+          </Grid>
+        </Grid>
+      }
+    >
+      <CodebaseBranchActions defaultBranch={defaultBranch} codebase={codebaseData} />
+      {currentCodebaseBranches === null ? (
+        <Grid container justifyContent={'center'} alignItems={'center'}>
+          <Grid item>
+            <CircularProgress />
+          </Grid>
+        </Grid>
+      ) : currentCodebaseBranches.length ? (
+        currentCodebaseBranches.map(
+          (codebaseBranchData: EDPCodebaseBranchKubeObjectInterface, idx: number) => {
+            const branchId = `${codebaseBranchData.spec.branchName}:${idx}`;
+
+            return (
+              <CodebaseBranch
+                key={branchId}
+                id={branchId}
+                codebaseBranchData={codebaseBranchData}
+                expandedPanel={expandedPanel}
+                codebaseData={codebaseData}
+                handlePanelChange={handleChange}
+              />
             );
-            setCurrentCodebaseBranches(sortedCodebaseBranches);
-
-            if (sortedCodebaseBranches.length === 1) {
-                setExpandedPanel(`${sortedCodebaseBranches[0].spec.branchName}:0`);
-            }
-        },
-        [setCurrentCodebaseBranches, codebaseData]
-    );
-
-    const handleError = React.useCallback((error: Error) => {
-        setError(error);
-    }, []);
-
-    React.useEffect(() => {
-        const cancelStream = EDPCodebaseBranchKubeObject.streamListByCodebaseLabel(
-            name,
-            handleStoreCodebaseBranches,
-            handleError,
-            namespace
-        );
-
-        return () => cancelStream();
-    }, [name, namespace, handleStoreCodebaseBranches, handleError]);
-
-    return (
-        <Section
-            title={
-                <Grid container alignItems={'center'} spacing={1}>
-                    <Grid item>
-                        <Typography variant={'h1'}>Branches</Typography>
-                    </Grid>
-                    <Grid item>
-                        <DocLink href={EDP_USER_GUIDE.BRANCHES_MANAGE.url} />
-                    </Grid>
-                    <Grid item style={{ marginLeft: 'auto' }}>
-                        <TableHeaderActions
-                            codebase={codebaseData}
-                            defaultBranch={currentCodebaseBranches?.[0]}
-                        />
-                    </Grid>
-                </Grid>
-            }
-        >
-            <CodebaseBranchActions defaultBranch={defaultBranch} codebase={codebaseData} />
-            {currentCodebaseBranches === null ? (
-                <Grid container justifyContent={'center'} alignItems={'center'}>
-                    <Grid item>
-                        <CircularProgress />
-                    </Grid>
-                </Grid>
-            ) : currentCodebaseBranches.length ? (
-                currentCodebaseBranches.map(
-                    (codebaseBranchData: EDPCodebaseBranchKubeObjectInterface, idx: number) => {
-                        const branchId = `${codebaseBranchData.spec.branchName}:${idx}`;
-
-                        return (
-                            <CodebaseBranch
-                                key={branchId}
-                                id={branchId}
-                                codebaseBranchData={codebaseBranchData}
-                                expandedPanel={expandedPanel}
-                                codebaseData={codebaseData}
-                                handlePanelChange={handleChange}
-                            />
-                        );
-                    }
-                )
-            ) : (
-                <EmptyList
-                    missingItemName={'branches'}
-                    handleClick={() =>
-                        setDialog({
-                            modalName: CREATE_CODEBASE_BRANCH_DIALOG_NAME,
-                            forwardedProps: {
-                                codebase: codebaseData,
-                            },
-                        })
-                    }
-                />
-            )}
-        </Section>
-    );
+          }
+        )
+      ) : (
+        <EmptyList
+          missingItemName={'branches'}
+          handleClick={() =>
+            setDialog({
+              modalName: CREATE_CODEBASE_BRANCH_DIALOG_NAME,
+              forwardedProps: {
+                codebase: codebaseData,
+              },
+            })
+          }
+        />
+      )}
+    </Section>
+  );
 };

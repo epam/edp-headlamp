@@ -7,17 +7,17 @@ import { ViewModeContextProvider } from '../../providers/ViewMode';
 import { PageView } from './view';
 
 export default function () {
-    return (
-        <PageLogicWrapper>
-            <ViewModeContextProvider entityID={'marketplace'}>
-                <DialogContextProvider>
-                    <FilterContextProvider>
-                        <NamespacesGuardWrapper>
-                            <PageView />
-                        </NamespacesGuardWrapper>
-                    </FilterContextProvider>
-                </DialogContextProvider>
-            </ViewModeContextProvider>
-        </PageLogicWrapper>
-    );
+  return (
+    <PageLogicWrapper>
+      <ViewModeContextProvider entityID={'marketplace'}>
+        <DialogContextProvider>
+          <FilterContextProvider>
+            <NamespacesGuardWrapper>
+              <PageView />
+            </NamespacesGuardWrapper>
+          </FilterContextProvider>
+        </DialogContextProvider>
+      </ViewModeContextProvider>
+    </PageLogicWrapper>
+  );
 }

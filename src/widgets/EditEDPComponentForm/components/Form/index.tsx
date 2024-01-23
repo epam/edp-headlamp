@@ -1,6 +1,6 @@
 import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
@@ -11,54 +11,54 @@ import { Icon, Name, URL, Visible } from '../fields';
 import { FormProps } from './types';
 
 export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
-    const { getValues, setValue, resetField } = useReactHookFormContext<ManageEDPComponentValues>();
+  const { getValues, setValue, resetField } = useReactHookFormContext<ManageEDPComponentValues>();
 
-    const handleCloseEditor = React.useCallback(() => setEditorOpen(false), [setEditorOpen]);
+  const handleCloseEditor = React.useCallback(() => setEditorOpen(false), [setEditorOpen]);
 
-    const { handleEditorSave } = useHandleEditorSave({
-        names: EDP_COMPONENT_FORM_NAMES,
-        setValue,
-        resetField,
-    });
+  const { handleEditorSave } = useHandleEditorSave({
+    names: EDP_COMPONENT_FORM_NAMES,
+    setValue,
+    resetField,
+  });
 
-    const onEditorSave = React.useCallback(
-        (editorReturnValues: KubeObjectInterface[]) => {
-            const formValues = getValues();
-            const usedValues = getUsedValues(formValues, EDP_COMPONENT_FORM_NAMES);
-            handleEditorSave(editorReturnValues, usedValues);
-            handleCloseEditor();
-        },
-        [getValues, handleCloseEditor, handleEditorSave]
-    );
+  const onEditorSave = React.useCallback(
+    (editorReturnValues: KubeObjectInterface[]) => {
+      const formValues = getValues();
+      const usedValues = getUsedValues(formValues, EDP_COMPONENT_FORM_NAMES);
+      handleEditorSave(editorReturnValues, usedValues);
+      handleCloseEditor();
+    },
+    [getValues, handleCloseEditor, handleEditorSave]
+  );
 
-    return (
-        <>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={4}>
-                            <Name />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <URL />
-                        </Grid>
-                        <Grid item xs={4} style={{ marginTop: 'auto' }}>
-                            <Visible />
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                    <Icon />
-                </Grid>
+  return (
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <Name />
             </Grid>
-            {editorOpen && (
-                <EditorDialog
-                    open={editorOpen}
-                    item={editorData}
-                    onClose={handleCloseEditor}
-                    onSave={onEditorSave}
-                />
-            )}
-        </>
-    );
+            <Grid item xs={4}>
+              <URL />
+            </Grid>
+            <Grid item xs={4} style={{ marginTop: 'auto' }}>
+              <Visible />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Icon />
+        </Grid>
+      </Grid>
+      {editorOpen && (
+        <EditorDialog
+          open={editorOpen}
+          item={editorData}
+          onClose={handleCloseEditor}
+          onSave={onEditorSave}
+        />
+      )}
+    </>
+  );
 };

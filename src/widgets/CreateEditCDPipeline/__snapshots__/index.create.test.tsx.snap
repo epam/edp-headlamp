@@ -2,178 +2,156 @@
 
 exports[`renders CreateEditCDPipeline Create component 1`] = `
 <div
-  class="MuiDialog-root"
+  class="MuiDialog-root MuiModal-root css-zw3mfo-MuiModal-root-MuiDialog-root"
   data-testid="dialog"
   role="presentation"
-  style="position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;"
 >
   <div
     aria-hidden="true"
-    class="MuiBackdrop-root"
+    class="MuiBackdrop-root MuiModal-backdrop css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop"
     style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
   />
   <div
-    data-test="sentinelStart"
+    data-testid="sentinelStart"
     tabindex="0"
   />
   <div
-    class="MuiDialog-container MuiDialog-scrollPaper"
-    role="none presentation"
+    class="MuiDialog-container MuiDialog-scrollPaper css-hz1bth-MuiDialog-container"
+    role="presentation"
     style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
     tabindex="-1"
   >
     <div
-      class="MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded"
+      aria-labelledby="mui-1"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth css-1ntld2w-MuiPaper-root-MuiDialog-paper"
       role="dialog"
     >
-      <div
-        class="MuiDialogTitle-root"
+      <h2
+        class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-8yphvn-MuiTypography-root-MuiDialogTitle-root"
+        id="mui-1"
       >
-        <h2
-          class="MuiTypography-root MuiTypography-h6"
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-1bz7zgk-MuiGrid-root"
         >
           <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center MuiGrid-justify-content-xs-space-between"
+            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
           >
             <div
-              class="MuiGrid-root MuiGrid-item"
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+                class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
               >
-                <div
-                  class="MuiGrid-root MuiGrid-item"
+                <h5
+                  class="MuiTypography-root MuiTypography-h5 css-xqgeko-MuiTypography-root"
                 >
-                  <h5
-                    class="MuiTypography-root MuiTypography-h5"
-                  >
-                    Create CD Pipeline
-                  </h5>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item"
+                  Create CD Pipeline
+                </h5>
+              </div>
+              <div
+                class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+              >
+                <a
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+                  data-mui-internal-clone-element="true"
+                  href="https://epam.github.io/edp-install/user-guide/add-cd-pipeline/#create-cd-pipeline-in-the-dialog"
+                  tabindex="0"
+                  target="_blank"
                 >
-                  <a
-                    aria-disabled="false"
-                    class="MuiButtonBase-root MuiIconButton-root"
-                    href="https://epam.github.io/edp-install/user-guide/add-cd-pipeline/#create-cd-pipeline-in-the-dialog"
-                    tabindex="0"
-                    target="_blank"
-                  >
-                    <span
-                      class="MuiIconButton-label"
-                    >
-                      <span />
-                    </span>
-                    <span
-                      class="MuiTouchRipple-root"
-                    />
-                  </a>
-                </div>
+                  <span />
+                  <span
+                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                  />
+                </a>
               </div>
             </div>
-            <div
-              class="MuiGrid-root MuiGrid-item"
-            >
-              <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
-                style="flex-shrink: 0;"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="MuiButton-label"
-                >
-                  <span
-                    class="MuiButton-startIcon MuiButton-iconSizeSmall"
-                  >
-                    <span />
-                  </span>
-                  Edit YAML
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-            </div>
           </div>
-        </h2>
-      </div>
+          <div
+            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+              style="flex-shrink: 0;"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiButton-startIcon MuiButton-iconSizeSmall css-y6rp3m-MuiButton-startIcon"
+              >
+                <span />
+              </span>
+              Edit YAML
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </h2>
       <div
-        class="MuiDialogContent-root makeStyles-dialogContent-1"
+        class="MuiDialogContent-root makeStyles-dialogContent-1 css-ypiqx9-MuiDialogContent-root"
       >
         <div
           class="makeStyles-dialogContentTabs-2"
         >
           <div
-            class="MuiTabs-root MuiTabs-vertical"
+            class="MuiTabs-root MuiTabs-vertical css-1g4ac1o-MuiTabs-root"
           >
             <div
-              class="MuiTabs-scroller MuiTabs-fixed"
-              style="overflow: hidden;"
+              class="MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller"
+              style="overflow: hidden; margin-right: 0px;"
             >
               <div
                 aria-label="simple tabs example"
-                class="MuiTabs-flexContainer MuiTabs-flexContainerVertical"
+                aria-orientation="vertical"
+                class="MuiTabs-flexContainer MuiTabs-flexContainerVertical css-lfwcke-MuiTabs-flexContainer"
                 role="tablist"
               >
                 <button
                   aria-controls="simple-tabpanel-0"
                   aria-selected="true"
-                  class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected"
+                  class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected css-4f69fa-MuiButtonBase-root-MuiTab-root"
                   id="simple-tab-0"
                   role="tab"
                   tabindex="0"
                   type="button"
                 >
+                  Pipeline
                   <span
-                    class="MuiTab-wrapper"
-                  >
-                    Pipeline
-                  </span>
-                  <span
-                    class="MuiTouchRipple-root"
+                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                   />
                 </button>
                 <button
                   aria-controls="simple-tabpanel-1"
                   aria-selected="false"
-                  class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary"
+                  class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-4f69fa-MuiButtonBase-root-MuiTab-root"
                   id="simple-tab-1"
                   role="tab"
                   tabindex="-1"
                   type="button"
                 >
+                  Applications
                   <span
-                    class="MuiTab-wrapper"
-                  >
-                    Applications
-                  </span>
-                  <span
-                    class="MuiTouchRipple-root"
+                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                   />
                 </button>
                 <button
                   aria-controls="simple-tabpanel-2"
                   aria-selected="false"
-                  class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary"
+                  class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-4f69fa-MuiButtonBase-root-MuiTab-root"
                   id="simple-tab-2"
                   role="tab"
                   tabindex="-1"
                   type="button"
                 >
+                  Stages
                   <span
-                    class="MuiTab-wrapper"
-                  >
-                    Stages
-                  </span>
-                  <span
-                    class="MuiTouchRipple-root"
+                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                   />
                 </button>
               </div>
               <span
-                class="PrivateTabIndicator-root-4 PrivateTabIndicator-colorPrimary-5 MuiTabs-indicator PrivateTabIndicator-vertical-7"
+                class="MuiTabs-indicator css-4iq8oz-MuiTabs-indicator"
                 style="top: 0px; height: 0px;"
               />
             </div>
@@ -184,34 +162,34 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
         >
           <div
             aria-labelledby="simple-tab-0"
-            class="makeStyles-tabPanel-8"
+            class="makeStyles-tabPanel-4"
             id="simple-tabpanel-0"
             role="tabpanel"
           >
             <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                     style="display: flex;"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                     >
                       <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       >
                         <span
-                          class="makeStyles-labelWrap-9"
+                          class="makeStyles-labelWrap-5"
                         >
                           <span
-                            class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
+                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-6 css-1ezega9-MuiTypography-root"
                           >
                             Pipeline name
                           </span>
@@ -219,26 +197,41 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                         </span>
                       </div>
                       <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                         style="display: flex; align-items: flex-end;"
                       >
                         <div
-                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                         >
                           <div
-                            class="MuiFormControl-root MuiTextField-root"
+                            class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                           >
                             <div
-                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                             >
                               <input
                                 aria-invalid="false"
-                                class="MuiInputBase-input MuiInput-input"
+                                class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                                id="mui-4"
                                 name="name"
                                 placeholder="Enter pipeline name"
                                 type="text"
                                 value=""
                               />
+                              <fieldset
+                                aria-hidden="true"
+                                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                              >
+                                <legend
+                                  class="css-ihdtdm"
+                                >
+                                  <span
+                                    class="notranslate"
+                                  >
+                                    ​
+                                  </span>
+                                </legend>
+                              </fieldset>
                             </div>
                           </div>
                         </div>
@@ -251,41 +244,41 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
           </div>
           <div
             aria-labelledby="simple-tab-1"
-            class="makeStyles-tabPanel-8"
+            class="makeStyles-tabPanel-4"
             hidden=""
             id="simple-tabpanel-1"
             role="tabpanel"
           >
             <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-zow5z4-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11"
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 css-ykovpn-MuiGrid-root"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                     >
                       <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                         style="display: flex;"
                       >
                         <div
-                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                         >
                           <div
-                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                           >
                             <span
-                              class="makeStyles-labelWrap-9"
+                              class="makeStyles-labelWrap-5"
                             >
                               <span
-                                class="MuiTypography-root makeStyles-label-10 MuiTypography-body1"
+                                class="MuiTypography-root MuiTypography-body1 makeStyles-label-6 css-1ezega9-MuiTypography-root"
                               >
                                 Applications
                               </span>
@@ -293,35 +286,39 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                             </span>
                           </div>
                           <div
-                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                             style="display: flex; align-items: flex-end;"
                           >
                             <div
-                              class="MuiFormControl-root MuiFormControl-fullWidth"
+                              class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                             >
                               <div
-                                class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-selectWithDefaultValue-11 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl makeStyles-selectWithDefaultValue-7 css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                               >
                                 <div
+                                  aria-controls="mui-6"
+                                  aria-expanded="false"
                                   aria-haspopup="listbox"
                                   aria-labelledby="mui-component-select-applicationsToAddChooser"
-                                  class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+                                  class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-17praur-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
                                   id="mui-component-select-applicationsToAddChooser"
-                                  role="button"
+                                  role="combobox"
                                   tabindex="0"
                                 >
                                   Select applications
                                 </div>
                                 <input
                                   aria-hidden="true"
-                                  class="MuiSelect-nativeInput"
+                                  aria-invalid="false"
+                                  class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
                                   name="applicationsToAddChooser"
                                   tabindex="-1"
                                   value=""
                                 />
                                 <svg
                                   aria-hidden="true"
-                                  class="MuiSvgIcon-root MuiSelect-icon"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+                                  data-testid="ArrowDropDownIcon"
                                   focusable="false"
                                   viewBox="0 0 24 24"
                                 >
@@ -329,6 +326,20 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                                     d="M7 10l5 5 5-5z"
                                   />
                                 </svg>
+                                <fieldset
+                                  aria-hidden="true"
+                                  class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                                >
+                                  <legend
+                                    class="css-ihdtdm"
+                                  >
+                                    <span
+                                      class="notranslate"
+                                    >
+                                      ​
+                                    </span>
+                                  </legend>
+                                </fieldset>
                               </div>
                             </div>
                           </div>
@@ -337,45 +348,42 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                     </div>
                   </div>
                   <div
-                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1"
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-u78q51-MuiGrid-root"
                     style="display: flex; align-items: center; justify-content: flex-end; flex-direction: column;"
                   >
                     <button
-                      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+                      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall css-vw8gqz-MuiButtonBase-root-MuiButton-root"
                       disabled=""
                       style="min-width: 0;"
                       tabindex="-1"
                       type="button"
                     >
-                      <span
-                        class="MuiButton-label"
-                      >
-                        add
-                      </span>
+                      add
                     </button>
                   </div>
                 </div>
               </div>
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
                 />
               </div>
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
               >
                 <div
-                  class="MuiPaper-root MuiAlert-root MuiAlert-outlinedInfo MuiPaper-elevation0"
+                  class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-outlinedInfo MuiAlert-outlined css-q9dv2o-MuiPaper-root-MuiAlert-root"
                   role="alert"
                 >
                   <div
-                    class="MuiAlert-icon"
+                    class="MuiAlert-icon css-1ytlwq5-MuiAlert-icon"
                   >
                     <svg
                       aria-hidden="true"
-                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                      data-testid="InfoOutlinedIcon"
                       focusable="false"
                       viewBox="0 0 24 24"
                     >
@@ -385,7 +393,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                     </svg>
                   </div>
                   <div
-                    class="MuiAlert-message"
+                    class="MuiAlert-message css-1pxa9xg-MuiAlert-message"
                   >
                     Add at least one application
                   </div>
@@ -395,83 +403,80 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
           </div>
           <div
             aria-labelledby="simple-tab-2"
-            class="makeStyles-tabPanel-8"
+            class="makeStyles-tabPanel-4"
             hidden=""
             id="simple-tabpanel-2"
             role="tabpanel"
           >
             <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-wrap-xs-nowrap MuiGrid-align-items-xs-center"
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-wrap-xs-nowrap css-1jxkhgz-MuiGrid-root"
                     >
                       <div
-                        class="MuiGrid-root MuiGrid-item"
+                        class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
                       >
                         <h6
-                          class="MuiTypography-root MuiTypography-h6"
+                          class="MuiTypography-root MuiTypography-h6 css-k6p83p-MuiTypography-root"
                         >
                           Stages
                         </h6>
                       </div>
                       <div
-                        class="MuiGrid-root MuiGrid-item"
+                        class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
                       >
                         <span />
                       </div>
                     </div>
                   </div>
                   <div
-                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
                     />
                   </div>
                   <div
-                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <button
-                      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
+                      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall css-vw8gqz-MuiButtonBase-root-MuiButton-root"
                       style="min-width: 0;"
                       tabindex="0"
                       type="button"
                     >
+                      add stage
                       <span
-                        class="MuiButton-label"
-                      >
-                        add stage
-                      </span>
-                      <span
-                        class="MuiTouchRipple-root"
+                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                       />
                     </button>
                   </div>
                 </div>
               </div>
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
               >
                 <div
-                  class="MuiPaper-root MuiAlert-root MuiAlert-outlinedInfo MuiPaper-elevation0"
+                  class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-outlinedInfo MuiAlert-outlined css-q9dv2o-MuiPaper-root-MuiAlert-root"
                   role="alert"
                 >
                   <div
-                    class="MuiAlert-icon"
+                    class="MuiAlert-icon css-1ytlwq5-MuiAlert-icon"
                   >
                     <svg
                       aria-hidden="true"
-                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                      data-testid="InfoOutlinedIcon"
                       focusable="false"
                       viewBox="0 0 24 24"
                     >
@@ -481,7 +486,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                     </svg>
                   </div>
                   <div
-                    class="MuiAlert-message"
+                    class="MuiAlert-message css-1pxa9xg-MuiAlert-message"
                   >
                     Add at least one stage
                   </div>
@@ -492,54 +497,42 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
         </div>
       </div>
       <div
-        class="MuiDialogActions-root MuiDialogActions-spacing"
+        class="MuiDialogActions-root MuiDialogActions-spacing css-knqc4i-MuiDialogActions-root"
       >
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1llbb2a-MuiButtonBase-root-MuiButton-root"
           disabled=""
           tabindex="-1"
           type="button"
         >
-          <span
-            class="MuiButton-label"
-          >
-            undo changes
-          </span>
+          undo changes
         </button>
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1llbb2a-MuiButtonBase-root-MuiButton-root"
           style="margin-left: auto;"
           tabindex="0"
           type="button"
         >
+          cancel
           <span
-            class="MuiButton-label"
-          >
-            cancel
-          </span>
-          <span
-            class="MuiTouchRipple-root"
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
           />
         </button>
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall css-vw8gqz-MuiButtonBase-root-MuiButton-root"
           tabindex="0"
           type="button"
         >
+          proceed
           <span
-            class="MuiButton-label"
-          >
-            proceed
-          </span>
-          <span
-            class="MuiTouchRipple-root"
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
           />
         </button>
       </div>
     </div>
   </div>
   <div
-    data-test="sentinelEnd"
+    data-testid="sentinelEnd"
     tabindex="0"
   />
 </div>

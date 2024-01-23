@@ -2,133 +2,122 @@
 
 exports[`renders CreateCodebaseBranch component 1`] = `
 <div
-  class="MuiDialog-root"
+  class="MuiDialog-root MuiModal-root css-zw3mfo-MuiModal-root-MuiDialog-root"
   data-testid="dialog"
   role="presentation"
-  style="position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;"
 >
   <div
     aria-hidden="true"
-    class="MuiBackdrop-root"
+    class="MuiBackdrop-root MuiModal-backdrop css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop"
     style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
   />
   <div
-    data-test="sentinelStart"
+    data-testid="sentinelStart"
     tabindex="0"
   />
   <div
-    class="MuiDialog-container MuiDialog-scrollPaper"
-    role="none presentation"
+    class="MuiDialog-container MuiDialog-scrollPaper css-hz1bth-MuiDialog-container"
+    role="presentation"
     style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
     tabindex="-1"
   >
     <div
-      class="MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded"
+      aria-labelledby="mui-1"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-15hyav-MuiPaper-root-MuiDialog-paper"
       role="dialog"
     >
-      <div
-        class="MuiDialogTitle-root"
-      >
-        <h2
-          class="MuiTypography-root MuiTypography-h6"
-        >
-          <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center MuiGrid-justify-content-xs-space-between"
-          >
-            <div
-              class="MuiGrid-root MuiGrid-item"
-            >
-              <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
-              >
-                <div
-                  class="MuiGrid-root MuiGrid-item"
-                >
-                  <h5
-                    class="MuiTypography-root MuiTypography-h5"
-                  >
-                    Create New Branch
-                  </h5>
-                </div>
-                <div
-                  class="MuiGrid-root MuiGrid-item"
-                >
-                  <a
-                    aria-disabled="false"
-                    class="MuiButtonBase-root MuiIconButton-root"
-                    href="https://epam.github.io/edp-install/user-guide/manage-branches/#add-new-branch"
-                    tabindex="0"
-                    target="_blank"
-                  >
-                    <span
-                      class="MuiIconButton-label"
-                    >
-                      <span />
-                    </span>
-                    <span
-                      class="MuiTouchRipple-root"
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item"
-            >
-              <button
-                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
-                style="flex-shrink: 0;"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="MuiButton-label"
-                >
-                  <span
-                    class="MuiButton-startIcon MuiButton-iconSizeSmall"
-                  >
-                    <span />
-                  </span>
-                  Edit YAML
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-            </div>
-          </div>
-        </h2>
-      </div>
-      <div
-        class="MuiDialogContent-root"
+      <h2
+        class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-8yphvn-MuiTypography-root-MuiDialogTitle-root"
+        id="mui-1"
       >
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-1bz7zgk-MuiGrid-root"
         >
           <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
           >
             <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+              >
+                <h5
+                  class="MuiTypography-root MuiTypography-h5 css-xqgeko-MuiTypography-root"
+                >
+                  Create New Branch
+                </h5>
+              </div>
+              <div
+                class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+              >
+                <a
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+                  data-mui-internal-clone-element="true"
+                  href="https://epam.github.io/edp-install/user-guide/manage-branches/#add-new-branch"
+                  tabindex="0"
+                  target="_blank"
+                >
+                  <span />
+                  <span
+                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+              style="flex-shrink: 0;"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiButton-startIcon MuiButton-iconSizeSmall css-y6rp3m-MuiButton-startIcon"
+              >
+                <span />
+              </span>
+              Edit YAML
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </h2>
+      <div
+        class="MuiDialogContent-root css-ypiqx9-MuiDialogContent-root"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   style="display: flex;"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                     >
                       <span
                         class="makeStyles-labelWrap-1"
                       >
                         <span
-                          class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
+                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-2 css-1ezega9-MuiTypography-root"
                         >
                           Branch Name
                         </span>
@@ -136,26 +125,41 @@ exports[`renders CreateCodebaseBranch component 1`] = `
                       </span>
                     </div>
                     <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       style="display: flex; align-items: flex-end;"
                     >
                       <div
-                        class="MuiFormControl-root MuiFormControl-fullWidth"
+                        class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                       >
                         <div
-                          class="MuiFormControl-root MuiTextField-root"
+                          class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                         >
                           <div
-                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                           >
                             <input
                               aria-invalid="false"
-                              class="MuiInputBase-input MuiInput-input"
+                              class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                              id="mui-4"
                               name="branchName"
                               placeholder="Enter Branch Name"
                               type="text"
                               value=""
                             />
+                            <fieldset
+                              aria-hidden="true"
+                              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                            >
+                              <legend
+                                class="css-ihdtdm"
+                              >
+                                <span
+                                  class="notranslate"
+                                >
+                                  ​
+                                </span>
+                              </legend>
+                            </fieldset>
                           </div>
                         </div>
                       </div>
@@ -166,29 +170,29 @@ exports[`renders CreateCodebaseBranch component 1`] = `
             </div>
           </div>
           <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
           >
             <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   style="display: flex;"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                     >
                       <span
                         class="makeStyles-labelWrap-1"
                       >
                         <span
-                          class="MuiTypography-root makeStyles-label-2 MuiTypography-body1"
+                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-2 css-1ezega9-MuiTypography-root"
                         >
                           From Commit Hash 
                         </span>
@@ -196,26 +200,41 @@ exports[`renders CreateCodebaseBranch component 1`] = `
                       </span>
                     </div>
                     <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       style="display: flex; align-items: flex-end;"
                     >
                       <div
-                        class="MuiFormControl-root MuiFormControl-fullWidth"
+                        class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                       >
                         <div
-                          class="MuiFormControl-root MuiTextField-root"
+                          class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                         >
                           <div
-                            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                           >
                             <input
                               aria-invalid="false"
-                              class="MuiInputBase-input MuiInput-input"
+                              class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                              id="mui-6"
                               name="fromCommit"
                               placeholder="Enter Commit"
                               type="text"
                               value=""
                             />
+                            <fieldset
+                              aria-hidden="true"
+                              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                            >
+                              <legend
+                                class="css-ihdtdm"
+                              >
+                                <span
+                                  class="notranslate"
+                                >
+                                  ​
+                                </span>
+                              </legend>
+                            </fieldset>
                           </div>
                         </div>
                       </div>
@@ -228,52 +247,40 @@ exports[`renders CreateCodebaseBranch component 1`] = `
         </div>
       </div>
       <div
-        class="MuiDialogActions-root MuiDialogActions-spacing"
+        class="MuiDialogActions-root MuiDialogActions-spacing css-knqc4i-MuiDialogActions-root"
       >
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1llbb2a-MuiButtonBase-root-MuiButton-root"
           disabled=""
           tabindex="-1"
           type="button"
         >
-          <span
-            class="MuiButton-label"
-          >
-            undo changes
-          </span>
+          undo changes
         </button>
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1llbb2a-MuiButtonBase-root-MuiButton-root"
           style="margin-left: auto;"
           tabindex="0"
           type="button"
         >
+          cancel
           <span
-            class="MuiButton-label"
-          >
-            cancel
-          </span>
-          <span
-            class="MuiTouchRipple-root"
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
           />
         </button>
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall css-vw8gqz-MuiButtonBase-root-MuiButton-root"
           disabled=""
           tabindex="-1"
           type="button"
         >
-          <span
-            class="MuiButton-label"
-          >
-            apply
-          </span>
+          apply
         </button>
       </div>
     </div>
   </div>
   <div
-    data-test="sentinelEnd"
+    data-testid="sentinelEnd"
     tabindex="0"
   />
 </div>

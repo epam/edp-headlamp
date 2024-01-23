@@ -7,42 +7,42 @@ import { REGISTRY_NAMES } from '../../../names';
 import { ManageRegistryDataContext } from '../../../types';
 
 export const PushAccountPassword = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-        setValue,
-        watch,
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useReactHookFormContext();
 
-    const {
-        formData: { pushAccountSecret },
-    } = useFormContext<ManageRegistryDataContext>();
+  const {
+    formData: { pushAccountSecret },
+  } = useFormContext<ManageRegistryDataContext>();
 
-    const useSameAccountFieldValue = watch(REGISTRY_NAMES.USE_SAME_ACCOUNT);
+  const useSameAccountFieldValue = watch(REGISTRY_NAMES.USE_SAME_ACCOUNT);
 
-    const hasOwnerReference = !!pushAccountSecret?.metadata?.ownerReferences;
+  const hasOwnerReference = !!pushAccountSecret?.metadata?.ownerReferences;
 
-    return (
-        <FormTextFieldPassword
-            {...register(REGISTRY_NAMES.PUSH_ACCOUNT_PASSWORD, {
-                required: 'Enter password or token',
-                onChange: ({ target: { value } }: FieldEvent) => {
-                    if (!useSameAccountFieldValue) {
-                        return;
-                    }
+  return (
+    <FormTextFieldPassword
+      {...register(REGISTRY_NAMES.PUSH_ACCOUNT_PASSWORD, {
+        required: 'Enter password or token',
+        onChange: ({ target: { value } }: FieldEvent) => {
+          if (!useSameAccountFieldValue) {
+            return;
+          }
 
-                    setValue(REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD, value);
-                },
-            })}
-            label={`Password / Token`}
-            title={
-                'Enter the confidential combination used for authenticating your access to the container registry.'
-            }
-            placeholder={'Enter password or token'}
-            control={control}
-            errors={errors}
-            disabled={hasOwnerReference}
-        />
-    );
+          setValue(REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD, value);
+        },
+      })}
+      label={`Password / Token`}
+      title={
+        'Enter the confidential combination used for authenticating your access to the container registry.'
+      }
+      placeholder={'Enter password or token'}
+      control={control}
+      errors={errors}
+      disabled={hasOwnerReference}
+    />
+  );
 };

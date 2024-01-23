@@ -3,15 +3,15 @@ import { SONAR_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageSonarIntegrationSecretFormDataContext } from '../../../types';
 
 export const useDefaultValues = ({
-    formData,
+  formData,
 }: {
-    formData: ManageSonarIntegrationSecretFormDataContext;
+  formData: ManageSonarIntegrationSecretFormDataContext;
 }) => {
-    const { sonarEDPComponent } = formData;
+  const { sonarEDPComponent } = formData;
 
-    return React.useMemo(() => {
-        return {
-            [SONAR_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: sonarEDPComponent?.spec.url,
-        };
-    }, [sonarEDPComponent]);
+  return React.useMemo(() => {
+    return {
+      [SONAR_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: sonarEDPComponent?.spec.url,
+    };
+  }, [sonarEDPComponent]);
 };

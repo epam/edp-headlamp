@@ -6,56 +6,56 @@ import { safeDecode, safeEncode } from '../../../utils/decodeEncode';
 import { MetricKey, SonarQubeMetricsResponse } from '../types';
 
 const getMetricsValues = (metrics: SonarQubeMetricsResponse) => {
-    const values: { [key in MetricKey]?: string } = {};
+  const values: { [key in MetricKey]?: string } = {};
 
-    for (const metric of metrics.component.measures) {
-        values[metric.metric] = metric.value;
-    }
+  for (const metric of metrics.component.measures) {
+    values[metric.metric] = metric.value;
+  }
 
-    return values;
+  return values;
 };
 
 export const useSonarQubeMetrics = (sonarQubeBaseURL: string, codebaseBranchName: string) => {
-    const { namespace } = useParams<EDPComponentDetailsRouteParams>();
+  const { namespace } = useParams<EDPComponentDetailsRouteParams>();
 
-    const { data: ciSonarQubeToken } = useSecretByNameQuery<string>({
-        props: {
-            namespace,
-            name: 'ci-sonarqube',
-        },
-        options: {
-            select: data => {
-                return safeDecode(data?.data?.token);
-            },
-        },
-    });
-    const fetchURL = `${sonarQubeBaseURL}/api/measures/component?component=${codebaseBranchName}&metricKeys=bugs,code_smells,coverage,duplicated_lines_density,ncloc,sqale_rating,alert_status,reliability_rating,security_hotspots,security_rating,sqale_index,vulnerabilities`;
+  const { data: ciSonarQubeToken } = useSecretByNameQuery<string>({
+    props: {
+      namespace,
+      name: 'ci-sonarqube',
+    },
+    options: {
+      select: data => {
+        return safeDecode(data?.data?.token);
+      },
+    },
+  });
+  const fetchURL = `${sonarQubeBaseURL}/api/measures/component?component=${codebaseBranchName}&metricKeys=bugs,code_smells,coverage,duplicated_lines_density,ncloc,sqale_rating,alert_status,reliability_rating,security_hotspots,security_rating,sqale_index,vulnerabilities`;
 
-    const { data, isFetched } = useQuery(
-        ['sonarQubeMetrics', { codebaseBranchName: codebaseBranchName }],
-        {
-            queryFn: async () =>
-                fetch(fetchURL, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Basic ${safeEncode(`${ciSonarQubeToken}:`)}`,
-                    },
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json();
-                        } else {
-                            throw new Error(`Request failed: ${response.status}`);
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    }),
-            select: (data: SonarQubeMetricsResponse) => getMetricsValues(data),
-            onError: () => undefined,
-            enabled: !!sonarQubeBaseURL && !!ciSonarQubeToken,
-        }
-    );
+  const { data, isFetched } = useQuery(
+    ['sonarQubeMetrics', { codebaseBranchName: codebaseBranchName }],
+    {
+      queryFn: async () =>
+        fetch(fetchURL, {
+          method: 'GET',
+          headers: {
+            Authorization: `Basic ${safeEncode(`${ciSonarQubeToken}:`)}`,
+          },
+        })
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error(`Request failed: ${response.status}`);
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          }),
+      select: (data: SonarQubeMetricsResponse) => getMetricsValues(data),
+      onError: () => undefined,
+      enabled: !!sonarQubeBaseURL && !!ciSonarQubeToken,
+    }
+  );
 
-    return { data, isLoading: !sonarQubeBaseURL ? false : !isFetched && !!ciSonarQubeToken };
+  return { data, isLoading: !sonarQubeBaseURL ? false : !isFetched && !!ciSonarQubeToken };
 };

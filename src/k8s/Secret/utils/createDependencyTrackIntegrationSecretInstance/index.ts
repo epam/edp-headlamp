@@ -4,27 +4,27 @@ import { INTEGRATION_SECRET_NAMES } from '../../constants';
 import { SECRET_LABEL_INTEGRATION_SECRET, SECRET_LABEL_SECRET_TYPE } from '../../labels';
 
 export const createDependencyTrackIntegrationSecretInstance = ({
-    token,
-    url,
+  token,
+  url,
 }: {
-    token: string;
-    url: string;
+  token: string;
+  url: string;
 }): KubeObjectInterface => {
-    return {
-        apiVersion: 'v1',
-        kind: 'Secret',
-        // @ts-ignore
-        metadata: {
-            name: INTEGRATION_SECRET_NAMES.DEPENDENCY_TRACK,
-            labels: {
-                [SECRET_LABEL_SECRET_TYPE]: 'dependency-track',
-                [SECRET_LABEL_INTEGRATION_SECRET]: 'true',
-            },
-        },
-        type: 'Opaque',
-        data: {
-            token: safeEncode(token),
-            url: safeEncode(url),
-        },
-    };
+  return {
+    apiVersion: 'v1',
+    kind: 'Secret',
+    // @ts-ignore
+    metadata: {
+      name: INTEGRATION_SECRET_NAMES.DEPENDENCY_TRACK,
+      labels: {
+        [SECRET_LABEL_SECRET_TYPE]: 'dependency-track',
+        [SECRET_LABEL_INTEGRATION_SECRET]: 'true',
+      },
+    },
+    type: 'Opaque',
+    data: {
+      token: safeEncode(token),
+      url: safeEncode(url),
+    },
+  };
 };

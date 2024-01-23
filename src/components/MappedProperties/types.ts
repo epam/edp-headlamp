@@ -1,4 +1,4 @@
 export interface MappedPropertiesProps {
-    properties: string[];
-    variant: 'block' | 'inline';
+  properties: string[];
+  variant: 'block' | 'inline';
 }

@@ -6,29 +6,29 @@ import { DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageDefectDojoIntegrationSecretFormDataContext } from '../../../types';
 
 export const Token = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useReactHookFormContext();
 
-    const {
-        formData: { ownerReference },
-    } = useFormContext<ManageDefectDojoIntegrationSecretFormDataContext>();
+  const {
+    formData: { ownerReference },
+  } = useFormContext<ManageDefectDojoIntegrationSecretFormDataContext>();
 
-    return (
-        <FormTextFieldPassword
-            {...register(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.token.name, {
-                required: 'Enter the API token for DefectDojo authentication.',
-            })}
-            label={`Token`}
-            title={
-                'Provide an API token for authentication with DefectDojo. Generate the token from your DefectDojo instance and paste it here.'
-            }
-            placeholder={'Enter token'}
-            control={control}
-            errors={errors}
-            disabled={!!ownerReference}
-        />
-    );
+  return (
+    <FormTextFieldPassword
+      {...register(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.token.name, {
+        required: 'Enter the API token for DefectDojo authentication.',
+      })}
+      label={`Token`}
+      title={
+        'Provide an API token for authentication with DefectDojo. Generate the token from your DefectDojo instance and paste it here.'
+      }
+      placeholder={'Enter token'}
+      control={control}
+      errors={errors}
+      disabled={!!ownerReference}
+    />
+  );
 };

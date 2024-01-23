@@ -9,20 +9,20 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageNexusCI } from './index';
 
 test('renders ManageNexusCI Create component', () => {
-    render(
-        <TestWrapper>
-            <ManageNexusCI
-                formData={{
-                    nexusSecret: null,
-                    ownerReference: undefined,
-                    nexusEDPComponent: null,
-                    mode: FORM_MODES.CREATE,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageNexusCI
+        formData={{
+          nexusSecret: null,
+          ownerReference: undefined,
+          nexusEDPComponent: null,
+          mode: FORM_MODES.CREATE,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

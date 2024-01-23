@@ -4,31 +4,31 @@ import { FilterContext } from './context';
 import { FilterState } from './types';
 
 export const FilterContextProvider: React.FC = ({ children }) => {
-    const [filter, setFilter] = React.useState<FilterState>({
-        values: {},
-        matchFunctions: {},
-    });
+  const [filter, setFilter] = React.useState<FilterState>({
+    values: {},
+    matchFunctions: {},
+  });
 
-    const filterFunction = React.useCallback(
-        (item: EDPCodebaseKubeObjectInterface) => {
-            let matches = true;
+  const filterFunction = React.useCallback(
+    (item: EDPCodebaseKubeObjectInterface) => {
+      let matches = true;
 
-            for (const fn of Object.values(filter.matchFunctions)) {
-                matches = fn(item);
+      for (const fn of Object.values(filter.matchFunctions)) {
+        matches = fn(item);
 
-                if (!matches) {
-                    break;
-                }
-            }
+        if (!matches) {
+          break;
+        }
+      }
 
-            return matches;
-        },
-        [filter]
-    );
+      return matches;
+    },
+    [filter]
+  );
 
-    return (
-        <FilterContext.Provider value={{ filter, setFilter, filterFunction }}>
-            {children}
-        </FilterContext.Provider>
-    );
+  return (
+    <FilterContext.Provider value={{ filter, setFilter, filterFunction }}>
+      {children}
+    </FilterContext.Provider>
+  );
 };

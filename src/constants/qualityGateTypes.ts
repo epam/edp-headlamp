@@ -1,4 +1,4 @@
 export enum QUALITY_GATE_TYPES {
-    MANUAL = 'manual',
-    AUTOTESTS = 'autotests',
+  MANUAL = 'manual',
+  AUTOTESTS = 'autotests',
 }

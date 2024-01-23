@@ -3,8 +3,8 @@ import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/type
 import { EnrichedApplicationWithArgoApplication } from '../../types';
 
 export interface CustomGatesProps {
-    enrichedApplicationsWithArgoApplications: EnrichedApplicationWithArgoApplication[];
-    argoApplications: ApplicationKubeObjectInterface[];
-    latestTenDeployPipelineRuns: PipelineRunKubeObjectInterface[];
-    everyArgoAppIsHealthyAndInSync: boolean;
+  enrichedApplicationsWithArgoApplications: EnrichedApplicationWithArgoApplication[];
+  argoApplications: ApplicationKubeObjectInterface[];
+  latestTenDeployPipelineRuns: PipelineRunKubeObjectInterface[];
+  everyArgoAppIsHealthyAndInSync: boolean;
 }

@@ -6,27 +6,27 @@ import { REQUEST_KEY_QUERY_TEMPLATE_LIST } from '../requestKeys';
 import { EDPTemplateKubeObjectInterface } from '../types';
 
 interface UseEDPTemplateListQueryProps<ReturnType> {
-    props?: {
-        namespace?: string;
-    };
-    options?: UseQueryOptions<
-        KubeObjectListInterface<EDPTemplateKubeObjectInterface>,
-        Error,
-        ReturnType
-    >;
+  props?: {
+    namespace?: string;
+  };
+  options?: UseQueryOptions<
+    KubeObjectListInterface<EDPTemplateKubeObjectInterface>,
+    Error,
+    ReturnType
+  >;
 }
 
 export const useEDPTemplateListQuery = <
-    ReturnType = KubeObjectListInterface<EDPTemplateKubeObjectInterface>
+  ReturnType = KubeObjectListInterface<EDPTemplateKubeObjectInterface>
 >({
-    props,
-    options,
+  props,
+  options,
 }: UseEDPTemplateListQueryProps<ReturnType>) => {
-    const namespace = props?.namespace || getDefaultNamespace();
+  const namespace = props?.namespace || getDefaultNamespace();
 
-    return useQuery<KubeObjectListInterface<EDPTemplateKubeObjectInterface>, Error, ReturnType>(
-        REQUEST_KEY_QUERY_TEMPLATE_LIST,
-        () => EDPTemplateKubeObject.getList(namespace),
-        options
-    );
+  return useQuery<KubeObjectListInterface<EDPTemplateKubeObjectInterface>, Error, ReturnType>(
+    REQUEST_KEY_QUERY_TEMPLATE_LIST,
+    () => EDPTemplateKubeObject.getList(namespace),
+    options
+  );
 };

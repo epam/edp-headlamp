@@ -4,33 +4,33 @@ import { TriggerTemplateKubeObjectConfig } from './config';
 import { TriggerTemplateKubeObjectInterface } from './types';
 
 const {
-    name: { singularForm, pluralForm },
-    group,
-    version,
+  name: { singularForm, pluralForm },
+  group,
+  version,
 } = TriggerTemplateKubeObjectConfig;
 
 export class TriggerTemplateKubeObject extends K8s.cluster.makeKubeObject<TriggerTemplateKubeObjectInterface>(
-    singularForm
+  singularForm
 ) {
-    static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
+  static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
-    static get className(): string {
-        return singularForm;
-    }
+  static get className(): string {
+    return singularForm;
+  }
 
-    get spec(): any {
-        return this.jsonData!.spec;
-    }
+  get spec(): any {
+    return this.jsonData!.spec;
+  }
 
-    get status(): any {
-        return this.jsonData!.status;
-    }
+  get status(): any {
+    return this.jsonData!.status;
+  }
 
-    static getList(
-        namespace: string
-    ): Promise<KubeObjectListInterface<TriggerTemplateKubeObjectInterface>> {
-        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+  static getList(
+    namespace: string
+  ): Promise<KubeObjectListInterface<TriggerTemplateKubeObjectInterface>> {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
 
-        return ApiProxy.request(url);
-    }
+    return ApiProxy.request(url);
+  }
 }

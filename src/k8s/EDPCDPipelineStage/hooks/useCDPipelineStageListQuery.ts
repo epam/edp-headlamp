@@ -6,31 +6,31 @@ import { REQUEST_KEY_QUERY_CD_PIPELINE_STAGE_LIST } from '../requestKeys';
 import { EDPCDPipelineStageKubeObjectInterface } from '../types';
 
 interface UseCDPipelineStageListQueryProps<ReturnType> {
-    props?: {
-        namespace?: string;
-    };
-    options?: UseQueryOptions<
-        KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>,
-        Error,
-        ReturnType
-    >;
+  props?: {
+    namespace?: string;
+  };
+  options?: UseQueryOptions<
+    KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>,
+    Error,
+    ReturnType
+  >;
 }
 
 export const useCDPipelineStageListQuery = <
-    ReturnType = KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>
+  ReturnType = KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>
 >({
-    props,
-    options,
+  props,
+  options,
 }: UseCDPipelineStageListQueryProps<ReturnType>) => {
-    const namespace = props?.namespace || getDefaultNamespace();
+  const namespace = props?.namespace || getDefaultNamespace();
 
-    return useQuery<
-        KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>,
-        Error,
-        ReturnType
-    >(
-        REQUEST_KEY_QUERY_CD_PIPELINE_STAGE_LIST,
-        () => EDPCDPipelineStageKubeObject.getList(namespace),
-        options
-    );
+  return useQuery<
+    KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>,
+    Error,
+    ReturnType
+  >(
+    REQUEST_KEY_QUERY_CD_PIPELINE_STAGE_LIST,
+    () => EDPCDPipelineStageKubeObject.getList(namespace),
+    options
+  );
 };

@@ -6,42 +6,42 @@ import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation'
 import { ConfigMapKubeObjectInterface } from '../types';
 
 interface EditConfigMapProps {
-    configMapData: ConfigMapKubeObjectInterface;
+  configMapData: ConfigMapKubeObjectInterface;
 }
 
 export const useConfigMapCRUD = ({
-    onSuccess,
-    onError,
+  onSuccess,
+  onError,
 }: {
-    onSuccess?: () => void;
-    onError?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
+  const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+  const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-    const configMapEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.EDIT>(
-        'configMapEditMutation',
-        K8s.configMap.default,
-        CRUD_TYPES.EDIT
-    );
+  const configMapEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.EDIT>(
+    'configMapEditMutation',
+    K8s.configMap.default,
+    CRUD_TYPES.EDIT
+  );
 
-    const editConfigMap = React.useCallback(
-        async ({ configMapData }: EditConfigMapProps) => {
-            configMapEditMutation.mutate(configMapData, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+  const editConfigMap = React.useCallback(
+    async ({ configMapData }: EditConfigMapProps) => {
+      configMapEditMutation.mutate(configMapData, {
+        onSuccess: () => {
+          invokeOnSuccessCallback();
         },
-        [configMapEditMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
-    );
+        onError: () => {
+          invokeOnErrorCallback();
+        },
+      });
+    },
+    [configMapEditMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
+  );
 
-    const mutations = {
-        configMapEditMutation,
-    };
+  const mutations = {
+    configMapEditMutation,
+  };
 
-    return { editConfigMap, mutations };
+  return { editConfigMap, mutations };
 };

@@ -6,29 +6,29 @@ import { SONAR_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageSonarIntegrationSecretFormDataContext } from '../../../types';
 
 export const Token = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useReactHookFormContext();
 
-    const {
-        formData: { ownerReference },
-    } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
+  const {
+    formData: { ownerReference },
+  } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
 
-    return (
-        <FormTextFieldPassword
-            {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.token.name, {
-                required: 'Enter the authentication token for SonarQube.',
-            })}
-            label={`Token`}
-            title={
-                'Provide an authentication token for SonarQube. Generate the token from your SonarQube instance.'
-            }
-            placeholder={'Enter token'}
-            control={control}
-            errors={errors}
-            disabled={!!ownerReference}
-        />
-    );
+  return (
+    <FormTextFieldPassword
+      {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.token.name, {
+        required: 'Enter the authentication token for SonarQube.',
+      })}
+      label={`Token`}
+      title={
+        'Provide an authentication token for SonarQube. Generate the token from your SonarQube instance.'
+      }
+      placeholder={'Enter token'}
+      control={control}
+      errors={errors}
+      disabled={!!ownerReference}
+    />
+  );
 };

@@ -5,57 +5,57 @@ import { EDPCodebaseBranchKubeObject } from '../index';
 import { EDPCodebaseBranchKubeObjectInterface } from '../types';
 
 interface CreateCodebaseBranchProps {
-    codebaseBranchData: EDPCodebaseBranchKubeObjectInterface;
-    defaultCodebaseBranchData?: EDPCodebaseBranchKubeObjectInterface;
+  codebaseBranchData: EDPCodebaseBranchKubeObjectInterface;
+  defaultCodebaseBranchData?: EDPCodebaseBranchKubeObjectInterface;
 }
 
 export const useCreateCodebaseBranch = ({
-    onSuccess,
-    onError,
+  onSuccess,
+  onError,
 }: {
-    onSuccess?: () => void;
-    onError?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
+  const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+  const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-    const codebaseBranchCreateMutation = useResourceCRUDMutation<
-        EDPCodebaseBranchKubeObjectInterface,
-        CRUD_TYPES.CREATE
-    >('codebaseBranchCreateMutation', EDPCodebaseBranchKubeObject, CRUD_TYPES.CREATE);
+  const codebaseBranchCreateMutation = useResourceCRUDMutation<
+    EDPCodebaseBranchKubeObjectInterface,
+    CRUD_TYPES.CREATE
+  >('codebaseBranchCreateMutation', EDPCodebaseBranchKubeObject, CRUD_TYPES.CREATE);
 
-    const codebaseBranchEditMutation = useResourceCRUDMutation<
-        EDPCodebaseBranchKubeObjectInterface,
-        CRUD_TYPES.EDIT
-    >('codebaseBranchEditMutation', EDPCodebaseBranchKubeObject, CRUD_TYPES.EDIT);
+  const codebaseBranchEditMutation = useResourceCRUDMutation<
+    EDPCodebaseBranchKubeObjectInterface,
+    CRUD_TYPES.EDIT
+  >('codebaseBranchEditMutation', EDPCodebaseBranchKubeObject, CRUD_TYPES.EDIT);
 
-    const createCodebaseBranch = React.useCallback(
-        async ({ codebaseBranchData, defaultCodebaseBranchData }: CreateCodebaseBranchProps) => {
-            codebaseBranchCreateMutation.mutate(codebaseBranchData, {
-                onSuccess: () => {
-                    if (defaultCodebaseBranchData) {
-                        codebaseBranchEditMutation.mutate(defaultCodebaseBranchData);
-                    }
+  const createCodebaseBranch = React.useCallback(
+    async ({ codebaseBranchData, defaultCodebaseBranchData }: CreateCodebaseBranchProps) => {
+      codebaseBranchCreateMutation.mutate(codebaseBranchData, {
+        onSuccess: () => {
+          if (defaultCodebaseBranchData) {
+            codebaseBranchEditMutation.mutate(defaultCodebaseBranchData);
+          }
 
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+          invokeOnSuccessCallback();
         },
-        [
-            codebaseBranchCreateMutation,
-            codebaseBranchEditMutation,
-            invokeOnErrorCallback,
-            invokeOnSuccessCallback,
-        ]
-    );
+        onError: () => {
+          invokeOnErrorCallback();
+        },
+      });
+    },
+    [
+      codebaseBranchCreateMutation,
+      codebaseBranchEditMutation,
+      invokeOnErrorCallback,
+      invokeOnSuccessCallback,
+    ]
+  );
 
-    const mutations = {
-        codebaseBranchCreateMutation,
-        codebaseBranchEditMutation,
-    };
+  const mutations = {
+    codebaseBranchCreateMutation,
+    codebaseBranchEditMutation,
+  };
 
-    return { createCodebaseBranch, mutations };
+  return { createCodebaseBranch, mutations };
 };

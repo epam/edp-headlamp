@@ -2,38 +2,38 @@
 
 exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
 <div
-  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
   data-testid="form"
 >
   <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
   >
     <div
-      class="MuiPaper-root MuiAccordion-root makeStyles-accordion-1 Mui-disabled MuiAccordion-rounded MuiPaper-elevation0 MuiPaper-rounded"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAccordion-root MuiAccordion-rounded Mui-disabled MuiAccordion-gutters makeStyles-accordion-1 css-1ev3igf-MuiPaper-root-MuiAccordion-root"
     >
       <div
         aria-disabled="true"
         aria-expanded="false"
-        class="MuiButtonBase-root MuiAccordionSummary-root Mui-disabled Mui-disabled"
+        class="MuiButtonBase-root Mui-disabled MuiAccordionSummary-root Mui-disabled MuiAccordionSummary-gutters css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root"
         role="button"
         tabindex="-1"
       >
         <div
-          class="MuiAccordionSummary-content"
+          class="MuiAccordionSummary-content MuiAccordionSummary-contentGutters css-o4b71y-MuiAccordionSummary-content"
         >
           <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-ofrcno-MuiGrid-root"
           >
             <div
-              class="MuiGrid-root MuiGrid-item"
+              class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
             >
               <span />
             </div>
             <div
-              class="MuiGrid-root MuiGrid-item"
+              class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
             >
               <h6
-                class="MuiTypography-root MuiTypography-h6"
+                class="MuiTypography-root MuiTypography-h6 css-k6p83p-MuiTypography-root"
               >
                 Add Registry
               </h6>
@@ -42,20 +42,21 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
         </div>
       </div>
       <div
-        class="MuiCollapse-root MuiCollapse-hidden"
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-bz4dnt-MuiCollapse-root"
         style="min-height: 0px;"
       >
         <div
-          class="MuiCollapse-wrapper"
+          class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
         >
           <div
-            class="MuiCollapse-wrapperInner"
+            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
           >
             <div
+              class="MuiAccordion-region"
               role="region"
             >
               <div
-                class="MuiAccordionDetails-root"
+                class="MuiAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
               />
             </div>
           </div>
@@ -64,62 +65,62 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
     </div>
   </div>
   <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
   >
     <div
-      class="MuiPaper-root MuiAccordion-root Mui-expanded MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiAccordion-root MuiAccordion-rounded Mui-expanded MuiAccordion-gutters css-3ia7zi-MuiPaper-root-MuiAccordion-root"
     >
       <div
-        aria-disabled="false"
         aria-expanded="true"
-        class="MuiButtonBase-root MuiAccordionSummary-root Mui-expanded"
+        class="MuiButtonBase-root MuiAccordionSummary-root Mui-expanded MuiAccordionSummary-gutters css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root"
         role="button"
         style="cursor: default;"
         tabindex="0"
       >
         <div
-          class="MuiAccordionSummary-content Mui-expanded"
+          class="MuiAccordionSummary-content Mui-expanded MuiAccordionSummary-contentGutters css-o4b71y-MuiAccordionSummary-content"
         >
           <h6
-            class="MuiTypography-root MuiTypography-h6"
+            class="MuiTypography-root MuiTypography-h6 css-k6p83p-MuiTypography-root"
           >
             Harbor
           </h6>
         </div>
       </div>
       <div
-        class="MuiCollapse-root MuiCollapse-entered"
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"
         style="min-height: 0px;"
       >
         <div
-          class="MuiCollapse-wrapper"
+          class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
         >
           <div
-            class="MuiCollapse-wrapperInner"
+            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
           >
             <div
+              class="MuiAccordion-region"
               role="region"
             >
               <div
-                class="MuiAccordionDetails-root"
+                class="MuiAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <div
-                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4"
+                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 css-480o17-MuiGrid-root"
                     >
                       <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       >
                         <div
-                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4"
+                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 css-480o17-MuiGrid-root"
                         >
                           <div
-                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                           >
                             <svg
                               display="none"
@@ -1483,26 +1484,26 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                               </symbol>
                             </svg>
                             <div
-                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                             >
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                 style="display: flex;"
                               >
                                 <div
-                                  class="MuiFormControl-root"
+                                  class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                   >
                                     <div
-                                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     >
                                       <span
                                         class="makeStyles-labelWrap-8"
                                       >
                                         <span
-                                          class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
                                         >
                                           Registry Provider
                                         </span>
@@ -1510,137 +1511,125 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                       </span>
                                     </div>
                                     <div
-                                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     >
                                       <div
-                                        class="MuiFormGroup-root makeStyles-radioGroup-3 MuiFormGroup-row"
+                                        class="MuiFormGroup-root MuiFormGroup-row makeStyles-radioGroup-3 css-qfz70r-MuiFormGroup-root"
                                         role="radiogroup"
                                       >
                                         <button
-                                          class="MuiButtonBase-root makeStyles-radioControlButton-4 Mui-disabled"
+                                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-4 css-10d1a0h-MuiButtonBase-root"
                                           disabled=""
                                           tabindex="-1"
                                           type="button"
                                         >
                                           <label
-                                            class="MuiFormControlLabel-root makeStyles-radioControlLabel-6 makeStyles-radioControlLabelDisabled-7"
+                                            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-6 makeStyles-radioControlLabelDisabled-7 css-j204z7-MuiFormControlLabel-root"
                                           >
                                             <span
-                                              aria-disabled="false"
-                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-10 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                                              class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                                             >
+                                              <input
+                                                class="PrivateSwitchBase-input css-1m9pwf3"
+                                                name="registryType"
+                                                type="radio"
+                                                value="ecr"
+                                              />
                                               <span
-                                                class="MuiIconButton-label"
+                                                style="display: block; line-height: 0;"
                                               >
-                                                <input
-                                                  class="PrivateSwitchBase-input-13"
-                                                  name="registryType"
-                                                  type="radio"
-                                                  value="ecr"
-                                                />
-                                                <span
-                                                  style="display: block; line-height: 0;"
+                                                <svg
+                                                  font-size="medium"
+                                                  height="20"
+                                                  width="20"
                                                 >
-                                                  <svg
-                                                    height="20"
-                                                    width="20"
-                                                  >
-                                                    <use
-                                                      xlink:href="#ECR"
-                                                    />
-                                                  </svg>
-                                                </span>
+                                                  <use
+                                                    xlink:href="#ECR"
+                                                  />
+                                                </svg>
                                               </span>
                                             </span>
                                             <span
-                                              class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                              class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
                                             >
                                               AWS ECR
                                             </span>
                                           </label>
                                         </button>
                                         <button
-                                          class="MuiButtonBase-root makeStyles-radioControlButton-4 Mui-disabled"
+                                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-4 css-10d1a0h-MuiButtonBase-root"
                                           disabled=""
                                           tabindex="-1"
                                           type="button"
                                         >
                                           <label
-                                            class="MuiFormControlLabel-root makeStyles-radioControlLabel-6 makeStyles-radioControlLabelDisabled-7"
+                                            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-6 makeStyles-radioControlLabelDisabled-7 css-j204z7-MuiFormControlLabel-root"
                                           >
                                             <span
-                                              aria-disabled="false"
-                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-10 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                                              class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                                             >
+                                              <input
+                                                class="PrivateSwitchBase-input css-1m9pwf3"
+                                                name="registryType"
+                                                type="radio"
+                                                value="dockerhub"
+                                              />
                                               <span
-                                                class="MuiIconButton-label"
+                                                style="display: block; line-height: 0;"
                                               >
-                                                <input
-                                                  class="PrivateSwitchBase-input-13"
-                                                  name="registryType"
-                                                  type="radio"
-                                                  value="dockerhub"
-                                                />
-                                                <span
-                                                  style="display: block; line-height: 0;"
+                                                <svg
+                                                  font-size="medium"
+                                                  height="20"
+                                                  width="20"
                                                 >
-                                                  <svg
-                                                    height="20"
-                                                    width="20"
-                                                  >
-                                                    <use
-                                                      xlink:href="#docker"
-                                                    />
-                                                  </svg>
-                                                </span>
+                                                  <use
+                                                    xlink:href="#docker"
+                                                  />
+                                                </svg>
                                               </span>
                                             </span>
                                             <span
-                                              class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                              class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
                                             >
                                               DockerHub
                                             </span>
                                           </label>
                                         </button>
                                         <button
-                                          class="MuiButtonBase-root makeStyles-radioControlButton-4 makeStyles-radioControlButtonActive-5 Mui-disabled"
+                                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-4 makeStyles-radioControlButtonActive-5 css-10d1a0h-MuiButtonBase-root"
                                           disabled=""
                                           tabindex="-1"
                                           type="button"
                                         >
                                           <label
-                                            class="MuiFormControlLabel-root makeStyles-radioControlLabel-6 makeStyles-radioControlLabelDisabled-7"
+                                            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-6 makeStyles-radioControlLabelDisabled-7 css-j204z7-MuiFormControlLabel-root"
                                           >
                                             <span
-                                              aria-disabled="false"
-                                              class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-10 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-checked-11 Mui-checked MuiIconButton-colorPrimary"
+                                              class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary Mui-checked MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                                             >
+                                              <input
+                                                checked=""
+                                                class="PrivateSwitchBase-input css-1m9pwf3"
+                                                name="registryType"
+                                                type="radio"
+                                                value="harbor"
+                                              />
                                               <span
-                                                class="MuiIconButton-label"
+                                                style="display: block; line-height: 0;"
                                               >
-                                                <input
-                                                  checked=""
-                                                  class="PrivateSwitchBase-input-13"
-                                                  name="registryType"
-                                                  type="radio"
-                                                  value="harbor"
-                                                />
-                                                <span
-                                                  style="display: block; line-height: 0;"
+                                                <svg
+                                                  font-size="medium"
+                                                  height="20"
+                                                  width="20"
                                                 >
-                                                  <svg
-                                                    height="20"
-                                                    width="20"
-                                                  >
-                                                    <use
-                                                      xlink:href="#harbor"
-                                                    />
-                                                  </svg>
-                                                </span>
+                                                  <use
+                                                    xlink:href="#harbor"
+                                                  />
+                                                </svg>
                                               </span>
                                             </span>
                                             <span
-                                              class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                              class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
                                             >
                                               Harbor
                                             </span>
@@ -1654,32 +1643,32 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                             </div>
                           </div>
                           <div
-                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                           >
                             <div
-                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
                             >
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     style="display: flex;"
                                   >
                                     <div
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                     >
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
                                           class="makeStyles-labelWrap-8"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
                                           >
                                             Registry Endpoint
                                           </span>
@@ -1687,26 +1676,41 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                         </span>
                                       </div>
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                         style="display: flex; align-items: flex-end;"
                                       >
                                         <div
-                                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                                          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                                         >
                                           <div
-                                            class="MuiFormControl-root MuiTextField-root"
+                                            class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                                           >
                                             <div
-                                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                                              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                                             >
                                               <input
                                                 aria-invalid="false"
-                                                class="MuiInputBase-input MuiInput-input"
+                                                class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                                                id="mui-3"
                                                 name="registryHost"
                                                 placeholder="Enter registry endpoint"
                                                 type="text"
                                                 value="registry.test.com"
                                               />
+                                              <fieldset
+                                                aria-hidden="true"
+                                                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                                              >
+                                                <legend
+                                                  class="css-ihdtdm"
+                                                >
+                                                  <span
+                                                    class="notranslate"
+                                                  >
+                                                    ​
+                                                  </span>
+                                                </legend>
+                                              </fieldset>
                                             </div>
                                           </div>
                                         </div>
@@ -1716,26 +1720,26 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                 </div>
                               </div>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     style="display: flex;"
                                   >
                                     <div
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                     >
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
                                           class="makeStyles-labelWrap-8"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
                                           >
                                             Registry Space
                                           </span>
@@ -1743,26 +1747,41 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                         </span>
                                       </div>
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                         style="display: flex; align-items: flex-end;"
                                       >
                                         <div
-                                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                                          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                                         >
                                           <div
-                                            class="MuiFormControl-root MuiTextField-root"
+                                            class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                                           >
                                             <div
-                                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                                              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                                             >
                                               <input
                                                 aria-invalid="false"
-                                                class="MuiInputBase-input MuiInput-input"
+                                                class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                                                id="mui-5"
                                                 name="registrySpace"
                                                 placeholder="Enter registry space"
                                                 type="text"
                                                 value="test-namespace"
                                               />
+                                              <fieldset
+                                                aria-hidden="true"
+                                                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                                              >
+                                                <legend
+                                                  class="css-ihdtdm"
+                                                >
+                                                  <span
+                                                    class="notranslate"
+                                                  >
+                                                    ​
+                                                  </span>
+                                                </legend>
+                                              </fieldset>
                                             </div>
                                           </div>
                                         </div>
@@ -1774,29 +1793,29 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                             </div>
                           </div>
                           <div
-                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                           >
                             <div
-                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
                             >
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item"
+                                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
                                   >
                                     <div>
                                       <span />
                                     </div>
                                   </div>
                                   <div
-                                    class="MuiGrid-root MuiGrid-item"
+                                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
                                   >
                                     <h6
-                                      class="MuiTypography-root MuiTypography-h6"
+                                      class="MuiTypography-root MuiTypography-h6 css-k6p83p-MuiTypography-root"
                                     >
                                       Push Account
                                     </h6>
@@ -1804,26 +1823,26 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                 </div>
                               </div>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     style="display: flex;"
                                   >
                                     <div
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                     >
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
                                           class="makeStyles-labelWrap-8"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
                                           >
                                             User
                                           </span>
@@ -1831,26 +1850,41 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                         </span>
                                       </div>
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                         style="display: flex; align-items: flex-end;"
                                       >
                                         <div
-                                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                                          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                                         >
                                           <div
-                                            class="MuiFormControl-root MuiTextField-root"
+                                            class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                                           >
                                             <div
-                                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                                              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                                             >
                                               <input
                                                 aria-invalid="false"
-                                                class="MuiInputBase-input MuiInput-input"
+                                                class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                                                id="mui-8"
                                                 name="pushAccountUser"
                                                 placeholder="Enter user name"
                                                 type="text"
                                                 value="test-username"
                                               />
+                                              <fieldset
+                                                aria-hidden="true"
+                                                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                                              >
+                                                <legend
+                                                  class="css-ihdtdm"
+                                                >
+                                                  <span
+                                                    class="notranslate"
+                                                  >
+                                                    ​
+                                                  </span>
+                                                </legend>
+                                              </fieldset>
                                             </div>
                                           </div>
                                         </div>
@@ -1860,26 +1894,26 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                 </div>
                               </div>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     style="display: flex;"
                                   >
                                     <div
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                     >
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
                                           class="makeStyles-labelWrap-8"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
                                           >
                                             Password / Token
                                           </span>
@@ -1887,44 +1921,55 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                         </span>
                                       </div>
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                         style="display: flex; align-items: flex-end;"
                                       >
                                         <div
-                                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                                          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                                         >
                                           <div
-                                            class="MuiFormControl-root MuiTextField-root"
+                                            class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                                           >
                                             <div
-                                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
+                                              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                             >
                                               <input
                                                 aria-invalid="false"
-                                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                                class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                                                id="mui-10"
                                                 name="pushAccountPassword"
                                                 placeholder="Enter password or token"
                                                 type="password"
                                                 value="test-password"
                                               />
                                               <div
-                                                class="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+                                                class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
                                               >
                                                 <button
-                                                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                                                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
                                                   tabindex="0"
                                                   type="button"
                                                 >
+                                                  <span />
                                                   <span
-                                                    class="MuiIconButton-label"
-                                                  >
-                                                    <span />
-                                                  </span>
-                                                  <span
-                                                    class="MuiTouchRipple-root"
+                                                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                                                   />
                                                 </button>
                                               </div>
+                                              <fieldset
+                                                aria-hidden="true"
+                                                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                                              >
+                                                <legend
+                                                  class="css-ihdtdm"
+                                                >
+                                                  <span
+                                                    class="notranslate"
+                                                  >
+                                                    ​
+                                                  </span>
+                                                </legend>
+                                              </fieldset>
                                             </div>
                                           </div>
                                         </div>
@@ -1936,29 +1981,29 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                             </div>
                           </div>
                           <div
-                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                           >
                             <div
-                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
                             >
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item"
+                                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
                                   >
                                     <div>
                                       <span />
                                     </div>
                                   </div>
                                   <div
-                                    class="MuiGrid-root MuiGrid-item"
+                                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
                                   >
                                     <h6
-                                      class="MuiTypography-root MuiTypography-h6"
+                                      class="MuiTypography-root MuiTypography-h6 css-k6p83p-MuiTypography-root"
                                     >
                                       Pull Account
                                     </h6>
@@ -1966,53 +2011,49 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                 </div>
                               </div>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     style="display: flex; justify-content: flex-start;"
                                   >
                                     <div
-                                      class="MuiFormControl-root"
+                                      class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
                                     >
                                       <label
-                                        class="MuiFormControlLabel-root"
+                                        class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
                                         style="margin: 0px;"
                                       >
                                         <span
-                                          aria-disabled="false"
-                                          class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-10 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
+                                          class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-14qtr36-MuiButtonBase-root-MuiCheckbox-root"
                                         >
-                                          <span
-                                            class="MuiIconButton-label"
+                                          <input
+                                            class="PrivateSwitchBase-input css-1m9pwf3"
+                                            data-indeterminate="false"
+                                            name="useSameAccount"
+                                            type="checkbox"
+                                            value="false"
+                                          />
+                                          <svg
+                                            aria-hidden="true"
+                                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                                            data-testid="CheckBoxOutlineBlankIcon"
+                                            focusable="false"
+                                            viewBox="0 0 24 24"
                                           >
-                                            <input
-                                              class="PrivateSwitchBase-input-13"
-                                              data-indeterminate="false"
-                                              name="useSameAccount"
-                                              type="checkbox"
-                                              value="false"
+                                            <path
+                                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
                                             />
-                                            <svg
-                                              aria-hidden="true"
-                                              class="MuiSvgIcon-root"
-                                              focusable="false"
-                                              viewBox="0 0 24 24"
-                                            >
-                                              <path
-                                                d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                                              />
-                                            </svg>
-                                          </span>
+                                          </svg>
                                           <span
-                                            class="MuiTouchRipple-root"
+                                            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                                           />
                                         </span>
                                         <span
-                                          class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                          class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
                                         >
                                           <span
                                             style="display: inline-block; margin-top: 0.125rem;"
@@ -2021,7 +2062,7 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                               class="makeStyles-labelWrap-8"
                                             >
                                               <span
-                                                class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                                class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
                                               >
                                                 Use the Push Account's credentials
                                               </span>
@@ -2035,26 +2076,26 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                 </div>
                               </div>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     style="display: flex;"
                                   >
                                     <div
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                     >
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
                                           class="makeStyles-labelWrap-8"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
                                           >
                                             User
                                           </span>
@@ -2062,26 +2103,41 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                         </span>
                                       </div>
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                         style="display: flex; align-items: flex-end;"
                                       >
                                         <div
-                                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                                          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                                         >
                                           <div
-                                            class="MuiFormControl-root MuiTextField-root"
+                                            class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                                           >
                                             <div
-                                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                                              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                                             >
                                               <input
                                                 aria-invalid="false"
-                                                class="MuiInputBase-input MuiInput-input"
+                                                class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                                                id="mui-14"
                                                 name="pullAccountUser"
                                                 placeholder="Enter user name"
                                                 type="text"
                                                 value="test-username"
                                               />
+                                              <fieldset
+                                                aria-hidden="true"
+                                                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                                              >
+                                                <legend
+                                                  class="css-ihdtdm"
+                                                >
+                                                  <span
+                                                    class="notranslate"
+                                                  >
+                                                    ​
+                                                  </span>
+                                                </legend>
+                                              </fieldset>
                                             </div>
                                           </div>
                                         </div>
@@ -2091,26 +2147,26 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                 </div>
                               </div>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
                               >
                                 <div
-                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                 >
                                   <div
-                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     style="display: flex;"
                                   >
                                     <div
-                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+                                      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                                     >
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
                                           class="makeStyles-labelWrap-8"
                                         >
                                           <span
-                                            class="MuiTypography-root makeStyles-label-9 MuiTypography-body1"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
                                           >
                                             Password / Token
                                           </span>
@@ -2118,44 +2174,55 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                                         </span>
                                       </div>
                                       <div
-                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                         style="display: flex; align-items: flex-end;"
                                       >
                                         <div
-                                          class="MuiFormControl-root MuiFormControl-fullWidth"
+                                          class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                                         >
                                           <div
-                                            class="MuiFormControl-root MuiTextField-root"
+                                            class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                                           >
                                             <div
-                                              class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
+                                              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                             >
                                               <input
                                                 aria-invalid="false"
-                                                class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                                class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                                                id="mui-16"
                                                 name="pullAccountPassword"
                                                 placeholder="Enter password or token"
                                                 type="password"
                                                 value="test-password"
                                               />
                                               <div
-                                                class="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+                                                class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
                                               >
                                                 <button
-                                                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                                                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
                                                   tabindex="0"
                                                   type="button"
                                                 >
+                                                  <span />
                                                   <span
-                                                    class="MuiIconButton-label"
-                                                  >
-                                                    <span />
-                                                  </span>
-                                                  <span
-                                                    class="MuiTouchRipple-root"
+                                                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                                                   />
                                                 </button>
                                               </div>
+                                              <fieldset
+                                                aria-hidden="true"
+                                                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                                              >
+                                                <legend
+                                                  class="css-ihdtdm"
+                                                >
+                                                  <span
+                                                    class="notranslate"
+                                                  >
+                                                    ​
+                                                  </span>
+                                                </legend>
+                                              </fieldset>
                                             </div>
                                           </div>
                                         </div>
@@ -2169,66 +2236,54 @@ exports[`renders ManageRegistry Kubernetes Edit component 1`] = `
                         </div>
                       </div>
                       <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       >
                         <div
-                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center MuiGrid-justify-content-xs-space-between"
+                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-6ejd34-MuiGrid-root"
                         >
                           <div
-                            class="MuiGrid-root MuiGrid-item"
+                            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
                             style="margin-right: auto;"
                           >
                             <button
-                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-nav054-MuiButtonBase-root-MuiButton-root"
                               style="pointer-events: auto;"
                               tabindex="0"
                               type="button"
                             >
                               <span
-                                class="MuiButton-label"
+                                class="MuiButton-startIcon MuiButton-iconSizeMedium css-1d6wzja-MuiButton-startIcon"
                               >
-                                <span
-                                  class="MuiButton-startIcon MuiButton-iconSizeMedium"
-                                >
-                                  <span />
-                                </span>
-                                Reset registry
+                                <span />
                               </span>
+                              Reset registry
                               <span
-                                class="MuiTouchRipple-root"
+                                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                               />
                             </button>
                           </div>
                           <div
-                            class="MuiGrid-root MuiGrid-item"
+                            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
                           >
                             <button
-                              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+                              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1llbb2a-MuiButtonBase-root-MuiButton-root"
                               disabled=""
                               tabindex="-1"
                               type="button"
                             >
-                              <span
-                                class="MuiButton-label"
-                              >
-                                undo changes
-                              </span>
+                              undo changes
                             </button>
                           </div>
                           <div
-                            class="MuiGrid-root MuiGrid-item"
+                            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
                           >
                             <button
-                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+                              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall css-vw8gqz-MuiButtonBase-root-MuiButton-root"
                               disabled=""
                               tabindex="-1"
                               type="button"
                             >
-                              <span
-                                class="MuiButton-label"
-                              >
-                                save
-                              </span>
+                              save
                             </button>
                           </div>
                         </div>

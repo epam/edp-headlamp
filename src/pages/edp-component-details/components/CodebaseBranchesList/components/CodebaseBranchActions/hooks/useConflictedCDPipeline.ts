@@ -8,54 +8,54 @@ import { isGroovyLibrary } from '../../../../../../../utils/checks/isGroovyLibra
 import { isLibrary } from '../../../../../../../utils/checks/isLibrary';
 
 export const useConflictedCDPipeline = (
-    codebaseBranch: EDPCodebaseBranchKubeObjectInterface,
-    codebase: EDPCodebaseKubeObjectInterface
+  codebaseBranch: EDPCodebaseBranchKubeObjectInterface,
+  codebase: EDPCodebaseKubeObjectInterface
 ) => {
-    const codebaseBranchSpecName = codebaseBranch?.spec.branchName;
-    const codebaseBranchMetadataName = codebaseBranch?.metadata.name;
+  const codebaseBranchSpecName = codebaseBranch?.spec.branchName;
+  const codebaseBranchMetadataName = codebaseBranch?.metadata.name;
 
-    const CDPipelineByGroovyLibraryItUsesInItsStagesQuery =
-        useCDPipelineByGroovyLibraryItUsesInItsStagesQuery({
-            props: {
-                codebaseName: codebase.metadata.name,
-            },
-            options: {
-                enabled: !!codebaseBranch && isLibrary(codebase) && isGroovyLibrary(codebase),
-            },
-        });
-
-    const CDPipelineByAutotestBranchItUsesInItsStagesQuery =
-        useCDPipelineByAutotestBranchItUsesInItsStagesQuery({
-            props: {
-                codebaseBranchName: codebaseBranchSpecName,
-            },
-            options: {
-                enabled: !!codebaseBranch && isAutotest(codebase),
-            },
-        });
-
-    const CDPipelineByCodebaseBranchItUsesQuery = useCDPipelineByCodebaseBranchItUsesQuery({
-        props: {
-            codebaseBranchName: codebaseBranchMetadataName,
-        },
-        options: {
-            enabled:
-                !!codebaseBranch &&
-                !isLibrary(codebase) &&
-                isGroovyLibrary(codebase) &&
-                !isAutotest(codebase),
-        },
+  const CDPipelineByGroovyLibraryItUsesInItsStagesQuery =
+    useCDPipelineByGroovyLibraryItUsesInItsStagesQuery({
+      props: {
+        codebaseName: codebase.metadata.name,
+      },
+      options: {
+        enabled: !!codebaseBranch && isLibrary(codebase) && isGroovyLibrary(codebase),
+      },
     });
 
-    if (CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data) {
-        return CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data;
-    }
+  const CDPipelineByAutotestBranchItUsesInItsStagesQuery =
+    useCDPipelineByAutotestBranchItUsesInItsStagesQuery({
+      props: {
+        codebaseBranchName: codebaseBranchSpecName,
+      },
+      options: {
+        enabled: !!codebaseBranch && isAutotest(codebase),
+      },
+    });
 
-    if (CDPipelineByAutotestBranchItUsesInItsStagesQuery.data) {
-        return CDPipelineByAutotestBranchItUsesInItsStagesQuery.data;
-    }
+  const CDPipelineByCodebaseBranchItUsesQuery = useCDPipelineByCodebaseBranchItUsesQuery({
+    props: {
+      codebaseBranchName: codebaseBranchMetadataName,
+    },
+    options: {
+      enabled:
+        !!codebaseBranch &&
+        !isLibrary(codebase) &&
+        isGroovyLibrary(codebase) &&
+        !isAutotest(codebase),
+    },
+  });
 
-    if (CDPipelineByCodebaseBranchItUsesQuery.data) {
-        return CDPipelineByCodebaseBranchItUsesQuery.data;
-    }
+  if (CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data) {
+    return CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data;
+  }
+
+  if (CDPipelineByAutotestBranchItUsesInItsStagesQuery.data) {
+    return CDPipelineByAutotestBranchItUsesInItsStagesQuery.data;
+  }
+
+  if (CDPipelineByCodebaseBranchItUsesQuery.data) {
+    return CDPipelineByCodebaseBranchItUsesQuery.data;
+  }
 };

@@ -1,6 +1,6 @@
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 
 export interface CDPipelineActionsProps {
-    CDPipeline: EDPCDPipelineKubeObjectInterface;
-    backRoute?: string;
+  CDPipeline: EDPCDPipelineKubeObjectInterface;
+  backRoute?: string;
 }

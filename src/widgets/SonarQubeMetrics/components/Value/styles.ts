@@ -1,7 +1,7 @@
-import { makeStyles } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
 
 export const useStyles = makeStyles(theme => ({
-    value: {
-        fontWeight: theme.typography.fontWeightMedium as number,
-    },
+  value: {
+    fontWeight: theme.typography.fontWeightMedium as number,
+  },
 }));

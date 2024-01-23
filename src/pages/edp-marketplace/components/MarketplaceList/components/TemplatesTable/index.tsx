@@ -6,22 +6,22 @@ import { useColumns } from './hooks/useColumns';
 import { TemplatesTableProps } from './types';
 
 export const TemplatesTable = ({
-    activeTemplate,
-    data,
-    handleTemplateClick,
-    filterFunction,
+  activeTemplate,
+  data,
+  handleTemplateClick,
+  filterFunction,
 }: TemplatesTableProps) => {
-    const columns = useColumns();
+  const columns = useColumns();
 
-    return (
-        <Table<EDPTemplateKubeObjectInterface>
-            columns={columns}
-            data={data}
-            isLoading={!data}
-            isSelected={row => row.metadata.uid === activeTemplate?.metadata.uid}
-            handleRowClick={(event, row) => handleTemplateClick(event, row)}
-            emptyListComponent={<EmptyList missingItemName={'templates'} />}
-            filterFunction={filterFunction}
-        />
-    );
+  return (
+    <Table<EDPTemplateKubeObjectInterface>
+      columns={columns}
+      data={data}
+      isLoading={!data}
+      isSelected={row => row.metadata.uid === activeTemplate?.metadata.uid}
+      handleRowClick={(event, row) => handleTemplateClick(event, row)}
+      emptyListComponent={<EmptyList missingItemName={'templates'} />}
+      filterFunction={filterFunction}
+    />
+  );
 };

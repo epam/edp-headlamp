@@ -1,4 +1,4 @@
 export enum CODEBASE_VERSIONING_TYPES {
-    DEFAULT = 'default',
-    EDP = 'edp',
+  DEFAULT = 'default',
+  EDP = 'edp',
 }

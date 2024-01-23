@@ -6,42 +6,39 @@ import { AdvancedMappingRow } from '../types';
 import { getJiraIssueMetadataPayload } from '../utils';
 
 interface UseOnChangeJiraPatternProps {
-    setAdvancedMappingRows: React.Dispatch<React.SetStateAction<AdvancedMappingRow[]>>;
+  setAdvancedMappingRows: React.Dispatch<React.SetStateAction<AdvancedMappingRow[]>>;
 }
 
 export const useOnChangeJiraPattern = ({
-    setAdvancedMappingRows,
+  setAdvancedMappingRows,
 }: UseOnChangeJiraPatternProps): {
-    onChangeJiraPattern: (event: FieldEvent, value: any) => void;
+  onChangeJiraPattern: (event: FieldEvent, value: any) => void;
 } => {
-    const { setValue } = useFormContext();
+  const { setValue } = useFormContext();
 
-    const onChangeJiraPattern = React.useCallback(
-        (event: FieldEvent, value: any) => {
-            setAdvancedMappingRows(prev => {
-                const newRows = prev.map(el => {
-                    if (el.value === value) {
-                        return {
-                            ...el,
-                            jiraPattern: event.target.value,
-                        };
-                    }
-                    return el;
-                });
+  const onChangeJiraPattern = React.useCallback(
+    (event: FieldEvent, value: any) => {
+      setAdvancedMappingRows(prev => {
+        const newRows = prev.map(el => {
+          if (el.value === value) {
+            return {
+              ...el,
+              jiraPattern: event.target.value,
+            };
+          }
+          return el;
+        });
 
-                const newJiraIssueMetadataPayload = getJiraIssueMetadataPayload(newRows);
+        const newJiraIssueMetadataPayload = getJiraIssueMetadataPayload(newRows);
 
-                if (newJiraIssueMetadataPayload) {
-                    setValue(
-                        CODEBASE_FORM_NAMES.jiraIssueMetadataPayload.name,
-                        newJiraIssueMetadataPayload
-                    );
-                }
-                return newRows;
-            });
-        },
-        [setAdvancedMappingRows, setValue]
-    );
+        if (newJiraIssueMetadataPayload) {
+          setValue(CODEBASE_FORM_NAMES.jiraIssueMetadataPayload.name, newJiraIssueMetadataPayload);
+        }
+        return newRows;
+      });
+    },
+    [setAdvancedMappingRows, setValue]
+  );
 
-    return { onChangeJiraPattern };
+  return { onChangeJiraPattern };
 };

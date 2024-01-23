@@ -9,20 +9,20 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageSonarCI } from './index';
 
 test('renders ManageSonarCI Create component', () => {
-    render(
-        <TestWrapper>
-            <ManageSonarCI
-                formData={{
-                    sonarSecret: null,
-                    sonarEDPComponent: null,
-                    ownerReference: null,
-                    mode: FORM_MODES.CREATE,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageSonarCI
+        formData={{
+          sonarSecret: null,
+          sonarEDPComponent: null,
+          ownerReference: null,
+          mode: FORM_MODES.CREATE,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

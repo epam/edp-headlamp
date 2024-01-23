@@ -7,52 +7,52 @@ import { EDPCDPipelineKubeObjectInterface } from '../types';
 import { useCDPipelineByNameQuery } from './useCDPipelineByNameQuery';
 
 interface UseCDPipelineByGroovyLibraryItUsesInItsStagesQueryProps {
-    props: {
-        codebaseName: string;
-    };
-    options?: UseQueryOptions<
-        KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>,
-        Error,
-        EDPCDPipelineKubeObjectInterface
-    >;
+  props: {
+    codebaseName: string;
+  };
+  options?: UseQueryOptions<
+    KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>,
+    Error,
+    EDPCDPipelineKubeObjectInterface
+  >;
 }
 
 export const useCDPipelineByGroovyLibraryItUsesInItsStagesQuery = ({
-    props,
-    options,
+  props,
+  options,
 }: UseCDPipelineByGroovyLibraryItUsesInItsStagesQueryProps) => {
-    const { codebaseName } = props;
+  const { codebaseName } = props;
 
-    const [CDPipelineName, setCDPipelineName] = React.useState<string>(null);
-    const query = useCDPipelineByNameQuery({
-        props: {
-            name: CDPipelineName,
-        },
-        options: {
-            enabled: !!CDPipelineName,
-        },
-    });
+  const [CDPipelineName, setCDPipelineName] = React.useState<string>(null);
+  const query = useCDPipelineByNameQuery({
+    props: {
+      name: CDPipelineName,
+    },
+    options: {
+      enabled: !!CDPipelineName,
+    },
+  });
 
-    useCDPipelineStageListQuery<EDPCDPipelineKubeObjectInterface>({
-        options: {
-            onSuccess: async data => {
-                for (const {
-                    spec: {
-                        source: {
-                            library: { name },
-                        },
-                        cdPipeline,
-                    },
-                } of data?.items) {
-                    if (name === codebaseName) {
-                        setCDPipelineName(cdPipeline);
-                    }
-                }
+  useCDPipelineStageListQuery<EDPCDPipelineKubeObjectInterface>({
+    options: {
+      onSuccess: async data => {
+        for (const {
+          spec: {
+            source: {
+              library: { name },
             },
-            ...options,
-            enabled: options?.enabled && !!codebaseName,
-        },
-    });
+            cdPipeline,
+          },
+        } of data?.items) {
+          if (name === codebaseName) {
+            setCDPipelineName(cdPipeline);
+          }
+        }
+      },
+      ...options,
+      enabled: options?.enabled && !!codebaseName,
+    },
+  });
 
-    return React.useMemo(() => query, [query]);
+  return React.useMemo(() => query, [query]);
 };

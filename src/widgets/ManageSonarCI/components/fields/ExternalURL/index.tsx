@@ -7,38 +7,38 @@ import { SONAR_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageSonarIntegrationSecretFormDataContext } from '../../../types';
 
 export const ExternalURL = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-        setValue,
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+    setValue,
+  } = useReactHookFormContext();
 
-    const {
-        formData: { mode },
-    } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
+  const {
+    formData: { mode },
+  } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
 
-    return (
-        <FormTextField
-            {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name, {
-                required: 'Enter the external SonarQube URL.',
-                pattern: {
-                    value: /^(?!\/).*(?<!\/)$/,
-                    message: 'Path cannot start or end with slash symbol',
-                },
-                onChange: ({ target: { value } }) => {
-                    if (mode === FORM_MODES.EDIT) {
-                        return;
-                    }
+  return (
+    <FormTextField
+      {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name, {
+        required: 'Enter the external SonarQube URL.',
+        pattern: {
+          value: /^(?!\/).*(?<!\/)$/,
+          message: 'Path cannot start or end with slash symbol',
+        },
+        onChange: ({ target: { value } }) => {
+          if (mode === FORM_MODES.EDIT) {
+            return;
+          }
 
-                    setValue(SONAR_INTEGRATION_SECRET_FORM_NAMES.url.name, value);
-                },
-            })}
-            label={'External URL'}
-            title={'Enter the external URL of your SonarQube instance.'}
-            placeholder={'Enter URL'}
-            control={control}
-            errors={errors}
-        />
-    );
+          setValue(SONAR_INTEGRATION_SECRET_FORM_NAMES.url.name, value);
+        },
+      })}
+      label={'External URL'}
+      title={'Enter the external URL of your SonarQube instance.'}
+      placeholder={'Enter URL'}
+      control={control}
+      errors={errors}
+    />
+  );
 };

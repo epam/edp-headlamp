@@ -9,30 +9,30 @@ import { routeEDPComponentList } from '../edp-component-list/route';
 import { EDPComponentDetailsRouteParams } from './types';
 
 export const PageView = () => {
-    const { name, namespace } = useParams<EDPComponentDetailsRouteParams>();
-    const [EDPComponent] = EDPComponentKubeObject.useGet(name, namespace);
+  const { name, namespace } = useParams<EDPComponentDetailsRouteParams>();
+  const [EDPComponent] = EDPComponentKubeObject.useGet(name, namespace);
 
-    return (
-        <PageWrapper
-            breadcrumbs={[
-                {
-                    label: 'Links',
-                    url: {
-                        pathname: routeEDPComponentList.path,
-                    },
-                },
-                {
-                    label: name,
-                },
-            ]}
-        >
-            <Section title={name} description={'Review/edit your link.'}>
-                {!!EDPComponent && (
-                    <div style={{ marginTop: rem(20) }}>
-                        <EditEDPComponentForm EDPComponent={EDPComponent.jsonData} />
-                    </div>
-                )}
-            </Section>
-        </PageWrapper>
-    );
+  return (
+    <PageWrapper
+      breadcrumbs={[
+        {
+          label: 'Links',
+          url: {
+            pathname: routeEDPComponentList.path,
+          },
+        },
+        {
+          label: name,
+        },
+      ]}
+    >
+      <Section title={name} description={'Review/edit your link.'}>
+        {!!EDPComponent && (
+          <div style={{ marginTop: rem(20) }}>
+            <EditEDPComponentForm EDPComponent={EDPComponent.jsonData} />
+          </div>
+        )}
+      </Section>
+    </PageWrapper>
+  );
 };

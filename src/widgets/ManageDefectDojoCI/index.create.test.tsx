@@ -9,20 +9,20 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageDefectDojoCI } from './index';
 
 test('renders ManageDefectDojoCI Create component', () => {
-    render(
-        <TestWrapper>
-            <ManageDefectDojoCI
-                formData={{
-                    defectDojoSecret: null,
-                    defectDojoEDPComponent: null,
-                    ownerReference: undefined,
-                    mode: FORM_MODES.CREATE,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageDefectDojoCI
+        formData={{
+          defectDojoSecret: null,
+          defectDojoEDPComponent: null,
+          ownerReference: undefined,
+          mode: FORM_MODES.CREATE,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

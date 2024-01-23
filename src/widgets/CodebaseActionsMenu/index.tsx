@@ -18,78 +18,78 @@ import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
 import { CodebaseActionsMenuProps } from './types';
 
 export const CodebaseActionsMenu = ({ backRoute }: CodebaseActionsMenuProps) => {
-    const { setDialog } = useDialogContext();
+  const { setDialog } = useDialogContext();
 
-    const { data, anchorEl, handleCloseResourceActionListMenu } =
-        useResourceActionListContext<EDPCodebaseKubeObjectInterface>();
+  const { data, anchorEl, handleCloseResourceActionListMenu } =
+    useResourceActionListContext<EDPCodebaseKubeObjectInterface>();
 
-    const conflictedCDPipeline = useConflictedCDPipeline(data);
+  const conflictedCDPipeline = useConflictedCDPipeline(data);
 
-    const onBeforeSubmit = React.useCallback(
-        async (setErrorTemplate, setLoadingActive) => {
-            setLoadingActive(true);
-            if (!conflictedCDPipeline) {
-                setLoadingActive(false);
-                return;
-            }
+  const onBeforeSubmit = React.useCallback(
+    async (setErrorTemplate, setLoadingActive) => {
+      setLoadingActive(true);
+      if (!conflictedCDPipeline) {
+        setLoadingActive(false);
+        return;
+      }
 
-            setErrorTemplate(
-                <CodebaseCDPipelineConflictError
-                    conflictedCDPipeline={conflictedCDPipeline}
-                    codebase={data}
-                />
-            );
-            setLoadingActive(false);
-        },
-        [conflictedCDPipeline, data]
-    );
-
-    const actions: KubeObjectAction[] = React.useMemo(() => {
-        const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps = {
-            codebaseData: data,
-            mode: FORM_MODES.EDIT,
-        };
-
-        const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
-            objectName: data?.metadata?.name,
-            kubeObject: EDPCodebaseKubeObject,
-            kubeObjectData: data,
-            description: `Confirm the deletion of the codebase with all its components`,
-            onBeforeSubmit,
-            backRoute,
-        };
-
-        return [
-            createKubeAction({
-                name: RESOURCE_ACTIONS.EDIT,
-                icon: ICONS.PENCIL,
-                action: () => {
-                    handleCloseResourceActionListMenu();
-                    setDialog({
-                        modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-                        forwardedProps: createEditCodebaseDialogForwardedProps,
-                    });
-                },
-            }),
-            createKubeAction({
-                name: RESOURCE_ACTIONS.DELETE,
-                icon: ICONS.BUCKET,
-                action: () => {
-                    handleCloseResourceActionListMenu();
-                    setDialog({
-                        modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-                        forwardedProps: deleteKubeObjectDialogForwardedProps,
-                    });
-                },
-            }),
-        ];
-    }, [data, handleCloseResourceActionListMenu, backRoute, onBeforeSubmit, setDialog]);
-
-    return (
-        <KubeObjectActions
-            anchorEl={anchorEl}
-            handleCloseActionsMenu={handleCloseResourceActionListMenu}
-            actions={actions}
+      setErrorTemplate(
+        <CodebaseCDPipelineConflictError
+          conflictedCDPipeline={conflictedCDPipeline}
+          codebase={data}
         />
-    );
+      );
+      setLoadingActive(false);
+    },
+    [conflictedCDPipeline, data]
+  );
+
+  const actions: KubeObjectAction[] = React.useMemo(() => {
+    const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps = {
+      codebaseData: data,
+      mode: FORM_MODES.EDIT,
+    };
+
+    const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+      objectName: data?.metadata?.name,
+      kubeObject: EDPCodebaseKubeObject,
+      kubeObjectData: data,
+      description: `Confirm the deletion of the codebase with all its components`,
+      onBeforeSubmit,
+      backRoute,
+    };
+
+    return [
+      createKubeAction({
+        name: RESOURCE_ACTIONS.EDIT,
+        icon: ICONS.PENCIL,
+        action: () => {
+          handleCloseResourceActionListMenu();
+          setDialog({
+            modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
+            forwardedProps: createEditCodebaseDialogForwardedProps,
+          });
+        },
+      }),
+      createKubeAction({
+        name: RESOURCE_ACTIONS.DELETE,
+        icon: ICONS.BUCKET,
+        action: () => {
+          handleCloseResourceActionListMenu();
+          setDialog({
+            modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+            forwardedProps: deleteKubeObjectDialogForwardedProps,
+          });
+        },
+      }),
+    ];
+  }, [data, handleCloseResourceActionListMenu, backRoute, onBeforeSubmit, setDialog]);
+
+  return (
+    <KubeObjectActions
+      anchorEl={anchorEl}
+      handleCloseActionsMenu={handleCloseResourceActionListMenu}
+      actions={actions}
+    />
+  );
 };

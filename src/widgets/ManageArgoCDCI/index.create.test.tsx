@@ -9,20 +9,20 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageArgoCDCI } from './index';
 
 test('renders ManageArgoCDCI Create component', () => {
-    render(
-        <TestWrapper>
-            <ManageArgoCDCI
-                formData={{
-                    argoCDSecret: null,
-                    argoCDEDPComponent: null,
-                    ownerReference: undefined,
-                    mode: FORM_MODES.CREATE,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageArgoCDCI
+        formData={{
+          argoCDSecret: null,
+          argoCDEDPComponent: null,
+          ownerReference: undefined,
+          mode: FORM_MODES.CREATE,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

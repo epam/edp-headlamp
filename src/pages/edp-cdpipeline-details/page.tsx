@@ -7,17 +7,17 @@ import { DynamicDataContextProvider } from './providers/DynamicData/provider';
 import { PageView } from './view';
 
 export default function () {
-    return (
-        <PageLogicWrapper>
-            <DialogContextProvider>
-                <ResourceActionListContextProvider>
-                    <NamespacesGuardWrapper>
-                        <DynamicDataContextProvider>
-                            <PageView />
-                        </DynamicDataContextProvider>
-                    </NamespacesGuardWrapper>
-                </ResourceActionListContextProvider>
-            </DialogContextProvider>
-        </PageLogicWrapper>
-    );
+  return (
+    <PageLogicWrapper>
+      <DialogContextProvider>
+        <ResourceActionListContextProvider>
+          <NamespacesGuardWrapper>
+            <DynamicDataContextProvider>
+              <PageView />
+            </DynamicDataContextProvider>
+          </NamespacesGuardWrapper>
+        </ResourceActionListContextProvider>
+      </DialogContextProvider>
+    </PageLogicWrapper>
+  );
 }

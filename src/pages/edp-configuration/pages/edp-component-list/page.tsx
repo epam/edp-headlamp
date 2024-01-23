@@ -6,15 +6,15 @@ import { NamespacesGuardWrapper } from '../../../../providers/NamespacesGuardWra
 import { PageView } from './view';
 
 export default function () {
-    return (
-        <PageLogicWrapper>
-            <DialogContextProvider>
-                <NamespacesGuardWrapper>
-                    <FilterContextProvider>
-                        <PageView />
-                    </FilterContextProvider>
-                </NamespacesGuardWrapper>
-            </DialogContextProvider>
-        </PageLogicWrapper>
-    );
+  return (
+    <PageLogicWrapper>
+      <DialogContextProvider>
+        <NamespacesGuardWrapper>
+          <FilterContextProvider>
+            <PageView />
+          </FilterContextProvider>
+        </NamespacesGuardWrapper>
+      </DialogContextProvider>
+    </PageLogicWrapper>
+  );
 }

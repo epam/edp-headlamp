@@ -5,20 +5,20 @@ type EDPComponentName = string;
 type EDPComponentURL = string;
 
 export type EDPComponentsURLS = {
-    [componentName: EDPComponentName]: EDPComponentURL;
+  [componentName: EDPComponentName]: EDPComponentURL;
 };
 
 export const useEDPComponentsURLsQuery = (namespace?: string) => {
-    return useEDPComponentsQuery<EDPComponentsURLS>({
-        props: {
-            namespace: namespace || getDefaultNamespace(),
-        },
-        options: {
-            select: data =>
-                data.items.reduce((acc, cur) => {
-                    acc[cur.spec.type] = cur.spec.url;
-                    return acc;
-                }, {}),
-        },
-    });
+  return useEDPComponentsQuery<EDPComponentsURLS>({
+    props: {
+      namespace: namespace || getDefaultNamespace(),
+    },
+    options: {
+      select: data =>
+        data.items.reduce((acc, cur) => {
+          acc[cur.spec.type] = cur.spec.url;
+          return acc;
+        }, {}),
+    },
+  });
 };

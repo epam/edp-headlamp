@@ -8,48 +8,47 @@ import { isGroovyLibrary } from '../../../utils/checks/isGroovyLibrary';
 import { isLibrary } from '../../../utils/checks/isLibrary';
 
 export const useConflictedCDPipeline = (codebase: EDPCodebaseKubeObjectInterface) => {
-    const CDPipelineByGroovyLibraryItUsesInItsStagesQuery =
-        useCDPipelineByGroovyLibraryItUsesInItsStagesQuery({
-            props: {
-                codebaseName: codebase?.metadata.name,
-            },
-            options: {
-                enabled: !!codebase && isLibrary(codebase) && isGroovyLibrary(codebase),
-            },
-        });
-
-    const CDPipelineByAutotestItUsesInItsStagesQuery =
-        useCDPipelineByAutotestItUsesInItsStagesQuery({
-            props: {
-                codebaseName: codebase?.metadata.name,
-            },
-            options: {
-                enabled: !!codebase && isAutotest(codebase),
-            },
-        });
-
-    const CDPipelineByApplicationItUsesQuery = useCDPipelineByApplicationItUsesQuery({
-        props: {
-            codebaseName: codebase?.metadata.name,
-        },
-        options: {
-            enabled: !!codebase && isApplication(codebase),
-        },
+  const CDPipelineByGroovyLibraryItUsesInItsStagesQuery =
+    useCDPipelineByGroovyLibraryItUsesInItsStagesQuery({
+      props: {
+        codebaseName: codebase?.metadata.name,
+      },
+      options: {
+        enabled: !!codebase && isLibrary(codebase) && isGroovyLibrary(codebase),
+      },
     });
 
-    if (!codebase) {
-        return null;
-    }
+  const CDPipelineByAutotestItUsesInItsStagesQuery = useCDPipelineByAutotestItUsesInItsStagesQuery({
+    props: {
+      codebaseName: codebase?.metadata.name,
+    },
+    options: {
+      enabled: !!codebase && isAutotest(codebase),
+    },
+  });
 
-    if (CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data) {
-        return CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data;
-    }
+  const CDPipelineByApplicationItUsesQuery = useCDPipelineByApplicationItUsesQuery({
+    props: {
+      codebaseName: codebase?.metadata.name,
+    },
+    options: {
+      enabled: !!codebase && isApplication(codebase),
+    },
+  });
 
-    if (CDPipelineByAutotestItUsesInItsStagesQuery.data) {
-        return CDPipelineByAutotestItUsesInItsStagesQuery.data;
-    }
+  if (!codebase) {
+    return null;
+  }
 
-    if (CDPipelineByApplicationItUsesQuery.data) {
-        return CDPipelineByApplicationItUsesQuery.data;
-    }
+  if (CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data) {
+    return CDPipelineByGroovyLibraryItUsesInItsStagesQuery.data;
+  }
+
+  if (CDPipelineByAutotestItUsesInItsStagesQuery.data) {
+    return CDPipelineByAutotestItUsesInItsStagesQuery.data;
+  }
+
+  if (CDPipelineByApplicationItUsesQuery.data) {
+    return CDPipelineByApplicationItUsesQuery.data;
+  }
 };

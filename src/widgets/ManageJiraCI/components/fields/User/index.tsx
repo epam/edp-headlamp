@@ -7,29 +7,29 @@ import { JIRA_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageJiraIntegrationSecretFormDataContext } from '../../../types';
 
 export const User = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useReactHookFormContext();
 
-    const {
-        formData: { mode, isReadOnly },
-    } = useFormContext<ManageJiraIntegrationSecretFormDataContext>();
+  const {
+    formData: { mode, isReadOnly },
+  } = useFormContext<ManageJiraIntegrationSecretFormDataContext>();
 
-    return (
-        <FormTextField
-            {...register(JIRA_INTEGRATION_SECRET_FORM_NAMES.username.name, {
-                required: 'Enter your Jira username.',
-            })}
-            label={'User'}
-            title={
-                'Enter your Jira username for authentication. This is typically the username associated with your Jira account.'
-            }
-            placeholder={'Enter user name'}
-            control={control}
-            errors={errors}
-            disabled={mode === FORM_MODES.EDIT && isReadOnly}
-        />
-    );
+  return (
+    <FormTextField
+      {...register(JIRA_INTEGRATION_SECRET_FORM_NAMES.username.name, {
+        required: 'Enter your Jira username.',
+      })}
+      label={'User'}
+      title={
+        'Enter your Jira username for authentication. This is typically the username associated with your Jira account.'
+      }
+      placeholder={'Enter user name'}
+      control={control}
+      errors={errors}
+      disabled={mode === FORM_MODES.EDIT && isReadOnly}
+    />
+  );
 };

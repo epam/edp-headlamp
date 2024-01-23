@@ -4,24 +4,25 @@ import { FormContext } from './context';
 import { FormContextProviderProps } from './types';
 
 export const FormContextProvider: React.FC<FormContextProviderProps> = ({
-    children,
-    formSettings,
-    formData,
+  children,
+  formSettings,
+  formData,
 }) => {
-    const formState = useForm(formSettings);
-    const { reset } = formState;
+  const formState = useForm(formSettings);
+  const { reset } = formState;
 
-    const baseDefaultValues = formSettings.defaultValues;
+  const baseDefaultValues = formSettings.defaultValues;
 
-    React.useEffect(() => {
-        reset(baseDefaultValues);
-    }, [baseDefaultValues, reset]);
+  React.useEffect(() => {
+    reset(baseDefaultValues);
+  }, [baseDefaultValues, reset]);
 
-    const providerValue = React.useMemo(() => ({ formData }), [formData]);
+  const providerValue = React.useMemo(() => ({ formData }), [formData]);
 
-    return (
-        <FormContext.Provider value={providerValue}>
-            <FormProvider {...formState}>{children}</FormProvider>
-        </FormContext.Provider>
-    );
+  return (
+    <FormContext.Provider value={providerValue}>
+      {/* @ts-ignore */}
+      <FormProvider {...formState}>{children}</FormProvider>
+    </FormContext.Provider>
+  );
 };

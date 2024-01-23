@@ -12,36 +12,36 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageSonarCI } from './index';
 
 test('renders ManageSonarCI Edit component', () => {
-    render(
-        <TestWrapper>
-            <ManageSonarCI
-                formData={{
-                    sonarSecret: SonarCISecretMock as unknown as SecretKubeObjectInterface,
-                    sonarEDPComponent: {
-                        apiVersion: 'v1.edp.epam.com/v1',
-                        kind: 'EDPComponent',
-                        metadata: {
-                            name: SYSTEM_EDP_COMPONENTS.SONAR,
-                            namespace: 'test-namespace',
-                            creationTimestamp: '',
-                            uid: '',
-                        },
-                        spec: {
-                            type: SYSTEM_EDP_COMPONENTS.SONAR,
-                            url: 'https://test-nexus.com',
-                            visible: true,
-                            icon: '',
-                        },
-                        status: '',
-                    },
-                    ownerReference: undefined,
-                    mode: FORM_MODES.EDIT,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageSonarCI
+        formData={{
+          sonarSecret: SonarCISecretMock as unknown as SecretKubeObjectInterface,
+          sonarEDPComponent: {
+            apiVersion: 'v1.edp.epam.com/v1',
+            kind: 'EDPComponent',
+            metadata: {
+              name: SYSTEM_EDP_COMPONENTS.SONAR,
+              namespace: 'test-namespace',
+              creationTimestamp: '',
+              uid: '',
+            },
+            spec: {
+              type: SYSTEM_EDP_COMPONENTS.SONAR,
+              url: 'https://test-nexus.com',
+              visible: true,
+              icon: '',
+            },
+            status: '',
+          },
+          ownerReference: undefined,
+          mode: FORM_MODES.EDIT,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

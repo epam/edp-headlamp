@@ -1,11 +1,11 @@
 export const mapEvery = <Key, Value>(
-    map: Map<Key, Value>,
-    callback: (value: Value, key: Key, map: Map<Key, Value>) => boolean
+  map: Map<Key, Value>,
+  callback: (value: Value, key: Key, map: Map<Key, Value>) => boolean
 ): boolean => {
-    for (const [key, value] of map) {
-        if (!callback(value, key, map)) {
-            return false;
-        }
+  for (const [key, value] of map) {
+    if (!callback(value, key, map)) {
+      return false;
     }
-    return true;
+  }
+  return true;
 };

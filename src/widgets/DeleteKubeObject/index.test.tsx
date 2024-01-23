@@ -10,33 +10,33 @@ import { DeleteKubeObject } from './index';
 import { DeleteKubeObjectDialogForwardedProps } from './types';
 
 const mockForwardedProps: DeleteKubeObjectDialogForwardedProps = {
-    onSuccess: jest.fn(),
-    objectName: 'MockObjectName',
-    kubeObjectData: {
-        kind: 'MockKind',
-    } as KubeObjectInterface,
-    kubeObject: {},
-    onBeforeSubmit: jest.fn(),
-    description: 'Mock Description',
+  onSuccess: jest.fn(),
+  objectName: 'MockObjectName',
+  kubeObjectData: {
+    kind: 'MockKind',
+  } as KubeObjectInterface,
+  kubeObject: {},
+  onBeforeSubmit: jest.fn(),
+  description: 'Mock Description',
 };
 
 jest.mock('../../providers/Dialog/hooks', () => ({
-    useSpecificDialogContext: jest.fn(() => ({
-        open: true,
-        forwardedProps: mockForwardedProps,
-        closeDialog: jest.fn(),
-        openDialog: jest.fn(),
-    })),
+  useSpecificDialogContext: jest.fn(() => ({
+    open: true,
+    forwardedProps: mockForwardedProps,
+    closeDialog: jest.fn(),
+    openDialog: jest.fn(),
+  })),
 }));
 
 test('renders DeleteKubeObject component', () => {
-    render(
-        <TestWrapper>
-            <DeleteKubeObject />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <DeleteKubeObject />
+    </TestWrapper>
+  );
 
-    // Check that the component is rendered
-    const dialog = screen.getByTestId('dialog');
-    expect(dialog).toMatchSnapshot();
+  // Check that the component is rendered
+  const dialog = screen.getByTestId('dialog');
+  expect(dialog).toMatchSnapshot();
 });

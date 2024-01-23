@@ -2,36 +2,36 @@
 
 exports[`renders ManageGitOps Edit component 1`] = `
 <div
-  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
   data-testid="form"
 >
   <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
   >
     <div
-      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
     >
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
       >
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
         >
           <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
             style="display: flex;"
           >
             <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
               >
                 <span
                   class="makeStyles-labelWrap-2"
                 >
                   <span
-                    class="MuiTypography-root makeStyles-label-3 MuiTypography-body1"
+                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
                   >
                     Git server
                   </span>
@@ -39,37 +39,44 @@ exports[`renders ManageGitOps Edit component 1`] = `
                 </span>
               </div>
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                 style="display: flex; align-items: flex-end;"
               >
                 <div
-                  class="MuiFormControl-root MuiFormControl-fullWidth"
+                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                 >
                   <div
-                    class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-fullWidth MuiInputBase-formControl  css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                   >
                     <div
+                      aria-controls="mui-2"
                       aria-disabled="true"
+                      aria-expanded="false"
                       aria-haspopup="listbox"
                       aria-labelledby="mui-component-select-gitServer"
-                      class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled Mui-disabled"
+                      class="MuiSelect-select MuiSelect-outlined Mui-disabled MuiInputBase-input MuiOutlinedInput-input Mui-disabled css-17praur-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
                       id="mui-component-select-gitServer"
-                      role="button"
+                      role="combobox"
                     >
-                      <span>
+                      <span
+                        class="notranslate"
+                      >
                         ​
                       </span>
                     </div>
                     <input
                       aria-hidden="true"
-                      class="MuiSelect-nativeInput"
+                      aria-invalid="false"
+                      class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                      disabled=""
                       name="gitServer"
                       tabindex="-1"
                       value="gerrit"
                     />
                     <svg
                       aria-hidden="true"
-                      class="MuiSvgIcon-root MuiSelect-icon Mui-disabled"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined Mui-disabled css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+                      data-testid="ArrowDropDownIcon"
                       focusable="false"
                       viewBox="0 0 24 24"
                     >
@@ -77,6 +84,20 @@ exports[`renders ManageGitOps Edit component 1`] = `
                         d="M7 10l5 5 5-5z"
                       />
                     </svg>
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-ihdtdm"
+                      >
+                        <span
+                          class="notranslate"
+                        >
+                          ​
+                        </span>
+                      </legend>
+                    </fieldset>
                   </div>
                 </div>
               </div>
@@ -85,26 +106,26 @@ exports[`renders ManageGitOps Edit component 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 css-1equabv-MuiGrid-root"
       >
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
         >
           <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
             style="display: flex;"
           >
             <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1"
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
               >
                 <span
                   class="makeStyles-labelWrap-2"
                 >
                   <span
-                    class="MuiTypography-root makeStyles-label-3 MuiTypography-body1"
+                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
                   >
                     Repository Name
                   </span>
@@ -112,35 +133,50 @@ exports[`renders ManageGitOps Edit component 1`] = `
                 </span>
               </div>
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                 style="display: flex; align-items: flex-end;"
               >
                 <div
-                  class="MuiFormControl-root MuiFormControl-fullWidth"
+                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                 >
                   <div
-                    class="MuiFormControl-root MuiTextField-root"
+                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                   >
                     <div
-                      class="MuiInputBase-root MuiInput-root MuiInput-underline Mui-disabled Mui-disabled MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedStart css-xlgtqz-MuiInputBase-root-MuiOutlinedInput-root"
                     >
                       <div
-                        class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                        class="MuiInputAdornment-root MuiInputAdornment-positionStart MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-ittuaa-MuiInputAdornment-root"
                       >
                         <p
-                          class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
+                          class="MuiTypography-root MuiTypography-body1 css-3mzles-MuiTypography-root"
                         >
                           /
                         </p>
                       </div>
                       <input
                         aria-invalid="false"
-                        class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled MuiInputBase-inputAdornedStart"
+                        class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedStart css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
+                        id="mui-4"
                         name="name"
                         type="text"
                         value="edp-gitops"
                       />
+                      <fieldset
+                        aria-hidden="true"
+                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                      >
+                        <legend
+                          class="css-ihdtdm"
+                        >
+                          <span
+                            class="notranslate"
+                          >
+                            ​
+                          </span>
+                        </legend>
+                      </fieldset>
                     </div>
                   </div>
                 </div>
@@ -152,50 +188,42 @@ exports[`renders ManageGitOps Edit component 1`] = `
     </div>
   </div>
   <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
   >
     <div
-      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-justify-content-xs-space-between"
+      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-1xu1mzw-MuiGrid-root"
     >
       <div
-        class="MuiGrid-root MuiGrid-item"
+        class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
       />
       <div
-        class="MuiGrid-root MuiGrid-item"
+        class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
       >
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-ofrcno-MuiGrid-root"
         >
           <div
-            class="MuiGrid-root MuiGrid-item"
+            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
           >
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall css-1llbb2a-MuiButtonBase-root-MuiButton-root"
               disabled=""
               tabindex="-1"
               type="button"
             >
-              <span
-                class="MuiButton-label"
-              >
-                undo changes
-              </span>
+              undo changes
             </button>
           </div>
           <div
-            class="MuiGrid-root MuiGrid-item"
+            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
           >
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall Mui-disabled Mui-disabled"
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall css-vw8gqz-MuiButtonBase-root-MuiButton-root"
               disabled=""
               tabindex="-1"
               type="button"
             >
-              <span
-                class="MuiButton-label"
-              >
-                save
-              </span>
+              save
             </button>
           </div>
         </div>

@@ -6,31 +6,31 @@ import { REGISTRY_NAMES } from '../../../names';
 import { ManageRegistryDataContext } from '../../../types';
 
 export const PullAccountPassword = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useReactHookFormContext();
 
-    const {
-        formData: { pullAccountSecret },
-    } = useFormContext<ManageRegistryDataContext>();
+  const {
+    formData: { pullAccountSecret },
+  } = useFormContext<ManageRegistryDataContext>();
 
-    const hasOwnerReference = !!pullAccountSecret?.metadata?.ownerReferences;
+  const hasOwnerReference = !!pullAccountSecret?.metadata?.ownerReferences;
 
-    return (
-        <FormTextFieldPassword
-            {...register(REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD, {
-                required: 'Enter password or token',
-            })}
-            label={`Password / Token`}
-            title={
-                'Enter the confidential combination used for authenticating your access to the container registry.'
-            }
-            placeholder={'Enter password or token'}
-            control={control}
-            errors={errors}
-            disabled={hasOwnerReference}
-        />
-    );
+  return (
+    <FormTextFieldPassword
+      {...register(REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD, {
+        required: 'Enter password or token',
+      })}
+      label={`Password / Token`}
+      title={
+        'Enter the confidential combination used for authenticating your access to the container registry.'
+      }
+      placeholder={'Enter password or token'}
+      control={control}
+      errors={errors}
+      disabled={hasOwnerReference}
+    />
+  );
 };

@@ -1,6 +1,6 @@
 import { ElkExtendedEdge } from 'elkjs';
 
 export interface EdgeProps extends ElkExtendedEdge {
-    direction?: string;
-    color?: string;
+  direction?: string;
+  color?: string;
 }

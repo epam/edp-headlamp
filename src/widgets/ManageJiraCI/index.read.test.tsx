@@ -13,24 +13,23 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageJiraCI } from './index';
 
 test('renders ManageJiraCI Edit component (read-only)', () => {
-    const ownerReference = JiraCISecretWithOwnerMock.metadata.ownerReferences[0].kind;
+  const ownerReference = JiraCISecretWithOwnerMock.metadata.ownerReferences[0].kind;
 
-    render(
-        <TestWrapper>
-            <ManageJiraCI
-                formData={{
-                    jiraServer: JiraServerMock as unknown as JiraServerKubeObjectInterface,
-                    jiraServerSecret:
-                        JiraCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
-                    ownerReference: ownerReference,
-                    isReadOnly: !!ownerReference,
-                    mode: FORM_MODES.EDIT,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageJiraCI
+        formData={{
+          jiraServer: JiraServerMock as unknown as JiraServerKubeObjectInterface,
+          jiraServerSecret: JiraCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
+          ownerReference: ownerReference,
+          isReadOnly: !!ownerReference,
+          mode: FORM_MODES.EDIT,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

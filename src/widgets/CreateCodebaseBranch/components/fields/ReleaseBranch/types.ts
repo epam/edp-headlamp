@@ -1,3 +1,3 @@
 export interface ReleaseBranchProps {
-    defaultBranchVersion: string;
+  defaultBranchVersion: string;
 }

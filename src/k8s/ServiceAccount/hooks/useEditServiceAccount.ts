@@ -6,41 +6,42 @@ import { ServiceAccountKubeObject } from '../index';
 import { ServiceAccountKubeObjectInterface } from '../types';
 
 interface EditServiceAccountProps {
-    serviceAccount: ServiceAccountKubeObjectInterface;
+  serviceAccount: ServiceAccountKubeObjectInterface;
 }
 
 export const useEditServiceAccount = ({
-    onSuccess,
-    onError,
+  onSuccess,
+  onError,
 }: {
-    onSuccess?: () => void;
-    onError?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
+  const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+  const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-    const serviceAccountEditMutation = useResourceCRUDMutation<
-        KubeObjectInterface,
-        CRUD_TYPES.EDIT
-    >('serviceAccountEditMutation', ServiceAccountKubeObject, CRUD_TYPES.EDIT);
+  const serviceAccountEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.EDIT>(
+    'serviceAccountEditMutation',
+    ServiceAccountKubeObject,
+    CRUD_TYPES.EDIT
+  );
 
-    const editServiceAccount = React.useCallback(
-        async ({ serviceAccount }: EditServiceAccountProps) => {
-            serviceAccountEditMutation.mutate(serviceAccount, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+  const editServiceAccount = React.useCallback(
+    async ({ serviceAccount }: EditServiceAccountProps) => {
+      serviceAccountEditMutation.mutate(serviceAccount, {
+        onSuccess: () => {
+          invokeOnSuccessCallback();
         },
-        [serviceAccountEditMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
-    );
+        onError: () => {
+          invokeOnErrorCallback();
+        },
+      });
+    },
+    [serviceAccountEditMutation, invokeOnSuccessCallback, invokeOnErrorCallback]
+  );
 
-    const mutations = {
-        serviceAccountEditMutation,
-    };
+  const mutations = {
+    serviceAccountEditMutation,
+  };
 
-    return { editServiceAccount, mutations };
+  return { editServiceAccount, mutations };
 };

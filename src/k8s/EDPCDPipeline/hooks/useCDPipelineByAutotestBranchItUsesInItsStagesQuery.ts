@@ -7,49 +7,49 @@ import { EDPCDPipelineKubeObjectInterface } from '../types';
 import { useCDPipelineByNameQuery } from './useCDPipelineByNameQuery';
 
 interface UseCDPipelineByAutotestBranchItUsesInItsStagesQueryProps {
-    props: {
-        codebaseBranchName: string;
-    };
-    options?: UseQueryOptions<
-        KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>,
-        Error,
-        EDPCDPipelineKubeObjectInterface
-    >;
+  props: {
+    codebaseBranchName: string;
+  };
+  options?: UseQueryOptions<
+    KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>,
+    Error,
+    EDPCDPipelineKubeObjectInterface
+  >;
 }
 
 export const useCDPipelineByAutotestBranchItUsesInItsStagesQuery = ({
-    props,
-    options,
+  props,
+  options,
 }: UseCDPipelineByAutotestBranchItUsesInItsStagesQueryProps) => {
-    const { codebaseBranchName } = props;
+  const { codebaseBranchName } = props;
 
-    const [CDPipelineName, setCDPipelineName] = React.useState<string>(null);
-    const query = useCDPipelineByNameQuery({
-        props: {
-            name: CDPipelineName,
-        },
-        options: {
-            enabled: !!CDPipelineName,
-        },
-    });
+  const [CDPipelineName, setCDPipelineName] = React.useState<string>(null);
+  const query = useCDPipelineByNameQuery({
+    props: {
+      name: CDPipelineName,
+    },
+    options: {
+      enabled: !!CDPipelineName,
+    },
+  });
 
-    useCDPipelineStageListQuery<EDPCDPipelineKubeObjectInterface>({
-        options: {
-            onSuccess: async data => {
-                for (const {
-                    spec: { qualityGates, cdPipeline },
-                } of data?.items) {
-                    for (const { branchName } of qualityGates) {
-                        if (branchName && branchName === codebaseBranchName) {
-                            setCDPipelineName(cdPipeline);
-                        }
-                    }
-                }
-            },
-            ...options,
-            enabled: options?.enabled && !!codebaseBranchName,
-        },
-    });
+  useCDPipelineStageListQuery<EDPCDPipelineKubeObjectInterface>({
+    options: {
+      onSuccess: async data => {
+        for (const {
+          spec: { qualityGates, cdPipeline },
+        } of data?.items) {
+          for (const { branchName } of qualityGates) {
+            if (branchName && branchName === codebaseBranchName) {
+              setCDPipelineName(cdPipeline);
+            }
+          }
+        }
+      },
+      ...options,
+      enabled: options?.enabled && !!codebaseBranchName,
+    },
+  });
 
-    return React.useMemo(() => query, [query]);
+  return React.useMemo(() => query, [query]);
 };

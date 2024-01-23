@@ -1,10 +1,10 @@
 export const getVersionAndPostfixFromVersioningString = (
-    versioning: string
+  versioning: string
 ): {
-    version: string;
-    postfix: string;
+  version: string;
+  postfix: string;
 } => {
-    const [version, postfix] = versioning.split('-');
+  const [version, postfix] = versioning.split('-');
 
-    return { version, postfix };
+  return { version, postfix };
 };

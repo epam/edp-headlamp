@@ -6,27 +6,27 @@ import { REQUEST_KEY_QUERY_GIT_SERVER_LIST } from '../requestKeys';
 import { EDPGitServerKubeObjectInterface } from '../types';
 
 interface UseGitServerListQueryProps<ReturnType> {
-    props?: {
-        namespace?: string;
-    };
-    options?: UseQueryOptions<
-        KubeObjectListInterface<EDPGitServerKubeObjectInterface>,
-        Error,
-        ReturnType
-    >;
+  props?: {
+    namespace?: string;
+  };
+  options?: UseQueryOptions<
+    KubeObjectListInterface<EDPGitServerKubeObjectInterface>,
+    Error,
+    ReturnType
+  >;
 }
 
 export const useGitServerListQuery = <
-    ReturnType = KubeObjectListInterface<EDPGitServerKubeObjectInterface>
+  ReturnType = KubeObjectListInterface<EDPGitServerKubeObjectInterface>
 >({
-    props,
-    options,
+  props,
+  options,
 }: UseGitServerListQueryProps<ReturnType>) => {
-    const namespace = props?.namespace || getDefaultNamespace();
+  const namespace = props?.namespace || getDefaultNamespace();
 
-    return useQuery<KubeObjectListInterface<EDPGitServerKubeObjectInterface>, Error, ReturnType>(
-        REQUEST_KEY_QUERY_GIT_SERVER_LIST,
-        () => EDPGitServerKubeObject.getList(namespace),
-        options
-    );
+  return useQuery<KubeObjectListInterface<EDPGitServerKubeObjectInterface>, Error, ReturnType>(
+    REQUEST_KEY_QUERY_GIT_SERVER_LIST,
+    () => EDPGitServerKubeObject.getList(namespace),
+    options
+  );
 };

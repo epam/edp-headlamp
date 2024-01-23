@@ -2,9 +2,9 @@ import { EDPGitServerKubeObjectInterface } from '../../../../../../k8s/EDPGitSer
 import { SecretKubeObjectInterface } from '../../../../../../k8s/Secret/types';
 
 export interface DynamicDataContextProviderValue {
-    data: {
-        gitServer: EDPGitServerKubeObjectInterface;
-        repositorySecrets: SecretKubeObjectInterface[];
-    };
-    isLoading: boolean;
+  data: {
+    gitServer: EDPGitServerKubeObjectInterface;
+    repositorySecrets: SecretKubeObjectInterface[];
+  };
+  isLoading: boolean;
 }

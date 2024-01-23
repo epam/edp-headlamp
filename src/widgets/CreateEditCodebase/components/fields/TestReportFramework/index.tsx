@@ -6,22 +6,22 @@ import { CODEBASE_FORM_NAMES } from '../../../names';
 import { CreateCodebaseFormValues } from '../../Create/types';
 
 export const TestReportFramework = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useFormContext<CreateCodebaseFormValues>();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext<CreateCodebaseFormValues>();
 
-    return (
-        <FormSelect
-            {...register(CODEBASE_FORM_NAMES.testReportFramework.name, {
-                required: 'Select autotest report framework',
-            })}
-            label={'Autotest report framework'}
-            placeholder={'Select autotest report framework'}
-            control={control}
-            errors={errors}
-            options={testReportFrameworkSelectOptions}
-        />
-    );
+  return (
+    <FormSelect
+      {...register(CODEBASE_FORM_NAMES.testReportFramework.name, {
+        required: 'Select autotest report framework',
+      })}
+      label={'Autotest report framework'}
+      placeholder={'Select autotest report framework'}
+      control={control}
+      errors={errors}
+      options={testReportFrameworkSelectOptions}
+    />
+  );
 };

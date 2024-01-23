@@ -5,17 +5,17 @@ import { ValueOf } from '../../types/global';
 import { DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES } from './names';
 
 export interface ManageDefectDojoIntegrationSecretFormDataContext {
-    defectDojoSecret: SecretKubeObjectInterface;
-    defectDojoEDPComponent: EDPComponentKubeObjectInterface;
-    mode: ValueOf<typeof FORM_MODES>;
-    ownerReference: string | undefined;
-    handleClosePanel?: () => void;
+  defectDojoSecret: SecretKubeObjectInterface;
+  defectDojoEDPComponent: EDPComponentKubeObjectInterface;
+  mode: ValueOf<typeof FORM_MODES>;
+  ownerReference: string | undefined;
+  handleClosePanel?: () => void;
 }
 
 export interface ManageDefectDojoIntegrationSecretProps {
-    formData: ManageDefectDojoIntegrationSecretFormDataContext;
+  formData: ManageDefectDojoIntegrationSecretFormDataContext;
 }
 
 export type ManageDefectDojoIntegrationSecretFormValues = FormValues<
-    typeof DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES
+  typeof DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES
 >;

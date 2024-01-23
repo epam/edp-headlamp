@@ -1,4 +1,4 @@
 export interface EDPComponentDetailsRouteParams {
-    name: string;
-    namespace: string;
+  name: string;
+  namespace: string;
 }

@@ -9,42 +9,42 @@ import { CreateCodebaseFromTemplate } from './index';
 import { CreateCodebaseFromTemplateDialogForwardedProps } from './types';
 
 const mockForwardedProps: CreateCodebaseFromTemplateDialogForwardedProps = {
-    template: {
-        kind: 'Template',
-        metadata: {
-            name: 'test-template',
-            uid: 'test-uid',
-            creationTimestamp: 'test-creationTimestamp',
-        },
-        spec: {
-            displayName: 'test-displayName',
-            description: 'test-description',
-            language: 'test-language',
-            framework: 'test-framework',
-            buildTool: 'test-buildTool',
-            type: 'test-type',
-            version: 'test-version',
-            source: 'test-source',
-        },
+  template: {
+    kind: 'Template',
+    metadata: {
+      name: 'test-template',
+      uid: 'test-uid',
+      creationTimestamp: 'test-creationTimestamp',
     },
+    spec: {
+      displayName: 'test-displayName',
+      description: 'test-description',
+      language: 'test-language',
+      framework: 'test-framework',
+      buildTool: 'test-buildTool',
+      type: 'test-type',
+      version: 'test-version',
+      source: 'test-source',
+    },
+  },
 };
 
 jest.mock('../../providers/Dialog/hooks', () => ({
-    useSpecificDialogContext: jest.fn(() => ({
-        open: true,
-        forwardedProps: mockForwardedProps,
-        closeDialog: jest.fn(),
-        openDialog: jest.fn(),
-    })),
+  useSpecificDialogContext: jest.fn(() => ({
+    open: true,
+    forwardedProps: mockForwardedProps,
+    closeDialog: jest.fn(),
+    openDialog: jest.fn(),
+  })),
 }));
 
 test('renders CreateCodebaseFromTemplate component', () => {
-    render(
-        <TestWrapper>
-            <CreateCodebaseFromTemplate />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <CreateCodebaseFromTemplate />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('dialog');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('dialog');
+  expect(dialog).toMatchSnapshot();
 });

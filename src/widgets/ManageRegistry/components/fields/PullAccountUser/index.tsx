@@ -6,31 +6,29 @@ import { REGISTRY_NAMES } from '../../../names';
 import { ManageRegistryDataContext } from '../../../types';
 
 export const PullAccountUser = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useReactHookFormContext();
 
-    const {
-        formData: { pullAccountSecret },
-    } = useFormContext<ManageRegistryDataContext>();
+  const {
+    formData: { pullAccountSecret },
+  } = useFormContext<ManageRegistryDataContext>();
 
-    const hasOwnerReference = !!pullAccountSecret?.metadata?.ownerReferences;
+  const hasOwnerReference = !!pullAccountSecret?.metadata?.ownerReferences;
 
-    return (
-        <FormTextField
-            {...register(REGISTRY_NAMES.PULL_ACCOUNT_USER, {
-                required: 'Enter user name',
-            })}
-            label={`User`}
-            title={
-                'Provide the unique identifier linked to your user account on the container registry.'
-            }
-            placeholder={'Enter user name'}
-            control={control}
-            errors={errors}
-            disabled={hasOwnerReference}
-        />
-    );
+  return (
+    <FormTextField
+      {...register(REGISTRY_NAMES.PULL_ACCOUNT_USER, {
+        required: 'Enter user name',
+      })}
+      label={`User`}
+      title={'Provide the unique identifier linked to your user account on the container registry.'}
+      placeholder={'Enter user name'}
+      control={control}
+      errors={errors}
+      disabled={hasOwnerReference}
+    />
+  );
 };

@@ -2,6 +2,6 @@
 // The value is represented in milliseconds.
 
 export enum DELAYS {
-    REFETCH = 10000,
-    CANCEL_ACTION_FALLBACK = 3000,
+  REFETCH = 10000,
+  CANCEL_ACTION_FALLBACK = 3000,
 }

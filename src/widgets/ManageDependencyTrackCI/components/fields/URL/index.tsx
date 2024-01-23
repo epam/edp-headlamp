@@ -7,33 +7,33 @@ import { DEPENDENCY_TRACK_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageDependencyTrackIntegrationSecretFormDataContext } from '../../../types';
 
 export const URL = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useReactHookFormContext();
 
-    const {
-        formData: { mode, ownerReference },
-    } = useFormContext<ManageDependencyTrackIntegrationSecretFormDataContext>();
+  const {
+    formData: { mode, ownerReference },
+  } = useFormContext<ManageDependencyTrackIntegrationSecretFormDataContext>();
 
-    return (
-        <FormTextField
-            {...register(DEPENDENCY_TRACK_INTEGRATION_SECRET_FORM_NAMES.url.name, {
-                required: 'Enter the DependencyTrack URL.',
-                pattern: {
-                    value: /^(?!\/).*(?<!\/)$/,
-                    message: 'Path cannot start or end with slash symbol',
-                },
-            })}
-            label={'URL'}
-            title={
-                'Enter the URL of your DependencyTrack instance. This is typically the address where DependencyTrack is hosted (e.g., https://deptrack.example.com).'
-            }
-            placeholder={'Enter URL'}
-            control={control}
-            errors={errors}
-            disabled={mode === FORM_MODES.EDIT && !!ownerReference}
-        />
-    );
+  return (
+    <FormTextField
+      {...register(DEPENDENCY_TRACK_INTEGRATION_SECRET_FORM_NAMES.url.name, {
+        required: 'Enter the DependencyTrack URL.',
+        pattern: {
+          value: /^(?!\/).*(?<!\/)$/,
+          message: 'Path cannot start or end with slash symbol',
+        },
+      })}
+      label={'URL'}
+      title={
+        'Enter the URL of your DependencyTrack instance. This is typically the address where DependencyTrack is hosted (e.g., https://deptrack.example.com).'
+      }
+      placeholder={'Enter URL'}
+      control={control}
+      errors={errors}
+      disabled={mode === FORM_MODES.EDIT && !!ownerReference}
+    />
+  );
 };

@@ -1,27 +1,90 @@
 /**
  * @jest-environment jsdom
  */
-
-import { createTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import { green, grey, orange, red } from '@mui/material/colors';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-export const TestWrapper: React.FC = ({ children }) => {
-    const queryClient = new QueryClient();
-    const theme = createTheme({
-        // @ts-ignore
-        palette: {
-            primaryColor: '#000',
-        },
-    });
+const commonRules = {
+  palette: {
+    primary: {
+      contrastText: '#fff',
+      main: '#2774b3',
+    },
+    primaryColor: '#000',
+    success: {
+      light: green['50'],
+      main: green['800'],
+      ...green,
+    },
+    warning: {
+      main: 'rgb(196, 69, 0)', // orange
+      light: orange['50'],
+      ...orange,
+    },
+    sidebarLink: {
+      main: grey['500'],
+      selectedBg: grey['800'],
+    },
+    error: {
+      main: red['800'],
+      light: red['50'],
+    },
+    resourceToolTip: {
+      color: 'rgba(0, 0, 0, 0.87)',
+    },
+    sidebarBg: '#000',
+    normalEventBg: '#F0F0F0',
+    chartStyles: {
+      defaultFillColor: grey['300'],
+      labelColor: '#000',
+    },
+    metadataBgColor: grey['300'],
+    headerStyle: {
+      normal: {
+        fontSize: '1.8rem',
+        fontWeight: '700',
+      },
+      main: {
+        fontSize: '1.87rem',
+        fontWeight: '700',
+      },
+      subsection: {
+        fontSize: '1.85rem',
+        fontWeight: '700',
+      },
+      label: {
+        fontSize: '1.6rem',
+        paddingTop: '1rem',
+      },
+    },
+    tables: {
+      headerText: '#474747',
+    },
+  },
+  typography: {
+    fontFamily: ['Overpass', 'sans-serif'].join(', '),
+    h1: {
+      fontWeight: 700,
+      fontSize: '1.87rem',
+    },
+  },
+  shape: {
+    borderRadius: 0,
+  },
+};
 
-    return (
-        <ThemeProvider theme={theme}>
-            <QueryClientProvider client={queryClient}>
-                <SnackbarProvider>{children}</SnackbarProvider>
-            </QueryClientProvider>
-        </ThemeProvider>
-    );
+export const TestWrapper: React.FC = ({ children }) => {
+  const queryClient = new QueryClient();
+  const theme = createTheme(commonRules);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <SnackbarProvider>{children}</SnackbarProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
 };

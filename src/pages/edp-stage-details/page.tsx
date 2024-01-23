@@ -8,19 +8,19 @@ import { DynamicDataContextProvider } from './providers/DynamicData/provider';
 import { PageView } from './view';
 
 export default function () {
-    return (
-        <PageLogicWrapper>
-            <DialogContextProvider>
-                <ResourceActionListContextProvider>
-                    <NamespacesGuardWrapper>
-                        <DataContextProvider>
-                            <DynamicDataContextProvider>
-                                <PageView />
-                            </DynamicDataContextProvider>
-                        </DataContextProvider>
-                    </NamespacesGuardWrapper>
-                </ResourceActionListContextProvider>
-            </DialogContextProvider>
-        </PageLogicWrapper>
-    );
+  return (
+    <PageLogicWrapper>
+      <DialogContextProvider>
+        <ResourceActionListContextProvider>
+          <NamespacesGuardWrapper>
+            <DataContextProvider>
+              <DynamicDataContextProvider>
+                <PageView />
+              </DynamicDataContextProvider>
+            </DataContextProvider>
+          </NamespacesGuardWrapper>
+        </ResourceActionListContextProvider>
+      </DialogContextProvider>
+    </PageLogicWrapper>
+  );
 }

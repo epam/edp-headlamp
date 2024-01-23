@@ -11,20 +11,20 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageSSOCI } from './index';
 
 test('renders ManageSSOCI Edit component', () => {
-    render(
-        <TestWrapper>
-            <ManageSSOCI
-                formData={{
-                    ssoSecret: SSOCISecretMock as unknown as SecretKubeObjectInterface,
-                    ownerReference: undefined,
-                    isReadOnly: false,
-                    mode: FORM_MODES.EDIT,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageSSOCI
+        formData={{
+          ssoSecret: SSOCISecretMock as unknown as SecretKubeObjectInterface,
+          ownerReference: undefined,
+          isReadOnly: false,
+          mode: FORM_MODES.EDIT,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

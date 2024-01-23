@@ -12,38 +12,38 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageNexusCI } from './index';
 
 test('renders ManageNexusCI Edit component (read-only)', () => {
-    const ownerReference = NexusCISecretWithOwnerMock.metadata.ownerReferences[0].kind;
+  const ownerReference = NexusCISecretWithOwnerMock.metadata.ownerReferences[0].kind;
 
-    render(
-        <TestWrapper>
-            <ManageNexusCI
-                formData={{
-                    nexusSecret: NexusCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
-                    ownerReference: ownerReference,
-                    nexusEDPComponent: {
-                        apiVersion: 'v1.edp.epam.com/v1',
-                        kind: 'EDPComponent',
-                        metadata: {
-                            name: SYSTEM_EDP_COMPONENTS.NEXUS,
-                            namespace: 'test-namespace',
-                            creationTimestamp: '',
-                            uid: '',
-                        },
-                        spec: {
-                            type: SYSTEM_EDP_COMPONENTS.NEXUS,
-                            url: 'https://test-nexus.com',
-                            visible: true,
-                            icon: '',
-                        },
-                        status: '',
-                    },
-                    mode: FORM_MODES.EDIT,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageNexusCI
+        formData={{
+          nexusSecret: NexusCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
+          ownerReference: ownerReference,
+          nexusEDPComponent: {
+            apiVersion: 'v1.edp.epam.com/v1',
+            kind: 'EDPComponent',
+            metadata: {
+              name: SYSTEM_EDP_COMPONENTS.NEXUS,
+              namespace: 'test-namespace',
+              creationTimestamp: '',
+              uid: '',
+            },
+            spec: {
+              type: SYSTEM_EDP_COMPONENTS.NEXUS,
+              url: 'https://test-nexus.com',
+              visible: true,
+              icon: '',
+            },
+            status: '',
+          },
+          mode: FORM_MODES.EDIT,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

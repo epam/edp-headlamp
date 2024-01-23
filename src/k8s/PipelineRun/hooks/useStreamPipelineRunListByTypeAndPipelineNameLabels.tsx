@@ -4,42 +4,40 @@ import { PipelineRunKubeObject } from '../index';
 import { PipelineRunKubeObjectInterface } from '../types';
 
 interface UseStreamPipelineRunListByTypeAndPipelineNameLabelsProps {
-    namespace: string;
-    pipelineType: string;
-    stageMetadataName: string;
-    select?: (data: PipelineRunKubeObjectInterface[]) => PipelineRunKubeObjectInterface[];
+  namespace: string;
+  pipelineType: string;
+  stageMetadataName: string;
+  select?: (data: PipelineRunKubeObjectInterface[]) => PipelineRunKubeObjectInterface[];
 }
 
 export const useStreamPipelineRunListByTypeAndPipelineNameLabels = ({
-    namespace,
-    pipelineType,
-    stageMetadataName,
-    select,
+  namespace,
+  pipelineType,
+  stageMetadataName,
+  select,
 }: UseStreamPipelineRunListByTypeAndPipelineNameLabelsProps) => {
-    const [pipelineRunList, setPipelineRunList] = React.useState<TaskRunKubeObjectInterface[]>([]);
+  const [pipelineRunList, setPipelineRunList] = React.useState<TaskRunKubeObjectInterface[]>([]);
 
-    React.useEffect(() => {
-        if (!stageMetadataName) {
-            return;
-        }
+  React.useEffect(() => {
+    if (!stageMetadataName) {
+      return;
+    }
 
-        const cancelStream = PipelineRunKubeObject.streamPipelineRunListByTypeAndPipelineNameLabels(
-            {
-                namespace,
-                pipelineType,
-                stageMetadataName,
-                dataHandler: data => {
-                    const selectedData = select ? select(data) : data;
-                    setPipelineRunList(selectedData);
-                },
-                errorHandler: error => console.error(error),
-            }
-        );
+    const cancelStream = PipelineRunKubeObject.streamPipelineRunListByTypeAndPipelineNameLabels({
+      namespace,
+      pipelineType,
+      stageMetadataName,
+      dataHandler: data => {
+        const selectedData = select ? select(data) : data;
+        setPipelineRunList(selectedData);
+      },
+      errorHandler: error => console.error(error),
+    });
 
-        return () => {
-            cancelStream();
-        };
-    }, [namespace, pipelineType, select, stageMetadataName]);
+    return () => {
+      cancelStream();
+    };
+  }, [namespace, pipelineType, select, stageMetadataName]);
 
-    return pipelineRunList;
+  return pipelineRunList;
 };

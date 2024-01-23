@@ -1,11 +1,11 @@
 export const getMajorMinorPatchOfVersion = (
-    version: string
+  version: string
 ): {
-    major: number;
-    minor: number;
-    patch: number;
+  major: number;
+  minor: number;
+  patch: number;
 } => {
-    const [major, minor, patch] = version.split('.').map(el => +el);
+  const [major, minor, patch] = version.split('.').map(el => +el);
 
-    return { major, minor, patch };
+  return { major, minor, patch };
 };

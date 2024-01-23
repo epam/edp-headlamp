@@ -4,17 +4,17 @@ import { ValueOf } from '../../types/global';
 import { SSO_INTEGRATION_SECRET_FORM_NAMES } from './names';
 
 export interface ManageSSOIntegrationSecretFormDataContext {
-    ssoSecret: SecretKubeObjectInterface;
-    ownerReference: string | undefined;
-    isReadOnly: boolean;
-    mode: ValueOf<typeof FORM_MODES>;
-    handleClosePanel?: () => void;
+  ssoSecret: SecretKubeObjectInterface;
+  ownerReference: string | undefined;
+  isReadOnly: boolean;
+  mode: ValueOf<typeof FORM_MODES>;
+  handleClosePanel?: () => void;
 }
 
 export interface ManageSSOIntegrationSecretProps {
-    formData: ManageSSOIntegrationSecretFormDataContext;
+  formData: ManageSSOIntegrationSecretFormDataContext;
 }
 
 export type ManageSSOIntegrationSecretFormValues = FormValues<
-    typeof SSO_INTEGRATION_SECRET_FORM_NAMES
+  typeof SSO_INTEGRATION_SECRET_FORM_NAMES
 >;

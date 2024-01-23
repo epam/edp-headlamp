@@ -8,35 +8,35 @@ import { ManageGitServerDataContext, ManageGitServerValues } from '../../../type
 import { getGitServerSecret } from '../../../utils/getGitServerSecret';
 
 export const Token = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-        watch,
-    } = useReactHookFormContext<ManageGitServerValues>();
+  const {
+    register,
+    control,
+    formState: { errors },
+    watch,
+  } = useReactHookFormContext<ManageGitServerValues>();
 
-    const {
-        formData: { mode, gitServer, repositorySecrets },
-    } = useFormContext<ManageGitServerDataContext>();
+  const {
+    formData: { mode, gitServer, repositorySecrets },
+  } = useFormContext<ManageGitServerDataContext>();
 
-    const gitProviderFieldValue = watch(GIT_SERVER_FORM_NAMES.gitProvider.name);
+  const gitProviderFieldValue = watch(GIT_SERVER_FORM_NAMES.gitProvider.name);
 
-    const gitServerSecret = React.useMemo(
-        () => getGitServerSecret(gitServer, repositorySecrets, gitProviderFieldValue),
-        [gitProviderFieldValue, gitServer, repositorySecrets]
-    );
+  const gitServerSecret = React.useMemo(
+    () => getGitServerSecret(gitServer, repositorySecrets, gitProviderFieldValue),
+    [gitProviderFieldValue, gitServer, repositorySecrets]
+  );
 
-    const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
+  const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 
-    return (
-        <FormTextFieldPassword
-            {...register(GIT_SERVER_FORM_NAMES.token.name, {
-                required: 'Enter your access token',
-            })}
-            label={'Access token'}
-            control={control}
-            errors={errors}
-            disabled={mode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
-        />
-    );
+  return (
+    <FormTextFieldPassword
+      {...register(GIT_SERVER_FORM_NAMES.token.name, {
+        required: 'Enter your access token',
+      })}
+      label={'Access token'}
+      control={control}
+      errors={errors}
+      disabled={mode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
+    />
+  );
 };

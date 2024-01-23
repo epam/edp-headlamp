@@ -6,41 +6,38 @@ import { EDPCodebaseBranchKubeObject } from '../../EDPCodebaseBranch';
 import { useCodebasesByTypeLabelQuery } from './useCodebasesByTypeLabelQuery';
 
 export const useAutotestsWithBranches = (namespace: string): AutotestWithBranchesOption[] => {
-    const [autotestsWithBranchesOptions, setAutotestsWithBranchesOptions] = React.useState<
-        AutotestWithBranchesOption[]
-    >([]);
+  const [autotestsWithBranchesOptions, setAutotestsWithBranchesOptions] = React.useState<
+    AutotestWithBranchesOption[]
+  >([]);
 
-    const _namespace = namespace || getDefaultNamespace();
+  const _namespace = namespace || getDefaultNamespace();
 
-    useCodebasesByTypeLabelQuery({
-        props: {
-            codebaseType: CODEBASE_TYPES.AUTOTEST,
-            namespace: _namespace,
-        },
-        options: {
-            cacheTime: 0,
-            onSuccess: async data => {
-                if (!data) {
-                    return;
-                }
-                const autotestsWithBranches = await Promise.all(
-                    data?.items.map(async ({ metadata: { name } }) => {
-                        const { items: autotestsBranches } =
-                            await EDPCodebaseBranchKubeObject.getListByCodebaseName(
-                                _namespace,
-                                name
-                            );
-                        const branchesNames = autotestsBranches.map(el => el.spec.branchName);
-                        return {
-                            name,
-                            branches: branchesNames,
-                        };
-                    })
-                );
-                setAutotestsWithBranchesOptions(autotestsWithBranches);
-            },
-        },
-    });
+  useCodebasesByTypeLabelQuery({
+    props: {
+      codebaseType: CODEBASE_TYPES.AUTOTEST,
+      namespace: _namespace,
+    },
+    options: {
+      cacheTime: 0,
+      onSuccess: async data => {
+        if (!data) {
+          return;
+        }
+        const autotestsWithBranches = await Promise.all(
+          data?.items.map(async ({ metadata: { name } }) => {
+            const { items: autotestsBranches } =
+              await EDPCodebaseBranchKubeObject.getListByCodebaseName(_namespace, name);
+            const branchesNames = autotestsBranches.map(el => el.spec.branchName);
+            return {
+              name,
+              branches: branchesNames,
+            };
+          })
+        );
+        setAutotestsWithBranchesOptions(autotestsWithBranches);
+      },
+    },
+  });
 
-    return autotestsWithBranchesOptions;
+  return autotestsWithBranchesOptions;
 };

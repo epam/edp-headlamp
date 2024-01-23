@@ -1,4 +1,4 @@
 export interface PodsLogViewerDialogForwardedProps {
-    stageNamespace: string;
-    appName: string;
+  stageNamespace: string;
+  appName: string;
 }

@@ -6,62 +6,62 @@ import { PipelineRunKubeObjectInterface } from '../types';
 import { createBuildPipelineRunInstance } from '../utils/createBuildPipelineRunInstance';
 
 export interface CreateBuildPipelineRunProps {
-    namespace: string;
-    codebaseData: {
-        codebaseName: string;
-        codebaseType: string;
-        codebaseFramework: string;
-        codebaseBuildTool: string;
-        codebaseVersioningType: string;
-        codebaseGitUrlPath: string;
-    };
-    codebaseBranchData: {
-        codebaseBranchMetadataName: string;
-        codebaseBranchName: string;
-    };
-    gitServerData: {
-        gitUser: string;
-        gitHost: string;
-        gitProvider: string;
-        sshPort: number;
-        nameSshKeySecret: string;
-    };
-    storageSize: string;
+  namespace: string;
+  codebaseData: {
+    codebaseName: string;
+    codebaseType: string;
+    codebaseFramework: string;
+    codebaseBuildTool: string;
+    codebaseVersioningType: string;
+    codebaseGitUrlPath: string;
+  };
+  codebaseBranchData: {
+    codebaseBranchMetadataName: string;
+    codebaseBranchName: string;
+  };
+  gitServerData: {
+    gitUser: string;
+    gitHost: string;
+    gitProvider: string;
+    sshPort: number;
+    nameSshKeySecret: string;
+  };
+  storageSize: string;
 }
 
 export const useCreateBuildPipelineRun = ({
-    onSuccess,
-    onError,
+  onSuccess,
+  onError,
 }: {
-    onSuccess?: () => void;
-    onError?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
+  const invokeOnSuccessCallback = useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+  const invokeOnErrorCallback = useCallback(() => onError && onError(), [onError]);
 
-    const buildPipelineRunCreateMutation = useResourceCRUDMutation<
-        PipelineRunKubeObjectInterface,
-        CRUD_TYPES.CREATE
-    >('buildPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE);
+  const buildPipelineRunCreateMutation = useResourceCRUDMutation<
+    PipelineRunKubeObjectInterface,
+    CRUD_TYPES.CREATE
+  >('buildPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE);
 
-    const createBuildPipelineRun = React.useCallback(
-        async (data: CreateBuildPipelineRunProps) => {
-            const buildPipelineRunData = createBuildPipelineRunInstance(data);
-            buildPipelineRunCreateMutation.mutate(buildPipelineRunData, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+  const createBuildPipelineRun = React.useCallback(
+    async (data: CreateBuildPipelineRunProps) => {
+      const buildPipelineRunData = createBuildPipelineRunInstance(data);
+      buildPipelineRunCreateMutation.mutate(buildPipelineRunData, {
+        onSuccess: () => {
+          invokeOnSuccessCallback();
         },
-        [buildPipelineRunCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
-    );
+        onError: () => {
+          invokeOnErrorCallback();
+        },
+      });
+    },
+    [buildPipelineRunCreateMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
+  );
 
-    const mutations = {
-        buildPipelineRunCreateMutation,
-    };
+  const mutations = {
+    buildPipelineRunCreateMutation,
+  };
 
-    return { createBuildPipelineRun, mutations };
+  return { createBuildPipelineRun, mutations };
 };

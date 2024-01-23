@@ -1,3 +1,3 @@
 export interface CDPipelineActionsMenuProps {
-    backRoute?: string;
+  backRoute?: string;
 }

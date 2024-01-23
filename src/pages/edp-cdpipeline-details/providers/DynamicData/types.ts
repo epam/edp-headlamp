@@ -3,7 +3,7 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipe
 import { EnrichedApplicationWithItsImageStreams } from '../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 
 export interface DynamicDataContextProviderValue {
-    CDPipeline: EDPCDPipelineKubeObjectInterface;
-    stages: EDPCDPipelineStageKubeObjectInterface[];
-    enrichedApplications: EnrichedApplicationWithItsImageStreams[];
+  CDPipeline: EDPCDPipelineKubeObjectInterface;
+  stages: EDPCDPipelineStageKubeObjectInterface[];
+  enrichedApplications: EnrichedApplicationWithItsImageStreams[];
 }

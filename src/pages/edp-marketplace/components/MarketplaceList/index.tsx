@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import React from 'react';
 import { DataGrid } from '../../../../components/DataGrid';
 import { EmptyList } from '../../../../components/EmptyList';
@@ -13,80 +13,79 @@ import { TemplatesTable } from './components/TemplatesTable';
 import { MarketplaceListProps } from './types';
 
 export const MarketplaceList = ({ filterFunction }: MarketplaceListProps) => {
-    const { viewMode } = useViewModeContext();
-    const [items, error] = EDPTemplateKubeObject.useList();
+  const { viewMode } = useViewModeContext();
+  const [items, error] = EDPTemplateKubeObject.useList();
 
-    const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
-    const [activeTemplate, setActiveTemplate] =
-        React.useState<EDPTemplateKubeObjectInterface>(null);
+  const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
+  const [activeTemplate, setActiveTemplate] = React.useState<EDPTemplateKubeObjectInterface>(null);
 
-    const toggleDrawer = (event: React.SyntheticEvent, open: boolean) => {
-        if (
-            event &&
-            event.type === 'keydown' &&
-            ((event as React.KeyboardEvent).key === 'Tab' ||
-                (event as React.KeyboardEvent).key === 'Shift')
-        ) {
-            return;
-        }
+  const toggleDrawer = (event: React.SyntheticEvent, open: boolean) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return;
+    }
 
-        setDrawerOpen(open);
-        if (!open) {
-            setActiveTemplate(null);
-        }
-    };
+    setDrawerOpen(open);
+    if (!open) {
+      setActiveTemplate(null);
+    }
+  };
 
-    const handleTemplateClick = (
-        event: React.SyntheticEvent,
-        template: EDPTemplateKubeObjectInterface
-    ) => {
-        if (template) {
-            setActiveTemplate(template);
-            toggleDrawer(event, true);
-        } else {
-            setActiveTemplate(null);
-            toggleDrawer(event, false);
-        }
-    };
+  const handleTemplateClick = (
+    event: React.SyntheticEvent,
+    template: EDPTemplateKubeObjectInterface
+  ) => {
+    if (template) {
+      setActiveTemplate(template);
+      toggleDrawer(event, true);
+    } else {
+      setActiveTemplate(null);
+      toggleDrawer(event, false);
+    }
+  };
 
-    return (
-        <>
-            <Resources />
-            <BottomDrawer
-                activeTemplate={activeTemplate}
-                drawerOpen={drawerOpen}
-                toggleDrawer={toggleDrawer}
-            />
-            {viewMode === VIEW_MODES.TABLE ? (
-                <TemplatesTable
-                    data={items}
-                    activeTemplate={activeTemplate}
-                    handleTemplateClick={handleTemplateClick}
-                    filterFunction={filterFunction}
+  return (
+    <>
+      <Resources />
+      <BottomDrawer
+        activeTemplate={activeTemplate}
+        drawerOpen={drawerOpen}
+        toggleDrawer={toggleDrawer}
+      />
+      {viewMode === VIEW_MODES.TABLE ? (
+        <TemplatesTable
+          data={items}
+          activeTemplate={activeTemplate}
+          handleTemplateClick={handleTemplateClick}
+          filterFunction={filterFunction}
+        />
+      ) : viewMode === VIEW_MODES.GRID ? (
+        <DataGrid<EDPTemplateKubeObjectInterface>
+          data={items}
+          error={error}
+          isLoading={items === null}
+          spacing={2}
+          filterFunction={filterFunction}
+          emptyListComponent={<EmptyList missingItemName={'templates'} />}
+          renderItem={item => {
+            const key = `marketplace-item-${item?.spec?.displayName}`;
+
+            return (
+              <Grid key={key} item xs={12} md={6} lg={4}>
+                <TemplateCard
+                  activeTemplate={activeTemplate}
+                  handleTemplateClick={handleTemplateClick}
+                  template={item}
                 />
-            ) : viewMode === VIEW_MODES.GRID ? (
-                <DataGrid<EDPTemplateKubeObjectInterface>
-                    data={items}
-                    error={error}
-                    isLoading={items === null}
-                    spacing={2}
-                    filterFunction={filterFunction}
-                    emptyListComponent={<EmptyList missingItemName={'templates'} />}
-                    renderItem={item => {
-                        const key = `marketplace-item-${item?.spec?.displayName}`;
-
-                        return (
-                            <Grid key={key} item xs={12} md={6} lg={4}>
-                                <TemplateCard
-                                    activeTemplate={activeTemplate}
-                                    handleTemplateClick={handleTemplateClick}
-                                    template={item}
-                                />
-                            </Grid>
-                        );
-                    }}
-                />
-            ) : null}
-        </>
-    );
+              </Grid>
+            );
+          }}
+        />
+      ) : null}
+    </>
+  );
 };

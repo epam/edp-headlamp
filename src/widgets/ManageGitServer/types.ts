@@ -5,14 +5,14 @@ import { ValueOf } from '../../types/global';
 import { GIT_SERVER_FORM_NAMES } from './names';
 
 export interface ManageGitServerDataContext {
-    gitServer: EDPGitServerKubeObjectInterface;
-    repositorySecrets: SecretKubeObjectInterface[];
-    mode: ValueOf<typeof FORM_MODES>;
-    handleClosePanel?: () => void;
+  gitServer: EDPGitServerKubeObjectInterface;
+  repositorySecrets: SecretKubeObjectInterface[];
+  mode: ValueOf<typeof FORM_MODES>;
+  handleClosePanel?: () => void;
 }
 
 export interface ManageGitServerProps {
-    formData: ManageGitServerDataContext;
+  formData: ManageGitServerDataContext;
 }
 
 export type ManageGitServerValues = FormValues<typeof GIT_SERVER_FORM_NAMES>;

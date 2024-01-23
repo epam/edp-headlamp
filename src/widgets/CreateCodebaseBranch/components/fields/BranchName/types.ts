@@ -1,3 +1,3 @@
 export interface BranchNameProps {
-    defaultBranchVersion: string;
+  defaultBranchVersion: string;
 }

@@ -6,18 +6,18 @@ import { CODEBASE_FORM_NAMES } from '../../../names';
 import { CreateCodebaseFormValues } from '../../Create/types';
 
 export const CodebaseAuth = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useFormContext<CreateCodebaseFormValues>();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext<CreateCodebaseFormValues>();
 
-    return (
-        <FormCheckbox
-            {...register(CODEBASE_FORM_NAMES.hasCodebaseAuth.name)}
-            label={<FormControlLabelWithTooltip label={'Repository credentials'} />}
-            control={control}
-            errors={errors}
-        />
-    );
+  return (
+    <FormCheckbox
+      {...register(CODEBASE_FORM_NAMES.hasCodebaseAuth.name)}
+      label={<FormControlLabelWithTooltip label={'Repository credentials'} />}
+      control={control}
+      errors={errors}
+    />
+  );
 };

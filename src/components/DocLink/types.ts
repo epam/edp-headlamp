@@ -1,4 +1,4 @@
 export interface DocLinkProps {
-    href: string;
-    isDocRootPage?: boolean;
+  href: string;
+  isDocRootPage?: boolean;
 }

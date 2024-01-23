@@ -1,5 +1,5 @@
 export interface PodsTerminalDialogForwardedProps {
-    stageNamespace: string;
-    appName: string;
-    isAttach?: boolean;
+  stageNamespace: string;
+  appName: string;
+  isAttach?: boolean;
 }

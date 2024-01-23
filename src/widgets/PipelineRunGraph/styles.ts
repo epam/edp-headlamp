@@ -1,14 +1,14 @@
-import { makeStyles } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
 
 export const useStyles = makeStyles(() => ({
-    dialog: {
-        '& .MuiDialog-paper': {
-            height: '100%',
-        },
+  dialog: {
+    '& .MuiDialog-paper': {
+      height: '100%',
     },
-    treeItemTitle: {
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis',
-        overflow: 'hidden',
-    },
+  },
+  treeItemTitle: {
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
 }));

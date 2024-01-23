@@ -2,8 +2,8 @@ import { CONFIGURATION_ROUTE_NAME } from '../../../../routes/names';
 import { createSidebarItemName } from '../../../../utils/routes/createSidebarItemName';
 
 export const routeEDPArgoCDIntegration = {
-    name: 'Argo CD Integration',
-    path: '/edp/configuration/argocd-integration',
-    sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
-    exact: true,
+  name: 'Argo CD Integration',
+  path: '/edp/configuration/argocd-integration',
+  sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
+  exact: true,
 };

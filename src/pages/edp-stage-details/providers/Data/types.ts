@@ -5,8 +5,8 @@ import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/type
 import { KubeObjectListInterface } from '../../../../types/k8s';
 
 export interface DataContextProviderValue {
-    CDPipeline: EDPCDPipelineKubeObjectInterface;
-    stages: KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>;
-    enrichedApplications: EnrichedApplicationWithItsImageStreams[];
-    gitOpsCodebase: EDPCodebaseKubeObjectInterface;
+  CDPipeline: EDPCDPipelineKubeObjectInterface;
+  stages: KubeObjectListInterface<EDPCDPipelineStageKubeObjectInterface>;
+  enrichedApplications: EnrichedApplicationWithItsImageStreams[];
+  gitOpsCodebase: EDPCodebaseKubeObjectInterface;
 }

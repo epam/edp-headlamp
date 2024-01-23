@@ -3,10 +3,10 @@ import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../../../../k8
 import { PipelineRunKubeObjectInterface } from '../../../../../../../../k8s/PipelineRun/types';
 
 export interface SummaryProps {
-    codebaseBranchData: EDPCodebaseBranchKubeObjectInterface;
-    codebaseData: EDPCodebaseKubeObjectInterface;
-    pipelineRuns: {
-        all: PipelineRunKubeObjectInterface[];
-        latestBuildPipelineRun: PipelineRunKubeObjectInterface;
-    };
+  codebaseBranchData: EDPCodebaseBranchKubeObjectInterface;
+  codebaseData: EDPCodebaseKubeObjectInterface;
+  pipelineRuns: {
+    all: PipelineRunKubeObjectInterface[];
+    latestBuildPipelineRun: PipelineRunKubeObjectInterface;
+  };
 }

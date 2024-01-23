@@ -6,31 +6,31 @@ import { REQUEST_KEY_QUERY_CODEBASE_IMAGE_STREAM_LIST } from '../requestKeys';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../types';
 
 interface UseCodebaseImageStreamListQueryProps<ReturnType> {
-    props?: {
-        namespace?: string;
-    };
-    options?: UseQueryOptions<
-        KubeObjectListInterface<EDPCodebaseImageStreamKubeObjectInterface>,
-        Error,
-        ReturnType
-    >;
+  props?: {
+    namespace?: string;
+  };
+  options?: UseQueryOptions<
+    KubeObjectListInterface<EDPCodebaseImageStreamKubeObjectInterface>,
+    Error,
+    ReturnType
+  >;
 }
 
 export const useCodebaseImageStreamListQuery = <
-    ReturnType = KubeObjectListInterface<EDPCodebaseImageStreamKubeObjectInterface>
+  ReturnType = KubeObjectListInterface<EDPCodebaseImageStreamKubeObjectInterface>
 >({
-    props,
-    options,
+  props,
+  options,
 }: UseCodebaseImageStreamListQueryProps<ReturnType>) => {
-    const namespace = props?.namespace || getDefaultNamespace();
+  const namespace = props?.namespace || getDefaultNamespace();
 
-    return useQuery<
-        KubeObjectListInterface<EDPCodebaseImageStreamKubeObjectInterface>,
-        Error,
-        ReturnType
-    >(
-        REQUEST_KEY_QUERY_CODEBASE_IMAGE_STREAM_LIST,
-        () => EDPCodebaseImageStreamKubeObject.getList(namespace),
-        options
-    );
+  return useQuery<
+    KubeObjectListInterface<EDPCodebaseImageStreamKubeObjectInterface>,
+    Error,
+    ReturnType
+  >(
+    REQUEST_KEY_QUERY_CODEBASE_IMAGE_STREAM_LIST,
+    () => EDPCodebaseImageStreamKubeObject.getList(namespace),
+    options
+  );
 };

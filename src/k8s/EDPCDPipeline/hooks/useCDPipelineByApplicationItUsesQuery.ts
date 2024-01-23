@@ -5,35 +5,35 @@ import { EDPCDPipelineKubeObjectInterface } from '../types';
 import { useCDPipelineListQuery } from './useCDPipelineListQuery';
 
 interface UseCDPipelineByApplicationItUsesQueryProps {
-    props: {
-        codebaseName: string;
-    };
-    options?: UseQueryOptions<
-        KubeObjectListInterface<EDPCDPipelineKubeObjectInterface>,
-        Error,
-        EDPCDPipelineKubeObjectInterface
-    >;
+  props: {
+    codebaseName: string;
+  };
+  options?: UseQueryOptions<
+    KubeObjectListInterface<EDPCDPipelineKubeObjectInterface>,
+    Error,
+    EDPCDPipelineKubeObjectInterface
+  >;
 }
 
 export const useCDPipelineByApplicationItUsesQuery = ({
-    props,
-    options,
+  props,
+  options,
 }: UseCDPipelineByApplicationItUsesQueryProps) => {
-    const { codebaseName } = props;
+  const { codebaseName } = props;
 
-    const query = useCDPipelineListQuery<EDPCDPipelineKubeObjectInterface>({
-        options: {
-            select: data => {
-                for (const item of data?.items) {
-                    if (item.spec.applications.includes(codebaseName)) {
-                        return item;
-                    }
-                }
-            },
-            ...options,
-            enabled: options?.enabled && !!codebaseName,
-        },
-    });
+  const query = useCDPipelineListQuery<EDPCDPipelineKubeObjectInterface>({
+    options: {
+      select: data => {
+        for (const item of data?.items) {
+          if (item.spec.applications.includes(codebaseName)) {
+            return item;
+          }
+        }
+      },
+      ...options,
+      enabled: options?.enabled && !!codebaseName,
+    },
+  });
 
-    return React.useMemo(() => query, [query]);
+  return React.useMemo(() => query, [query]);
 };

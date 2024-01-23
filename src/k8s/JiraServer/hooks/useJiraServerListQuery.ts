@@ -6,27 +6,27 @@ import { REQUEST_KEY_QUERY_JIRA_SERVER_LIST } from '../requestKeys';
 import { JiraServerKubeObjectInterface } from '../types';
 
 interface UseJiraServerListQueryProps<ReturnType> {
-    props?: {
-        namespace?: string;
-    };
-    options?: UseQueryOptions<
-        KubeObjectListInterface<JiraServerKubeObjectInterface>,
-        Error,
-        ReturnType
-    >;
+  props?: {
+    namespace?: string;
+  };
+  options?: UseQueryOptions<
+    KubeObjectListInterface<JiraServerKubeObjectInterface>,
+    Error,
+    ReturnType
+  >;
 }
 
 export const useJiraServerListQuery = <
-    ReturnType = KubeObjectListInterface<JiraServerKubeObjectInterface>
+  ReturnType = KubeObjectListInterface<JiraServerKubeObjectInterface>
 >({
-    props,
-    options,
+  props,
+  options,
 }: UseJiraServerListQueryProps<ReturnType>) => {
-    const namespace = props?.namespace || getDefaultNamespace();
+  const namespace = props?.namespace || getDefaultNamespace();
 
-    return useQuery<KubeObjectListInterface<JiraServerKubeObjectInterface>, Error, ReturnType>(
-        REQUEST_KEY_QUERY_JIRA_SERVER_LIST,
-        () => JiraServerKubeObject.getList(namespace),
-        options
-    );
+  return useQuery<KubeObjectListInterface<JiraServerKubeObjectInterface>, Error, ReturnType>(
+    REQUEST_KEY_QUERY_JIRA_SERVER_LIST,
+    () => JiraServerKubeObject.getList(namespace),
+    options
+  );
 };

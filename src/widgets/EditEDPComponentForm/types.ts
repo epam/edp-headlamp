@@ -4,18 +4,18 @@ import { ValueOf } from '../../types/global';
 import { EDP_COMPONENT_FORM_NAMES } from './names';
 
 export interface EditEDPComponentFormProps {
-    EDPComponent: EDPComponentKubeObjectInterface;
+  EDPComponent: EDPComponentKubeObjectInterface;
 }
 
 export interface ManageEDPComponentDataContext {
-    EDPComponent?: EDPComponentKubeObjectInterface;
-    mode: ValueOf<typeof FORM_MODES>;
-    isSystem: boolean;
-    handleApply?: ({
-        EDPComponentData,
-    }: {
-        EDPComponentData: EDPComponentKubeObjectInterface;
-    }) => void;
+  EDPComponent?: EDPComponentKubeObjectInterface;
+  mode: ValueOf<typeof FORM_MODES>;
+  isSystem: boolean;
+  handleApply?: ({
+    EDPComponentData,
+  }: {
+    EDPComponentData: EDPComponentKubeObjectInterface;
+  }) => void;
 }
 
 export type ManageEDPComponentValues = FormValues<typeof EDP_COMPONENT_FORM_NAMES>;

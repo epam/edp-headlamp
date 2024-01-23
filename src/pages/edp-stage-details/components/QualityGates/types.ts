@@ -3,9 +3,9 @@ import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/type
 import { EnrichedQualityGateWithAutotestPipelineRun } from '../../types';
 
 export interface QualityGatesProps {
-    enrichedQualityGatesWithPipelineRuns: EnrichedQualityGateWithAutotestPipelineRun[];
-    argoApplications: ApplicationKubeObjectInterface[];
-    latestAutotestRunnerPipelineRuns: PipelineRunKubeObjectInterface[];
-    latestTenAutotestPipelineRuns: PipelineRunKubeObjectInterface[];
-    everyArgoAppIsHealthyAndInSync: boolean;
+  enrichedQualityGatesWithPipelineRuns: EnrichedQualityGateWithAutotestPipelineRun[];
+  argoApplications: ApplicationKubeObjectInterface[];
+  latestAutotestRunnerPipelineRuns: PipelineRunKubeObjectInterface[];
+  latestTenAutotestPipelineRuns: PipelineRunKubeObjectInterface[];
+  everyArgoAppIsHealthyAndInSync: boolean;
 }

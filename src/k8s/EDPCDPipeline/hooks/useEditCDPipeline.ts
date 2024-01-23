@@ -5,41 +5,41 @@ import { EDPCDPipelineKubeObject } from '../index';
 import { EDPCDPipelineKubeObjectInterface } from '../types';
 
 interface EditCDPipelineProps {
-    CDPipelineData: EDPCDPipelineKubeObjectInterface;
+  CDPipelineData: EDPCDPipelineKubeObjectInterface;
 }
 
 export const useEditCDPipeline = ({
-    onSuccess,
-    onError,
+  onSuccess,
+  onError,
 }: {
-    onSuccess?: () => void;
-    onError?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 }) => {
-    const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-    const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
+  const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
+  const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-    const CDPipelineEditMutation = useResourceCRUDMutation<
-        EDPCDPipelineKubeObjectInterface,
-        CRUD_TYPES.EDIT
-    >('CDPipelineEditMutation', EDPCDPipelineKubeObject, CRUD_TYPES.EDIT);
+  const CDPipelineEditMutation = useResourceCRUDMutation<
+    EDPCDPipelineKubeObjectInterface,
+    CRUD_TYPES.EDIT
+  >('CDPipelineEditMutation', EDPCDPipelineKubeObject, CRUD_TYPES.EDIT);
 
-    const editCDPipeline = React.useCallback(
-        async ({ CDPipelineData }: EditCDPipelineProps) => {
-            CDPipelineEditMutation.mutate(CDPipelineData, {
-                onSuccess: () => {
-                    invokeOnSuccessCallback();
-                },
-                onError: () => {
-                    invokeOnErrorCallback();
-                },
-            });
+  const editCDPipeline = React.useCallback(
+    async ({ CDPipelineData }: EditCDPipelineProps) => {
+      CDPipelineEditMutation.mutate(CDPipelineData, {
+        onSuccess: () => {
+          invokeOnSuccessCallback();
         },
-        [CDPipelineEditMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
-    );
+        onError: () => {
+          invokeOnErrorCallback();
+        },
+      });
+    },
+    [CDPipelineEditMutation, invokeOnErrorCallback, invokeOnSuccessCallback]
+  );
 
-    const mutations = {
-        CDPipelineEditMutation,
-    };
+  const mutations = {
+    CDPipelineEditMutation,
+  };
 
-    return { editCDPipeline, mutations };
+  return { editCDPipeline, mutations };
 };

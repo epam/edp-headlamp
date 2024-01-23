@@ -11,69 +11,69 @@ import { CODEBASE_FORM_NAMES } from '../../../names';
 import { CreateCodebaseFormValues } from '../../Create/types';
 
 export const Lang = () => {
-    const {
-        unregister,
-        register,
-        control,
-        formState: { errors },
-        resetField,
-        watch,
-    } = useFormContext<CreateCodebaseFormValues>();
+  const {
+    unregister,
+    register,
+    control,
+    formState: { errors },
+    resetField,
+    watch,
+  } = useFormContext<CreateCodebaseFormValues>();
 
-    const typeFieldValue = watch(CODEBASE_FORM_NAMES.type.name);
-    const strategyValue = watch(CODEBASE_FORM_NAMES.strategy.name);
-    const capitalizedCodebaseType = capitalizeFirstLetter(typeFieldValue);
+  const typeFieldValue = watch(CODEBASE_FORM_NAMES.type.name);
+  const strategyValue = watch(CODEBASE_FORM_NAMES.strategy.name);
+  const capitalizedCodebaseType = capitalizeFirstLetter(typeFieldValue);
 
-    const langOptions = React.useMemo(() => {
-        const codebaseMapping = getCodebaseMappingByCodebaseType(typeFieldValue);
+  const langOptions = React.useMemo(() => {
+    const codebaseMapping = getCodebaseMappingByCodebaseType(typeFieldValue);
 
-        const resultOptions: FormRadioOption[] = [];
+    const resultOptions: FormRadioOption[] = [];
 
-        if (!codebaseMapping) {
-            return resultOptions;
-        }
+    if (!codebaseMapping) {
+      return resultOptions;
+    }
 
-        for (const mapping of Object.values(codebaseMapping)) {
-            const {
-                language: { name, value, icon },
-            } = mapping;
+    for (const mapping of Object.values(codebaseMapping)) {
+      const {
+        language: { name, value, icon },
+      } = mapping;
 
-            const isDisabled =
-                value === CODEBASE_COMMON_LANGUAGES.OTHER &&
-                strategyValue === CODEBASE_CREATION_STRATEGIES.CREATE;
+      const isDisabled =
+        value === CODEBASE_COMMON_LANGUAGES.OTHER &&
+        strategyValue === CODEBASE_CREATION_STRATEGIES.CREATE;
 
-            resultOptions.push({
-                value,
-                label: name,
-                icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-                disabled: isDisabled,
-                disabledTooltip: isDisabled
-                    ? 'Choose this option if your desired programming language is not listed. This option is available exclusively when using the Clone and Import strategy.'
-                    : null,
-            });
-        }
+      resultOptions.push({
+        value,
+        label: name,
+        icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+        checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+        disabled: isDisabled,
+        disabledTooltip: isDisabled
+          ? 'Choose this option if your desired programming language is not listed. This option is available exclusively when using the Clone and Import strategy.'
+          : null,
+      });
+    }
 
-        return resultOptions;
-    }, [strategyValue, typeFieldValue]);
+    return resultOptions;
+  }, [strategyValue, typeFieldValue]);
 
-    const onLangChange = React.useCallback(async () => {
-        resetField(CODEBASE_FORM_NAMES.framework.name);
-        resetField(CODEBASE_FORM_NAMES.buildTool.name);
-        unregister(CODEBASE_FORM_NAMES.framework.name);
-    }, [resetField, unregister]);
+  const onLangChange = React.useCallback(async () => {
+    resetField(CODEBASE_FORM_NAMES.framework.name);
+    resetField(CODEBASE_FORM_NAMES.buildTool.name);
+    unregister(CODEBASE_FORM_NAMES.framework.name);
+  }, [resetField, unregister]);
 
-    return (
-        <FormRadioGroup
-            {...register(CODEBASE_FORM_NAMES.lang.name, {
-                required: `Select codebase language`,
-                onChange: onLangChange,
-            })}
-            control={control}
-            errors={errors}
-            label={`${capitalizedCodebaseType} code language`}
-            title={'Specify the primary programming language used in your component.'}
-            options={langOptions}
-        />
-    );
+  return (
+    <FormRadioGroup
+      {...register(CODEBASE_FORM_NAMES.lang.name, {
+        required: `Select codebase language`,
+        onChange: onLangChange,
+      })}
+      control={control}
+      errors={errors}
+      label={`${capitalizedCodebaseType} code language`}
+      title={'Specify the primary programming language used in your component.'}
+      options={langOptions}
+    />
+  );
 };

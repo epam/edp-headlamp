@@ -1,4 +1,4 @@
 export enum DEPLOYMENT_TYPES {
-    CONTAINER = 'container',
-    CUSTOM = 'custom',
+  CONTAINER = 'container',
+  CUSTOM = 'custom',
 }

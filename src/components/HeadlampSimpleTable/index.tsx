@@ -4,11 +4,11 @@ import { useStyles } from './styles';
 import { HeadlampSimpleTableProps } from './types';
 
 export const HeadlampSimpleTable: React.FC<HeadlampSimpleTableProps> = props => {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-        <div className={classes.tableWrapper}>
-            <SimpleTable {...props} />
-        </div>
-    );
+  return (
+    <div className={classes.tableWrapper}>
+      <SimpleTable {...props} />
+    </div>
+  );
 };

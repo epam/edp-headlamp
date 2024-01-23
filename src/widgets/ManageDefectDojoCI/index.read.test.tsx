@@ -12,39 +12,38 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageDefectDojoCI } from './index';
 
 test('renders ManageDefectDojoCI Edit component (read-only)', () => {
-    const ownerReference = DefectDojoCISecretWithOwnerMock.metadata.ownerReferences[0].kind;
+  const ownerReference = DefectDojoCISecretWithOwnerMock.metadata.ownerReferences[0].kind;
 
-    render(
-        <TestWrapper>
-            <ManageDefectDojoCI
-                formData={{
-                    defectDojoSecret:
-                        DefectDojoCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
-                    ownerReference: ownerReference,
-                    defectDojoEDPComponent: {
-                        apiVersion: 'v1.edp.epam.com/v1',
-                        kind: 'EDPComponent',
-                        metadata: {
-                            name: SYSTEM_EDP_COMPONENTS.DEFECT_DOJO,
-                            namespace: 'test-namespace',
-                            creationTimestamp: '',
-                            uid: '',
-                        },
-                        spec: {
-                            type: SYSTEM_EDP_COMPONENTS.DEFECT_DOJO,
-                            url: 'https://test-nexus.com',
-                            visible: true,
-                            icon: '',
-                        },
-                        status: '',
-                    },
-                    mode: FORM_MODES.EDIT,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageDefectDojoCI
+        formData={{
+          defectDojoSecret: DefectDojoCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
+          ownerReference: ownerReference,
+          defectDojoEDPComponent: {
+            apiVersion: 'v1.edp.epam.com/v1',
+            kind: 'EDPComponent',
+            metadata: {
+              name: SYSTEM_EDP_COMPONENTS.DEFECT_DOJO,
+              namespace: 'test-namespace',
+              creationTimestamp: '',
+              uid: '',
+            },
+            spec: {
+              type: SYSTEM_EDP_COMPONENTS.DEFECT_DOJO,
+              url: 'https://test-nexus.com',
+              visible: true,
+              icon: '',
+            },
+            status: '',
+          },
+          mode: FORM_MODES.EDIT,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

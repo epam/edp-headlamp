@@ -1,4 +1,4 @@
-import { DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import React from 'react';
 import { FormContextProvider } from '../../../../providers/Form';
 import { DialogHeader } from './components/DialogHeader';
@@ -7,24 +7,24 @@ import { FormActions } from './components/FormActions';
 import { useDefaultValues } from './hooks/useDefaultValues';
 
 export const Edit = () => {
-    const baseDefaultValues = useDefaultValues();
+  const baseDefaultValues = useDefaultValues();
 
-    return (
-        <FormContextProvider
-            formSettings={{
-                mode: 'onBlur',
-                defaultValues: baseDefaultValues,
-            }}
-        >
-            <DialogTitle>
-                <DialogHeader />
-            </DialogTitle>
-            <DialogContent>
-                <Form />
-            </DialogContent>
-            <DialogActions>
-                <FormActions />
-            </DialogActions>
-        </FormContextProvider>
-    );
+  return (
+    <FormContextProvider
+      formSettings={{
+        mode: 'onBlur',
+        defaultValues: baseDefaultValues,
+      }}
+    >
+      <DialogTitle>
+        <DialogHeader />
+      </DialogTitle>
+      <DialogContent>
+        <Form />
+      </DialogContent>
+      <DialogActions>
+        <FormActions />
+      </DialogActions>
+    </FormContextProvider>
+  );
 };

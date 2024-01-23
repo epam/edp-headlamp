@@ -5,13 +5,13 @@ import { NamespacesGuardWrapper } from '../../../../providers/NamespacesGuardWra
 import { PageView } from './view';
 
 export default function () {
-    return (
-        <PageLogicWrapper>
-            <DialogContextProvider>
-                <NamespacesGuardWrapper>
-                    <PageView />
-                </NamespacesGuardWrapper>
-            </DialogContextProvider>
-        </PageLogicWrapper>
-    );
+  return (
+    <PageLogicWrapper>
+      <DialogContextProvider>
+        <NamespacesGuardWrapper>
+          <PageView />
+        </NamespacesGuardWrapper>
+      </DialogContextProvider>
+    </PageLogicWrapper>
+  );
 }

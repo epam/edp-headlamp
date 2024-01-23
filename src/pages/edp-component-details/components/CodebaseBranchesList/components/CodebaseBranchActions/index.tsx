@@ -13,60 +13,60 @@ import { CodebaseBranchActionsProps } from './types';
 import { createDeleteAction } from './utils';
 
 export const CodebaseBranchActions = ({ defaultBranch, codebase }: CodebaseBranchActionsProps) => {
-    const { setDialog } = useDialogContext<DeleteKubeObjectDialogForwardedProps>();
-    const { anchorEl, data, handleCloseResourceActionListMenu } =
-        useResourceActionListContext<EDPCodebaseBranchKubeObjectInterface>();
+  const { setDialog } = useDialogContext<DeleteKubeObjectDialogForwardedProps>();
+  const { anchorEl, data, handleCloseResourceActionListMenu } =
+    useResourceActionListContext<EDPCodebaseBranchKubeObjectInterface>();
 
-    const conflictedCDPipeline = useConflictedCDPipeline(data, codebase);
+  const conflictedCDPipeline = useConflictedCDPipeline(data, codebase);
 
-    const onBeforeSubmit = React.useCallback(
-        async (handleError, setLoadingActive) => {
-            setLoadingActive(true);
-            if (!conflictedCDPipeline) {
-                setLoadingActive(false);
-                return;
-            }
+  const onBeforeSubmit = React.useCallback(
+    async (handleError, setLoadingActive) => {
+      setLoadingActive(true);
+      if (!conflictedCDPipeline) {
+        setLoadingActive(false);
+        return;
+      }
 
-            handleError(
-                <CodebaseBranchCDPipelineConflictError
-                    conflictedCDPipeline={conflictedCDPipeline}
-                    name={data?.spec.branchName}
-                />
-            );
-            setLoadingActive(false);
-        },
-        [conflictedCDPipeline, data?.spec.branchName]
-    );
+      handleError(
+        <CodebaseBranchCDPipelineConflictError
+          conflictedCDPipeline={conflictedCDPipeline}
+          name={data?.spec.branchName}
+        />
+      );
+      setLoadingActive(false);
+    },
+    [conflictedCDPipeline, data?.spec.branchName]
+  );
 
-    const actions: KubeObjectAction[] = React.useMemo(() => {
-        if (!data) {
-            return;
-        }
+  const actions: KubeObjectAction[] = React.useMemo(() => {
+    if (!data) {
+      return;
+    }
 
-        return [
-            createDeleteAction(data, defaultBranch, () => {
-                handleCloseResourceActionListMenu();
-                setDialog({
-                    modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-                    forwardedProps: {
-                        objectName: data?.spec?.branchName,
-                        kubeObject: EDPCodebaseBranchKubeObject,
-                        kubeObjectData: data,
-                        description: `Confirm the deletion of the codebase branch with all its components`,
-                        onBeforeSubmit,
-                    },
-                });
-            }),
-        ].filter(Boolean);
-    }, [data, defaultBranch, handleCloseResourceActionListMenu, setDialog, onBeforeSubmit]);
+    return [
+      createDeleteAction(data, defaultBranch, () => {
+        handleCloseResourceActionListMenu();
+        setDialog({
+          modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+          forwardedProps: {
+            objectName: data?.spec?.branchName,
+            kubeObject: EDPCodebaseBranchKubeObject,
+            kubeObjectData: data,
+            description: `Confirm the deletion of the codebase branch with all its components`,
+            onBeforeSubmit,
+          },
+        });
+      }),
+    ].filter(Boolean);
+  }, [data, defaultBranch, handleCloseResourceActionListMenu, setDialog, onBeforeSubmit]);
 
-    return (
-        <>
-            <KubeObjectActions
-                anchorEl={anchorEl}
-                handleCloseActionsMenu={handleCloseResourceActionListMenu}
-                actions={actions}
-            />
-        </>
-    );
+  return (
+    <>
+      <KubeObjectActions
+        anchorEl={anchorEl}
+        handleCloseActionsMenu={handleCloseResourceActionListMenu}
+        actions={actions}
+      />
+    </>
+  );
 };

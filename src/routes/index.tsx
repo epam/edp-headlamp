@@ -41,42 +41,42 @@ import RouteEDPStageDetailsPage from '../pages/edp-stage-details/page';
 import { routeEDPStageDetails } from '../pages/edp-stage-details/route';
 
 export default [
-    // Overview
-    { ...routeEDPOverviewList, component: () => <RouteEDPOverviewListPage /> },
+  // Overview
+  { ...routeEDPOverviewList, component: () => <RouteEDPOverviewListPage /> },
 
-    // Components & children
-    { ...routeEDPComponentList, component: () => <RouteEDPComponentListPage /> },
-    { ...routeEDPComponentDetails, component: () => <RouteEDPComponentDetailsPage /> },
+  // Components & children
+  { ...routeEDPComponentList, component: () => <RouteEDPComponentListPage /> },
+  { ...routeEDPComponentDetails, component: () => <RouteEDPComponentDetailsPage /> },
 
-    // CD Pipelines & children
-    { ...routeEDPCDPipelineList, component: () => <RouteEDPCDPipelineListPage /> },
-    { ...routeEDPCDPipelineDetails, component: () => <RouteEDPCDPipelineDetailsPage /> },
-    { ...routeEDPStageDetails, component: () => <RouteEDPStageDetailsPage /> },
+  // CD Pipelines & children
+  { ...routeEDPCDPipelineList, component: () => <RouteEDPCDPipelineListPage /> },
+  { ...routeEDPCDPipelineDetails, component: () => <RouteEDPCDPipelineDetailsPage /> },
+  { ...routeEDPStageDetails, component: () => <RouteEDPStageDetailsPage /> },
 
-    // Configuration Group
-    { ...routeEDPClusterList, component: () => <RouteEDPClusterListPage /> },
-    { ...routeEDPGitServerList, component: () => <RouteEDPGitServerListPage /> },
-    { ...routeEDPRegistryList, component: () => <RouteEDPRegistryListPage /> },
-    { ...routeEDPSonarIntegration, component: () => <RouteEDPSonarIntegrationPage /> },
-    { ...routeEDPArgoCDIntegration, component: () => <RouteEDPArgoCDIntegrationPage /> },
-    { ...routeEDPNexusIntegration, component: () => <RouteEDPNexusIntegrationPage /> },
-    { ...routeEDPDefectDojoIntegration, component: () => <RouteEDPDefectDojoIntegrationPage /> },
-    {
-        ...routeEDPDependencyTrackIntegration,
-        component: () => <RouteEDPDependencyTrackIntegrationPage />,
-    },
-    { ...routeEDPJiraIntegration, component: () => <RouteEDPJiraIntegrationPage /> },
-    { ...routeEDPGitOpsConfiguration, component: () => <RouteEDPGitOpsConfigurationPage /> },
-    { ...routeEDPSSOIntegration, component: () => <RouteEDPSSOIntegrationPage /> },
-    {
-        ...routeConfigurationEDPComponentList,
-        component: () => <RouteEDPConfigurationEDPComponentListPage />,
-    },
-    {
-        ...routeConfigurationEDPComponentDetails,
-        component: () => <RouteEDPConfigurationEDPComponentDetailsPage />,
-    },
-    // Marketplace
+  // Configuration Group
+  { ...routeEDPClusterList, component: () => <RouteEDPClusterListPage /> },
+  { ...routeEDPGitServerList, component: () => <RouteEDPGitServerListPage /> },
+  { ...routeEDPRegistryList, component: () => <RouteEDPRegistryListPage /> },
+  { ...routeEDPSonarIntegration, component: () => <RouteEDPSonarIntegrationPage /> },
+  { ...routeEDPArgoCDIntegration, component: () => <RouteEDPArgoCDIntegrationPage /> },
+  { ...routeEDPNexusIntegration, component: () => <RouteEDPNexusIntegrationPage /> },
+  { ...routeEDPDefectDojoIntegration, component: () => <RouteEDPDefectDojoIntegrationPage /> },
+  {
+    ...routeEDPDependencyTrackIntegration,
+    component: () => <RouteEDPDependencyTrackIntegrationPage />,
+  },
+  { ...routeEDPJiraIntegration, component: () => <RouteEDPJiraIntegrationPage /> },
+  { ...routeEDPGitOpsConfiguration, component: () => <RouteEDPGitOpsConfigurationPage /> },
+  { ...routeEDPSSOIntegration, component: () => <RouteEDPSSOIntegrationPage /> },
+  {
+    ...routeConfigurationEDPComponentList,
+    component: () => <RouteEDPConfigurationEDPComponentListPage />,
+  },
+  {
+    ...routeConfigurationEDPComponentDetails,
+    component: () => <RouteEDPConfigurationEDPComponentDetailsPage />,
+  },
+  // Marketplace
 
-    { ...routeEDPMarketplace, component: () => <RouteEDPMarketplacePage /> },
+  { ...routeEDPMarketplace, component: () => <RouteEDPMarketplacePage /> },
 ];

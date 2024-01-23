@@ -3,31 +3,31 @@ import { EDPCDPipelineStageKubeObject } from '../index';
 import { EDPCDPipelineStageKubeObjectInterface } from '../types';
 
 interface UseStreamCDPipelineStageProps {
-    namespace: string;
-    stageMetadataName: string;
+  namespace: string;
+  stageMetadataName: string;
 }
 
 export const useStreamCDPipelineStage = ({
-    namespace,
-    stageMetadataName,
+  namespace,
+  stageMetadataName,
 }: UseStreamCDPipelineStageProps) => {
-    const [CDPipelineStage, setCDPipelineStage] =
-        React.useState<EDPCDPipelineStageKubeObjectInterface>(null);
+  const [CDPipelineStage, setCDPipelineStage] =
+    React.useState<EDPCDPipelineStageKubeObjectInterface>(null);
 
-    React.useEffect(() => {
-        const cancelStream = EDPCDPipelineStageKubeObject.streamCDPipelineStage({
-            namespace,
-            stageMetadataName,
-            dataHandler: data => {
-                setCDPipelineStage(data);
-            },
-            errorHandler: error => console.error(error),
-        });
+  React.useEffect(() => {
+    const cancelStream = EDPCDPipelineStageKubeObject.streamCDPipelineStage({
+      namespace,
+      stageMetadataName,
+      dataHandler: data => {
+        setCDPipelineStage(data);
+      },
+      errorHandler: error => console.error(error),
+    });
 
-        return () => {
-            cancelStream();
-        };
-    }, [namespace, stageMetadataName]);
+    return () => {
+      cancelStream();
+    };
+  }, [namespace, stageMetadataName]);
 
-    return CDPipelineStage;
+  return CDPipelineStage;
 };

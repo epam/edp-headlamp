@@ -3,9 +3,9 @@ import { FormValues } from '../../types/forms';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from './names';
 
 export interface CreateCodebaseFromTemplateDialogForwardedProps {
-    template: EDPTemplateKubeObjectInterface;
+  template: EDPTemplateKubeObjectInterface;
 }
 
 export type CreateCodebaseFromTemplateFormValues = FormValues<
-    typeof CODEBASE_FROM_TEMPLATE_FORM_NAMES
+  typeof CODEBASE_FROM_TEMPLATE_FORM_NAMES
 >;

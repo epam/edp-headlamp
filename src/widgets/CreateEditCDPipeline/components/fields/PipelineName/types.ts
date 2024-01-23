@@ -1,3 +1,3 @@
 export interface PipelineNameProps {
-    onPipelineNameChange: (pipelineNameFieldValue: string) => void;
+  onPipelineNameChange: (pipelineNameFieldValue: string) => void;
 }

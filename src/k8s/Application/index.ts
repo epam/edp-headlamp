@@ -6,90 +6,90 @@ import { ApplicationKubeObjectConfig } from './config';
 import { APPLICATION_HEALTH_STATUS, APPLICATION_SYNC_STATUS } from './constants';
 import { APPLICATION_LABEL_SELECTOR_PIPELINE, APPLICATION_LABEL_SELECTOR_STAGE } from './labels';
 import {
-    ApplicationKubeObjectInterface,
-    ApplicationSpec,
-    ApplicationStatus,
-    StreamApplicationListByPipelineStageLabelProps,
+  ApplicationKubeObjectInterface,
+  ApplicationSpec,
+  ApplicationStatus,
+  StreamApplicationListByPipelineStageLabelProps,
 } from './types';
 
 const {
-    name: { singularForm, pluralForm },
-    group,
-    version,
+  name: { singularForm, pluralForm },
+  group,
+  version,
 } = ApplicationKubeObjectConfig;
 
 export class ApplicationKubeObject extends K8s.cluster.makeKubeObject<ApplicationKubeObjectInterface>(
-    singularForm
+  singularForm
 ) {
-    static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
+  static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
-    static get className(): string {
-        return singularForm;
+  static get className(): string {
+    return singularForm;
+  }
+
+  get spec(): ApplicationSpec {
+    return this.jsonData!.spec;
+  }
+
+  get status(): ApplicationStatus {
+    return this.jsonData!.status;
+  }
+
+  static getHealthStatusIcon(health: string): [string, string, boolean?] {
+    if (health === undefined) {
+      return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }
+    const _health = health.toLowerCase();
 
-    get spec(): ApplicationSpec {
-        return this.jsonData!.spec;
+    switch (_health) {
+      case APPLICATION_HEALTH_STATUS.HEALTHY:
+        return [ICONS.HEART, STATUS_COLOR.SUCCESS];
+
+      case APPLICATION_HEALTH_STATUS.PROGRESSING:
+        return [ICONS.LOADER_CIRCLE, STATUS_COLOR.IN_PROGRESS, true];
+
+      case APPLICATION_HEALTH_STATUS.DEGRADED:
+        return [ICONS.HEART_BROKEN, STATUS_COLOR.ERROR];
+
+      case APPLICATION_HEALTH_STATUS.SUSPENDED:
+        return [ICONS.PAUSE, STATUS_COLOR.SUSPENDED];
+
+      case APPLICATION_HEALTH_STATUS.MISSING:
+        return [ICONS.GHOST, STATUS_COLOR.MISSING];
+
+      default:
+        return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }
+  }
 
-    get status(): ApplicationStatus {
-        return this.jsonData!.status;
+  static getSyncStatusIcon(sync: string): [string, string, boolean?] {
+    if (sync === undefined) {
+      return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }
+    const _sync = sync.toLowerCase();
 
-    static getHealthStatusIcon(health: string): [string, string, boolean?] {
-        if (health === undefined) {
-            return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
-        }
-        const _health = health.toLowerCase();
+    switch (_sync) {
+      case APPLICATION_SYNC_STATUS.SYNCED:
+        return [ICONS.ARROW_CHECK, STATUS_COLOR.SUCCESS];
 
-        switch (_health) {
-            case APPLICATION_HEALTH_STATUS.HEALTHY:
-                return [ICONS.HEART, STATUS_COLOR.SUCCESS];
+      case APPLICATION_SYNC_STATUS.OUT_OF_SYNC:
+        return [ICONS.ARROW_CIRCLE_UP, STATUS_COLOR.MISSING];
 
-            case APPLICATION_HEALTH_STATUS.PROGRESSING:
-                return [ICONS.LOADER_CIRCLE, STATUS_COLOR.IN_PROGRESS, true];
-
-            case APPLICATION_HEALTH_STATUS.DEGRADED:
-                return [ICONS.HEART_BROKEN, STATUS_COLOR.ERROR];
-
-            case APPLICATION_HEALTH_STATUS.SUSPENDED:
-                return [ICONS.PAUSE, STATUS_COLOR.SUSPENDED];
-
-            case APPLICATION_HEALTH_STATUS.MISSING:
-                return [ICONS.GHOST, STATUS_COLOR.MISSING];
-
-            default:
-                return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
-        }
+      default:
+        return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }
+  }
 
-    static getSyncStatusIcon(sync: string): [string, string, boolean?] {
-        if (sync === undefined) {
-            return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
-        }
-        const _sync = sync.toLowerCase();
-
-        switch (_sync) {
-            case APPLICATION_SYNC_STATUS.SYNCED:
-                return [ICONS.ARROW_CHECK, STATUS_COLOR.SUCCESS];
-
-            case APPLICATION_SYNC_STATUS.OUT_OF_SYNC:
-                return [ICONS.ARROW_CIRCLE_UP, STATUS_COLOR.MISSING];
-
-            default:
-                return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
-        }
-    }
-
-    static streamApplicationListByPipelineStageLabel({
-        namespace,
-        stageSpecName,
-        CDPipelineMetadataName,
-        dataHandler,
-        errorHandler,
-    }: StreamApplicationListByPipelineStageLabelProps): () => void {
-        const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-        return streamResults(url, dataHandler, errorHandler, {
-            labelSelector: `${APPLICATION_LABEL_SELECTOR_PIPELINE}=${CDPipelineMetadataName},${APPLICATION_LABEL_SELECTOR_STAGE}=${stageSpecName}`,
-        });
-    }
+  static streamApplicationListByPipelineStageLabel({
+    namespace,
+    stageSpecName,
+    CDPipelineMetadataName,
+    dataHandler,
+    errorHandler,
+  }: StreamApplicationListByPipelineStageLabelProps): () => void {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+    return streamResults(url, dataHandler, errorHandler, {
+      labelSelector: `${APPLICATION_LABEL_SELECTOR_PIPELINE}=${CDPipelineMetadataName},${APPLICATION_LABEL_SELECTOR_STAGE}=${stageSpecName}`,
+    });
+  }
 }

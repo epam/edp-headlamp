@@ -6,27 +6,27 @@ import { REQUEST_KEY_QUERY_TRIGGER_TEMPLATE_LIST } from '../requestKeys';
 import { TriggerTemplateKubeObjectInterface } from '../types';
 
 interface UseTriggerTemplateListQueryProps<ReturnType> {
-    props?: {
-        namespace?: string;
-    };
-    options?: UseQueryOptions<
-        KubeObjectListInterface<TriggerTemplateKubeObjectInterface>,
-        Error,
-        ReturnType
-    >;
+  props?: {
+    namespace?: string;
+  };
+  options?: UseQueryOptions<
+    KubeObjectListInterface<TriggerTemplateKubeObjectInterface>,
+    Error,
+    ReturnType
+  >;
 }
 
 export const useTriggerTemplateListQuery = <
-    ReturnType = KubeObjectListInterface<TriggerTemplateKubeObjectInterface>
+  ReturnType = KubeObjectListInterface<TriggerTemplateKubeObjectInterface>
 >({
-    props,
-    options,
+  props,
+  options,
 }: UseTriggerTemplateListQueryProps<ReturnType>) => {
-    const namespace = props?.namespace || getDefaultNamespace();
+  const namespace = props?.namespace || getDefaultNamespace();
 
-    return useQuery<KubeObjectListInterface<TriggerTemplateKubeObjectInterface>, Error, ReturnType>(
-        REQUEST_KEY_QUERY_TRIGGER_TEMPLATE_LIST,
-        () => TriggerTemplateKubeObject.getList(namespace),
-        options
-    );
+  return useQuery<KubeObjectListInterface<TriggerTemplateKubeObjectInterface>, Error, ReturnType>(
+    REQUEST_KEY_QUERY_TRIGGER_TEMPLATE_LIST,
+    () => TriggerTemplateKubeObject.getList(namespace),
+    options
+  );
 };

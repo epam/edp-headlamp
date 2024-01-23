@@ -5,6 +5,6 @@ import { CDPIPELINE_FORM_NAMES } from './names';
 export type CreateEditCDPipelineFormValues = FormValues<typeof CDPIPELINE_FORM_NAMES>;
 
 export interface CreateEditCDPipelineDialogForwardedProps {
-    mode: FormMode;
-    CDPipelineData?: EDPCDPipelineKubeObjectInterface;
+  mode: FormMode;
+  CDPipelineData?: EDPCDPipelineKubeObjectInterface;
 }

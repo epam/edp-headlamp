@@ -6,15 +6,15 @@ import { SYSTEM_MAPPING } from '../configs/codebase-mappings/system';
 import { CODEBASE_TYPES } from '../constants/codebaseTypes';
 
 export const getCodebaseMappingByCodebaseType = (type: CODEBASE_TYPES | string) => {
-    return type === CODEBASE_TYPES.APPLICATION
-        ? APPLICATION_MAPPING
-        : type === CODEBASE_TYPES.LIBRARY
-        ? LIBRARY_MAPPING
-        : type === CODEBASE_TYPES.AUTOTEST
-        ? AUTOTEST_MAPPING
-        : type === CODEBASE_TYPES.INFRASTRUCTURE
-        ? INFRASTRUCTURE_MAPPING
-        : type === CODEBASE_TYPES.SYSTEM
-        ? SYSTEM_MAPPING
-        : null;
+  return type === CODEBASE_TYPES.APPLICATION
+    ? APPLICATION_MAPPING
+    : type === CODEBASE_TYPES.LIBRARY
+    ? LIBRARY_MAPPING
+    : type === CODEBASE_TYPES.AUTOTEST
+    ? AUTOTEST_MAPPING
+    : type === CODEBASE_TYPES.INFRASTRUCTURE
+    ? INFRASTRUCTURE_MAPPING
+    : type === CODEBASE_TYPES.SYSTEM
+    ? SYSTEM_MAPPING
+    : null;
 };

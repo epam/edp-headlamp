@@ -12,38 +12,38 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageSonarCI } from './index';
 
 test('renders ManageSonarCI Edit component (read-only)', () => {
-    const ownerReference = SonarCISecretWithOwnerMock.metadata.ownerReferences[0].kind;
+  const ownerReference = SonarCISecretWithOwnerMock.metadata.ownerReferences[0].kind;
 
-    render(
-        <TestWrapper>
-            <ManageSonarCI
-                formData={{
-                    sonarSecret: SonarCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
-                    ownerReference: ownerReference,
-                    sonarEDPComponent: {
-                        apiVersion: 'v1.edp.epam.com/v1',
-                        kind: 'EDPComponent',
-                        metadata: {
-                            name: SYSTEM_EDP_COMPONENTS.SONAR,
-                            namespace: 'test-namespace',
-                            creationTimestamp: '',
-                            uid: '',
-                        },
-                        spec: {
-                            type: SYSTEM_EDP_COMPONENTS.SONAR,
-                            url: 'https://test-nexus.com',
-                            visible: true,
-                            icon: '',
-                        },
-                        status: '',
-                    },
-                    mode: FORM_MODES.EDIT,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageSonarCI
+        formData={{
+          sonarSecret: SonarCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
+          ownerReference: ownerReference,
+          sonarEDPComponent: {
+            apiVersion: 'v1.edp.epam.com/v1',
+            kind: 'EDPComponent',
+            metadata: {
+              name: SYSTEM_EDP_COMPONENTS.SONAR,
+              namespace: 'test-namespace',
+              creationTimestamp: '',
+              uid: '',
+            },
+            spec: {
+              type: SYSTEM_EDP_COMPONENTS.SONAR,
+              url: 'https://test-nexus.com',
+              visible: true,
+              icon: '',
+            },
+            status: '',
+          },
+          mode: FORM_MODES.EDIT,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

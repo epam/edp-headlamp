@@ -6,27 +6,23 @@ import { REQUEST_KEY_QUERY_CLUSTER_SECRET_LIST } from '../requestKeys';
 import { SecretKubeObjectInterface } from '../types';
 
 interface UseClusterSecretListQueryProps<ReturnType> {
-    props?: {
-        namespace?: string;
-    };
-    options?: UseQueryOptions<
-        KubeObjectListInterface<SecretKubeObjectInterface>,
-        Error,
-        ReturnType
-    >;
+  props?: {
+    namespace?: string;
+  };
+  options?: UseQueryOptions<KubeObjectListInterface<SecretKubeObjectInterface>, Error, ReturnType>;
 }
 
 export const useClusterSecretListQuery = <
-    ReturnType = KubeObjectListInterface<SecretKubeObjectInterface>
+  ReturnType = KubeObjectListInterface<SecretKubeObjectInterface>
 >({
-    props,
-    options,
+  props,
+  options,
 }: UseClusterSecretListQueryProps<ReturnType>) => {
-    const namespace = props?.namespace || getDefaultNamespace();
+  const namespace = props?.namespace || getDefaultNamespace();
 
-    return useQuery<KubeObjectListInterface<SecretKubeObjectInterface>, Error, ReturnType>(
-        REQUEST_KEY_QUERY_CLUSTER_SECRET_LIST,
-        () => SecretKubeObject.getClusterSecretList(namespace),
-        options
-    );
+  return useQuery<KubeObjectListInterface<SecretKubeObjectInterface>, Error, ReturnType>(
+    REQUEST_KEY_QUERY_CLUSTER_SECRET_LIST,
+    () => SecretKubeObject.getClusterSecretList(namespace),
+    options
+  );
 };

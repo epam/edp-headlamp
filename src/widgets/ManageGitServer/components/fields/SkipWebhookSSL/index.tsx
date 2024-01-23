@@ -6,23 +6,23 @@ import { GIT_SERVER_FORM_NAMES } from '../../../names';
 import { ManageGitServerValues } from '../../../types';
 
 export const SkipWebHookSSL = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useReactHookFormContext<ManageGitServerValues>();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useReactHookFormContext<ManageGitServerValues>();
 
-    return (
-        <FormCheckbox
-            {...register(GIT_SERVER_FORM_NAMES.skipWebhookSSLVerification.name)}
-            label={
-                <FormControlLabelWithTooltip
-                    label={'Skip Webhook SSL Verification'}
-                    title="If enabled, the webhook SSL verification will be skipped."
-                />
-            }
-            control={control}
-            errors={errors}
+  return (
+    <FormCheckbox
+      {...register(GIT_SERVER_FORM_NAMES.skipWebhookSSLVerification.name)}
+      label={
+        <FormControlLabelWithTooltip
+          label={'Skip Webhook SSL Verification'}
+          title="If enabled, the webhook SSL verification will be skipped."
         />
-    );
+      }
+      control={control}
+      errors={errors}
+    />
+  );
 };

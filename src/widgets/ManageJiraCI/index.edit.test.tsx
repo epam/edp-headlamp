@@ -13,21 +13,21 @@ import { FORM_MODES } from '../../types/forms';
 import { ManageJiraCI } from './index';
 
 test('renders ManageJiraCI Edit component', () => {
-    render(
-        <TestWrapper>
-            <ManageJiraCI
-                formData={{
-                    jiraServer: JiraServerMock as unknown as JiraServerKubeObjectInterface,
-                    jiraServerSecret: JiraCISecretMock as unknown as SecretKubeObjectInterface,
-                    ownerReference: undefined,
-                    isReadOnly: false,
-                    mode: FORM_MODES.EDIT,
-                    handleClosePanel: jest.fn(),
-                }}
-            />
-        </TestWrapper>
-    );
+  render(
+    <TestWrapper>
+      <ManageJiraCI
+        formData={{
+          jiraServer: JiraServerMock as unknown as JiraServerKubeObjectInterface,
+          jiraServerSecret: JiraCISecretMock as unknown as SecretKubeObjectInterface,
+          ownerReference: undefined,
+          isReadOnly: false,
+          mode: FORM_MODES.EDIT,
+          handleClosePanel: jest.fn(),
+        }}
+      />
+    </TestWrapper>
+  );
 
-    const dialog = screen.getByTestId('form');
-    expect(dialog).toMatchSnapshot();
+  const dialog = screen.getByTestId('form');
+  expect(dialog).toMatchSnapshot();
 });

@@ -6,15 +6,15 @@ import { DynamicDataContextProvider } from './providers/DynamicData/provider';
 import { PageView } from './view';
 
 export default function () {
-    return (
-        <PageLogicWrapper>
-            <DialogContextProvider>
-                <NamespacesGuardWrapper>
-                    <DynamicDataContextProvider>
-                        <PageView />
-                    </DynamicDataContextProvider>
-                </NamespacesGuardWrapper>
-            </DialogContextProvider>
-        </PageLogicWrapper>
-    );
+  return (
+    <PageLogicWrapper>
+      <DialogContextProvider>
+        <NamespacesGuardWrapper>
+          <DynamicDataContextProvider>
+            <PageView />
+          </DynamicDataContextProvider>
+        </NamespacesGuardWrapper>
+      </DialogContextProvider>
+    </PageLogicWrapper>
+  );
 }

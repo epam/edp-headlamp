@@ -5,61 +5,61 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../k8s/EDPCDP
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 
 export const useStagesGraphData = () => {
-    const [StagesInfo, setStagesInfo] = React.useState<{
-        total: number;
-        green: number;
-        red: number;
-        blue: number;
-        grey: number;
-    }>({
-        total: null,
-        green: null,
-        red: null,
-        blue: null,
-        grey: null,
-    });
-    const [, setError] = React.useState<unknown>(null);
-    EDPCDPipelineStageKubeObject.useApiList(
-        (stages: EDPCDPipelineStageKubeObjectInterface[]) => {
-            const newStagesInfo = {
-                green: 0,
-                red: 0,
-                total: 0,
-                blue: 0,
-                grey: 0,
-            };
+  const [StagesInfo, setStagesInfo] = React.useState<{
+    total: number;
+    green: number;
+    red: number;
+    blue: number;
+    grey: number;
+  }>({
+    total: null,
+    green: null,
+    red: null,
+    blue: null,
+    grey: null,
+  });
+  const [, setError] = React.useState<unknown>(null);
+  EDPCDPipelineStageKubeObject.useApiList(
+    (stages: EDPCDPipelineStageKubeObjectInterface[]) => {
+      const newStagesInfo = {
+        green: 0,
+        red: 0,
+        total: 0,
+        blue: 0,
+        grey: 0,
+      };
 
-            for (const item of stages) {
-                const status = item?.status?.status;
+      for (const item of stages) {
+        const status = item?.status?.status;
 
-                switch (status) {
-                    case EDP_CDPIPELINE_STAGE_STATUS.CREATED:
-                        newStagesInfo.green++;
-                        break;
-                    case EDP_CDPIPELINE_STAGE_STATUS.INITIALIZED:
-                        newStagesInfo.blue++;
-                        break;
-                    case EDP_CDPIPELINE_STAGE_STATUS.IN_PROGRESS:
-                        newStagesInfo.blue++;
-                        break;
-                    case EDP_CDPIPELINE_STAGE_STATUS.FAILED:
-                        newStagesInfo.red++;
-                        break;
-                    default:
-                        newStagesInfo.grey++;
-                        break;
-                }
-
-                newStagesInfo.total++;
-            }
-
-            setStagesInfo(newStagesInfo);
-        },
-        error => setError(error),
-        {
-            namespace: getDefaultNamespace(),
+        switch (status) {
+          case EDP_CDPIPELINE_STAGE_STATUS.CREATED:
+            newStagesInfo.green++;
+            break;
+          case EDP_CDPIPELINE_STAGE_STATUS.INITIALIZED:
+            newStagesInfo.blue++;
+            break;
+          case EDP_CDPIPELINE_STAGE_STATUS.IN_PROGRESS:
+            newStagesInfo.blue++;
+            break;
+          case EDP_CDPIPELINE_STAGE_STATUS.FAILED:
+            newStagesInfo.red++;
+            break;
+          default:
+            newStagesInfo.grey++;
+            break;
         }
-    );
 
-    return StagesInfo;
+        newStagesInfo.total++;
+      }
+
+      setStagesInfo(newStagesInfo);
+    },
+    error => setError(error),
+    {
+      namespace: getDefaultNamespace(),
+    }
+  );
+
+  return StagesInfo;
 };

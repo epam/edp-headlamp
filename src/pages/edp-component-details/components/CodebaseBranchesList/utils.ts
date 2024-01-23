@@ -2,6 +2,6 @@ import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/type
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
 
 export const isDefaultBranch = (
-    codebase: EDPCodebaseKubeObjectInterface,
-    codebaseBranch: EDPCodebaseBranchKubeObjectInterface
+  codebase: EDPCodebaseKubeObjectInterface,
+  codebaseBranch: EDPCodebaseBranchKubeObjectInterface
 ) => codebase.spec.defaultBranch === codebaseBranch.spec.branchName;

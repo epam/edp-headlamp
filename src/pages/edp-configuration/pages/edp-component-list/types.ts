@@ -1,3 +1,3 @@
 export interface ConfigurationLinksParams {
-    name: string;
+  name: string;
 }

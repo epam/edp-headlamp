@@ -1,3 +1,3 @@
 export interface StageNameProps {
-    otherStagesNames: string[];
+  otherStagesNames: string[];
 }

@@ -14,44 +14,44 @@ import { ManageEDPComponentDialogForwardedProps } from '../ManageEDPComponent/ty
 import { EDPComponentActionsMenuProps } from './types';
 
 export const EDPComponentActionsMenu = ({}: EDPComponentActionsMenuProps) => {
-    const { setDialog } = useDialogContext();
+  const { setDialog } = useDialogContext();
 
-    const { data, anchorEl, handleCloseResourceActionListMenu } =
-        useResourceActionListContext<EDPComponentKubeObjectInterface>();
+  const { data, anchorEl, handleCloseResourceActionListMenu } =
+    useResourceActionListContext<EDPComponentKubeObjectInterface>();
 
-    const actions: KubeObjectAction[] = React.useMemo(() => {
-        if (!data) {
-            return [];
-        }
+  const actions: KubeObjectAction[] = React.useMemo(() => {
+    if (!data) {
+      return [];
+    }
 
-        const isSystemEDPComponentBool = isSystemEDPComponent(data);
+    const isSystemEDPComponentBool = isSystemEDPComponent(data);
 
-        const manageEDPComponentDialogForwardedProps: ManageEDPComponentDialogForwardedProps = {
-            EDPComponent: data,
-            mode: FORM_MODES.EDIT,
-            isSystem: isSystemEDPComponentBool,
-        };
+    const manageEDPComponentDialogForwardedProps: ManageEDPComponentDialogForwardedProps = {
+      EDPComponent: data,
+      mode: FORM_MODES.EDIT,
+      isSystem: isSystemEDPComponentBool,
+    };
 
-        return [
-            createKubeAction({
-                name: RESOURCE_ACTIONS.EDIT,
-                icon: ICONS.PENCIL,
-                action: () => {
-                    handleCloseResourceActionListMenu();
-                    setDialog({
-                        modalName: MANAGE_EDP_COMPONENT_DIALOG_NAME,
-                        forwardedProps: manageEDPComponentDialogForwardedProps,
-                    });
-                },
-            }),
-        ];
-    }, [data, handleCloseResourceActionListMenu, setDialog]);
+    return [
+      createKubeAction({
+        name: RESOURCE_ACTIONS.EDIT,
+        icon: ICONS.PENCIL,
+        action: () => {
+          handleCloseResourceActionListMenu();
+          setDialog({
+            modalName: MANAGE_EDP_COMPONENT_DIALOG_NAME,
+            forwardedProps: manageEDPComponentDialogForwardedProps,
+          });
+        },
+      }),
+    ];
+  }, [data, handleCloseResourceActionListMenu, setDialog]);
 
-    return (
-        <KubeObjectActions
-            anchorEl={anchorEl}
-            handleCloseActionsMenu={handleCloseResourceActionListMenu}
-            actions={actions}
-        />
-    );
+  return (
+    <KubeObjectActions
+      anchorEl={anchorEl}
+      handleCloseActionsMenu={handleCloseResourceActionListMenu}
+      actions={actions}
+    />
+  );
 };

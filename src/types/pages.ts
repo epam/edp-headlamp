@@ -1,6 +1,6 @@
 export interface PageDescription {
-    label: string;
-    description: string;
-    routePath: string;
-    docLink?: string;
+  label: string;
+  description: string;
+  routePath: string;
+  docLink?: string;
 }

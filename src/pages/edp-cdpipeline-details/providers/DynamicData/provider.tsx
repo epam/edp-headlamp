@@ -7,47 +7,45 @@ import { EDPCDPipelineRouteParams } from '../../types';
 import { DynamicDataContext } from './context';
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
-    const { namespace, name } = useParams<EDPCDPipelineRouteParams>();
+  const { namespace, name } = useParams<EDPCDPipelineRouteParams>();
 
-    const CDPipeline = useStreamCDPipeline({
-        namespace,
-        CDPipelineMetadataName: name,
-    });
+  const CDPipeline = useStreamCDPipeline({
+    namespace,
+    CDPipelineMetadataName: name,
+  });
 
-    const {
-        isLoading: isEnrichedApplicationsWithImageStreamsQueryLoading,
-        data: enrichedApplications,
-    } = useEnrichedApplicationsWithImageStreamsQuery({
-        props: {
-            CDPipelineData: CDPipeline,
-        },
-    });
+  const {
+    isLoading: isEnrichedApplicationsWithImageStreamsQueryLoading,
+    data: enrichedApplications,
+  } = useEnrichedApplicationsWithImageStreamsQuery({
+    props: {
+      CDPipelineData: CDPipeline,
+    },
+  });
 
-    const enrichedApplicationsValue = React.useMemo(
-        () => !isEnrichedApplicationsWithImageStreamsQueryLoading && enrichedApplications,
-        [enrichedApplications, isEnrichedApplicationsWithImageStreamsQueryLoading]
-    );
+  const enrichedApplicationsValue = React.useMemo(
+    () => !isEnrichedApplicationsWithImageStreamsQueryLoading && enrichedApplications,
+    [enrichedApplications, isEnrichedApplicationsWithImageStreamsQueryLoading]
+  );
 
-    const stages = useStreamStagesByCDPipelineName({
-        namespace,
-        CDPipelineMetadataName: name,
-        select: React.useCallback(data => {
-            return data.sort((a, b) => a.spec.order - b.spec.order);
-        }, []),
-    });
+  const stages = useStreamStagesByCDPipelineName({
+    namespace,
+    CDPipelineMetadataName: name,
+    select: React.useCallback(data => {
+      return data.sort((a, b) => a.spec.order - b.spec.order);
+    }, []),
+  });
 
-    const DataContextValue = React.useMemo(
-        () => ({
-            CDPipeline,
-            stages,
-            enrichedApplications: enrichedApplicationsValue,
-        }),
-        [CDPipeline, stages, enrichedApplicationsValue]
-    );
+  const DataContextValue = React.useMemo(
+    () => ({
+      CDPipeline,
+      stages,
+      enrichedApplications: enrichedApplicationsValue,
+    }),
+    [CDPipeline, stages, enrichedApplicationsValue]
+  );
 
-    return (
-        <DynamicDataContext.Provider value={DataContextValue}>
-            {children}
-        </DynamicDataContext.Provider>
-    );
+  return (
+    <DynamicDataContext.Provider value={DataContextValue}>{children}</DynamicDataContext.Provider>
+  );
 };

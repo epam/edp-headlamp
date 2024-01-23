@@ -5,14 +5,14 @@ import { useColumns } from './hooks/useColumns';
 import { PipelineRunListProps } from './types';
 
 export const PipelineRunList = ({ pipelineRuns, isLoading }: PipelineRunListProps) => {
-    const columns = useColumns();
+  const columns = useColumns();
 
-    return (
-        <Table
-            columns={columns}
-            data={pipelineRuns}
-            isLoading={isLoading}
-            emptyListComponent={<EmptyList missingItemName={'pipeline runs'} />}
-        />
-    );
+  return (
+    <Table
+      columns={columns}
+      data={pipelineRuns}
+      isLoading={isLoading}
+      emptyListComponent={<EmptyList missingItemName={'pipeline runs'} />}
+    />
+  );
 };

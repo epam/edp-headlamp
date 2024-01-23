@@ -3,6 +3,6 @@ import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
 
 export const isGroovyLibrary = ({
-    spec: { type, lang },
+  spec: { type, lang },
 }: EDPCodebaseKubeObjectInterface): boolean =>
-    type === CODEBASE_TYPES['LIBRARY'] && lang === CODEBASE_COMMON_LANGUAGES['GROOVY_PIPELINE'];
+  type === CODEBASE_TYPES['LIBRARY'] && lang === CODEBASE_COMMON_LANGUAGES['GROOVY_PIPELINE'];

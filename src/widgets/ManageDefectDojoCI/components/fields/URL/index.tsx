@@ -7,33 +7,33 @@ import { DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
 import { ManageDefectDojoIntegrationSecretFormDataContext } from '../../../types';
 
 export const URL = () => {
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useReactHookFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useReactHookFormContext();
 
-    const {
-        formData: { mode, ownerReference },
-    } = useFormContext<ManageDefectDojoIntegrationSecretFormDataContext>();
+  const {
+    formData: { mode, ownerReference },
+  } = useFormContext<ManageDefectDojoIntegrationSecretFormDataContext>();
 
-    return (
-        <FormTextField
-            {...register(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.url.name, {
-                required: 'Enter the DefectDojo URL.',
-                pattern: {
-                    value: /^(?!\/).*(?<!\/)$/,
-                    message: 'Path cannot start or end with slash symbol',
-                },
-            })}
-            label={'URL'}
-            title={
-                'Enter the URL of your DefectDojo instance. This is the address where DefectDojo is hosted (e.g., https://defectdojo.example.com).'
-            }
-            placeholder={'Enter URL'}
-            control={control}
-            errors={errors}
-            disabled={mode === FORM_MODES.EDIT && !!ownerReference}
-        />
-    );
+  return (
+    <FormTextField
+      {...register(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.url.name, {
+        required: 'Enter the DefectDojo URL.',
+        pattern: {
+          value: /^(?!\/).*(?<!\/)$/,
+          message: 'Path cannot start or end with slash symbol',
+        },
+      })}
+      label={'URL'}
+      title={
+        'Enter the URL of your DefectDojo instance. This is the address where DefectDojo is hosted (e.g., https://defectdojo.example.com).'
+      }
+      placeholder={'Enter URL'}
+      control={control}
+      errors={errors}
+      disabled={mode === FORM_MODES.EDIT && !!ownerReference}
+    />
+  );
 };

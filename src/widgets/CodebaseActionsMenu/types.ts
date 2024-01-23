@@ -1,3 +1,3 @@
 export interface CodebaseActionsMenuProps {
-    backRoute?: string;
+  backRoute?: string;
 }

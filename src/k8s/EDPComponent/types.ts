@@ -3,13 +3,13 @@ import { ValueOf } from '../../types/global';
 import { SYSTEM_EDP_COMPONENTS } from './constants';
 
 export interface EDPComponentSpec {
-    icon: string;
-    type: string | ValueOf<typeof SYSTEM_EDP_COMPONENTS>;
-    url: string;
-    visible: boolean;
+  icon: string;
+  type: string | ValueOf<typeof SYSTEM_EDP_COMPONENTS>;
+  url: string;
+  visible: boolean;
 }
 
 export interface EDPComponentKubeObjectInterface extends KubeObjectInterface {
-    spec: EDPComponentSpec;
-    status: string;
+  spec: EDPComponentSpec;
+  status: string;
 }
