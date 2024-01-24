@@ -16,7 +16,7 @@ export const PageView = () => {
 
   const configurationItemList = React.useMemo(() => {
     const secretsArray = items ? items.filter(Boolean) : [];
-    return secretsArray.map(el => {
+    return secretsArray.map((el) => {
       const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
 
       return {

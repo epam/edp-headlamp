@@ -81,7 +81,7 @@ export const PipelineGraph = () => {
                 nodes={nodes}
                 edges={edges}
                 id={'pipeline-run-steps'}
-                renderEdge={edge => <Edge direction={'RIGHT'} {...edge} />}
+                renderEdge={(edge) => <Edge direction={'RIGHT'} {...edge} />}
                 renderNode={renderNode}
               />
             </div>

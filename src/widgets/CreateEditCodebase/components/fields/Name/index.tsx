@@ -21,7 +21,7 @@ export const Name = () => {
           value: /^[a-z](?!.*--[^-])[a-z0-9-]*[a-z0-9]$/,
           message: nameRequirementLabel,
         },
-        setValueAs: value => (typeof value === 'string' ? value.trim() : value),
+        setValueAs: (value) => (typeof value === 'string' ? value.trim() : value),
       })}
       label={`Component name`}
       title={'Provide a clear and concise name for your component.'}

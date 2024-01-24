@@ -1,7 +1,7 @@
 import makeStyles from '@mui/styles/makeStyles';
 import { rem } from '../../../../utils/styling/rem';
 
-export const useStyles = makeStyles(theme => {
+export const useStyles = makeStyles((theme) => {
   return {
     root: {
       minWidth: rem(70),

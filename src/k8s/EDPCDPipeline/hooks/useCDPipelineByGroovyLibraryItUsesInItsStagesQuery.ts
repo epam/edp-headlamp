@@ -35,7 +35,7 @@ export const useCDPipelineByGroovyLibraryItUsesInItsStagesQuery = ({
 
   useCDPipelineStageListQuery<EDPCDPipelineKubeObjectInterface>({
     options: {
-      onSuccess: async data => {
+      onSuccess: async (data) => {
         for (const {
           spec: {
             source: {

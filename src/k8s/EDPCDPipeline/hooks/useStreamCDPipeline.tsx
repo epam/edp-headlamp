@@ -17,10 +17,10 @@ export const useStreamCDPipeline = ({
     const cancelStream = EDPCDPipelineKubeObject.streamCDPipeline({
       namespace,
       CDPipelineMetadataName,
-      dataHandler: data => {
+      dataHandler: (data) => {
         setCDPipeline(data);
       },
-      errorHandler: error => console.error(error),
+      errorHandler: (error) => console.error(error),
     });
 
     return () => {

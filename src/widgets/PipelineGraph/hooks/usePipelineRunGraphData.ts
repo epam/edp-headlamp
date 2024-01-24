@@ -9,7 +9,7 @@ export const usePipelineRunGraphData = (pipeline: PipelineKubeObjectInterface) =
     }
 
     const map = new Map<string, PipelineKubeObjectInterface>();
-    pipeline.spec.tasks.forEach(item => {
+    pipeline.spec.tasks.forEach((item) => {
       map.set(item.name, item);
     });
     return map;

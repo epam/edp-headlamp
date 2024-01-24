@@ -18,8 +18,8 @@ export const useOnChangeJiraPattern = ({
 
   const onChangeJiraPattern = React.useCallback(
     (event: FieldEvent, value: any) => {
-      setAdvancedMappingRows(prev => {
-        const newRows = prev.map(el => {
+      setAdvancedMappingRows((prev) => {
+        const newRows = prev.map((el) => {
           if (el.value === value) {
             return {
               ...el,

@@ -2,7 +2,7 @@ import { alpha } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { rem } from '../../../../../../utils/styling/rem';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: 0,
     height: '100%',

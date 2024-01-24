@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { PIPELINE_TYPES } from '../../../../../../../../constants/pipelineTypes';
 import { PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE } from '../../../../../../../../k8s/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../../../../../k8s/PipelineRun/types';
+import { INTEGRATION_SECRET_NAMES } from '../../../../../../../../k8s/Secret/constants';
 import { useSecretByNameQuery } from '../../../../../../../../k8s/Secret/hooks/useSecretByName';
 import { FormSelect } from '../../../../../../../../providers/Form/components/FormSelect';
 import { safeDecode } from '../../../../../../../../utils/decodeEncode';
@@ -48,10 +49,10 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
   const { data: ciDependencyTrackURL } = useSecretByNameQuery<string>({
     props: {
       namespace,
-      name: 'ci-dependency-track',
+      name: INTEGRATION_SECRET_NAMES.DEPENDENCY_TRACK,
     },
     options: {
-      select: data => {
+      select: (data) => {
         return safeDecode(data?.data?.url);
       },
     },
@@ -70,10 +71,7 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
       <Grid item xs={12}>
         <Grid container alignItems={'center'}>
           <Grid item>
-            <SonarQubeMetrics
-              codebaseBranchMetadataName={codebaseBranchData.metadata.name}
-              namespace={namespace}
-            />
+            <SonarQubeMetrics codebaseName={codebaseData.metadata.name} namespace={namespace} />
           </Grid>
           <Grid item style={{ marginLeft: 'auto' }}>
             <DependencyTrackMetrics

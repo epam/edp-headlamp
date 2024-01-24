@@ -32,7 +32,7 @@ const pipelineRunTypes = [
   PIPELINE_TYPES.REVIEW,
 ];
 
-const pipelineRunTypeSelectOptions = pipelineRunTypes.map(value => ({
+const pipelineRunTypeSelectOptions = pipelineRunTypes.map((value) => ({
   label: capitalizeFirstLetter(value),
   value: value,
 }));
@@ -130,7 +130,7 @@ export const PipelineRunListOverview = () => {
             <FormSelect
               {...register('type', {
                 onChange: ({ target: { value } }) => {
-                  setFilters(prev => {
+                  setFilters((prev) => {
                     const newFilters = {
                       ...prev,
                       type: value as Filters['type'],
@@ -152,7 +152,7 @@ export const PipelineRunListOverview = () => {
             <FormSelect
               {...register('status', {
                 onChange: ({ target: { value } }) => {
-                  setFilters(prev => {
+                  setFilters((prev) => {
                     const newFilters = {
                       ...prev,
                       status: value as Filters['status'],
@@ -190,14 +190,14 @@ export const PipelineRunListOverview = () => {
                   options={
                     pipelineCodebases
                       ? Array.from(pipelineCodebases)
-                          .map(el => el)
+                          .map((el) => el)
                           .filter(Boolean)
                       : []
                   }
                   freeSolo
-                  getOptionLabel={option => option}
+                  getOptionLabel={(option) => option}
                   onChange={(event, value) => {
-                    setFilters(prev => {
+                    setFilters((prev) => {
                       const newFilters = {
                         ...prev,
                         codebases: value as Filters['codebases'],
@@ -206,7 +206,7 @@ export const PipelineRunListOverview = () => {
                       return newFilters;
                     });
                   }}
-                  renderInput={params => <TextField {...params} placeholder="Select codebases" />}
+                  renderInput={(params) => <TextField {...params} placeholder="Select codebases" />}
                   value={filters.codebases ?? []}
                 />
               </Grid>

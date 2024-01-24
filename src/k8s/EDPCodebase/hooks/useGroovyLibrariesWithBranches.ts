@@ -24,10 +24,10 @@ export const useGroovyLibrariesWithBranches = (): GroovyLibWithBranchesOption[] 
       codebaseType: CODEBASE_TYPES.LIBRARY,
     },
     options: {
-      onSuccess: async data => {
-        const groovyLibraries = data?.items.filter(el => isGroovyLibrary(el));
+      onSuccess: async (data) => {
+        const groovyLibraries = data?.items.filter((el) => isGroovyLibrary(el));
         const groovyLibsWithBranches = await Promise.all(
-          groovyLibraries.map(async groovyLib => {
+          groovyLibraries.map(async (groovyLib) => {
             const {
               metadata: { name },
             } = groovyLib;
@@ -36,7 +36,7 @@ export const useGroovyLibrariesWithBranches = (): GroovyLibWithBranchesOption[] 
               await EDPCodebaseBranchKubeObject.getListByCodebaseName(getDefaultNamespace(), name);
 
             if (codebaseBranches.length) {
-              const branchesNames = codebaseBranches.map(el => ({
+              const branchesNames = codebaseBranches.map((el) => ({
                 specBranchName: el.spec.branchName,
                 metadataBranchName: el.metadata.name,
               }));

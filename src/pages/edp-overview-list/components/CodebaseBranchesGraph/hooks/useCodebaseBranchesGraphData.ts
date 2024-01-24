@@ -55,7 +55,7 @@ export const useCodebaseBranchesGraphData = () => {
 
       setCodebaseBranchesInfo(newCodebaseBranchesInfo);
     },
-    error => setError(error),
+    (error) => setError(error),
     {
       namespace: getDefaultNamespace(),
     }

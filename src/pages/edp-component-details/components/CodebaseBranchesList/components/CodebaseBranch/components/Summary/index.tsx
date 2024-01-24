@@ -56,7 +56,7 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
     );
 
   const onBuildButtonClick = React.useCallback(
-    async e => {
+    async (e) => {
       e.stopPropagation();
 
       if (!storageSize) {
@@ -155,7 +155,8 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
               icon={ICONS.SONAR}
               externalLink={LinkCreationService.sonar.createDashboardLink(
                 EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.SONAR],
-                codebaseBranchData.metadata.name
+                codebaseBranchData.spec.branchName,
+                codebaseData.metadata.name
               )}
               configurationLink={{
                 routeName: routeEDPSonarIntegration.path,
@@ -191,7 +192,7 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
               <IconButton
                 aria-label={'Actions'}
                 ref={buttonRef}
-                onClick={e => {
+                onClick={(e) => {
                   e.stopPropagation();
                   handleOpenResourceActionListMenu(buttonRef.current, codebaseBranchData);
                 }}

@@ -24,7 +24,7 @@ export const createKubeAction = ({
     label: capitalizeFirstLetter(nameInLowerCase),
     icon,
     disabled,
-    action: e => {
+    action: (e) => {
       e.stopPropagation();
       action();
     },

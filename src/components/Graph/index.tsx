@@ -54,7 +54,7 @@ export const Graph = ({
   useEffect(() => {
     elk
       .layout(graph)
-      .then(g => {
+      .then((g) => {
         setPositions(g);
       })
       .catch(console.error);

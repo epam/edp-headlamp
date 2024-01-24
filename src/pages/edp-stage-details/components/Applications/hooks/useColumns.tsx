@@ -188,7 +188,7 @@ export const useColumns = (
             </Grid>
           </Grid>
         ),
-        render: enrichedApplicationWithArgoApplication => {
+        render: (enrichedApplicationWithArgoApplication) => {
           const withValuesOverride = enrichedApplicationWithArgoApplication?.argoApplication
             ? Object.hasOwn(
                 enrichedApplicationWithArgoApplication?.argoApplication?.spec,
@@ -235,7 +235,7 @@ export const useColumns = (
       {
         id: 'imageStreamVersion',
         label: 'Image stream version',
-        render: enrichedApplicationWithArgoApplication => {
+        render: (enrichedApplicationWithArgoApplication) => {
           return (
             <ImageStreamTagsSelect
               enrichedApplicationWithArgoApplication={enrichedApplicationWithArgoApplication}
@@ -251,7 +251,7 @@ export const useColumns = (
             {
               id: 'pods',
               label: <div style={{ paddingLeft: rem(10) }}>Pods</div>,
-              render: enrichedApplicationWithArgoApplication => {
+              render: (enrichedApplicationWithArgoApplication) => {
                 return (
                   <Grid container spacing={1} alignItems={'center'}>
                     <Grid item>
@@ -320,7 +320,7 @@ export const useColumns = (
             </Grid>
           </Grid>
         ),
-        render: enrichedApplicationWithArgoApplication => {
+        render: (enrichedApplicationWithArgoApplication) => {
           const externalURLs =
             // @ts-ignore
             enrichedApplicationWithArgoApplication?.argoApplication?.status?.summary?.externalURLs;
@@ -333,7 +333,7 @@ export const useColumns = (
             <Tooltip
               title={
                 <Grid container spacing={2}>
-                  {externalURLs.map(el => (
+                  {externalURLs.map((el) => (
                     <Grid item xs={12}>
                       <MuiLink
                         href={el}

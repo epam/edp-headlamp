@@ -39,7 +39,7 @@ export const useColumns = (
       {
         id: 'status',
         label: 'Status',
-        render: CDPipeline => {
+        render: (CDPipeline) => {
           const status = CDPipeline?.status?.status;
           const detailedMessage = CDPipeline?.status?.detailed_message;
 
@@ -102,13 +102,13 @@ export const useColumns = (
       {
         id: 'cluster',
         label: 'Cluster',
-        render: stage => stage?.spec.clusterName,
+        render: (stage) => stage?.spec.clusterName,
         width: '25%',
       },
       {
         id: 'links',
         label: 'Links',
-        render: stage => {
+        render: (stage) => {
           return (
             <Grid container spacing={1}>
               <Grid item>
@@ -176,7 +176,7 @@ export const useColumns = (
       {
         id: 'actions',
         label: '',
-        render: stage => {
+        render: (stage) => {
           const buttonRef = React.createRef<HTMLButtonElement>();
 
           return (

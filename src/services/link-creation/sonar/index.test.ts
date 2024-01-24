@@ -3,8 +3,14 @@ import { SonarQubeURLService } from './index';
 describe('testing link-creation SonarQubeURLService', () => {
   it('should successfully create sonar url based on given sonarURLOrigin and namespace params', () => {
     expect(
-      SonarQubeURLService.createDashboardLink('https://sonar-test.com', 'test-codebaseBranch-name')
-    ).toEqual('https://sonar-test.com/dashboard?id=test-codebaseBranch-name');
+      SonarQubeURLService.createDashboardLink(
+        'https://sonar-test.com',
+        'test-codebaseBranch-name',
+        'test-codebase-name'
+      )
+    ).toEqual(
+      'https://sonar-test.com/dashboard?branch=test-codebaseBranch-name&id=test-codebase-name'
+    );
   });
 
   it('should successfully create metric url based on given sonarURLOrigin and metricName params', () => {
@@ -22,6 +28,14 @@ describe('testing link-creation SonarQubeURLService', () => {
       )
     ).toEqual(
       'https://sonar-test.com/project/issues?id=test-project&resolved=false&types=coverage'
+    );
+  });
+
+  it('should successfully create metrics api url based on given sonarURLOrigin and codebaseName params', () => {
+    expect(
+      SonarQubeURLService.createMetricsApiUrl('https://sonar-test.com', 'test-codebase-name')
+    ).toEqual(
+      'https://sonar-test.com/api/measures/component?component=test-codebase-name&metricKeys=bugs,code_smells,coverage,duplicated_lines_density,ncloc,sqale_rating,alert_status,reliability_rating,security_hotspots,security_rating,sqale_index,vulnerabilities'
     );
   });
 });

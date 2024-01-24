@@ -3,7 +3,7 @@ import React from 'react';
 import { useStyles } from './styles';
 import { HeadlampSimpleTableProps } from './types';
 
-export const HeadlampSimpleTable: React.FC<HeadlampSimpleTableProps> = props => {
+export const HeadlampSimpleTable: React.FC<HeadlampSimpleTableProps> = (props) => {
   const classes = useStyles();
 
   return (

@@ -35,7 +35,7 @@ export const useCDPipelineByAutotestItUsesInItsStagesQuery = ({
 
   useCDPipelineStageListQuery<EDPCDPipelineKubeObjectInterface>({
     options: {
-      onSuccess: async data => {
+      onSuccess: async (data) => {
         for (const {
           spec: { qualityGates, cdPipeline },
         } of data?.items) {

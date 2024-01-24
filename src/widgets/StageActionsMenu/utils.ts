@@ -33,7 +33,7 @@ export const createDeleteAction = (
   }
 
   const currentStageOrder = getStageOrder(currentStage);
-  const otherStages = allStages.filter(el => el.metadata.name !== currentStage.metadata.name);
+  const otherStages = allStages.filter((el) => el.metadata.name !== currentStage.metadata.name);
   const highestOtherStagesOrder = Math.max(...otherStages.map(getStageOrder));
 
   if (currentStageOrder > highestOtherStagesOrder) {

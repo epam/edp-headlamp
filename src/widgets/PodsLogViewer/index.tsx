@@ -14,7 +14,7 @@ import { PodsLogViewerDialogForwardedProps } from './types';
 
 // TODO this file is a copy of headlamp\frontend\src\components\common\LogViewer.tsx
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles((theme) => ({
   containerFormControl: {
     minWidth: '11rem',
   },
@@ -47,7 +47,7 @@ export const PodsLogViewer = () => {
     (pods: PodKubeObjectInterface[]) => {
       setPods(pods);
     },
-    error => setError(error),
+    (error) => setError(error),
     {
       labelSelector: `app.kubernetes.io/instance=${appName}`,
       namespace: stageNamespace,
@@ -79,7 +79,7 @@ export const PodsLogViewer = () => {
 
   const options = { leading: true, trailing: true, maxWait: 1000 };
   const setLogsDebounced = (logLines: string[]) => {
-    setLogs(current => {
+    setLogs((current) => {
       if (current.lastLineShown >= logLines.length) {
         xtermRef.current?.clear();
         xtermRef.current?.write(logLines.join('').replaceAll('\n', '\r\n'));
@@ -154,7 +154,7 @@ export const PodsLogViewer = () => {
   };
 
   const handlePreviousChange = () => {
-    setShowPrevious(previous => !previous);
+    setShowPrevious((previous) => !previous);
   };
 
   const hasContainerRestarted = () => {
@@ -169,11 +169,11 @@ export const PodsLogViewer = () => {
   };
 
   const handleTimestampsChange = () => {
-    setShowTimestamps(timestamps => !timestamps);
+    setShowTimestamps((timestamps) => !timestamps);
   };
 
   const handleFollowChange = () => {
-    setFollow(follow => !follow);
+    setFollow((follow) => !follow);
   };
 
   return (
@@ -232,7 +232,7 @@ export const PodsLogViewer = () => {
             value={lines}
             onChange={handleLinesChange}
           >
-            {[100, 1000, 2500].map(i => (
+            {[100, 1000, 2500].map((i) => (
               <MenuItem value={i} key={i}>
                 {i}
               </MenuItem>

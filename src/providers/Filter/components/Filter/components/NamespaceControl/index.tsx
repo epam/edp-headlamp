@@ -23,7 +23,7 @@ export const NamespaceControlWithClusterNamespaces = (props: NamespaceControlPro
   const [namespaceNames, setNamespaceNames] = React.useState<string[]>([]);
 
   K8s.namespace.default.useApiList((namespaces: K8s.namespace.default[]) => {
-    setNamespaceNames(namespaces.map(namespace => namespace.metadata.name));
+    setNamespaceNames(namespaces.map((namespace) => namespace.metadata.name));
   });
 
   return (
@@ -56,7 +56,7 @@ export const _NamespaceControl = ({
     // Now we reset the input so it won't show next to the selected namespaces.
     addQuery({ namespace: newValue.join(' ') }, { namespace: '' });
     setNamespaceInput('');
-    setFilter(prev => ({
+    setFilter((prev) => ({
       ...prev,
       values: {
         ...prev.values,
@@ -64,7 +64,7 @@ export const _NamespaceControl = ({
       },
       matchFunctions: {
         ...prev.matchFunctions,
-        namespace: item => newValue.includes(item.metadata.namespace),
+        namespace: (item) => newValue.includes(item.metadata.namespace),
       },
     }));
   };
@@ -118,7 +118,7 @@ export const _NamespaceControl = ({
         const joinerLength = joiner.length;
         let joinedNamespaces = 1;
 
-        tags.slice(1).forEach(tag => {
+        tags.slice(1).forEach((tag) => {
           if (namespacesToShow.length + tag.length + joinerLength <= maxNamespacesChars) {
             namespacesToShow += joiner + tag;
             joinedNamespaces++;
@@ -139,7 +139,7 @@ export const _NamespaceControl = ({
           </Typography>
         );
       }}
-      renderInput={params => (
+      renderInput={(params) => (
         <Box width="15rem">
           <TextField
             {...params}

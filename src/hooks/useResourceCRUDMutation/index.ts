@@ -51,7 +51,7 @@ export const useResourceCRUDMutation = <
     KubeObjectData
   >(
     mutationKey,
-    data => {
+    (data) => {
       let dataCopy = { ...data };
 
       if (!data.metadata?.namespace) {
@@ -74,7 +74,7 @@ export const useResourceCRUDMutation = <
       }
     },
     {
-      onMutate: variables =>
+      onMutate: (variables) =>
         showMessages &&
         showBeforeRequestMessage(mode, {
           customMessage: options?.customMessages?.onMutate,

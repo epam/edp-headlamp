@@ -18,7 +18,7 @@ export const TemplatesTable = ({
       columns={columns}
       data={data}
       isLoading={!data}
-      isSelected={row => row.metadata.uid === activeTemplate?.metadata.uid}
+      isSelected={(row) => row.metadata.uid === activeTemplate?.metadata.uid}
       handleRowClick={(event, row) => handleTemplateClick(event, row)}
       emptyListComponent={<EmptyList missingItemName={'templates'} />}
       filterFunction={filterFunction}

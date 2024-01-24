@@ -14,7 +14,7 @@ export const useEDPComponentsURLsQuery = (namespace?: string) => {
       namespace: namespace || getDefaultNamespace(),
     },
     options: {
-      select: data =>
+      select: (data) =>
         data.items.reduce((acc, cur) => {
           acc[cur.spec.type] = cur.spec.url;
           return acc;

@@ -58,7 +58,7 @@ export const PageView = () => {
     namespace,
     pipelineType: PIPELINE_TYPES.DEPLOY,
     stageMetadataName,
-    select: React.useCallback(data => {
+    select: React.useCallback((data) => {
       return data.sort(sortKubeObjectByCreationTimestamp).slice(0, 10);
     }, []),
   });
@@ -67,7 +67,7 @@ export const PageView = () => {
     namespace,
     stageSpecName,
     CDPipelineMetadataName: CDPipelineName,
-    select: React.useCallback(data => {
+    select: React.useCallback((data) => {
       return data.sort(sortKubeObjectByCreationTimestamp).slice(0, 1);
     }, []),
   });
@@ -82,7 +82,7 @@ export const PageView = () => {
     stageSpecName,
     CDPipelineMetadataName: CDPipelineName,
     parentPipelineRunName: latestAutotestRunnerPipelineRunName,
-    select: React.useCallback(data => {
+    select: React.useCallback((data) => {
       return data.sort(sortKubeObjectByCreationTimestamp).slice(0, 10);
     }, []),
   });
@@ -90,9 +90,9 @@ export const PageView = () => {
   const enrichedQualityGatesWithPipelineRuns: EnrichedQualityGateWithAutotestPipelineRun[] =
     React.useMemo(
       () =>
-        stage?.spec.qualityGates.map(qualityGate => {
+        stage?.spec.qualityGates.map((qualityGate) => {
           const autotestPipelineRun = latestTenAutotestPipelineRuns.find(
-            pipelineRun =>
+            (pipelineRun) =>
               pipelineRun.metadata.labels['app.edp.epam.com/codebase'] === qualityGate.autotestName
           );
 

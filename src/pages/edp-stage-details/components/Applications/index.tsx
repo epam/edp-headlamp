@@ -200,11 +200,11 @@ export const Applications = ({
       }
     }, new Map<string, ButtonsMap>());
 
-    const deployBoolean = mapEvery(map, value => value.deploy);
+    const deployBoolean = mapEvery(map, (value) => value.deploy);
 
-    const updateBoolean = mapEvery(map, value => value.update);
+    const updateBoolean = mapEvery(map, (value) => value.update);
 
-    const uninstallBoolean = mapEvery(map, value => value.uninstall);
+    const uninstallBoolean = mapEvery(map, (value) => value.uninstall);
 
     return {
       deploy: deployBoolean,
@@ -377,7 +377,7 @@ export const Applications = ({
             handleSelectRowClick={handleSelectRowClick}
             handleSelectAllClick={handleSelectAllClick}
             selected={selected}
-            isSelected={row => selected.indexOf(row.application.metadata.name) !== -1}
+            isSelected={(row) => selected.indexOf(row.application.metadata.name) !== -1}
           />
         </Grid>
       </Grid>

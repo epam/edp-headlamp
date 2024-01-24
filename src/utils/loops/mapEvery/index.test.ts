@@ -9,7 +9,7 @@ test('checking mapEvery', () => {
         ['key3', 'value3'],
         ['key4', 'value4'],
       ]),
-      value => typeof value === 'string'
+      (value) => typeof value === 'string'
     )
   ).toBe(true);
   expect(
@@ -20,7 +20,7 @@ test('checking mapEvery', () => {
         ['key3', 'value3'],
         ['key4', 'value4'],
       ]),
-      value => !!value
+      (value) => !!value
     )
   ).toBe(false);
   expect(
@@ -31,7 +31,7 @@ test('checking mapEvery', () => {
         ['key3', 6],
         ['key4', 18],
       ]),
-      value => value > 3
+      (value) => value > 3
     )
   ).toBe(false);
 });

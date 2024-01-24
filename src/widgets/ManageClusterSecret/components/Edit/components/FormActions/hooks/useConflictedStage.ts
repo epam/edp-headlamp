@@ -7,7 +7,7 @@ export const useConflictedStage = (clusterName: string) => {
 
   useCDPipelineStageListQuery({
     options: {
-      onSuccess: async data => {
+      onSuccess: async (data) => {
         if (!data?.items) {
           return;
         }

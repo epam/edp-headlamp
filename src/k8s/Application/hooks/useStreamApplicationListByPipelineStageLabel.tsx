@@ -28,11 +28,11 @@ export const useStreamApplicationListByPipelineStageLabel = ({
       namespace,
       stageSpecName,
       CDPipelineMetadataName,
-      dataHandler: data => {
+      dataHandler: (data) => {
         const selectedData = select ? select(data) : data;
         setApplicationList(selectedData);
       },
-      errorHandler: error => console.error(error),
+      errorHandler: (error) => console.error(error),
     });
 
     return () => {

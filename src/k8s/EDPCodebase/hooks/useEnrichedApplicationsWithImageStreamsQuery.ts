@@ -38,7 +38,7 @@ export const useEnrichedApplicationsWithImageStreamsQuery = ({
   );
 
   const normalizedInputDockerStreamNames = React.useMemo(
-    () => CDPipelineData?.spec.inputDockerStreams.map(el => el.replaceAll('.', '-')),
+    () => CDPipelineData?.spec.inputDockerStreams.map((el) => el.replaceAll('.', '-')),
     [CDPipelineData?.spec.inputDockerStreams]
   );
 
@@ -59,9 +59,9 @@ export const useEnrichedApplicationsWithImageStreamsQuery = ({
     options: {
       enabled: !!codebaseImageStreams,
       cacheTime: 0,
-      select: data => {
+      select: (data) => {
         return data?.items
-          .map(el => {
+          .map((el) => {
             const {
               metadata: { name },
             } = el;
@@ -76,7 +76,7 @@ export const useEnrichedApplicationsWithImageStreamsQuery = ({
 
             const applicationImageStream =
               codebaseImageStreamsByCodebaseName &&
-              codebaseImageStreamsByCodebaseName.find(el =>
+              codebaseImageStreamsByCodebaseName.find((el) =>
                 CDPipelineInputDockerStreamsSet.has(el.metadata.name)
               );
 

@@ -75,7 +75,7 @@ export const useDetectNamespaces = (setKey: React.Dispatch<React.SetStateAction<
             vertical: 'bottom',
             horizontal: 'right',
           },
-          action: key => (
+          action: (key) => (
             <IconButton size="small" onClick={() => closeSnackbar(key)}>
               <Icon icon={ICONS.CROSS} color={'grey'} />
             </IconButton>

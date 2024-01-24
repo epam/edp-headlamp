@@ -68,9 +68,11 @@ export const DataGrid = <DataType extends unknown>({
           </Grid>
         ) : readyData?.length ? (
           <Grid container spacing={spacing}>
-            {readyData.slice(page * _rowsPerPage, page * _rowsPerPage + _rowsPerPage).map(item => {
-              return <>{renderItem(item)}</>;
-            })}
+            {readyData
+              .slice(page * _rowsPerPage, page * _rowsPerPage + _rowsPerPage)
+              .map((item) => {
+                return <>{renderItem(item)}</>;
+              })}
           </Grid>
         ) : hasEmptyResult ? (
           <EmptyList customText={'No results found!'} isSearch />

@@ -20,7 +20,7 @@ export const PageView = () => {
       namespace: getDefaultNamespace(),
     },
     options: {
-      select: data => data.items?.[0],
+      select: (data) => data.items?.[0],
     },
   });
 

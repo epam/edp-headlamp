@@ -21,7 +21,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useSpecificDialogContext } from '../../../Dialog/hooks';
 import { NAMESPACES_GUARD_DIALOG_NAME } from './constants';
 import { NamespacesGuardDialogForwardedProps } from './types';
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   chipBox: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -198,7 +198,7 @@ export const NamespacesGuard = () => {
               name: 'Default namespace',
               value: (
                 <TextField
-                  onChange={event => {
+                  onChange={(event) => {
                     let value = event.target.value;
                     value = value.replace(' ', '');
                     setDefaultNamespace(value);
@@ -231,7 +231,7 @@ export const NamespacesGuard = () => {
               value: (
                 <>
                   <TextField
-                    onChange={event => {
+                    onChange={(event) => {
                       let value = event.target.value;
                       value = value.replace(' ', '');
                       setNewAllowedNamespace(value);
@@ -262,7 +262,7 @@ export const NamespacesGuard = () => {
                           <InlineIcon icon="mdi:plus-circle" />
                         </IconButton>
                       ),
-                      onKeyPress: event => {
+                      onKeyPress: (event) => {
                         if (event.key === 'Enter') {
                           storeNewAllowedNamespace(newAllowedNamespace);
                         }
@@ -272,17 +272,17 @@ export const NamespacesGuard = () => {
                     }}
                   />
                   <Box className={classes.chipBox} aria-label={'Allowed namespaces'}>
-                    {((clusterSettings || {}).allowedNamespaces || []).map(namespace => (
+                    {((clusterSettings || {}).allowedNamespaces || []).map((namespace) => (
                       <Chip
                         key={namespace}
                         label={namespace}
                         size="small"
                         clickable={false}
                         onDelete={() => {
-                          setClusterSettings(settings => {
+                          setClusterSettings((settings) => {
                             const newSettings = { ...settings };
                             newSettings.allowedNamespaces = newSettings.allowedNamespaces?.filter(
-                              ns => ns !== namespace
+                              (ns) => ns !== namespace
                             );
                             return newSettings;
                           });

@@ -35,8 +35,8 @@ export const BottomDrawer = ({ activeTemplate, drawerOpen, toggleDrawer }: Botto
     <SwipeableDrawer
       anchor={'right'}
       open={drawerOpen}
-      onClose={e => toggleDrawer(e, false)}
-      onOpen={e => toggleDrawer(e, true)}
+      onClose={(e) => toggleDrawer(e, false)}
+      onOpen={(e) => toggleDrawer(e, true)}
       PaperProps={{ className: classes.drawerPaper }}
       ModalProps={{ BackdropProps: { invisible: true } }}
     >
@@ -69,7 +69,7 @@ export const BottomDrawer = ({ activeTemplate, drawerOpen, toggleDrawer }: Botto
                 </Grid>
               </Grid>
               <Grid item style={{ alignSelf: 'flex-start' }}>
-                <IconButton onClick={e => toggleDrawer(e, false)} size="large">
+                <IconButton onClick={(e) => toggleDrawer(e, false)} size="large">
                   <Icon icon={ICONS.CROSS} />
                 </IconButton>
               </Grid>
@@ -80,7 +80,7 @@ export const BottomDrawer = ({ activeTemplate, drawerOpen, toggleDrawer }: Botto
               color={'primary'}
               variant={'contained'}
               size={'small'}
-              onClick={e => {
+              onClick={(e) => {
                 toggleDrawer(e, false);
                 setDialog({
                   modalName: CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME,
@@ -199,7 +199,7 @@ export const BottomDrawer = ({ activeTemplate, drawerOpen, toggleDrawer }: Botto
                 <Typography variant={'body1'} gutterBottom>
                   Maintainers
                 </Typography>
-                {activeTemplate?.spec.maintainers.map(maintainer => {
+                {activeTemplate?.spec.maintainers.map((maintainer) => {
                   return (
                     <Typography gutterBottom key={maintainer.name}>
                       <div>

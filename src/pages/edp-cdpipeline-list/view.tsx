@@ -32,9 +32,9 @@ export const PageView = () => {
       codebaseType: CODEBASE_TYPES.SYSTEM,
     },
     options: {
-      select: data => {
+      select: (data) => {
         return data?.items.find(
-          el => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
+          (el) => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
         );
       },
     },

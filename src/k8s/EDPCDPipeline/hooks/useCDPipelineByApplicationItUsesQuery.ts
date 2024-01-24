@@ -23,7 +23,7 @@ export const useCDPipelineByApplicationItUsesQuery = ({
 
   const query = useCDPipelineListQuery<EDPCDPipelineKubeObjectInterface>({
     options: {
-      select: data => {
+      select: (data) => {
         for (const item of data?.items) {
           if (item.spec.applications.includes(codebaseName)) {
             return item;

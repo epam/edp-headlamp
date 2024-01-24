@@ -27,7 +27,7 @@ export const JiraServer = () => {
       control={control}
       errors={errors}
       disabled={!namespace}
-      options={jiraServersNames.map(el => ({
+      options={jiraServersNames.map((el) => ({
         label: el,
         value: el,
       }))}

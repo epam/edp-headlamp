@@ -64,7 +64,7 @@ export const FormActions = ({
     }
   }, [activeTabFormPartName, formActiveTabIdx, setFormActiveTabIdx, trigger]);
 
-  const getFirstErrorTabName = React.useCallback(errors => {
+  const getFirstErrorTabName = React.useCallback((errors) => {
     const [firstErrorFieldName] = Object.keys(errors);
     return CDPIPELINE_FORM_NAMES[firstErrorFieldName].formPart;
   }, []);

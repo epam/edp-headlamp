@@ -19,9 +19,9 @@ export const useGitServerByCodebaseQuery = ({ props, options }: UseGitServerList
 
   return useGitServerListQuery<EDPGitServerKubeObjectInterface>({
     options: {
-      select: data =>
+      select: (data) =>
         data && data?.items.length
-          ? data?.items.filter(el => el.metadata.name === codebaseGitServer)?.[0]
+          ? data?.items.filter((el) => el.metadata.name === codebaseGitServer)?.[0]
           : null,
       ...options,
       enabled: options?.enabled && !!codebaseGitServer,

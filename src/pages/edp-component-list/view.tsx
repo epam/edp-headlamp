@@ -76,8 +76,8 @@ export const PageView = () => {
                           </InputLabel>
                           <Select
                             labelId="codebase-type"
-                            onChange={e =>
-                              setFilter(prev => ({
+                            onChange={(e) =>
+                              setFilter((prev) => ({
                                 ...prev,
                                 values: {
                                   ...prev.values,
@@ -85,7 +85,7 @@ export const PageView = () => {
                                 },
                                 matchFunctions: {
                                   ...prev.matchFunctions,
-                                  codebaseType: item => {
+                                  codebaseType: (item) => {
                                     if (e.target.value === CODEBASE_TYPES.ALL) {
                                       return true;
                                     }

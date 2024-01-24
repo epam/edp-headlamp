@@ -49,7 +49,7 @@ export const ConfigurationBody = ({
   return (
     <ConditionalWrapper
       condition={!bodyOnly}
-      wrapper={children => (
+      wrapper={(children) => (
         <PageWithSubMenu list={menu}>
           <PageWrapper containerMaxWidth={'xl'}>
             <Grid container spacing={3}>
@@ -109,7 +109,7 @@ export const ConfigurationBody = ({
                     </Grid>
                   </Grid>
                 ) : items && items.length ? (
-                  items.map(configurationItem => {
+                  items.map((configurationItem) => {
                     const key = configurationItem?.id;
                     const ownerReference = configurationItem?.ownerReference;
 

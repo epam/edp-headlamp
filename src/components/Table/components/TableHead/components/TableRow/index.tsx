@@ -82,7 +82,7 @@ export const TableRow = ({
           />
         </TableCell>
       )}
-      {columns.map(column => {
+      {columns.map((column) => {
         const { show = true, id, textAlign = 'left', columnSortableValuePath, label } = column;
         const activeColumnSort = sortBy === id;
         const { upperArrowColor, bottomArrowColor } = getArrowsColors(activeColumnSort, sortOrder);

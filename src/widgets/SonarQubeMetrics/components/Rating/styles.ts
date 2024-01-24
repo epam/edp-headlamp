@@ -8,7 +8,7 @@ const pendingColor = '#FFED51';
 const warningColor = '#FF9800';
 const errorColor = '#F84C55';
 
-export const useStyles = makeStyles(theme => {
+export const useStyles = makeStyles((theme) => {
   const commonCardRating = {
     height: rem(16),
     width: rem(16),

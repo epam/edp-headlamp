@@ -50,7 +50,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
 
   const gitOpsCodebase =
     codebases?.items.find(
-      el => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
+      (el) => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
     ) ?? null;
 
   const DataContextValue = React.useMemo(

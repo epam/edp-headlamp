@@ -2,7 +2,7 @@ import { alpha } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
 export const useStyles = (isExpanded: boolean, disabled: boolean) =>
-  makeStyles(theme => ({
+  makeStyles((theme) => ({
     accordion: {
       borderStyle: 'dashed',
       borderWidth: '1px',

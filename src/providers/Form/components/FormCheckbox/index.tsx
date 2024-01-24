@@ -36,7 +36,7 @@ export const FormCheckbox = React.forwardRef(
                         color={'primary'}
                         checked={!!field.value}
                         inputRef={ref}
-                        onChange={e => field.onChange(e.target.checked)}
+                        onChange={(e) => field.onChange(e.target.checked)}
                         disabled={disabled}
                       />
                     }

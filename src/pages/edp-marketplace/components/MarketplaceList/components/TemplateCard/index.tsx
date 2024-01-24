@@ -52,7 +52,7 @@ export const TemplateCard = ({
       className={classes.formControl}
       control={
         <Radio
-          onChange={event => handleTemplateClick(event, template)}
+          onChange={(event) => handleTemplateClick(event, template)}
           checked={isChecked}
           style={{ display: 'none' }}
         />

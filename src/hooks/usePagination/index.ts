@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const useSettings = (settingName?: string) => {
-  const storeSettingEntries = useTypedSelector(state =>
+  const storeSettingEntries = useTypedSelector((state) =>
     settingName ? state.config.settings[settingName] : state.config.settings
   );
   const [settingEntries, setSettingEntries] = React.useState(storeSettingEntries);

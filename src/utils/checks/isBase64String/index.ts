@@ -1,4 +1,4 @@
-export const isBase64String = str => {
+export const isBase64String = (str) => {
   // Check if the string is empty or contains non-base64 characters
   if (!str || /[^A-Za-z0-9+/=]/.test(str)) {
     return false;

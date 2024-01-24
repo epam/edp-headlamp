@@ -22,7 +22,7 @@ const createRegistryTypeOptions = (platformName: ValueOf<typeof CONTAINER_REGIST
     return [];
   }
 
-  return CONTAINER_REGISTRY_TYPE_BY_PLATFORM[platformName].map(value => ({
+  return CONTAINER_REGISTRY_TYPE_BY_PLATFORM[platformName].map((value) => ({
     label: CONTAINER_REGISTRY_TYPE_LABEL_MAP[value],
     value: value,
   }));

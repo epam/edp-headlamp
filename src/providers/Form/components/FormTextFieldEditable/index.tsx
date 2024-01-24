@@ -35,7 +35,7 @@ export const FormTextFieldEditable = React.forwardRef(
     const [_partiallyDisabled, setPartiallyDisabled] = React.useState(true);
 
     const handleTogglePartiallyDisabled = () => {
-      setPartiallyDisabled(prev => !prev);
+      setPartiallyDisabled((prev) => !prev);
     };
 
     const hasError = !!errors[name];

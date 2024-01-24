@@ -31,7 +31,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const stages = useStreamStagesByCDPipelineName({
     namespace,
     CDPipelineMetadataName: name,
-    select: React.useCallback(data => {
+    select: React.useCallback((data) => {
       return data.sort((a, b) => a.spec.order - b.spec.order);
     }, []),
   });

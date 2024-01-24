@@ -38,7 +38,7 @@ const ActionsList = ({ actions, menuOpen, anchorEl }: ActionsListProps) => {
             <div key={actionId}>
               <ConditionalWrapper
                 condition={disabled.status}
-                wrapper={children => <Tooltip title={disabled.reason}>{children}</Tooltip>}
+                wrapper={(children) => <Tooltip title={disabled.reason}>{children}</Tooltip>}
               >
                 <ListItem button disabled={disabled.status} onClick={action}>
                   <ListItemIcon>

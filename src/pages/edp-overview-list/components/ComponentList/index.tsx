@@ -14,7 +14,7 @@ export const ComponentList = () => {
     <LoadingWrapper isLoading={items === null}>
       <Grid container spacing={2}>
         {items
-          ? items.map(el => {
+          ? items.map((el) => {
               return el?.spec.visible ? (
                 <Grid item xs={6} sm={4} md={3} lg={2} xl={1} key={el.metadata.uid}>
                   <ComponentCard component={el} />

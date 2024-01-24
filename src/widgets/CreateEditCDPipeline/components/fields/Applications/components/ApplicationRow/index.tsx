@@ -90,7 +90,7 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
     ({ value: newValue }: FieldEventTarget) => {
       const oldValue = rowAppBranchFieldValue;
       const newApplicationsBranches = [
-        ...applicationsBranchesFieldValue.filter(el => el !== oldValue),
+        ...applicationsBranchesFieldValue.filter((el) => el !== oldValue),
         newValue,
       ];
 
@@ -103,7 +103,7 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
     ({ value: checkboxBoolean }: FieldEventTarget) => {
       const newApplicationsToPromote = checkboxBoolean
         ? [...applicationsToPromoteFieldValue, appName]
-        : applicationsToPromoteFieldValue.filter(el => el !== appName);
+        : applicationsToPromoteFieldValue.filter((el) => el !== appName);
 
       setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, newApplicationsToPromote);
     },
@@ -111,9 +111,9 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
   );
 
   const handleDeleteApplicationRow = React.useCallback(async () => {
-    const newApplicationList = applicationsFieldValue.filter(el => el !== appName);
+    const newApplicationList = applicationsFieldValue.filter((el) => el !== appName);
     const newInputDockerStreamsList = applicationsBranchesFieldValue.filter(
-      el => el !== rowAppBranchFieldValue
+      (el) => el !== rowAppBranchFieldValue
     );
     setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, newApplicationList, {
       shouldDirty: true,
@@ -147,7 +147,7 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
       return;
     }
 
-    const branchesNames = applicationBranchesList.items.map(el => ({
+    const branchesNames = applicationBranchesList.items.map((el) => ({
       specBranchName: el.spec.branchName,
       metadataBranchName: el.metadata.name,
     }));
@@ -184,7 +184,7 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
             placeholder={'Select application branch'}
             control={control}
             errors={errors}
-            options={availableBranches.map(el => ({
+            options={availableBranches.map((el) => ({
               label: el.specBranchName,
               value: el.metadataBranchName,
             }))}

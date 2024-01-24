@@ -32,12 +32,12 @@ export const PageView = () => {
 
   const gitOpsCodebase =
     itemsArray.find(
-      el => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
+      (el) => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
     ) ?? null;
 
   const configurationItemList = React.useMemo(
     () =>
-      itemsArray.map(el => {
+      itemsArray.map((el) => {
         const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
 
         const status = el?.status?.status;

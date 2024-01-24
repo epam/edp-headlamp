@@ -73,7 +73,7 @@ export const Table = <DataType extends unknown>({
         <colgroup>
           {handleSelectRowClick && <col key={'select-checkbox'} width={'4%'} />}
           {columns.map(
-            column =>
+            (column) =>
               column.show !== false && <col key={column.id} width={column.width || '100%'} />
           )}
         </colgroup>

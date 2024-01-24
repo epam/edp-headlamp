@@ -42,7 +42,7 @@ export const AdvancedJiraMappingRow = ({
             <FormTextField
               {...register(createAdvancedMappingRowName(value), {
                 required: 'Add at least one variable.',
-                onBlur: event => onChangeJiraPattern(event, value),
+                onBlur: (event) => onChangeJiraPattern(event, value),
               })}
               placeholder={`Enter Jira pattern`}
               control={control}

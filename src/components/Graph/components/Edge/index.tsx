@@ -10,7 +10,7 @@ export const Edge = ({ direction, color, sections: _sections }: EdgeProps) => {
   path.moveTo(sections.startPoint.x, sections.startPoint.y);
 
   if (sections.bendPoints) {
-    sections.bendPoints.forEach(b => {
+    sections.bendPoints.forEach((b) => {
       path.lineTo(b.x, b.y);
     });
   }

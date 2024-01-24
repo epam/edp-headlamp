@@ -19,7 +19,7 @@ export const useAutotestsWithBranches = (namespace: string): AutotestWithBranche
     },
     options: {
       cacheTime: 0,
-      onSuccess: async data => {
+      onSuccess: async (data) => {
         if (!data) {
           return;
         }
@@ -27,7 +27,7 @@ export const useAutotestsWithBranches = (namespace: string): AutotestWithBranche
           data?.items.map(async ({ metadata: { name } }) => {
             const { items: autotestsBranches } =
               await EDPCodebaseBranchKubeObject.getListByCodebaseName(_namespace, name);
-            const branchesNames = autotestsBranches.map(el => el.spec.branchName);
+            const branchesNames = autotestsBranches.map((el) => el.spec.branchName);
             return {
               name,
               branches: branchesNames,

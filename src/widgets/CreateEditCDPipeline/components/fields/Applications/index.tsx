@@ -24,7 +24,7 @@ const getUsedApps = (
   applicationsFieldValue: string[]
 ) => {
   return applicationList
-    ? applicationList.items.filter(app => applicationsFieldValue.includes(app.metadata.name))
+    ? applicationList.items.filter((app) => applicationsFieldValue.includes(app.metadata.name))
     : [];
 };
 
@@ -33,7 +33,7 @@ const getUnusedApps = (
   applicationsFieldValue: string[]
 ) => {
   return applicationList
-    ? applicationList.items.filter(app => !applicationsFieldValue.includes(app.metadata.name))
+    ? applicationList.items.filter((app) => !applicationsFieldValue.includes(app.metadata.name))
     : [];
 };
 
@@ -129,7 +129,7 @@ export const Applications = () => {
               disabled={applicationsOptionsListIsDisabled}
               options={
                 unusedApplications
-                  ? unusedApplications.map(el => {
+                  ? unusedApplications.map((el) => {
                       return {
                         label: el.metadata.name,
                         value: el.metadata.name,

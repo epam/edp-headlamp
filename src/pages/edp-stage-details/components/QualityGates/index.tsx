@@ -157,7 +157,7 @@ export const QualityGates = ({
   }, [CDPipelineName, createAutotestRunnerPipelineRun, namespace, stageSpecName, storageSize]);
 
   const hasAutotests = React.useMemo(
-    () => stage?.spec.qualityGates.find(el => el.autotestName),
+    () => stage?.spec.qualityGates.find((el) => el.autotestName),
     [stage?.spec.qualityGates]
   );
 
@@ -171,7 +171,7 @@ export const QualityGates = ({
     CDPipelineName,
     pipelineType: PIPELINE_TYPES.AUTOTEST_RUNNER,
     parentPipelineRunName: latestAutotestRunnerPipelineRunName,
-    select: React.useCallback(data => {
+    select: React.useCallback((data) => {
       return data.sort(sortKubeObjectByCreationTimestamp).slice(0, 10);
     }, []),
   });
@@ -222,7 +222,7 @@ export const QualityGates = ({
       return null;
     }
 
-    return steps.map(step => {
+    return steps.map((step) => {
       const stepName = step?.name;
       const status = parseTaskRunStepStatus(step);
       const reason = parseTaskRunStepReason(step);
@@ -288,7 +288,7 @@ export const QualityGates = ({
             <CardNodeColumn>
               <ConditionalWrapper
                 condition={!!steps}
-                wrapper={children => (
+                wrapper={(children) => (
                   <Tooltip title={<>{Steps}</>} arrow placement={'bottom'}>
                     {children}
                   </Tooltip>
@@ -330,7 +330,7 @@ export const QualityGates = ({
             nodes={nodes}
             edges={edges}
             id={'quality-gates'}
-            renderEdge={edge => <Edge direction={'RIGHT'} {...edge} />}
+            renderEdge={(edge) => <Edge direction={'RIGHT'} {...edge} />}
             renderNode={renderNode}
           />
         ) : (

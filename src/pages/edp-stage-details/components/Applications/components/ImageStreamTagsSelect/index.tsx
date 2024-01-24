@@ -28,7 +28,7 @@ export const ImageStreamTagsSelect = ({
       <FormSelect
         {...register(`${application.metadata.name}::image-tag`, {
           required: selected.includes(application.metadata.name),
-          onChange: event =>
+          onChange: (event) =>
             !selected.includes(application.metadata.name) &&
             handleSelectRowClick(event, enrichedApplicationWithArgoApplication),
         })}

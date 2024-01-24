@@ -25,7 +25,7 @@ enum Channel {
   Resize,
 }
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles((theme) => ({
   dialogContent: {
     height: '100%',
     display: 'flex',
@@ -85,7 +85,7 @@ export default function Terminal() {
         newActivePod?.spec.containers.length > 0 ? newActivePod?.spec.containers[0].name : ''
       );
     },
-    error => {
+    (error) => {
       setError(error);
     },
     {
@@ -118,16 +118,16 @@ export default function Terminal() {
 
     xterm.open(containerRef);
 
-    xterm.onData(data => {
+    xterm.onData((data) => {
       send(0, data);
     });
 
-    xterm.onResize(size => {
+    xterm.onResize((size) => {
       send(4, `{"Width":${size.cols},"Height":${size.rows}}`);
     });
 
     // Allow copy/paste in terminal
-    xterm.attachCustomKeyEventHandler(arg => {
+    xterm.attachCustomKeyEventHandler((arg) => {
       if (arg.ctrlKey && arg.type === 'keydown') {
         if (arg.code === 'KeyC') {
           const selection = xterm.getSelection();
@@ -142,7 +142,7 @@ export default function Terminal() {
 
       if (!isAttach && arg.type === 'keydown' && arg.code === 'Enter') {
         if (xtermRef.current?.reconnectOnEnter) {
-          setShells(shells => ({
+          setShells((shells) => ({
             ...shells,
             currentIdx: 0,
           }));
@@ -233,7 +233,7 @@ export default function Terminal() {
 
   function tryNextShell() {
     if (!isAttach && shells.available.length > 0) {
-      setShells(currentShell => ({
+      setShells((currentShell) => ({
         ...currentShell,
         currentIdx: (currentShell.currentIdx + 1) % currentShell.available.length,
       }));
@@ -482,7 +482,7 @@ export default function Terminal() {
         <Box className={classes.terminalBox}>
           <div
             id="xterm-container"
-            ref={x => setTerminalContainerRef(x)}
+            ref={(x) => setTerminalContainerRef(x)}
             style={{ flex: 1, display: 'flex', flexDirection: 'column-reverse' }}
           />
         </Box>

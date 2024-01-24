@@ -32,7 +32,7 @@ export const useRequestStatusMessages = () => {
         vertical: 'bottom',
         horizontal: 'left',
       },
-      action: key => (
+      action: (key) => (
         <IconButton size="small" onClick={() => closeSnackbar(key)}>
           <Icon icon={ICONS.CROSS} />
         </IconButton>
@@ -58,7 +58,7 @@ export const useRequestStatusMessages = () => {
         vertical: 'bottom',
         horizontal: 'left',
       },
-      action: key => (
+      action: (key) => (
         <IconButton size="small" onClick={() => closeSnackbar(key)}>
           <Icon icon={ICONS.CROSS} />
         </IconButton>
@@ -85,7 +85,7 @@ export const useRequestStatusMessages = () => {
         vertical: 'bottom',
         horizontal: 'left',
       },
-      action: key => (
+      action: (key) => (
         <IconButton size="small" onClick={() => closeSnackbar(key)}>
           <Icon icon={ICONS.CROSS} />
         </IconButton>
@@ -101,7 +101,7 @@ export const useRequestStatusMessages = () => {
         vertical: 'bottom',
         horizontal: 'left',
       },
-      action: key => (
+      action: (key) => (
         <IconButton size="small" onClick={() => closeSnackbar(key)}>
           <Icon icon={ICONS.CROSS} />
         </IconButton>

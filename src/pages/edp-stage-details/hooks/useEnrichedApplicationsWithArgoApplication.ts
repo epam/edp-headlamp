@@ -29,7 +29,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
   const CDPipelineName = CDPipeline?.metadata.name;
   const stageOrder = stage?.spec.order;
 
-  const normalizedInputDockerStreamNames = inputDockerStreams?.map(el => el.replaceAll('.', '-'));
+  const normalizedInputDockerStreamNames = inputDockerStreams?.map((el) => el.replaceAll('.', '-'));
 
   const CDPipelineInputDockerStreamsSet = React.useMemo(
     () => new Set<string>(normalizedInputDockerStreamNames),
@@ -44,7 +44,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
       if (order === 0) {
         return (
           imageStreams &&
-          imageStreams.find(el => CDPipelineInputDockerStreamsSet.has(el.metadata.name))
+          imageStreams.find((el) => CDPipelineInputDockerStreamsSet.has(el.metadata.name))
         );
       }
 
@@ -67,7 +67,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
     return (
       enrichedApplicationsWithItsImageStreams &&
       enrichedApplicationsWithItsImageStreams.length &&
-      enrichedApplicationsWithItsImageStreams.map(enrichedApplicationWithItsImageStreams => {
+      enrichedApplicationsWithItsImageStreams.map((enrichedApplicationWithItsImageStreams) => {
         const applicationVerifiedImageStream =
           enrichedApplicationWithItsImageStreams.applicationImageStreams &&
           enrichedApplicationWithItsImageStreams.applicationImageStreams.find(
@@ -76,7 +76,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
           );
 
         const argoApplicationByCodebaseName = argoApplications.find(
-          argoApplication =>
+          (argoApplication) =>
             argoApplication.metadata.labels['app.edp.epam.com/app-name'] ===
             enrichedApplicationWithItsImageStreams.application.metadata.name
         );

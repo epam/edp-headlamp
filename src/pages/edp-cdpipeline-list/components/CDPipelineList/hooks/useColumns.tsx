@@ -27,7 +27,7 @@ export const useColumns = (): TableColumn<
         id: 'status',
         label: 'Status',
         columnSortableValuePath: 'status.status',
-        render: CDPipeline => {
+        render: (CDPipeline) => {
           const status = CDPipeline?.status?.status;
           const detailedMessage = CDPipeline?.status?.detailed_message;
 

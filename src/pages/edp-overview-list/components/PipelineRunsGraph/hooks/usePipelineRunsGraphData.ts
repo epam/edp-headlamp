@@ -67,7 +67,7 @@ export const usePipelineRunsGraphData = () => {
 
       setPipelineRunsInfo(newPipelineRunsInfo);
     },
-    error => setError(error),
+    (error) => setError(error),
     {
       namespace: getDefaultNamespace(),
     }

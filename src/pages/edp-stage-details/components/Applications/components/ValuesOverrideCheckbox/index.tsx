@@ -21,7 +21,7 @@ export const ValuesOverrideCheckbox = ({
       <FormCheckbox
         label={undefined}
         {...register(`${application.metadata.name}::values-override`, {
-          onChange: event =>
+          onChange: (event) =>
             !selected.includes(application.metadata.name) &&
             handleSelectRowClick(event, enrichedApplicationWithArgoApplication),
         })}

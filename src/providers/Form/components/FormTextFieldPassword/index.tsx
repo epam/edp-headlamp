@@ -36,7 +36,7 @@ export const FormTextFieldPassword = React.forwardRef(
     const [_type, setType] = React.useState('password');
 
     const handleToggleType = () => {
-      setType(prev => (prev === 'text' ? 'password' : 'text'));
+      setType((prev) => (prev === 'text' ? 'password' : 'text'));
     };
 
     const _InputProps = React.useMemo(

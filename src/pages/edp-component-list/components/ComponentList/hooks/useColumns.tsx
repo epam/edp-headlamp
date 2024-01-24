@@ -34,7 +34,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
         id: 'status',
         label: 'Status',
         columnSortableValuePath: 'status.status',
-        render: codebase => {
+        render: (codebase) => {
           const status = codebase?.status?.status;
           const detailedMessage = codebase?.status?.detailedMessage;
 
@@ -66,7 +66,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
           return (
             <ConditionalWrapper
               condition={type === CODEBASE_TYPES.SYSTEM}
-              wrapper={children => (
+              wrapper={(children) => (
                 <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                   <Grid item>{children}</Grid>
                   <Grid item>

@@ -41,7 +41,7 @@ export const FormTextFieldEncoded = React.forwardRef(
         ...InputProps,
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton size={'small'} onClick={() => setHidden(prev => !prev)}>
+            <IconButton size={'small'} onClick={() => setHidden((prev) => !prev)}>
               <Icon icon={hidden ? ICONS.PENCIL : ICONS.CROSS} />
             </IconButton>
           </InputAdornment>

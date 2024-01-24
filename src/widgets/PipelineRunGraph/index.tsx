@@ -138,7 +138,7 @@ export const PipelineRunGraph = () => {
                   <Typography variant={'subtitle1'}>Steps:</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  {steps.map(step => {
+                  {steps.map((step) => {
                     const stepName = step?.name;
                     const status = parseTaskRunStepStatus(step);
                     const reason = parseTaskRunStepReason(step);
@@ -276,7 +276,7 @@ export const PipelineRunGraph = () => {
                     nodes={nodes}
                     edges={edges}
                     id={'pipeline-run-steps'}
-                    renderEdge={edge => <Edge direction={'RIGHT'} {...edge} />}
+                    renderEdge={(edge) => <Edge direction={'RIGHT'} {...edge} />}
                     renderNode={renderNode}
                   />
                 </div>

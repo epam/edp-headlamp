@@ -29,7 +29,7 @@ export const FormSelect = React.forwardRef(
     const classes = useStyles();
 
     const getOptionValue = React.useCallback(
-      optionValue => {
+      (optionValue) => {
         if (options.length) {
           const [foundOptionByName] = options.filter(({ value }) => value === optionValue);
           if (foundOptionByName) {
@@ -62,7 +62,9 @@ export const FormSelect = React.forwardRef(
                         displayEmpty
                         disabled={disabled}
                         fullWidth
-                        renderValue={value => (value !== '' ? getOptionValue(value) : placeholder)}
+                        renderValue={(value) =>
+                          value !== '' ? getOptionValue(value) : placeholder
+                        }
                         className={clsx({
                           [classes.selectWithDefaultValue]: field.value === '',
                         })}

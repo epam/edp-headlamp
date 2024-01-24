@@ -9,9 +9,9 @@ export const useStorageSizeQuery = (codebase: EDPCodebaseKubeObjectInterface) =>
 
   return useTriggerTemplateListQuery<string>({
     options: {
-      select: data => {
+      select: (data) => {
         const buildTriggerTemplate = data?.items.find(
-          el => el.metadata.name === `${gitServerByCodebase?.spec?.gitProvider}-build-template`
+          (el) => el.metadata.name === `${gitServerByCodebase?.spec?.gitProvider}-build-template`
         );
         return buildTriggerTemplate?.spec?.resourcetemplates?.[0]?.spec?.workspaces?.[0]
           ?.volumeClaimTemplate?.spec?.resources?.requests?.storage;

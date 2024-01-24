@@ -83,7 +83,9 @@ export const useCreateArgoApplication = () => {
       valuesOverride,
       gitOpsCodebase,
     }: CreateArgoApplicationProps): Promise<void> => {
-      const [gitServer] = gitServers.filter(el => el.metadata.name === application.spec.gitServer);
+      const [gitServer] = gitServers.filter(
+        (el) => el.metadata.name === application.spec.gitServer
+      );
 
       const argoApplicationData = createArgoApplicationInstance({
         CDPipeline,
@@ -113,7 +115,9 @@ export const useCreateArgoApplication = () => {
       valuesOverride,
       gitOpsCodebase,
     }: EditArgoApplicationProps): Promise<void> => {
-      const [gitServer] = gitServers.filter(el => el.metadata.name === application.spec.gitServer);
+      const [gitServer] = gitServers.filter(
+        (el) => el.metadata.name === application.spec.gitServer
+      );
 
       const argoApplicationData: ApplicationKubeObjectInterface = editApplicationInstance({
         CDPipeline,

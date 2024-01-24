@@ -54,7 +54,7 @@ export const useCodebasesGraphData = () => {
 
       setCodebasesInfo(newCodebasesInfo);
     },
-    error => setError(error),
+    (error) => setError(error),
     {
       namespace: getDefaultNamespace(),
     }

@@ -42,7 +42,7 @@ export const useQualityGatesGraphData = (
       taskRunList &&
       taskRunList.length &&
       taskRunList.find(
-        el => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'init-autotest'
+        (el) => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'init-autotest'
       );
 
     const initAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(initAutotestTaskRun);
@@ -57,7 +57,7 @@ export const useQualityGatesGraphData = (
       taskRunList &&
       taskRunList.length &&
       taskRunList.find(
-        el => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'promote-images'
+        (el) => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'promote-images'
       );
 
     const promoteAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(promoteTaskRun);
@@ -100,7 +100,7 @@ export const useQualityGatesGraphData = (
       taskRunList &&
       taskRunList.length &&
       taskRunList.find(
-        el => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'init-autotest'
+        (el) => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'init-autotest'
       );
 
     const initAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(initAutotestTaskRun);
@@ -115,7 +115,7 @@ export const useQualityGatesGraphData = (
       taskRunList &&
       taskRunList.length &&
       taskRunList.find(
-        el => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'promote-images'
+        (el) => el.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === 'promote-images'
       );
 
     const promoteAutotestTaskRunStatus = TaskRunKubeObject.parseStatus(promoteTaskRun);

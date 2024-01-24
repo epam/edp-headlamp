@@ -28,11 +28,11 @@ export const useStreamAutotestRunnerPipelineRunList = ({
       namespace,
       stageSpecName,
       CDPipelineMetadataName,
-      dataHandler: data => {
+      dataHandler: (data) => {
         const selectedData = select ? select(data) : data;
         setPipelineRunList(selectedData);
       },
-      errorHandler: error => console.error(error),
+      errorHandler: (error) => console.error(error),
     });
 
     return () => {

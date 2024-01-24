@@ -22,7 +22,7 @@ export const StatusIcon = ({
     <div onClick={stopPropagation}>
       <ConditionalWrapper
         condition={!!Title}
-        wrapper={children => <Tooltip title={Title}>{children}</Tooltip>}
+        wrapper={(children) => <Tooltip title={Title}>{children}</Tooltip>}
       >
         <Icon
           icon={icon}

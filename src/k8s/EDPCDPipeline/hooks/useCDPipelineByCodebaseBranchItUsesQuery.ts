@@ -22,7 +22,7 @@ export const useCDPipelineByCodebaseBranchItUsesQuery = ({
   const { codebaseBranchName } = props;
   const query = useCDPipelineListQuery({
     options: {
-      select: data => {
+      select: (data) => {
         for (const item of data?.items) {
           if (item.spec.inputDockerStreams.includes(codebaseBranchName)) {
             return item;

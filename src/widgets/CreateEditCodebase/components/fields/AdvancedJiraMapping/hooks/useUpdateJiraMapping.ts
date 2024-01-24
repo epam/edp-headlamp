@@ -27,9 +27,9 @@ export const useUpdateJiraMapping = ({
       setValue(createAdvancedMappingRowName(value), jiraPattern, { shouldDirty: false });
     }
 
-    setAdvancedMapping(prevAdvancedMapping => {
-      return prevAdvancedMapping.map(el => {
-        const [fitItem] = newRows.filter(innerEl => innerEl.value === el.value);
+    setAdvancedMapping((prevAdvancedMapping) => {
+      return prevAdvancedMapping.map((el) => {
+        const [fitItem] = newRows.filter((innerEl) => innerEl.value === el.value);
         return {
           ...el,
           isUsed: !!fitItem,

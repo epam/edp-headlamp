@@ -24,7 +24,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
       {
         id: 'status',
         label: 'Status',
-        render: resource => {
+        render: (resource) => {
           const status = PipelineRunKubeObject.parseStatus(resource);
           const reason = PipelineRunKubeObject.parseStatusReason(resource);
 
@@ -45,7 +45,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
       {
         id: 'run',
         label: 'Run',
-        render: resource => {
+        render: (resource) => {
           const {
             metadata: { name, namespace },
           } = resource;
@@ -75,7 +75,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
       {
         id: 'pipeline',
         label: 'Pipeline',
-        render: resource => {
+        render: (resource) => {
           const {
             metadata: { namespace },
             spec: {
@@ -105,7 +105,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
       {
         id: 'time',
         label: 'Time',
-        render: resource => {
+        render: (resource) => {
           if (!resource?.status?.startTime || !resource?.status?.completionTime) {
             return <HoverInfoLabel label={''} hoverInfo={''} icon={ICONS.CALENDAR} />;
           }
@@ -131,7 +131,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
       {
         id: 'diagram',
         label: 'Diagram',
-        render: resource => {
+        render: (resource) => {
           return (
             <IconButton
               onClick={() =>

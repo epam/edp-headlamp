@@ -71,7 +71,7 @@ export const MarketplaceList = ({ filterFunction }: MarketplaceListProps) => {
           spacing={2}
           filterFunction={filterFunction}
           emptyListComponent={<EmptyList missingItemName={'templates'} />}
-          renderItem={item => {
+          renderItem={(item) => {
             const key = `marketplace-item-${item?.spec?.displayName}`;
 
             return (

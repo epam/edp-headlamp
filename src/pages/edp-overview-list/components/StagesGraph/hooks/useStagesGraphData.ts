@@ -55,7 +55,7 @@ export const useStagesGraphData = () => {
 
       setStagesInfo(newStagesInfo);
     },
-    error => setError(error),
+    (error) => setError(error),
     {
       namespace: getDefaultNamespace(),
     }

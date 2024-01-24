@@ -13,15 +13,15 @@ export const searchFunction = (item: KubeObjectInterface, value: string) => {
     item.metadata.namespace ? item.metadata.namespace.toLowerCase() : '',
     item.metadata.name.toLowerCase(),
     item?.spec?.displayName?.toLowerCase(),
-    ...Object.keys(item.metadata.labels || {}).map(item => item.toLowerCase()),
-    ...Object.values(item.metadata.labels || {}).map(item => item.toLowerCase()),
+    ...Object.keys(item.metadata.labels || {}).map((item) => item.toLowerCase()),
+    ...Object.values(item.metadata.labels || {}).map((item) => item.toLowerCase()),
   ].filter(Boolean);
 
-  return usedMatchCriteria.some(item => item.includes(value.toLowerCase()));
+  return usedMatchCriteria.some((item) => item.includes(value.toLowerCase()));
 };
 
 export const SearchControl = ({ filter, setFilter }: SearchControlProps) => {
-  const focusedRef = React.useCallback(node => {
+  const focusedRef = React.useCallback((node) => {
     if (node !== null) {
       node.focus();
     }
@@ -38,8 +38,8 @@ export const SearchControl = ({ filter, setFilter }: SearchControlProps) => {
         InputLabelProps={{ shrink: true }}
         InputProps={{ role: 'search' }}
         placeholder={'Type to search'}
-        onChange={event => {
-          setFilter(prev => ({
+        onChange={(event) => {
+          setFilter((prev) => ({
             ...prev,
             values: {
               ...prev.values,
@@ -47,10 +47,10 @@ export const SearchControl = ({ filter, setFilter }: SearchControlProps) => {
             },
             matchFunctions: {
               ...prev.matchFunctions,
-              search: item => searchFunction(item, event.target.value),
+              search: (item) => searchFunction(item, event.target.value),
             },
           }));
-          setFilter(prev => ({ ...prev, search: event.target.value }));
+          setFilter((prev) => ({ ...prev, search: event.target.value }));
         }}
         inputRef={focusedRef}
       />

@@ -55,7 +55,7 @@ export const useCDPipelinesGraphData = () => {
 
       setCDPipelinesInfo(newCDPipelinesInfo);
     },
-    error => setError(error),
+    (error) => setError(error),
     {
       namespace: getDefaultNamespace(),
     }

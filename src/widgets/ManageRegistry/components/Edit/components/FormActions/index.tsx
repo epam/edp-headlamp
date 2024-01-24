@@ -62,7 +62,7 @@ export const FormActions = () => {
         <Grid item style={{ marginRight: 'auto' }}>
           <ConditionalWrapper
             condition={someOfTheSecretsHasExternalOwner}
-            wrapper={children => {
+            wrapper={(children) => {
               return (
                 <Tooltip
                   title={'Some of the secrets has external owners. Please, delete it by your own.'}

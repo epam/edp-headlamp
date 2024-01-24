@@ -40,7 +40,7 @@ export const StageName = ({ otherStagesNames }: StageNameProps) => {
             `${namespace}-${CDPipelineName}-${value}`
           );
         },
-        validate: name => {
+        validate: (name) => {
           if (otherStagesNames.includes(name)) {
             return `"${name}" has been already added to the stages that will be created`;
           }

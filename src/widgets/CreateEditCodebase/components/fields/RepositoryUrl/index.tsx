@@ -24,7 +24,7 @@ export const RepositoryUrl = () => {
       return true;
     }
 
-    return !!gitServers?.items.find(el => el.spec.gitProvider === GIT_SERVERS.GERRIT);
+    return !!gitServers?.items.find((el) => el.spec.gitProvider === GIT_SERVERS.GERRIT);
   }, [gitServers]);
 
   return (

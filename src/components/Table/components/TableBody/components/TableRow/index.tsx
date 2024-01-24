@@ -51,7 +51,7 @@ export const TableRow = ({
           <Checkbox
             color={'primary'}
             checked={isSelected}
-            onClick={event => handleSelectRowClick(event, item)}
+            onClick={(event) => handleSelectRowClick(event, item)}
           />
         </TableCell>
       )}

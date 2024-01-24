@@ -58,7 +58,7 @@ export const useCreateCDPipelineStage = ({
             vertical: 'bottom',
             horizontal: 'left',
           },
-          action: key => (
+          action: (key) => (
             <IconButton size="small" onClick={() => closeSnackbar(key)}>
               <Icon icon={ICONS.CROSS} />
             </IconButton>

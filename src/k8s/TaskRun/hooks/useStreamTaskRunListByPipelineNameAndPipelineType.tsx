@@ -25,11 +25,11 @@ export const useStreamTaskRunListByPipelineNameAndPipelineType = ({
       CDPipelineName,
       pipelineType,
       parentPipelineRunName,
-      dataHandler: data => {
+      dataHandler: (data) => {
         const selectedData = select ? select(data) : data;
         setTaskRunList(selectedData);
       },
-      errorHandler: error => console.error(error),
+      errorHandler: (error) => console.error(error),
     });
 
     return () => {

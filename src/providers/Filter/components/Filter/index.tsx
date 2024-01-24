@@ -67,7 +67,7 @@ export const Filter = <ControlKeys extends string = DefaultControlKeys>({
             .sort()
             .every((value: string, index: number) => value !== namespaceFromStore[index])
         ) {
-          setFilter(prev => ({
+          setFilter((prev) => ({
             ...prev,
             values: {
               ...prev.values,
@@ -75,7 +75,7 @@ export const Filter = <ControlKeys extends string = DefaultControlKeys>({
             },
             matchFunctions: {
               ...prev.matchFunctions,
-              namespace: item => namespace.includes(item.metadata.namespace),
+              namespace: (item) => namespace.includes(item.metadata.namespace),
             },
           }));
 

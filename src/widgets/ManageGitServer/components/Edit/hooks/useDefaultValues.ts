@@ -16,7 +16,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
   );
 
   const gitServerSecret = repositorySecrets.find(
-    secret => secret.metadata.name === gitServerSecretToFindName
+    (secret) => secret.metadata.name === gitServerSecretToFindName
   )?.jsonData;
 
   return React.useMemo(() => {

@@ -26,7 +26,7 @@ export const useDefaultBranchQuery = ({
     },
     options: {
       ...options,
-      select: data => {
+      select: (data) => {
         return data?.items.filter(
           ({ spec: { branchName } }) => branchName === defaultBranchName
         )?.[0];

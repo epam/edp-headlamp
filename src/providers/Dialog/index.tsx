@@ -8,7 +8,7 @@ export const DialogContextProvider: React.FC = React.memo(({ children }) => {
 
   const setDialog = React.useCallback(
     ({ modalName, forwardedProps = null }: { modalName: ModalName; forwardedProps: unknown }) => {
-      setDialogState(prev => ({
+      setDialogState((prev) => ({
         ...prev,
         [modalName]: {
           forwardedProps,
@@ -20,7 +20,7 @@ export const DialogContextProvider: React.FC = React.memo(({ children }) => {
   );
 
   const openDialog = React.useCallback((modalName: ModalName) => {
-    setDialogState(prev => ({
+    setDialogState((prev) => ({
       ...prev,
       [modalName]: {
         ...prev[modalName],
@@ -30,7 +30,7 @@ export const DialogContextProvider: React.FC = React.memo(({ children }) => {
   }, []);
 
   const closeDialog = React.useCallback((modalName: ModalName) => {
-    setDialogState(prev => ({
+    setDialogState((prev) => ({
       ...prev,
       [modalName]: {
         ...prev[modalName],

@@ -57,10 +57,10 @@ describe('testing useResourceCRUDMutation hook', () => {
       console.log('After renderHook');
 
       console.log('Before mutate');
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
       result.current.mutate(mutationDataMock);
       console.log('After mutate');
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(result.current.data).toEqual(mutationDataMock);
       expect(result.current.variables).toEqual(mutationDataMock);
@@ -90,10 +90,10 @@ describe('testing useResourceCRUDMutation hook', () => {
       console.log('After renderHook');
 
       console.log('Before mutate');
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
       result.current.mutate(mutationDataMock);
       console.log('After mutate');
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(result.current.isError).toBe(true);
       expect(result.current.error).toEqual({ error: 'error' });

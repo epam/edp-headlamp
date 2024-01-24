@@ -15,6 +15,6 @@ export const getGitServerSecret = (
     gitServerProvider as ValueOf<typeof GIT_PROVIDERS>
   );
 
-  return repositorySecrets.find(secret => secret.metadata.name === gitServerSecretToFindName)
+  return repositorySecrets.find((secret) => secret.metadata.name === gitServerSecretToFindName)
     ?.jsonData;
 };

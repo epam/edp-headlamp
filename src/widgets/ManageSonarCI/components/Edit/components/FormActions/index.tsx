@@ -107,7 +107,7 @@ export const FormActions = () => {
         <Grid item>
           <ConditionalWrapper
             condition={!!ownerReference}
-            wrapper={children => (
+            wrapper={(children) => (
               <Tooltip
                 title={
                   'You cannot delete this integration because the secret has owner references.'

@@ -42,10 +42,10 @@ export const QualityGates = () => {
   }, [qualityGatesFieldValue, setValue]);
 
   const handleRemoveApplicationRow = React.useCallback(
-    qualityGateIdx => {
+    (qualityGateIdx) => {
       setValue(
         STAGE_FORM_NAMES.qualityGates.name,
-        qualityGatesFieldValue.filter(el => {
+        qualityGatesFieldValue.filter((el) => {
           return el.id !== qualityGateIdx;
         })
       );
@@ -84,7 +84,7 @@ export const QualityGates = () => {
         </Grid>
         <Grid item xs={12}>
           <Grid container spacing={2}>
-            {(qualityGatesFieldValue as QualityGate[]).map(el => {
+            {(qualityGatesFieldValue as QualityGate[]).map((el) => {
               const key = `quality-gate-row::${el.id}`;
 
               return (

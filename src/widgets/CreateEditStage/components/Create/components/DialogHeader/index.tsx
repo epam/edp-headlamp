@@ -28,7 +28,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
       {
         ...usedValues,
         // removing unnecessary ID used in form
-        qualityGates: usedValues.qualityGates.map(el => ({
+        qualityGates: usedValues.qualityGates.map((el) => ({
           qualityGateType: el.qualityGateType,
           stepName: el.stepName,
           autotestName: el.autotestName,

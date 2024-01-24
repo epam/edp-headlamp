@@ -21,7 +21,7 @@ const getAvailableAutotests = (
   autotestsWithBranchesOptions: AutotestWithBranchesOption[],
   qualityGatesFieldValue: QualityGate[]
 ) => {
-  return autotestsWithBranchesOptions.map(autotest => {
+  return autotestsWithBranchesOptions.map((autotest) => {
     const { name, branches } = autotest;
     const alreadyChosenAutotest = qualityGatesFieldValue.find(
       ({ autotestName }) => autotestName === name
@@ -33,7 +33,9 @@ const getAvailableAutotests = (
 
     const allBranchesAreChosen =
       qualityGatesByChosenAutotest.length === branches.length &&
-      qualityGatesByChosenAutotest.every(qualityGate => branches.includes(qualityGate.branchName));
+      qualityGatesByChosenAutotest.every((qualityGate) =>
+        branches.includes(qualityGate.branchName)
+      );
 
     if (alreadyChosenAutotest && branches.length <= 1) {
       return {
@@ -58,13 +60,13 @@ const getAvailableAutotestBranches = (
   qualityGatesFieldValue: QualityGate[],
   currentQualityGateAutotestFieldValue: string
 ) => {
-  return currentQualityGateBranchesOptions.map(branchOption => {
+  return currentQualityGateBranchesOptions.map((branchOption) => {
     const qualityGatesByChosenAutotest = qualityGatesFieldValue.filter(
       ({ autotestName }) => autotestName === currentQualityGateAutotestFieldValue
     );
 
     const alreadyChosenAutotestBranch = qualityGatesByChosenAutotest.find(
-      qualityGate => qualityGate.branchName === branchOption.value
+      (qualityGate) => qualityGate.branchName === branchOption.value
     );
 
     if (alreadyChosenAutotestBranch) {
@@ -84,8 +86,8 @@ const getCurrentQualityGateBranchesOptions = (
 ) => {
   return autotestsWithBranchesOptions.length && currentQualityGateAutotestFieldValue
     ? autotestsWithBranchesOptions
-        .filter(el => el.name === currentQualityGateAutotestFieldValue)[0]
-        .branches.map(el => ({
+        .filter((el) => el.name === currentQualityGateAutotestFieldValue)[0]
+        .branches.map((el) => ({
           label: el,
           value: el,
         }))
@@ -95,7 +97,7 @@ const getCurrentQualityGateBranchesOptions = (
 const getAvailableQualityGateTypeSelectOptions = (
   autotestsWithBranchesOptions: AutotestWithBranchesOption[]
 ) => {
-  return qualityGateTypeSelectOptions.map(el => {
+  return qualityGateTypeSelectOptions.map((el) => {
     if (el.value === QUALITY_GATE_TYPES.AUTOTESTS && !autotestsWithBranchesOptions.length) {
       return {
         ...el,
@@ -152,7 +154,7 @@ export const QualityGateRow = ({
   );
 
   const handleChangeQualityGateType = React.useCallback(
-    event => {
+    (event) => {
       const chosenQualityGateType = event.target.value;
 
       if (chosenQualityGateType === QUALITY_GATE_TYPES.MANUAL) {
@@ -164,7 +166,7 @@ export const QualityGateRow = ({
         );
       }
 
-      const newQualityGates = qualityGatesFieldValue.map(qualityGate => {
+      const newQualityGates = qualityGatesFieldValue.map((qualityGate) => {
         if (qualityGate.id !== currentQualityGate.id) {
           return qualityGate;
         }
@@ -190,10 +192,10 @@ export const QualityGateRow = ({
   );
 
   const handleChangeQualityGateStepName = React.useCallback(
-    event => {
+    (event) => {
       const chosenQualityGateStepName = event.target.value;
 
-      const newQualityGates = qualityGatesFieldValue.map(qualityGate => {
+      const newQualityGates = qualityGatesFieldValue.map((qualityGate) => {
         if (qualityGate.id !== currentQualityGate.id) {
           return qualityGate;
         }
@@ -210,12 +212,12 @@ export const QualityGateRow = ({
   );
 
   const handleChangeQualityGateAutotestName = React.useCallback(
-    event => {
+    (event) => {
       const chosenQualityGateAutotest = event.target.value;
       // @ts-ignore
       resetField(createQualityGateTypeAutotestsBranchFieldName(currentQualityGate.id));
 
-      const newQualityGates = qualityGatesFieldValue.map(qualityGate => {
+      const newQualityGates = qualityGatesFieldValue.map((qualityGate) => {
         if (qualityGate.id !== currentQualityGate.id) {
           return qualityGate;
         }
@@ -232,10 +234,10 @@ export const QualityGateRow = ({
   );
 
   const handleChangeQualityGateAutotestBranchName = React.useCallback(
-    event => {
+    (event) => {
       const chosenQualityGateAutotestsBranch = event.target.value;
 
-      const newQualityGates = qualityGatesFieldValue.map(qualityGate => {
+      const newQualityGates = qualityGatesFieldValue.map((qualityGate) => {
         if (qualityGate.id !== currentQualityGate.id) {
           return qualityGate;
         }

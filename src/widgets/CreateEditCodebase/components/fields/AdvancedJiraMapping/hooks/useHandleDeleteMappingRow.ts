@@ -17,15 +17,15 @@ export const useHandleDeleteMappingRow = ({
   const { setValue, resetField } = useFormContext();
 
   const handleDeleteMappingRow = React.useCallback(
-    value => {
-      setAdvancedMappingRows(prev => {
+    (value) => {
+      setAdvancedMappingRows((prev) => {
         const newRows = prev.filter(({ value: innerValue }) => innerValue !== value);
         const newJiraIssueMetadataPayload = getJiraIssueMetadataPayload(newRows);
         setValue(CODEBASE_FORM_NAMES.jiraIssueMetadataPayload.name, newJiraIssueMetadataPayload);
         return newRows;
       });
-      setAdvancedMapping(prev => {
-        return prev.map(el => {
+      setAdvancedMapping((prev) => {
+        return prev.map((el) => {
           if (el.value === value) {
             return {
               ...el,

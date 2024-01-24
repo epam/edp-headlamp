@@ -2,7 +2,7 @@ import { alpha, darken } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { rem } from '../../../../../../utils/styling/rem';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   cardRoot: {
     height: '100%',
     position: 'relative',

@@ -54,7 +54,7 @@ export const FormRadioGroup = React.forwardRef(
                           return (
                             <ConditionalWrapper
                               condition={!!disabledTooltip}
-                              wrapper={children => (
+                              wrapper={(children) => (
                                 <Tooltip key={key} title={disabledTooltip}>
                                   <div>{children}</div>
                                 </Tooltip>

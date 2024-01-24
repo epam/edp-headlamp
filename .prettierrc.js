@@ -1,5 +1,5 @@
 module.exports = {
-    ...require('@kinvolk/eslint-config/prettier-config'),
+    // ...require('@kinvolk/eslint-config/prettier-config'),
     parser: 'typescript',
     semi: true,
     trailingComma: 'es5',

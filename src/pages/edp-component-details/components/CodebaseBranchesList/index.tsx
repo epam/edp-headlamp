@@ -33,7 +33,7 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
 
   const handleStoreCodebaseBranches = React.useCallback(
     (data: EDPCodebaseBranchKubeObjectInterface[]) => {
-      const sortedCodebaseBranches = data.sort(a => (isDefaultBranch(codebaseData, a) ? -1 : 1));
+      const sortedCodebaseBranches = data.sort((a) => (isDefaultBranch(codebaseData, a) ? -1 : 1));
       setCurrentCodebaseBranches(sortedCodebaseBranches);
 
       if (sortedCodebaseBranches.length === 1) {

@@ -54,12 +54,12 @@ export const Form = ({
   );
 
   const onPipelineNameChange = React.useCallback(
-    pipelineNameFieldValue => {
+    (pipelineNameFieldValue) => {
       if (!stages.length) {
         return;
       }
 
-      const updatedStagesWithNewPipelineName = stages.map(el => ({
+      const updatedStagesWithNewPipelineName = stages.map((el) => ({
         ...el,
         metadata: {
           ...el.metadata,
@@ -78,7 +78,7 @@ export const Form = ({
 
   const handleDeleteStage = React.useCallback(
     (idx: number) => {
-      setStages(prev =>
+      setStages((prev) =>
         prev
           .map((el, prevElIndex) => {
             if (idx !== prevElIndex) {
@@ -100,7 +100,7 @@ export const Form = ({
       otherStages: stages,
       mode: FORM_MODES.CREATE,
       handleApply: ({ CDPipelineStageData }) => {
-        setStages(prev => [...prev, CDPipelineStageData]);
+        setStages((prev) => [...prev, CDPipelineStageData]);
       },
       ciTool: CI_TOOLS.TEKTON,
     };

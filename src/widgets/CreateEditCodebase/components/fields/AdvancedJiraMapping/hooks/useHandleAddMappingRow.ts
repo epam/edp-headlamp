@@ -19,8 +19,8 @@ export const useHandleAddMappingRow = ({
   const advancedMappingFieldNameValue = watch(CODEBASE_FORM_NAMES.advancedMappingFieldName.name);
 
   const handleAddMappingRow = React.useCallback(() => {
-    setAdvancedMapping(prev => {
-      return prev.map(el => {
+    setAdvancedMapping((prev) => {
+      return prev.map((el) => {
         if (el.value === advancedMappingFieldNameValue) {
           return {
             ...el,
@@ -31,7 +31,7 @@ export const useHandleAddMappingRow = ({
         return el;
       });
     });
-    setAdvancedMappingRows(prev => {
+    setAdvancedMappingRows((prev) => {
       const [advancedMappingItemFitByName] = advancedMapping.filter(
         ({ value }) => value === advancedMappingFieldNameValue
       );

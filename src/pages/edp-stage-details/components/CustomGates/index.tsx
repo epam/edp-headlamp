@@ -62,7 +62,7 @@ export const CustomGates = ({
           }
 
           const deployedVersion =
-            argoApplication?.spec?.source?.helm?.parameters?.find(el => el.name === 'image.tag')
+            argoApplication?.spec?.source?.helm?.parameters?.find((el) => el.name === 'image.tag')
               ?.value || '';
 
           const appTag = `${application?.metadata.name}=${deployedVersion}`;

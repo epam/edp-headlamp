@@ -28,7 +28,7 @@ export const streamResult = (
 
       socket = ApiProxy.stream(
         watchUrl,
-        x => {
+        (x) => {
           const currentVersion = parseInt(item.metadata.resourceVersion, 10);
           const newVersion = parseInt(x.object.metadata.resourceVersion, 10);
           if (currentVersion < newVersion) {

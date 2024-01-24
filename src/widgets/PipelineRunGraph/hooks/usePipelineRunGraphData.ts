@@ -14,7 +14,7 @@ export const usePipelineRunGraphData = (
     }
 
     const map = new Map<string, TaskRunKubeObjectInterface>();
-    pipelineRunTasks?.forEach(item => {
+    pipelineRunTasks?.forEach((item) => {
       map.set(item.name, item);
     });
     return map;
@@ -26,7 +26,7 @@ export const usePipelineRunGraphData = (
     }
 
     const map = new Map<string, TaskRunKubeObjectInterface>();
-    taskRuns.forEach(item => {
+    taskRuns.forEach((item) => {
       map.set(item.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK], item);
     });
     return map;

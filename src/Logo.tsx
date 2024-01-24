@@ -5,7 +5,7 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 
 const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-export const Logo = props => {
+export const Logo = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ export const Logo = props => {
 };
 
 export const LogoWithText = () => {
-  const isSidebarOpen = useTypedSelector(state => state.sidebar);
+  const isSidebarOpen = useTypedSelector((state) => state.sidebar);
 
   return (
     <>

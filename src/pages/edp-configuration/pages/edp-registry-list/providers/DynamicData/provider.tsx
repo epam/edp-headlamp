@@ -40,7 +40,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   ConfigMapKubeObject.useApiList(
     (configMaps: ConfigMapKubeObjectInterface[]) => {
       const EDPConfigMap = configMaps.find(
-        item => item.metadata.name === EDP_CONFIG_CONFIG_MAP_NAME
+        (item) => item.metadata.name === EDP_CONFIG_CONFIG_MAP_NAME
       );
 
       if (!EDPConfigMap) {
@@ -50,7 +50,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
 
       setEDPConfigMap(EDPConfigMap.jsonData);
     },
-    error => console.error(error),
+    (error) => console.error(error),
     {
       namespace: getDefaultNamespace(),
     }
@@ -60,7 +60,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     namespace: getDefaultNamespace(),
   });
 
-  const tektonServiceAccount = items?.find(el => el?.metadata?.name === 'tekton')?.jsonData;
+  const tektonServiceAccount = items?.find((el) => el?.metadata?.name === 'tekton')?.jsonData;
 
   const [secrets, setSecrets] = React.useState<Secrets>({
     kanikoDockerConfig: null,
@@ -76,7 +76,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         regcred,
       });
     },
-    error => console.error(error),
+    (error) => console.error(error),
     {
       labelSelector: `${SECRET_LABEL_SECRET_TYPE}=registry`,
       namespace: getDefaultNamespace(),

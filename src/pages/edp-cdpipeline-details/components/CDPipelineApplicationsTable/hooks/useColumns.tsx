@@ -42,7 +42,7 @@ export const useColumns = (): TableColumn<EnrichedApplicationWithItsImageStreams
           return (
             <ConditionalWrapper
               condition={type === CODEBASE_TYPES.SYSTEM}
-              wrapper={children => (
+              wrapper={(children) => (
                 <Grid container spacing={2} alignItems={'center'} style={{ margin: 0 }}>
                   {children}
                   <Grid item>
