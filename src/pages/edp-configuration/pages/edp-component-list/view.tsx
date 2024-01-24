@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Button, Grid, Link, Typography } from '@mui/material';
 import React from 'react';
@@ -16,6 +17,7 @@ import { MANAGE_EDP_COMPONENT_DIALOG_NAME } from '../../../../widgets/ManageEDPC
 import { menu } from '../../menu';
 import { EDPComponentList } from './components/ComponentList';
 import { EDP_COMPONENT_LIST_PAGE_DESCRIPTION } from './constants';
+import { routeEDPComponentList } from './route';
 
 export const PageView = () => {
   const [items, error] = EDPComponentKubeObject.useList();
@@ -79,7 +81,9 @@ export const PageView = () => {
               <Grid item xs={12}>
                 <ResourceActionListContextProvider>
                   <EDPComponentList items={items} error={error} filterFunction={filterFunction} />
-                  <EDPComponentActionsMenu />
+                  <EDPComponentActionsMenu
+                    backRoute={Router.createRouteURL(routeEDPComponentList.path)}
+                  />
                 </ResourceActionListContextProvider>
               </Grid>
             </Grid>
