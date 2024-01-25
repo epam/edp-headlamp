@@ -136,7 +136,7 @@ export const FormActions = () => {
                 component={'button'}
                 variant={'contained'}
                 color={'primary'}
-                disabled={isLoading || !isDirty}
+                disabled={isLoading || !isDirty || !sonarEDPComponent}
                 onClick={handleSubmit(onSubmit)}
               >
                 save

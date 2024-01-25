@@ -15,7 +15,7 @@ export const ExternalURL = () => {
   } = useReactHookFormContext();
 
   const {
-    formData: { mode },
+    formData: { mode, argoCDEDPComponent },
   } = useFormContext<ManageArgoCDIntegrationSecretFormDataContext>();
 
   return (
@@ -39,6 +39,7 @@ export const ExternalURL = () => {
       placeholder={'Enter URL'}
       control={control}
       errors={errors}
+      disabled={!argoCDEDPComponent}
     />
   );
 };

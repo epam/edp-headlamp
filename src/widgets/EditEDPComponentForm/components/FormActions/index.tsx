@@ -52,7 +52,21 @@ export const FormActions = () => {
         visible: JSON.parse(values.visible),
       });
 
-      await editEDPComponent({ EDPComponentData: editedEDPComponent });
+      // TODO: find a way to provide multiple json path to update/create components
+
+      await editEDPComponent({
+        EDPComponentData: {
+          ...editedEDPComponent,
+          metadata: {
+            ...editedEDPComponent.metadata,
+            name: values.name,
+          },
+          spec: {
+            ...editedEDPComponent.spec,
+            type: values.name,
+          },
+        },
+      });
     },
     [editEDPComponent, EDPComponent]
   );
@@ -86,18 +100,31 @@ export const FormActions = () => {
           </IconButton>
         </ConditionalWrapper>
       </Grid>
-      <Button onClick={handleResetFields} size="small" component={'button'} disabled={!isDirty}>
-        undo changes
-      </Button>
-      <Button
-        onClick={handleSubmit(onSubmit)}
-        variant={'contained'}
-        color={'primary'}
-        size="small"
-        disabled={!isDirty || isLoading}
-      >
-        apply
-      </Button>
+      <Grid item>
+        <Grid container spacing={2} alignItems={'center'}>
+          <Grid item>
+            <Button
+              onClick={handleResetFields}
+              size="small"
+              component={'button'}
+              disabled={!isDirty}
+            >
+              undo changes
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              onClick={handleSubmit(onSubmit)}
+              variant={'contained'}
+              color={'primary'}
+              size="small"
+              disabled={!isDirty || isLoading}
+            >
+              apply
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };

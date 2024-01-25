@@ -54,7 +54,7 @@ export const PageView = () => {
               <ManageSonarCI
                 formData={{
                   sonarSecret,
-                  sonarEDPComponent: sonarEDPComponent?.jsonData,
+                  sonarEDPComponent: null,
                   ownerReference,
                   mode,
                 }}

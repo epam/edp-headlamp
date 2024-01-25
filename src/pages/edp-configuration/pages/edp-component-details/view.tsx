@@ -29,7 +29,7 @@ export const PageView = () => {
       <Section title={name} description={'Review/edit your link.'}>
         {!!EDPComponent && (
           <div style={{ marginTop: rem(20) }}>
-            <EditEDPComponentForm EDPComponent={EDPComponent.jsonData} />
+            <EditEDPComponentForm EDPComponent={EDPComponent?.jsonData} />
           </div>
         )}
       </Section>
