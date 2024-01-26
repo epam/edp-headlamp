@@ -36,3 +36,7 @@ div[class*="SnackbarItem-variantWarning"] {
     height: auto !important;
 }
 
+main#main {
+    min-width: 0;
+}
+

@@ -19,7 +19,6 @@ const mockCreateForwardedProps: CreateEditStageDialogForwardedProps = {
       name: 'test-cdpipeline-name',
     },
   },
-  ciTool: 'tekton',
   otherStages: [
     {
       // @ts-ignore

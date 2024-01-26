@@ -10,9 +10,14 @@ import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { TableHeaderActionsProps } from './types';
 
 export const TableHeaderActions = ({ CDPipelineStages }: TableHeaderActionsProps) => {
-  const { CDPipeline, enrichedApplications } = useDynamicDataContext();
-  const ciTool = enrichedApplications?.[0]?.application?.spec.ciTool;
+  const { CDPipeline } = useDynamicDataContext();
   const { setDialog } = useDialogContext<CreateEditStageDialogForwardedProps>();
+
+  const forwardedProps: CreateEditStageDialogForwardedProps = {
+    CDPipelineData: CDPipeline.data,
+    otherStages: CDPipelineStages,
+    mode: FORM_MODES.CREATE,
+  };
 
   return (
     <>
@@ -24,12 +29,7 @@ export const TableHeaderActions = ({ CDPipelineStages }: TableHeaderActionsProps
           onClick={() => {
             setDialog({
               modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
-              forwardedProps: {
-                CDPipelineData: CDPipeline,
-                otherStages: CDPipelineStages,
-                mode: FORM_MODES.CREATE,
-                ciTool,
-              },
+              forwardedProps,
             });
           }}
         >

@@ -1,6 +1,5 @@
 import React from 'react';
 import { KubeObjectActions } from '../../components/KubeObjectActions';
-import { CI_TOOLS } from '../../constants/ciTools';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
@@ -28,7 +27,6 @@ export const StageActionsMenu = ({ stages, CDPipelineData }: StageActionsMenuPro
       stage: data,
       mode: FORM_MODES.EDIT,
       otherStages: stages,
-      ciTool: CI_TOOLS.TEKTON,
       CDPipelineData,
     };
 

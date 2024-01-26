@@ -5,7 +5,6 @@ import { Alert } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { TabPanel } from '../../../../../../components/TabPanel';
-import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { useHandleEditorSave } from '../../../../../../hooks/useHandleEditorSave';
 import { createCDPipelineInstance } from '../../../../../../k8s/EDPCDPipeline/utils/createCDPipelineInstance';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
@@ -102,7 +101,6 @@ export const Form = ({
       handleApply: ({ CDPipelineStageData }) => {
         setStages((prev) => [...prev, CDPipelineStageData]);
       },
-      ciTool: CI_TOOLS.TEKTON,
     };
     setDialog({
       modalName: CREATE_EDIT_STAGE_DIALOG_NAME,

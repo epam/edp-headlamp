@@ -25,8 +25,6 @@ const DisabledResourceIconLink = ({
 };
 
 const EnabledResourceIconLink = ({ tooltipTitle, icon, link }: ResourceIconLinkProps) => {
-  const theme = useTheme();
-
   return (
     <Tooltip
       title={
@@ -34,14 +32,14 @@ const EnabledResourceIconLink = ({ tooltipTitle, icon, link }: ResourceIconLinkP
           <Grid item>{tooltipTitle}</Grid>
           <span> </span>
           <Grid item>
-            <Icon icon={ICONS.NEW_WINDOW} color={theme.palette.grey['500']} width="15" />
+            <Icon icon={ICONS.NEW_WINDOW} width="15" height="15" />
           </Grid>
         </Grid>
       }
     >
       <span>
         <IconButton component={MuiLink} href={link} target={'_blank'} size="large">
-          <Icon icon={icon} color={theme.palette.grey['500']} width="20" />
+          <Icon icon={icon} width="20" height="20" />
         </IconButton>
       </span>
     </Tooltip>

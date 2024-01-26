@@ -1,8 +1,9 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { EDPComponentLink } from '../../components/EDPComponentLink';
+import { HorizontalScrollContainer } from '../../components/HorizontalScrollContainer';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { ICONS } from '../../icons/iconify-icons-mapping';
@@ -11,23 +12,24 @@ import {
   SYSTEM_EDP_COMPONENTS_LABELS,
 } from '../../k8s/EDPComponent/constants';
 import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { LinkCreationService } from '../../services/link-creation';
-import { StageActionsMenu } from '../../widgets/StageActionsMenu';
+import { EnvironmentStage } from '../../widgets/EnvironmentStage';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
 import { routeEDPSonarIntegration } from '../edp-configuration/pages/edp-sonar-integration/route';
 import { CDPipelineActions } from './components/CDPipelineActions';
-import { CDPipelineApplicationsTable } from './components/CDPipelineApplicationsTable';
-import { CDPipelineMetadataTable } from './components/CDPipelineMetadataTable';
-import { StageList } from './components/StageList';
+import { TableHeaderActions } from './components/TableHeaderActions';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 import { EDPCDPipelineRouteParams } from './types';
 
 export const PageView = () => {
   const { name, namespace } = useParams<EDPCDPipelineRouteParams>();
 
-  const { CDPipeline, stages } = useDynamicDataContext();
+  const { CDPipeline, stages, stagesWithApplicationsData } = useDynamicDataContext();
   const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+
+  const isLoading = React.useMemo(() => {
+    return CDPipeline.isLoading || stages.isLoading || stagesWithApplicationsData.isLoading;
+  }, [CDPipeline, stages, stagesWithApplicationsData]);
 
   return (
     <PageWrapper
@@ -60,14 +62,11 @@ export const PageView = () => {
               }}
             />
           </Grid>
-          {!!CDPipeline && (
+          {!CDPipeline.isLoading && (
             <>
               <Grid item>
-                <CDPipelineMetadataTable CDPipelineData={CDPipeline} />
-              </Grid>
-              <Grid item>
                 <CDPipelineActions
-                  CDPipeline={CDPipeline}
+                  CDPipeline={CDPipeline.data}
                   backRoute={Router.createRouteURL(routeEDPCDPipelineList.path)}
                 />
               </Grid>
@@ -77,19 +76,36 @@ export const PageView = () => {
       }
     >
       <Section title={name} description={'Inspect the Environment and operate stages.'}>
-        {!!CDPipeline && (
-          <Grid container spacing={8}>
-            <Grid item xs={12}>
-              <CDPipelineApplicationsTable />
-            </Grid>
-            <Grid item xs={12}>
-              <ResourceActionListContextProvider>
-                <StageList />
-                <StageActionsMenu stages={stages} CDPipelineData={CDPipeline} />
-              </ResourceActionListContextProvider>
-            </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <TableHeaderActions CDPipelineStages={stages.data} />
           </Grid>
-        )}
+          <Grid item xs={12} sx={{ pr: '2px' }}>
+            <HorizontalScrollContainer>
+              {isLoading ? (
+                <CircularProgress />
+              ) : (
+                <Grid container spacing={6} wrap="nowrap">
+                  {stagesWithApplicationsData.data.map(stageWithApplicationsData => {
+                    return (
+                      <Grid
+                        item
+                        xs={4}
+                        flexShrink="0"
+                        key={stageWithApplicationsData.stage.spec.name}
+                      >
+                        <EnvironmentStage
+                          CDPipeline={CDPipeline.data}
+                          stageWithApplicationsData={stageWithApplicationsData}
+                        />
+                      </Grid>
+                    );
+                  })}
+                </Grid>
+              )}
+            </HorizontalScrollContainer>
+          </Grid>
+        </Grid>
       </Section>
     </PageWrapper>
   );
