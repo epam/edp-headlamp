@@ -16,7 +16,7 @@ export const useEDPComponentsURLsQuery = (namespace?: string) => {
     options: {
       select: (data) =>
         data.items.reduce((acc, cur) => {
-          acc[cur.spec.type] = cur.spec.url;
+          acc[cur.metadata.name] = cur.spec.url;
           return acc;
         }, {}),
     },

@@ -1,19 +1,17 @@
 import { Icon } from '@iconify/react';
-import { Router } from '@kinvolk/headlamp-plugin/lib';
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import {
   Card,
   CardContent,
   Grid,
   IconButton,
-  Link,
   Link as MuiLink,
   Tooltip,
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { routeEDPComponentList } from '../../../../../edp-configuration/pages/edp-component-list/route';
+import { routeEDPComponentDetails } from '../../../../../edp-configuration/pages/edp-component-details/route';
 import { useStyles } from './styles';
 import { ComponentCardProps } from './types';
 
@@ -25,8 +23,6 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
     spec: { type, url, visible, icon },
   } = component;
   const _url = !/^https?:\/\//i.test(url) ? `https://${url}` : url;
-  const history = useHistory();
-  const configurationRoute = Router.createRouteURL(routeEDPComponentList.path);
 
   return (
     <Card className={classes.cardRoot}>
@@ -41,11 +37,11 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
           >
             <Grid item>
               {!!visible ? (
-                <Link href={url} target="_blank" rel="noopener">
+                <MuiLink href={url} target="_blank" rel="noopener">
                   <span className={classes.serviceItemIcon}>
                     <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
                   </span>
-                </Link>
+                </MuiLink>
               ) : (
                 <Icon icon={'ph:placeholder-light'} className={classes.serviceItemIcon} />
               )}
@@ -90,7 +86,15 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
             <Grid item onClick={stopPropagation} onFocus={stopPropagation}>
               <Tooltip title={'Edit'}>
-                <IconButton onClick={() => history.push(configurationRoute)} size={'small'}>
+                <IconButton
+                  component={Link}
+                  routeName={routeEDPComponentDetails.path}
+                  params={{
+                    name: component.metadata.name,
+                    namespace: component.metadata.namespace,
+                  }}
+                  size={'small'}
+                >
                   <Icon icon={ICONS.PENCIL} color={'#fff'} width="20" />
                 </IconButton>
               </Tooltip>

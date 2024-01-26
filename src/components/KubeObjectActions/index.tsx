@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import {
   ClickAwayListener,
-  ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   Popper,
@@ -40,12 +40,12 @@ const ActionsList = ({ actions, menuOpen, anchorEl }: ActionsListProps) => {
                 condition={disabled.status}
                 wrapper={(children) => <Tooltip title={disabled.reason}>{children}</Tooltip>}
               >
-                <ListItem button disabled={disabled.status} onClick={action}>
+                <ListItemButton disabled={disabled.status} onClick={action}>
                   <ListItemIcon>
                     <Icon icon={icon} width={'25'} />
                   </ListItemIcon>
                   <ListItemText primary={label} />
-                </ListItem>
+                </ListItemButton>
               </ConditionalWrapper>
             </div>
           );

@@ -7,7 +7,7 @@ import { useHandleEditorSave } from '../../../../../../hooks/useHandleEditorSave
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { EDP_COMPONENT_FORM_NAMES } from '../../../../names';
 import { ManageEDPComponentValues } from '../../../../types';
-import { Icon, Name, URL, Visible } from '../../../fields';
+import { Icon, URL, Visible } from '../../../fields';
 import { FormProps } from './types';
 
 export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
@@ -36,10 +36,7 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Grid container spacing={2}>
-            <Grid item xs={4}>
-              <Name />
-            </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={8}>
               <URL />
             </Grid>
             <Grid item xs={4} style={{ marginTop: 'auto' }}>

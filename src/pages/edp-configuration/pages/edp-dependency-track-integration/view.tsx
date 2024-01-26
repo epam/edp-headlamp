@@ -21,7 +21,7 @@ export const PageView = () => {
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_EDP_COMPONENTS.DEPENDENCY_TRACK}`,
   });
 
-  const [depTrackEDPComponent] = EDPComponentKubeObject.useGet(
+  const [depTrackEDPComponent, error] = EDPComponentKubeObject.useGet(
     SYSTEM_EDP_COMPONENTS.DEPENDENCY_TRACK,
     getDefaultNamespace()
   );
@@ -30,7 +30,7 @@ export const PageView = () => {
 
   const mode = !!dependencyTrackSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = dependencyTrackSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = dependencyTrackSecrets === null || depTrackEDPComponent === null;
+  const isLoading = dependencyTrackSecrets === null || (!depTrackEDPComponent && !error);
 
   return (
     <PageWithSubMenu list={menu}>

@@ -21,7 +21,7 @@ export const PageView = () => {
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_EDP_COMPONENTS.DEFECT_DOJO}`,
   });
 
-  const [defectDojoEDPComponent] = EDPComponentKubeObject.useGet(
+  const [defectDojoEDPComponent, error] = EDPComponentKubeObject.useGet(
     SYSTEM_EDP_COMPONENTS.DEFECT_DOJO,
     getDefaultNamespace()
   );
@@ -30,7 +30,7 @@ export const PageView = () => {
 
   const mode = !!defectDojoSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = defectDojoSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = defectDojoSecrets === null || defectDojoEDPComponent === null;
+  const isLoading = defectDojoSecrets === null || (!defectDojoEDPComponent && !error);
 
   return (
     <PageWithSubMenu list={menu}>

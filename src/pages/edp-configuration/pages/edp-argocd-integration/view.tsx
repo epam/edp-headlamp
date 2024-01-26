@@ -21,7 +21,7 @@ export const PageView = () => {
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_EDP_COMPONENTS.ARGOCD}`,
   });
 
-  const [argoCDEDPComponent] = EDPComponentKubeObject.useGet(
+  const [argoCDEDPComponent, error] = EDPComponentKubeObject.useGet(
     SYSTEM_EDP_COMPONENTS.ARGOCD,
     getDefaultNamespace()
   );
@@ -30,7 +30,7 @@ export const PageView = () => {
 
   const mode = !!argoCDSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = argoCDSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = argoCDSecrets === null || argoCDEDPComponent === null;
+  const isLoading = argoCDSecrets === null || (!argoCDEDPComponent && !error);
 
   return (
     <PageWithSubMenu list={menu}>

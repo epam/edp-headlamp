@@ -21,7 +21,7 @@ export const PageView = () => {
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_EDP_COMPONENTS.SONAR}`,
   });
 
-  const [sonarEDPComponent] = EDPComponentKubeObject.useGet(
+  const [sonarEDPComponent, error] = EDPComponentKubeObject.useGet(
     SYSTEM_EDP_COMPONENTS.SONAR,
     getDefaultNamespace()
   );
@@ -30,7 +30,7 @@ export const PageView = () => {
 
   const mode = !!sonarSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = sonarSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = sonarSecrets === null || sonarEDPComponent === null;
+  const isLoading = sonarSecrets === null || (!sonarEDPComponent && !error);
 
   return (
     <PageWithSubMenu list={menu}>
@@ -54,7 +54,7 @@ export const PageView = () => {
               <ManageSonarCI
                 formData={{
                   sonarSecret,
-                  sonarEDPComponent: null,
+                  sonarEDPComponent: sonarEDPComponent?.jsonData,
                   ownerReference,
                   mode,
                 }}

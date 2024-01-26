@@ -21,7 +21,7 @@ export const PageView = () => {
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_EDP_COMPONENTS.NEXUS}`,
   });
 
-  const [nexusEDPComponent] = EDPComponentKubeObject.useGet(
+  const [nexusEDPComponent, error] = EDPComponentKubeObject.useGet(
     SYSTEM_EDP_COMPONENTS.NEXUS,
     getDefaultNamespace()
   );
@@ -30,7 +30,7 @@ export const PageView = () => {
 
   const mode = !!nexusSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = nexusSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = nexusSecret === null || nexusEDPComponent === null;
+  const isLoading = nexusSecret === null || (!nexusEDPComponent && !error);
 
   return (
     <PageWithSubMenu list={menu}>

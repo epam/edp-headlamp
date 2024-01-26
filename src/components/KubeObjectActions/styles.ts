@@ -10,17 +10,6 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
     '& .MuiTooltip-popper': {
       pointerEvents: 'auto',
     },
-
-    '& .MuiTooltip-tooltip': {},
-
-    '& .MuiButtonBase-root.Mui-disabled': {
-      pointerEvents: 'auto',
-
-      '&:hover': {
-        textDecoration: 'auto',
-        backgroundColor: 'transparent',
-      },
-    },
   },
   actionList: {
     backgroundColor: theme.palette.background.paper,

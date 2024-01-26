@@ -7,7 +7,7 @@ exports[`KubeObjectActions renders correctly 1`] = `
 >
   <div>
     <div
-      class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-nrxwcn-MuiButtonBase-root-MuiListItem-root"
+      class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-1x4fq5g-MuiButtonBase-root-MuiListItemButton-root"
       role="button"
       tabindex="0"
     >
@@ -34,7 +34,7 @@ exports[`KubeObjectActions renders correctly 1`] = `
     <div
       aria-disabled="true"
       aria-label="For testing"
-      class="MuiButtonBase-root Mui-disabled MuiListItem-root MuiListItem-gutters MuiListItem-padding Mui-disabled MuiListItem-button css-nrxwcn-MuiButtonBase-root-MuiListItem-root"
+      class="MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters Mui-disabled Mui-disabled MuiListItemButton-root MuiListItemButton-gutters Mui-disabled css-1x4fq5g-MuiButtonBase-root-MuiListItemButton-root"
       data-mui-internal-clone-element="true"
       role="button"
       tabindex="-1"

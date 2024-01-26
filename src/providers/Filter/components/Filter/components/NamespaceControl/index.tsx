@@ -64,7 +64,7 @@ export const _NamespaceControl = ({
       },
       matchFunctions: {
         ...prev.matchFunctions,
-        namespace: (item) => newValue.includes(item.metadata.namespace),
+        namespace: (item) => newValue.length === 0 || newValue.includes(item.metadata.namespace),
       },
     }));
   };

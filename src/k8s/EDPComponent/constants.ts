@@ -1,5 +1,5 @@
 export const SYSTEM_EDP_COMPONENTS = {
-  // must be equal to EDPComponent.spec.type values
+  // must be equal to EDPComponent.metadata.name
 
   GERRIT: 'gerrit',
   GITLAB: 'gitlab',

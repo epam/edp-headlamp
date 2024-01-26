@@ -34,8 +34,8 @@ export const useColumns = (): TableColumn<
       {
         id: 'name',
         label: 'Name',
-        columnSortableValuePath: 'spec.type',
-        render: ({ metadata: { name, namespace }, spec: { type } }) => {
+        columnSortableValuePath: 'metadata.name',
+        render: ({ metadata: { name, namespace } }) => {
           return (
             <Link
               routeName={routeEDPComponentDetails.path}
@@ -44,7 +44,7 @@ export const useColumns = (): TableColumn<
                 namespace,
               }}
             >
-              {type}
+              {name}
             </Link>
           );
         },

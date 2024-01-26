@@ -50,20 +50,8 @@ export const FormActions = () => {
         visible: JSON.parse(values.visible),
       });
 
-      // TODO: find a way to provide multiple json path to update/create components
-
       await editEDPComponent({
-        EDPComponentData: {
-          ...editedEDPComponent,
-          metadata: {
-            ...editedEDPComponent.metadata,
-            name: values.name,
-          },
-          spec: {
-            ...editedEDPComponent.spec,
-            type: values.name,
-          },
-        },
+        EDPComponentData: editedEDPComponent,
       });
     },
     [EDPComponent, editEDPComponent]
