@@ -155,8 +155,8 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
               icon={ICONS.SONAR}
               externalLink={LinkCreationService.sonar.createDashboardLink(
                 EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.SONAR],
-                codebaseBranchData.spec.branchName,
-                codebaseData.metadata.name
+                codebaseData.metadata.name,
+                codebaseBranchData.spec.branchName
               )}
               configurationLink={{
                 routeName: routeEDPSonarIntegration.path,
