@@ -20,11 +20,15 @@ export const SonarQubeURLService = {
 
     return `${sonarURLOrigin}/component_measures?id=${projectID}&metric=${metricName}`;
   },
-  createMetricsApiUrl: (sonarURLOrigin: string, codebaseName: string) => {
+  createMetricsApiUrl: (sonarURLOrigin: string, codebaseName: string, branchName: string) => {
     if (!sonarURLOrigin) {
       return undefined;
     }
 
-    return `${sonarURLOrigin}/api/measures/component?component=${codebaseName}&metricKeys=bugs,code_smells,coverage,duplicated_lines_density,ncloc,sqale_rating,alert_status,reliability_rating,security_hotspots,security_rating,sqale_index,vulnerabilities`;
+    return `${sonarURLOrigin}/api/measures/component?component=${window.encodeURIComponent(
+      codebaseName
+    )}&branch=${window.encodeURIComponent(
+      branchName
+    )}&metricKeys=bugs,code_smells,coverage,duplicated_lines_density,ncloc,sqale_rating,alert_status,reliability_rating,security_hotspots,security_rating,sqale_index,vulnerabilities`;
   },
 };

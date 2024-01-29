@@ -87,14 +87,14 @@ const getIconCodeSmells = (value: string) =>
     <Icon icon={'material-symbols:sentiment-dissatisfied-outline'} />
   );
 
-export const SonarQubeMetrics = ({ codebaseName, namespace }: SonarQubeMetricsProps) => {
+export const SonarQubeMetrics = ({ codebaseName, namespace, branchName }: SonarQubeMetricsProps) => {
   const classes = useStyles();
   const projectID = codebaseName;
 
   const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
   const sonarQubeBaseURL = EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.SONAR];
 
-  const { data: metrics, isLoading } = useSonarQubeMetrics(sonarQubeBaseURL, codebaseName);
+  const { data: metrics, isLoading } = useSonarQubeMetrics(sonarQubeBaseURL, codebaseName, branchName);
   const sonarConfigurationPage = Router.createRouteURL(routeEDPSonarIntegration.path);
   const history = useHistory();
 

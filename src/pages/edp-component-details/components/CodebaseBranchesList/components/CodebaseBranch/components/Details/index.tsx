@@ -71,7 +71,11 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
       <Grid item xs={12}>
         <Grid container alignItems={'center'}>
           <Grid item>
-            <SonarQubeMetrics codebaseName={codebaseData.metadata.name} namespace={namespace} />
+            <SonarQubeMetrics
+              codebaseName={codebaseData.metadata.name}
+              branchName={codebaseBranchData.spec.branchName}
+              namespace={namespace}
+            />
           </Grid>
           <Grid item style={{ marginLeft: 'auto' }}>
             <DependencyTrackMetrics

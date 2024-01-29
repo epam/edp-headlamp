@@ -16,7 +16,11 @@ const getMetricsValues = (metrics: SonarQubeMetricsResponse) => {
   return values;
 };
 
-export const useSonarQubeMetrics = (sonarQubeBaseURL: string, codebaseName: string) => {
+export const useSonarQubeMetrics = (
+  sonarQubeBaseURL: string,
+  codebaseName: string,
+  branchName: string
+) => {
   const { namespace } = useParams<EDPComponentDetailsRouteParams>();
 
   const { data: ciSonarQubeToken } = useSecretByNameQuery<string>({
@@ -31,7 +35,11 @@ export const useSonarQubeMetrics = (sonarQubeBaseURL: string, codebaseName: stri
     },
   });
 
-  const fetchURL = LinkCreationService.sonar.createMetricsApiUrl(sonarQubeBaseURL, codebaseName);
+  const fetchURL = LinkCreationService.sonar.createMetricsApiUrl(
+    sonarQubeBaseURL,
+    codebaseName,
+    branchName
+  );
 
   const { data, isFetched } = useQuery(['sonarQubeMetrics', { codebaseName: codebaseName }], {
     queryFn: async () =>
