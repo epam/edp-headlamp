@@ -139,7 +139,7 @@ export const DeleteKubeObject = () => {
                   <Grid item xs={12}>
                     <TextField
                       {...register(NAMES.name, { required: true })}
-                      label={`Enter ${kubeObjectData?.kind} name to delete`}
+                      label={`Enter "${objectName}" to delete`}
                       variant="outlined"
                       fullWidth
                     />

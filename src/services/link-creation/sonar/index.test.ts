@@ -9,29 +9,35 @@ describe('testing link-creation SonarQubeURLService', () => {
     expect(
       SonarQubeURLService.createDashboardLink(
         'https://sonar-test.com',
-        'test-codebaseBranch-name',
-        'test-codebase-name'
+        'test-branch',
+        'test-application'
       )
-    ).toEqual(
-      'https://sonar-test.com/dashboard?branch=test-codebaseBranch-name&id=test-codebase-name'
-    );
+    ).toEqual('https://sonar-test.com/dashboard?branch=test-application&id=test-branch');
   });
 
   it('should successfully create metric url based on given sonarURLOrigin and metricName params', () => {
     expect(
-      SonarQubeURLService.createLinkByMetricName('https://sonar-test.com', 'bugs', 'test-project')
-    ).toEqual('https://sonar-test.com/component_measures?id=test-project&metric=bugs');
+      SonarQubeURLService.createLinkByMetricName(
+        'https://sonar-test.com',
+        'test-application',
+        'test-branch',
+        'bugs'
+      )
+    ).toEqual(
+      'https://sonar-test.com/component_measures?id=test-application&branch=test-branch&metric=bugs'
+    );
   });
 
   it('should successfully create issue url based on given sonarURLOrigin and issueType params', () => {
     expect(
       SonarQubeURLService.createLinkByIssueType(
         'https://sonar-test.com',
-        'coverage',
-        'test-project'
+        'test-application',
+        'test-branch',
+        'coverage'
       )
     ).toEqual(
-      'https://sonar-test.com/project/issues?id=test-project&resolved=false&types=coverage'
+      'https://sonar-test.com/project/issues?id=test-application&branch=test-branch&resolved=false&types=coverage'
     );
   });
 
@@ -39,11 +45,11 @@ describe('testing link-creation SonarQubeURLService', () => {
     expect(
       SonarQubeURLService.createMetricsApiUrl(
         'https://sonar-test.com',
-        'test-codebase-name',
-        'test-branch-name'
+        'test-application',
+        'test-branch'
       )
     ).toEqual(
-      'https://sonar-test.com/api/measures/component?component=test-codebase-name&branch=test-branch-name&metricKeys=bugs,code_smells,coverage,duplicated_lines_density,ncloc,sqale_rating,alert_status,reliability_rating,security_hotspots,security_rating,sqale_index,vulnerabilities'
+      'https://sonar-test.com/api/measures/component?component=test-application&branch=test-branch&metricKeys=bugs%2Ccode_smells%2Ccoverage%2Cduplicated_lines_density%2Cncloc%2Csqale_rating%2Calert_status%2Creliability_rating%2Csecurity_hotspots%2Csecurity_rating%2Csqale_index%2Cvulnerabilities'
     );
   });
 });

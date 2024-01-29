@@ -21,6 +21,7 @@ export interface EDPCDPipelineStageSpecInterface {
     type: string;
   };
   triggerType: string;
+  triggerTemplate: string;
   namespace: string;
   clusterName: string;
 }

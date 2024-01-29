@@ -1,34 +1,67 @@
 export const SonarQubeURLService = {
-  createDashboardLink: (sonarURLOrigin: string, branchName: string, codebaseName: string) => {
+  createDashboardLink: (sonarURLOrigin: string, codebaseName: string, branchName: string) => {
     if (!sonarURLOrigin) {
       return undefined;
     }
 
-    return `${sonarURLOrigin}/dashboard?branch=${branchName}&id=${codebaseName}`;
+    const dashboardURL = new URL(`${sonarURLOrigin}/dashboard`);
+
+    dashboardURL.searchParams.append('branch', branchName);
+    dashboardURL.searchParams.append('id', codebaseName);
+
+    return dashboardURL.toString();
   },
-  createLinkByIssueType: (sonarURLOrigin: string, issueType: string, projectID: string) => {
+  createLinkByIssueType: (
+    sonarURLOrigin: string,
+    codebaseName: string,
+    branchName: string,
+    issueType: string
+  ) => {
     if (!sonarURLOrigin) {
       return undefined;
     }
 
-    return `${sonarURLOrigin}/project/issues?id=${projectID}&resolved=false&types=${issueType}`;
+    const dashboardURL = new URL(`${sonarURLOrigin}/project/issues`);
+
+    dashboardURL.searchParams.append('id', codebaseName);
+    dashboardURL.searchParams.append('branch', branchName);
+    dashboardURL.searchParams.append('resolved', 'false');
+    dashboardURL.searchParams.append('types', issueType);
+
+    return dashboardURL.toString();
   },
-  createLinkByMetricName: (sonarURLOrigin: string, metricName: string, projectID: string) => {
+  createLinkByMetricName: (
+    sonarURLOrigin: string,
+    codebaseName: string,
+    branchName: string,
+    metricName: string
+  ) => {
     if (!sonarURLOrigin) {
       return undefined;
     }
 
-    return `${sonarURLOrigin}/component_measures?id=${projectID}&metric=${metricName}`;
+    const componentMeasuresURL = new URL(`${sonarURLOrigin}/component_measures`);
+
+    componentMeasuresURL.searchParams.append('id', codebaseName);
+    componentMeasuresURL.searchParams.append('branch', branchName);
+    componentMeasuresURL.searchParams.append('metric', metricName);
+
+    return componentMeasuresURL.toString();
   },
   createMetricsApiUrl: (sonarURLOrigin: string, codebaseName: string, branchName: string) => {
     if (!sonarURLOrigin) {
       return undefined;
     }
 
-    return `${sonarURLOrigin}/api/measures/component?component=${window.encodeURIComponent(
-      codebaseName
-    )}&branch=${window.encodeURIComponent(
-      branchName
-    )}&metricKeys=bugs,code_smells,coverage,duplicated_lines_density,ncloc,sqale_rating,alert_status,reliability_rating,security_hotspots,security_rating,sqale_index,vulnerabilities`;
+    const metricsApiUrl = new URL(`${sonarURLOrigin}/api/measures/component`);
+
+    metricsApiUrl.searchParams.append('component', codebaseName);
+    metricsApiUrl.searchParams.append('branch', branchName);
+    metricsApiUrl.searchParams.append(
+      'metricKeys',
+      'bugs,code_smells,coverage,duplicated_lines_density,ncloc,sqale_rating,alert_status,reliability_rating,security_hotspots,security_rating,sqale_index,vulnerabilities'
+    );
+
+    return metricsApiUrl.toString();
   },
 };

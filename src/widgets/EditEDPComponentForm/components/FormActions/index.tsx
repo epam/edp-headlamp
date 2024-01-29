@@ -65,8 +65,8 @@ export const FormActions = () => {
       forwardedProps: {
         kubeObject: EDPComponentKubeObject,
         kubeObjectData: EDPComponent,
-        objectName: EDPComponent?.metadata.name,
-        description: 'Confirm the deletion of the EDPComponent',
+        objectName: 'the Link',
+        description: 'Confirm the deletion of the link',
         backRoute: Router.createRouteURL(routeEDPComponentList.path),
       },
     });

@@ -41,28 +41,31 @@ export const useSonarQubeMetrics = (
     branchName
   );
 
-  const { data, isFetched } = useQuery(['sonarQubeMetrics', { codebaseName: codebaseName }], {
-    queryFn: async () =>
-      fetch(fetchURL, {
-        method: 'GET',
-        headers: {
-          Authorization: `Basic ${safeEncode(`${ciSonarQubeToken}:`)}`,
-        },
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error(`Request failed: ${response.status}`);
-          }
+  const { data, isFetched } = useQuery(
+    ['sonarQubeMetrics', { codebaseName: codebaseName, branchName: branchName }],
+    {
+      queryFn: async () =>
+        fetch(fetchURL, {
+          method: 'GET',
+          headers: {
+            Authorization: `Basic ${safeEncode(`${ciSonarQubeToken}:`)}`,
+          },
         })
-        .catch((error) => {
-          console.error(error);
-        }),
-    select: (data: SonarQubeMetricsResponse) => getMetricsValues(data),
-    onError: () => undefined,
-    enabled: !!sonarQubeBaseURL && !!ciSonarQubeToken,
-  });
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error(`Request failed: ${response.status}`);
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          }),
+      select: (data: SonarQubeMetricsResponse) => getMetricsValues(data),
+      onError: () => undefined,
+      enabled: !!sonarQubeBaseURL && !!ciSonarQubeToken,
+    }
+  );
 
   return { data, isLoading: !sonarQubeBaseURL ? false : !isFetched && !!ciSonarQubeToken };
 };

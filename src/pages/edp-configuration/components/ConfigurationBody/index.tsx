@@ -74,96 +74,98 @@ export const ConfigurationBody = ({
         </PageWithSubMenu>
       )}
     >
-      <Grid container spacing={2}>
-        {!!blocker && (
-          <Grid item xs={12}>
-            {blocker}
-          </Grid>
-        )}
-        {!blocker && (
-          <>
-            {!!placeholderData && (
-              <Grid item xs={12}>
-                <CreateItemAccordion
-                  isExpanded={expandedPanel === 'placeholder'}
-                  onChange={handleChange('placeholder')}
-                  disabled={placeholderData?.disabled}
-                  title={placeholderData?.title}
-                >
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      {placeholderData?.component}
-                    </Grid>
-                  </Grid>
-                </CreateItemAccordion>
-              </Grid>
-            )}
+      <Grid item xs={12}>
+        <Grid container spacing={2}>
+          {!!blocker && (
             <Grid item xs={12}>
-              <Grid container spacing={2}>
-                {isLoading ? (
-                  <Grid item xs={12}>
-                    <Grid container justifyContent={'center'}>
-                      <Grid item>
-                        <CircularProgress />
+              {blocker}
+            </Grid>
+          )}
+          {!blocker && (
+            <>
+              {!!placeholderData && (
+                <Grid item xs={12}>
+                  <CreateItemAccordion
+                    isExpanded={expandedPanel === 'placeholder'}
+                    onChange={handleChange('placeholder')}
+                    disabled={placeholderData?.disabled}
+                    title={placeholderData?.title}
+                  >
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        {placeholderData?.component}
                       </Grid>
                     </Grid>
-                  </Grid>
-                ) : items && items.length ? (
-                  items.map((configurationItem) => {
-                    const key = configurationItem?.id;
-                    const ownerReference = configurationItem?.ownerReference;
-
-                    return (
-                      <Grid item xs={12} key={key}>
-                        <Accordion
-                          expanded={singleItem ? true : expandedPanel === key}
-                          onChange={handleChange(key)}
-                        >
-                          <AccordionSummary
-                            expandIcon={singleItem ? null : <Icon icon={ICONS.ARROW_DOWN} />}
-                            style={{
-                              cursor: singleItem ? 'default' : 'pointer',
-                            }}
-                          >
-                            <Grid container spacing={3} alignItems={'center'}>
-                              <Grid item>
-                                <Typography variant={'h6'}>{configurationItem.title}</Typography>
-                              </Grid>
-                              {!!ownerReference && (
-                                <Grid item>
-                                  <Tooltip title={`Managed by ${ownerReference}`}>
-                                    <Icon
-                                      icon={ICONS.CLOUD_LOCK}
-                                      width={20}
-                                      style={{
-                                        display: 'block',
-                                      }}
-                                    />
-                                  </Tooltip>
-                                </Grid>
-                              )}
-                            </Grid>
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <Grid container spacing={2}>
-                              <Grid item xs={12}>
-                                {configurationItem.component}
-                              </Grid>
-                            </Grid>
-                          </AccordionDetails>
-                        </Accordion>
+                  </CreateItemAccordion>
+                </Grid>
+              )}
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  {isLoading ? (
+                    <Grid item xs={12}>
+                      <Grid container justifyContent={'center'}>
+                        <Grid item>
+                          <CircularProgress />
+                        </Grid>
                       </Grid>
-                    );
-                  })
-                ) : (
-                  <Grid item xs={12}>
-                    <EmptyContent color={'textSecondary'}>{emptyMessage}</EmptyContent>
-                  </Grid>
-                )}
+                    </Grid>
+                  ) : items && items.length ? (
+                    items.map((configurationItem) => {
+                      const key = configurationItem?.id;
+                      const ownerReference = configurationItem?.ownerReference;
+
+                      return (
+                        <Grid item xs={12} key={key}>
+                          <Accordion
+                            expanded={singleItem ? true : expandedPanel === key}
+                            onChange={handleChange(key)}
+                          >
+                            <AccordionSummary
+                              expandIcon={singleItem ? null : <Icon icon={ICONS.ARROW_DOWN} />}
+                              style={{
+                                cursor: singleItem ? 'default' : 'pointer',
+                              }}
+                            >
+                              <Grid container spacing={3} alignItems={'center'}>
+                                <Grid item>
+                                  <Typography variant={'h6'}>{configurationItem.title}</Typography>
+                                </Grid>
+                                {!!ownerReference && (
+                                  <Grid item>
+                                    <Tooltip title={`Managed by ${ownerReference}`}>
+                                      <Icon
+                                        icon={ICONS.CLOUD_LOCK}
+                                        width={20}
+                                        style={{
+                                          display: 'block',
+                                        }}
+                                      />
+                                    </Tooltip>
+                                  </Grid>
+                                )}
+                              </Grid>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                  {configurationItem.component}
+                                </Grid>
+                              </Grid>
+                            </AccordionDetails>
+                          </Accordion>
+                        </Grid>
+                      );
+                    })
+                  ) : (
+                    <Grid item xs={12}>
+                      <EmptyContent color={'textSecondary'}>{emptyMessage}</EmptyContent>
+                    </Grid>
+                  )}
+                </Grid>
               </Grid>
-            </Grid>
-          </>
-        )}
+            </>
+          )}
+        </Grid>
       </Grid>
     </ConditionalWrapper>
   );

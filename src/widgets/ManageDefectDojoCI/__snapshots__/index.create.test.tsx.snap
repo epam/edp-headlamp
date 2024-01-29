@@ -205,17 +205,32 @@ exports[`renders ManageDefectDojoCI Create component 1`] = `
                                     class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                                   >
                                     <div
-                                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
+                                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
                                         aria-invalid="false"
-                                        class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                                        class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                                        disabled=""
                                         id="mui-4"
                                         name="url"
                                         placeholder="Enter URL"
                                         type="text"
                                         value=""
                                       />
+                                      <div
+                                        class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
+                                      >
+                                        <button
+                                          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
+                                          tabindex="0"
+                                          type="button"
+                                        >
+                                          <span />
+                                          <span
+                                            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                          />
+                                        </button>
+                                      </div>
                                       <fieldset
                                         aria-hidden="true"
                                         class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"

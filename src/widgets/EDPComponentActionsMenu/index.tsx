@@ -39,7 +39,7 @@ export const EDPComponentActionsMenu = ({ backRoute }: EDPComponentActionsMenuPr
       objectName: data?.metadata?.name,
       kubeObject: EDPComponentKubeObject,
       kubeObjectData: data,
-      description: 'Confirm the deletion of the EDPComponent',
+      description: 'Confirm the deletion of the link',
       backRoute,
     };
 

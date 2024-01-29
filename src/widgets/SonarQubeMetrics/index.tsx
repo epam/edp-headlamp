@@ -87,14 +87,22 @@ const getIconCodeSmells = (value: string) =>
     <Icon icon={'material-symbols:sentiment-dissatisfied-outline'} />
   );
 
-export const SonarQubeMetrics = ({ codebaseName, namespace, branchName }: SonarQubeMetricsProps) => {
+export const SonarQubeMetrics = ({
+  codebaseName,
+  namespace,
+  branchName,
+}: SonarQubeMetricsProps) => {
   const classes = useStyles();
   const projectID = codebaseName;
 
   const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
   const sonarQubeBaseURL = EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.SONAR];
 
-  const { data: metrics, isLoading } = useSonarQubeMetrics(sonarQubeBaseURL, codebaseName, branchName);
+  const { data: metrics, isLoading } = useSonarQubeMetrics(
+    sonarQubeBaseURL,
+    codebaseName,
+    branchName
+  );
   const sonarConfigurationPage = Router.createRouteURL(routeEDPSonarIntegration.path);
   const history = useHistory();
 
@@ -143,8 +151,9 @@ export const SonarQubeMetrics = ({ codebaseName, namespace, branchName }: SonarQ
               title="Bugs"
               link={LinkCreationService.sonar.createLinkByIssueType(
                 sonarQubeBaseURL,
-                'BUG',
-                projectID
+                projectID,
+                branchName,
+                'BUG'
               )}
               leftSlot={<Value value={metrics?.bugs} />}
               rightSlot={<Rating rating={metrics?.reliability_rating} />}
@@ -156,8 +165,9 @@ export const SonarQubeMetrics = ({ codebaseName, namespace, branchName }: SonarQ
               title="Vulnerabilities"
               link={LinkCreationService.sonar.createLinkByIssueType(
                 sonarQubeBaseURL,
-                'VULNERABILITY',
-                projectID
+                projectID,
+                branchName,
+                'VULNERABILITY'
               )}
               leftSlot={<Value value={metrics?.vulnerabilities} />}
               rightSlot={<Rating rating={metrics?.security_rating} />}
@@ -169,8 +179,9 @@ export const SonarQubeMetrics = ({ codebaseName, namespace, branchName }: SonarQ
               title="Code Smells"
               link={LinkCreationService.sonar.createLinkByIssueType(
                 sonarQubeBaseURL,
-                'CODE_SMELL',
-                projectID
+                projectID,
+                branchName,
+                'CODE_SMELL'
               )}
               leftSlot={<Value value={metrics?.code_smells} />}
               rightSlot={<Rating rating={metrics?.sqale_rating} />}
@@ -199,8 +210,9 @@ export const SonarQubeMetrics = ({ codebaseName, namespace, branchName }: SonarQ
             <MetricsItem
               link={LinkCreationService.sonar.createLinkByMetricName(
                 sonarQubeBaseURL,
-                'Coverage',
-                projectID
+                projectID,
+                branchName,
+                'Coverage'
               )}
               title="Coverage"
               leftSlot={
@@ -232,8 +244,9 @@ export const SonarQubeMetrics = ({ codebaseName, namespace, branchName }: SonarQ
               title="Duplications"
               link={LinkCreationService.sonar.createLinkByMetricName(
                 sonarQubeBaseURL,
-                'Duplications',
-                projectID
+                projectID,
+                branchName,
+                'Duplications'
               )}
               leftSlot={<Rating rating={getDuplicationRating(metrics)} hideValue />}
               rightSlot={<Value value={`${metrics?.duplicated_lines_density}%`} />}

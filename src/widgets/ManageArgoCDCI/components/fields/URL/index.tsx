@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { FormTextFieldEditable } from '../../../../../providers/Form/components/FormTextFieldEditable';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
 import { ARGOCD_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
@@ -18,7 +18,7 @@ export const URL = () => {
   } = useFormContext<ManageArgoCDIntegrationSecretFormDataContext>();
 
   return (
-    <FormTextField
+    <FormTextFieldEditable
       {...register(ARGOCD_INTEGRATION_SECRET_FORM_NAMES.url.name, {
         required: 'Enter the Argo CD URL.',
         pattern: {
