@@ -35,7 +35,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
       <Grid item>
         <Grid container spacing={1} alignItems={'center'}>
           <Grid item>
-            <Typography variant={'h5'}>Create EDPComponent</Typography>
+            <Typography variant={'h5'}>Create Link</Typography>
           </Grid>
           <Grid item>
             <DocLink href={EDP_USER_GUIDE.OVERVIEW.url} />
