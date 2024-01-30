@@ -58,14 +58,16 @@ export const Table = <DataType extends unknown>({
     columnSortableValuePath,
   });
 
-  const rowCount = readyData?.length || 0;
+  const rowCount = readyData.length || 0;
   const hasEmptyResult = React.useMemo(() => {
     if (!data || !readyData) {
       return;
     }
 
-    return !!data.length && !readyData?.length;
+    return !!data.length && !readyData.length;
   }, [data, readyData]);
+
+  const activePage = readyData.length < _rowsPerPage ? 0 : page;
 
   return (
     <Paper variant={'outlined'} style={{ maxWidth: '100%', overflowX: 'auto' }}>
@@ -97,7 +99,7 @@ export const Table = <DataType extends unknown>({
           handleSelectRowClick={handleSelectRowClick}
           isSelected={isSelected}
           emptyListComponent={emptyListComponent}
-          page={page}
+          page={activePage}
           rowsPerPage={_rowsPerPage}
           hasEmptyResult={hasEmptyResult}
         />
@@ -105,7 +107,7 @@ export const Table = <DataType extends unknown>({
       {showPagination && data?.length > _rowsPerPage && (
         <TablePagination
           dataCount={readyData && readyData.length}
-          page={page}
+          page={activePage}
           rowsPerPage={_rowsPerPage}
           handleChangePage={handleChangePage}
           handleChangeRowsPerPage={handleChangeRowsPerPage}

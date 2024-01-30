@@ -13,8 +13,6 @@ export const searchFunction = (item: KubeObjectInterface, value: string) => {
     item.metadata.namespace ? item.metadata.namespace.toLowerCase() : '',
     item.metadata.name.toLowerCase(),
     item?.spec?.displayName?.toLowerCase(),
-    ...Object.keys(item.metadata.labels || {}).map((item) => item.toLowerCase()),
-    ...Object.values(item.metadata.labels || {}).map((item) => item.toLowerCase()),
   ].filter(Boolean);
 
   return usedMatchCriteria.some((item) => item.includes(value.toLowerCase()));
