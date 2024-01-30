@@ -4,3 +4,9 @@ export interface PageDescription {
   routePath: string;
   docLink?: string;
 }
+
+export interface DataProviderValue<T> {
+  data: T;
+  error: unknown;
+  isLoading: boolean;
+}

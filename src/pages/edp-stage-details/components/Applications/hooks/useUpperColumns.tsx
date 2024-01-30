@@ -20,7 +20,9 @@ export const useUpperColumns = ({
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
   const numSelected = React.useMemo(() => selected.length, [selected]);
   const { reset } = useFormContext();
-  const { stage } = useDynamicDataContext();
+  const {
+    stage: { data: stage },
+  } = useDynamicDataContext();
 
   return React.useMemo(
     () => [
@@ -47,10 +49,9 @@ export const useUpperColumns = ({
                     disabled={
                       !numSelected ||
                       !buttonsEnabledMap.deploy ||
-                      someArgoApplicationMutationIsLoading ||
-                      qualityGatePipelineIsRunning
+                      someArgoApplicationMutationIsLoading
                     }
-                    size="large"
+                    size="medium"
                   >
                     <Icon icon={'solar:upload-linear'} />
                   </IconButton>
@@ -66,7 +67,7 @@ export const useUpperColumns = ({
                       someArgoApplicationMutationIsLoading ||
                       qualityGatePipelineIsRunning
                     }
-                    size="large"
+                    size="medium"
                   >
                     <Icon icon={ICONS.UPDATE} />
                   </IconButton>
@@ -82,7 +83,7 @@ export const useUpperColumns = ({
                       someArgoApplicationMutationIsLoading ||
                       qualityGatePipelineIsRunning
                     }
-                    size="large"
+                    size="medium"
                   >
                     <Icon icon={ICONS.BUCKET} />
                   </IconButton>

@@ -136,7 +136,9 @@ export const QualityGates = ({
   const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
 
   const { enrichedApplications } = useDataContext();
-  const { stage } = useDynamicDataContext();
+  const {
+    stage: { data: stage },
+  } = useDynamicDataContext();
   const stageSpecName = stage?.spec.name;
 
   const { createAutotestRunnerPipelineRun } = useCreateAutotestRunnerPipelineRun({});

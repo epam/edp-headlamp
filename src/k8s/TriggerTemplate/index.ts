@@ -33,4 +33,13 @@ export class TriggerTemplateKubeObject extends K8s.cluster.makeKubeObject<Trigge
 
     return ApiProxy.request(url);
   }
+
+  static getItemByName(
+    namespace: string,
+    name: string
+  ): Promise<TriggerTemplateKubeObjectInterface> {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}/${name}`;
+
+    return ApiProxy.request(url);
+  }
 }

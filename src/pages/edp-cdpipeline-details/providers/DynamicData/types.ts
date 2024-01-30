@@ -2,23 +2,18 @@ import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/type
 import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
-
-export interface DataProviderValue<T> {
-    data: T;
-    error: unknown;
-    isLoading: boolean;
-}
+import { DataProviderValue } from '../../../../types/pages';
 
 export interface StageWithApplicationsData {
-    stage: EDPCDPipelineStageKubeObjectInterface;
-    applications: {
-        application: EDPCodebaseKubeObjectInterface;
-        argoApplication: ApplicationKubeObjectInterface;
-    }[];
+  stage: EDPCDPipelineStageKubeObjectInterface;
+  applications: {
+    application: EDPCodebaseKubeObjectInterface;
+    argoApplication: ApplicationKubeObjectInterface;
+  }[];
 }
 
 export interface DynamicDataContextProviderValue {
-    CDPipeline: DataProviderValue<EDPCDPipelineKubeObjectInterface>;
-    stages: DataProviderValue<EDPCDPipelineStageKubeObjectInterface[]>;
-    stagesWithApplicationsData: DataProviderValue<StageWithApplicationsData[]>;
+  CDPipeline: DataProviderValue<EDPCDPipelineKubeObjectInterface>;
+  stages: DataProviderValue<EDPCDPipelineStageKubeObjectInterface[]>;
+  stagesWithApplicationsData: DataProviderValue<StageWithApplicationsData[]>;
 }

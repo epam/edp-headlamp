@@ -3,14 +3,9 @@ import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { PipelineRunKubeObject } from '../index';
 import { PipelineRunKubeObjectInterface } from '../types';
-import { createDeployPipelineRunInstance } from '../utils/createDeployPipelineRunInstance';
 
 export interface CreateDeployPipelineRunProps {
-  namespace: string;
-  pipelineName: string;
-  stageName: string;
-  CDPipelineName: string;
-  codebaseTag: string;
+  deployPipelineRun: PipelineRunKubeObjectInterface;
 }
 
 export const useCreateDeployPipelineRun = ({
@@ -29,9 +24,8 @@ export const useCreateDeployPipelineRun = ({
   >('deployPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE);
 
   const createDeployPipelineRun = React.useCallback(
-    async (data: CreateDeployPipelineRunProps) => {
-      const deployPipelineRunData = createDeployPipelineRunInstance(data);
-      deployPipelineRunCreateMutation.mutate(deployPipelineRunData, {
+    async ({ deployPipelineRun }: CreateDeployPipelineRunProps) => {
+      deployPipelineRunCreateMutation.mutate(deployPipelineRun, {
         onSuccess: () => {
           invokeOnSuccessCallback();
         },

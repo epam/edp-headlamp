@@ -9,7 +9,9 @@ import {
 } from '../../../../configs/codebase-mappings';
 import { useCreateArgoApplication } from '../../../../k8s/Application/hooks/useCreateArgoApplication';
 import { getDeployedVersion } from '../../../../k8s/Application/utils/getDeployedVersion';
+import { editResource } from '../../../../k8s/common/editResource';
 import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
+import { useCreateDeployPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateDeployPipelineRun';
 import { mapEvery } from '../../../../utils/loops/mapEvery';
 import { useDataContext } from '../../providers/Data/hooks';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
@@ -27,6 +29,37 @@ const parseTagLabelValue = (tag: string) => {
   }
 };
 
+const newDeployPipelineRunNames = {
+  generateName: {
+    name: 'generateName',
+    path: ['metadata', 'generateName'],
+  },
+  CDPipelineLabel: {
+    name: 'CDPipelineLabel',
+    path: ['metadata', 'labels', 'app.edp.epam.com/cdpipeline'],
+  },
+  stageLabel: {
+    name: 'stageLabel',
+    path: ['metadata', 'labels', 'app.edp.epam.com/cdstage'],
+  },
+  pipelineTypeLabel: {
+    name: 'pipelineTypeLabel',
+    path: ['metadata', 'labels', 'app.edp.epam.com/pipelinetype'],
+  },
+  applicationsPayloadParam: {
+    name: 'applicationsPayloadParam',
+    path: ['spec', 'params', '0'],
+  },
+  stageParam: {
+    name: 'stageParam',
+    path: ['spec', 'params', '1'],
+  },
+  CDPipelineParam: {
+    name: 'CDPipelineParam',
+    path: ['spec', 'params', '2'],
+  },
+};
+
 interface ButtonsMap {
   deploy: boolean;
   update: boolean;
@@ -38,7 +71,10 @@ export const Applications = ({
   qualityGatePipelineIsRunning,
 }: ApplicationsProps) => {
   const { CDPipeline, gitOpsCodebase } = useDataContext();
-  const { stage } = useDynamicDataContext();
+  const {
+    stage: { data: stage },
+    deployPipelineRunTemplate: { data: deployPipelineRunTemplate },
+  } = useDynamicDataContext();
   const { data: gitServers } = useGitServerListQuery({});
   const { getValues, setValue, resetField, trigger } = useFormContext();
   const [selected, setSelected] = React.useState<string[]>([]);
@@ -192,9 +228,9 @@ export const Applications = ({
         );
 
         acc.set(selectedApplication, {
-          deploy: !deployedVersion,
-          update: !!deployedVersion,
-          uninstall: !!deployedVersion,
+          deploy: !deployedVersion || deployedVersion === 'NaN',
+          update: !!deployedVersion && deployedVersion !== 'NaN',
+          uninstall: !!deployedVersion && deployedVersion !== 'NaN',
         });
         return acc;
       }
@@ -214,22 +250,16 @@ export const Applications = ({
   }, [enrichedApplicationsByApplicationName, selected]);
 
   const {
-    createArgoApplication,
     editArgoApplication,
     deleteArgoApplication,
-    mutations: {
-      argoApplicationCreateMutation,
-      argoApplicationEditMutation,
-      argoApplicationDeleteMutation,
-    },
+    mutations: { argoApplicationEditMutation, argoApplicationDeleteMutation },
   } = useCreateArgoApplication();
 
+  const { createDeployPipelineRun } = useCreateDeployPipelineRun({});
+
   const someArgoApplicationMutationIsLoading = React.useMemo(
-    () =>
-      argoApplicationCreateMutation.isLoading ||
-      argoApplicationEditMutation.isLoading ||
-      argoApplicationDeleteMutation.isLoading,
-    [argoApplicationCreateMutation, argoApplicationEditMutation, argoApplicationDeleteMutation]
+    () => argoApplicationEditMutation.isLoading || argoApplicationDeleteMutation.isLoading,
+    [argoApplicationEditMutation, argoApplicationDeleteMutation]
   );
   const onDeployClick = React.useCallback(async () => {
     const values = getValues();
@@ -239,43 +269,48 @@ export const Applications = ({
       return;
     }
 
-    for (const enrichedApplication of enrichedApplicationsWithArgoApplications) {
-      const appName = enrichedApplication.application.metadata.name;
+    const newDeployPipelineRun = editResource(
+      newDeployPipelineRunNames,
+      deployPipelineRunTemplate,
+      {
+        generateName: `deploy-${CDPipeline.metadata.name}-${stage.spec.name}`,
+        CDPipelineLabel: CDPipeline.metadata.name,
+        stageLabel: stage.metadata.name,
+        pipelineTypeLabel: 'deploy',
+        applicationsPayloadParam: {
+          name: 'APPLICATIONS_PAYLOAD',
+          value: JSON.stringify(
+            enrichedApplicationsWithArgoApplications
+              .filter(({ application }) => selected.includes(application.metadata.name))
+              .reduce((acc, cur) => {
+                const appName = cur.application.metadata.name;
+                const imageTagFieldValue = values[`${appName}::image-tag`];
 
-      if (!selected.includes(appName)) {
-        continue;
+                const { value: tagValue } = parseTagLabelValue(imageTagFieldValue);
+
+                acc[appName] = tagValue;
+                return acc;
+              }, {})
+          ),
+        },
+        stageParam: {
+          name: 'CDSTAGE',
+          value: stage.spec.name,
+        },
+        CDPipelineParam: {
+          name: 'CDPIPELINE',
+          value: CDPipeline.metadata.name,
+        },
       }
+    );
 
-      const imageTagFieldValue = values[`${appName}::image-tag`];
-      const valuesOverrideFieldValue = values[`${appName}::values-override`];
-
-      const { value: tagValue, label: tagLabel } = parseTagLabelValue(imageTagFieldValue);
-      const application = enrichedApplicationsByApplicationName.get(appName)?.application;
-      const applicationImageStream =
-        enrichedApplicationsByApplicationName.get(appName)?.applicationImageStream;
-      const applicationVerifiedImageStream =
-        enrichedApplicationsByApplicationName.get(appName)?.applicationVerifiedImageStream;
-
-      await createArgoApplication({
-        gitServers: gitServers?.items,
-        CDPipeline,
-        currentCDPipelineStage: stage,
-        application,
-        imageStream:
-          tagLabel === 'stable' ? applicationVerifiedImageStream : applicationImageStream,
-        imageTag: tagValue,
-        valuesOverride: valuesOverrideFieldValue,
-        gitOpsCodebase,
-      });
-    }
+    await createDeployPipelineRun({ deployPipelineRun: newDeployPipelineRun });
   }, [
     CDPipeline,
-    createArgoApplication,
-    enrichedApplicationsByApplicationName,
+    createDeployPipelineRun,
+    deployPipelineRunTemplate,
     enrichedApplicationsWithArgoApplications,
     getValues,
-    gitOpsCodebase,
-    gitServers?.items,
     selected,
     stage,
     trigger,

@@ -23,7 +23,9 @@ export const useEnrichedApplicationsWithArgoApplications = ({
   argoApplications,
 }: UseEnrichedApplicationsProps) => {
   const { CDPipeline, stages } = useDataContext();
-  const { stage } = useDynamicDataContext();
+  const {
+    stage: { data: stage, isLoading: isStageLoading },
+  } = useDynamicDataContext();
 
   const inputDockerStreams = CDPipeline?.spec.inputDockerStreams;
   const CDPipelineName = CDPipeline?.metadata.name;
@@ -48,15 +50,13 @@ export const useEnrichedApplicationsWithArgoApplications = ({
         );
       }
 
-      const {
-        spec: { name: previousStageName },
-      } = findPreviousStage(stages.items, order);
+      const previousStage = findPreviousStage(stages.items, order);
 
       return (
         imageStreams &&
         imageStreams.find(
           ({ spec: { codebase }, metadata: { name } }) =>
-            name === `${CDPipelineName}-${previousStageName}-${codebase}-verified`
+            name === `${CDPipelineName}-${previousStage?.spec.name}-${codebase}-verified`
         )
       );
     },
@@ -64,6 +64,10 @@ export const useEnrichedApplicationsWithArgoApplications = ({
   );
 
   return React.useMemo(() => {
+    if (isStageLoading) {
+      return [];
+    }
+
     return (
       enrichedApplicationsWithItsImageStreams &&
       enrichedApplicationsWithItsImageStreams.length &&
@@ -100,6 +104,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
     enrichedApplicationsWithItsImageStreams,
     getImageStreamByStageOrder,
     stageOrder,
-    stage?.spec.name,
+    stage,
+    isStageLoading,
   ]);
 };

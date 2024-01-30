@@ -7,6 +7,7 @@ import { usePipelineByTypeListQuery } from '../../../../k8s/Pipeline/hooks/usePi
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../k8s/PipelineRun/constants';
 import { useCreateDeployPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateDeployPipelineRun';
+import { createDeployPipelineRunInstance } from '../../../../k8s/PipelineRun/utils/createDeployPipelineRunInstance';
 import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { PipelineRunList } from '../../../../widgets/PipelineRunList';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
@@ -22,7 +23,9 @@ export const CustomGates = ({
   everyArgoAppIsHealthyAndInSync,
 }: CustomGatesProps) => {
   const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
-  const { stage } = useDynamicDataContext();
+  const {
+    stage: { data: stage },
+  } = useDynamicDataContext();
   const stageSpecName = stage?.spec.name;
 
   const {
@@ -74,13 +77,14 @@ export const CustomGates = ({
   }, [enrichedApplicationsWithArgoApplications]);
 
   const handleRunClick = React.useCallback(async (): Promise<void> => {
-    await createDeployPipelineRun({
+    const newDeployPipelineRun = createDeployPipelineRunInstance({
       namespace,
       pipelineName: pipelineNameFieldValue,
       stageName: stageSpecName,
       CDPipelineName,
       codebaseTag,
     });
+    await createDeployPipelineRun({ deployPipelineRun: newDeployPipelineRun });
   }, [
     createDeployPipelineRun,
     namespace,

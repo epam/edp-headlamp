@@ -50,7 +50,9 @@ export const useColumns = (
   const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
   const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
   const { gitOpsCodebase } = useDataContext();
-  const { stage } = useDynamicDataContext();
+  const {
+    stage: { data: stage },
+  } = useDynamicDataContext();
   const _createArgoCDLink = React.useCallback(
     (argoApplication: ApplicationKubeObjectInterface) =>
       LinkCreationService.argocd.createApplicationLink(
