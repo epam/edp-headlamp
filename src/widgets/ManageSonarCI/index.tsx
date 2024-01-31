@@ -40,17 +40,17 @@ export const ManageSonarCI = ({ formData }: ManageSonarIntegrationSecretProps) =
 
   return (
     <Grid container spacing={2} data-testid="form">
-      <Grid item xs={12}>
-        <CreateItemAccordion
-          isExpanded={expandedPanel === mode}
-          onChange={handleChange(mode)}
-          title={'Add SonarQube Integration'}
-          disabled={mode === FORM_MODES.EDIT}
-        >
-          {mode === FORM_MODES.CREATE ? <Create formData={_formData} /> : null}
-        </CreateItemAccordion>
-      </Grid>
-      {mode === FORM_MODES.EDIT ? (
+      {mode === FORM_MODES.CREATE ? (
+        <Grid item xs={12}>
+          <CreateItemAccordion
+            isExpanded={expandedPanel === mode || !sonarSecret}
+            onChange={handleChange(mode)}
+            title={'Add SonarQube Integration'}
+          >
+            <Create formData={_formData} />
+          </CreateItemAccordion>
+        </Grid>
+      ) : mode === FORM_MODES.EDIT ? (
         <Grid item xs={12}>
           <Accordion expanded>
             <AccordionSummary style={{ cursor: 'default' }}>

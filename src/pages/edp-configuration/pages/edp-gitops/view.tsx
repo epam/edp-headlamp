@@ -130,6 +130,7 @@ export const PageView = () => {
       })}
       items={items === null ? null : configurationItemList}
       emptyMessage={'No GitOps repositories found'}
+      onlyOneItem
     />
   );
 };

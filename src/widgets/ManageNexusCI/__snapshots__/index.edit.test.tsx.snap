@@ -9,65 +9,6 @@ exports[`renders ManageNexusCI Edit component 1`] = `
     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
   >
     <div
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAccordion-root MuiAccordion-rounded Mui-disabled MuiAccordion-gutters makeStyles-accordion-1 css-1ev3igf-MuiPaper-root-MuiAccordion-root"
-    >
-      <div
-        aria-disabled="true"
-        aria-expanded="false"
-        class="MuiButtonBase-root Mui-disabled MuiAccordionSummary-root Mui-disabled MuiAccordionSummary-gutters css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root"
-        role="button"
-        tabindex="-1"
-      >
-        <div
-          class="MuiAccordionSummary-content MuiAccordionSummary-contentGutters css-o4b71y-MuiAccordionSummary-content"
-        >
-          <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-ofrcno-MuiGrid-root"
-          >
-            <div
-              class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-            >
-              <span />
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-            >
-              <h6
-                class="MuiTypography-root MuiTypography-h6 css-k6p83p-MuiTypography-root"
-              >
-                Add Nexus Integration
-              </h6>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-bz4dnt-MuiCollapse-root"
-        style="min-height: 0px;"
-      >
-        <div
-          class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
-        >
-          <div
-            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
-          >
-            <div
-              class="MuiAccordion-region"
-              role="region"
-            >
-              <div
-                class="MuiAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-  >
-    <div
       class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiAccordion-root MuiAccordion-rounded Mui-expanded MuiAccordion-gutters css-3ia7zi-MuiPaper-root-MuiAccordion-root"
     >
       <div
@@ -146,10 +87,10 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-6"
+                                  class="makeStyles-labelWrap-4"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
                                   >
                                     External URL
                                   </span>
@@ -217,10 +158,10 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-6"
+                                  class="makeStyles-labelWrap-4"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
                                   >
                                     URL
                                   </span>
@@ -303,10 +244,10 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-6"
+                                  class="makeStyles-labelWrap-4"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
                                   >
                                     User
                                   </span>
@@ -374,10 +315,10 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-6"
+                                  class="makeStyles-labelWrap-4"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
                                   >
                                     Password
                                   </span>

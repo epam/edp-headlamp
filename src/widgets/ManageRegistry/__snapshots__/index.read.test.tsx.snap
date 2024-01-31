@@ -9,65 +9,6 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
   >
     <div
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAccordion-root MuiAccordion-rounded Mui-disabled MuiAccordion-gutters makeStyles-accordion-1 css-1ev3igf-MuiPaper-root-MuiAccordion-root"
-    >
-      <div
-        aria-disabled="true"
-        aria-expanded="false"
-        class="MuiButtonBase-root Mui-disabled MuiAccordionSummary-root Mui-disabled MuiAccordionSummary-gutters css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root"
-        role="button"
-        tabindex="-1"
-      >
-        <div
-          class="MuiAccordionSummary-content MuiAccordionSummary-contentGutters css-o4b71y-MuiAccordionSummary-content"
-        >
-          <div
-            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-ofrcno-MuiGrid-root"
-          >
-            <div
-              class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-            >
-              <span />
-            </div>
-            <div
-              class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-            >
-              <h6
-                class="MuiTypography-root MuiTypography-h6 css-k6p83p-MuiTypography-root"
-              >
-                Add Registry
-              </h6>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-bz4dnt-MuiCollapse-root"
-        style="min-height: 0px;"
-      >
-        <div
-          class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
-        >
-          <div
-            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
-          >
-            <div
-              class="MuiAccordion-region"
-              role="region"
-            >
-              <div
-                class="MuiAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-  >
-    <div
       class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiAccordion-root MuiAccordion-rounded Mui-expanded MuiAccordion-gutters css-3ia7zi-MuiPaper-root-MuiAccordion-root"
     >
       <div
@@ -1500,10 +1441,10 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     >
                                       <span
-                                        class="makeStyles-labelWrap-8"
+                                        class="makeStyles-labelWrap-6"
                                       >
                                         <span
-                                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
                                         >
                                           Registry Provider
                                         </span>
@@ -1514,17 +1455,17 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                     >
                                       <div
-                                        class="MuiFormGroup-root MuiFormGroup-row makeStyles-radioGroup-3 css-qfz70r-MuiFormGroup-root"
+                                        class="MuiFormGroup-root MuiFormGroup-row makeStyles-radioGroup-1 css-qfz70r-MuiFormGroup-root"
                                         role="radiogroup"
                                       >
                                         <button
-                                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-4 css-10d1a0h-MuiButtonBase-root"
+                                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-2 css-10d1a0h-MuiButtonBase-root"
                                           disabled=""
                                           tabindex="-1"
                                           type="button"
                                         >
                                           <label
-                                            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-6 makeStyles-radioControlLabelDisabled-7 css-j204z7-MuiFormControlLabel-root"
+                                            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-4 makeStyles-radioControlLabelDisabled-5 css-j204z7-MuiFormControlLabel-root"
                                           >
                                             <span
                                               class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
@@ -1557,13 +1498,13 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                           </label>
                                         </button>
                                         <button
-                                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-4 css-10d1a0h-MuiButtonBase-root"
+                                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-2 css-10d1a0h-MuiButtonBase-root"
                                           disabled=""
                                           tabindex="-1"
                                           type="button"
                                         >
                                           <label
-                                            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-6 makeStyles-radioControlLabelDisabled-7 css-j204z7-MuiFormControlLabel-root"
+                                            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-4 makeStyles-radioControlLabelDisabled-5 css-j204z7-MuiFormControlLabel-root"
                                           >
                                             <span
                                               class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
@@ -1596,13 +1537,13 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                           </label>
                                         </button>
                                         <button
-                                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-4 makeStyles-radioControlButtonActive-5 css-10d1a0h-MuiButtonBase-root"
+                                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-2 makeStyles-radioControlButtonActive-3 css-10d1a0h-MuiButtonBase-root"
                                           disabled=""
                                           tabindex="-1"
                                           type="button"
                                         >
                                           <label
-                                            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-6 makeStyles-radioControlLabelDisabled-7 css-j204z7-MuiFormControlLabel-root"
+                                            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-4 makeStyles-radioControlLabelDisabled-5 css-j204z7-MuiFormControlLabel-root"
                                           >
                                             <span
                                               class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary Mui-checked MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
@@ -1665,10 +1606,10 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-6"
                                         >
                                           <span
-                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
                                           >
                                             Registry Endpoint
                                           </span>
@@ -1736,10 +1677,10 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-6"
                                         >
                                           <span
-                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
                                           >
                                             Registry Space
                                           </span>
@@ -1844,10 +1785,10 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-6"
                                         >
                                           <span
-                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
                                           >
                                             User
                                           </span>
@@ -1916,10 +1857,10 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-6"
                                         >
                                           <span
-                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
                                           >
                                             Password / Token
                                           </span>
@@ -2071,10 +2012,10 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                             style="display: inline-block; margin-top: 0.125rem;"
                                           >
                                             <span
-                                              class="makeStyles-labelWrap-8"
+                                              class="makeStyles-labelWrap-6"
                                             >
                                               <span
-                                                class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                                class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
                                               >
                                                 Use the Push Account's credentials
                                               </span>
@@ -2104,10 +2045,10 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-6"
                                         >
                                           <span
-                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
                                           >
                                             User
                                           </span>
@@ -2176,10 +2117,10 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-8"
+                                          class="makeStyles-labelWrap-6"
                                         >
                                           <span
-                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
                                           >
                                             Password / Token
                                           </span>

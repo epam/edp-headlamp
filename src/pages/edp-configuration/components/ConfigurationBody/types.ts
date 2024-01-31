@@ -23,4 +23,5 @@ export interface ConfigurationBodyProps {
   emptyMessage?: string;
   blocker?: React.ReactElement;
   bodyOnly?: boolean;
+  onlyOneItem?: boolean;
 }

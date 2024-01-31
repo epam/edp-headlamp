@@ -40,17 +40,17 @@ export const ManageNexusCI = ({ formData }: ManageNexusIntegrationSecretProps) =
 
   return (
     <Grid container spacing={2} data-testid="form">
-      <Grid item xs={12}>
-        <CreateItemAccordion
-          isExpanded={expandedPanel === mode}
-          onChange={handleChange(mode)}
-          title={'Add Nexus Integration'}
-          disabled={mode === FORM_MODES.EDIT}
-        >
-          {mode === FORM_MODES.CREATE ? <Create formData={_formData} /> : null}
-        </CreateItemAccordion>
-      </Grid>
-      {mode === FORM_MODES.EDIT ? (
+      {mode === FORM_MODES.CREATE ? (
+        <Grid item xs={12}>
+          <CreateItemAccordion
+            isExpanded={expandedPanel === mode || !nexusSecret}
+            onChange={handleChange(mode)}
+            title={'Add Nexus Integration'}
+          >
+            <Create formData={_formData} />
+          </CreateItemAccordion>
+        </Grid>
+      ) : mode === FORM_MODES.EDIT ? (
         <Grid item xs={12}>
           <Accordion expanded>
             <AccordionSummary style={{ cursor: 'default' }}>

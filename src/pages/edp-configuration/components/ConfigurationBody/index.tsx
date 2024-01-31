@@ -26,6 +26,7 @@ export const ConfigurationBody = ({
   emptyMessage,
   blocker,
   bodyOnly = false,
+  onlyOneItem = false,
 }: ConfigurationBodyProps) => {
   const { label, description, docUrl } = pageData || {};
   const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
@@ -38,13 +39,16 @@ export const ConfigurationBody = ({
     setExpandedPanel(null);
   };
 
-  const placeholderData = React.useMemo(
-    () => (renderPlaceHolderData ? renderPlaceHolderData({ handleClosePlaceholder }) : null),
-    [renderPlaceHolderData]
-  );
-
   const isLoading = items === null;
   const singleItem = items?.length === 1;
+
+  const placeholderData = React.useMemo(
+    () =>
+      renderPlaceHolderData && !onlyOneItem
+        ? renderPlaceHolderData({ handleClosePlaceholder })
+        : null,
+    [onlyOneItem, renderPlaceHolderData]
+  );
 
   return (
     <ConditionalWrapper

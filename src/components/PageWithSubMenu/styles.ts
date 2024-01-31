@@ -11,7 +11,8 @@ export const useStyles = () => {
       '& .MuiDrawer-paper': {
         position: 'initial',
         overflowX: 'hidden',
-        maxHeight: `calc(100% - ${rem(headerHeight + contentTopOffsetHeight)})`,
+        overflowY: 'auto',
+        maxHeight: `calc(100vh - ${rem(headerHeight + contentTopOffsetHeight)})`,
       },
     },
     subMenuAndContentWrapper: {
@@ -23,6 +24,11 @@ export const useStyles = () => {
     subMenuWrapper: {
       flexShrink: 0,
       flexBasis: rem(240),
+
+      '& .MuiDrawer-root': {
+        position: 'sticky',
+        top: rem(headerHeight + contentTopOffsetHeight),
+      },
     },
     contentWrapper: {
       flexGrow: 1,
