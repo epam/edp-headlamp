@@ -34,6 +34,9 @@ export const URL = () => {
       control={control}
       errors={errors}
       disabled={mode === FORM_MODES.EDIT && !!ownerReference}
+      TextFieldProps={{
+        helperText: `This field value is managed by ${ownerReference}`,
+      }}
     />
   );
 };

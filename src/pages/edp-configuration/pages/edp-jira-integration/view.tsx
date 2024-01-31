@@ -15,7 +15,7 @@ import { menu } from '../../menu';
 import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const { data: jiraServer } = useJiraServerListQuery({
+  const { data: jiraServer, isLoading: isJiraServerLoading } = useJiraServerListQuery({
     props: {
       namespace: getDefaultNamespace(),
     },
@@ -33,7 +33,7 @@ export const PageView = () => {
 
   const mode = !!jiraServer && !!jiraServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = jiraServerSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = !jiraServer && jiraServerSecret === null;
+  const isLoading = isJiraServerLoading && jiraServerSecrets === null;
 
   return (
     <PageWithSubMenu list={menu}>

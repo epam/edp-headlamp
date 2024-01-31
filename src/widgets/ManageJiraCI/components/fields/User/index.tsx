@@ -14,7 +14,7 @@ export const User = () => {
   } = useReactHookFormContext();
 
   const {
-    formData: { mode, isReadOnly },
+    formData: { mode, isReadOnly, ownerReference },
   } = useFormContext<ManageJiraIntegrationSecretFormDataContext>();
 
   return (
@@ -30,6 +30,9 @@ export const User = () => {
       control={control}
       errors={errors}
       disabled={mode === FORM_MODES.EDIT && isReadOnly}
+      TextFieldProps={{
+        helperText: `This field value is managed by ${ownerReference}`,
+      }}
     />
   );
 };

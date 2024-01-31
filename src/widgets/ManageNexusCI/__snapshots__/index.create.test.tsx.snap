@@ -117,7 +117,7 @@ exports[`renders ManageNexusCI Create component 1`] = `
                                   <span
                                     class="MuiTypography-root MuiTypography-body1 makeStyles-label-4 css-1ezega9-MuiTypography-root"
                                   >
-                                    External URL
+                                    Quick Link URL
                                   </span>
                                   <span />
                                 </span>
@@ -208,6 +208,7 @@ exports[`renders ManageNexusCI Create component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
+                                        aria-describedby="mui-4-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                         disabled=""
@@ -246,6 +247,12 @@ exports[`renders ManageNexusCI Create component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
+                                    <p
+                                      class="MuiFormHelperText-root Mui-disabled MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-11mrhxr-MuiFormHelperText-root"
+                                      id="mui-4-helper-text"
+                                    >
+                                      This field value is managed by undefined
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -294,6 +301,7 @@ exports[`renders ManageNexusCI Create component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
+                                        aria-describedby="mui-6-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
                                         id="mui-6"
@@ -317,6 +325,12 @@ exports[`renders ManageNexusCI Create component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
+                                    <p
+                                      class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-11mrhxr-MuiFormHelperText-root"
+                                      id="mui-6-helper-text"
+                                    >
+                                      This field value is managed by undefined
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -365,6 +379,7 @@ exports[`renders ManageNexusCI Create component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
+                                        aria-describedby="mui-8-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                         id="mui-8"
@@ -402,6 +417,12 @@ exports[`renders ManageNexusCI Create component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
+                                    <p
+                                      class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-11mrhxr-MuiFormHelperText-root"
+                                      id="mui-8-helper-text"
+                                    >
+                                      This field value is managed by undefined
+                                    </p>
                                   </div>
                                 </div>
                               </div>

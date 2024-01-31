@@ -21,7 +21,7 @@ export const PushAccountPassword = () => {
 
   const useSameAccountFieldValue = watch(REGISTRY_NAMES.USE_SAME_ACCOUNT);
 
-  const hasOwnerReference = !!pushAccountSecret?.metadata?.ownerReferences;
+  const ownerReference = pushAccountSecret?.metadata?.ownerReferences?.[0].kind;
 
   return (
     <FormTextFieldPassword
@@ -42,7 +42,10 @@ export const PushAccountPassword = () => {
       placeholder={'Enter password or token'}
       control={control}
       errors={errors}
-      disabled={hasOwnerReference}
+      TextFieldProps={{
+        helperText: `This field value is managed by ${ownerReference}`,
+      }}
+      disabled={!!ownerReference}
     />
   );
 };

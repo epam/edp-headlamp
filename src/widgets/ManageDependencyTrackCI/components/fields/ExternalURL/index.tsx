@@ -34,7 +34,7 @@ export const ExternalURL = () => {
           setValue(DEPENDENCY_TRACK_INTEGRATION_SECRET_FORM_NAMES.url.name, value);
         },
       })}
-      label={'External URL'}
+      label={'Quick Link URL'}
       title={'Enter the external URL of your DependencyTrack instance.'}
       placeholder={'Enter URL'}
       control={control}

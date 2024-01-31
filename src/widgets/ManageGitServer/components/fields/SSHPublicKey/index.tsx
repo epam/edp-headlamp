@@ -40,6 +40,9 @@ export const SSHPublicKey = () => {
       placeholder={'ssh-rsa PUBLIC KEY'}
       control={control}
       errors={errors}
+      TextFieldProps={{
+        helperText: `This field value is managed by ${gitServerSecretOwnerReference}`,
+      }}
       disabled={mode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
     />
   );

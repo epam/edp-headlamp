@@ -7,7 +7,7 @@ import { ExternalURL, Token, URL } from '../../../fields';
 
 export const Form = () => {
   const {
-    formData: { ownerReference, argoCDEDPComponent },
+    formData: { argoCDEDPComponent },
   } = useFormContext<ManageArgoCDIntegrationSecretFormDataContext>();
 
   return (
@@ -15,15 +15,8 @@ export const Form = () => {
       {!argoCDEDPComponent && (
         <Grid item xs={12}>
           <Alert severity="info" variant="outlined">
-            Argo CD EDPComponent has not been found. Please, create it first in order to manage
-            the integration.
-          </Alert>
-        </Grid>
-      )}
-      {ownerReference && (
-        <Grid item xs={12}>
-          <Alert severity="info" variant="outlined">
-            Managed by {ownerReference}
+            Argo CD EDPComponent has not been found. Please, create it first in order to manage the
+            integration.
           </Alert>
         </Grid>
       )}

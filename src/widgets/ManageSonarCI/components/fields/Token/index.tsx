@@ -29,6 +29,9 @@ export const Token = () => {
       control={control}
       errors={errors}
       disabled={!!ownerReference}
+      TextFieldProps={{
+        helperText: `This field value is managed by ${ownerReference}`,
+      }}
     />
   );
 };

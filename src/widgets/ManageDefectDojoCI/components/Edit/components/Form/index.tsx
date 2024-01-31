@@ -7,7 +7,7 @@ import { ExternalURL, Token, URL } from '../../../fields';
 
 export const Form = () => {
   const {
-    formData: { ownerReference, defectDojoEDPComponent },
+    formData: { defectDojoEDPComponent },
   } = useFormContext<ManageDefectDojoIntegrationSecretFormDataContext>();
 
   return (
@@ -17,13 +17,6 @@ export const Form = () => {
           <Alert severity="info" variant="outlined">
             DefectDojo EDPComponent has not been found. Please, create it first in order to manage
             the integration.
-          </Alert>
-        </Grid>
-      )}
-      {ownerReference && (
-        <Grid item xs={12}>
-          <Alert severity="info" variant="outlined">
-            Managed by {ownerReference}
           </Alert>
         </Grid>
       )}

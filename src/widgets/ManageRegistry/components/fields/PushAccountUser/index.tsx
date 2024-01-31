@@ -21,7 +21,7 @@ export const PushAccountUser = () => {
 
   const useSameAccountFieldValue = watch(REGISTRY_NAMES.USE_SAME_ACCOUNT);
 
-  const hasOwnerReference = !!pushAccountSecret?.metadata?.ownerReferences;
+  const ownerReference = pushAccountSecret?.metadata?.ownerReferences?.[0].kind;
 
   return (
     <FormTextField
@@ -40,7 +40,10 @@ export const PushAccountUser = () => {
       placeholder={'Enter user name'}
       control={control}
       errors={errors}
-      disabled={hasOwnerReference}
+      TextFieldProps={{
+        helperText: `This field value is managed by ${ownerReference}`,
+      }}
+      disabled={!!ownerReference}
     />
   );
 };

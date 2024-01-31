@@ -7,7 +7,7 @@ import { ExternalURL, Password, URL, User } from '../../../fields';
 
 export const Form = () => {
   const {
-    formData: { ownerReference, nexusEDPComponent },
+    formData: { nexusEDPComponent },
   } = useFormContext<ManageNexusIntegrationSecretFormDataContext>();
 
   return (
@@ -17,13 +17,6 @@ export const Form = () => {
           <Alert severity="info" variant="outlined">
             Nexus EDPComponent has not been found. Please, create it first in order to manage the
             integration.
-          </Alert>
-        </Grid>
-      )}
-      {ownerReference && (
-        <Grid item xs={12}>
-          <Alert severity="info" variant="outlined">
-            Managed by {ownerReference}
           </Alert>
         </Grid>
       )}

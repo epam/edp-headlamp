@@ -107,6 +107,7 @@ exports[`renders ManageSSOCI Create component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
+                                        aria-describedby="mui-2-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
                                         id="mui-2"
@@ -130,6 +131,12 @@ exports[`renders ManageSSOCI Create component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
+                                    <p
+                                      class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-11mrhxr-MuiFormHelperText-root"
+                                      id="mui-2-helper-text"
+                                    >
+                                      This field value is managed by undefined
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -178,6 +185,7 @@ exports[`renders ManageSSOCI Create component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
+                                        aria-describedby="mui-4-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                         id="mui-4"
@@ -215,6 +223,12 @@ exports[`renders ManageSSOCI Create component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
+                                    <p
+                                      class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-11mrhxr-MuiFormHelperText-root"
+                                      id="mui-4-helper-text"
+                                    >
+                                      This field value is managed by undefined
+                                    </p>
                                   </div>
                                 </div>
                               </div>

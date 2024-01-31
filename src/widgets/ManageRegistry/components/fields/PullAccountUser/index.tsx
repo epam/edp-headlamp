@@ -16,7 +16,7 @@ export const PullAccountUser = () => {
     formData: { pullAccountSecret },
   } = useFormContext<ManageRegistryDataContext>();
 
-  const hasOwnerReference = !!pullAccountSecret?.metadata?.ownerReferences;
+  const ownerReference = pullAccountSecret?.metadata?.ownerReferences?.[0].kind;
 
   return (
     <FormTextField
@@ -28,7 +28,10 @@ export const PullAccountUser = () => {
       placeholder={'Enter user name'}
       control={control}
       errors={errors}
-      disabled={hasOwnerReference}
+      TextFieldProps={{
+        helperText: `This field value is managed by ${ownerReference}`,
+      }}
+      disabled={!!ownerReference}
     />
   );
 };

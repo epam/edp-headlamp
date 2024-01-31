@@ -14,7 +14,7 @@ export const Password = () => {
   } = useReactHookFormContext();
 
   const {
-    formData: { mode, isReadOnly },
+    formData: { mode, isReadOnly, ownerReference },
   } = useFormContext<ManageSSOIntegrationSecretFormDataContext>();
 
   return (
@@ -28,6 +28,9 @@ export const Password = () => {
       control={control}
       errors={errors}
       disabled={mode === FORM_MODES.EDIT && isReadOnly}
+      TextFieldProps={{
+        helperText: `This field value is managed by ${ownerReference}`,
+      }}
     />
   );
 };

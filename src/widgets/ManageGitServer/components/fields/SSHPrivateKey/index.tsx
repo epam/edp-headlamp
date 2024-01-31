@@ -44,6 +44,7 @@ export const SSHPrivateKey = () => {
         multiline: true,
         minRows: 6,
         maxRows: 6,
+        helperText: `This field value is managed by ${gitServerSecretOwnerReference}`,
       }}
       disabled={mode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
     />

@@ -92,7 +92,7 @@ exports[`renders ManageDependencyTrackCI Edit component 1`] = `
                                   <span
                                     class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
                                   >
-                                    External URL
+                                    Quick Link URL
                                   </span>
                                   <span />
                                 </span>
@@ -182,6 +182,7 @@ exports[`renders ManageDependencyTrackCI Edit component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
+                                        aria-describedby="mui-5-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                         disabled=""
@@ -220,6 +221,12 @@ exports[`renders ManageDependencyTrackCI Edit component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
+                                    <p
+                                      class="MuiFormHelperText-root Mui-disabled MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
+                                      id="mui-5-helper-text"
+                                    >
+                                      This field value is managed by undefined
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -268,6 +275,7 @@ exports[`renders ManageDependencyTrackCI Edit component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
+                                        aria-describedby="mui-7-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                         id="mui-7"
@@ -305,6 +313,12 @@ exports[`renders ManageDependencyTrackCI Edit component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
+                                    <p
+                                      class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
+                                      id="mui-7-helper-text"
+                                    >
+                                      This field value is managed by undefined
+                                    </p>
                                   </div>
                                 </div>
                               </div>

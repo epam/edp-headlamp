@@ -1809,6 +1809,7 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                                             >
                                               <input
+                                                aria-describedby="mui-9-helper-text"
                                                 aria-invalid="false"
                                                 class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
                                                 disabled=""
@@ -1833,6 +1834,12 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                                 </legend>
                                               </fieldset>
                                             </div>
+                                            <p
+                                              class="MuiFormHelperText-root Mui-disabled MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
+                                              id="mui-9-helper-text"
+                                            >
+                                              This field value is managed by ExternalSecret
+                                            </p>
                                           </div>
                                         </div>
                                       </div>
@@ -1881,6 +1888,7 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                             >
                                               <input
+                                                aria-describedby="mui-11-helper-text"
                                                 aria-invalid="false"
                                                 class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                                 disabled=""
@@ -1919,6 +1927,12 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                                 </legend>
                                               </fieldset>
                                             </div>
+                                            <p
+                                              class="MuiFormHelperText-root Mui-disabled MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
+                                              id="mui-11-helper-text"
+                                            >
+                                              This field value is managed by ExternalSecret
+                                            </p>
                                           </div>
                                         </div>
                                       </div>
@@ -2069,6 +2083,7 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                                             >
                                               <input
+                                                aria-describedby="mui-16-helper-text"
                                                 aria-invalid="false"
                                                 class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
                                                 disabled=""
@@ -2093,6 +2108,12 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                                 </legend>
                                               </fieldset>
                                             </div>
+                                            <p
+                                              class="MuiFormHelperText-root Mui-disabled MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
+                                              id="mui-16-helper-text"
+                                            >
+                                              This field value is managed by ExternalSecret
+                                            </p>
                                           </div>
                                         </div>
                                       </div>
@@ -2141,6 +2162,7 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                             >
                                               <input
+                                                aria-describedby="mui-18-helper-text"
                                                 aria-invalid="false"
                                                 class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                                 disabled=""
@@ -2179,6 +2201,12 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                                 </legend>
                                               </fieldset>
                                             </div>
+                                            <p
+                                              class="MuiFormHelperText-root Mui-disabled MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
+                                              id="mui-18-helper-text"
+                                            >
+                                              This field value is managed by ExternalSecret
+                                            </p>
                                           </div>
                                         </div>
                                       </div>

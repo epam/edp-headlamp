@@ -79,36 +79,6 @@ exports[`renders ManageDefectDojoCI Edit component (read-only) 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       >
                         <div
-                          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-outlinedInfo MuiAlert-outlined css-q9dv2o-MuiPaper-root-MuiAlert-root"
-                          role="alert"
-                        >
-                          <div
-                            class="MuiAlert-icon css-1ytlwq5-MuiAlert-icon"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
-                              data-testid="InfoOutlinedIcon"
-                              focusable="false"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
-                              />
-                            </svg>
-                          </div>
-                          <div
-                            class="MuiAlert-message css-1pxa9xg-MuiAlert-message"
-                          >
-                            Managed by 
-                            ExternalSecret
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                      >
-                        <div
                           class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
                         >
                           <div
@@ -127,7 +97,7 @@ exports[`renders ManageDefectDojoCI Edit component (read-only) 1`] = `
                                   <span
                                     class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
                                   >
-                                    External URL
+                                    Quick Link URL
                                   </span>
                                   <span />
                                 </span>
@@ -217,6 +187,7 @@ exports[`renders ManageDefectDojoCI Edit component (read-only) 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
+                                        aria-describedby="mui-6-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
                                         disabled=""
@@ -241,6 +212,12 @@ exports[`renders ManageDefectDojoCI Edit component (read-only) 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
+                                    <p
+                                      class="MuiFormHelperText-root Mui-disabled MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
+                                      id="mui-6-helper-text"
+                                    >
+                                      This field value is managed by ExternalSecret
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -289,6 +266,7 @@ exports[`renders ManageDefectDojoCI Edit component (read-only) 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
+                                        aria-describedby="mui-8-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                         disabled=""
@@ -327,6 +305,12 @@ exports[`renders ManageDefectDojoCI Edit component (read-only) 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
+                                    <p
+                                      class="MuiFormHelperText-root Mui-disabled MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
+                                      id="mui-8-helper-text"
+                                    >
+                                      This field value is managed by ExternalSecret
+                                    </p>
                                   </div>
                                 </div>
                               </div>

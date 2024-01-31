@@ -34,7 +34,7 @@ export const ExternalURL = () => {
           setValue(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.url.name, value);
         },
       })}
-      label={'External URL'}
+      label={'Quick Link URL'}
       title={'Enter the external URL of your DefectDojo instance.'}
       placeholder={'Enter URL'}
       control={control}
