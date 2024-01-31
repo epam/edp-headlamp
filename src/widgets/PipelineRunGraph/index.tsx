@@ -86,9 +86,7 @@ export const PipelineRunGraph = () => {
     labelSelector: `${TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN}=${pipelineRun.metadata.name}`,
   });
 
-  const pipelineRunTasks = pipelineRun?.status?.pipelineSpec?.tasks;
-
-  const { nodes, edges } = usePipelineRunGraphData(taskRuns, pipelineRunTasks);
+  const { nodes, edges } = usePipelineRunGraphData(taskRuns, pipelineRun);
 
   const diagramIsReady = nodes !== null && edges !== null;
 
@@ -280,11 +278,6 @@ export const PipelineRunGraph = () => {
                     renderNode={renderNode}
                   />
                 </div>
-              )}
-              {(!pipelineRunTasks || !pipelineRunTasks?.length) && (
-                <Typography variant={'body1'} align={'center'}>
-                  The PipelineRun has no tasks
-                </Typography>
               )}
               {!taskRuns?.length ? (
                 <Typography variant={'body1'} align={'center'}>

@@ -5,7 +5,6 @@ export const getDeployedVersion = (
   isHelm: boolean,
   argoApplication: ApplicationKubeObjectInterface
 ): string => {
-  console.log(argoApplication);
 
   if (withValuesOverride) {
     // @ts-ignore

@@ -3,7 +3,7 @@ import { path as d3Path } from 'd3-path';
 import React from 'react';
 import { EdgeProps } from './types';
 
-export const Edge = ({ direction, color, sections: _sections }: EdgeProps) => {
+export const Edge = ({ direction, color, sections: _sections, noArrow }: EdgeProps) => {
   const sections = _sections[0];
   const path = d3Path();
 
@@ -21,6 +21,11 @@ export const Edge = ({ direction, color, sections: _sections }: EdgeProps) => {
   );
 
   return (
-    <CarbonEdge path={path.toString()} markerEnd="arrowRight" variant="dash-sm" color={color} />
+    <CarbonEdge
+      path={path.toString()}
+      markerEnd={noArrow ? null : 'arrowRight'}
+      variant="dash-sm"
+      color={color}
+    />
   );
 };
