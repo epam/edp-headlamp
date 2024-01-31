@@ -42,12 +42,14 @@ export const ConfigurationBody = ({
   const isLoading = items === null;
   const singleItem = items?.length === 1;
 
+  const showInitialPlaceholder = items?.length === 0 && onlyOneItem;
+
   const placeholderData = React.useMemo(
     () =>
-      renderPlaceHolderData && !onlyOneItem
+      renderPlaceHolderData && showInitialPlaceholder
         ? renderPlaceHolderData({ handleClosePlaceholder })
         : null,
-    [onlyOneItem, renderPlaceHolderData]
+    [renderPlaceHolderData, showInitialPlaceholder]
   );
 
   return (

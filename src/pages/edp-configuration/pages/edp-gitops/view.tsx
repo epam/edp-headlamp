@@ -28,6 +28,8 @@ export const PageView = () => {
     labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPES.SYSTEM}`,
   });
 
+  const isLoading = items === null;
+
   const itemsArray = React.useMemo(() => (items ? items.filter(Boolean) : []), [items]);
 
   const gitOpsCodebase =
@@ -128,7 +130,7 @@ export const PageView = () => {
           />
         ),
       })}
-      items={items === null ? null : configurationItemList}
+      items={isLoading ? null : configurationItemList}
       emptyMessage={'No GitOps repositories found'}
       onlyOneItem
     />
