@@ -23,6 +23,10 @@ export const ImageStreamTagsSelect = ({
     [applicationImageStream, applicationVerifiedImageStream]
   );
 
+  const placeholder = !imageStreamTagsOptions?.length
+    ? 'No image stream versions available'
+    : 'Select image stream version';
+
   return (
     <div style={{ width: '100%' }}>
       <FormSelect
@@ -36,7 +40,7 @@ export const ImageStreamTagsSelect = ({
         errors={errors}
         options={imageStreamTagsOptions}
         disabled={!imageStreamTagsOptions.length}
-        placeholder={'Image stream version'}
+        placeholder={placeholder}
       />
     </div>
   );

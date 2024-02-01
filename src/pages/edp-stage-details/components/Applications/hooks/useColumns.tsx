@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, IconButton, Link as MuiLink, Tooltip, useTheme } from '@mui/material';
+import { Grid, IconButton, Link as MuiLink, Tooltip, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
@@ -236,7 +236,28 @@ export const useColumns = (
       },
       {
         id: 'imageStreamVersion',
-        label: 'Image stream version',
+        label: (
+          <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+            <Grid item>Image stream version</Grid>
+            <Grid item>
+              <Tooltip
+                title={
+                  <>
+                    <Typography variant="body2">
+                      Choose the application image version to deploy.
+                    </Typography>
+                    <Typography component="div" variant="body2">
+                      This field is enabled after a successful build and promotion through previous
+                      stages, if any.
+                    </Typography>
+                  </>
+                }
+              >
+                <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+              </Tooltip>
+            </Grid>
+          </Grid>
+        ),
         render: (enrichedApplicationWithArgoApplication) => {
           return (
             <ImageStreamTagsSelect
