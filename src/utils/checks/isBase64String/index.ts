@@ -1,18 +1,25 @@
-export const isBase64String = (str) => {
-  // Check if the string is empty or contains non-base64 characters
-  if (!str || /[^A-Za-z0-9+/=]/.test(str)) {
+export const isBase64String = (str: string) => {
+  // Check if the string is empty
+  if (!str) {
     return false;
   }
 
-  // Check if the string length is a multiple of 4 (as base64 strings should be)
-  if (str.length % 4 !== 0) {
+  // RFC 4648 specifies that Base64 strings are made up of:
+  // Alphabet: [A-Za-z], Numbers: [0-9], Characters: [+], [/] and [=].
+  // [=] sign is used as padding character. Valid Base64 string length should be multiple of 4.
+  // Let's keep separate regex for base64 check and padding check
+  const base64Regex = /^[A-Za-z0-9+/]*$/;
+  const paddingRegex = /^(?:[A-Za-z0-9+/]{4})*((?:[A-Za-z0-9+/]{2}==)|(?:[A-Za-z0-9+/]{3}=))?$/;
+
+  // check base64 string and padding
+  if (!base64Regex.test(str) || !paddingRegex.test(str)) {
     return false;
   }
 
   try {
-    const decodedStr = atob(str);
-    const nonPrintableCharacterRegex = /[\x00-\x08\x0E-\x1F]/;
-    return !nonPrintableCharacterRegex.test(decodedStr);
+    // Check if the decode is successful
+    atob(str);
+    return true;
   } catch (err) {
     // If atob throws an error, the input is not a valid base64 string
     return false;

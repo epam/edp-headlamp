@@ -23,9 +23,9 @@ import { ConfigurationBodyProps } from './types';
 export const ConfigurationBody = ({
   pageData,
   renderPlaceHolderData,
-  items,
   emptyMessage,
   blocker,
+  items,
   bodyOnly = false,
   onlyOneItem = false,
 }: ConfigurationBodyProps) => {
@@ -46,10 +46,11 @@ export const ConfigurationBody = ({
   const showInitialPlaceholder = items?.length === 0;
 
   const placeholderData = React.useMemo(() => {
-    if (isLoading) {
+    if (isLoading || !renderPlaceHolderData) {
       return null;
     }
-    return (renderPlaceHolderData && !onlyOneItem) || showInitialPlaceholder
+
+    return !onlyOneItem || showInitialPlaceholder
       ? renderPlaceHolderData({ handleClosePlaceholder })
       : null;
   }, [isLoading, onlyOneItem, renderPlaceHolderData, showInitialPlaceholder]);
@@ -95,7 +96,7 @@ export const ConfigurationBody = ({
                 {!!placeholderData && (
                   <Grid item xs={12}>
                     <CreateItemAccordion
-                      isExpanded={expandedPanel === 'placeholder'}
+                      isExpanded={expandedPanel === 'placeholder' || onlyOneItem}
                       onChange={handleChange('placeholder')}
                       disabled={placeholderData?.disabled}
                       title={placeholderData?.title}
