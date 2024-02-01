@@ -182,7 +182,6 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
-                                        aria-describedby="mui-5-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                         disabled=""
@@ -221,12 +220,6 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
-                                    <p
-                                      class="MuiFormHelperText-root Mui-disabled MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
-                                      id="mui-5-helper-text"
-                                    >
-                                      This field value is managed by undefined
-                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -275,7 +268,6 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
-                                        aria-describedby="mui-7-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
                                         id="mui-7"
@@ -299,12 +291,6 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
-                                    <p
-                                      class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
-                                      id="mui-7-helper-text"
-                                    >
-                                      This field value is managed by undefined
-                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -353,7 +339,6 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
-                                        aria-describedby="mui-9-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                         id="mui-9"
@@ -391,12 +376,6 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
-                                    <p
-                                      class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-11mrhxr-MuiFormHelperText-root"
-                                      id="mui-9-helper-text"
-                                    >
-                                      This field value is managed by undefined
-                                    </p>
                                   </div>
                                 </div>
                               </div>

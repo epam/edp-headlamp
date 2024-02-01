@@ -29,7 +29,7 @@ export const User = () => {
       errors={errors}
       disabled={mode === FORM_MODES.EDIT && isReadOnly}
       TextFieldProps={{
-        helperText: `This field value is managed by ${ownerReference}`,
+        helperText: ownerReference && `This field value is managed by ${ownerReference}`,
       }}
     />
   );

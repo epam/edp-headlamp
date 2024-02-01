@@ -31,7 +31,7 @@ export const PullAccountPassword = () => {
       control={control}
       errors={errors}
       TextFieldProps={{
-        helperText: `This field value is managed by ${ownerReference}`,
+        helperText: ownerReference && `This field value is managed by ${ownerReference}`,
       }}
       disabled={!!ownerReference}
     />

@@ -208,7 +208,6 @@ exports[`renders ManageSonarCI Create component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
-                                        aria-describedby="mui-4-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                         disabled=""
@@ -247,12 +246,6 @@ exports[`renders ManageSonarCI Create component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
-                                    <p
-                                      class="MuiFormHelperText-root Mui-disabled MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-11mrhxr-MuiFormHelperText-root"
-                                      id="mui-4-helper-text"
-                                    >
-                                      This field value is managed by null
-                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -301,7 +294,6 @@ exports[`renders ManageSonarCI Create component 1`] = `
                                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                                     >
                                       <input
-                                        aria-describedby="mui-6-helper-text"
                                         aria-invalid="false"
                                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                                         id="mui-6"
@@ -339,12 +331,6 @@ exports[`renders ManageSonarCI Create component 1`] = `
                                         </legend>
                                       </fieldset>
                                     </div>
-                                    <p
-                                      class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-11mrhxr-MuiFormHelperText-root"
-                                      id="mui-6-helper-text"
-                                    >
-                                      This field value is managed by null
-                                    </p>
                                   </div>
                                 </div>
                               </div>

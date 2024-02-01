@@ -30,10 +30,10 @@ export const PageView = () => {
   });
 
   const jiraServerSecret = jiraServerSecrets?.[0]?.jsonData;
-
+  const isLoading = isJiraServerLoading || jiraServerSecrets === null;
   const mode = !!jiraServer && !!jiraServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+
   const ownerReference = jiraServerSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = isJiraServerLoading && jiraServerSecrets === null;
 
   return (
     <PageWithSubMenu list={menu}>

@@ -38,7 +38,7 @@ export const ManageJiraCI = ({ formData }: ManageJiraIntegrationSecretProps) => 
       {mode === FORM_MODES.CREATE ? (
         <Grid item xs={12}>
           <CreateItemAccordion
-            isExpanded={expandedPanel === mode || !jiraServer}
+            isExpanded={expandedPanel === mode || !jiraServer || !jiraServerSecret}
             onChange={handleChange(mode)}
             title={'Add Jira Server Integration'}
           >
