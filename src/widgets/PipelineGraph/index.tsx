@@ -17,7 +17,7 @@ import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { PIPELINE_GRAPH_DIALOG_NAME } from './constants';
-import { usePipelineRunGraphData } from './hooks/usePipelineRunGraphData';
+import { usePipelineGraphData } from './hooks/usePipelineGraphData';
 import { useStyles } from './styles';
 import { PipelineGraphDialogForwardedProps } from './types';
 
@@ -30,7 +30,7 @@ export const PipelineGraph = () => {
     closeDialog,
   } = useSpecificDialogContext<PipelineGraphDialogForwardedProps>(PIPELINE_GRAPH_DIALOG_NAME);
 
-  const { nodes, edges } = usePipelineRunGraphData(pipeline);
+  const { nodes, edges } = usePipelineGraphData(pipeline);
 
   const diagramIsReady = nodes !== null && edges !== null;
 
