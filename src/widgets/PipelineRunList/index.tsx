@@ -4,7 +4,11 @@ import { Table } from '../../components/Table';
 import { useColumns } from './hooks/useColumns';
 import { PipelineRunListProps } from './types';
 
-export const PipelineRunList = ({ pipelineRuns, isLoading }: PipelineRunListProps) => {
+export const PipelineRunList = ({
+  pipelineRuns,
+  isLoading,
+  filterFunction,
+}: PipelineRunListProps) => {
   const columns = useColumns();
 
   return (
@@ -13,6 +17,7 @@ export const PipelineRunList = ({ pipelineRuns, isLoading }: PipelineRunListProp
       data={pipelineRuns}
       isLoading={isLoading}
       emptyListComponent={<EmptyList missingItemName={'pipeline runs'} />}
+      filterFunction={filterFunction}
     />
   );
 };

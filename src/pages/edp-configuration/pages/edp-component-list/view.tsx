@@ -9,6 +9,8 @@ import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPComponentKubeObject } from '../../../../k8s/EDPComponent';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
+import { NamespaceControl } from '../../../../providers/Filter/components/Filter/components/NamespaceControl';
+import { SearchControl } from '../../../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../../../providers/ResourceActionList';
 import { FORM_MODES } from '../../../../types/forms';
@@ -24,7 +26,7 @@ export const PageView = () => {
 
   const isLoading = items === null;
 
-  const { filter, setFilter, filterFunction } = useFilterContext();
+  const { filterFunction } = useFilterContext();
 
   const { setDialog } = useDialogContext();
 
@@ -49,14 +51,18 @@ export const PageView = () => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Grid container spacing={2} alignItems={'flex-end'} justifyContent={'flex-end'}>
-                  <Grid item>
+                  <Grid item flexGrow={1}>
                     <Filter
                       controls={{
-                        search: true,
-                        namespace: true,
+                        namespace: {
+                          gridXs: 3,
+                          component: <NamespaceControl />,
+                        },
+                        search: {
+                          gridXs: 3,
+                          component: <SearchControl />,
+                        },
                       }}
-                      filter={filter}
-                      setFilter={setFilter}
                     />
                   </Grid>
                   <Grid item>

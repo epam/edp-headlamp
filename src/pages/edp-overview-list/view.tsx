@@ -6,7 +6,7 @@ import { CDPipelinesGraph } from './components/CDPipelinesGraph';
 import { CodebaseBranchesGraph } from './components/CodebaseBranchesGraph';
 import { CodebasesGraph } from './components/CodebasesGraph';
 import { ComponentList } from './components/ComponentList';
-import { PipelineRunListOverview } from './components/PipelineRunList';
+import { PipelineRunListWithFilter } from './components/PipelineRunList';
 import { PipelineRunsGraph } from './components/PipelineRunsGraph';
 import { StagesGraph } from './components/StagesGraph';
 
@@ -55,7 +55,7 @@ export const PageView = () => {
               'Monitor the progress of overall pipeline runs launched within the platform.'
             }
           >
-            <PipelineRunListOverview />
+            <PipelineRunListWithFilter />
           </Section>
         </Grid>
       </Grid>

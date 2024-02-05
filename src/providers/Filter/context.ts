@@ -1,12 +1,19 @@
 import React from 'react';
 import { FilterContextProviderValue } from './types';
 
-export const FilterContext = React.createContext<FilterContextProviderValue<any>>({
+export const FilterContext = React.createContext<FilterContextProviderValue<unknown, any>>({
+  showFilter: false,
   filter: {
     values: {},
     matchFunctions: {},
   },
-  setFilter: () => {
+  setFilterItem: () => {
+    //
+  },
+  setShowFilter: () => {
+    //
+  },
+  resetFilter: () => {
     //
   },
   filterFunction: null,

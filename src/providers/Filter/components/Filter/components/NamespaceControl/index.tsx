@@ -1,11 +1,14 @@
 import { Icon } from '@iconify/react';
 import { K8s } from '@kinvolk/headlamp-plugin/lib';
-import { Box, Checkbox, TextField, Typography, useTheme } from '@mui/material';
+import { Checkbox, TextField, Typography, useTheme } from '@mui/material';
 import { Autocomplete } from '@mui/material';
 import React from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 import { useLocation } from 'react-router-dom';
 import { getClusterSettings } from '../../../../../../utils/getClusterSettings';
+import { useFilterContext } from '../../../../hooks';
 import { useAddQuery } from '../../hooks/useAddQuery';
+import { getFilterValueByNameFromURL } from '../../utilts';
 import { NamespaceControlProps } from './types';
 
 const clusterSettings = getClusterSettings();
@@ -31,12 +34,8 @@ export const NamespaceControlWithClusterNamespaces = (props: NamespaceControlPro
   );
 };
 
-export const _NamespaceControl = ({
-  filter,
-  setFilter,
-  namespaces,
-  setNamespaces,
-}: NamespaceControlProps) => {
+export const _NamespaceControl = ({ namespaces, setNamespaces }: NamespaceControlProps) => {
+  const { filter, setFilterItem, setShowFilter } = useFilterContext<unknown, 'namespace'>();
   const addQuery = useAddQuery();
   const location = useLocation();
   const theme = useTheme();
@@ -56,21 +55,10 @@ export const _NamespaceControl = ({
     // Now we reset the input so it won't show next to the selected namespaces.
     addQuery({ namespace: newValue.join(' ') }, { namespace: '' });
     setNamespaceInput('');
-    setFilter((prev) => ({
-      ...prev,
-      values: {
-        ...prev.values,
-        namespace: new Set(newValue),
-      },
-      matchFunctions: {
-        ...prev.matchFunctions,
-        namespace: (item) => newValue.length === 0 || newValue.includes(item.metadata.namespace),
-      },
-    }));
+    setFilterItem('namespace', newValue);
   };
 
-  const filterNamespacesValue: Set<string> =
-    (filter.values.namespace as Set<string>) || new Set([]);
+  const filterNamespacesValue: string[] = (filter.values.namespace as string[]) || [];
 
   const filterNamespacesArray = [...filterNamespacesValue.values()];
 
@@ -82,6 +70,38 @@ export const _NamespaceControl = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
+
+  useHotkeys('ctrl+shift+f', () => {
+    if (filter.values.namespace) {
+      setShowFilter(true);
+    }
+  });
+
+  React.useEffect(
+    () => {
+      const namespace = getFilterValueByNameFromURL('namespace', location);
+
+      const stateNamespaces = (filter.values.namespace as string[]) || [];
+
+      if (namespace.length > 0) {
+        const namespaceFromStore = [...stateNamespaces].sort();
+        if (
+          namespace
+            .slice()
+            .sort()
+            .every((value: string, index: number) => value !== namespaceFromStore[index])
+        ) {
+          setFilterItem('namespace', namespace);
+
+          if (filter.values.namespace) {
+            setShowFilter(true);
+          }
+        }
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return (
     <Autocomplete
@@ -140,17 +160,15 @@ export const _NamespaceControl = ({
         );
       }}
       renderInput={(params) => (
-        <Box width="15rem">
-          <TextField
-            {...params}
-            variant="standard"
-            label={'Namespaces'}
-            fullWidth
-            InputLabelProps={{ shrink: true }}
-            style={{ marginTop: 0 }}
-            placeholder={filterNamespacesArray.length > 0 ? '' : 'Filter'}
-          />
-        </Box>
+        <TextField
+          {...params}
+          variant="standard"
+          label={'Namespaces'}
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          style={{ marginTop: 0 }}
+          placeholder={filterNamespacesArray.length > 0 ? '' : 'Filter'}
+        />
       )}
     />
   );

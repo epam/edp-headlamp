@@ -1,6 +1,7 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { STATUS_COLOR } from '../../constants/colors';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { ValueOf } from '../../types/global';
 import { streamResults } from '../common/streamResults';
 import { ApplicationKubeObjectConfig } from './config';
 import { APPLICATION_HEALTH_STATUS, APPLICATION_SYNC_STATUS } from './constants';
@@ -33,6 +34,16 @@ export class ApplicationKubeObject extends K8s.cluster.makeKubeObject<Applicatio
 
   get status(): ApplicationStatus {
     return this.jsonData!.status;
+  }
+
+  static parseStatus(
+    argoApp: ApplicationKubeObjectInterface
+  ): ValueOf<typeof APPLICATION_HEALTH_STATUS> {
+    return (
+      (argoApp?.status?.health?.status.toLowerCase() as ValueOf<
+        typeof APPLICATION_HEALTH_STATUS
+      >) || 'unknown'
+    );
   }
 
   static getHealthStatusIcon(health: string): [string, string, boolean?] {

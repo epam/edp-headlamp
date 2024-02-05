@@ -2,19 +2,21 @@ import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Paper, Stack, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import { EDPComponentLink } from '../../components/EDPComponentLink';
-import { LoadingWrapper } from '../../components/LoadingWrapper';
-import { ICONS } from '../../icons/iconify-icons-mapping';
-import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
+import { EDPComponentLink } from '../../../../../../components/EDPComponentLink';
+import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
+import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
+import { ApplicationKubeObject } from '../../../../../../k8s/Application';
+import { EDPCDPipelineStageKubeObject } from '../../../../../../k8s/EDPCDPipelineStage';
 import {
   SYSTEM_EDP_COMPONENTS,
   SYSTEM_EDP_COMPONENTS_LABELS,
-} from '../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { routeEDPComponentDetails } from '../../pages/edp-component-details/route';
-import { routeEDPArgoCDIntegration } from '../../pages/edp-configuration/pages/edp-argocd-integration/route';
-import { routeEDPStageDetails } from '../../pages/edp-stage-details/route';
-import { LinkCreationService } from '../../services/link-creation';
+} from '../../../../../../k8s/EDPComponent/constants';
+import { useEDPComponentsURLsQuery } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { LinkCreationService } from '../../../../../../services/link-creation';
+import { routeEDPComponentDetails } from '../../../../../edp-component-details/route';
+import { routeEDPArgoCDIntegration } from '../../../../../edp-configuration/pages/edp-argocd-integration/route';
+import { routeEDPStageDetails } from '../../../../../edp-stage-details/route';
+import { usePageFilterContext } from '../../../../hooks/usePageFilterContext';
 import { ApplicationCard } from './components/ApplicationCard';
 import { Arrow } from './components/Arrow';
 import { StyledCardBody, StyledCardHeader, StyledChip } from './styles';
@@ -32,6 +34,33 @@ export const EnvironmentStage = ({
   const stageStatus = stage?.status?.status;
 
   const [, stageStatusColor] = EDPCDPipelineStageKubeObject.getStatusIcon(stageStatus);
+
+  const { filter } = usePageFilterContext();
+
+  const filteredApplications = React.useMemo(() => {
+    const applicationValues = filter.values.application;
+    const healthValue = filter.values.health;
+
+    let _applications = [...applications];
+
+    if (applicationValues && Array.isArray(applicationValues)) {
+      _applications = _applications.filter((el) =>
+        applicationValues.length === 0
+          ? true
+          : applicationValues.includes(el.application.metadata.name)
+      );
+    }
+
+    if (healthValue) {
+      _applications = _applications.filter(
+        (el) =>
+          ApplicationKubeObject.parseStatus(el.argoApplication) === healthValue ||
+          healthValue === 'All'
+      );
+    }
+
+    return _applications;
+  }, [applications, filter]);
 
   return (
     <Paper elevation={1}>
@@ -137,7 +166,7 @@ export const EnvironmentStage = ({
 
         <StyledCardBody>
           <Grid container spacing={4}>
-            {applications.map(el => {
+            {filteredApplications.map((el) => {
               const key = el.argoApplication?.metadata.name;
 
               return el.argoApplication ? (

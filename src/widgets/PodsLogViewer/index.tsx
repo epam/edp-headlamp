@@ -29,6 +29,10 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const getDefaultContainer = (pod: PodKubeObjectInterface) => {
+  if (!pod) {
+    return '';
+  }
+
   return pod.spec.containers.length > 0 ? pod.spec.containers[0].name : '';
 };
 
@@ -59,7 +63,12 @@ export const PodsLogViewer = () => {
       return;
     }
 
-    const newActivePod = pods[0];
+    const newActivePod = pods?.[0];
+
+    if (!newActivePod) {
+      return;
+    }
+
     setActivePod(newActivePod);
     setContainer(getDefaultContainer(newActivePod));
   }, [activePod, pods]);

@@ -1,15 +1,10 @@
+import { PipelineRunKubeObjectInterface } from '../../k8s/PipelineRun/types';
 import { ValueOf } from '../../types/global';
 import { FILTER_CONTROLS } from './constants';
-import { StageWithApplicationsData } from './providers/DynamicData/types';
-
-export interface EDPCDPipelineRouteParams {
-  name: string;
-  namespace: string;
-}
 
 export type PageFilterExtraControls = ValueOf<typeof FILTER_CONTROLS>;
 
 export type MatchFunctions = Record<
   PageFilterExtraControls,
-  (item: StageWithApplicationsData, value: string | string[]) => boolean
+  (item: PipelineRunKubeObjectInterface, value: string | string[]) => boolean
 >;

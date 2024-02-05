@@ -15,6 +15,8 @@ import { useCodebasesByTypeLabelQuery } from '../../k8s/EDPCodebase/hooks/useCod
 import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../k8s/EDPCodebase/labels';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { Filter } from '../../providers/Filter/components/Filter';
+import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
+import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { FORM_MODES } from '../../types/forms';
@@ -51,7 +53,7 @@ export const PageView = () => {
 
   const gitOpsConfigurationPageRoute = Router.createRouteURL(routeEDPGitOpsConfiguration.path);
 
-  const { filter, setFilter, filterFunction } = useFilterContext();
+  const { filterFunction } = useFilterContext();
 
   return (
     <PageWrapper>
@@ -71,11 +73,16 @@ export const PageView = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Grid container spacing={2} alignItems={'flex-end'} justifyContent={'flex-end'}>
-              <Grid item>
+              <Grid item flexGrow={1}>
                 <Filter
-                  controls={{ namespace: true, search: true }}
-                  filter={filter}
-                  setFilter={setFilter}
+                  controls={{
+                    namespace: {
+                      component: <NamespaceControl />,
+                    },
+                    search: {
+                      component: <SearchControl />,
+                    },
+                  }}
                 />
               </Grid>
               <Grid item>

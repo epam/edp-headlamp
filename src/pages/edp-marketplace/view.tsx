@@ -11,6 +11,8 @@ import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { Filter } from '../../providers/Filter/components/Filter';
+import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
+import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../providers/Filter/hooks';
 import { useViewModeContext } from '../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../providers/ViewMode/types';
@@ -27,7 +29,7 @@ export const PageView = () => {
   const history = useHistory();
   const gitServersConfigurationPageRoute = Router.createRouteURL(routeEDPGitServerList.path);
 
-  const { filter, setFilter, filterFunction } = useFilterContext();
+  const { filterFunction } = useFilterContext();
 
   return (
     <PageWrapper>
@@ -49,11 +51,16 @@ export const PageView = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Grid container spacing={2} alignItems={'flex-end'} justifyContent={'flex-end'}>
-              <Grid item>
+              <Grid item flexGrow={1}>
                 <Filter
-                  controls={{ namespace: true, search: true }}
-                  filter={filter}
-                  setFilter={setFilter}
+                  controls={{
+                    namespace: {
+                      component: <NamespaceControl />,
+                    },
+                    search: {
+                      component: <SearchControl />,
+                    },
+                  }}
                 />
               </Grid>
               <Grid item>

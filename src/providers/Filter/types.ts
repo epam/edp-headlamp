@@ -1,29 +1,42 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { ValueOf } from '../../types/global';
 import { DEFAULT_CONTROLS } from './constants';
 
 export type DefaultControlKeys = ValueOf<typeof DEFAULT_CONTROLS>;
-type ControlKey<ExtraKeys> = DefaultControlKeys | ExtraKeys;
-type ControlComponent = boolean | React.ReactElement;
+export interface ControlComponent {
+  component: React.ReactElement;
+  gridXs?: number;
+}
+export type ControlKey<ExtraKeys> = DefaultControlKeys | ExtraKeys;
+export type ControlValue = boolean | ControlComponent;
 
-export type FilterState<ExtraControlsKeys extends string = DefaultControlKeys> = {
+export type FilterState<Item, ExtraControlsKeys extends string = DefaultControlKeys> = {
   values: {
-    [key in ControlKey<ExtraControlsKeys>]?: unknown;
+    [key in ControlKey<ExtraControlsKeys>]?: string | string[] | boolean | undefined | null;
   };
   matchFunctions: {
-    [key in ControlKey<ExtraControlsKeys>]?: (item: KubeObjectInterface) => boolean;
+    [key in ControlKey<ExtraControlsKeys>]?: (item: Item, value: any) => boolean;
   };
 };
 
-export interface FilterProps<ExtraControlsKeys extends string = DefaultControlKeys> {
-  controls: Record<ControlKey<ExtraControlsKeys>, ControlComponent>;
-  filter: FilterState<ExtraControlsKeys>;
-  setFilter: React.Dispatch<React.SetStateAction<FilterState<ExtraControlsKeys>>>;
+export interface FilterContextProviderValue<
+  Item,
+  ExtraControlsKeys extends string = DefaultControlKeys
+> {
+  showFilter: boolean;
+  filter: FilterState<Item, ExtraControlsKeys>;
+  setFilterItem: (key: ExtraControlsKeys, value: any) => void;
+  setShowFilter: React.Dispatch<React.SetStateAction<boolean>>;
+  resetFilter: () => void;
+  filterFunction: (item: Item) => boolean;
 }
 
-export interface FilterContextProviderValue<ExtraControlsKeys extends string = DefaultControlKeys> {
-  filter: FilterState<ExtraControlsKeys>;
-  setFilter: React.Dispatch<React.SetStateAction<FilterState<ExtraControlsKeys>>>;
-  filterFunction: (item: KubeObjectInterface) => boolean;
+export interface FilterContextProviderProps<
+  Item,
+  ExtraControlsKeys extends string = DefaultControlKeys
+> {
+  children: React.ReactNode;
+  entityID: string;
+  matchFunctions: Record<ExtraControlsKeys, (item: Item, value: any) => boolean>;
+  saveToLocalStorage?: boolean;
 }

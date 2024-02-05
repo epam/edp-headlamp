@@ -110,6 +110,7 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
             <PipelineRunList
               pipelineRuns={filteredPipelineRunsByType}
               isLoading={pipelineRuns.all === null}
+              filterFunction={null}
             />
           </Grid>
         </Grid>

@@ -5,4 +5,7 @@ export const LOCAL_STORAGE_SERVICE = {
   setItem: (key: string, value: any) => {
     localStorage.setItem(key, JSON.stringify(value));
   },
+  removeItem: (key: string) => {
+    localStorage.removeItem(key);
+  },
 };

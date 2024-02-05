@@ -11,26 +11,26 @@ import {
 } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
-import { LoadingWrapper } from '../../../../components/LoadingWrapper';
-import { StatusIcon } from '../../../../components/StatusIcon';
-import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { ApplicationKubeObject } from '../../../../k8s/Application';
+import { LoadingWrapper } from '../../../../../../../../components/LoadingWrapper';
+import { StatusIcon } from '../../../../../../../../components/StatusIcon';
+import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
+import { ApplicationKubeObject } from '../../../../../../../../k8s/Application';
 import {
   APPLICATION_LABEL_SELECTOR_APP_NAME,
   APPLICATION_LABEL_SELECTOR_PIPELINE,
   APPLICATION_LABEL_SELECTOR_STAGE,
-} from '../../../../k8s/Application/labels';
-import { ApplicationKubeObjectInterface } from '../../../../k8s/Application/types';
+} from '../../../../../../../../k8s/Application/labels';
+import { ApplicationKubeObjectInterface } from '../../../../../../../../k8s/Application/types';
 import {
   SYSTEM_EDP_COMPONENTS,
   SYSTEM_EDP_COMPONENTS_LABELS,
-} from '../../../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
-import { routeEDPComponentDetails } from '../../../../pages/edp-component-details/route';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
-import { LinkCreationService } from '../../../../services/link-creation';
-import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../PodsLogViewer/constants';
-import { PODS_TERMINAL_DIALOG_NAME } from '../../../PodsTerminal/constants';
+} from '../../../../../../../../k8s/EDPComponent/constants';
+import { useEDPComponentsURLsQuery } from '../../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { useDialogContext } from '../../../../../../../../providers/Dialog/hooks';
+import { LinkCreationService } from '../../../../../../../../services/link-creation';
+import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../../../../widgets/PodsLogViewer/constants';
+import { PODS_TERMINAL_DIALOG_NAME } from '../../../../../../../../widgets/PodsTerminal/constants';
+import { routeEDPComponentDetails } from '../../../../../../../edp-component-details/route';
 import { StyledCard, StyledVersionChip } from './styles';
 import { ApplicationCardProps } from './types';
 

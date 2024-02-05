@@ -147,6 +147,7 @@ export const CustomGates = ({
         <PipelineRunList
           pipelineRuns={latestTenDeployPipelineRuns}
           isLoading={!latestTenDeployPipelineRuns}
+          filterFunction={null}
         />
       </Grid>
     </Grid>

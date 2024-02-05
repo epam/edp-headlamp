@@ -1,8 +1,8 @@
 import { Chip, Paper, styled } from '@mui/material';
-import { TRIGGER_TYPES } from '../../constants/triggerTypes';
+import { TRIGGER_TYPES } from '../../../../../../constants/triggerTypes';
 
 export const StyledCardHeader = styled(Paper, {
-  shouldForwardProp: prop => prop !== 'stageStatusColor',
+  shouldForwardProp: (prop) => prop !== 'stageStatusColor',
 })<{
   stageStatusColor?: string;
 }>(

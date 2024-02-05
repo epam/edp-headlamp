@@ -1,5 +1,4 @@
-import { PaletteColorOptions, Theme } from '@material-ui/core';
-import { PaletteColor } from '@material-ui/core/styles/createPalette';
+import { PaletteColor, PaletteColorOptions, Theme } from '@mui/material/styles';
 
 export declare global {
   interface DefaultTheme extends Theme {}
