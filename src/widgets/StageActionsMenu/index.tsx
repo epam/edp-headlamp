@@ -16,7 +16,7 @@ import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types'
 import { StageActionsMenuProps } from './types';
 import { createDeleteAction } from './utils';
 
-export const StageActionsMenu = ({ stages, CDPipelineData }: StageActionsMenuProps) => {
+export const StageActionsMenu = ({ stages, CDPipelineData, backRoute }: StageActionsMenuProps) => {
   const { setDialog } = useDialogContext();
 
   const { anchorEl, data, handleCloseResourceActionListMenu } =
@@ -35,6 +35,7 @@ export const StageActionsMenu = ({ stages, CDPipelineData }: StageActionsMenuPro
       kubeObject: EDPCDPipelineStageKubeObject,
       kubeObjectData: data,
       description: `Confirm the deletion of the CD stage with all its components`,
+      backRoute,
     };
 
     if (!stages || !data) {
@@ -61,7 +62,7 @@ export const StageActionsMenu = ({ stages, CDPipelineData }: StageActionsMenuPro
         });
       }),
     ];
-  }, [data, stages, CDPipelineData, handleCloseResourceActionListMenu, setDialog]);
+  }, [data, stages, CDPipelineData, backRoute, handleCloseResourceActionListMenu, setDialog]);
 
   return (
     <KubeObjectActions

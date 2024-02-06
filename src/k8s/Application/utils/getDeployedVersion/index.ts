@@ -5,7 +5,6 @@ export const getDeployedVersion = (
   isHelm: boolean,
   argoApplication: ApplicationKubeObjectInterface
 ): string => {
-
   if (withValuesOverride) {
     // @ts-ignore
     const sourcesHelm = argoApplication?.spec?.sources?.find((el) => el.helm);

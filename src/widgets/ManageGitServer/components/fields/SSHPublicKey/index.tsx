@@ -41,7 +41,9 @@ export const SSHPublicKey = () => {
       control={control}
       errors={errors}
       TextFieldProps={{
-        helperText: gitServerSecretOwnerReference &&`This field value is managed by ${gitServerSecretOwnerReference}`,
+        helperText:
+          gitServerSecretOwnerReference &&
+          `This field value is managed by ${gitServerSecretOwnerReference}`,
       }}
       disabled={mode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
     />

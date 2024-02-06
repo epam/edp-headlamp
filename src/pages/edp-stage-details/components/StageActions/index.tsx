@@ -8,7 +8,7 @@ import { StageActionsMenu } from '../../../../widgets/StageActionsMenu';
 import { useDataContext } from '../../providers/Data/hooks';
 import { StageActionsProps } from './types';
 
-export const StageActions = ({ stage }: StageActionsProps) => {
+export const StageActions = ({ stage, backRoute }: StageActionsProps) => {
   const { stages, CDPipeline } = useDataContext();
   const { handleOpenResourceActionListMenu } =
     useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
@@ -26,7 +26,13 @@ export const StageActions = ({ stage }: StageActionsProps) => {
           <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
         </IconButton>
       </Tooltip>
-      {!!stages && <StageActionsMenu stages={stages?.items} CDPipelineData={CDPipeline} />}
+      {!!stages && (
+        <StageActionsMenu
+          stages={stages?.items}
+          CDPipelineData={CDPipeline}
+          backRoute={backRoute}
+        />
+      )}
     </>
   );
 };

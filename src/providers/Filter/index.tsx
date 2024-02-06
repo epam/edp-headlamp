@@ -45,7 +45,6 @@ export const FilterContextProvider = <Item, ExtraControlsKey extends string>({
     };
   });
 
-
   const [showFilter, setShowFilter] = React.useState<boolean>(lsFilterState ?? false);
 
   const filterFunction = React.useCallback(

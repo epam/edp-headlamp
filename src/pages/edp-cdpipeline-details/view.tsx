@@ -61,7 +61,7 @@ export const PageView = () => {
             <>
               <Grid item>
                 <CDPipelineActions
-                  CDPipeline={CDPipeline.data}
+                  CDPipeline={CDPipeline.data.jsonData}
                   backRoute={Router.createRouteURL(routeEDPCDPipelineList.path)}
                 />
               </Grid>

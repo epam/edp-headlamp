@@ -102,7 +102,7 @@ export const EnvironmentStage = ({
                     icon={ICONS.ARGOCD}
                     externalLink={LinkCreationService.argocd.createStageLink(
                       EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.ARGOCD],
-                      stage.spec.namespace,
+                      CDPipeline?.metadata?.name,
                       stage.spec.name
                     )}
                     configurationLink={{

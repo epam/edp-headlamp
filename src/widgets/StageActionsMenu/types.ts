@@ -4,4 +4,5 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineSt
 export interface StageActionsMenuProps {
   stages: EDPCDPipelineStageKubeObjectInterface[];
   CDPipelineData: EDPCDPipelineKubeObjectInterface;
+  backRoute: string;
 }

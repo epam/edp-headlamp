@@ -1,3 +1,4 @@
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { CircularProgress, Grid } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -38,6 +39,11 @@ export const PageView = () => {
 
   const tabs = usePageTabs();
   const infoColumns = useInfoColumns();
+
+  const backRoute = Router.createRouteURL(routeEDPCDPipelineDetails.path, {
+    name: CDPipelineName,
+    namespace,
+  });
 
   return (
     <PageWrapper
@@ -117,7 +123,7 @@ export const PageView = () => {
             />
           </Grid>
           <Grid item style={{ marginLeft: rem(20) }}>
-            <StageActions stage={stage} />
+            <StageActions stage={stage} backRoute={backRoute} />
           </Grid>
         </Grid>
       }

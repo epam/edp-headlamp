@@ -1,7 +1,7 @@
 import { Chip, Paper, styled } from '@mui/material';
 
 export const StyledCard = styled(Paper, {
-  shouldForwardProp: prop => prop !== 'argoAppHealthStatusColor',
+  shouldForwardProp: (prop) => prop !== 'argoAppHealthStatusColor',
 })<{
   argoAppHealthStatusColor?: string;
 }>(

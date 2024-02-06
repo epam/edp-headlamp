@@ -2,4 +2,5 @@ import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipe
 
 export interface StageActionsProps {
   stage: EDPCDPipelineStageKubeObjectInterface;
+  backRoute: string;
 }
