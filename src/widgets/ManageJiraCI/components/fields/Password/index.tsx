@@ -1,10 +1,9 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextFieldPassword } from '../../../../../providers/Form/components/FormTextFieldPassword';
-import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
-import { JIRA_INTEGRATION_SECRET_FORM_NAMES } from '../../../names';
-import { ManageJiraIntegrationSecretFormDataContext } from '../../../types';
+import { useFormContext } from '../../../hooks/useFormContext';
+import { JIRA_CI_FORM_NAMES } from '../../../names';
 
 export const Password = () => {
   const {
@@ -15,11 +14,11 @@ export const Password = () => {
 
   const {
     formData: { mode, isReadOnly, ownerReference },
-  } = useFormContext<ManageJiraIntegrationSecretFormDataContext>();
+  } = useFormContext();
 
   return (
     <FormTextFieldPassword
-      {...register(JIRA_INTEGRATION_SECRET_FORM_NAMES.password.name, {
+      {...register(JIRA_CI_FORM_NAMES.password.name, {
         required: 'Enter your Jira password.',
       })}
       label={'Password'}

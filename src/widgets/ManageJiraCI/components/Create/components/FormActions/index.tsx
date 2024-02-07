@@ -1,46 +1,31 @@
 import { Button, Grid } from '@mui/material';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
-import { createJiraIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createJiraIntegrationSecretInstance';
-import { useFormContext } from '../../../../../../providers/Form/hooks';
-import {
-  ManageJiraIntegrationSecretFormDataContext,
-  ManageJiraIntegrationSecretFormValues,
-} from '../../../../types';
+import { useFormContext } from '../../../../hooks/useFormContext';
+import { useSetupJiraServer } from '../../../../hooks/useSetupJiraCI';
+import { ManageJiraCIFormValues } from '../../../../types';
 
 export const FormActions = () => {
   const {
     reset,
     formState: { isDirty },
     handleSubmit,
-  } = useReactHookFormContext<ManageJiraIntegrationSecretFormValues>();
-
+  } = useReactHookFormContext<ManageJiraCIFormValues>();
   const {
     formData: { handleClosePanel },
-  } = useFormContext<ManageJiraIntegrationSecretFormDataContext>();
+  } = useFormContext();
 
-  const {
-    createSecret,
-    mutations: { secretCreateMutation, secretEditMutation, secretDeleteMutation },
-  } = useSecretCRUD({
-    onSuccess: async () => {
-      handleClosePanel();
+  const { setupJiraServer, isLoading } = useSetupJiraServer({
+    onSuccess: () => {
+      reset();
     },
   });
 
-  const isLoading =
-    secretCreateMutation.isLoading ||
-    secretEditMutation.isLoading ||
-    secretDeleteMutation.isLoading;
-
   const onSubmit = React.useCallback(
-    async (values: ManageJiraIntegrationSecretFormValues) => {
-      const secretInstance = createJiraIntegrationSecretInstance(values);
-
-      await createSecret({ secretData: secretInstance });
+    async (values: ManageJiraCIFormValues) => {
+      await setupJiraServer(values);
     },
-    [createSecret]
+    [setupJiraServer]
   );
 
   return (

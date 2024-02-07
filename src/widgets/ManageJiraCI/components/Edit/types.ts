@@ -1,5 +1,5 @@
-import { ManageJiraIntegrationSecretFormDataContext } from '../../types';
+import { ManageJiraCIFormDataContext } from '../../types';
 
 export interface EditProps {
-  formData: ManageJiraIntegrationSecretFormDataContext;
+  formData: ManageJiraCIFormDataContext;
 }

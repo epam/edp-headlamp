@@ -1,13 +1,23 @@
-const NAMES = {
+const JIRA_CI_NAMES = {
   USERNAME: 'username',
   PASSWORD: 'password',
+  URL: 'url',
 } as const;
 
-export const JIRA_INTEGRATION_SECRET_FORM_NAMES = {
-  [NAMES.USERNAME]: {
-    name: NAMES.USERNAME,
+export const JIRA_CI_FORM_NAMES = {
+  [JIRA_CI_NAMES.USERNAME]: {
+    name: JIRA_CI_NAMES.USERNAME,
   },
-  [NAMES.PASSWORD]: {
-    name: NAMES.PASSWORD,
+  [JIRA_CI_NAMES.PASSWORD]: {
+    name: JIRA_CI_NAMES.PASSWORD,
+  },
+  [JIRA_CI_NAMES.URL]: {
+    name: JIRA_CI_NAMES.URL,
+  },
+};
+
+export const JIRA_SERVER_FORM_NAMES = {
+  [JIRA_CI_NAMES.URL]: {
+    name: JIRA_CI_NAMES.URL,
   },
 };

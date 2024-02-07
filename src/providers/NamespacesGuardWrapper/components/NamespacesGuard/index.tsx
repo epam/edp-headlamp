@@ -87,13 +87,13 @@ export const NamespacesGuard = () => {
 
   const errorMessage = React.useMemo(() => {
     if (!defaultNamespaceIsSet && !allowedNamespacesIsSet) {
-      return 'Default namespace and allowed namespaces are unset.';
+      return 'Please specify default and allowed namespaces to start using the platform.';
     }
     if (!defaultNamespaceIsSet) {
-      return 'Default namespace is unset.';
+      return 'Please specify default namespace to start using the platform.';
     }
     if (!allowedNamespacesIsSet) {
-      return 'Allowed namespaces are unset.';
+      return 'Please specify allowed namespaces to start using the platform.';
     }
     return false;
   }, [defaultNamespaceIsSet, allowedNamespacesIsSet]);

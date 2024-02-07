@@ -1,31 +1,23 @@
-import { Icon } from '@iconify/react';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Grid,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { CreateItemAccordion } from '../../components/CreateItemAccordion';
 import { StatusIcon } from '../../components/StatusIcon';
-import { ICONS } from '../../icons/iconify-icons-mapping';
 import { JiraServerKubeObject } from '../../k8s/JiraServer';
 import { FORM_MODES } from '../../types/forms';
 import { rem } from '../../utils/styling/rem';
 import { Create } from './components/Create';
 import { Edit } from './components/Edit';
-import { ManageJiraIntegrationSecretProps } from './types';
+import { ManageJiraCIProps } from './types';
 
-export const ManageJiraCI = ({ formData }: ManageJiraIntegrationSecretProps) => {
-  const { jiraServer, jiraServerSecret, ownerReference, mode } = formData;
+export const ManageJiraCI = ({ formData }: ManageJiraCIProps) => {
+  const { jiraServer, jiraServerSecret, mode } = formData;
 
   const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedPanel(isExpanded ? panel : null);
   };
   const handleClosePanel = () => setExpandedPanel(null);
+
   const _formData = { ...formData, handleClosePanel };
 
   const status = jiraServer?.status?.status;
@@ -38,11 +30,15 @@ export const ManageJiraCI = ({ formData }: ManageJiraIntegrationSecretProps) => 
       {mode === FORM_MODES.CREATE ? (
         <Grid item xs={12}>
           <CreateItemAccordion
-            isExpanded={expandedPanel === mode || !jiraServer || !jiraServerSecret}
+            isExpanded={expandedPanel === mode || !jiraServerSecret}
             onChange={handleChange(mode)}
-            title={'Add Jira Server Integration'}
+            title={'Add Git Server'}
           >
-            <Create formData={_formData} />
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Create formData={_formData} />
+              </Grid>
+            </Grid>
           </CreateItemAccordion>
         </Grid>
       ) : mode === FORM_MODES.EDIT ? (
@@ -69,25 +65,16 @@ export const ManageJiraCI = ({ formData }: ManageJiraIntegrationSecretProps) => 
                       }
                     />
                   </Grid>
-                  <Grid item>{jiraServerSecret.metadata.name}</Grid>
-                  {!!ownerReference && (
-                    <Grid item>
-                      <Tooltip title={`Managed by ${ownerReference}`}>
-                        <Icon
-                          icon={ICONS.CLOUD_LOCK}
-                          width={20}
-                          style={{
-                            display: 'block',
-                          }}
-                        />
-                      </Tooltip>
-                    </Grid>
-                  )}
+                  <Grid item>Jira</Grid>
                 </Grid>
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Edit formData={_formData} />
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Edit formData={_formData} />
+                </Grid>
+              </Grid>
             </AccordionDetails>
           </Accordion>
         </Grid>
