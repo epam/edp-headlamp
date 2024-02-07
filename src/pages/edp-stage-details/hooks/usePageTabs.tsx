@@ -1,18 +1,24 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useEDPComponentsURLsQuery } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/PipelineRun/constants';
 import { FormContextProvider } from '../../../providers/Form';
 import { PipelineRunList } from '../../../widgets/PipelineRunList';
 import { Applications } from '../components/Applications';
 import { CustomGates } from '../components/CustomGates';
+import { Monitoring } from '../components/Monitoring';
 import { QualityGates } from '../components/QualityGates';
 import { useDataContext } from '../providers/Data/hooks';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
-import { EnrichedQualityGateWithAutotestPipelineRun } from '../types';
+import { EDPStageDetailsRouteParams, EnrichedQualityGateWithAutotestPipelineRun } from '../types';
 import { useEnrichedApplicationsWithArgoApplications } from './useEnrichedApplicationsWithArgoApplication';
 import { useEveryArgoAppIsHealthyAndInSync } from './useEveryArgoAppIsHealthyAndInSync';
 
 export const usePageTabs = () => {
+  const { namespace } = useParams<EDPStageDetailsRouteParams>();
+  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+
   const {
     stage,
     autotestPipelineRuns,
@@ -129,8 +135,19 @@ export const usePageTabs = () => {
           />
         ),
       },
+      {
+        label: 'Monitoring',
+        id: 'monitoring',
+        component: (
+          <Monitoring
+            grafanaBaseUrl={EDPComponentsURLS?.grafana}
+            namespace={stage.data?.spec.namespace}
+          />
+        ),
+      },
     ];
   }, [
+    EDPComponentsURLS,
     argoApplications,
     autotestPipelineRuns,
     autotestRunnerPipelineRuns,
@@ -140,6 +157,7 @@ export const usePageTabs = () => {
     everyArgoAppIsHealthyAndInSync,
     isLoading,
     latestDeployPipelineRunIsRunning,
+    stage,
     stageDeployPipelineRuns,
   ]);
 };
