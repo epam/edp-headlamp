@@ -2,6 +2,7 @@ import React from 'react';
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/PipelineRun/constants';
 import { FormContextProvider } from '../../../providers/Form';
+import { PipelineRunList } from '../../../widgets/PipelineRunList';
 import { Applications } from '../components/Applications';
 import { CustomGates } from '../components/CustomGates';
 import { QualityGates } from '../components/QualityGates';
@@ -18,6 +19,7 @@ export const usePageTabs = () => {
     autotestRunnerPipelineRuns,
     deployPipelineRuns,
     argoApplications,
+    stageDeployPipelineRuns,
   } = useDynamicDataContext();
 
   const isLoading = React.useMemo(
@@ -26,13 +28,15 @@ export const usePageTabs = () => {
       autotestPipelineRuns.isLoading ||
       autotestRunnerPipelineRuns.isLoading ||
       deployPipelineRuns.isLoading ||
-      argoApplications.isLoading,
+      argoApplications.isLoading ||
+      stageDeployPipelineRuns.isLoading,
     [
-      stage.isLoading,
+      argoApplications.isLoading,
       autotestPipelineRuns.isLoading,
       autotestRunnerPipelineRuns.isLoading,
       deployPipelineRuns.isLoading,
-      argoApplications.isLoading,
+      stage.isLoading,
+      stageDeployPipelineRuns.isLoading,
     ]
   );
 
@@ -90,6 +94,17 @@ export const usePageTabs = () => {
         ),
       },
       {
+        label: 'Pipelines',
+        id: 'pipelines',
+        component: (
+          <PipelineRunList
+            pipelineRuns={stageDeployPipelineRuns.data}
+            isLoading={stageDeployPipelineRuns.isLoading}
+            filterFunction={null}
+          />
+        ),
+      },
+      {
         label: 'Quality Gates',
         id: 'quality_gates',
         component: (
@@ -125,5 +140,6 @@ export const usePageTabs = () => {
     everyArgoAppIsHealthyAndInSync,
     isLoading,
     latestDeployPipelineRunIsRunning,
+    stageDeployPipelineRuns,
   ]);
 };

@@ -6,6 +6,7 @@ import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage
 import { useStreamAutotestPipelineRunList } from '../../../../k8s/PipelineRun/hooks/useStreamAutotestPipelineRunList';
 import { useStreamAutotestRunnerPipelineRunList } from '../../../../k8s/PipelineRun/hooks/useStreamAutotestRunnerPipelineRunList';
 import { useStreamPipelineRunListByTypeAndPipelineNameLabels } from '../../../../k8s/PipelineRun/hooks/useStreamPipelineRunListByTypeAndPipelineNameLabels';
+import { useStreamStagePipelineRunList } from '../../../../k8s/PipelineRun/hooks/useStreamStagePipelineRunList';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { useTriggerTemplateByNameQuery } from '../../../../k8s/TriggerTemplate/hooks/useTriggerTemplateByNameQuery';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
@@ -23,6 +24,14 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const stageSpecName = stage?.spec.name;
   const stageMetadataName = stage?.metadata.name;
   const stageTriggerTemplate = stage?.spec.triggerTemplate;
+
+  const stageDeployPipelineRuns = useStreamStagePipelineRunList({
+    namespace,
+    cdPipelineName: CDPipelineName,
+    pipelineType: PIPELINE_TYPES.DEPLOY,
+    stageMetadataName,
+    select: sortFn,
+  });
 
   const latestTenDeployPipelineRuns = useStreamPipelineRunListByTypeAndPipelineNameLabels({
     namespace,
@@ -98,6 +107,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: deployPipelineRunTemplate.isLoading,
         error: deployPipelineRunTemplate.error,
       },
+      stageDeployPipelineRuns: {
+        data: stageDeployPipelineRuns,
+        isLoading: stageDeployPipelineRuns === null,
+        error: null,
+      },
     }),
     [
       stage,
@@ -107,6 +121,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       latestAutotestRunnerPipelineRuns,
       argoApplications,
       deployPipelineRunTemplate,
+      stageDeployPipelineRuns,
     ]
   );
 

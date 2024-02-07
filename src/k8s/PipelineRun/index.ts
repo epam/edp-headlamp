@@ -6,6 +6,8 @@ import { streamResults } from '../common/streamResults';
 import { PipelineRunKubeObjectConfig } from './config';
 import { PIPELINE_RUN_REASON, PIPELINE_RUN_STATUS } from './constants';
 import {
+  PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE,
+  PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE,
   PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH,
   PIPELINE_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN,
   PIPELINE_RUN_LABEL_SELECTOR_PIPELINE,
@@ -19,6 +21,7 @@ import {
   StreamPipelineRunListByCodebaseBranchLabelProps,
   StreamPipelineRunListByTypeAndPipelineNameLabelsProps,
   StreamPipelineRunListByTypeLabelProps,
+  StreamStagePipelineRunListProps,
 } from './types';
 
 const {
@@ -117,6 +120,20 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, dataHandler, errorHandler, {
       labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType},${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE}=${stageMetadataName}`,
+    });
+  }
+
+  static streamStagePipelineRunList({
+    namespace,
+    cdPipelineName,
+    stageMetadataName,
+    pipelineType,
+    dataHandler,
+    errorHandler,
+  }: StreamStagePipelineRunListProps): () => void {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+    return streamResults(url, dataHandler, errorHandler, {
+      labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE}=${cdPipelineName},${PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE}=${stageMetadataName},${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType}`,
     });
   }
 

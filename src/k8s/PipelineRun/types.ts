@@ -18,6 +18,15 @@ export interface StreamPipelineRunListByTypeAndPipelineNameLabelsProps {
   errorHandler: (err: Error) => void;
 }
 
+export interface StreamStagePipelineRunListProps {
+  namespace: string;
+  cdPipelineName: string;
+  pipelineType: string;
+  stageMetadataName: string;
+  dataHandler: (data: PipelineRunKubeObjectInterface[]) => void;
+  errorHandler: (err: Error) => void;
+}
+
 export interface StreamAutotestRunnerPipelineRunListProps {
   namespace: string;
   stageSpecName: string;

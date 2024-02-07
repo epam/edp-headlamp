@@ -3,4 +3,6 @@ export const PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH = 'app.edp.epam.com/cod
 export const PIPELINE_RUN_LABEL_SELECTOR_CODEBASE = 'app.edp.epam.com/codebase';
 export const PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE = 'app.edp.epam.com/pipelinetype';
 export const PIPELINE_RUN_LABEL_SELECTOR_PIPELINE = 'app.edp.epam.com/pipeline';
+export const PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE = 'app.edp.epam.com/cdpipeline';
 export const PIPELINE_RUN_LABEL_SELECTOR_STAGE = 'app.edp.epam.com/stage';
+export const PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE = 'app.edp.epam.com/cdstage';
