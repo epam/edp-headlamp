@@ -57,7 +57,6 @@ export const _NamespaceControl = ({ namespaces, setNamespaces }: NamespaceContro
     setNamespaceInput('');
     setFilterItem('namespace', newValue);
   };
-
   const filterNamespacesValue: string[] = (filter.values.namespace as string[]) || [];
 
   const filterNamespacesArray = [...filterNamespacesValue.values()];

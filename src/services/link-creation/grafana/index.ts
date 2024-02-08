@@ -1,10 +1,8 @@
-import { LOCAL_STORAGE_SERVICE } from '../../local-storage';
-
 export const GrafanaURLService = {
   createDashboardLink: (
     grafanaURLOrigin: string,
     namespace: string,
-    theme: string = LOCAL_STORAGE_SERVICE.getItem('headlampThemePreference') || 'light'
+    theme: string = localStorage.getItem('headlampThemePreference') || 'light'
   ) => {
     if (!grafanaURLOrigin) {
       return undefined;

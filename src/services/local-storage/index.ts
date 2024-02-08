@@ -1,12 +1,6 @@
 export const LOCAL_STORAGE_SERVICE = {
   getItem: (key: string) => {
-    const item = localStorage.getItem(key);
-
-    if (typeof item === 'string') {
-      return item;
-    }
-
-    return JSON.parse(item);
+    return JSON.parse(localStorage.getItem(key));
   },
   setItem: (key: string, value: any) => {
     localStorage.setItem(key, JSON.stringify(value));
