@@ -5,7 +5,7 @@ import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
-import { useJiraServerListQuery } from '../../../../k8s/JiraServer/hooks/useJiraServerListQuery';
+import { JiraServerKubeObject } from '../../../../k8s/JiraServer';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
@@ -15,22 +15,17 @@ import { menu } from '../../menu';
 import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const { data: jiraServer, isLoading: isJiraServerLoading } = useJiraServerListQuery({
-    props: {
-      namespace: getDefaultNamespace(),
-    },
-    options: {
-      select: (data) => data.items?.[0],
-    },
-  });
+  const [jiraServers] = JiraServerKubeObject.useList();
 
   const [jiraServerSecrets] = SecretKubeObject.useList({
     namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=jira`,
   });
 
+  const jiraServer = jiraServers?.[0]?.jsonData;
   const jiraServerSecret = jiraServerSecrets?.[0]?.jsonData;
-  const isLoading = isJiraServerLoading || jiraServerSecrets === null;
+
+  const isLoading = jiraServers === null || jiraServerSecrets === null;
   const mode = !!jiraServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
   const ownerReference = jiraServerSecret?.metadata?.ownerReferences?.[0]?.kind;
