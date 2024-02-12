@@ -12,7 +12,7 @@ export const Monitoring = ({
     <iframe
       title="monitoring"
       frameBorder="0"
-      height="500"
+      height="800"
       width="100%"
       src={LinkCreationService.grafana.createDashboardLink(grafanaBaseUrl, namespace)}
     ></iframe>
