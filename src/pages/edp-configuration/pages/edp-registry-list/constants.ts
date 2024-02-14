@@ -5,5 +5,5 @@ export const REGISTRY_LIST_PAGE_DESCRIPTION: PageDescription = {
   label: 'Registry',
   description: 'Establish platform integration with the Container Registry.',
   routePath: '/edp/configuration/registry',
-  docLink: EDP_OPERATOR_GUIDE.CONTAINER_REGISTRY_HARBOR.url,
+  docLink: EDP_OPERATOR_GUIDE.REGISTRY.url,
 };

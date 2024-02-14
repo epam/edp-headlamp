@@ -35,7 +35,7 @@ export const ManageJiraCI = ({ formData }: ManageJiraCIProps) => {
           <CreateItemAccordion
             isExpanded={expandedPanel === mode || !jiraServerSecret}
             onChange={handleChange(mode)}
-            title={'Add Git Server'}
+            title={'Add Jira Integration'}
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>

@@ -301,4 +301,7 @@ export const EDP_OPERATOR_GUIDE = {
   ARGO_CD: {
     url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/argocd-integration/`,
   },
+  REGISTRY: {
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/container-registries/`,
+  },
 };

@@ -6,7 +6,6 @@ import { Table } from '../../../../components/Table';
 import { Resources } from '../../../../icons/sprites/Resources';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
-import { ResourceActionListContextProvider } from '../../../../providers/ResourceActionList';
 import { FORM_MODES } from '../../../../types/forms';
 import { CodebaseActionsMenu } from '../../../../widgets/CodebaseActionsMenu';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../widgets/CreateEditCodebase/constants';
@@ -27,7 +26,7 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
   const { filterFunction } = usePageFilterContext();
 
   return (
-    <ResourceActionListContextProvider>
+    <>
       <CodebaseActionsMenu />
       <Resources />
       <Table
@@ -59,6 +58,6 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
           )
         }
       />
-    </ResourceActionListContextProvider>
+    </>
   );
 };
