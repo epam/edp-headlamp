@@ -22,6 +22,7 @@ export const ManageGitServer = ({ formData }: ManageGitServerProps) => {
 
   const connected = gitServer?.status?.connected;
   const error = gitServer?.status?.error;
+
   const [icon, color] = EDPGitServerKubeObject.getStatusIcon(connected);
 
   return (
