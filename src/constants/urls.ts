@@ -247,6 +247,9 @@ export const EDP_USER_GUIDE = {
   GIT_OPS: {
     url: `${EDP_USER_GUIDE_ROOT_URL}/gitops`,
   },
+  REGISTRY: {
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/manage-container-registries/`,
+  },
 };
 
 export const EDP_OPERATOR_GUIDE = {
@@ -300,8 +303,5 @@ export const EDP_OPERATOR_GUIDE = {
   },
   ARGO_CD: {
     url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/argocd-integration/`,
-  },
-  REGISTRY: {
-    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/container-registries/`,
   },
 };
