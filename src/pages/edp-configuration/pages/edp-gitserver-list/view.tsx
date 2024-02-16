@@ -1,6 +1,7 @@
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, Link, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import React from 'react';
+import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
@@ -29,11 +30,7 @@ export const PageView = () => {
             </Typography>
             <Typography variant={'body1'}>
               {GIT_SERVER_LIST_PAGE_DESCRIPTION.description}{' '}
-              <Link href={EDP_USER_GUIDE.GIT_SERVER_MANAGE.anchors.VIEW_DATA.url} target={'_blank'}>
-                <Typography variant={'body2'} component={'span'}>
-                  Learn more.
-                </Typography>
-              </Link>
+              <LearnMoreLink url={EDP_USER_GUIDE.GIT_SERVER_MANAGE.anchors.VIEW_DATA.url} />
             </Typography>
           </Grid>
           <Grid item xs={12}>

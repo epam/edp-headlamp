@@ -1,7 +1,7 @@
 import { CircularProgress, Grid, Typography } from '@mui/material';
 import React from 'react';
-import { DocLink } from '../../../../components/DocLink';
 import { EmptyList } from '../../../../components/EmptyList';
+import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { Section } from '../../../../components/Section';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { EDPCodebaseBranchKubeObject } from '../../../../k8s/EDPCodebaseBranch';
@@ -63,10 +63,9 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
       title={
         <Grid container alignItems={'center'} spacing={1}>
           <Grid item>
-            <Typography variant={'h1'}>Branches</Typography>
-          </Grid>
-          <Grid item>
-            <DocLink href={EDP_USER_GUIDE.BRANCHES_MANAGE.url} />
+            <Typography variant={'h1'}>
+              Branches <LearnMoreLink url={EDP_USER_GUIDE.BRANCHES_MANAGE.url} />
+            </Typography>
           </Grid>
           <Grid item style={{ marginLeft: 'auto' }}>
             <TableHeaderActions

@@ -1,6 +1,7 @@
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, Link, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import React from 'react';
+import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
@@ -42,11 +43,7 @@ export const PageView = () => {
             </Typography>
             <Typography variant={'body1'}>
               {ARGOCD_INTEGRATION_PAGE_DESCRIPTION.description}{' '}
-              <Link href={EDP_OPERATOR_GUIDE.ARGO_CD.url} target={'_blank'}>
-                <Typography variant={'body2'} component={'span'}>
-                  Learn more.
-                </Typography>
-              </Link>
+              <LearnMoreLink url={EDP_OPERATOR_GUIDE.ARGO_CD.url} />
             </Typography>
           </Grid>
           <Grid item xs={12}>

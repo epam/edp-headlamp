@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPComponentList = {
   name: 'Components',
-  path: '/edp/configuration/edpcomponents',
+  path: '/configuration/edpcomponents',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
   exact: true,
 };

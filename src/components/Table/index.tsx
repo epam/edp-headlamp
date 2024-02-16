@@ -104,7 +104,7 @@ export const Table = <DataType extends unknown>({
           hasEmptyResult={hasEmptyResult}
         />
       </MuiTable>
-      {showPagination && data?.length > _rowsPerPage && (
+      {showPagination && (
         <TablePagination
           dataCount={readyData && readyData.length}
           page={activePage}

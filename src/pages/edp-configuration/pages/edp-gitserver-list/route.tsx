@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPGitServerList = {
   name: 'Git Servers',
-  path: '/edp/configuration/gitservers',
+  path: '/configuration/gitservers',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
   exact: true,
 };

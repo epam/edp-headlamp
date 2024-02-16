@@ -5,7 +5,7 @@ test('checking createNewSidebarItem', () => {
     parentName: 'parentName',
     itemLabel: 'itemLabel',
     itemName: 'edp-itemName',
-    url: '/edp/itemName',
+    url: 'itemName',
     opts: {
       icon: 'icon',
     },

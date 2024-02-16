@@ -3,6 +3,6 @@ import { createSidebarItemName } from '../../utils/routes/createSidebarItemName'
 
 export const routeEDPStageDetails = {
   name: 'Stage Details',
-  path: '/edp/cdpipelines/:namespace/:CDPipelineName/stages/:stageName',
+  path: '/cdpipelines/:namespace/:CDPipelineName/stages/:stageName',
   sidebar: createSidebarItemName(CDPIPELINES_ROUTE_NAME),
 };

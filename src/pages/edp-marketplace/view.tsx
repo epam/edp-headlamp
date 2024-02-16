@@ -3,8 +3,8 @@ import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Grid, IconButton, Tooltip, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { DocLink } from '../../components/DocLink';
 import { EmptyList } from '../../components/EmptyList';
+import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { EDP_USER_GUIDE } from '../../constants/urls';
@@ -34,18 +34,12 @@ export const PageView = () => {
   return (
     <PageWrapper>
       <Section
-        title={
-          <Grid container alignItems={'center'} spacing={1}>
-            <Grid item>
-              <Typography variant={'h1'}>Marketplace</Typography>
-            </Grid>
-            <Grid item>
-              <DocLink href={EDP_USER_GUIDE.MARKETPLACE_CREATE_APP.url} />
-            </Grid>
-          </Grid>
-        }
+        title={<Typography variant={'h1'}>Marketplace</Typography>}
         description={
-          'Effortlessly scaffold applications using predefined templates crafted for various use cases.'
+          <>
+            Effortlessly scaffold applications using predefined templates crafted for various use
+            cases. <LearnMoreLink url={EDP_USER_GUIDE.APPLICATION_CREATE.url} />
+          </>
         }
       >
         <Grid container spacing={2}>

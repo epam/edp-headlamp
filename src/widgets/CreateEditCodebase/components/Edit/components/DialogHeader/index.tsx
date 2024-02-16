@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
-import { DocLink } from '../../../../../../components/DocLink';
+import { LearnMoreLink } from '../../../../../../components/LearnMoreLink';
 import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
@@ -34,10 +34,9 @@ export const DialogHeader = () => {
       <Grid item>
         <Grid container spacing={1} alignItems={'center'}>
           <Grid item>
-            <Typography variant={'h5'}>{`Edit ${codebaseData?.metadata.name}`}</Typography>
-          </Grid>
-          <Grid item>
-            <DocLink href={docLink} />
+            <Typography variant={'h5'}>
+              {`Edit ${codebaseData?.metadata.name}`} <LearnMoreLink url={docLink} />
+            </Typography>
           </Grid>
         </Grid>
       </Grid>

@@ -6,13 +6,13 @@ import {
   AccordionSummary,
   CircularProgress,
   Grid,
-  Link,
   Tooltip,
   Typography,
 } from '@mui/material';
 import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { CreateItemAccordion } from '../../../../components/CreateItemAccordion';
+import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
@@ -67,14 +67,7 @@ export const ConfigurationBody = ({
                   {label}
                 </Typography>
                 <Typography variant={'body1'}>
-                  {description}{' '}
-                  {!!docUrl && (
-                    <Link href={docUrl} target={'_blank'}>
-                      <Typography variant={'body2'} component={'span'}>
-                        Learn more.
-                      </Typography>
-                    </Link>
-                  )}
+                  {description} {!!docUrl && <LearnMoreLink url={docUrl} />}
                 </Typography>
               </Grid>
               {children}

@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPClusterList = {
   name: 'Clusters',
-  path: '/edp/configuration/clusters',
+  path: '/configuration/clusters',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
 
   exact: true,

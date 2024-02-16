@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPDependencyTrackIntegration = {
   name: 'DependencyTrack Integration',
-  path: '/edp/configuration/dependency-track-integration',
+  path: '/configuration/dependency-track-integration',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
   exact: true,
 };

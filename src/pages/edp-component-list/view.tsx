@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
-import { DocLink } from '../../components/DocLink';
+import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { EDP_USER_GUIDE } from '../../constants/urls';
@@ -21,13 +21,14 @@ export const PageView = () => {
             <Grid item>
               <Typography variant={'h1'}>Components</Typography>
             </Grid>
-            <Grid item>
-              <DocLink href={EDP_USER_GUIDE.APPLICATION_CREATE.url} />
-            </Grid>
           </Grid>
         }
         description={
-          'Create, view, and manage diverse codebases, encompassing applications, libraries, autotests, and Terraform infrastructure code.'
+          <>
+            Create, view, and manage diverse codebases, encompassing applications, libraries,
+            autotests, and Terraform infrastructure code.{' '}
+            <LearnMoreLink url={EDP_USER_GUIDE.APPLICATION_CREATE.url} />
+          </>
         }
       >
         <Grid container spacing={2}>

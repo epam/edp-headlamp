@@ -6,7 +6,6 @@ import { useColumns } from './hooks/useColumns';
 import { TemplatesTableProps } from './types';
 
 export const TemplatesTable = ({
-  activeTemplate,
   data,
   handleTemplateClick,
   filterFunction,
@@ -18,8 +17,7 @@ export const TemplatesTable = ({
       columns={columns}
       data={data}
       isLoading={!data}
-      isSelected={(row) => row.metadata.uid === activeTemplate?.metadata.uid}
-      handleRowClick={(event, row) => handleTemplateClick(event, row)}
+      handleRowClick={(event, row) => handleTemplateClick(row)}
       emptyListComponent={<EmptyList missingItemName={'templates'} />}
       filterFunction={filterFunction}
     />

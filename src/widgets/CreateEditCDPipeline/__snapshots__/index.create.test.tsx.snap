@@ -46,23 +46,19 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                   class="MuiTypography-root MuiTypography-h5 css-xqgeko-MuiTypography-root"
                 >
                   Create CD Pipeline
+                   
+                  <a
+                    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
+                    href="https://epam.github.io/edp-install/user-guide/add-cd-pipeline/#create-cd-pipeline-in-the-dialog"
+                    target="_blank"
+                  >
+                    <span
+                      class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+                    >
+                      Learn more.
+                    </span>
+                  </a>
                 </h5>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-              >
-                <a
-                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
-                  data-mui-internal-clone-element="true"
-                  href="https://epam.github.io/edp-install/user-guide/add-cd-pipeline/#create-cd-pipeline-in-the-dialog"
-                  tabindex="0"
-                  target="_blank"
-                >
-                  <span />
-                  <span
-                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                  />
-                </a>
               </div>
             </div>
           </div>
@@ -212,7 +208,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                               <input
                                 aria-invalid="false"
                                 class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                                id="mui-4"
+                                id="mui-3"
                                 name="name"
                                 placeholder="Enter pipeline name"
                                 type="text"
@@ -296,7 +292,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl makeStyles-selectWithDefaultValue-7 css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                               >
                                 <div
-                                  aria-controls="mui-6"
+                                  aria-controls="mui-5"
                                   aria-expanded="false"
                                   aria-haspopup="listbox"
                                   aria-labelledby="mui-component-select-applicationsToAddChooser"

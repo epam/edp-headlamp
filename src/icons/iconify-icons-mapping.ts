@@ -55,7 +55,7 @@ export enum ICONS {
   ZOOM_IN = 'ic:baseline-zoom-in',
   ZOOM_OUT = 'ic:baseline-zoom-out',
   FIT_TO_SCREEN = 'material-symbols:pan-zoom-rounded',
-  ZOOM_OUT_MAP = 'material-symbols:zoom-out-map',
+  ZOOM_OUT_MAP = 'material-symbols:zoom-in-map-rounded',
   CALENDAR = 'mdi:calendar',
   EYE = 'mdi:eye-outline',
   CROSSED_EYE = 'mdi:eye-off-outline',

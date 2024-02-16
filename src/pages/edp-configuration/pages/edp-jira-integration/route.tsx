@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPJiraIntegration = {
   name: 'Jira Integration',
-  path: '/edp/configuration/jira-integration',
+  path: '/configuration/jira-integration',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
   exact: true,
 };

@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPArgoCDIntegration = {
   name: 'Argo CD Integration',
-  path: '/edp/configuration/argocd-integration',
+  path: '/configuration/argocd-integration',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
   exact: true,
 };

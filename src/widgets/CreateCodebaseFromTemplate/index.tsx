@@ -1,10 +1,18 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from '@mui/material';
 import React from 'react';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { FormContextProvider } from '../../providers/Form';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
 import { FormDefaultValues } from './components/FormDefaultValues';
+import { Preview } from './components/Preview';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from './constants';
 import { useDefaultValues } from './hooks/useDefaultValues';
 import { CreateCodebaseFromTemplateDialogForwardedProps } from './types';
@@ -20,31 +28,63 @@ export const CreateCodebaseFromTemplate = () => {
 
   const baseDefaultValues = useDefaultValues();
 
-  const {
-    spec: { type: codebaseType, displayName: templateName },
-  } = template;
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (newValue: number) => {
+    setValue(newValue);
+  };
+
+  const isPreviewPanel = value === 0;
+
+  const isFormPanel = value === 1;
 
   return (
-    <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth data-testid="dialog">
-      <FormContextProvider
-        formSettings={{
-          defaultValues: baseDefaultValues,
-          mode: 'onBlur',
-        }}
-      >
+    <FormContextProvider
+      formSettings={{
+        defaultValues: baseDefaultValues,
+        mode: 'onBlur',
+      }}
+    >
+      <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth data-testid="dialog">
         <DialogTitle>
-          <Typography variant={'h5'}>
-            Creating {codebaseType} from <strong>"{templateName}"</strong> template
-          </Typography>
+          <Typography variant={'h4'}>Create application from template</Typography>
         </DialogTitle>
+
         <DialogContent>
-          <FormDefaultValues />
-          <Form />
+          {isPreviewPanel && <Preview template={template} />}
+
+          {isFormPanel && (
+            <>
+              <FormDefaultValues />
+              <Form />
+            </>
+          )}
         </DialogContent>
         <DialogActions>
-          <FormActions />
+          {isPreviewPanel && (
+            <>
+              <Button
+                onClick={closeDialog}
+                size="small"
+                component={'button'}
+                style={{ marginLeft: 'auto' }}
+              >
+                cancel
+              </Button>
+              <Button
+                type={'submit'}
+                variant={'contained'}
+                color={'primary'}
+                size="small"
+                onClick={() => handleChange(1)}
+              >
+                proceed
+              </Button>
+            </>
+          )}
+          {isFormPanel && <FormActions />}
         </DialogActions>
-      </FormContextProvider>
-    </Dialog>
+      </Dialog>
+    </FormContextProvider>
   );
 };

@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPNexusIntegration = {
   name: 'Nexus Integration',
-  path: `/edp/configuration/nexus-integration`,
+  path: `/configuration/nexus-integration`,
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
   exact: true,
 };

@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Button, Tooltip } from '@mui/material';
+import { Button } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
@@ -12,24 +12,22 @@ export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActio
 
   return (
     <>
-      <Tooltip title={'Create branch'}>
-        <Button
-          startIcon={<Icon icon={ICONS.PLUS} />}
-          color={'primary'}
-          variant={'contained'}
-          onClick={() => {
-            setDialog({
-              modalName: CREATE_CODEBASE_BRANCH_DIALOG_NAME,
-              forwardedProps: {
-                codebase,
-                defaultBranch,
-              },
-            });
-          }}
-        >
-          create
-        </Button>
-      </Tooltip>
+      <Button
+        startIcon={<Icon icon={ICONS.PLUS} />}
+        color={'primary'}
+        variant={'contained'}
+        onClick={() => {
+          setDialog({
+            modalName: CREATE_CODEBASE_BRANCH_DIALOG_NAME,
+            forwardedProps: {
+              codebase,
+              defaultBranch,
+            },
+          });
+        }}
+      >
+        Create branch
+      </Button>
     </>
   );
 };

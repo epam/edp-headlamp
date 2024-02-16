@@ -1,27 +1,14 @@
-import { alpha } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { rem } from '../../../../../../utils/styling/rem';
 
 export const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: 0,
-    height: '100%',
-    display: 'block',
-
-    '& > .MuiTypography-root': {
-      height: '100%',
-    },
-  },
   cardRoot: {
     height: '100%',
-    transition: 'background-color 0.2s ease-in-out',
+    backgroundColor: theme.palette.action.hover,
 
     '&:hover': {
-      backgroundColor: theme.palette.action.hover,
+      backgroundColor: theme.palette.action.selected,
     },
-  },
-  cardRootActive: {
-    backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
   },
   cardActions: {
     marginTop: 'auto',

@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPSonarIntegration = {
   name: 'Sonar Integration',
-  path: '/edp/configuration/sonar-integration',
+  path: '/configuration/sonar-integration',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
   exact: true,
 };

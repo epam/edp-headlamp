@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../utils/routes/createSidebarItemName'
 
 export const routeEDPMarketplace = {
   name: 'Marketplace',
-  path: `/edp/marketplace`,
+  path: `/marketplace`,
   sidebar: createSidebarItemName(MARKETPLACE_ROUTE_NAME),
   exact: true,
 };

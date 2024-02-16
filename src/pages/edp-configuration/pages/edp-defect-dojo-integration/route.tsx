@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPDefectDojoIntegration = {
   name: 'DefectDojo Integration',
-  path: '/edp/configuration/defect-dojo-integration',
+  path: '/configuration/defect-dojo-integration',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
   exact: true,
 };

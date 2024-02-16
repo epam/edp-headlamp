@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import { Alert } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { DocLink } from '../../../../../components/DocLink';
+import { LearnMoreLink } from '../../../../../components/LearnMoreLink';
 import { EDP_OPERATOR_GUIDE } from '../../../../../constants/urls';
 import { useJiraServerNameListQuery } from '../../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
 import { FormCheckbox } from '../../../../../providers/Form/components/FormCheckbox';
@@ -37,10 +37,8 @@ export const JiraServerIntegration = () => {
               control={control}
               errors={errors}
               disabled={jiraServersNames && !jiraServersNames.length}
-            />
-          </Grid>
-          <Grid item>
-            <DocLink href={EDP_OPERATOR_GUIDE.JIRA.url} />
+            />{' '}
+            <LearnMoreLink url={EDP_OPERATOR_GUIDE.JIRA.url} />
           </Grid>
         </Grid>
       </Grid>

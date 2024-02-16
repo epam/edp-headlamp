@@ -3,8 +3,8 @@ import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Button, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { DocLink } from '../../components/DocLink';
 import { EmptyList } from '../../components/EmptyList';
+import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
@@ -63,12 +63,14 @@ export const PageView = () => {
             <Grid item>
               <Typography variant={'h1'}>Environments</Typography>
             </Grid>
-            <Grid item>
-              <DocLink href={EDP_USER_GUIDE.CD_PIPELINE_CREATE.anchors.CREATE_VIA_UI.url} />
-            </Grid>
           </Grid>
         }
-        description={'Manage your environments with deployed applications.'}
+        description={
+          <>
+            Manage your environments with deployed applications.{' '}
+            <LearnMoreLink url={EDP_USER_GUIDE.CD_PIPELINE_CREATE.anchors.CREATE_VIA_UI.url} />
+          </>
+        }
       >
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -98,7 +100,7 @@ export const PageView = () => {
                   }
                   disabled={!gitOpsCodebase}
                 >
-                  create
+                  create environment
                 </Button>
               </Grid>
             </Grid>

@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPRegistryList = {
   name: 'Container Registry',
-  path: '/edp/configuration/registry',
+  path: '/configuration/registry',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
   exact: true,
 };

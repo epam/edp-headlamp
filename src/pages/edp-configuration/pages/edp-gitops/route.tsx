@@ -3,7 +3,7 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPGitOpsConfiguration = {
   name: 'GitOps Configuration',
-  path: '/edp/configuration/gitops',
+  path: '/configuration/gitops',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
   exact: true,
 };

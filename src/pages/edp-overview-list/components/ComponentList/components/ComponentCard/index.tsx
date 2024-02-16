@@ -59,6 +59,22 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
             </Grid>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
             <Grid item onClick={stopPropagation} onFocus={stopPropagation}>
+              <Tooltip title={'Edit'}>
+                <IconButton
+                  component={Link}
+                  routeName={routeEDPComponentDetails.path}
+                  params={{
+                    name: component.metadata.name,
+                    namespace: component.metadata.namespace,
+                  }}
+                  size={'small'}
+                >
+                  <Icon icon={ICONS.PENCIL} color={'#fff'} width="20" />
+                </IconButton>
+              </Tooltip>
+            </Grid>
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+            <Grid item onClick={stopPropagation} onFocus={stopPropagation}>
               <Tooltip
                 title={
                   <Grid container alignItems={'center'} spacing={1}>
@@ -80,22 +96,6 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
                   size={'small'}
                 >
                   <Icon icon={ICONS.NEW_WINDOW} color={'#fff'} width="20" />
-                </IconButton>
-              </Tooltip>
-            </Grid>
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <Grid item onClick={stopPropagation} onFocus={stopPropagation}>
-              <Tooltip title={'Edit'}>
-                <IconButton
-                  component={Link}
-                  routeName={routeEDPComponentDetails.path}
-                  params={{
-                    name: component.metadata.name,
-                    namespace: component.metadata.namespace,
-                  }}
-                  size={'small'}
-                >
-                  <Icon icon={ICONS.PENCIL} color={'#fff'} width="20" />
                 </IconButton>
               </Tooltip>
             </Grid>

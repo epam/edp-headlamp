@@ -1,8 +1,9 @@
 import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Button, Grid, Link, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
@@ -40,11 +41,7 @@ export const PageView = () => {
             </Typography>
             <Typography variant={'body1'}>
               {EDP_COMPONENT_LIST_PAGE_DESCRIPTION.description}{' '}
-              <Link href={EDP_COMPONENT_LIST_PAGE_DESCRIPTION.docLink} target={'_blank'}>
-                <Typography variant={'body2'} component={'span'}>
-                  Learn more.
-                </Typography>
-              </Link>
+              <LearnMoreLink url={EDP_COMPONENT_LIST_PAGE_DESCRIPTION.docLink} />
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -79,7 +76,7 @@ export const PageView = () => {
                         })
                       }
                     >
-                      create
+                      create link
                     </Button>
                   </Grid>
                 </Grid>

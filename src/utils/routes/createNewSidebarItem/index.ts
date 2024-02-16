@@ -10,7 +10,7 @@ export const createNewSidebarItem = (
   parentName,
   itemLabel,
   itemName: createSidebarItemName(name),
-  url: `/edp/${name}`,
+  url: name,
   opts: {
     icon,
   },

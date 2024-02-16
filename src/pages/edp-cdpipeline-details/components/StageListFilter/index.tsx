@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Autocomplete } from '@mui/lab';
-import { Button, Grid, TextField, Tooltip } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
@@ -162,21 +162,19 @@ export const StageListFilter = () => {
         />
       </Grid>
       <Grid item>
-        <Tooltip title={'Create stage'}>
-          <Button
-            startIcon={<Icon icon={ICONS.PLUS} />}
-            color={'primary'}
-            variant={'contained'}
-            onClick={() => {
-              setDialog({
-                modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
-                forwardedProps,
-              });
-            }}
-          >
-            create
-          </Button>
-        </Tooltip>
+        <Button
+          startIcon={<Icon icon={ICONS.PLUS} />}
+          color={'primary'}
+          variant={'contained'}
+          onClick={() => {
+            setDialog({
+              modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
+              forwardedProps,
+            });
+          }}
+        >
+          create stage
+        </Button>
       </Grid>
     </Grid>
   );

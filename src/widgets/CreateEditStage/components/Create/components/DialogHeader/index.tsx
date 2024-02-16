@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { Button, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { DocLink } from '../../../../../../components/DocLink';
+import { LearnMoreLink } from '../../../../../../components/LearnMoreLink';
 import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { createCDPipelineStageInstance } from '../../../../../../k8s/EDPCDPipelineStage/utils/createCDPipelineStageInstance';
@@ -45,12 +45,10 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
       <Grid item>
         <Grid container spacing={1} alignItems={'center'}>
           <Grid item>
-            <Typography
-              variant={'h5'}
-            >{`Create stage for "${CDPipelineData?.metadata.name}"`}</Typography>
-          </Grid>
-          <Grid item>
-            <DocLink href={EDP_USER_GUIDE.CD_PIPELINE_MANAGE.anchors.ADD_STAGE.url} />
+            <Typography variant={'h5'}>
+              {`Create stage for "${CDPipelineData?.metadata.name}"`}{' '}
+              <LearnMoreLink url={EDP_USER_GUIDE.CD_PIPELINE_MANAGE.anchors.ADD_STAGE.url} />
+            </Typography>
           </Grid>
         </Grid>
       </Grid>

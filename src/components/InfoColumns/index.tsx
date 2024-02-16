@@ -80,7 +80,7 @@ export const InfoColumnsAccordion = ({ infoRows, title }: InfoColumnsAccordionPr
   return (
     <Accordion elevation={1} expanded={toShow} onChange={handleChange('info_columns')}>
       <AccordionSummary
-        expandIcon={<Icon icon={toShow ? ICONS.MINUS : ICONS.PLUS} />}
+        expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
         className={classes.accordionSummary}
       >
         <Typography variant={'h6'} style={{ fontWeight: 600 }}>

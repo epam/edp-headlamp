@@ -1,54 +1,30 @@
 import { ICONS } from '../icons/iconify-icons-mapping';
 import { routeEDPComponentList } from '../pages/edp-configuration/pages/edp-component-list/route';
-import { routeEDPOverviewList } from '../pages/edp-overview-list/route';
 import { createNewSidebarItem } from '../utils/routes/createNewSidebarItem';
 import { createSidebarItemName } from '../utils/routes/createSidebarItemName';
 import {
   CDPIPELINES_ROUTE_NAME,
   COMPONENTS_ROUTE_NAME,
   CONFIGURATION_ROUTE_NAME,
-  EDP_ROOT_ROUTE_NAME,
   MARKETPLACE_ROUTE_NAME,
-  OVERVIEW_ROUTE_NAME,
 } from './names';
 import { SidebarItem } from './types';
 
 export const SIDEBAR_LIST: SidebarItem[] = [
   {
     parentName: null,
-    itemLabel: 'EDP',
-    itemName: createSidebarItemName(EDP_ROOT_ROUTE_NAME),
-    url: routeEDPOverviewList.path,
+    itemLabel: 'Overview',
+    itemName: createSidebarItemName('overview'),
+    url: '/',
     opts: {
-      icon: ICONS.ROCKET,
+      icon: ICONS.PANEL,
     },
   },
-  createNewSidebarItem(
-    'Overview',
-    OVERVIEW_ROUTE_NAME,
-    ICONS.PANEL,
-    createSidebarItemName(EDP_ROOT_ROUTE_NAME)
-  ),
-  createNewSidebarItem(
-    'Marketplace',
-    MARKETPLACE_ROUTE_NAME,
-    ICONS.BASKET,
-    createSidebarItemName(EDP_ROOT_ROUTE_NAME)
-  ),
-  createNewSidebarItem(
-    'Components',
-    COMPONENTS_ROUTE_NAME,
-    ICONS.APPLICATION,
-    createSidebarItemName(EDP_ROOT_ROUTE_NAME)
-  ),
-  createNewSidebarItem(
-    'Environments',
-    CDPIPELINES_ROUTE_NAME,
-    ICONS.INFINITY,
-    createSidebarItemName(EDP_ROOT_ROUTE_NAME)
-  ),
+  createNewSidebarItem('Marketplace', MARKETPLACE_ROUTE_NAME, ICONS.BASKET),
+  createNewSidebarItem('Components', COMPONENTS_ROUTE_NAME, ICONS.APPLICATION),
+  createNewSidebarItem('Environments', CDPIPELINES_ROUTE_NAME, ICONS.INFINITY),
   {
-    parentName: createSidebarItemName(EDP_ROOT_ROUTE_NAME),
+    parentName: null,
     itemLabel: 'Configuration',
     itemName: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
     url: routeEDPComponentList.path,

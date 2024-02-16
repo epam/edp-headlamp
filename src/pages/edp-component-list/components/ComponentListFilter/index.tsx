@@ -78,7 +78,7 @@ export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) 
             })
           }
         >
-          create
+          create component
         </Button>
       </Grid>
     </Grid>

@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { Button, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { DocLink } from '../../../../../../../../components/DocLink';
+import { LearnMoreLink } from '../../../../../../../../components/LearnMoreLink';
 import { CODEBASE_TYPES } from '../../../../../../../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../../../../../../../constants/urls';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
@@ -46,10 +46,9 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
       <Grid item>
         <Grid container spacing={1} alignItems={'center'}>
           <Grid item>
-            <Typography variant={'h5'}>{`Create ${capitalizedType}`}</Typography>
-          </Grid>
-          <Grid item>
-            <DocLink href={docLink} />
+            <Typography variant={'h5'}>
+              {`Create ${capitalizedType}`} <LearnMoreLink url={docLink} />
+            </Typography>
           </Grid>
         </Grid>
       </Grid>

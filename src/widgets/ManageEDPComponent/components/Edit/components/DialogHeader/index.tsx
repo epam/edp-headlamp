@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { Button, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { DocLink } from '../../../../../../components/DocLink';
+import { LearnMoreLink } from '../../../../../../components/LearnMoreLink';
 import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { editResource } from '../../../../../../k8s/common/editResource';
@@ -41,10 +41,10 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
       <Grid item>
         <Grid container spacing={1} alignItems={'center'}>
           <Grid item>
-            <Typography variant={'h5'}>{`Edit ${EDPComponent.metadata.name}`}</Typography>
-          </Grid>
-          <Grid item>
-            <DocLink href={EDP_USER_GUIDE.OVERVIEW.url} />
+            <Typography variant={'h5'}>
+              {`Edit ${EDPComponent.metadata.name}`}{' '}
+              <LearnMoreLink url={EDP_USER_GUIDE.OVERVIEW.url} />
+            </Typography>
           </Grid>
         </Grid>
       </Grid>

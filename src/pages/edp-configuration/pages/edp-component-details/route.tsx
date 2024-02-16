@@ -3,6 +3,6 @@ import { createSidebarItemName } from '../../../../utils/routes/createSidebarIte
 
 export const routeEDPComponentDetails = {
   name: 'Components',
-  path: '/edp/configuration/edpcomponents/:namespace/:name/',
+  path: '/configuration/edpcomponents/:namespace/:name/',
   sidebar: createSidebarItemName(CONFIGURATION_ROUTE_NAME),
 };

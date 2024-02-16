@@ -80,7 +80,7 @@ export const Graph = ({
         initialPositionY={0}
         ref={transformComponentRef}
       >
-        {({ zoomIn, zoomOut, resetTransform, setTransform }) => {
+        {({ zoomIn, zoomOut, setTransform }) => {
           return (
             <React.Fragment>
               <TransformComponent>
@@ -113,11 +113,6 @@ export const Graph = ({
                 </Tooltip>
                 <Tooltip title={'Fit to screen'}>
                   <IconButton onClick={() => setTransform(0, 0, 1)} size="large">
-                    <Icon icon={ICONS.FIT_TO_SCREEN} />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title={'Reset transform'}>
-                  <IconButton onClick={() => resetTransform()} size="large">
                     <Icon icon={ICONS.ZOOM_OUT_MAP} />
                   </IconButton>
                 </Tooltip>
