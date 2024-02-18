@@ -11,7 +11,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-    host: edp-headlamp-{{ .Release.Namespace }}.{{ .Values.global.dnsWildCard }}
+    host: portal-{{ .Release.Namespace }}.{{ .Values.global.dnsWildCard }}
     tls:
         insecureEdgeTerminationPolicy: Redirect
         termination: edge

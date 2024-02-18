@@ -93,6 +93,7 @@ service:
   port: 80
 
 ingress:
+  # -- Enable external endpoint access. Default Ingress/Route host pattern: portal-{{ .Release.Namespace }}.{{ .Values.global.dnsWildCard }}
   enabled: true
   # -- Annotations for Ingress resource
   annotations:
@@ -104,7 +105,7 @@ ingress:
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
-  #      - chart-example.local
+  #      - portal-edp.example.com
 
 # -- CPU/Memory resource requests/limits
 resources:
