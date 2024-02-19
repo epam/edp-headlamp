@@ -8,7 +8,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ .Chart.Name }}
+  name: {{ include "headlamp.name" . }}
   labels:
     {{- include "headlamp.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -34,7 +34,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Chart.Name }}
+                name: {{ include "headlamp.name" . }}
                 port:
                   number: {{ $svcPort }}
 {{- end }}

@@ -49,7 +49,7 @@ A Helm chart for EDP Headlamp
 | livenessProbe.successThreshold | int | `1` |  |
 | livenessProbe.tcpSocket.port | int | `4466` |  |
 | livenessProbe.timeoutSeconds | int | `1` |  |
-| nameOverride | string | `""` | Overrides the name of the chart |
+| nameOverride | string | `"portal"` | Overrides the name of the chart |
 | nodeSelector | object | `{}` | Node labels for pod assignment |
 | podAnnotations | object | `{}` | Annotations to add to the pod |
 | podSecurityContext | object | `{}` | Headlamp pods' Security Context |

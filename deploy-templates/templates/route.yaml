@@ -3,7 +3,7 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ .Chart.Name }}
+  name: {{ include "headlamp.name" . }}
   labels:
     {{- include "headlamp.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -17,7 +17,7 @@ spec:
         termination: edge
     to:
         kind: Service
-        name: {{ .Chart.Name }}
+        name: {{ include "headlamp.name" . }}
         weight: 100
     wildcardPolicy: None
 status:
