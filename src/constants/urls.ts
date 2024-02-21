@@ -248,7 +248,7 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/gitops`,
   },
   REGISTRY: {
-    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/manage-container-registries/`,
+    url: `${EDP_USER_GUIDE_ROOT_URL}/manage-container-registries/`,
   },
 };
 
