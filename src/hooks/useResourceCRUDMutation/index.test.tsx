@@ -7,7 +7,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import React, { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { CRUD_TYPES } from '../../constants/crudTypes';
-import { EDPComponentKubeObject } from '../../k8s/EDPComponent';
+import { QuickLinkKubeObject } from '../../k8s/QuickLink';
 import { mutationDataMock } from './data.mock';
 import { useResourceCRUDMutation } from './index';
 
@@ -44,12 +44,12 @@ const wrapper = ({ children }: { children: ReactNode }) => (
 
 describe('testing useResourceCRUDMutation hook', () => {
   it('Request resolve scenario: the hook renders successfully, useMutation.mutate fn works correctly, notification callbacks are firing', async () => {
-    jest.spyOn(EDPComponentKubeObject.apiEndpoint, 'post').mockResolvedValue(mutationDataMock);
+    jest.spyOn(QuickLinkKubeObject.apiEndpoint, 'post').mockResolvedValue(mutationDataMock);
 
     await act(async () => {
       console.log('Before renderHook');
       const { result } = renderHook(
-        () => useResourceCRUDMutation('test', EDPComponentKubeObject, CRUD_TYPES.CREATE),
+        () => useResourceCRUDMutation('test', QuickLinkKubeObject, CRUD_TYPES.CREATE),
         {
           wrapper: wrapper,
         }
@@ -77,12 +77,12 @@ describe('testing useResourceCRUDMutation hook', () => {
     });
   });
   it('Request reject scenario: the hook renders successfully, useMutation.mutate fn works correctly, notification callbacks are firing', async () => {
-    jest.spyOn(EDPComponentKubeObject.apiEndpoint, 'put').mockRejectedValue({ error: 'error' });
+    jest.spyOn(QuickLinkKubeObject.apiEndpoint, 'put').mockRejectedValue({ error: 'error' });
 
     await act(async () => {
       console.log('Before renderHook');
       const { result } = renderHook(
-        () => useResourceCRUDMutation('test', EDPComponentKubeObject, CRUD_TYPES.EDIT),
+        () => useResourceCRUDMutation('test', QuickLinkKubeObject, CRUD_TYPES.EDIT),
         {
           wrapper: wrapper,
         }

@@ -3,34 +3,34 @@ import { Chip, Grid, IconButton, Tooltip, Typography } from '@mui/material';
 import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { EDPComponentLink } from '../../../../../../../../components/EDPComponentLink';
+import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { EDPCodebaseBranchKubeObject } from '../../../../../../../../k8s/EDPCodebaseBranch';
 import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../../../../k8s/EDPCodebaseBranch/types';
-import {
-  SYSTEM_EDP_COMPONENTS,
-  SYSTEM_EDP_COMPONENTS_LABELS,
-} from '../../../../../../../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useGitServerByCodebaseQuery } from '../../../../../../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/PipelineRun/constants';
 import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/PipelineRun/hooks/useCreateBuildPipelineRun';
+import {
+  SYSTEM_QUICK_LINKS,
+  SYSTEM_QUICK_LINKS_LABELS,
+} from '../../../../../../../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../../../../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { useStorageSizeQuery } from '../../../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
 import { useResourceActionListContext } from '../../../../../../../../providers/ResourceActionList/hooks';
 import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { rem } from '../../../../../../../../utils/styling/rem';
 import { routeEDPSonarIntegration } from '../../../../../../../edp-configuration/pages/edp-sonar-integration/route';
-import { EDPComponentDetailsRouteParams } from '../../../../../../types';
+import { QuickLinkDetailsRouteParams } from '../../../../../../types';
 import { isDefaultBranch } from '../../../../utils';
 import { useStyles } from './styles';
 import { SummaryProps } from './types';
 
 export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: SummaryProps) => {
-  const { namespace } = useParams<EDPComponentDetailsRouteParams>();
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+  const { namespace } = useParams<QuickLinkDetailsRouteParams>();
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
 
   const buttonRef = React.createRef<HTMLButtonElement>();
 
@@ -146,15 +146,15 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
             </div>
           </Grid>
           <Grid item>
-            <EDPComponentLink
+            <QuickLink
               name={{
-                label: SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.SONAR],
-                value: SYSTEM_EDP_COMPONENTS.SONAR,
+                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.SONAR],
+                value: SYSTEM_QUICK_LINKS.SONAR,
               }}
               enabledText="Open the Quality Gates"
               icon={ICONS.SONAR}
               externalLink={LinkCreationService.sonar.createDashboardLink(
-                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.SONAR],
+                QuickLinksURLS?.[SYSTEM_QUICK_LINKS.SONAR],
                 codebaseData.metadata.name,
                 codebaseBranchData.spec.branchName
               )}
@@ -164,7 +164,7 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
             />
           </Grid>
           <Grid item>
-            <EDPComponentLink
+            <QuickLink
               enabledText="Open the Source Code"
               name={{ label: 'the Source Code' }}
               icon={ICONS.GIT_BRANCH}

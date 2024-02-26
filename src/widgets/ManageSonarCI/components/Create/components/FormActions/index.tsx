@@ -2,7 +2,7 @@ import { Button, Grid } from '@mui/material';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { editResource } from '../../../../../../k8s/common/editResource';
-import { useEDPComponentCRUD } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentCRUD';
+import { useQuickLinkCRUD } from '../../../../../../k8s/QuickLink/hooks/useQuickLinkCRUD';
 import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createSonarQubeIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createSonarQubeIntegrationSecretInstance';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
@@ -19,7 +19,7 @@ export const FormActions = () => {
   } = useReactHookFormContext<ManageSonarIntegrationSecretFormValues>();
 
   const {
-    formData: { handleClosePanel, ownerReference, sonarEDPComponent },
+    formData: { handleClosePanel, ownerReference, sonarQuickLink },
   } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
 
   const {
@@ -32,33 +32,33 @@ export const FormActions = () => {
   });
 
   const {
-    editEDPComponent,
-    mutations: { EDPComponentEditMutation },
-  } = useEDPComponentCRUD({});
+    editQuickLink,
+    mutations: { QuickLinkEditMutation },
+  } = useQuickLinkCRUD({});
 
   const isLoading =
     secretCreateMutation.isLoading ||
     secretEditMutation.isLoading ||
     secretDeleteMutation.isLoading ||
-    EDPComponentEditMutation.isLoading;
+    QuickLinkEditMutation.isLoading;
 
   const onSubmit = React.useCallback(
     async (values: ManageSonarIntegrationSecretFormValues) => {
-      const newEDPComponentData = editResource(
+      const newQuickLinkData = editResource(
         {
           url: {
             name: 'url',
             path: ['spec', 'url'],
           },
         },
-        sonarEDPComponent,
+        sonarQuickLink,
         {
           url: values.externalUrl,
         }
       );
 
-      await editEDPComponent({
-        EDPComponentData: newEDPComponentData,
+      await editQuickLink({
+        QuickLinkData: newQuickLinkData,
       });
 
       if (!!ownerReference) {
@@ -69,7 +69,7 @@ export const FormActions = () => {
 
       await createSecret({ secretData: secretInstance });
     },
-    [createSecret, editEDPComponent, ownerReference, sonarEDPComponent]
+    [createSecret, editQuickLink, ownerReference, sonarQuickLink]
   );
 
   return (
@@ -94,7 +94,7 @@ export const FormActions = () => {
                 component={'button'}
                 variant={'contained'}
                 color={'primary'}
-                disabled={isLoading || !isDirty || !sonarEDPComponent}
+                disabled={isLoading || !isDirty || !sonarQuickLink}
                 onClick={handleSubmit(onSubmit)}
               >
                 save

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useEDPComponentsURLsQuery } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/PipelineRun/constants';
+import { useQuickLinksURLsQuery } from '../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { FormContextProvider } from '../../../providers/Form';
 import { PipelineRunList } from '../../../widgets/PipelineRunList';
 import { Applications } from '../components/Applications';
@@ -17,7 +17,7 @@ import { useEveryArgoAppIsHealthyAndInSync } from './useEveryArgoAppIsHealthyAnd
 
 export const usePageTabs = () => {
   const { namespace } = useParams<EDPStageDetailsRouteParams>();
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
 
   const {
     stage,
@@ -140,14 +140,14 @@ export const usePageTabs = () => {
         id: 'monitoring',
         component: (
           <Monitoring
-            grafanaBaseUrl={EDPComponentsURLS?.grafana}
+            grafanaBaseUrl={QuickLinksURLS?.grafana}
             namespace={stage.data?.spec.namespace}
           />
         ),
       },
     ];
   }, [
-    EDPComponentsURLS,
+    QuickLinksURLS,
     argoApplications,
     autotestPipelineRuns,
     autotestRunnerPipelineRuns,

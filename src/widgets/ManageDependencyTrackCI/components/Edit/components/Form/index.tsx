@@ -7,16 +7,16 @@ import { ExternalURL, Token, URL } from '../../../fields';
 
 export const Form = () => {
   const {
-    formData: { depTrackEDPComponent },
+    formData: { depTrackQuickLink },
   } = useFormContext<ManageDependencyTrackIntegrationSecretFormDataContext>();
 
   return (
     <Grid container spacing={2}>
-      {!depTrackEDPComponent && (
+      {!depTrackQuickLink && (
         <Grid item xs={12}>
           <Alert severity="info" variant="outlined">
-            DependencyTrack EDPComponent has not been found. Please, create it first in order to
-            manage the integration.
+            DependencyTrack QuickLink has not been found. Please, create it first in order to manage
+            the integration.
           </Alert>
         </Grid>
       )}

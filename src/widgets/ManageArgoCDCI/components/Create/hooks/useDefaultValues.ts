@@ -7,11 +7,11 @@ export const useDefaultValues = ({
 }: {
   formData: ManageArgoCDIntegrationSecretFormDataContext;
 }) => {
-  const { argoCDEDPComponent } = formData;
+  const { argoCDQuickLink } = formData;
 
   return React.useMemo(() => {
     return {
-      [ARGOCD_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: argoCDEDPComponent?.spec.url,
+      [ARGOCD_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: argoCDQuickLink?.spec.url,
     };
-  }, [argoCDEDPComponent]);
+  }, [argoCDQuickLink]);
 };

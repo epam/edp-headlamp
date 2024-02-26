@@ -7,12 +7,11 @@ export const useDefaultValues = ({
 }: {
   formData: ManageDefectDojoIntegrationSecretFormDataContext;
 }) => {
-  const { defectDojoEDPComponent } = formData;
+  const { defectDojoQuickLink } = formData;
 
   return React.useMemo(() => {
     return {
-      [DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]:
-        defectDojoEDPComponent?.spec.url,
+      [DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: defectDojoQuickLink?.spec.url,
     };
-  }, [defectDojoEDPComponent]);
+  }, [defectDojoQuickLink]);
 };

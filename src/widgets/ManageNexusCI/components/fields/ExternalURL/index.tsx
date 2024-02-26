@@ -15,7 +15,7 @@ export const ExternalURL = () => {
   } = useReactHookFormContext();
 
   const {
-    formData: { mode, nexusEDPComponent },
+    formData: { mode, nexusQuickLink },
   } = useFormContext<ManageNexusIntegrationSecretFormDataContext>();
 
   return (
@@ -39,7 +39,7 @@ export const ExternalURL = () => {
       placeholder={'Enter URL'}
       control={control}
       errors={errors}
-      disabled={!nexusEDPComponent}
+      disabled={!nexusQuickLink}
     />
   );
 };

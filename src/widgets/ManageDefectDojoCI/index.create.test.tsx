@@ -14,7 +14,7 @@ test('renders ManageDefectDojoCI Create component', () => {
       <ManageDefectDojoCI
         formData={{
           defectDojoSecret: null,
-          defectDojoEDPComponent: null,
+          defectDojoQuickLink: null,
           ownerReference: undefined,
           mode: FORM_MODES.CREATE,
           handleClosePanel: jest.fn(),

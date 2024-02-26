@@ -7,11 +7,11 @@ export const useDefaultValues = ({
 }: {
   formData: ManageSonarIntegrationSecretFormDataContext;
 }) => {
-  const { sonarEDPComponent } = formData;
+  const { sonarQuickLink } = formData;
 
   return React.useMemo(() => {
     return {
-      [SONAR_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: sonarEDPComponent?.spec.url,
+      [SONAR_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: sonarQuickLink?.spec.url,
     };
-  }, [sonarEDPComponent]);
+  }, [sonarQuickLink]);
 };

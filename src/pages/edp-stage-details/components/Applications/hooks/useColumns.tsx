@@ -22,10 +22,10 @@ import {
 import { ApplicationKubeObjectInterface } from '../../../../../k8s/Application/types';
 import { getDeployedVersion } from '../../../../../k8s/Application/utils/getDeployedVersion';
 import {
-  SYSTEM_EDP_COMPONENTS,
-  SYSTEM_EDP_COMPONENTS_LABELS,
-} from '../../../../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+  SYSTEM_QUICK_LINKS,
+  SYSTEM_QUICK_LINKS_LABELS,
+} from '../../../../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../../../services/link-creation';
 import { rem } from '../../../../../utils/styling/rem';
@@ -48,7 +48,7 @@ export const useColumns = (
 ): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
   const theme = useTheme();
   const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
   const { gitOpsCodebase } = useDataContext();
   const {
     stage: { data: stage },
@@ -56,12 +56,12 @@ export const useColumns = (
   const _createArgoCDLink = React.useCallback(
     (argoApplication: ApplicationKubeObjectInterface) =>
       LinkCreationService.argocd.createApplicationLink(
-        EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.ARGOCD],
+        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
         argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_PIPELINE],
         argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_STAGE],
         argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_APP_NAME]
       ),
-    [EDPComponentsURLS]
+    [QuickLinksURLS]
   );
 
   const { setDialog } = useDialogContext();
@@ -154,9 +154,7 @@ export const useColumns = (
             <Tooltip
               title={
                 <Grid container alignItems={'center'} spacing={1}>
-                  <Grid item>
-                    Open in {SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.ARGOCD]}
-                  </Grid>
+                  <Grid item>Open in {SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD]}</Grid>
                   <span> </span>
                   <Grid item>
                     <Icon icon={ICONS.NEW_WINDOW} color={theme.palette.grey['500']} width="15" />

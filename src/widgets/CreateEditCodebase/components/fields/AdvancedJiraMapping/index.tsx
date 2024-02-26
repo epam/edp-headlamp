@@ -78,7 +78,7 @@ export const AdvancedJiraMapping = () => {
                   <ul type="square">
                     <li>
                       {' '}
-                      <b>EDP_COMPONENT</b> – returns application-name <br />
+                      <b>QUICK_LINK</b> – returns application-name <br />
                     </li>
                     <li>
                       {' '}
@@ -97,8 +97,8 @@ export const AdvancedJiraMapping = () => {
                   <em>
                     There are no character restrictions when combining the variables, combination
                     samples:
-                    <b>EDP_SEM_VERSION-EDP_COMPONENT</b> or{' '}
-                    <b>EDP_COMPONENT-hello-world/EDP_VERSION</b>, etc.
+                    <b>EDP_SEM_VERSION-QUICK_LINK</b> or <b>QUICK_LINK-hello-world/EDP_VERSION</b>,
+                    etc.
                   </em>
                 </div>
               }

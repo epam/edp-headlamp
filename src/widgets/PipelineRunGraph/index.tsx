@@ -18,9 +18,9 @@ import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { StatusIcon } from '../../components/StatusIcon';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { SYSTEM_EDP_COMPONENTS } from '../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../k8s/PipelineRun';
+import { SYSTEM_QUICK_LINKS } from '../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { TaskRunKubeObject } from '../../k8s/TaskRun';
 import { TASK_RUN_STEP_REASON, TASK_RUN_STEP_STATUS } from '../../k8s/TaskRun/constants';
 import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../k8s/TaskRun/labels';
@@ -79,8 +79,8 @@ export const PipelineRunGraph = () => {
 
   const namespace = pipelineRun?.metadata.namespace;
 
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-  const tektonBaseURL = EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.TEKTON];
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
+  const tektonBaseURL = QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON];
 
   const [taskRuns] = TaskRunKubeObject.useList({
     labelSelector: `${TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN}=${pipelineRun.metadata.name}`,

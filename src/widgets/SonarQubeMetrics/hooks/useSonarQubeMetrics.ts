@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { useSecretByNameQuery } from '../../../k8s/Secret/hooks/useSecretByName';
-import { EDPComponentDetailsRouteParams } from '../../../pages/edp-component-details/types';
+import { QuickLinkDetailsRouteParams } from '../../../pages/edp-component-details/types';
 import { LinkCreationService } from '../../../services/link-creation';
 import { safeDecode, safeEncode } from '../../../utils/decodeEncode';
 import { MetricKey, SonarQubeMetricsResponse } from '../types';
@@ -21,7 +21,7 @@ export const useSonarQubeMetrics = (
   codebaseName: string,
   branchName: string
 ) => {
-  const { namespace } = useParams<EDPComponentDetailsRouteParams>();
+  const { namespace } = useParams<QuickLinkDetailsRouteParams>();
 
   const { data: ciSonarQubeToken } = useSecretByNameQuery<string>({
     props: {

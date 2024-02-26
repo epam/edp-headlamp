@@ -1,5 +1,5 @@
-import { EDPComponentKubeObjectInterface } from '../../../../../../k8s/EDPComponent/types';
+import { QuickLinkKubeObjectInterface } from '../../../../../../k8s/QuickLink/types';
 
 export interface ComponentCardProps {
-  component: EDPComponentKubeObjectInterface;
+  component: QuickLinkKubeObjectInterface;
 }

@@ -38,6 +38,8 @@ export const JiraServerIntegration = () => {
               errors={errors}
               disabled={jiraServersNames && !jiraServersNames.length}
             />{' '}
+          </Grid>
+          <Grid item>
             <LearnMoreLink url={EDP_OPERATOR_GUIDE.JIRA.url} />
           </Grid>
         </Grid>

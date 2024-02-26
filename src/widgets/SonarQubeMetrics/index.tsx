@@ -8,8 +8,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { NoDataWidgetWrapper } from '../../components/NoDataWidgetWrapper';
-import { SYSTEM_EDP_COMPONENTS } from '../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { SYSTEM_QUICK_LINKS } from '../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { routeEDPSonarIntegration } from '../../pages/edp-configuration/pages/edp-sonar-integration/route';
 import { LinkCreationService } from '../../services/link-creation';
 import { rem } from '../../utils/styling/rem';
@@ -95,8 +95,8 @@ export const SonarQubeMetrics = ({
   const classes = useStyles();
   const projectID = codebaseName;
 
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-  const sonarQubeBaseURL = EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.SONAR];
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
+  const sonarQubeBaseURL = QuickLinksURLS?.[SYSTEM_QUICK_LINKS.SONAR];
 
   const { data: metrics, isLoading } = useSonarQubeMetrics(
     sonarQubeBaseURL,

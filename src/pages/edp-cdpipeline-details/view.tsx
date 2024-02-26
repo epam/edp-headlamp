@@ -2,15 +2,12 @@ import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Grid } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { EDPComponentLink } from '../../components/EDPComponentLink';
 import { PageWrapper } from '../../components/PageWrapper';
+import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import {
-  SYSTEM_EDP_COMPONENTS,
-  SYSTEM_EDP_COMPONENTS_LABELS,
-} from '../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { SYSTEM_QUICK_LINKS, SYSTEM_QUICK_LINKS_LABELS } from '../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { LinkCreationService } from '../../services/link-creation';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
 import { routeEDPSonarIntegration } from '../edp-configuration/pages/edp-sonar-integration/route';
@@ -24,7 +21,7 @@ export const PageView = () => {
   const { name, namespace } = useParams<EDPCDPipelineRouteParams>();
 
   const { CDPipeline } = useDynamicDataContext();
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
 
   return (
     <PageWrapper
@@ -42,14 +39,14 @@ export const PageView = () => {
       headerSlot={
         <Grid container>
           <Grid item>
-            <EDPComponentLink
+            <QuickLink
               name={{
-                label: SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.ARGOCD],
-                value: SYSTEM_EDP_COMPONENTS.ARGOCD,
+                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD],
+                value: SYSTEM_QUICK_LINKS.ARGOCD,
               }}
               icon={ICONS.ARGOCD}
               externalLink={LinkCreationService.argocd.createPipelineLink(
-                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.ARGOCD],
+                QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
                 name
               )}
               configurationLink={{

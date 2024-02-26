@@ -16,19 +16,19 @@ import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioning
 import { RESOURCE_ICON_NAMES } from '../../../icons/sprites/Resources/names';
 import { EDPCodebaseKubeObject } from '../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
-import { SYSTEM_EDP_COMPONENTS } from '../../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { useGitServerByCodebaseQuery } from '../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
 import {
   generateBuildPipelineRef,
   generateReviewPipelineRef,
 } from '../../../k8s/PipelineRun/utils';
+import { SYSTEM_QUICK_LINKS } from '../../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { LinkCreationService } from '../../../services/link-creation';
 import { capitalizeFirstLetter } from '../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../utils/getCodebaseMappingByCodebaseType';
 import { rem } from '../../../utils/styling/rem';
 import { Pipeline } from '../components/Pipeline';
-import { EDPComponentDetailsRouteParams } from '../types';
+import { QuickLinkDetailsRouteParams } from '../types';
 
 const useStyles = makeStyles(() => ({
   labelChip: {
@@ -49,10 +49,10 @@ const useStyles = makeStyles(() => ({
 export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[] | null => {
   const classes = useStyles();
 
-  const { namespace } = useParams<EDPComponentDetailsRouteParams>();
+  const { namespace } = useParams<QuickLinkDetailsRouteParams>();
 
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
-  const tektonBaseURL = EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.TEKTON];
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
+  const tektonBaseURL = QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON];
 
   const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
     props: { codebaseGitServer: component?.spec.gitServer },

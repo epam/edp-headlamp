@@ -7,11 +7,11 @@ export const useDefaultValues = ({
 }: {
   formData: ManageNexusIntegrationSecretFormDataContext;
 }) => {
-  const { nexusEDPComponent } = formData;
+  const { nexusQuickLink } = formData;
 
   return React.useMemo(() => {
     return {
-      [NEXUS_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: nexusEDPComponent?.spec.url,
+      [NEXUS_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: nexusQuickLink?.spec.url,
     };
-  }, [nexusEDPComponent]);
+  }, [nexusQuickLink]);
 };

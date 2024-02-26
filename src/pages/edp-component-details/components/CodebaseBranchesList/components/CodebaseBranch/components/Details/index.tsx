@@ -15,7 +15,7 @@ import { rem } from '../../../../../../../../utils/styling/rem';
 import { DependencyTrackMetrics } from '../../../../../../../../widgets/DeeptrackVulnerabilities';
 import { PipelineRunList } from '../../../../../../../../widgets/PipelineRunList';
 import { SonarQubeMetrics } from '../../../../../../../../widgets/SonarQubeMetrics';
-import { EDPComponentDetailsRouteParams } from '../../../../../../types';
+import { QuickLinkDetailsRouteParams } from '../../../../../../types';
 import { useMainInfoRows } from './hooks/useMainInfoRows';
 import { DetailsProps } from './types';
 
@@ -39,7 +39,7 @@ const filterPipelineRunsByType = (
       );
 
 export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: DetailsProps) => {
-  const { namespace } = useParams<EDPComponentDetailsRouteParams>();
+  const { namespace } = useParams<QuickLinkDetailsRouteParams>();
   const [pipelineRunType, setPipelineRunType] = React.useState<PIPELINE_TYPES>(PIPELINE_TYPES.ALL);
   const filteredPipelineRunsByType = React.useMemo(
     () => filterPipelineRunsByType(pipelineRunType, pipelineRuns.all),

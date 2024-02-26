@@ -1,13 +1,13 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
-import { EDPComponentKubeObject } from '../../../../k8s/EDPComponent';
+import { QuickLinkKubeObject } from '../../../../k8s/QuickLink';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { AddNewComponentCard } from './AddNewComponentCard';
+import { AddNewQuickLinkCard } from './components/AddNewQuickLinkCard';
 import { ComponentCard } from './components/ComponentCard';
 
 export const ComponentList = () => {
-  const [items] = EDPComponentKubeObject.useList({
+  const [items] = QuickLinkKubeObject.useList({
     namespace: getDefaultNamespace(),
   });
 
@@ -24,7 +24,7 @@ export const ComponentList = () => {
             })
           : null}
         <Grid item xs={6} sm={4} md={3} lg={2} xl={1}>
-          <AddNewComponentCard />
+          <AddNewQuickLinkCard />
         </Grid>
       </Grid>
     </LoadingWrapper>

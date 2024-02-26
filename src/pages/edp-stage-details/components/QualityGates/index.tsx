@@ -10,12 +10,12 @@ import { MyNode } from '../../../../components/Graph/components/types';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { Table } from '../../../../components/Table';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
-import { SYSTEM_EDP_COMPONENTS } from '../../../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../k8s/PipelineRun/constants';
 import { useCreateAutotestRunnerPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateAutotestRunnerPipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
+import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { TaskRunKubeObject } from '../../../../k8s/TaskRun';
 import { TASK_RUN_STEP_REASON, TASK_RUN_STEP_STATUS } from '../../../../k8s/TaskRun/constants';
 import { useStreamTaskRunListByPipelineNameAndPipelineType } from '../../../../k8s/TaskRun/hooks/useStreamTaskRunListByPipelineNameAndPipelineType';
@@ -133,7 +133,7 @@ export const QualityGates = ({
 }: QualityGatesProps) => {
   const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
   const columns = useColumns();
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
 
   const { enrichedApplications } = useDataContext();
   const {
@@ -272,7 +272,7 @@ export const QualityGates = ({
       const url = getResourceURLByResourceType(
         resourceType,
         resource,
-        EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.TEKTON]
+        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON]
       );
       return (
         // @ts-ignore
@@ -313,7 +313,7 @@ export const QualityGates = ({
         </Node>
       );
     },
-    [EDPComponentsURLS, renderSteps]
+    [QuickLinksURLS, renderSteps]
   );
 
   return (

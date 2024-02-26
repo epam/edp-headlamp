@@ -22,10 +22,10 @@ import {
 } from '../../../../../../../../k8s/Application/labels';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../k8s/Application/types';
 import {
-  SYSTEM_EDP_COMPONENTS,
-  SYSTEM_EDP_COMPONENTS_LABELS,
-} from '../../../../../../../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../../../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+  SYSTEM_QUICK_LINKS,
+  SYSTEM_QUICK_LINKS_LABELS,
+} from '../../../../../../../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../../../../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { useDialogContext } from '../../../../../../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../../../../widgets/PodsLogViewer/constants';
@@ -43,7 +43,7 @@ const formatDate = (date: string): string => {
 export const ApplicationCard = ({ stage, application, argoApplication }: ApplicationCardProps) => {
   const theme = useTheme();
 
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(stage.metadata.namespace);
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(stage.metadata.namespace);
 
   const argoAppHealthStatus = argoApplication?.status?.health?.status;
   const argpAppSyncStatus = argoApplication?.status?.sync?.status;
@@ -58,12 +58,12 @@ export const ApplicationCard = ({ stage, application, argoApplication }: Applica
   const _createArgoCDLink = React.useCallback(
     (argoApplication: ApplicationKubeObjectInterface) =>
       LinkCreationService.argocd.createApplicationLink(
-        EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.ARGOCD],
+        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
         argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_PIPELINE],
         argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_STAGE],
         argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_APP_NAME]
       ),
-    [EDPComponentsURLS]
+    [QuickLinksURLS]
   );
 
   return (
@@ -130,7 +130,7 @@ export const ApplicationCard = ({ stage, application, argoApplication }: Applica
                   title={
                     <Grid container alignItems={'center'} spacing={1}>
                       <Grid item>
-                        Open in {SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.ARGOCD]}
+                        Open in {SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD]}
                       </Grid>
                       <span> </span>
                       <Grid item>

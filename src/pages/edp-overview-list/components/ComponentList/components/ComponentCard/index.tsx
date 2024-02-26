@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { routeEDPComponentDetails } from '../../../../../edp-configuration/pages/edp-component-details/route';
+import { routeQuickLinkDetails } from '../../../../../edp-configuration/pages/edp-quick-link-details/route';
 import { useStyles } from './styles';
 import { ComponentCardProps } from './types';
 
@@ -20,7 +20,8 @@ const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
 export const ComponentCard = ({ component }: ComponentCardProps) => {
   const classes = useStyles();
   const {
-    spec: { type, url, visible, icon },
+    spec: { url, visible, icon },
+    metadata: { name },
   } = component;
   const _url = !/^https?:\/\//i.test(url) ? `https://${url}` : url;
 
@@ -51,9 +52,9 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
         <div className={classes.cardBack}>
           <Grid container spacing={1} justifyContent={'center'}>
             <Grid item xs={12}>
-              <Tooltip title={type} placement={'top'}>
+              <Tooltip title={name} placement={'top'}>
                 <Typography variant={'body2'} align={'center'} className={classes.cardTitle}>
-                  {type}
+                  {name}
                 </Typography>
               </Tooltip>
             </Grid>
@@ -62,7 +63,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
               <Tooltip title={'Edit'}>
                 <IconButton
                   component={Link}
-                  routeName={routeEDPComponentDetails.path}
+                  routeName={routeQuickLinkDetails.path}
                   params={{
                     name: component.metadata.name,
                     namespace: component.metadata.namespace,

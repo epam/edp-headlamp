@@ -5,7 +5,7 @@ import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { editResource } from '../../../../../../k8s/common/editResource';
-import { useEDPComponentCRUD } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentCRUD';
+import { useQuickLinkCRUD } from '../../../../../../k8s/QuickLink/hooks/useQuickLinkCRUD';
 import { SecretKubeObject } from '../../../../../../k8s/Secret';
 import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createDependencyTrackIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createDependencyTrackIntegrationSecretInstance';
@@ -35,13 +35,13 @@ export const FormActions = () => {
   } = useReactHookFormContext<ManageDependencyTrackIntegrationSecretFormValues>();
 
   const {
-    formData: { dependencyTrackSecret, ownerReference, depTrackEDPComponent },
+    formData: { dependencyTrackSecret, ownerReference, depTrackQuickLink },
   } = useFormContext<ManageDependencyTrackIntegrationSecretFormDataContext>();
 
   const {
-    editEDPComponent,
-    mutations: { EDPComponentEditMutation },
-  } = useEDPComponentCRUD({});
+    editQuickLink,
+    mutations: { QuickLinkEditMutation },
+  } = useQuickLinkCRUD({});
 
   const {
     editSecret,
@@ -57,25 +57,25 @@ export const FormActions = () => {
   const isLoading =
     secretEditMutation.isLoading ||
     secretDeleteMutation.isLoading ||
-    EDPComponentEditMutation.isLoading;
+    QuickLinkEditMutation.isLoading;
 
   const onSubmit = React.useCallback(
     async (values: ManageDependencyTrackIntegrationSecretFormValues) => {
-      const newEDPComponentData = editResource(
+      const newQuickLinkData = editResource(
         {
           url: {
             name: 'url',
             path: ['spec', 'url'],
           },
         },
-        depTrackEDPComponent,
+        depTrackQuickLink,
         {
           url: values.externalUrl,
         }
       );
 
-      await editEDPComponent({
-        EDPComponentData: newEDPComponentData,
+      await editQuickLink({
+        QuickLinkData: newQuickLinkData,
       });
 
       if (!!ownerReference) {
@@ -86,7 +86,7 @@ export const FormActions = () => {
 
       await editSecret({ secretData: secretInstance });
     },
-    [depTrackEDPComponent, editEDPComponent, editSecret, ownerReference]
+    [depTrackQuickLink, editQuickLink, editSecret, ownerReference]
   );
 
   const handleDelete = React.useCallback(async () => {
@@ -136,7 +136,7 @@ export const FormActions = () => {
                 component={'button'}
                 variant={'contained'}
                 color={'primary'}
-                disabled={isLoading || !isDirty || !depTrackEDPComponent}
+                disabled={isLoading || !isDirty || !depTrackQuickLink}
                 onClick={handleSubmit(onSubmit)}
               >
                 save

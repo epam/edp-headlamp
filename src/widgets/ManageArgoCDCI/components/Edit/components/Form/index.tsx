@@ -7,15 +7,15 @@ import { ExternalURL, Token, URL } from '../../../fields';
 
 export const Form = () => {
   const {
-    formData: { argoCDEDPComponent },
+    formData: { argoCDQuickLink },
   } = useFormContext<ManageArgoCDIntegrationSecretFormDataContext>();
 
   return (
     <Grid container spacing={2}>
-      {!argoCDEDPComponent && (
+      {!argoCDQuickLink && (
         <Grid item xs={12}>
           <Alert severity="info" variant="outlined">
-            Argo CD EDPComponent has not been found. Please, create it first in order to manage the
+            Argo CD QuickLink has not been found. Please, create it first in order to manage the
             integration.
           </Alert>
         </Grid>

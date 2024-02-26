@@ -5,10 +5,10 @@ import { useParams } from 'react-router-dom';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
-import { SYSTEM_EDP_COMPONENTS } from '../../../../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
+import { SYSTEM_QUICK_LINKS } from '../../../../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { LinkCreationService } from '../../../../../services/link-creation';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
 import { EDPStageDetailsRouteParams } from '../../../types';
@@ -18,7 +18,7 @@ export const useColumns = (): TableColumn<{
   autotestPipelineRun: PipelineRunKubeObjectInterface;
 }>[] => {
   const { namespace } = useParams<EDPStageDetailsRouteParams>();
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
 
   return React.useMemo(
     () => [
@@ -56,7 +56,7 @@ export const useColumns = (): TableColumn<{
           const tektonLink =
             autotestPipelineRun &&
             LinkCreationService.tekton.createPipelineRunLink(
-              EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.TEKTON],
+              QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON],
               autotestPipelineRun?.metadata?.namespace,
               autotestPipelineRun?.metadata?.name
             );
@@ -97,6 +97,6 @@ export const useColumns = (): TableColumn<{
         render: ({ qualityGate: { branchName } }) => branchName,
       },
     ],
-    [EDPComponentsURLS, namespace]
+    [QuickLinksURLS, namespace]
   );
 };

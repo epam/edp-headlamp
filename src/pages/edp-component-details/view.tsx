@@ -16,10 +16,10 @@ import { CodebaseActions } from './components/CodebaseActions';
 import { CodebaseBranchesList } from './components/CodebaseBranchesList';
 import { CodebaseMetadataTable } from './components/CodebaseMetadataTable';
 import { useInfoRows } from './hooks/useInfoRows';
-import { EDPComponentDetailsRouteParams } from './types';
+import { QuickLinkDetailsRouteParams } from './types';
 
 export const PageView = () => {
-  const { namespace, name } = useParams<EDPComponentDetailsRouteParams>();
+  const { namespace, name } = useParams<QuickLinkDetailsRouteParams>();
   const [component, setComponent] = React.useState<EDPCodebaseKubeObjectInterface>(null);
   const [, setError] = React.useState<Error>(null);
 

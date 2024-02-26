@@ -91,7 +91,7 @@ exports[`renders ManageSonarCI Create component 1`] = `
                           <div
                             class="MuiAlert-message css-1pxa9xg-MuiAlert-message"
                           >
-                            Sonar EDPComponent has not been found. Please, create it first in order to manage the integration.
+                            Sonar QuickLink has not been found. Please, create it first in order to manage the integration.
                           </div>
                         </div>
                       </div>

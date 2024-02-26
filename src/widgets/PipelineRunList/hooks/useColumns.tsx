@@ -5,17 +5,17 @@ import React from 'react';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { TableColumn } from '../../../components/Table/types';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
-import { SYSTEM_EDP_COMPONENTS } from '../../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/PipelineRun/types';
+import { SYSTEM_QUICK_LINKS } from '../../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../services/link-creation';
 import { formatFullYear, humanizeDefault } from '../../../utils/date/humanize';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../PipelineRunGraph/constants';
 
 export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery();
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
 
   const { setDialog } = useDialogContext();
 
@@ -58,7 +58,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             <>
               <Link
                 href={LinkCreationService.tekton.createPipelineRunLink(
-                  EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.TEKTON],
+                  QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON],
                   namespace,
                   name
                 )}
@@ -88,7 +88,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
           }
 
           const pipelineLink = LinkCreationService.tekton.createPipelineLink(
-            EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.TEKTON],
+            QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON],
             namespace,
             pipelineRefName
           );
@@ -150,6 +150,6 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
         },
       },
     ],
-    [EDPComponentsURLS, setDialog]
+    [QuickLinksURLS, setDialog]
   );
 };

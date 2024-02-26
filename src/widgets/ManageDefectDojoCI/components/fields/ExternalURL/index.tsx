@@ -15,7 +15,7 @@ export const ExternalURL = () => {
   } = useReactHookFormContext();
 
   const {
-    formData: { mode, defectDojoEDPComponent },
+    formData: { mode, defectDojoQuickLink },
   } = useFormContext<ManageDefectDojoIntegrationSecretFormDataContext>();
 
   return (
@@ -39,7 +39,7 @@ export const ExternalURL = () => {
       placeholder={'Enter URL'}
       control={control}
       errors={errors}
-      disabled={!defectDojoEDPComponent}
+      disabled={!defectDojoQuickLink}
     />
   );
 };

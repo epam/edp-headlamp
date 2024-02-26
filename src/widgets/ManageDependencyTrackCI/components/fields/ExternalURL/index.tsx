@@ -15,7 +15,7 @@ export const ExternalURL = () => {
   } = useReactHookFormContext();
 
   const {
-    formData: { mode, depTrackEDPComponent },
+    formData: { mode, depTrackQuickLink },
   } = useFormContext<ManageDependencyTrackIntegrationSecretFormDataContext>();
 
   return (
@@ -39,7 +39,7 @@ export const ExternalURL = () => {
       placeholder={'Enter URL'}
       control={control}
       errors={errors}
-      disabled={!depTrackEDPComponent}
+      disabled={!depTrackQuickLink}
     />
   );
 };

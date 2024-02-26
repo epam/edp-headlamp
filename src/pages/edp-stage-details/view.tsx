@@ -2,23 +2,20 @@ import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { CircularProgress, Grid } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { EDPComponentLink } from '../../components/EDPComponentLink';
 import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
+import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
 import { Tabs } from '../../components/Tabs';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import {
-  SYSTEM_EDP_COMPONENTS,
-  SYSTEM_EDP_COMPONENTS_LABELS,
-} from '../../k8s/EDPComponent/constants';
-import { useEDPComponentsURLsQuery } from '../../k8s/EDPComponent/hooks/useEDPComponentsURLsQuery';
+import { SYSTEM_QUICK_LINKS, SYSTEM_QUICK_LINKS_LABELS } from '../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { LinkCreationService } from '../../services/link-creation';
 import { rem } from '../../utils/styling/rem';
 import { routeEDPCDPipelineDetails } from '../edp-cdpipeline-details/route';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
 import { routeEDPArgoCDIntegration } from '../edp-configuration/pages/edp-argocd-integration/route';
-import { routeEDPComponentDetails } from '../edp-configuration/pages/edp-component-details/route';
+import { routeQuickLinkDetails } from '../edp-configuration/pages/edp-quick-link-details/route';
 import { StageActions } from './components/StageActions';
 import { useInfoColumns } from './hooks/useInfoColumns';
 import { usePageTabs } from './hooks/usePageTabs';
@@ -28,7 +25,7 @@ import { EDPStageDetailsRouteParams } from './types';
 
 export const PageView = () => {
   const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
-  const { data: EDPComponentsURLS } = useEDPComponentsURLsQuery(namespace);
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
 
   const { CDPipeline } = useDataContext();
   const {
@@ -66,14 +63,14 @@ export const PageView = () => {
       headerSlot={
         <Grid container>
           <Grid item>
-            <EDPComponentLink
+            <QuickLink
               name={{
-                label: SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.ARGOCD],
-                value: SYSTEM_EDP_COMPONENTS.ARGOCD,
+                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD],
+                value: SYSTEM_QUICK_LINKS.ARGOCD,
               }}
               icon={ICONS.ARGOCD}
               externalLink={LinkCreationService.argocd.createStageLink(
-                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.ARGOCD],
+                QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
                 CDPipeline?.metadata?.name,
                 stageSpecName
               )}
@@ -83,40 +80,40 @@ export const PageView = () => {
             />
           </Grid>
           <Grid item>
-            <EDPComponentLink
+            <QuickLink
               name={{
-                label: SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.GRAFANA],
-                value: SYSTEM_EDP_COMPONENTS.GRAFANA,
+                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.GRAFANA],
+                value: SYSTEM_QUICK_LINKS.GRAFANA,
               }}
               icon={ICONS.GRAFANA}
               externalLink={LinkCreationService.grafana.createDashboardLink(
-                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.GRAFANA],
+                QuickLinksURLS?.[SYSTEM_QUICK_LINKS.GRAFANA],
                 stage?.spec.namespace
               )}
               configurationLink={{
-                routeName: routeEDPComponentDetails.path,
+                routeName: routeQuickLinkDetails.path,
                 routeParams: {
-                  name: SYSTEM_EDP_COMPONENTS.GRAFANA,
+                  name: SYSTEM_QUICK_LINKS.GRAFANA,
                   namespace,
                 },
               }}
             />
           </Grid>
           <Grid item>
-            <EDPComponentLink
+            <QuickLink
               name={{
-                label: SYSTEM_EDP_COMPONENTS_LABELS[SYSTEM_EDP_COMPONENTS.KIBANA],
-                value: SYSTEM_EDP_COMPONENTS.KIBANA,
+                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.KIBANA],
+                value: SYSTEM_QUICK_LINKS.KIBANA,
               }}
               icon={ICONS.KIBANA}
               externalLink={LinkCreationService.kibana.createDashboardLink(
-                EDPComponentsURLS?.[SYSTEM_EDP_COMPONENTS.KIBANA],
+                QuickLinksURLS?.[SYSTEM_QUICK_LINKS.KIBANA],
                 stage?.spec.namespace
               )}
               configurationLink={{
-                routeName: routeEDPComponentDetails.path,
+                routeName: routeQuickLinkDetails.path,
                 routeParams: {
-                  name: SYSTEM_EDP_COMPONENTS.KIBANA,
+                  name: SYSTEM_QUICK_LINKS.KIBANA,
                   namespace,
                 },
               }}

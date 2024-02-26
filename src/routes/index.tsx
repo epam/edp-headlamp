@@ -11,10 +11,6 @@ import RouteEDPArgoCDIntegrationPage from '../pages/edp-configuration/pages/edp-
 import { routeEDPArgoCDIntegration } from '../pages/edp-configuration/pages/edp-argocd-integration/route';
 import RouteEDPClusterListPage from '../pages/edp-configuration/pages/edp-cluster-list/page';
 import { routeEDPClusterList } from '../pages/edp-configuration/pages/edp-cluster-list/route';
-import RouteEDPConfigurationEDPComponentDetailsPage from '../pages/edp-configuration/pages/edp-component-details/page';
-import { routeEDPComponentDetails as routeConfigurationEDPComponentDetails } from '../pages/edp-configuration/pages/edp-component-details/route';
-import RouteEDPConfigurationEDPComponentListPage from '../pages/edp-configuration/pages/edp-component-list/page';
-import { routeEDPComponentList as routeConfigurationEDPComponentList } from '../pages/edp-configuration/pages/edp-component-list/route';
 import RouteEDPDefectDojoIntegrationPage from '../pages/edp-configuration/pages/edp-defect-dojo-integration/page';
 import { routeEDPDefectDojoIntegration } from '../pages/edp-configuration/pages/edp-defect-dojo-integration/route';
 import RouteEDPDependencyTrackIntegrationPage from '../pages/edp-configuration/pages/edp-dependency-track-integration/page';
@@ -27,6 +23,10 @@ import RouteEDPJiraIntegrationPage from '../pages/edp-configuration/pages/edp-ji
 import { routeEDPJiraIntegration } from '../pages/edp-configuration/pages/edp-jira-integration/route';
 import RouteEDPNexusIntegrationPage from '../pages/edp-configuration/pages/edp-nexus-integration/page';
 import { routeEDPNexusIntegration } from '../pages/edp-configuration/pages/edp-nexus-integration/route';
+import RouteEDPQuickLinkDetailsPage from '../pages/edp-configuration/pages/edp-quick-link-details/page';
+import { routeQuickLinkDetails } from '../pages/edp-configuration/pages/edp-quick-link-details/route';
+import RouteEDPQuickLinkListPage from '../pages/edp-configuration/pages/edp-quick-link-list/page';
+import { routeQuickLinkList } from '../pages/edp-configuration/pages/edp-quick-link-list/route';
 import RouteEDPRegistryListPage from '../pages/edp-configuration/pages/edp-registry-list/page';
 import { routeEDPRegistryList } from '../pages/edp-configuration/pages/edp-registry-list/route';
 import RouteEDPSonarIntegrationPage from '../pages/edp-configuration/pages/edp-sonar-integration/page';
@@ -69,12 +69,12 @@ export default [
   { ...routeEDPGitOpsConfiguration, component: () => <RouteEDPGitOpsConfigurationPage /> },
   { ...routeEDPSSOIntegration, component: () => <RouteEDPSSOIntegrationPage /> },
   {
-    ...routeConfigurationEDPComponentList,
-    component: () => <RouteEDPConfigurationEDPComponentListPage />,
+    ...routeQuickLinkList,
+    component: () => <RouteEDPQuickLinkListPage />,
   },
   {
-    ...routeConfigurationEDPComponentDetails,
-    component: () => <RouteEDPConfigurationEDPComponentDetailsPage />,
+    ...routeQuickLinkDetails,
+    component: () => <RouteEDPQuickLinkDetailsPage />,
   },
   // Marketplace
 

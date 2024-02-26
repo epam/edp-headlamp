@@ -1,6 +1,6 @@
 export const mutationDataMock = {
   apiVersion: 'v1.edp.epam.com/v1',
-  kind: 'EDPComponent',
+  kind: 'QuickLink',
   metadata: {
     creationTimestamp: '2023-05-16T13:17:33Z',
     name: 'tekton',

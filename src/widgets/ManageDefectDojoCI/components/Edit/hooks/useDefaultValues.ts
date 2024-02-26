@@ -8,7 +8,7 @@ export const useDefaultValues = ({
 }: {
   formData: ManageDefectDojoIntegrationSecretFormDataContext;
 }) => {
-  const { defectDojoSecret, defectDojoEDPComponent } = formData;
+  const { defectDojoSecret, defectDojoQuickLink } = formData;
 
   return React.useMemo(() => {
     return {
@@ -16,8 +16,7 @@ export const useDefaultValues = ({
         defectDojoSecret?.data?.token
       ),
       [DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.url.name]: safeDecode(defectDojoSecret?.data?.url),
-      [DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]:
-        defectDojoEDPComponent?.spec.url,
+      [DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.externalUrl.name]: defectDojoQuickLink?.spec.url,
     };
-  }, [defectDojoSecret, defectDojoEDPComponent]);
+  }, [defectDojoSecret, defectDojoQuickLink]);
 };

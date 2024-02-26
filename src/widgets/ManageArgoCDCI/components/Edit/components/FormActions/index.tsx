@@ -5,7 +5,7 @@ import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { editResource } from '../../../../../../k8s/common/editResource';
-import { useEDPComponentCRUD } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentCRUD';
+import { useQuickLinkCRUD } from '../../../../../../k8s/QuickLink/hooks/useQuickLinkCRUD';
 import { SecretKubeObject } from '../../../../../../k8s/Secret';
 import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createArgoCDIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createArgoCDIntegrationSecretInstance';
@@ -35,13 +35,13 @@ export const FormActions = () => {
   } = useReactHookFormContext<ManageArgoCDIntegrationSecretFormValues>();
 
   const {
-    formData: { argoCDSecret, ownerReference, argoCDEDPComponent },
+    formData: { argoCDSecret, ownerReference, argoCDQuickLink },
   } = useFormContext<ManageArgoCDIntegrationSecretFormDataContext>();
 
   const {
-    editEDPComponent,
-    mutations: { EDPComponentEditMutation },
-  } = useEDPComponentCRUD({});
+    editQuickLink,
+    mutations: { QuickLinkEditMutation },
+  } = useQuickLinkCRUD({});
 
   const {
     editSecret,
@@ -57,25 +57,25 @@ export const FormActions = () => {
   const isLoading =
     secretEditMutation.isLoading ||
     secretDeleteMutation.isLoading ||
-    EDPComponentEditMutation.isLoading;
+    QuickLinkEditMutation.isLoading;
 
   const onSubmit = React.useCallback(
     async (values: ManageArgoCDIntegrationSecretFormValues) => {
-      const newEDPComponentData = editResource(
+      const newQuickLinkData = editResource(
         {
           url: {
             name: 'url',
             path: ['spec', 'url'],
           },
         },
-        argoCDEDPComponent,
+        argoCDQuickLink,
         {
           url: values.externalUrl,
         }
       );
 
-      await editEDPComponent({
-        EDPComponentData: newEDPComponentData,
+      await editQuickLink({
+        QuickLinkData: newQuickLinkData,
       });
 
       if (!!ownerReference) {
@@ -86,7 +86,7 @@ export const FormActions = () => {
 
       await editSecret({ secretData: secretInstance });
     },
-    [argoCDEDPComponent, editEDPComponent, editSecret, ownerReference]
+    [argoCDQuickLink, editQuickLink, editSecret, ownerReference]
   );
 
   const handleDelete = React.useCallback(async () => {
@@ -136,7 +136,7 @@ export const FormActions = () => {
                 component={'button'}
                 variant={'contained'}
                 color={'primary'}
-                disabled={isLoading || !isDirty || !argoCDEDPComponent}
+                disabled={isLoading || !isDirty || !argoCDQuickLink}
                 onClick={handleSubmit(onSubmit)}
               >
                 save

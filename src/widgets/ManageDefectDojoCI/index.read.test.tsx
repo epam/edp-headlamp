@@ -5,7 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
-import { SYSTEM_EDP_COMPONENTS } from '../../k8s/EDPComponent/constants';
+import { SYSTEM_QUICK_LINKS } from '../../k8s/QuickLink/constants';
 import { DefectDojoCISecretWithOwnerMock } from '../../k8s/Secret/mocks/defectdojo-ci-secret.mock';
 import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
 import { FORM_MODES } from '../../types/forms';
@@ -20,17 +20,17 @@ test('renders ManageDefectDojoCI Edit component (read-only)', () => {
         formData={{
           defectDojoSecret: DefectDojoCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
           ownerReference: ownerReference,
-          defectDojoEDPComponent: {
+          defectDojoQuickLink: {
             apiVersion: 'v1.edp.epam.com/v1',
-            kind: 'EDPComponent',
+            kind: 'QuickLink',
             metadata: {
-              name: SYSTEM_EDP_COMPONENTS.DEFECT_DOJO,
+              name: SYSTEM_QUICK_LINKS.DEFECT_DOJO,
               namespace: 'test-namespace',
               creationTimestamp: '',
               uid: '',
             },
             spec: {
-              type: SYSTEM_EDP_COMPONENTS.DEFECT_DOJO,
+              type: SYSTEM_QUICK_LINKS.DEFECT_DOJO,
               url: 'https://test-nexus.com',
               visible: true,
               icon: '',

@@ -6,8 +6,8 @@ import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
-import { EDPComponentKubeObject } from '../../../../k8s/EDPComponent';
-import { SYSTEM_EDP_COMPONENTS } from '../../../../k8s/EDPComponent/constants';
+import { QuickLinkKubeObject } from '../../../../k8s/QuickLink';
+import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
@@ -19,11 +19,11 @@ import { NEXUS_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 export const PageView = () => {
   const [nexusSecrets] = SecretKubeObject.useList({
     namespace: getDefaultNamespace(),
-    labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_EDP_COMPONENTS.NEXUS}`,
+    labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.NEXUS}`,
   });
 
-  const [nexusEDPComponent, error] = EDPComponentKubeObject.useGet(
-    SYSTEM_EDP_COMPONENTS.NEXUS,
+  const [nexusQuickLink, error] = QuickLinkKubeObject.useGet(
+    SYSTEM_QUICK_LINKS.NEXUS,
     getDefaultNamespace()
   );
 
@@ -31,7 +31,7 @@ export const PageView = () => {
 
   const mode = !!nexusSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = nexusSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = nexusSecret === null || (!nexusEDPComponent && !error);
+  const isLoading = nexusSecret === null || (!nexusQuickLink && !error);
 
   return (
     <PageWithSubMenu list={menu}>
@@ -51,7 +51,7 @@ export const PageView = () => {
               <ManageNexusCI
                 formData={{
                   nexusSecret,
-                  nexusEDPComponent: nexusEDPComponent?.jsonData,
+                  nexusQuickLink: nexusQuickLink?.jsonData,
                   ownerReference,
                   mode,
                 }}

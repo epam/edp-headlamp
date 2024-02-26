@@ -7,15 +7,15 @@ import { ExternalURL, Token, URL } from '../../../fields';
 
 export const Form = () => {
   const {
-    formData: { sonarEDPComponent },
+    formData: { sonarQuickLink },
   } = useFormContext<ManageSonarIntegrationSecretFormDataContext>();
 
   return (
     <Grid container spacing={2}>
-      {!sonarEDPComponent && (
+      {!sonarQuickLink && (
         <Grid item xs={12}>
           <Alert severity="info" variant="outlined">
-            Sonar EDPComponent has not been found. Please, create it first in order to manage the
+            Sonar QuickLink has not been found. Please, create it first in order to manage the
             integration.
           </Alert>
         </Grid>

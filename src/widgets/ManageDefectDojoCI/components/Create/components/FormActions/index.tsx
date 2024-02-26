@@ -2,7 +2,7 @@ import { Button, Grid } from '@mui/material';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { editResource } from '../../../../../../k8s/common/editResource';
-import { useEDPComponentCRUD } from '../../../../../../k8s/EDPComponent/hooks/useEDPComponentCRUD';
+import { useQuickLinkCRUD } from '../../../../../../k8s/QuickLink/hooks/useQuickLinkCRUD';
 import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createDefectDojoIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createDefectDojoIntegrationSecretInstance';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
@@ -19,13 +19,13 @@ export const FormActions = () => {
   } = useReactHookFormContext<ManageDefectDojoIntegrationSecretFormValues>();
 
   const {
-    formData: { handleClosePanel, defectDojoEDPComponent, ownerReference },
+    formData: { handleClosePanel, defectDojoQuickLink, ownerReference },
   } = useFormContext<ManageDefectDojoIntegrationSecretFormDataContext>();
 
   const {
-    editEDPComponent,
-    mutations: { EDPComponentEditMutation },
-  } = useEDPComponentCRUD({});
+    editQuickLink,
+    mutations: { QuickLinkEditMutation },
+  } = useQuickLinkCRUD({});
 
   const {
     createSecret,
@@ -40,25 +40,25 @@ export const FormActions = () => {
     secretCreateMutation.isLoading ||
     secretEditMutation.isLoading ||
     secretDeleteMutation.isLoading ||
-    EDPComponentEditMutation.isLoading;
+    QuickLinkEditMutation.isLoading;
 
   const onSubmit = React.useCallback(
     async (values: ManageDefectDojoIntegrationSecretFormValues) => {
-      const newEDPComponentData = editResource(
+      const newQuickLinkData = editResource(
         {
           url: {
             name: 'url',
             path: ['spec', 'url'],
           },
         },
-        defectDojoEDPComponent,
+        defectDojoQuickLink,
         {
           url: values.externalUrl,
         }
       );
 
-      await editEDPComponent({
-        EDPComponentData: newEDPComponentData,
+      await editQuickLink({
+        QuickLinkData: newQuickLinkData,
       });
 
       if (!!ownerReference) {
@@ -69,7 +69,7 @@ export const FormActions = () => {
 
       await createSecret({ secretData: secretInstance });
     },
-    [createSecret, defectDojoEDPComponent, editEDPComponent, ownerReference]
+    [createSecret, defectDojoQuickLink, editQuickLink, ownerReference]
   );
 
   return (
@@ -94,7 +94,7 @@ export const FormActions = () => {
                 component={'button'}
                 variant={'contained'}
                 color={'primary'}
-                disabled={isLoading || !isDirty || !defectDojoEDPComponent}
+                disabled={isLoading || !isDirty || !defectDojoQuickLink}
                 onClick={handleSubmit(onSubmit)}
               >
                 save
