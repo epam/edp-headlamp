@@ -4,7 +4,7 @@ import { useFormContext as useReactHookFormDataContext } from 'react-hook-form';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
 import { REGISTRY_NAMES } from '../../../../names';
 import { RegistryEndpoint, RegistrySpace, Type } from '../../../fields';
-import { DockerHubOrHarborFormPart } from './components/DockerHubOrHarborFormPart';
+import { DockerHubOrHarborOrNexusFormPart } from './components/DockerHubOrHarborOrNexusFormPart';
 import { ECRFormPart } from './components/ECRFormPart';
 import { OpenshiftFormPart } from './components/OpenshiftFormPart';
 
@@ -29,7 +29,10 @@ export const Form = () => {
       </Grid>
       {registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.ECR && <ECRFormPart />}
       {(registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.DOCKER_HUB ||
-        registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.HARBOR) && <DockerHubOrHarborFormPart />}
+        registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.HARBOR ||
+        registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.NEXUS) && (
+        <DockerHubOrHarborOrNexusFormPart />
+      )}
       {registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY && (
         <OpenshiftFormPart />
       )}

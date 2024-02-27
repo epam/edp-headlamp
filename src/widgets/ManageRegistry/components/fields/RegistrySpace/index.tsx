@@ -9,6 +9,7 @@ const TYPE_LABEL_MAP = {
   [CONTAINER_REGISTRY_TYPE.ECR]: 'Registry Space',
   [CONTAINER_REGISTRY_TYPE.DOCKER_HUB]: 'Registry Space',
   [CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY]: 'Project',
+  [CONTAINER_REGISTRY_TYPE.NEXUS]: 'Repository',
 };
 
 const TYPE_TITLE_MAP = {
@@ -18,6 +19,7 @@ const TYPE_TITLE_MAP = {
   [CONTAINER_REGISTRY_TYPE.DOCKER_HUB]:
     'Specify the name of the DockerHub account or organization.',
   [CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY]: 'Specify the OpenShift registry space.',
+  [CONTAINER_REGISTRY_TYPE.NEXUS]: 'Specify the Nexus repository that corresponds to your project.',
 };
 
 const TYPE_EMPTY_MESSAGE_MAP = {
@@ -25,6 +27,7 @@ const TYPE_EMPTY_MESSAGE_MAP = {
   [CONTAINER_REGISTRY_TYPE.ECR]: 'Enter the Kubernetes namespace name for AWS ECR.',
   [CONTAINER_REGISTRY_TYPE.DOCKER_HUB]: 'Enter the DockerHub account or organization name.',
   [CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY]: 'Enter the OpenShift registry space.',
+  [CONTAINER_REGISTRY_TYPE.NEXUS]: 'Enter the Nexus repository name.',
 };
 
 export const RegistrySpace = () => {

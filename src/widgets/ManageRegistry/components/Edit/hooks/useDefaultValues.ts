@@ -97,9 +97,9 @@ export const useDefaultValues = ({ formData }: { formData: ManageRegistryDataCon
   switch (EDPConfigMap.data.container_registry_type) {
     case CONTAINER_REGISTRY_TYPE.ECR:
       return handleECR(EDPConfigMap, tektonServiceAccount);
-    case CONTAINER_REGISTRY_TYPE.HARBOR:
-      return handleDockerHubOrHarbor(EDPConfigMap, pushAccountSecret, pullAccountSecret);
     case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
+    case CONTAINER_REGISTRY_TYPE.HARBOR:
+    case CONTAINER_REGISTRY_TYPE.NEXUS:
       return handleDockerHubOrHarbor(EDPConfigMap, pushAccountSecret, pullAccountSecret);
     case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
       return handleOpenshift(EDPConfigMap, pushAccountSecret);

@@ -128,7 +128,7 @@ export const useSetupRegistry = ({ onSuccess }) => {
       await editConfigMap({ configMapData: newEDPConfigMap });
     };
 
-    const setupHarbor = async () => {
+    const setupHarborOrNexus = async () => {
       const newKanikoSecretInstance = createRegistrySecretInstance({
         name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
         registryEndpoint: registryHost,
@@ -194,7 +194,8 @@ export const useSetupRegistry = ({ onSuccess }) => {
         await setupDockerHub();
         break;
       case CONTAINER_REGISTRY_TYPE.HARBOR:
-        await setupHarbor();
+      case CONTAINER_REGISTRY_TYPE.NEXUS:
+        await setupHarborOrNexus();
         break;
       case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
         await setupOpenshift();

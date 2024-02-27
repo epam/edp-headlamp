@@ -113,7 +113,7 @@ export const useUpdateRegistry = ({ onSuccess }) => {
       await editConfigMap({ configMapData: newEDPConfigMap });
     };
 
-    const updateHarbor = async () => {
+    const updateHarborOrNexus = async () => {
       const registrySecretInstances = [
         createRegistrySecretInstance({
           name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
@@ -168,7 +168,8 @@ export const useUpdateRegistry = ({ onSuccess }) => {
         await updateDockerHub();
         break;
       case CONTAINER_REGISTRY_TYPE.HARBOR:
-        await updateHarbor();
+      case CONTAINER_REGISTRY_TYPE.NEXUS:
+        await updateHarborOrNexus();
         break;
       case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
         await updateOpenshift();

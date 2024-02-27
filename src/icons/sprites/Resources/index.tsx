@@ -29,6 +29,7 @@ import {
   Kustomize,
   Maven,
   NextJS,
+  Nexus,
   Npm,
   Opa,
   Openshift,
@@ -87,6 +88,7 @@ export const Resources = () => {
       <ECR />
       <Harbor />
       <Openshift />
+      <Nexus />
     </svg>
   );
 };

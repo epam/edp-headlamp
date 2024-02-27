@@ -21,7 +21,7 @@ import {
   UseSameAccount,
 } from '../../../../../fields';
 
-export const DockerHubOrHarborFormPart = () => {
+export const DockerHubOrHarborOrNexusFormPart = () => {
   const { watch } = useReactHookFormDataContext();
   const {
     formData: { pushAccountSecret, pullAccountSecret },

@@ -86,7 +86,7 @@ export const useResetRegistry = ({ onSuccess }) => {
       await editConfigMap({ configMapData: newEDPConfigMap });
     };
 
-    const resetHarbor = async () => {
+    const resetHarborOrNexus = async () => {
       const newEDPConfigMap = editResource(EDP_CONFIG_MAP_NAMES, EDPConfigMap, {
         registryHost: '',
         registrySpace: '',
@@ -119,7 +119,8 @@ export const useResetRegistry = ({ onSuccess }) => {
         await resetDockerHub();
         break;
       case CONTAINER_REGISTRY_TYPE.HARBOR:
-        await resetHarbor();
+      case CONTAINER_REGISTRY_TYPE.NEXUS:
+        await resetHarborOrNexus();
         break;
       case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
         await resetOpenshift();

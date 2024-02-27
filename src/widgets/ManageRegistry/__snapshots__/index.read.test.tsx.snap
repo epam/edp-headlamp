@@ -1423,6 +1423,24 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                   style="fill: #241f21; fill-opacity: 1; fill-rule: nonzero; stroke: none;"
                                 />
                               </symbol>
+                              <symbol
+                                id="nexus"
+                                viewBox="25.3 0.7 99.4 113.6"
+                                xml:space="preserve"
+                              >
+                                <path
+                                  d="M76.7 73.3v-20c1.9-2.1 4.6-3.4 7.4-3.4.7 0 1.5 0 2.2.2v-7.8c-3.7.2-7.2 1.9-9.6 4.8V43h-8.1v30.3h8.1z"
+                                  fill="#29b473"
+                                />
+                                <path
+                                  d="M25.3 28.1v57.5L75 114.3l49.7-28.7V31.1l-12.2 7v40.4L75 100.2 37.5 78.5V35.1l35.2-20.3V.7z"
+                                  fill="#1c1f2a"
+                                />
+                                <path
+                                  d="M77.5.7v14.1l33.1 19.1 12.2-7z"
+                                  fill="#29b473"
+                                />
+                              </symbol>
                             </svg>
                             <div
                               class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
@@ -1573,6 +1591,45 @@ exports[`renders ManageRegistry Kubernetes Edit (read-only) component 1`] = `
                                               class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
                                             >
                                               Harbor
+                                            </span>
+                                          </label>
+                                        </button>
+                                        <button
+                                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-2 css-10d1a0h-MuiButtonBase-root"
+                                          disabled=""
+                                          tabindex="-1"
+                                          type="button"
+                                        >
+                                          <label
+                                            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-4 makeStyles-radioControlLabelDisabled-5 css-j204z7-MuiFormControlLabel-root"
+                                          >
+                                            <span
+                                              class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
+                                            >
+                                              <input
+                                                class="PrivateSwitchBase-input css-1m9pwf3"
+                                                name="registryType"
+                                                type="radio"
+                                                value="nexus"
+                                              />
+                                              <span
+                                                style="display: block; line-height: 0;"
+                                              >
+                                                <svg
+                                                  font-size="medium"
+                                                  height="20"
+                                                  width="20"
+                                                >
+                                                  <use
+                                                    xlink:href="#nexus"
+                                                  />
+                                                </svg>
+                                              </span>
+                                            </span>
+                                            <span
+                                              class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
+                                            >
+                                              Nexus
                                             </span>
                                           </label>
                                         </button>
