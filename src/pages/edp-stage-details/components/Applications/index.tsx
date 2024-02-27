@@ -29,6 +29,11 @@ const parseTagLabelValue = (tag: string) => {
   }
 };
 
+const createApplicationPayload = (imageTag: string, customValues: boolean) => ({
+  imageTag,
+  customValues,
+});
+
 const newDeployPipelineRunNames = {
   generateName: {
     name: 'generateName',
@@ -285,10 +290,11 @@ export const Applications = ({
               .reduce((acc, cur) => {
                 const appName = cur.application.metadata.name;
                 const imageTagFieldValue = values[`${appName}::image-tag`];
+                const valuesOverrideFieldValue = values[`${appName}::values-override`];
 
                 const { value: tagValue } = parseTagLabelValue(imageTagFieldValue);
 
-                acc[appName] = tagValue;
+                acc[appName] = createApplicationPayload(tagValue, valuesOverrideFieldValue);
                 return acc;
               }, {})
           ),
