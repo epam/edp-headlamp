@@ -63,6 +63,10 @@ const newDeployPipelineRunNames = {
     name: 'CDPipelineParam',
     path: ['spec', 'params', '2'],
   },
+  kubeConfigSecretParam: {
+    name: 'kubeConfigSecretParam',
+    path: ['spec', 'params', '3'],
+  },
 };
 
 interface ButtonsMap {
@@ -274,6 +278,7 @@ export const Applications = ({
       return;
     }
 
+    // todo: refactor this hardcode
     const newDeployPipelineRun = editResource(
       newDeployPipelineRunNames,
       deployPipelineRunTemplate,
@@ -306,6 +311,10 @@ export const Applications = ({
         CDPipelineParam: {
           name: 'CDPIPELINE',
           value: CDPipeline.metadata.name,
+        },
+        kubeConfigSecretParam: {
+          name: 'KUBECONFIG_SECRET_NAME',
+          value: stage.spec.clusterName,
         },
       }
     );
