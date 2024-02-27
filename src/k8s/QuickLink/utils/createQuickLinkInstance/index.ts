@@ -23,8 +23,7 @@ export const createQuickLinkInstance = (
       name: name || 'your component name',
     },
     spec: {
-      type: name || 'your component name',
-      visible: true,
+      type: 'default',
     },
   };
 
