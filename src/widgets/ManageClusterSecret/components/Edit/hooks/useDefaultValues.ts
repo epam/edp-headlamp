@@ -21,10 +21,9 @@ export const useDefaultValues = ({ formData }: { formData: ManageClusterSecretDa
     const config = parseConfigJson(currentElement?.data?.config);
 
     return {
-      [CLUSTER_CREATION_FORM_NAMES.clusterName.name]: safeDecode(currentElement?.data?.name),
-      [CLUSTER_CREATION_FORM_NAMES.clusterHost.name]: safeDecode(currentElement?.data?.server),
-      [CLUSTER_CREATION_FORM_NAMES.clusterToken.name]: config?.bearerToken,
-      [CLUSTER_CREATION_FORM_NAMES.clusterCertificate.name]: config?.tlsClientConfig?.caData,
+      [CLUSTER_CREATION_FORM_NAMES.clusterName.name]: currentElement.metadata.name,
+      [CLUSTER_CREATION_FORM_NAMES.clusterHost.name]: config?.clusters[0]?.cluster?.server,
+      [CLUSTER_CREATION_FORM_NAMES.clusterToken.name]: config?.users[0]?.user?.token,
     };
   }, [currentElement, isPlaceholder]);
 };

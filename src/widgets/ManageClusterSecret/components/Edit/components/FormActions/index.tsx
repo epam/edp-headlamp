@@ -42,7 +42,7 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageClusterSecretValues) => {
-      const { clusterName, clusterHost, clusterToken, clusterCertificate } = getUsedValues(
+      const { clusterName, clusterHost, clusterToken } = getUsedValues(
         values,
         CLUSTER_CREATION_FORM_NAMES
       );
@@ -51,7 +51,6 @@ export const FormActions = () => {
         clusterName,
         clusterHost,
         clusterToken,
-        clusterCertificate,
       });
 
       await editSecret({

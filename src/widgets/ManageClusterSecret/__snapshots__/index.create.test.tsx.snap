@@ -168,7 +168,7 @@ exports[`renders ManageClusterSecret Create component 1`] = `
             </div>
           </div>
           <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
           >
             <div
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
@@ -233,81 +233,6 @@ exports[`renders ManageClusterSecret Create component 1`] = `
                                 />
                               </button>
                             </div>
-                            <fieldset
-                              aria-hidden="true"
-                              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                            >
-                              <legend
-                                class="css-ihdtdm"
-                              >
-                                <span
-                                  class="notranslate"
-                                >
-                                  ​
-                                </span>
-                              </legend>
-                            </fieldset>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
-          >
-            <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-            >
-              <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
-              >
-                <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                  style="display: flex;"
-                >
-                  <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
-                  >
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                    >
-                      <span
-                        class="makeStyles-labelWrap-1"
-                      >
-                        <span
-                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-2 css-1ezega9-MuiTypography-root"
-                        >
-                          Cluster Certificate
-                        </span>
-                        <span />
-                      </span>
-                    </div>
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                      style="display: flex; align-items: flex-end;"
-                    >
-                      <div
-                        class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
-                      >
-                        <div
-                          class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
-                        >
-                          <div
-                            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
-                          >
-                            <input
-                              aria-invalid="false"
-                              class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                              id="mui-8"
-                              name="clusterCertificate"
-                              placeholder="Enter cluster certificate"
-                              type="text"
-                              value=""
-                            />
                             <fieldset
                               aria-hidden="true"
                               class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"

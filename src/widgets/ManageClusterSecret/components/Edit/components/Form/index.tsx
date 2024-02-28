@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import { ClusterCertificate, ClusterHost, ClusterName, ClusterToken } from '../../../fields';
+import { ClusterHost, ClusterName, ClusterToken } from '../../../fields';
 
 export const Form = () => {
   return (
@@ -12,11 +12,8 @@ export const Form = () => {
         <Grid item xs={6}>
           <ClusterHost />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <ClusterToken />
-        </Grid>
-        <Grid item xs={6}>
-          <ClusterCertificate />
         </Grid>
       </Grid>
     </>
