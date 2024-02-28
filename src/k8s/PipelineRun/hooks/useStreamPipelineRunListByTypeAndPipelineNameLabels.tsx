@@ -23,7 +23,7 @@ export const useStreamPipelineRunListByTypeAndPipelineNameLabels = ({
       return;
     }
 
-    const cancelStream = PipelineRunKubeObject.streamPipelineRunListByTypeAndPipelineNameLabels({
+    const cancelStream = PipelineRunKubeObject.streamPipelineRunListByTypeAndStageNameLabels({
       namespace,
       pipelineType,
       stageMetadataName,

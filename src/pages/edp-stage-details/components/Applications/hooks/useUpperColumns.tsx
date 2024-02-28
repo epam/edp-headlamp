@@ -11,9 +11,8 @@ export const useUpperColumns = ({
   selected,
   buttonsEnabledMap,
   someArgoApplicationMutationIsLoading,
-  qualityGatePipelineIsRunning,
+  latestDeployPipelineRunIsRunning,
   onDeployClick,
-  onUpdateClick,
   onUninstallClick,
   onLatestClick,
   onStableClick,
@@ -44,49 +43,37 @@ export const useUpperColumns = ({
             <Grid container alignItems={'center'} spacing={2}>
               <Grid item>
                 <Tooltip title={'Deploy selected applications with selected image stream version'}>
-                  <IconButton
-                    onClick={onDeployClick}
-                    disabled={
-                      !numSelected ||
-                      !buttonsEnabledMap.deploy ||
-                      someArgoApplicationMutationIsLoading
-                    }
-                    size="medium"
-                  >
-                    <Icon icon={'solar:upload-linear'} />
-                  </IconButton>
-                </Tooltip>
-              </Grid>
-              <Grid item>
-                <Tooltip title={'Update selected applications with selected image stream version'}>
-                  <IconButton
-                    onClick={onUpdateClick}
-                    disabled={
-                      !numSelected ||
-                      !buttonsEnabledMap.update ||
-                      someArgoApplicationMutationIsLoading ||
-                      qualityGatePipelineIsRunning
-                    }
-                    size="medium"
-                  >
-                    <Icon icon={ICONS.UPDATE} />
-                  </IconButton>
+                  <div>
+                    <IconButton
+                      onClick={onDeployClick}
+                      disabled={
+                        !numSelected ||
+                        !buttonsEnabledMap.deploy ||
+                        someArgoApplicationMutationIsLoading
+                      }
+                      size="medium"
+                    >
+                      <Icon icon={'solar:upload-linear'} />
+                    </IconButton>
+                  </div>
                 </Tooltip>
               </Grid>
               <Grid item>
                 <Tooltip title={'Uninstall selected applications'}>
-                  <IconButton
-                    onClick={onUninstallClick}
-                    disabled={
-                      !numSelected ||
-                      !buttonsEnabledMap.update ||
-                      someArgoApplicationMutationIsLoading ||
-                      qualityGatePipelineIsRunning
-                    }
-                    size="medium"
-                  >
-                    <Icon icon={ICONS.BUCKET} />
-                  </IconButton>
+                  <div>
+                    <IconButton
+                      onClick={onUninstallClick}
+                      disabled={
+                        !numSelected ||
+                        !buttonsEnabledMap.update ||
+                        someArgoApplicationMutationIsLoading ||
+                        latestDeployPipelineRunIsRunning
+                      }
+                      size="medium"
+                    >
+                      <Icon icon={ICONS.BUCKET} />
+                    </IconButton>
+                  </div>
                 </Tooltip>
               </Grid>
             </Grid>
@@ -168,13 +155,12 @@ export const useUpperColumns = ({
     ],
     [
       buttonsEnabledMap,
+      latestDeployPipelineRunIsRunning,
       numSelected,
       onDeployClick,
       onLatestClick,
       onStableClick,
       onUninstallClick,
-      onUpdateClick,
-      qualityGatePipelineIsRunning,
       reset,
       selected,
       someArgoApplicationMutationIsLoading,

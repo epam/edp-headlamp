@@ -39,7 +39,6 @@ import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
 import { ValuesOverrideCheckbox } from '../components/ValuesOverrideCheckbox';
 
 export const useColumns = (
-  qualityGatePipelineIsRunning: boolean,
   handleSelectRowClick: (
     event: React.MouseEvent<unknown>,
     row: EnrichedApplicationWithArgoApplication

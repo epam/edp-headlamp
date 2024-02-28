@@ -42,7 +42,7 @@ export const DialogHeader = ({ setEditorData, setEditorOpen }: DialogHeaderProps
       forwardedProps: {
         kubeObject: QuickLinkKubeObject,
         kubeObjectData: QuickLink,
-        objectName: 'the Link',
+        objectName: QuickLink?.metadata.name,
         description: 'Confirm the deletion of the link',
         backRoute: Router.createRouteURL(routeQuickLinkList.path),
       },

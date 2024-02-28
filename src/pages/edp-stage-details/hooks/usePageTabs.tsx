@@ -6,7 +6,6 @@ import { useQuickLinksURLsQuery } from '../../../k8s/QuickLink/hooks/useQuickLin
 import { FormContextProvider } from '../../../providers/Form';
 import { PipelineRunList } from '../../../widgets/PipelineRunList';
 import { Applications } from '../components/Applications';
-import { CustomGates } from '../components/CustomGates';
 import { Monitoring } from '../components/Monitoring';
 import { QualityGates } from '../components/QualityGates';
 import { useDataContext } from '../providers/Data/hooks';
@@ -94,7 +93,7 @@ export const usePageTabs = () => {
           <FormContextProvider formSettings={{ mode: 'onBlur' }}>
             <Applications
               enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
-              qualityGatePipelineIsRunning={latestDeployPipelineRunIsRunning}
+              latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
             />
           </FormContextProvider>
         ),
@@ -123,18 +122,18 @@ export const usePageTabs = () => {
           />
         ),
       },
-      {
-        label: 'Custom Gates',
-        id: 'custom_gates',
-        component: (
-          <CustomGates
-            enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
-            argoApplications={argoApplications.data}
-            latestTenDeployPipelineRuns={deployPipelineRuns.data}
-            everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
-          />
-        ),
-      },
+      // {
+      //   label: 'Custom Gates',
+      //   id: 'custom_gates',
+      //   component: (
+      //     <CustomGates
+      //       enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
+      //       argoApplications={argoApplications.data}
+      //       latestTenDeployPipelineRuns={deployPipelineRuns.data}
+      //       everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
+      //     />
+      //   ),
+      // },
       {
         label: 'Monitoring',
         id: 'monitoring',
@@ -151,7 +150,6 @@ export const usePageTabs = () => {
     argoApplications,
     autotestPipelineRuns,
     autotestRunnerPipelineRuns,
-    deployPipelineRuns,
     enrichedApplicationsWithArgoApplications,
     enrichedQualityGatesWithPipelineRuns,
     everyArgoAppIsHealthyAndInSync,

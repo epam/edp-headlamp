@@ -110,7 +110,7 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
     });
   }
 
-  static streamPipelineRunListByTypeAndPipelineNameLabels({
+  static streamPipelineRunListByTypeAndStageNameLabels({
     namespace,
     pipelineType,
     stageMetadataName,
@@ -119,7 +119,7 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
   }: StreamPipelineRunListByTypeAndPipelineNameLabelsProps): () => void {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, dataHandler, errorHandler, {
-      labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType},${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE}=${stageMetadataName}`,
+      labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType},${PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE}=${stageMetadataName}`,
     });
   }
 

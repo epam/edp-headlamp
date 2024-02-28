@@ -10,7 +10,6 @@ import {
 import { useCreateArgoApplication } from '../../../../k8s/Application/hooks/useCreateArgoApplication';
 import { getDeployedVersion } from '../../../../k8s/Application/utils/getDeployedVersion';
 import { editResource } from '../../../../k8s/common/editResource';
-import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { useCreateDeployPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateDeployPipelineRun';
 import { mapEvery } from '../../../../utils/loops/mapEvery';
 import { useDataContext } from '../../providers/Data/hooks';
@@ -77,14 +76,13 @@ interface ButtonsMap {
 
 export const Applications = ({
   enrichedApplicationsWithArgoApplications,
-  qualityGatePipelineIsRunning,
+  latestDeployPipelineRunIsRunning,
 }: ApplicationsProps) => {
-  const { CDPipeline, gitOpsCodebase } = useDataContext();
+  const { CDPipeline } = useDataContext();
   const {
     stage: { data: stage },
     deployPipelineRunTemplate: { data: deployPipelineRunTemplate },
   } = useDynamicDataContext();
-  const { data: gitServers } = useGitServerListQuery({});
   const { getValues, setValue, resetField, trigger } = useFormContext();
   const [selected, setSelected] = React.useState<string[]>([]);
 
@@ -130,7 +128,7 @@ export const Applications = ({
     [selected]
   );
 
-  const columns = useColumns(qualityGatePipelineIsRunning, handleSelectRowClick, selected);
+  const columns = useColumns(handleSelectRowClick, selected);
 
   const enrichedApplicationsByApplicationName = React.useMemo(() => {
     return (
@@ -259,7 +257,6 @@ export const Applications = ({
   }, [enrichedApplicationsByApplicationName, selected]);
 
   const {
-    editArgoApplication,
     deleteArgoApplication,
     mutations: { argoApplicationEditMutation, argoApplicationDeleteMutation },
   } = useCreateArgoApplication();
@@ -331,57 +328,6 @@ export const Applications = ({
     trigger,
   ]);
 
-  const onUpdateClick = React.useCallback(async () => {
-    const values = getValues();
-    const valid = await trigger();
-
-    if (!valid) {
-      return;
-    }
-
-    for (const enrichedApplication of enrichedApplicationsWithArgoApplications) {
-      const appName = enrichedApplication.application.metadata.name;
-
-      if (!selected.includes(appName)) {
-        continue;
-      }
-      const imageTagFieldValue = values[`${appName}::image-tag`];
-      const valuesOverrideFieldValue = values[`${appName}::values-override`];
-
-      const { value: tagValue, label: tagLabel } = parseTagLabelValue(imageTagFieldValue);
-
-      const application = enrichedApplicationsByApplicationName.get(appName)?.application;
-      const argoApplication = enrichedApplicationsByApplicationName.get(appName)?.argoApplication;
-      const applicationImageStream =
-        enrichedApplicationsByApplicationName.get(appName)?.applicationImageStream;
-      const applicationVerifiedImageStream =
-        enrichedApplicationsByApplicationName.get(appName)?.applicationVerifiedImageStream;
-      await editArgoApplication({
-        argoApplication,
-        gitServers: gitServers?.items,
-        CDPipeline,
-        currentCDPipelineStage: stage,
-        application,
-        imageStream:
-          tagLabel === 'stable' ? applicationVerifiedImageStream : applicationImageStream,
-        imageTag: tagValue,
-        valuesOverride: valuesOverrideFieldValue,
-        gitOpsCodebase,
-      });
-    }
-  }, [
-    CDPipeline,
-    editArgoApplication,
-    enrichedApplicationsByApplicationName,
-    enrichedApplicationsWithArgoApplications,
-    getValues,
-    gitOpsCodebase,
-    gitServers?.items,
-    selected,
-    stage,
-    trigger,
-  ]);
-
   const onUninstallClick = React.useCallback(async () => {
     for (const enrichedApplication of enrichedApplicationsWithArgoApplications) {
       const appName = enrichedApplication.application.metadata.name;
@@ -407,12 +353,11 @@ export const Applications = ({
     selected,
     buttonsEnabledMap,
     onDeployClick,
-    onUpdateClick,
     onUninstallClick,
     onLatestClick,
     onStableClick,
     someArgoApplicationMutationIsLoading,
-    qualityGatePipelineIsRunning,
+    latestDeployPipelineRunIsRunning,
   });
 
   return (

@@ -11,8 +11,6 @@ export const searchFunction = (item: KubeObjectInterface, value: string) => {
   }
 
   const usedMatchCriteria = [
-    item.metadata.uid.toLowerCase(),
-    item.metadata.namespace ? item.metadata.namespace.toLowerCase() : '',
     item.metadata.name.toLowerCase(),
     item?.spec?.displayName?.toLowerCase(),
   ].filter(Boolean);
