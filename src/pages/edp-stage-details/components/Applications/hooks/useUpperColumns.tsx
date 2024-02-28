@@ -10,8 +10,6 @@ import { EnrichedApplicationWithArgoApplication } from '../../../types';
 export const useUpperColumns = ({
   selected,
   buttonsEnabledMap,
-  someArgoApplicationMutationIsLoading,
-  latestDeployPipelineRunIsRunning,
   onDeployClick,
   onUninstallClick,
   onLatestClick,
@@ -46,11 +44,7 @@ export const useUpperColumns = ({
                   <div>
                     <IconButton
                       onClick={onDeployClick}
-                      disabled={
-                        !numSelected ||
-                        !buttonsEnabledMap.deploy ||
-                        someArgoApplicationMutationIsLoading
-                      }
+                      disabled={!numSelected || !buttonsEnabledMap.deploy}
                       size="medium"
                     >
                       <Icon icon={'solar:upload-linear'} />
@@ -63,12 +57,7 @@ export const useUpperColumns = ({
                   <div>
                     <IconButton
                       onClick={onUninstallClick}
-                      disabled={
-                        !numSelected ||
-                        !buttonsEnabledMap.update ||
-                        someArgoApplicationMutationIsLoading ||
-                        latestDeployPipelineRunIsRunning
-                      }
+                      disabled={!numSelected || !buttonsEnabledMap.delete}
                       size="medium"
                     >
                       <Icon icon={ICONS.BUCKET} />
@@ -155,7 +144,6 @@ export const useUpperColumns = ({
     ],
     [
       buttonsEnabledMap,
-      latestDeployPipelineRunIsRunning,
       numSelected,
       onDeployClick,
       onLatestClick,
@@ -163,7 +151,6 @@ export const useUpperColumns = ({
       onUninstallClick,
       reset,
       selected,
-      someArgoApplicationMutationIsLoading,
       stage,
     ]
   );

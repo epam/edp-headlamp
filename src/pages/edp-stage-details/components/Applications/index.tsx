@@ -70,7 +70,6 @@ const newDeployPipelineRunNames = {
 
 interface ButtonsMap {
   deploy: boolean;
-  update: boolean;
   uninstall: boolean;
 }
 
@@ -198,6 +197,18 @@ export const Applications = ({
     }
   }, [enrichedApplicationsByApplicationName, resetField, selected, setValue]);
 
+  const {
+    deleteArgoApplication,
+    mutations: { argoApplicationDeleteMutation },
+  } = useCreateArgoApplication();
+
+  const { createDeployPipelineRun } = useCreateDeployPipelineRun({});
+
+  const someArgoApplicationMutationIsLoading = React.useMemo(
+    () => argoApplicationDeleteMutation.isLoading,
+    [argoApplicationDeleteMutation]
+  );
+
   const buttonsEnabledMap: ButtonsMap = React.useMemo(() => {
     if (!selected || !selected.length) {
       return null;
@@ -212,8 +223,7 @@ export const Applications = ({
 
         if (!argoApplicationBySelectedApplication) {
           acc.set(selectedApplication, {
-            deploy: true,
-            update: false,
+            deploy: !latestDeployPipelineRunIsRunning && !someArgoApplicationMutationIsLoading,
             uninstall: false,
           });
           return acc;
@@ -235,9 +245,8 @@ export const Applications = ({
         );
 
         acc.set(selectedApplication, {
-          deploy: !deployedVersion || deployedVersion === 'NaN',
-          update: !!deployedVersion && deployedVersion !== 'NaN',
-          uninstall: !!deployedVersion && deployedVersion !== 'NaN',
+          deploy: !latestDeployPipelineRunIsRunning && !someArgoApplicationMutationIsLoading,
+          uninstall: !!deployedVersion,
         });
         return acc;
       }
@@ -245,28 +254,19 @@ export const Applications = ({
 
     const deployBoolean = mapEvery(map, (value) => value.deploy);
 
-    const updateBoolean = mapEvery(map, (value) => value.update);
-
     const uninstallBoolean = mapEvery(map, (value) => value.uninstall);
 
     return {
       deploy: deployBoolean,
-      update: updateBoolean,
       uninstall: uninstallBoolean,
     };
-  }, [enrichedApplicationsByApplicationName, selected]);
+  }, [
+    selected,
+    enrichedApplicationsByApplicationName,
+    latestDeployPipelineRunIsRunning,
+    someArgoApplicationMutationIsLoading,
+  ]);
 
-  const {
-    deleteArgoApplication,
-    mutations: { argoApplicationEditMutation, argoApplicationDeleteMutation },
-  } = useCreateArgoApplication();
-
-  const { createDeployPipelineRun } = useCreateDeployPipelineRun({});
-
-  const someArgoApplicationMutationIsLoading = React.useMemo(
-    () => argoApplicationEditMutation.isLoading || argoApplicationDeleteMutation.isLoading,
-    [argoApplicationEditMutation, argoApplicationDeleteMutation]
-  );
   const onDeployClick = React.useCallback(async () => {
     const values = getValues();
     const valid = await trigger();
@@ -356,8 +356,6 @@ export const Applications = ({
     onUninstallClick,
     onLatestClick,
     onStableClick,
-    someArgoApplicationMutationIsLoading,
-    latestDeployPipelineRunIsRunning,
   });
 
   return (

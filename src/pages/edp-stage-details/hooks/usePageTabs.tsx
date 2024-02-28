@@ -66,7 +66,7 @@ export const usePageTabs = () => {
 
   const latestDeployPipelineRunIsRunning = React.useMemo(
     () =>
-      PipelineRunKubeObject.parseStatusReason(deployPipelineRuns?.[0]) ===
+      PipelineRunKubeObject.parseStatusReason(deployPipelineRuns.data?.[0]).toLowerCase() ===
       PIPELINE_RUN_REASON.RUNNING,
     [deployPipelineRuns]
   );
