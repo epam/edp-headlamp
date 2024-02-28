@@ -1,9 +1,9 @@
+import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { Grid, Typography } from '@mui/material';
+import { Button, Grid, Link, Typography } from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { EmptyList } from '../../../../components/EmptyList';
-import { ResourceIconLink } from '../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
@@ -67,12 +67,15 @@ export const PageView = () => {
                 />
               </Grid>
               <Grid item>GitOps</Grid>
-              <Grid item>
-                <ResourceIconLink
-                  tooltipTitle={'Go to the Source Code'}
-                  link={el?.status?.gitWebUrl}
-                  icon={ICONS.GIT_BRANCH}
-                />
+              <Grid item sx={{ ml: 'auto' }}>
+                <Button
+                  component={Link}
+                  href={el?.status?.gitWebUrl}
+                  target="_blank"
+                  startIcon={<Icon icon={ICONS.GIT_BRANCH} width="15" height="15" />}
+                >
+                  Go to the Source Code
+                </Button>
               </Grid>
             </Grid>
           ),

@@ -130,8 +130,8 @@ export const ConfigurationBody = ({
                                 }}
                               >
                                 <Grid container spacing={3} alignItems={'center'}>
-                                  <Grid item>
-                                    <Typography variant={'h6'}>
+                                  <Grid item xs={12}>
+                                    <Typography variant={'h6'} component="div">
                                       {configurationItem.title}
                                     </Typography>
                                   </Grid>
