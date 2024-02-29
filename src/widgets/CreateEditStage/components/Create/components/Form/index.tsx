@@ -16,6 +16,7 @@ import {
   Namespace,
   QualityGates,
   StageName,
+  TriggerTemplate,
   TriggerType,
 } from '../../../fields';
 import { FormProps } from './types';
@@ -67,6 +68,9 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
         </Grid>
         <Grid item xs={6}>
           <TriggerType />
+        </Grid>
+        <Grid item xs={6}>
+          <TriggerTemplate />
         </Grid>
         <Grid item xs={12}>
           <Divider

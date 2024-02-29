@@ -13,6 +13,7 @@ const NAMES = {
   ORDER: 'order',
   CDPIPELINE: 'cdPipeline',
   CLUSTER_NAME: 'cluster',
+  TRIGGER_TEMPLATE: 'triggerTemplate',
 
   // NOT USED IN RESOURCE DATA
   QUALITY_GATES_TYPE_ADD_CHOOSER: 'qualityGatesTypeAddChooser',
@@ -66,6 +67,10 @@ export const STAGE_FORM_NAMES = {
   [NAMES.CLUSTER_NAME]: {
     name: NAMES.CLUSTER_NAME,
     path: ['spec', 'clusterName'],
+  },
+  [NAMES.TRIGGER_TEMPLATE]: {
+    name: NAMES.TRIGGER_TEMPLATE,
+    path: ['spec', 'triggerTemplate'],
   },
 
   // NOT USED IN RESOURCE DATA

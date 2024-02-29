@@ -497,6 +497,98 @@ exports[`renders CreateEditStage Create component 1`] = `
             </div>
           </div>
           <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                style="display: flex;"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                  >
+                    <span
+                      class="makeStyles-labelWrap-2"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                      >
+                        TriggerTemplate
+                      </span>
+                      <div
+                        class="MuiBox-root css-0"
+                        style="height: 1.25rem;"
+                      />
+                    </span>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                    style="display: flex; align-items: flex-end;"
+                  >
+                    <div
+                      class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                    >
+                      <div
+                        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl makeStyles-selectWithDefaultValue-1 css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+                      >
+                        <div
+                          aria-controls="mui-12"
+                          aria-expanded="false"
+                          aria-haspopup="listbox"
+                          aria-labelledby="mui-component-select-triggerTemplate"
+                          class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-17praur-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+                          id="mui-component-select-triggerTemplate"
+                          role="combobox"
+                          tabindex="0"
+                        >
+                          Select TriggerTemplate
+                        </div>
+                        <input
+                          aria-hidden="true"
+                          aria-invalid="false"
+                          class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                          name="triggerTemplate"
+                          tabindex="-1"
+                          value=""
+                        />
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+                          data-testid="ArrowDropDownIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M7 10l5 5 5-5z"
+                          />
+                        </svg>
+                        <fieldset
+                          aria-hidden="true"
+                          class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                        >
+                          <legend
+                            class="css-ihdtdm"
+                          >
+                            <span
+                              class="notranslate"
+                            >
+                              ​
+                            </span>
+                          </legend>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
           >
             <hr
@@ -594,7 +686,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                                             class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl  css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                                           >
                                             <div
-                                              aria-controls="mui-14"
+                                              aria-controls="mui-15"
                                               aria-expanded="false"
                                               aria-haspopup="listbox"
                                               aria-labelledby="mui-component-select-quality-gate-type-123456789"
@@ -688,7 +780,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                                               <input
                                                 aria-invalid="false"
                                                 class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                                                id="mui-16"
+                                                id="mui-17"
                                                 name="quality-gate-step-name-123456789"
                                                 placeholder="Enter step name"
                                                 type="text"

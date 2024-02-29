@@ -4,3 +4,4 @@ export * from './QualityGates';
 export * from './TriggerType';
 export * from './Namespace';
 export * from './Cluster';
+export * from './TriggerTemplate';

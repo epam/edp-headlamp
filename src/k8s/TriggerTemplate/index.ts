@@ -34,6 +34,15 @@ export class TriggerTemplateKubeObject extends K8s.cluster.makeKubeObject<Trigge
     return ApiProxy.request(url);
   }
 
+  static getListByTypeLabel(
+    namespace: string,
+    typeLabel: string
+  ): Promise<KubeObjectListInterface<TriggerTemplateKubeObjectInterface>> {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=app.edp.epam.com/pipelinetype=${typeLabel}`;
+
+    return ApiProxy.request(url);
+  }
+
   static getItemByName(
     namespace: string,
     name: string
