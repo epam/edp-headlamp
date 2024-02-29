@@ -1,0 +1,140 @@
+name: "pull_request"
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+env:
+  GOLANG_VERSION: '1.20'
+
+jobs:
+
+  check-commit-message:
+    runs-on: ubuntu-20.04
+    env:
+      COMMIT_MESSAGE_PATTERN: '^(feat|fix|docs|style|refactor|test|chore){1}(!)?:\s[A-Z][a-z]([\/\.\w\-\s]+)\(\#\d+\)$'
+      MAX_LINE_LENGTH: '80'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check Commit Format
+        uses: gsactions/commit-message-checker@v2
+        with:
+          pattern: '^(fix|feat|docs|style|refactor|test|chore): .+ \(#\d+\)$'
+          error: 'Your commit message should be in the format "type: Description (#issue)". Example: "fix: Update build (#33)"'
+
+      - name: Check Line Length
+        uses: gsactions/commit-message-checker@v2
+        with:
+          pattern: '.{0,50}'
+          error: 'The maximum line length of 50 characters is exceeded.'
+          excludeDescription: 'true'
+          excludeTitle: 'true'
+          checkAllCommitMessages: 'true'
+          accessToken: ${{ secrets.GITHUB_TOKEN }}
+
+
+  helm-docs:
+    needs: [check-commit-message]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ env.GOLANG_VERSION }}
+
+      - name: Make Build
+        run: make validate-docs
+
+  helm-lint:
+    needs: [helm-docs]
+    runs-on: ubuntu-20.04
+    env:
+     CHART_DIR: "deploy-templates"
+     CT_CONFIGS_DIR: "."
+     CT_CONFIGS_DIR_DEFAULT: "ct-configs"
+     CT_FILE_PATH: "ct.yaml"
+     LINTCONF_FILE_PATH: "lintconf.yaml"
+     CHART_SCHEMA_FILE_PATH: "chart_schema.yaml"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.12.1
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          check-latest: true
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.6.0
+
+      - name: Run chart-testing (lint)
+        run: ct lint --target-branch ${{ github.event.repository.default_branch }} \
+               --charts ${CHART_DIR}/ \
+               --config ${CT_FILE_PATH} \
+               --lint-conf ${LINTCONF_FILE_PATH} \
+               --chart-yaml-schema ${CHART_SCHEMA_FILE_PATH}
+
+
+  build-lint-kaniko:
+    needs: [helm-lint]
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test:coverage
+
+      - name: Run build
+        run: npm run build
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: portal/portal:latest
+
+  docker-lint:
+    needs: [build-lint-kaniko]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run hadolint
+        uses: hadolint/hadolint-action@v1.5.0
+        with:
+          dockerfile: Dockerfile
