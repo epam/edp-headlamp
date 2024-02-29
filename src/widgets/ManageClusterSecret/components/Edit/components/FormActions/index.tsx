@@ -8,9 +8,7 @@ import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD'
 import { createClusterSecretInstance } from '../../../../../../k8s/Secret/utils/createClusterSecretInstance';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
-import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../../../../DeleteKubeObject/constants';
-import { CLUSTER_CREATION_FORM_NAMES } from '../../../../names';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../../types';
 import { ClusterCDPipelineConflictError } from './components/ClusterCDPipelineConflictError';
 import { useConflictedStage } from './hooks/useConflictedStage';
@@ -42,15 +40,14 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageClusterSecretValues) => {
-      const { clusterName, clusterHost, clusterToken } = getUsedValues(
-        values,
-        CLUSTER_CREATION_FORM_NAMES
-      );
+      const { clusterName, clusterHost, clusterToken, clusterCertificate, skipTLSVerify } = values;
 
       const newClusterSecretData = createClusterSecretInstance({
         clusterName,
         clusterHost,
         clusterToken,
+        clusterCertificate,
+        skipTLSVerify,
       });
 
       await editSecret({

@@ -8,7 +8,6 @@ import { EDP_USER_GUIDE } from '../../../../../constants/urls';
 import { useClusterSecretListQuery } from '../../../../../k8s/Secret/hooks/useClusterSecretListQuery';
 import { routeEDPClusterList } from '../../../../../pages/edp-configuration/pages/edp-cluster-list/route';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
-import { safeDecode } from '../../../../../utils/decodeEncode';
 import { STAGE_FORM_NAMES } from '../../../names';
 import { CreateEditStageFormValues } from '../../../types';
 
@@ -30,13 +29,10 @@ export const Cluster = () => {
     if (isLoading || !data) {
       return [defaultClusterOption];
     }
-    const clusters = data?.items.map(({ data: { name } }) => {
-      const decodedName = safeDecode(name);
-      return {
-        label: decodedName,
-        value: decodedName,
-      };
-    });
+    const clusters = data?.items.map(({ metadata: { name } }) => ({
+      label: name,
+      value: name,
+    }));
 
     return [defaultClusterOption, ...clusters];
   }, [data, isLoading]);

@@ -4,8 +4,6 @@ import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
 import { createClusterSecretInstance } from '../../../../../../k8s/Secret/utils/createClusterSecretInstance';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
-import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
-import { CLUSTER_CREATION_FORM_NAMES } from '../../../../names';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../../types';
 
 export const FormActions = () => {
@@ -35,16 +33,17 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageClusterSecretValues) => {
-      const { clusterName, clusterHost, clusterToken } = getUsedValues(
-        values,
-        CLUSTER_CREATION_FORM_NAMES
-      );
+      const { clusterName, clusterHost, clusterToken, clusterCertificate, skipTLSVerify } = values;
 
       const newClusterSecretData = createClusterSecretInstance({
         clusterName,
         clusterHost,
         clusterToken,
+        clusterCertificate,
+        skipTLSVerify,
       });
+
+      console.log(newClusterSecretData);
 
       await createSecret({
         secretData: newClusterSecretData,

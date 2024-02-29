@@ -23,6 +23,10 @@ export const useDefaultValues = ({ formData }: { formData: ManageClusterSecretDa
     return {
       [CLUSTER_CREATION_FORM_NAMES.clusterName.name]: currentElement.metadata.name,
       [CLUSTER_CREATION_FORM_NAMES.clusterHost.name]: config?.clusters[0]?.cluster?.server,
+      [CLUSTER_CREATION_FORM_NAMES.clusterCertificate.name]:
+        config?.clusters[0]?.cluster?.['certificate-authority-data'],
+      [CLUSTER_CREATION_FORM_NAMES.skipTLSVerify.name]:
+        config?.clusters[0]?.cluster?.['insecure-skip-tls-verify'],
       [CLUSTER_CREATION_FORM_NAMES.clusterToken.name]: config?.users[0]?.user?.token,
     };
   }, [currentElement, isPlaceholder]);

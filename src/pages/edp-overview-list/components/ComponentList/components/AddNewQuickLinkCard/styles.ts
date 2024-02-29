@@ -1,11 +1,11 @@
 import makeStyles from '@mui/styles/makeStyles';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
   cardRoot: {
     width: '100%',
     height: '100%',
     position: 'relative',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: theme.palette.action.selected,
     borderRadius: '4px',
   },
 }));
