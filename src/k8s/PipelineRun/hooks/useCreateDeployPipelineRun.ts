@@ -21,7 +21,13 @@ export const useCreateDeployPipelineRun = ({
   const deployPipelineRunCreateMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
     CRUD_TYPES.CREATE
-  >('deployPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE);
+  >('deployPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE, {
+    customMessages: {
+      onMutate: 'Creating deploy PipelineRun',
+      onError: 'Failed to create deploy PipelineRun',
+      onSuccess: 'Start deploying application(s)',
+    },
+  });
 
   const createDeployPipelineRun = React.useCallback(
     async ({ deployPipelineRun }: CreateDeployPipelineRunProps) => {

@@ -17,7 +17,7 @@ import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
 import { useColumns } from './hooks/useColumns';
 import { useUpperColumns } from './hooks/useUpperColumns';
-import { ApplicationsProps } from './types';
+import { ApplicationsProps, ButtonsMap } from './types';
 
 const parseTagLabelValue = (tag: string) => {
   if (tag.includes('::')) {
@@ -67,11 +67,6 @@ const newDeployPipelineRunNames = {
     path: ['spec', 'params', '3'],
   },
 };
-
-interface ButtonsMap {
-  deploy: boolean;
-  uninstall: boolean;
-}
 
 export const Applications = ({
   enrichedApplicationsWithArgoApplications,

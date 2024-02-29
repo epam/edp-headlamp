@@ -6,6 +6,7 @@ import { TableColumn } from '../../../../../components/Table/types';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../../types';
+import { ButtonsMap } from '../types';
 
 export const useUpperColumns = ({
   selected,
@@ -14,6 +15,13 @@ export const useUpperColumns = ({
   onUninstallClick,
   onLatestClick,
   onStableClick,
+}: {
+  selected: string[];
+  buttonsEnabledMap: ButtonsMap;
+  onDeployClick: () => void;
+  onUninstallClick: () => void;
+  onLatestClick: () => void;
+  onStableClick: () => void;
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
   const numSelected = React.useMemo(() => selected.length, [selected]);
   const { reset } = useFormContext();
@@ -57,7 +65,7 @@ export const useUpperColumns = ({
                   <div>
                     <IconButton
                       onClick={onUninstallClick}
-                      disabled={!numSelected || !buttonsEnabledMap.delete}
+                      disabled={!numSelected || !buttonsEnabledMap.uninstall}
                       size="medium"
                     >
                       <Icon icon={ICONS.BUCKET} />
