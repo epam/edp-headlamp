@@ -20,6 +20,7 @@ afterEach(() => {
 describe('testing createGitServerInstance', () => {
   it('should return valid kube object', () => {
     const object = createGitServerInstance(GIT_SERVER_FORM_NAMES, {
+      name: 'gerrit',
       sshPort: 22,
       httpsPort: 443,
       gitUser: 'git',

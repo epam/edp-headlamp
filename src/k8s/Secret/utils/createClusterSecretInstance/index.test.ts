@@ -15,7 +15,7 @@ describe('testing createClusterSecretInstance', () => {
       kind: 'Secret',
       metadata: {
         name: 'test-cluster-name',
-        labels: { 'argocd.argoproj.io/secret-type': 'cluster' },
+        labels: { 'app.edp.epam.com/secret-type': 'cluster' },
       },
       data: {
         config:
@@ -38,7 +38,7 @@ describe('testing createClusterSecretInstance', () => {
       kind: 'Secret',
       metadata: {
         name: 'test-cluster-name',
-        labels: { 'argocd.argoproj.io/secret-type': 'cluster' },
+        labels: { 'app.edp.epam.com/secret-type': 'cluster' },
       },
       data: {
         config:

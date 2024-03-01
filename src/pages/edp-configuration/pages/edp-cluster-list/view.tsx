@@ -1,7 +1,7 @@
 import React from 'react';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
-import { ARGO_CD_SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
+import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageClusterSecret } from '../../../../widgets/ManageClusterSecret';
@@ -11,9 +11,9 @@ import { CLUSTER_LIST_PAGE_DESCRIPTION } from './constants';
 export const PageView = () => {
   const [items] = SecretKubeObject.useList({
     namespace: getDefaultNamespace(),
-    labelSelector: `${ARGO_CD_SECRET_LABEL_SECRET_TYPE}=cluster`,
+    labelSelector: `${SECRET_LABEL_SECRET_TYPE}=cluster`,
   });
-
+  
   const configurationItemList = React.useMemo(() => {
     const secretsArray = items ? items.filter(Boolean) : [];
     return secretsArray.map((el) => {

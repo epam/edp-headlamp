@@ -1,5 +1,5 @@
 import { safeEncode } from '../../../../utils/decodeEncode';
-import { ARGO_CD_SECRET_LABEL_SECRET_TYPE } from '../../labels';
+import { SECRET_LABEL_SECRET_TYPE } from '../../labels';
 import { SecretKubeObjectInterface } from '../../types';
 
 export const createClusterSecretInstance = ({
@@ -22,7 +22,7 @@ export const createClusterSecretInstance = ({
     metadata: {
       name: clusterName,
       labels: {
-        [ARGO_CD_SECRET_LABEL_SECRET_TYPE]: 'cluster',
+        [SECRET_LABEL_SECRET_TYPE]: 'cluster',
       },
     },
     data: {

@@ -14,6 +14,7 @@ import {
   Token,
   UserName,
 } from '../../../fields';
+import { Name } from '../../../fields/Name';
 
 export const Form = () => {
   const { watch } = useReactHookFormContext();
@@ -60,7 +61,10 @@ export const Form = () => {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
+          <Name />
+        </Grid>
+        <Grid item xs={6}>
           <GitProvider />
         </Grid>
         <Grid item xs={12}>

@@ -6,7 +6,6 @@ import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
-import { FORM_MODES } from '../../../../types/forms';
 import { ManageGitServer } from '../../../../widgets/ManageGitServer';
 import { menu } from '../../menu';
 import { GIT_SERVER_LIST_PAGE_DESCRIPTION } from './constants';
@@ -14,11 +13,9 @@ import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
   const {
-    data: { gitServer, repositorySecrets },
+    data: { gitServers, repositorySecrets },
     isLoading,
   } = useDynamicDataContext();
-
-  const mode = !!gitServer ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
   return (
     <PageWithSubMenu list={menu}>
@@ -37,16 +34,15 @@ export const PageView = () => {
             <LoadingWrapper isLoading={isLoading}>
               <ManageGitServer
                 formData={{
-                  gitServer,
+                  gitServers,
                   repositorySecrets,
-                  mode,
                 }}
               />
             </LoadingWrapper>
           </Grid>
-          {!gitServer && !isLoading && (
+          {!gitServers && !isLoading && (
             <Grid item xs={12}>
-              <EmptyContent color={'textSecondary'}>No GitServer found</EmptyContent>
+              <EmptyContent color={'textSecondary'}>No GitServers found</EmptyContent>
             </Grid>
           )}
         </Grid>

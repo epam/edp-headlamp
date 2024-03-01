@@ -23,7 +23,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const DataContextValue = React.useMemo(
     () => ({
       data: {
-        gitServer: gitServers?.[0]?.jsonData,
+        gitServers,
         repositorySecrets,
       },
       isLoading,

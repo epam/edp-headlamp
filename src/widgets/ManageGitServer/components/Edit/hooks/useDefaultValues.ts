@@ -21,6 +21,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitServerDataCo
 
   return React.useMemo(() => {
     let base: Partial<ManageGitServerValues> = {
+      [GIT_SERVER_FORM_NAMES.name.name]: gitServer.metadata.name,
       [GIT_SERVER_FORM_NAMES.sshPort.name]: gitServer.spec.sshPort
         ? Number(gitServer.spec.sshPort)
         : undefined,

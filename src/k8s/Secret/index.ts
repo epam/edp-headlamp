@@ -4,7 +4,7 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { KubeObjectListInterface } from '../../types/k8s';
 import { streamResults } from '../common/streamResults';
 import { SecretKubeObjectConfig } from './config';
-import { ARGO_CD_SECRET_LABEL_SECRET_TYPE, SECRET_LABEL_SECRET_TYPE } from './labels';
+import { SECRET_LABEL_SECRET_TYPE } from './labels';
 import { SecretKubeObjectInterface, StreamSecretsByTypeProps } from './types';
 
 const {
@@ -16,7 +16,7 @@ export class SecretKubeObject extends K8s.secret.default {
   static getClusterSecretList(
     namespace: string
   ): Promise<KubeObjectListInterface<SecretKubeObjectInterface>> {
-    const url = `/api/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${ARGO_CD_SECRET_LABEL_SECRET_TYPE}=cluster`;
+    const url = `/api/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${SECRET_LABEL_SECRET_TYPE}=cluster`;
 
     return ApiProxy.request(url);
   }

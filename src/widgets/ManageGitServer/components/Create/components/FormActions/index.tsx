@@ -17,6 +17,7 @@ export const FormActions = () => {
 
   const { setupGitServer, isLoading } = useSetupGitServer({
     onSuccess: () => {
+      handleClosePanel();
       reset();
     },
   });

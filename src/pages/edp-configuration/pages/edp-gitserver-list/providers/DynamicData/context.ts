@@ -3,7 +3,7 @@ import { DynamicDataContextProviderValue } from './types';
 
 export const DynamicDataContext = React.createContext<DynamicDataContextProviderValue>({
   data: {
-    gitServer: null,
+    gitServers: null,
     repositorySecrets: null,
   },
   isLoading: false,

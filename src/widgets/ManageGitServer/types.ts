@@ -12,7 +12,10 @@ export interface ManageGitServerDataContext {
 }
 
 export interface ManageGitServerProps {
-  formData: ManageGitServerDataContext;
+  formData: {
+    gitServers: EDPGitServerKubeObjectInterface[];
+    repositorySecrets: SecretKubeObjectInterface[];
+  };
 }
 
 export type ManageGitServerValues = FormValues<typeof GIT_SERVER_FORM_NAMES>;

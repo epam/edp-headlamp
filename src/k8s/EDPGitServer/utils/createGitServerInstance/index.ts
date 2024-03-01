@@ -19,7 +19,7 @@ export const createGitServerInstance = (
     [key: string]: any;
   }
 ): EDPGitServerKubeObjectInterface => {
-  const { gitHost, ...restProps } = formValues;
+  const { gitHost, name, ...restProps } = formValues;
   const nameSshKeySecret =
     formValues.gitProvider === GIT_PROVIDERS.GERRIT
       ? 'gerrit-ciuser-sshkey'
@@ -29,7 +29,7 @@ export const createGitServerInstance = (
     apiVersion: `${group}/${version}`,
     kind,
     metadata: {
-      name: formValues.gitProvider,
+      name,
     },
     spec: {
       gitHost,
