@@ -546,7 +546,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                           role="combobox"
                           tabindex="0"
                         >
-                          Select Trigger Template
+                          Select Pipeline Template
                         </div>
                         <input
                           aria-hidden="true"

@@ -27,10 +27,10 @@ export const TriggerTemplate = () => {
   return (
     <FormSelect
       {...register(STAGE_FORM_NAMES.triggerTemplate.name, {
-        required: 'Select Trigger Template',
+        required: 'Select Pipeline Template',
       })}
       label={'Trigger Template'}
-      placeholder={'Select Trigger Template'}
+      placeholder={'Select Pipeline Template'}
       control={control}
       errors={errors}
       options={options}
