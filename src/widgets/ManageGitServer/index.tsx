@@ -42,7 +42,8 @@ export const ManageGitServer = ({ formData }: ManageGitServerProps) => {
           </Grid>
         </CreateItemAccordion>
       </Grid>
-      {gitServers.map((gitServer) => {
+      {gitServers.map((_gitServer) => {
+        const gitServer = _gitServer?.jsonData;
         const connected = gitServer?.status?.connected;
         const error = gitServer?.status?.error;
 
@@ -57,12 +58,11 @@ export const ManageGitServer = ({ formData }: ManageGitServerProps) => {
           handleClosePanel,
         };
 
+        const isExpanded = expandedPanel === gitServerName;
+
         return (
           <Grid item xs={12} key={gitServerName}>
-            <Accordion
-              expanded={expandedPanel === gitServerName}
-              onChange={handleChange(gitServerName)}
-            >
+            <Accordion expanded={isExpanded} onChange={handleChange(gitServerName)}>
               <AccordionSummary
                 expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
                 style={{
@@ -96,7 +96,7 @@ export const ManageGitServer = ({ formData }: ManageGitServerProps) => {
               <AccordionDetails>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <Edit formData={editGitServerFormData} />
+                    {isExpanded ? <Edit formData={editGitServerFormData} /> : null}
                   </Grid>
                 </Grid>
               </AccordionDetails>

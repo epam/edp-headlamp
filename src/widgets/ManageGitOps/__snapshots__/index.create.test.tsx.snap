@@ -105,86 +105,6 @@ exports[`renders ManageGitOps Create component 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5 css-k3f0g4-MuiGrid-root"
-      >
-        <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
-        >
-          <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-            style="display: flex;"
-          >
-            <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
-            >
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-              >
-                <span
-                  class="makeStyles-labelWrap-2"
-                >
-                  <span
-                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
-                  >
-                    Git repo relative path
-                  </span>
-                  <span />
-                </span>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                style="display: flex; align-items: flex-end;"
-              >
-                <div
-                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
-                >
-                  <div
-                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
-                  >
-                    <div
-                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedStart css-xlgtqz-MuiInputBase-root-MuiOutlinedInput-root"
-                    >
-                      <div
-                        class="MuiInputAdornment-root MuiInputAdornment-positionStart MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-ittuaa-MuiInputAdornment-root"
-                      >
-                        <p
-                          class="MuiTypography-root MuiTypography-body1 css-3mzles-MuiTypography-root"
-                        >
-                          /
-                        </p>
-                      </div>
-                      <input
-                        aria-invalid="false"
-                        class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedStart css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-4"
-                        name="gitRepoPath"
-                        placeholder="Indicate the repository relative path in the following format project/repository"
-                        type="text"
-                        value=""
-                      />
-                      <fieldset
-                        aria-hidden="true"
-                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                      >
-                        <legend
-                          class="css-ihdtdm"
-                        >
-                          <span
-                            class="notranslate"
-                          >
-                            ​
-                          </span>
-                        </legend>
-                      </fieldset>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 css-1equabv-MuiGrid-root"
       >
         <div
@@ -236,7 +156,7 @@ exports[`renders ManageGitOps Create component 1`] = `
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedStart css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-6"
+                        id="mui-4"
                         name="name"
                         type="text"
                         value="edp-gitops"

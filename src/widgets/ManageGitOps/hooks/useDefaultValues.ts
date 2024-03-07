@@ -42,9 +42,13 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
       };
     }
 
-    const gitRepoPath = currentElement?.spec.gitUrlPath
-      .replace(`/${GIT_OPS_CODEBASE_NAME}`, '')
-      .replace('/', '');
+    const gitUrlPath = currentElement?.spec.gitUrlPath;
+    const gitUrlPathWithNoSlashAtTheStart = gitUrlPath.replace('/', '');
+    const gitRepoPath = gitUrlPathWithNoSlashAtTheStart.split('/').slice(0, -1).join('/');
+
+    // const gitRepoPath = currentElement?.spec.gitUrlPath
+    //   .replace(`/${GIT_OPS_CODEBASE_NAME}`, '')
+    //   .replace('/', '');
 
     return {
       [CODEBASE_FORM_NAMES.gitServer.name]: currentElement?.spec.gitServer,

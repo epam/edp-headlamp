@@ -2,6 +2,7 @@ import { InputAdornment } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { GIT_SERVERS } from '../../../../../constants/gitServers';
+import { useGitServerListQuery } from '../../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { CreateCodebaseFormValues } from '../../Create/types';
@@ -18,15 +19,23 @@ export const GitUrlPath = () => {
     watch,
   } = useFormContext<CreateCodebaseFormValues>();
 
+  const { data: gitServers } = useGitServerListQuery({});
+
   const gitServerFieldValue = watch(CODEBASE_FORM_NAMES.gitServer.name);
 
+  const gitServer = gitServers?.items.find(
+    (gitServer) => gitServer.metadata.name === gitServerFieldValue
+  );
+
+  const gitServerProvider = gitServer?.spec.gitProvider;
+
   const title =
-    gitServerFieldValue === GIT_SERVERS.GITLAB
+    gitServerProvider === GIT_SERVERS.GITLAB
       ? 'Specify the codebase repository name in the following format: username/repository_name.'
       : 'Specify the codebase repository name.';
 
   const placeholder =
-    gitServerFieldValue === GIT_SERVERS.GERRIT
+    gitServerProvider === GIT_SERVERS.GERRIT
       ? 'repository_name'
       : 'username_or_organization/repository_name';
 
