@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormCheckbox } from '../../../../../../providers/Form/components/FormCheckbox';
+import { FormSwitch } from '../../../../../../providers/Form/components/FormSwitch';
 import { ValuesOverrideCheckboxProps } from './types';
 
 export const ValuesOverrideCheckbox = ({
@@ -18,7 +18,7 @@ export const ValuesOverrideCheckbox = ({
 
   return (
     <div style={{ width: '100%' }}>
-      <FormCheckbox
+      <FormSwitch
         label={undefined}
         {...register(`${application.metadata.name}::values-override`, {
           onChange: (event) =>

@@ -1,5 +1,15 @@
 import { Icon } from '@iconify/react';
-import { Button, ButtonGroup, Grid, IconButton, Tooltip, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Grid,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { TableColumn } from '../../../../../components/Table/types';
@@ -15,6 +25,7 @@ export const useUpperColumns = ({
   onUninstallClick,
   onLatestClick,
   onStableClick,
+  isDeployLoading,
 }: {
   selected: string[];
   buttonsEnabledMap: ButtonsMap;
@@ -22,7 +33,9 @@ export const useUpperColumns = ({
   onUninstallClick: () => void;
   onLatestClick: () => void;
   onStableClick: () => void;
+  isDeployLoading: boolean;
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
+  const theme = useTheme();
   const numSelected = React.useMemo(() => selected.length, [selected]);
   const { reset } = useFormContext();
   const {
@@ -35,47 +48,52 @@ export const useUpperColumns = ({
         id: 'selected',
         label: '',
         render: () => {
-          return numSelected > 0 ? (
-            <Typography variant={'body1'}>{numSelected} item(s) selected</Typography>
-          ) : null;
+          return (
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Box sx={{ minWidth: theme.typography.pxToRem(150) }}>
+                {numSelected > 0 ? (
+                  <Typography variant={'body1'}>{numSelected} item(s) selected</Typography>
+                ) : null}
+              </Box>
+              <Tooltip title={'Deploy selected applications with selected image stream version'}>
+                <div>
+                  <Button
+                    startIcon={
+                      isDeployLoading ? (
+                        <Icon icon={'line-md:loading-loop'} />
+                      ) : (
+                        <Icon icon={'solar:upload-linear'} />
+                      )
+                    }
+                    onClick={onDeployClick}
+                    disabled={!numSelected || !buttonsEnabledMap.deploy}
+                    sx={{ color: theme.palette.secondary.dark }}
+                  >
+                    Deploy
+                  </Button>
+                </div>
+              </Tooltip>
+              <Tooltip title={'Uninstall selected applications'}>
+                <div>
+                  <IconButton
+                    onClick={onUninstallClick}
+                    disabled={!numSelected || !buttonsEnabledMap.uninstall}
+                    size="medium"
+                    sx={{ color: theme.palette.secondary.dark }}
+                  >
+                    <Icon icon={ICONS.BUCKET} />
+                  </IconButton>
+                </div>
+              </Tooltip>
+            </Stack>
+          );
         },
         colSpan: 4,
       },
       {
         id: 'deployUpdateUninstall',
         label: '',
-        render: () => {
-          return (
-            <Grid container alignItems={'center'} spacing={2}>
-              <Grid item>
-                <Tooltip title={'Deploy selected applications with selected image stream version'}>
-                  <div>
-                    <IconButton
-                      onClick={onDeployClick}
-                      disabled={!numSelected || !buttonsEnabledMap.deploy}
-                      size="medium"
-                    >
-                      <Icon icon={'solar:upload-linear'} />
-                    </IconButton>
-                  </div>
-                </Tooltip>
-              </Grid>
-              <Grid item>
-                <Tooltip title={'Uninstall selected applications'}>
-                  <div>
-                    <IconButton
-                      onClick={onUninstallClick}
-                      disabled={!numSelected || !buttonsEnabledMap.uninstall}
-                      size="medium"
-                    >
-                      <Icon icon={ICONS.BUCKET} />
-                    </IconButton>
-                  </div>
-                </Tooltip>
-              </Grid>
-            </Grid>
-          );
-        },
+        render: () => null,
       },
       {
         id: 'valuesOverride',
@@ -160,6 +178,8 @@ export const useUpperColumns = ({
       reset,
       selected,
       stage,
+      theme,
+      isDeployLoading,
     ]
   );
 };

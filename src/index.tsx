@@ -8,7 +8,7 @@ import {
   registerSidebarEntry,
 } from '@kinvolk/headlamp-plugin/lib';
 import React from 'react';
-import { LogoWithText } from './Logo';
+import { Logo } from './Logo';
 import routes from './routes';
 import { SIDEBAR_LIST } from './routes/sidebar-list';
 import { HelpMenu } from './widgets/HelpMenu';
@@ -36,7 +36,7 @@ class EDPHeadlampPlugin extends Plugin {
       registerRoute(route);
     }
 
-    registerAppLogo(LogoWithText);
+    registerAppLogo(Logo);
 
     return true;
   }

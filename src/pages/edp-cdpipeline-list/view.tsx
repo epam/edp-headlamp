@@ -21,10 +21,10 @@ import { useFilterContext } from '../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { FORM_MODES } from '../../types/forms';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
-import { CDPipelineActionsMenu } from '../../widgets/CDPipelineActionsMenu';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../widgets/CreateEditCDPipeline/constants';
 import { CreateEditCDPipelineDialogForwardedProps } from '../../widgets/CreateEditCDPipeline/types';
 import { routeEDPGitOpsConfiguration } from '../edp-configuration/pages/edp-gitops/route';
+import { CDPipelineActions } from './components/CDPipelineActions';
 import { CDPipelineList } from './components/CDPipelineList';
 
 export const PageView = () => {
@@ -117,7 +117,7 @@ export const PageView = () => {
                   handleClick={() => history.push(gitOpsConfigurationPageRoute)}
                 />
               )}
-              <CDPipelineActionsMenu />
+              <CDPipelineActions />
             </ResourceActionListContextProvider>
           </Grid>
         </Grid>

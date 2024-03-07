@@ -1,5 +1,4 @@
 import { Chip, Paper, styled } from '@mui/material';
-import { TRIGGER_TYPES } from '../../../../../../constants/triggerTypes';
 
 export const StyledCardHeader = styled(Paper, {
   shouldForwardProp: (prop) => prop !== 'stageStatusColor',
@@ -7,29 +6,47 @@ export const StyledCardHeader = styled(Paper, {
   stageStatusColor?: string;
 }>(
   ({ theme, stageStatusColor }) => `
-  padding: ${theme.typography.pxToRem(10)};
+  position: relative;
+  padding: ${theme.typography.pxToRem(10)} ${theme.typography.pxToRem(24)} ;
   border-left: ${stageStatusColor ? `5px solid ${stageStatusColor}` : undefined};
   border-right: 0;
+  width: calc(100% - ${theme.typography.pxToRem(16)});
+  filter: drop-shadow(0px 0 5px #0024461F);
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 100%;
+    bottom: 0;
+    width: ${theme.typography.pxToRem(16)};
+    height: 100%;
+    background-color: inherit;
+    clip-path: polygon(0 0, 0% 100%, 100% 50%);
+    margin-left: -1px;
+  }
 `
 );
 
-export const StyledCardBody = styled(Paper)(
+export const StyledCardWrapper = styled('div')(
   ({ theme }) => `
-  padding: ${theme.typography.pxToRem(40)};
-  background-color: ${theme.palette.squareButton.background};
+  padding: ${theme.typography.pxToRem(16)};
+  background-color: ${theme.palette.secondary.main};
+  border-radius: ${theme.typography.pxToRem(4)};
+`
+);
+
+export const StyledCardBody = styled('div')(
+  ({ theme }) => `
+  padding: 0 ${theme.typography.pxToRem(18)};
 `
 );
 
 export const StyledChip = styled(Chip)(
-  ({ theme, label }) => `
+  ({ theme }) => `
     height: ${theme.typography.pxToRem(20)};
     line-height: 1;
     padding-top: ${theme.typography.pxToRem(2)};
-    background-color: ${
-      label === TRIGGER_TYPES.MANUAL ? '#cbe1f9' : TRIGGER_TYPES.AUTO ? '#c3e6cd' : 'inherit'
-    };
-    color: ${
-      label === TRIGGER_TYPES.MANUAL ? '#1261af' : TRIGGER_TYPES.AUTO ? '#2f6f45' : 'inherit'
-    };
+    background-color: ${theme.palette.secondary.main};
   `
 );

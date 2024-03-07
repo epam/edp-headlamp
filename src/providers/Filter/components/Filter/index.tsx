@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Button, Grid, IconButton, Tooltip } from '@mui/material';
+import { Button, Grid, Tooltip } from '@mui/material';
 import React from 'react';
 import { useFilterContext } from '../../hooks';
 import { ControlComponent, DefaultControlKeys } from '../../types';
@@ -9,7 +9,7 @@ export const Filter = <ControlsKeys extends string = DefaultControlKeys>({
   controls,
   hideFilter = true,
 }: FilterProps<ControlsKeys>) => {
-  const { showFilter, setShowFilter, resetFilter } = useFilterContext<unknown, ControlsKeys>();
+  const { filter, resetFilter } = useFilterContext<unknown, ControlsKeys>();
 
   const controlsRenderer = React.useCallback(() => {
     return Object.entries(controls).map(([, controlValue]) => {
@@ -23,44 +23,43 @@ export const Filter = <ControlsKeys extends string = DefaultControlKeys>({
     });
   }, [controls]);
 
+  const hasValues = React.useMemo(() => {
+    const values = Object.values(filter.values);
+    if (values.length === 0) {
+      return false;
+    }
+
+    return values.some((value) => {
+      if (Array.isArray(value)) {
+        return !!value.length;
+      }
+      return !!value;
+    });
+  }, [filter]);
+
   const resetFilters = () => {
-    setShowFilter(false);
     resetFilter();
   };
 
   return (
-    <Grid container spacing={2} alignItems={'flex-end'} justifyContent="flex-end" wrap="nowrap">
+    <Grid container spacing={2} alignItems={'flex-end'} wrap="nowrap">
       {hideFilter ? (
         <>
-          {showFilter ? (
-            <>
-              {controlsRenderer()}
-              <Grid item>
-                <Tooltip title={'Reset Filter'}>
-                  <Button
-                    variant="contained"
-                    endIcon={<Icon icon="mdi:filter-variant-remove" />}
-                    onClick={resetFilters}
-                    aria-controls="standard-search"
-                  >
-                    Clear
-                  </Button>
-                </Tooltip>
-              </Grid>
-            </>
-          ) : (
+          {controlsRenderer()}
+          {hasValues ? (
             <Grid item>
-              <Tooltip title={'Enable Filtering'}>
-                <IconButton
-                  aria-label={'Show Filters'}
-                  onClick={() => setShowFilter(true)}
-                  size="large"
+              <Tooltip title={'Reset Filter'}>
+                <Button
+                  variant="contained"
+                  endIcon={<Icon icon="mdi:filter-variant-remove" />}
+                  onClick={resetFilters}
+                  aria-controls="standard-search"
                 >
-                  <Icon icon="mdi:filter-variant" />
-                </IconButton>
+                  Clear
+                </Button>
               </Tooltip>
             </Grid>
-          )}
+          ) : null}
         </>
       ) : (
         controlsRenderer()

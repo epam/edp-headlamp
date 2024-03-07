@@ -12,4 +12,5 @@ export interface QuickLinkExternalLinkProps {
       [key: string]: string;
     };
   };
+  variant?: 'icon' | 'text';
 }

@@ -1,17 +1,10 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import {
-  Grid,
-  IconButton,
-  Link as MuiLink,
-  Stack,
-  Tooltip,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Button, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
 import { LoadingWrapper } from '../../../../../../../../components/LoadingWrapper';
+import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObject } from '../../../../../../../../k8s/Application';
@@ -31,7 +24,9 @@ import { LinkCreationService } from '../../../../../../../../services/link-creat
 import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../../../../widgets/PodsLogViewer/constants';
 import { PODS_TERMINAL_DIALOG_NAME } from '../../../../../../../../widgets/PodsTerminal/constants';
 import { routeEDPComponentDetails } from '../../../../../../../edp-component-details/route';
-import { StyledCard, StyledVersionChip } from './styles';
+import { routeEDPArgoCDIntegration } from '../../../../../../../edp-configuration/pages/edp-argocd-integration/route';
+import { StyledChip } from '../../styles';
+import { StyledCard } from './styles';
 import { ApplicationCardProps } from './types';
 
 const formatDate = (date: string): string => {
@@ -46,12 +41,9 @@ export const ApplicationCard = ({ stage, application, argoApplication }: Applica
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(stage.metadata.namespace);
 
   const argoAppHealthStatus = argoApplication?.status?.health?.status;
-  const argpAppSyncStatus = argoApplication?.status?.sync?.status;
 
   const [argoAppHealthStatusIcon, argoAppHealthStatusColor, argoAppHealthStatusIconRotating] =
     ApplicationKubeObject.getHealthStatusIcon(argoAppHealthStatus);
-  const [argoAppSyncStatusIcon, argoAppSyncStatusColor, argoAppSyncStatusRotating] =
-    ApplicationKubeObject.getSyncStatusIcon(argpAppSyncStatus);
 
   const { setDialog } = useDialogContext();
 
@@ -68,149 +60,114 @@ export const ApplicationCard = ({ stage, application, argoApplication }: Applica
 
   return (
     <LoadingWrapper isLoading={!argoApplication?.status?.health}>
-      <StyledCard variant="outlined" argoAppHealthStatusColor={argoAppHealthStatusColor}>
-        <Grid container spacing={2} wrap="nowrap">
-          <Grid item sx={{ flexShrink: 0, mt: theme.typography.pxToRem(5) }}>
-            <Stack spacing={3} sx={{ mt: theme.typography.pxToRem(4) }}>
+      <StyledCard variant="outlined">
+        <Stack spacing={2}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+            <Stack direction="row" spacing={2} alignItems="center" sx={{ minWidth: 0 }}>
               <StatusIcon
                 Title={`Health status: ${argoAppHealthStatus || 'Unknown'}`}
                 icon={argoAppHealthStatusIcon}
                 color={argoAppHealthStatusColor}
                 isRotating={argoAppHealthStatusIconRotating}
               />
-              <StatusIcon
-                Title={`Sync status: ${argpAppSyncStatus || 'Unknown'}`}
-                icon={argoAppSyncStatusIcon}
-                color={argoAppSyncStatusColor}
-                isRotating={argoAppSyncStatusRotating}
-              />
+              <Link
+                routeName={routeEDPComponentDetails.path}
+                params={{
+                  name: application.metadata.name,
+                  namespace: application.metadata.namespace,
+                }}
+                sx={{ minWidth: 0 }}
+              >
+                <Tooltip title={application.metadata.name}>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis',
+                    }}
+                    color={theme.palette.primary.main}
+                    fontWeight={500}
+                  >
+                    {application.metadata.name}
+                  </Typography>
+                </Tooltip>
+              </Link>
+              <Typography
+                variant="caption"
+                color={theme.palette.secondary.dark}
+                sx={{
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {argoApplication.spec.source.targetRevision}
+              </Typography>
             </Stack>
-          </Grid>
-          <Grid item sx={{ flexGrow: 1, mt: theme.typography.pxToRem(10), minWidth: 0 }}>
-            <Stack spacing={3}>
-              <Stack direction="row" alignItems="center" spacing={4}>
-                <Link
-                  routeName={routeEDPComponentDetails.path}
-                  params={{
-                    name: application.metadata.name,
-                    namespace: application.metadata.namespace,
+            <Stack direction="row" spacing={1} alignItems="center" flexShrink={0}>
+              <Typography variant="caption" color="primary.dark">
+                Open In:
+              </Typography>
+              <Stack direction="row" spacing={1}>
+                <QuickLink
+                  name={{
+                    label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD],
+                    value: SYSTEM_QUICK_LINKS.ARGOCD,
                   }}
-                  sx={{ minWidth: 0 }}
-                >
-                  <Tooltip title={application.metadata.name}>
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis',
-                      }}
-                    >
-                      {application.metadata.name}
-                    </Typography>
-                  </Tooltip>
-                </Link>
-                <StyledVersionChip
-                  size="small"
-                  label={argoApplication.spec.source.targetRevision}
-                  variant="outlined"
+                  icon={ICONS.ARGOCD}
+                  externalLink={_createArgoCDLink(argoApplication)}
+                  configurationLink={{
+                    routeName: routeEDPArgoCDIntegration.path,
+                  }}
+                  variant="icon"
                 />
               </Stack>
-              <Stack
-                direction="row"
-                alignItems="center"
-                spacing={2}
-                sx={{ pt: theme.typography.pxToRem(2) }}
-              >
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Icon icon={ICONS.ARGOCD} width={18} />
-                  <Typography variant="body2"> App</Typography>
-                </Stack>
-                <Tooltip
-                  title={
-                    <Grid container alignItems={'center'} spacing={1}>
-                      <Grid item>
-                        Open in {SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD]}
-                      </Grid>
-                      <span> </span>
-                      <Grid item>
-                        <Icon
-                          icon={ICONS.NEW_WINDOW}
-                          color={theme.palette.grey['500']}
-                          width="15"
-                        />
-                      </Grid>
-                    </Grid>
-                  }
-                >
-                  <MuiLink
-                    href={_createArgoCDLink(argoApplication)}
-                    target={'_blank'}
-                    sx={{ minWidth: 0 }}
-                  >
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis',
-                      }}
-                    >
-                      {argoApplication.metadata.name}
-                    </Typography>
-                  </MuiLink>
-                </Tooltip>
-              </Stack>
-              <Stack direction="row" alignItems="center" spacing={4}>
-                <Typography
-                  variant="caption"
-                  sx={{ height: `${+theme.typography.caption.lineHeight * 2}em` }}
-                  component="div"
-                >
-                  Created At: {formatDate(argoApplication.metadata.creationTimestamp)}
-                </Typography>
-              </Stack>
             </Stack>
-          </Grid>
-          <Grid item sx={{ flexShrink: 0 }}>
-            <Stack spacing={2} sx={{ mt: theme.typography.pxToRem(4), alignItems: 'center' }}>
-              <Tooltip title={'Show Logs'}>
-                <IconButton
-                  onClick={() =>
-                    setDialog({
-                      modalName: PODS_LOG_VIEWER_DIALOG_NAME,
-                      forwardedProps: {
-                        stageNamespace: stage.spec.namespace,
-                        appName: application.metadata.name,
-                      },
-                    })
-                  }
-                  disabled={!argoApplication}
-                  size="medium"
-                >
-                  <Icon icon="mdi:file-document-box-outline" width="18" height="18" />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={'Show Terminal'}>
-                <IconButton
-                  onClick={() =>
-                    setDialog({
-                      modalName: PODS_TERMINAL_DIALOG_NAME,
-                      forwardedProps: {
-                        stageNamespace: stage.spec.namespace,
-                        appName: application.metadata.name,
-                      },
-                    })
-                  }
-                  disabled={!argoApplication}
-                  size="medium"
-                >
-                  <Icon icon="mdi:console" width="18" height="18" />
-                </IconButton>
-              </Tooltip>
-            </Stack>
-          </Grid>
-        </Grid>
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography variant="caption" color="primary.dark">
+              Created:
+            </Typography>
+            <StyledChip label={formatDate(argoApplication.metadata.creationTimestamp)} />
+          </Stack>
+          <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
+            <Button
+              variant="text"
+              sx={{ color: theme.palette.secondary.dark }}
+              onClick={() =>
+                setDialog({
+                  modalName: PODS_LOG_VIEWER_DIALOG_NAME,
+                  forwardedProps: {
+                    stageNamespace: stage.spec.namespace,
+                    appName: application.metadata.name,
+                  },
+                })
+              }
+              disabled={!argoApplication}
+              endIcon={<Icon icon={'mdi:file-document-box-outline'} width={18} height={18} />}
+            >
+              logs
+            </Button>
+            <Button
+              variant="text"
+              sx={{ color: theme.palette.secondary.dark }}
+              onClick={() =>
+                setDialog({
+                  modalName: PODS_TERMINAL_DIALOG_NAME,
+                  forwardedProps: {
+                    stageNamespace: stage.spec.namespace,
+                    appName: application.metadata.name,
+                  },
+                })
+              }
+              disabled={!argoApplication}
+              endIcon={<Icon icon={'material-symbols:terminal'} width={18} height={18} />}
+            >
+              terminal
+            </Button>
+          </Stack>
+        </Stack>
       </StyledCard>
     </LoadingWrapper>
   );

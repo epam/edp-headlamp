@@ -1,7 +1,14 @@
 import { Icon } from '@iconify/react';
-import { IconButton, Link, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+import {
+  IconButton,
+  Link,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Tooltip,
+} from '@mui/material';
 import React from 'react';
-import { ICONS } from '../../icons/iconify-icons-mapping';
 import { HELP_MENU_LIST } from './menu';
 
 export const HelpMenu = () => {
@@ -17,9 +24,11 @@ export const HelpMenu = () => {
 
   return (
     <>
-      <IconButton onClick={handleClick} size="large">
-        <Icon icon={ICONS.HELP} />
-      </IconButton>
+      <Tooltip title="Community">
+        <IconButton onClick={handleClick} size="large">
+          <Icon icon={'material-symbols:info'} />
+        </IconButton>
+      </Tooltip>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}

@@ -1,12 +1,11 @@
 import React from 'react';
-import { KubeObjectActions } from '../../components/KubeObjectActions';
+import { ActionsInlineList } from '../../components/ActionsInlineList';
+import { ActionsMenuList } from '../../components/ActionsMenuList';
+import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { useDialogContext } from '../../providers/Dialog/hooks';
-import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
-import { KubeObjectAction } from '../../types/actions';
 import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../CreateEditCodebase/constants';
@@ -17,13 +16,16 @@ import { CodebaseCDPipelineConflictError } from './components/CodebaseCDPipeline
 import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
 import { CodebaseActionsMenuProps } from './types';
 
-export const CodebaseActionsMenu = ({ backRoute }: CodebaseActionsMenuProps) => {
+export const CodebaseActionsMenu = ({
+  backRoute,
+  variant,
+  data: { codebaseData },
+  anchorEl,
+  handleCloseResourceActionListMenu,
+}: CodebaseActionsMenuProps) => {
   const { setDialog } = useDialogContext();
 
-  const { data, anchorEl, handleCloseResourceActionListMenu } =
-    useResourceActionListContext<EDPCodebaseKubeObjectInterface>();
-
-  const conflictedCDPipeline = useConflictedCDPipeline(data);
+  const conflictedCDPipeline = useConflictedCDPipeline(codebaseData);
 
   const onBeforeSubmit = React.useCallback(
     async (setErrorTemplate, setLoadingActive) => {
@@ -36,60 +38,80 @@ export const CodebaseActionsMenu = ({ backRoute }: CodebaseActionsMenuProps) => 
       setErrorTemplate(
         <CodebaseCDPipelineConflictError
           conflictedCDPipeline={conflictedCDPipeline}
-          codebase={data}
+          codebase={codebaseData}
         />
       );
       setLoadingActive(false);
     },
-    [conflictedCDPipeline, data]
+    [conflictedCDPipeline, codebaseData]
   );
 
-  const actions: KubeObjectAction[] = React.useMemo(() => {
-    const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps = {
-      codebaseData: data,
-      mode: FORM_MODES.EDIT,
-    };
+  const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps = {
+    codebaseData: codebaseData,
+    mode: FORM_MODES.EDIT,
+  };
 
-    const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
-      objectName: data?.metadata?.name,
-      kubeObject: EDPCodebaseKubeObject,
-      kubeObjectData: data,
-      description: `Confirm the deletion of the codebase with all its components`,
-      onBeforeSubmit,
-      backRoute,
-    };
+  const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+    objectName: codebaseData?.metadata?.name,
+    kubeObject: EDPCodebaseKubeObject,
+    kubeObjectData: codebaseData,
+    description: `Confirm the deletion of the codebase with all its components`,
+    onBeforeSubmit,
+    backRoute,
+  };
 
-    return [
-      createKubeAction({
-        name: RESOURCE_ACTIONS.EDIT,
-        icon: ICONS.PENCIL,
-        action: () => {
-          handleCloseResourceActionListMenu();
-          setDialog({
-            modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-            forwardedProps: createEditCodebaseDialogForwardedProps,
-          });
-        },
-      }),
-      createKubeAction({
-        name: RESOURCE_ACTIONS.DELETE,
-        icon: ICONS.BUCKET,
-        action: () => {
-          handleCloseResourceActionListMenu();
-          setDialog({
-            modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-            forwardedProps: deleteKubeObjectDialogForwardedProps,
-          });
-        },
-      }),
-    ];
-  }, [data, handleCloseResourceActionListMenu, backRoute, onBeforeSubmit, setDialog]);
-
-  return (
-    <KubeObjectActions
-      anchorEl={anchorEl}
-      handleCloseActionsMenu={handleCloseResourceActionListMenu}
-      actions={actions}
+  return variant === ACTION_MENU_TYPES.INLINE ? (
+    <ActionsInlineList
+      actions={[
+        createKubeAction({
+          name: RESOURCE_ACTIONS.EDIT,
+          icon: ICONS.PENCIL,
+          action: () => {
+            setDialog({
+              modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
+              forwardedProps: createEditCodebaseDialogForwardedProps,
+            });
+          },
+        }),
+        createKubeAction({
+          name: RESOURCE_ACTIONS.DELETE,
+          icon: ICONS.BUCKET,
+          action: () => {
+            setDialog({
+              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+              forwardedProps: deleteKubeObjectDialogForwardedProps,
+            });
+          },
+        }),
+      ]}
     />
-  );
+  ) : variant === ACTION_MENU_TYPES.MENU ? (
+    <ActionsMenuList
+      actions={[
+        createKubeAction({
+          name: RESOURCE_ACTIONS.EDIT,
+          icon: ICONS.PENCIL,
+          action: () => {
+            handleCloseResourceActionListMenu();
+            setDialog({
+              modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
+              forwardedProps: createEditCodebaseDialogForwardedProps,
+            });
+          },
+        }),
+        createKubeAction({
+          name: RESOURCE_ACTIONS.DELETE,
+          icon: ICONS.BUCKET,
+          action: () => {
+            handleCloseResourceActionListMenu();
+            setDialog({
+              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+              forwardedProps: deleteKubeObjectDialogForwardedProps,
+            });
+          },
+        }),
+      ]}
+      anchorEl={anchorEl}
+    />
+  ) : null;
 };

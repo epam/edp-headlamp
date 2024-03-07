@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Grid, IconButton, Link as MuiLink, Tooltip, useTheme } from '@mui/material';
+import { Button, Grid, IconButton, Link as MuiLink, Tooltip, useTheme } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { ResourceIconLinkProps } from './types';
@@ -10,10 +10,24 @@ const DisabledResourceIconLink = ({
   tooltipTitle,
   icon,
   withoutDisabledStyle,
+  variant,
+  name,
 }: ResourceIconLinkProps) => {
   const theme = useTheme();
 
-  return (
+  return variant === 'text' ? (
+    <Button
+      variant="outlined"
+      disabled
+      sx={!withoutDisabledStyle ? { opacity: 0.5 } : {}}
+      endIcon={
+        <Icon icon={'material-symbols:open-in-new'} color={theme.palette.grey['500']} width="20" />
+      }
+      size="small"
+    >
+      Open in {name}
+    </Button>
+  ) : variant === 'icon' ? (
     <Tooltip title={tooltipTitle}>
       <span>
         <IconButton disabled style={!withoutDisabledStyle ? { opacity: 0.5 } : {}} size="large">
@@ -21,11 +35,37 @@ const DisabledResourceIconLink = ({
         </IconButton>
       </span>
     </Tooltip>
-  );
+  ) : null;
 };
 
-const EnabledResourceIconLink = ({ tooltipTitle, icon, link }: ResourceIconLinkProps) => {
-  return (
+const EnabledResourceIconLink = ({
+  tooltipTitle,
+  icon,
+  link,
+  variant,
+  name,
+}: ResourceIconLinkProps) => {
+  const theme = useTheme();
+
+  return variant === 'text' ? (
+    <Button
+      variant="outlined"
+      component={MuiLink}
+      href={link}
+      target={'_blank'}
+      endIcon={
+        <Icon
+          icon={'material-symbols:open-in-new'}
+          color={theme.palette.secondary.dark}
+          width="20"
+        />
+      }
+      size="small"
+      sx={{ color: theme.palette.secondary.dark, borderColor: theme.palette.secondary.dark }}
+    >
+      Open in {name}
+    </Button>
+  ) : variant === 'icon' ? (
     <Tooltip
       title={
         <Grid container alignItems={'center'} spacing={1}>
@@ -38,20 +78,22 @@ const EnabledResourceIconLink = ({ tooltipTitle, icon, link }: ResourceIconLinkP
       }
     >
       <span>
-        <IconButton component={MuiLink} href={link} target={'_blank'} size="large">
+        <IconButton component={MuiLink} href={link} target={'_blank'} size="small">
           <Icon icon={icon} width="20" height="20" />
         </IconButton>
       </span>
     </Tooltip>
-  );
+  ) : null;
 };
 
 export const ResourceIconLink = ({
-  disabled,
+  disabled = false,
   tooltipTitle,
   icon,
   link,
   withoutDisabledStyle,
+  variant,
+  name,
 }: ResourceIconLinkProps) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
@@ -61,9 +103,17 @@ export const ResourceIconLink = ({
           tooltipTitle={tooltipTitle}
           icon={icon}
           withoutDisabledStyle={withoutDisabledStyle}
+          variant={variant}
+          name={name}
         />
       ) : (
-        <EnabledResourceIconLink tooltipTitle={tooltipTitle} icon={icon} link={link} />
+        <EnabledResourceIconLink
+          tooltipTitle={tooltipTitle}
+          icon={icon}
+          link={link}
+          variant={variant}
+          name={name}
+        />
       )}
     </div>
   );

@@ -1,12 +1,11 @@
 import React from 'react';
-import { KubeObjectActions } from '../../components/KubeObjectActions';
+import { ActionsInlineList } from '../../components/ActionsInlineList';
+import { ActionsMenuList } from '../../components/ActionsMenuList';
+import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
-import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
 import { useDialogContext } from '../../providers/Dialog/hooks';
-import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
-import { KubeObjectAction } from '../../types/actions';
 import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../CreateEditStage/constants';
@@ -16,59 +15,74 @@ import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types'
 import { StageActionsMenuProps } from './types';
 import { createDeleteAction } from './utils';
 
-export const StageActionsMenu = ({ stages, CDPipelineData, backRoute }: StageActionsMenuProps) => {
+export const StageActionsMenu = ({
+  data: { stage, stages, CDPipelineData },
+  backRoute,
+  handleCloseResourceActionListMenu,
+  anchorEl,
+  variant,
+}: StageActionsMenuProps) => {
   const { setDialog } = useDialogContext();
 
-  const { anchorEl, data, handleCloseResourceActionListMenu } =
-    useResourceActionListContext<EDPCDPipelineStageKubeObjectInterface>();
+  const createEditStageDialogForwardedProps: CreateEditStageDialogForwardedProps = {
+    stage: stage,
+    mode: FORM_MODES.EDIT,
+    otherStages: stages,
+    CDPipelineData,
+  };
 
-  const actions: KubeObjectAction[] = React.useMemo(() => {
-    const createEditStageDialogForwardedProps: CreateEditStageDialogForwardedProps = {
-      stage: data,
-      mode: FORM_MODES.EDIT,
-      otherStages: stages,
-      CDPipelineData,
-    };
+  const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+    objectName: stage?.spec?.name,
+    kubeObject: EDPCDPipelineStageKubeObject,
+    kubeObjectData: stage,
+    description: `Confirm the deletion of the CD stage with all its components`,
+    backRoute,
+  };
 
-    const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
-      objectName: data?.spec?.name,
-      kubeObject: EDPCDPipelineStageKubeObject,
-      kubeObjectData: data,
-      description: `Confirm the deletion of the CD stage with all its components`,
-      backRoute,
-    };
-
-    if (!stages || !data) {
-      return;
-    }
-
-    return [
-      createKubeAction({
-        name: RESOURCE_ACTIONS.EDIT,
-        icon: ICONS.PENCIL,
-        action: () => {
+  return variant === ACTION_MENU_TYPES.INLINE ? (
+    <ActionsInlineList
+      actions={[
+        createKubeAction({
+          name: RESOURCE_ACTIONS.EDIT,
+          icon: ICONS.PENCIL,
+          action: () => {
+            setDialog({
+              modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
+              forwardedProps: createEditStageDialogForwardedProps,
+            });
+          },
+        }),
+        createDeleteAction(stages, stage, () => {
+          setDialog({
+            modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+            forwardedProps: deleteKubeObjectDialogForwardedProps,
+          });
+        }),
+      ]}
+    />
+  ) : variant === ACTION_MENU_TYPES.MENU ? (
+    <ActionsMenuList
+      actions={[
+        createKubeAction({
+          name: RESOURCE_ACTIONS.EDIT,
+          icon: ICONS.PENCIL,
+          action: () => {
+            handleCloseResourceActionListMenu();
+            setDialog({
+              modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
+              forwardedProps: createEditStageDialogForwardedProps,
+            });
+          },
+        }),
+        createDeleteAction(stages, stage, () => {
           handleCloseResourceActionListMenu();
           setDialog({
-            modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
-            forwardedProps: createEditStageDialogForwardedProps,
+            modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+            forwardedProps: deleteKubeObjectDialogForwardedProps,
           });
-        },
-      }),
-      createDeleteAction(stages, data, () => {
-        handleCloseResourceActionListMenu();
-        setDialog({
-          modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-          forwardedProps: deleteKubeObjectDialogForwardedProps,
-        });
-      }),
-    ];
-  }, [data, stages, CDPipelineData, backRoute, handleCloseResourceActionListMenu, setDialog]);
-
-  return (
-    <KubeObjectActions
+        }),
+      ]}
       anchorEl={anchorEl}
-      handleCloseActionsMenu={handleCloseResourceActionListMenu}
-      actions={actions}
     />
-  );
+  ) : null;
 };

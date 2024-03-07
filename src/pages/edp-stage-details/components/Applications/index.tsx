@@ -351,6 +351,7 @@ export const Applications = ({
     onUninstallClick,
     onLatestClick,
     onStableClick,
+    isDeployLoading: latestDeployPipelineRunIsRunning,
   });
 
   return (

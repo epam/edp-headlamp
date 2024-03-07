@@ -73,6 +73,7 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
         strategy,
         gitUrlPath,
         deploymentScript,
+        gitServer,
       },
     } = component;
     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
@@ -198,6 +199,10 @@ export const useInfoRows = (component: EDPCodebaseKubeObjectInterface): InfoRow[
         {
           label: 'Deployment Script',
           text: deploymentScript,
+        },
+        {
+          label: 'GitServer',
+          text: gitServer,
         },
       ],
       [

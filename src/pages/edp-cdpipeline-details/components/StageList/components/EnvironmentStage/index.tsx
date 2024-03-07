@@ -1,6 +1,5 @@
-import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, Paper, Stack, Tooltip, Typography } from '@mui/material';
+import { Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { QuickLink } from '../../../../../../components/QuickLink';
@@ -18,14 +17,15 @@ import { routeQuickLinkDetails } from '../../../../../edp-configuration/pages/ed
 import { routeEDPStageDetails } from '../../../../../edp-stage-details/route';
 import { usePageFilterContext } from '../../../../hooks/usePageFilterContext';
 import { ApplicationCard } from './components/ApplicationCard';
-import { Arrow } from './components/Arrow';
-import { StyledCardBody, StyledCardHeader, StyledChip } from './styles';
+import { StyledCardBody, StyledCardHeader, StyledCardWrapper, StyledChip } from './styles';
 import { EnvironmentStageProps } from './types';
 
 export const EnvironmentStage = ({
   stageWithApplicationsData: { stage, applications },
   CDPipeline,
 }: EnvironmentStageProps) => {
+  const theme = useTheme();
+
   const namespace = stage.metadata.namespace;
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(stage.metadata.namespace);
 
@@ -63,125 +63,130 @@ export const EnvironmentStage = ({
   }, [applications, filter]);
 
   return (
-    <Paper elevation={1}>
+    <StyledCardWrapper>
       <LoadingWrapper isLoading={!stageIsLoaded}>
-        <StyledCardHeader stageStatusColor={stageStatusColor} variant="outlined">
-          <Grid container alignItems="center" spacing={4} wrap="nowrap">
-            <Grid item>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Tooltip title={`Description: ${stage.spec.description}`}>
-                  <Icon icon={ICONS.INFO_CIRCLE} width={18} />
-                </Tooltip>
-              </Stack>
-            </Grid>
-            <Grid item sx={{ mr: 'auto !important' }}>
-              <Grid container spacing={1} wrap="nowrap" alignItems="center">
-                <Grid item sx={{ mr: 'auto !important' }}>
-                  <Typography variant="h5" component="div">
-                    <Link
-                      routeName={routeEDPStageDetails.path}
-                      params={{
-                        CDPipelineName: CDPipeline.metadata.name,
-                        namespace: stage.metadata.namespace,
-                        stageName: stage.metadata.name,
-                      }}
+        <Stack spacing={2}>
+          <StyledCardHeader stageStatusColor={stageStatusColor} variant="outlined">
+            <Stack spacing={1}>
+              <Stack spacing={2} justifyContent="space-between" direction="row">
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Link
+                    routeName={routeEDPStageDetails.path}
+                    params={{
+                      CDPipelineName: CDPipeline.metadata.name,
+                      namespace: stage.metadata.namespace,
+                      stageName: stage.metadata.name,
+                    }}
+                  >
+                    <Typography
+                      fontSize={theme.typography.pxToRem(20)}
+                      fontWeight={500}
+                      color={theme.palette.primary.main}
                     >
-                      {stage.spec.name}
-                    </Link>{' '}
-                    <Typography variant="caption" component="div">
-                      ({stage.spec.clusterName})
+                      {stage.spec.name.toUpperCase()}
                     </Typography>
+                  </Link>{' '}
+                  <Typography variant="caption" color="secondary.dark">
+                    ({stage.spec.clusterName})
                   </Typography>
-                </Grid>
-                <Grid item>
-                  <QuickLink
-                    name={{
-                      label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD],
-                      value: SYSTEM_QUICK_LINKS.ARGOCD,
-                    }}
-                    icon={ICONS.ARGOCD}
-                    externalLink={LinkCreationService.argocd.createStageLink(
-                      QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
-                      CDPipeline?.metadata?.name,
-                      stage.spec.name
-                    )}
-                    configurationLink={{
-                      routeName: routeEDPArgoCDIntegration.path,
-                    }}
-                  />
-                </Grid>
-                <Grid item>
-                  <QuickLink
-                    name={{
-                      label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.GRAFANA],
-                      value: SYSTEM_QUICK_LINKS.GRAFANA,
-                    }}
-                    icon={ICONS.GRAFANA}
-                    externalLink={LinkCreationService.grafana.createDashboardLink(
-                      QuickLinksURLS?.[SYSTEM_QUICK_LINKS.GRAFANA],
-                      stage.spec.namespace
-                    )}
-                    configurationLink={{
-                      routeName: routeQuickLinkDetails.path,
-                      routeParams: {
-                        name: SYSTEM_QUICK_LINKS.GRAFANA,
-                        namespace,
-                      },
-                    }}
-                  />
-                </Grid>
-                <Grid item>
-                  <QuickLink
-                    name={{
-                      label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.KIBANA],
-                      value: SYSTEM_QUICK_LINKS.KIBANA,
-                    }}
-                    icon={ICONS.KIBANA}
-                    externalLink={LinkCreationService.kibana.createDashboardLink(
-                      QuickLinksURLS?.[SYSTEM_QUICK_LINKS.KIBANA],
-                      stage.spec.namespace
-                    )}
-                    configurationLink={{
-                      routeName: routeQuickLinkDetails.path,
-                      routeParams: {
-                        name: SYSTEM_QUICK_LINKS.KIBANA,
-                        namespace,
-                      },
-                    }}
-                  />
-                </Grid>
-                <Grid item>
-                  <Tooltip title="Trigger Type">
-                    <StyledChip size="small" label={stage.spec.triggerType} />
-                  </Tooltip>
-                </Grid>
-              </Grid>
-              <Typography variant="body2">Namespace: {stage.spec.namespace}</Typography>
-            </Grid>
-            <Grid item>
-              <Arrow />
-            </Grid>
-          </Grid>
-        </StyledCardHeader>
+                </Stack>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography variant="caption" color="primary.dark">
+                    Open In:
+                  </Typography>
+                  <Stack direction="row" spacing={1}>
+                    <QuickLink
+                      name={{
+                        label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD],
+                        value: SYSTEM_QUICK_LINKS.ARGOCD,
+                      }}
+                      icon={ICONS.ARGOCD}
+                      externalLink={LinkCreationService.argocd.createStageLink(
+                        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
+                        CDPipeline?.metadata?.name,
+                        stage.spec.name
+                      )}
+                      configurationLink={{
+                        routeName: routeEDPArgoCDIntegration.path,
+                      }}
+                      variant="icon"
+                    />
+                    <QuickLink
+                      name={{
+                        label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.GRAFANA],
+                        value: SYSTEM_QUICK_LINKS.GRAFANA,
+                      }}
+                      icon={ICONS.GRAFANA}
+                      externalLink={LinkCreationService.grafana.createDashboardLink(
+                        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.GRAFANA],
+                        stage.spec.namespace
+                      )}
+                      configurationLink={{
+                        routeName: routeQuickLinkDetails.path,
+                        routeParams: {
+                          name: SYSTEM_QUICK_LINKS.GRAFANA,
+                          namespace,
+                        },
+                      }}
+                      variant="icon"
+                    />
+                    <QuickLink
+                      name={{
+                        label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.KIBANA],
+                        value: SYSTEM_QUICK_LINKS.KIBANA,
+                      }}
+                      icon={ICONS.KIBANA}
+                      externalLink={LinkCreationService.kibana.createDashboardLink(
+                        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.KIBANA],
+                        stage.spec.namespace
+                      )}
+                      configurationLink={{
+                        routeName: routeQuickLinkDetails.path,
+                        routeParams: {
+                          name: SYSTEM_QUICK_LINKS.KIBANA,
+                          namespace,
+                        },
+                      }}
+                      variant="icon"
+                    />
+                  </Stack>
+                </Stack>
+              </Stack>
+              <Stack spacing={1}>
+                <Stack spacing={1} direction="row">
+                  <Typography variant="caption" color="primary.dark">
+                    Namespace:
+                  </Typography>
+                  <StyledChip label={stage.spec.namespace} />
+                </Stack>
+                <Stack spacing={1} direction="row">
+                  <Typography variant="caption" color="primary.dark">
+                    Trigger Type:
+                  </Typography>
+                  <StyledChip label={stage.spec.triggerType} />
+                </Stack>
+              </Stack>
+            </Stack>
+          </StyledCardHeader>
 
-        <StyledCardBody>
-          <Grid container spacing={4}>
-            {filteredApplications.map((el) => {
-              const key = el.argoApplication?.metadata.name;
+          <StyledCardBody>
+            <Stack spacing={2}>
+              {filteredApplications.map((el) => {
+                const key = el.argoApplication?.metadata.name;
 
-              return el.argoApplication ? (
-                <Grid item xs={12} key={key}>
+                return el.argoApplication ? (
                   <ApplicationCard
+                    key={key}
                     stage={stage}
                     application={el.application}
                     argoApplication={el.argoApplication}
                   />
-                </Grid>
-              ) : null;
-            })}
-          </Grid>
-        </StyledCardBody>
+                ) : null;
+              })}
+            </Stack>
+          </StyledCardBody>
+        </Stack>
       </LoadingWrapper>
-    </Paper>
+    </StyledCardWrapper>
   );
 };

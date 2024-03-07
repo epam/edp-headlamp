@@ -205,14 +205,6 @@ export const useColumns = (
           return (
             <Grid container spacing={1} alignItems={'center'}>
               <Grid item>
-                <ValuesOverrideCheckbox
-                  enrichedApplicationWithArgoApplication={enrichedApplicationWithArgoApplication}
-                  selected={selected}
-                  handleSelectRowClick={handleSelectRowClick}
-                  defaultValue={withValuesOverride}
-                />
-              </Grid>
-              <Grid item>
                 <ResourceIconLink
                   tooltipTitle={'Go to the Source Code'}
                   link={LinkCreationService.git.createGitOpsValuesYamlFileLink(
@@ -223,6 +215,15 @@ export const useColumns = (
                     gitServer as GIT_SERVERS
                   )}
                   icon={ICONS.GIT_BRANCH}
+                  name="source code"
+                />
+              </Grid>
+              <Grid item>
+                <ValuesOverrideCheckbox
+                  enrichedApplicationWithArgoApplication={enrichedApplicationWithArgoApplication}
+                  selected={selected}
+                  handleSelectRowClick={handleSelectRowClick}
+                  defaultValue={withValuesOverride}
                 />
               </Grid>
             </Grid>

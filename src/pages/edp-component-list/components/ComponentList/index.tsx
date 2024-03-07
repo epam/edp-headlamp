@@ -7,7 +7,6 @@ import { Resources } from '../../../../icons/sprites/Resources';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../../../types/forms';
-import { CodebaseActionsMenu } from '../../../../widgets/CodebaseActionsMenu';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../widgets/CreateEditCodebase/constants';
 import { routeEDPGitServerList } from '../../../edp-configuration/pages/edp-gitserver-list/route';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
@@ -27,7 +26,6 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
 
   return (
     <>
-      <CodebaseActionsMenu />
       <Resources />
       <Table
         isLoading={!items}

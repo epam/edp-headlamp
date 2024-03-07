@@ -5,7 +5,7 @@ import { TriggerTemplate, TriggerType } from '../../../fields';
 export const Form = () => {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <TriggerType />
       </Grid>
       <Grid item xs={6}>

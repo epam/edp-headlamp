@@ -13,6 +13,7 @@ export const useStyles = () => {
         overflowX: 'hidden',
         overflowY: 'auto',
         maxHeight: `calc(100vh - ${rem(headerHeight + contentTopOffsetHeight)})`,
+        backgroundColor: 'transparent',
       },
     },
     subMenuAndContentWrapper: {

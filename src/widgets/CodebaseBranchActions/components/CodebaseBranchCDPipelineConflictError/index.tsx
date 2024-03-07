@@ -1,7 +1,7 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Typography } from '@mui/material';
 import React from 'react';
-import { routeEDPCDPipelineDetails } from '../../../../../../../edp-cdpipeline-details/route';
+import { routeEDPCDPipelineDetails } from '../../../../pages/edp-cdpipeline-details/route';
 import { useStyles } from './styles';
 import { CodebaseBranchCDPipelineConflictErrorProps } from './types';
 

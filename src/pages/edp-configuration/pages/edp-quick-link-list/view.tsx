@@ -1,5 +1,4 @@
 import { Icon } from '@iconify/react';
-import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Button, Grid, Typography } from '@mui/material';
 import React from 'react';
@@ -16,11 +15,10 @@ import { useFilterContext } from '../../../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../../../providers/ResourceActionList';
 import { FORM_MODES } from '../../../../types/forms';
 import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../../../widgets/ManageQuickLink/constants';
-import { QuickLinkActionsMenu } from '../../../../widgets/QuickLinkActionsMenu';
 import { menu } from '../../menu';
 import { QuickLinkList } from './components/ComponentList';
+import { CDPipelineActions } from './components/QuickLinkActions';
 import { QUICK_LINK_LIST_PAGE_DESCRIPTION } from './constants';
-import { routeQuickLinkList } from './route';
 
 export const PageView = () => {
   const [items, error] = QuickLinkKubeObject.useList();
@@ -84,9 +82,7 @@ export const PageView = () => {
               <Grid item xs={12}>
                 <ResourceActionListContextProvider>
                   <QuickLinkList items={items} error={error} filterFunction={filterFunction} />
-                  <QuickLinkActionsMenu
-                    backRoute={Router.createRouteURL(routeQuickLinkList.path)}
-                  />
+                  <CDPipelineActions />
                 </ResourceActionListContextProvider>
               </Grid>
             </Grid>

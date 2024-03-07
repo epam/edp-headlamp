@@ -1,5 +1,5 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { Grid } from '@mui/material';
+import { Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { PageWrapper } from '../../components/PageWrapper';
@@ -9,15 +9,16 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { SYSTEM_QUICK_LINKS, SYSTEM_QUICK_LINKS_LABELS } from '../../k8s/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { LinkCreationService } from '../../services/link-creation';
+import { CDPipelineActionsMenu } from '../../widgets/CDPipelineActionsMenu';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
 import { routeEDPSonarIntegration } from '../edp-configuration/pages/edp-sonar-integration/route';
-import { CDPipelineActions } from './components/CDPipelineActions';
 import { StageList } from './components/StageList';
 import { StageListFilter } from './components/StageListFilter';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 import { EDPCDPipelineRouteParams } from './types';
 
 export const PageView = () => {
+  const theme = useTheme();
   const { name, namespace } = useParams<EDPCDPipelineRouteParams>();
 
   const { CDPipeline } = useDynamicDataContext();
@@ -37,7 +38,7 @@ export const PageView = () => {
         },
       ]}
       headerSlot={
-        <Grid container>
+        <Grid container alignItems="center" spacing={1}>
           <Grid item>
             <QuickLink
               name={{
@@ -52,14 +53,18 @@ export const PageView = () => {
               configurationLink={{
                 routeName: routeEDPSonarIntegration.path,
               }}
+              variant="text"
             />
           </Grid>
           {!CDPipeline.isLoading && (
             <>
               <Grid item>
-                <CDPipelineActions
-                  CDPipeline={CDPipeline.data.jsonData}
+                <CDPipelineActionsMenu
+                  data={{
+                    CDPipelineData: CDPipeline.data,
+                  }}
                   backRoute={Router.createRouteURL(routeEDPCDPipelineList.path)}
+                  variant="inline"
                 />
               </Grid>
             </>
@@ -67,8 +72,11 @@ export const PageView = () => {
         </Grid>
       }
     >
-      <Section title={name} description={'Inspect the Environment and operate stages.'}>
-        <Grid container spacing={2}>
+      <Section
+        title={<Typography fontSize={theme.typography.pxToRem(48)}>{name}</Typography>}
+        description={'Inspect the Environment and operate stages.'}
+      >
+        <Grid container spacing={3}>
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <StageListFilter />
           </Grid>

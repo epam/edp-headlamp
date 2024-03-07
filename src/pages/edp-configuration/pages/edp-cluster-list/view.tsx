@@ -13,7 +13,7 @@ export const PageView = () => {
     namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=cluster`,
   });
-  
+
   const configurationItemList = React.useMemo(() => {
     const secretsArray = items ? items.filter(Boolean) : [];
     return secretsArray.map((el) => {

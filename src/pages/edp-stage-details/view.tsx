@@ -12,11 +12,11 @@ import { SYSTEM_QUICK_LINKS, SYSTEM_QUICK_LINKS_LABELS } from '../../k8s/QuickLi
 import { useQuickLinksURLsQuery } from '../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { LinkCreationService } from '../../services/link-creation';
 import { rem } from '../../utils/styling/rem';
+import { StageActionsMenu } from '../../widgets/StageActionsMenu';
 import { routeEDPCDPipelineDetails } from '../edp-cdpipeline-details/route';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
 import { routeEDPArgoCDIntegration } from '../edp-configuration/pages/edp-argocd-integration/route';
 import { routeQuickLinkDetails } from '../edp-configuration/pages/edp-quick-link-details/route';
-import { StageActions } from './components/StageActions';
 import { useInfoColumns } from './hooks/useInfoColumns';
 import { usePageTabs } from './hooks/usePageTabs';
 import { useDataContext } from './providers/Data/hooks';
@@ -27,7 +27,7 @@ export const PageView = () => {
   const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
 
-  const { CDPipeline } = useDataContext();
+  const { CDPipeline, stages } = useDataContext();
   const {
     stage: { data: stage, isLoading },
   } = useDynamicDataContext();
@@ -120,7 +120,17 @@ export const PageView = () => {
             />
           </Grid>
           <Grid item style={{ marginLeft: rem(20) }}>
-            <StageActions stage={stage} backRoute={backRoute} />
+            {!!stages && (
+              <StageActionsMenu
+                data={{
+                  stages: stages?.items,
+                  CDPipelineData: CDPipeline,
+                  stage,
+                }}
+                backRoute={backRoute}
+                variant="inline"
+              />
+            )}
           </Grid>
         </Grid>
       }

@@ -1,7 +1,7 @@
 import { KubeObjectAction } from '../../types/actions';
 
-export interface KubeObjectActionsProps {
+export interface ActionsMenuListProps {
   actions: KubeObjectAction[];
+  handleCloseActionsMenu?(): void;
   anchorEl: HTMLElement | null;
-  handleCloseActionsMenu(): void;
 }

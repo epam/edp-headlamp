@@ -30,6 +30,7 @@ export const TriggerTemplate = () => {
         required: 'Select Pipeline Template',
       })}
       label={'Trigger Template'}
+      title="Choose a predefined blueprint outlining the deployment process for your application(s)."
       placeholder={'Select Pipeline Template'}
       control={control}
       errors={errors}

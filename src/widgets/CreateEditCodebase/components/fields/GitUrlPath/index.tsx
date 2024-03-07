@@ -25,6 +25,11 @@ export const GitUrlPath = () => {
       ? 'Specify the codebase repository name in the following format: username/repository_name.'
       : 'Specify the codebase repository name.';
 
+  const placeholder =
+    gitServerFieldValue === GIT_SERVERS.GERRIT
+      ? 'repository_name'
+      : 'username_or_organization/repository_name';
+
   return (
     <FormTextField
       {...register(CODEBASE_FORM_NAMES.gitUrlPath.name, {
@@ -36,9 +41,7 @@ export const GitUrlPath = () => {
       })}
       label={'Repository name'}
       title={title}
-      placeholder={
-        'Indicate the repository relative path in the following format project/repository'
-      }
+      placeholder={placeholder}
       control={control}
       errors={errors}
       InputProps={{

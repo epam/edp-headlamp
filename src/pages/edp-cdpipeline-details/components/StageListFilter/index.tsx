@@ -1,14 +1,10 @@
 import { Icon } from '@iconify/react';
 import { Autocomplete } from '@mui/lab';
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, Grid, MenuItem, Select, TextField, useTheme } from '@mui/material';
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { APPLICATION_HEALTH_STATUS } from '../../../../k8s/Application/constants';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
-import { FormControlLabelWithTooltip } from '../../../../providers/Form/components/FormControlLabelWithTooltip';
-import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent, FORM_MODES } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../widgets/CreateEditStage/constants';
@@ -19,6 +15,7 @@ import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { PageFilterExtraControls } from '../../types';
 
 export const StageListFilter = () => {
+  const theme = useTheme();
   const { CDPipeline, stages, stagesWithApplicationsData } = useDynamicDataContext();
 
   const isLoading = React.useMemo(
@@ -43,7 +40,7 @@ export const StageListFilter = () => {
     };
   }, [CDPipeline, isLoading, stages]);
 
-  const { setFilterItem } = usePageFilterContext();
+  const { filter, setFilterItem } = usePageFilterContext();
 
   const stageSelectOptions = React.useMemo(() => {
     if (stages.isLoading) return [];
@@ -59,12 +56,6 @@ export const StageListFilter = () => {
       (app) => app.application.metadata.name
     );
   }, [stagesWithApplicationsData]);
-
-  const {
-    register,
-    control,
-    formState: { errors },
-  } = useForm();
 
   const handleStagesChange = React.useCallback(
     (event: React.SyntheticEvent<Element, Event>, values: string[]) => {
@@ -87,6 +78,11 @@ export const StageListFilter = () => {
     [setFilterItem]
   );
 
+  const healthOptions = Object.values(APPLICATION_HEALTH_STATUS).map((status) => ({
+    label: capitalizeFirstLetter(status),
+    value: status,
+  }));
+
   return (
     <Grid container spacing={2} alignItems={'flex-end'} justifyContent={'flex-end'}>
       <Grid item flexGrow={1}>
@@ -95,67 +91,56 @@ export const StageListFilter = () => {
             [FILTER_CONTROLS.APPLICATION]: {
               gridXs: 3,
               component: (
-                <Grid container spacing={1}>
-                  <Grid item xs={12}>
-                    <FormControlLabelWithTooltip label={'Application'} />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Autocomplete
-                      multiple
-                      options={applicationsOptions}
-                      freeSolo
-                      getOptionLabel={(option) => option}
-                      onChange={handleApplicationChange}
-                      renderInput={(params) => (
-                        <TextField {...params} placeholder="Select applications" />
-                      )}
-                    />
-                  </Grid>
-                </Grid>
+                <Autocomplete
+                  multiple
+                  options={applicationsOptions}
+                  getOptionLabel={(option) => option}
+                  onChange={handleApplicationChange}
+                  value={(filter.values.application as string[]) || []}
+                  renderInput={(params) => <TextField {...params} placeholder="Applications" />}
+                />
               ),
             },
             [FILTER_CONTROLS.STAGES]: {
               gridXs: 3,
               component: (
-                <Grid container spacing={1}>
-                  <Grid item xs={12}>
-                    <FormControlLabelWithTooltip label={'Stages'} />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Autocomplete
-                      multiple
-                      options={stageSelectOptions}
-                      freeSolo
-                      getOptionLabel={(option) => option}
-                      onChange={handleStagesChange}
-                      renderInput={(params) => (
-                        <TextField {...params} placeholder="Select stages" />
-                      )}
-                    />
-                  </Grid>
-                </Grid>
+                <Autocomplete
+                  multiple
+                  options={stageSelectOptions}
+                  getOptionLabel={(option) => option}
+                  onChange={handleStagesChange}
+                  value={(filter.values.stages as string[]) || []}
+                  renderInput={(params) => <TextField {...params} placeholder="Stages" />}
+                />
               ),
             },
             [FILTER_CONTROLS.HEALTH]: {
               gridXs: 2,
               component: (
-                <FormSelect
-                  {...register('health', {
-                    onChange: handleHealthChange,
+                <Select
+                  fullWidth
+                  value={filter.values.health || ''}
+                  displayEmpty
+                  onChange={handleHealthChange}
+                  sx={{
+                    color: filter.values.health
+                      ? theme.palette.text.secondary
+                      : theme.palette.text.disabled,
+                  }}
+                >
+                  <MenuItem value="" disabled>
+                    Health
+                  </MenuItem>
+                  {healthOptions.map(({ label, value }, idx) => {
+                    const key = `${label}::${idx}`;
+
+                    return (
+                      <MenuItem value={value} key={key}>
+                        {label}
+                      </MenuItem>
+                    );
                   })}
-                  control={control}
-                  errors={errors}
-                  name={'health'}
-                  label={'Health'}
-                  placeholder="Select health"
-                  options={[
-                    { label: 'All', value: 'All' },
-                    ...Object.values(APPLICATION_HEALTH_STATUS).map((status) => ({
-                      label: capitalizeFirstLetter(status),
-                      value: status,
-                    })),
-                  ]}
-                />
+                </Select>
               ),
             },
           }}
@@ -163,7 +148,7 @@ export const StageListFilter = () => {
       </Grid>
       <Grid item>
         <Button
-          startIcon={<Icon icon={ICONS.PLUS} />}
+          startIcon={<Icon icon={'heroicons:view-columns-solid'} />}
           color={'primary'}
           variant={'contained'}
           onClick={() => {

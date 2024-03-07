@@ -11,10 +11,9 @@ import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { rem } from '../../utils/styling/rem';
+import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
 import { routeEDPComponentList } from '../edp-component-list/route';
-import { CodebaseActions } from './components/CodebaseActions';
 import { CodebaseBranchesList } from './components/CodebaseBranchesList';
-import { CodebaseMetadataTable } from './components/CodebaseMetadataTable';
 import { useInfoRows } from './hooks/useInfoRows';
 import { QuickLinkDetailsRouteParams } from './types';
 
@@ -63,21 +62,17 @@ export const PageView = () => {
         <>
           {!!component && (
             <div style={{ marginLeft: 'auto' }}>
-              <Grid container spacing={1}>
-                <Grid item>
-                  <CodebaseMetadataTable codebaseData={component} />
-                </Grid>
-                {componentType !== CODEBASE_TYPES.SYSTEM && (
-                  <Grid item>
-                    <ResourceActionListContextProvider>
-                      <CodebaseActions
-                        codebase={component}
-                        backRoute={Router.createRouteURL(routeEDPComponentList.path)}
-                      />
-                    </ResourceActionListContextProvider>
-                  </Grid>
-                )}
-              </Grid>
+              {componentType !== CODEBASE_TYPES.SYSTEM && (
+                <ResourceActionListContextProvider>
+                  <CodebaseActionsMenu
+                    data={{
+                      codebaseData: component,
+                    }}
+                    backRoute={Router.createRouteURL(routeEDPComponentList.path)}
+                    variant="inline"
+                  />
+                </ResourceActionListContextProvider>
+              )}
             </div>
           )}
         </>

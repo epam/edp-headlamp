@@ -520,10 +520,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                       >
                         Trigger Template
                       </span>
-                      <div
-                        class="MuiBox-root css-0"
-                        style="height: 1.25rem;"
-                      />
+                      <span />
                     </span>
                   </div>
                   <div
@@ -537,7 +534,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                         class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl makeStyles-selectWithDefaultValue-1 css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                       >
                         <div
-                          aria-controls="mui-12"
+                          aria-controls="mui-13"
                           aria-expanded="false"
                           aria-haspopup="listbox"
                           aria-labelledby="mui-component-select-triggerTemplate"
@@ -686,7 +683,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                                             class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl  css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                                           >
                                             <div
-                                              aria-controls="mui-15"
+                                              aria-controls="mui-16"
                                               aria-expanded="false"
                                               aria-haspopup="listbox"
                                               aria-labelledby="mui-component-select-quality-gate-type-123456789"
@@ -780,7 +777,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                                               <input
                                                 aria-invalid="false"
                                                 class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                                                id="mui-17"
+                                                id="mui-18"
                                                 name="quality-gate-step-name-123456789"
                                                 placeholder="Enter step name"
                                                 type="text"

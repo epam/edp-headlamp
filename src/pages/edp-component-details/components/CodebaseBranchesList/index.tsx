@@ -76,7 +76,6 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
         </Grid>
       }
     >
-      <CodebaseBranchActions defaultBranch={defaultBranch} codebase={codebaseData} />
       {currentCodebaseBranches === null ? (
         <Grid container justifyContent={'center'} alignItems={'center'}>
           <Grid item>
@@ -84,22 +83,25 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
           </Grid>
         </Grid>
       ) : currentCodebaseBranches.length ? (
-        currentCodebaseBranches.map(
-          (codebaseBranchData: EDPCodebaseBranchKubeObjectInterface, idx: number) => {
-            const branchId = `${codebaseBranchData.spec.branchName}:${idx}`;
+        <>
+          <CodebaseBranchActions defaultBranch={defaultBranch} codebaseData={codebaseData} />
+          {currentCodebaseBranches.map(
+            (codebaseBranchData: EDPCodebaseBranchKubeObjectInterface, idx: number) => {
+              const branchId = `${codebaseBranchData.spec.branchName}:${idx}`;
 
-            return (
-              <CodebaseBranch
-                key={branchId}
-                id={branchId}
-                codebaseBranchData={codebaseBranchData}
-                expandedPanel={expandedPanel}
-                codebaseData={codebaseData}
-                handlePanelChange={handleChange}
-              />
-            );
-          }
-        )
+              return (
+                <CodebaseBranch
+                  key={branchId}
+                  id={branchId}
+                  codebaseBranchData={codebaseBranchData}
+                  expandedPanel={expandedPanel}
+                  codebaseData={codebaseData}
+                  handlePanelChange={handleChange}
+                />
+              );
+            }
+          )}
+        </>
       ) : (
         <EmptyList
           missingItemName={'branches'}
