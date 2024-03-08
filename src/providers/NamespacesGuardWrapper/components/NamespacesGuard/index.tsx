@@ -14,7 +14,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { Alert, AlertTitle } from '@mui/material';
+import { Alert } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -182,8 +182,7 @@ export const NamespacesGuard = () => {
     <Dialog open={open} onClose={handleCloseDialog} fullWidth>
       <DialogContent>
         {!!errorMessage && (
-          <Alert severity="warning">
-            <AlertTitle>Warning</AlertTitle>
+          <Alert severity="warning" icon={false}>
             <Typography component={'div'} variant={'subtitle2'} gutterBottom>
               {errorMessage}
             </Typography>

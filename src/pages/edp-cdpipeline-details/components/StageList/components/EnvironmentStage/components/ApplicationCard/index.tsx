@@ -121,6 +121,7 @@ export const ApplicationCard = ({ stage, application, argoApplication }: Applica
                     routeName: routeEDPArgoCDIntegration.path,
                   }}
                   variant="icon"
+                  size="small"
                 />
               </Stack>
             </Stack>

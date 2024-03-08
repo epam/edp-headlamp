@@ -1,76 +1,133 @@
 import { Icon } from '@iconify/react';
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import {
-  Drawer,
-  Grid,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, Drawer, Grid, Tab, Tabs, useTheme } from '@mui/material';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useStyles } from './styles';
 import { PageWithSubMenuProps } from './types';
 
 export const PageWithSubMenu: React.FC<PageWithSubMenuProps> = ({ list, children }) => {
   const classes = useStyles();
-  const { pathname } = useLocation();
+  const location = useLocation();
   const theme = useTheme();
+  const history = useHistory();
+
+  const [activeGroupTabId, setActiveGroupTabId] = React.useState<string>(() => {
+    const activeItem = list.find((el) =>
+      el.children.some((child) => location.pathname.includes(child.routePath))
+    );
+
+    return activeItem ? activeItem.id : list[0].id;
+  });
+
+  const handleChangeGroupTab = React.useCallback(
+    (event: React.ChangeEvent<{}>, newActiveTabId: string) => {
+      setActiveGroupTabId(newActiveTabId);
+      const newActiveMenuItem = list.find((el) => el.id === newActiveTabId);
+      const newActiveChild = newActiveMenuItem.children[0];
+      const newRoute = Router.createRouteURL(newActiveChild.routePath);
+      history.push(newRoute);
+    },
+    [history, list]
+  );
+
+  const activeGroupItem = list.find((el) => el.id === activeGroupTabId);
+
+  const [activeTabId, setActiveTabId] = React.useState<string>(() => {
+    const activeItem = activeGroupItem.children.find((el) =>
+      location.pathname.includes(el.routePath)
+    );
+    return activeItem.id || activeGroupItem.children[0].id;
+  });
+
+  const handleChangeTab = React.useCallback(
+    (event: React.ChangeEvent<{}>, newActiveTabId: string) => {
+      setActiveTabId(newActiveTabId);
+    },
+    []
+  );
 
   return (
-    <div className={classes.subMenuAndContentWrapper}>
-      <div className={classes.subMenuWrapper}>
-        <Drawer variant="permanent" className={classes.subMenu}>
-          <div style={{ paddingBottom: theme.typography.pxToRem(20) }}>
-            <Grid container spacing={2}>
-              {list.map(({ label, icon, children }) => (
-                <Grid item xs={12} key={label} className={classes.subMenuGroup}>
-                  {label && (
-                    <ListItem className={classes.listItemRoot}>
-                      <ListItemIcon className={classes.listItemIcon}>
-                        <Icon icon={icon} width={20} height={20} />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Typography variant={'body1'} className={classes.listItemRootText}>
-                          {label}
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                  )}
-                  {children.map(({ label, routePath }) => {
-                    const isSelected = pathname.includes(routePath);
-
-                    return (
-                      <ListItem
-                        key={label}
-                        component={Link}
-                        button
-                        selected={isSelected}
-                        routeName={routePath}
-                        className={classes.listItemButton}
-                      >
-                        <ListItemText style={{ margin: 0 }}>
-                          <Typography
-                            variant={'body2'}
-                            style={{
-                              color: theme.palette.text.primary,
-                            }}
-                          >
-                            {label}
-                          </Typography>
-                        </ListItemText>
-                      </ListItem>
-                    );
-                  })}
+    <>
+      <div className={classes.subMenuAndContentWrapper}>
+        <div className={classes.subMenuWrapper}>
+          <Drawer variant="permanent" className={classes.subMenu}>
+            <div style={{ paddingBottom: theme.typography.pxToRem(20) }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} className={classes.subMenuGroup}>
+                  <Tabs
+                    value={activeGroupTabId}
+                    onChange={handleChangeGroupTab}
+                    indicatorColor={'primary'}
+                    textColor={'primary'}
+                    variant="scrollable"
+                    orientation="vertical"
+                    scrollButtons="auto"
+                    TabIndicatorProps={{
+                      sx: {
+                        transition: 'none',
+                      },
+                    }}
+                  >
+                    {list.map((el) => (
+                      <Tab
+                        label={el.label}
+                        icon={<Icon icon={el.icon} width={20} height={20} />}
+                        value={el.id}
+                        sx={{
+                          minHeight: 'auto',
+                          flexDirection: 'row',
+                          justifyContent: 'flex-start',
+                          textAlign: 'left',
+                          gap: theme.typography.pxToRem(10),
+                          padding: theme.typography.pxToRem(16),
+                          '& .MuiTab-iconWrapper': { m: '0 !important' },
+                        }}
+                      />
+                    ))}
+                  </Tabs>
                 </Grid>
-              ))}
-            </Grid>
-          </div>
-        </Drawer>
+              </Grid>
+            </div>
+          </Drawer>
+        </div>
+        <div className={classes.contentWrapper}>
+          <Box sx={{ pl: theme.typography.pxToRem(16) }}>
+            <Tabs
+              value={activeTabId}
+              onChange={handleChangeTab}
+              indicatorColor={'primary'}
+              textColor={'primary'}
+              variant="scrollable"
+              orientation="horizontal"
+              scrollButtons="auto"
+            >
+              {activeGroupItem.children.map((el) => {
+                return (
+                  <Tab
+                    component={Link}
+                    routeName={el.routePath}
+                    label={el.label}
+                    value={el.id}
+                    sx={{
+                      minHeight: 'auto',
+                      flexDirection: 'row',
+                      justifyContent: 'flex-start',
+                      textAlign: 'left',
+                      gap: theme.typography.pxToRem(10),
+                      padding: theme.typography.pxToRem(16),
+                      textDecoration: 'none !important',
+                      '& .MuiTab-iconWrapper': { m: '0 !important' },
+                    }}
+                  />
+                );
+              })}
+            </Tabs>
+          </Box>
+          {children}
+        </div>
       </div>
-      <div className={classes.contentWrapper}>{children}</div>
-    </div>
+    </>
   );
 };

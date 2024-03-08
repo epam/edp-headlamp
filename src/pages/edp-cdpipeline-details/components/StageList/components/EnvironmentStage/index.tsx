@@ -110,6 +110,7 @@ export const EnvironmentStage = ({
                         routeName: routeEDPArgoCDIntegration.path,
                       }}
                       variant="icon"
+                      size="small"
                     />
                     <QuickLink
                       name={{
@@ -129,6 +130,7 @@ export const EnvironmentStage = ({
                         },
                       }}
                       variant="icon"
+                      size="small"
                     />
                     <QuickLink
                       name={{
@@ -148,6 +150,7 @@ export const EnvironmentStage = ({
                         },
                       }}
                       variant="icon"
+                      size="small"
                     />
                   </Stack>
                 </Stack>

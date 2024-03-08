@@ -1,4 +1,5 @@
 export interface PageDescription {
+  id: string;
   label: string;
   description: string;
   routePath: string;

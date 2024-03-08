@@ -6,4 +6,5 @@ export interface ResourceIconLinkProps {
   disabled?: boolean;
   withoutDisabledStyle?: boolean;
   variant?: 'icon' | 'text';
+  size?: 'small' | 'medium' | 'large';
 }

@@ -66,7 +66,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const DataContextValue = React.useMemo(
     () => ({
       CDPipeline: {
-        data: CDPipeline,
+        data: CDPipeline?.jsonData,
         error: CDPipelineGetError,
         isLoading: CDPipeline === null,
       },

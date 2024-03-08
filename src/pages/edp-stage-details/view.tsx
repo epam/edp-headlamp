@@ -25,7 +25,8 @@ import { EDPStageDetailsRouteParams } from './types';
 
 export const PageView = () => {
   const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
-  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
+  const { data: QuickLinksURLS, isFetched: isQuickLinksFetched } =
+    useQuickLinksURLsQuery(namespace);
 
   const { CDPipeline, stages } = useDataContext();
   const {
@@ -61,64 +62,72 @@ export const PageView = () => {
         },
       ]}
       headerSlot={
-        <Grid container>
-          <Grid item>
-            <QuickLink
-              name={{
-                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD],
-                value: SYSTEM_QUICK_LINKS.ARGOCD,
-              }}
-              icon={ICONS.ARGOCD}
-              externalLink={LinkCreationService.argocd.createStageLink(
-                QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
-                CDPipeline?.metadata?.name,
-                stageSpecName
-              )}
-              configurationLink={{
-                routeName: routeEDPArgoCDIntegration.path,
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <QuickLink
-              name={{
-                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.GRAFANA],
-                value: SYSTEM_QUICK_LINKS.GRAFANA,
-              }}
-              icon={ICONS.GRAFANA}
-              externalLink={LinkCreationService.grafana.createDashboardLink(
-                QuickLinksURLS?.[SYSTEM_QUICK_LINKS.GRAFANA],
-                stage?.spec.namespace
-              )}
-              configurationLink={{
-                routeName: routeQuickLinkDetails.path,
-                routeParams: {
-                  name: SYSTEM_QUICK_LINKS.GRAFANA,
-                  namespace,
-                },
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <QuickLink
-              name={{
-                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.KIBANA],
-                value: SYSTEM_QUICK_LINKS.KIBANA,
-              }}
-              icon={ICONS.KIBANA}
-              externalLink={LinkCreationService.kibana.createDashboardLink(
-                QuickLinksURLS?.[SYSTEM_QUICK_LINKS.KIBANA],
-                stage?.spec.namespace
-              )}
-              configurationLink={{
-                routeName: routeQuickLinkDetails.path,
-                routeParams: {
-                  name: SYSTEM_QUICK_LINKS.KIBANA,
-                  namespace,
-                },
-              }}
-            />
-          </Grid>
+        <Grid container alignItems="center" spacing={1}>
+          {isQuickLinksFetched ? (
+            <>
+              <Grid item>
+                <QuickLink
+                  name={{
+                    label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD],
+                    value: SYSTEM_QUICK_LINKS.ARGOCD,
+                  }}
+                  icon={ICONS.ARGOCD}
+                  externalLink={LinkCreationService.argocd.createStageLink(
+                    QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
+                    CDPipeline?.metadata?.name,
+                    stageSpecName
+                  )}
+                  configurationLink={{
+                    routeName: routeEDPArgoCDIntegration.path,
+                  }}
+                  variant={'icon'}
+                />
+              </Grid>
+              <Grid item>
+                <QuickLink
+                  name={{
+                    label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.GRAFANA],
+                    value: SYSTEM_QUICK_LINKS.GRAFANA,
+                  }}
+                  icon={ICONS.GRAFANA}
+                  externalLink={LinkCreationService.grafana.createDashboardLink(
+                    QuickLinksURLS?.[SYSTEM_QUICK_LINKS.GRAFANA],
+                    stage?.spec.namespace
+                  )}
+                  configurationLink={{
+                    routeName: routeQuickLinkDetails.path,
+                    routeParams: {
+                      name: SYSTEM_QUICK_LINKS.GRAFANA,
+                      namespace,
+                    },
+                  }}
+                  variant={'icon'}
+                />
+              </Grid>
+              <Grid item>
+                <QuickLink
+                  name={{
+                    label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.KIBANA],
+                    value: SYSTEM_QUICK_LINKS.KIBANA,
+                  }}
+                  icon={ICONS.KIBANA}
+                  externalLink={LinkCreationService.kibana.createDashboardLink(
+                    QuickLinksURLS?.[SYSTEM_QUICK_LINKS.KIBANA],
+                    stage?.spec.namespace
+                  )}
+                  configurationLink={{
+                    routeName: routeQuickLinkDetails.path,
+                    routeParams: {
+                      name: SYSTEM_QUICK_LINKS.KIBANA,
+                      namespace,
+                    },
+                  }}
+                  variant={'icon'}
+                />
+              </Grid>
+            </>
+          ) : null}
+
           <Grid item style={{ marginLeft: rem(20) }}>
             {!!stages && (
               <StageActionsMenu

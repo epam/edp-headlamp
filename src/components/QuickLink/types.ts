@@ -13,4 +13,5 @@ export interface QuickLinkExternalLinkProps {
     };
   };
   variant?: 'icon' | 'text';
+  size?: 'small' | 'medium' | 'large';
 }

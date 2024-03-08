@@ -5,12 +5,6 @@ import { useFilterContext } from '../../../../hooks';
 export const SearchControl = () => {
   const { filter, setFilterItem } = useFilterContext<unknown, 'search'>();
 
-  const focusedRef = React.useCallback((node) => {
-    if (node !== null) {
-      node.focus();
-    }
-  }, []);
-
   return (
     <TextField
       fullWidth
@@ -24,7 +18,6 @@ export const SearchControl = () => {
       onChange={(event) => {
         setFilterItem('search', event.target.value);
       }}
-      inputRef={focusedRef}
     />
   );
 };

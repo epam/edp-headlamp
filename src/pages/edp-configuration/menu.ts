@@ -14,6 +14,7 @@ import { SONAR_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-sonar-integratio
 import { SSO_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-sso-integration/constants';
 
 export interface SubMenuGroup {
+  id: string;
   label: string;
   icon: string;
   children: PageDescription[];
@@ -21,16 +22,19 @@ export interface SubMenuGroup {
 
 export const menu: SubMenuGroup[] = [
   {
+    id: 'quick-access',
     label: 'Quick Access',
     icon: ICONS.LIGHTNING,
     children: [QUICK_LINK_LIST_PAGE_DESCRIPTION],
   },
   {
+    id: 'artifacts-storage',
     label: 'Artifacts Storage',
     icon: ICONS.REGISTRY,
     children: [NEXUS_INTEGRATION_PAGE_DESCRIPTION, REGISTRY_LIST_PAGE_DESCRIPTION],
   },
   {
+    id: 'deployment',
     label: 'Deployment',
     icon: ICONS.CLUSTERS,
     children: [
@@ -40,6 +44,7 @@ export const menu: SubMenuGroup[] = [
     ],
   },
   {
+    id: 'security',
     label: 'Security',
     icon: ICONS.SECURITY,
     children: [
@@ -48,21 +53,25 @@ export const menu: SubMenuGroup[] = [
     ],
   },
   {
+    id: 'code-quality',
     label: 'Code Quality',
     icon: ICONS.SONAR,
     children: [SONAR_INTEGRATION_PAGE_DESCRIPTION],
   },
   {
+    id: 'version-control',
     label: 'Version Control System',
     icon: ICONS.GIT,
     children: [GIT_SERVER_LIST_PAGE_DESCRIPTION],
   },
   {
+    id: 'management-tool',
     label: 'Management Tool',
     icon: ICONS.JIRA,
     children: [JIRA_INTEGRATION_PAGE_DESCRIPTION],
   },
   {
+    id: 'access',
     label: 'Access',
     icon: ICONS.SSO,
     children: [SSO_INTEGRATION_PAGE_DESCRIPTION],

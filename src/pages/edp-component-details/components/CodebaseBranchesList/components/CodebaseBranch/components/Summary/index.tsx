@@ -161,6 +161,7 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
               configurationLink={{
                 routeName: routeEDPSonarIntegration.path,
               }}
+              variant="icon"
             />
           </Grid>
           <Grid item>
@@ -169,6 +170,7 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
               name={{ label: 'the Source Code' }}
               icon={ICONS.GIT_BRANCH}
               externalLink={codebaseData?.status?.gitWebUrl}
+              variant="icon"
             />
           </Grid>
           <Grid item>
@@ -180,7 +182,7 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
                     PIPELINE_RUN_REASON.RUNNING ||
                   codebaseBranchData?.status?.status !== CUSTOM_RESOURCE_STATUSES.CREATED
                 }
-                size="large"
+                size="medium"
               >
                 <Icon icon={ICONS.PLAY} />
               </IconButton>

@@ -2,6 +2,7 @@ import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { PageDescription } from '../../../../types/pages';
 
 export const REGISTRY_LIST_PAGE_DESCRIPTION: PageDescription = {
+  id: 'registry-list',
   label: 'Registry',
   description: 'Establish platform integration with the Container Registry.',
   routePath: '/configuration/registry',

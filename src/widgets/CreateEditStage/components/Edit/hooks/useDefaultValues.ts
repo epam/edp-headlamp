@@ -12,6 +12,7 @@ export const useDefaultValues = () => {
   return React.useMemo(
     () => ({
       [STAGE_FORM_NAMES.triggerType.name]: stage?.spec.triggerType,
+      [STAGE_FORM_NAMES.triggerTemplate.name]: stage?.spec.triggerTemplate,
     }),
     [stage]
   );

@@ -12,6 +12,7 @@ const DisabledResourceIconLink = ({
   withoutDisabledStyle,
   variant,
   name,
+  size,
 }: ResourceIconLinkProps) => {
   const theme = useTheme();
 
@@ -23,14 +24,14 @@ const DisabledResourceIconLink = ({
       endIcon={
         <Icon icon={'material-symbols:open-in-new'} color={theme.palette.grey['500']} width="20" />
       }
-      size="small"
+      size={size}
     >
       Open in {name}
     </Button>
   ) : variant === 'icon' ? (
     <Tooltip title={tooltipTitle}>
       <span>
-        <IconButton disabled style={!withoutDisabledStyle ? { opacity: 0.5 } : {}} size="large">
+        <IconButton disabled style={!withoutDisabledStyle ? { opacity: 0.5 } : {}} size={size}>
           <Icon icon={icon} color={theme.palette.grey['500']} width="20" />
         </IconButton>
       </span>
@@ -44,6 +45,7 @@ const EnabledResourceIconLink = ({
   link,
   variant,
   name,
+  size,
 }: ResourceIconLinkProps) => {
   const theme = useTheme();
 
@@ -60,7 +62,7 @@ const EnabledResourceIconLink = ({
           width="20"
         />
       }
-      size="small"
+      size={size}
       sx={{ color: theme.palette.secondary.dark, borderColor: theme.palette.secondary.dark }}
     >
       Open in {name}
@@ -78,7 +80,7 @@ const EnabledResourceIconLink = ({
       }
     >
       <span>
-        <IconButton component={MuiLink} href={link} target={'_blank'} size="small">
+        <IconButton component={MuiLink} href={link} target={'_blank'} size={size}>
           <Icon icon={icon} width="20" height="20" />
         </IconButton>
       </span>
@@ -94,6 +96,7 @@ export const ResourceIconLink = ({
   withoutDisabledStyle,
   variant,
   name,
+  size,
 }: ResourceIconLinkProps) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
@@ -105,6 +108,7 @@ export const ResourceIconLink = ({
           withoutDisabledStyle={withoutDisabledStyle}
           variant={variant}
           name={name}
+          size={size}
         />
       ) : (
         <EnabledResourceIconLink
@@ -113,6 +117,7 @@ export const ResourceIconLink = ({
           link={link}
           variant={variant}
           name={name}
+          size={size}
         />
       )}
     </div>
