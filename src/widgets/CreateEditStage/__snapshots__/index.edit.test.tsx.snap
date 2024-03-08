@@ -181,7 +181,7 @@ exports[`renders CreateEditStage Edit component 1`] = `
                       <span
                         class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
                       >
-                        Trigger Template
+                        Pipeline Template
                       </span>
                       <span />
                     </span>
