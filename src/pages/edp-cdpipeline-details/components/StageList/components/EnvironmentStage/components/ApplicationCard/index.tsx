@@ -41,9 +41,12 @@ export const ApplicationCard = ({ stage, application, argoApplication }: Applica
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(stage.metadata.namespace);
 
   const argoAppHealthStatus = argoApplication?.status?.health?.status;
+  const argoAppSyncStatus = argoApplication?.status?.sync?.status;
 
   const [argoAppHealthStatusIcon, argoAppHealthStatusColor, argoAppHealthStatusIconRotating] =
     ApplicationKubeObject.getHealthStatusIcon(argoAppHealthStatus);
+  const [argoAppSyncStatusIcon, argoAppSyncStatusColor] =
+    ApplicationKubeObject.getSyncStatusIcon(argoAppSyncStatus);
 
   const { setDialog } = useDialogContext();
 
@@ -131,6 +134,17 @@ export const ApplicationCard = ({ stage, application, argoApplication }: Applica
               Created:
             </Typography>
             <StyledChip label={formatDate(argoApplication.metadata.creationTimestamp)} />
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography variant="caption" color="primary.dark">
+              Sync status:
+            </Typography>
+            <StatusIcon
+              Title={`Sync status: ${argoAppSyncStatus || 'Unknown'}`}
+              icon={argoAppSyncStatusIcon}
+              color={argoAppSyncStatusColor}
+              width={16}
+            />
           </Stack>
           <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
             <Button

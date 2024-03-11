@@ -6,8 +6,13 @@ import { rem } from '../../../../utils/styling/rem';
 import { useStyles } from './styles';
 import { FormControlLabelWithTooltipProps } from './types';
 
-export const FormControlLabelWithTooltip = ({ label, title }: FormControlLabelWithTooltipProps) => {
-  const classes = useStyles();
+export const FormControlLabelWithTooltip = ({
+  label,
+  title,
+  disabled,
+}: FormControlLabelWithTooltipProps) => {
+  const classes = useStyles(disabled);
+
   return (
     <span className={classes.labelWrap}>
       <Typography component={'span'} className={classes.label}>

@@ -28,10 +28,10 @@ exports[`renders ManageGitOps Edit component 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
               >
                 <span
-                  class="makeStyles-labelWrap-2"
+                  class="makeStyles-labelWrap-6"
                 >
                   <span
-                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
                   >
                     Git server
                   </span>
@@ -122,10 +122,10 @@ exports[`renders ManageGitOps Edit component 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
               >
                 <span
-                  class="makeStyles-labelWrap-2"
+                  class="makeStyles-labelWrap-8"
                 >
                   <span
-                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
                   >
                     Repository Name
                   </span>

@@ -107,10 +107,10 @@ exports[`renders CreateEditStage Create component 1`] = `
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <span
-                      class="makeStyles-labelWrap-2"
+                      class="makeStyles-labelWrap-18"
                     >
                       <span
-                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-19 css-1ezega9-MuiTypography-root"
                       >
                         Cluster
                       </span>
@@ -196,10 +196,10 @@ exports[`renders CreateEditStage Create component 1`] = `
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <span
-                      class="makeStyles-labelWrap-2"
+                      class="makeStyles-labelWrap-20"
                     >
                       <span
-                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-21 css-1ezega9-MuiTypography-root"
                       >
                         Stage name
                       </span>
@@ -267,10 +267,10 @@ exports[`renders CreateEditStage Create component 1`] = `
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <span
-                      class="makeStyles-labelWrap-2"
+                      class="makeStyles-labelWrap-22"
                     >
                       <span
-                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-23 css-1ezega9-MuiTypography-root"
                       >
                         Namespace
                       </span>
@@ -353,10 +353,10 @@ exports[`renders CreateEditStage Create component 1`] = `
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <span
-                      class="makeStyles-labelWrap-2"
+                      class="makeStyles-labelWrap-24"
                     >
                       <span
-                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-25 css-1ezega9-MuiTypography-root"
                       >
                         Description
                       </span>
@@ -424,10 +424,10 @@ exports[`renders CreateEditStage Create component 1`] = `
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <span
-                      class="makeStyles-labelWrap-2"
+                      class="makeStyles-labelWrap-26"
                     >
                       <span
-                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-27 css-1ezega9-MuiTypography-root"
                       >
                         Trigger type
                       </span>
@@ -513,10 +513,10 @@ exports[`renders CreateEditStage Create component 1`] = `
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <span
-                      class="makeStyles-labelWrap-2"
+                      class="makeStyles-labelWrap-28"
                     >
                       <span
-                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-29 css-1ezega9-MuiTypography-root"
                       >
                         Pipeline Template
                       </span>
@@ -662,10 +662,10 @@ exports[`renders CreateEditStage Create component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-2"
+                                          class="makeStyles-labelWrap-30"
                                         >
                                           <span
-                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-31 css-1ezega9-MuiTypography-root"
                                           >
                                             Quality gate type
                                           </span>
@@ -751,10 +751,10 @@ exports[`renders CreateEditStage Create component 1`] = `
                                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                       >
                                         <span
-                                          class="makeStyles-labelWrap-2"
+                                          class="makeStyles-labelWrap-32"
                                         >
                                           <span
-                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-3 css-1ezega9-MuiTypography-root"
+                                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-33 css-1ezega9-MuiTypography-root"
                                           >
                                             Step name
                                           </span>

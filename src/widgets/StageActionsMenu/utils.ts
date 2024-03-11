@@ -13,7 +13,11 @@ export const createDeleteAction = (
   currentStage: EDPCDPipelineStageKubeObjectInterface,
   action: () => void
 ): KubeObjectAction => {
-  // CD pipeline could publish artifacts without any stage
+  if (!currentStage) {
+    return;
+  }
+
+  // CD pipeline could publis artifacts without any stage
   // so, in case it doesn't have any stage
   // probably this is something wrong and somebody messed-up CR
   if (allStages.length === 0) {

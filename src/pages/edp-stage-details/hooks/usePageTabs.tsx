@@ -7,12 +7,10 @@ import { FormContextProvider } from '../../../providers/Form';
 import { PipelineRunList } from '../../../widgets/PipelineRunList';
 import { Applications } from '../components/Applications';
 import { Monitoring } from '../components/Monitoring';
-import { QualityGates } from '../components/QualityGates';
 import { useDataContext } from '../providers/Data/hooks';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
-import { EDPStageDetailsRouteParams, EnrichedQualityGateWithAutotestPipelineRun } from '../types';
+import { EDPStageDetailsRouteParams } from '../types';
 import { useEnrichedApplicationsWithArgoApplications } from './useEnrichedApplicationsWithArgoApplication';
-import { useEveryArgoAppIsHealthyAndInSync } from './useEveryArgoAppIsHealthyAndInSync';
 
 export const usePageTabs = () => {
   const { namespace } = useParams<EDPStageDetailsRouteParams>();
@@ -47,22 +45,22 @@ export const usePageTabs = () => {
 
   const { enrichedApplications } = useDataContext();
 
-  const enrichedQualityGatesWithPipelineRuns: EnrichedQualityGateWithAutotestPipelineRun[] =
-    React.useMemo(
-      () =>
-        stage.data?.spec.qualityGates.map((qualityGate) => {
-          const autotestPipelineRun = autotestPipelineRuns.data.find(
-            (pipelineRun) =>
-              pipelineRun.metadata.labels['app.edp.epam.com/codebase'] === qualityGate.autotestName
-          );
+  // const enrichedQualityGatesWithPipelineRuns: EnrichedQualityGateWithAutotestPipelineRun[] =
+  //   React.useMemo(
+  //     () =>
+  //       stage.data?.spec.qualityGates.map((qualityGate) => {
+  //         const autotestPipelineRun = autotestPipelineRuns.data.find(
+  //           (pipelineRun) =>
+  //             pipelineRun.metadata.labels['app.edp.epam.com/codebase'] === qualityGate.autotestName
+  //         );
 
-          return {
-            qualityGate: qualityGate,
-            autotestPipelineRun: autotestPipelineRun,
-          };
-        }),
-      [stage, autotestPipelineRuns]
-    );
+  //         return {
+  //           qualityGate: qualityGate,
+  //           autotestPipelineRun: autotestPipelineRun,
+  //         };
+  //       }),
+  //     [stage, autotestPipelineRuns]
+  //   );
 
   const latestDeployPipelineRunIsRunning = React.useMemo(
     () =>
@@ -76,9 +74,9 @@ export const usePageTabs = () => {
     argoApplications: argoApplications.data,
   });
 
-  const everyArgoAppIsHealthyAndInSync = useEveryArgoAppIsHealthyAndInSync(
-    enrichedApplicationsWithArgoApplications
-  );
+  // const everyArgoAppIsHealthyAndInSync = useEveryArgoAppIsHealthyAndInSync(
+  //   enrichedApplicationsWithArgoApplications
+  // );
 
   return React.useMemo(() => {
     if (isLoading) {
@@ -109,19 +107,19 @@ export const usePageTabs = () => {
           />
         ),
       },
-      {
-        label: 'Quality Gates',
-        id: 'quality_gates',
-        component: (
-          <QualityGates
-            enrichedQualityGatesWithPipelineRuns={enrichedQualityGatesWithPipelineRuns}
-            argoApplications={argoApplications.data}
-            everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
-            latestAutotestRunnerPipelineRuns={autotestRunnerPipelineRuns.data}
-            latestTenAutotestPipelineRuns={autotestPipelineRuns.data}
-          />
-        ),
-      },
+      // {
+      //   label: 'Quality Gates',
+      //   id: 'quality_gates',
+      //   component: (
+      //     <QualityGates
+      //       enrichedQualityGatesWithPipelineRuns={enrichedQualityGatesWithPipelineRuns}
+      //       argoApplications={argoApplications.data}
+      //       everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
+      //       latestAutotestRunnerPipelineRuns={autotestRunnerPipelineRuns.data}
+      //       latestTenAutotestPipelineRuns={autotestPipelineRuns.data}
+      //     />
+      //   ),
+      // },
       // {
       //   label: 'Custom Gates',
       //   id: 'custom_gates',
@@ -147,12 +145,7 @@ export const usePageTabs = () => {
     ];
   }, [
     QuickLinksURLS,
-    argoApplications,
-    autotestPipelineRuns,
-    autotestRunnerPipelineRuns,
     enrichedApplicationsWithArgoApplications,
-    enrichedQualityGatesWithPipelineRuns,
-    everyArgoAppIsHealthyAndInSync,
     isLoading,
     latestDeployPipelineRunIsRunning,
     stage,

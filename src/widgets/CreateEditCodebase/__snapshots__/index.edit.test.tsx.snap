@@ -87,10 +87,10 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
                     <span
-                      class="makeStyles-labelWrap-1"
+                      class="makeStyles-labelWrap-5"
                     >
                       <span
-                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-2 css-1ezega9-MuiTypography-root"
+                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-6 css-1ezega9-MuiTypography-root"
                       >
                         Specify the pattern to validate a commit message
                       </span>
@@ -202,10 +202,10 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
                                 style="display: inline-block; margin-top: 0.125rem;"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-1"
+                                  class="makeStyles-labelWrap-7"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-2 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-8 css-1ezega9-MuiTypography-root"
                                   >
                                     Integrate with Jira server
                                   </span>

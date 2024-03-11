@@ -81,13 +81,13 @@ export class ApplicationKubeObject extends K8s.cluster.makeKubeObject<Applicatio
 
     switch (_sync) {
       case APPLICATION_SYNC_STATUS.SYNCED:
-        return [ICONS.ARROW_CHECK, STATUS_COLOR.SUCCESS];
+        return [ICONS.CHECK_CIRCLE_FILLED, STATUS_COLOR.SUCCESS];
 
       case APPLICATION_SYNC_STATUS.OUT_OF_SYNC:
-        return [ICONS.ARROW_CIRCLE_UP, STATUS_COLOR.MISSING];
+        return [ICONS.ARROW_CIRCLE_UP_FILLED, STATUS_COLOR.MISSING];
 
       default:
-        return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
+        return [ICONS.CIRCLE_NOTCH, STATUS_COLOR.UNKNOWN];
     }
   }
 

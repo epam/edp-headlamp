@@ -182,10 +182,10 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       >
                         <span
-                          class="makeStyles-labelWrap-5"
+                          class="makeStyles-labelWrap-10"
                         >
                           <span
-                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-6 css-1ezega9-MuiTypography-root"
+                            class="MuiTypography-root MuiTypography-body1 makeStyles-label-11 css-1ezega9-MuiTypography-root"
                           >
                             Pipeline name
                           </span>
@@ -271,10 +271,10 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                           >
                             <span
-                              class="makeStyles-labelWrap-5"
+                              class="makeStyles-labelWrap-12"
                             >
                               <span
-                                class="MuiTypography-root MuiTypography-body1 makeStyles-label-6 css-1ezega9-MuiTypography-root"
+                                class="MuiTypography-root MuiTypography-body1 makeStyles-label-13 css-1ezega9-MuiTypography-root"
                               >
                                 Applications
                               </span>

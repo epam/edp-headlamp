@@ -112,10 +112,10 @@ exports[`renders ManageArgoCDCI Create component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-3"
+                                  class="makeStyles-labelWrap-9"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-4 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-10 css-1ezega9-MuiTypography-root"
                                   >
                                     Quick Link URL
                                   </span>
@@ -184,10 +184,10 @@ exports[`renders ManageArgoCDCI Create component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-3"
+                                  class="makeStyles-labelWrap-11"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-4 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-12 css-1ezega9-MuiTypography-root"
                                   >
                                     URL
                                   </span>
@@ -270,10 +270,10 @@ exports[`renders ManageArgoCDCI Create component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-3"
+                                  class="makeStyles-labelWrap-13"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-4 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-14 css-1ezega9-MuiTypography-root"
                                   >
                                     Token
                                   </span>

@@ -84,10 +84,10 @@ exports[`renders ManageSSOCI Edit component (read-only) 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-1"
+                                  class="makeStyles-labelWrap-5"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-2 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-6 css-1ezega9-MuiTypography-root"
                                   >
                                     User
                                   </span>
@@ -163,10 +163,10 @@ exports[`renders ManageSSOCI Edit component (read-only) 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-1"
+                                  class="makeStyles-labelWrap-7"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-2 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-8 css-1ezega9-MuiTypography-root"
                                   >
                                     Password
                                   </span>

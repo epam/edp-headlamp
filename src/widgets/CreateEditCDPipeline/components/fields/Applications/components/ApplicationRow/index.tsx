@@ -9,7 +9,7 @@ import { FormCheckbox } from '../../../../../../../providers/Form/components/For
 import { FormControlLabelWithTooltip } from '../../../../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FormSelect } from '../../../../../../../providers/Form/components/FormSelect';
 import { FormTextField } from '../../../../../../../providers/Form/components/FormTextField';
-import { FieldEvent, FieldEventTarget } from '../../../../../../../types/forms';
+import { FieldEvent, FieldEventTarget, FORM_MODES } from '../../../../../../../types/forms';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../../../names';
 import {
@@ -36,7 +36,7 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
   } = useFormContext<CreateEditCDPipelineFormValues>();
 
   const {
-    forwardedProps: { CDPipelineData },
+    forwardedProps: { CDPipelineData, mode },
   } = useSpecificDialogContext<CreateEditCDPipelineDialogForwardedProps>(
     CREATE_EDIT_CD_PIPELINE_DIALOG_NAME
   );
@@ -201,9 +201,15 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
               }
             )}
             defaultValue={CDPipelineData?.spec?.applicationsToPromote?.includes(appName)}
-            label={<FormControlLabelWithTooltip label={'Promote in pipeline'} />}
+            label={
+              <FormControlLabelWithTooltip
+                label={'Promote in pipeline'}
+                disabled={mode === FORM_MODES.EDIT}
+              />
+            }
             control={control}
             errors={errors}
+            disabled={mode === FORM_MODES.EDIT}
           />
         </Grid>
         <Grid

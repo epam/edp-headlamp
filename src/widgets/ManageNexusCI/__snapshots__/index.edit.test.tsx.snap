@@ -87,10 +87,10 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-4"
+                                  class="makeStyles-labelWrap-12"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-13 css-1ezega9-MuiTypography-root"
                                   >
                                     Quick Link URL
                                   </span>
@@ -158,10 +158,10 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-4"
+                                  class="makeStyles-labelWrap-14"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-15 css-1ezega9-MuiTypography-root"
                                   >
                                     URL
                                   </span>
@@ -244,10 +244,10 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-4"
+                                  class="makeStyles-labelWrap-16"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-17 css-1ezega9-MuiTypography-root"
                                   >
                                     User
                                   </span>
@@ -315,10 +315,10 @@ exports[`renders ManageNexusCI Edit component 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-4"
+                                  class="makeStyles-labelWrap-18"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-19 css-1ezega9-MuiTypography-root"
                                   >
                                     Password
                                   </span>

@@ -1465,10 +1465,10 @@ exports[`renders ManageRegistry Kubernetes Create component 1`] = `
                                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                 >
                                   <span
-                                    class="makeStyles-labelWrap-8"
+                                    class="makeStyles-labelWrap-14"
                                   >
                                     <span
-                                      class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                      class="MuiTypography-root MuiTypography-body1 makeStyles-label-15 css-1ezega9-MuiTypography-root"
                                     >
                                       Registry Provider
                                     </span>
@@ -1676,10 +1676,10 @@ exports[`renders ManageRegistry Kubernetes Create component 1`] = `
                                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                   >
                                     <span
-                                      class="makeStyles-labelWrap-8"
+                                      class="makeStyles-labelWrap-16"
                                     >
                                       <span
-                                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-17 css-1ezega9-MuiTypography-root"
                                       >
                                         Registry Endpoint
                                       </span>
@@ -1747,10 +1747,10 @@ exports[`renders ManageRegistry Kubernetes Create component 1`] = `
                                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                                   >
                                     <span
-                                      class="makeStyles-labelWrap-8"
+                                      class="makeStyles-labelWrap-18"
                                     >
                                       <span
-                                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
+                                        class="MuiTypography-root MuiTypography-body1 makeStyles-label-19 css-1ezega9-MuiTypography-root"
                                       >
                                         Registry Space
                                       </span>

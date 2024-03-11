@@ -92,10 +92,10 @@ exports[`renders ManageDependencyTrackCI Edit component (read-only) 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-4"
+                                  class="makeStyles-labelWrap-10"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-11 css-1ezega9-MuiTypography-root"
                                   >
                                     Quick Link URL
                                   </span>
@@ -163,10 +163,10 @@ exports[`renders ManageDependencyTrackCI Edit component (read-only) 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-4"
+                                  class="makeStyles-labelWrap-12"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-13 css-1ezega9-MuiTypography-root"
                                   >
                                     URL
                                   </span>
@@ -242,10 +242,10 @@ exports[`renders ManageDependencyTrackCI Edit component (read-only) 1`] = `
                                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                               >
                                 <span
-                                  class="makeStyles-labelWrap-4"
+                                  class="makeStyles-labelWrap-14"
                                 >
                                   <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
+                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-15 css-1ezega9-MuiTypography-root"
                                   >
                                     Token
                                   </span>
