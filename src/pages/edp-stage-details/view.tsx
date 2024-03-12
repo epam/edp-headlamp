@@ -129,7 +129,7 @@ export const PageView = () => {
           ) : null}
 
           <Grid item style={{ marginLeft: rem(20) }}>
-            {!!stages && (
+            {!isLoading && stages && CDPipeline && (
               <StageActionsMenu
                 data={{
                   stages: stages?.items,
