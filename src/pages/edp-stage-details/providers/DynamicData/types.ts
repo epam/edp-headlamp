@@ -10,5 +10,4 @@ export interface DynamicDataContextProviderValue {
   autotestRunnerPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
   argoApplications: DataProviderValue<ApplicationKubeObjectInterface[]>;
   deployPipelineRunTemplate: DataProviderValue<PipelineRunKubeObjectInterface>;
-  stageDeployPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
 }

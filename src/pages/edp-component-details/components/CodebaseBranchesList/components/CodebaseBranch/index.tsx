@@ -3,6 +3,7 @@ import { Accordion, AccordionDetails, AccordionSummary, alpha, useTheme } from '
 import React from 'react';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
+import { PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH } from '../../../../../../k8s/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/PipelineRun/types';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
@@ -62,21 +63,10 @@ export const CodebaseBranch = ({
 
   const normalizedCodebaseBranchName = codebaseBranchData.metadata.name.replaceAll('/', '-');
 
-  React.useEffect(() => {
-    const cancelStream = PipelineRunKubeObject.streamPipelineRunListByCodebaseBranchLabel({
-      namespace: codebaseBranchData.metadata.namespace,
-      codebaseBranchLabel: normalizedCodebaseBranchName,
-      dataHandler: handleStorePipelineRuns,
-      errorHandler: handleStreamError,
-    });
-
-    return () => cancelStream();
-  }, [
-    normalizedCodebaseBranchName,
-    handleStreamError,
-    handleStorePipelineRuns,
-    codebaseBranchData,
-  ]);
+  PipelineRunKubeObject.useApiList(handleStorePipelineRuns, handleStreamError, {
+    namespace: codebaseBranchData.metadata.namespace,
+    labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH}=${normalizedCodebaseBranchName}`,
+  });
 
   const theme = useTheme();
 

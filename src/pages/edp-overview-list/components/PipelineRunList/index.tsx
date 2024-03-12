@@ -13,7 +13,6 @@ import { FormControlLabelWithTooltip } from '../../../../providers/Form/componen
 import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { PipelineRunList } from '../../../../widgets/PipelineRunList';
 import { PageFilterExtraControls } from '../../types';
@@ -56,16 +55,7 @@ export const PipelineRunListWithFilter = () => {
     setError(error);
   }, []);
 
-  React.useEffect(() => {
-    const cancelStream = PipelineRunKubeObject.streamPipelineRunListByTypeLabel({
-      namespace: getDefaultNamespace(),
-      type: null,
-      dataHandler: handleStorePipelineRuns,
-      errorHandler: handleStreamError,
-    });
-
-    return () => cancelStream();
-  }, [handleStreamError, handleStorePipelineRuns]);
+  PipelineRunKubeObject.useApiList(handleStorePipelineRuns, handleStreamError);
 
   const {
     register,

@@ -1,17 +1,31 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { useStreamApplicationListByPipelineStageLabel } from '../../../../k8s/Application/hooks/useStreamApplicationListByPipelineStageLabel';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
-import { useStreamAutotestPipelineRunList } from '../../../../k8s/PipelineRun/hooks/useStreamAutotestPipelineRunList';
-import { useStreamAutotestRunnerPipelineRunList } from '../../../../k8s/PipelineRun/hooks/useStreamAutotestRunnerPipelineRunList';
-import { useStreamPipelineRunListByTypeAndPipelineNameLabels } from '../../../../k8s/PipelineRun/hooks/useStreamPipelineRunListByTypeAndPipelineNameLabels';
-import { useStreamStagePipelineRunList } from '../../../../k8s/PipelineRun/hooks/useStreamStagePipelineRunList';
+import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
+import {
+  PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE,
+  PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE,
+  PIPELINE_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN,
+  PIPELINE_RUN_LABEL_SELECTOR_PIPELINE,
+  PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
+  PIPELINE_RUN_LABEL_SELECTOR_STAGE,
+} from '../../../../k8s/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { useTriggerTemplateByNameQuery } from '../../../../k8s/TriggerTemplate/hooks/useTriggerTemplateByNameQuery';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { DynamicDataContext } from './context';
+
+const filterByLabels = (items: KubeObjectInterface[], labels: Record<string, string>) => {
+  return items.filter((item) =>
+    Object.entries(labels).every((label) => {
+      return item.metadata.labels?.[label[0]] === label[1];
+    })
+  );
+};
 
 const sortFn = (data: PipelineRunKubeObjectInterface[]) =>
   data.sort(sortKubeObjectByCreationTimestamp).slice(0, 10);
@@ -25,40 +39,56 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const stageMetadataName = stage?.metadata.name;
   const stageTriggerTemplate = stage?.spec.triggerTemplate;
 
-  const stageDeployPipelineRuns = useStreamStagePipelineRunList({
-    namespace,
-    cdPipelineName: CDPipelineName,
-    pipelineType: PIPELINE_TYPES.DEPLOY,
-    stageMetadataName,
-    select: sortFn,
-  });
+  const [pipelineRuns] = PipelineRunKubeObject.useList();
 
-  const latestTenDeployPipelineRuns = useStreamPipelineRunListByTypeAndPipelineNameLabels({
-    namespace,
-    pipelineType: PIPELINE_TYPES.DEPLOY,
-    stageMetadataName,
-    select: sortFn,
-  });
+  const sortedPipelineRuns = React.useMemo(() => {
+    if (pipelineRuns === null) {
+      return null; //loading
+    }
 
-  const latestAutotestRunnerPipelineRuns = useStreamAutotestRunnerPipelineRunList({
-    namespace,
-    stageSpecName,
-    CDPipelineMetadataName: CDPipelineName,
-    select: sortFn,
-  });
+    return sortFn(pipelineRuns);
+  }, [pipelineRuns]);
+
+  const latestTenDeployPipelineRuns = React.useMemo(() => {
+    if (!stageMetadataName || !CDPipelineName || sortedPipelineRuns === null) {
+      return null; // loading
+    }
+
+    return filterByLabels(sortedPipelineRuns, {
+      [PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE]: CDPipelineName,
+      [PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE]: stageMetadataName,
+      [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.DEPLOY,
+    });
+  }, [CDPipelineName, sortedPipelineRuns, stageMetadataName]);
+
+  const latestTenAutotestRunnerPipelineRuns = React.useMemo(() => {
+    if (!stageSpecName || !CDPipelineName || sortedPipelineRuns === null) {
+      return null; // loading
+    }
+
+    return filterByLabels(sortedPipelineRuns, {
+      [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE]: CDPipelineName,
+      [PIPELINE_RUN_LABEL_SELECTOR_STAGE]: stageSpecName,
+      [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.AUTOTEST_RUNNER,
+    });
+  }, [CDPipelineName, sortedPipelineRuns, stageSpecName]);
 
   const latestAutotestRunnerPipelineRunName = React.useMemo(
-    () => latestAutotestRunnerPipelineRuns?.[0]?.metadata.name,
-    [latestAutotestRunnerPipelineRuns]
+    () => latestTenAutotestRunnerPipelineRuns?.[0]?.metadata.name,
+    [latestTenAutotestRunnerPipelineRuns]
   );
 
-  const latestTenAutotestPipelineRuns = useStreamAutotestPipelineRunList({
-    namespace,
-    stageSpecName,
-    CDPipelineMetadataName: CDPipelineName,
-    parentPipelineRunName: latestAutotestRunnerPipelineRunName,
-    select: sortFn,
-  });
+  const latestTenAutotestPipelineRuns = React.useMemo(() => {
+    if (!stageSpecName || !CDPipelineName || sortedPipelineRuns === null) {
+      return null; // loading
+    }
+
+    return filterByLabels(sortedPipelineRuns, {
+      [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE]: CDPipelineName,
+      [PIPELINE_RUN_LABEL_SELECTOR_STAGE]: stageSpecName,
+      [PIPELINE_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN]: latestAutotestRunnerPipelineRunName,
+    });
+  }, [CDPipelineName, latestAutotestRunnerPipelineRunName, sortedPipelineRuns, stageSpecName]);
 
   const argoApplications = useStreamApplicationListByPipelineStageLabel({
     namespace,
@@ -71,6 +101,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       name: stageTriggerTemplate,
     },
     options: {
+      enabled: !!stageTriggerTemplate,
       select: (data) => data.spec.resourcetemplates?.[0],
     },
   });
@@ -93,8 +124,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         error: null,
       },
       autotestRunnerPipelineRuns: {
-        data: latestAutotestRunnerPipelineRuns,
-        isLoading: latestAutotestRunnerPipelineRuns === null,
+        data: latestTenAutotestRunnerPipelineRuns,
+        isLoading: latestTenAutotestRunnerPipelineRuns === null,
         error: null,
       },
       argoApplications: {
@@ -107,21 +138,15 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: deployPipelineRunTemplate.isLoading,
         error: deployPipelineRunTemplate.error,
       },
-      stageDeployPipelineRuns: {
-        data: stageDeployPipelineRuns,
-        isLoading: stageDeployPipelineRuns === null,
-        error: null,
-      },
     }),
     [
       stage,
       error,
       latestTenAutotestPipelineRuns,
       latestTenDeployPipelineRuns,
-      latestAutotestRunnerPipelineRuns,
+      latestTenAutotestRunnerPipelineRuns,
       argoApplications,
       deployPipelineRunTemplate,
-      stageDeployPipelineRuns,
     ]
   );
 

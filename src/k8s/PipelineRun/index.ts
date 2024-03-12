@@ -2,27 +2,9 @@ import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { STATUS_COLOR } from '../../constants/colors';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { ValueOf } from '../../types/global';
-import { streamResults } from '../common/streamResults';
 import { PipelineRunKubeObjectConfig } from './config';
 import { PIPELINE_RUN_REASON, PIPELINE_RUN_STATUS } from './constants';
-import {
-  PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE,
-  PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE,
-  PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH,
-  PIPELINE_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN,
-  PIPELINE_RUN_LABEL_SELECTOR_PIPELINE,
-  PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
-  PIPELINE_RUN_LABEL_SELECTOR_STAGE,
-} from './labels';
-import {
-  PipelineRunKubeObjectInterface,
-  StreamAutotestRunnerPipelineRunListProps,
-  StreamAutotestsPipelineRunListProps,
-  StreamPipelineRunListByCodebaseBranchLabelProps,
-  StreamPipelineRunListByTypeAndPipelineNameLabelsProps,
-  StreamPipelineRunListByTypeLabelProps,
-  StreamStagePipelineRunListProps,
-} from './types';
+import { PipelineRunKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -94,90 +76,5 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
       default:
         return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }
-  }
-
-  static streamPipelineRunListByCodebaseBranchLabel({
-    namespace,
-    codebaseBranchLabel,
-    dataHandler,
-    errorHandler,
-  }: StreamPipelineRunListByCodebaseBranchLabelProps): () => void {
-    const normalizedCodebaseBranchLabel = codebaseBranchLabel.replaceAll('/', '-');
-
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResults(url, dataHandler, errorHandler, {
-      labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH}=${normalizedCodebaseBranchLabel}`,
-    });
-  }
-
-  static streamPipelineRunListByTypeAndStageNameLabels({
-    namespace,
-    pipelineType,
-    stageMetadataName,
-    dataHandler,
-    errorHandler,
-  }: StreamPipelineRunListByTypeAndPipelineNameLabelsProps): () => void {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResults(url, dataHandler, errorHandler, {
-      labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType},${PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE}=${stageMetadataName}`,
-    });
-  }
-
-  static streamStagePipelineRunList({
-    namespace,
-    cdPipelineName,
-    stageMetadataName,
-    pipelineType,
-    dataHandler,
-    errorHandler,
-  }: StreamStagePipelineRunListProps): () => void {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResults(url, dataHandler, errorHandler, {
-      labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE}=${cdPipelineName},${PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE}=${stageMetadataName},${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType}`,
-    });
-  }
-
-  static streamAutotestRunnerPipelineRunList({
-    namespace,
-    stageSpecName,
-    CDPipelineMetadataName,
-    dataHandler,
-    errorHandler,
-  }: StreamAutotestRunnerPipelineRunListProps): () => void {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResults(url, dataHandler, errorHandler, {
-      labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=autotestRunner,${PIPELINE_RUN_LABEL_SELECTOR_STAGE}=${stageSpecName},${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE}=${CDPipelineMetadataName}`,
-    });
-  }
-
-  static streamAutotestsPipelineRunList({
-    namespace,
-    stageSpecName,
-    CDPipelineMetadataName,
-    parentPipelineRunName,
-    dataHandler,
-    errorHandler,
-  }: StreamAutotestsPipelineRunListProps): () => void {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResults(url, dataHandler, errorHandler, {
-      labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN}=${parentPipelineRunName},${PIPELINE_RUN_LABEL_SELECTOR_STAGE}=${stageSpecName},${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE}=${CDPipelineMetadataName}`,
-    });
-  }
-
-  static streamPipelineRunListByTypeLabel({
-    namespace,
-    type,
-    dataHandler,
-    errorHandler,
-  }: StreamPipelineRunListByTypeLabelProps): () => void {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-
-    if (type) {
-      return streamResults(url, dataHandler, errorHandler, {
-        labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${type}`,
-      });
-    }
-
-    return streamResults(url, dataHandler, errorHandler);
   }
 }

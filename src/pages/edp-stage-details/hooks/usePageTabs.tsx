@@ -22,7 +22,6 @@ export const usePageTabs = () => {
     autotestRunnerPipelineRuns,
     deployPipelineRuns,
     argoApplications,
-    stageDeployPipelineRuns,
   } = useDynamicDataContext();
 
   const isLoading = React.useMemo(
@@ -31,36 +30,17 @@ export const usePageTabs = () => {
       autotestPipelineRuns.isLoading ||
       autotestRunnerPipelineRuns.isLoading ||
       deployPipelineRuns.isLoading ||
-      argoApplications.isLoading ||
-      stageDeployPipelineRuns.isLoading,
+      argoApplications.isLoading,
     [
       argoApplications.isLoading,
       autotestPipelineRuns.isLoading,
       autotestRunnerPipelineRuns.isLoading,
       deployPipelineRuns.isLoading,
       stage.isLoading,
-      stageDeployPipelineRuns.isLoading,
     ]
   );
 
   const { enrichedApplications } = useDataContext();
-
-  // const enrichedQualityGatesWithPipelineRuns: EnrichedQualityGateWithAutotestPipelineRun[] =
-  //   React.useMemo(
-  //     () =>
-  //       stage.data?.spec.qualityGates.map((qualityGate) => {
-  //         const autotestPipelineRun = autotestPipelineRuns.data.find(
-  //           (pipelineRun) =>
-  //             pipelineRun.metadata.labels['app.edp.epam.com/codebase'] === qualityGate.autotestName
-  //         );
-
-  //         return {
-  //           qualityGate: qualityGate,
-  //           autotestPipelineRun: autotestPipelineRun,
-  //         };
-  //       }),
-  //     [stage, autotestPipelineRuns]
-  //   );
 
   const latestDeployPipelineRunIsRunning = React.useMemo(
     () =>
@@ -73,10 +53,6 @@ export const usePageTabs = () => {
     enrichedApplicationsWithItsImageStreams: enrichedApplications,
     argoApplications: argoApplications.data,
   });
-
-  // const everyArgoAppIsHealthyAndInSync = useEveryArgoAppIsHealthyAndInSync(
-  //   enrichedApplicationsWithArgoApplications
-  // );
 
   return React.useMemo(() => {
     if (isLoading) {
@@ -101,37 +77,12 @@ export const usePageTabs = () => {
         id: 'pipelines',
         component: (
           <PipelineRunList
-            pipelineRuns={stageDeployPipelineRuns.data}
-            isLoading={stageDeployPipelineRuns.isLoading}
+            pipelineRuns={deployPipelineRuns.data}
+            isLoading={deployPipelineRuns.isLoading}
             filterFunction={null}
           />
         ),
       },
-      // {
-      //   label: 'Quality Gates',
-      //   id: 'quality_gates',
-      //   component: (
-      //     <QualityGates
-      //       enrichedQualityGatesWithPipelineRuns={enrichedQualityGatesWithPipelineRuns}
-      //       argoApplications={argoApplications.data}
-      //       everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
-      //       latestAutotestRunnerPipelineRuns={autotestRunnerPipelineRuns.data}
-      //       latestTenAutotestPipelineRuns={autotestPipelineRuns.data}
-      //     />
-      //   ),
-      // },
-      // {
-      //   label: 'Custom Gates',
-      //   id: 'custom_gates',
-      //   component: (
-      //     <CustomGates
-      //       enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
-      //       argoApplications={argoApplications.data}
-      //       latestTenDeployPipelineRuns={deployPipelineRuns.data}
-      //       everyArgoAppIsHealthyAndInSync={everyArgoAppIsHealthyAndInSync}
-      //     />
-      //   ),
-      // },
       {
         label: 'Monitoring',
         id: 'monitoring',
@@ -145,10 +96,10 @@ export const usePageTabs = () => {
     ];
   }, [
     QuickLinksURLS,
+    deployPipelineRuns,
     enrichedApplicationsWithArgoApplications,
     isLoading,
     latestDeployPipelineRunIsRunning,
     stage,
-    stageDeployPipelineRuns,
   ]);
 };
