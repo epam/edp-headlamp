@@ -1,8 +1,43 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="v0.14.0"></a>
+## [v0.14.0] - 2024-03-12
 ### Features
 
+- Add sync status, fix errors, disable to promote, hide qg ([#155](https://github.com/epam/edp-headlamp/issues/155))
+- Update configuration page menu ([#155](https://github.com/epam/edp-headlamp/issues/155))
+- Update UI, update environment page ([#155](https://github.com/epam/edp-headlamp/issues/155))
+- Add possibility to create more than one gitserver ([#167](https://github.com/epam/edp-headlamp/issues/167))
+- Add cache to Github workflow ([#164](https://github.com/epam/edp-headlamp/issues/164))
+- Add Github CI workflow for PR ([#164](https://github.com/epam/edp-headlamp/issues/164))
+- Update stage creation, add triggertemplate selection ([#165](https://github.com/epam/edp-headlamp/issues/165))
+- Update cluster secret creation ([#161](https://github.com/epam/edp-headlamp/issues/161))
+- Update gitops repo link on gitops configuration ([#163](https://github.com/epam/edp-headlamp/issues/163))
+- Update application deploy, uninstall buttons ([#162](https://github.com/epam/edp-headlamp/issues/162))
+- Update application deploy, uninstall buttons ([#162](https://github.com/epam/edp-headlamp/issues/162))
+- Update cluster secret creation ([#161](https://github.com/epam/edp-headlamp/issues/161))
+- Add nexus registry flow ([#160](https://github.com/epam/edp-headlamp/issues/160))
+- Add kubeconfig secret name param into deploy pipeline run ([#159](https://github.com/epam/edp-headlamp/issues/159))
+- Update application payload object when deploying  ([#158](https://github.com/epam/edp-headlamp/issues/158))
+- Migrate EDPComponent to QuickLink ([#157](https://github.com/epam/edp-headlamp/issues/157))
+- Update ui colors, menu, add ui updates ([#155](https://github.com/epam/edp-headlamp/issues/155))
+- Add monitoring section into stage page ([#152](https://github.com/epam/edp-headlamp/issues/152))
+- Add deploy pipeline run list into stage page ([#151](https://github.com/epam/edp-headlamp/issues/151))
+- Update Jira integration management flow ([#150](https://github.com/epam/edp-headlamp/issues/150))
+- Add stages filter, Update page filter logic ([#142](https://github.com/epam/edp-headlamp/issues/142))
+- Update image stream field tooltip info ([#148](https://github.com/epam/edp-headlamp/issues/148))
+- Add ESO management flag per field ([#147](https://github.com/epam/edp-headlamp/issues/147))
+- Improve plus button in configuration page ([#145](https://github.com/epam/edp-headlamp/issues/145))
+- Update deploy button behaviour ([#142](https://github.com/epam/edp-headlamp/issues/142))
+- Rename create edpcomponent to link ([#143](https://github.com/epam/edp-headlamp/issues/143))
+- Redesign environment details page ([#142](https://github.com/epam/edp-headlamp/issues/142))
+- Add warning noty of non-existant EDPComponent  ([#138](https://github.com/epam/edp-headlamp/issues/138))
+- Add possibility to delete non-system EDPComponents  ([#138](https://github.com/epam/edp-headlamp/issues/138))
+- Update sonar related links ([#140](https://github.com/epam/edp-headlamp/issues/140))
+- Update secret integration forms, update disabled edp links tooltips ([#138](https://github.com/epam/edp-headlamp/issues/138))
+- Add skipWebhookSSL checkbox into GitServer create-edit forms ([#137](https://github.com/epam/edp-headlamp/issues/137))
 - Add ArgoCD integration configuration page ([#135](https://github.com/epam/edp-headlamp/issues/135))
 - Update GitServer management flow ([#134](https://github.com/epam/edp-headlamp/issues/134))
 - Add cluster column into stages table, remove cluster button ([#133](https://github.com/epam/edp-headlamp/issues/133))
@@ -13,13 +48,47 @@
 
 ### Bug Fixes
 
+- Fix error on stage page, rollback to promote checkbox disabled ([#155](https://github.com/epam/edp-headlamp/issues/155))
+- Fix gitserver related issues ([#167](https://github.com/epam/edp-headlamp/issues/167))
+- Remove isBase64String check when encoding form values ([#166](https://github.com/epam/edp-headlamp/issues/166))
+- Fix uninstall button, fix deploy notification message ([#162](https://github.com/epam/edp-headlamp/issues/162))
+- Fix quicklink creation ([#157](https://github.com/epam/edp-headlamp/issues/157))
+- Fix wrong registry page doc link ([#154](https://github.com/epam/edp-headlamp/issues/154))
+- Fix wrong registry page doc link ([#154](https://github.com/epam/edp-headlamp/issues/154))
+- Fix build ([#154](https://github.com/epam/edp-headlamp/issues/154))
+- Update registry doc link, fix component list actions ([#154](https://github.com/epam/edp-headlamp/issues/154))
+- Fix jira integration form ([#150](https://github.com/epam/edp-headlamp/issues/150))
+- Edit monitoring iframe height ([#152](https://github.com/epam/edp-headlamp/issues/152))
+- Fix empty marketplace page ([#152](https://github.com/epam/edp-headlamp/issues/152))
+- Fix stages related issues ([#142](https://github.com/epam/edp-headlamp/issues/142))
+- Fix plus button on gitops page, fix isBase64 check function ([#145](https://github.com/epam/edp-headlamp/issues/145))
+- Fix jira integration plus btn, fix loading ([#145](https://github.com/epam/edp-headlamp/issues/145))
+- Show pipeline tasks from finally block ([#146](https://github.com/epam/edp-headlamp/issues/146))
+- Show pipeline run tasks from finally block ([#146](https://github.com/epam/edp-headlamp/issues/146))
+- Fix plus button on gitops page ([#145](https://github.com/epam/edp-headlamp/issues/145))
+- Fix filter search ([#144](https://github.com/epam/edp-headlamp/issues/144))
+- Fix sonar dashboard url ([#140](https://github.com/epam/edp-headlamp/issues/140))
+- Fix sonar metrics urls, update configuration pages URL field ([#140](https://github.com/epam/edp-headlamp/issues/140))
+- Fix sonar metrics api url ([#140](https://github.com/epam/edp-headlamp/issues/140))
+- Remove ability to rename edp component, fix namespace filter  ([#141](https://github.com/epam/edp-headlamp/issues/141))
 - Rename ArgoCD to Argo CD ([#135](https://github.com/epam/edp-headlamp/issues/135))
 - Fix hiding namespace notification after setting namespaces ([#129](https://github.com/epam/edp-headlamp/issues/129))
 
 ### Routine
 
+- Rename trigger template to pipeline template ([#167](https://github.com/epam/edp-headlamp/issues/167))
+- Rename Trigger Template to Pipeline Template for deploy ([#165](https://github.com/epam/edp-headlamp/issues/165))
+- Remove edp from helm chart name ([#156](https://github.com/epam/edp-headlamp/issues/156))
+- Update headlamp to 0.22.0 updating mui to v5 ([#139](https://github.com/epam/edp-headlamp/issues/139))
+- Update current development version ([#136](https://github.com/epam/edp-headlamp/issues/136))
 - Add snapshot tests for registry configuration ([#130](https://github.com/epam/edp-headlamp/issues/130))
 - Update current development version ([#128](https://github.com/epam/edp-headlamp/issues/128))
+
+### Documentation
+
+- Add description for OIDC section ([#168](https://github.com/epam/edp-headlamp/issues/168))
+- Define name convention for ingress objects ([#156](https://github.com/epam/edp-headlamp/issues/156))
+- Update README md file ([#132](https://github.com/epam/edp-headlamp/issues/132))
 
 
 <a name="v0.13.1"></a>
@@ -41,8 +110,6 @@
 - Hide codebase page controls and diagrams for system components ([#126](https://github.com/epam/edp-headlamp/issues/126))
 - Add no secret found messages into configuration page list ([#118](https://github.com/epam/edp-headlamp/issues/118))
 - Fix sonar widget loading status when there is no sonar component ([#118](https://github.com/epam/edp-headlamp/issues/118))
-- Fix image name in release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
-- Bump GO version for release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
 
 ### Routine
 
@@ -81,6 +148,8 @@
 
 ### Bug Fixes
 
+- Fix image name in release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
+- Bump GO version for release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
 - Fix registry form update issues ([#118](https://github.com/epam/edp-headlamp/issues/118))
 - Fix step name overflow in pipeline graph node ([#120](https://github.com/epam/edp-headlamp/issues/120))
 - Fix pipeline name wrap, fix registry secret status showing ([#120](https://github.com/epam/edp-headlamp/issues/120))
@@ -279,7 +348,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.13.1...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.14.0...HEAD
+[v0.14.0]: https://github.com/epam/edp-headlamp/compare/v0.13.1...v0.14.0
 [v0.13.1]: https://github.com/epam/edp-headlamp/compare/v0.13.0...v0.13.1
 [v0.13.0]: https://github.com/epam/edp-headlamp/compare/v0.12.0...v0.13.0
 [v0.12.0]: https://github.com/epam/edp-headlamp/compare/v0.11.0...v0.12.0
