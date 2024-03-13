@@ -42,12 +42,21 @@ export const usePageTabs = () => {
 
   const { enrichedApplications } = useDataContext();
 
-  const latestDeployPipelineRunIsRunning = React.useMemo(
-    () =>
-      PipelineRunKubeObject.parseStatusReason(deployPipelineRuns.data?.[0]).toLowerCase() ===
-      PIPELINE_RUN_REASON.RUNNING,
-    [deployPipelineRuns]
-  );
+  const latestDeployPipelineRunIsRunning = React.useMemo(() => {
+    const latestNewDeployPipelineRun = deployPipelineRuns.data?.find((el) => {
+      return el.jsonData?.actionType === 'MODIFIED';
+    })?.jsonData;
+
+    if (!latestNewDeployPipelineRun) {
+      return false;
+    }
+
+    return (
+      !latestNewDeployPipelineRun?.status ||
+      PipelineRunKubeObject.parseStatusReason(latestNewDeployPipelineRun)?.toLowerCase() ===
+        PIPELINE_RUN_REASON.RUNNING
+    );
+  }, [deployPipelineRuns]);
 
   const enrichedApplicationsWithArgoApplications = useEnrichedApplicationsWithArgoApplications({
     enrichedApplicationsWithItsImageStreams: enrichedApplications,

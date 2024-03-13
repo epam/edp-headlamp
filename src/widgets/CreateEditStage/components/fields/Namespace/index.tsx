@@ -17,6 +17,10 @@ export const Namespace = () => {
     <FormTextFieldEditable
       {...register(STAGE_FORM_NAMES.deployNamespace.name, {
         required: `Enter namespace to deploy to`,
+        maxLength: {
+          value: 63,
+          message: 'You exceeded the maximum length of 63',
+        },
         pattern: {
           value: /^[a-z](?!.*--[^-])[a-z0-9-]*[a-z0-9]$/,
           message: nameRequirementLabel,

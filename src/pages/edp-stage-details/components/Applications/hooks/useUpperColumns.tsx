@@ -41,6 +41,8 @@ export const useUpperColumns = ({
   const {
     stage: { data: stage },
   } = useDynamicDataContext();
+  const timer = React.useRef<number | null>(null);
+  const [deployBtnDisabled, setDeployBtnDisabled] = React.useState(false);
 
   return React.useMemo(
     () => [
@@ -59,14 +61,21 @@ export const useUpperColumns = ({
                 <div>
                   <Button
                     startIcon={
-                      isDeployLoading ? (
+                      deployBtnDisabled || isDeployLoading ? (
                         <Icon icon={'line-md:loading-loop'} />
                       ) : (
                         <Icon icon={'solar:upload-linear'} />
                       )
                     }
-                    onClick={onDeployClick}
-                    disabled={!numSelected || !buttonsEnabledMap.deploy}
+                    onClick={() => {
+                      onDeployClick();
+                      setDeployBtnDisabled(true);
+
+                      timer.current = window.setTimeout(() => {
+                        setDeployBtnDisabled(false);
+                      }, 10000);
+                    }}
+                    disabled={deployBtnDisabled || !numSelected || !buttonsEnabledMap.deploy}
                     sx={{ color: theme.palette.secondary.dark }}
                   >
                     Deploy
@@ -180,6 +189,7 @@ export const useUpperColumns = ({
       stage,
       theme,
       isDeployLoading,
+      deployBtnDisabled,
     ]
   );
 };
