@@ -10,6 +10,7 @@ export interface TableHeadProps<DataType = unknown> {
   sortOrder: ValueOf<typeof SORT_ORDERS>;
   setSortOrder: React.Dispatch<React.SetStateAction<ValueOf<typeof SORT_ORDERS>>>;
   setColumnSortableValuePath: React.Dispatch<React.SetStateAction<string | string[]>>;
+  selectableRowCount?: number;
   upperColumns?: readonly TableColumn<DataType>[];
   selected?: string[];
   handleSelectAllClick?: (event: React.ChangeEvent<HTMLInputElement>) => void;

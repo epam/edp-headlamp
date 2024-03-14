@@ -17,6 +17,7 @@ export const TableHead = ({
   defaultSortBy = 'name',
   setColumnSortableValuePath,
   rowCount,
+  selectableRowCount,
   selected,
   handleSelectAllClick,
 }: TableHeadProps) => {
@@ -66,6 +67,7 @@ export const TableHead = ({
         columns={columns}
         defaultSortBy={defaultSortBy}
         rowCount={rowCount}
+        selectableRowCount={selectableRowCount}
         sortOrder={sortOrder}
         setSortOrder={setSortOrder}
         setColumnSortableValuePath={setColumnSortableValuePath}

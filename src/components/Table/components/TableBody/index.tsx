@@ -21,6 +21,7 @@ export const TableBody = ({
   handleRowClick,
   handleSelectRowClick,
   isSelected,
+  canBeSelected,
   emptyListComponent,
   page,
   rowsPerPage,
@@ -48,6 +49,7 @@ export const TableBody = ({
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row, idx: number) => {
               const _isSelected = isSelectedRow(isSelected, row);
+              const _canBeSelected = canBeSelected ? canBeSelected(row) : true;
 
               return (
                 <TableRow
@@ -55,6 +57,7 @@ export const TableBody = ({
                   item={row}
                   columns={columns}
                   isSelected={_isSelected}
+                  canBeSelected={_canBeSelected}
                   handleRowClick={handleRowClick}
                   handleSelectRowClick={handleSelectRowClick}
                 />

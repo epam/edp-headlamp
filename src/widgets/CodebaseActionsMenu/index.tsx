@@ -1,3 +1,5 @@
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Typography } from '@mui/material';
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
@@ -5,15 +7,17 @@ import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
+import { routeEDPCDPipelineDetails } from '../../pages/edp-cdpipeline-details/route';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../CreateEditCodebase/constants';
 import { CreateEditCodebaseDialogForwardedProps } from '../CreateEditCodebase/types';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
 import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
-import { CodebaseCDPipelineConflictError } from './components/CodebaseCDPipelineConflictError';
-import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
+import { useDeletionConflict } from './hooks/useDeletionConflict';
+import { useStyles } from './styles';
 import { CodebaseActionsMenuProps } from './types';
 
 export const CodebaseActionsMenu = ({
@@ -23,9 +27,37 @@ export const CodebaseActionsMenu = ({
   anchorEl,
   handleCloseResourceActionListMenu,
 }: CodebaseActionsMenuProps) => {
+  const classes = useStyles();
+
   const { setDialog } = useDialogContext();
 
-  const conflictedCDPipeline = useConflictedCDPipeline(codebaseData);
+  const conflictedCDPipeline = useDeletionConflict(codebaseData);
+
+  const ErrorMessage = React.useMemo(() => {
+    if (!conflictedCDPipeline || !codebaseData) {
+      return null;
+    }
+
+    return (
+      <div className={classes.message}>
+        <Typography component={'span'}>
+          {capitalizeFirstLetter(codebaseData.spec.type)} {codebaseData.metadata.name} is used in
+        </Typography>
+        <div className={classes.conflictEntityName}>
+          <Link
+            routeName={routeEDPCDPipelineDetails.path}
+            params={{
+              name: conflictedCDPipeline.metadata.name,
+              namespace: conflictedCDPipeline.metadata.namespace,
+            }}
+          >
+            {conflictedCDPipeline.metadata.name}
+          </Link>
+        </div>
+        <Typography component={'span'}> CD Pipeline</Typography>
+      </div>
+    );
+  }, [classes, codebaseData, conflictedCDPipeline]);
 
   const onBeforeSubmit = React.useCallback(
     async (setErrorTemplate, setLoadingActive) => {
@@ -35,15 +67,10 @@ export const CodebaseActionsMenu = ({
         return;
       }
 
-      setErrorTemplate(
-        <CodebaseCDPipelineConflictError
-          conflictedCDPipeline={conflictedCDPipeline}
-          codebase={codebaseData}
-        />
-      );
+      setErrorTemplate(ErrorMessage);
       setLoadingActive(false);
     },
-    [conflictedCDPipeline, codebaseData]
+    [conflictedCDPipeline, ErrorMessage]
   );
 
   const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps = {
@@ -112,6 +139,7 @@ export const CodebaseActionsMenu = ({
         }),
       ]}
       anchorEl={anchorEl}
+      handleCloseActionsMenu={handleCloseResourceActionListMenu}
     />
   ) : null;
 };

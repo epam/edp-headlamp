@@ -13,6 +13,7 @@ export interface TableBodyProps<DataType = unknown> {
     row: DataType
   ) => void;
   isSelected?: (row: DataType) => boolean;
+  canBeSelected?: (row: DataType) => boolean;
   hasEmptyResult: boolean;
   page: number;
   rowsPerPage: number;

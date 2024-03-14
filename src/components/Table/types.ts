@@ -19,6 +19,7 @@ export interface TableProps<DataType = unknown> {
   error?: unknown;
   handleSelectAllClick?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   selected?: string[];
+  canBeSelected?: (row: DataType) => boolean;
   isSelected?: (row: DataType) => boolean;
   filterFunction?: ((...args: DataType[]) => boolean) | null;
   showPagination?: boolean;

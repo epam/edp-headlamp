@@ -3,14 +3,18 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { EmptyList } from '../../../../components/EmptyList';
 import { Table } from '../../../../components/Table';
+import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { Resources } from '../../../../icons/sprites/Resources';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../widgets/CreateEditCodebase/constants';
 import { routeEDPGitServerList } from '../../../edp-configuration/pages/edp-gitserver-list/route';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
+import { ComponentMultiDeletion } from './components/ComponentMultiDeletion';
 import { useColumns } from './hooks/useColumns';
+import { useUpperColumns } from './hooks/useUpperColumns';
 import { ComponentListProps } from './types';
 
 export const ComponentList = ({ noGitServers }: ComponentListProps) => {
@@ -24,15 +28,78 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
 
   const { filterFunction } = usePageFilterContext();
 
+  const [selected, setSelected] = React.useState<string[]>([]);
+
+  const handleSelectAllClick = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.checked) {
+        const newSelected = items
+          .map(({ metadata: { name }, spec: { type } }) =>
+            type === CODEBASE_TYPES.SYSTEM ? null : name
+          )
+          .filter(Boolean);
+        setSelected(newSelected);
+        return;
+      }
+      setSelected([]);
+    },
+    [items]
+  );
+
+  const handleSelectRowClick = React.useCallback(
+    (event: React.MouseEvent<unknown>, row: EDPCodebaseKubeObjectInterface) => {
+      const isSystemCodebase = row.spec.type === CODEBASE_TYPES.SYSTEM;
+
+      if (isSystemCodebase) {
+        return;
+      }
+
+      const name = row.metadata.name;
+      const selectedIndex = selected.indexOf(name);
+      let newSelected: string[] = [];
+
+      if (selectedIndex === -1) {
+        newSelected = newSelected.concat(selected, name);
+      } else if (selectedIndex === 0) {
+        newSelected = newSelected.concat(selected.slice(1));
+      } else if (selectedIndex === selected.length - 1) {
+        newSelected = newSelected.concat(selected.slice(0, -1));
+      } else if (selectedIndex > 0) {
+        newSelected = newSelected.concat(
+          selected.slice(0, selectedIndex),
+          selected.slice(selectedIndex + 1)
+        );
+      }
+
+      setSelected(newSelected);
+    },
+    [selected]
+  );
+
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+
+  const upperColumns = useUpperColumns({
+    selected,
+    onUninstallClick: () => {
+      setDeleteDialogOpen(true);
+    },
+  });
+
   return (
     <>
       <Resources />
-      <Table
+      <Table<EDPCodebaseKubeObjectInterface>
         isLoading={!items}
         data={items}
         error={error?.toString()}
         columns={columns}
+        upperColumns={upperColumns}
         filterFunction={filterFunction}
+        handleSelectRowClick={handleSelectRowClick}
+        handleSelectAllClick={handleSelectAllClick}
+        selected={selected}
+        isSelected={(row) => selected.indexOf(row.metadata.name) !== -1}
+        canBeSelected={(row) => row.spec.type !== CODEBASE_TYPES.SYSTEM}
         emptyListComponent={
           items !== null && noGitServers ? (
             <EmptyList
@@ -56,6 +123,18 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
           )
         }
       />
+      {deleteDialogOpen && (
+        <ComponentMultiDeletion
+          open={deleteDialogOpen}
+          handleClose={() => setDeleteDialogOpen(false)}
+          onDelete={() => {
+            setDeleteDialogOpen(false);
+            setSelected([]);
+          }}
+          components={items}
+          selected={selected}
+        />
+      )}
     </>
   );
 };

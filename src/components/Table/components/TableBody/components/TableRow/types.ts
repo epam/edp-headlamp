@@ -5,6 +5,7 @@ export interface TableRowProps<DataType = unknown> {
   item: DataType;
   columns: readonly TableColumn<DataType>[];
   isSelected?: boolean;
+  canBeSelected?: boolean;
   handleRowClick?: (event: React.MouseEvent<HTMLTableRowElement>, row: DataType) => void;
   handleSelectRowClick?: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,

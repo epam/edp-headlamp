@@ -32,6 +32,7 @@ export const TableRow = ({
   rowCount,
   selected,
   handleSelectAllClick,
+  selectableRowCount,
 }: TableRowProps) => {
   const theme = useTheme();
 
@@ -64,6 +65,8 @@ export const TableRow = ({
     [theme]
   );
 
+  const _rowCount = selectableRowCount || rowCount;
+
   return (
     <MuiTableRow>
       {!!handleSelectAllClick && (
@@ -76,8 +79,8 @@ export const TableRow = ({
         >
           <Checkbox
             color={'primary'}
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
+            indeterminate={numSelected > 0 && numSelected < _rowCount}
+            checked={rowCount > 0 && numSelected === _rowCount}
             onChange={handleSelectAllClick}
           />
         </TableCell>

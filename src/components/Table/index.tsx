@@ -23,6 +23,7 @@ export const Table = <DataType extends unknown>({
   handleSelectRowClick,
   handleSelectAllClick,
   isSelected,
+  canBeSelected,
   filterFunction,
   showPagination = true,
   reflectInURL = false,
@@ -59,6 +60,8 @@ export const Table = <DataType extends unknown>({
   });
 
   const rowCount = readyData.length || 0;
+  const selectableRowCount = canBeSelected ? readyData.filter(canBeSelected).length : 0;
+
   const hasEmptyResult = React.useMemo(() => {
     if (!data || !readyData) {
       return;
@@ -87,6 +90,7 @@ export const Table = <DataType extends unknown>({
           setSortOrder={setSortOrder}
           defaultSortBy={defaultSortBy}
           rowCount={rowCount}
+          selectableRowCount={selectableRowCount}
           selected={selected}
           handleSelectAllClick={handleSelectAllClick}
         />
@@ -98,6 +102,7 @@ export const Table = <DataType extends unknown>({
           handleRowClick={handleRowClick}
           handleSelectRowClick={handleSelectRowClick}
           isSelected={isSelected}
+          canBeSelected={canBeSelected}
           emptyListComponent={emptyListComponent}
           page={activePage}
           rowsPerPage={_rowsPerPage}

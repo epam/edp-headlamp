@@ -1,5 +1,5 @@
 import makeStyles from '@mui/styles/makeStyles';
-import { rem } from '../../../../utils/styling/rem';
+import { rem } from '../../utils/styling/rem';
 
 export const useStyles = makeStyles((theme: DefaultTheme) => ({
   message: {

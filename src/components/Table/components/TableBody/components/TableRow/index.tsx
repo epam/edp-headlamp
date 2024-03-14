@@ -16,6 +16,7 @@ export const TableRow = ({
   handleRowClick,
   handleSelectRowClick,
   isSelected,
+  canBeSelected,
 }: TableRowProps) => {
   const theme = useTheme();
 
@@ -48,11 +49,13 @@ export const TableRow = ({
     <MuiTableRow {...selectableRowProps(item, isSelected)}>
       {!!handleSelectRowClick && (
         <TableCell padding="checkbox">
-          <Checkbox
-            color={'primary'}
-            checked={isSelected}
-            onClick={(event) => handleSelectRowClick(event, item)}
-          />
+          {canBeSelected && (
+            <Checkbox
+              color={'primary'}
+              checked={isSelected}
+              onClick={(event) => handleSelectRowClick(event, item)}
+            />
+          )}
         </TableCell>
       )}
       {columns.map(({ show = true, id, textAlign = 'left', columnSortableValuePath, render }) => {
