@@ -15,6 +15,10 @@ export const URL = () => {
     <FormTextField
       {...register(QUICK_LINK_FORM_NAMES.url.name, {
         required: 'Enter service endpoint URL.',
+        pattern: {
+          value: /^(http|https):\/\/[\w\-~]+(\.[\w\-~]+)+(\/[\w\-~]*)*(#[\w\-]*)?(\?.*)?$/,
+          message: 'Enter a valid URL (e.g., https://example.com).',
+        },
       })}
       label={'URL'}
       title={

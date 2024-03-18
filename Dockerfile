@@ -1,4 +1,4 @@
-FROM epamedp/headlamp:0.22.3
+FROM epamedp/headlamp:0.22.4
 
 COPY --chown=100:101 assets/ /headlamp/frontend
 COPY --chown=100:101 dist/main.js /headlamp/plugins/edp/main.js
