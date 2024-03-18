@@ -44,6 +44,7 @@ export const StyledCardBody = styled('div')(
 
 export const StyledChip = styled(Chip)(
   ({ theme }) => `
+    min-width: 0;
     height: ${theme.typography.pxToRem(20)};
     line-height: 1;
     padding-top: ${theme.typography.pxToRem(2)};

@@ -1,67 +1,75 @@
-import { Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import React from 'react';
-import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
-import { STATUS_COLOR } from '../../../../constants/colors';
+import { MyTileChart } from '../../../../components/TileChart';
+import { CHART_STATUS_COLOR } from '../../../../constants/colors';
+import { LegendListItem } from '../LegendListItem';
 import { useCDPipelinesGraphData } from './hooks/useCDPipelinesGraphData';
 
 export const CDPipelinesGraph = () => {
   const CDPipelinesInfo = useCDPipelinesGraphData();
 
   return (
-    <HeadlampTileChart
+    <MyTileChart
       total={CDPipelinesInfo.total === null ? -1 : CDPipelinesInfo.total}
       data={[
         {
           name: 'OK',
           value: CDPipelinesInfo.green,
-          fill: STATUS_COLOR.SUCCESS,
+          fill: CHART_STATUS_COLOR.SUCCESS,
         },
         {
           name: 'In Progress',
           value: CDPipelinesInfo.blue,
-          fill: STATUS_COLOR.IN_PROGRESS,
+          fill: CHART_STATUS_COLOR.IN_PROGRESS,
         },
         {
           name: 'Failed',
           value: CDPipelinesInfo.red,
-          fill: STATUS_COLOR.ERROR,
+          fill: CHART_STATUS_COLOR.ERROR,
         },
         {
           name: 'Unknown',
           value: CDPipelinesInfo.grey,
-          fill: STATUS_COLOR.UNKNOWN,
+          fill: CHART_STATUS_COLOR.UNKNOWN,
         },
       ]}
-      title="CDPipelines"
+      title={`Environments (${CDPipelinesInfo.total || 0})`}
       // @ts-ignore
       legend={
-        <>
-          <Typography component={'div'} variant={'body2'}>
-            Total: {CDPipelinesInfo.total}
-          </Typography>
+        <Stack spacing={0.5}>
           {!!CDPipelinesInfo.green && (
-            <Typography component={'div'} variant={'body2'}>
-              OK: {CDPipelinesInfo.green}
-            </Typography>
-          )}
-          {!!CDPipelinesInfo.blue && (
-            <Typography component={'div'} variant={'body2'}>
-              In Progress: {CDPipelinesInfo.blue}
-            </Typography>
+            <LegendListItem
+              color={CHART_STATUS_COLOR.SUCCESS}
+              number={CDPipelinesInfo.green}
+              label="Ok"
+            />
           )}
           {!!CDPipelinesInfo.red && (
-            <Typography component={'div'} variant={'body2'}>
-              Failed: {CDPipelinesInfo.red}
-            </Typography>
+            <LegendListItem
+              color={CHART_STATUS_COLOR.ERROR}
+              number={CDPipelinesInfo.red}
+              label="Failed"
+            />
+          )}
+          {!!CDPipelinesInfo.blue && (
+            <LegendListItem
+              color={CHART_STATUS_COLOR.IN_PROGRESS}
+              number={CDPipelinesInfo.blue}
+              label="In Progress"
+            />
           )}
           {!!CDPipelinesInfo.grey && (
-            <Typography component={'div'} variant={'body2'}>
-              Unknown: {CDPipelinesInfo.grey}
-            </Typography>
+            <LegendListItem
+              color={CHART_STATUS_COLOR.UNKNOWN}
+              number={CDPipelinesInfo.grey}
+              label="Unknown"
+            />
           )}
-        </>
+        </Stack>
       }
-      label={`${CDPipelinesInfo.green}/${CDPipelinesInfo.total}`}
+      size={190}
+      thickness={30}
+      BoxSx={{ width: '152px', height: '152px' }}
     />
   );
 };

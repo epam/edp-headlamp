@@ -70,7 +70,7 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
 
         return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
       case PIPELINE_RUN_STATUS.TRUE:
-        return [ICONS.CHECK_CIRCLE, STATUS_COLOR.SUCCESS];
+        return [ICONS.CHECK_CIRCLE_FILLED, STATUS_COLOR.SUCCESS];
       case PIPELINE_RUN_STATUS.FALSE:
         return [ICONS.CROSS_CIRCLE, STATUS_COLOR.ERROR];
       default:

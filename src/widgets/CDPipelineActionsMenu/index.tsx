@@ -88,6 +88,7 @@ export const CDPipelineActionsMenu = ({
         }),
       ]}
       anchorEl={anchorEl}
+      handleCloseActionsMenu={handleCloseResourceActionListMenu}
     />
   ) : null;
 };

@@ -1,67 +1,75 @@
-import { Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import React from 'react';
-import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
-import { STATUS_COLOR } from '../../../../constants/colors';
+import { MyTileChart } from '../../../../components/TileChart';
+import { CHART_STATUS_COLOR } from '../../../../constants/colors';
+import { LegendListItem } from '../LegendListItem';
 import { useCodebasesGraphData } from './hooks/useCodebasesGraphData';
 
 export const CodebasesGraph = () => {
   const codebasesInfo = useCodebasesGraphData();
 
   return (
-    <HeadlampTileChart
+    <MyTileChart
       total={codebasesInfo.total === null ? -1 : codebasesInfo.total}
       data={[
         {
           name: 'OK',
           value: codebasesInfo.green,
-          fill: STATUS_COLOR.SUCCESS,
+          fill: CHART_STATUS_COLOR.SUCCESS,
         },
         {
           name: 'In Progress',
           value: codebasesInfo.blue,
-          fill: STATUS_COLOR.IN_PROGRESS,
+          fill: CHART_STATUS_COLOR.IN_PROGRESS,
         },
         {
           name: 'Failed',
           value: codebasesInfo.red,
-          fill: STATUS_COLOR.ERROR,
+          fill: CHART_STATUS_COLOR.ERROR,
         },
         {
           name: 'Unknown',
           value: codebasesInfo.grey,
-          fill: STATUS_COLOR.UNKNOWN,
+          fill: CHART_STATUS_COLOR.UNKNOWN,
         },
       ]}
-      title="Codebases"
+      title={`Codebases (${codebasesInfo.total || 0})`}
       // @ts-ignore
       legend={
-        <>
-          <Typography component={'div'} variant={'body2'}>
-            Total: {codebasesInfo.total}
-          </Typography>
+        <Stack spacing={0.5}>
           {!!codebasesInfo.green && (
-            <Typography component={'div'} variant={'body2'}>
-              OK: {codebasesInfo.green}
-            </Typography>
-          )}
-          {!!codebasesInfo.blue && (
-            <Typography component={'div'} variant={'body2'}>
-              In Progress: {codebasesInfo.blue}
-            </Typography>
+            <LegendListItem
+              color={CHART_STATUS_COLOR.SUCCESS}
+              number={codebasesInfo.green}
+              label="Ok"
+            />
           )}
           {!!codebasesInfo.red && (
-            <Typography component={'div'} variant={'body2'}>
-              Failed: {codebasesInfo.red}
-            </Typography>
+            <LegendListItem
+              color={CHART_STATUS_COLOR.ERROR}
+              number={codebasesInfo.red}
+              label="Failed"
+            />
+          )}
+          {!!codebasesInfo.blue && (
+            <LegendListItem
+              color={CHART_STATUS_COLOR.IN_PROGRESS}
+              number={codebasesInfo.blue}
+              label="In Progress"
+            />
           )}
           {!!codebasesInfo.grey && (
-            <Typography component={'div'} variant={'body2'}>
-              Unknown: {codebasesInfo.grey}
-            </Typography>
+            <LegendListItem
+              color={CHART_STATUS_COLOR.UNKNOWN}
+              number={codebasesInfo.grey}
+              label="Unknown"
+            />
           )}
-        </>
+        </Stack>
       }
-      label={`${codebasesInfo.green}/${codebasesInfo.total}`}
+      size={190}
+      thickness={30}
+      BoxSx={{ width: '152px', height: '152px' }}
     />
   );
 };

@@ -83,6 +83,7 @@ export const StageActionsMenu = ({
         }),
       ]}
       anchorEl={anchorEl}
+      handleCloseActionsMenu={handleCloseResourceActionListMenu}
     />
   ) : null;
 };

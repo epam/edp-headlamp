@@ -73,7 +73,15 @@ export const Table = <DataType extends unknown>({
   const activePage = readyData.length < _rowsPerPage ? 0 : page;
 
   return (
-    <Paper variant={'outlined'} style={{ maxWidth: '100%', overflowX: 'auto' }}>
+    <Paper
+      variant={'outlined'}
+      style={{
+        maxWidth: '100%',
+        overflowX: 'auto',
+        backgroundColor: 'transparent',
+        border: 'none',
+      }}
+    >
       <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
         <colgroup>
           {handleSelectRowClick && <col key={'select-checkbox'} width={'4%'} />}

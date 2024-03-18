@@ -97,7 +97,6 @@ export const TableRow = ({
             align={textAlign}
             style={{
               color: theme.palette.text.primary,
-              backgroundColor: theme.palette.tables.head.background,
             }}
           >
             <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>

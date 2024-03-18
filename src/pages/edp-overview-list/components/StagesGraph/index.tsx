@@ -1,67 +1,75 @@
-import { Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import React from 'react';
-import { HeadlampTileChart } from '../../../../components/HeadlampTileChart';
-import { STATUS_COLOR } from '../../../../constants/colors';
+import { MyTileChart } from '../../../../components/TileChart';
+import { CHART_STATUS_COLOR } from '../../../../constants/colors';
+import { LegendListItem } from '../LegendListItem';
 import { useStagesGraphData } from './hooks/useStagesGraphData';
 
 export const StagesGraph = () => {
   const StagesInfo = useStagesGraphData();
 
   return (
-    <HeadlampTileChart
+    <MyTileChart
       total={StagesInfo.total === null ? -1 : StagesInfo.total}
       data={[
         {
           name: 'OK',
           value: StagesInfo.green,
-          fill: STATUS_COLOR.SUCCESS,
+          fill: CHART_STATUS_COLOR.SUCCESS,
         },
         {
           name: 'In Progress',
           value: StagesInfo.blue,
-          fill: STATUS_COLOR.IN_PROGRESS,
+          fill: CHART_STATUS_COLOR.IN_PROGRESS,
         },
         {
           name: 'Failed',
           value: StagesInfo.red,
-          fill: STATUS_COLOR.ERROR,
+          fill: CHART_STATUS_COLOR.ERROR,
         },
         {
           name: 'Unknown',
           value: StagesInfo.grey,
-          fill: STATUS_COLOR.UNKNOWN,
+          fill: CHART_STATUS_COLOR.UNKNOWN,
         },
       ]}
-      title="Stages"
+      title={`Stages (${StagesInfo.total || 0})`}
       // @ts-ignore
       legend={
-        <>
-          <Typography component={'div'} variant={'body2'}>
-            Total: {StagesInfo.total}
-          </Typography>
+        <Stack spacing={0.5}>
           {!!StagesInfo.green && (
-            <Typography component={'div'} variant={'body2'}>
-              OK: {StagesInfo.green}
-            </Typography>
-          )}
-          {!!StagesInfo.blue && (
-            <Typography component={'div'} variant={'body2'}>
-              In Progress: {StagesInfo.blue}
-            </Typography>
+            <LegendListItem
+              color={CHART_STATUS_COLOR.SUCCESS}
+              number={StagesInfo.green}
+              label="Ok"
+            />
           )}
           {!!StagesInfo.red && (
-            <Typography component={'div'} variant={'body2'}>
-              Failed: {StagesInfo.red}
-            </Typography>
+            <LegendListItem
+              color={CHART_STATUS_COLOR.ERROR}
+              number={StagesInfo.red}
+              label="Failed"
+            />
+          )}
+          {!!StagesInfo.blue && (
+            <LegendListItem
+              color={CHART_STATUS_COLOR.IN_PROGRESS}
+              number={StagesInfo.blue}
+              label="In Progress"
+            />
           )}
           {!!StagesInfo.grey && (
-            <Typography component={'div'} variant={'body2'}>
-              Unknown: {StagesInfo.grey}
-            </Typography>
+            <LegendListItem
+              color={CHART_STATUS_COLOR.UNKNOWN}
+              number={StagesInfo.grey}
+              label="Unknown"
+            />
           )}
-        </>
+        </Stack>
       }
-      label={`${StagesInfo.green}/${StagesInfo.total}`}
+      size={190}
+      thickness={30}
+      BoxSx={{ width: '152px', height: '152px' }}
     />
   );
 };

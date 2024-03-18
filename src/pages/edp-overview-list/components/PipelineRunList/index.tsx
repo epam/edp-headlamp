@@ -157,7 +157,11 @@ export const PipelineRunListWithFilter = () => {
                       getOptionLabel={(option) => option}
                       onChange={handleCodebasesChange}
                       renderInput={(params) => (
-                        <TextField {...params} placeholder="Select codebases" />
+                        <TextField
+                          {...params}
+                          placeholder="Select codebases"
+                          helperText="Applications, libraries, autotests and infrastructures pipelines."
+                        />
                       )}
                       value={(filter.values.codebases as string[]) ?? []}
                     />

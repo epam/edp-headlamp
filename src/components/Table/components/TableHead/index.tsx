@@ -52,7 +52,6 @@ export const TableHead = ({
                   colSpan={colSpan || 1}
                   style={{
                     color: theme.palette.text.primary,
-                    backgroundColor: theme.palette.tables.head.background,
                     padding: `${theme.typography.pxToRem(8)} ${theme.typography.pxToRem(16)}`,
                   }}
                 >

@@ -99,6 +99,7 @@ export const QuickLinkActionsMenu = ({
         }),
       ]}
       anchorEl={anchorEl}
+      handleCloseActionsMenu={handleCloseResourceActionListMenu}
     />
   ) : null;
 };

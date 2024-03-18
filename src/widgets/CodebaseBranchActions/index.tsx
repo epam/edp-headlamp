@@ -75,6 +75,7 @@ export const CodebaseBranchActionsMenu = ({
         }),
       ].filter(Boolean)}
       anchorEl={anchorEl}
+      handleCloseActionsMenu={handleCloseResourceActionListMenu}
     />
   ) : null;
 };

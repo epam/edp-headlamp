@@ -1,42 +1,13 @@
-import { alpha, darken } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { rem } from '../../../../../../utils/styling/rem';
 
 export const useStyles = makeStyles((theme) => ({
   cardRoot: {
-    height: '100%',
+    height: theme.typography.pxToRem(64),
     position: 'relative',
-
-    '&:hover $cardBack': {
-      opacity: 1,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  },
-  cardContent: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    padding: rem(16),
-    backgroundColor: theme.palette.squareButton.background,
-
-    '&:last-child': {
-      paddingBottom: rem(16),
-    },
-  },
-  cardBack: {
-    padding: rem(5),
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 1,
-    opacity: 0,
-    backgroundColor: alpha(darken(theme.palette.squareButton.background, 0.25), 0.8),
-    transition: 'opacity 300ms ease, pointer-events 500ms ease',
-    display: 'none',
+    padding: `${theme.typography.pxToRem(15)} ${theme.typography.pxToRem(16)}`,
+    boxShadow: '0px 1px 10px 0px #0024461F',
+    borderRadius: '4px',
   },
   cardTitle: {
     textOverflow: 'ellipsis',
@@ -44,9 +15,10 @@ export const useStyles = makeStyles((theme) => ({
     whiteSpace: 'nowrap',
   },
   serviceItemIcon: {
+    flexShrink: 0,
     display: 'block',
-    width: rem(50),
-    height: rem(50),
+    width: rem(32),
+    height: rem(32),
 
     '& img': {
       width: '100%',

@@ -164,7 +164,7 @@ const DeletionDialog = ({
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Are you sure you want to delete the selected components?</DialogTitle>
-      <DialogContent sx={{ pt: '20px' }}>
+      <DialogContent sx={{ pt: '20px !important' }}>
         <TextField
           label={`Enter "${CONFIRM_TEXT_VALUE}" to start deletion`}
           value={value}

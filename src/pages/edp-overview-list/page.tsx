@@ -3,6 +3,7 @@ import { PageLogicWrapper } from '../../components/PageLogicWrapper';
 import { DialogContextProvider } from '../../providers/Dialog';
 import { FilterContextProvider } from '../../providers/Filter';
 import { NamespacesGuardWrapper } from '../../providers/NamespacesGuardWrapper';
+import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { matchFunctions } from './constants';
 import { PageView } from './view';
@@ -17,7 +18,9 @@ export default function () {
             matchFunctions={matchFunctions}
             saveToLocalStorage
           >
-            <PageView />
+            <ResourceActionListContextProvider>
+              <PageView />
+            </ResourceActionListContextProvider>
           </FilterContextProvider>
         </NamespacesGuardWrapper>
       </DialogContextProvider>

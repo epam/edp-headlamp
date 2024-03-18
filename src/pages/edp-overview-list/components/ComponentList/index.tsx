@@ -1,10 +1,24 @@
-import { Grid } from '@mui/material';
+import { Grid, styled } from '@mui/material';
 import React from 'react';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { QuickLinkKubeObject } from '../../../../k8s/QuickLink';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { AddNewQuickLinkCard } from './components/AddNewQuickLinkCard';
 import { ComponentCard } from './components/ComponentCard';
+
+const StyledGrid = styled(Grid)`
+  ${(props) => props.theme.breakpoints.up('xl')} {
+    flex: 1 0 20% !important;
+    max-width: 20% !important;
+  }
+`;
+
+const StyledGridItem = styled(Grid)`
+  ${(props) => props.theme.breakpoints.up('xl')} {
+    flex: 1 0 20% !important;
+    max-width: 20% !important;
+  }
+`;
 
 export const ComponentList = () => {
   const [items] = QuickLinkKubeObject.useList({
@@ -13,19 +27,19 @@ export const ComponentList = () => {
 
   return (
     <LoadingWrapper isLoading={items === null}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {items
           ? items.map((el) => {
               return el?.spec.visible ? (
-                <Grid item xs={6} sm={4} md={3} lg={2} xl={1} key={el.metadata.uid}>
+                <StyledGrid item xs={4} sm={3} xl={'auto'} key={el.metadata.uid}>
                   <ComponentCard component={el} />
-                </Grid>
+                </StyledGrid>
               ) : null;
             })
           : null}
-        <Grid item xs={6} sm={4} md={3} lg={2} xl={1}>
+        <StyledGridItem item xs={4} sm={3} xl={'auto'}>
           <AddNewQuickLinkCard />
-        </Grid>
+        </StyledGridItem>
       </Grid>
     </LoadingWrapper>
   );
