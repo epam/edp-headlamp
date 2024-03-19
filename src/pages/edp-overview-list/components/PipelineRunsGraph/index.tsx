@@ -77,7 +77,7 @@ export const PipelineRunsGraph = () => {
       }
       size={190}
       thickness={30}
-      BoxSx={{ width: '152px', height: '152px' }}
+      BoxSx={{ width: '129px', height: '129px' }}
     />
   );
 

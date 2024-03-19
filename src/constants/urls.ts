@@ -304,4 +304,7 @@ export const EDP_OPERATOR_GUIDE = {
   ARGO_CD: {
     url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/argocd-integration/`,
   },
+  O_AUTH: {
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/oauth2-proxy/`,
+  },
 };

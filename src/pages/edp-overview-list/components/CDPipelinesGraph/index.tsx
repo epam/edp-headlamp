@@ -69,7 +69,9 @@ export const CDPipelinesGraph = () => {
       }
       size={190}
       thickness={30}
-      BoxSx={{ width: '152px', height: '152px' }}
+      width={129}
+      height={129}
+      BoxSx={{ width: '129px', height: '129px' }}
     />
   );
 };

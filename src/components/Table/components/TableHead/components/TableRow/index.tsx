@@ -74,7 +74,6 @@ export const TableRow = ({
           padding="checkbox"
           style={{
             color: theme.palette.text.primary,
-            backgroundColor: theme.palette.tables.head.background,
           }}
         >
           <Checkbox

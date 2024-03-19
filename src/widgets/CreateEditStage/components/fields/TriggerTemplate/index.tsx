@@ -27,11 +27,11 @@ export const TriggerTemplate = () => {
   return (
     <FormSelect
       {...register(STAGE_FORM_NAMES.triggerTemplate.name, {
-        required: 'Select Pipeline Template',
+        required: 'Select Pipeline template',
       })}
-      label={'Pipeline Template'}
+      label={'Pipeline template'}
       title="Choose a predefined blueprint outlining the deployment process for your application(s)."
-      placeholder={'Select Pipeline Template'}
+      placeholder={'Select Pipeline template'}
       control={control}
       errors={errors}
       options={options}

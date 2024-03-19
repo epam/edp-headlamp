@@ -518,7 +518,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                       <span
                         class="MuiTypography-root MuiTypography-body1 makeStyles-label-29 css-1ezega9-MuiTypography-root"
                       >
-                        Pipeline Template
+                        Pipeline template
                       </span>
                       <span />
                     </span>
@@ -543,7 +543,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                           role="combobox"
                           tabindex="0"
                         >
-                          Select Pipeline Template
+                          Select Pipeline template
                         </div>
                         <input
                           aria-hidden="true"

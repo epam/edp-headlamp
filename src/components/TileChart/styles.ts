@@ -10,4 +10,15 @@ export const StyledTileChartWrapper = styled(Box)`
   & .recharts-sector {
     stroke: none;
   }
+
+  & .recharts-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    line-height: 0;
+  }
+
+  & .recharts-surface {
+    width: 100%;
+    height: 100%;
+  }
 `;
