@@ -32,7 +32,7 @@ export const ComponentList = () => {
           ? items.map((el) => {
               return el?.spec.visible ? (
                 <StyledGrid item xs={4} sm={3} xl={'auto'} key={el.metadata.uid}>
-                  <ComponentCard component={el} />
+                  <ComponentCard component={el.jsonData} />
                 </StyledGrid>
               ) : null;
             })

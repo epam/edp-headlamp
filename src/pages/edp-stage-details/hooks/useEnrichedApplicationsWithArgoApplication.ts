@@ -28,14 +28,21 @@ export const useEnrichedApplicationsWithArgoApplications = ({
   } = useDynamicDataContext();
 
   const inputDockerStreams = CDPipeline?.spec.inputDockerStreams;
+  const appsToPromote = CDPipeline?.spec.applicationsToPromote;
   const CDPipelineName = CDPipeline?.metadata.name;
   const stageOrder = stage?.spec.order;
 
   const normalizedInputDockerStreamNames = inputDockerStreams?.map((el) => el.replaceAll('.', '-'));
+  const normalizedAppsToPromoteNames = appsToPromote?.map((el) => el.replaceAll('.', '-'));
 
   const CDPipelineInputDockerStreamsSet = React.useMemo(
     () => new Set<string>(normalizedInputDockerStreamNames),
     [normalizedInputDockerStreamNames]
+  );
+
+  const CDPipelineAppsToPromoteSet = React.useMemo(
+    () => new Set<string>(normalizedAppsToPromoteNames),
+    [normalizedAppsToPromoteNames]
   );
 
   const getImageStreamByStageOrder = React.useCallback(
@@ -63,6 +70,18 @@ export const useEnrichedApplicationsWithArgoApplications = ({
     [CDPipelineInputDockerStreamsSet, CDPipelineName, stages]
   );
 
+  const getImageStreamByToPromoteFlag = React.useCallback(
+    (
+      imageStreams: EDPCodebaseImageStreamKubeObjectInterface[]
+    ): EDPCodebaseImageStreamKubeObjectInterface => {
+      return (
+        imageStreams &&
+        imageStreams.find((el) => CDPipelineInputDockerStreamsSet.has(el.metadata.name))
+      );
+    },
+    [CDPipelineInputDockerStreamsSet]
+  );
+
   return React.useMemo(() => {
     if (isStageLoading) {
       return [];
@@ -72,6 +91,9 @@ export const useEnrichedApplicationsWithArgoApplications = ({
       enrichedApplicationsWithItsImageStreams &&
       enrichedApplicationsWithItsImageStreams.length &&
       enrichedApplicationsWithItsImageStreams.map((enrichedApplicationWithItsImageStreams) => {
+        const appName = enrichedApplicationWithItsImageStreams.application.metadata.name;
+        const isPromote = CDPipelineAppsToPromoteSet.has(appName);
+
         const applicationVerifiedImageStream =
           enrichedApplicationWithItsImageStreams.applicationImageStreams &&
           enrichedApplicationWithItsImageStreams.applicationImageStreams.find(
@@ -81,30 +103,35 @@ export const useEnrichedApplicationsWithArgoApplications = ({
 
         const argoApplicationByCodebaseName = argoApplications.find(
           (argoApplication) =>
-            argoApplication.metadata.labels['app.edp.epam.com/app-name'] ===
-            enrichedApplicationWithItsImageStreams.application.metadata.name
+            argoApplication.metadata.labels['app.edp.epam.com/app-name'] === appName
         );
 
-        const imageStreamByStageOrder = getImageStreamByStageOrder(
-          enrichedApplicationWithItsImageStreams.applicationImageStreams,
-          stageOrder
-        );
+        const applicationImageStream = isPromote
+          ? getImageStreamByStageOrder(
+              enrichedApplicationWithItsImageStreams.applicationImageStreams,
+              stageOrder
+            )
+          : getImageStreamByToPromoteFlag(
+              enrichedApplicationWithItsImageStreams.applicationImageStreams
+            );
 
         return {
           ...enrichedApplicationWithItsImageStreams,
-          applicationImageStream: imageStreamByStageOrder,
+          applicationImageStream: applicationImageStream,
           applicationVerifiedImageStream: applicationVerifiedImageStream,
           argoApplication: argoApplicationByCodebaseName,
         };
       })
     );
   }, [
-    CDPipelineName,
-    argoApplications,
+    isStageLoading,
     enrichedApplicationsWithItsImageStreams,
+    CDPipelineAppsToPromoteSet,
+    argoApplications,
+    getImageStreamByToPromoteFlag,
     getImageStreamByStageOrder,
     stageOrder,
+    CDPipelineName,
     stage,
-    isStageLoading,
   ]);
 };

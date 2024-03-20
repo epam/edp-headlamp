@@ -43,8 +43,6 @@ export const FormActions = () => {
         skipTLSVerify,
       });
 
-      console.log(newClusterSecretData);
-
       await createSecret({
         secretData: newClusterSecretData,
       });

@@ -9,8 +9,6 @@ import { EditProps } from './types';
 export const Edit = ({ formData }: EditProps) => {
   const baseDefaultValues = useDefaultValues({ formData });
 
-  console.log(baseDefaultValues);
-
   return (
     <FormContextProvider
       formSettings={{

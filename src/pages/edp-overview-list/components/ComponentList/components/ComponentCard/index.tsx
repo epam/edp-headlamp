@@ -14,6 +14,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
     spec: { url, icon },
     metadata: { name },
   } = component;
+
   const _url = !/^https?:\/\//i.test(url) ? `https://${url}` : url;
   const buttonRef = React.createRef<HTMLButtonElement>();
   const { handleOpenResourceActionListMenu } =
