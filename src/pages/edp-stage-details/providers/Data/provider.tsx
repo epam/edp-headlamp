@@ -6,6 +6,8 @@ import { useCDPipelineStageListByCDPipelineNameQuery } from '../../../../k8s/EDP
 import { useCodebasesByTypeLabelQuery } from '../../../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
 import { useEnrichedApplicationsWithImageStreamsQuery } from '../../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../../../k8s/EDPCodebase/labels';
+import { useQuickLinksQuery } from '../../../../k8s/QuickLink/hooks/useQuickLinksQuery';
+import { useQuickLinksURLsQuery } from '../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { DataContext } from './context';
 
@@ -41,7 +43,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
     },
   });
 
-  const { data: codebases } = useCodebasesByTypeLabelQuery({
+  const codebasesQuery = useCodebasesByTypeLabelQuery({
     props: {
       namespace,
       codebaseType: CODEBASE_TYPES.SYSTEM,
@@ -49,24 +51,68 @@ export const DataContextProvider: React.FC = ({ children }) => {
   });
 
   const gitOpsCodebase =
-    codebases?.items.find(
+    codebasesQuery.data?.items.find(
       (el) => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
     ) ?? null;
 
+  const QuickLinksQuery = useQuickLinksQuery({
+    props: {
+      namespace: namespace,
+    },
+  });
+
+  const QuickLinksURLsQuery = useQuickLinksURLsQuery(namespace);
+
   const DataContextValue = React.useMemo(
     () => ({
-      CDPipeline: CDPipelineQuery.data,
-      stages: stagesQuery.data,
-      enrichedApplications:
-        !isEnrichedApplicationsWithImageStreamsQueryLoading && enrichedApplications,
-      gitOpsCodebase,
+      CDPipeline: {
+        data: CDPipelineQuery.data,
+        isLoading: CDPipelineQuery.isLoading,
+        error: CDPipelineQuery.error,
+      },
+      stages: {
+        data: stagesQuery.data?.items,
+        isLoading: stagesQuery.isLoading,
+        error: stagesQuery.error,
+      },
+      enrichedApplications: {
+        data: enrichedApplications,
+        isLoading: isEnrichedApplicationsWithImageStreamsQueryLoading,
+        error: null,
+      },
+      gitOpsCodebase: {
+        data: gitOpsCodebase,
+        isLoading: codebasesQuery.isLoading,
+        error: null,
+      },
+      QuickLinks: {
+        data: QuickLinksQuery.data?.items,
+        isLoading: QuickLinksQuery.isLoading,
+        error: QuickLinksQuery.error,
+      },
+      QuickLinksURLs: {
+        data: QuickLinksURLsQuery.data,
+        isLoading: QuickLinksURLsQuery.isLoading,
+        error: QuickLinksURLsQuery.error,
+      },
     }),
     [
       CDPipelineQuery.data,
+      CDPipelineQuery.error,
+      CDPipelineQuery.isLoading,
+      QuickLinksQuery.data?.items,
+      QuickLinksQuery.error,
+      QuickLinksQuery.isLoading,
+      QuickLinksURLsQuery.data,
+      QuickLinksURLsQuery.error,
+      QuickLinksURLsQuery.isLoading,
+      codebasesQuery.isLoading,
       enrichedApplications,
       gitOpsCodebase,
       isEnrichedApplicationsWithImageStreamsQueryLoading,
       stagesQuery.data,
+      stagesQuery.error,
+      stagesQuery.isLoading,
     ]
   );
 

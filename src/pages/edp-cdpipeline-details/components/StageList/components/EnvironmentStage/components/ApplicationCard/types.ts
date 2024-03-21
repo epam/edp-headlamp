@@ -6,4 +6,5 @@ export interface ApplicationCardProps {
   stage: EDPCDPipelineStageKubeObjectInterface;
   application: EDPCodebaseKubeObjectInterface;
   argoApplication: ApplicationKubeObjectInterface;
+  QuickLinksURLS: Record<string, string>;
 }

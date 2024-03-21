@@ -1,5 +1,4 @@
 import { Icon } from '@iconify/react';
-import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, IconButton, Link as MuiLink, useTheme } from '@mui/material';
 import React from 'react';
 import { TableColumn } from '../../../../../../../components/Table/types';
@@ -7,7 +6,6 @@ import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObjectInterface } from '../../../../../../../k8s/QuickLink/types';
 import { useResourceActionListContext } from '../../../../../../../providers/ResourceActionList/hooks';
 import { HeadlampKubeObject } from '../../../../../../../types/k8s';
-import { routeQuickLinkDetails } from '../../../../edp-quick-link-details/route';
 import { useStyles } from '../styles';
 
 export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObjectInterface>>[] => {
@@ -33,19 +31,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
         id: 'name',
         label: 'Name',
         columnSortableValuePath: 'metadata.name',
-        render: ({ metadata: { name, namespace } }) => {
-          return (
-            <Link
-              routeName={routeQuickLinkDetails.path}
-              params={{
-                name,
-                namespace,
-              }}
-            >
-              {name}
-            </Link>
-          );
-        },
+        render: ({ metadata: { name } }) => name,
         width: '40%',
       },
       {

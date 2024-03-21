@@ -1,3 +1,5 @@
+import { QuickLinkKubeObjectInterface } from '../../k8s/QuickLink/types';
+
 export interface QuickLinkExternalLinkProps {
   icon: string;
   externalLink: string;
@@ -12,6 +14,7 @@ export interface QuickLinkExternalLinkProps {
       [key: string]: string;
     };
   };
+  QuickLinkComponent?: QuickLinkKubeObjectInterface;
   variant?: 'icon' | 'text';
   size?: 'small' | 'medium' | 'large';
 }

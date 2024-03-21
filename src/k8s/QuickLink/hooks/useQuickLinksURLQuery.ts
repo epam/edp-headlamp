@@ -1,13 +1,7 @@
 import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { useQuickLinksQuery } from './useQuickLinksQuery';
 
-type QuickLinkName = string;
-
-type QuickLinkURL = string;
-
-export type QuickLinksURLS = {
-  [componentName: QuickLinkName]: QuickLinkURL;
-};
+export type QuickLinksURLS = Record<string, string>;
 
 export const useQuickLinksURLsQuery = (namespace?: string) => {
   return useQuickLinksQuery<QuickLinksURLS>({

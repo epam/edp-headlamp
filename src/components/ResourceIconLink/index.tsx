@@ -29,12 +29,12 @@ const DisabledResourceIconLink = ({
       Open in {name}
     </Button>
   ) : variant === 'icon' ? (
-    <Tooltip title={tooltipTitle}>
-      <span>
+    <Tooltip title={<div>{tooltipTitle}</div>}>
+      <div>
         <IconButton disabled style={!withoutDisabledStyle ? { opacity: 0.5 } : {}} size={size}>
           <Icon icon={icon} color={theme.palette.grey['500']} width="20" />
         </IconButton>
-      </span>
+      </div>
     </Tooltip>
   ) : null;
 };

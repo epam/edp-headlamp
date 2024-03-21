@@ -275,8 +275,8 @@ export const Applications = ({
       newDeployPipelineRunNames,
       deployPipelineRunTemplate,
       {
-        generateName: `deploy-${CDPipeline.metadata.name}-${stage.spec.name}`,
-        CDPipelineLabel: CDPipeline.metadata.name,
+        generateName: `deploy-${CDPipeline.data.metadata.name}-${stage.spec.name}`,
+        CDPipelineLabel: CDPipeline.data.metadata.name,
         stageLabel: stage.metadata.name,
         pipelineTypeLabel: 'deploy',
         applicationsPayloadParam: {
@@ -302,7 +302,7 @@ export const Applications = ({
         },
         CDPipelineParam: {
           name: 'CDPIPELINE',
-          value: CDPipeline.metadata.name,
+          value: CDPipeline.data.metadata.name,
         },
         kubeConfigSecretParam: {
           name: 'KUBECONFIG_SECRET_NAME',
@@ -360,7 +360,7 @@ export const Applications = ({
         <Grid item xs={12}>
           <Table<EnrichedApplicationWithArgoApplication>
             data={enrichedApplicationsWithArgoApplications}
-            isLoading={!enrichedApplicationsWithArgoApplications}
+            isLoading={enrichedApplicationsWithArgoApplications === null}
             columns={columns}
             upperColumns={upperColumns}
             handleSelectRowClick={handleSelectRowClick}

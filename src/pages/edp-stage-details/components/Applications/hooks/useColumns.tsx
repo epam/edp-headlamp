@@ -50,7 +50,7 @@ export const useColumns = (
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
   const { gitOpsCodebase } = useDataContext();
   const {
-    stage: { data: stage },
+    stage: { data: stage, isLoading: isStageLoading },
   } = useDynamicDataContext();
   const _createArgoCDLink = React.useCallback(
     (argoApplication: ApplicationKubeObjectInterface) =>
@@ -63,10 +63,16 @@ export const useColumns = (
     [QuickLinksURLS]
   );
 
+  const isLoading = gitOpsCodebase === null || isStageLoading;
+
   const { setDialog } = useDialogContext();
 
-  return React.useMemo(
-    () => [
+  return React.useMemo(() => {
+    if (isLoading) {
+      return [];
+    }
+
+    return [
       {
         id: 'health',
         label: 'Health',
@@ -208,7 +214,7 @@ export const useColumns = (
                 <ResourceIconLink
                   tooltipTitle={'Go to the Source Code'}
                   link={LinkCreationService.git.createGitOpsValuesYamlFileLink(
-                    gitOpsCodebase?.status.gitWebUrl,
+                    gitOpsCodebase.data?.status.gitWebUrl,
                     CDPipelineName,
                     stage?.spec.name,
                     appName,
@@ -376,16 +382,18 @@ export const useColumns = (
           );
         },
       },
-    ],
-    [
-      CDPipelineName,
-      _createArgoCDLink,
-      gitOpsCodebase,
-      handleSelectRowClick,
-      selected,
-      setDialog,
-      stage,
-      theme,
-    ]
-  );
+    ];
+  }, [
+    CDPipelineName,
+    _createArgoCDLink,
+    gitOpsCodebase.data,
+    handleSelectRowClick,
+    isLoading,
+    selected,
+    setDialog,
+    stage?.spec.clusterName,
+    stage?.spec.name,
+    stage?.spec.namespace,
+    theme.palette.grey,
+  ]);
 };

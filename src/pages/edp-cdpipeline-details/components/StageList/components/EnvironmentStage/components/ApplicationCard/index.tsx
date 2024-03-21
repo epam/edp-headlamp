@@ -18,7 +18,6 @@ import {
   SYSTEM_QUICK_LINKS,
   SYSTEM_QUICK_LINKS_LABELS,
 } from '../../../../../../../../k8s/QuickLink/constants';
-import { useQuickLinksURLsQuery } from '../../../../../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { useDialogContext } from '../../../../../../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../../../../widgets/PodsLogViewer/constants';
@@ -35,10 +34,13 @@ const formatDate = (date: string): string => {
   return `${formattedDate} (${timeAgo})`;
 };
 
-export const ApplicationCard = ({ stage, application, argoApplication }: ApplicationCardProps) => {
+export const ApplicationCard = ({
+  stage,
+  application,
+  argoApplication,
+  QuickLinksURLS,
+}: ApplicationCardProps) => {
   const theme = useTheme();
-
-  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(stage.metadata.namespace);
 
   const argoAppHealthStatus = argoApplication?.status?.health?.status;
   const argoAppSyncStatus = argoApplication?.status?.sync?.status;

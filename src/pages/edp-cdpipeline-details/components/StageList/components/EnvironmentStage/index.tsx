@@ -10,10 +10,8 @@ import {
   SYSTEM_QUICK_LINKS,
   SYSTEM_QUICK_LINKS_LABELS,
 } from '../../../../../../k8s/QuickLink/constants';
-import { useQuickLinksURLsQuery } from '../../../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { LinkCreationService } from '../../../../../../services/link-creation';
 import { routeEDPArgoCDIntegration } from '../../../../../edp-configuration/pages/edp-argocd-integration/route';
-import { routeQuickLinkDetails } from '../../../../../edp-configuration/pages/edp-quick-link-details/route';
 import { routeEDPStageDetails } from '../../../../../edp-stage-details/route';
 import { usePageFilterContext } from '../../../../hooks/usePageFilterContext';
 import { ApplicationCard } from './components/ApplicationCard';
@@ -23,11 +21,15 @@ import { EnvironmentStageProps } from './types';
 export const EnvironmentStage = ({
   stageWithApplicationsData: { stage, applications },
   CDPipeline,
+  QuickLinksURLS,
+  QuickLinks,
 }: EnvironmentStageProps) => {
   const theme = useTheme();
 
-  const namespace = stage.metadata.namespace;
-  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(stage.metadata.namespace);
+  const grafanaQuickLink =
+    QuickLinks && QuickLinks?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.GRAFANA);
+  const kibanaQuickLink =
+    QuickLinks && QuickLinks?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.KIBANA);
 
   const stageIsLoaded = stage?.status;
 
@@ -122,13 +124,7 @@ export const EnvironmentStage = ({
                         QuickLinksURLS?.[SYSTEM_QUICK_LINKS.GRAFANA],
                         stage.spec.namespace
                       )}
-                      configurationLink={{
-                        routeName: routeQuickLinkDetails.path,
-                        routeParams: {
-                          name: SYSTEM_QUICK_LINKS.GRAFANA,
-                          namespace,
-                        },
-                      }}
+                      QuickLinkComponent={grafanaQuickLink}
                       variant="icon"
                       size="small"
                     />
@@ -142,13 +138,7 @@ export const EnvironmentStage = ({
                         QuickLinksURLS?.[SYSTEM_QUICK_LINKS.KIBANA],
                         stage.spec.namespace
                       )}
-                      configurationLink={{
-                        routeName: routeQuickLinkDetails.path,
-                        routeParams: {
-                          name: SYSTEM_QUICK_LINKS.KIBANA,
-                          namespace,
-                        },
-                      }}
+                      QuickLinkComponent={kibanaQuickLink}
                       variant="icon"
                       size="small"
                     />
@@ -183,6 +173,7 @@ export const EnvironmentStage = ({
                     stage={stage}
                     application={el.application}
                     argoApplication={el.argoApplication}
+                    QuickLinksURLS={QuickLinksURLS}
                   />
                 ) : null;
               })}

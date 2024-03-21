@@ -23,8 +23,6 @@ import RouteEDPJiraIntegrationPage from '../pages/edp-configuration/pages/edp-ji
 import { routeEDPJiraIntegration } from '../pages/edp-configuration/pages/edp-jira-integration/route';
 import RouteEDPNexusIntegrationPage from '../pages/edp-configuration/pages/edp-nexus-integration/page';
 import { routeEDPNexusIntegration } from '../pages/edp-configuration/pages/edp-nexus-integration/route';
-import RouteEDPQuickLinkDetailsPage from '../pages/edp-configuration/pages/edp-quick-link-details/page';
-import { routeQuickLinkDetails } from '../pages/edp-configuration/pages/edp-quick-link-details/route';
 import RouteEDPQuickLinkListPage from '../pages/edp-configuration/pages/edp-quick-link-list/page';
 import { routeQuickLinkList } from '../pages/edp-configuration/pages/edp-quick-link-list/route';
 import RouteEDPRegistryListPage from '../pages/edp-configuration/pages/edp-registry-list/page';
@@ -71,10 +69,6 @@ export default [
   {
     ...routeQuickLinkList,
     component: () => <RouteEDPQuickLinkListPage />,
-  },
-  {
-    ...routeQuickLinkDetails,
-    component: () => <RouteEDPQuickLinkDetailsPage />,
   },
   // Marketplace
 

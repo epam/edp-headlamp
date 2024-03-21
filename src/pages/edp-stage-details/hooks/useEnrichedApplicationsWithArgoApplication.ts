@@ -27,9 +27,9 @@ export const useEnrichedApplicationsWithArgoApplications = ({
     stage: { data: stage, isLoading: isStageLoading },
   } = useDynamicDataContext();
 
-  const inputDockerStreams = CDPipeline?.spec.inputDockerStreams;
-  const appsToPromote = CDPipeline?.spec.applicationsToPromote;
-  const CDPipelineName = CDPipeline?.metadata.name;
+  const inputDockerStreams = CDPipeline.data?.spec.inputDockerStreams;
+  const appsToPromote = CDPipeline.data?.spec.applicationsToPromote;
+  const CDPipelineName = CDPipeline.data?.metadata.name;
   const stageOrder = stage?.spec.order;
 
   const normalizedInputDockerStreamNames = inputDockerStreams?.map((el) => el.replaceAll('.', '-'));
@@ -57,7 +57,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
         );
       }
 
-      const previousStage = findPreviousStage(stages.items, order);
+      const previousStage = findPreviousStage(stages.data, order);
 
       return (
         imageStreams &&
@@ -84,7 +84,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
 
   return React.useMemo(() => {
     if (isStageLoading) {
-      return [];
+      return null;
     }
 
     return (

@@ -2,6 +2,8 @@ import { CircularProgress, Grid, useTheme } from '@mui/material';
 import React from 'react';
 import { EmptyList } from '../../../../components/EmptyList';
 import { HorizontalScrollContainer } from '../../../../components/HorizontalScrollContainer';
+import { useQuickLinksQuery } from '../../../../k8s/QuickLink/hooks/useQuickLinksQuery';
+import { useQuickLinksURLsQuery } from '../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { EnvironmentStage } from './components/EnvironmentStage';
@@ -9,10 +11,25 @@ import { EnvironmentStage } from './components/EnvironmentStage';
 export const StageList = () => {
   const theme = useTheme();
   const { CDPipeline, stages, stagesWithApplicationsData } = useDynamicDataContext();
-
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
+  const { data: QuickLinks, isLoading: isQuickLinksLoading } = useQuickLinksQuery({
+    props: {
+      namespace: CDPipeline.data?.metadata.namespace,
+    },
+  });
   const isLoading = React.useMemo(() => {
-    return CDPipeline.isLoading || stages.isLoading || stagesWithApplicationsData.isLoading;
-  }, [CDPipeline, stages, stagesWithApplicationsData]);
+    return (
+      CDPipeline.isLoading ||
+      stages.isLoading ||
+      stagesWithApplicationsData.isLoading ||
+      isQuickLinksLoading
+    );
+  }, [
+    CDPipeline.isLoading,
+    isQuickLinksLoading,
+    stages.isLoading,
+    stagesWithApplicationsData.isLoading,
+  ]);
 
   const { filterFunction } = usePageFilterContext();
 
@@ -43,6 +60,8 @@ export const StageList = () => {
                 <EnvironmentStage
                   CDPipeline={CDPipeline.data}
                   stageWithApplicationsData={stageWithApplicationsData}
+                  QuickLinksURLS={QuickLinksURLS}
+                  QuickLinks={QuickLinks.items}
                 />
               </Grid>
             );

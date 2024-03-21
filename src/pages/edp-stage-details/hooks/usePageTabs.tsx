@@ -59,7 +59,7 @@ export const usePageTabs = () => {
   }, [deployPipelineRuns]);
 
   const enrichedApplicationsWithArgoApplications = useEnrichedApplicationsWithArgoApplications({
-    enrichedApplicationsWithItsImageStreams: enrichedApplications,
+    enrichedApplicationsWithItsImageStreams: enrichedApplications.data,
     argoApplications: argoApplications.data,
   });
 
