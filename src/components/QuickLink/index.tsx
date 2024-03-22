@@ -19,7 +19,6 @@ export const QuickLink = ({
 }: QuickLinkExternalLinkProps) => {
   const { setDialog } = useDialogContext();
 
-
   const renderDisabledTooltip = React.useCallback(() => {
     return (
       <>

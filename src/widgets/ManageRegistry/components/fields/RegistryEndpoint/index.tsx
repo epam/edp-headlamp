@@ -1,7 +1,9 @@
 import React from 'react';
 import { useFormContext as useHookFormContext } from 'react-hook-form';
+import { VALIDATED_PROTOCOLS } from '../../../../../constants/validatedProtocols';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../k8s/ConfigMap/constants';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { getValidURLPattern } from '../../../../../utils/checks/getValidURLPattern';
 import { REGISTRY_NAMES } from '../../../names';
 
 const TYPE_EMPTY_MESSAGE_MAP = {
@@ -39,6 +41,10 @@ export const RegistryEndpoint = () => {
     <FormTextField
       {...register(REGISTRY_NAMES.REGISTRY_HOST, {
         required: TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue] || 'Enter registry endpoint URL.',
+        pattern: {
+          value: getValidURLPattern(VALIDATED_PROTOCOLS.NO_PROTOCOL),
+          message: 'Enter a valid URL without protocol.',
+        },
       })}
       label={'Registry Endpoint'}
       placeholder={'Enter registry endpoint'}
