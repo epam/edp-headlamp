@@ -3,7 +3,7 @@
  */
 
 import { jest } from '@jest/globals';
-import { GIT_SERVER_FORM_NAMES } from '../../../../widgets/ManageGitServer/names';
+import { GIT_SERVER_FORM_NAMES } from '../../../../widgets/ManageGitServer/components/GitServer/names';
 import { createGitServerInstance } from './index';
 
 beforeEach(() => {

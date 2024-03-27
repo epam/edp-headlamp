@@ -24,8 +24,8 @@ export const URL = () => {
       {...register(DEFECT_DOJO_INTEGRATION_SECRET_FORM_NAMES.url.name, {
         required: 'Enter the DefectDojo URL.',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.STRICT_HTTPS),
-          message: 'Enter a valid URL with HTTPS protocol.',
+          value: getValidURLPattern(VALIDATED_PROTOCOLS.HTTP_OR_HTTPS),
+          message: 'Enter a valid URL with HTTP/HTTPS protocol.',
         },
       })}
       label={'URL'}

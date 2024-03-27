@@ -24,8 +24,8 @@ export const URL = () => {
       {...register(SONAR_INTEGRATION_SECRET_FORM_NAMES.url.name, {
         required: 'Enter the SonarQube URL.',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.STRICT_HTTP),
-          message: 'Enter a valid URL with HTTP protocol.',
+          value: getValidURLPattern(VALIDATED_PROTOCOLS.HTTP_OR_HTTPS),
+          message: 'Enter a valid URL with HTTP/HTTPS protocol.',
         },
       })}
       label={'URL'}

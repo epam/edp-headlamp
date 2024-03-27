@@ -1,5 +1,5 @@
 export const STATUS_COLOR = {
-  SUCCESS: '#65C6BE',
+  SUCCESS: '#18BE94',
   ERROR: '#FF005C',
   SUSPENDED: '#766f94',
   IN_PROGRESS: '#0094FF',
@@ -8,7 +8,7 @@ export const STATUS_COLOR = {
 } as const;
 
 export const CHART_STATUS_COLOR = {
-  SUCCESS: '#65C6BE',
+  SUCCESS: '#18BE94',
   ERROR: '#FF005C',
   SUSPENDED: '#FFC754',
   IN_PROGRESS: '#9955EF',

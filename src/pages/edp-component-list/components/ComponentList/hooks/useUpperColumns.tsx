@@ -28,7 +28,7 @@ export const useUpperColumns = ({
                   <Typography variant={'body1'}>{numSelected} item(s) selected</Typography>
                 ) : null}
               </Box>
-              <Tooltip title={'Uninstall selected components'}>
+              <Tooltip title={'Delete selected components'}>
                 <div>
                   <IconButton
                     onClick={onUninstallClick}

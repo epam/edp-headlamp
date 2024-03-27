@@ -1,0 +1,34 @@
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+import { FormTextField } from '../../../../../../../providers/Form/components/FormTextField';
+import { GIT_SERVER_FORM_NAMES } from '../../../names';
+import { GitServerFormValues } from '../../../types';
+
+export const SSHPort = () => {
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext<GitServerFormValues>();
+
+  return (
+    <FormTextField
+      {...register(GIT_SERVER_FORM_NAMES.sshPort.name, {
+        required: 'Enter the SSH port for Git server communication.',
+        pattern: {
+          value: /^(\d{1,4}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/,
+          message: 'Enter correct ssh port',
+        },
+        setValueAs: (value: string) => (value ? Number(value) : value),
+      })}
+      label={'SSH port'}
+      title={'Specify the SSH port used for Git server communication (default is 22).'}
+      placeholder={'Enter SSH port'}
+      control={control}
+      errors={errors}
+      TextFieldProps={{
+        type: 'number',
+      }}
+    />
+  );
+};

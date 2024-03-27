@@ -1,109 +1,62 @@
-import { Icon } from '@iconify/react';
-import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import React from 'react';
-import { CreateItemAccordion } from '../../components/CreateItemAccordion';
-import { StatusIcon } from '../../components/StatusIcon';
-import { ICONS } from '../../icons/iconify-icons-mapping';
-import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
+import { GIT_PROVIDERS } from '../../constants/gitProviders';
+import { MultiFormContextProvider } from '../../providers/MultiForm';
 import { FORM_MODES } from '../../types/forms';
-import { rem } from '../../utils/styling/rem';
-import { Create } from './components/Create';
-import { Edit } from './components/Edit';
+import { Actions } from './components/Actions';
+import { CredentialsForm } from './components/Credentials';
+import { GitServerForm } from './components/GitServer';
+import { DataContextProvider } from './providers/Data';
 import { ManageGitServerProps } from './types';
+import { getGitServerSecret } from './utils/getGitServerSecret';
 
-export const ManageGitServer = ({ formData }: ManageGitServerProps) => {
-  const { gitServers } = formData;
+export const ManageGitServer = ({
+  gitServer,
+  repositorySecrets,
+  handleClosePanel,
+}: ManageGitServerProps) => {
+  const [chosenGitProvider, setChosenGitProvider] = React.useState<GIT_PROVIDERS>(
+    GIT_PROVIDERS.GERRIT
+  );
 
-  const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
-  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpandedPanel(isExpanded ? panel : null);
-  };
-  const handleClosePanel = () => setExpandedPanel(null);
+  const gitServerSecret = React.useMemo(
+    () => getGitServerSecret(gitServer, repositorySecrets, chosenGitProvider),
+    [chosenGitProvider, gitServer, repositorySecrets]
+  );
+
+  const gitServerFormMode = gitServer ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+  const credentialsFormMode = gitServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+
+  const gitServerFormRef = React.useRef<HTMLFormElement>(null);
+  const credentialsFormRef = React.useRef<HTMLFormElement>(null);
 
   return (
-    <Grid container spacing={2} data-testid="form">
-      <Grid item xs={12}>
-        <CreateItemAccordion
-          isExpanded={expandedPanel === 'create' || !gitServers.length}
-          onChange={handleChange('create')}
-          title={'Add Git Server'}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Create
-                formData={{
-                  mode: FORM_MODES.CREATE,
-                  gitServer: null,
-                  repositorySecrets: formData.repositorySecrets,
-                  handleClosePanel,
-                }}
-              />
-            </Grid>
+    <DataContextProvider
+      gitServer={gitServer}
+      gitServerSecret={gitServerSecret}
+      gitServerFormMode={gitServerFormMode}
+      credentialsFormMode={credentialsFormMode}
+      chosenGitProvider={chosenGitProvider}
+      setChosenGitProvider={setChosenGitProvider}
+      handleClosePanel={handleClosePanel}
+    >
+      <MultiFormContextProvider>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <GitServerForm mode={gitServerFormMode} formRef={gitServerFormRef} />
           </Grid>
-        </CreateItemAccordion>
-      </Grid>
-      {gitServers.map((_gitServer) => {
-        const gitServer = _gitServer?.jsonData;
-        const connected = gitServer?.status?.connected;
-        const error = gitServer?.status?.error;
-
-        const [icon, color] = EDPGitServerKubeObject.getStatusIcon(connected);
-
-        const gitServerName = gitServer.metadata.name;
-
-        const editGitServerFormData = {
-          gitServer,
-          repositorySecrets: formData.repositorySecrets,
-          mode: FORM_MODES.EDIT,
-          handleClosePanel,
-        };
-
-        const isExpanded = expandedPanel === gitServerName;
-
-        return (
-          <Grid item xs={12} key={gitServerName}>
-            <Accordion expanded={isExpanded} onChange={handleChange(gitServerName)}>
-              <AccordionSummary
-                expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
-                style={{
-                  cursor: 'pointer',
-                }}
-              >
-                <Typography variant={'h6'}>
-                  <Grid container spacing={1} alignItems={'center'}>
-                    <Grid item style={{ marginRight: rem(5) }}>
-                      <StatusIcon
-                        icon={icon}
-                        color={color}
-                        Title={
-                          <>
-                            <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                              {`Connected: ${connected === undefined ? 'Unknown' : connected}`}
-                            </Typography>
-                            {!!error && (
-                              <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                                {error}
-                              </Typography>
-                            )}
-                          </>
-                        }
-                      />
-                    </Grid>
-                    <Grid item>{gitServerName}</Grid>
-                  </Grid>
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    {isExpanded ? <Edit formData={editGitServerFormData} /> : null}
-                  </Grid>
-                </Grid>
-              </AccordionDetails>
-            </Accordion>
+          <Grid item xs={12}>
+            <CredentialsForm
+              mode={credentialsFormMode}
+              gitServerSecret={gitServerSecret}
+              formRef={credentialsFormRef}
+            />
           </Grid>
-        );
-      })}
-    </Grid>
+          <Grid item xs={12}>
+            <Actions formRefs={[gitServerFormRef, credentialsFormRef]} />
+          </Grid>
+        </Grid>
+      </MultiFormContextProvider>
+    </DataContextProvider>
   );
 };
