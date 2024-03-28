@@ -1,25 +1,22 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 import { FormTextFieldEncoded } from '../../../../../../../providers/Form/components/FormTextFieldEncoded';
 import { FORM_MODES } from '../../../../../../../types/forms';
+import { useGitServerFormsContext } from '../../../../../hooks/useGitServerFormsContext';
+import { CREDENTIALS_FORM_NAME } from '../../../../../names';
 import { useDataContext } from '../../../../../providers/Data/hooks';
-import { CREDENTIALS_FORM_NAME } from '../../../names';
-import { CredentialsFormValues } from '../../../types';
 
 export const SSHPrivateKey = () => {
-  const {
-    register,
-    control,
-    formState: { errors },
-  } = useFormContext<CredentialsFormValues>();
+  const { gitServerSecret } = useDataContext();
 
-  const { gitServerSecret, credentialsFormMode } = useDataContext();
+  const {
+    forms: { credentials: credentialsForm },
+  } = useGitServerFormsContext();
 
   const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 
   return (
     <FormTextFieldEncoded
-      {...register(CREDENTIALS_FORM_NAME.sshPrivateKey.name, {
+      {...credentialsForm.form.register(CREDENTIALS_FORM_NAME.sshPrivateKey.name, {
         required: 'Paste your private SSH key for authentication.',
       })}
       label={'Private SSH key'}
@@ -27,8 +24,8 @@ export const SSHPrivateKey = () => {
         'Paste your private SSH key for secure authentication. Ensure it corresponds to the public key registered on your Git server.'
       }
       placeholder={'-----BEGIN OPENSSH PRIVATE KEY-----\n'}
-      control={control}
-      errors={errors}
+      control={credentialsForm.form.control}
+      errors={credentialsForm.form.formState.errors}
       TextFieldProps={{
         multiline: true,
         minRows: 6,
@@ -37,7 +34,7 @@ export const SSHPrivateKey = () => {
           gitServerSecretOwnerReference &&
           `This field value is managed by ${gitServerSecretOwnerReference}`,
       }}
-      disabled={credentialsFormMode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
+      disabled={credentialsForm.mode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
     />
   );
 };

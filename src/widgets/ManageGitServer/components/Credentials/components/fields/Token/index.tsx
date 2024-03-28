@@ -1,31 +1,28 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 import { FormTextFieldPassword } from '../../../../../../../providers/Form/components/FormTextFieldPassword';
 import { FORM_MODES } from '../../../../../../../types/forms';
+import { useGitServerFormsContext } from '../../../../../hooks/useGitServerFormsContext';
+import { CREDENTIALS_FORM_NAME } from '../../../../../names';
 import { useDataContext } from '../../../../../providers/Data/hooks';
-import { CREDENTIALS_FORM_NAME } from '../../../names';
-import { CredentialsFormValues } from '../../../types';
 
 export const Token = () => {
-  const {
-    register,
-    control,
-    formState: { errors },
-  } = useFormContext<CredentialsFormValues>();
+  const { gitServerSecret } = useDataContext();
 
-  const { gitServerSecret, credentialsFormMode } = useDataContext();
+  const {
+    forms: { credentials: credentialsForm },
+  } = useGitServerFormsContext();
 
   const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 
   return (
     <FormTextFieldPassword
-      {...register(CREDENTIALS_FORM_NAME.token.name, {
+      {...credentialsForm.form.register(CREDENTIALS_FORM_NAME.token.name, {
         required: 'Enter your access token',
       })}
       label={'Access token'}
-      control={control}
-      errors={errors}
-      disabled={credentialsFormMode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
+      control={credentialsForm.form.control}
+      errors={credentialsForm.form.formState.errors}
+      disabled={credentialsForm.mode === FORM_MODES.EDIT && !!gitServerSecretOwnerReference}
     />
   );
 };

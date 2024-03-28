@@ -47,19 +47,15 @@ describe('testing useResourceCRUDMutation hook', () => {
     jest.spyOn(QuickLinkKubeObject.apiEndpoint, 'post').mockResolvedValue(mutationDataMock);
 
     await act(async () => {
-      console.log('Before renderHook');
       const { result } = renderHook(
         () => useResourceCRUDMutation('test', QuickLinkKubeObject, CRUD_TYPES.CREATE),
         {
           wrapper: wrapper,
         }
       );
-      console.log('After renderHook');
 
-      console.log('Before mutate');
       await new Promise((resolve) => setTimeout(resolve, 0));
       result.current.mutate(mutationDataMock);
-      console.log('After mutate');
       await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(result.current.data).toEqual(mutationDataMock);
@@ -80,19 +76,15 @@ describe('testing useResourceCRUDMutation hook', () => {
     jest.spyOn(QuickLinkKubeObject.apiEndpoint, 'put').mockRejectedValue({ error: 'error' });
 
     await act(async () => {
-      console.log('Before renderHook');
       const { result } = renderHook(
         () => useResourceCRUDMutation('test', QuickLinkKubeObject, CRUD_TYPES.EDIT),
         {
           wrapper: wrapper,
         }
       );
-      console.log('After renderHook');
 
-      console.log('Before mutate');
       await new Promise((resolve) => setTimeout(resolve, 0));
       result.current.mutate(mutationDataMock);
-      console.log('After mutate');
       await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(result.current.isError).toBe(true);

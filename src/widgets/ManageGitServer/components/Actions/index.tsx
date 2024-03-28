@@ -1,32 +1,22 @@
 import { Button, Stack } from '@mui/material';
 import React from 'react';
-import { useMultiFormContext } from '../../../../providers/MultiForm/hooks';
-import { ActionsProps } from './types';
+import { useGitServerFormsContext } from '../../hooks/useGitServerFormsContext';
 
-export const Actions = ({ formRefs }: ActionsProps) => {
-  const { resetAll } = useMultiFormContext();
-
-  const handleReset = () => {
-    resetAll();
-  };
-
-  const handleSubmit = () => {
-    formRefs.forEach((formRef) => {
-      formRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-    });
-  };
+export const Actions = () => {
+  const { resetAll, submitAll, isAnyFormDirty, isAnyFormSubmitting } = useGitServerFormsContext();
 
   return (
     <Stack direction="row" spacing={2} sx={{ justifyContent: 'flex-end' }}>
-      <Button onClick={handleReset} size="small" component={'button'}>
+      <Button onClick={resetAll} size="small" component={'button'} disabled={!isAnyFormDirty}>
         undo changes
       </Button>
       <Button
-        onClick={handleSubmit}
+        onClick={() => submitAll(true)}
         size={'small'}
         component={'button'}
         variant={'contained'}
         color={'primary'}
+        disabled={!isAnyFormDirty || isAnyFormSubmitting}
       >
         save
       </Button>

@@ -84,7 +84,7 @@ export const PageView = () => {
                     const isExpanded = expandedPanel === gitServerName;
 
                     return (
-                      <Grid item xs={12}>
+                      <Grid item xs={12} key={gitServer.metadata.uid}>
                         <Accordion expanded={isExpanded} onChange={handleChange(gitServerName)}>
                           <AccordionSummary
                             expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}

@@ -1,15 +1,16 @@
 import React from 'react';
+import { UseFormReturn } from 'react-hook-form';
 import { MultiFormContextProviderValue } from './types';
 
-export const MultiFormContext = React.createContext<MultiFormContextProviderValue>({
-  registerForm: () => {
-    //
-  },
-  unregisterForm: () => {
-    //
-  },
+export const MultiFormContext = React.createContext<MultiFormContextProviderValue<string>>({
+  forms: {},
+  sharedForm: {} as UseFormReturn<any, any, undefined>,
   resetAll: () => {
     //
   },
+  submitAll: () => {
+    //
+  },
   isAnyFormDirty: false,
+  isAnyFormSubmitting: false,
 });

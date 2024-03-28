@@ -1,10 +1,6 @@
-import { FORM_MODES, FormValues } from '../../../../types/forms';
+import { FORM_MODES } from '../../../../types/forms';
 import { ValueOf } from '../../../../types/global';
-import { GIT_SERVER_FORM_NAMES } from './names';
 
-export type GitServerFormValues = FormValues<typeof GIT_SERVER_FORM_NAMES>;
-
-export interface GitServerFormProps {
+export interface GitServerProps {
   mode: ValueOf<typeof FORM_MODES>;
-  formRef: React.MutableRefObject<HTMLFormElement>;
 }

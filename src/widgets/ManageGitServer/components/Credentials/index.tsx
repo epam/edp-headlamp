@@ -7,7 +7,7 @@ import { Create } from './components/Create';
 import { Edit } from './components/Edit';
 import { CredentialsFormProps } from './types';
 
-export const CredentialsForm = ({ mode, gitServerSecret, formRef }: CredentialsFormProps) => {
+export const CredentialsForm = ({ mode, gitServerSecret }: CredentialsFormProps) => {
   const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 
   return (
@@ -33,11 +33,7 @@ export const CredentialsForm = ({ mode, gitServerSecret, formRef }: CredentialsF
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        {mode === FORM_MODES.CREATE ? (
-          <Create formRef={formRef} />
-        ) : FORM_MODES.EDIT ? (
-          <Edit formRef={formRef} />
-        ) : null}
+        {mode === FORM_MODES.CREATE ? <Create /> : FORM_MODES.EDIT ? <Edit /> : null}
       </Grid>
     </Grid>
   );
