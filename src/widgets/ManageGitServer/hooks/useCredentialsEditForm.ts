@@ -96,10 +96,6 @@ export const useCredentialsEditForm = ({
     [gitServerSecret, editMutation, chosenGitProvider]
   );
 
-  // React.useEffect(() => {
-  //   form.reset(defaultValues, { keepDirty: false });
-  // }, [form, defaultValues]);
-
   return React.useMemo(
     () => ({ form, mutation: editMutation, handleSubmit }),
     [form, editMutation, handleSubmit]

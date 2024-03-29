@@ -23,9 +23,7 @@ export const useCredentialsCreateForm = ({
     CRUD_TYPES.CREATE
   );
 
-  const form = useForm<CredentialsFormValues>({
-    defaultValues: {},
-  });
+  const form = useForm<CredentialsFormValues>();
 
   const handleSubmit = React.useCallback(
     async (values: CredentialsFormValues) => {

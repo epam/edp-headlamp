@@ -13,12 +13,12 @@ import { useGitServerEditForm } from './hooks/useGitServerEditForm';
 import { useSharedForm } from './hooks/useSharedForm';
 import { GIT_SERVER_FORM_NAMES } from './names';
 import { DataContextProvider } from './providers/Data';
-import { FormName, ManageGitServerProps } from './types';
-import { getGitServerSecret } from './utils/getGitServerSecret';
+import { FormNames, ManageGitServerProps } from './types';
+import { getGitServerSecret } from './utils';
 
 const Form = ({ sharedForm, gitServerForm, credentialsForm, gitServerSecret }) => {
   return (
-    <MultiFormContextProvider<FormName>
+    <MultiFormContextProvider<FormNames>
       forms={{
         gitServer: gitServerForm,
         credentials: credentialsForm,
@@ -27,10 +27,10 @@ const Form = ({ sharedForm, gitServerForm, credentialsForm, gitServerSecret }) =
     >
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <GitServerForm mode={gitServerForm.mode} />
+          <GitServerForm />
         </Grid>
         <Grid item xs={12}>
-          <CredentialsForm gitServerSecret={gitServerSecret} mode={credentialsForm.mode} />
+          <CredentialsForm gitServerSecret={gitServerSecret} />
         </Grid>
         <Grid item xs={12}>
           <Actions />

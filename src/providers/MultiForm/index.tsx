@@ -7,13 +7,12 @@ export const MultiFormContextProvider = <FormName extends string>({
   forms,
   sharedForm,
 }: MultiFormContextProviderProps<FormName>) => {
-  const resetAll = React.useCallback(
-    () =>
-      Object.values<FormItem>(forms).forEach((formItem) =>
-        formItem.form.reset({}, { keepDirty: false })
-      ),
-    [forms]
-  );
+  const resetAll = React.useCallback(async () => {
+    const resetPromises = Object.values<FormItem>(forms).map((formItem) =>
+      formItem.form.reset({}, { keepDirty: false })
+    );
+    await Promise.all(resetPromises);
+  }, [forms]);
 
   const isAnyFormDirty = React.useMemo(
     () =>
@@ -43,7 +42,7 @@ export const MultiFormContextProvider = <FormName extends string>({
         }
       }
 
-      const submitPromises = [];
+      const formsToSubmit = [];
 
       for (const formName in forms) {
         const formItem = forms[formName];
@@ -53,16 +52,24 @@ export const MultiFormContextProvider = <FormName extends string>({
           form.formState.dirtyFields && Object.keys(form.formState.dirtyFields).length > 0;
 
         if (isFormDirty || !onlyDirty) {
-          submitPromises.push(formItem.onSubmit());
+          formsToSubmit.push(formItem);
         }
       }
 
-      Promise.all(submitPromises).then(() => {
-        for (const formName in forms) {
-          const values = forms[formName].form.getValues();
-          forms[formName].form.reset(values, { keepDirty: false });
+      const submitPromises = formsToSubmit.map((formItem) => formItem.onSubmit());
+
+      await Promise.all(submitPromises);
+      for (const formName in formsToSubmit) {
+        const formItem = formsToSubmit[formName];
+
+        if (!formItem) {
+          continue;
         }
-      });
+
+        const values = forms[formName].form.getValues();
+
+        await forms[formName].form.reset(values, { keepDirty: false });
+      }
     },
     [forms]
   );

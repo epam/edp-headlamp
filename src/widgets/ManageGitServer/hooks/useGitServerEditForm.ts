@@ -45,10 +45,6 @@ export const useGitServerEditForm = ({
     defaultValues: defaultValues,
   });
 
-  // React.useEffect(() => {
-  //   form.reset(defaultValues, { keepDirty: false });
-  // }, [form, defaultValues]);
-
   const handleSubmit = React.useCallback(
     async (values: GitServerFormValues) => {
       const transformedValues = {

@@ -1,29 +1,46 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 import { FormCheckbox } from '../../../../../providers/Form/components/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FieldEvent } from '../../../../../types/forms';
-import { REGISTRY_NAMES } from '../../../names';
+import { useRegistryFormsContext } from '../../../hooks/useRegistryFormsContext';
+import {
+  PULL_ACCOUNT_FORM_NAMES,
+  PUSH_ACCOUNT_FORM_NAMES,
+  SHARED_FORM_NAMES,
+} from '../../../names';
 
 export const UseSameAccount = () => {
   const {
-    register,
-    control,
-    formState: { errors },
-    watch,
-    setValue,
-  } = useFormContext();
+    forms: { pushAccount, pullAccount },
+    sharedForm,
+  } = useRegistryFormsContext();
 
-  const pushAccountUserNameFieldValue = watch(REGISTRY_NAMES.PUSH_ACCOUNT_USER);
-  const pushAccountPasswordFieldValue = watch(REGISTRY_NAMES.PUSH_ACCOUNT_PASSWORD);
+  const pushAccountUserNameFieldValue = pushAccount.form.watch(
+    PUSH_ACCOUNT_FORM_NAMES.pushAccountUser.name
+  );
+  const pushAccountPasswordFieldValue = pushAccount.form.watch(
+    PUSH_ACCOUNT_FORM_NAMES.pushAccountPassword.name
+  );
 
   return (
     <FormCheckbox
-      {...register(REGISTRY_NAMES.USE_SAME_ACCOUNT, {
+      {...sharedForm.register(SHARED_FORM_NAMES.useSameAccount.name, {
         onChange: ({ target: { value } }: FieldEvent) => {
           if (value) {
-            setValue(REGISTRY_NAMES.PULL_ACCOUNT_USER, pushAccountUserNameFieldValue);
-            setValue(REGISTRY_NAMES.PULL_ACCOUNT_PASSWORD, pushAccountPasswordFieldValue);
+            pullAccount.form.setValue(
+              PULL_ACCOUNT_FORM_NAMES.pullAccountUser.name,
+              pushAccountUserNameFieldValue,
+              {
+                shouldDirty: true,
+              }
+            );
+            pullAccount.form.setValue(
+              PULL_ACCOUNT_FORM_NAMES.pullAccountPassword.name,
+              pushAccountPasswordFieldValue,
+              {
+                shouldDirty: true,
+              }
+            );
           }
         },
       })}
@@ -33,8 +50,8 @@ export const UseSameAccount = () => {
           title={'Enables using the same account for both pull and push purposes.'}
         />
       }
-      control={control}
-      errors={errors}
+      control={sharedForm.control}
+      errors={sharedForm.formState.errors}
     />
   );
 };

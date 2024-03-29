@@ -1,10 +1,12 @@
-import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { CreateItemAccordion } from '../../../../components/CreateItemAccordion';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
+import { CONTAINER_REGISTRY_TYPE_LABEL_MAP } from '../../../../k8s/ConfigMap/constants';
+import { FORM_MODES } from '../../../../types/forms';
 import { ManageRegistry } from '../../../../widgets/ManageRegistry';
 import { menu } from '../../menu';
 import { REGISTRY_LIST_PAGE_DESCRIPTION } from './constants';
@@ -15,6 +17,15 @@ export const PageView = () => {
     data: { EDPConfigMap, pullAccountSecret, pushAccountSecret, tektonServiceAccount },
     isLoading,
   } = useDynamicDataContext();
+
+  const registryType = EDPConfigMap?.data.container_registry_type;
+
+  const mode = !!registryType ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+
+  const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
+  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpandedPanel(isExpanded ? panel : null);
+  };
 
   return (
     <PageWithSubMenu list={menu}>
@@ -31,21 +42,48 @@ export const PageView = () => {
           </Grid>
           <Grid item xs={12}>
             <LoadingWrapper isLoading={isLoading}>
-              <ManageRegistry
-                formData={{
-                  EDPConfigMap,
-                  pullAccountSecret,
-                  pushAccountSecret,
-                  tektonServiceAccount,
-                }}
-              />
+              <Grid container spacing={2}>
+                {mode === FORM_MODES.CREATE ? (
+                  <Grid item xs={12}>
+                    <CreateItemAccordion
+                      isExpanded={expandedPanel === mode || !registryType}
+                      onChange={handleChange(mode)}
+                      title={'Add Registry'}
+                    >
+                      <ManageRegistry
+                        EDPConfigMap={EDPConfigMap}
+                        pullAccountSecret={pullAccountSecret}
+                        pushAccountSecret={pushAccountSecret}
+                        tektonServiceAccount={tektonServiceAccount}
+                      />
+                    </CreateItemAccordion>
+                  </Grid>
+                ) : mode === FORM_MODES.EDIT ? (
+                  <Grid item xs={12}>
+                    <Accordion expanded>
+                      <AccordionSummary style={{ cursor: 'default' }}>
+                        <Typography variant={'h6'}>
+                          {CONTAINER_REGISTRY_TYPE_LABEL_MAP[registryType]}
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Grid container spacing={2}>
+                          <Grid item xs={12}>
+                            <ManageRegistry
+                              EDPConfigMap={EDPConfigMap}
+                              pullAccountSecret={pullAccountSecret}
+                              pushAccountSecret={pushAccountSecret}
+                              tektonServiceAccount={tektonServiceAccount}
+                            />
+                          </Grid>
+                        </Grid>
+                      </AccordionDetails>
+                    </Accordion>
+                  </Grid>
+                ) : null}
+              </Grid>
             </LoadingWrapper>
           </Grid>
-          {!EDPConfigMap?.data?.container_registry_type && (
-            <Grid item xs={12}>
-              <EmptyContent color={'textSecondary'}>No registry integrations found</EmptyContent>
-            </Grid>
-          )}
         </Grid>
       </PageWrapper>
     </PageWithSubMenu>

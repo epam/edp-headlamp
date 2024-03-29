@@ -1,3 +1,7 @@
+const SHARED_NAMES = {
+  GIT_PROVIDER: 'gitProvider',
+} as const;
+
 const GIT_SERVER_NAMES = {
   NAME: 'name',
   GIT_HOST: 'gitHost',
@@ -8,6 +12,12 @@ const GIT_SERVER_NAMES = {
   SSH_PORT: 'sshPort',
   SKIP_WEBHOOK_SSL: 'skipWebhookSSLVerification',
 } as const;
+
+export const SHARED_FORM_NAMES = {
+  [SHARED_NAMES.GIT_PROVIDER]: {
+    name: SHARED_NAMES.GIT_PROVIDER,
+  },
+};
 
 export const GIT_SERVER_FORM_NAMES = {
   [GIT_SERVER_NAMES.NAME]: {

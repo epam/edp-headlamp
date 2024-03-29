@@ -1,57 +1,261 @@
-import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import React from 'react';
-import { CreateItemAccordion } from '../../components/CreateItemAccordion';
-import { CONTAINER_REGISTRY_TYPE_LABEL_MAP } from '../../k8s/ConfigMap/constants';
+import { CONTAINER_REGISTRY_TYPE } from '../../k8s/ConfigMap/constants';
+import { MultiFormContextProvider } from '../../providers/MultiForm';
+import { FormItem } from '../../providers/MultiForm/types';
 import { FORM_MODES } from '../../types/forms';
-import { Create } from './components/Create';
-import { Edit } from './components/Edit';
-import { ManageRegistryProps } from './types';
+import { Actions } from './components/Actions';
+import { ConfigMapForm } from './components/ConfigMap';
+import { UseSameAccount } from './components/fields';
+import { PullAccountForm } from './components/PullAccount';
+import { PushAccountForm } from './components/PushAccount';
+import { ServiceAccountForm } from './components/ServiceAccount';
+import { useConfigMapEdit } from './hooks/useConfigMapEditForm';
+import { usePullAccountCreateForm } from './hooks/usePullAccountCreateForm';
+import { usePullAccountEditForm } from './hooks/usePullAccountEditForm';
+import { usePushAccountCreateForm } from './hooks/usePushAccountCreateForm';
+import { usePushAccountEditForm } from './hooks/usePushAccountEditForm';
+import { useServiceAccountEditForm } from './hooks/useServiceAccountEditForm';
+import { useSharedForm } from './hooks/useSharedForm';
+import { SHARED_FORM_NAMES } from './names';
+import { DataContextProvider } from './providers/Data';
+import { FormNames, ManageRegistryProps } from './types';
 
-export const ManageRegistry = ({ formData }: ManageRegistryProps) => {
-  const { EDPConfigMap } = formData;
-  const registryType = EDPConfigMap && EDPConfigMap.data.container_registry_type;
-  const mode = !!registryType ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+const satisfiesType = (registryType: string, allowedTypes: string[]) => {
+  return registryType && allowedTypes.includes(registryType);
+};
 
-  const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
+export const ManageRegistry = ({
+  EDPConfigMap,
+  pushAccountSecret,
+  pullAccountSecret,
+  tektonServiceAccount,
+}: ManageRegistryProps) => {
+  const pushAccountFormMode = pushAccountSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+  const pullAccountFormMode = pullAccountSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+  const configMapFormMode = EDPConfigMap?.data.container_registry_type
+    ? FORM_MODES.EDIT
+    : FORM_MODES.CREATE;
 
-  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpandedPanel(isExpanded ? panel : null);
-  };
+  const { form: sharedForm } = useSharedForm({
+    EDPConfigMap,
+    pushAccountSecret,
+    pullAccountSecret,
+  });
 
-  const handleClosePanel = () => setExpandedPanel(null);
+  const registryTypeFieldValue = sharedForm.watch(SHARED_FORM_NAMES.registryType.name);
 
-  const _formData = React.useMemo(() => ({ ...formData, handleClosePanel }), [formData]);
+  const registryEndpointFieldValue = sharedForm.watch(SHARED_FORM_NAMES.registryEndpoint.name);
+
+  const {
+    form: pushAccountCreateForm,
+    mutation: pushAccountCreateMutation,
+    handleSubmit: handlePushAccountCreateSubmit,
+  } = usePushAccountCreateForm({
+    pushAccountSecret,
+    registryEndpoint: registryEndpointFieldValue,
+    registryType: registryTypeFieldValue,
+  });
+
+  const {
+    form: pushAccountEditForm,
+    mutation: pushAccountEditMutation,
+    handleSubmit: handlePushAccountEditSubmit,
+  } = usePushAccountEditForm({
+    pushAccountSecret,
+    registryEndpoint: registryEndpointFieldValue,
+    registryType: registryTypeFieldValue,
+  });
+
+  const {
+    form: pullAccountCreateForm,
+    mutation: pullAccountCreateMutation,
+    handleSubmit: handlePullAccountCreateSubmit,
+  } = usePullAccountCreateForm({
+    pullAccountSecret,
+    registryEndpoint: registryEndpointFieldValue,
+    registryType: registryTypeFieldValue,
+  });
+
+  const {
+    form: pullAccountEditForm,
+    mutation: pullAccountEditMutation,
+    handleSubmit: handlePullAccountEditSubmit,
+  } = usePullAccountEditForm({
+    pullAccountSecret,
+    registryEndpoint: registryEndpointFieldValue,
+    registryType: registryTypeFieldValue,
+  });
+
+  const {
+    form: configMapEditForm,
+    mutation: configMapEditMutation,
+    handleSubmit: handleConfigMapEditSubmit,
+  } = useConfigMapEdit({
+    EDPConfigMap,
+  });
+
+  const {
+    form: serviceAccountEditForm,
+    mutation: serviceAccountEditMutation,
+    handleSubmit: handleServiceAccountEditSubmit,
+  } = useServiceAccountEditForm({
+    tektonServiceAccount,
+  });
+
+  const pushAccountForm: FormItem = React.useMemo(
+    () =>
+      pushAccountFormMode === FORM_MODES.CREATE
+        ? {
+            mode: pushAccountFormMode,
+            form: pushAccountCreateForm,
+            onSubmit: pushAccountCreateForm.handleSubmit(handlePushAccountCreateSubmit),
+            isSubmitting: pushAccountCreateMutation.isLoading,
+          }
+        : {
+            mode: pushAccountFormMode,
+            form: pushAccountEditForm,
+            onSubmit: pushAccountEditForm.handleSubmit(handlePushAccountEditSubmit),
+            isSubmitting: pushAccountEditMutation.isLoading,
+          },
+    [
+      handlePushAccountCreateSubmit,
+      handlePushAccountEditSubmit,
+      pushAccountCreateForm,
+      pushAccountCreateMutation.isLoading,
+      pushAccountEditForm,
+      pushAccountEditMutation.isLoading,
+      pushAccountFormMode,
+    ]
+  );
+
+  const pullAccountForm: FormItem = React.useMemo(
+    () =>
+      pullAccountFormMode === FORM_MODES.CREATE
+        ? {
+            mode: pullAccountFormMode,
+            form: pullAccountCreateForm,
+            onSubmit: pullAccountCreateForm.handleSubmit(handlePullAccountCreateSubmit),
+            isSubmitting: pullAccountCreateMutation.isLoading,
+          }
+        : {
+            mode: pullAccountFormMode,
+            form: pullAccountEditForm,
+            onSubmit: pullAccountEditForm.handleSubmit(handlePullAccountEditSubmit),
+            isSubmitting: pullAccountEditMutation.isLoading,
+          },
+    [
+      handlePullAccountCreateSubmit,
+      handlePullAccountEditSubmit,
+      pullAccountCreateForm,
+      pullAccountCreateMutation.isLoading,
+      pullAccountEditForm,
+      pullAccountEditMutation.isLoading,
+      pullAccountFormMode,
+    ]
+  );
+
+  const configMapForm: FormItem = React.useMemo(
+    () => ({
+      mode: configMapFormMode,
+      form: configMapEditForm,
+      onSubmit: configMapEditForm.handleSubmit(handleConfigMapEditSubmit),
+      isSubmitting: configMapEditMutation.isLoading,
+    }),
+    [
+      configMapEditForm,
+      configMapEditMutation.isLoading,
+      configMapFormMode,
+      handleConfigMapEditSubmit,
+    ]
+  );
+
+  const serviceAccountForm: FormItem = React.useMemo(
+    () => ({
+      mode: FORM_MODES.EDIT,
+      form: serviceAccountEditForm,
+      onSubmit: serviceAccountEditForm.handleSubmit(handleServiceAccountEditSubmit),
+      isSubmitting: serviceAccountEditMutation.isLoading,
+    }),
+    [handleServiceAccountEditSubmit, serviceAccountEditForm, serviceAccountEditMutation.isLoading]
+  );
+
+  const renderServiceAccountForm = React.useCallback(() => {
+    if (satisfiesType(registryTypeFieldValue, [CONTAINER_REGISTRY_TYPE.ECR])) {
+      return (
+        <Grid item xs={12}>
+          <ServiceAccountForm />
+        </Grid>
+      );
+    }
+  }, [registryTypeFieldValue]);
+
+  const renderPushAccountForm = React.useCallback(() => {
+    if (
+      satisfiesType(registryTypeFieldValue, [
+        CONTAINER_REGISTRY_TYPE.HARBOR,
+        CONTAINER_REGISTRY_TYPE.NEXUS,
+        CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY,
+        CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+      ])
+    ) {
+      return (
+        <>
+          <Grid item xs={12}>
+            <PushAccountForm />
+          </Grid>
+          <Grid item xs={12}>
+            <UseSameAccount />
+          </Grid>
+        </>
+      );
+    }
+  }, [registryTypeFieldValue]);
+
+  const renderPullAccountForm = React.useCallback(() => {
+    if (
+      satisfiesType(registryTypeFieldValue, [
+        CONTAINER_REGISTRY_TYPE.HARBOR,
+        CONTAINER_REGISTRY_TYPE.NEXUS,
+        CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+      ])
+    ) {
+      return (
+        <Grid item xs={12}>
+          <PullAccountForm />
+        </Grid>
+      );
+    }
+  }, [registryTypeFieldValue]);
 
   return (
-    <Grid container spacing={2} data-testid="form">
-      {mode === FORM_MODES.CREATE ? (
-        <Grid item xs={12}>
-          <CreateItemAccordion
-            isExpanded={expandedPanel === mode || !registryType}
-            onChange={handleChange(mode)}
-            title={'Add Registry'}
-          >
-            <Create formData={_formData} />
-          </CreateItemAccordion>
+    <DataContextProvider
+      EDPConfigMap={EDPConfigMap}
+      pushAccountSecret={pushAccountSecret}
+      pullAccountSecret={pullAccountSecret}
+      tektonServiceAccount={tektonServiceAccount}
+    >
+      <MultiFormContextProvider<FormNames>
+        forms={{
+          pushAccount: pushAccountForm,
+          pullAccount: pullAccountForm,
+          configMap: configMapForm,
+          serviceAccount: serviceAccountForm,
+        }}
+        sharedForm={sharedForm}
+      >
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <ConfigMapForm />
+          </Grid>
+          {renderServiceAccountForm()}
+          {renderPushAccountForm()}
+          {renderPullAccountForm()}
+          <Grid item xs={12}>
+            <Actions />
+          </Grid>
         </Grid>
-      ) : mode === FORM_MODES.EDIT ? (
-        <Grid item xs={12}>
-          <Accordion expanded>
-            <AccordionSummary style={{ cursor: 'default' }}>
-              <Typography variant={'h6'}>
-                {CONTAINER_REGISTRY_TYPE_LABEL_MAP[registryType]}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Edit formData={_formData} />
-                </Grid>
-              </Grid>
-            </AccordionDetails>
-          </Accordion>
-        </Grid>
-      ) : null}
-    </Grid>
+      </MultiFormContextProvider>
+    </DataContextProvider>
   );
 };

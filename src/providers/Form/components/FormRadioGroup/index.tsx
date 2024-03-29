@@ -59,6 +59,7 @@ export const FormRadioGroup = React.forwardRef(
                                   <div>{children}</div>
                                 </Tooltip>
                               )}
+                              key={key}
                             >
                               <ButtonBase
                                 className={clsx(classes.radioControlButton, {

@@ -1,4 +1,4 @@
 import { useMultiFormContext } from '../../../providers/MultiForm/hooks';
-import { FormName } from '../types';
+import { FormNames } from '../types';
 
-export const useGitServerFormsContext = () => useMultiFormContext<FormName>();
+export const useGitServerFormsContext = () => useMultiFormContext<FormNames>();
