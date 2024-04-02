@@ -18,7 +18,6 @@ export const TestReportFramework = () => {
         required: 'Select autotest report framework',
       })}
       label={'Autotest report framework'}
-      placeholder={'Select autotest report framework'}
       control={control}
       errors={errors}
       options={testReportFrameworkSelectOptions}

@@ -1,20 +1,20 @@
 import makeStyles from '@mui/styles/makeStyles';
-import { rem } from '../../../../utils/styling/rem';
 
 export const useStyles = makeStyles((theme: DefaultTheme) => ({
   radioGroup: {
-    gap: rem(10),
-    minHeight: rem(150),
+    gap: theme.typography.pxToRem(24),
+    minHeight: theme.typography.pxToRem(150),
   },
   radioControlButton: {
     display: 'block',
     width: '100%',
     height: '100%',
     padding: 0,
-    borderRadius: rem(5),
+    borderRadius: theme.typography.pxToRem(4),
     border: '1px solid transparent',
-    backgroundColor: `${theme.palette.primary.main}10`,
+    backgroundColor: 'transparent',
     transition: 'background-color 300ms ease, border 300ms ease',
+    boxShadow: '0px 1px 10px 0px #0024461F',
 
     '&:hover': {
       backgroundColor: `${theme.palette.primary.main}20`,
@@ -29,12 +29,17 @@ export const useStyles = makeStyles((theme: DefaultTheme) => ({
     border: `1px solid ${theme.palette.primary.main}80`,
   },
   radioControlLabel: {
-    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     margin: 0,
-    gap: rem(20),
-    padding: `${rem(20)} ${rem(10)}`,
+    gap: theme.typography.pxToRem(20),
+    padding: `${theme.typography.pxToRem(24)}`,
     width: '100%',
     height: '100%',
+
+    '& .MuiButtonBase-root': {
+      color: '#000',
+    },
 
     '& .MuiRadio-root': {
       padding: 0,

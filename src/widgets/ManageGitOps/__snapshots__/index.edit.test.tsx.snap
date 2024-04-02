@@ -15,92 +15,75 @@ exports[`renders ManageGitOps Edit component 1`] = `
         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
       >
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+          class="MuiStack-root css-jfdv4h-MuiStack-root"
         >
           <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-            style="display: flex;"
+            class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
           >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink="true"
+            >
+              Git server
+            </label>
             <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd  css-p2czvz-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                aria-controls="mui-1"
+                aria-disabled="true"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-labelledby="mui-component-select-gitServer"
+                class="MuiSelect-select MuiSelect-outlined Mui-disabled MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-14oa7yt-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+                id="mui-component-select-gitServer"
+                role="combobox"
               >
                 <span
-                  class="makeStyles-labelWrap-6"
+                  class="notranslate"
                 >
-                  <span
-                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-7 css-1ezega9-MuiTypography-root"
-                  >
-                    Git server
-                  </span>
-                  <span />
+                  ​
                 </span>
               </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                style="display: flex; align-items: flex-end;"
+              <input
+                aria-hidden="true"
+                aria-invalid="false"
+                class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                disabled=""
+                name="gitServer"
+                tabindex="-1"
+                value="gerrit"
+              />
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined Mui-disabled css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+                data-testid="ArrowDropDownIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
               >
-                <div
-                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
-                >
-                  <div
-                    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-fullWidth MuiInputBase-formControl  css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
-                  >
-                    <div
-                      aria-controls="mui-2"
-                      aria-disabled="true"
-                      aria-expanded="false"
-                      aria-haspopup="listbox"
-                      aria-labelledby="mui-component-select-gitServer"
-                      class="MuiSelect-select MuiSelect-outlined Mui-disabled MuiInputBase-input MuiOutlinedInput-input Mui-disabled css-17praur-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-                      id="mui-component-select-gitServer"
-                      role="combobox"
-                    >
-                      <span
-                        class="notranslate"
-                      >
-                        ​
-                      </span>
-                    </div>
-                    <input
-                      aria-hidden="true"
-                      aria-invalid="false"
-                      class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-                      disabled=""
-                      name="gitServer"
-                      tabindex="-1"
-                      value="gerrit"
-                    />
-                    <svg
-                      aria-hidden="true"
-                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined Mui-disabled css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
-                      data-testid="ArrowDropDownIcon"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M7 10l5 5 5-5z"
-                      />
-                    </svg>
-                    <fieldset
-                      aria-hidden="true"
-                      class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                    >
-                      <legend
-                        class="css-ihdtdm"
-                      >
-                        <span
-                          class="notranslate"
-                        >
-                          ​
-                        </span>
-                      </legend>
-                    </fieldset>
-                  </div>
-                </div>
+                <path
+                  d="M7 10l5 5 5-5z"
+                />
+              </svg>
+              <div
+                class="MuiBox-root css-3avfg1"
+              >
+                <span />
               </div>
+              <fieldset
+                aria-hidden="true"
+                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  class="css-ihdtdm"
+                >
+                  <span
+                    class="notranslate"
+                  >
+                    ​
+                  </span>
+                </legend>
+              </fieldset>
             </div>
           </div>
         </div>
@@ -109,77 +92,56 @@ exports[`renders ManageGitOps Edit component 1`] = `
         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 css-1equabv-MuiGrid-root"
       >
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+          class="MuiStack-root css-jfdv4h-MuiStack-root"
         >
           <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-            style="display: flex;"
+            class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
           >
             <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+              class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
             >
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+              <label
+                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
+                data-shrink="true"
+                for="mui-4"
+                id="mui-4-label"
               >
-                <span
-                  class="makeStyles-labelWrap-8"
-                >
-                  <span
-                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-9 css-1ezega9-MuiTypography-root"
-                  >
-                    Repository Name
-                  </span>
-                  <span />
-                </span>
-              </div>
+                Repository Name
+              </label>
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                style="display: flex; align-items: flex-end;"
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedStart MuiInputBase-adornedEnd css-1i0uxaz-MuiInputBase-root-MuiOutlinedInput-root"
               >
                 <div
-                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                  class="MuiInputAdornment-root MuiInputAdornment-positionStart MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-ittuaa-MuiInputAdornment-root"
                 >
-                  <div
-                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                  <p
+                    class="MuiTypography-root MuiTypography-body1 css-3mzles-MuiTypography-root"
                   >
-                    <div
-                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedStart css-xlgtqz-MuiInputBase-root-MuiOutlinedInput-root"
-                    >
-                      <div
-                        class="MuiInputAdornment-root MuiInputAdornment-positionStart MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-ittuaa-MuiInputAdornment-root"
-                      >
-                        <p
-                          class="MuiTypography-root MuiTypography-body1 css-3mzles-MuiTypography-root"
-                        >
-                          /
-                        </p>
-                      </div>
-                      <input
-                        aria-invalid="false"
-                        class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedStart css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input"
-                        disabled=""
-                        id="mui-4"
-                        name="name"
-                        type="text"
-                        value="edp-gitops"
-                      />
-                      <fieldset
-                        aria-hidden="true"
-                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                      >
-                        <legend
-                          class="css-ihdtdm"
-                        >
-                          <span
-                            class="notranslate"
-                          >
-                            ​
-                          </span>
-                        </legend>
-                      </fieldset>
-                    </div>
-                  </div>
+                    /
+                  </p>
                 </div>
+                <input
+                  aria-invalid="false"
+                  class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedStart MuiInputBase-inputAdornedEnd css-152mnda-MuiInputBase-input-MuiOutlinedInput-input"
+                  disabled=""
+                  id="mui-4"
+                  name="name"
+                  type="text"
+                  value="edp-gitops"
+                />
+                <span />
+                <fieldset
+                  aria-hidden="true"
+                  class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    class="css-14lo706"
+                  >
+                    <span>
+                      Repository Name
+                    </span>
+                  </legend>
+                </fieldset>
               </div>
             </div>
           </div>

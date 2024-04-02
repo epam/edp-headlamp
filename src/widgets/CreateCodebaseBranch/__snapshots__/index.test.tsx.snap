@@ -97,68 +97,47 @@ exports[`renders CreateCodebaseBranch component 1`] = `
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                class="MuiStack-root css-jfdv4h-MuiStack-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                  style="display: flex;"
+                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                   >
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                    <label
+                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
+                      data-shrink="false"
+                      for="mui-3"
+                      id="mui-3-label"
                     >
-                      <span
-                        class="makeStyles-labelWrap-5"
-                      >
-                        <span
-                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-6 css-1ezega9-MuiTypography-root"
-                        >
-                          Branch Name
-                        </span>
-                        <span />
-                      </span>
-                    </div>
+                      Branch Name
+                    </label>
                     <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                      style="display: flex; align-items: flex-end;"
+                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                     >
-                      <div
-                        class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                      <input
+                        aria-invalid="false"
+                        class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                        id="mui-3"
+                        name="branchName"
+                        placeholder="Enter Branch Name"
+                        type="text"
+                        value=""
+                      />
+                      <span />
+                      <fieldset
+                        aria-hidden="true"
+                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
                       >
-                        <div
-                          class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                        <legend
+                          class="css-yjsfm1"
                         >
-                          <div
-                            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
-                          >
-                            <input
-                              aria-invalid="false"
-                              class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                              id="mui-3"
-                              name="branchName"
-                              placeholder="Enter Branch Name"
-                              type="text"
-                              value=""
-                            />
-                            <fieldset
-                              aria-hidden="true"
-                              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                            >
-                              <legend
-                                class="css-ihdtdm"
-                              >
-                                <span
-                                  class="notranslate"
-                                >
-                                  ​
-                                </span>
-                              </legend>
-                            </fieldset>
-                          </div>
-                        </div>
-                      </div>
+                          <span>
+                            Branch Name
+                          </span>
+                        </legend>
+                      </fieldset>
                     </div>
                   </div>
                 </div>
@@ -172,68 +151,47 @@ exports[`renders CreateCodebaseBranch component 1`] = `
               class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                class="MuiStack-root css-jfdv4h-MuiStack-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                  style="display: flex;"
+                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                   >
-                    <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                    <label
+                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
+                      data-shrink="false"
+                      for="mui-5"
+                      id="mui-5-label"
                     >
-                      <span
-                        class="makeStyles-labelWrap-7"
-                      >
-                        <span
-                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-8 css-1ezega9-MuiTypography-root"
-                        >
-                          From Commit Hash 
-                        </span>
-                        <span />
-                      </span>
-                    </div>
+                      From Commit Hash 
+                    </label>
                     <div
-                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                      style="display: flex; align-items: flex-end;"
+                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                     >
-                      <div
-                        class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                      <input
+                        aria-invalid="false"
+                        class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                        id="mui-5"
+                        name="fromCommit"
+                        placeholder="Enter Commit"
+                        type="text"
+                        value=""
+                      />
+                      <span />
+                      <fieldset
+                        aria-hidden="true"
+                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
                       >
-                        <div
-                          class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                        <legend
+                          class="css-yjsfm1"
                         >
-                          <div
-                            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
-                          >
-                            <input
-                              aria-invalid="false"
-                              class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                              id="mui-5"
-                              name="fromCommit"
-                              placeholder="Enter Commit"
-                              type="text"
-                              value=""
-                            />
-                            <fieldset
-                              aria-hidden="true"
-                              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                            >
-                              <legend
-                                class="css-ihdtdm"
-                              >
-                                <span
-                                  class="notranslate"
-                                >
-                                  ​
-                                </span>
-                              </legend>
-                            </fieldset>
-                          </div>
-                        </div>
-                      </div>
+                          <span>
+                            From Commit Hash 
+                          </span>
+                        </legend>
+                      </fieldset>
                     </div>
                   </div>
                 </div>

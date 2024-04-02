@@ -62,14 +62,13 @@ export const CodebaseVersioning = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={4}>
+      <Grid item xs={12}>
         <FormSelect
           {...register(CODEBASE_FORM_NAMES.versioningType.name, {
             required: 'Select codebase versioning type',
             onChange: handleVersioningTypeChange,
           })}
           label={'Codebase versioning type'}
-          placeholder={'Select codebase versioning type'}
           title={'Define the versioning strategy for source code and artifacts.'}
           control={control}
           errors={errors}
@@ -78,7 +77,7 @@ export const CodebaseVersioning = () => {
       </Grid>
       {codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.EDP ? (
         <>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <FormTextField
               {...register(CODEBASE_FORM_NAMES.versioningStartFromVersion.name, {
                 required: 'Specify the initial version.',
@@ -100,7 +99,7 @@ export const CodebaseVersioning = () => {
           </Grid>
           <Grid
             item
-            xs={4}
+            xs={6}
             style={{
               display: 'flex',
               justifyContent: 'flex-end',

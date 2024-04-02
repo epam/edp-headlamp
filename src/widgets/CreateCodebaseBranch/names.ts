@@ -1,6 +1,6 @@
 import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from '../../k8s/EDPCodebaseBranch/labels';
 import { BackwardNameMapping } from '../../types/forms';
-import { FORM_PART_CODEBASE_INFO } from '../CreateEditCodebase/constants';
+import { CONFIGURATION_STEPS } from '../CreateEditCodebase/constants';
 
 const NAMES = {
   NAME: 'name',
@@ -50,7 +50,7 @@ export const CODEBASE_BRANCH_FORM_NAMES = {
   },
   [NAMES.CODEBASE_NAME_LABEL]: {
     name: NAMES.CODEBASE_NAME_LABEL,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['metadata', 'labels', CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME],
   },
 

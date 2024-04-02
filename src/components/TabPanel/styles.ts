@@ -9,6 +9,9 @@ export const useStyles = makeStyles(() => ({
 
     '&[hidden]': {
       height: 0,
+      width: 0,
+      userSelect: 'none',
+      pointerEvents: 'none',
       overflow: 'hidden',
     },
   },

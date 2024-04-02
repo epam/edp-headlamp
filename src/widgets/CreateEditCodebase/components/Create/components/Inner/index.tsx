@@ -3,164 +3,57 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Divider,
-  Grid,
-  Tab,
-  Tabs,
-  Typography,
+  Step,
+  StepLabel,
+  Stepper,
+  useTheme,
 } from '@mui/material';
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
-import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
-import { DEPLOYMENT_SCRIPTS } from '../../../../../../constants/deploymentScripts';
-import { TEST_REPORT_FRAMEWORKS } from '../../../../../../constants/testReportFrameworks';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../../k8s/EDPCodebase/types';
-import { MainRadioGroup } from '../../../../../../providers/Form/components/MainRadioGroup';
-import { FieldEvent } from '../../../../../../types/forms';
-import { rem } from '../../../../../../utils/styling/rem';
-import {
-  FORM_PART_ADVANCED_SETTINGS,
-  FORM_PART_CODEBASE_INFO,
-  TAB_INDEXES,
-} from '../../../../constants';
-import { CODEBASE_FORM_NAMES } from '../../../../names';
-import { CreateCodebaseFormValues } from '../../types';
+import { useStepperContext } from '../../../../../../providers/Stepper/hooks';
+import { CONFIGURATION_STEPPER_STEPS } from '../../../../constants';
 import { DialogHeader } from './components/DialogHeader';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
-import { useCodebaseCreationStrategies } from './hooks/useCodebaseCreationStrategies';
-import { useCodebaseTypeOptions } from './hooks/useCodebaseTypes';
 import { useStyles } from './styles';
+import { ConfigurationProps } from './types';
 
-const a11yProps = (index: any) => {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-};
-
-export const Inner = ({ baseDefaultValues }) => {
+export const Configuration = ({ baseDefaultValues, setActiveTab }: ConfigurationProps) => {
+  const theme = useTheme();
+  const { activeStep } = useStepperContext();
   const classes = useStyles();
-  const {
-    register,
-    setValue,
-    control,
-    formState: { errors },
-  } = useFormContext<CreateCodebaseFormValues>();
 
   const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
   const [editorData, setEditorData] = React.useState<EDPCodebaseKubeObjectInterface>(
     {} as EDPCodebaseKubeObjectInterface
   );
-  const [modalActiveTabIdx, setModalActiveTabIdx] = React.useState<number>(0);
-  const [formActiveTabIdx, setFormActiveTabIdx] = React.useState<number>(
-    TAB_INDEXES[FORM_PART_CODEBASE_INFO]
-  );
-
-  const handleChangeTab = React.useCallback(
-    (event: React.ChangeEvent<{}>, newActiveTabIdx: number) => {
-      setFormActiveTabIdx(newActiveTabIdx);
-    },
-    []
-  );
-
-  const codebaseTypeOptions = useCodebaseTypeOptions();
-  const codebaseCreationStrategies = useCodebaseCreationStrategies();
 
   return (
     <>
-      {modalActiveTabIdx === 0 && (
-        <Box p={rem(20)}>
-          <Typography variant={'h4'} style={{ marginBottom: rem(20) }}>
-            Create new component
-          </Typography>
-          <div>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <MainRadioGroup
-                  {...register(CODEBASE_FORM_NAMES.type.name, {
-                    onChange: ({ target: { value } }: FieldEvent) => {
-                      switch (value) {
-                        case CODEBASE_TYPES.APPLICATION:
-                          setValue(
-                            CODEBASE_FORM_NAMES.deploymentScript.name,
-                            DEPLOYMENT_SCRIPTS.HELM_CHART
-                          );
-                          break;
-                        case CODEBASE_TYPES.AUTOTEST:
-                          setValue(
-                            CODEBASE_FORM_NAMES.testReportFramework.name,
-                            TEST_REPORT_FRAMEWORKS.ALLURE
-                          );
-                          break;
-                      }
-                    },
-                  })}
-                  control={control}
-                  errors={errors}
-                  options={codebaseTypeOptions}
-                  gridItemSize={6}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider style={{ margin: '0 auto', width: '70%' }} />
-              </Grid>
-              <Grid item xs={12}>
-                <MainRadioGroup
-                  {...register(CODEBASE_FORM_NAMES.strategy.name, {
-                    onChange: () => setModalActiveTabIdx(1),
-                  })}
-                  control={control}
-                  errors={errors}
-                  options={codebaseCreationStrategies}
-                  gridItemSize={4}
-                />
-              </Grid>
-            </Grid>
-          </div>
-        </Box>
-      )}
-      {modalActiveTabIdx === 1 && (
-        <>
-          <DialogTitle>
-            <DialogHeader setEditorOpen={setEditorOpen} setEditorData={setEditorData} />
-          </DialogTitle>
-          <DialogContent className={classes.dialogContent}>
-            <div className={classes.dialogContentTabs}>
-              <Tabs
-                orientation="vertical"
-                value={formActiveTabIdx}
-                onChange={handleChangeTab}
-                aria-label="simple tabs example"
-                indicatorColor={'primary'}
-                textColor={'primary'}
-              >
-                <Tab label="Codebase info" {...a11yProps(TAB_INDEXES[FORM_PART_CODEBASE_INFO])} />
-                <Tab
-                  label="Advanced settings"
-                  {...a11yProps(TAB_INDEXES[FORM_PART_ADVANCED_SETTINGS])}
-                />
-              </Tabs>
-            </div>
-            <div className={classes.dialogContentForm}>
-              <Form
-                editorData={editorData}
-                setEditorOpen={setEditorOpen}
-                editorOpen={editorOpen}
-                formActiveTabIdx={formActiveTabIdx}
-              />
-            </div>
-          </DialogContent>
-          <DialogActions>
-            <FormActions
-              baseDefaultValues={baseDefaultValues}
-              formActiveTabIdx={formActiveTabIdx}
-              setFormActiveTabIdx={setFormActiveTabIdx}
-              setModalActiveTabIdx={setModalActiveTabIdx}
-            />
-          </DialogActions>
-        </>
-      )}
+      <DialogTitle>
+        <DialogHeader setEditorOpen={setEditorOpen} setEditorData={setEditorData} />
+      </DialogTitle>
+      <DialogContent className={classes.dialogContent}>
+        <div className={classes.dialogContentForm}>
+          <Box sx={{ pt: theme.typography.pxToRem(24) }}>
+            <Stepper activeStep={activeStep}>
+              {CONFIGURATION_STEPPER_STEPS.map((label) => {
+                return (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                );
+              })}
+            </Stepper>
+            <Box sx={{ p: `${theme.typography.pxToRem(24)} ${theme.typography.pxToRem(8)}` }}>
+              <Form editorData={editorData} setEditorOpen={setEditorOpen} editorOpen={editorOpen} />
+            </Box>
+          </Box>
+        </div>
+      </DialogContent>
+      <DialogActions>
+        <FormActions baseDefaultValues={baseDefaultValues} setActiveTab={setActiveTab} />
+      </DialogActions>
     </>
   );
 };

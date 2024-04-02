@@ -63,11 +63,6 @@ export const AdvancedJiraMapping = () => {
             <FormSelect
               {...register(CODEBASE_FORM_NAMES.advancedMappingFieldName.name)}
               label={'Mapping field name'}
-              placeholder={
-                advancedMappingFieldNameIsDisabled
-                  ? 'No mapping field names remaining'
-                  : 'Mapping field name'
-              }
               title={
                 <div>
                   <p>

@@ -3,7 +3,6 @@ import { Button, FormControl, Grid, TextField, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
-import { FormControlLabelWithTooltip } from '../../../../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FormTextField } from '../../../../../../../providers/Form/components/FormTextField';
 import { createAdvancedMappingRowName } from '../../constants';
 import { AdvancedJiraMappingRowProps } from './types';
@@ -26,16 +25,7 @@ export const AdvancedJiraMappingRow = ({
     <Grid item xs={12}>
       <Grid container spacing={2}>
         <Grid item xs={5}>
-          <FormControl fullWidth>
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <FormControlLabelWithTooltip label={''} title={''} />
-              </Grid>
-              <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
-                <TextField disabled value={label} fullWidth />
-              </Grid>
-            </Grid>
-          </FormControl>
+          <TextField disabled value={label} fullWidth />
         </Grid>
         <Grid item xs={5}>
           <FormControl fullWidth>
@@ -47,7 +37,6 @@ export const AdvancedJiraMappingRow = ({
               placeholder={`Enter Jira pattern`}
               control={control}
               errors={errors}
-              showLabelPlaceholder
             />
           </FormControl>
         </Grid>

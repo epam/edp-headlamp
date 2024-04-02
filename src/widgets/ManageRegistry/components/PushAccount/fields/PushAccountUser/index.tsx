@@ -30,7 +30,9 @@ export const PushAccountUser = () => {
             return;
           }
 
-          pullAccount.form.setValue(PULL_ACCOUNT_FORM_NAMES.pullAccountUser.name, value, { shouldDirty: true });
+          pullAccount.form.setValue(PULL_ACCOUNT_FORM_NAMES.pullAccountUser.name, value, {
+            shouldDirty: true,
+          });
         },
       })}
       label={`User`}

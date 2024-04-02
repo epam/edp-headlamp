@@ -1,22 +1,11 @@
 import makeStyles from '@mui/styles/makeStyles';
-import { rem } from '../../../../../../utils/styling/rem';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
   dialogContent: {
     display: 'flex',
     flexWrap: 'nowrap',
-    gap: rem(20),
-    padding: rem(8),
-  },
-  dialogContentTabs: {
-    width: '20%',
-    flexShrink: 0,
-    position: 'sticky',
-    top: 0,
-
-    '& .MuiTab-wrapper': {
-      alignItems: 'flex-start',
-    },
+    gap: theme.typography.pxToRem(20),
+    padding: theme.typography.pxToRem(24),
   },
   dialogContentForm: {
     flexGrow: 1,

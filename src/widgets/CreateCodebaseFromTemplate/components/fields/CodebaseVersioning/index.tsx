@@ -50,7 +50,6 @@ export const CodebaseVersioning = () => {
             required: 'Select codebase versioning type',
           })}
           label={'Codebase versioning type'}
-          placeholder={'Select codebase versioning type'}
           title={'Define the versioning strategy for source code and artifacts.'}
           control={control}
           errors={errors}

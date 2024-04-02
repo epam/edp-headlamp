@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Box, Grid, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../../../../../../../../../constants/codebaseTypes';
@@ -24,6 +24,7 @@ import {
 import { CreateCodebaseFormValues } from '../../../../../../types';
 
 export const Info = () => {
+  const theme = useTheme();
   const { watch } = useFormContext<CreateCodebaseFormValues>();
 
   const langFieldValue = watch(CODEBASE_FORM_NAMES.lang.name);
@@ -43,14 +44,15 @@ export const Info = () => {
           </>
         ) : null}
         <Grid item xs={12}>
-          <Grid container spacing={2} alignItems={'flex-start'}>
-            <Grid item xs={3}>
+          <Stack direction="row" spacing={2}>
+            <Box flexGrow={1} flexShrink={0}>
               <GitServer />
-            </Grid>
-            <Grid item xs={9}>
+            </Box>
+            <Typography sx={{ pt: theme.typography.pxToRem(18) }}>/</Typography>
+            <Box flexGrow={1} flexShrink={0}>
               <GitUrlPath />
-            </Grid>
-          </Grid>
+            </Box>
+          </Stack>
         </Grid>
         {isCloneStrategy(strategyFieldValue) ? (
           <>

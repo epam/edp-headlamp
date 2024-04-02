@@ -10,8 +10,6 @@ export interface FormSelectProps {
   control: Control<any>;
   label?: string;
   title?: string | React.ReactElement;
-  placeholder?: string;
-  showLabelPlaceholder?: boolean;
   defaultValue?: string;
   disabled?: boolean;
 }

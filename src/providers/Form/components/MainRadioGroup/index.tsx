@@ -6,6 +6,7 @@ import {
   Grid,
   Radio,
   RadioGroup,
+  Stack,
   Typography,
 } from '@mui/material';
 import clsx from 'clsx';
@@ -51,45 +52,55 @@ export const MainRadioGroup = React.forwardRef(
                                     control={
                                       <Radio
                                         checked={isChecked}
-                                        icon={icon}
+                                        icon={
+                                          <Stack direction="row" spacing={1} alignItems="center">
+                                            {icon}
+                                            <Typography
+                                              variant={'h6'}
+                                              component={'div'}
+                                              align={'left'}
+                                            >
+                                              {label}
+                                            </Typography>
+                                          </Stack>
+                                        }
                                         color={'primary'}
-                                        checkedIcon={checkedIcon}
+                                        checkedIcon={
+                                          <Stack direction="row" spacing={1} alignItems="center">
+                                            {checkedIcon}
+                                            <Typography
+                                              variant={'h6'}
+                                              component={'div'}
+                                              align={'left'}
+                                            >
+                                              {label}
+                                            </Typography>
+                                          </Stack>
+                                        }
                                         disableRipple
                                         inputRef={ref}
                                       />
                                     }
                                     disabled={disabled}
                                     label={
-                                      <Grid
-                                        container
-                                        spacing={1}
+                                      <Stack
+                                        spacing={2}
                                         component={'span'}
                                         style={{
                                           height: description ? 'auto' : '100%',
                                         }}
                                         alignItems={description ? 'flex-start' : 'center'}
                                       >
-                                        <Grid item xs={12} component={'span'}>
+                                        {!!description && (
                                           <Typography
-                                            variant={'h6'}
+                                            variant={'caption'}
                                             component={'div'}
                                             align={'left'}
                                           >
-                                            {label}
+                                            {description}
                                           </Typography>
-                                        </Grid>
-                                        {!!description && (
-                                          <Grid item xs={12} component={'span'}>
-                                            <Typography
-                                              variant={'caption'}
-                                              component={'div'}
-                                              align={'left'}
-                                            >
-                                              {description}
-                                            </Typography>
-                                          </Grid>
                                         )}
-                                      </Grid>
+                                      </Stack>
                                     }
                                     className={classes.radioControlLabel}
                                   />

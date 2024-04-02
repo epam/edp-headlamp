@@ -21,7 +21,6 @@ export const TriggerType = () => {
       title={
         'Choose the trigger type for this stage, specifying whether it should be manually or automatically triggered after a successfully  built pipeline.'
       }
-      placeholder={'Select trigger type'}
       control={control}
       errors={errors}
       options={triggerTypeSelectOptions}

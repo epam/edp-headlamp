@@ -5,5 +5,4 @@ export interface FormProps {
   editorOpen: boolean;
   editorData: EDPCodebaseKubeObjectInterface;
   setEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  formActiveTabIdx: number;
 }

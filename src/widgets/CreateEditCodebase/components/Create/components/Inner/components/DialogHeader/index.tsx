@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { LearnMoreLink } from '../../../../../../../../components/LearnMoreLink';
@@ -14,6 +14,7 @@ import { CreateCodebaseFormValues } from '../../../../types';
 import { DialogHeaderProps } from './types';
 
 export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps) => {
+  const theme = useTheme();
   const { watch, getValues } = useFormContext<CreateCodebaseFormValues>();
 
   const handleOpenEditor = React.useCallback(() => {
@@ -42,27 +43,23 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
   }, [typeFieldValue]);
 
   return (
-    <Grid container alignItems={'center'} justifyContent={'space-between'} spacing={1}>
-      <Grid item>
-        <Grid container spacing={1} alignItems={'center'}>
-          <Grid item>
-            <Typography variant={'h5'}>
-              {`Create ${capitalizedType}`} <LearnMoreLink url={docLink} />
-            </Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item>
+    <Stack direction="row" alignItems={'flex-start'} justifyContent={'space-between'} spacing={1}>
+      <Stack spacing={2}>
+        <Typography variant={'h5'}>{`Create ${capitalizedType}`}</Typography>
+        <LearnMoreLink url={docLink} />
+      </Stack>
+      <Box sx={{ color: theme.palette.text.primary }}>
         <Button
           startIcon={<Icon icon={ICONS.PENCIL} />}
           size="small"
           component={'button'}
+          color="inherit"
           onClick={handleOpenEditor}
-          style={{ flexShrink: 0 }}
+          sx={{ flexShrink: 0 }}
         >
           Edit YAML
         </Button>
-      </Grid>
-    </Grid>
+      </Box>
+    </Stack>
   );
 };

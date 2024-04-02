@@ -12,7 +12,6 @@ export interface FormTextFieldProps {
   defaultValue?: string;
   placeholder?: string;
   disabled?: boolean;
-  showLabelPlaceholder?: boolean;
   InputProps?: InputProps;
   TextFieldProps?: StandardTextFieldProps;
 }

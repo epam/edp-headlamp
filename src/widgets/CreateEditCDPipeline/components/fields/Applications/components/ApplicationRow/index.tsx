@@ -181,7 +181,6 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
                   handleChangeApplicationBranch({ name, value }),
               }
             )}
-            placeholder={'Select application branch'}
             control={control}
             errors={errors}
             options={availableBranches.map((el) => ({

@@ -1,4 +1,4 @@
-import { Dialog } from '@mui/material';
+import { Dialog, useTheme } from '@mui/material';
 import React from 'react';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../types/forms';
@@ -8,6 +8,8 @@ import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from './constants';
 import { CreateEditCodebaseDialogForwardedProps } from './types';
 
 export const CreateEditCodebase = () => {
+  const theme = useTheme();
+
   const {
     open,
     closeDialog,
@@ -17,7 +19,14 @@ export const CreateEditCodebase = () => {
   );
 
   return (
-    <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth data-testid="dialog">
+    <Dialog
+      open={open}
+      onClose={closeDialog}
+      maxWidth={'sm'}
+      fullWidth
+      data-testid="dialog"
+      PaperProps={{ sx: { maxWidth: theme.typography.pxToRem(648) } }}
+    >
       {mode === FORM_MODES.CREATE ? <Create /> : mode === FORM_MODES.EDIT ? <Edit /> : null}
     </Dialog>
   );

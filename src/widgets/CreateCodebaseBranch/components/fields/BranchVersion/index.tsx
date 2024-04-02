@@ -80,7 +80,6 @@ export const BranchVersion = () => {
           placeholder={'SNAPSHOT'}
           control={control}
           errors={errors}
-          showLabelPlaceholder
         />
       </Grid>
     </Grid>

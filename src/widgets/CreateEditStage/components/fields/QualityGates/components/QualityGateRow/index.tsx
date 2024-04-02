@@ -270,7 +270,6 @@ export const QualityGateRow = ({
               title={
                 'Quality gates can be either manual approvals or autotests. To select autotest, create the corresponding codebase beforehand.'
               }
-              placeholder={'Select quality gate type'}
               control={control}
               errors={errors}
               defaultValue={currentQualityGate.qualityGateType}
@@ -310,7 +309,6 @@ export const QualityGateRow = ({
                   )}
                   label={'Autotest'}
                   title={'Specify an automated test to associate with this stage.'}
-                  placeholder={'Select autotest'}
                   control={control}
                   errors={errors}
                   options={availableAutotests.map(({ name, disabled = false }) => ({
@@ -331,7 +329,6 @@ export const QualityGateRow = ({
                   )}
                   label={'Autotest branch'}
                   title={'Specify the branch for the automated tests.'}
-                  placeholder={'Select autotest branch'}
                   control={control}
                   errors={errors}
                   disabled={!currentQualityGateBranchesOptions.length}

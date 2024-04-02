@@ -66,7 +66,6 @@ export const Cluster = () => {
           .
         </>
       }
-      placeholder={'Select cluster'}
       control={control}
       errors={errors}
       options={clusterOptions}

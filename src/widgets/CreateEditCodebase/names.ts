@@ -1,5 +1,5 @@
 import { BackwardNameMapping } from '../../types/forms';
-import { FORM_PART_ADVANCED_SETTINGS, FORM_PART_CODEBASE_INFO } from './constants';
+import { CONFIGURATION_STEPS } from './constants';
 
 const NAMES = {
   TYPE: 'type',
@@ -45,37 +45,37 @@ export const CODEBASE_FORM_NAMES = {
 
   [NAMES.TYPE]: {
     name: NAMES.TYPE,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'type'],
   },
   [NAMES.STRATEGY]: {
     name: NAMES.STRATEGY,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'strategy'],
   },
   [NAMES.REPOSITORY_URL]: {
     name: NAMES.REPOSITORY_URL,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'repository', 'url'],
   },
   [NAMES.GIT_SERVER]: {
     name: NAMES.GIT_SERVER,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'gitServer'],
   },
   [NAMES.GIT_URL_PATH]: {
     name: NAMES.GIT_URL_PATH,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'gitUrlPath'],
   },
   [NAMES.EMPTY_PROJECT]: {
     name: NAMES.EMPTY_PROJECT,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'emptyProject'],
   },
   [NAMES.NAME]: {
     name: NAMES.NAME,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['metadata', 'name'],
   },
   [NAMES.NAMESPACE]: {
@@ -84,67 +84,67 @@ export const CODEBASE_FORM_NAMES = {
   },
   [NAMES.DESCRIPTION]: {
     name: NAMES.DESCRIPTION,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'description'],
   },
   [NAMES.DEFAULT_BRANCH]: {
     name: NAMES.DEFAULT_BRANCH,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'defaultBranch'],
   },
   [NAMES.LANG]: {
     name: NAMES.LANG,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'lang'],
   },
   [NAMES.FRAMEWORK]: {
     name: NAMES.FRAMEWORK,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'framework'],
   },
   [NAMES.BUILD_TOOL]: {
     name: NAMES.BUILD_TOOL,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'buildTool'],
   },
   [NAMES.TEST_REPORT_FRAMEWORK]: {
     name: NAMES.TEST_REPORT_FRAMEWORK,
-    formPart: FORM_PART_CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'testReportFramework'],
   },
   [NAMES.VERSIONING_TYPE]: {
     name: NAMES.VERSIONING_TYPE,
-    formPart: FORM_PART_ADVANCED_SETTINGS,
+    formPart: CONFIGURATION_STEPS.ADVANCED_SETTINGS,
     path: ['spec', 'versioning', 'type'],
   },
   [NAMES.VERSIONING_START_FROM]: {
     name: NAMES.VERSIONING_START_FROM,
-    formPart: FORM_PART_ADVANCED_SETTINGS,
+    formPart: CONFIGURATION_STEPS.ADVANCED_SETTINGS,
     path: ['spec', 'versioning', 'startFrom'],
   },
   [NAMES.DEPLOYMENT_SCRIPT]: {
     name: NAMES.DEPLOYMENT_SCRIPT,
-    formPart: FORM_PART_ADVANCED_SETTINGS,
+    formPart: CONFIGURATION_STEPS.ADVANCED_SETTINGS,
     path: ['spec', 'deploymentScript'],
   },
   [NAMES.JIRA_SERVER]: {
     name: NAMES.JIRA_SERVER,
-    formPart: FORM_PART_ADVANCED_SETTINGS,
+    formPart: CONFIGURATION_STEPS.ADVANCED_SETTINGS,
     path: ['spec', 'jiraServer'],
   },
   [NAMES.COMMIT_MESSAGE_PATTERN]: {
     name: NAMES.COMMIT_MESSAGE_PATTERN,
-    formPart: FORM_PART_ADVANCED_SETTINGS,
+    formPart: CONFIGURATION_STEPS.ADVANCED_SETTINGS,
     path: ['spec', 'commitMessagePattern'],
   },
   [NAMES.TICKET_NAME_PATTERN]: {
     name: NAMES.TICKET_NAME_PATTERN,
-    formPart: FORM_PART_ADVANCED_SETTINGS,
+    formPart: CONFIGURATION_STEPS.ADVANCED_SETTINGS,
     path: ['spec', 'ticketNamePattern'],
   },
   [NAMES.JIRA_ISSUE_METADATA_PAYLOAD]: {
     name: NAMES.JIRA_ISSUE_METADATA_PAYLOAD,
-    formPart: FORM_PART_ADVANCED_SETTINGS,
+    formPart: CONFIGURATION_STEPS.ADVANCED_SETTINGS,
     path: ['spec', 'jiraIssueMetadataPayload'],
   },
 

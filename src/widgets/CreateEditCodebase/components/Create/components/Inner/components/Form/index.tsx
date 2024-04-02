@@ -4,19 +4,17 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { TabPanel } from '../../../../../../../../components/TabPanel';
 import { useHandleEditorSave } from '../../../../../../../../hooks/useHandleEditorSave';
+import { useStepperContext } from '../../../../../../../../providers/Stepper/hooks';
 import { getUsedValues } from '../../../../../../../../utils/forms/getUsedValues';
-import {
-  FORM_PART_ADVANCED_SETTINGS,
-  FORM_PART_CODEBASE_INFO,
-  TAB_INDEXES,
-} from '../../../../../../constants';
+import { CONFIGURATION_STEPPER } from '../../../../../../constants';
 import { CODEBASE_BACKWARDS_NAME_MAPPING, CODEBASE_FORM_NAMES } from '../../../../../../names';
 import { CreateCodebaseFormValues } from '../../../../types';
 import { Advanced } from './components/Advanced';
 import { Info } from './components/Info';
 import { FormProps } from './types';
 
-export const Form = ({ formActiveTabIdx, editorOpen, editorData, setEditorOpen }: FormProps) => {
+export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
+  const { activeStep } = useStepperContext();
   const { getValues, setValue, resetField } = useFormContext<CreateCodebaseFormValues>();
 
   const handleCloseEditor = React.useCallback(() => setEditorOpen(false), [setEditorOpen]);
@@ -40,10 +38,10 @@ export const Form = ({ formActiveTabIdx, editorOpen, editorData, setEditorOpen }
 
   return (
     <>
-      <TabPanel value={formActiveTabIdx} index={TAB_INDEXES[FORM_PART_CODEBASE_INFO]}>
+      <TabPanel value={activeStep} index={CONFIGURATION_STEPPER.CODEBASE_INFO.idx}>
         <Info />
       </TabPanel>
-      <TabPanel value={formActiveTabIdx} index={TAB_INDEXES[FORM_PART_ADVANCED_SETTINGS]}>
+      <TabPanel value={activeStep} index={CONFIGURATION_STEPPER.ADVANCED_SETTINGS.idx}>
         <Advanced />
       </TabPanel>
       {editorOpen && (

@@ -23,7 +23,6 @@ export const JiraServer = () => {
       })}
       label={'Jira server'}
       title={'Select the Jira server to link your component with relevant project tasks.'}
-      placeholder={!namespace ? 'Select namespace first' : 'Select Jira server'}
       control={control}
       errors={errors}
       disabled={!namespace}

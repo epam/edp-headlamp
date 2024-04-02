@@ -122,7 +122,6 @@ export const Applications = () => {
             <FormSelect
               {...register(CDPIPELINE_FORM_NAMES.applicationsToAddChooser.name)}
               label={'Applications'}
-              placeholder={'Select applications'}
               title={'Select the applications linked to this environment.'}
               control={control}
               errors={errors}

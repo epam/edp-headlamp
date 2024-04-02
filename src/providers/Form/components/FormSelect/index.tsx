@@ -1,10 +1,20 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { Grid } from '@mui/material';
-import { FormControl, MenuItem, Select, Typography } from '@mui/material';
+import { Icon } from '@iconify/react';
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  Tooltip,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import clsx from 'clsx';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { FormControlLabelWithTooltip } from '../FormControlLabelWithTooltip';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useStyles } from './styles';
 import { FormSelectProps } from './types';
 
@@ -18,13 +28,13 @@ export const FormSelect = React.forwardRef(
       defaultValue = '',
       options = [],
       errors,
-      placeholder,
-      showLabelPlaceholder = false,
       disabled,
       ...props
     }: FormSelectProps,
     ref: React.RefObject<HTMLInputElement>
   ) => {
+    const theme = useTheme();
+
     const hasError = !!errors[name];
     const classes = useStyles();
 
@@ -42,62 +52,67 @@ export const FormSelect = React.forwardRef(
     );
 
     return (
-      <Grid container spacing={1}>
-        <Grid item xs={12} style={{ display: 'flex' }}>
-          <Grid container spacing={1}>
-            {(!!label || showLabelPlaceholder) && (
-              <Grid item xs={12}>
-                <FormControlLabelWithTooltip label={label} title={title} />
-              </Grid>
-            )}
-            <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
-              <FormControl fullWidth>
-                <Controller
-                  render={({ field }) => {
-                    return (
-                      <Select
-                        {...field}
-                        inputRef={ref}
-                        error={hasError}
-                        displayEmpty
-                        disabled={disabled}
-                        fullWidth
-                        renderValue={(value) =>
-                          value !== '' ? getOptionValue(value) : placeholder
-                        }
-                        className={clsx({
-                          [classes.selectWithDefaultValue]: field.value === '',
-                        })}
-                      >
-                        {options.map(({ label, value, disabled = false }, idx) => {
-                          const key = `${label}::${idx}`;
+      <Stack spacing={1}>
+        <FormControl fullWidth>
+          <InputLabel>{label}</InputLabel>
+          <Controller
+            render={({ field }) => {
+              return (
+                <Select
+                  {...field}
+                  inputRef={ref}
+                  error={hasError}
+                  displayEmpty
+                  disabled={disabled}
+                  fullWidth
+                  renderValue={(value) => (value !== '' ? getOptionValue(value) : label)}
+                  className={clsx({
+                    [classes.selectWithDefaultValue]: field.value === '',
+                  })}
+                  endAdornment={
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        right: theme.typography.pxToRem(24),
+                        lineHeight: 0,
+                      }}
+                    >
+                      <Tooltip title={title}>
+                        <Icon
+                          icon={ICONS.INFO_CIRCLE}
+                          width={18}
+                          color={theme.palette.action.active}
+                        />
+                      </Tooltip>
+                    </Box>
+                  }
+                >
+                  {options.map(({ label, value, disabled = false }, idx) => {
+                    const key = `${label}::${idx}`;
 
-                          return (
-                            <MenuItem value={value} key={key} disabled={disabled}>
-                              {label}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
+                    return (
+                      <MenuItem value={value} key={key} disabled={disabled}>
+                        {label}
+                      </MenuItem>
                     );
-                  }}
-                  name={name}
-                  defaultValue={defaultValue}
-                  control={control}
-                  {...props}
-                />
-              </FormControl>
-            </Grid>
-          </Grid>
-        </Grid>
+                  })}
+                </Select>
+              );
+            }}
+            name={name}
+            defaultValue={defaultValue}
+            control={control}
+            {...props}
+          />
+        </FormControl>
         {hasError && (
-          <Grid item xs={12}>
-            <Typography component={'span'} variant={'subtitle2'} color={'error'}>
-              <ErrorMessage errors={errors} name={name} />
-            </Typography>
-          </Grid>
+          <Typography component={'span'} variant={'subtitle2'} color={'error'}>
+            <ErrorMessage errors={errors} name={name} />
+          </Typography>
         )}
-      </Grid>
+      </Stack>
     );
   }
 );

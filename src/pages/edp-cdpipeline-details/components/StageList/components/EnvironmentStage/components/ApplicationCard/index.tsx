@@ -98,17 +98,19 @@ export const ApplicationCard = ({
                   </Typography>
                 </Tooltip>
               </Link>
-              <Typography
-                variant="caption"
-                color={theme.palette.secondary.dark}
-                sx={{
-                  overflow: 'hidden',
-                  whiteSpace: 'nowrap',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                {argoApplication.spec.source.targetRevision}
-              </Typography>
+              <Tooltip title={argoApplication.spec.source.targetRevision}>
+                <Typography
+                  variant="caption"
+                  color={theme.palette.secondary.dark}
+                  sx={{
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {argoApplication.spec.source.targetRevision}
+                </Typography>
+              </Tooltip>
             </Stack>
             <Stack direction="row" spacing={1} alignItems="center" flexShrink={0}>
               <Typography variant="caption" color="primary.dark">

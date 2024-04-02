@@ -74,68 +74,47 @@ exports[`renders ManageSonarCI Edit component 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       >
                         <div
-                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                          class="MuiStack-root css-jfdv4h-MuiStack-root"
                         >
                           <div
-                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                            style="display: flex;"
+                            class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                           >
                             <div
-                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                              class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                             >
-                              <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                              <label
+                                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
+                                data-shrink="true"
+                                for="mui-3"
+                                id="mui-3-label"
                               >
-                                <span
-                                  class="makeStyles-labelWrap-10"
-                                >
-                                  <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-11 css-1ezega9-MuiTypography-root"
-                                  >
-                                    Quick Link URL
-                                  </span>
-                                  <span />
-                                </span>
-                              </div>
+                                Quick Link URL
+                              </label>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                                style="display: flex; align-items: flex-end;"
+                                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                               >
-                                <div
-                                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                                  id="mui-3"
+                                  name="externalUrl"
+                                  placeholder="Enter URL"
+                                  type="text"
+                                  value="https://test-nexus.com"
+                                />
+                                <span />
+                                <fieldset
+                                  aria-hidden="true"
+                                  class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
                                 >
-                                  <div
-                                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                                  <legend
+                                    class="css-14lo706"
                                   >
-                                    <div
-                                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
-                                    >
-                                      <input
-                                        aria-invalid="false"
-                                        class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                                        id="mui-3"
-                                        name="externalUrl"
-                                        placeholder="Enter URL"
-                                        type="text"
-                                        value="https://test-nexus.com"
-                                      />
-                                      <fieldset
-                                        aria-hidden="true"
-                                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                                      >
-                                        <legend
-                                          class="css-ihdtdm"
-                                        >
-                                          <span
-                                            class="notranslate"
-                                          >
-                                            ​
-                                          </span>
-                                        </legend>
-                                      </fieldset>
-                                    </div>
-                                  </div>
-                                </div>
+                                    <span>
+                                      Quick Link URL
+                                    </span>
+                                  </legend>
+                                </fieldset>
                               </div>
                             </div>
                           </div>
@@ -145,83 +124,70 @@ exports[`renders ManageSonarCI Edit component 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       >
                         <div
-                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                          class="MuiStack-root css-jfdv4h-MuiStack-root"
                         >
                           <div
-                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                            style="display: flex;"
+                            class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                           >
                             <div
-                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                              class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                             >
-                              <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                              <label
+                                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
+                                data-shrink="true"
+                                for="mui-5"
+                                id="mui-5-label"
                               >
-                                <span
-                                  class="makeStyles-labelWrap-12"
-                                >
-                                  <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-13 css-1ezega9-MuiTypography-root"
-                                  >
-                                    URL
-                                  </span>
-                                  <span />
-                                </span>
-                              </div>
+                                URL
+                              </label>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                                style="display: flex; align-items: flex-end;"
+                                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                               >
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                                  disabled=""
+                                  id="mui-5"
+                                  name="url"
+                                  placeholder="Enter URL"
+                                  type="text"
+                                  value="https://test-url.com"
+                                />
                                 <div
-                                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                                  class="MuiStack-root css-niqf4j-MuiStack-root"
                                 >
                                   <div
-                                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                                    class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
                                   >
-                                    <div
-                                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary Mui-disabled MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
+                                    <span />
+                                  </div>
+                                  <div
+                                    class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
+                                  >
+                                    <button
+                                      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
+                                      tabindex="0"
+                                      type="button"
                                     >
-                                      <input
-                                        aria-invalid="false"
-                                        class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                                        disabled=""
-                                        id="mui-5"
-                                        name="url"
-                                        placeholder="Enter URL"
-                                        type="text"
-                                        value="https://test-url.com"
+                                      <span />
+                                      <span
+                                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                                       />
-                                      <div
-                                        class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
-                                      >
-                                        <button
-                                          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
-                                          tabindex="0"
-                                          type="button"
-                                        >
-                                          <span />
-                                          <span
-                                            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                                          />
-                                        </button>
-                                      </div>
-                                      <fieldset
-                                        aria-hidden="true"
-                                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                                      >
-                                        <legend
-                                          class="css-ihdtdm"
-                                        >
-                                          <span
-                                            class="notranslate"
-                                          >
-                                            ​
-                                          </span>
-                                        </legend>
-                                      </fieldset>
-                                    </div>
+                                    </button>
                                   </div>
                                 </div>
+                                <fieldset
+                                  aria-hidden="true"
+                                  class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                                >
+                                  <legend
+                                    class="css-14lo706"
+                                  >
+                                    <span>
+                                      URL
+                                    </span>
+                                  </legend>
+                                </fieldset>
                               </div>
                             </div>
                           </div>
@@ -231,82 +197,69 @@ exports[`renders ManageSonarCI Edit component 1`] = `
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                       >
                         <div
-                          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                          class="MuiStack-root css-jfdv4h-MuiStack-root"
                         >
                           <div
-                            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                            style="display: flex;"
+                            class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                           >
                             <div
-                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                              class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                             >
-                              <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                              <label
+                                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
+                                data-shrink="true"
+                                for="mui-7"
+                                id="mui-7-label"
                               >
-                                <span
-                                  class="makeStyles-labelWrap-14"
-                                >
-                                  <span
-                                    class="MuiTypography-root MuiTypography-body1 makeStyles-label-15 css-1ezega9-MuiTypography-root"
-                                  >
-                                    Token
-                                  </span>
-                                  <span />
-                                </span>
-                              </div>
+                                Token
+                              </label>
                               <div
-                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                                style="display: flex; align-items: flex-end;"
+                                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
                               >
+                                <input
+                                  aria-invalid="false"
+                                  class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                                  id="mui-7"
+                                  name="token"
+                                  placeholder="Enter token"
+                                  type="password"
+                                  value="test-token"
+                                />
                                 <div
-                                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                                  class="MuiStack-root css-niqf4j-MuiStack-root"
                                 >
                                   <div
-                                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                                    class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
                                   >
-                                    <div
-                                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
+                                    <span />
+                                  </div>
+                                  <div
+                                    class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
+                                  >
+                                    <button
+                                      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
+                                      tabindex="0"
+                                      type="button"
                                     >
-                                      <input
-                                        aria-invalid="false"
-                                        class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                                        id="mui-7"
-                                        name="token"
-                                        placeholder="Enter token"
-                                        type="password"
-                                        value="test-token"
+                                      <span />
+                                      <span
+                                        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                                       />
-                                      <div
-                                        class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
-                                      >
-                                        <button
-                                          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
-                                          tabindex="0"
-                                          type="button"
-                                        >
-                                          <span />
-                                          <span
-                                            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                                          />
-                                        </button>
-                                      </div>
-                                      <fieldset
-                                        aria-hidden="true"
-                                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                                      >
-                                        <legend
-                                          class="css-ihdtdm"
-                                        >
-                                          <span
-                                            class="notranslate"
-                                          >
-                                            ​
-                                          </span>
-                                        </legend>
-                                      </fieldset>
-                                    </div>
+                                    </button>
                                   </div>
                                 </div>
+                                <fieldset
+                                  aria-hidden="true"
+                                  class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                                >
+                                  <legend
+                                    class="css-14lo706"
+                                  >
+                                    <span>
+                                      Token
+                                    </span>
+                                  </legend>
+                                </fieldset>
                               </div>
                             </div>
                           </div>
