@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, Typography } from '@mui/material';
+import { Box, CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { usePagination } from '../../hooks/usePagination';
 import { EmptyList } from '../EmptyList';
@@ -41,56 +41,74 @@ export const DataGrid = <DataType extends unknown>({
     error,
   });
 
+  const isReadyDataLoading = readyData === null;
+
   const hasEmptyResult = React.useMemo(() => {
-    if (!data || !readyData) {
-      return;
+    if (isLoading && isReadyDataLoading) {
+      return false;
     }
 
-    return !!data.length && !readyData?.length;
-  }, [data, readyData]);
+    return !!data.length && !readyData.length;
+  }, [data, isLoading, isReadyDataLoading, readyData]);
+
+  const renderGrid = React.useCallback(() => {
+    if (error) {
+      return (
+        <Box display="flex" justifyContent={'center'}>
+          <Typography color={'error'} variant={'h6'}>
+            {error.toString()}
+          </Typography>
+        </Box>
+      );
+    }
+
+    if (isLoading) {
+      return (
+        <Box display="flex" justifyContent={'center'}>
+          <CircularProgress />
+        </Box>
+      );
+    }
+
+    if (readyData !== null) {
+      return (
+        <Grid container spacing={spacing}>
+          {readyData.slice(page * _rowsPerPage, page * _rowsPerPage + _rowsPerPage).map((item) => {
+            return <>{renderItem(item)}</>;
+          })}
+        </Grid>
+      );
+    }
+
+    if (hasEmptyResult) {
+      return <EmptyList customText={'No results found!'} isSearch />;
+    }
+
+    return <>{emptyListComponent}</>;
+  }, [
+    _rowsPerPage,
+    emptyListComponent,
+    error,
+    hasEmptyResult,
+    isLoading,
+    page,
+    readyData,
+    renderItem,
+    spacing,
+  ]);
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        {error ? (
-          <Grid container justifyContent={'center'}>
-            <Grid item>
-              <Typography color={'error'} variant={'h6'}>
-                {error.toString()}
-              </Typography>
-            </Grid>
-          </Grid>
-        ) : isLoading ? (
-          <Grid container justifyContent={'center'}>
-            <Grid item>
-              <CircularProgress />
-            </Grid>
-          </Grid>
-        ) : readyData?.length ? (
-          <Grid container spacing={spacing}>
-            {readyData
-              .slice(page * _rowsPerPage, page * _rowsPerPage + _rowsPerPage)
-              .map((item) => {
-                return <>{renderItem(item)}</>;
-              })}
-          </Grid>
-        ) : hasEmptyResult ? (
-          <EmptyList customText={'No results found!'} isSearch />
-        ) : !data?.length ? (
-          <>{emptyListComponent}</>
-        ) : null}
-      </Grid>
+    <Stack spacing={2}>
+      {renderGrid()}
       {showPagination && data?.length > _rowsPerPage && (
-        <Grid item xs={12}>
-          <Pagination
-            dataCount={readyData && readyData.length}
-            page={page}
-            rowsPerPage={_rowsPerPage}
-            handleChangePage={handleChangePage}
-            handleChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </Grid>
+        <Pagination
+          dataCount={readyData && readyData.length}
+          page={page}
+          rowsPerPage={_rowsPerPage}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+        />
       )}
-    </Grid>
+    </Stack>
   );
 };

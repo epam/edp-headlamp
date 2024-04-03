@@ -29,8 +29,20 @@ export const URL = () => {
         },
       })}
       label={'URL'}
+      //@ts-ignore
       title={
-        'Enter the URL of your SonarQube instance. This is typically the address where SonarQube is hosted (e.g., https://sonarqube.example.com:9000).'
+        <>
+          <p>
+            Enter the URL of your SonarQube instance depending on a service type. Ensure it includes
+            the correct protocol and endpoint:
+          </p>
+          <p>
+            Internal service example: <em>http://sonarqube.sonarqube-namespace: 9000</em>
+          </p>
+          <p>
+            External service example: <em>https://sonarqube.example.com</em>
+          </p>
+        </>
       }
       placeholder={'Enter URL'}
       control={control}

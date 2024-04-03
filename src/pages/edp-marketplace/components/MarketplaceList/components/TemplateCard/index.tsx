@@ -1,5 +1,4 @@
-import { Box, Button, Chip, Grid, Tooltip, Typography } from '@mui/material';
-import clsx from 'clsx';
+import { Box, Button, Chip, Grid, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import {
   BUILD_TOOL_ICON_MAPPING,
@@ -13,6 +12,7 @@ import { useStyles } from './styles';
 import { TemplateCardProps } from './types';
 
 export const TemplateCard = ({ template, handleTemplateClick }: TemplateCardProps) => {
+  const theme = useTheme();
   const {
     spec: {
       displayName,
@@ -31,112 +31,125 @@ export const TemplateCard = ({ template, handleTemplateClick }: TemplateCardProp
   const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
   return (
-    <Button
-      className={classes.cardRoot}
-      onClick={() => handleTemplateClick(template)}
-      sx={{ color: 'inherit', textTransform: 'none', textAlign: 'left' }}
-      variant="contained"
-      disableElevation
-    >
-      <div className={classes.cardContent}>
-        <Box className={clsx(classes.cardContentRow, classes.cardContentHeader)}>
-          <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-            <Grid item>
-              <img
-                className={classes.templateIcon}
-                src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
-                alt=""
-              />
-            </Grid>
-            <Grid item>
-              <Tooltip title={displayName}>
-                <Typography variant={'h6'} className={classes.templateName}>
-                  {displayName}
-                </Typography>
-              </Tooltip>
-            </Grid>
-            <Grid item style={{ marginLeft: 'auto', alignSelf: 'flex-start' }}>
-              <Typography variant={'caption'}>{version}</Typography>
-            </Grid>
-          </Grid>
-        </Box>
-        <Box className={classes.cardContentRow}>
-          <Grid container alignItems={'center'} spacing={1}>
-            <Grid item>
-              <Tooltip title={'Language'}>
-                <Chip
-                  size="small"
-                  avatar={
-                    <UseSpriteSymbol
-                      name={LANGUAGE_ICON_MAPPING?.[language] || RESOURCE_ICON_NAMES.OTHER}
-                      width={15}
-                      height={15}
-                    />
-                  }
-                  label={codebaseMapping?.[language]?.language?.name || language}
-                  className={classes.chipWithRoundedAvatar}
-                />
-              </Tooltip>
-            </Grid>
-            <Grid item>
-              <Tooltip title={'Framework'}>
-                <Chip
-                  size="small"
-                  avatar={
-                    <UseSpriteSymbol
-                      name={FRAMEWORK_ICON_MAPPING?.[framework] || RESOURCE_ICON_NAMES.OTHER}
-                      width={15}
-                      height={15}
-                    />
-                  }
-                  label={codebaseMapping?.[language]?.frameworks?.[framework]?.name || framework}
-                  className={classes.chipWithRoundedAvatar}
-                />
-              </Tooltip>
-            </Grid>
-            <Grid item>
-              <Tooltip title={'Build Tool'}>
-                <Chip
-                  size="small"
-                  avatar={
-                    <UseSpriteSymbol
-                      name={BUILD_TOOL_ICON_MAPPING?.[buildTool] || RESOURCE_ICON_NAMES.OTHER}
-                      width={15}
-                      height={15}
-                    />
-                  }
-                  label={codebaseMapping?.[language]?.buildTools?.[buildTool]?.name || buildTool}
-                  className={classes.chipWithRoundedAvatar}
-                />
-              </Tooltip>
-            </Grid>
-          </Grid>
-        </Box>
-        <Box className={classes.cardContentRow}>
+    <Box className={classes.cardRoot}>
+      <Stack spacing={3}>
+        <Stack spacing={2}>
+          <Stack direction="row" spacing={1} alignItems={'center'}>
+            <img
+              className={classes.templateIcon}
+              src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
+              alt=""
+            />
+            <Tooltip title={displayName}>
+              <Typography variant={'h6'} className={classes.templateName}>
+                {displayName}
+              </Typography>
+            </Tooltip>
+          </Stack>
           <Typography variant={'caption'} className={classes.templateDescription}>
             {description}
           </Typography>
-        </Box>
-        <Box className={classes.cardContentRow} style={{ marginTop: 'auto' }}>
-          <Grid container spacing={1} alignItems={'center'}>
-            <Grid item>
-              <Tooltip title={'Type'}>
-                <Chip size={'small'} label={type} color={'primary'} variant={'outlined'} />
-              </Tooltip>
+        </Stack>
+        <Stack spacing={2}>
+          <Box>
+            <Grid container alignItems={'center'} spacing={1}>
+              <Grid item lg={4}>
+                <Stack spacing={0.5}>
+                  <Typography variant={'caption'}>Language:</Typography>
+                  <Stack direction="row" spacing={0.5}>
+                    <UseSpriteSymbol
+                      name={LANGUAGE_ICON_MAPPING?.[language] || RESOURCE_ICON_NAMES.OTHER}
+                      width={16}
+                      height={16}
+                    />
+                    <Typography variant={'caption'} color={theme.palette.secondary.dark}>
+                      {codebaseMapping?.[language]?.language?.name || language}
+                    </Typography>
+                  </Stack>
+                </Stack>
+              </Grid>
+              <Grid item lg={4}>
+                <Stack spacing={0.5}>
+                  <Typography variant={'caption'}>Framework:</Typography>
+                  <Stack direction="row" spacing={0.5}>
+                    <UseSpriteSymbol
+                      name={FRAMEWORK_ICON_MAPPING?.[framework] || RESOURCE_ICON_NAMES.OTHER}
+                      width={16}
+                      height={16}
+                    />
+                    <Typography variant={'caption'} color={theme.palette.secondary.dark}>
+                      {codebaseMapping?.[language]?.frameworks?.[framework]?.name || framework}
+                    </Typography>
+                  </Stack>
+                </Stack>
+              </Grid>
+              <Grid item lg={4}>
+                <Stack spacing={0.5}>
+                  <Typography variant={'caption'}>Build Tool:</Typography>
+                  <Stack direction="row" spacing={0.5}>
+                    <UseSpriteSymbol
+                      name={BUILD_TOOL_ICON_MAPPING?.[buildTool] || RESOURCE_ICON_NAMES.OTHER}
+                      width={16}
+                      height={16}
+                    />
+                    <Typography variant={'caption'} color={theme.palette.secondary.dark}>
+                      {codebaseMapping?.[language]?.buildTools?.[buildTool]?.name || buildTool}
+                    </Typography>
+                  </Stack>
+                </Stack>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Tooltip title={'Category'}>
-                <Chip size={'small'} label={category} color={'primary'} variant={'outlined'} />
-              </Tooltip>
+          </Box>
+          <Box>
+            <Grid container spacing={1} alignItems={'center'}>
+              <Grid item lg={4}>
+                <Stack spacing={0.5} alignItems="flex-start">
+                  <Typography variant={'caption'}>Type:</Typography>
+                  <Chip
+                    size={'small'}
+                    label={type}
+                    sx={{ backgroundColor: theme.palette.secondary.main }}
+                  />
+                </Stack>
+              </Grid>
+              <Grid item lg={4}>
+                <Stack spacing={0.5} alignItems="flex-start">
+                  <Typography variant={'caption'}>Category:</Typography>
+                  <Chip
+                    size={'small'}
+                    label={category}
+                    sx={{ backgroundColor: theme.palette.secondary.main }}
+                  />
+                </Stack>
+              </Grid>
+              <Grid item lg={4}>
+                <Stack spacing={0.5} alignItems="flex-start">
+                  <Typography variant={'caption'}>Maturity:</Typography>
+                  <Chip
+                    size={'small'}
+                    label={maturity}
+                    sx={{ backgroundColor: theme.palette.secondary.main }}
+                  />
+                </Stack>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Tooltip title={'Maturity'}>
-                <Chip size={'small'} label={maturity} color={'primary'} variant={'outlined'} />
-              </Tooltip>
-            </Grid>
-          </Grid>
-        </Box>
-      </div>
-    </Button>
+          </Box>
+        </Stack>
+        <Stack direction="row" spacing={2} alignItems="flex-end" justifyContent="space-between">
+          <Stack spacing={0.5}>
+            <Typography variant={'caption'}>Version</Typography>
+            <Typography variant={'body1'}>{version}</Typography>
+          </Stack>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="medium"
+            onClick={() => handleTemplateClick(template)}
+          >
+            use template
+          </Button>
+        </Stack>
+      </Stack>
+    </Box>
   );
 };

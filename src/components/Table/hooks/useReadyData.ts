@@ -37,7 +37,7 @@ export const useReadyData = ({
 }: UseDataProps) => {
   return React.useMemo(() => {
     if (!data || isLoading || error) {
-      return [];
+      return null;
     }
 
     let result = [...data];

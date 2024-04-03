@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react';
 import { Button, Grid, Tooltip } from '@mui/material';
 import React from 'react';
 import { useFilterContext } from '../../hooks';
@@ -13,7 +12,7 @@ export const Filter = <ControlsKeys extends string = DefaultControlKeys>({
 
   const controlsRenderer = React.useCallback(() => {
     return Object.entries(controls).map(([, controlValue]) => {
-      const { component, gridXs = 2 } = controlValue as ControlComponent;
+      const { component, gridXs = 3 } = controlValue as ControlComponent;
 
       return (
         <Grid item xs={gridXs}>
@@ -47,14 +46,9 @@ export const Filter = <ControlsKeys extends string = DefaultControlKeys>({
         <>
           {controlsRenderer()}
           {hasValues ? (
-            <Grid item>
+            <Grid item sx={{ mt: '12px' }}>
               <Tooltip title={'Reset Filter'}>
-                <Button
-                  variant="contained"
-                  endIcon={<Icon icon="mdi:filter-variant-remove" />}
-                  onClick={resetFilters}
-                  aria-controls="standard-search"
-                >
+                <Button variant="outlined" onClick={resetFilters}>
                   Clear
                 </Button>
               </Tooltip>

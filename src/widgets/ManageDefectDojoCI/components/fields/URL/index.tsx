@@ -29,8 +29,14 @@ export const URL = () => {
         },
       })}
       label={'URL'}
+      //@ts-ignore
       title={
-        'Enter the URL of your DefectDojo instance. This is the address where DefectDojo is hosted (e.g., https://defectdojo.example.com).'
+        <>
+          <p>
+            Specify the URL where users can access the DefectDojo interface. Ensure to include the
+            HTTP or HTTPS protocol in the address (e.g., <em>https://defectdojo.example.com</em>).
+          </p>
+        </>
       }
       placeholder={'Enter URL'}
       control={control}

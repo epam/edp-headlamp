@@ -42,11 +42,13 @@ export const FormTextFieldEncoded = React.forwardRef(
         ...InputProps,
         endAdornment: (
           <Stack direction="row" spacing={1}>
-            <InputAdornment position="end">
-              <Tooltip title={title}>
-                <Icon icon={ICONS.INFO_CIRCLE} width={18} color={theme.palette.action.active} />
-              </Tooltip>
-            </InputAdornment>
+            {title && (
+              <InputAdornment position="end">
+                <Tooltip title={title}>
+                  <Icon icon={ICONS.INFO_CIRCLE} width={18} color={theme.palette.action.active} />
+                </Tooltip>
+              </InputAdornment>
+            )}
             <InputAdornment position="end">
               <IconButton size={'small'} onClick={() => setHidden((prev) => !prev)}>
                 <Icon icon={hidden ? ICONS.PENCIL : ICONS.CROSS} />

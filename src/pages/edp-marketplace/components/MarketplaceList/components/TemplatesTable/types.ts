@@ -4,4 +4,5 @@ export interface TemplatesTableProps {
   data: EDPTemplateKubeObjectInterface[];
   handleTemplateClick(template: EDPTemplateKubeObjectInterface): void;
   filterFunction?: ((...args: EDPTemplateKubeObjectInterface[]) => boolean) | null;
+  warning?: React.ReactNode;
 }

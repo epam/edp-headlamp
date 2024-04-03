@@ -29,8 +29,14 @@ export const URL = () => {
         },
       })}
       label={'URL'}
+      //@ts-ignore
       title={
-        'Enter the URL of your DependencyTrack instance. This is typically the address where DependencyTrack is hosted (e.g., https://deptrack.example.com).'
+        <>
+          <p>
+            Specify the URL of your DependencyTrack instance. Ensure to include the HTTP or HTTPS
+            protocol in the address (e.g., <em>https://deptrack.example.com</em>).
+          </p>
+        </>
       }
       placeholder={'Enter URL'}
       control={control}

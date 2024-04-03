@@ -15,7 +15,7 @@ export const useReadyData = <DataType>({
 }: UseReadyDataProps<DataType>) => {
   return React.useMemo(() => {
     if (!data || isLoading || error) {
-      return;
+      return null;
     }
 
     let result = [...data];

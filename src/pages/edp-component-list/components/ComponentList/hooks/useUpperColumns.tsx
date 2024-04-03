@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Box, IconButton, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, Button, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { TableColumn } from '../../../../../components/Table/types';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
@@ -30,14 +30,15 @@ export const useUpperColumns = ({
               </Box>
               <Tooltip title={'Delete selected components'}>
                 <div>
-                  <IconButton
+                  <Button
                     onClick={onUninstallClick}
                     disabled={!numSelected}
                     size="medium"
                     sx={{ color: theme.palette.secondary.dark }}
+                    startIcon={<Icon icon={ICONS.BUCKET} />}
                   >
-                    <Icon icon={ICONS.BUCKET} />
-                  </IconButton>
+                    delete
+                  </Button>
                 </div>
               </Tooltip>
             </Stack>

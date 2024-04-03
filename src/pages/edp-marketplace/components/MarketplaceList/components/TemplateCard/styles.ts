@@ -1,35 +1,16 @@
 import makeStyles from '@mui/styles/makeStyles';
-import { rem } from '../../../../../../utils/styling/rem';
 
 export const useStyles = makeStyles((theme) => ({
   cardRoot: {
     height: '100%',
-    backgroundColor: theme.palette.action.hover,
+    borderLeft: `4px solid ${theme.palette.primary.main}`,
+    borderRadius: theme.typography.pxToRem(4),
+    backgroundColor: theme.palette.common.white,
+    padding: theme.typography.pxToRem(24),
+    boxShadow: '0px 1px 10px 0px #0024461F',
 
     '&:hover': {
-      backgroundColor: theme.palette.action.selected,
-    },
-  },
-  cardActions: {
-    marginTop: 'auto',
-  },
-  cardContentHeader: {
-    height: '3.2em',
-    overflow: 'hidden',
-  },
-  cardContent: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    padding: rem(16),
-
-    '&:last-child': {
-      paddingBottom: rem(16),
-    },
-  },
-  cardContentRow: {
-    '&:not(:last-child)': {
-      marginBottom: rem(15),
+      backgroundColor: theme.palette.action.hover,
     },
   },
   chipWithRoundedAvatar: {
@@ -42,7 +23,7 @@ export const useStyles = makeStyles((theme) => ({
     '-webkit-line-clamp': 2,
     '-webkit-box-orient': 'vertical',
     overflow: 'hidden',
-    fontSize: '1rem',
+    fontSize: '1theme.typography.pxToRem',
     fontWeight: 600,
   },
   templateDescription: {
@@ -52,7 +33,7 @@ export const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
   },
   templateIcon: {
-    height: rem(40),
+    height: theme.typography.pxToRem(24),
     verticalAlign: 'middle',
   },
 }));

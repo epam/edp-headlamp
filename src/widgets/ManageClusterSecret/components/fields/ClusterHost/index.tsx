@@ -23,7 +23,14 @@ export const ClusterHost = () => {
         },
       })}
       label={'Cluster Host'}
-      title={'Enter cluster’s endpoint URL (e.g., example-cluster-domain.com).'}
+      //@ts-ignore
+      title={
+        <>
+          <p>
+            Enter cluster’s endpoint URL (e.g., <em>example-cluster-domain.com)</em>.
+          </p>
+        </>
+      }
       placeholder={'Enter cluster host'}
       control={control}
       errors={errors}

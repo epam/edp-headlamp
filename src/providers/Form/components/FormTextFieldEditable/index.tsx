@@ -46,18 +46,20 @@ export const FormTextFieldEditable = React.forwardRef(
         ...InputProps,
         endAdornment: (
           <Stack direction="row" spacing={1}>
-            <InputAdornment position="end">
-              <Tooltip title={title}>
-                <Icon icon={ICONS.INFO_CIRCLE} width={18} color={theme.palette.action.active} />
-              </Tooltip>
-            </InputAdornment>
-            {!disabled ? (
+            {title && (
+              <InputAdornment position="end">
+                <Tooltip title={title}>
+                  <Icon icon={ICONS.INFO_CIRCLE} width={18} color={theme.palette.action.active} />
+                </Tooltip>
+              </InputAdornment>
+            )}
+            {!disabled && (
               <InputAdornment position="end">
                 <IconButton size={'small'} onClick={handleTogglePartiallyDisabled}>
                   <Icon icon={_partiallyDisabled ? ICONS.PENCIL : ICONS.CROSS} />
                 </IconButton>
               </InputAdornment>
-            ) : null}
+            )}
           </Stack>
         ),
       }),

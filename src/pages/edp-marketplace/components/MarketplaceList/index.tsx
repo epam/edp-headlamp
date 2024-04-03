@@ -2,6 +2,7 @@ import { Grid } from '@mui/material';
 import React from 'react';
 import { DataGrid } from '../../../../components/DataGrid';
 import { EmptyList } from '../../../../components/EmptyList';
+import { Shop } from '../../../../icons/other/Shop';
 import { Resources } from '../../../../icons/sprites/Resources';
 import { EDPTemplateKubeObject } from '../../../../k8s/EDPTemplate';
 import { EDPTemplateKubeObjectInterface } from '../../../../k8s/EDPTemplate/types';
@@ -13,7 +14,7 @@ import { TemplateCard } from './components/TemplateCard';
 import { TemplatesTable } from './components/TemplatesTable';
 import { MarketplaceListProps } from './types';
 
-export const MarketplaceList = ({ filterFunction }: MarketplaceListProps) => {
+export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProps) => {
   const { setDialog } = useDialogContext();
   const { viewMode } = useViewModeContext();
   const [items, error] = EDPTemplateKubeObject.useList();
@@ -40,15 +41,25 @@ export const MarketplaceList = ({ filterFunction }: MarketplaceListProps) => {
           data={items}
           handleTemplateClick={handleTemplateClick}
           filterFunction={filterFunction}
+          warning={warning}
         />
       ) : viewMode === VIEW_MODES.GRID ? (
         <DataGrid<EDPTemplateKubeObjectInterface>
           data={items}
           error={error}
           isLoading={items === null}
-          spacing={2}
+          spacing={3}
           filterFunction={filterFunction}
-          emptyListComponent={<EmptyList missingItemName={'templates'} />}
+          emptyListComponent={
+            warning ? (
+              warning
+            ) : (
+              <EmptyList
+                missingItemName={'templates'}
+                icon={<Shop width={128} height={128} fill="#A2A7B7" />}
+              />
+            )
+          }
           renderItem={(item) => {
             const key = `marketplace-item-${item?.spec?.displayName}`;
 

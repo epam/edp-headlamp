@@ -5,4 +5,5 @@ export interface EmptyListProps {
   linkText?: string;
   handleClick?: () => void;
   isSearch?: boolean;
+  icon?: React.ReactNode;
 }

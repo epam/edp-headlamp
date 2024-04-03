@@ -70,23 +70,25 @@ export const FormSelect = React.forwardRef(
                     [classes.selectWithDefaultValue]: field.value === '',
                   })}
                   endAdornment={
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        right: theme.typography.pxToRem(24),
-                        lineHeight: 0,
-                      }}
-                    >
-                      <Tooltip title={title}>
-                        <Icon
-                          icon={ICONS.INFO_CIRCLE}
-                          width={18}
-                          color={theme.palette.action.active}
-                        />
-                      </Tooltip>
-                    </Box>
+                    title && (
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          right: theme.typography.pxToRem(24),
+                          lineHeight: 0,
+                        }}
+                      >
+                        <Tooltip title={title}>
+                          <Icon
+                            icon={ICONS.INFO_CIRCLE}
+                            width={18}
+                            color={theme.palette.action.active}
+                          />
+                        </Tooltip>
+                      </Box>
+                    )
                   }
                 >
                   {options.map(({ label, value, disabled = false }, idx) => {

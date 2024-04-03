@@ -28,7 +28,7 @@ export const FormTextField = React.forwardRef(
     const _InputProps = React.useMemo(() => {
       return {
         ...InputProps,
-        endAdornment: (
+        endAdornment: title && (
           <Tooltip title={title}>
             <Icon icon={ICONS.INFO_CIRCLE} width={18} color={theme.palette.action.active} />
           </Tooltip>

@@ -64,4 +64,5 @@ export enum ICONS {
   CROSSED_EYE = 'mdi:eye-off-outline',
   LIGHTNING = 'ph:lightning',
   SECURITY = 'material-symbols:security',
+  CHECK = 'material-symbols:check',
 }

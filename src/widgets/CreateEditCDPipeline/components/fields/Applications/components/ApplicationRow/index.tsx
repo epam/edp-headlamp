@@ -164,6 +164,7 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
               // @ts-ignore
               rowAppNameField
             )}
+            label="Application"
             disabled
             defaultValue={appName}
             control={control}
@@ -181,6 +182,7 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
                   handleChangeApplicationBranch({ name, value }),
               }
             )}
+            label="Branch"
             control={control}
             errors={errors}
             options={availableBranches.map((el) => ({

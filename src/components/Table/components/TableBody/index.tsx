@@ -27,9 +27,9 @@ export const TableBody = ({
   rowsPerPage,
   hasEmptyResult,
 }: TableBodyProps) => {
-  return (
-    <MuiTableBody>
-      {error ? (
+  const renderTableBody = React.useCallback(() => {
+    if (error) {
+      return (
         <MuiTableRow>
           <TableCell colSpan={columns.length} align={'center'}>
             <Typography color={'error'} variant={'h6'}>
@@ -37,46 +37,73 @@ export const TableBody = ({
             </Typography>
           </TableCell>
         </MuiTableRow>
-      ) : isLoading ? (
+      );
+    }
+
+    if (isLoading) {
+      return (
         <MuiTableRow>
           <TableCell colSpan={columns.length} align={'center'}>
             <CircularProgress />
           </TableCell>
         </MuiTableRow>
-      ) : readyData?.length ? (
-        <>
-          {readyData
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row, idx: number) => {
-              const _isSelected = isSelectedRow(isSelected, row);
-              const _canBeSelected = canBeSelected ? canBeSelected(row) : true;
+      );
+    }
 
-              return (
-                <TableRow
-                  key={`table-row-${idx}`}
-                  item={row}
-                  columns={columns}
-                  isSelected={_isSelected}
-                  canBeSelected={_canBeSelected}
-                  handleRowClick={handleRowClick}
-                  handleSelectRowClick={handleSelectRowClick}
-                />
-              );
-            })}
-        </>
-      ) : hasEmptyResult ? (
+    if (readyData !== null) {
+      return readyData
+        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        .map((row, idx: number) => {
+          const _isSelected = isSelectedRow(isSelected, row);
+          const _canBeSelected = canBeSelected ? canBeSelected(row) : true;
+
+          return (
+            <TableRow
+              key={`table-row-${idx}`}
+              item={row}
+              columns={columns}
+              isSelected={_isSelected}
+              canBeSelected={_canBeSelected}
+              handleRowClick={handleRowClick}
+              handleSelectRowClick={handleSelectRowClick}
+            />
+          );
+        });
+    }
+
+    if (hasEmptyResult) {
+      return (
         <MuiTableRow>
           <TableCell colSpan={columns.length} align={'center'}>
             <EmptyList customText={'No results found!'} isSearch />
           </TableCell>
         </MuiTableRow>
-      ) : (
-        <MuiTableRow>
-          <TableCell colSpan={columns.length} align={'center'}>
-            <>{emptyListComponent}</>
-          </TableCell>
-        </MuiTableRow>
-      )}
-    </MuiTableBody>
-  );
+      );
+    }
+
+    console.log('showing empty list');
+
+    return (
+      <MuiTableRow>
+        <TableCell colSpan={columns.length} align={'center'}>
+          <>{emptyListComponent}</>
+        </TableCell>
+      </MuiTableRow>
+    );
+  }, [
+    canBeSelected,
+    columns,
+    emptyListComponent,
+    error,
+    handleRowClick,
+    handleSelectRowClick,
+    hasEmptyResult,
+    isLoading,
+    isSelected,
+    page,
+    readyData,
+    rowsPerPage,
+  ]);
+
+  return <MuiTableBody>{renderTableBody()}</MuiTableBody>;
 };

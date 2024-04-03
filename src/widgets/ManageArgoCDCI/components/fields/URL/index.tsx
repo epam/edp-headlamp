@@ -29,7 +29,15 @@ export const URL = () => {
         },
       })}
       label={'URL'}
-      title={'Enter the URL of your Argo CD instance.'}
+      //@ts-ignore
+      title={
+        <>
+          <p>
+            Enter the URL of your Argo CD instance. Ensure to use the HTTPS protocol (e.g.,
+            <em>https://argocd.example.com</em>).
+          </p>
+        </>
+      }
       placeholder={'Enter URL'}
       control={control}
       errors={errors}

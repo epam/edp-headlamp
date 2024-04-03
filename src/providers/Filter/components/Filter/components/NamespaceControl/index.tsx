@@ -1,10 +1,11 @@
 import { Icon } from '@iconify/react';
 import { K8s } from '@kinvolk/headlamp-plugin/lib';
-import { Checkbox, TextField, Typography, useTheme } from '@mui/material';
+import { Checkbox, Chip, TextField, useTheme } from '@mui/material';
 import { Autocomplete } from '@mui/material';
 import React from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useLocation } from 'react-router-dom';
+import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { getClusterSettings } from '../../../../../../utils/getClusterSettings';
 import { useFilterContext } from '../../../../hooks';
 import { useAddQuery } from '../../hooks/useAddQuery';
@@ -41,7 +42,6 @@ export const _NamespaceControl = ({ namespaces, setNamespaces }: NamespaceContro
   const theme = useTheme();
 
   const [namespaceInput, setNamespaceInput] = React.useState<string>('');
-  const maxNamespacesChars = 12;
 
   const onInputChange = (event: object, value: string, reason: string) => {
     // For some reason, the AutoComplete component resets the text after a short
@@ -114,48 +114,33 @@ export const _NamespaceControl = ({ namespaces, setNamespaces }: NamespaceContro
       // We reverse the namespaces so the last chosen appear as the first in the label. This
       // is useful since the label is ellipsized and this we get to see it change.
       value={filterNamespacesArray.reverse()}
-      renderOption={(props, option, { selected }) => (
-        <li {...props}>
-          <Checkbox
-            icon={<Icon icon="mdi:checkbox-blank-outline" />}
-            checkedIcon={<Icon icon="mdi:check-box-outline" />}
-            style={{
-              color: selected ? theme.palette.primary.main : theme.palette.text.primary,
-            }}
-            checked={selected}
-          />
-          {option}
-        </li>
-      )}
-      renderTags={(tags: string[]) => {
-        if (tags.length === 0) {
-          return <Typography variant="body2">All namespaces</Typography>;
-        }
-
-        let namespacesToShow = tags[0];
-        const joiner = ', ';
-        const joinerLength = joiner.length;
-        let joinedNamespaces = 1;
-
-        tags.slice(1).forEach((tag) => {
-          if (namespacesToShow.length + tag.length + joinerLength <= maxNamespacesChars) {
-            namespacesToShow += joiner + tag;
-            joinedNamespaces++;
-          }
-        });
-
+      renderOption={(props, option, { selected }) => {
         return (
-          <Typography style={{ overflowWrap: 'anywhere' }}>
-            {namespacesToShow.length > maxNamespacesChars
-              ? namespacesToShow.slice(0, maxNamespacesChars) + '…'
-              : namespacesToShow}
-            {tags.length > joinedNamespaces && (
-              <>
-                <span>,&nbsp;</span>
-                <b>{`+${tags.length - joinedNamespaces}`}</b>
-              </>
-            )}
-          </Typography>
+          <li {...props} style={{ height: '36px' }}>
+            <Checkbox
+              icon={
+                <Icon
+                  icon={ICONS.CHECK}
+                  width={24}
+                  height={24}
+                  color={theme.palette.action.active}
+                />
+              }
+              checkedIcon={
+                <Icon
+                  icon={ICONS.CHECK}
+                  width={24}
+                  height={24}
+                  color={theme.palette.primary.main}
+                />
+              }
+              style={{
+                color: selected ? theme.palette.primary.main : theme.palette.text.primary,
+              }}
+              checked={selected}
+            />
+            {option}
+          </li>
         );
       }}
       renderInput={(params) => (
@@ -164,11 +149,25 @@ export const _NamespaceControl = ({ namespaces, setNamespaces }: NamespaceContro
           variant="standard"
           label={'Namespaces'}
           fullWidth
-          InputLabelProps={{ shrink: true }}
           style={{ marginTop: 0 }}
-          placeholder={filterNamespacesArray.length > 0 ? '' : 'Filter'}
+          placeholder={filterNamespacesArray.length > 0 ? '' : 'Namespaces'}
         />
       )}
+      renderTags={(value, getTagProps) => {
+        const numTags = value.length;
+        const limitTags = 1;
+
+        return (
+          <>
+            {value.slice(0, limitTags).map((option, index) => (
+              <Chip {...getTagProps({ index })} key={index} label={option} color="primary" />
+            ))}
+
+            {numTags > limitTags && ` +${numTags - limitTags}`}
+          </>
+        );
+      }}
+      sx={{ '& .MuiChip-root': { height: '24px' } }}
     />
   );
 };

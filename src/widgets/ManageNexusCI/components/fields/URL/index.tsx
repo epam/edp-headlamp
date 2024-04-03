@@ -29,8 +29,20 @@ export const URL = () => {
         },
       })}
       label={`URL`}
+      //@ts-ignore
       title={
-        'Enter the Nexus repository URL. Ensure it includes the correct protocol and endpoint (e.g., http://nexus.example.com).'
+        <>
+          <p>
+            Enter the Nexus repository URL depending service type. Ensure it includes the correct
+            protocol and endpoint:
+          </p>
+          <p>
+            Internal service example: <em>http://nexus.nexus-namespace:8081</em>
+          </p>
+          <p>
+            External service example: <em>https://nexus.example.com</em>
+          </p>
+        </>
       }
       placeholder={'Enter URL'}
       control={control}

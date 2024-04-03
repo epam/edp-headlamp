@@ -15,7 +15,7 @@ export const getValidURLPattern = (protocol: ValueOf<typeof VALIDATED_PROTOCOLS>
 
   const pattern = new RegExp(
     `${protocolPattern}` +
-      '(([a-z\\d]([a-z\\d-]*[a-z\\d])*\\.?)+[a-z]{2,}|' + // domain name and extension
+      '((?:[a-z\\d](?:[a-z\\d-]*[a-z\\d])?\\.)+[a-z]{2,}|' + // domain name and extension
       '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
       '(\\?[;&amp;a-z\\d%_.~+=-]*)?' + // query string

@@ -6,7 +6,7 @@ export interface TableBodyProps<DataType = unknown> {
   error?: unknown;
   readyData: DataType[];
   columns: readonly TableColumn<DataType>[];
-  emptyListComponent?: React.ReactElement;
+  emptyListComponent?: React.ReactNode;
   handleRowClick?: (event: React.MouseEvent<HTMLTableRowElement>, row: DataType) => void;
   handleSelectRowClick?: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,

@@ -9,7 +9,6 @@ import { PIPELINE_RUN_LABEL_SELECTOR_CODEBASE } from '../../../../k8s/PipelineRu
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
 import { Filter } from '../../../../providers/Filter/components/Filter';
 import { useFilterContext } from '../../../../providers/Filter/hooks';
-import { FormControlLabelWithTooltip } from '../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FormSelect } from '../../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
@@ -136,37 +135,29 @@ export const PipelineRunListWithFilter = () => {
             codebases: {
               gridXs: 8,
               component: (
-                <Grid container spacing={1}>
-                  <Grid item xs={12}>
-                    <FormControlLabelWithTooltip
-                      label={'Codebases'}
-                      title={'Applications, libraries, autotests and infrastructures pipelines.'}
+                <Autocomplete
+                  multiple
+                  options={
+                    pipelineCodebases
+                      ? Array.from(pipelineCodebases)
+                          .map((el) => el)
+                          .filter(Boolean)
+                      : []
+                  }
+                  freeSolo
+                  getOptionLabel={(option) => option}
+                  onChange={handleCodebasesChange}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Codebases"
+                      placeholder="Select codebases"
+                      helperText="Applications, libraries, autotests and infrastructures pipelines."
                     />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Autocomplete
-                      multiple
-                      options={
-                        pipelineCodebases
-                          ? Array.from(pipelineCodebases)
-                              .map((el) => el)
-                              .filter(Boolean)
-                          : []
-                      }
-                      freeSolo
-                      getOptionLabel={(option) => option}
-                      onChange={handleCodebasesChange}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          placeholder="Select codebases"
-                          helperText="Applications, libraries, autotests and infrastructures pipelines."
-                        />
-                      )}
-                      value={(filter.values.codebases as string[]) ?? []}
-                    />
-                  </Grid>
-                </Grid>
+                  )}
+                  value={(filter.values.codebases as string[]) ?? []}
+                  sx={{ '& .MuiChip-root': { height: '24px' } }}
+                />
               ),
             },
           }}

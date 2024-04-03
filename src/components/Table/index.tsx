@@ -59,18 +59,22 @@ export const Table = <DataType extends unknown>({
     columnSortableValuePath,
   });
 
-  const rowCount = readyData.length || 0;
-  const selectableRowCount = canBeSelected ? readyData.filter(canBeSelected).length : 0;
+  const isReadyDataLoading = readyData === null;
+
+  const rowCount = (!isReadyDataLoading && readyData.length) || 0;
+  const selectableRowCount = canBeSelected
+    ? !isReadyDataLoading && readyData.filter(canBeSelected).length
+    : 0;
 
   const hasEmptyResult = React.useMemo(() => {
-    if (!data || !readyData) {
-      return;
+    if (isLoading && isReadyDataLoading) {
+      return false;
     }
 
     return !!data.length && !readyData.length;
-  }, [data, readyData]);
+  }, [data, isLoading, isReadyDataLoading, readyData]);
 
-  const activePage = readyData.length < _rowsPerPage ? 0 : page;
+  const activePage = readyData !== null && readyData.length < _rowsPerPage ? 0 : page;
 
   return (
     <Paper

@@ -2,4 +2,5 @@ import { EDPTemplateKubeObjectInterface } from '../../../../k8s/EDPTemplate/type
 
 export interface MarketplaceListProps {
   filterFunction: (item: EDPTemplateKubeObjectInterface) => boolean;
+  warning: React.ReactNode;
 }

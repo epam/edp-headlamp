@@ -10,7 +10,7 @@ export interface TableProps<DataType = unknown> {
   upperColumns?: readonly TableColumn<DataType>[];
   defaultSortBy?: string;
   defaultSortOrder?: ValueOf<typeof SORT_ORDERS>;
-  emptyListComponent?: React.ReactElement;
+  emptyListComponent?: React.ReactNode;
   handleRowClick?: (event: React.MouseEvent<HTMLTableRowElement>, row: DataType) => void;
   handleSelectRowClick?: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
