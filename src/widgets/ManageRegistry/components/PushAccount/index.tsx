@@ -17,6 +17,7 @@ import { PushAccountPassword, PushAccountUser } from './fields';
 
 export const PushAccountForm = () => {
   const { pushAccountSecret } = useDataContext();
+
   const { sharedForm } = useRegistryFormsContext();
 
   const registryTypeFieldValue = sharedForm.watch(SHARED_FORM_NAMES.registryType.name);

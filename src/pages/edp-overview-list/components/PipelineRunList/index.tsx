@@ -156,7 +156,10 @@ export const PipelineRunListWithFilter = () => {
                     />
                   )}
                   value={(filter.values.codebases as string[]) ?? []}
-                  sx={{ '& .MuiChip-root': { height: '24px' } }}
+                  ChipProps={{
+                    size: 'small',
+                    color: 'primary',
+                  }}
                 />
               ),
             },

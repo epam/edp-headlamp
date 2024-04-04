@@ -14,7 +14,11 @@ import { FieldEvent, FORM_MODES } from '../../../../../../types/forms';
 import { ValueOf } from '../../../../../../types/global';
 import { DOCKER_HUB_REGISTRY_ENDPOINT } from '../../../../constants';
 import { useRegistryFormsContext } from '../../../../hooks/useRegistryFormsContext';
-import { CONFIG_MAP_FORM_NAMES, SHARED_FORM_NAMES } from '../../../../names';
+import {
+  CONFIG_MAP_FORM_NAMES,
+  PUSH_ACCOUNT_FORM_NAMES,
+  SHARED_FORM_NAMES,
+} from '../../../../names';
 import { useDataContext } from '../../../../providers/Data/hooks';
 
 const createRegistryTypeOptions = (platformName: ValueOf<typeof CONTAINER_REGISTRY_PLATFORM>) => {
@@ -30,7 +34,7 @@ const createRegistryTypeOptions = (platformName: ValueOf<typeof CONTAINER_REGIST
 
 export const Type = () => {
   const {
-    forms: { configMap },
+    forms: { configMap, pushAccount },
     sharedForm,
   } = useRegistryFormsContext();
 
@@ -50,21 +54,39 @@ export const Type = () => {
         {...configMap.form.register(CONFIG_MAP_FORM_NAMES.registryType.name, {
           required: 'Select a registry type you would like to create.',
           onChange: ({ target: { value } }: FieldEvent) => {
-            configMap.form.setValue(CONFIG_MAP_FORM_NAMES.registryType.name, value);
-            sharedForm.setValue(SHARED_FORM_NAMES.registryType.name, value);
+            sharedForm.setValue(SHARED_FORM_NAMES.registryType.name, value, {
+              shouldDirty: false,
+            });
 
-            if (value === CONTAINER_REGISTRY_TYPE.DOCKER_HUB) {
-              configMap.form.setValue(
-                CONFIG_MAP_FORM_NAMES.registryEndpoint.name,
-                DOCKER_HUB_REGISTRY_ENDPOINT
-              );
-              sharedForm.setValue(
-                SHARED_FORM_NAMES.registryEndpoint.name,
-                DOCKER_HUB_REGISTRY_ENDPOINT
-              );
-            } else {
-              configMap.form.resetField(CONFIG_MAP_FORM_NAMES.registryEndpoint.name);
-              sharedForm.resetField(SHARED_FORM_NAMES.registryEndpoint.name);
+            switch (value) {
+              case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
+                configMap.form.setValue(
+                  CONFIG_MAP_FORM_NAMES.registryEndpoint.name,
+                  DOCKER_HUB_REGISTRY_ENDPOINT,
+                  {
+                    shouldDirty: false,
+                  }
+                );
+                sharedForm.setValue(
+                  SHARED_FORM_NAMES.registryEndpoint.name,
+                  DOCKER_HUB_REGISTRY_ENDPOINT,
+                  {
+                    shouldDirty: false,
+                  }
+                );
+                break;
+              case CONTAINER_REGISTRY_TYPE.ECR:
+                pushAccount.form.setValue(PUSH_ACCOUNT_FORM_NAMES.pushAccountPassword.name, '', {
+                  shouldDirty: true,
+                });
+                break;
+              default:
+                configMap.form.resetField(CONFIG_MAP_FORM_NAMES.registryEndpoint.name, {
+                  keepDirty: false,
+                });
+                sharedForm.resetField(SHARED_FORM_NAMES.registryEndpoint.name, {
+                  keepDirty: false,
+                });
             }
           },
         })}

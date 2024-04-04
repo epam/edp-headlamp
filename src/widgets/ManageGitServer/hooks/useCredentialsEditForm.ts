@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormReturn } from 'react-hook-form';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { GIT_PROVIDERS } from '../../../constants/gitProviders';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
@@ -13,13 +13,14 @@ import {
   GIT_SERVER_GITHUB_SECRET_FORM_NAMES,
   GIT_SERVER_GITLAB_SECRET_FORM_NAMES,
 } from '../names';
+import { SharedFormValues } from '../types';
 import { CredentialsFormValues } from '../types';
 
 export const useCredentialsEditForm = ({
-  chosenGitProvider,
+  sharedForm,
   gitServerSecret,
 }: {
-  chosenGitProvider: GIT_PROVIDERS;
+  sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
   gitServerSecret: SecretKubeObjectInterface;
 }) => {
   const editMutation = useResourceCRUDMutation<SecretKubeObjectInterface, CRUD_TYPES.EDIT>(
@@ -35,41 +36,53 @@ export const useCredentialsEditForm = ({
       return base;
     }
 
-    if (chosenGitProvider === GIT_PROVIDERS.GERRIT) {
-      base = {
-        ...base,
-        [CREDENTIALS_FORM_NAME.sshPrivateKey.name]: safeDecode(gitServerSecret?.data['id_rsa']),
-        [CREDENTIALS_FORM_NAME.sshPublicKey.name]: safeDecode(gitServerSecret?.data['id_rsa.pub']),
-      };
-    }
+    const sharedValues = sharedForm.getValues();
 
-    if (chosenGitProvider === GIT_PROVIDERS.GITLAB) {
-      base = {
-        ...base,
-        [CREDENTIALS_FORM_NAME.sshPrivateKey.name]: safeDecode(gitServerSecret?.data['id_rsa']),
-        [CREDENTIALS_FORM_NAME.token.name]: safeDecode(gitServerSecret?.data.token),
-      };
-    }
-
-    if (chosenGitProvider === GIT_PROVIDERS.GITHUB) {
-      base = {
-        ...base,
-        [CREDENTIALS_FORM_NAME.sshPrivateKey.name]: safeDecode(gitServerSecret?.data['id_rsa']),
-        [CREDENTIALS_FORM_NAME.token.name]: safeDecode(gitServerSecret?.data.token),
-      };
+    switch (sharedValues.gitProvider) {
+      case GIT_PROVIDERS.GERRIT:
+        base = {
+          ...base,
+          [CREDENTIALS_FORM_NAME.sshPrivateKey.name]: safeDecode(gitServerSecret?.data['id_rsa']),
+          [CREDENTIALS_FORM_NAME.sshPublicKey.name]: safeDecode(
+            gitServerSecret?.data['id_rsa.pub']
+          ),
+        };
+        break;
+      case GIT_PROVIDERS.GITLAB:
+        base = {
+          ...base,
+          [CREDENTIALS_FORM_NAME.sshPrivateKey.name]: safeDecode(gitServerSecret?.data['id_rsa']),
+          [CREDENTIALS_FORM_NAME.token.name]: safeDecode(gitServerSecret?.data.token),
+        };
+        break;
+      case GIT_PROVIDERS.GITHUB:
+        base = {
+          ...base,
+          [CREDENTIALS_FORM_NAME.sshPrivateKey.name]: safeDecode(gitServerSecret?.data['id_rsa']),
+          [CREDENTIALS_FORM_NAME.token.name]: safeDecode(gitServerSecret?.data.token),
+        };
+        break;
+      default:
+        break;
     }
 
     return base;
-  }, [chosenGitProvider, gitServerSecret]);
+  }, [gitServerSecret, sharedForm]);
 
   const form = useForm<CredentialsFormValues>({
     defaultValues: defaultValues,
   });
 
+  React.useEffect(() => {
+    form.reset(defaultValues, { keepDirty: false });
+  }, [defaultValues, form]);
+
   const handleSubmit = React.useCallback(
     async (values: CredentialsFormValues) => {
+      const sharedValues = sharedForm.getValues();
+
       const newGitServerSecret = (() => {
-        switch (chosenGitProvider) {
+        switch (sharedValues.gitProvider) {
           case GIT_PROVIDERS.GERRIT:
             return editResource(GIT_SERVER_GERRIT_SECRET_FORM_NAMES, gitServerSecret, {
               sshPrivateKey: safeEncode(values.sshPrivateKey),
@@ -93,7 +106,7 @@ export const useCredentialsEditForm = ({
       })();
       editMutation.mutate(newGitServerSecret);
     },
-    [gitServerSecret, editMutation, chosenGitProvider]
+    [sharedForm, editMutation, gitServerSecret]
   );
 
   return React.useMemo(

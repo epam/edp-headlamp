@@ -7,10 +7,8 @@ import { CreateCodebaseFormValues } from '../types';
 
 export const useDefaultValues = (): Partial<CreateCodebaseFormValues> => {
   const { data: gitServers } = useGitServerListQuery({});
-  const gitServersOptions = React.useMemo(
-    () => gitServers?.items.map(({ metadata: { name } }) => ({ label: name, value: name })),
-    [gitServers?.items]
-  );
+
+  const firstValidGitServer = gitServers?.items.find((gitServer) => gitServer.status.connected);
 
   return React.useMemo(
     () => ({
@@ -18,8 +16,8 @@ export const useDefaultValues = (): Partial<CreateCodebaseFormValues> => {
       [CODEBASE_FORM_NAMES.emptyProject.name]: false,
       [CODEBASE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPES.DEFAULT,
       [CODEBASE_FORM_NAMES.ciTool.name]: CI_TOOLS.TEKTON,
-      [CODEBASE_FORM_NAMES.gitServer.name]: gitServersOptions?.[0]?.value,
+      [CODEBASE_FORM_NAMES.gitServer.name]: firstValidGitServer?.metadata.name || '',
     }),
-    [gitServersOptions]
+    [firstValidGitServer?.metadata.name]
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormReturn } from 'react-hook-form';
 import { CONTAINER_REGISTRY_TYPE } from '../../../k8s/ConfigMap/constants';
 import { REGISTRY_SECRET_NAMES } from '../../../k8s/Secret/constants';
 import { useSecretCRUD } from '../../../k8s/Secret/hooks/useSecretCRUD';
@@ -11,17 +11,15 @@ import {
 } from '../../../k8s/Secret/utils/createRegistrySecretInstance';
 import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE } from '../constants';
 import { PUSH_ACCOUNT_FORM_NAMES } from '../names';
-import { PushAccountFormValues } from '../types';
+import { PushAccountFormValues, SharedFormValues } from '../types';
 import { getAuth, getUsernameAndPassword } from '../utils';
 
 export const usePushAccountEditForm = ({
   pushAccountSecret,
-  registryEndpoint,
-  registryType,
+  sharedForm,
 }: {
   pushAccountSecret: SecretKubeObjectInterface;
-  registryEndpoint: string;
-  registryType: string;
+  sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
 }) => {
   const {
     editSecret,
@@ -29,12 +27,14 @@ export const usePushAccountEditForm = ({
   } = useSecretCRUD({});
 
   const defaultValues = React.useMemo(() => {
+    const sharedValues = sharedForm.getValues();
+
     const { auth } = getAuth(pushAccountSecret);
 
     const { userName: pushUserName, password: pushPassword } =
       getUsernameAndPassword(pushAccountSecret);
 
-    switch (registryType) {
+    switch (sharedValues.registryType) {
       case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
         return {
           [PUSH_ACCOUNT_FORM_NAMES.pushAccountPassword.name]: auth || '',
@@ -45,15 +45,21 @@ export const usePushAccountEditForm = ({
           [PUSH_ACCOUNT_FORM_NAMES.pushAccountUser.name]: pushUserName || '',
         };
     }
-  }, [pushAccountSecret, registryType]);
+  }, [pushAccountSecret, sharedForm]);
 
   const form = useForm<PushAccountFormValues>({
     defaultValues: defaultValues,
   });
 
+  React.useEffect(() => {
+    form.reset(defaultValues, { keepDirty: false });
+  }, [defaultValues, form]);
+
   const handleSubmit = React.useCallback(
     async (values: PushAccountFormValues) => {
-      switch (registryType) {
+      const sharedValues = sharedForm.getValues();
+
+      switch (sharedValues.registryType) {
         case CONTAINER_REGISTRY_TYPE.ECR:
           await editSecret({
             secretData: createECRPushSecretInstance({
@@ -76,7 +82,7 @@ export const usePushAccountEditForm = ({
           await editSecret({
             secretData: createRegistrySecretInstance({
               name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
-              registryEndpoint: registryEndpoint,
+              registryEndpoint: sharedValues.registryEndpoint,
               user: values.pushAccountUser,
               password: values.pushAccountPassword,
             }),
@@ -86,7 +92,7 @@ export const usePushAccountEditForm = ({
           await editSecret({
             secretData: createOpenshiftPushSecretInstance({
               name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
-              registryEndpoint: registryEndpoint,
+              registryEndpoint: sharedValues.registryEndpoint,
               token: values.pushAccountPassword,
             }),
           });
@@ -95,7 +101,7 @@ export const usePushAccountEditForm = ({
           break;
       }
     },
-    [editSecret, registryEndpoint, registryType]
+    [editSecret, sharedForm]
   );
 
   return React.useMemo(

@@ -5,34 +5,9 @@ import { ConfigMapKubeObjectInterface } from '../../../../../../k8s/ConfigMap/ty
 import { SecretKubeObject } from '../../../../../../k8s/Secret';
 import { REGISTRY_SECRET_NAMES } from '../../../../../../k8s/Secret/constants';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../../../k8s/Secret/labels';
-import { SecretKubeObjectInterface } from '../../../../../../k8s/Secret/types';
 import { ServiceAccountKubeObject } from '../../../../../../k8s/ServiceAccount';
 import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
 import { DynamicDataContext } from './context';
-
-interface Secrets {
-  kanikoDockerConfig: SecretKubeObjectInterface;
-  regcred: SecretKubeObjectInterface;
-}
-
-const findKanikoAndRegcredSecrets = (secrets: SecretKubeObjectInterface[]) => {
-  return secrets.reduce(
-    (acc, el) => {
-      const itemName = el.metadata.name;
-
-      if (itemName === REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG) {
-        acc.kanikoDockerConfig = el.jsonData;
-      } else if (itemName === REGISTRY_SECRET_NAMES.REGCRED) {
-        acc.regcred = el.jsonData;
-      }
-      return acc;
-    },
-    {
-      kanikoDockerConfig: undefined,
-      regcred: undefined,
-    } as Secrets
-  );
-};
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const [EDPConfigMap, setEDPConfigMap] = React.useState<ConfigMapKubeObjectInterface>(null);
@@ -56,53 +31,39 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     }
   );
 
-  const [items] = ServiceAccountKubeObject.useList({
+  const [serviceAccounts] = ServiceAccountKubeObject.useList({
     namespace: getDefaultNamespace(),
   });
 
-  const tektonServiceAccount = items?.find((el) => el?.metadata?.name === 'tekton')?.jsonData;
+  const tektonServiceAccount = serviceAccounts?.find(
+    (el) => el?.metadata?.name === 'tekton'
+  )?.jsonData;
 
-  const [secrets, setSecrets] = React.useState<Secrets>({
-    kanikoDockerConfig: null,
-    regcred: null,
+  const [registrySecrets] = SecretKubeObject.useList({
+    labelSelector: `${SECRET_LABEL_SECRET_TYPE}=registry`,
+    namespace: getDefaultNamespace(),
   });
 
-  SecretKubeObject.useApiList(
-    (secrets: SecretKubeObjectInterface[]) => {
-      const { kanikoDockerConfig, regcred } = findKanikoAndRegcredSecrets(secrets);
-
-      setSecrets({
-        kanikoDockerConfig,
-        regcred,
-      });
-    },
-    (error) => console.error(error),
-    {
-      labelSelector: `${SECRET_LABEL_SECRET_TYPE}=registry`,
-      namespace: getDefaultNamespace(),
-    }
-  );
-
   const isLoading = React.useMemo(
-    () =>
-      EDPConfigMap === null ||
-      items === null ||
-      secrets.kanikoDockerConfig === null ||
-      secrets.regcred === null,
-    [EDPConfigMap, items, secrets.kanikoDockerConfig, secrets.regcred]
+    () => EDPConfigMap === null || serviceAccounts === null || registrySecrets === null,
+    [EDPConfigMap, registrySecrets, serviceAccounts]
   );
 
   const DataContextValue = React.useMemo(
     () => ({
       data: {
         EDPConfigMap,
-        pushAccountSecret: secrets.kanikoDockerConfig,
-        pullAccountSecret: secrets.regcred,
+        pushAccountSecret: registrySecrets?.find(
+          (el) => el.metadata.name === REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG
+        )?.jsonData,
+        pullAccountSecret: registrySecrets?.find(
+          (el) => el.metadata.name === REGISTRY_SECRET_NAMES.REGCRED
+        )?.jsonData,
         tektonServiceAccount,
       },
       isLoading,
     }),
-    [EDPConfigMap, isLoading, secrets, tektonServiceAccount]
+    [EDPConfigMap, isLoading, registrySecrets, tektonServiceAccount]
   );
 
   return (

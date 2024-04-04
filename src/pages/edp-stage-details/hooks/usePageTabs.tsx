@@ -64,7 +64,7 @@ export const usePageTabs = () => {
   });
 
   return React.useMemo(() => {
-    if (isLoading) {
+    if (isLoading || enrichedApplications.isLoading) {
       return [];
     }
 
@@ -104,11 +104,13 @@ export const usePageTabs = () => {
       },
     ];
   }, [
-    QuickLinksURLS,
-    deployPipelineRuns,
+    QuickLinksURLS?.grafana,
+    deployPipelineRuns.data,
+    deployPipelineRuns.isLoading,
+    enrichedApplications.isLoading,
     enrichedApplicationsWithArgoApplications,
     isLoading,
     latestDeployPipelineRunIsRunning,
-    stage,
+    stage.data?.spec.namespace,
   ]);
 };

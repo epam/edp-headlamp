@@ -81,8 +81,6 @@ export const TableBody = ({
       );
     }
 
-    console.log('showing empty list');
-
     return (
       <MuiTableRow>
         <TableCell colSpan={columns.length} align={'center'}>

@@ -16,30 +16,6 @@ import { DataContextProvider } from './providers/Data';
 import { FormNames, ManageGitServerProps } from './types';
 import { getGitServerSecret } from './utils';
 
-const Form = ({ sharedForm, gitServerForm, credentialsForm, gitServerSecret }) => {
-  return (
-    <MultiFormContextProvider<FormNames>
-      forms={{
-        gitServer: gitServerForm,
-        credentials: credentialsForm,
-      }}
-      sharedForm={sharedForm}
-    >
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <GitServerForm />
-        </Grid>
-        <Grid item xs={12}>
-          <CredentialsForm gitServerSecret={gitServerSecret} />
-        </Grid>
-        <Grid item xs={12}>
-          <Actions />
-        </Grid>
-      </Grid>
-    </MultiFormContextProvider>
-  );
-};
-
 export const ManageGitServer = ({
   gitServer,
   repositorySecrets,
@@ -57,93 +33,76 @@ export const ManageGitServer = ({
 
   const credentialsFormMode = gitServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
-  const {
-    form: gitServerCreateForm,
-    mutation: gitServerCreateMutation,
-    handleSubmit: handleGitServerCreateSubmit,
-  } = useGitServerCreateForm({ handleClosePanel });
+  const gitServerCreateForm = useGitServerCreateForm({ handleClosePanel });
 
-  const {
-    form: gitServerEditForm,
-    mutation: gitServerEditMutation,
-    handleSubmit: handleGitServerEditSubmit,
-  } = useGitServerEditForm({ gitServer });
+  const gitServerEditForm = useGitServerEditForm({ gitServer });
 
-  const {
-    form: credentialsCreateForm,
-    mutation: credentialsCreateMutation,
-    handleSubmit: handleCredentialsCreateSubmit,
-  } = useCredentialsCreateForm({ chosenGitProvider: gitProviderSharedValue });
+  const credentialsCreateForm = useCredentialsCreateForm({
+    sharedForm
+  });
 
-  const {
-    form: credentialsEditForm,
-    mutation: credentialsEditMutation,
-    handleSubmit: handleCredentialsEditSubmit,
-  } = useCredentialsEditForm({
-    chosenGitProvider: gitProviderSharedValue,
+  const credentialsEditForm = useCredentialsEditForm({
+    sharedForm,
     gitServerSecret,
   });
 
-  const gitServerForm: FormItem = React.useMemo(
+  const gitServerFormData: FormItem = React.useMemo(
     () =>
       gitServerFormMode === FORM_MODES.CREATE
         ? {
             mode: FORM_MODES.CREATE,
-            form: gitServerCreateForm,
-            onSubmit: gitServerCreateForm.handleSubmit(handleGitServerCreateSubmit),
-            isSubmitting: gitServerCreateMutation.isLoading,
+            form: gitServerCreateForm.form,
+            onSubmit: gitServerCreateForm.form.handleSubmit(gitServerCreateForm.handleSubmit),
+            isSubmitting: gitServerCreateForm.mutation.isLoading,
           }
         : {
             mode: FORM_MODES.EDIT,
-            form: gitServerEditForm,
-            onSubmit: gitServerEditForm.handleSubmit(handleGitServerEditSubmit),
-            isSubmitting: gitServerEditMutation.isLoading,
+            form: gitServerEditForm.form,
+            onSubmit: gitServerEditForm.form.handleSubmit(gitServerEditForm.handleSubmit),
+            isSubmitting: gitServerEditForm.mutation.isLoading,
           },
-    [
-      gitServerCreateForm,
-      gitServerCreateMutation.isLoading,
-      gitServerEditForm,
-      gitServerEditMutation.isLoading,
-      gitServerFormMode,
-      handleGitServerCreateSubmit,
-      handleGitServerEditSubmit,
-    ]
+    [gitServerCreateForm, gitServerEditForm, gitServerFormMode]
   );
 
-  const credentialsForm: FormItem = React.useMemo(
+  const credentialsFormData: FormItem = React.useMemo(
     () =>
       credentialsFormMode === FORM_MODES.CREATE
         ? {
             mode: FORM_MODES.CREATE,
-            form: credentialsCreateForm,
-            onSubmit: credentialsCreateForm.handleSubmit(handleCredentialsCreateSubmit),
-            isSubmitting: credentialsCreateMutation.isLoading,
+            form: credentialsCreateForm.form,
+            onSubmit: credentialsCreateForm.form.handleSubmit(credentialsCreateForm.handleSubmit),
+            isSubmitting: credentialsCreateForm.mutation.isLoading,
           }
         : {
             mode: FORM_MODES.EDIT,
-            form: credentialsEditForm,
-            onSubmit: credentialsEditForm.handleSubmit(handleCredentialsEditSubmit),
-            isSubmitting: credentialsEditMutation.isLoading,
+            form: credentialsEditForm.form,
+            onSubmit: credentialsEditForm.form.handleSubmit(credentialsEditForm.handleSubmit),
+            isSubmitting: credentialsEditForm.mutation.isLoading,
           },
-    [
-      credentialsCreateForm,
-      credentialsCreateMutation.isLoading,
-      credentialsEditForm,
-      credentialsEditMutation.isLoading,
-      credentialsFormMode,
-      handleCredentialsCreateSubmit,
-      handleCredentialsEditSubmit,
-    ]
+    [credentialsCreateForm, credentialsEditForm, credentialsFormMode]
   );
 
   return (
     <DataContextProvider gitServer={gitServer} gitServerSecret={gitServerSecret}>
-      <Form
+      <MultiFormContextProvider<FormNames>
+        forms={{
+          gitServer: gitServerFormData,
+          credentials: credentialsFormData,
+        }}
         sharedForm={sharedForm}
-        gitServerForm={gitServerForm}
-        credentialsForm={credentialsForm}
-        gitServerSecret={gitServerSecret}
-      />
+      >
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <GitServerForm />
+          </Grid>
+          <Grid item xs={12}>
+            <CredentialsForm gitServerSecret={gitServerSecret} />
+          </Grid>
+          <Grid item xs={12}>
+            <Actions />
+          </Grid>
+        </Grid>
+      </MultiFormContextProvider>
     </DataContextProvider>
   );
 };

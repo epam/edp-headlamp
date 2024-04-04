@@ -1,0 +1,1 @@
+export const FORM_CONTROL_LABEL_HEIGHT = 16;

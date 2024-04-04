@@ -35,13 +35,25 @@ export const useSharedForm = ({
     return false;
   }, [pullPassword, pullUserName, pushPassword, pushUserName]);
 
-  const form = useForm<SharedFormValues>({
-    defaultValues: {
+  const defaultValues = React.useMemo(() => {
+    return {
       [SHARED_FORM_NAMES.registryEndpoint.name]: EDPConfigMap?.data.container_registry_host,
       [SHARED_FORM_NAMES.registryType.name]: EDPConfigMap?.data.container_registry_type,
       [SHARED_FORM_NAMES.useSameAccount.name]: useSameAccountValue,
-    },
+    };
+  }, [
+    EDPConfigMap?.data.container_registry_host,
+    EDPConfigMap?.data.container_registry_type,
+    useSameAccountValue,
+  ]);
+
+  const form = useForm<SharedFormValues>({
+    defaultValues: defaultValues,
   });
+
+  React.useEffect(() => {
+    form.reset(defaultValues, { keepDirty: false });
+  }, [defaultValues, form]);
 
   return React.useMemo(() => ({ form }), [form]);
 };

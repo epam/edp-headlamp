@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormReturn } from 'react-hook-form';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { GIT_PROVIDERS } from '../../../constants/gitProviders';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
@@ -10,12 +10,12 @@ import {
   createGithubGitServerSecretInstance,
   createGitlabGitServerSecretInstance,
 } from '../../../k8s/Secret/utils/createGitServerSecretInstance';
-import { CredentialsFormValues } from '../types';
+import { CredentialsFormValues, SharedFormValues } from '../types';
 
 export const useCredentialsCreateForm = ({
-  chosenGitProvider,
+  sharedForm,
 }: {
-  chosenGitProvider: GIT_PROVIDERS;
+  sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
 }) => {
   const createMutation = useResourceCRUDMutation<SecretKubeObjectInterface, CRUD_TYPES.CREATE>(
     'gitServerCreateMutation',
@@ -27,8 +27,10 @@ export const useCredentialsCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: CredentialsFormValues) => {
+      const sharedValues = sharedForm.getValues();
+
       const newGitServerSecret = (() => {
-        switch (chosenGitProvider) {
+        switch (sharedValues.gitProvider) {
           case GIT_PROVIDERS.GERRIT:
             return createGerritGitServerSecretInstance({
               sshPrivateKey: values.sshPrivateKey,
@@ -52,7 +54,7 @@ export const useCredentialsCreateForm = ({
       })();
       createMutation.mutate(newGitServerSecret);
     },
-    [createMutation, chosenGitProvider]
+    [sharedForm, createMutation]
   );
 
   return React.useMemo(

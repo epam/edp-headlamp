@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormReturn } from 'react-hook-form';
 import { CONTAINER_REGISTRY_TYPE } from '../../../k8s/ConfigMap/constants';
 import { REGISTRY_SECRET_NAMES } from '../../../k8s/Secret/constants';
 import { useSecretCRUD } from '../../../k8s/Secret/hooks/useSecretCRUD';
@@ -7,17 +7,15 @@ import { SecretKubeObjectInterface } from '../../../k8s/Secret/types';
 import { createRegistrySecretInstance } from '../../../k8s/Secret/utils/createRegistrySecretInstance';
 import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE } from '../constants';
 import { PULL_ACCOUNT_FORM_NAMES } from '../names';
-import { PullAccountFormValues } from '../types';
+import { PullAccountFormValues, SharedFormValues } from '../types';
 import { getUsernameAndPassword } from '../utils';
 
 export const usePullAccountEditForm = ({
   pullAccountSecret,
-  registryEndpoint,
-  registryType,
+  sharedForm,
 }: {
   pullAccountSecret: SecretKubeObjectInterface;
-  registryEndpoint: string;
-  registryType: string;
+  sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
 }) => {
   const {
     editSecret,
@@ -38,9 +36,14 @@ export const usePullAccountEditForm = ({
     defaultValues: defaultValues,
   });
 
+  React.useEffect(() => {
+    form.reset(defaultValues, { keepDirty: false });
+  }, [defaultValues, form]);
+
   const handleSubmit = React.useCallback(
     async (values: PullAccountFormValues) => {
-      switch (registryType) {
+      const sharedValues = sharedForm.getValues();
+      switch (sharedValues.registryType) {
         case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
           await editSecret({
             secretData: createRegistrySecretInstance({
@@ -56,7 +59,7 @@ export const usePullAccountEditForm = ({
           await editSecret({
             secretData: createRegistrySecretInstance({
               name: REGISTRY_SECRET_NAMES.REGCRED,
-              registryEndpoint: registryEndpoint,
+              registryEndpoint: sharedValues.registryEndpoint,
               user: values.pullAccountUser,
               password: values.pullAccountPassword,
             }),
@@ -66,7 +69,7 @@ export const usePullAccountEditForm = ({
           break;
       }
     },
-    [editSecret, registryEndpoint, registryType]
+    [editSecret, sharedForm]
   );
 
   return React.useMemo(

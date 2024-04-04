@@ -125,11 +125,13 @@ export const PageView = () => {
                             </Typography>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <ManageGitServer
-                              gitServer={gitServer}
-                              repositorySecrets={repositorySecrets}
-                              handleClosePanel={handleClosePanel}
-                            />
+                            {isExpanded && (
+                              <ManageGitServer
+                                gitServer={gitServer}
+                                repositorySecrets={repositorySecrets}
+                                handleClosePanel={handleClosePanel}
+                              />
+                            )}
                           </AccordionDetails>
                         </Accordion>
                       </Grid>

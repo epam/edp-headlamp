@@ -3,6 +3,7 @@ import { Box, Button, Stack, Tooltip } from '@mui/material';
 import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { CONTAINER_REGISTRY_TYPE } from '../../../../k8s/ConfigMap/constants';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { CONFIRM_RESOURCES_UPDATES_DIALOG_NAME } from '../../../ConfirmResourcesUpdates/constants';
 import { useRegistryFormsContext } from '../../hooks/useRegistryFormsContext';
@@ -21,21 +22,27 @@ export const Actions = () => {
     pullAccountSecret,
     tektonServiceAccount,
     onSuccess: () => {
-      //
+      resetAll();
     },
   });
 
   const registryType = EDPConfigMap?.data.container_registry_type;
 
   const someOfTheSecretsHasExternalOwner = React.useMemo(() => {
-    if (pushAccountSecret && pushAccountSecret.metadata.ownerReferences) {
-      return true;
-    } else if (pullAccountSecret && pullAccountSecret.metadata.ownerReferences) {
-      return true;
+    switch (registryType) {
+      case CONTAINER_REGISTRY_TYPE.ECR:
+        return !!pushAccountSecret?.metadata?.ownerReferences;
+      default:
+        return (
+          !!pushAccountSecret?.metadata?.ownerReferences ||
+          !!pullAccountSecret?.metadata?.ownerReferences
+        );
     }
-
-    return false;
-  }, [pullAccountSecret, pushAccountSecret]);
+  }, [
+    registryType,
+    pushAccountSecret?.metadata?.ownerReferences,
+    pullAccountSecret?.metadata?.ownerReferences,
+  ]);
 
   const { setDialog } = useDialogContext();
 

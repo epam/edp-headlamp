@@ -200,67 +200,62 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                 class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                  class="MuiStack-root css-jfdv4h-MuiStack-root"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-                    style="display: flex; justify-content: flex-start;"
+                    class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                   >
-                    <div
-                      class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
+                    <label
+                      class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
+                      style="margin: 0px;"
                     >
-                      <label
-                        class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
-                        style="margin: 0px;"
+                      <span
+                        class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-14qtr36-MuiButtonBase-root-MuiCheckbox-root"
+                      >
+                        <input
+                          class="PrivateSwitchBase-input css-1m9pwf3"
+                          data-indeterminate="false"
+                          name="skipTLSVerify"
+                          type="checkbox"
+                          value="false"
+                        />
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                          data-testid="CheckBoxOutlineBlankIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                          />
+                        </svg>
+                        <span
+                          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                        />
+                      </span>
+                      <span
+                        class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
                       >
                         <span
-                          class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-14qtr36-MuiButtonBase-root-MuiCheckbox-root"
-                        >
-                          <input
-                            class="PrivateSwitchBase-input css-1m9pwf3"
-                            data-indeterminate="false"
-                            name="skipTLSVerify"
-                            type="checkbox"
-                            value="false"
-                          />
-                          <svg
-                            aria-hidden="true"
-                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-                            data-testid="CheckBoxOutlineBlankIcon"
-                            focusable="false"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                            />
-                          </svg>
-                          <span
-                            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                          />
-                        </span>
-                        <span
-                          class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
+                          style="display: inline-block; margin-top: 0.125rem;"
                         >
                           <span
-                            style="display: inline-block; margin-top: 0.125rem;"
+                            class="makeStyles-labelWrap-3"
                           >
                             <span
-                              class="makeStyles-labelWrap-3"
+                              class="MuiTypography-root MuiTypography-body1 makeStyles-label-4 css-1ezega9-MuiTypography-root"
                             >
-                              <span
-                                class="MuiTypography-root MuiTypography-body1 makeStyles-label-4 css-1ezega9-MuiTypography-root"
-                              >
-                                Skip TLS verification
-                              </span>
-                              <div
-                                class="MuiBox-root css-0"
-                                style="height: 1.25rem;"
-                              />
+                              Skip TLS verification
                             </span>
+                            <div
+                              class="MuiBox-root css-0"
+                              style="height: 1.25rem;"
+                            />
                           </span>
                         </span>
-                      </label>
-                    </div>
+                      </span>
+                    </label>
                   </div>
                 </div>
               </div>

@@ -28,6 +28,10 @@ export const useServiceAccountEditForm = ({
     defaultValues: defaultValues,
   });
 
+  React.useEffect(() => {
+    form.reset(defaultValues, { keepDirty: false });
+  }, [defaultValues, form]);
+
   const handleSubmit = React.useCallback(
     async (values: ServiceAccountFormValues) => {
       const updatedServiceAccount = editResource(

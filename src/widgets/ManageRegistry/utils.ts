@@ -15,10 +15,15 @@ export const getUsernameAndPassword = (
 
   const configJson = secret?.data?.['.dockerconfigjson'];
   const parsedConfigJson = parseConfigJson(configJson);
+
+  if (!parsedConfigJson?.auths) {
+    // there is no auths field in ECR kaniko-docker-config secret
+    return { userName: undefined, password: undefined };
+  }
   // @ts-ignore
-  const userName = Object.values(parsedConfigJson.auths)[0]?.username;
+  const userName = Object.values(parsedConfigJson?.auths)[0]?.username;
   // @ts-ignore
-  const password = Object.values(parsedConfigJson.auths)[0]?.password;
+  const password = Object.values(parsedConfigJson?.auths)[0]?.password;
   return { userName, password };
 };
 
@@ -29,6 +34,12 @@ export const getAuth = (secret: SecretKubeObjectInterface) => {
 
   const configJson = secret?.data?.['.dockerconfigjson'];
   const parsedConfigJson = parseConfigJson(configJson);
+
+  if (!parsedConfigJson?.auths) {
+    // there is no auths field in ECR kaniko-docker-config secret
+    return { auth: undefined };
+  }
+
   // @ts-ignore
   const auth = Object.values(parsedConfigJson.auths)[0]?.auth;
   return { auth };

@@ -8,7 +8,7 @@ import { DOCKER_HUB_REGISTRY_ENDPOINT } from '../constants';
 import { CONFIG_MAP_FORM_NAMES } from '../names';
 import { ConfigMapFormValues } from '../types';
 
-export const useConfigMapEdit = ({
+export const useConfigMapEditForm = ({
   EDPConfigMap,
 }: {
   EDPConfigMap: ConfigMapKubeObjectInterface;
@@ -55,6 +55,10 @@ export const useConfigMapEdit = ({
   const form = useForm<ConfigMapFormValues>({
     defaultValues: defaultValues,
   });
+
+  React.useEffect(() => {
+    form.reset(defaultValues, { keepDirty: false });
+  }, [defaultValues, form]);
 
   const getUpdatedConfigMap = React.useCallback(
     (values: ConfigMapFormValues) => {

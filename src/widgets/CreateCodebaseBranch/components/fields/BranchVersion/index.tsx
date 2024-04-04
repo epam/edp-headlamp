@@ -1,6 +1,7 @@
-import { Grid } from '@mui/material';
+import { Grid, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../../constants/ui';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../types/forms';
 import { createReleaseNameString } from '../../../../../utils/createReleaseNameString';
@@ -11,6 +12,8 @@ import { CODEBASE_BRANCH_FORM_NAMES } from '../../../names';
 import { CreateCodebaseBranchFormValues } from '../../../types';
 
 export const BranchVersion = () => {
+  const theme = useTheme();
+
   const {
     register,
     control,
@@ -72,7 +75,7 @@ export const BranchVersion = () => {
           errors={errors}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6} sx={{ mt: theme.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
         <FormTextField
           {...register(CODEBASE_BRANCH_FORM_NAMES.releaseBranchVersionPostfix.name, {
             onBlur: onBranchVersionPostfixFieldValueChange,

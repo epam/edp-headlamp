@@ -160,14 +160,19 @@ export const _NamespaceControl = ({ namespaces, setNamespaces }: NamespaceContro
         return (
           <>
             {value.slice(0, limitTags).map((option, index) => (
-              <Chip {...getTagProps({ index })} key={index} label={option} color="primary" />
+              <Chip
+                {...getTagProps({ index })}
+                key={index}
+                label={option}
+                color="primary"
+                size="small"
+              />
             ))}
 
             {numTags > limitTags && ` +${numTags - limitTags}`}
           </>
         );
       }}
-      sx={{ '& .MuiChip-root': { height: '24px' } }}
     />
   );
 };

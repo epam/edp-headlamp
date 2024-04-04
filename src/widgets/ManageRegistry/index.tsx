@@ -10,7 +10,7 @@ import { UseSameAccount } from './components/fields';
 import { PullAccountForm } from './components/PullAccount';
 import { PushAccountForm } from './components/PushAccount';
 import { ServiceAccountForm } from './components/ServiceAccount';
-import { useConfigMapEdit } from './hooks/useConfigMapEditForm';
+import { useConfigMapEditForm } from './hooks/useConfigMapEditForm';
 import { usePullAccountCreateForm } from './hooks/usePullAccountCreateForm';
 import { usePullAccountEditForm } from './hooks/usePullAccountEditForm';
 import { usePushAccountCreateForm } from './hooks/usePushAccountCreateForm';
@@ -37,196 +37,97 @@ export const ManageRegistry = ({
     ? FORM_MODES.EDIT
     : FORM_MODES.CREATE;
 
-  const { form: sharedForm } = useSharedForm({
+  const sharedForm = useSharedForm({
     EDPConfigMap,
     pushAccountSecret,
     pullAccountSecret,
   });
 
-  const registryTypeFieldValue = sharedForm.watch(SHARED_FORM_NAMES.registryType.name);
+  const registryTypeFieldValue = sharedForm.form.watch(SHARED_FORM_NAMES.registryType.name);
 
-  const registryEndpointFieldValue = sharedForm.watch(SHARED_FORM_NAMES.registryEndpoint.name);
-
-  const {
-    form: pushAccountCreateForm,
-    mutation: pushAccountCreateMutation,
-    handleSubmit: handlePushAccountCreateSubmit,
-  } = usePushAccountCreateForm({
+  const pushAccountCreateForm = usePushAccountCreateForm({
     pushAccountSecret,
-    registryEndpoint: registryEndpointFieldValue,
-    registryType: registryTypeFieldValue,
+    sharedForm: sharedForm.form,
   });
 
-  const {
-    form: pushAccountEditForm,
-    mutation: pushAccountEditMutation,
-    handleSubmit: handlePushAccountEditSubmit,
-  } = usePushAccountEditForm({
+  const pushAccountEditForm = usePushAccountEditForm({
     pushAccountSecret,
-    registryEndpoint: registryEndpointFieldValue,
-    registryType: registryTypeFieldValue,
+    sharedForm: sharedForm.form,
   });
 
-  const {
-    form: pullAccountCreateForm,
-    mutation: pullAccountCreateMutation,
-    handleSubmit: handlePullAccountCreateSubmit,
-  } = usePullAccountCreateForm({
+  const pullAccountCreateForm = usePullAccountCreateForm({
     pullAccountSecret,
-    registryEndpoint: registryEndpointFieldValue,
-    registryType: registryTypeFieldValue,
+    sharedForm: sharedForm.form,
   });
 
-  const {
-    form: pullAccountEditForm,
-    mutation: pullAccountEditMutation,
-    handleSubmit: handlePullAccountEditSubmit,
-  } = usePullAccountEditForm({
+  const pullAccountEditForm = usePullAccountEditForm({
     pullAccountSecret,
-    registryEndpoint: registryEndpointFieldValue,
-    registryType: registryTypeFieldValue,
+    sharedForm: sharedForm.form,
   });
 
-  const {
-    form: configMapEditForm,
-    mutation: configMapEditMutation,
-    handleSubmit: handleConfigMapEditSubmit,
-  } = useConfigMapEdit({
+  const configMapEditForm = useConfigMapEditForm({
     EDPConfigMap,
   });
 
-  const {
-    form: serviceAccountEditForm,
-    mutation: serviceAccountEditMutation,
-    handleSubmit: handleServiceAccountEditSubmit,
-  } = useServiceAccountEditForm({
+  const serviceAccountEditForm = useServiceAccountEditForm({
     tektonServiceAccount,
   });
 
-  const pushAccountForm: FormItem = React.useMemo(
+  const pushAccountFormData: FormItem = React.useMemo(
     () =>
       pushAccountFormMode === FORM_MODES.CREATE
         ? {
             mode: pushAccountFormMode,
-            form: pushAccountCreateForm,
-            onSubmit: pushAccountCreateForm.handleSubmit(handlePushAccountCreateSubmit),
-            isSubmitting: pushAccountCreateMutation.isLoading,
+            form: pushAccountCreateForm.form,
+            onSubmit: pushAccountCreateForm.form.handleSubmit(pushAccountCreateForm.handleSubmit),
+            isSubmitting: pushAccountCreateForm.mutation.isLoading,
           }
         : {
             mode: pushAccountFormMode,
-            form: pushAccountEditForm,
-            onSubmit: pushAccountEditForm.handleSubmit(handlePushAccountEditSubmit),
-            isSubmitting: pushAccountEditMutation.isLoading,
+            form: pushAccountEditForm.form,
+            onSubmit: pushAccountEditForm.form.handleSubmit(pushAccountEditForm.handleSubmit),
+            isSubmitting: pushAccountEditForm.mutation.isLoading,
           },
-    [
-      handlePushAccountCreateSubmit,
-      handlePushAccountEditSubmit,
-      pushAccountCreateForm,
-      pushAccountCreateMutation.isLoading,
-      pushAccountEditForm,
-      pushAccountEditMutation.isLoading,
-      pushAccountFormMode,
-    ]
+    [pushAccountCreateForm, pushAccountEditForm, pushAccountFormMode]
   );
 
-  const pullAccountForm: FormItem = React.useMemo(
+  const pullAccountFormData: FormItem = React.useMemo(
     () =>
       pullAccountFormMode === FORM_MODES.CREATE
         ? {
             mode: pullAccountFormMode,
-            form: pullAccountCreateForm,
-            onSubmit: pullAccountCreateForm.handleSubmit(handlePullAccountCreateSubmit),
-            isSubmitting: pullAccountCreateMutation.isLoading,
+            form: pullAccountCreateForm.form,
+            onSubmit: pullAccountCreateForm.form.handleSubmit(pullAccountCreateForm.handleSubmit),
+            isSubmitting: pullAccountCreateForm.mutation.isLoading,
           }
         : {
             mode: pullAccountFormMode,
-            form: pullAccountEditForm,
-            onSubmit: pullAccountEditForm.handleSubmit(handlePullAccountEditSubmit),
-            isSubmitting: pullAccountEditMutation.isLoading,
+            form: pullAccountEditForm.form,
+            onSubmit: pullAccountEditForm.form.handleSubmit(pullAccountEditForm.handleSubmit),
+            isSubmitting: pullAccountEditForm.mutation.isLoading,
           },
-    [
-      handlePullAccountCreateSubmit,
-      handlePullAccountEditSubmit,
-      pullAccountCreateForm,
-      pullAccountCreateMutation.isLoading,
-      pullAccountEditForm,
-      pullAccountEditMutation.isLoading,
-      pullAccountFormMode,
-    ]
+    [pullAccountCreateForm, pullAccountEditForm, pullAccountFormMode]
   );
 
-  const configMapForm: FormItem = React.useMemo(
+  const configMapFormData: FormItem = React.useMemo(
     () => ({
       mode: configMapFormMode,
-      form: configMapEditForm,
-      onSubmit: configMapEditForm.handleSubmit(handleConfigMapEditSubmit),
-      isSubmitting: configMapEditMutation.isLoading,
+      form: configMapEditForm.form,
+      onSubmit: configMapEditForm.form.handleSubmit(configMapEditForm.handleSubmit),
+      isSubmitting: configMapEditForm.mutation.isLoading,
     }),
-    [
-      configMapEditForm,
-      configMapEditMutation.isLoading,
-      configMapFormMode,
-      handleConfigMapEditSubmit,
-    ]
+    [configMapEditForm, configMapFormMode]
   );
 
-  const serviceAccountForm: FormItem = React.useMemo(
+  const serviceAccountFormData: FormItem = React.useMemo(
     () => ({
       mode: FORM_MODES.EDIT,
-      form: serviceAccountEditForm,
-      onSubmit: serviceAccountEditForm.handleSubmit(handleServiceAccountEditSubmit),
-      isSubmitting: serviceAccountEditMutation.isLoading,
+      form: serviceAccountEditForm.form,
+      onSubmit: serviceAccountEditForm.form.handleSubmit(serviceAccountEditForm.handleSubmit),
+      isSubmitting: serviceAccountEditForm.mutation.isLoading,
     }),
-    [handleServiceAccountEditSubmit, serviceAccountEditForm, serviceAccountEditMutation.isLoading]
+    [serviceAccountEditForm]
   );
-
-  const renderServiceAccountForm = React.useCallback(() => {
-    if (satisfiesType(registryTypeFieldValue, [CONTAINER_REGISTRY_TYPE.ECR])) {
-      return (
-        <Grid item xs={12}>
-          <ServiceAccountForm />
-        </Grid>
-      );
-    }
-  }, [registryTypeFieldValue]);
-
-  const renderPushAccountForm = React.useCallback(() => {
-    if (
-      satisfiesType(registryTypeFieldValue, [
-        CONTAINER_REGISTRY_TYPE.HARBOR,
-        CONTAINER_REGISTRY_TYPE.NEXUS,
-        CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY,
-        CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
-      ])
-    ) {
-      return (
-        <>
-          <Grid item xs={12}>
-            <PushAccountForm />
-          </Grid>
-          <Grid item xs={12}>
-            <UseSameAccount />
-          </Grid>
-        </>
-      );
-    }
-  }, [registryTypeFieldValue]);
-
-  const renderPullAccountForm = React.useCallback(() => {
-    if (
-      satisfiesType(registryTypeFieldValue, [
-        CONTAINER_REGISTRY_TYPE.HARBOR,
-        CONTAINER_REGISTRY_TYPE.NEXUS,
-        CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
-      ])
-    ) {
-      return (
-        <Grid item xs={12}>
-          <PullAccountForm />
-        </Grid>
-      );
-    }
-  }, [registryTypeFieldValue]);
 
   return (
     <DataContextProvider
@@ -237,20 +138,50 @@ export const ManageRegistry = ({
     >
       <MultiFormContextProvider<FormNames>
         forms={{
-          pushAccount: pushAccountForm,
-          pullAccount: pullAccountForm,
-          configMap: configMapForm,
-          serviceAccount: serviceAccountForm,
+          pushAccount: pushAccountFormData,
+          pullAccount: pullAccountFormData,
+          configMap: configMapFormData,
+          serviceAccount: serviceAccountFormData,
         }}
-        sharedForm={sharedForm}
+        sharedForm={sharedForm.form}
       >
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <ConfigMapForm />
           </Grid>
-          {renderServiceAccountForm()}
-          {renderPushAccountForm()}
-          {renderPullAccountForm()}
+          {satisfiesType(registryTypeFieldValue, [CONTAINER_REGISTRY_TYPE.ECR]) && (
+            <Grid item xs={12}>
+              <ServiceAccountForm />
+            </Grid>
+          )}
+          {satisfiesType(registryTypeFieldValue, [
+            CONTAINER_REGISTRY_TYPE.HARBOR,
+            CONTAINER_REGISTRY_TYPE.NEXUS,
+            CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY,
+            CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+          ]) && (
+            <Grid item xs={12}>
+              <PushAccountForm />
+            </Grid>
+          )}
+          {satisfiesType(registryTypeFieldValue, [
+            CONTAINER_REGISTRY_TYPE.HARBOR,
+            CONTAINER_REGISTRY_TYPE.NEXUS,
+            CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+          ]) && (
+            <Grid item xs={12}>
+              <UseSameAccount />
+            </Grid>
+          )}
+          {satisfiesType(registryTypeFieldValue, [
+            CONTAINER_REGISTRY_TYPE.HARBOR,
+            CONTAINER_REGISTRY_TYPE.NEXUS,
+            CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+          ]) && (
+            <Grid item xs={12}>
+              <PullAccountForm />
+            </Grid>
+          )}
           <Grid item xs={12}>
             <Actions />
           </Grid>

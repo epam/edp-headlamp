@@ -6,13 +6,21 @@ import { SHARED_FORM_NAMES } from '../names';
 import { SharedFormValues } from '../types';
 
 export const useSharedForm = ({ gitServer }: { gitServer: EDPGitServerKubeObjectInterface }) => {
-  const form = useForm<SharedFormValues>({
-    defaultValues: {
+  const defaultValues = React.useMemo(() => {
+    return {
       [SHARED_FORM_NAMES.gitProvider.name]: gitServer
         ? gitServer.spec.gitProvider
         : GIT_PROVIDERS.GERRIT,
-    },
+    };
+  }, [gitServer]);
+
+  const form = useForm<SharedFormValues>({
+    defaultValues: defaultValues,
   });
+
+  React.useEffect(() => {
+    form.reset(defaultValues, { keepDirty: false });
+  }, [defaultValues, form]);
 
   return React.useMemo(() => ({ form }), [form]);
 };

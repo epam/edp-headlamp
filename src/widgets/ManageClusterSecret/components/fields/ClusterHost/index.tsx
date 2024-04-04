@@ -27,7 +27,7 @@ export const ClusterHost = () => {
       title={
         <>
           <p>
-            Enter cluster’s endpoint URL (e.g., <em>example-cluster-domain.com)</em>.
+            Enter cluster’s endpoint URL (e.g., <em>https://example-cluster-domain.com)</em>.
           </p>
         </>
       }

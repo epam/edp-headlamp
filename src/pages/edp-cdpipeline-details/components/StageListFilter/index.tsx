@@ -1,6 +1,15 @@
 import { Icon } from '@iconify/react';
 import { Autocomplete } from '@mui/lab';
-import { Button, Grid, MenuItem, Select, TextField, useTheme } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  useTheme,
+} from '@mui/material';
 import React from 'react';
 import { APPLICATION_HEALTH_STATUS } from '../../../../k8s/Application/constants';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
@@ -97,7 +106,11 @@ export const StageListFilter = () => {
                   getOptionLabel={(option) => option}
                   onChange={handleApplicationChange}
                   value={(filter.values.application as string[]) || []}
-                  renderInput={(params) => <TextField {...params} placeholder="Applications" />}
+                  renderInput={(params) => <TextField {...params} label="Applications" />}
+                  ChipProps={{
+                    size: 'small',
+                    color: 'primary',
+                  }}
                 />
               ),
             },
@@ -110,37 +123,46 @@ export const StageListFilter = () => {
                   getOptionLabel={(option) => option}
                   onChange={handleStagesChange}
                   value={(filter.values.stages as string[]) || []}
-                  renderInput={(params) => <TextField {...params} placeholder="Stages" />}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Stages" placeholder="Stages" />
+                  )}
+                  ChipProps={{
+                    size: 'small',
+                    color: 'primary',
+                  }}
                 />
               ),
             },
             [FILTER_CONTROLS.HEALTH]: {
               gridXs: 2,
               component: (
-                <Select
-                  fullWidth
-                  value={filter.values.health || ''}
-                  displayEmpty
-                  onChange={handleHealthChange}
-                  sx={{
-                    color: filter.values.health
-                      ? theme.palette.text.secondary
-                      : theme.palette.text.disabled,
-                  }}
-                >
-                  <MenuItem value="" disabled>
-                    Health
-                  </MenuItem>
-                  {healthOptions.map(({ label, value }, idx) => {
-                    const key = `${label}::${idx}`;
+                <FormControl fullWidth>
+                  <InputLabel>Health</InputLabel>
+                  <Select
+                    fullWidth
+                    value={filter.values.health || ''}
+                    displayEmpty
+                    onChange={handleHealthChange}
+                    sx={{
+                      color: filter.values.health
+                        ? theme.palette.text.secondary
+                        : theme.palette.text.disabled,
+                    }}
+                  >
+                    <MenuItem value="" disabled>
+                      Health
+                    </MenuItem>
+                    {healthOptions.map(({ label, value }, idx) => {
+                      const key = `${label}::${idx}`;
 
-                    return (
-                      <MenuItem value={value} key={key}>
-                        {label}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
+                      return (
+                        <MenuItem value={value} key={key}>
+                          {label}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
               ),
             },
           }}

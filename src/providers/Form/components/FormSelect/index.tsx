@@ -4,6 +4,8 @@ import {
   Box,
   FormControl,
   InputLabel,
+  ListItemIcon,
+  ListItemText,
   MenuItem,
   Select,
   Stack,
@@ -43,7 +45,14 @@ export const FormSelect = React.forwardRef(
         if (options.length) {
           const [foundOptionByName] = options.filter(({ value }) => value === optionValue);
           if (foundOptionByName) {
-            return foundOptionByName.label;
+            return foundOptionByName.icon ? (
+              <Stack spacing={2} direction="row" alignItems="center">
+                <ListItemIcon sx={{ minWidth: 0 }}>{foundOptionByName.icon}</ListItemIcon>
+                <ListItemText>{foundOptionByName.label}</ListItemText>
+              </Stack>
+            ) : (
+              foundOptionByName.label
+            );
           }
         }
         return defaultValue;
@@ -91,12 +100,13 @@ export const FormSelect = React.forwardRef(
                     )
                   }
                 >
-                  {options.map(({ label, value, disabled = false }, idx) => {
+                  {options.map(({ label, value, disabled = false, icon }, idx) => {
                     const key = `${label}::${idx}`;
 
                     return (
                       <MenuItem value={value} key={key} disabled={disabled}>
-                        {label}
+                        {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                        <ListItemText>{label}</ListItemText>
                       </MenuItem>
                     );
                   })}

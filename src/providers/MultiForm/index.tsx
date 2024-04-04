@@ -38,11 +38,10 @@ export const MultiFormContextProvider = <FormName extends string>({
         const valid = await form.trigger();
 
         if (!valid) {
+
           return;
         }
       }
-
-      const formsToSubmit = [];
 
       for (const formName in forms) {
         const formItem = forms[formName];
@@ -52,23 +51,9 @@ export const MultiFormContextProvider = <FormName extends string>({
           form.formState.dirtyFields && Object.keys(form.formState.dirtyFields).length > 0;
 
         if (isFormDirty || !onlyDirty) {
-          formsToSubmit.push(formItem);
+          await formItem.onSubmit();
+          formItem.form.reset({}, { keepDirty: false, keepValues: true });
         }
-      }
-
-      const submitPromises = formsToSubmit.map((formItem) => formItem.onSubmit());
-
-      await Promise.all(submitPromises);
-      for (const formName in formsToSubmit) {
-        const formItem = formsToSubmit[formName];
-
-        if (!formItem) {
-          continue;
-        }
-
-        const values = forms[formName].form.getValues();
-
-        await forms[formName].form.reset(values, { keepDirty: false });
       }
     },
     [forms]

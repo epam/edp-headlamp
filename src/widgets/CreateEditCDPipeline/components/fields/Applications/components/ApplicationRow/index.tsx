@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react';
 import { Button, Grid, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../../../../constants/ui';
 import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
 import { useCodebaseBranchesByCodebaseNameLabelQuery } from '../../../../../../../k8s/EDPCodebaseBranch/hooks/useCodebaseBranchesByCodebaseNameLabelQuery';
 import { useSpecificDialogContext } from '../../../../../../../providers/Dialog/hooks';
@@ -191,7 +192,7 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
             }))}
           />
         </Grid>
-        <Grid item xs={3} style={{ display: 'flex', alignItems: 'flex-end' }}>
+        <Grid item xs={3} sx={{ mt: theme.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
           <FormCheckbox
             {...register(
               // @ts-ignore
@@ -207,16 +208,7 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
             errors={errors}
           />
         </Grid>
-        <Grid
-          item
-          xs={1}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            flexDirection: 'column',
-          }}
-        >
+        <Grid item xs={1} sx={{ mt: theme.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
           <Button
             type={'button'}
             size={'small'}
