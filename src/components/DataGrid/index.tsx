@@ -48,7 +48,7 @@ export const DataGrid = <DataType extends unknown>({
       return false;
     }
 
-    return !!data.length && !readyData.length;
+    return !!data?.length && !readyData?.length;
   }, [data, isLoading, isReadyDataLoading, readyData]);
 
   const renderGrid = React.useCallback(() => {

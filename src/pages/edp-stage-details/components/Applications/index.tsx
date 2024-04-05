@@ -192,6 +192,29 @@ export const Applications = ({
     }
   }, [enrichedApplicationsByApplicationName, resetField, selected, setValue]);
 
+  const onValuesOverrideAllClick = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const boolean = event.target.checked;
+      const selected: string[] = [];
+
+      for (const application of enrichedApplicationsWithArgoApplications) {
+        const selectFieldName = `${application.application.metadata.name}::values-override`;
+
+        setValue(selectFieldName, boolean, {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
+
+        if (boolean) {
+          selected.push(application.application.metadata.name);
+        }
+      }
+
+      setSelected(selected);
+    },
+    [enrichedApplicationsWithArgoApplications, setValue]
+  );
+
   const {
     deleteArgoApplication,
     mutations: { argoApplicationDeleteMutation },
@@ -351,6 +374,7 @@ export const Applications = ({
     onUninstallClick,
     onLatestClick,
     onStableClick,
+    onValuesOverrideAllClick,
     isDeployLoading: latestDeployPipelineRunIsRunning,
   });
 

@@ -38,7 +38,7 @@ export const ManageGitServer = ({
   const gitServerEditForm = useGitServerEditForm({ gitServer });
 
   const credentialsCreateForm = useCredentialsCreateForm({
-    sharedForm
+    sharedForm,
   });
 
   const credentialsEditForm = useCredentialsEditForm({

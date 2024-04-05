@@ -15,10 +15,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
   const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
 
   const { data: gitServers } = useGitServerListQuery({});
-  const gitServersOptions = React.useMemo(
-    () => gitServers?.items.map(({ metadata: { name } }) => ({ label: name, value: name })),
-    [gitServers?.items]
-  );
+  const firstValidGitServer = gitServers?.items.find((gitServer) => gitServer.status.connected);
 
   return React.useMemo(() => {
     if (isPlaceholder) {
@@ -30,7 +27,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
         [CODEBASE_FORM_NAMES.framework.name]: 'gitops',
         [CODEBASE_FORM_NAMES.buildTool.name]: 'helm',
         [CODEBASE_FORM_NAMES.ciTool.name]: CI_TOOLS.TEKTON,
-        [CODEBASE_FORM_NAMES.gitServer.name]: gitServersOptions?.[0]?.value,
+        [CODEBASE_FORM_NAMES.gitServer.name]: firstValidGitServer?.metadata.name || '',
         [CODEBASE_FORM_NAMES.defaultBranch.name]: 'main',
         [CODEBASE_FORM_NAMES.deploymentScript.name]: DEPLOYMENT_SCRIPTS.HELM_CHART,
         [CODEBASE_FORM_NAMES.description.name]: 'Custom values for deploy applications',
@@ -55,5 +52,5 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
       [CODEBASE_FORM_NAMES.gitRepoPath.name]: gitRepoPath,
       [CODEBASE_FORM_NAMES.name.name]: currentElement?.metadata.name,
     };
-  }, [currentElement, gitServersOptions, isPlaceholder]);
+  }, [currentElement, firstValidGitServer?.metadata.name, isPlaceholder]);
 };

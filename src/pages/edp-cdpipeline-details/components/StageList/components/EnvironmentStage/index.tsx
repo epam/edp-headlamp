@@ -171,6 +171,7 @@ export const EnvironmentStage = ({
                   <ApplicationCard
                     key={key}
                     stage={stage}
+                    CDPipeline={CDPipeline}
                     application={el.application}
                     argoApplication={el.argoApplication}
                     QuickLinksURLS={QuickLinksURLS}

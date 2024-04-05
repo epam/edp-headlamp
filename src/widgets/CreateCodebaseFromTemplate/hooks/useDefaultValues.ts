@@ -20,10 +20,7 @@ export const useDefaultValues = () => {
   );
 
   const { data: gitServers } = useGitServerListQuery({});
-  const gitServersOptions = React.useMemo(
-    () => gitServers?.items.map(({ metadata: { name } }) => ({ label: name, value: name })),
-    [gitServers?.items]
-  );
+  const firstValidGitServer = gitServers?.items.find((gitServer) => gitServer.status.connected);
 
   return React.useMemo(() => {
     return {
@@ -36,12 +33,19 @@ export const useDefaultValues = () => {
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.defaultBranch.name]: defaultBranchName,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPES.EDP,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.emptyProject.name]: false,
-      [CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitServer.name]: gitServersOptions?.[0]?.value,
+      [CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitServer.name]: firstValidGitServer?.metadata.name || '',
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFrom.name]: defaultEDPVersioningValue,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFromVersion.name]:
         defaultEDPVersioningVersion,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFromPostfix.name]:
         defaultEDPVersioningVersionPostfix,
     };
-  }, [template, gitServersOptions]);
+  }, [
+    template?.spec.language,
+    template?.spec.framework,
+    template?.spec.buildTool,
+    template?.spec.type,
+    template?.spec.source,
+    firstValidGitServer?.metadata.name,
+  ]);
 };

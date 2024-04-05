@@ -39,6 +39,7 @@ export const ApplicationCard = ({
   application,
   argoApplication,
   QuickLinksURLS,
+  CDPipeline,
 }: ApplicationCardProps) => {
   const theme = useTheme();
 
@@ -66,7 +67,7 @@ export const ApplicationCard = ({
   return (
     <LoadingWrapper isLoading={!argoApplication?.status?.health}>
       <StyledCard variant="outlined">
-        <Stack spacing={2}>
+        <Stack spacing={1}>
           <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
             <Stack direction="row" spacing={2} alignItems="center" sx={{ minWidth: 0 }}>
               <StatusIcon
@@ -135,12 +136,6 @@ export const ApplicationCard = ({
           </Stack>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Typography variant="caption" color="primary.dark">
-              Created:
-            </Typography>
-            <StyledChip label={formatDate(argoApplication.metadata.creationTimestamp)} />
-          </Stack>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography variant="caption" color="primary.dark">
               Sync status:
             </Typography>
             <StatusIcon
@@ -149,6 +144,22 @@ export const ApplicationCard = ({
               color={argoAppSyncStatusColor}
               width={16}
             />
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography variant="caption" color="primary.dark">
+              To promote:
+            </Typography>
+            <Typography variant="caption" color="primary.dark">
+              {CDPipeline.spec.applicationsToPromote.includes(application.metadata.name)
+                ? 'True'
+                : 'False'}
+            </Typography>
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography variant="caption" color="primary.dark">
+              Created:
+            </Typography>
+            <StyledChip label={formatDate(argoApplication.metadata.creationTimestamp)} />
           </Stack>
           <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
             <Button

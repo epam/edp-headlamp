@@ -50,7 +50,7 @@ export const TableBody = ({
       );
     }
 
-    if (readyData !== null) {
+    if (readyData !== null && readyData?.length) {
       return readyData
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         .map((row, idx: number) => {

@@ -6,6 +6,7 @@ import {
   Grid,
   IconButton,
   Stack,
+  Switch,
   Tooltip,
   Typography,
   useTheme,
@@ -25,6 +26,7 @@ export const useUpperColumns = ({
   onUninstallClick,
   onLatestClick,
   onStableClick,
+  onValuesOverrideAllClick,
   isDeployLoading,
 }: {
   selected: string[];
@@ -33,6 +35,7 @@ export const useUpperColumns = ({
   onUninstallClick: () => void;
   onLatestClick: () => void;
   onStableClick: () => void;
+  onValuesOverrideAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isDeployLoading: boolean;
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
   const theme = useTheme();
@@ -107,7 +110,15 @@ export const useUpperColumns = ({
       {
         id: 'valuesOverride',
         label: '',
-        render: () => null,
+        render: () => {
+          const leftOffset = 36 + 8; // icon button + grid padding
+
+          return (
+            <Box sx={{ ml: theme.typography.pxToRem(leftOffset) }}>
+              <Switch color={'primary'} onChange={onValuesOverrideAllClick} />
+            </Box>
+          );
+        },
       },
       {
         id: 'latestStableReset',
@@ -178,18 +189,20 @@ export const useUpperColumns = ({
       },
     ],
     [
-      buttonsEnabledMap,
+      stage?.spec.clusterName,
+      theme.typography,
+      theme.palette.secondary.dark,
       numSelected,
+      deployBtnDisabled,
+      isDeployLoading,
+      buttonsEnabledMap,
+      onUninstallClick,
       onDeployClick,
       onLatestClick,
       onStableClick,
-      onUninstallClick,
-      reset,
       selected,
-      stage,
-      theme,
-      isDeployLoading,
-      deployBtnDisabled,
+      onValuesOverrideAllClick,
+      reset,
     ]
   );
 };

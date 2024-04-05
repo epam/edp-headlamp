@@ -71,7 +71,7 @@ export const Table = <DataType extends unknown>({
       return false;
     }
 
-    return !!data.length && !readyData.length;
+    return !!data?.length && !readyData?.length;
   }, [data, isLoading, isReadyDataLoading, readyData]);
 
   const activePage = readyData !== null && readyData.length < _rowsPerPage ? 0 : page;

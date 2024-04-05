@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { LoadingWrapper } from '../../../components/LoadingWrapper';
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/PipelineRun/constants';
 import { useQuickLinksURLsQuery } from '../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
@@ -64,42 +65,46 @@ export const usePageTabs = () => {
   });
 
   return React.useMemo(() => {
-    if (isLoading || enrichedApplications.isLoading) {
-      return [];
-    }
+    const _isLoading = isLoading || enrichedApplications.isLoading;
 
     return [
       {
         label: 'Applications',
         id: 'applications',
         component: (
-          <FormContextProvider formSettings={{ mode: 'onBlur' }}>
-            <Applications
-              enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
-              latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
-            />
-          </FormContextProvider>
+          <LoadingWrapper isLoading={_isLoading}>
+            <FormContextProvider formSettings={{ mode: 'onBlur' }}>
+              <Applications
+                enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
+                latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
+              />
+            </FormContextProvider>
+          </LoadingWrapper>
         ),
       },
       {
         label: 'Pipelines',
         id: 'pipelines',
         component: (
-          <PipelineRunList
-            pipelineRuns={deployPipelineRuns.data}
-            isLoading={deployPipelineRuns.isLoading}
-            filterFunction={null}
-          />
+          <LoadingWrapper isLoading={_isLoading}>
+            <PipelineRunList
+              pipelineRuns={deployPipelineRuns.data}
+              isLoading={deployPipelineRuns.isLoading}
+              filterFunction={null}
+            />
+          </LoadingWrapper>
         ),
       },
       {
         label: 'Monitoring',
         id: 'monitoring',
         component: (
-          <Monitoring
-            grafanaBaseUrl={QuickLinksURLS?.grafana}
-            namespace={stage.data?.spec.namespace}
-          />
+          <LoadingWrapper isLoading={_isLoading}>
+            <Monitoring
+              grafanaBaseUrl={QuickLinksURLS?.grafana}
+              namespace={stage.data?.spec.namespace}
+            />
+          </LoadingWrapper>
         ),
       },
     ];

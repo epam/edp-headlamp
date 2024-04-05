@@ -15,10 +15,10 @@ export const URL = () => {
   return (
     <FormTextField
       {...register(JIRA_CI_FORM_NAMES.url.name, {
-        required: 'Enter Jira URL (e.g.,https://your-jira-instance.com).',
+        required: 'Enter Jira URL (e.g., https://your-jira-instance.com).',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.HTTP_OR_HTTPS),
-          message: 'Enter a valid URL with HTTP/HTTPS protocol.',
+          value: getValidURLPattern(VALIDATED_PROTOCOLS.STRICT_HTTPS),
+          message: 'Enter a valid URL with HTTPS protocol.',
         },
       })}
       label={'URL'}

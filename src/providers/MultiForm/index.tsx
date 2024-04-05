@@ -38,7 +38,6 @@ export const MultiFormContextProvider = <FormName extends string>({
         const valid = await form.trigger();
 
         if (!valid) {
-
           return;
         }
       }
