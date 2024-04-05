@@ -61,11 +61,6 @@ export const Table = <DataType extends unknown>({
 
   const isReadyDataLoading = readyData === null;
 
-  const rowCount = (!isReadyDataLoading && readyData.length) || 0;
-  const selectableRowCount = canBeSelected
-    ? !isReadyDataLoading && readyData.filter(canBeSelected).length
-    : 0;
-
   const hasEmptyResult = React.useMemo(() => {
     if (isLoading && isReadyDataLoading) {
       return false;
@@ -75,6 +70,23 @@ export const Table = <DataType extends unknown>({
   }, [data, isLoading, isReadyDataLoading, readyData]);
 
   const activePage = readyData !== null && readyData.length < _rowsPerPage ? 0 : page;
+
+  const paginatedItems = React.useMemo(() => {
+    if (!readyData) {
+      return [];
+    }
+
+    return readyData.slice(page * _rowsPerPage, page * _rowsPerPage + _rowsPerPage);
+  }, [page, readyData, _rowsPerPage]);
+
+  const selectableRowCount = canBeSelected ? paginatedItems.filter(canBeSelected).length : 0;
+
+  const rowCount = paginatedItems.length;
+
+  const _handleSelectAllClick = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => handleSelectAllClick(event, paginatedItems),
+    [handleSelectAllClick, paginatedItems]
+  );
 
   return (
     <Paper
@@ -104,7 +116,7 @@ export const Table = <DataType extends unknown>({
           rowCount={rowCount}
           selectableRowCount={selectableRowCount}
           selected={selected}
-          handleSelectAllClick={handleSelectAllClick}
+          handleSelectAllClick={_handleSelectAllClick}
         />
         <TableBody
           columns={columns}

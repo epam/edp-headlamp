@@ -31,9 +31,12 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
   const [selected, setSelected] = React.useState<string[]>([]);
 
   const handleSelectAllClick = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (
+      event: React.ChangeEvent<HTMLInputElement>,
+      paginatedItems: EDPCodebaseKubeObjectInterface[]
+    ) => {
       if (event.target.checked) {
-        const newSelected = items
+        const newSelected = paginatedItems
           .map(({ metadata: { name }, spec: { type } }) =>
             type === CODEBASE_TYPES.SYSTEM ? null : name
           )
@@ -43,7 +46,7 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
       }
       setSelected([]);
     },
-    [items]
+    []
   );
 
   const handleSelectRowClick = React.useCallback(

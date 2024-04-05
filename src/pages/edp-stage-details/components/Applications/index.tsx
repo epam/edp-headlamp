@@ -81,9 +81,12 @@ export const Applications = ({
   const [selected, setSelected] = React.useState<string[]>([]);
 
   const handleSelectAllClick = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (
+      event: React.ChangeEvent<HTMLInputElement>,
+      paginatedItems: EnrichedApplicationWithArgoApplication[]
+    ) => {
       if (event.target.checked) {
-        const newSelected = enrichedApplicationsWithArgoApplications.map(
+        const newSelected = paginatedItems.map(
           ({
             application: {
               metadata: { name },
@@ -95,7 +98,7 @@ export const Applications = ({
       }
       setSelected([]);
     },
-    [enrichedApplicationsWithArgoApplications]
+    []
   );
 
   const handleSelectRowClick = React.useCallback(

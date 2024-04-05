@@ -12,7 +12,6 @@ export const CDPipelineList = ({ CDPipelines, error, filterFunction }: CDPipelin
 
   const { setDialog } = useDialogContext();
 
-  console.log(CDPipelines);
   return (
     <Table
       isLoading={CDPipelines === null}
