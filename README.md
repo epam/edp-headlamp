@@ -105,7 +105,7 @@ In order to install the EDP Headlamp, follow the steps below:
 
      ```bash
      NAME                	            CHART VERSION	APP VERSION	    DESCRIPTION
-     epamedp/edp-headlamp	            0.13.0        	0.13.0      	A Helm chart for EDP Headlamp
+     epamedp/edp-headlamp	            0.14.0        	0.14.0      	A Helm chart for EDP Headlamp
      ```
 
     _**NOTE:** It is highly recommended to use the latest released version._
