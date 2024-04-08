@@ -1,20 +1,14 @@
 import React from 'react';
 import { DynamicDataContextProviderValue } from './types';
 
+const initialData = {
+  data: null,
+  isLoading: true,
+  error: null,
+};
+
 export const DynamicDataContext = React.createContext<DynamicDataContextProviderValue>({
-  CDPipeline: {
-    data: null,
-    error: null,
-    isLoading: true,
-  },
-  stages: {
-    data: null,
-    error: null,
-    isLoading: true,
-  },
-  stagesWithApplicationsData: {
-    data: null,
-    error: null,
-    isLoading: true,
-  },
+  CDPipeline: initialData,
+  stages: initialData,
+  stagesWithApplicationsData: initialData,
 });

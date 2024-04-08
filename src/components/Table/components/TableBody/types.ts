@@ -1,11 +1,13 @@
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { TableColumn } from '../../types';
 
 export interface TableBodyProps<DataType = unknown> {
   isLoading: boolean;
-  error?: unknown;
+  error?: ApiError;
   readyData: DataType[];
   columns: readonly TableColumn<DataType>[];
+  blockerComponent?: React.ReactNode;
   emptyListComponent?: React.ReactNode;
   handleRowClick?: (event: React.MouseEvent<HTMLTableRowElement>, row: DataType) => void;
   handleSelectRowClick?: (

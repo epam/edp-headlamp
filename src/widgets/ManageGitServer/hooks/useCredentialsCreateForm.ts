@@ -10,6 +10,7 @@ import {
   createGithubGitServerSecretInstance,
   createGitlabGitServerSecretInstance,
 } from '../../../k8s/Secret/utils/createGitServerSecretInstance';
+import { GIT_USER } from '../constants';
 import { CredentialsFormValues, SharedFormValues } from '../types';
 
 export const useCredentialsCreateForm = ({
@@ -35,18 +36,18 @@ export const useCredentialsCreateForm = ({
             return createGerritGitServerSecretInstance({
               sshPrivateKey: values.sshPrivateKey,
               sshPublicKey: values.sshPublicKey,
-              username: 'edp-ci',
+              username: GIT_USER.GERRIT,
             });
           case GIT_PROVIDERS.GITHUB:
             return createGithubGitServerSecretInstance({
               sshPrivateKey: values.sshPrivateKey,
               token: values.token,
-              username: 'git',
+              username: GIT_USER.GITHUB,
             });
           case GIT_PROVIDERS.GITLAB:
             return createGitlabGitServerSecretInstance({
               sshPrivateKey: values.sshPrivateKey,
-              token: 'git',
+              token: GIT_USER.GITLAB,
             });
           default:
             break;

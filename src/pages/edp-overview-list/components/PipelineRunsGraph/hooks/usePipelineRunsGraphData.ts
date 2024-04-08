@@ -1,40 +1,36 @@
 import React from 'react';
 import { PipelineRunKubeObject } from '../../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON, PIPELINE_RUN_STATUS } from '../../../../../k8s/PipelineRun/constants';
-import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
-import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
+
+interface GraphData {
+  total: number;
+  ok: number;
+  error: number;
+  inProgress: number;
+  unknown: number;
+  suspended: number;
+}
 
 export const usePipelineRunsGraphData = () => {
-  const [pipelineRunsInfo, setPipelineRunsInfo] = React.useState<{
-    total: number;
-    green: number;
-    red: number;
-    blue: number;
-    grey: number;
-    purple: number;
-  }>({
-    total: null,
-    green: null,
-    red: null,
-    blue: null,
-    grey: null,
-    purple: null,
-  });
-  const [, setError] = React.useState<unknown>(null);
-  PipelineRunKubeObject.useApiList(
-    (pipelineRuns: PipelineRunKubeObjectInterface[]) => {
-      const newPipelineRunsInfo = {
-        green: 0,
-        red: 0,
-        total: 0,
-        blue: 0,
-        grey: 0,
-        purple: 0,
-      };
+  const [pipelineRuns, pipelineRunsError] = PipelineRunKubeObject.useList();
+  const isLoading = pipelineRuns === null && !pipelineRunsError;
 
-      for (const item of pipelineRuns) {
-        const status = PipelineRunKubeObject.parseStatus(item);
-        const reason = PipelineRunKubeObject.parseStatusReason(item);
+  const graphData = React.useMemo(() => {
+    if (isLoading || !pipelineRuns) {
+      return {
+        total: null,
+        ok: null,
+        error: null,
+        inProgress: null,
+        unknown: null,
+        suspended: null,
+      };
+    }
+
+    return pipelineRuns.reduce<GraphData>(
+      (acc, cur) => {
+        const status = PipelineRunKubeObject.parseStatus(cur);
+        const reason = PipelineRunKubeObject.parseStatusReason(cur);
 
         const _status = status.toLowerCase();
         const _reason = reason.toLowerCase();
@@ -45,33 +41,42 @@ export const usePipelineRunsGraphData = () => {
               _reason === PIPELINE_RUN_REASON.STARTED ||
               _reason === PIPELINE_RUN_REASON.RUNNING
             ) {
-              newPipelineRunsInfo.blue++;
+              acc.inProgress++;
             }
 
             if (_reason === PIPELINE_RUN_REASON.CANCELLED) {
-              newPipelineRunsInfo.purple++;
+              acc.suspended++;
             }
             break;
           case PIPELINE_RUN_STATUS.TRUE:
-            newPipelineRunsInfo.green++;
+            acc.ok++;
             break;
           case PIPELINE_RUN_STATUS.FALSE:
-            newPipelineRunsInfo.red++;
+            acc.error++;
             break;
           default:
-            newPipelineRunsInfo.grey++;
+            acc.unknown++;
             break;
         }
-        newPipelineRunsInfo.total++;
+
+        acc.total++;
+
+        return acc;
+      },
+      {
+        total: 0,
+        ok: 0,
+        error: 0,
+        inProgress: 0,
+        unknown: 0,
+        suspended: 0,
       }
+    );
+  }, [pipelineRuns, isLoading]);
 
-      setPipelineRunsInfo(newPipelineRunsInfo);
-    },
-    (error) => setError(error),
-    {
-      namespace: getDefaultNamespace(),
-    }
-  );
-
-  return pipelineRunsInfo;
+  return {
+    graphData,
+    isLoading,
+    error: pipelineRunsError,
+  };
 };

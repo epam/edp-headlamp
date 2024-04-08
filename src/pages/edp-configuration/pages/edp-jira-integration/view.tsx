@@ -1,6 +1,7 @@
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
+import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
@@ -16,20 +17,20 @@ import { menu } from '../../menu';
 import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const [jiraServers] = JiraServerKubeObject.useList();
+  const [jiraServers, jiraServersError] = JiraServerKubeObject.useList();
 
-  const [jiraServerSecrets] = SecretKubeObject.useList({
+  const [jiraServerSecrets, jiraServerSecretsError] = SecretKubeObject.useList({
     namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=jira`,
   });
 
   const jiraServer = jiraServers?.[0]?.jsonData;
   const jiraServerSecret = jiraServerSecrets?.[0]?.jsonData;
-
-  const isLoading = jiraServers === null || jiraServerSecrets === null;
   const mode = !!jiraServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
   const ownerReference = jiraServerSecret?.metadata?.ownerReferences?.[0]?.kind;
+  const error = jiraServersError || jiraServerSecretsError;
+  const isLoading = (jiraServers === null || jiraServerSecrets === null) && !error;
 
   return (
     <PageWithSubMenu list={menu}>
@@ -45,23 +46,33 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <LoadingWrapper isLoading={isLoading}>
-              <ManageJiraCI
-                formData={{
-                  jiraServer,
-                  jiraServerSecret,
-                  ownerReference,
-                  isReadOnly: !!ownerReference,
-                  mode,
-                }}
-              />
-            </LoadingWrapper>
+            {error ? (
+              <Grid item xs={12}>
+                <ErrorContent error={error} outlined />
+              </Grid>
+            ) : (
+              <Grid item xs={12}>
+                <LoadingWrapper isLoading={isLoading}>
+                  <ManageJiraCI
+                    formData={{
+                      jiraServer,
+                      jiraServerSecret,
+                      ownerReference,
+                      isReadOnly: !!ownerReference,
+                      mode,
+                    }}
+                  />
+                </LoadingWrapper>
+              </Grid>
+            )}
+            {!jiraServerSecret && !isLoading && !error && (
+              <Grid item xs={12}>
+                <EmptyContent color={'textSecondary'}>
+                  No Jira integration secrets found
+                </EmptyContent>
+              </Grid>
+            )}
           </Grid>
-          {!jiraServerSecret && !isLoading && (
-            <Grid item xs={12}>
-              <EmptyContent color={'textSecondary'}>No Jira integration secrets found</EmptyContent>
-            </Grid>
-          )}
         </Grid>
       </PageWrapper>
     </PageWithSubMenu>

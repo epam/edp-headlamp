@@ -23,12 +23,12 @@ import { routeEDPGitServerList } from '../edp-gitserver-list/route';
 import { GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const [items] = EDPCodebaseKubeObject.useList({
+  const [codebases, codebasesError] = EDPCodebaseKubeObject.useList({
     namespace: getDefaultNamespace(),
     labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPES.SYSTEM}`,
   });
 
-  const itemsArray = React.useMemo(() => (items ? items.filter(Boolean) : []), [items]);
+  const itemsArray = React.useMemo(() => (codebases ? codebases.filter(Boolean) : []), [codebases]);
 
   const gitOpsCodebase =
     itemsArray.find(
@@ -131,7 +131,8 @@ export const PageView = () => {
           />
         ),
       })}
-      items={items === null ? null : configurationItemList}
+      items={codebases === null && !codebasesError ? null : configurationItemList}
+      error={codebasesError}
       emptyMessage={'No GitOps repositories found'}
       onlyOneItem
     />

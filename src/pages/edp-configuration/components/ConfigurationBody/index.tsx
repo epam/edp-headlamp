@@ -12,6 +12,7 @@ import {
 import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { CreateItemAccordion } from '../../../../components/CreateItemAccordion';
+import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
@@ -28,6 +29,7 @@ export const ConfigurationBody = ({
   items,
   bodyOnly = false,
   onlyOneItem = false,
+  error,
 }: ConfigurationBodyProps) => {
   const { label, description, docUrl } = pageData || {};
   const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
@@ -46,14 +48,14 @@ export const ConfigurationBody = ({
   const showInitialPlaceholder = items?.length === 0;
 
   const placeholderData = React.useMemo(() => {
-    if (isLoading || !renderPlaceHolderData) {
+    if (isLoading || error || !renderPlaceHolderData) {
       return null;
     }
 
     return !onlyOneItem || showInitialPlaceholder
       ? renderPlaceHolderData({ handleClosePlaceholder })
       : null;
-  }, [isLoading, onlyOneItem, renderPlaceHolderData, showInitialPlaceholder]);
+  }, [error, isLoading, onlyOneItem, renderPlaceHolderData, showInitialPlaceholder]);
 
   return (
     <ConditionalWrapper
@@ -104,7 +106,9 @@ export const ConfigurationBody = ({
                 )}
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
-                    {isLoading ? (
+                    {error ? (
+                      <ErrorContent error={error} outlined />
+                    ) : isLoading ? (
                       <Grid item xs={12}>
                         <Grid container justifyContent={'center'}>
                           <Grid item>

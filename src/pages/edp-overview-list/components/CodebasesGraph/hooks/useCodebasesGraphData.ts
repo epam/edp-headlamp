@@ -1,64 +1,69 @@
 import React from 'react';
 import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
 import { EDP_CODEBASE_STATUS } from '../../../../../k8s/EDPCodebase/constants';
-import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
-import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
+
+interface GraphData {
+  total: number;
+  ok: number;
+  error: number;
+  inProgress: number;
+  unknown: number;
+}
 
 export const useCodebasesGraphData = () => {
-  const [codebasesInfo, setCodebasesInfo] = React.useState<{
-    total: number;
-    green: number;
-    red: number;
-    blue: number;
-    grey: number;
-  }>({
-    total: null,
-    green: null,
-    red: null,
-    blue: null,
-    grey: null,
-  });
-  const [, setError] = React.useState<unknown>(null);
-  EDPCodebaseKubeObject.useApiList(
-    (codebases: EDPCodebaseKubeObjectInterface[]) => {
-      const newCodebasesInfo = {
-        green: 0,
-        red: 0,
-        total: 0,
-        blue: 0,
-        grey: 0,
-      };
+  const [codebases, codebasesError] = EDPCodebaseKubeObject.useList();
+  const isLoading = codebases === null && !codebasesError;
 
-      for (const item of codebases) {
-        const status = item?.status?.status;
+  const graphData = React.useMemo(() => {
+    if (isLoading || !codebases) {
+      return {
+        total: null,
+        ok: null,
+        error: null,
+        inProgress: null,
+        unknown: null,
+      };
+    }
+
+    return codebases.reduce<GraphData>(
+      (acc, cur) => {
+        const status = cur?.status?.status;
 
         switch (status) {
           case EDP_CODEBASE_STATUS.CREATED:
-            newCodebasesInfo.green++;
+            acc.ok++;
             break;
           case EDP_CODEBASE_STATUS.INITIALIZED:
-            newCodebasesInfo.blue++;
+            acc.inProgress++;
             break;
           case EDP_CODEBASE_STATUS.IN_PROGRESS:
-            newCodebasesInfo.blue++;
+            acc.inProgress++;
             break;
           case EDP_CODEBASE_STATUS.FAILED:
-            newCodebasesInfo.red++;
+            acc.error++;
             break;
           default:
-            newCodebasesInfo.grey++;
+            acc.unknown++;
             break;
         }
-        newCodebasesInfo.total++;
+
+        acc.total++;
+
+        return acc;
+      },
+      {
+        total: 0,
+        ok: 0,
+        error: 0,
+        inProgress: 0,
+        unknown: 0,
       }
+    );
+  }, [codebases, isLoading]);
 
-      setCodebasesInfo(newCodebasesInfo);
-    },
-    (error) => setError(error),
-    {
-      namespace: getDefaultNamespace(),
-    }
-  );
-
-  return codebasesInfo;
+  return {
+    graphData,
+    isLoading,
+    error: codebasesError,
+  };
 };

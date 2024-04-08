@@ -1,3 +1,5 @@
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
+
 export interface PageDescription {
   id: string;
   label: string;
@@ -8,6 +10,6 @@ export interface PageDescription {
 
 export interface DataProviderValue<T> {
   data: T;
-  error: unknown;
+  error: ApiError;
   isLoading: boolean;
 }

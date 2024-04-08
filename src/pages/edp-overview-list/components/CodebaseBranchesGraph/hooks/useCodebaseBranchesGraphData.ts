@@ -1,65 +1,69 @@
 import React from 'react';
 import { EDPCodebaseBranchKubeObject } from '../../../../../k8s/EDPCodebaseBranch';
 import { EDP_CODEBASE_BRANCH_STATUS } from '../../../../../k8s/EDPCodebaseBranch/constants';
-import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../k8s/EDPCodebaseBranch/types';
-import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
+
+interface GraphData {
+  total: number;
+  ok: number;
+  error: number;
+  inProgress: number;
+  unknown: number;
+}
 
 export const useCodebaseBranchesGraphData = () => {
-  const [codebaseBranchesInfo, setCodebaseBranchesInfo] = React.useState<{
-    total: number;
-    green: number;
-    red: number;
-    blue: number;
-    grey: number;
-  }>({
-    total: null,
-    green: null,
-    red: null,
-    blue: null,
-    grey: null,
-  });
-  const [, setError] = React.useState<unknown>(null);
-  EDPCodebaseBranchKubeObject.useApiList(
-    (codebaseBranches: EDPCodebaseBranchKubeObjectInterface[]) => {
-      const newCodebaseBranchesInfo = {
-        green: 0,
-        red: 0,
-        total: 0,
-        blue: 0,
-        grey: 0,
-      };
+  const [branches, branchesError] = EDPCodebaseBranchKubeObject.useList();
+  const isLoading = branches === null && !branchesError;
 
-      for (const item of codebaseBranches) {
-        const status = item?.status?.status;
+  const graphData = React.useMemo(() => {
+    if (isLoading || !branches) {
+      return {
+        total: null,
+        ok: null,
+        error: null,
+        inProgress: null,
+        unknown: null,
+      };
+    }
+
+    return branches.reduce<GraphData>(
+      (acc, cur) => {
+        const status = cur?.status?.status;
 
         switch (status) {
           case EDP_CODEBASE_BRANCH_STATUS.CREATED:
-            newCodebaseBranchesInfo.green++;
+            acc.ok++;
             break;
           case EDP_CODEBASE_BRANCH_STATUS.INITIALIZED:
-            newCodebaseBranchesInfo.blue++;
+            acc.inProgress++;
             break;
           case EDP_CODEBASE_BRANCH_STATUS.IN_PROGRESS:
-            newCodebaseBranchesInfo.blue++;
+            acc.inProgress++;
             break;
           case EDP_CODEBASE_BRANCH_STATUS.FAILED:
-            newCodebaseBranchesInfo.red++;
+            acc.error++;
             break;
           default:
-            newCodebaseBranchesInfo.grey++;
+            acc.unknown++;
             break;
         }
 
-        newCodebaseBranchesInfo.total++;
+        acc.total++;
+
+        return acc;
+      },
+      {
+        total: 0,
+        ok: 0,
+        error: 0,
+        inProgress: 0,
+        unknown: 0,
       }
+    );
+  }, [branches, isLoading]);
 
-      setCodebaseBranchesInfo(newCodebaseBranchesInfo);
-    },
-    (error) => setError(error),
-    {
-      namespace: getDefaultNamespace(),
-    }
-  );
-
-  return codebaseBranchesInfo;
+  return {
+    graphData,
+    isLoading,
+    error: branchesError,
+  };
 };

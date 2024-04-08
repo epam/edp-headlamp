@@ -1,5 +1,6 @@
 const SHARED_NAMES = {
   GIT_PROVIDER: 'gitProvider',
+  GIT_USER: 'gitUser',
 } as const;
 
 const GIT_SERVER_NAMES = {
@@ -16,6 +17,9 @@ const GIT_SERVER_NAMES = {
 export const SHARED_FORM_NAMES = {
   [SHARED_NAMES.GIT_PROVIDER]: {
     name: SHARED_NAMES.GIT_PROVIDER,
+  },
+  [SHARED_NAMES.GIT_USER]: {
+    name: SHARED_NAMES.GIT_USER,
   },
 };
 

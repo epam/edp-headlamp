@@ -3,10 +3,10 @@ import {
   TableBody as MuiTableBody,
   TableCell,
   TableRow as MuiTableRow,
-  Typography,
 } from '@mui/material';
 import React from 'react';
 import { EmptyList } from '../../../EmptyList';
+import { ErrorContent } from '../../../ErrorContent';
 import { TableRow } from './components/TableRow';
 import { TableBodyProps } from './types';
 
@@ -26,18 +26,24 @@ export const TableBody = ({
   page,
   rowsPerPage,
   hasEmptyResult,
+  blockerComponent,
 }: TableBodyProps) => {
   const renderTableBody = React.useCallback(() => {
     if (error) {
+      const hasSelection = !!handleSelectRowClick;
+      const columnsLength = columns.length;
+
       return (
         <MuiTableRow>
-          <TableCell colSpan={columns.length} align={'center'}>
-            <Typography color={'error'} variant={'h6'}>
-              {error.toString()}
-            </Typography>
+          <TableCell colSpan={hasSelection ? columnsLength + 1 : columnsLength} align={'center'}>
+            <ErrorContent error={error} />
           </TableCell>
         </MuiTableRow>
       );
+    }
+
+    if (blockerComponent) {
+      return <MuiTableRow>{blockerComponent}</MuiTableRow>;
     }
 
     if (isLoading) {
@@ -89,6 +95,7 @@ export const TableBody = ({
       </MuiTableRow>
     );
   }, [
+    blockerComponent,
     canBeSelected,
     columns,
     emptyListComponent,

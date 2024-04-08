@@ -1,6 +1,7 @@
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
+import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
@@ -17,21 +18,23 @@ import { menu } from '../../menu';
 import { ARGOCD_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const [argoCDSecrets] = SecretKubeObject.useList({
+  const [argoCDSecrets, argoCDSecretsError] = SecretKubeObject.useList({
     namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.ARGOCD}`,
   });
 
-  const [argoCDQuickLink, error] = QuickLinkKubeObject.useGet(
+  const [argoCDQuickLink, argoCDQuickLinkError] = QuickLinkKubeObject.useGet(
     SYSTEM_QUICK_LINKS.ARGOCD,
     getDefaultNamespace()
   );
+
+  const error = argoCDSecretsError || argoCDQuickLinkError;
 
   const argoCDSecret = argoCDSecrets?.[0]?.jsonData;
 
   const mode = !!argoCDSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = argoCDSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = argoCDSecrets === null || (!argoCDQuickLink && !error);
+  const isLoading = (argoCDSecrets === null || argoCDQuickLink === null) && !error;
 
   return (
     <PageWithSubMenu list={menu}>
@@ -47,24 +50,32 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <LoadingWrapper isLoading={isLoading}>
-              <ManageArgoCDCI
-                formData={{
-                  argoCDSecret,
-                  argoCDQuickLink: argoCDQuickLink?.jsonData,
-                  ownerReference,
-                  mode,
-                }}
-              />
-            </LoadingWrapper>
+            {error ? (
+              <Grid item xs={12}>
+                <ErrorContent error={error} outlined />
+              </Grid>
+            ) : (
+              <Grid item xs={12}>
+                <LoadingWrapper isLoading={isLoading}>
+                  <ManageArgoCDCI
+                    formData={{
+                      argoCDSecret,
+                      argoCDQuickLink: argoCDQuickLink?.jsonData,
+                      ownerReference,
+                      mode,
+                    }}
+                  />
+                </LoadingWrapper>
+              </Grid>
+            )}
+            {!argoCDSecret && !isLoading && !error && (
+              <Grid item xs={12}>
+                <EmptyContent color={'textSecondary'}>
+                  No Argo CD integration secrets found
+                </EmptyContent>
+              </Grid>
+            )}
           </Grid>
-          {!argoCDSecret && !isLoading && (
-            <Grid item xs={12}>
-              <EmptyContent color={'textSecondary'}>
-                No Argo CD integration secrets found
-              </EmptyContent>
-            </Grid>
-          )}
         </Grid>
       </PageWrapper>
     </PageWithSubMenu>

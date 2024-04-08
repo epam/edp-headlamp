@@ -7,7 +7,12 @@ import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../../../widgets/CreateE
 import { useColumns } from './hooks/useColumns';
 import { CDPipelineListProps } from './types';
 
-export const CDPipelineList = ({ CDPipelines, error, filterFunction }: CDPipelineListProps) => {
+export const CDPipelineList = ({
+  CDPipelines,
+  error,
+  filterFunction,
+  blockerComponent,
+}: CDPipelineListProps) => {
   const columns = useColumns();
 
   const { setDialog } = useDialogContext();
@@ -16,9 +21,10 @@ export const CDPipelineList = ({ CDPipelines, error, filterFunction }: CDPipelin
     <Table
       isLoading={CDPipelines === null}
       data={CDPipelines}
-      error={error?.toString()}
+      error={error}
       columns={columns}
       filterFunction={filterFunction}
+      blockerComponent={blockerComponent}
       emptyListComponent={
         <EmptyList
           missingItemName={'CD Pipelines'}

@@ -87,18 +87,18 @@ export const useCredentialsEditForm = ({
             return editResource(GIT_SERVER_GERRIT_SECRET_FORM_NAMES, gitServerSecret, {
               sshPrivateKey: safeEncode(values.sshPrivateKey),
               sshPublicKey: safeEncode(values.sshPublicKey),
-              gitUser: safeEncode('edp-ci'),
+              gitUser: safeEncode(sharedValues.gitUser),
             });
           case GIT_PROVIDERS.GITHUB:
             return editResource(GIT_SERVER_GITHUB_SECRET_FORM_NAMES, gitServerSecret, {
               sshPrivateKey: safeEncode(values.sshPrivateKey),
               token: safeEncode(values.token),
-              gitUser: safeEncode('git'),
+              gitUser: safeEncode(sharedValues.gitUser),
             });
           case GIT_PROVIDERS.GITLAB:
             return editResource(GIT_SERVER_GITLAB_SECRET_FORM_NAMES, gitServerSecret, {
               sshPrivateKey: safeEncode(values.sshPrivateKey),
-              token: safeEncode('git'),
+              token: safeEncode(values.token),
             });
           default:
             break;

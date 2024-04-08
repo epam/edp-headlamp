@@ -30,6 +30,7 @@ export const Table = <DataType extends unknown>({
   initialPage = 0,
   rowsPerPage = 15,
   selected,
+  blockerComponent,
 }: TableProps<DataType>) => {
   const prefix = reflectInURL === true ? '' : reflectInURL || '';
 
@@ -83,9 +84,13 @@ export const Table = <DataType extends unknown>({
 
   const rowCount = paginatedItems.length;
 
-  const _handleSelectAllClick = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => handleSelectAllClick(event, paginatedItems),
-    [handleSelectAllClick, paginatedItems]
+  const _handleSelectAllClick = React.useMemo(
+    () =>
+      handleSelectAllClick && readyData?.length
+        ? (event: React.ChangeEvent<HTMLInputElement>) =>
+            handleSelectAllClick(event, paginatedItems)
+        : null,
+    [handleSelectAllClick, paginatedItems, readyData?.length]
   );
 
   return (
@@ -131,6 +136,7 @@ export const Table = <DataType extends unknown>({
           page={activePage}
           rowsPerPage={_rowsPerPage}
           hasEmptyResult={hasEmptyResult}
+          blockerComponent={blockerComponent}
         />
       </MuiTable>
       {showPagination && (

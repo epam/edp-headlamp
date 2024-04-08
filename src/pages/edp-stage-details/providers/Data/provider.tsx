@@ -1,3 +1,4 @@
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
@@ -68,12 +69,12 @@ export const DataContextProvider: React.FC = ({ children }) => {
       CDPipeline: {
         data: CDPipelineQuery.data,
         isLoading: CDPipelineQuery.isLoading,
-        error: CDPipelineQuery.error,
+        error: CDPipelineQuery.error as ApiError,
       },
       stages: {
         data: stagesQuery.data?.items,
         isLoading: stagesQuery.isLoading,
-        error: stagesQuery.error,
+        error: stagesQuery.error as ApiError,
       },
       enrichedApplications: {
         data: enrichedApplications,
@@ -88,12 +89,12 @@ export const DataContextProvider: React.FC = ({ children }) => {
       QuickLinks: {
         data: QuickLinksQuery.data?.items,
         isLoading: QuickLinksQuery.isLoading,
-        error: QuickLinksQuery.error,
+        error: QuickLinksQuery.error as ApiError,
       },
       QuickLinksURLs: {
         data: QuickLinksURLsQuery.data,
         isLoading: QuickLinksURLsQuery.isLoading,
-        error: QuickLinksURLsQuery.error,
+        error: QuickLinksURLsQuery.error as ApiError,
       },
     }),
     [

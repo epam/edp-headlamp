@@ -1,3 +1,4 @@
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { GridSpacing } from '@mui/material/Grid/Grid';
 import React from 'react';
 
@@ -6,7 +7,7 @@ export interface DataGridProps<DataType = unknown> {
   spacing: GridSpacing;
   renderItem: (item: DataType) => React.ReactElement;
   data: DataType[];
-  error?: unknown;
+  error?: ApiError;
   filterFunction?: ((...args: DataType[]) => boolean) | null;
   showPagination?: boolean;
   reflectInURL?: boolean;

@@ -3,6 +3,7 @@ import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
+import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
@@ -12,15 +13,13 @@ import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageSSOCI } from '../../../../widgets/ManageSSOCI';
 import { menu } from '../../menu';
 import { SSO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 import { useColumns } from './hooks/useColumns';
 
 export const PageView = () => {
-  const [ssoSecrets] = SecretKubeObject.useList({
-    namespace: getDefaultNamespace(),
+  const [ssoSecrets, ssoSecretsError] = SecretKubeObject.useList({
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=keycloak`,
   });
 
@@ -28,17 +27,21 @@ export const PageView = () => {
 
   const mode = !!ssoSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = ssoSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = ssoSecret === null;
 
-  const [OAuthIngresses, setOAuthIngresses] = React.useState<KubeObjectInterface[]>(null);
-  const [error, setError] = React.useState<Error | null>(null);
+  const [ingresses, ingressesError] = K8s.ingress.default.useList();
 
-  K8s.ingress.default.useApiList((data) => {
-    const newOAuthIngresses = data.filter((ingress) => {
-      return 'nginx.ingress.kubernetes.io/auth-url' in ingress.metadata.annotations;
-    });
-    setOAuthIngresses(newOAuthIngresses);
-  }, setError);
+  const OAuthIngresses = React.useMemo(
+    () =>
+      ingresses
+        ? ingresses.filter((ingress) => {
+            return 'nginx.ingress.kubernetes.io/auth-url' in ingress.metadata.annotations;
+          })
+        : null,
+    [ingresses]
+  );
+
+  const error = ssoSecretsError || ingressesError;
+  const isLoading = (ssoSecrets === null || ingresses === null) && !error;
 
   const columns = useColumns();
 
@@ -56,22 +59,30 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <LoadingWrapper isLoading={isLoading}>
-              <ManageSSOCI
-                formData={{
-                  ssoSecret,
-                  ownerReference,
-                  isReadOnly: !!ownerReference,
-                  mode,
-                }}
-              />
-            </LoadingWrapper>
+            {error ? (
+              <Grid item xs={12}>
+                <ErrorContent error={error} outlined />
+              </Grid>
+            ) : (
+              <LoadingWrapper isLoading={isLoading}>
+                <ManageSSOCI
+                  formData={{
+                    ssoSecret,
+                    ownerReference,
+                    isReadOnly: !!ownerReference,
+                    mode,
+                  }}
+                />
+              </LoadingWrapper>
+            )}
+            {!ssoSecret && !isLoading && !error && (
+              <Grid item xs={12}>
+                <EmptyContent color={'textSecondary'}>
+                  No SSO integration secrets found
+                </EmptyContent>
+              </Grid>
+            )}
           </Grid>
-          {!ssoSecret && !isLoading && (
-            <Grid item xs={12}>
-              <EmptyContent color={'textSecondary'}>No SSO integration secrets found</EmptyContent>
-            </Grid>
-          )}
           <Grid item xs={12}>
             <Typography variant="h4" gutterBottom component="span">
               Ingresses
@@ -79,7 +90,7 @@ export const PageView = () => {
             <Table<KubeObjectInterface>
               isLoading={OAuthIngresses === null}
               data={OAuthIngresses}
-              error={error?.toString()}
+              error={ingressesError}
               columns={columns}
             />
           </Grid>

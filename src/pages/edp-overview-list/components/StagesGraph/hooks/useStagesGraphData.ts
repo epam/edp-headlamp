@@ -1,65 +1,69 @@
 import React from 'react';
 import { EDPCDPipelineStageKubeObject } from '../../../../../k8s/EDPCDPipelineStage';
 import { EDP_CDPIPELINE_STAGE_STATUS } from '../../../../../k8s/EDPCDPipelineStage/constants';
-import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
-import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
+
+interface GraphData {
+  total: number;
+  ok: number;
+  error: number;
+  inProgress: number;
+  unknown: number;
+}
 
 export const useStagesGraphData = () => {
-  const [StagesInfo, setStagesInfo] = React.useState<{
-    total: number;
-    green: number;
-    red: number;
-    blue: number;
-    grey: number;
-  }>({
-    total: null,
-    green: null,
-    red: null,
-    blue: null,
-    grey: null,
-  });
-  const [, setError] = React.useState<unknown>(null);
-  EDPCDPipelineStageKubeObject.useApiList(
-    (stages: EDPCDPipelineStageKubeObjectInterface[]) => {
-      const newStagesInfo = {
-        green: 0,
-        red: 0,
-        total: 0,
-        blue: 0,
-        grey: 0,
-      };
+  const [stages, stagesError] = EDPCDPipelineStageKubeObject.useList();
+  const isLoading = stages === null && !stagesError;
 
-      for (const item of stages) {
-        const status = item?.status?.status;
+  const graphData = React.useMemo(() => {
+    if (isLoading || !stages) {
+      return {
+        total: null,
+        ok: null,
+        error: null,
+        inProgress: null,
+        unknown: null,
+      };
+    }
+
+    return stages.reduce<GraphData>(
+      (acc, cur) => {
+        const status = cur?.status?.status;
 
         switch (status) {
           case EDP_CDPIPELINE_STAGE_STATUS.CREATED:
-            newStagesInfo.green++;
+            acc.ok++;
             break;
           case EDP_CDPIPELINE_STAGE_STATUS.INITIALIZED:
-            newStagesInfo.blue++;
+            acc.inProgress++;
             break;
           case EDP_CDPIPELINE_STAGE_STATUS.IN_PROGRESS:
-            newStagesInfo.blue++;
+            acc.inProgress++;
             break;
           case EDP_CDPIPELINE_STAGE_STATUS.FAILED:
-            newStagesInfo.red++;
+            acc.error++;
             break;
           default:
-            newStagesInfo.grey++;
+            acc.unknown++;
             break;
         }
 
-        newStagesInfo.total++;
+        acc.total++;
+
+        return acc;
+      },
+      {
+        total: 0,
+        ok: 0,
+        error: 0,
+        inProgress: 0,
+        unknown: 0,
       }
+    );
+  }, [stages, isLoading]);
 
-      setStagesInfo(newStagesInfo);
-    },
-    (error) => setError(error),
-    {
-      namespace: getDefaultNamespace(),
-    }
-  );
-
-  return StagesInfo;
+  return {
+    graphData,
+    isLoading,
+    error: stagesError,
+  };
 };

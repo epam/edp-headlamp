@@ -94,7 +94,7 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
       <Table<EDPCodebaseKubeObjectInterface>
         isLoading={items === null}
         data={items}
-        error={error?.toString()}
+        error={error}
         columns={columns}
         upperColumns={upperColumns}
         filterFunction={filterFunction}

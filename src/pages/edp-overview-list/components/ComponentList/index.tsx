@@ -1,5 +1,6 @@
 import { Grid, styled } from '@mui/material';
 import React from 'react';
+import { ErrorContent } from '../../../../components/ErrorContent';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { QuickLinkKubeObject } from '../../../../k8s/QuickLink';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
@@ -21,11 +22,13 @@ const StyledGridItem = styled(Grid)`
 `;
 
 export const ComponentList = () => {
-  const [items] = QuickLinkKubeObject.useList({
+  const [items, error] = QuickLinkKubeObject.useList({
     namespace: getDefaultNamespace(),
   });
 
-  return (
+  return error ? (
+    <ErrorContent error={error} outlined />
+  ) : (
     <LoadingWrapper isLoading={items === null}>
       <Grid container spacing={3}>
         {items

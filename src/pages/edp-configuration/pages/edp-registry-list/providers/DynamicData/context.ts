@@ -1,12 +1,15 @@
 import React from 'react';
 import { DynamicDataContextProviderValue } from './types';
 
+const initialData = {
+  data: null,
+  isLoading: true,
+  error: null,
+};
+
 export const DynamicDataContext = React.createContext<DynamicDataContextProviderValue>({
-  data: {
-    EDPConfigMap: null,
-    pushAccountSecret: null,
-    pullAccountSecret: null,
-    tektonServiceAccount: null,
-  },
-  isLoading: false,
+  EDPConfigMap: initialData,
+  pushAccountSecret: initialData,
+  pullAccountSecret: initialData,
+  tektonServiceAccount: initialData,
 });

@@ -1,6 +1,7 @@
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
+import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
@@ -17,21 +18,21 @@ import { menu } from '../../menu';
 import { NEXUS_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const [nexusSecrets] = SecretKubeObject.useList({
-    namespace: getDefaultNamespace(),
+  const [nexusSecrets, nexusSecretsError] = SecretKubeObject.useList({
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.NEXUS}`,
   });
 
-  const [nexusQuickLink, error] = QuickLinkKubeObject.useGet(
+  const [nexusQuickLink, nexusQuickLinkError] = QuickLinkKubeObject.useGet(
     SYSTEM_QUICK_LINKS.NEXUS,
     getDefaultNamespace()
   );
 
-  const nexusSecret = nexusSecrets?.[0]?.jsonData;
+  const error = nexusSecretsError || nexusQuickLinkError;
+  const isLoading = (nexusSecrets === null || nexusQuickLink === null) && !error;
 
+  const nexusSecret = nexusSecrets?.[0]?.jsonData;
   const mode = !!nexusSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = nexusSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = nexusSecret === null || (!nexusQuickLink && !error);
 
   return (
     <PageWithSubMenu list={menu}>
@@ -47,24 +48,32 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <LoadingWrapper isLoading={isLoading}>
-              <ManageNexusCI
-                formData={{
-                  nexusSecret,
-                  nexusQuickLink: nexusQuickLink?.jsonData,
-                  ownerReference,
-                  mode,
-                }}
-              />
-            </LoadingWrapper>
+            {error ? (
+              <Grid item xs={12}>
+                <ErrorContent error={error} outlined />
+              </Grid>
+            ) : (
+              <Grid item xs={12}>
+                <LoadingWrapper isLoading={isLoading}>
+                  <ManageNexusCI
+                    formData={{
+                      nexusSecret,
+                      nexusQuickLink: nexusQuickLink?.jsonData,
+                      ownerReference,
+                      mode,
+                    }}
+                  />
+                </LoadingWrapper>
+              </Grid>
+            )}
+            {!nexusSecret && !isLoading && !error && (
+              <Grid item xs={12}>
+                <EmptyContent color={'textSecondary'}>
+                  No Nexus integration secrets found
+                </EmptyContent>
+              </Grid>
+            )}
           </Grid>
-          {!nexusSecret && !isLoading && (
-            <Grid item xs={12}>
-              <EmptyContent color={'textSecondary'}>
-                No Nexus integration secrets found
-              </EmptyContent>
-            </Grid>
-          )}
         </Grid>
       </PageWrapper>
     </PageWithSubMenu>

@@ -1,6 +1,7 @@
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
+import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
@@ -17,12 +18,12 @@ import { menu } from '../../menu';
 import { DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const [dependencyTrackSecrets] = SecretKubeObject.useList({
+  const [dependencyTrackSecrets, dependencyTrackSecretsError] = SecretKubeObject.useList({
     namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.DEPENDENCY_TRACK}`,
   });
 
-  const [depTrackQuickLink, error] = QuickLinkKubeObject.useGet(
+  const [depTrackQuickLink, depTrackQuickLinkError] = QuickLinkKubeObject.useGet(
     SYSTEM_QUICK_LINKS.DEPENDENCY_TRACK,
     getDefaultNamespace()
   );
@@ -31,7 +32,9 @@ export const PageView = () => {
 
   const mode = !!dependencyTrackSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = dependencyTrackSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = dependencyTrackSecrets === null || (!depTrackQuickLink && !error);
+
+  const error = dependencyTrackSecretsError || depTrackQuickLinkError;
+  const isLoading = (dependencyTrackSecrets === null || depTrackQuickLink === null) && !error;
 
   return (
     <PageWithSubMenu list={menu}>
@@ -46,19 +49,25 @@ export const PageView = () => {
               <LearnMoreLink url={EDP_OPERATOR_GUIDE.DEPENDENCY_TRACK.url} />
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <LoadingWrapper isLoading={isLoading}>
-              <ManageDependencyTrackCI
-                formData={{
-                  dependencyTrackSecret,
-                  depTrackQuickLink: depTrackQuickLink?.jsonData,
-                  ownerReference,
-                  mode,
-                }}
-              />
-            </LoadingWrapper>
-          </Grid>
-          {!dependencyTrackSecret && !isLoading && (
+          {error ? (
+            <Grid item xs={12}>
+              <ErrorContent error={error} outlined />
+            </Grid>
+          ) : (
+            <Grid item xs={12}>
+              <LoadingWrapper isLoading={isLoading}>
+                <ManageDependencyTrackCI
+                  formData={{
+                    dependencyTrackSecret,
+                    depTrackQuickLink: depTrackQuickLink?.jsonData,
+                    ownerReference,
+                    mode,
+                  }}
+                />
+              </LoadingWrapper>
+            </Grid>
+          )}
+          {!dependencyTrackSecret && !isLoading && !error && (
             <Grid item xs={12}>
               <EmptyContent color={'textSecondary'}>
                 No DependencyTrack integration secrets found

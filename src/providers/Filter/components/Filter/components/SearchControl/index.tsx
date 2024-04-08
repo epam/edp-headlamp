@@ -7,7 +7,7 @@ import { useFilterContext } from '../../../../hooks';
 export const SearchControl = () => {
   const theme = useTheme();
   const { filter, setFilterItem } = useFilterContext<unknown, 'search'>();
-  const [shrink, setShrink] = React.useState(false);
+  const [shrink, setShrink] = React.useState(!!filter.values.search || false);
 
   return (
     <TextField

@@ -9,13 +9,13 @@ import { ConfigurationBody } from '../../components/ConfigurationBody';
 import { CLUSTER_LIST_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const [items] = SecretKubeObject.useList({
+  const [clusterSecrets, clusterSecretsError] = SecretKubeObject.useList({
     namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=cluster`,
   });
 
   const configurationItemList = React.useMemo(() => {
-    const secretsArray = items ? items.filter(Boolean) : [];
+    const secretsArray = clusterSecrets ? clusterSecrets.filter(Boolean) : [];
     return secretsArray.map((el) => {
       const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
 
@@ -33,7 +33,7 @@ export const PageView = () => {
         ),
       };
     });
-  }, [items]);
+  }, [clusterSecrets]);
 
   return (
     <ConfigurationBody
@@ -53,7 +53,8 @@ export const PageView = () => {
           />
         ),
       })}
-      items={items === null ? null : configurationItemList}
+      items={clusterSecrets === null && !clusterSecretsError ? null : configurationItemList}
+      error={clusterSecretsError}
       emptyMessage={'No Cluster secrets found'}
     />
   );

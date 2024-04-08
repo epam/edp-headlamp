@@ -1,6 +1,7 @@
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
+import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
@@ -17,12 +18,12 @@ import { menu } from '../../menu';
 import { DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const [defectDojoSecrets] = SecretKubeObject.useList({
+  const [defectDojoSecrets, defectDojoSecretsError] = SecretKubeObject.useList({
     namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.DEFECT_DOJO}`,
   });
 
-  const [defectDojoQuickLink, error] = QuickLinkKubeObject.useGet(
+  const [defectDojoQuickLink, defectDojoQuickLinkError] = QuickLinkKubeObject.useGet(
     SYSTEM_QUICK_LINKS.DEFECT_DOJO,
     getDefaultNamespace()
   );
@@ -31,7 +32,9 @@ export const PageView = () => {
 
   const mode = !!defectDojoSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = defectDojoSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = defectDojoSecrets === null || (!defectDojoQuickLink && !error);
+
+  const error = defectDojoSecretsError || defectDojoQuickLinkError;
+  const isLoading = (defectDojoSecrets === null || defectDojoQuickLink === null) && !error;
 
   return (
     <PageWithSubMenu list={menu}>
@@ -46,19 +49,25 @@ export const PageView = () => {
               <LearnMoreLink url={EDP_OPERATOR_GUIDE.DEFECT_DOJO.url} />
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <LoadingWrapper isLoading={isLoading}>
-              <ManageDefectDojoCI
-                formData={{
-                  defectDojoSecret,
-                  defectDojoQuickLink: defectDojoQuickLink?.jsonData,
-                  ownerReference,
-                  mode,
-                }}
-              />
-            </LoadingWrapper>
-          </Grid>
-          {!defectDojoSecret && !isLoading && (
+          {error ? (
+            <Grid item xs={12}>
+              <ErrorContent error={error} outlined />
+            </Grid>
+          ) : (
+            <Grid item xs={12}>
+              <LoadingWrapper isLoading={isLoading}>
+                <ManageDefectDojoCI
+                  formData={{
+                    defectDojoSecret,
+                    defectDojoQuickLink: defectDojoQuickLink?.jsonData,
+                    ownerReference,
+                    mode,
+                  }}
+                />
+              </LoadingWrapper>
+            </Grid>
+          )}
+          {!defectDojoSecret && !isLoading && !error && (
             <Grid item xs={12}>
               <EmptyContent color={'textSecondary'}>
                 No DefectDojo integration secrets found

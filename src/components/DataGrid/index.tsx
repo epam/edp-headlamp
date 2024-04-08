@@ -1,7 +1,8 @@
-import { Box, CircularProgress, Grid, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Grid, Stack } from '@mui/material';
 import React from 'react';
 import { usePagination } from '../../hooks/usePagination';
 import { EmptyList } from '../EmptyList';
+import { ErrorContent } from '../ErrorContent';
 import { Pagination } from './components/Pagination';
 import { useReadyData } from './hooks/useReadyData';
 import { DataGridProps } from './types';
@@ -55,9 +56,7 @@ export const DataGrid = <DataType extends unknown>({
     if (error) {
       return (
         <Box display="flex" justifyContent={'center'}>
-          <Typography color={'error'} variant={'h6'}>
-            {error.toString()}
-          </Typography>
+          <ErrorContent error={error} outlined />
         </Box>
       );
     }

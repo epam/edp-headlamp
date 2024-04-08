@@ -1,10 +1,12 @@
 import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { Button, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { EmptyList } from '../../components/EmptyList';
 import { LearnMoreLink } from '../../components/LearnMoreLink';
+import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
@@ -28,7 +30,7 @@ import { CDPipelineActions } from './components/CDPipelineActions';
 import { CDPipelineList } from './components/CDPipelineList';
 
 export const PageView = () => {
-  const { data: gitOpsCodebase, isLoading } = useCodebasesByTypeLabelQuery({
+  const gitOpsCodebaseQuery = useCodebasesByTypeLabelQuery({
     props: {
       namespace: getDefaultNamespace(),
       codebaseType: CODEBASE_TYPES.SYSTEM,
@@ -42,7 +44,10 @@ export const PageView = () => {
     },
   });
 
-  const [items, error] = EDPCDPipelineKubeObject.useList();
+  const [CDPipelines, CDPipelinesError] = EDPCDPipelineKubeObject.useList();
+
+  const error = CDPipelinesError || (gitOpsCodebaseQuery.error as ApiError);
+  const isLoading = (CDPipelines === null || gitOpsCodebaseQuery.isLoading) && !error;
 
   const { setDialog } = useDialogContext();
 
@@ -98,7 +103,7 @@ export const PageView = () => {
                       forwardedProps: createEditCDPipelineDialogForwardedProps,
                     })
                   }
-                  disabled={!gitOpsCodebase}
+                  disabled={!gitOpsCodebaseQuery.data}
                 >
                   create environment
                 </Button>
@@ -107,16 +112,22 @@ export const PageView = () => {
           </Grid>
           <Grid item xs={12}>
             <ResourceActionListContextProvider>
-              {(isLoading || !!gitOpsCodebase) && (
-                <CDPipelineList CDPipelines={items} error={error} filterFunction={filterFunction} />
-              )}
-              {!isLoading && !gitOpsCodebase && (
-                <EmptyList
-                  customText={'No GitOps repository configured.'}
-                  linkText={'Click here to add a repository.'}
-                  handleClick={() => history.push(gitOpsConfigurationPageRoute)}
+              <LoadingWrapper isLoading={isLoading}>
+                <CDPipelineList
+                  CDPipelines={CDPipelines}
+                  error={error}
+                  filterFunction={filterFunction}
+                  blockerComponent={
+                    !gitOpsCodebaseQuery.data && (
+                      <EmptyList
+                        customText={'No GitOps repository configured.'}
+                        linkText={'Click here to add a repository.'}
+                        handleClick={() => history.push(gitOpsConfigurationPageRoute)}
+                      />
+                    )
+                  }
                 />
-              )}
+              </LoadingWrapper>
               <CDPipelineActions />
             </ResourceActionListContextProvider>
           </Grid>

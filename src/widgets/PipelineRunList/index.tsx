@@ -8,11 +8,13 @@ export const PipelineRunList = ({
   pipelineRuns,
   isLoading,
   filterFunction,
+  error,
 }: PipelineRunListProps) => {
   const columns = useColumns();
 
   return (
     <Table
+      error={error}
       columns={columns}
       data={pipelineRuns}
       isLoading={isLoading}

@@ -7,6 +7,7 @@ import { RESOURCE_ICON_NAMES } from '../../../../../../../icons/sprites/Resource
 import { UseSpriteSymbol } from '../../../../../../../icons/UseSpriteSymbol';
 import { FormRadioGroup } from '../../../../../../../providers/Form/components/FormRadioGroup';
 import { FieldEvent, FORM_MODES } from '../../../../../../../types/forms';
+import { GIT_USER } from '../../../../../constants';
 import { useGitServerFormsContext } from '../../../../../hooks/useGitServerFormsContext';
 import { GIT_SERVER_FORM_NAMES } from '../../../../../names';
 
@@ -26,13 +27,13 @@ export const GitProvider = () => {
 
       switch (value) {
         case GIT_PROVIDERS.GERRIT:
-          gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, 'edp-ci');
+          gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, GIT_USER.GERRIT);
           break;
         case GIT_PROVIDERS.GITHUB:
-          gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, 'git');
+          gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, GIT_USER.GITHUB);
           break;
         case GIT_PROVIDERS.GITLAB:
-          gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, 'git');
+          gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, GIT_USER.GITLAB);
           break;
       }
     },

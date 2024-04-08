@@ -29,9 +29,11 @@ const pipelineRunTypeSelectOptions = pipelineRunTypes.map((value) => ({
 }));
 
 export const PipelineRunListWithFilter = () => {
-  const [pipelineRuns, setPipelineRuns] = React.useState<PipelineRunKubeObjectInterface[]>(null);
+  const [pipelineRuns, pipelineRunsError] = PipelineRunKubeObject.useList();
 
-  const [, setError] = React.useState<Error>(null);
+  const sortedPipelineRuns = React.useMemo(() => {
+    return pipelineRuns?.sort(sortKubeObjectByCreationTimestamp);
+  }, [pipelineRuns]);
 
   const pipelineCodebases = React.useMemo(() => {
     return new Set(
@@ -40,21 +42,6 @@ export const PipelineRunListWithFilter = () => {
         .filter(Boolean)
     );
   }, [pipelineRuns]);
-
-  const handleStorePipelineRuns = React.useCallback(
-    (pipelineRuns: PipelineRunKubeObjectInterface[]) => {
-      const sortedPipelineRuns = pipelineRuns.sort(sortKubeObjectByCreationTimestamp);
-
-      setPipelineRuns(sortedPipelineRuns);
-    },
-    []
-  );
-
-  const handleStreamError = React.useCallback((error: Error) => {
-    setError(error);
-  }, []);
-
-  PipelineRunKubeObject.useApiList(handleStorePipelineRuns, handleStreamError);
 
   const {
     register,
@@ -168,7 +155,8 @@ export const PipelineRunListWithFilter = () => {
       </Grid>
       <Grid item xs={12}>
         <PipelineRunList
-          pipelineRuns={pipelineRuns}
+          pipelineRuns={sortedPipelineRuns}
+          error={pipelineRunsError}
           isLoading={pipelineRuns === null}
           filterFunction={filterFunction}
         />

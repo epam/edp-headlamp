@@ -2,33 +2,29 @@ import React from 'react';
 import { EDPGitServerKubeObject } from '../../../../../../k8s/EDPGitServer';
 import { SecretKubeObject } from '../../../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../../../k8s/Secret/labels';
-import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
 import { DynamicDataContext } from './context';
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
-  const [gitServers] = EDPGitServerKubeObject.useList({
-    namespace: getDefaultNamespace(),
-  });
+  const [gitServers, gitServersError] = EDPGitServerKubeObject.useList({});
 
-  const [repositorySecrets] = SecretKubeObject.useList({
-    namespace: getDefaultNamespace(),
+  const [repositorySecrets, repositorySecretsError] = SecretKubeObject.useList({
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=repository`,
   });
 
-  const isLoading = React.useMemo(
-    () => gitServers === null || repositorySecrets === null,
-    [gitServers, repositorySecrets]
-  );
-
   const DataContextValue = React.useMemo(
     () => ({
-      data: {
-        gitServers,
-        repositorySecrets,
+      gitServers: {
+        data: gitServers,
+        error: gitServersError,
+        isLoading: gitServers === null,
       },
-      isLoading,
+      repositorySecrets: {
+        data: repositorySecrets,
+        error: repositorySecretsError,
+        isLoading: repositorySecrets === null,
+      },
     }),
-    [gitServers, isLoading, repositorySecrets]
+    [gitServers, gitServersError, repositorySecrets, repositorySecretsError]
   );
 
   return (

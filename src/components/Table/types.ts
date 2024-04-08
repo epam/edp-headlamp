@@ -1,3 +1,4 @@
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { TableCellProps } from '@mui/material';
 import React from 'react';
 import { ValueOf } from '../../types/global';
@@ -7,6 +8,7 @@ export interface TableProps<DataType = unknown> {
   isLoading: boolean;
   data: DataType[];
   columns: readonly TableColumn<DataType>[];
+  blockerComponent?: React.ReactNode;
   upperColumns?: readonly TableColumn<DataType>[];
   defaultSortBy?: string;
   defaultSortOrder?: ValueOf<typeof SORT_ORDERS>;
@@ -16,7 +18,7 @@ export interface TableProps<DataType = unknown> {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     row: DataType
   ) => void;
-  error?: unknown;
+  error?: ApiError;
   handleSelectAllClick?: (
     event: React.ChangeEvent<HTMLInputElement>,
     paginatedItems: DataType[]

@@ -11,11 +11,13 @@ export const TemplatesTable = ({
   handleTemplateClick,
   filterFunction,
   warning,
+  error,
 }: TemplatesTableProps) => {
   const columns = useColumns();
 
   return (
     <Table<EDPTemplateKubeObjectInterface>
+      error={error}
       columns={columns}
       data={data}
       isLoading={data === null}

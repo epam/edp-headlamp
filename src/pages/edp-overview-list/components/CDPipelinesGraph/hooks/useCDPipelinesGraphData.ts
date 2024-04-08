@@ -1,65 +1,69 @@
 import React from 'react';
 import { EDPCDPipelineKubeObject } from '../../../../../k8s/EDPCDPipeline';
 import { EDP_CDPIPELINE_STATUS } from '../../../../../k8s/EDPCDPipeline/constants';
-import { PipelineRunKubeObjectInterface } from '../../../../../k8s/PipelineRun/types';
-import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
+
+interface GraphData {
+  total: number;
+  ok: number;
+  error: number;
+  inProgress: number;
+  unknown: number;
+}
 
 export const useCDPipelinesGraphData = () => {
-  const [CDPipelinesInfo, setCDPipelinesInfo] = React.useState<{
-    total: number;
-    green: number;
-    red: number;
-    blue: number;
-    grey: number;
-  }>({
-    total: null,
-    green: null,
-    red: null,
-    blue: null,
-    grey: null,
-  });
-  const [, setError] = React.useState<unknown>(null);
-  EDPCDPipelineKubeObject.useApiList(
-    (CDPipelines: PipelineRunKubeObjectInterface[]) => {
-      const newCDPipelinesInfo = {
-        green: 0,
-        red: 0,
-        total: 0,
-        blue: 0,
-        grey: 0,
-      };
+  const [CDPipelines, CDPipelinesError] = EDPCDPipelineKubeObject.useList();
+  const isLoading = CDPipelines === null && !CDPipelinesError;
 
-      for (const item of CDPipelines) {
-        const status = item?.status?.status;
+  const graphData = React.useMemo(() => {
+    if (isLoading || !CDPipelines) {
+      return {
+        total: null,
+        ok: null,
+        error: null,
+        inProgress: null,
+        unknown: null,
+      };
+    }
+
+    return CDPipelines.reduce<GraphData>(
+      (acc, cur) => {
+        const status = cur?.status?.status;
 
         switch (status) {
           case EDP_CDPIPELINE_STATUS.CREATED:
-            newCDPipelinesInfo.green++;
+            acc.ok++;
             break;
           case EDP_CDPIPELINE_STATUS.INITIALIZED:
-            newCDPipelinesInfo.blue++;
+            acc.inProgress++;
             break;
           case EDP_CDPIPELINE_STATUS.IN_PROGRESS:
-            newCDPipelinesInfo.blue++;
+            acc.inProgress++;
             break;
           case EDP_CDPIPELINE_STATUS.FAILED:
-            newCDPipelinesInfo.red++;
+            acc.error++;
             break;
           default:
-            newCDPipelinesInfo.grey++;
+            acc.unknown++;
             break;
         }
 
-        newCDPipelinesInfo.total++;
+        acc.total++;
+
+        return acc;
+      },
+      {
+        total: 0,
+        ok: 0,
+        error: 0,
+        inProgress: 0,
+        unknown: 0,
       }
+    );
+  }, [CDPipelines, isLoading]);
 
-      setCDPipelinesInfo(newCDPipelinesInfo);
-    },
-    (error) => setError(error),
-    {
-      namespace: getDefaultNamespace(),
-    }
-  );
-
-  return CDPipelinesInfo;
+  return {
+    graphData,
+    isLoading,
+    error: CDPipelinesError,
+  };
 };

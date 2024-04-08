@@ -1,13 +1,11 @@
 import { ConfigMapKubeObjectInterface } from '../../../../../../k8s/ConfigMap/types';
 import { SecretKubeObjectInterface } from '../../../../../../k8s/Secret/types';
 import { ServiceAccountKubeObjectInterface } from '../../../../../../k8s/ServiceAccount/types';
+import { DataProviderValue } from '../../../../../../types/pages';
 
 export interface DynamicDataContextProviderValue {
-  data: {
-    EDPConfigMap: ConfigMapKubeObjectInterface;
-    pushAccountSecret: SecretKubeObjectInterface;
-    pullAccountSecret: SecretKubeObjectInterface;
-    tektonServiceAccount: ServiceAccountKubeObjectInterface;
-  };
-  isLoading: boolean;
+  EDPConfigMap: DataProviderValue<ConfigMapKubeObjectInterface>;
+  pushAccountSecret: DataProviderValue<SecretKubeObjectInterface>;
+  pullAccountSecret: DataProviderValue<SecretKubeObjectInterface>;
+  tektonServiceAccount: DataProviderValue<ServiceAccountKubeObjectInterface>;
 }

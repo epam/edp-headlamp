@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react';
 import { Box, IconButton, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { LearnMoreLink } from '../../components/LearnMoreLink';
+import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { EDP_USER_GUIDE } from '../../constants/urls';
@@ -20,9 +21,9 @@ export const PageView = () => {
   const theme = useTheme();
   const { viewMode, handleChangeViewMode } = useViewModeContext();
 
-  const [gitServers] = EDPGitServerKubeObject.useList();
+  const [gitServers, gitServersError] = EDPGitServerKubeObject.useList();
   const hasAtLeastOneGitServer = gitServers?.length > 0;
-  const gitServersIsLoading = gitServers === null;
+  const gitServersIsLoading = gitServers === null && !gitServersError;
 
   const { filterFunction } = useFilterContext();
 
@@ -70,12 +71,12 @@ export const PageView = () => {
               </Tooltip>
             </Stack>
           </Stack>
-          {!gitServersIsLoading && (
+          <LoadingWrapper isLoading={gitServersIsLoading}>
             <MarketplaceList
               filterFunction={filterFunction}
               warning={hasAtLeastOneGitServer ? null : <TemplatesWarning />}
             />
-          )}
+          </LoadingWrapper>
         </Stack>
       </Section>
     </PageWrapper>

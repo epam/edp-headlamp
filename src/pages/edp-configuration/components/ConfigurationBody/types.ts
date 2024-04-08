@@ -1,3 +1,4 @@
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 
 export interface ConfigurationItem {
@@ -24,4 +25,5 @@ export interface ConfigurationBodyProps {
   blocker?: React.ReactElement;
   bodyOnly?: boolean;
   onlyOneItem?: boolean;
+  error?: ApiError;
 }

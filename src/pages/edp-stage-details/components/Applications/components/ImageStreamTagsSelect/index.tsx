@@ -32,6 +32,7 @@ export const ImageStreamTagsSelect = ({
             !selected.includes(application.metadata.name) &&
             handleSelectRowClick(event, enrichedApplicationWithArgoApplication),
         })}
+        label="Select image tag"
         control={control}
         errors={errors}
         options={imageStreamTagsOptions}

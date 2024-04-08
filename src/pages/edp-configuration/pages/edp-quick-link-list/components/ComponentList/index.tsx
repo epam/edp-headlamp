@@ -11,7 +11,7 @@ export const QuickLinkList = ({ items, error, filterFunction }: QuickLinkListPro
       <Table
         isLoading={!items}
         data={items}
-        error={error?.toString()}
+        error={error}
         columns={columns}
         filterFunction={filterFunction}
       />

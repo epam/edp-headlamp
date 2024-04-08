@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { CreateItemAccordion } from '../../../../components/CreateItemAccordion';
+import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
@@ -25,10 +26,7 @@ import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
   const theme = useTheme();
-  const {
-    data: { gitServers, repositorySecrets },
-    isLoading,
-  } = useDynamicDataContext();
+  const { gitServers, repositorySecrets } = useDynamicDataContext();
 
   const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -36,7 +34,10 @@ export const PageView = () => {
   };
   const handleClosePanel = () => setExpandedPanel(null);
 
-  const gitServersLength = gitServers ? gitServers.length : 0;
+  const error = gitServers.error || repositorySecrets.error;
+  const isLoading = (gitServers.data === null || repositorySecrets.data === null) && !error;
+
+  const gitServersLength = gitServers.data ? gitServers.data.length : 0;
 
   return (
     <PageWithSubMenu list={menu}>
@@ -52,99 +53,105 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <LoadingWrapper isLoading={isLoading}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <CreateItemAccordion
-                    isExpanded={expandedPanel === 'create' || !gitServersLength}
-                    onChange={handleChange('create')}
-                    title={'Add Git Server'}
-                  >
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <ManageGitServer
-                          gitServer={null}
-                          repositorySecrets={repositorySecrets}
-                          handleClosePanel={handleClosePanel}
-                        />
+            {error ? (
+              <Grid item xs={12}>
+                <ErrorContent error={error} outlined />
+              </Grid>
+            ) : (
+              <LoadingWrapper isLoading={isLoading}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <CreateItemAccordion
+                      isExpanded={expandedPanel === 'create' || !gitServersLength}
+                      onChange={handleChange('create')}
+                      title={'Add Git Server'}
+                    >
+                      <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                          <ManageGitServer
+                            gitServer={null}
+                            repositorySecrets={repositorySecrets.data}
+                            handleClosePanel={handleClosePanel}
+                          />
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </CreateItemAccordion>
-                </Grid>
-                {gitServersLength &&
-                  gitServers.map((_gitServer) => {
-                    const gitServer = _gitServer?.jsonData;
-                    const connected = gitServer?.status?.connected;
-                    const error = gitServer?.status?.error;
+                    </CreateItemAccordion>
+                  </Grid>
+                  {gitServersLength &&
+                    gitServers.data.map((_gitServer) => {
+                      const gitServer = _gitServer?.jsonData;
+                      const connected = gitServer?.status?.connected;
+                      const error = gitServer?.status?.error;
 
-                    const [icon, color] = EDPGitServerKubeObject.getStatusIcon(connected);
+                      const [icon, color] = EDPGitServerKubeObject.getStatusIcon(connected);
 
-                    const gitServerName = gitServer.metadata.name;
+                      const gitServerName = gitServer.metadata.name;
 
-                    const isExpanded = expandedPanel === gitServerName;
+                      const isExpanded = expandedPanel === gitServerName;
 
-                    return (
-                      <Grid item xs={12} key={gitServer.metadata.uid}>
-                        <Accordion expanded={isExpanded} onChange={handleChange(gitServerName)}>
-                          <AccordionSummary
-                            expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
-                            style={{
-                              cursor: 'pointer',
-                            }}
-                          >
-                            <Typography variant={'h6'}>
-                              <Grid container spacing={1} alignItems={'center'}>
-                                <Grid item style={{ marginRight: theme.typography.pxToRem(5) }}>
-                                  <StatusIcon
-                                    icon={icon}
-                                    color={color}
-                                    Title={
-                                      <>
-                                        <Typography
-                                          variant={'subtitle2'}
-                                          style={{ fontWeight: 600 }}
-                                        >
-                                          {`Connected: ${
-                                            connected === undefined ? 'Unknown' : connected
-                                          }`}
-                                        </Typography>
-                                        {!!error && (
+                      return (
+                        <Grid item xs={12} key={gitServer.metadata.uid}>
+                          <Accordion expanded={isExpanded} onChange={handleChange(gitServerName)}>
+                            <AccordionSummary
+                              expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
+                              style={{
+                                cursor: 'pointer',
+                              }}
+                            >
+                              <Typography variant={'h6'}>
+                                <Grid container spacing={1} alignItems={'center'}>
+                                  <Grid item style={{ marginRight: theme.typography.pxToRem(5) }}>
+                                    <StatusIcon
+                                      icon={icon}
+                                      color={color}
+                                      Title={
+                                        <>
                                           <Typography
                                             variant={'subtitle2'}
-                                            style={{ marginTop: theme.typography.pxToRem(10) }}
+                                            style={{ fontWeight: 600 }}
                                           >
-                                            {error}
+                                            {`Connected: ${
+                                              connected === undefined ? 'Unknown' : connected
+                                            }`}
                                           </Typography>
-                                        )}
-                                      </>
-                                    }
-                                  />
+                                          {!!error && (
+                                            <Typography
+                                              variant={'subtitle2'}
+                                              style={{ marginTop: theme.typography.pxToRem(10) }}
+                                            >
+                                              {error}
+                                            </Typography>
+                                          )}
+                                        </>
+                                      }
+                                    />
+                                  </Grid>
+                                  <Grid item>{gitServerName}</Grid>
                                 </Grid>
-                                <Grid item>{gitServerName}</Grid>
-                              </Grid>
-                            </Typography>
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            {isExpanded && (
-                              <ManageGitServer
-                                gitServer={gitServer}
-                                repositorySecrets={repositorySecrets}
-                                handleClosePanel={handleClosePanel}
-                              />
-                            )}
-                          </AccordionDetails>
-                        </Accordion>
-                      </Grid>
-                    );
-                  })}
+                              </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              {isExpanded && (
+                                <ManageGitServer
+                                  gitServer={gitServer}
+                                  repositorySecrets={repositorySecrets.data}
+                                  handleClosePanel={handleClosePanel}
+                                />
+                              )}
+                            </AccordionDetails>
+                          </Accordion>
+                        </Grid>
+                      );
+                    })}
+                </Grid>
+              </LoadingWrapper>
+            )}
+            {!gitServers && !isLoading && !error && (
+              <Grid item xs={12}>
+                <EmptyContent color={'textSecondary'}>No GitServers found</EmptyContent>
               </Grid>
-            </LoadingWrapper>
+            )}
           </Grid>
-          {!gitServers && !isLoading && (
-            <Grid item xs={12}>
-              <EmptyContent color={'textSecondary'}>No GitServers found</EmptyContent>
-            </Grid>
-          )}
         </Grid>
       </PageWrapper>
     </PageWithSubMenu>

@@ -1,3 +1,4 @@
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -136,7 +137,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       deployPipelineRunTemplate: {
         data: deployPipelineRunTemplate.data,
         isLoading: deployPipelineRunTemplate.isLoading,
-        error: deployPipelineRunTemplate.error,
+        error: deployPipelineRunTemplate.error as ApiError,
       },
     }),
     [

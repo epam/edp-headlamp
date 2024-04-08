@@ -1,6 +1,7 @@
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
+import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
@@ -17,12 +18,12 @@ import { menu } from '../../menu';
 import { SONAR_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const [sonarSecrets] = SecretKubeObject.useList({
+  const [sonarSecrets, sonarSecretsError] = SecretKubeObject.useList({
     namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.SONAR}`,
   });
 
-  const [sonarQuickLink, error] = QuickLinkKubeObject.useGet(
+  const [sonarQuickLink, sonarQuickLinkError] = QuickLinkKubeObject.useGet(
     SYSTEM_QUICK_LINKS.SONAR,
     getDefaultNamespace()
   );
@@ -31,7 +32,8 @@ export const PageView = () => {
 
   const mode = !!sonarSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = sonarSecret?.metadata?.ownerReferences?.[0]?.kind;
-  const isLoading = sonarSecrets === null || (!sonarQuickLink && !error);
+  const error = sonarSecretsError || sonarQuickLinkError;
+  const isLoading = (sonarSecrets === null || sonarQuickLink === null) && !error;
 
   return (
     <PageWithSubMenu list={menu}>
@@ -47,24 +49,32 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <LoadingWrapper isLoading={isLoading}>
-              <ManageSonarCI
-                formData={{
-                  sonarSecret,
-                  sonarQuickLink: sonarQuickLink?.jsonData,
-                  ownerReference,
-                  mode,
-                }}
-              />
-            </LoadingWrapper>
+            {error ? (
+              <Grid item xs={12}>
+                <ErrorContent error={error} outlined />
+              </Grid>
+            ) : (
+              <Grid item xs={12}>
+                <LoadingWrapper isLoading={isLoading}>
+                  <ManageSonarCI
+                    formData={{
+                      sonarSecret,
+                      sonarQuickLink: sonarQuickLink?.jsonData,
+                      ownerReference,
+                      mode,
+                    }}
+                  />
+                </LoadingWrapper>
+              </Grid>
+            )}
+            {!sonarSecret && !isLoading && !error && (
+              <Grid item xs={12}>
+                <EmptyContent color={'textSecondary'}>
+                  No SonarQube integration secrets found
+                </EmptyContent>
+              </Grid>
+            )}
           </Grid>
-          {!sonarSecret && !isLoading && (
-            <Grid item xs={12}>
-              <EmptyContent color={'textSecondary'}>
-                No SonarQube integration secrets found
-              </EmptyContent>
-            </Grid>
-          )}
         </Grid>
       </PageWrapper>
     </PageWithSubMenu>
