@@ -11,6 +11,7 @@ import {
   CODEBASE_COMMON_FRAMEWORKS,
   CODEBASE_COMMON_LANGUAGES,
 } from '../../../../../configs/codebase-mappings';
+import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
 import { GIT_SERVERS } from '../../../../../constants/gitServers';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObject } from '../../../../../k8s/Application';
@@ -274,7 +275,7 @@ export const useColumns = (
         },
         width: '20%',
       },
-      ...(stage?.spec.clusterName === 'in-cluster'
+      ...(stage?.spec.clusterName === DEFAULT_CLUSTER
         ? ([
             {
               id: 'pods',

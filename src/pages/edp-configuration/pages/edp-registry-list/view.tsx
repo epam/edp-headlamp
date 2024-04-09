@@ -1,4 +1,3 @@
-import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { CreateItemAccordion } from '../../../../components/CreateItemAccordion';
@@ -100,13 +99,6 @@ export const PageView = () => {
                   ) : null}
                 </Grid>
               </LoadingWrapper>
-            )}
-            {!isLoading && !error && (
-              <Grid item xs={12}>
-                <EmptyContent color={'textSecondary'}>
-                  No registry configurations found
-                </EmptyContent>
-              </Grid>
             )}
           </Grid>
         </Grid>

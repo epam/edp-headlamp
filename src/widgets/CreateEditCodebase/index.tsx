@@ -12,7 +12,6 @@ export const CreateEditCodebase = () => {
 
   const {
     open,
-    closeDialog,
     forwardedProps: { mode },
   } = useSpecificDialogContext<CreateEditCodebaseDialogForwardedProps>(
     CREATE_EDIT_CODEBASE_DIALOG_NAME
@@ -21,7 +20,6 @@ export const CreateEditCodebase = () => {
   return (
     <Dialog
       open={open}
-      onClose={closeDialog}
       maxWidth={'sm'}
       fullWidth
       data-testid="dialog"

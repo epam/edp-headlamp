@@ -128,23 +128,31 @@ export const Selection = ({ setActiveTab }: SelectionProps) => {
       <DialogActions>
         <Stack direction="row" spacing={2} justifyContent="space-between" width="100%">
           <Box sx={{ color: theme.palette.text.primary }}>
-            <Button onClick={closeDialog} color="inherit">
+            <Button onClick={closeDialog} color="inherit" size="small">
               cancel
             </Button>
           </Box>
           <div>
             <TabPanel value={activeStep} index={SELECTION_STEPPER.SELECT_COMPONENT.idx}>
-              <Button variant="contained" onClick={nextStep} disabled={!componentTypeFieldValue}>
+              <Button
+                variant="contained"
+                onClick={nextStep}
+                disabled={!componentTypeFieldValue}
+                size="small"
+              >
                 next
               </Button>
             </TabPanel>
             <TabPanel value={activeStep} index={SELECTION_STEPPER.SELECT_STRATEGY.idx}>
               <Stack direction="row" spacing={1}>
-                <Button onClick={prevStep}>back</Button>
+                <Button onClick={prevStep} size="small">
+                  back
+                </Button>
                 <Button
                   variant="contained"
                   onClick={() => setActiveTab(MAIN_TABS.CONFIGURATION)}
                   disabled={!strategyFieldValue}
+                  size="small"
                 >
                   create
                 </Button>

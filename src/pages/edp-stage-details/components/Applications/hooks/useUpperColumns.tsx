@@ -14,6 +14,7 @@ import {
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { TableColumn } from '../../../../../components/Table/types';
+import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../../types';
@@ -173,7 +174,7 @@ export const useUpperColumns = ({
           );
         },
       },
-      ...(stage?.spec.clusterName === 'in-cluster'
+      ...(stage?.spec.clusterName === DEFAULT_CLUSTER
         ? ([
             {
               id: 'pods',

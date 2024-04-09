@@ -6,6 +6,7 @@ import React from 'react';
 import { LoadingWrapper } from '../../../../../../../../components/LoadingWrapper';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
+import { DEFAULT_CLUSTER } from '../../../../../../../../constants/clusters';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObject } from '../../../../../../../../k8s/Application';
 import {
@@ -63,6 +64,8 @@ export const ApplicationCard = ({
       ),
     [QuickLinksURLS]
   );
+
+  const isExternalCluster = stage.spec.clusterName !== DEFAULT_CLUSTER;
 
   return (
     <LoadingWrapper isLoading={!argoApplication?.status?.health}>
@@ -161,42 +164,44 @@ export const ApplicationCard = ({
             </Typography>
             <StyledChip label={formatDate(argoApplication.metadata.creationTimestamp)} />
           </Stack>
-          <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
-            <Button
-              variant="text"
-              sx={{ color: theme.palette.secondary.dark }}
-              onClick={() =>
-                setDialog({
-                  modalName: PODS_LOG_VIEWER_DIALOG_NAME,
-                  forwardedProps: {
-                    stageNamespace: stage.spec.namespace,
-                    appName: application.metadata.name,
-                  },
-                })
-              }
-              disabled={!argoApplication}
-              endIcon={<Icon icon={'mdi:file-document-box-outline'} width={18} height={18} />}
-            >
-              logs
-            </Button>
-            <Button
-              variant="text"
-              sx={{ color: theme.palette.secondary.dark }}
-              onClick={() =>
-                setDialog({
-                  modalName: PODS_TERMINAL_DIALOG_NAME,
-                  forwardedProps: {
-                    stageNamespace: stage.spec.namespace,
-                    appName: application.metadata.name,
-                  },
-                })
-              }
-              disabled={!argoApplication}
-              endIcon={<Icon icon={'material-symbols:terminal'} width={18} height={18} />}
-            >
-              terminal
-            </Button>
-          </Stack>
+          {!isExternalCluster && (
+            <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
+              <Button
+                variant="text"
+                sx={{ color: theme.palette.secondary.dark }}
+                onClick={() =>
+                  setDialog({
+                    modalName: PODS_LOG_VIEWER_DIALOG_NAME,
+                    forwardedProps: {
+                      stageNamespace: stage.spec.namespace,
+                      appName: application.metadata.name,
+                    },
+                  })
+                }
+                disabled={!argoApplication}
+                endIcon={<Icon icon={'mdi:file-document-box-outline'} width={18} height={18} />}
+              >
+                logs
+              </Button>
+              <Button
+                variant="text"
+                sx={{ color: theme.palette.secondary.dark }}
+                onClick={() =>
+                  setDialog({
+                    modalName: PODS_TERMINAL_DIALOG_NAME,
+                    forwardedProps: {
+                      stageNamespace: stage.spec.namespace,
+                      appName: application.metadata.name,
+                    },
+                  })
+                }
+                disabled={!argoApplication}
+                endIcon={<Icon icon={'material-symbols:terminal'} width={18} height={18} />}
+              >
+                terminal
+              </Button>
+            </Stack>
+          )}
         </Stack>
       </StyledCard>
     </LoadingWrapper>

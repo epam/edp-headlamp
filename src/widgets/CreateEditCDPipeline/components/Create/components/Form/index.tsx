@@ -110,17 +110,17 @@ export const Form = ({
 
   return (
     <>
-      <TabPanel value={formActiveTabIdx} index={TAB_INDEXES[FORM_PART_PIPELINE]}>
+      <TabPanel value={formActiveTabIdx} index={TAB_INDEXES[FORM_PART_PIPELINE]} shouldRender>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <PipelineName onPipelineNameChange={onPipelineNameChange} />
           </Grid>
         </Grid>
       </TabPanel>
-      <TabPanel value={formActiveTabIdx} index={TAB_INDEXES[FORM_PART_APPLICATIONS]}>
+      <TabPanel value={formActiveTabIdx} index={TAB_INDEXES[FORM_PART_APPLICATIONS]} shouldRender>
         <Applications />
       </TabPanel>
-      <TabPanel value={formActiveTabIdx} index={TAB_INDEXES[FORM_PART_STAGES]}>
+      <TabPanel value={formActiveTabIdx} index={TAB_INDEXES[FORM_PART_STAGES]} shouldRender>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Stages

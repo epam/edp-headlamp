@@ -29,13 +29,14 @@ export const TableBody = ({
   blockerComponent,
 }: TableBodyProps) => {
   const renderTableBody = React.useCallback(() => {
-    if (error) {
-      const hasSelection = !!handleSelectRowClick;
-      const columnsLength = columns.length;
+    const hasSelection = !!handleSelectRowClick;
+    const _columnsLength = columns.length;
+    const columnsLength = hasSelection ? _columnsLength + 1 : _columnsLength;
 
+    if (error) {
       return (
         <MuiTableRow>
-          <TableCell colSpan={hasSelection ? columnsLength + 1 : columnsLength} align={'center'}>
+          <TableCell colSpan={columnsLength} align={'center'}>
             <ErrorContent error={error} />
           </TableCell>
         </MuiTableRow>
@@ -43,7 +44,13 @@ export const TableBody = ({
     }
 
     if (blockerComponent) {
-      return <MuiTableRow>{blockerComponent}</MuiTableRow>;
+      return (
+        <MuiTableRow>
+          <TableCell colSpan={columnsLength} align={'center'}>
+            {blockerComponent}
+          </TableCell>
+        </MuiTableRow>
+      );
     }
 
     if (isLoading) {

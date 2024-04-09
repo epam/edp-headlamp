@@ -45,7 +45,7 @@ export const CreateCodebaseFromTemplate = () => {
         mode: 'onBlur',
       }}
     >
-      <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth data-testid="dialog">
+      <Dialog open={open} maxWidth={'md'} fullWidth data-testid="dialog">
         <DialogTitle>
           <Typography variant={'h4'}>Create application from template</Typography>
         </DialogTitle>

@@ -11,13 +11,12 @@ export const CreateEditCDPipeline = () => {
   const {
     open,
     forwardedProps: { mode },
-    closeDialog,
   } = useSpecificDialogContext<CreateEditCDPipelineDialogForwardedProps>(
     CREATE_EDIT_CD_PIPELINE_DIALOG_NAME
   );
 
   return (
-    <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth data-testid="dialog">
+    <Dialog open={open} maxWidth={'md'} fullWidth data-testid="dialog">
       {mode === FORM_MODES.CREATE ? <Create /> : mode === FORM_MODES.EDIT ? <Edit /> : null}
     </Dialog>
   );

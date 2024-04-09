@@ -45,7 +45,10 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
   return (
     <Stack direction="row" alignItems={'flex-start'} justifyContent={'space-between'} spacing={1}>
       <Stack spacing={2}>
-        <Typography variant={'h5'}>{`Create ${capitalizedType}`}</Typography>
+        <Typography
+          fontSize={theme.typography.pxToRem(20)}
+          fontWeight={500}
+        >{`Create ${capitalizedType}`}</Typography>
         <LearnMoreLink url={docLink} />
       </Stack>
       <Box sx={{ color: theme.palette.text.primary }}>

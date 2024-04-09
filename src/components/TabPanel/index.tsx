@@ -2,7 +2,13 @@ import React from 'react';
 import { useStyles } from './styles';
 import { TabPanelProps } from './types';
 
-export const TabPanel = ({ children, value, index, ...other }: TabPanelProps) => {
+export const TabPanel = ({
+  children,
+  value,
+  index,
+  shouldRender = true,
+  ...other
+}: TabPanelProps) => {
   const classes = useStyles();
 
   const isActive = value === index;
@@ -15,7 +21,7 @@ export const TabPanel = ({ children, value, index, ...other }: TabPanelProps) =>
       className={classes.tabPanel}
       {...other}
     >
-      {children}
+      {shouldRender && isActive ? children : null}
     </div>
   );
 };

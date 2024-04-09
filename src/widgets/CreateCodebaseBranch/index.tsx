@@ -18,7 +18,6 @@ export const CreateCodebaseBranch = () => {
   const {
     open,
     forwardedProps: { defaultBranch },
-    closeDialog,
   } = useSpecificDialogContext<CreateCodebaseBranchDialogForwardedProps>(
     CREATE_CODEBASE_BRANCH_DIALOG_NAME
   );
@@ -33,7 +32,7 @@ export const CreateCodebaseBranch = () => {
   });
 
   return (
-    <Dialog open={open} onClose={closeDialog} fullWidth data-testid="dialog">
+    <Dialog open={open} fullWidth data-testid="dialog">
       <FormContextProvider
         formSettings={{
           defaultValues: baseDefaultValues,

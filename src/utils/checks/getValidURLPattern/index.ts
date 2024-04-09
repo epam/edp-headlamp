@@ -14,12 +14,18 @@ export const getValidURLPattern = (protocol: ValueOf<typeof VALIDATED_PROTOCOLS>
   const protocolPattern = protocols[protocol] || '';
 
   const pattern = new RegExp(
+    // protocol
     `${protocolPattern}` +
-      '((?:[a-z\\d](?:[a-z\\d-]*[a-z\\d])?\\.)+[a-z]{2,}|' + // domain name and extension
-      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '(\\?[;&amp;a-z\\d%_.~+=-]*)?' + // query string
-      '(\\#[-a-z\\d_]*)?$',
+      // domain name or IP address
+      '(?:(?:[a-z\\d-]+\\.)*[a-z]{2,}|\\d{1,3}(?:\\.\\d{1,3}){3})' +
+      // optional port number
+      '(\\:\\d+)?' +
+      // path
+      '(\\/\\S*)?' +
+      // anchor
+      '(#\\S*)?' +
+      // end of line
+      '$',
     'i'
   );
 

@@ -47,7 +47,7 @@ export const useCredentialsCreateForm = ({
           case GIT_PROVIDERS.GITLAB:
             return createGitlabGitServerSecretInstance({
               sshPrivateKey: values.sshPrivateKey,
-              token: GIT_USER.GITLAB,
+              token: values.token,
             });
           default:
             break;
