@@ -1,5 +1,5 @@
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
@@ -12,20 +12,18 @@ import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageDependencyTrackCI } from '../../../../widgets/ManageDependencyTrackCI';
 import { menu } from '../../menu';
 import { DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
+  const theme = useTheme();
   const [dependencyTrackSecrets, dependencyTrackSecretsError] = SecretKubeObject.useList({
-    namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.DEPENDENCY_TRACK}`,
   });
 
   const [depTrackQuickLink, depTrackQuickLinkError] = QuickLinkKubeObject.useGet(
-    SYSTEM_QUICK_LINKS.DEPENDENCY_TRACK,
-    getDefaultNamespace()
+    SYSTEM_QUICK_LINKS.DEPENDENCY_TRACK
   );
 
   const dependencyTrackSecret = dependencyTrackSecrets?.[0]?.jsonData;
@@ -37,11 +35,11 @@ export const PageView = () => {
   const isLoading = (dependencyTrackSecrets === null || depTrackQuickLink === null) && !error;
 
   return (
-    <PageWithSubMenu list={menu}>
+    <PageWithSubMenu list={menu} title="Configuration">
       <PageWrapper containerMaxWidth={'xl'}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant={'h1'} gutterBottom>
+            <Typography fontSize={theme.typography.pxToRem(28)} color="primary.dark" gutterBottom>
               {DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION.label}
             </Typography>
             <Typography variant={'body1'}>

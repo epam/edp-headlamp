@@ -17,7 +17,7 @@ export const getValidURLPattern = (protocol: ValueOf<typeof VALIDATED_PROTOCOLS>
     // protocol
     `${protocolPattern}` +
       // domain name or IP address
-      '(?:(?:[a-z\\d-]+\\.)*[a-z]{2,}|\\d{1,3}(?:\\.\\d{1,3}){3})' +
+      '(?:(?:[a-z\\d-]+\\.)*[a-z\\d-]+|\\d{1,3}(?:\\.\\d{1,3}){3})' +
       // optional port number
       '(\\:\\d+)?' +
       // path

@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
@@ -12,6 +12,8 @@ import { QuickLinkActions } from './components/QuickLinkActions';
 import { StagesGraph } from './components/StagesGraph';
 
 export const PageView = () => {
+  const theme = useTheme();
+
   return (
     <PageWrapper>
       <Grid container spacing={6}>
@@ -43,7 +45,11 @@ export const PageView = () => {
         </Grid>
         <Grid item xs={12}>
           <Section
-            title={'Links'}
+            title={
+              <Typography color="primary.dark" fontSize={theme.typography.pxToRem(28)}>
+                Links
+              </Typography>
+            }
             description={'A set of icons with links that redirect you to corresponding tools.'}
           >
             <ComponentList />
@@ -52,7 +58,11 @@ export const PageView = () => {
         </Grid>
         <Grid item xs={12}>
           <Section
-            title={'Pipelines'}
+            title={
+              <Typography color="primary.dark" fontSize={theme.typography.pxToRem(28)}>
+                Pipelines
+              </Typography>
+            }
             description={
               'Monitor the progress of overall pipeline runs launched within the platform.'
             }

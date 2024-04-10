@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import React from 'react';
 import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { PageWrapper } from '../../components/PageWrapper';
@@ -17,13 +17,7 @@ export const PageView = () => {
   return (
     <PageWrapper>
       <Section
-        title={
-          <Grid container alignItems={'center'} spacing={1}>
-            <Grid item>
-              <Typography variant={'h1'}>Components</Typography>
-            </Grid>
-          </Grid>
-        }
+        title="Components"
         description={
           <>
             Create, view, and manage diverse codebases, encompassing applications, libraries,

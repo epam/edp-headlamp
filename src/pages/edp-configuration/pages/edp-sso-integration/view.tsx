@@ -1,7 +1,7 @@
 import { K8s } from '@kinvolk/headlamp-plugin/lib';
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
@@ -19,6 +19,7 @@ import { SSO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 import { useColumns } from './hooks/useColumns';
 
 export const PageView = () => {
+  const theme = useTheme();
   const [ssoSecrets, ssoSecretsError] = SecretKubeObject.useList({
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=keycloak`,
   });
@@ -46,11 +47,11 @@ export const PageView = () => {
   const columns = useColumns();
 
   return (
-    <PageWithSubMenu list={menu}>
+    <PageWithSubMenu list={menu} title="Configuration">
       <PageWrapper containerMaxWidth={'xl'}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant={'h1'} gutterBottom>
+            <Typography fontSize={theme.typography.pxToRem(28)} color="primary.dark" gutterBottom>
               {SSO_INTEGRATION_PAGE_DESCRIPTION.label}
             </Typography>
             <Typography variant={'body1'}>

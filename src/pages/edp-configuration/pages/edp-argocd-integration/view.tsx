@@ -1,5 +1,5 @@
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { ErrorContent } from '../../../../components/ErrorContent';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
@@ -12,20 +12,18 @@ import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { ManageArgoCDCI } from '../../../../widgets/ManageArgoCDCI';
 import { menu } from '../../menu';
 import { ARGOCD_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
+  const theme = useTheme();
   const [argoCDSecrets, argoCDSecretsError] = SecretKubeObject.useList({
-    namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.ARGOCD}`,
   });
 
   const [argoCDQuickLink, argoCDQuickLinkError] = QuickLinkKubeObject.useGet(
-    SYSTEM_QUICK_LINKS.ARGOCD,
-    getDefaultNamespace()
+    SYSTEM_QUICK_LINKS.ARGOCD
   );
 
   const error = argoCDSecretsError || argoCDQuickLinkError;
@@ -37,11 +35,11 @@ export const PageView = () => {
   const isLoading = (argoCDSecrets === null || argoCDQuickLink === null) && !error;
 
   return (
-    <PageWithSubMenu list={menu}>
+    <PageWithSubMenu list={menu} title="Configuration">
       <PageWrapper containerMaxWidth={'xl'}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant={'h1'} gutterBottom>
+            <Typography fontSize={theme.typography.pxToRem(28)} color="primary.dark" gutterBottom>
               {ARGOCD_INTEGRATION_PAGE_DESCRIPTION.label}
             </Typography>
             <Typography variant={'body1'}>

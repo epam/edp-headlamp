@@ -1,4 +1,11 @@
-import { Accordion, AccordionDetails, AccordionSummary, Grid, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Grid,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import React from 'react';
 import { CreateItemAccordion } from '../../../../components/CreateItemAccordion';
 import { ErrorContent } from '../../../../components/ErrorContent';
@@ -14,6 +21,7 @@ import { REGISTRY_LIST_PAGE_DESCRIPTION } from './constants';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
+  const theme = useTheme();
   const { EDPConfigMap, pullAccountSecret, pushAccountSecret, tektonServiceAccount } =
     useDynamicDataContext();
 
@@ -39,11 +47,11 @@ export const PageView = () => {
   };
 
   return (
-    <PageWithSubMenu list={menu}>
+    <PageWithSubMenu list={menu} title="Configuration">
       <PageWrapper containerMaxWidth={'xl'}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant={'h1'} gutterBottom>
+            <Typography fontSize={theme.typography.pxToRem(28)} color="primary.dark" gutterBottom>
               {REGISTRY_LIST_PAGE_DESCRIPTION.label}
             </Typography>
             <Typography variant={'body1'}>

@@ -40,11 +40,11 @@ export const PageView = () => {
   const gitServersLength = gitServers.data ? gitServers.data.length : 0;
 
   return (
-    <PageWithSubMenu list={menu}>
+    <PageWithSubMenu list={menu} title="Configuration">
       <PageWrapper containerMaxWidth={'xl'}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant={'h1'} gutterBottom>
+            <Typography fontSize={theme.typography.pxToRem(28)} color="primary.dark" gutterBottom>
               {GIT_SERVER_LIST_PAGE_DESCRIPTION.label}
             </Typography>
             <Typography variant={'body1'}>

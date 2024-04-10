@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
@@ -21,6 +21,7 @@ import { QuickLinkActions } from './components/QuickLinkActions';
 import { QUICK_LINK_LIST_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
+  const theme = useTheme();
   const [items, error] = QuickLinkKubeObject.useList();
 
   const isLoading = items === null;
@@ -30,11 +31,11 @@ export const PageView = () => {
   const { setDialog } = useDialogContext();
 
   return (
-    <PageWithSubMenu list={menu}>
+    <PageWithSubMenu list={menu} title="Configuration">
       <PageWrapper containerMaxWidth={'xl'}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant={'h1'} gutterBottom>
+            <Typography fontSize={theme.typography.pxToRem(28)} color="primary.dark" gutterBottom>
               {QUICK_LINK_LIST_PAGE_DESCRIPTION.label}
             </Typography>
             <Typography variant={'body1'}>

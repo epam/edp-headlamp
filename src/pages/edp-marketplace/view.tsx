@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Box, IconButton, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, IconButton, Stack, Tooltip, useTheme } from '@mui/material';
 import React from 'react';
 import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
@@ -30,7 +30,7 @@ export const PageView = () => {
   return (
     <PageWrapper>
       <Section
-        title={<Typography variant={'h1'}>Marketplace</Typography>}
+        title="Marketplace"
         description={
           <>
             Effortlessly scaffold applications using predefined templates crafted for various use

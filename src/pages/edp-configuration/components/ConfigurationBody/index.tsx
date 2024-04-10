@@ -8,6 +8,7 @@ import {
   Grid,
   Tooltip,
   Typography,
+  useTheme,
 } from '@mui/material';
 import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
@@ -31,6 +32,7 @@ export const ConfigurationBody = ({
   onlyOneItem = false,
   error,
 }: ConfigurationBodyProps) => {
+  const theme = useTheme();
   const { label, description, docUrl } = pageData || {};
   const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
 
@@ -61,11 +63,15 @@ export const ConfigurationBody = ({
     <ConditionalWrapper
       condition={!bodyOnly}
       wrapper={(children) => (
-        <PageWithSubMenu list={menu}>
+        <PageWithSubMenu list={menu} title="Configuration">
           <PageWrapper containerMaxWidth={'xl'}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Typography variant={'h1'} gutterBottom>
+                <Typography
+                  fontSize={theme.typography.pxToRem(28)}
+                  color="primary.dark"
+                  gutterBottom
+                >
                   {label}
                 </Typography>
                 <Typography variant={'body1'}>

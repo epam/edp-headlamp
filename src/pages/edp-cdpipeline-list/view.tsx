@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { EmptyList } from '../../components/EmptyList';
@@ -63,13 +63,7 @@ export const PageView = () => {
   return (
     <PageWrapper>
       <Section
-        title={
-          <Grid container alignItems={'center'} spacing={1}>
-            <Grid item>
-              <Typography variant={'h1'}>Environments</Typography>
-            </Grid>
-          </Grid>
-        }
+        title="Environments"
         description={
           <>
             Manage your environments with deployed applications.{' '}

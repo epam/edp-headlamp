@@ -12,7 +12,13 @@ export const Section: React.FC<SectionProps> = ({ title, titleTooltip, descripti
         {title && (
           <Stack direction="row" spacing={1} alignItems={'center'}>
             <Box sx={{ flexGrow: !!titleTooltip ? 0 : 1 }}>
-              {typeof title === 'string' ? <Typography variant={'h1'}>{title}</Typography> : title}
+              {typeof title === 'string' ? (
+                <Typography color="primary.dark" fontSize={theme.typography.pxToRem(48)}>
+                  {title}
+                </Typography>
+              ) : (
+                title
+              )}
             </Box>
             {titleTooltip && (
               <Tooltip title={titleTooltip}>

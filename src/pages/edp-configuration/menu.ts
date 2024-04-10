@@ -24,19 +24,19 @@ export const menu: SubMenuGroup[] = [
   {
     id: 'quick-access',
     label: 'Quick Access',
-    icon: ICONS.LIGHTNING,
+    icon: ICONS.LIGHTNING_BOLT,
     children: [QUICK_LINK_LIST_PAGE_DESCRIPTION],
   },
   {
     id: 'artifacts-storage',
     label: 'Artifacts Storage',
-    icon: ICONS.REGISTRY,
+    icon: ICONS.STORAGE,
     children: [NEXUS_INTEGRATION_PAGE_DESCRIPTION, REGISTRY_LIST_PAGE_DESCRIPTION],
   },
   {
     id: 'deployment',
     label: 'Deployment',
-    icon: ICONS.CLUSTERS,
+    icon: ICONS.ROCKET_ROUNDED,
     children: [
       CLUSTER_LIST_PAGE_DESCRIPTION,
       GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION,
@@ -55,25 +55,25 @@ export const menu: SubMenuGroup[] = [
   {
     id: 'code-quality',
     label: 'Code Quality',
-    icon: ICONS.SONAR,
+    icon: ICONS.CUP,
     children: [SONAR_INTEGRATION_PAGE_DESCRIPTION],
   },
   {
     id: 'version-control',
     label: 'Version Control System',
-    icon: ICONS.GIT,
+    icon: ICONS.LAYERS,
     children: [GIT_SERVER_LIST_PAGE_DESCRIPTION],
   },
   {
     id: 'management-tool',
     label: 'Management Tool',
-    icon: ICONS.JIRA,
+    icon: ICONS.TOOLS,
     children: [JIRA_INTEGRATION_PAGE_DESCRIPTION],
   },
   {
     id: 'access',
     label: 'Access',
-    icon: ICONS.SSO,
+    icon: ICONS.KEY,
     children: [SSO_INTEGRATION_PAGE_DESCRIPTION],
   },
 ];
