@@ -58,7 +58,9 @@ export const FormActions = ({
     const activeTabFormPartNames = Object.values(CDPIPELINE_FORM_NAMES)
       .filter(({ formPart }) => formPart === activeTabFormPartName)
       .map(({ name }) => name);
+
     const hasNoErrors = await trigger(activeTabFormPartNames);
+
     if (hasNoErrors) {
       setFormActiveTabIdx(formActiveTabIdx + 1);
     }

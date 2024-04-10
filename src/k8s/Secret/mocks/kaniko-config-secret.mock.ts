@@ -63,3 +63,35 @@ export const kanikoDockerSecretWithOwnerMock = {
   kind: 'Secret',
   apiVersion: 'v1',
 };
+
+export const ECRPushSecretMock = {
+  apiVersion: 'v1',
+  kind: 'Secret',
+  metadata: {
+    name: 'kaniko-docker-config',
+    namespace: 'test-namespace',
+    labels: {
+      'app.edp.epam.com/secret-type': 'registry',
+    },
+  },
+  type: 'kubernetes.io/dockerconfigjson',
+  data: {
+    '.dockerconfigjson': 'eyJjcmVkc1N0b3JlIjoiZWNyLWxvZ2luIn0=',
+  },
+};
+
+export const openshiftPushSecretMock = {
+  apiVersion: 'v1',
+  kind: 'Secret',
+  metadata: {
+    name: 'kaniko-docker-config',
+    labels: {
+      'app.edp.epam.com/secret-type': 'registry',
+    },
+  },
+  type: 'kubernetes.io/dockerconfigjson',
+  data: {
+    '.dockerconfigjson':
+      'eyJhdXRocyI6eyJ0ZXN0LWVuZHBvaW50Ijp7ImF1dGgiOiJkR1Z6ZEMxMGIydGxiZz09In19fQ==',
+  },
+};

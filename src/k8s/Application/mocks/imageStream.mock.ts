@@ -1,5 +1,5 @@
-import { DeepPartial } from '../../../../types/global';
-import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../EDPCodebaseImageStream/types';
+import { DeepPartial } from '../../../types/global';
+import { EDPCodebaseImageStreamKubeObjectInterface } from '../../EDPCodebaseImageStream/types';
 
 export const imageStreamMock: DeepPartial<EDPCodebaseImageStreamKubeObjectInterface> = {
   apiVersion: 'v2.edp.epam.com/v1',

@@ -83,26 +83,28 @@ export const ManageGitServer = ({
   );
 
   return (
-    <DataContextProvider gitServer={gitServer} gitServerSecret={gitServerSecret}>
-      <MultiFormContextProvider<FormNames>
-        forms={{
-          gitServer: gitServerFormData,
-          credentials: credentialsFormData,
-        }}
-        sharedForm={sharedForm}
-      >
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <GitServerForm />
+    <div data-testid="form">
+      <DataContextProvider gitServer={gitServer} gitServerSecret={gitServerSecret}>
+        <MultiFormContextProvider<FormNames>
+          forms={{
+            gitServer: gitServerFormData,
+            credentials: credentialsFormData,
+          }}
+          sharedForm={sharedForm}
+        >
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <GitServerForm />
+            </Grid>
+            <Grid item xs={12}>
+              <CredentialsForm gitServerSecret={gitServerSecret} />
+            </Grid>
+            <Grid item xs={12}>
+              <Actions />
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <CredentialsForm gitServerSecret={gitServerSecret} />
-          </Grid>
-          <Grid item xs={12}>
-            <Actions />
-          </Grid>
-        </Grid>
-      </MultiFormContextProvider>
-    </DataContextProvider>
+        </MultiFormContextProvider>
+      </DataContextProvider>
+    </div>
   );
 };

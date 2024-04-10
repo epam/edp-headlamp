@@ -1,5 +1,5 @@
-import { DeepPartial } from '../../../../types/global';
-import { ApplicationKubeObjectInterface } from '../../types';
+import { DeepPartial } from '../../../types/global';
+import { ApplicationKubeObjectInterface } from '../types';
 
 export const expectedApplicationOutputMock: DeepPartial<ApplicationKubeObjectInterface> = {
   apiVersion: 'argoproj.io/v1alpha1',
@@ -43,7 +43,7 @@ export const expectedApplicationOutputMock: DeepPartial<ApplicationKubeObjectInt
         ],
       },
       path: 'deploy-templates',
-      repoURL: 'ssh://git@github.com:22/test-namespace/test-app-name',
+      repoURL: 'ssh://git@github.com:111/test-namespace/test-app-name',
       targetRevision: 'test-image-tag',
     },
     syncPolicy: {
@@ -86,7 +86,7 @@ export const expectedApplicationOutputMockWithValuesOverride: DeepPartial<Applic
       // @ts-ignore
       sources: [
         {
-          repoURL: 'ssh://git@github.com:22/edp-gitops',
+          repoURL: 'ssh://git@github.com:111/edp-gitops',
           targetRevision: 'main',
           ref: 'values',
         },
@@ -103,7 +103,7 @@ export const expectedApplicationOutputMockWithValuesOverride: DeepPartial<Applic
             releaseName: 'test-app-name',
           },
           path: 'deploy-templates',
-          repoURL: 'ssh://git@github.com:22/test-namespace/test-app-name',
+          repoURL: 'ssh://git@github.com:111/test-namespace/test-app-name',
           targetRevision: 'test-image-tag',
         },
       ],
@@ -144,7 +144,7 @@ export const expectedApplicationAfterEditOutputMock: DeepPartial<ApplicationKube
         ],
       },
       path: 'deploy-templates',
-      repoURL: 'ssh://git@github.com:22/test-namespace/test-app-name',
+      repoURL: 'ssh://git@github.com:111/test-namespace/test-app-name',
       targetRevision: 'test-image-tag',
     },
   },
@@ -172,7 +172,7 @@ export const expectedApplicationAfterEditOutputMockWithValuesOverride: DeepParti
       // @ts-ignore
       sources: [
         {
-          repoURL: 'ssh://git@github.com:22/edp-gitops',
+          repoURL: 'ssh://git@github.com:111/edp-gitops',
           targetRevision: 'main',
           ref: 'values',
         },
@@ -189,7 +189,7 @@ export const expectedApplicationAfterEditOutputMockWithValuesOverride: DeepParti
             releaseName: 'test-app-name',
           },
           path: 'deploy-templates',
-          repoURL: 'ssh://git@github.com:22/test-namespace/test-app-name',
+          repoURL: 'ssh://git@github.com:111/test-namespace/test-app-name',
           targetRevision: 'test-image-tag',
         },
       ],

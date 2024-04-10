@@ -1,5 +1,5 @@
-import { DeepPartial } from '../../../../types/global';
-import { EDPCDPipelineKubeObjectInterface } from '../../../EDPCDPipeline/types';
+import { DeepPartial } from '../../../types/global';
+import { EDPCDPipelineKubeObjectInterface } from '../../EDPCDPipeline/types';
 
 export const CDPipelineMock: DeepPartial<EDPCDPipelineKubeObjectInterface> = {
   apiVersion: 'v2.edp.epam.com/v1',

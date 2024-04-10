@@ -2,18 +2,18 @@ import { EDPCDPipelineKubeObjectInterface } from '../../../EDPCDPipeline/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../EDPCDPipelineStage/types';
 import { EDPCodebaseKubeObjectInterface } from '../../../EDPCodebase/types';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../EDPCodebaseImageStream/types';
+import { gitServerGithubMock } from '../../../EDPGitServer/mocks/gitServer.mock';
 import { EDPGitServerKubeObjectInterface } from '../../../EDPGitServer/types';
-import { ApplicationKubeObjectInterface } from '../../types';
 import {
   expectedApplicationAfterEditOutputMock,
   expectedApplicationAfterEditOutputMockWithValuesOverride,
-} from '../mocks/application.mock';
-import { CDPipelineMock } from '../mocks/CDPipeline.mock';
-import { CDPipelineStageMock } from '../mocks/CDPipelineStage.mock';
-import { enrichedApplicationMock } from '../mocks/enrichedApplication.mock';
-import { gitOpsCodebaseMock } from '../mocks/gitOpsCodebase.mock';
-import { gitServerMock } from '../mocks/gitServer.mock';
-import { imageStreamMock } from '../mocks/imageStream.mock';
+} from '../../mocks/application.mock';
+import { CDPipelineMock } from '../../mocks/CDPipeline.mock';
+import { CDPipelineStageMock } from '../../mocks/CDPipelineStage.mock';
+import { enrichedApplicationMock } from '../../mocks/enrichedApplication.mock';
+import { gitOpsCodebaseMock } from '../../mocks/gitOpsCodebase.mock';
+import { imageStreamMock } from '../../mocks/imageStream.mock';
+import { ApplicationKubeObjectInterface } from '../../types';
 import { editApplicationInstance } from './index';
 
 describe('testing editApplicationInstance', () => {
@@ -25,7 +25,7 @@ describe('testing editApplicationInstance', () => {
       application: enrichedApplicationMock.application as unknown as EDPCodebaseKubeObjectInterface,
       imageStream: imageStreamMock as EDPCodebaseImageStreamKubeObjectInterface,
       imageTag: 'test-image-tag',
-      gitServer: gitServerMock as EDPGitServerKubeObjectInterface,
+      gitServer: gitServerGithubMock as EDPGitServerKubeObjectInterface,
       valuesOverride: false,
       gitOpsCodebase: gitOpsCodebaseMock as unknown as EDPCodebaseKubeObjectInterface,
       argoApplication:
@@ -43,7 +43,7 @@ describe('testing editApplicationInstance', () => {
       application: enrichedApplicationMock.application as unknown as EDPCodebaseKubeObjectInterface,
       imageStream: imageStreamMock as EDPCodebaseImageStreamKubeObjectInterface,
       imageTag: 'test-image-tag',
-      gitServer: gitServerMock as EDPGitServerKubeObjectInterface,
+      gitServer: gitServerGithubMock as EDPGitServerKubeObjectInterface,
       valuesOverride: true,
       gitOpsCodebase: gitOpsCodebaseMock as unknown as EDPCodebaseKubeObjectInterface,
       argoApplication:

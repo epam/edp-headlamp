@@ -11,11 +11,10 @@ export const ManageQuickLink = () => {
   const {
     open,
     forwardedProps: { mode },
-    closeDialog,
   } = useSpecificDialogContext<ManageQuickLinkDialogForwardedProps>(MANAGE_QUICK_LINK_DIALOG_NAME);
 
   return (
-    <Dialog open={open} onClose={closeDialog} maxWidth={'md'} fullWidth data-testid="dialog">
+    <Dialog open={open} maxWidth={'md'} fullWidth data-testid="dialog">
       {mode === FORM_MODES.CREATE ? <Create /> : mode === FORM_MODES.EDIT ? <Edit /> : null}
     </Dialog>
   );

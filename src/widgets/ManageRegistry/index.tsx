@@ -130,63 +130,65 @@ export const ManageRegistry = ({
   );
 
   return (
-    <DataContextProvider
-      EDPConfigMap={EDPConfigMap}
-      pushAccountSecret={pushAccountSecret}
-      pullAccountSecret={pullAccountSecret}
-      tektonServiceAccount={tektonServiceAccount}
-    >
-      <MultiFormContextProvider<FormNames>
-        forms={{
-          pushAccount: pushAccountFormData,
-          pullAccount: pullAccountFormData,
-          configMap: configMapFormData,
-          serviceAccount: serviceAccountFormData,
-        }}
-        sharedForm={sharedForm.form}
+    <div data-testid="form">
+      <DataContextProvider
+        EDPConfigMap={EDPConfigMap}
+        pushAccountSecret={pushAccountSecret}
+        pullAccountSecret={pullAccountSecret}
+        tektonServiceAccount={tektonServiceAccount}
       >
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <ConfigMapForm />
+        <MultiFormContextProvider<FormNames>
+          forms={{
+            pushAccount: pushAccountFormData,
+            pullAccount: pullAccountFormData,
+            configMap: configMapFormData,
+            serviceAccount: serviceAccountFormData,
+          }}
+          sharedForm={sharedForm.form}
+        >
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <ConfigMapForm />
+            </Grid>
+            {satisfiesType(registryTypeFieldValue, [CONTAINER_REGISTRY_TYPE.ECR]) && (
+              <Grid item xs={12}>
+                <ServiceAccountForm />
+              </Grid>
+            )}
+            {satisfiesType(registryTypeFieldValue, [
+              CONTAINER_REGISTRY_TYPE.HARBOR,
+              CONTAINER_REGISTRY_TYPE.NEXUS,
+              CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY,
+              CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+            ]) && (
+              <Grid item xs={12}>
+                <PushAccountForm />
+              </Grid>
+            )}
+            {satisfiesType(registryTypeFieldValue, [
+              CONTAINER_REGISTRY_TYPE.HARBOR,
+              CONTAINER_REGISTRY_TYPE.NEXUS,
+              CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+            ]) && (
+              <Grid item xs={12}>
+                <UseSameAccount />
+              </Grid>
+            )}
+            {satisfiesType(registryTypeFieldValue, [
+              CONTAINER_REGISTRY_TYPE.HARBOR,
+              CONTAINER_REGISTRY_TYPE.NEXUS,
+              CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+            ]) && (
+              <Grid item xs={12}>
+                <PullAccountForm />
+              </Grid>
+            )}
+            <Grid item xs={12}>
+              <Actions />
+            </Grid>
           </Grid>
-          {satisfiesType(registryTypeFieldValue, [CONTAINER_REGISTRY_TYPE.ECR]) && (
-            <Grid item xs={12}>
-              <ServiceAccountForm />
-            </Grid>
-          )}
-          {satisfiesType(registryTypeFieldValue, [
-            CONTAINER_REGISTRY_TYPE.HARBOR,
-            CONTAINER_REGISTRY_TYPE.NEXUS,
-            CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY,
-            CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
-          ]) && (
-            <Grid item xs={12}>
-              <PushAccountForm />
-            </Grid>
-          )}
-          {satisfiesType(registryTypeFieldValue, [
-            CONTAINER_REGISTRY_TYPE.HARBOR,
-            CONTAINER_REGISTRY_TYPE.NEXUS,
-            CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
-          ]) && (
-            <Grid item xs={12}>
-              <UseSameAccount />
-            </Grid>
-          )}
-          {satisfiesType(registryTypeFieldValue, [
-            CONTAINER_REGISTRY_TYPE.HARBOR,
-            CONTAINER_REGISTRY_TYPE.NEXUS,
-            CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
-          ]) && (
-            <Grid item xs={12}>
-              <PullAccountForm />
-            </Grid>
-          )}
-          <Grid item xs={12}>
-            <Actions />
-          </Grid>
-        </Grid>
-      </MultiFormContextProvider>
-    </DataContextProvider>
+        </MultiFormContextProvider>
+      </DataContextProvider>
+    </div>
   );
 };

@@ -423,7 +423,6 @@ export default function Terminal() {
   return (
     <Dialog
       open={open}
-      onClose={closeDialog}
       onFullScreenToggled={() => {
         setTimeout(() => {
           fitAddonRef.current!.fit();
