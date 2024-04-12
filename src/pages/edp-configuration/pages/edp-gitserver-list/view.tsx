@@ -19,6 +19,7 @@ import { StatusIcon } from '../../../../components/StatusIcon';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
+import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageGitServer } from '../../../../widgets/ManageGitServer';
 import { menu } from '../../menu';
 import { GIT_SERVER_LIST_PAGE_DESCRIPTION } from './constants';
@@ -35,6 +36,7 @@ export const PageView = () => {
   const handleClosePanel = () => setExpandedPanel(null);
 
   const error = gitServers.error || repositorySecrets.error;
+  const forbiddenError = getForbiddenError(error);
   const isLoading = (gitServers.data === null || repositorySecrets.data === null) && !error;
 
   const gitServersLength = gitServers.data ? gitServers.data.length : 0;
@@ -53,9 +55,9 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            {error ? (
+            {forbiddenError ? (
               <Grid item xs={12}>
-                <ErrorContent error={error} outlined />
+                <ErrorContent error={forbiddenError} outlined />
               </Grid>
             ) : (
               <LoadingWrapper isLoading={isLoading}>

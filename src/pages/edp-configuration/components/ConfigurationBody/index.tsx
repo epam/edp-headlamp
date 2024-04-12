@@ -19,6 +19,7 @@ import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { menu } from '../../menu';
 import { ConfigurationBodyProps } from './types';
 
@@ -58,6 +59,8 @@ export const ConfigurationBody = ({
       ? renderPlaceHolderData({ handleClosePlaceholder })
       : null;
   }, [error, isLoading, onlyOneItem, renderPlaceHolderData, showInitialPlaceholder]);
+
+  const forbiddenError = getForbiddenError(error);
 
   return (
     <ConditionalWrapper
@@ -112,8 +115,8 @@ export const ConfigurationBody = ({
                 )}
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
-                    {error ? (
-                      <ErrorContent error={error} outlined />
+                    {forbiddenError ? (
+                      <ErrorContent error={forbiddenError} outlined />
                     ) : isLoading ? (
                       <Grid item xs={12}>
                         <Grid container justifyContent={'center'}>

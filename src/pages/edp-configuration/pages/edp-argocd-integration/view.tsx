@@ -12,6 +12,7 @@ import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
+import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageArgoCDCI } from '../../../../widgets/ManageArgoCDCI';
 import { menu } from '../../menu';
 import { ARGOCD_INTEGRATION_PAGE_DESCRIPTION } from './constants';
@@ -27,7 +28,7 @@ export const PageView = () => {
   );
 
   const error = argoCDSecretsError || argoCDQuickLinkError;
-
+  const forbiddenError = getForbiddenError(error);
   const argoCDSecret = argoCDSecrets?.[0]?.jsonData;
 
   const mode = !!argoCDSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
@@ -48,9 +49,9 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            {error ? (
+            {forbiddenError ? (
               <Grid item xs={12}>
-                <ErrorContent error={error} outlined />
+                <ErrorContent error={forbiddenError} outlined />
               </Grid>
             ) : (
               <Grid item xs={12}>

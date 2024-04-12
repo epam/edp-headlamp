@@ -13,6 +13,7 @@ import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
+import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageSSOCI } from '../../../../widgets/ManageSSOCI';
 import { menu } from '../../menu';
 import { SSO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
@@ -42,6 +43,7 @@ export const PageView = () => {
   );
 
   const error = ssoSecretsError || ingressesError;
+  const forbiddenError = getForbiddenError(error);
   const isLoading = (ssoSecrets === null || ingresses === null) && !error;
 
   const columns = useColumns();
@@ -60,9 +62,9 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            {error ? (
+            {forbiddenError ? (
               <Grid item xs={12}>
-                <ErrorContent error={error} outlined />
+                <ErrorContent error={forbiddenError} outlined />
               </Grid>
             ) : (
               <LoadingWrapper isLoading={isLoading}>

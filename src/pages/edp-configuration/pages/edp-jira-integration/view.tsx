@@ -11,6 +11,7 @@ import { JiraServerKubeObject } from '../../../../k8s/JiraServer';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
+import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageJiraCI } from '../../../../widgets/ManageJiraCI';
 import { menu } from '../../menu';
 import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './constants';
@@ -29,6 +30,7 @@ export const PageView = () => {
 
   const ownerReference = jiraServerSecret?.metadata?.ownerReferences?.[0]?.kind;
   const error = jiraServersError || jiraServerSecretsError;
+  const forbiddenError = getForbiddenError(error);
   const isLoading = (jiraServers === null || jiraServerSecrets === null) && !error;
 
   return (
@@ -45,9 +47,9 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            {error ? (
+            {forbiddenError ? (
               <Grid item xs={12}>
-                <ErrorContent error={error} outlined />
+                <ErrorContent error={forbiddenError} outlined />
               </Grid>
             ) : (
               <Grid item xs={12}>

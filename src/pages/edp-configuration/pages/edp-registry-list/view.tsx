@@ -15,6 +15,7 @@ import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { CONTAINER_REGISTRY_TYPE_LABEL_MAP } from '../../../../k8s/ConfigMap/constants';
 import { FORM_MODES } from '../../../../types/forms';
+import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageRegistry } from '../../../../widgets/ManageRegistry';
 import { menu } from '../../menu';
 import { REGISTRY_LIST_PAGE_DESCRIPTION } from './constants';
@@ -30,6 +31,8 @@ export const PageView = () => {
     pullAccountSecret.error ||
     pushAccountSecret.error ||
     tektonServiceAccount.error;
+
+  const forbiddenError = getForbiddenError(error);
 
   const isLoading =
     EDPConfigMap.isLoading ||
@@ -60,9 +63,9 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            {error ? (
+            {forbiddenError ? (
               <Grid item xs={12}>
-                <ErrorContent error={error} outlined />
+                <ErrorContent error={forbiddenError} outlined />
               </Grid>
             ) : (
               <LoadingWrapper isLoading={isLoading}>

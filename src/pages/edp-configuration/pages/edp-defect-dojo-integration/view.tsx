@@ -12,6 +12,7 @@ import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
+import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageDefectDojoCI } from '../../../../widgets/ManageDefectDojoCI';
 import { menu } from '../../menu';
 import { DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
@@ -32,6 +33,7 @@ export const PageView = () => {
   const ownerReference = defectDojoSecret?.metadata?.ownerReferences?.[0]?.kind;
 
   const error = defectDojoSecretsError || defectDojoQuickLinkError;
+  const forbiddenError = getForbiddenError(error);
   const isLoading = (defectDojoSecrets === null || defectDojoQuickLink === null) && !error;
 
   return (
@@ -47,9 +49,9 @@ export const PageView = () => {
               <LearnMoreLink url={EDP_OPERATOR_GUIDE.DEFECT_DOJO.url} />
             </Typography>
           </Grid>
-          {error ? (
+          {forbiddenError ? (
             <Grid item xs={12}>
-              <ErrorContent error={error} outlined />
+              <ErrorContent error={forbiddenError} outlined />
             </Grid>
           ) : (
             <Grid item xs={12}>

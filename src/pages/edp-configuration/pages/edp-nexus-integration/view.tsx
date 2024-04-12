@@ -12,6 +12,7 @@ import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
+import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageNexusCI } from '../../../../widgets/ManageNexusCI';
 import { menu } from '../../menu';
 import { NEXUS_INTEGRATION_PAGE_DESCRIPTION } from './constants';
@@ -27,6 +28,7 @@ export const PageView = () => {
   );
 
   const error = nexusSecretsError || nexusQuickLinkError;
+  const forbiddenError = getForbiddenError(error);
   const isLoading = (nexusSecrets === null || nexusQuickLink === null) && !error;
 
   const nexusSecret = nexusSecrets?.[0]?.jsonData;
@@ -47,9 +49,9 @@ export const PageView = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            {error ? (
+            {forbiddenError ? (
               <Grid item xs={12}>
-                <ErrorContent error={error} outlined />
+                <ErrorContent error={forbiddenError} outlined />
               </Grid>
             ) : (
               <Grid item xs={12}>
