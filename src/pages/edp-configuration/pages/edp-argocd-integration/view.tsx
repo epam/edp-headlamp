@@ -12,6 +12,7 @@ import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageArgoCDCI } from '../../../../widgets/ManageArgoCDCI';
 import { menu } from '../../menu';
@@ -24,7 +25,8 @@ export const PageView = () => {
   });
 
   const [argoCDQuickLink, argoCDQuickLinkError] = QuickLinkKubeObject.useGet(
-    SYSTEM_QUICK_LINKS.ARGOCD
+    SYSTEM_QUICK_LINKS.ARGOCD,
+    getDefaultNamespace()
   );
 
   const error = argoCDSecretsError || argoCDQuickLinkError;

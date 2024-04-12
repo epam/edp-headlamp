@@ -12,6 +12,7 @@ import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageDefectDojoCI } from '../../../../widgets/ManageDefectDojoCI';
 import { menu } from '../../menu';
@@ -24,7 +25,8 @@ export const PageView = () => {
   });
 
   const [defectDojoQuickLink, defectDojoQuickLinkError] = QuickLinkKubeObject.useGet(
-    SYSTEM_QUICK_LINKS.DEFECT_DOJO
+    SYSTEM_QUICK_LINKS.DEFECT_DOJO,
+    getDefaultNamespace()
   );
 
   const defectDojoSecret = defectDojoSecrets?.[0]?.jsonData;

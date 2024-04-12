@@ -12,6 +12,7 @@ import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageDependencyTrackCI } from '../../../../widgets/ManageDependencyTrackCI';
 import { menu } from '../../menu';
@@ -24,7 +25,8 @@ export const PageView = () => {
   });
 
   const [depTrackQuickLink, depTrackQuickLinkError] = QuickLinkKubeObject.useGet(
-    SYSTEM_QUICK_LINKS.DEPENDENCY_TRACK
+    SYSTEM_QUICK_LINKS.DEPENDENCY_TRACK,
+    getDefaultNamespace()
   );
 
   const dependencyTrackSecret = dependencyTrackSecrets?.[0]?.jsonData;
