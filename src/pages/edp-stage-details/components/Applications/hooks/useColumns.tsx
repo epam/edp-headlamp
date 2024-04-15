@@ -205,7 +205,6 @@ export const useColumns = (
           const {
             application: {
               metadata: { name: appName },
-              spec: { gitServer },
             },
           } = enrichedApplicationWithArgoApplication;
 
@@ -219,7 +218,7 @@ export const useColumns = (
                     CDPipelineName,
                     stage?.spec.name,
                     appName,
-                    gitServer as GIT_SERVERS
+                    gitOpsCodebase.data?.spec.gitServer as GIT_SERVERS
                   )}
                   icon={ICONS.GIT_BRANCH}
                   name="source code"

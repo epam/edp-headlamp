@@ -430,6 +430,7 @@ export default function Terminal() {
       }}
       keepMounted
       withFullScreen
+      onClose={(_, reason) => reason !== 'backdropClick' && closeDialog()}
       title={isAttach ? `Attach: ${item?.metadata.name}` : `Terminal: ${item?.metadata.name}`}
     >
       <DialogContent className={classes.dialogContent}>
