@@ -28,8 +28,12 @@ jobs:
       - name: Check Commit Format
         uses: gsactions/commit-message-checker@v2
         with:
-          pattern: '^(fix|feat|docs|style|refactor|test|chore): .+ \(#\d+\)$'
+          pattern: '^(fix|feat|docs|style|refactor|test|chore){1}(\([\w\-\.]+\))?(!)?: .+( (#\d+))?$'
           error: 'Your commit message should be in the format "type: Description (#issue)". Example: "fix: Update build (#33)"'
+          excludeDescription: 'true'
+          excludeTitle: 'true'
+          checkAllCommitMessages: 'true'
+          accessToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check Line Length
         uses: gsactions/commit-message-checker@v2
