@@ -1,13 +1,22 @@
 import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { Button, Grid, Link, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Grid,
+  Link,
+  Typography,
+} from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { EmptyList } from '../../../../components/EmptyList';
+import { ErrorContent } from '../../../../components/ErrorContent';
+import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
-import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
 import {
@@ -16,9 +25,10 @@ import {
 } from '../../../../k8s/EDPCodebase/labels';
 import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
+import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
 import { ManageGitOps } from '../../../../widgets/ManageGitOps';
-import { ConfigurationBody } from '../../components/ConfigurationBody';
+import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { routeEDPGitServerList } from '../edp-gitserver-list/route';
 import { GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION } from './constants';
 
@@ -28,24 +38,60 @@ export const PageView = () => {
     labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPES.SYSTEM}`,
   });
 
-  const itemsArray = React.useMemo(() => (codebases ? codebases.filter(Boolean) : []), [codebases]);
-
   const gitOpsCodebase =
-    itemsArray.find(
+    codebases?.find(
       (el) => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
     ) ?? null;
 
-  const configurationItemList = React.useMemo(
-    () =>
-      itemsArray.map((el) => {
-        const ownerReference = el?.metadata?.ownerReferences?.[0].kind;
+  const status = gitOpsCodebase?.status?.status;
+  const [icon, color, isRotating] = EDPCodebaseKubeObject.getStatusIcon(status);
 
-        const status = el?.status?.status;
-        const [icon, color, isRotating] = EDPCodebaseKubeObject.getStatusIcon(status);
+  const [gitServers, gitServersError] = EDPGitServerKubeObject.useList();
+  const history = useHistory();
 
-        return {
-          id: el?.metadata?.name || el?.metadata?.uid,
-          title: (
+  const gitServersConfigurationPageRoute = Router.createRouteURL(routeEDPGitServerList.path);
+
+  const error = codebasesError || gitServersError;
+  const isLoading = (codebases === null || gitServers === null) && !error;
+
+  const [isCreateDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
+
+  const handleOpenCreateDialog = () => setCreateDialogOpen(true);
+  const handleCloseCreateDialog = () => setCreateDialogOpen(false);
+
+  const renderPageContent = React.useCallback(() => {
+    const forbiddenError = getForbiddenError(error);
+
+    if (forbiddenError) {
+      return <ErrorContent error={forbiddenError} outlined />;
+    }
+
+    if (!isLoading && !gitServers?.length) {
+      return (
+        <EmptyList
+          customText={'No Git Servers Connected.'}
+          linkText={'Click here to add a Git Server.'}
+          handleClick={() => history.push(gitServersConfigurationPageRoute)}
+        />
+      );
+    }
+
+    if (!isLoading && !gitOpsCodebase && !error) {
+      return (
+        <>
+          <EmptyList
+            customText={'No GitOps repositories found.'}
+            linkText={'Click here to add GitOps repository.'}
+            handleClick={handleOpenCreateDialog}
+          />
+        </>
+      );
+    }
+
+    return (
+      <LoadingWrapper isLoading={isLoading}>
+        <Accordion expanded>
+          <AccordionSummary>
             <Grid container spacing={1} alignItems={'center'}>
               <Grid item style={{ marginRight: rem(5) }}>
                 <StatusIcon
@@ -59,7 +105,7 @@ export const PageView = () => {
                       </Typography>
                       {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
                         <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                          {el?.status?.detailedMessage}
+                          {gitOpsCodebase?.status?.detailedMessage}
                         </Typography>
                       )}
                     </>
@@ -70,7 +116,7 @@ export const PageView = () => {
               <Grid item sx={{ ml: 'auto' }}>
                 <Button
                   component={Link}
-                  href={el?.status?.gitWebUrl}
+                  href={gitOpsCodebase?.status?.gitWebUrl}
                   target="_blank"
                   startIcon={<Icon icon={ICONS.GIT_BRANCH} width="15" height="15" />}
                 >
@@ -78,63 +124,51 @@ export const PageView = () => {
                 </Button>
               </Grid>
             </Grid>
-          ),
-          ownerReference,
-          component: (
+          </AccordionSummary>
+          <AccordionDetails>
             <ManageGitOps
               formData={{
-                currentElement: el,
+                currentElement: gitOpsCodebase,
                 isReadOnly: true,
               }}
             />
-          ),
-        };
-      }),
-    [itemsArray]
-  );
-
-  const creationDisabled = React.useMemo(
-    () => (gitOpsCodebase === null ? false : !!gitOpsCodebase),
-    [gitOpsCodebase]
-  );
-
-  const [gitServers] = EDPGitServerKubeObject.useList();
-  const history = useHistory();
-
-  const gitServersConfigurationPageRoute = Router.createRouteURL(routeEDPGitServerList.path);
+          </AccordionDetails>
+        </Accordion>
+      </LoadingWrapper>
+    );
+  }, [
+    color,
+    error,
+    gitOpsCodebase,
+    gitServers?.length,
+    gitServersConfigurationPageRoute,
+    history,
+    icon,
+    isLoading,
+    isRotating,
+    status,
+  ]);
 
   return (
-    <ConfigurationBody
-      pageData={{
-        label: GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION.label,
-        description: GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION.description,
-        docUrl: EDP_USER_GUIDE.GIT_OPS.url,
-      }}
-      blocker={
-        gitServers !== null && !gitServers?.length ? (
-          <EmptyList
-            customText={'No Git Servers Connected.'}
-            linkText={'Click here to add a Git Server.'}
-            handleClick={() => history.push(gitServersConfigurationPageRoute)}
-          />
-        ) : null
-      }
-      renderPlaceHolderData={({ handleClosePlaceholder }) => ({
-        title: 'Add GitOps Repository',
-        disabled: creationDisabled,
+    <ConfigurationPageContent
+      creationForm={{
+        label: 'Add GitOps repository',
         component: (
           <ManageGitOps
             formData={{
               currentElement: 'placeholder',
-              handleClosePlaceholder,
+              handleClosePlaceholder: handleCloseCreateDialog,
             }}
           />
         ),
-      })}
-      items={codebases === null && !codebasesError ? null : configurationItemList}
-      error={codebasesError}
-      emptyMessage={'No GitOps repositories found'}
-      onlyOneItem
-    />
+        isOpen: isCreateDialogOpen,
+        onOpen: handleOpenCreateDialog,
+        onClose: handleCloseCreateDialog,
+        isDisabled: isLoading || !!gitOpsCodebase,
+      }}
+      pageDescription={GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION}
+    >
+      {renderPageContent()}
+    </ConfigurationPageContent>
   );
 };
