@@ -18,6 +18,7 @@ export const FormActions = () => {
   const { setupJiraServer, isLoading } = useSetupJiraServer({
     onSuccess: () => {
       reset();
+      handleClosePanel();
     },
   });
 

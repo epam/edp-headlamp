@@ -1,26 +1,32 @@
+import { Icon } from '@iconify/react';
 import { K8s } from '@kinvolk/headlamp-plugin/lib';
-import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { Grid, Typography, useTheme } from '@mui/material';
+import {} from '@material-ui/core';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Grid,
+  Stack,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import React from 'react';
+import { EmptyList } from '../../../../components/EmptyList';
 import { ErrorContent } from '../../../../components/ErrorContent';
-import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
-import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
-import { PageWrapper } from '../../../../components/PageWrapper';
 import { Table } from '../../../../components/Table';
-import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageSSOCI } from '../../../../widgets/ManageSSOCI';
-import { menu } from '../../menu';
+import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { SSO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 import { useColumns } from './hooks/useColumns';
 
 export const PageView = () => {
-  const theme = useTheme();
   const [ssoSecrets, ssoSecretsError] = SecretKubeObject.useList({
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=keycloak`,
   });
@@ -43,62 +49,109 @@ export const PageView = () => {
   );
 
   const error = ssoSecretsError || ingressesError;
-  const forbiddenError = getForbiddenError(error);
   const isLoading = (ssoSecrets === null || ingresses === null) && !error;
 
   const columns = useColumns();
 
-  return (
-    <PageWithSubMenu list={menu} title="Configuration">
-      <PageWrapper containerMaxWidth={'xl'}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Typography fontSize={theme.typography.pxToRem(28)} color="primary.dark" gutterBottom>
-              {SSO_INTEGRATION_PAGE_DESCRIPTION.label}
-            </Typography>
-            <Typography variant={'body1'}>
-              {SSO_INTEGRATION_PAGE_DESCRIPTION.description}{' '}
-              <LearnMoreLink url={EDP_OPERATOR_GUIDE.O_AUTH.url} />
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            {forbiddenError ? (
-              <Grid item xs={12}>
-                <ErrorContent error={forbiddenError} outlined />
+  const [isCreateDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
+
+  const handleOpenCreateDialog = () => setCreateDialogOpen(true);
+  const handleCloseCreateDialog = () => setCreateDialogOpen(false);
+
+  const renderPageContent = React.useCallback(() => {
+    const forbiddenError = getForbiddenError(error);
+
+    if (forbiddenError) {
+      return <ErrorContent error={forbiddenError} outlined />;
+    }
+
+    if (!ssoSecret && !isLoading && !error) {
+      return (
+        <>
+          <EmptyList
+            customText={'No SSO integration secrets found.'}
+            linkText={'Click here to add integration.'}
+            handleClick={handleOpenCreateDialog}
+          />
+        </>
+      );
+    }
+
+    const ownerReference = ssoSecret?.metadata?.ownerReferences?.[0]?.kind;
+
+    return (
+      <LoadingWrapper isLoading={isLoading}>
+        <Accordion expanded>
+          <AccordionSummary style={{ cursor: 'default' }}>
+            <Typography variant={'h6'}>
+              <Grid container spacing={1} alignItems={'center'}>
+                <Grid item>{ssoSecret?.metadata.name}</Grid>
+                {!!ownerReference && (
+                  <Grid item>
+                    <Tooltip title={`Managed by ${ownerReference}`}>
+                      <Icon
+                        icon={ICONS.CLOUD_LOCK}
+                        width={20}
+                        style={{
+                          display: 'block',
+                        }}
+                      />
+                    </Tooltip>
+                  </Grid>
+                )}
               </Grid>
-            ) : (
-              <LoadingWrapper isLoading={isLoading}>
-                <ManageSSOCI
-                  formData={{
-                    ssoSecret,
-                    ownerReference,
-                    isReadOnly: !!ownerReference,
-                    mode,
-                  }}
-                />
-              </LoadingWrapper>
-            )}
-            {!ssoSecret && !isLoading && !error && (
-              <Grid item xs={12}>
-                <EmptyContent color={'textSecondary'}>
-                  No SSO integration secrets found
-                </EmptyContent>
-              </Grid>
-            )}
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h4" gutterBottom component="span">
-              Ingresses
             </Typography>
-            <Table<KubeObjectInterface>
-              isLoading={OAuthIngresses === null}
-              data={OAuthIngresses}
-              error={ingressesError}
-              columns={columns}
+          </AccordionSummary>
+          <AccordionDetails>
+            <ManageSSOCI
+              formData={{
+                ssoSecret,
+                ownerReference,
+                isReadOnly: !!ownerReference,
+                mode,
+              }}
             />
-          </Grid>
-        </Grid>
-      </PageWrapper>
-    </PageWithSubMenu>
+          </AccordionDetails>
+        </Accordion>
+      </LoadingWrapper>
+    );
+  }, [error, isLoading, mode, ssoSecret]);
+
+  return (
+    <ConfigurationPageContent
+      creationForm={{
+        label: 'Add Integration',
+        component: (
+          <ManageSSOCI
+            formData={{
+              ssoSecret,
+              ownerReference,
+              isReadOnly: !!ownerReference,
+              mode,
+            }}
+          />
+        ),
+        isOpen: isCreateDialogOpen,
+        onOpen: handleOpenCreateDialog,
+        onClose: handleCloseCreateDialog,
+        isDisabled: isLoading || !!ssoSecret,
+      }}
+      pageDescription={SSO_INTEGRATION_PAGE_DESCRIPTION}
+    >
+      <Stack spacing={2}>
+        <div>{renderPageContent()}</div>
+        <div>
+          <Typography variant="h4" gutterBottom component="span">
+            Ingresses
+          </Typography>
+          <Table<KubeObjectInterface>
+            isLoading={OAuthIngresses === null}
+            data={OAuthIngresses}
+            error={ingressesError}
+            columns={columns}
+          />
+        </div>
+      </Stack>
+    </ConfigurationPageContent>
   );
 };

@@ -1,84 +1,164 @@
-import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Grid, Typography, useTheme } from '@mui/material';
+import { Icon } from '@iconify/react';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Grid,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import React from 'react';
+import { EmptyList } from '../../../../components/EmptyList';
 import { ErrorContent } from '../../../../components/ErrorContent';
-import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
-import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
-import { PageWrapper } from '../../../../components/PageWrapper';
-import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
+import { StatusIcon } from '../../../../components/StatusIcon';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObject } from '../../../../k8s/QuickLink';
 import { SYSTEM_QUICK_LINKS } from '../../../../k8s/QuickLink/constants';
 import { SecretKubeObject } from '../../../../k8s/Secret';
+import {
+  SECRET_ANNOTATION_INTEGRATION_SECRET_CONNECTED,
+  SECRET_ANNOTATION_INTEGRATION_SECRET_ERROR,
+} from '../../../../k8s/Secret/annotations';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
+import { rem } from '../../../../utils/styling/rem';
 import { ManageSonarCI } from '../../../../widgets/ManageSonarCI';
-import { menu } from '../../menu';
+import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { SONAR_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
 export const PageView = () => {
-  const theme = useTheme();
   const [sonarSecrets, sonarSecretsError] = SecretKubeObject.useList({
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.SONAR}`,
   });
 
-  const [sonarQuickLink, sonarQuickLinkError] = QuickLinkKubeObject.useGet(
+  const [_sonarQuickLink, sonarQuickLinkError] = QuickLinkKubeObject.useGet(
     SYSTEM_QUICK_LINKS.SONAR,
     getDefaultNamespace()
   );
 
   const sonarSecret = sonarSecrets?.[0]?.jsonData;
+  const sonarQuickLink = _sonarQuickLink?.jsonData;
 
   const mode = !!sonarSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+
   const ownerReference = sonarSecret?.metadata?.ownerReferences?.[0]?.kind;
   const error = sonarSecretsError || sonarQuickLinkError;
-  const forbiddenError = getForbiddenError(error);
   const isLoading = (sonarSecrets === null || sonarQuickLink === null) && !error;
 
-  return (
-    <PageWithSubMenu list={menu} title="Configuration">
-      <PageWrapper containerMaxWidth={'xl'}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Typography fontSize={theme.typography.pxToRem(28)} color="primary.dark" gutterBottom>
-              {SONAR_INTEGRATION_PAGE_DESCRIPTION.label}
-            </Typography>
-            <Typography variant={'body1'}>
-              {SONAR_INTEGRATION_PAGE_DESCRIPTION.description}{' '}
-              <LearnMoreLink url={EDP_OPERATOR_GUIDE.SONAR.url} />
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            {forbiddenError ? (
-              <Grid item xs={12}>
-                <ErrorContent error={forbiddenError} outlined />
-              </Grid>
-            ) : (
-              <Grid item xs={12}>
-                <LoadingWrapper isLoading={isLoading}>
-                  <ManageSonarCI
-                    formData={{
-                      sonarSecret,
-                      sonarQuickLink: sonarQuickLink?.jsonData,
-                      ownerReference,
-                      mode,
-                    }}
+  const [isCreateDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
+
+  const handleOpenCreateDialog = () => setCreateDialogOpen(true);
+  const handleCloseCreateDialog = () => setCreateDialogOpen(false);
+
+  const renderPageContent = React.useCallback(() => {
+    const forbiddenError = getForbiddenError(error);
+
+    if (forbiddenError) {
+      return <ErrorContent error={forbiddenError} outlined />;
+    }
+
+    if (!sonarSecret && !isLoading && !error) {
+      return (
+        <>
+          <EmptyList
+            customText={'No SonarQube integration secrets found.'}
+            linkText={'Click here to add integration.'}
+            handleClick={handleOpenCreateDialog}
+          />
+        </>
+      );
+    }
+
+    const ownerReference = sonarSecret?.metadata?.ownerReferences?.[0]?.kind;
+
+    const connected =
+      sonarSecret?.metadata?.annotations?.[SECRET_ANNOTATION_INTEGRATION_SECRET_CONNECTED];
+    const statusError =
+      sonarSecret?.metadata?.annotations?.[SECRET_ANNOTATION_INTEGRATION_SECRET_ERROR];
+
+    const [icon, color] = SecretKubeObject.getStatusIcon(connected);
+
+    return (
+      <LoadingWrapper isLoading={isLoading}>
+        <Accordion expanded>
+          <AccordionSummary style={{ cursor: 'default' }}>
+            <Typography variant={'h6'}>
+              <Grid container spacing={1} alignItems={'center'}>
+                <Grid item style={{ marginRight: rem(5) }}>
+                  <StatusIcon
+                    icon={icon}
+                    color={color}
+                    Title={
+                      <>
+                        <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                          {`Connected: ${connected === undefined ? 'Unknown' : connected}`}
+                        </Typography>
+                        {!!statusError && (
+                          <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                            {statusError}
+                          </Typography>
+                        )}
+                      </>
+                    }
                   />
-                </LoadingWrapper>
+                </Grid>
+                <Grid item>{sonarSecret?.metadata.name}</Grid>
+                {!!ownerReference && (
+                  <Grid item>
+                    <Tooltip title={`Managed by ${ownerReference}`}>
+                      <Icon
+                        icon={ICONS.CLOUD_LOCK}
+                        width={20}
+                        style={{
+                          display: 'block',
+                        }}
+                      />
+                    </Tooltip>
+                  </Grid>
+                )}
               </Grid>
-            )}
-            {!sonarSecret && !isLoading && !error && (
-              <Grid item xs={12}>
-                <EmptyContent color={'textSecondary'}>
-                  No SonarQube integration secrets found
-                </EmptyContent>
-              </Grid>
-            )}
-          </Grid>
-        </Grid>
-      </PageWrapper>
-    </PageWithSubMenu>
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <ManageSonarCI
+              formData={{
+                sonarSecret,
+                sonarQuickLink,
+                ownerReference,
+                mode,
+              }}
+            />
+          </AccordionDetails>
+        </Accordion>
+      </LoadingWrapper>
+    );
+  }, [error, sonarSecret, isLoading, sonarQuickLink, mode]);
+
+  return (
+    <ConfigurationPageContent
+      creationForm={{
+        label: 'Add Integration',
+        component: (
+          <ManageSonarCI
+            formData={{
+              sonarSecret,
+              sonarQuickLink,
+              ownerReference,
+              mode,
+            }}
+          />
+        ),
+        isOpen: isCreateDialogOpen,
+        onOpen: handleOpenCreateDialog,
+        onClose: handleCloseCreateDialog,
+        isDisabled: isLoading || !!sonarSecret,
+      }}
+      pageDescription={SONAR_INTEGRATION_PAGE_DESCRIPTION}
+    >
+      {renderPageContent()}
+    </ConfigurationPageContent>
   );
 };

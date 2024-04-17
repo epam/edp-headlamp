@@ -32,7 +32,6 @@ export const EmptyList = ({
           width: '100%',
           border: `1px dashed ${theme.palette.divider}`,
           borderRadius: theme.typography.pxToRem(4),
-          minHeight: theme.typography.pxToRem(470),
         }}
       >
         <Box sx={{ mb: theme.typography.pxToRem(16) }}>
