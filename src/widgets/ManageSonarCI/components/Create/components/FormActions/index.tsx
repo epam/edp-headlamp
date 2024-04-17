@@ -26,9 +26,7 @@ export const FormActions = () => {
     createSecret,
     mutations: { secretCreateMutation, secretEditMutation, secretDeleteMutation },
   } = useSecretCRUD({
-    onSuccess: async () => {
-      handleClosePanel();
-    },
+    onSuccess: handleClosePanel,
   });
 
   const {
