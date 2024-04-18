@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { useStreamApplicationListByPipelineStageLabel } from '../../../../k8s/Application/hooks/useStreamApplicationListByPipelineStageLabel';
 import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
+import { EDPGitServerKubeObject } from '../../../../k8s/EDPGitServer';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import {
   PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE,
@@ -40,7 +41,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const stageMetadataName = stage?.metadata.name;
   const stageTriggerTemplate = stage?.spec.triggerTemplate;
 
-  const [pipelineRuns] = PipelineRunKubeObject.useList();
+  const [pipelineRuns, pipelineRunsError] = PipelineRunKubeObject.useList();
+  const [gitServers, gitServersError] = EDPGitServerKubeObject.useList();
 
   const sortedPipelineRuns = React.useMemo(() => {
     if (pipelineRuns === null) {
@@ -117,17 +119,17 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       autotestPipelineRuns: {
         data: latestTenAutotestPipelineRuns,
         isLoading: latestTenAutotestPipelineRuns === null,
-        error: null,
+        error: pipelineRunsError,
       },
       deployPipelineRuns: {
         data: latestTenDeployPipelineRuns,
         isLoading: latestTenDeployPipelineRuns === null,
-        error: null,
+        error: pipelineRunsError,
       },
       autotestRunnerPipelineRuns: {
         data: latestTenAutotestRunnerPipelineRuns,
         isLoading: latestTenAutotestRunnerPipelineRuns === null,
-        error: null,
+        error: pipelineRunsError,
       },
       argoApplications: {
         data: argoApplications,
@@ -139,15 +141,25 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: deployPipelineRunTemplate.isLoading,
         error: deployPipelineRunTemplate.error as ApiError,
       },
+      gitServers: {
+        data: gitServers,
+        isLoading: gitServers === null,
+        error: gitServersError,
+      },
     }),
     [
       stage,
       error,
       latestTenAutotestPipelineRuns,
+      pipelineRunsError,
       latestTenDeployPipelineRuns,
       latestTenAutotestRunnerPipelineRuns,
       argoApplications,
-      deployPipelineRunTemplate,
+      deployPipelineRunTemplate.data,
+      deployPipelineRunTemplate.isLoading,
+      deployPipelineRunTemplate.error,
+      gitServers,
+      gitServersError,
     ]
   );
 

@@ -52,6 +52,7 @@ export const useColumns = (
   const { gitOpsCodebase } = useDataContext();
   const {
     stage: { data: stage, isLoading: isStageLoading },
+    gitServers: { data: gitServers, isLoading: isGitServersLoading },
   } = useDynamicDataContext();
   const _createArgoCDLink = React.useCallback(
     (argoApplication: ApplicationKubeObjectInterface) =>
@@ -63,6 +64,16 @@ export const useColumns = (
       ),
     [QuickLinksURLS]
   );
+
+  const gitOpsGitServer = React.useMemo(() => {
+    if (isGitServersLoading || gitOpsCodebase === null) {
+      return null;
+    }
+
+    return gitServers?.find(
+      (gitServer) => gitServer.metadata.name === gitOpsCodebase.data?.spec.gitServer
+    );
+  }, [gitOpsCodebase, gitServers, isGitServersLoading]);
 
   const isLoading = gitOpsCodebase === null || isStageLoading;
 
@@ -218,7 +229,7 @@ export const useColumns = (
                     CDPipelineName,
                     stage?.spec.name,
                     appName,
-                    gitOpsCodebase.data?.spec.gitServer as GIT_SERVERS
+                    gitOpsGitServer?.spec.gitProvider as GIT_SERVERS
                   )}
                   icon={ICONS.GIT_BRANCH}
                   name="source code"
@@ -386,7 +397,8 @@ export const useColumns = (
   }, [
     CDPipelineName,
     _createArgoCDLink,
-    gitOpsCodebase.data,
+    gitOpsCodebase.data?.status.gitWebUrl,
+    gitOpsGitServer?.spec.gitProvider,
     handleSelectRowClick,
     isLoading,
     selected,

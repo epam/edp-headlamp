@@ -100,7 +100,7 @@ export const ManageGitServer = ({
               <CredentialsForm gitServerSecret={gitServerSecret} />
             </Grid>
             <Grid item xs={12}>
-              <Actions handleClosePanel={handleClosePanel} />
+              <Actions />
             </Grid>
           </Grid>
         </MultiFormContextProvider>
