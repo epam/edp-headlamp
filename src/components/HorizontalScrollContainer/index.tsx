@@ -7,19 +7,24 @@ export const HorizontalScrollContainer: React.FC = ({ children }) => {
   const container = React.useRef<HTMLDivElement | null>(null);
 
   const handler = React.useCallback((e: WheelEvent) => {
-    e.preventDefault();
     if (container.current) {
-      container.current.scrollLeft += e.deltaY;
+      if (
+        (e.deltaY < 0 && container.current.scrollLeft > 0) ||
+        (e.deltaY > 0 &&
+          container.current.scrollLeft <
+            container.current.scrollWidth - container.current.clientWidth)
+      ) {
+        e.preventDefault();
+        container.current.scrollLeft += e.deltaY;
+      }
     }
   }, []);
 
   React.useEffect(() => {
     const el = container.current;
-
     if (el) {
       el.addEventListener('wheel', handler, { passive: false });
     }
-
     return () => {
       if (el) {
         el.removeEventListener('wheel', handler);
