@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Table } from '../../../../components/Table';
@@ -396,6 +396,7 @@ export const Applications = ({
             isSelected={(row) => selected.indexOf(row.application.metadata.name) !== -1}
           />
         </Grid>
+        <Stack>asd</Stack>
       </Grid>
     </>
   );

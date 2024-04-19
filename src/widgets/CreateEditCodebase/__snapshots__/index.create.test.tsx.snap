@@ -157,7 +157,7 @@ exports[`renders CreateEditCodebase Create component 1`] = `
                 role="tabpanel"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-zow5z4-MuiGrid-root"
                 >
                   <div
                     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
@@ -176,7 +176,7 @@ exports[`renders CreateEditCodebase Create component 1`] = `
                             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                           >
                             <div
-                              class="MuiFormGroup-root MuiFormGroup-row makeStyles-radioGroup-2 css-qfz70r-MuiFormGroup-root"
+                              class="MuiFormGroup-root MuiFormGroup-row MuiRadioGroup-root MuiRadioGroup-row makeStyles-radioGroup-2 css-qfz70r-MuiFormGroup-root"
                               role="radiogroup"
                             >
                               <div
@@ -433,7 +433,7 @@ exports[`renders CreateEditCodebase Create component 1`] = `
                 role="tabpanel"
               >
                 <button
-                  class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall css-vw8gqz-MuiButtonBase-root-MuiButton-root"
+                  class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
                   disabled=""
                   tabindex="-1"
                   type="button"
