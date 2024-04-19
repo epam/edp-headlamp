@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react';
 import { K8s } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import {} from '@material-ui/core';
 import {
   Accordion,
   AccordionDetails,

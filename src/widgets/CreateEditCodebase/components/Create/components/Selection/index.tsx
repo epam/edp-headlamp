@@ -1,10 +1,10 @@
-import { Grid } from '@material-ui/core';
 import {
   Box,
   Button,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
   Stack,
   Step,
   StepLabel,
