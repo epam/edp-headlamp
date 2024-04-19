@@ -6,5 +6,5 @@ export const SONAR_INTEGRATION_PAGE_DESCRIPTION: PageDescription = {
   label: 'SonarQube',
   description: 'Enable automated code review mechanisms powered by SonarQube.',
   routePath: '/configuration/sonar-integration',
-  docLink: EDP_OPERATOR_GUIDE.SONAR.url
+  docLink: EDP_OPERATOR_GUIDE.SONAR.url,
 };

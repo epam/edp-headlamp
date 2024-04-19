@@ -7,10 +7,12 @@ export const createImageStreamTags = (
 ) => {
   let base: SelectOption[] =
     applicationImageStream && applicationImageStream?.spec?.tags
-      ? applicationImageStream?.spec?.tags.map(({ name }) => ({
-          label: name,
-          value: name,
-        }))
+      ? applicationImageStream?.spec?.tags
+          .map(({ name }) => ({
+            label: name,
+            value: name,
+          }))
+          .reverse()
       : [];
 
   if (applicationImageStream && applicationImageStream?.spec?.tags) {

@@ -14,7 +14,12 @@ export const ValuesOverrideCheckbox = ({
     control,
     formState: { errors },
     register,
+    setValue,
   } = useFormContext();
+
+  React.useEffect(() => {
+    setValue(`${application.metadata.name}::values-override`, defaultValue);
+  }, [application.metadata.name, defaultValue, setValue]);
 
   return (
     <div style={{ width: '100%' }}>
