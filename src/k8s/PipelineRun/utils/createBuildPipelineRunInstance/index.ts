@@ -59,6 +59,9 @@ export const createBuildPipelineRunInstance = ({
         'app.edp.epam.com/codebase': codebaseName,
         'app.edp.epam.com/pipelinetype': 'build',
       },
+      annotations: {
+        'argocd.argoproj.io/compare-options': 'IgnoreExtraneous',
+      },
     },
     spec: {
       params: [
