@@ -53,6 +53,9 @@ describe('testing createBuildPipelineRunInstance', () => {
           'app.edp.epam.com/codebase': 'test-codebase-name',
           'app.edp.epam.com/pipelinetype': 'build',
         },
+        annotations: {
+          'argocd.argoproj.io/compare-options': 'IgnoreExtraneous',
+        },
       },
       spec: {
         params: [
