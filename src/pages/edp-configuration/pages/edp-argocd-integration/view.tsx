@@ -25,7 +25,7 @@ import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
-import { ManageArgoCDCI } from '../../../../widgets/ManageArgoCDCI';
+import { ManageArgoCD } from '../../../../widgets/ManageArgoCD';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { ARGOCD_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
@@ -44,7 +44,6 @@ export const PageView = () => {
   const argoCDQuickLink = _argoCDQuickLink?.jsonData;
   const mode = !!argoCDSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
-  const ownerReference = argoCDSecret?.metadata?.ownerReferences?.[0]?.kind;
   const isLoading = (argoCDSecrets === null || argoCDQuickLink === null) && !error;
 
   const [isCreateDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
@@ -122,13 +121,12 @@ export const PageView = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ManageArgoCDCI
-              formData={{
-                argoCDSecret,
-                argoCDQuickLink,
-                ownerReference,
-                mode,
-              }}
+            <ManageArgoCD
+              secret={argoCDSecret}
+              quickLink={argoCDQuickLink}
+              mode={mode}
+              ownerReference={ownerReference}
+              handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
@@ -141,13 +139,12 @@ export const PageView = () => {
       creationForm={{
         label: 'Add Integration',
         component: (
-          <ManageArgoCDCI
-            formData={{
-              argoCDSecret,
-              argoCDQuickLink,
-              ownerReference,
-              mode,
-            }}
+          <ManageArgoCD
+            secret={argoCDSecret}
+            quickLink={argoCDQuickLink}
+            mode={mode}
+            ownerReference={null}
+            handleClosePanel={handleCloseCreateDialog}
           />
         ),
         isOpen: isCreateDialogOpen,

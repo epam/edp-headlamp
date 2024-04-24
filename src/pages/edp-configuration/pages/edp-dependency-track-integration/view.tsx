@@ -25,7 +25,7 @@ import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
-import { ManageDependencyTrackCI } from '../../../../widgets/ManageDependencyTrackCI';
+import { ManageDefectDojo } from '../../../../widgets/ManageDefectDojo';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
@@ -42,8 +42,6 @@ export const PageView = () => {
   const dependencyTrackSecret = dependencyTrackSecrets?.[0]?.jsonData;
   const depTrackQuickLink = _depTrackQuickLink?.jsonData;
   const mode = !!dependencyTrackSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
-
-  const ownerReference = dependencyTrackSecret?.metadata?.ownerReferences?.[0]?.kind;
 
   const error = dependencyTrackSecretsError || depTrackQuickLinkError;
   const isLoading = (dependencyTrackSecrets === null || depTrackQuickLink === null) && !error;
@@ -125,13 +123,12 @@ export const PageView = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ManageDependencyTrackCI
-              formData={{
-                dependencyTrackSecret,
-                depTrackQuickLink,
-                ownerReference,
-                mode,
-              }}
+            <ManageDefectDojo
+              secret={dependencyTrackSecret}
+              quickLink={depTrackQuickLink}
+              mode={mode}
+              ownerReference={ownerReference}
+              handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
@@ -144,13 +141,12 @@ export const PageView = () => {
       creationForm={{
         label: 'Add Integration',
         component: (
-          <ManageDependencyTrackCI
-            formData={{
-              dependencyTrackSecret,
-              depTrackQuickLink,
-              ownerReference,
-              mode,
-            }}
+          <ManageDefectDojo
+            secret={dependencyTrackSecret}
+            quickLink={depTrackQuickLink}
+            mode={mode}
+            ownerReference={null}
+            handleClosePanel={handleCloseCreateDialog}
           />
         ),
         isOpen: isCreateDialogOpen,

@@ -19,7 +19,7 @@ import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
-import { ManageJiraCI } from '../../../../widgets/ManageJiraCI';
+import { ManageJira } from '../../../../widgets/ManageJira';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
@@ -110,7 +110,7 @@ export const PageView = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ManageJiraCI
+            <ManageJira
               formData={{
                 jiraServer,
                 jiraServerSecret,
@@ -130,7 +130,7 @@ export const PageView = () => {
       creationForm={{
         label: 'Add Integration',
         component: (
-          <ManageJiraCI
+          <ManageJira
             formData={{
               jiraServer,
               jiraServerSecret,
