@@ -17,7 +17,7 @@ jobs:
   check-commit-message:
     runs-on: ubuntu-20.04
     env:
-      COMMIT_MESSAGE_PATTERN: '^(feat|fix|docs|style|refactor|test|chore){1}(!)?:\s[A-Z][a-z]([\/\.\w\-\s]+)\(\#\d+\)$'
+      COMMIT_MESSAGE_PATTERN: '^(fix|feat|docs|style|refactor|test|chore){1}(\([\w\-\.]+\))?(!)?: .+( (#\d+))?$'
       MAX_LINE_LENGTH: '80'
     steps:
       - name: Checkout code
