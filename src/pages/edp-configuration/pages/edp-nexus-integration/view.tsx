@@ -19,7 +19,7 @@ import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
-import { ManageNexusCI } from '../../../../widgets/ManageNexusCI';
+import { ManageNexus } from '../../../../widgets/ManageNexus';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { NEXUS_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
@@ -115,13 +115,12 @@ export const PageView = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ManageNexusCI
-              formData={{
-                nexusSecret,
-                nexusQuickLink,
-                ownerReference,
-                mode,
-              }}
+            <ManageNexus
+              secret={nexusSecret}
+              quickLink={nexusQuickLink}
+              mode={mode}
+              ownerReference={ownerReference}
+              handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
@@ -134,14 +133,12 @@ export const PageView = () => {
       creationForm={{
         label: 'Add Integration',
         component: (
-          <ManageNexusCI
-            formData={{
-              nexusSecret,
-              nexusQuickLink,
-              ownerReference: null,
-              mode,
-              handleClosePanel: handleCloseCreateDialog,
-            }}
+          <ManageNexus
+            secret={nexusSecret}
+            quickLink={nexusQuickLink}
+            mode={mode}
+            ownerReference={null}
+            handleClosePanel={handleCloseCreateDialog}
           />
         ),
         isOpen: isCreateDialogOpen,

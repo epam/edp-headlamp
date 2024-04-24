@@ -25,7 +25,7 @@ import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
-import { ManageDefectDojoCI } from '../../../../widgets/ManageDefectDojoCI';
+import { ManageDefectDojo } from '../../../../widgets/ManageDefectDojo';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
@@ -42,8 +42,6 @@ export const PageView = () => {
   const defectDojoSecret = defectDojoSecrets?.[0]?.jsonData;
   const defectDojoQuickLink = _defectDojoQuickLink?.jsonData;
   const mode = !!defectDojoSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
-
-  const ownerReference = defectDojoSecret?.metadata?.ownerReferences?.[0]?.kind;
 
   const error = defectDojoSecretsError || defectDojoQuickLinkError;
   const isLoading = (defectDojoSecrets === null || defectDojoQuickLink === null) && !error;
@@ -123,13 +121,12 @@ export const PageView = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ManageDefectDojoCI
-              formData={{
-                defectDojoSecret,
-                defectDojoQuickLink,
-                ownerReference,
-                mode,
-              }}
+            <ManageDefectDojo
+              secret={defectDojoSecret}
+              quickLink={defectDojoQuickLink}
+              mode={mode}
+              ownerReference={ownerReference}
+              handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
@@ -142,13 +139,12 @@ export const PageView = () => {
       creationForm={{
         label: 'Add Integration',
         component: (
-          <ManageDefectDojoCI
-            formData={{
-              defectDojoSecret,
-              defectDojoQuickLink,
-              ownerReference,
-              mode,
-            }}
+          <ManageDefectDojo
+            secret={defectDojoSecret}
+            quickLink={defectDojoQuickLink}
+            mode={mode}
+            ownerReference={null}
+            handleClosePanel={handleCloseCreateDialog}
           />
         ),
         isOpen: isCreateDialogOpen,

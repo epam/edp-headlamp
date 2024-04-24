@@ -20,7 +20,7 @@ import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
 import { FORM_MODES } from '../../../../types/forms';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
-import { ManageSSOCI } from '../../../../widgets/ManageSSOCI';
+import { ManageSSO } from '../../../../widgets/ManageSSO';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { SSO_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 import { useColumns } from './hooks/useColumns';
@@ -102,7 +102,7 @@ export const PageView = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ManageSSOCI
+            <ManageSSO
               formData={{
                 ssoSecret,
                 ownerReference,
@@ -121,7 +121,7 @@ export const PageView = () => {
       creationForm={{
         label: 'Add Integration',
         component: (
-          <ManageSSOCI
+          <ManageSSO
             formData={{
               ssoSecret,
               ownerReference,

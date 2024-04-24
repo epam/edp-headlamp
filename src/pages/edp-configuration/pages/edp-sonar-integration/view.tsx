@@ -25,7 +25,7 @@ import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
-import { ManageSonarCI } from '../../../../widgets/ManageSonarCI';
+import { ManageSonar } from '../../../../widgets/ManageSonar';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { SONAR_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
@@ -44,7 +44,6 @@ export const PageView = () => {
 
   const mode = !!sonarSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
-  const ownerReference = sonarSecret?.metadata?.ownerReferences?.[0]?.kind;
   const error = sonarSecretsError || sonarQuickLinkError;
   const isLoading = (sonarSecrets === null || sonarQuickLink === null) && !error;
 
@@ -123,13 +122,12 @@ export const PageView = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ManageSonarCI
-              formData={{
-                sonarSecret,
-                sonarQuickLink,
-                ownerReference,
-                mode,
-              }}
+            <ManageSonar
+              secret={sonarSecret}
+              quickLink={sonarQuickLink}
+              mode={mode}
+              ownerReference={ownerReference}
+              handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
@@ -142,13 +140,12 @@ export const PageView = () => {
       creationForm={{
         label: 'Add Integration',
         component: (
-          <ManageSonarCI
-            formData={{
-              sonarSecret,
-              sonarQuickLink,
-              ownerReference,
-              mode,
-            }}
+          <ManageSonar
+            secret={sonarSecret}
+            quickLink={sonarQuickLink}
+            mode={mode}
+            ownerReference={null}
+            handleClosePanel={handleCloseCreateDialog}
           />
         ),
         isOpen: isCreateDialogOpen,
