@@ -30,7 +30,7 @@ const filterByLabels = (items: KubeObjectInterface[], labels: Record<string, str
 };
 
 const sortFn = (data: PipelineRunKubeObjectInterface[]) =>
-  data.sort(sortKubeObjectByCreationTimestamp).slice(0, 10);
+  data.sort(sortKubeObjectByCreationTimestamp);
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const { CDPipelineName, stageName, namespace } = useParams<EDPStageDetailsRouteParams>();
@@ -44,15 +44,12 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const [pipelineRuns, pipelineRunsError] = PipelineRunKubeObject.useList();
   const [gitServers, gitServersError] = EDPGitServerKubeObject.useList();
 
-  const sortedPipelineRuns = React.useMemo(() => {
-    if (pipelineRuns === null) {
-      return null; //loading
-    }
+  const sortedPipelineRuns = React.useMemo(
+    () => (pipelineRuns === null ? null : sortFn(pipelineRuns)),
+    [pipelineRuns]
+  );
 
-    return sortFn(pipelineRuns);
-  }, [pipelineRuns]);
-
-  const latestTenDeployPipelineRuns = React.useMemo(() => {
+  const deployPipelineRuns = React.useMemo(() => {
     if (!stageMetadataName || !CDPipelineName || sortedPipelineRuns === null) {
       return null; // loading
     }
@@ -63,9 +60,13 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.DEPLOY,
     });
   }, [CDPipelineName, sortedPipelineRuns, stageMetadataName]);
+  const latestTenDeployPipelineRuns = React.useMemo(
+    () => (deployPipelineRuns === null ? null : deployPipelineRuns?.slice(0, 10)),
+    [deployPipelineRuns]
+  );
 
-  const latestTenAutotestRunnerPipelineRuns = React.useMemo(() => {
-    if (!stageSpecName || !CDPipelineName || sortedPipelineRuns === null) {
+  const autotestRunnerPipelineRuns = React.useMemo(() => {
+    if (!stageMetadataName || !CDPipelineName || sortedPipelineRuns === null) {
       return null; // loading
     }
 
@@ -74,24 +75,35 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       [PIPELINE_RUN_LABEL_SELECTOR_STAGE]: stageSpecName,
       [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.AUTOTEST_RUNNER,
     });
-  }, [CDPipelineName, sortedPipelineRuns, stageSpecName]);
-
-  const latestAutotestRunnerPipelineRunName = React.useMemo(
-    () => latestTenAutotestRunnerPipelineRuns?.[0]?.metadata.name,
-    [latestTenAutotestRunnerPipelineRuns]
+  }, [CDPipelineName, sortedPipelineRuns, stageMetadataName, stageSpecName]);
+  const latestTenAutotestRunnerPipelineRuns = React.useMemo(
+    () => (autotestRunnerPipelineRuns === null ? null : autotestRunnerPipelineRuns?.slice(0, 10)),
+    [autotestRunnerPipelineRuns]
   );
 
-  const latestTenAutotestPipelineRuns = React.useMemo(() => {
-    if (!stageSpecName || !CDPipelineName || sortedPipelineRuns === null) {
+  const autotestPipelineRuns = React.useMemo(() => {
+    if (!stageMetadataName || !CDPipelineName || sortedPipelineRuns === null) {
       return null; // loading
     }
+
+    const latestAutotestRunnerPipelineRunName = autotestRunnerPipelineRuns?.[0]?.metadata.name;
 
     return filterByLabels(sortedPipelineRuns, {
       [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE]: CDPipelineName,
       [PIPELINE_RUN_LABEL_SELECTOR_STAGE]: stageSpecName,
       [PIPELINE_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN]: latestAutotestRunnerPipelineRunName,
     });
-  }, [CDPipelineName, latestAutotestRunnerPipelineRunName, sortedPipelineRuns, stageSpecName]);
+  }, [
+    CDPipelineName,
+    autotestRunnerPipelineRuns,
+    sortedPipelineRuns,
+    stageMetadataName,
+    stageSpecName,
+  ]);
+  const latestTenAutotestPipelineRuns = React.useMemo(
+    () => (autotestPipelineRuns === null ? null : autotestPipelineRuns?.slice(0, 10)),
+    [autotestPipelineRuns]
+  );
 
   const argoApplications = useStreamApplicationListByPipelineStageLabel({
     namespace,
