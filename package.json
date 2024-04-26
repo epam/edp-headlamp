@@ -9,7 +9,7 @@
     "plugins"
   ],
   "scripts": {
-    "build": "headlamp-plugin build",
+    "build:prod": "headlamp-plugin build",
     "format": "headlamp-plugin format",
     "lint": "headlamp-plugin lint & headlamp-plugin tsc",
     "tsc": "headlamp-plugin tsc",
