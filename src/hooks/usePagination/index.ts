@@ -185,7 +185,7 @@ export const usePagination = ({
   prefix,
   initialPage,
   rowsPerPage,
-  entityName = 'table',
+  entityName = 'tables',
 }) => {
   const entityRowsPerPageLSKey = `${entityName}_rows_per_page`;
   const [page, setPage] = usePageURLState(reflectInURL ? 'p' : '', prefix, initialPage);
