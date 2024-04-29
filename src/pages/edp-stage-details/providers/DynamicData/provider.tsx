@@ -60,10 +60,6 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.DEPLOY,
     });
   }, [CDPipelineName, sortedPipelineRuns, stageMetadataName]);
-  const latestTenDeployPipelineRuns = React.useMemo(
-    () => (deployPipelineRuns === null ? null : deployPipelineRuns?.slice(0, 10)),
-    [deployPipelineRuns]
-  );
 
   const autotestRunnerPipelineRuns = React.useMemo(() => {
     if (!stageMetadataName || !CDPipelineName || sortedPipelineRuns === null) {
@@ -76,10 +72,6 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.AUTOTEST_RUNNER,
     });
   }, [CDPipelineName, sortedPipelineRuns, stageMetadataName, stageSpecName]);
-  const latestTenAutotestRunnerPipelineRuns = React.useMemo(
-    () => (autotestRunnerPipelineRuns === null ? null : autotestRunnerPipelineRuns?.slice(0, 10)),
-    [autotestRunnerPipelineRuns]
-  );
 
   const autotestPipelineRuns = React.useMemo(() => {
     if (!stageMetadataName || !CDPipelineName || sortedPipelineRuns === null) {
@@ -100,10 +92,6 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     stageMetadataName,
     stageSpecName,
   ]);
-  const latestTenAutotestPipelineRuns = React.useMemo(
-    () => (autotestPipelineRuns === null ? null : autotestPipelineRuns?.slice(0, 10)),
-    [autotestPipelineRuns]
-  );
 
   const argoApplications = useStreamApplicationListByPipelineStageLabel({
     namespace,
@@ -129,18 +117,18 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         error,
       },
       autotestPipelineRuns: {
-        data: latestTenAutotestPipelineRuns,
-        isLoading: latestTenAutotestPipelineRuns === null,
+        data: autotestPipelineRuns,
+        isLoading: autotestPipelineRuns === null,
         error: pipelineRunsError,
       },
       deployPipelineRuns: {
-        data: latestTenDeployPipelineRuns,
-        isLoading: latestTenDeployPipelineRuns === null,
+        data: deployPipelineRuns,
+        isLoading: deployPipelineRuns === null,
         error: pipelineRunsError,
       },
       autotestRunnerPipelineRuns: {
-        data: latestTenAutotestRunnerPipelineRuns,
-        isLoading: latestTenAutotestRunnerPipelineRuns === null,
+        data: autotestRunnerPipelineRuns,
+        isLoading: autotestRunnerPipelineRuns === null,
         error: pipelineRunsError,
       },
       argoApplications: {
@@ -162,10 +150,10 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     [
       stage,
       error,
-      latestTenAutotestPipelineRuns,
+      autotestPipelineRuns,
       pipelineRunsError,
-      latestTenDeployPipelineRuns,
-      latestTenAutotestRunnerPipelineRuns,
+      deployPipelineRuns,
+      autotestRunnerPipelineRuns,
       argoApplications,
       deployPipelineRunTemplate.data,
       deployPipelineRunTemplate.isLoading,
