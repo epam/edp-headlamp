@@ -45,7 +45,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         error: registrySecretsError,
       },
       tektonServiceAccount: {
-        data: tektonServiceAccount?.jsonData,
+        data: tektonServiceAccount,
         isLoading: serviceAccounts === null,
         error: serviceAccountsError,
       },

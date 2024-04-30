@@ -75,7 +75,7 @@ export const PageView = () => {
                         })
                       }
                     >
-                      create link
+                      add link
                     </Button>
                   </Grid>
                 </Grid>

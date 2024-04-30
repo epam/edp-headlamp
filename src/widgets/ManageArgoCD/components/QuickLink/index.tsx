@@ -11,7 +11,7 @@ export const QuickLinkForm = () => {
       {!quickLink && (
         <Grid item xs={12}>
           <Alert severity="info" variant="outlined">
-            ArgoCD QuickLink has not been found. Please, create it first in order to manage the
+            Argo CD QuickLink has not been found. Please, create it first in order to manage the
             integration.
           </Alert>
         </Grid>

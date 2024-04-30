@@ -30,6 +30,7 @@ export const ManageRegistry = ({
   pushAccountSecret,
   pullAccountSecret,
   tektonServiceAccount,
+  handleCloseCreateDialog,
 }: ManageRegistryProps) => {
   const pushAccountFormMode = pushAccountSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const pullAccountFormMode = pullAccountSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
@@ -184,7 +185,7 @@ export const ManageRegistry = ({
               </Grid>
             )}
             <Grid item xs={12}>
-              <Actions />
+              <Actions handleCloseCreateDialog={handleCloseCreateDialog} />
             </Grid>
           </Grid>
         </MultiFormContextProvider>

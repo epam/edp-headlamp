@@ -37,8 +37,9 @@ export const FormActions = () => {
       const secretInstance = createSSOIntegrationSecretInstance(values);
 
       await createSecret({ secretData: secretInstance });
+      handleClosePanel();
     },
-    [createSecret]
+    [createSecret, handleClosePanel]
   );
 
   return (

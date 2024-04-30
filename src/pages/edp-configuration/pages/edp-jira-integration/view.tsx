@@ -117,6 +117,7 @@ export const PageView = () => {
                 ownerReference,
                 isReadOnly: !!ownerReference,
                 mode,
+                handleClosePanel: handleCloseCreateDialog,
               }}
             />
           </AccordionDetails>
@@ -137,6 +138,7 @@ export const PageView = () => {
               ownerReference,
               isReadOnly: !!ownerReference,
               mode,
+              handleClosePanel: handleCloseCreateDialog,
             }}
           />
         ),

@@ -30,7 +30,7 @@ export const MultiFormContextProvider = <FormName extends string>({
   );
 
   const submitAll = React.useCallback(
-    async (onlyDirty?: boolean) => {
+    async (onlyDirty: boolean = true) => {
       for (const formName in forms) {
         const formItem = forms[formName];
         const form = formItem.form;
@@ -48,6 +48,8 @@ export const MultiFormContextProvider = <FormName extends string>({
 
         const isFormDirty =
           form.formState.dirtyFields && Object.keys(form.formState.dirtyFields).length > 0;
+
+        console.log('isFormDirty', isFormDirty, formName, form.formState.dirtyFields, onlyDirty);
 
         if (isFormDirty || !onlyDirty) {
           await formItem.onSubmit();

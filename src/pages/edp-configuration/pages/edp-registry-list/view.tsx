@@ -68,6 +68,7 @@ export const PageView = () => {
                   pullAccountSecret={pullAccountSecret.data}
                   pushAccountSecret={pushAccountSecret.data}
                   tektonServiceAccount={tektonServiceAccount.data}
+                  handleCloseCreateDialog={handleCloseCreateDialog}
                 />
               </Grid>
             </Grid>
@@ -95,6 +96,7 @@ export const PageView = () => {
             pullAccountSecret={pullAccountSecret.data}
             pushAccountSecret={pushAccountSecret.data}
             tektonServiceAccount={tektonServiceAccount.data}
+            handleCloseCreateDialog={handleCloseCreateDialog}
           />
         ),
         isOpen: isCreateDialogOpen,

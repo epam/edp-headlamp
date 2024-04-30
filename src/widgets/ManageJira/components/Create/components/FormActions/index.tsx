@@ -18,15 +18,15 @@ export const FormActions = () => {
   const { setupJiraServer, isLoading } = useSetupJiraServer({
     onSuccess: () => {
       reset();
-      handleClosePanel();
     },
   });
 
   const onSubmit = React.useCallback(
     async (values: ManageJiraCIFormValues) => {
       await setupJiraServer(values);
+      handleClosePanel();
     },
-    [setupJiraServer]
+    [handleClosePanel, setupJiraServer]
   );
 
   return (
