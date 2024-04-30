@@ -10,7 +10,7 @@ import { useRegistryFormsContext } from '../../hooks/useRegistryFormsContext';
 import { useResetRegistry } from '../../hooks/useResetRegistry';
 import { useDataContext } from '../../providers/Data/hooks';
 
-export const Actions = () => {
+export const Actions = ({ handleCloseCreateDialog }) => {
   const { resetAll, submitAll, isAnyFormDirty, isAnyFormSubmitting } = useRegistryFormsContext();
 
   const { EDPConfigMap, pushAccountSecret, pullAccountSecret, tektonServiceAccount } =
@@ -63,6 +63,7 @@ export const Actions = () => {
         >
           <Button
             variant="contained"
+            size="small"
             color="primary"
             style={{ pointerEvents: 'auto' }}
             onClick={() => {
@@ -88,7 +89,10 @@ export const Actions = () => {
           undo changes
         </Button>
         <Button
-          onClick={() => submitAll(true)}
+          onClick={() => {
+            submitAll(true);
+            handleCloseCreateDialog();
+          }}
           size={'small'}
           component={'button'}
           variant={'contained'}

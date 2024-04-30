@@ -33,7 +33,11 @@ export const useQuickLinkEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: QuickLinkFormValues) => {
+      console.log('values', values);
+      console.log('quickLink', quickLink);
+
       const newQuickLinkData = editResource(QUICK_LINK_FORM_NAMES, quickLink, values);
+      console.log('newQuickLinkData', newQuickLinkData);
 
       await editQuickLink({
         QuickLinkData: newQuickLinkData,

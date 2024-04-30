@@ -38,7 +38,7 @@ exports[`renders ManageArgoCD Create component 1`] = `
             <div
               class="MuiAlert-message css-1pxa9xg-MuiAlert-message"
             >
-              ArgoCD QuickLink has not been found. Please, create it first in order to manage the integration.
+              Argo CD QuickLink has not been found. Please, create it first in order to manage the integration.
             </div>
           </div>
         </div>

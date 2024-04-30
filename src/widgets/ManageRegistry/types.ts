@@ -19,6 +19,7 @@ export interface ManageRegistryProps {
   pushAccountSecret: SecretKubeObjectInterface;
   pullAccountSecret: SecretKubeObjectInterface;
   tektonServiceAccount: ServiceAccountKubeObjectInterface;
+  handleCloseCreateDialog?: () => void;
 }
 
 export type SharedFormValues = FormValues<typeof SHARED_FORM_NAMES>;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSecretCRUD } from '../../../k8s/Secret/hooks/useSecretCRUD';
-import { createArgoCDIntegrationSecretInstance } from '../../../k8s/Secret/utils/createArgoCDIntegrationSecretInstance';
+import { createDependencyTrackIntegrationSecretInstance } from '../../../k8s/Secret/utils/createDependencyTrackIntegrationSecretInstance';
 import { IntegrationSecretFormValues } from '../types';
 
 export const useSecretCreateForm = ({ handleClosePanel }: { handleClosePanel: () => void }) => {
@@ -16,7 +16,7 @@ export const useSecretCreateForm = ({ handleClosePanel }: { handleClosePanel: ()
 
   const handleSubmit = React.useCallback(
     async (values: IntegrationSecretFormValues) => {
-      const secretInstance = createArgoCDIntegrationSecretInstance(values);
+      const secretInstance = createDependencyTrackIntegrationSecretInstance(values);
 
       await createSecret({ secretData: secretInstance });
     },
