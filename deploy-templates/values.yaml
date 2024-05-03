@@ -102,13 +102,15 @@ ingress:
     {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  # -- Hostname(s) for the Ingress resource
   # -- Ingress TLS configuration
+  # -- If hosts not defined the will create by pattern "portal-[namespace].[global DNS wildcard]"
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - portal-edp.example.com
-
+  # -- Defines the base URL for the portal.
+  # -- If hosts not defined the will create by pattern "portal-[namespace].[global DNS wildcard]"
+  host: ""
 # -- CPU/Memory resource requests/limits
 resources:
   {}

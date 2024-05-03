@@ -42,7 +42,8 @@ A Helm chart for EDP Headlamp
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |
 | ingress.annotations | object | `{}` | Annotations for Ingress resource |
 | ingress.enabled | bool | `true` | Enable external endpoint access. Default Ingress/Route host pattern: portal-{{ .Release.Namespace }}.{{ .Values.global.dnsWildCard }} |
-| ingress.tls | list | `[]` | Ingress TLS configuration |
+| ingress.host | string | `""` | If hosts not defined the will create by pattern "portal-[namespace].[global DNS wildcard]" |
+| ingress.tls | list | `[]` | If hosts not defined the will create by pattern "portal-[namespace].[global DNS wildcard]" |
 | livenessProbe.failureThreshold | int | `5` |  |
 | livenessProbe.initialDelaySeconds | int | `5` |  |
 | livenessProbe.periodSeconds | int | `20` |  |
