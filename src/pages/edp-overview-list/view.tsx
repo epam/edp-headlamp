@@ -6,7 +6,6 @@ import { CDPipelinesGraph } from './components/CDPipelinesGraph';
 import { CodebaseBranchesGraph } from './components/CodebaseBranchesGraph';
 import { CodebasesGraph } from './components/CodebasesGraph';
 import { ComponentList } from './components/ComponentList';
-import { PipelineRunListWithFilter } from './components/PipelineRunList';
 import { PipelineRunsGraph } from './components/PipelineRunsGraph';
 import { QuickLinkActions } from './components/QuickLinkActions';
 import { StagesGraph } from './components/StagesGraph';
@@ -54,20 +53,6 @@ export const PageView = () => {
           >
             <ComponentList />
             <QuickLinkActions />
-          </Section>
-        </Grid>
-        <Grid item xs={12}>
-          <Section
-            title={
-              <Typography color="primary.dark" fontSize={theme.typography.pxToRem(28)}>
-                Pipelines
-              </Typography>
-            }
-            description={
-              'Monitor the progress of overall pipeline runs launched within the platform.'
-            }
-          >
-            <PipelineRunListWithFilter />
           </Section>
         </Grid>
       </Grid>

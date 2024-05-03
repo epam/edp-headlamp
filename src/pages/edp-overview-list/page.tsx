@@ -5,7 +5,7 @@ import { FilterContextProvider } from '../../providers/Filter';
 import { NamespacesGuardWrapper } from '../../providers/NamespacesGuardWrapper';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
-import { matchFunctions } from './constants';
+import { matchFunctions } from '../edp-pipelines/constants';
 import { PageView } from './view';
 
 export default function () {

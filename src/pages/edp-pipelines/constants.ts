@@ -4,7 +4,7 @@ import {
   PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
 } from '../../k8s/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../k8s/PipelineRun/types';
-import { MatchFunctions } from './types';
+import { MatchFunctions } from '../edp-overview-list/types';
 
 export const FILTER_CONTROLS = {
   CODEBASES: 'codebases',

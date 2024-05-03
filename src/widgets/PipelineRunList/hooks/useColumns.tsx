@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
-import { HoverInfoLabel } from '@kinvolk/headlamp-plugin/lib/components/common';
-import { IconButton, Link } from '@mui/material';
+import { HoverInfoLabel, Link } from '@kinvolk/headlamp-plugin/lib/components/common';
+import { IconButton, Link as MuiLink } from '@mui/material';
 import React from 'react';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { TableColumn } from '../../../components/Table/types';
@@ -9,7 +9,9 @@ import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/PipelineRun/types';
 import { SYSTEM_QUICK_LINKS } from '../../../k8s/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
+import { routeEDPPipelineDetails } from '../../../pages/edp-pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
+import { useResourceActionListContext } from '../../../providers/ResourceActionList/hooks';
 import { LinkCreationService } from '../../../services/link-creation';
 import { formatFullYear, humanizeDefault } from '../../../utils/date/humanize';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../PipelineRunGraph/constants';
@@ -18,6 +20,9 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
 
   const { setDialog } = useDialogContext();
+
+  const { handleOpenResourceActionListMenu } =
+    useResourceActionListContext<PipelineRunKubeObjectInterface>();
 
   return React.useMemo(
     () => [
@@ -54,20 +59,18 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             return <>{name}</>;
           }
 
+          console.log(name, namespace);
+
           return (
-            <>
-              <Link
-                href={LinkCreationService.tekton.createPipelineRunLink(
-                  QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON],
-                  namespace,
-                  name
-                )}
-                target="_blank"
-                rel="noopener"
-              >
-                {name}
-              </Link>
-            </>
+            <Link
+              routeName={routeEDPPipelineDetails.path}
+              params={{
+                name,
+                namespace,
+              }}
+            >
+              {name}
+            </Link>
           );
         },
         width: '40%',
@@ -95,9 +98,9 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
 
           return (
             <>
-              <Link href={pipelineLink} target="_blank" rel="noopener">
+              <MuiLink href={pipelineLink} target="_blank" rel="noopener">
                 {pipelineRefName}
-              </Link>
+              </MuiLink>
             </>
           );
         },
@@ -149,7 +152,25 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
           );
         },
       },
+      {
+        id: 'rerun',
+        label: 'Actions',
+        render: (resource) => {
+          const buttonRef = React.createRef<HTMLButtonElement>();
+
+          return (
+            <IconButton
+              ref={buttonRef}
+              aria-label={'Options'}
+              onClick={() => handleOpenResourceActionListMenu(buttonRef.current, resource.jsonData)}
+              size="large"
+            >
+              <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
+            </IconButton>
+          );
+        },
+      },
     ],
-    [QuickLinksURLS, setDialog]
+    [QuickLinksURLS, handleOpenResourceActionListMenu, setDialog]
   );
 };

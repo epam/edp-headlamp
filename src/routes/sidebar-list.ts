@@ -6,6 +6,7 @@ import {
   COMPONENTS_ROUTE_NAME,
   CONFIGURATION_ROUTE_NAME,
   MARKETPLACE_ROUTE_NAME,
+  PIPELINES_ROUTE_NAME,
 } from './names';
 import { SidebarItem } from './types';
 
@@ -19,6 +20,7 @@ export const SIDEBAR_LIST: SidebarItem[] = [
       icon: 'material-symbols:space-dashboard',
     },
   },
+  createNewSidebarItem('Pipelines', PIPELINES_ROUTE_NAME, 'fluent:pipeline-20-filled'),
   createNewSidebarItem('Marketplace', MARKETPLACE_ROUTE_NAME, 'material-symbols:shopping-cart'),
   createNewSidebarItem('Components', COMPONENTS_ROUTE_NAME, 'material-symbols:layers'),
   createNewSidebarItem(

@@ -9,6 +9,7 @@ import { PipelineRunKubeObjectInterface } from '../../../../../../../../k8s/Pipe
 import { INTEGRATION_SECRET_NAMES } from '../../../../../../../../k8s/Secret/constants';
 import { useSecretByNameQuery } from '../../../../../../../../k8s/Secret/hooks/useSecretByName';
 import { FormSelect } from '../../../../../../../../providers/Form/components/FormSelect';
+import { ResourceActionListContextProvider } from '../../../../../../../../providers/ResourceActionList';
 import { safeDecode } from '../../../../../../../../utils/decodeEncode';
 import { capitalizeFirstLetter } from '../../../../../../../../utils/format/capitalizeFirstLetter';
 import { rem } from '../../../../../../../../utils/styling/rem';
@@ -107,11 +108,13 @@ export const Details = ({ codebaseData, codebaseBranchData, pipelineRuns }: Deta
             </Grid>
           ) : null}
           <Grid item xs={12}>
-            <PipelineRunList
-              pipelineRuns={filteredPipelineRunsByType}
-              isLoading={pipelineRuns.all === null}
-              filterFunction={null}
-            />
+            <ResourceActionListContextProvider>
+              <PipelineRunList
+                pipelineRuns={filteredPipelineRunsByType}
+                isLoading={pipelineRuns.all === null}
+                filterFunction={null}
+              />
+            </ResourceActionListContextProvider>
           </Grid>
         </Grid>
       </Grid>

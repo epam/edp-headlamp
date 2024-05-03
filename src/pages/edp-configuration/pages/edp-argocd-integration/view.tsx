@@ -62,7 +62,7 @@ export const PageView = () => {
       return (
         <>
           <EmptyList
-            customText={'No ArgoCD integration secrets found.'}
+            customText={'No Argo CD integration secrets found.'}
             linkText={'Click here to add integration.'}
             handleClick={handleOpenCreateDialog}
           />

@@ -1,75 +1,36 @@
 import React from 'react';
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
+import { usePipelineRunData } from '../../../k8s/PipelineRun/hooks/usePipelineRunData';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/PipelineRun/types';
 import { TaskRunKubeObject } from '../../../k8s/TaskRun';
-import { TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK } from '../../../k8s/TaskRun/labels';
 import { TaskRunKubeObjectInterface } from '../../../k8s/TaskRun/types';
 
 export const usePipelineRunGraphData = (
   taskRuns: TaskRunKubeObjectInterface[],
   pipelineRun: PipelineRunKubeObjectInterface
 ) => {
-  const pipelineRunTasks = React.useMemo(() => {
-    const mainTasks = pipelineRun?.status?.pipelineSpec?.tasks || [];
-    const finallyTasks = pipelineRun?.status?.pipelineSpec?.finally || [];
+  const {
+    pipelineRunTasks,
+    pipelineRunFinallyTasksMap,
+    pipelineRunMainTasksMap,
+    taskRunListByNameMap,
+  } = usePipelineRunData(taskRuns, pipelineRun);
 
-    return {
-      allTasks: [...mainTasks, ...finallyTasks],
-      mainTasks,
-      finallyTasks,
-    };
-  }, [pipelineRun]);
+  const isLoading = taskRuns === null || pipelineRun === null;
 
   const noTasks = React.useMemo(() => {
-    return !pipelineRunTasks.allTasks.length || taskRuns === null;
-  }, [pipelineRunTasks.allTasks.length, taskRuns]);
-
-  const MainPipelineRunTasksMap = React.useMemo(() => {
-    if (taskRuns === null) {
-      return;
-    }
-
-    const map = new Map<string, TaskRunKubeObjectInterface>();
-
-    pipelineRunTasks.mainTasks?.forEach((item) => {
-      map.set(item.name, item);
-    });
-    return map;
-  }, [taskRuns, pipelineRunTasks]);
-
-  const FinallyPipelineRunTasksMap = React.useMemo(() => {
-    if (taskRuns === null) {
-      return;
-    }
-
-    const map = new Map<string, TaskRunKubeObjectInterface>();
-    pipelineRunTasks.finallyTasks?.forEach((item) => {
-      map.set(item.name, item);
-    });
-    return map;
-  }, [taskRuns, pipelineRunTasks]);
-
-  const TaskRunListByNameMap = React.useMemo(() => {
-    if (taskRuns === null) {
-      return;
-    }
-
-    const map = new Map<string, TaskRunKubeObjectInterface>();
-    taskRuns.forEach((item) => {
-      map.set(item.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK], item);
-    });
-    return map;
-  }, [taskRuns]);
+    return pipelineRunTasks.allTasks.length === 0;
+  }, [pipelineRunTasks.allTasks.length]);
 
   const nodes = React.useMemo(() => {
-    if (noTasks) {
+    if (noTasks || isLoading) {
       return [];
     }
 
     let _nodes = [];
 
-    for (const name of MainPipelineRunTasksMap.keys()) {
-      const TaskRunByName = TaskRunListByNameMap.get(name);
+    for (const name of pipelineRunMainTasksMap.keys()) {
+      const TaskRunByName = taskRunListByNameMap.get(name);
       const status = TaskRunKubeObject.parseStatus(TaskRunByName);
       const reason = TaskRunKubeObject.parseStatusReason(TaskRunByName);
       const [, color] = PipelineRunKubeObject.getStatusIcon(status, reason);
@@ -86,8 +47,8 @@ export const usePipelineRunGraphData = (
       ];
     }
 
-    for (const name of FinallyPipelineRunTasksMap.keys()) {
-      const TaskRunByName = TaskRunListByNameMap.get(name);
+    for (const name of pipelineRunFinallyTasksMap.keys()) {
+      const TaskRunByName = taskRunListByNameMap.get(name);
       const status = TaskRunKubeObject.parseStatus(TaskRunByName);
       const reason = TaskRunKubeObject.parseStatusReason(TaskRunByName);
       const [, color] = PipelineRunKubeObject.getStatusIcon(status, reason);
@@ -105,7 +66,13 @@ export const usePipelineRunGraphData = (
     }
 
     return _nodes;
-  }, [FinallyPipelineRunTasksMap, MainPipelineRunTasksMap, TaskRunListByNameMap, noTasks]);
+  }, [
+    noTasks,
+    isLoading,
+    pipelineRunMainTasksMap,
+    taskRunListByNameMap,
+    pipelineRunFinallyTasksMap,
+  ]);
 
   const edges = React.useMemo(() => {
     if (noTasks) {
@@ -114,8 +81,8 @@ export const usePipelineRunGraphData = (
 
     let _edges = [];
 
-    for (const [name, value] of MainPipelineRunTasksMap.entries()) {
-      const TaskRunByName = TaskRunListByNameMap.get(name);
+    for (const [name, value] of pipelineRunMainTasksMap.entries()) {
+      const TaskRunByName = taskRunListByNameMap.get(name);
       const status = TaskRunKubeObject.parseStatus(TaskRunByName);
       const reason = TaskRunKubeObject.parseStatusReason(TaskRunByName);
 
@@ -140,7 +107,7 @@ export const usePipelineRunGraphData = (
 
     const lastMainTask = pipelineRunTasks.mainTasks[pipelineRunTasks.mainTasks.length - 1];
 
-    for (const [name] of FinallyPipelineRunTasksMap.entries()) {
+    for (const [name] of pipelineRunFinallyTasksMap.entries()) {
       _edges = [
         {
           id: `edge::${name}::${lastMainTask.name}`,
@@ -155,11 +122,11 @@ export const usePipelineRunGraphData = (
 
     return _edges;
   }, [
-    FinallyPipelineRunTasksMap,
-    MainPipelineRunTasksMap,
-    TaskRunListByNameMap,
     noTasks,
-    pipelineRunTasks,
+    pipelineRunFinallyTasksMap,
+    pipelineRunMainTasksMap,
+    pipelineRunTasks.mainTasks,
+    taskRunListByNameMap,
   ]);
 
   return { nodes, edges };

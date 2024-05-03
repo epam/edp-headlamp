@@ -25,10 +25,10 @@ export const URL = () => {
   return (
     <FormTextFieldEditable
       {...register(INTEGRATION_SECRET_FORM_NAMES.url.name, {
-        required: 'Enter the Argo CD URL.',
+        required: 'Enter the DependencyTrack URL.',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.STRICT_HTTPS),
-          message: 'Enter a valid URL with HTTPS protocol.',
+          value: getValidURLPattern(VALIDATED_PROTOCOLS.HTTP_OR_HTTPS),
+          message: 'Enter a valid URL with HTTP/HTTPS protocol.',
         },
       })}
       label={'URL'}
@@ -36,8 +36,8 @@ export const URL = () => {
       title={
         <>
           <p>
-            Enter the URL of your Argo CD instance. Ensure to use the HTTPS protocol (e.g.,
-            <em>https://argocd.example.com</em>).
+            Specify the URL of your DependencyTrack instance. Ensure to include the HTTP or HTTPS
+            protocol in the address (e.g., <em>https://deptrack.example.com</em>).
           </p>
         </>
       }
