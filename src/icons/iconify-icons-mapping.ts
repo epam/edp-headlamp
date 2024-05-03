@@ -71,4 +71,6 @@ export enum ICONS {
   LAYERS = 'streamline:layers-1-solid',
   TOOLS = 'mdi:tools',
   KEY = 'solar:key-bold',
+  REDO = 'uil:redo',
+  CANCEL = 'mdi:cancel-bold',
 }
