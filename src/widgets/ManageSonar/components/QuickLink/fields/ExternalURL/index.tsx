@@ -10,12 +10,12 @@ import { useDataContext } from '../../../../providers/Data/hooks';
 export const ExternalURL = () => {
   const {
     forms: {
+      secret,
       quickLink: {
         form: {
           register,
           control,
           formState: { errors },
-          setValue,
         },
       },
     },
@@ -36,7 +36,7 @@ export const ExternalURL = () => {
             return;
           }
 
-          setValue(INTEGRATION_SECRET_FORM_NAMES.url.name, value);
+          secret.form.setValue(INTEGRATION_SECRET_FORM_NAMES.url.name, value);
         },
       })}
       label={'Quick Link URL'}
