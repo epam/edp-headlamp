@@ -22,49 +22,17 @@ import { PipelineRunKubeObject } from '../../k8s/PipelineRun';
 import { SYSTEM_QUICK_LINKS } from '../../k8s/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { TaskRunKubeObject } from '../../k8s/TaskRun';
-import { TASK_RUN_STEP_REASON, TASK_RUN_STEP_STATUS } from '../../k8s/TaskRun/constants';
 import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../k8s/TaskRun/labels';
-import { TaskRunKubeObjectInterface } from '../../k8s/TaskRun/types';
+import { TaskRunKubeObjectInterface, TaskRunStep } from '../../k8s/TaskRun/types';
+import { getTaskRunStepReason, getTaskRunStepStatus } from '../../k8s/TaskRun/utils/getStatus';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../services/link-creation';
-import { ValueOf } from '../../types/global';
 import { rem } from '../../utils/styling/rem';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from './constants';
 import { useInfoRows } from './hooks/useInfoRows';
 import { usePipelineRunGraphData } from './hooks/usePipelineRunGraphData';
 import { useStyles } from './styles';
 import { PipelineRunGraphDialogForwardedProps } from './types';
-
-interface TaskRunStep {
-  // @ts-ignore
-  name: string;
-  [key: string]: {
-    reason?: ValueOf<typeof TASK_RUN_STEP_REASON>;
-  };
-}
-
-const parseTaskRunStepStatus = (step: TaskRunStep) => {
-  return step?.[TASK_RUN_STEP_STATUS.RUNNING]
-    ? TASK_RUN_STEP_STATUS.RUNNING
-    : step?.[TASK_RUN_STEP_STATUS.WAITING]
-    ? TASK_RUN_STEP_STATUS.WAITING
-    : step?.[TASK_RUN_STEP_STATUS.TERMINATED]
-    ? TASK_RUN_STEP_STATUS.TERMINATED
-    : undefined;
-};
-
-const parseTaskRunStepStatusObject = (step: TaskRunStep) => {
-  return (
-    step?.[TASK_RUN_STEP_STATUS.RUNNING] ||
-    step?.[TASK_RUN_STEP_STATUS.WAITING] ||
-    step?.[TASK_RUN_STEP_STATUS.TERMINATED]
-  );
-};
-
-const parseTaskRunStepReason = (step: TaskRunStep): ValueOf<typeof TASK_RUN_STEP_REASON> => {
-  const statusObject = parseTaskRunStepStatusObject(step);
-  return statusObject?.reason;
-};
 
 export const PipelineRunGraph = () => {
   const classes = useStyles();
@@ -138,8 +106,8 @@ export const PipelineRunGraph = () => {
                 <Grid item xs={12}>
                   {steps.map((step) => {
                     const stepName = step?.name;
-                    const status = parseTaskRunStepStatus(step);
-                    const reason = parseTaskRunStepReason(step);
+                    const status = getTaskRunStepStatus(step);
+                    const reason = getTaskRunStepReason(step);
                     const [icon, color, isRotating] = TaskRunKubeObject.getStepStatusIcon(
                       status,
                       reason
