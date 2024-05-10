@@ -14,7 +14,7 @@ import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { PipelineRunList } from '../../../../widgets/PipelineRunList';
-import { PageFilterExtraControls } from '../../../edp-overview-list/types';
+import { PageFilterExtraControls } from '../../types';
 
 const pipelineRunTypes = [
   PIPELINE_TYPES.ALL,
