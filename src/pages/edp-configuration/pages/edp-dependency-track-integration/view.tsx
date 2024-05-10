@@ -25,7 +25,7 @@ import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
-import { ManageDefectDojo } from '../../../../widgets/ManageDefectDojo';
+import { ManageDependencyTrack } from '../../../../widgets/ManageDependencyTrack';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
@@ -123,7 +123,7 @@ export const PageView = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ManageDefectDojo
+            <ManageDependencyTrack
               secret={dependencyTrackSecret}
               quickLink={depTrackQuickLink}
               mode={mode}
@@ -141,7 +141,7 @@ export const PageView = () => {
       creationForm={{
         label: 'Add Integration',
         component: (
-          <ManageDefectDojo
+          <ManageDependencyTrack
             secret={dependencyTrackSecret}
             quickLink={depTrackQuickLink}
             mode={mode}
