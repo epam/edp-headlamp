@@ -35,6 +35,8 @@ import RouteEDPMarketplacePage from '../pages/edp-marketplace/page';
 import { routeEDPMarketplace } from '../pages/edp-marketplace/route';
 import RouteEDPOverviewListPage from '../pages/edp-overview-list/page';
 import { routeEDPOverviewList } from '../pages/edp-overview-list/route';
+import RouteEDPPipelineDetailsPage from '../pages/edp-pipeline-details/page';
+import { routeEDPPipelineDetails } from '../pages/edp-pipeline-details/route';
 import RouteEDPPipelineListPage from '../pages/edp-pipelines/page';
 import { routeEDPPipelineList } from '../pages/edp-pipelines/route';
 import RouteEDPStageDetailsPage from '../pages/edp-stage-details/page';
@@ -46,6 +48,7 @@ export default [
 
   // Pipelines
   { ...routeEDPPipelineList, component: () => <RouteEDPPipelineListPage /> },
+  { ...routeEDPPipelineDetails, component: () => <RouteEDPPipelineDetailsPage /> },
 
   // Components & children
   { ...routeEDPComponentList, component: () => <RouteEDPComponentListPage /> },
