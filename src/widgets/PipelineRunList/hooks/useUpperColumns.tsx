@@ -66,11 +66,6 @@ export const useUpperColumns = ({
         label: '',
         render: () => null,
       },
-      {
-        id: 'placeholder-5',
-        label: '',
-        render: () => null,
-      },
     ],
     [numSelected, onDeleteClick, theme.palette.secondary.dark, theme.typography]
   );

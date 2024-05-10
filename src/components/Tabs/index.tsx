@@ -2,6 +2,7 @@ import { Tab, Tabs as MuiTabs } from '@mui/material';
 import React from 'react';
 import { TabPanel } from '../TabPanel';
 import { useStyles } from './styles';
+import { TabsProps } from './types';
 
 const a11yProps = (index: any) => {
   return {
@@ -9,7 +10,7 @@ const a11yProps = (index: any) => {
     'aria-controls': `simple-tabpanel-${index}`,
   };
 };
-export const Tabs = ({ tabs, initialTabIdx }) => {
+export const Tabs = ({ tabs, initialTabIdx }: TabsProps) => {
   const classes = useStyles();
   const [activeTabIdx, setActiveTabIdx] = React.useState<string | number>(initialTabIdx);
   const handleChangeTab = React.useCallback(
