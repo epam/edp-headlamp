@@ -49,8 +49,6 @@ export const MultiFormContextProvider = <FormName extends string>({
         const isFormDirty =
           form.formState.dirtyFields && Object.keys(form.formState.dirtyFields).length > 0;
 
-        console.log('isFormDirty', isFormDirty, formName, form.formState.dirtyFields, onlyDirty);
-
         if (isFormDirty || !onlyDirty) {
           await formItem.onSubmit();
           formItem.form.reset({}, { keepDirty: false, keepValues: true });

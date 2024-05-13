@@ -12,7 +12,7 @@ import {
 import { FormRadioGroup } from '../../../../../../providers/Form/components/FormRadioGroup';
 import { FieldEvent, FORM_MODES } from '../../../../../../types/forms';
 import { ValueOf } from '../../../../../../types/global';
-import { DOCKER_HUB_REGISTRY_ENDPOINT } from '../../../../constants';
+import { DOCKER_HUB_REGISTRY_ENDPOINT, GHCR_ENDPOINT } from '../../../../constants';
 import { useRegistryFormsContext } from '../../../../hooks/useRegistryFormsContext';
 import {
   CONFIG_MAP_FORM_NAMES,
@@ -74,6 +74,18 @@ export const Type = () => {
                     shouldDirty: false,
                   }
                 );
+                break;
+              case CONTAINER_REGISTRY_TYPE.GHCR:
+                configMap.form.setValue(
+                  CONFIG_MAP_FORM_NAMES.registryEndpoint.name,
+                  GHCR_ENDPOINT,
+                  {
+                    shouldDirty: false,
+                  }
+                );
+                sharedForm.setValue(SHARED_FORM_NAMES.registryEndpoint.name, GHCR_ENDPOINT, {
+                  shouldDirty: false,
+                });
                 break;
               case CONTAINER_REGISTRY_TYPE.ECR:
                 pushAccount.form.setValue(PUSH_ACCOUNT_FORM_NAMES.pushAccountPassword.name, '', {

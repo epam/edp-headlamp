@@ -19,8 +19,6 @@ export const TaskRunStep = ({ taskRun, step }) => {
   const completionTime = step?.terminated?.finishedAt || new Date().toISOString();
   const startTime = step?.terminated?.startedAt;
 
-  console.log(completionTime, startTime, step);
-
   const duration = humanize(new Date(completionTime).getTime() - new Date(startTime).getTime(), {
     language: 'en-mini',
     spacer: '',

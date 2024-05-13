@@ -4,7 +4,7 @@ import { editResource } from '../../../k8s/common/editResource';
 import { CONTAINER_REGISTRY_TYPE } from '../../../k8s/ConfigMap/constants';
 import { useConfigMapCRUD } from '../../../k8s/ConfigMap/hooks/useConfigMapCRUD';
 import { ConfigMapKubeObjectInterface } from '../../../k8s/ConfigMap/types';
-import { DOCKER_HUB_REGISTRY_ENDPOINT } from '../constants';
+import { DOCKER_HUB_REGISTRY_ENDPOINT, GHCR_ENDPOINT } from '../constants';
 import { CONFIG_MAP_FORM_NAMES } from '../names';
 import { ConfigMapFormValues } from '../types';
 
@@ -35,6 +35,14 @@ export const useConfigMapEditForm = ({
       case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
         return {
           [CONFIG_MAP_FORM_NAMES.registryEndpoint.name]: DOCKER_HUB_REGISTRY_ENDPOINT,
+          [CONFIG_MAP_FORM_NAMES.registryType.name]:
+            EDPConfigMap?.data.container_registry_type || '',
+          [CONFIG_MAP_FORM_NAMES.registrySpace.name]:
+            EDPConfigMap?.data.container_registry_space || '',
+        };
+      case CONTAINER_REGISTRY_TYPE.GHCR:
+        return {
+          [CONFIG_MAP_FORM_NAMES.registryEndpoint.name]: GHCR_ENDPOINT,
           [CONFIG_MAP_FORM_NAMES.registryType.name]:
             EDPConfigMap?.data.container_registry_type || '',
           [CONFIG_MAP_FORM_NAMES.registrySpace.name]:
@@ -73,6 +81,12 @@ export const useConfigMapEditForm = ({
         case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
           return editResource(CONFIG_MAP_FORM_NAMES, EDPConfigMap, {
             [CONFIG_MAP_FORM_NAMES.registryEndpoint.name]: DOCKER_HUB_REGISTRY_ENDPOINT,
+            [CONFIG_MAP_FORM_NAMES.registrySpace.name]: values.registrySpace,
+            [CONFIG_MAP_FORM_NAMES.registryType.name]: values.registryType,
+          });
+        case CONTAINER_REGISTRY_TYPE.GHCR:
+          return editResource(CONFIG_MAP_FORM_NAMES, EDPConfigMap, {
+            [CONFIG_MAP_FORM_NAMES.registryEndpoint.name]: GHCR_ENDPOINT,
             [CONFIG_MAP_FORM_NAMES.registrySpace.name]: values.registrySpace,
             [CONFIG_MAP_FORM_NAMES.registryType.name]: values.registryType,
           });

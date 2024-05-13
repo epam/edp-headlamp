@@ -59,8 +59,6 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             return <>{name}</>;
           }
 
-          console.log(name, namespace);
-
           return (
             <Link
               routeName={routeEDPPipelineDetails.path}
