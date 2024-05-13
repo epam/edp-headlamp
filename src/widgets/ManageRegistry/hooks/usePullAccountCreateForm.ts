@@ -5,7 +5,7 @@ import { REGISTRY_SECRET_NAMES } from '../../../k8s/Secret/constants';
 import { useSecretCRUD } from '../../../k8s/Secret/hooks/useSecretCRUD';
 import { SecretKubeObjectInterface } from '../../../k8s/Secret/types';
 import { createRegistrySecretInstance } from '../../../k8s/Secret/utils/createRegistrySecretInstance';
-import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE } from '../constants';
+import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE, GHCR_ENDPOINT_VALUE } from '../constants';
 import { PULL_ACCOUNT_FORM_NAMES } from '../names';
 import { PullAccountFormValues, SharedFormValues } from '../types';
 import { getUsernameAndPassword } from '../utils';
@@ -57,6 +57,16 @@ export const usePullAccountCreateForm = ({
             secretData: createRegistrySecretInstance({
               name: REGISTRY_SECRET_NAMES.REGCRED,
               registryEndpoint: DOCKER_HUB_REGISTRY_ENDPOINT_VALUE,
+              user: values.pullAccountUser,
+              password: values.pullAccountPassword,
+            }),
+          });
+          break;
+        case CONTAINER_REGISTRY_TYPE.GHCR:
+          await createSecret({
+            secretData: createRegistrySecretInstance({
+              name: REGISTRY_SECRET_NAMES.REGCRED,
+              registryEndpoint: GHCR_ENDPOINT_VALUE,
               user: values.pullAccountUser,
               password: values.pullAccountPassword,
             }),

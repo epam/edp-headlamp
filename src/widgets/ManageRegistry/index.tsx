@@ -161,6 +161,7 @@ export const ManageRegistry = ({
               CONTAINER_REGISTRY_TYPE.NEXUS,
               CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY,
               CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+              CONTAINER_REGISTRY_TYPE.GHCR,
             ]) && (
               <Grid item xs={12}>
                 <PushAccountForm />
@@ -170,6 +171,7 @@ export const ManageRegistry = ({
               CONTAINER_REGISTRY_TYPE.HARBOR,
               CONTAINER_REGISTRY_TYPE.NEXUS,
               CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+              CONTAINER_REGISTRY_TYPE.GHCR,
             ]) && (
               <Grid item xs={12}>
                 <UseSameAccount />
@@ -179,6 +181,7 @@ export const ManageRegistry = ({
               CONTAINER_REGISTRY_TYPE.HARBOR,
               CONTAINER_REGISTRY_TYPE.NEXUS,
               CONTAINER_REGISTRY_TYPE.DOCKER_HUB,
+              CONTAINER_REGISTRY_TYPE.GHCR,
             ]) && (
               <Grid item xs={12}>
                 <PullAccountForm />

@@ -89,6 +89,27 @@ describe('testing ManageRegistry Edit', () => {
     expect(dialog).toMatchSnapshot();
   });
 
+  test('renders ManageRegistry component with GHCR EDPConfig map', () => {
+    render(
+      <TestWrapper>
+        <ManageRegistry
+          EDPConfigMap={
+            createEdpConfigMapMock(
+              CONTAINER_REGISTRY_TYPE.GHCR,
+              CONTAINER_REGISTRY_PLATFORM.KUBERNETES
+            ) as unknown as ConfigMapKubeObjectInterface
+          }
+          pushAccountSecret={undefined}
+          pullAccountSecret={undefined}
+          tektonServiceAccount={undefined}
+        />
+      </TestWrapper>
+    );
+
+    const dialog = screen.getByTestId('form');
+    expect(dialog).toMatchSnapshot();
+  });
+
   test('renders ManageRegistry component with Openshift registry EDPConfig map', () => {
     render(
       <TestWrapper>

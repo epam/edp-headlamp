@@ -16,11 +16,28 @@ export const usePipelineRunGraphData = (
     taskRunListByNameMap,
   } = usePipelineRunData(taskRuns, pipelineRun);
 
+  console.log(
+    pipelineRunTasks,
+    pipelineRunFinallyTasksMap,
+    pipelineRunMainTasksMap,
+    taskRunListByNameMap
+  );
+
   const isLoading = taskRuns === null || pipelineRun === null;
 
   const noTasks = React.useMemo(() => {
-    return pipelineRunTasks.allTasks.length === 0;
-  }, [pipelineRunTasks.allTasks.length]);
+    return (
+      pipelineRunTasks.allTasks.length === 0 ||
+      !pipelineRunMainTasksMap ||
+      !pipelineRunFinallyTasksMap ||
+      !taskRunListByNameMap
+    );
+  }, [
+    pipelineRunFinallyTasksMap,
+    pipelineRunMainTasksMap,
+    pipelineRunTasks.allTasks.length,
+    taskRunListByNameMap,
+  ]);
 
   const nodes = React.useMemo(() => {
     if (noTasks || isLoading) {

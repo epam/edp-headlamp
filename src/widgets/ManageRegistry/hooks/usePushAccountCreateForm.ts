@@ -9,7 +9,7 @@ import {
   createOpenshiftPushSecretInstance,
   createRegistrySecretInstance,
 } from '../../../k8s/Secret/utils/createRegistrySecretInstance';
-import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE } from '../constants';
+import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE, GHCR_ENDPOINT_VALUE } from '../constants';
 import { PUSH_ACCOUNT_FORM_NAMES } from '../names';
 import { PushAccountFormValues, SharedFormValues } from '../types';
 import { getAuth, getUsernameAndPassword } from '../utils';
@@ -77,6 +77,16 @@ export const usePushAccountCreateForm = ({
             secretData: createRegistrySecretInstance({
               name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
               registryEndpoint: DOCKER_HUB_REGISTRY_ENDPOINT_VALUE,
+              user: values.pushAccountUser,
+              password: values.pushAccountPassword,
+            }),
+          });
+          break;
+        case CONTAINER_REGISTRY_TYPE.GHCR:
+          await createSecret({
+            secretData: createRegistrySecretInstance({
+              name: REGISTRY_SECRET_NAMES.KANIKO_DOCKER_CONFIG,
+              registryEndpoint: GHCR_ENDPOINT_VALUE,
               user: values.pushAccountUser,
               password: values.pushAccountPassword,
             }),

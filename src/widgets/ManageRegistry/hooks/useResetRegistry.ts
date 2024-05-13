@@ -82,6 +82,19 @@ export const useResetRegistry = ({
       await editConfigMap({ configMapData: newEDPConfigMap });
     };
 
+    const resetGHCR = async () => {
+      const newEDPConfigMap = editResource(CONFIG_MAP_FORM_NAMES, EDPConfigMap, {
+        [CONFIG_MAP_FORM_NAMES.registryEndpoint.name]: '',
+        [CONFIG_MAP_FORM_NAMES.registrySpace.name]: '',
+        [CONFIG_MAP_FORM_NAMES.registryType.name]: '',
+      });
+
+      for (const secret of secretsArray) {
+        await deleteSecret({ secretData: secret });
+      }
+      await editConfigMap({ configMapData: newEDPConfigMap });
+    };
+
     const resetHarborOrNexus = async () => {
       const newEDPConfigMap = editResource(CONFIG_MAP_FORM_NAMES, EDPConfigMap, {
         [CONFIG_MAP_FORM_NAMES.registryEndpoint.name]: '',
@@ -113,6 +126,9 @@ export const useResetRegistry = ({
         break;
       case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
         await resetDockerHub();
+        break;
+      case CONTAINER_REGISTRY_TYPE.GHCR:
+        await resetGHCR();
         break;
       case CONTAINER_REGISTRY_TYPE.HARBOR:
       case CONTAINER_REGISTRY_TYPE.NEXUS:
