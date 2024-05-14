@@ -26,7 +26,7 @@ export const ExternalURL = () => {
   return (
     <FormTextField
       {...register(QUICK_LINK_FORM_NAMES.externalUrl.name, {
-        required: 'Enter the external Argo CD URL.',
+        required: 'Enter the external DependencyTrack URL.',
         pattern: {
           value: getValidURLPattern(VALIDATED_PROTOCOLS.STRICT_HTTPS),
           message: 'Enter a valid URL with HTTPS protocol.',
@@ -40,7 +40,7 @@ export const ExternalURL = () => {
         },
       })}
       label={'Quick Link URL'}
-      title={'Enter the external URL of your Argo CD instance.'}
+      title={'Enter the external URL of your DependencyTrack instance.'}
       placeholder={'Enter URL'}
       control={control}
       errors={errors}
