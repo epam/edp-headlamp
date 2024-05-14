@@ -22,11 +22,11 @@ export const Token = () => {
   return (
     <FormTextFieldPassword
       {...register(INTEGRATION_SECRET_FORM_NAMES.token.name, {
-        required: 'Enter the authentication token for Argo CD.',
+        required: 'Enter the API token for DefectDojo authentication.',
       })}
       label={`Token`}
       title={
-        'Provide an authentication token for Argo CD. Generate the token from your Argo CD instance.'
+        'Provide an API token for authentication with DefectDojo. Generate the token from your DefectDojo instance and paste it here.'
       }
       placeholder={'Enter token'}
       control={control}

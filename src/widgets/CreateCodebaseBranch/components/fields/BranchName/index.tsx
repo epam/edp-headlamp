@@ -46,11 +46,11 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
         {...register(CODEBASE_BRANCH_FORM_NAMES.branchName.name, {
           pattern: {
             value: /^[a-z0-9][a-z0-9\/\-.]*[a-z0-9]$/,
-            message: 'Enter valid release branch name',
+            message: `Branch name may contain only: lower-case letters, numbers, slashes, dashes and dots.
+                        Can start and end only with lower-case letters and numbers. Minimum 2 characters.
+                    `,
           },
-          required: `Branch name may contain only: lower-case letters, numbers, slashes, dashes and dots.
-                                Can start and end only with lower-case letters and numbers. Minimum 2 characters.
-                            `,
+          required: 'Enter branch name',
           onChange: handleReleaseBranchNameFieldValueChange,
         })}
         label={'Branch Name'}

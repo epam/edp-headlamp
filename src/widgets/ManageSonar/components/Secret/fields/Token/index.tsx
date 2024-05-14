@@ -22,11 +22,11 @@ export const Token = () => {
   return (
     <FormTextFieldPassword
       {...register(INTEGRATION_SECRET_FORM_NAMES.token.name, {
-        required: 'Enter the authentication token for Argo CD.',
+        required: 'Enter the authentication token for SonarQube.',
       })}
       label={`Token`}
       title={
-        'Provide an authentication token for Argo CD. Generate the token from your Argo CD instance.'
+        'Provide an authentication token for SonarQube. Generate the token from your SonarQube instance.'
       }
       placeholder={'Enter token'}
       control={control}
