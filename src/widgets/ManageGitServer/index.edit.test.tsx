@@ -24,6 +24,7 @@ describe('testing ManageGitServer Edit', () => {
     render(
       <TestWrapper>
         <ManageGitServer
+          webhookURL={'https://example.com'}
           gitServer={gitServerGithubMock as EDPGitServerKubeObjectInterface}
           repositorySecrets={[GithubCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
@@ -41,6 +42,7 @@ describe('testing ManageGitServer Edit', () => {
     render(
       <TestWrapper>
         <ManageGitServer
+          webhookURL={'https://example.com'}
           gitServer={gitServerGitlabMock as EDPGitServerKubeObjectInterface}
           repositorySecrets={[GitlabCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
@@ -58,6 +60,7 @@ describe('testing ManageGitServer Edit', () => {
     render(
       <TestWrapper>
         <ManageGitServer
+          webhookURL={'https://example.com'}
           gitServer={gitServerGerritMock as EDPGitServerKubeObjectInterface}
           repositorySecrets={[GerritCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
@@ -75,6 +78,7 @@ describe('testing ManageGitServer Edit', () => {
     render(
       <TestWrapper>
         <ManageGitServer
+          webhookURL={'https://example.com'}
           gitServer={gitServerGerritMock as EDPGitServerKubeObjectInterface}
           repositorySecrets={[GerritCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {

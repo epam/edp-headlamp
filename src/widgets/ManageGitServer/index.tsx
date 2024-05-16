@@ -18,6 +18,7 @@ import { getGitServerSecret } from './utils';
 
 export const ManageGitServer = ({
   gitServer,
+  webhookURL,
   repositorySecrets,
   handleClosePanel,
 }: ManageGitServerProps) => {
@@ -33,9 +34,11 @@ export const ManageGitServer = ({
 
   const credentialsFormMode = gitServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
-  const gitServerCreateForm = useGitServerCreateForm({ handleClosePanel });
+  const gitServerCreateForm = useGitServerCreateForm({
+    handleClosePanel,
+  });
 
-  const gitServerEditForm = useGitServerEditForm({ gitServer });
+  const gitServerEditForm = useGitServerEditForm({ gitServer, webhookURL });
 
   const credentialsCreateForm = useCredentialsCreateForm({
     sharedForm,

@@ -16,13 +16,6 @@ export const usePipelineRunGraphData = (
     taskRunListByNameMap,
   } = usePipelineRunData(taskRuns, pipelineRun);
 
-  console.log(
-    pipelineRunTasks,
-    pipelineRunFinallyTasksMap,
-    pipelineRunMainTasksMap,
-    taskRunListByNameMap
-  );
-
   const isLoading = taskRuns === null || pipelineRun === null;
 
   const noTasks = React.useMemo(() => {

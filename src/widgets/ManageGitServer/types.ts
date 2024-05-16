@@ -9,6 +9,7 @@ export type FormNames = Exclude<ValueOf<typeof FORM_NAMES>, typeof FORM_NAMES.SH
 
 export interface ManageGitServerProps {
   gitServer: EDPGitServerKubeObjectInterface;
+  webhookURL: string;
   repositorySecrets: SecretKubeObjectInterface[];
   handleClosePanel: () => void;
 }

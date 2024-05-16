@@ -11,8 +11,10 @@ import { GitServerFormValues } from '../types';
 
 export const useGitServerEditForm = ({
   gitServer,
+  webhookURL,
 }: {
   gitServer: EDPGitServerKubeObjectInterface;
+  webhookURL: string;
 }) => {
   const editMutation = useResourceCRUDMutation<EDPGitServerKubeObjectInterface, CRUD_TYPES.EDIT>(
     'gitServerEditMutation',
@@ -37,8 +39,10 @@ export const useGitServerEditForm = ({
       [GIT_SERVER_FORM_NAMES.gitHost.name]: gitServer.spec.gitHost || '',
       [GIT_SERVER_FORM_NAMES.skipWebhookSSLVerification.name]:
         gitServer.spec.skipWebhookSSLVerification || '',
+      [GIT_SERVER_FORM_NAMES.overrideWebhookURL.name]: !!gitServer.spec?.webhookUrl,
+      [GIT_SERVER_FORM_NAMES.webhookURL.name]: gitServer.spec?.webhookUrl || webhookURL || '',
     };
-  }, [gitServer]);
+  }, [gitServer, webhookURL]);
 
   const form = useForm<GitServerFormValues>({
     defaultValues: defaultValues,
@@ -55,7 +59,20 @@ export const useGitServerEditForm = ({
         sshPort: Number(values.sshPort),
         httpsPort: Number(values.httpsPort),
       };
-      const gitServerValues = getUsedValues(transformedValues, GIT_SERVER_FORM_NAMES);
+
+      const { webhookURL, ...otherValues } = getUsedValues(
+        transformedValues,
+        GIT_SERVER_FORM_NAMES
+      );
+
+      delete gitServer.spec.webhookUrl;
+
+      const gitServerValues = {
+        ...otherValues,
+        ...(values.overrideWebhookURL
+          ? { [GIT_SERVER_FORM_NAMES.webhookURL.name]: webhookURL }
+          : {}),
+      };
 
       const newGitServer = editResource(GIT_SERVER_FORM_NAMES, gitServer, gitServerValues);
       editMutation.mutate(newGitServer);

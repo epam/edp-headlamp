@@ -10,4 +10,6 @@ const initialData = {
 export const DynamicDataContext = React.createContext<DynamicDataContextProviderValue>({
   gitServers: initialData,
   repositorySecrets: initialData,
+  configMaps: initialData,
+  ingresses: initialData,
 });
