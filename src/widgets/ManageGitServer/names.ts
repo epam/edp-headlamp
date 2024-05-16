@@ -12,6 +12,8 @@ const GIT_SERVER_NAMES = {
   NAME_SSH_KEY_SECRET: 'nameSshKeySecret',
   SSH_PORT: 'sshPort',
   SKIP_WEBHOOK_SSL: 'skipWebhookSSLVerification',
+  WEBHOOK_URL: 'webhookURL',
+  OVERRIDE_WEBHOOK_URL: 'overrideWebhookURL',
 } as const;
 
 export const SHARED_FORM_NAMES = {
@@ -56,6 +58,14 @@ export const GIT_SERVER_FORM_NAMES = {
   [GIT_SERVER_NAMES.SKIP_WEBHOOK_SSL]: {
     name: GIT_SERVER_NAMES.SKIP_WEBHOOK_SSL,
     path: ['spec', 'skipWebhookSSLVerification'],
+  },
+  [GIT_SERVER_NAMES.WEBHOOK_URL]: {
+    name: GIT_SERVER_NAMES.WEBHOOK_URL,
+    path: ['spec', 'webhookUrl'],
+  },
+  [GIT_SERVER_NAMES.OVERRIDE_WEBHOOK_URL]: {
+    name: GIT_SERVER_NAMES.OVERRIDE_WEBHOOK_URL,
+    notUsedInFormData: true,
   },
 };
 

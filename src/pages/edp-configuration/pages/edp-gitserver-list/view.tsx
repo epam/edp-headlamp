@@ -22,10 +22,15 @@ import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
   const theme = useTheme();
-  const { gitServers, repositorySecrets } = useDynamicDataContext();
+  const { gitServers, repositorySecrets, configMaps, ingresses } = useDynamicDataContext();
 
-  const error = gitServers.error || repositorySecrets.error;
-  const isLoading = (gitServers.data === null || repositorySecrets.data === null) && !error;
+  const error = gitServers.error || repositorySecrets.error || configMaps.error || ingresses.error;
+  const isLoading =
+    (gitServers.isLoading ||
+      repositorySecrets.isLoading ||
+      configMaps.isLoading ||
+      ingresses.isLoading) &&
+    !error;
 
   const gitServersLength = gitServers.data ? gitServers.data.length : 0;
 
@@ -38,6 +43,21 @@ export const PageView = () => {
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedPanel(isExpanded ? panel : null);
   };
+
+  const getWebhookURLByGitServerName = React.useCallback(
+    (gitServerName: string) => {
+      if (isLoading) {
+        return '';
+      }
+
+      const webhookURL = ingresses.data?.find(
+        (el) => el.metadata.labels['app.edp.epam.com/gitServer'] === gitServerName
+      )?.spec.rules?.[0]?.host;
+
+      return webhookURL ? `https://${webhookURL}` : '';
+    },
+    [ingresses.data, isLoading]
+  );
 
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(error);
@@ -73,6 +93,7 @@ export const PageView = () => {
             const gitServerName = gitServer.metadata.name;
 
             const isExpanded = expandedPanel === gitServerName;
+            const webhookURL = getWebhookURLByGitServerName(gitServerName);
 
             return (
               <Grid item xs={12} key={gitServer.metadata.uid}>
@@ -114,6 +135,7 @@ export const PageView = () => {
                     {isExpanded && (
                       <ManageGitServer
                         gitServer={gitServer}
+                        webhookURL={webhookURL}
                         repositorySecrets={repositorySecrets.data}
                         handleClosePanel={handleCloseCreateDialog}
                       />
@@ -129,6 +151,7 @@ export const PageView = () => {
   }, [
     error,
     expandedPanel,
+    getWebhookURLByGitServerName,
     gitServers.data,
     gitServersLength,
     isLoading,
@@ -143,6 +166,7 @@ export const PageView = () => {
         component: (
           <ManageGitServer
             gitServer={null}
+            webhookURL={null}
             repositorySecrets={repositorySecrets.data}
             handleClosePanel={handleCloseCreateDialog}
           />

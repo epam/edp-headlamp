@@ -5,9 +5,11 @@ import {
   HostName,
   HTTPSPort,
   Name,
+  OverrideWebhookURL,
   SkipWebHookSSL,
   SSHPort,
   UserName,
+  WebHookURL,
 } from './components/fields';
 
 export const GitServerForm = () => {
@@ -39,6 +41,16 @@ export const GitServerForm = () => {
             </Grid>
             <Grid item xs={6}>
               <HTTPSPort />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={6} sx={{ mt: '16px' }}>
+              <OverrideWebhookURL />
+            </Grid>
+            <Grid item xs={6}>
+              <WebHookURL />
             </Grid>
           </Grid>
         </Grid>

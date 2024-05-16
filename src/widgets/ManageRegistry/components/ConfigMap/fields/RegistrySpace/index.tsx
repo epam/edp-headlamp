@@ -10,6 +10,7 @@ const TYPE_LABEL_MAP = {
   [CONTAINER_REGISTRY_TYPE.DOCKER_HUB]: 'Registry Space',
   [CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY]: 'Project',
   [CONTAINER_REGISTRY_TYPE.NEXUS]: 'Repository',
+  [CONTAINER_REGISTRY_TYPE.GHCR]: 'Registry Space',
 };
 
 const TYPE_TITLE_MAP = {
@@ -20,6 +21,7 @@ const TYPE_TITLE_MAP = {
     'Specify the name of the DockerHub account or organization.',
   [CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY]: 'Specify the OpenShift registry space.',
   [CONTAINER_REGISTRY_TYPE.NEXUS]: 'Specify the Nexus repository that corresponds to your project.',
+  [CONTAINER_REGISTRY_TYPE.GHCR]: 'Specify the name of the Github account or organization.',
 };
 
 const TYPE_EMPTY_MESSAGE_MAP = {
@@ -28,6 +30,7 @@ const TYPE_EMPTY_MESSAGE_MAP = {
   [CONTAINER_REGISTRY_TYPE.DOCKER_HUB]: 'Enter the DockerHub account or organization name.',
   [CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY]: 'Enter the OpenShift registry space.',
   [CONTAINER_REGISTRY_TYPE.NEXUS]: 'Enter the Nexus repository name.',
+  [CONTAINER_REGISTRY_TYPE.GHCR]: 'Enter the Github account or organization name.',
 };
 
 export const RegistrySpace = () => {
@@ -41,6 +44,10 @@ export const RegistrySpace = () => {
     <FormTextField
       {...configMap.form.register(CONFIG_MAP_FORM_NAMES.registrySpace.name, {
         required: TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue] || 'Enter registry space.',
+        pattern: {
+          value: /^[a-zA-Z0-9_-]+$/,
+          message: 'Only alphanumeric characters, underscores, and hyphens are allowed.',
+        },
       })}
       label={TYPE_LABEL_MAP[registryTypeFieldValue] || 'Registry Space'}
       title={TYPE_TITLE_MAP[registryTypeFieldValue] || 'Specify registry space.'}

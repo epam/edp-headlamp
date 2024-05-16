@@ -7,6 +7,7 @@ import { EDPGitServerKubeObject } from '../../../k8s/EDPGitServer';
 import { EDPGitServerKubeObjectInterface } from '../../../k8s/EDPGitServer/types';
 import { createGitServerInstance } from '../../../k8s/EDPGitServer/utils/createGitServerInstance';
 import { getUsedValues } from '../../../utils/forms/getUsedValues';
+import { GIT_USER } from '../constants';
 import { GIT_SERVER_FORM_NAMES } from '../names';
 import { GitServerFormValues } from '../types';
 
@@ -21,6 +22,7 @@ export const useGitServerCreateForm = ({ handleClosePanel }: { handleClosePanel:
       [GIT_SERVER_FORM_NAMES.gitProvider.name]: GIT_PROVIDERS.GERRIT,
       [GIT_SERVER_FORM_NAMES.sshPort.name]: 22,
       [GIT_SERVER_FORM_NAMES.httpsPort.name]: 443,
+      [GIT_SERVER_FORM_NAMES.gitUser.name]: GIT_USER.GERRIT,
     };
   }, []);
 
@@ -35,7 +37,18 @@ export const useGitServerCreateForm = ({ handleClosePanel }: { handleClosePanel:
         sshPort: Number(values.sshPort),
         httpsPort: Number(values.httpsPort),
       };
-      const gitServerValues = getUsedValues(transformedValues, GIT_SERVER_FORM_NAMES);
+
+      const { webhookURL, ...otherValues } = getUsedValues(
+        transformedValues,
+        GIT_SERVER_FORM_NAMES
+      );
+
+      const gitServerValues = {
+        ...otherValues,
+        ...(values.overrideWebhookURL
+          ? { [GIT_SERVER_FORM_NAMES.webhookURL.name]: webhookURL }
+          : {}),
+      };
 
       const newGitServer = createGitServerInstance(GIT_SERVER_FORM_NAMES, gitServerValues);
       createMutation.mutate(newGitServer, {

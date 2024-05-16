@@ -13,6 +13,7 @@ const TYPE_EMPTY_MESSAGE_MAP = {
   [CONTAINER_REGISTRY_TYPE.DOCKER_HUB]: 'Enter the DockerHub registry endpoint URL.',
   [CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY]: 'Enter the OpenShift registry endpoint URL.',
   [CONTAINER_REGISTRY_TYPE.NEXUS]: 'Enter the Nexus registry endpoint URL.',
+  [CONTAINER_REGISTRY_TYPE.GHCR]: 'Enter the Github Container registry endpoint URL.',
 };
 
 const TYPE_TITLE_MAP = {
@@ -26,6 +27,8 @@ const TYPE_TITLE_MAP = {
     'Enter the OpenShift registry endpoint URL (e.g., image-registry.openshift-image-registry.svc:5000).',
   [CONTAINER_REGISTRY_TYPE.NEXUS]:
     'Enter the Nexus registry endpoint URL (e.g., nexus.example.com).',
+  [CONTAINER_REGISTRY_TYPE.GHCR]:
+    'Enter the Github Container registry endpoint URL (e.g., ghcr.io).',
 };
 
 export const RegistryEndpoint = () => {
@@ -53,7 +56,10 @@ export const RegistryEndpoint = () => {
       title={TYPE_TITLE_MAP[registryTypeFieldValue] || 'Enter registry endpoint URL.'}
       control={configMap.form.control}
       errors={configMap.form.formState.errors}
-      disabled={registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.DOCKER_HUB}
+      disabled={
+        registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.DOCKER_HUB ||
+        registryTypeFieldValue === CONTAINER_REGISTRY_TYPE.GHCR
+      }
     />
   );
 };
