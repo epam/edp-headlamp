@@ -68,6 +68,10 @@ export const PipelineRunList = ({
   const { data, anchorEl, handleCloseResourceActionListMenu } =
     useResourceActionListContext<PipelineRunKubeObjectInterface>();
 
+  const onDelete = React.useCallback(() => {
+    setSelected([]);
+  }, []);
+
   return (
     <>
       <Table
@@ -89,7 +93,7 @@ export const PipelineRunList = ({
           selected={selected}
           open={deleteDialogOpen}
           handleClose={() => setDeleteDialogOpen(false)}
-          onDelete={null}
+          onDelete={onDelete}
         />
       )}
       <PipelineRunActionsMenu

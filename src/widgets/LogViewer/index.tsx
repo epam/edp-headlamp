@@ -4,7 +4,6 @@ import { FormControl, FormControlLabel, InputLabel, MenuItem, Select, Switch } f
 import makeStyles from '@mui/styles/makeStyles';
 import _ from 'lodash';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Terminal as XTerminal } from 'xterm';
 import { LogViewer } from '../../components/LogViewer';
 import { PodKubeObjectInterface } from '../../k8s/Pod/types';
@@ -25,7 +24,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const getDefaultContainer = (pod: PodKubeObjectInterface) => {
+const _getDefaultContainer = (pod: PodKubeObjectInterface) => {
   if (!pod) {
     return '';
   }
@@ -33,9 +32,11 @@ const getDefaultContainer = (pod: PodKubeObjectInterface) => {
   return pod.spec.containers.length > 0 ? pod.spec.containers[0].name : '';
 };
 
-export const LogsViewer = ({ pods }) => {
+export const LogsViewer = ({ pods, getDefaultContainer }) => {
   const [activePod, setActivePod] = React.useState<PodKubeObjectInterface>(pods?.[0]);
-  const [container, setContainer] = React.useState<string>(pods?.[0]?.spec.containers[0].name);
+  const [container, setContainer] = React.useState<string>(
+    getDefaultContainer ? getDefaultContainer(pods?.[0]) : _getDefaultContainer(pods?.[0])
+  );
 
   React.useEffect(() => {
     if (!pods || activePod) {
@@ -49,13 +50,20 @@ export const LogsViewer = ({ pods }) => {
     }
 
     setActivePod(newActivePod);
-    setContainer(getDefaultContainer(newActivePod));
   }, [activePod, pods]);
+
+  React.useEffect(() => {
+    const newContainer = getDefaultContainer
+      ? getDefaultContainer(activePod)
+      : _getDefaultContainer(activePod);
+
+    setContainer(newContainer);
+  }, [activePod, getDefaultContainer]);
 
   const classes = useStyle();
   const [showPrevious, setShowPrevious] = React.useState<boolean>(false);
   const [showTimestamps, setShowTimestamps] = React.useState<boolean>(true);
-  const [follow, setFollow] = React.useState<boolean>(true);
+  const [follow] = React.useState<boolean>(false);
   const [lines, setLines] = React.useState<number>(100);
   const [logs, setLogs] = React.useState<{ logs: string[]; lastLineShown: number }>({
     logs: [],
@@ -63,7 +71,6 @@ export const LogsViewer = ({ pods }) => {
   });
 
   const xtermRef = React.useRef<XTerminal | null>(null);
-  const { t } = useTranslation('frequent');
 
   const options = { leading: true, trailing: true, maxWait: 1000 };
   const setLogsDebounced = (logLines: string[]) => {
@@ -85,16 +92,6 @@ export const LogsViewer = ({ pods }) => {
         lastLineShown: logLines.length - 1,
       };
     });
-    // If we stopped following the logs and we have logs already,
-    // then we don't need to fetch them again.
-    if (!follow && logs.logs.length > 0) {
-      xtermRef.current?.write(
-        '\n\n' +
-          t('logs|Logs are paused. Click the follow button to resume following them.') +
-          '\r\n'
-      );
-      return;
-    }
   };
   const debouncedSetState = _.debounce(setLogsDebounced, 500, options);
 
@@ -121,7 +118,7 @@ export const LogsViewer = ({ pods }) => {
       };
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [container, lines, open, showPrevious, showTimestamps, follow, activePod]
+    [container, lines, open, showPrevious, showTimestamps, activePod]
   );
 
   const handleContainerChange = (event: any) => {
@@ -158,10 +155,6 @@ export const LogsViewer = ({ pods }) => {
 
   const handleTimestampsChange = () => {
     setShowTimestamps((timestamps) => !timestamps);
-  };
-
-  const handleFollowChange = () => {
-    setFollow((follow) => !follow);
   };
 
   return (
@@ -254,19 +247,6 @@ export const LogsViewer = ({ pods }) => {
               checked={showTimestamps}
               onChange={handleTimestampsChange}
               name="checkTimestamps"
-              color="primary"
-              size="small"
-            />
-          }
-        />,
-        <FormControlLabel
-          className={classes.switchControl}
-          label={'Follow'}
-          control={
-            <Switch
-              checked={follow}
-              onChange={handleFollowChange}
-              name="follow"
               color="primary"
               size="small"
             />
