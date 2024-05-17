@@ -77,7 +77,7 @@ export const Applications = ({
     stage: { data: stage },
     deployPipelineRunTemplate: { data: deployPipelineRunTemplate },
   } = useDynamicDataContext();
-  const { getValues, setValue, resetField, trigger } = useFormContext();
+  const { getValues, setValue, resetField, trigger, watch } = useFormContext();
   const [selected, setSelected] = React.useState<string[]>([]);
 
   const handleSelectAllClick = React.useCallback(
@@ -230,9 +230,27 @@ export const Applications = ({
     [argoApplicationDeleteMutation]
   );
 
+  const values = watch();
+
   const buttonsEnabledMap: ButtonsMap = React.useMemo(() => {
     if (!selected || !selected.length) {
       return null;
+    }
+
+    const selectedImageTagsValues = Object.entries(values).filter(([key, value]) => {
+      if (!key.includes('::image-tag')) {
+        return false;
+      }
+
+      const appName = key.split('::')[0];
+      return selected.includes(appName) && !!value;
+    });
+
+    if (selectedImageTagsValues?.length !== enrichedApplicationsWithArgoApplications?.length) {
+      return {
+        deploy: false,
+        uninstall: false,
+      };
     }
 
     const map = selected.reduce((acc, selectedApplication) => {
@@ -283,6 +301,8 @@ export const Applications = ({
     };
   }, [
     selected,
+    values,
+    enrichedApplicationsWithArgoApplications,
     enrichedApplicationsByApplicationName,
     latestDeployPipelineRunIsRunning,
     someArgoApplicationMutationIsLoading,
