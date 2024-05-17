@@ -119,7 +119,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
           const activeDuration = humanize(
             completionTime
               ? new Date(completionTime).getTime() - new Date(resource.status?.startTime).getTime()
-              : new Date().getTime() - new Date(startedAt).getTime(),
+              : new Date().getTime() - new Date(resource.status?.startTime).getTime(),
             {
               language: 'en-mini',
               spacer: '',
