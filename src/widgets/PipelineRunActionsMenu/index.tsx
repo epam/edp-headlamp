@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
@@ -14,12 +15,13 @@ import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { PipelineRunActionsMenuProps } from './types';
 
 export const PipelineRunActionsMenu = ({
-  // backRoute,
+  backRoute,
   variant,
   data: { pipelineRun: _pipelineRun },
   anchorEl,
   handleCloseResourceActionListMenu,
 }: PipelineRunActionsMenuProps) => {
+  const history = useHistory();
   const pipelineRunCreateMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
     CRUD_TYPES.CREATE
@@ -46,18 +48,22 @@ export const PipelineRunActionsMenu = ({
     return copy;
   }, [_pipelineRun]);
 
+  const onDelete = () => {
+    history.push(backRoute);
+  };
+
   return variant === ACTION_MENU_TYPES.INLINE ? (
     <ActionsInlineList
       actions={[
         createKubeAction({
-          name: 'RERUN',
+          name: 'Rerun',
           icon: ICONS.REDO,
           action: () => {
             pipelineRunCreateMutation.mutate(createRerunPipelineRunInstance(pipelineRun));
           },
         }),
         createKubeAction({
-          name: 'CANCEL',
+          name: 'Cancel',
           icon: ICONS.CANCEL,
           action: () => {
             const copyPipelineRun = { ...pipelineRun };
@@ -74,7 +80,9 @@ export const PipelineRunActionsMenu = ({
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
           action: () => {
-            pipelineRunDeleteMutation.mutate(pipelineRun);
+            pipelineRunDeleteMutation.mutate(pipelineRun, {
+              onSuccess: onDelete,
+            });
           },
         }),
       ]}
@@ -83,7 +91,7 @@ export const PipelineRunActionsMenu = ({
     <ActionsMenuList
       actions={[
         createKubeAction({
-          name: 'RERUN',
+          name: 'Rerun',
           icon: ICONS.REDO,
           action: () => {
             handleCloseResourceActionListMenu();
@@ -91,7 +99,7 @@ export const PipelineRunActionsMenu = ({
           },
         }),
         createKubeAction({
-          name: 'CANCEL',
+          name: 'Cancel',
           icon: ICONS.CANCEL,
           action: () => {
             handleCloseResourceActionListMenu();
@@ -111,7 +119,9 @@ export const PipelineRunActionsMenu = ({
           icon: ICONS.BUCKET,
           action: () => {
             handleCloseResourceActionListMenu();
-            pipelineRunDeleteMutation.mutate(pipelineRun);
+            pipelineRunDeleteMutation.mutate(pipelineRun, {
+              onSuccess: onDelete,
+            });
           },
         }),
       ]}

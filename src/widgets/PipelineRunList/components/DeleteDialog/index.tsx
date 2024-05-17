@@ -7,9 +7,10 @@ import {
   TextField,
 } from '@mui/material';
 import React from 'react';
+import { CRUD_TYPES } from '../../../../constants/crudTypes';
+import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
 import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
-import { useDeleteKubeObject } from '../../../DeleteKubeObject/hooks/useDeleteKubeObject';
 
 const CONFIRM_TEXT_VALUE = 'confirm';
 
@@ -44,9 +45,9 @@ export const DeletionDialog = ({
 
   const [value, setValue] = React.useState('');
 
-  const { deleteKubeObject } = useDeleteKubeObject({});
-
   const deletionDisabled = value !== CONFIRM_TEXT_VALUE;
+
+  const { showBeforeRequestMessage } = useRequestStatusMessages();
 
   const handleDelete = () => {
     if (deletionDisabled) {
@@ -56,10 +57,15 @@ export const DeletionDialog = ({
     selectedPipelineRuns.forEach((item) => {
       const pipelineRun = item?.jsonData;
 
-      deleteKubeObject({
-        kubeObjectData: pipelineRun,
-        kubeObject: PipelineRunKubeObject,
-      });
+      PipelineRunKubeObject.apiEndpoint.delete(
+        pipelineRun.metadata.namespace,
+        pipelineRun.metadata.name
+      );
+    });
+
+    showBeforeRequestMessage(CRUD_TYPES.DELETE, {
+      customMessage: 'Selected PipelineRuns have been deleted',
+      entityName: 'PipelineRuns',
     });
 
     setValue('');

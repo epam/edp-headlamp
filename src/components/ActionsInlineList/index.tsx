@@ -9,7 +9,7 @@ export const ActionsInlineList = ({ actions }: ActionsInlineListProps) => {
 
   return (
     <Stack direction="row" spacing={1}>
-      {actions.map(({ name, action, disabled, icon }, idx) => {
+      {actions.map(({ name, action, disabled, icon, label }, idx) => {
         const actionId = `${name}:${idx}`;
 
         return (
@@ -18,15 +18,17 @@ export const ActionsInlineList = ({ actions }: ActionsInlineListProps) => {
               condition={disabled.status}
               wrapper={(children) => <Tooltip title={disabled.reason}>{children}</Tooltip>}
             >
-              <IconButton
-                component="span"
-                disabled={disabled.status}
-                onClick={action}
-                size="medium"
-                sx={{ color: theme.palette.secondary.dark }}
-              >
-                <Icon icon={icon} width={24} height={24} />
-              </IconButton>
+              <Tooltip title={label}>
+                <IconButton
+                  component="span"
+                  disabled={disabled.status}
+                  onClick={action}
+                  size="medium"
+                  sx={{ color: theme.palette.secondary.dark }}
+                >
+                  <Icon icon={icon} width={24} height={24} />
+                </IconButton>
+              </Tooltip>
             </ConditionalWrapper>
           </div>
         );

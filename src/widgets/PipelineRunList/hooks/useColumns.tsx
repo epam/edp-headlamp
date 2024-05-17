@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
-import { HoverInfoLabel, Link } from '@kinvolk/headlamp-plugin/lib/components/common';
-import { IconButton, Link as MuiLink } from '@mui/material';
+import { Link } from '@kinvolk/headlamp-plugin/lib/components/common';
+import { IconButton, Link as MuiLink, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { TableColumn } from '../../../components/Table/types';
@@ -13,7 +13,7 @@ import { routeEDPPipelineDetails } from '../../../pages/edp-pipeline-details/rou
 import { useDialogContext } from '../../../providers/Dialog/hooks';
 import { useResourceActionListContext } from '../../../providers/ResourceActionList/hooks';
 import { LinkCreationService } from '../../../services/link-creation';
-import { formatFullYear, humanizeDefault } from '../../../utils/date/humanize';
+import { humanize } from '../../../utils/date/humanize';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../PipelineRunGraph/constants';
 
 export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
@@ -71,7 +71,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             </Link>
           );
         },
-        width: '40%',
+        width: '30%',
       },
       {
         id: 'pipeline',
@@ -102,32 +102,49 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             </>
           );
         },
+        width: '30%',
       },
       {
         id: 'time',
         label: 'Time',
         render: (resource) => {
-          if (!resource?.status?.startTime || !resource?.status?.completionTime) {
-            return <HoverInfoLabel label={''} hoverInfo={''} icon={ICONS.CALENDAR} />;
-          }
+          const startedAt = new Date(resource.status?.startTime).toLocaleString('en-mini', {
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+          });
+          const completionTime = resource?.status?.completionTime;
 
-          const startTimeDate = new Date(resource?.status?.startTime);
-          const completionTimeDate = new Date(resource?.status?.completionTime);
-          const time = humanizeDefault(completionTimeDate.getTime(), startTimeDate.getTime());
-
+          const activeDuration = humanize(
+            completionTime
+              ? new Date(completionTime).getTime() - new Date(resource.status?.startTime).getTime()
+              : new Date().getTime() - new Date(startedAt).getTime(),
+            {
+              language: 'en-mini',
+              spacer: '',
+              delimiter: ' ',
+              fallbacks: ['en'],
+              largest: 2,
+              round: true,
+              units: ['d', 'h', 'm', 's'],
+            }
+          );
           return (
-            <HoverInfoLabel
-              label={time}
-              hoverInfo={
-                <>
-                  <div>Start: {formatFullYear(startTimeDate)}.</div>
-                  <div>End: {completionTimeDate ? formatFullYear(completionTimeDate) : ''}.</div>
-                </>
-              }
-              icon={ICONS.CALENDAR}
-            />
+            <Stack spacing={2}>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                <Icon icon={ICONS.CALENDAR} />
+                <Typography variant="body2">{`Started at: ${startedAt}`}</Typography>
+              </Stack>
+
+              <Stack direction="row" alignItems="center" spacing={1}>
+                <Icon icon={'mingcute:time-line'} />
+                <Typography variant="body2">{`Duration: ${activeDuration}`}</Typography>
+              </Stack>
+            </Stack>
           );
         },
+        width: '25%',
       },
       {
         id: 'diagram',
@@ -149,6 +166,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             </IconButton>
           );
         },
+        width: '5%',
       },
       {
         id: 'rerun',
@@ -167,6 +185,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             </IconButton>
           );
         },
+        width: '5%',
       },
     ],
     [QuickLinksURLS, handleOpenResourceActionListMenu, setDialog]

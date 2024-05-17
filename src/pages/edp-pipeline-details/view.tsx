@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
@@ -6,6 +7,7 @@ import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { StatusIcon } from '../../components/StatusIcon';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../k8s/PipelineRun';
 import { humanize } from '../../utils/date/humanize';
 import { PipelineRunActionsMenu } from '../../widgets/PipelineRunActionsMenu';
@@ -38,9 +40,11 @@ export const PageView = () => {
   const statusObject = React.useMemo(() => {
     const condition = pipelineRun.data?.status?.conditions?.[0];
     const lastTransitionTime = condition?.lastTransitionTime;
+    const completionTime = pipelineRun.data?.status?.completionTime;
+    const startedAt = pipelineRun.data?.status?.startTime;
     const message = condition?.message;
 
-    const timeAgo = humanize(new Date(lastTransitionTime).getTime() - new Date().getTime(), {
+    const updatedLast = humanize(new Date(lastTransitionTime).getTime() - new Date().getTime(), {
       language: 'en-mini',
       spacer: '',
       delimiter: ' ',
@@ -50,11 +54,33 @@ export const PageView = () => {
       units: ['d', 'h', 'm', 's'],
     });
 
+    const activeDuration = humanize(
+      completionTime
+        ? new Date(completionTime).getTime() - new Date(startedAt).getTime()
+        : new Date().getTime() - new Date(startedAt).getTime(),
+      {
+        language: 'en-mini',
+        spacer: '',
+        delimiter: ' ',
+        fallbacks: ['en'],
+        largest: 2,
+        round: true,
+        units: ['d', 'h', 'm', 's'],
+      }
+    );
+
     return {
-      updated: `Last updated: ${timeAgo} ago`,
+      startedAt: new Date(pipelineRun.data?.status?.startTime).toLocaleString('en-mini', {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      }),
+      activeDuration,
+      updatedLast,
       message: message,
     };
-  }, [pipelineRun.data?.status?.conditions]);
+  }, [pipelineRun]);
 
   return (
     <PageWrapper
@@ -71,22 +97,41 @@ export const PageView = () => {
       ]}
     >
       <Section
-        title={<Typography fontSize={theme.typography.pxToRem(48)}>{name}</Typography>}
+        title={
+          <Stack direction="row" spacing={2} alignItems="center">
+            <StatusIcon
+              icon={icon}
+              color={color}
+              isRotating={isRotating}
+              width={30}
+              Title={`Status: ${status}. Reason: ${reason}`}
+            />
+            <Typography fontSize={theme.typography.pxToRem(48)}>{name}</Typography>
+          </Stack>
+        }
         description={
           <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
             <Stack direction="row" spacing={2} alignItems="center">
-              <div>
-                <StatusIcon
-                  icon={icon}
-                  color={color}
-                  isRotating={isRotating}
-                  width={25}
-                  Title={`Status: ${status}. Reason: ${reason}`}
-                />
-              </div>
-              <div>
-                <Typography>{`${statusObject.updated}.  ${statusObject.message}`}</Typography>
-              </div>
+              <Stack spacing={1}>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <Icon icon={ICONS.INFO} />
+                  <Typography variant="body2">{statusObject.message}</Typography>
+                </Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <Icon icon={ICONS.CALENDAR} />
+                  <Typography variant="body2">Started at: {statusObject.startedAt}</Typography>
+                </Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <Icon icon={'mingcute:time-line'} />
+                  <Typography variant="body2">Duration: {statusObject.activeDuration}</Typography>
+                </Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <Icon icon={ICONS.REDO} />
+                  <Typography variant="body2">
+                    Last updated: {statusObject.updatedLast} ago.
+                  </Typography>
+                </Stack>
+              </Stack>
             </Stack>
             <div>
               {!pipelineRun.isLoading && (

@@ -12,6 +12,15 @@ export const useTabs = ({ taskRun, stepName }) => {
     namespace: taskRun.metadata.namespace,
   });
 
+  const getDefaultContainer = React.useCallback(
+    (pod) => {
+      return pod?.spec?.containers.find((container) => container.name.includes(stepName))?.name;
+    },
+    [stepName]
+  );
+
+  console.log(getDefaultContainer, stepName, pods);
+
   return React.useMemo(() => {
     return [
       {
@@ -26,10 +35,11 @@ export const useTabs = ({ taskRun, stepName }) => {
         label: 'Logs',
         component: (
           <TabContent>
-            <LogsViewer pods={pods} />
+            <LogsViewer pods={pods} getDefaultContainer={getDefaultContainer} />
           </TabContent>
         ),
+        disabled: !pods?.length,
       },
     ];
-  }, [details, pods]);
+  }, [details, getDefaultContainer, pods]);
 };
