@@ -45,7 +45,7 @@ export const RegistrySpace = () => {
       {...configMap.form.register(CONFIG_MAP_FORM_NAMES.registrySpace.name, {
         required: TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue] || 'Enter registry space.',
         pattern: {
-          value: /^[a-zA-Z0-9_-]+$/,
+          value: /^[a-z0-9_-]+$/,
           message: 'Only alphanumeric characters, underscores, and hyphens are allowed.',
         },
       })}

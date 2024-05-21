@@ -197,7 +197,7 @@ export const Applications = ({
 
   const onValuesOverrideAllClick = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const boolean = event.target.checked;
+      const boolean = event.target.value;
       const selected: string[] = [];
 
       for (const application of enrichedApplicationsWithArgoApplications) {

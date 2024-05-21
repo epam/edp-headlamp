@@ -15,6 +15,7 @@ export const ValuesOverrideCheckbox = ({
     formState: { errors },
     register,
     setValue,
+    getValues,
   } = useFormContext();
 
   React.useEffect(() => {
@@ -26,9 +27,20 @@ export const ValuesOverrideCheckbox = ({
       <FormSwitch
         label={undefined}
         {...register(`${application.metadata.name}::values-override`, {
-          onChange: (event) =>
+          onChange: (event) => {
             !selected.includes(application.metadata.name) &&
-            handleSelectRowClick(event, enrichedApplicationWithArgoApplication),
+              handleSelectRowClick(event, enrichedApplicationWithArgoApplication);
+
+            const hasAtLeastOneFalse = Object.entries(getValues())
+              .filter(([key]) => key.includes('::values-override'))
+              .some(([, value]) => value === false);
+
+            if (hasAtLeastOneFalse) {
+              setValue('values-override', false);
+            } else {
+              setValue('values-override', true);
+            }
+          },
         })}
         align={'center'}
         defaultValue={defaultValue}

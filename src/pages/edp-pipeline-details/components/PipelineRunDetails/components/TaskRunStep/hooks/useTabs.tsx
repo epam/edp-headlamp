@@ -19,8 +19,6 @@ export const useTabs = ({ taskRun, stepName }) => {
     [stepName]
   );
 
-  console.log(getDefaultContainer, stepName, pods);
-
   return React.useMemo(() => {
     return [
       {
