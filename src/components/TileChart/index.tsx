@@ -23,7 +23,7 @@ export const MyTileChart = ({
           </Typography>
         </Stack>
         {error ? (
-          <ErrorContent error={error} />
+          <ErrorContent error={error} orientation="vertical" />
         ) : (
           <Stack direction="row" spacing={2}>
             <Box sx={BoxSx}>

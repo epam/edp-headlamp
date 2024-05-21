@@ -55,10 +55,6 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             metadata: { name, namespace },
           } = resource;
 
-          if (!resource?.status?.pipelineSpec?.params?.[0]?.default) {
-            return <>{name}</>;
-          }
-
           return (
             <Link
               routeName={routeEDPPipelineDetails.path}
@@ -115,21 +111,20 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             minute: 'numeric',
           });
           const completionTime = resource?.status?.completionTime;
+          const durationTime = !!completionTime
+            ? new Date(completionTime).getTime() - new Date(resource.status?.startTime).getTime()
+            : new Date().getTime() - new Date(resource.status?.startTime).getTime();
 
-          const activeDuration = humanize(
-            completionTime
-              ? new Date(completionTime).getTime() - new Date(resource.status?.startTime).getTime()
-              : new Date().getTime() - new Date(resource.status?.startTime).getTime(),
-            {
-              language: 'en-mini',
-              spacer: '',
-              delimiter: ' ',
-              fallbacks: ['en'],
-              largest: 2,
-              round: true,
-              units: ['d', 'h', 'm', 's'],
-            }
-          );
+          const activeDuration = humanize(durationTime, {
+            language: 'en-mini',
+            spacer: '',
+            delimiter: ' ',
+            fallbacks: ['en'],
+            largest: 2,
+            round: true,
+            units: ['d', 'h', 'm', 's'],
+          });
+
           return (
             <Stack spacing={2}>
               <Stack direction="row" alignItems="center" spacing={1}>

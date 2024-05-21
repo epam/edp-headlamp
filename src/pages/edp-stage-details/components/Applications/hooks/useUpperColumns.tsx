@@ -6,7 +6,6 @@ import {
   Grid,
   IconButton,
   Stack,
-  Switch,
   Tooltip,
   Typography,
   useTheme,
@@ -16,6 +15,7 @@ import { useFormContext } from 'react-hook-form';
 import { TableColumn } from '../../../../../components/Table/types';
 import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
+import { FormSwitch } from '../../../../../providers/Form/components/FormSwitch';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../../types';
 import { ButtonsMap } from '../types';
@@ -47,6 +47,12 @@ export const useUpperColumns = ({
   } = useDynamicDataContext();
   const timer = React.useRef<number | null>(null);
   const [deployBtnDisabled, setDeployBtnDisabled] = React.useState(false);
+
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext();
 
   return React.useMemo(
     () => [
@@ -116,7 +122,15 @@ export const useUpperColumns = ({
 
           return (
             <Box sx={{ ml: theme.typography.pxToRem(leftOffset) }}>
-              <Switch color={'primary'} onChange={onValuesOverrideAllClick} />
+              <FormSwitch
+                label={undefined}
+                {...register('values-override', {
+                  onChange: onValuesOverrideAllClick,
+                })}
+                align={'center'}
+                control={control}
+                errors={errors}
+              />
             </Box>
           );
         },
@@ -199,10 +213,13 @@ export const useUpperColumns = ({
       buttonsEnabledMap,
       onUninstallClick,
       onDeployClick,
+      register,
+      onValuesOverrideAllClick,
+      control,
+      errors,
       onLatestClick,
       onStableClick,
       selected,
-      onValuesOverrideAllClick,
       reset,
     ]
   );

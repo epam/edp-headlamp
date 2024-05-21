@@ -22,6 +22,8 @@ export const useGitServerEditForm = ({
     CRUD_TYPES.EDIT
   );
 
+  const webhookURLValue = gitServer?.spec?.webhookUrl || webhookURL || '';
+
   const defaultValues = React.useMemo(() => {
     if (!gitServer) {
       return {};
@@ -40,9 +42,9 @@ export const useGitServerEditForm = ({
       [GIT_SERVER_FORM_NAMES.skipWebhookSSLVerification.name]:
         gitServer.spec.skipWebhookSSLVerification || '',
       [GIT_SERVER_FORM_NAMES.overrideWebhookURL.name]: !!gitServer.spec?.webhookUrl,
-      [GIT_SERVER_FORM_NAMES.webhookURL.name]: gitServer.spec?.webhookUrl || webhookURL || '',
+      [GIT_SERVER_FORM_NAMES.webhookURL.name]: webhookURLValue,
     };
-  }, [gitServer, webhookURL]);
+  }, [gitServer, webhookURLValue]);
 
   const form = useForm<GitServerFormValues>({
     defaultValues: defaultValues,

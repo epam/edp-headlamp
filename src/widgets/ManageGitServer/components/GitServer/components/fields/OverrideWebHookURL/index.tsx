@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormCheckbox } from '../../../../../../../providers/Form/components/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../../../providers/Form/components/FormControlLabelWithTooltip';
-import { FieldEvent } from '../../../../../../../types/forms';
 import { useGitServerFormsContext } from '../../../../../hooks/useGitServerFormsContext';
 import { GIT_SERVER_FORM_NAMES } from '../../../../../names';
 
@@ -12,13 +11,7 @@ export const OverrideWebhookURL = () => {
 
   return (
     <FormCheckbox
-      {...gitServerForm.form.register(GIT_SERVER_FORM_NAMES.overrideWebhookURL.name, {
-        onChange: ({ target: { value } }: FieldEvent) => {
-          if (!value) {
-            gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.webhookURL.name, '');
-          }
-        },
-      })}
+      {...gitServerForm.form.register(GIT_SERVER_FORM_NAMES.overrideWebhookURL.name)}
       label={
         <FormControlLabelWithTooltip
           label={'Override Webhook URL'}
