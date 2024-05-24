@@ -1,8 +1,11 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { KubeObjectAction } from '../../../types/actions';
 import { capitalizeFirstLetter } from '../../format/capitalizeFirstLetter';
 
-export const createKubeAction = ({
+export const createKubeAction = async ({
+  item,
   name,
+  authActionName,
   action,
   disabled = {
     status: false,
@@ -10,20 +13,44 @@ export const createKubeAction = ({
   icon,
 }: {
   name: string;
+  item?: KubeObjectInterface;
+  authActionName?: string;
   action?: () => void;
   disabled?: {
     status: boolean;
     reason?: string;
   };
   icon?: string;
-}): KubeObjectAction => {
-  const nameInLowerCase = name.toLowerCase();
+}): Promise<KubeObjectAction> => {
+
+  if (!authActionName || !Object.keys(item.jsonData).length) {
+    return {
+      name: name,
+      label: capitalizeFirstLetter(name),
+      icon,
+      disabled: {
+        status: disabled.status,
+        reason: disabled.reason,
+      },
+      action: (e) => {
+        e.stopPropagation();
+        action();
+      },
+    };
+  }
+
+  const authCheckResult = await item.getAuthorization(authActionName);
+
+  const allowed = authCheckResult.status?.allowed;
 
   return {
-    name: nameInLowerCase,
-    label: capitalizeFirstLetter(nameInLowerCase),
+    name: name,
+    label: capitalizeFirstLetter(name),
     icon,
-    disabled,
+    disabled: {
+      status: disabled.status || !allowed,
+      reason: disabled.reason || 'Forbidden',
+    },
     action: (e) => {
       e.stopPropagation();
       action();
