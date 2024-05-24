@@ -1,4 +1,5 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { Typography } from '@mui/material';
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
@@ -73,71 +74,108 @@ export const CodebaseActionsMenu = ({
     [conflictedCDPipeline, ErrorMessage]
   );
 
-  const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps = {
-    codebaseData: codebaseData,
-    mode: FORM_MODES.EDIT,
-  };
+  const getActions = React.useCallback(async () => {
+    if (!codebaseData) {
+      return [];
+    }
 
-  const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
-    objectName: codebaseData?.metadata?.name,
-    kubeObject: EDPCodebaseKubeObject,
-    kubeObjectData: codebaseData,
-    description: `Confirm the deletion of the codebase with all its components`,
-    onBeforeSubmit,
+    const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps = {
+      codebaseData: codebaseData,
+      mode: FORM_MODES.EDIT,
+    };
+
+    const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+      objectName: codebaseData?.metadata?.name,
+      kubeObject: EDPCodebaseKubeObject,
+      kubeObjectData: codebaseData,
+      description: `Confirm the deletion of the codebase with all its components`,
+      onBeforeSubmit,
+      backRoute,
+    };
+
+    if (variant === ACTION_MENU_TYPES.INLINE) {
+      return [
+        await createKubeAction({
+          item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
+          name: RESOURCE_ACTIONS.EDIT,
+          authActionName: 'update',
+          icon: ICONS.PENCIL,
+          action: () => {
+            setDialog({
+              modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
+              forwardedProps: createEditCodebaseDialogForwardedProps,
+            });
+          },
+        }),
+        await createKubeAction({
+          item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
+          name: RESOURCE_ACTIONS.DELETE,
+          authActionName: 'delete',
+          icon: ICONS.BUCKET,
+          action: () => {
+            setDialog({
+              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+              forwardedProps: deleteKubeObjectDialogForwardedProps,
+            });
+          },
+        }),
+      ];
+    } else {
+      return [
+        await createKubeAction({
+          item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
+          name: RESOURCE_ACTIONS.EDIT,
+          authActionName: 'update',
+          icon: ICONS.PENCIL,
+          action: () => {
+            handleCloseResourceActionListMenu();
+            setDialog({
+              modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
+              forwardedProps: createEditCodebaseDialogForwardedProps,
+            });
+          },
+        }),
+        await createKubeAction({
+          item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
+          name: RESOURCE_ACTIONS.DELETE,
+          authActionName: 'delete',
+          icon: ICONS.BUCKET,
+          action: () => {
+            handleCloseResourceActionListMenu();
+            setDialog({
+              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+              forwardedProps: deleteKubeObjectDialogForwardedProps,
+            });
+          },
+        }),
+      ];
+    }
+  }, [
     backRoute,
-  };
+    codebaseData,
+    handleCloseResourceActionListMenu,
+    onBeforeSubmit,
+    setDialog,
+    variant,
+  ]);
+
+  const [actions, setActions] = React.useState([]);
+
+  React.useEffect(() => {
+    getActions().then((actions) => {
+      if (actions.length === 0) {
+        return;
+      }
+
+      setActions(actions);
+    });
+  }, [actions.length, getActions]);
 
   return variant === ACTION_MENU_TYPES.INLINE ? (
-    <ActionsInlineList
-      actions={[
-        createKubeAction({
-          name: RESOURCE_ACTIONS.EDIT,
-          icon: ICONS.PENCIL,
-          action: () => {
-            setDialog({
-              modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-              forwardedProps: createEditCodebaseDialogForwardedProps,
-            });
-          },
-        }),
-        createKubeAction({
-          name: RESOURCE_ACTIONS.DELETE,
-          icon: ICONS.BUCKET,
-          action: () => {
-            setDialog({
-              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-              forwardedProps: deleteKubeObjectDialogForwardedProps,
-            });
-          },
-        }),
-      ]}
-    />
+    <ActionsInlineList actions={actions} />
   ) : variant === ACTION_MENU_TYPES.MENU ? (
     <ActionsMenuList
-      actions={[
-        createKubeAction({
-          name: RESOURCE_ACTIONS.EDIT,
-          icon: ICONS.PENCIL,
-          action: () => {
-            handleCloseResourceActionListMenu();
-            setDialog({
-              modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-              forwardedProps: createEditCodebaseDialogForwardedProps,
-            });
-          },
-        }),
-        createKubeAction({
-          name: RESOURCE_ACTIONS.DELETE,
-          icon: ICONS.BUCKET,
-          action: () => {
-            handleCloseResourceActionListMenu();
-            setDialog({
-              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-              forwardedProps: deleteKubeObjectDialogForwardedProps,
-            });
-          },
-        }),
-      ]}
+      actions={actions}
       anchorEl={anchorEl}
       handleCloseActionsMenu={handleCloseResourceActionListMenu}
     />

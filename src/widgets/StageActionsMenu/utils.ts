@@ -1,5 +1,7 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
 import { KubeObjectAction } from '../../types/actions';
 import { DeepPartial } from '../../types/global';
@@ -8,11 +10,11 @@ import { createKubeAction } from '../../utils/actions/createKubeAction';
 const getStageOrder = (stage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>): number =>
   stage.spec.order;
 
-export const createDeleteAction = (
+export const createDeleteAction = async (
   allStages: EDPCDPipelineStageKubeObjectInterface[],
   currentStage: EDPCDPipelineStageKubeObjectInterface,
   action: () => void
-): KubeObjectAction => {
+): Promise<KubeObjectAction> => {
   if (!currentStage) {
     return;
   }
@@ -41,14 +43,18 @@ export const createDeleteAction = (
   const highestOtherStagesOrder = Math.max(...otherStages.map(getStageOrder));
 
   if (currentStageOrder > highestOtherStagesOrder) {
-    return createKubeAction({
+    return await createKubeAction({
+      item: new EDPCDPipelineStageKubeObject(currentStage) as unknown as KubeObjectInterface,
+      authActionName: 'delete',
       name: RESOURCE_ACTIONS.DELETE,
       icon: ICONS.BUCKET,
       action: action,
     });
   }
 
-  return createKubeAction({
+  return await createKubeAction({
+    item: new EDPCDPipelineStageKubeObject(currentStage) as unknown as KubeObjectInterface,
+    authActionName: 'delete',
     name: RESOURCE_ACTIONS.DELETE,
     disabled: {
       status: true,

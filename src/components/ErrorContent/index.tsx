@@ -44,6 +44,7 @@ export const ErrorContent = ({
             direction={orientation === 'horizontal' ? 'row' : 'column'}
             spacing={1}
             alignItems="center"
+            justifyContent="center"
           >
             <Icon icon={'ph:warning-fill'} color="#A2A7B7" width={48} height={48} />
             <Stack spacing={1} direction="row" alignItems="center">

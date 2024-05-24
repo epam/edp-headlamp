@@ -1,3 +1,4 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
@@ -23,70 +24,100 @@ export const CDPipelineActionsMenu = ({
 }: CDPipelineActionsMenuProps) => {
   const { setDialog } = useDialogContext();
 
-  const createEditCDPipelineDialogForwardedProps: CreateEditCDPipelineDialogForwardedProps = {
-    CDPipelineData: CDPipelineData,
-    mode: FORM_MODES.EDIT,
-  };
+  const getActions = React.useCallback(async () => {
+    if (!CDPipelineData) {
+      return [];
+    }
 
-  const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
-    objectName: CDPipelineData?.metadata.name,
-    kubeObject: EDPCDPipelineKubeObject,
-    kubeObjectData: CDPipelineData,
-    description: `Confirm the deletion of the CD Pipeline with all its components`,
-    backRoute,
-  };
+    const createEditCDPipelineDialogForwardedProps: CreateEditCDPipelineDialogForwardedProps = {
+      CDPipelineData: CDPipelineData,
+      mode: FORM_MODES.EDIT,
+    };
+
+    const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+      objectName: CDPipelineData?.metadata.name,
+      kubeObject: EDPCDPipelineKubeObject,
+      kubeObjectData: CDPipelineData,
+      description: `Confirm the deletion of the CD Pipeline with all its components`,
+      backRoute,
+    };
+
+    if (variant === ACTION_MENU_TYPES.INLINE) {
+      return [
+        await createKubeAction({
+          item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
+          name: RESOURCE_ACTIONS.EDIT,
+          authActionName: 'update',
+          icon: ICONS.PENCIL,
+          action: () => {
+            setDialog({
+              modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
+              forwardedProps: createEditCDPipelineDialogForwardedProps,
+            });
+          },
+        }),
+        await createKubeAction({
+          item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
+          name: RESOURCE_ACTIONS.DELETE,
+          authActionName: 'delete',
+          icon: ICONS.BUCKET,
+          action: () => {
+            setDialog({
+              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+              forwardedProps: deleteKubeObjectDialogForwardedProps,
+            });
+          },
+        }),
+      ];
+    } else {
+      return [
+        await createKubeAction({
+          item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
+          name: RESOURCE_ACTIONS.EDIT,
+          authActionName: 'update',
+          icon: ICONS.PENCIL,
+          action: () => {
+            handleCloseResourceActionListMenu();
+            setDialog({
+              modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
+              forwardedProps: createEditCDPipelineDialogForwardedProps,
+            });
+          },
+        }),
+        await createKubeAction({
+          item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
+          name: RESOURCE_ACTIONS.DELETE,
+          authActionName: 'delete',
+          icon: ICONS.BUCKET,
+          action: () => {
+            handleCloseResourceActionListMenu();
+            setDialog({
+              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
+              forwardedProps: deleteKubeObjectDialogForwardedProps,
+            });
+          },
+        }),
+      ];
+    }
+  }, [CDPipelineData, backRoute, handleCloseResourceActionListMenu, setDialog, variant]);
+
+  const [actions, setActions] = React.useState([]);
+
+  React.useEffect(() => {
+    getActions().then((actions) => {
+      if (actions.length === 0) {
+        return;
+      }
+
+      setActions(actions);
+    });
+  }, [actions.length, getActions]);
 
   return variant === ACTION_MENU_TYPES.INLINE ? (
-    <ActionsInlineList
-      actions={[
-        createKubeAction({
-          name: RESOURCE_ACTIONS.EDIT,
-          icon: ICONS.PENCIL,
-          action: () => {
-            setDialog({
-              modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
-              forwardedProps: createEditCDPipelineDialogForwardedProps,
-            });
-          },
-        }),
-        createKubeAction({
-          name: RESOURCE_ACTIONS.DELETE,
-          icon: ICONS.BUCKET,
-          action: () => {
-            setDialog({
-              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-              forwardedProps: deleteKubeObjectDialogForwardedProps,
-            });
-          },
-        }),
-      ]}
-    />
+    <ActionsInlineList actions={actions} />
   ) : variant === ACTION_MENU_TYPES.MENU ? (
     <ActionsMenuList
-      actions={[
-        createKubeAction({
-          name: RESOURCE_ACTIONS.EDIT,
-          icon: ICONS.PENCIL,
-          action: () => {
-            handleCloseResourceActionListMenu();
-            setDialog({
-              modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
-              forwardedProps: createEditCDPipelineDialogForwardedProps,
-            });
-          },
-        }),
-        createKubeAction({
-          name: RESOURCE_ACTIONS.DELETE,
-          icon: ICONS.BUCKET,
-          action: () => {
-            handleCloseResourceActionListMenu();
-            setDialog({
-              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-              forwardedProps: deleteKubeObjectDialogForwardedProps,
-            });
-          },
-        }),
-      ]}
+      actions={actions}
       anchorEl={anchorEl}
       handleCloseActionsMenu={handleCloseResourceActionListMenu}
     />
