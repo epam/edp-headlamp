@@ -53,7 +53,7 @@ export const CodebaseBranchActionsMenu = ({
           ? [
               await createKubeAction({
                 item: new EDPCodebaseBranchKubeObject(branch) as unknown as KubeObjectInterface,
-                authActionName: 'delete',
+                actionCheckName: 'delete',
                 name: RESOURCE_ACTIONS.DELETE,
                 disabled: {
                   status: true,
@@ -77,7 +77,7 @@ export const CodebaseBranchActionsMenu = ({
           : [
               await createKubeAction({
                 item: new EDPCodebaseBranchKubeObject(branch) as unknown as KubeObjectInterface,
-                authActionName: 'delete',
+                actionCheckName: 'delete',
                 name: RESOURCE_ACTIONS.DELETE,
                 icon: ICONS.BUCKET,
                 action: () => {
@@ -101,7 +101,7 @@ export const CodebaseBranchActionsMenu = ({
           ? [
               await createKubeAction({
                 item: new EDPCodebaseBranchKubeObject(branch) as unknown as KubeObjectInterface,
-                authActionName: 'delete',
+                actionCheckName: 'delete',
                 name: RESOURCE_ACTIONS.DELETE,
                 disabled: {
                   status: true,
@@ -127,7 +127,7 @@ export const CodebaseBranchActionsMenu = ({
           : [
               await createKubeAction({
                 item: new EDPCodebaseBranchKubeObject(branch) as unknown as KubeObjectInterface,
-                authActionName: 'delete',
+                actionCheckName: 'delete',
                 name: RESOURCE_ACTIONS.DELETE,
                 icon: ICONS.BUCKET,
                 action: () => {

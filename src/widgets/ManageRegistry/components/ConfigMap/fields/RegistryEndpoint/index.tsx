@@ -33,7 +33,7 @@ const TYPE_TITLE_MAP = {
 
 export const RegistryEndpoint = () => {
   const {
-    forms: { configMap },
+    forms: { configMap, pushAccount, pullAccount },
     sharedForm,
   } = useRegistryFormsContext();
 
@@ -44,6 +44,22 @@ export const RegistryEndpoint = () => {
       {...configMap.form.register(CONFIG_MAP_FORM_NAMES.registryEndpoint.name, {
         onChange: ({ target: { value } }: FieldEvent) => {
           sharedForm.setValue(SHARED_FORM_NAMES.registryEndpoint.name, value);
+
+          switch (registryTypeFieldValue) {
+            case CONTAINER_REGISTRY_TYPE.HARBOR:
+            case CONTAINER_REGISTRY_TYPE.GHCR:
+            case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
+            case CONTAINER_REGISTRY_TYPE.NEXUS:
+            case CONTAINER_REGISTRY_TYPE.OPENSHIFT_REGISTRY:
+              pushAccount.form.setValue(SHARED_FORM_NAMES.registryEndpoint.name, value, {
+                shouldDirty: true,
+              });
+              pullAccount.form.setValue(SHARED_FORM_NAMES.registryEndpoint.name, value, {
+                shouldDirty: true,
+              });
+            default:
+              break;
+          }
         },
         required: TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue] || 'Enter registry endpoint URL.',
         pattern: {

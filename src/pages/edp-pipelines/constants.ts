@@ -16,7 +16,7 @@ export const matchFunctions: MatchFunctions = {
   [FILTER_CONTROLS.CODEBASES]: (item: PipelineRunKubeObjectInterface, value: string[]) => {
     if (!value || value.length === 0) return true;
 
-    const itemCodebase = item.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE];
+    const itemCodebase = item?.metadata.labels?.[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE];
 
     return value.includes(itemCodebase);
   },
@@ -32,6 +32,6 @@ export const matchFunctions: MatchFunctions = {
       return true;
     }
 
-    return item.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] === value;
+    return item?.metadata.labels?.[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] === value;
   },
 };

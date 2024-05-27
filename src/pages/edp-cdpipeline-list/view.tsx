@@ -1,9 +1,10 @@
 import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { ButtonWithPermission } from '../../components/ButtonWithPermission';
 import { EmptyList } from '../../components/EmptyList';
 import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
@@ -13,6 +14,7 @@ import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
+import { EDPCDPipelineKubeObjectConfig } from '../../k8s/EDPCDPipeline/config';
 import { useCodebasesByTypeLabelQuery } from '../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
 import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../k8s/EDPCodebase/labels';
 import { useDialogContext } from '../../providers/Dialog/hooks';
@@ -87,20 +89,32 @@ export const PageView = () => {
                 />
               </Grid>
               <Grid item>
-                <Button
-                  startIcon={<Icon icon={ICONS.PLUS} />}
-                  color={'primary'}
-                  variant={'contained'}
-                  onClick={() =>
-                    setDialog({
-                      modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
-                      forwardedProps: createEditCDPipelineDialogForwardedProps,
+                <ButtonWithPermission
+                  ButtonProps={{
+                    variant: 'contained',
+                    color: 'primary',
+                    startIcon: <Icon icon={ICONS.PLUS} />,
+                    onClick: () =>
+                      setDialog({
+                        modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
+                        forwardedProps: createEditCDPipelineDialogForwardedProps,
+                      }),
+                    disabled: !gitOpsCodebaseQuery.data,
+                  }}
+                  item={
+                    new EDPCDPipelineKubeObject({
+                      kind: EDPCDPipelineKubeObjectConfig.kind,
+                      apiVersion: `${EDPCDPipelineKubeObjectConfig.group}/${EDPCDPipelineKubeObjectConfig.version}`,
+                      // @ts-ignore
+                      metadata: {
+                        namespace: getDefaultNamespace(),
+                      },
                     })
                   }
-                  disabled={!gitOpsCodebaseQuery.data}
+                  actionCheckName={'create'}
                 >
                   create environment
-                </Button>
+                </ButtonWithPermission>
               </Grid>
             </Grid>
           </Grid>

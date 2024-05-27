@@ -1,12 +1,14 @@
 import { Icon } from '@iconify/react';
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Button, Grid, Typography, useTheme } from '@mui/material';
+import { Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
+import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObject } from '../../../../k8s/QuickLink';
+import { QuickLinkKubeObjectConfig } from '../../../../k8s/QuickLink/config';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../../../providers/Filter/components/Filter/components/NamespaceControl';
@@ -14,6 +16,7 @@ import { SearchControl } from '../../../../providers/Filter/components/Filter/co
 import { useFilterContext } from '../../../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../../../providers/ResourceActionList';
 import { FORM_MODES } from '../../../../types/forms';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../../../widgets/ManageQuickLink/constants';
 import { menu } from '../../menu';
 import { QuickLinkList } from './components/ComponentList';
@@ -62,21 +65,34 @@ export const PageView = () => {
                     />
                   </Grid>
                   <Grid item>
-                    <Button
-                      startIcon={<Icon icon={ICONS.PLUS} />}
-                      color={'primary'}
-                      variant={'contained'}
-                      onClick={() =>
-                        setDialog({
-                          modalName: MANAGE_QUICK_LINK_DIALOG_NAME,
-                          forwardedProps: {
-                            mode: FORM_MODES.CREATE,
+                    <ButtonWithPermission
+                      ButtonProps={{
+                        startIcon: <Icon icon={ICONS.PLUS} />,
+                        color: 'primary',
+                        variant: 'contained',
+                        onClick: () => {
+                          setDialog({
+                            modalName: MANAGE_QUICK_LINK_DIALOG_NAME,
+                            forwardedProps: {
+                              mode: FORM_MODES.CREATE,
+                            },
+                          });
+                        },
+                      }}
+                      item={
+                        new QuickLinkKubeObject({
+                          kind: QuickLinkKubeObjectConfig.kind,
+                          apiVersion: `${QuickLinkKubeObjectConfig.group}/${QuickLinkKubeObjectConfig.version}`,
+                          // @ts-ignore
+                          metadata: {
+                            namespace: getDefaultNamespace(),
                           },
                         })
                       }
+                      actionCheckName="create"
                     >
                       add link
-                    </Button>
+                    </ButtonWithPermission>
                   </Grid>
                 </Grid>
               </Grid>

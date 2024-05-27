@@ -45,7 +45,7 @@ export const createDeleteAction = async (
   if (currentStageOrder > highestOtherStagesOrder) {
     return await createKubeAction({
       item: new EDPCDPipelineStageKubeObject(currentStage) as unknown as KubeObjectInterface,
-      authActionName: 'delete',
+      actionCheckName: 'delete',
       name: RESOURCE_ACTIONS.DELETE,
       icon: ICONS.BUCKET,
       action: action,
@@ -54,7 +54,7 @@ export const createDeleteAction = async (
 
   return await createKubeAction({
     item: new EDPCDPipelineStageKubeObject(currentStage) as unknown as KubeObjectInterface,
-    authActionName: 'delete',
+    actionCheckName: 'delete',
     name: RESOURCE_ACTIONS.DELETE,
     disabled: {
       status: true,

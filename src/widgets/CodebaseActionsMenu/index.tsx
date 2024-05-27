@@ -98,7 +98,7 @@ export const CodebaseActionsMenu = ({
         await createKubeAction({
           item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
           name: RESOURCE_ACTIONS.EDIT,
-          authActionName: 'update',
+          actionCheckName: 'update',
           icon: ICONS.PENCIL,
           action: () => {
             setDialog({
@@ -110,7 +110,7 @@ export const CodebaseActionsMenu = ({
         await createKubeAction({
           item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
           name: RESOURCE_ACTIONS.DELETE,
-          authActionName: 'delete',
+          actionCheckName: 'delete',
           icon: ICONS.BUCKET,
           action: () => {
             setDialog({
@@ -125,7 +125,7 @@ export const CodebaseActionsMenu = ({
         await createKubeAction({
           item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
           name: RESOURCE_ACTIONS.EDIT,
-          authActionName: 'update',
+          actionCheckName: 'update',
           icon: ICONS.PENCIL,
           action: () => {
             handleCloseResourceActionListMenu();
@@ -138,7 +138,7 @@ export const CodebaseActionsMenu = ({
         await createKubeAction({
           item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
           name: RESOURCE_ACTIONS.DELETE,
-          authActionName: 'delete',
+          actionCheckName: 'delete',
           icon: ICONS.BUCKET,
           action: () => {
             handleCloseResourceActionListMenu();

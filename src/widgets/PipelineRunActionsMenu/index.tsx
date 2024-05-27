@@ -1,4 +1,7 @@
+import { Icon } from '@iconify/react';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { IconButton } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
@@ -20,6 +23,7 @@ export const PipelineRunActionsMenu = ({
   handleCloseResourceActionListMenu,
 }: PipelineRunActionsMenuProps) => {
   const history = useHistory();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const status = PipelineRunKubeObject.parseStatusReason(_pipelineRun)?.toLowerCase();
 
@@ -41,19 +45,50 @@ export const PipelineRunActionsMenu = ({
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
         await createKubeAction({
+          item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
+          actionCheckName: 'create',
           name: 'Rerun',
           icon: ICONS.REDO,
           action: () => {
             PipelineRunKubeObject.apiEndpoint.post(createRerunPipelineRunInstance(pipelineRun));
+
+            enqueueSnackbar('The PipelineRun is rerun', {
+              autoHideDuration: 2000,
+              variant: 'info',
+              anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
+              action: (key) => (
+                <IconButton size="small" onClick={() => closeSnackbar(key)}>
+                  <Icon icon={ICONS.CROSS} />
+                </IconButton>
+              ),
+            });
           },
         }),
         await createKubeAction({
+          item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
+          actionCheckName: 'update',
           name: 'Cancel',
           icon: ICONS.CANCEL,
           action: () => {
             const copyPipelineRun = { ...pipelineRun };
             copyPipelineRun.spec.status = 'Cancelled';
             PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
+            enqueueSnackbar('The PipelineRun is cancelled', {
+              autoHideDuration: 2000,
+              variant: 'info',
+              anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
+              action: (key) => (
+                <IconButton size="small" onClick={() => closeSnackbar(key)}>
+                  <Icon icon={ICONS.CROSS} />
+                </IconButton>
+              ),
+            });
           },
           disabled: {
             status: !isInProgress,
@@ -62,7 +97,7 @@ export const PipelineRunActionsMenu = ({
         }),
         await createKubeAction({
           item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
-          authActionName: 'delete',
+          actionCheckName: 'delete',
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
           action: () => {
@@ -70,6 +105,19 @@ export const PipelineRunActionsMenu = ({
               pipelineRun.metadata.namespace,
               pipelineRun.metadata.name
             );
+            enqueueSnackbar('The PipelineRun is deleted', {
+              autoHideDuration: 2000,
+              variant: 'info',
+              anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
+              action: (key) => (
+                <IconButton size="small" onClick={() => closeSnackbar(key)}>
+                  <Icon icon={ICONS.CROSS} />
+                </IconButton>
+              ),
+            });
             onDelete();
           },
         }),
@@ -77,6 +125,8 @@ export const PipelineRunActionsMenu = ({
     } else {
       return [
         await createKubeAction({
+          item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
+          actionCheckName: 'create',
           name: 'Rerun',
           icon: ICONS.REDO,
           action: () => {
@@ -85,6 +135,8 @@ export const PipelineRunActionsMenu = ({
           },
         }),
         await createKubeAction({
+          item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
+          actionCheckName: 'update',
           name: 'Cancel',
           icon: ICONS.CANCEL,
           action: () => {
@@ -100,7 +152,7 @@ export const PipelineRunActionsMenu = ({
         }),
         await createKubeAction({
           item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
-          authActionName: 'delete',
+          actionCheckName: 'delete',
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
           action: () => {
@@ -114,7 +166,15 @@ export const PipelineRunActionsMenu = ({
         }),
       ];
     }
-  }, [_pipelineRun, variant, isInProgress, handleCloseResourceActionListMenu, onDelete]);
+  }, [
+    _pipelineRun,
+    variant,
+    isInProgress,
+    enqueueSnackbar,
+    closeSnackbar,
+    onDelete,
+    handleCloseResourceActionListMenu,
+  ]);
 
   const [actions, setActions] = React.useState([]);
 

@@ -14,8 +14,8 @@ export const TaskRun = ({ taskRun }: { taskRun: TaskRunKubeObjectInterface }) =>
 
   const [icon, color, isRotating] = TaskRunKubeObject.getStatusIcon(taskRunStatus, taskRunReason);
 
-  const completionTime = taskRun.status.completionTime;
-  const startTime = taskRun.status.startTime;
+  const completionTime = taskRun?.status?.completionTime;
+  const startTime = taskRun?.status?.startTime;
 
   const duration = humanize(new Date(completionTime).getTime() - new Date(startTime).getTime(), {
     language: 'en-mini',
