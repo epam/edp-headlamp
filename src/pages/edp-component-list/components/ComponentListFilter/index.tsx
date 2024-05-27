@@ -1,14 +1,18 @@
 import { Icon } from '@iconify/react';
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
 import React from 'react';
+import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
 import { codebaseTypeSelectOptions } from '../../../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
+import { EDPCodebaseKubeObjectConfig } from '../../../../k8s/EDPCodebase/config';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../../../providers/Filter/components/Filter/components/SearchControl';
 import { FORM_MODES } from '../../../../types/forms';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../widgets/CreateEditCodebase/constants';
 import { CreateEditCodebaseDialogForwardedProps } from '../../../../widgets/CreateEditCodebase/types';
 import { FILTER_CONTROLS } from '../../constants';
@@ -66,20 +70,32 @@ export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) 
         />
       </Grid>
       <Grid item>
-        <Button
-          startIcon={<Icon icon={ICONS.PLUS} />}
-          color={'primary'}
-          variant={'contained'}
-          disabled={noGitServers}
-          onClick={() =>
-            setDialog({
-              modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-              forwardedProps: createEditCodebaseDialogForwardedProps,
+        <ButtonWithPermission
+          ButtonProps={{
+            startIcon: <Icon icon={ICONS.PLUS} />,
+            color: 'primary',
+            variant: 'contained',
+            disabled: noGitServers,
+            onClick: () =>
+              setDialog({
+                modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
+                forwardedProps: createEditCodebaseDialogForwardedProps,
+              }),
+          }}
+          item={
+            new EDPCodebaseKubeObject({
+              kind: EDPCodebaseKubeObjectConfig.kind,
+              apiVersion: `${EDPCodebaseKubeObjectConfig.group}/${EDPCodebaseKubeObjectConfig.version}`,
+              // @ts-ignore
+              metadata: {
+                namespace: getDefaultNamespace(),
+              },
             })
           }
+          actionCheckName="create"
         >
           create component
-        </Button>
+        </ButtonWithPermission>
       </Grid>
     </Grid>
   );

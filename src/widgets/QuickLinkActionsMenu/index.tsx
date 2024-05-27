@@ -50,7 +50,7 @@ export const QuickLinkActionsMenu = ({
       return [
         await createKubeAction({
           item: new QuickLinkKubeObject(data) as unknown as KubeObjectInterface,
-          authActionName: 'update',
+          actionCheckName: 'update',
           name: RESOURCE_ACTIONS.EDIT,
           icon: ICONS.PENCIL,
           action: () => {
@@ -62,7 +62,7 @@ export const QuickLinkActionsMenu = ({
         }),
         await createKubeAction({
           item: new QuickLinkKubeObject(data) as unknown as KubeObjectInterface,
-          authActionName: 'delete',
+          actionCheckName: 'delete',
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
           action: () => {
@@ -81,7 +81,7 @@ export const QuickLinkActionsMenu = ({
       return [
         await createKubeAction({
           item: new QuickLinkKubeObject(data) as unknown as KubeObjectInterface,
-          authActionName: 'update',
+          actionCheckName: 'update',
           name: RESOURCE_ACTIONS.EDIT,
           icon: ICONS.PENCIL,
           action: () => {
@@ -94,7 +94,7 @@ export const QuickLinkActionsMenu = ({
         }),
         await createKubeAction({
           item: new QuickLinkKubeObject(data) as unknown as KubeObjectInterface,
-          authActionName: 'delete',
+          actionCheckName: 'delete',
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
           action: () => {

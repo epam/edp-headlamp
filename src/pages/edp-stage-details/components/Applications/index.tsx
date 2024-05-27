@@ -246,12 +246,8 @@ export const Applications = ({
       return selected.includes(appName) && !!value;
     });
 
-    if (selectedImageTagsValues?.length !== enrichedApplicationsWithArgoApplications?.length) {
-      return {
-        deploy: false,
-        uninstall: false,
-      };
-    }
+    const allAppVersionsAreSelected =
+      selectedImageTagsValues?.length === enrichedApplicationsWithArgoApplications?.length;
 
     const map = selected.reduce((acc, selectedApplication) => {
       {
@@ -284,7 +280,10 @@ export const Applications = ({
         );
 
         acc.set(selectedApplication, {
-          deploy: !latestDeployPipelineRunIsRunning && !someArgoApplicationMutationIsLoading,
+          deploy:
+            allAppVersionsAreSelected &&
+            !latestDeployPipelineRunIsRunning &&
+            !someArgoApplicationMutationIsLoading,
           uninstall: !!deployedVersion,
         });
         return acc;

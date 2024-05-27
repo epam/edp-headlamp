@@ -5,7 +5,7 @@ import { capitalizeFirstLetter } from '../../format/capitalizeFirstLetter';
 export const createKubeAction = async ({
   item,
   name,
-  authActionName,
+  actionCheckName,
   action,
   disabled = {
     status: false,
@@ -14,7 +14,7 @@ export const createKubeAction = async ({
 }: {
   name: string;
   item?: KubeObjectInterface;
-  authActionName?: string;
+  actionCheckName?: string;
   action?: () => void;
   disabled?: {
     status: boolean;
@@ -22,8 +22,7 @@ export const createKubeAction = async ({
   };
   icon?: string;
 }): Promise<KubeObjectAction> => {
-
-  if (!authActionName || !Object.keys(item.jsonData).length) {
+  if (!actionCheckName || !Object.keys(item?.jsonData).length) {
     return {
       name: name,
       label: capitalizeFirstLetter(name),
@@ -39,9 +38,9 @@ export const createKubeAction = async ({
     };
   }
 
-  const authCheckResult = await item.getAuthorization(authActionName);
+  const actionCheckResult = await item.getAuthorization(actionCheckName);
 
-  const allowed = authCheckResult.status?.allowed;
+  const allowed = actionCheckResult.status?.allowed;
 
   return {
     name: name,

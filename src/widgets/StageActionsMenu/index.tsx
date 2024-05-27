@@ -49,7 +49,7 @@ export const StageActionsMenu = ({
       return [
         await createKubeAction({
           item: new EDPCDPipelineStageKubeObject(stage) as unknown as KubeObjectInterface,
-          authActionName: 'update',
+          actionCheckName: 'update',
           name: RESOURCE_ACTIONS.EDIT,
           icon: ICONS.PENCIL,
           action: () => {
@@ -70,7 +70,7 @@ export const StageActionsMenu = ({
       return [
         await createKubeAction({
           item: new EDPCDPipelineStageKubeObject(stage) as unknown as KubeObjectInterface,
-          authActionName: 'update',
+          actionCheckName: 'update',
           name: RESOURCE_ACTIONS.EDIT,
           icon: ICONS.PENCIL,
           action: () => {

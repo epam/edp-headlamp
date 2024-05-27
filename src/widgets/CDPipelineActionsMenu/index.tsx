@@ -47,7 +47,7 @@ export const CDPipelineActionsMenu = ({
         await createKubeAction({
           item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
           name: RESOURCE_ACTIONS.EDIT,
-          authActionName: 'update',
+          actionCheckName: 'update',
           icon: ICONS.PENCIL,
           action: () => {
             setDialog({
@@ -59,7 +59,7 @@ export const CDPipelineActionsMenu = ({
         await createKubeAction({
           item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
           name: RESOURCE_ACTIONS.DELETE,
-          authActionName: 'delete',
+          actionCheckName: 'delete',
           icon: ICONS.BUCKET,
           action: () => {
             setDialog({
@@ -74,7 +74,7 @@ export const CDPipelineActionsMenu = ({
         await createKubeAction({
           item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
           name: RESOURCE_ACTIONS.EDIT,
-          authActionName: 'update',
+          actionCheckName: 'update',
           icon: ICONS.PENCIL,
           action: () => {
             handleCloseResourceActionListMenu();
@@ -87,7 +87,7 @@ export const CDPipelineActionsMenu = ({
         await createKubeAction({
           item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
           name: RESOURCE_ACTIONS.DELETE,
-          authActionName: 'delete',
+          actionCheckName: 'delete',
           icon: ICONS.BUCKET,
           action: () => {
             handleCloseResourceActionListMenu();

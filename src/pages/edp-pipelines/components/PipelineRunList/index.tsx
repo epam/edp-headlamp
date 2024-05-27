@@ -38,7 +38,7 @@ export const PipelineRunListWithFilter = () => {
   const pipelineCodebases = React.useMemo(() => {
     return new Set(
       pipelineRuns
-        ?.map(({ metadata: { labels } }) => labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE])
+        ?.map(({ metadata: { labels } }) => labels?.[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE])
         .filter(Boolean)
     );
   }, [pipelineRuns]);

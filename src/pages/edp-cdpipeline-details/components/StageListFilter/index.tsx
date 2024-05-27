@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Autocomplete } from '@mui/lab';
 import {
-  Button,
   FormControl,
   Grid,
   InputLabel,
@@ -11,11 +10,15 @@ import {
   useTheme,
 } from '@mui/material';
 import React from 'react';
+import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
 import { APPLICATION_HEALTH_STATUS } from '../../../../k8s/Application/constants';
+import { EDPCDPipelineStageKubeObject } from '../../../../k8s/EDPCDPipelineStage';
+import { EDPCDPipelineStageKubeObjectConfig } from '../../../../k8s/EDPCDPipelineStage/config';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
 import { FieldEvent, FORM_MODES } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../widgets/CreateEditStage/constants';
 import { CreateEditStageDialogForwardedProps } from '../../../../widgets/CreateEditStage/types';
 import { FILTER_CONTROLS } from '../../constants';
@@ -169,19 +172,32 @@ export const StageListFilter = () => {
         />
       </Grid>
       <Grid item>
-        <Button
-          startIcon={<Icon icon={'heroicons:view-columns-solid'} />}
-          color={'primary'}
-          variant={'contained'}
-          onClick={() => {
-            setDialog({
-              modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
-              forwardedProps,
-            });
+        <ButtonWithPermission
+          ButtonProps={{
+            startIcon: <Icon icon={'heroicons:view-columns-solid'} />,
+            color: 'primary',
+            variant: 'contained',
+            onClick: () => {
+              setDialog({
+                modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
+                forwardedProps,
+              });
+            },
           }}
+          actionCheckName={'create'}
+          item={
+            new EDPCDPipelineStageKubeObject({
+              kind: EDPCDPipelineStageKubeObjectConfig.kind,
+              apiVersion: `${EDPCDPipelineStageKubeObjectConfig.group}/${EDPCDPipelineStageKubeObjectConfig.version}`,
+              // @ts-ignore
+              metadata: {
+                namespace: getDefaultNamespace(),
+              },
+            })
+          }
         >
           create stage
-        </Button>
+        </ButtonWithPermission>
       </Grid>
     </Grid>
   );
