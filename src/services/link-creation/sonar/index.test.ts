@@ -7,12 +7,8 @@ import { SonarQubeURLService } from './index';
 describe('testing link-creation SonarQubeURLService', () => {
   it('should successfully create sonar url based on given sonarURLOrigin and namespace params', () => {
     expect(
-      SonarQubeURLService.createDashboardLink(
-        'https://sonar-test.com',
-        'test-branch',
-        'test-application'
-      )
-    ).toEqual('https://sonar-test.com/dashboard?branch=test-application&id=test-branch');
+      SonarQubeURLService.createDashboardLink('https://sonar-test.com', 'test-application')
+    ).toEqual('https://sonar-test.com/dashboard?id=test-application');
   });
 
   it('should successfully create metric url based on given sonarURLOrigin and metricName params', () => {
@@ -20,12 +16,9 @@ describe('testing link-creation SonarQubeURLService', () => {
       SonarQubeURLService.createLinkByMetricName(
         'https://sonar-test.com',
         'test-application',
-        'test-branch',
         'bugs'
       )
-    ).toEqual(
-      'https://sonar-test.com/component_measures?id=test-application&branch=test-branch&metric=bugs'
-    );
+    ).toEqual('https://sonar-test.com/component_measures?id=test-application&metric=bugs');
   });
 
   it('should successfully create issue url based on given sonarURLOrigin and issueType params', () => {
@@ -33,23 +26,18 @@ describe('testing link-creation SonarQubeURLService', () => {
       SonarQubeURLService.createLinkByIssueType(
         'https://sonar-test.com',
         'test-application',
-        'test-branch',
         'coverage'
       )
     ).toEqual(
-      'https://sonar-test.com/project/issues?id=test-application&branch=test-branch&resolved=false&types=coverage'
+      'https://sonar-test.com/project/issues?id=test-application&resolved=false&types=coverage'
     );
   });
 
   it('should successfully create metrics api url based on given sonarURLOrigin and codebaseName params', () => {
     expect(
-      SonarQubeURLService.createMetricsApiUrl(
-        'https://sonar-test.com',
-        'test-application',
-        'test-branch'
-      )
+      SonarQubeURLService.createMetricsApiUrl('https://sonar-test.com', 'test-application')
     ).toEqual(
-      'https://sonar-test.com/api/measures/component?component=test-application&branch=test-branch&metricKeys=bugs%2Ccode_smells%2Ccoverage%2Cduplicated_lines_density%2Cncloc%2Csqale_rating%2Calert_status%2Creliability_rating%2Csecurity_hotspots%2Csecurity_rating%2Csqale_index%2Cvulnerabilities'
+      'https://sonar-test.com/api/measures/component?component=test-application&metricKeys=bugs%2Ccode_smells%2Ccoverage%2Cduplicated_lines_density%2Cncloc%2Csqale_rating%2Calert_status%2Creliability_rating%2Csecurity_hotspots%2Csecurity_rating%2Csqale_index%2Cvulnerabilities'
     );
   });
 });

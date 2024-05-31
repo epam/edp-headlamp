@@ -1,45 +1,38 @@
 import { lighten } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { rem } from '../../../../utils/styling/rem';
-
-const okColor = '#1DB954';
-const abortedColor = '#757575';
-const pendingColor = '#FFED51';
-const warningColor = '#FF9800';
-const errorColor = '#F84C55';
 
 export const useStyles = makeStyles((theme) => {
   const commonCardRating = {
-    height: rem(16),
-    width: rem(16),
+    height: theme.typography.pxToRem(21),
+    width: theme.typography.pxToRem(21),
     color: theme.palette.common.white,
-    fontSize: rem(12),
+    fontSize: theme.typography.pxToRem(13),
   };
 
   return {
     ratingDefault: {
       ...commonCardRating,
-      background: abortedColor,
+      background: '#E6E6F0',
     },
     ratingA: {
       ...commonCardRating,
-      background: okColor,
+      background: '#18BE94',
     },
     ratingB: {
       ...commonCardRating,
-      background: lighten(okColor, 0.5),
+      background: lighten('#18BE94', 0.5),
     },
     ratingC: {
       ...commonCardRating,
-      background: pendingColor,
+      background: '#FFC754',
     },
     ratingD: {
       ...commonCardRating,
-      background: warningColor,
+      background: '#FF8832',
     },
     ratingE: {
       ...commonCardRating,
-      background: errorColor,
+      background: '#FD4C4D',
     },
   };
 });

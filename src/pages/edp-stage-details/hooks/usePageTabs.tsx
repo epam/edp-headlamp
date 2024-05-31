@@ -10,6 +10,7 @@ import { Applications } from '../components/Applications';
 import { Monitoring } from '../components/Monitoring';
 import { useDataContext } from '../providers/Data/hooks';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
+import { usePermissionsContext } from '../providers/Permissions/hooks';
 import { EDPStageDetailsRouteParams } from '../types';
 import { useEnrichedApplicationsWithArgoApplications } from './useEnrichedApplicationsWithArgoApplication';
 
@@ -64,6 +65,8 @@ export const usePageTabs = () => {
     argoApplications: argoApplications.data,
   });
 
+  const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
+
   return React.useMemo(() => {
     const _isLoading = isLoading || enrichedApplications.isLoading;
 
@@ -91,6 +94,7 @@ export const usePageTabs = () => {
               pipelineRuns={deployPipelineRuns.data}
               isLoading={deployPipelineRuns.isLoading}
               filterFunction={null}
+              permissions={pipelineRunPermissions}
             />
           </LoadingWrapper>
         ),
@@ -116,6 +120,7 @@ export const usePageTabs = () => {
     enrichedApplicationsWithArgoApplications,
     isLoading,
     latestDeployPipelineRunIsRunning,
+    pipelineRunPermissions,
     stage.data?.spec.namespace,
   ]);
 };

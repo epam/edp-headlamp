@@ -9,7 +9,6 @@ import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebas
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../../../widgets/CreateCodebaseBranch/constants';
 import { CodebaseBranch } from './components/CodebaseBranch';
-import { CodebaseBranchActions } from './components/CodebaseBranchActions';
 import { TableHeaderActions } from './components/TableHeaderActions';
 import { CodebaseBranchesListProps } from './types';
 import { isDefaultBranch } from './utils';
@@ -84,7 +83,6 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
         </Grid>
       ) : currentCodebaseBranches.length ? (
         <>
-          <CodebaseBranchActions defaultBranch={defaultBranch} codebaseData={codebaseData} />
           {currentCodebaseBranches.map(
             (codebaseBranchData: EDPCodebaseBranchKubeObjectInterface, idx: number) => {
               const branchId = `${codebaseBranchData.spec.branchName}:${idx}`;
@@ -97,6 +95,7 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
                   expandedPanel={expandedPanel}
                   codebaseData={codebaseData}
                   handlePanelChange={handleChange}
+                  defaultBranch={defaultBranch}
                 />
               );
             }

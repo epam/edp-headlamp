@@ -12,7 +12,3 @@ export type InfoRow = InfoColumn[];
 export interface InfoColumnsProps {
   infoRows: InfoRow[];
 }
-
-export interface InfoColumnsAccordionProps extends InfoColumnsProps {
-  title: string;
-}

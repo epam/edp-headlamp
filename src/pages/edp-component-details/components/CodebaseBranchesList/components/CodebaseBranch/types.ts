@@ -8,4 +8,5 @@ export interface CodebaseBranchProps {
   id: string;
   codebaseData: EDPCodebaseKubeObjectInterface;
   handlePanelChange: (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
+  defaultBranch: string;
 }

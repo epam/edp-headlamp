@@ -1,12 +1,9 @@
 import { Typography } from '@mui/material';
 import React from 'react';
-import { useStyles } from './styles';
 
 export const Value = (props: { value?: string }) => {
-  const classes = useStyles();
-
   return (
-    <Typography component="span" className={classes.value}>
+    <Typography component="span" fontSize={16} color="primary.dark" fontWeight={500}>
       {props.value}
     </Typography>
   );

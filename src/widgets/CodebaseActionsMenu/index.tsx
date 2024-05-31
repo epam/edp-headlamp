@@ -1,5 +1,4 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { Typography } from '@mui/material';
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
@@ -27,6 +26,7 @@ export const CodebaseActionsMenu = ({
   data: { codebaseData },
   anchorEl,
   handleCloseResourceActionListMenu,
+  permissions,
 }: CodebaseActionsMenuProps) => {
   const classes = useStyles();
 
@@ -74,7 +74,7 @@ export const CodebaseActionsMenu = ({
     [conflictedCDPipeline, ErrorMessage]
   );
 
-  const getActions = React.useCallback(async () => {
+  const actions = React.useMemo(() => {
     if (!codebaseData) {
       return [];
     }
@@ -95,11 +95,13 @@ export const CodebaseActionsMenu = ({
 
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
-        await createKubeAction({
-          item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
+        createKubeAction({
           name: RESOURCE_ACTIONS.EDIT,
-          actionCheckName: 'update',
           icon: ICONS.PENCIL,
+          disabled: {
+            status: permissions.update === false,
+            reason: 'You do not have permission to update Codebase',
+          },
           action: () => {
             setDialog({
               modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
@@ -107,11 +109,13 @@ export const CodebaseActionsMenu = ({
             });
           },
         }),
-        await createKubeAction({
-          item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
+        createKubeAction({
           name: RESOURCE_ACTIONS.DELETE,
-          actionCheckName: 'delete',
           icon: ICONS.BUCKET,
+          disabled: {
+            status: permissions.delete === false,
+            reason: 'You do not have permission to delete Codebase',
+          },
           action: () => {
             setDialog({
               modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
@@ -122,11 +126,13 @@ export const CodebaseActionsMenu = ({
       ];
     } else {
       return [
-        await createKubeAction({
-          item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
+        createKubeAction({
           name: RESOURCE_ACTIONS.EDIT,
-          actionCheckName: 'update',
           icon: ICONS.PENCIL,
+          disabled: {
+            status: permissions.update === false,
+            reason: 'You do not have permission to update Codebase',
+          },
           action: () => {
             handleCloseResourceActionListMenu();
             setDialog({
@@ -135,11 +141,13 @@ export const CodebaseActionsMenu = ({
             });
           },
         }),
-        await createKubeAction({
-          item: new EDPCodebaseKubeObject(codebaseData) as unknown as KubeObjectInterface,
+        createKubeAction({
           name: RESOURCE_ACTIONS.DELETE,
-          actionCheckName: 'delete',
           icon: ICONS.BUCKET,
+          disabled: {
+            status: permissions.delete === false,
+            reason: 'You do not have permission to delete Codebase',
+          },
           action: () => {
             handleCloseResourceActionListMenu();
             setDialog({
@@ -155,21 +163,11 @@ export const CodebaseActionsMenu = ({
     codebaseData,
     handleCloseResourceActionListMenu,
     onBeforeSubmit,
+    permissions.delete,
+    permissions.update,
     setDialog,
     variant,
   ]);
-
-  const [actions, setActions] = React.useState([]);
-
-  React.useEffect(() => {
-    getActions().then((actions) => {
-      if (actions.length === 0) {
-        return;
-      }
-
-      setActions(actions);
-    });
-  }, [actions.length, getActions]);
 
   return variant === ACTION_MENU_TYPES.INLINE ? (
     <ActionsInlineList actions={actions} />

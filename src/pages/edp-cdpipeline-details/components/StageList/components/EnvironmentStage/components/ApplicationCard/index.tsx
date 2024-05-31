@@ -131,7 +131,6 @@ export const ApplicationCard = ({
                   configurationLink={{
                     routeName: routeEDPArgoCDIntegration.path,
                   }}
-                  variant="icon"
                   size="small"
                 />
               </Stack>

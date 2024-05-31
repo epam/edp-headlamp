@@ -14,7 +14,13 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
   const hasBreadcrumbs = !!breadcrumbs && !!breadcrumbs.length;
 
   return (
-    <Box sx={{ pt: theme.typography.pxToRem(40), px: theme.typography.pxToRem(16) }}>
+    <Box
+      sx={{
+        pt: theme.typography.pxToRem(40),
+        pb: theme.typography.pxToRem(120),
+        px: theme.typography.pxToRem(16),
+      }}
+    >
       {hasBreadcrumbs ? (
         <Grid container spacing={1} alignItems={'center'} justifyContent={'space-between'}>
           <Grid item>
@@ -31,6 +37,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
                         component={Link}
                         routeName={url.pathname}
                         params={url.params}
+                        sx={{ minWidth: 0 }}
                       >
                         {label}
                       </Button>

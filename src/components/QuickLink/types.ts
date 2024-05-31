@@ -1,3 +1,4 @@
+import { ButtonProps } from '@mui/material';
 import { QuickLinkKubeObjectInterface } from '../../k8s/QuickLink/types';
 
 export interface QuickLinkExternalLinkProps {
@@ -15,6 +16,7 @@ export interface QuickLinkExternalLinkProps {
     };
   };
   QuickLinkComponent?: QuickLinkKubeObjectInterface;
-  variant?: 'icon' | 'text';
-  size?: 'small' | 'medium' | 'large';
+  isTextButton?: boolean;
+  variant?: ButtonProps['variant'];
+  size?: ButtonProps['size'];
 }

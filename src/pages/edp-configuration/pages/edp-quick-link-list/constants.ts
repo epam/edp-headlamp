@@ -8,3 +8,7 @@ export const QUICK_LINK_LIST_PAGE_DESCRIPTION: PageDescription = {
   docLink: EDP_USER_GUIDE.OVERVIEW.url,
   routePath: '/configuration/quicklinks',
 };
+
+export const permissionChecks = {
+  QUICK_LINK: 'quickLink',
+} as const;

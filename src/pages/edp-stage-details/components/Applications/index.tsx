@@ -14,6 +14,7 @@ import { useCreateDeployPipelineRun } from '../../../../k8s/PipelineRun/hooks/us
 import { mapEvery } from '../../../../utils/loops/mapEvery';
 import { useDataContext } from '../../providers/Data/hooks';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
+import { usePermissionsContext } from '../../providers/Permissions/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
 import { useColumns } from './hooks/useColumns';
 import { useUpperColumns } from './hooks/useUpperColumns';
@@ -73,6 +74,7 @@ export const Applications = ({
   latestDeployPipelineRunIsRunning,
 }: ApplicationsProps) => {
   const { CDPipeline } = useDataContext();
+  const permissions = usePermissionsContext();
   const {
     stage: { data: stage },
     deployPipelineRunTemplate: { data: deployPipelineRunTemplate },
@@ -398,6 +400,7 @@ export const Applications = ({
     onStableClick,
     onValuesOverrideAllClick,
     isDeployLoading: latestDeployPipelineRunIsRunning,
+    permissions,
   });
 
   return (

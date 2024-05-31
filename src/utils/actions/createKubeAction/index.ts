@@ -2,10 +2,8 @@ import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluste
 import { KubeObjectAction } from '../../../types/actions';
 import { capitalizeFirstLetter } from '../../format/capitalizeFirstLetter';
 
-export const createKubeAction = async ({
-  item,
+export const createKubeAction = ({
   name,
-  actionCheckName,
   action,
   disabled = {
     status: false,
@@ -21,34 +19,14 @@ export const createKubeAction = async ({
     reason?: string;
   };
   icon?: string;
-}): Promise<KubeObjectAction> => {
-  if (!actionCheckName || !Object.keys(item?.jsonData).length) {
-    return {
-      name: name,
-      label: capitalizeFirstLetter(name),
-      icon,
-      disabled: {
-        status: disabled.status,
-        reason: disabled.reason,
-      },
-      action: (e) => {
-        e.stopPropagation();
-        action();
-      },
-    };
-  }
-
-  const actionCheckResult = await item.getAuthorization(actionCheckName);
-
-  const allowed = actionCheckResult.status?.allowed;
-
+}): KubeObjectAction => {
   return {
     name: name,
     label: capitalizeFirstLetter(name),
     icon,
     disabled: {
-      status: disabled.status || !allowed,
-      reason: disabled.reason || 'Forbidden',
+      status: disabled.status,
+      reason: disabled.status && disabled.reason,
     },
     action: (e) => {
       e.stopPropagation();

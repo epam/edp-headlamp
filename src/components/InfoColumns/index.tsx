@@ -1,26 +1,9 @@
-import { Icon } from '@iconify/react';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  CircularProgress,
-  Grid,
-  GridSize,
-  Typography,
-} from '@mui/material';
+import { CircularProgress, Grid, GridSize, Typography } from '@mui/material';
 import React from 'react';
-import { ICONS } from '../../icons/iconify-icons-mapping';
 import { UseSpriteSymbol } from '../../icons/UseSpriteSymbol';
-import { LOCAL_STORAGE_SERVICE } from '../../services/local-storage';
-import { LS_KEY_SHOW_INFO_COLUMNS_BY_DEFAULT } from '../../services/local-storage/keys';
-import { useStyles } from './styles';
-import { InfoColumnsAccordionProps, InfoColumnsProps } from './types';
+import { InfoColumnsProps } from './types';
 
-const toShowValueFromLocalStorage: 'true' | 'false' = LOCAL_STORAGE_SERVICE.getItem(
-  LS_KEY_SHOW_INFO_COLUMNS_BY_DEFAULT
-);
-
-const InfoColumnsRenderer = ({ infoRows }: InfoColumnsProps) => {
+export const InfoColumns = ({ infoRows }: InfoColumnsProps) => {
   return (
     <Grid container spacing={4}>
       {infoRows ? (
@@ -31,7 +14,7 @@ const InfoColumnsRenderer = ({ infoRows }: InfoColumnsProps) => {
                 <React.Fragment key={`column::${index}`}>
                   {!!label && !!text && (
                     <Grid item xs={columnXs as GridSize}>
-                      <Typography variant={'body2'} gutterBottom>
+                      <Typography fontWeight={500} fontSize={14} color="primary.dark" gutterBottom>
                         {label}
                       </Typography>
                       <Grid container spacing={1} alignItems={'center'}>
@@ -45,7 +28,11 @@ const InfoColumnsRenderer = ({ infoRows }: InfoColumnsProps) => {
                           </Grid>
                         )}
                         <Grid item>
-                          <Typography variant={'caption'} style={{ lineHeight: 1 }}>
+                          <Typography
+                            fontSize={13}
+                            color="secondary.dark"
+                            style={{ lineHeight: 1 }}
+                          >
                             {text}
                           </Typography>
                         </Grid>
@@ -61,45 +48,5 @@ const InfoColumnsRenderer = ({ infoRows }: InfoColumnsProps) => {
         <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
       )}
     </Grid>
-  );
-};
-
-export const InfoColumnsAccordion = ({ infoRows, title }: InfoColumnsAccordionProps) => {
-  const classes = useStyles();
-  const [expandedPanel, setExpandedPanel] = React.useState<string>(
-    toShowValueFromLocalStorage === 'true' ? 'info_columns' : null
-  );
-
-  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpandedPanel(isExpanded ? panel : null);
-    LOCAL_STORAGE_SERVICE.setItem(LS_KEY_SHOW_INFO_COLUMNS_BY_DEFAULT, String(isExpanded));
-  };
-
-  const toShow = expandedPanel === 'info_columns';
-
-  return (
-    <Accordion elevation={1} expanded={toShow} onChange={handleChange('info_columns')}>
-      <AccordionSummary
-        expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
-        className={classes.accordionSummary}
-      >
-        <Typography variant={'h6'} style={{ fontWeight: 600 }}>
-          {title}
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <InfoColumnsRenderer infoRows={infoRows} />
-      </AccordionDetails>
-    </Accordion>
-  );
-};
-
-export const InfoColumns = ({ infoRows }: InfoColumnsProps) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <InfoColumnsRenderer infoRows={infoRows} />
-    </div>
   );
 };

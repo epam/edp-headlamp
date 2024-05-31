@@ -94,7 +94,7 @@ export const TableRow = ({
             key={id}
             sortDirection={sortBy === id ? sortOrder : false}
             align={textAlign}
-            style={{
+            sx={{
               color: theme.palette.text.primary,
             }}
           >
@@ -119,7 +119,7 @@ export const TableRow = ({
                 </Grid>
               )}
               <Grid item>
-                <Typography variant={'body1'} style={{ fontWeight: 600, marginTop: rem(2) }}>
+                <Typography variant={'body1'} sx={{ fontWeight: 600, marginTop: rem(2) }}>
                   {label}
                 </Typography>
               </Grid>

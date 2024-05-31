@@ -14,6 +14,7 @@ import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { PipelineRunList } from '../../../../widgets/PipelineRunList';
+import { usePermissionsContext } from '../../providers/Permissions/hooks';
 import { PageFilterExtraControls } from '../../types';
 
 const pipelineRunTypes = [
@@ -29,6 +30,7 @@ const pipelineRunTypeSelectOptions = pipelineRunTypes.map((value) => ({
 }));
 
 export const PipelineRunListWithFilter = () => {
+  const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
   const [pipelineRuns, pipelineRunsError] = PipelineRunKubeObject.useList();
 
   const sortedPipelineRuns = React.useMemo(() => {
@@ -159,6 +161,7 @@ export const PipelineRunListWithFilter = () => {
           error={pipelineRunsError}
           isLoading={pipelineRuns === null}
           filterFunction={filterFunction}
+          permissions={pipelineRunPermissions}
         />
       </Grid>
     </Grid>

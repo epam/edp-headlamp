@@ -1,6 +1,5 @@
-import { Grid, Link, Typography } from '@mui/material';
+import { Link, Stack, Typography } from '@mui/material';
 import React from 'react';
-import { useStyles } from './styles';
 
 export const MetricsItem = ({
   leftSlot,
@@ -15,25 +14,21 @@ export const MetricsItem = ({
   titleIcon?: React.ReactNode;
   link: string;
 }) => {
-  const classes = useStyles();
-
   return (
     <Link href={link} target={'_blank'} color="inherit" underline="none">
-      <Grid item className={classes.root}>
-        <Grid item className={classes.upper}>
-          <Grid item className={classes.left}>
-            {leftSlot}
-          </Grid>
-          <Grid item className={classes.right}>
-            {rightSlot}
-          </Grid>
-        </Grid>
-        <Grid item className={classes.cardTitle}>
-          <Typography variant="body2" className={classes.wrapIcon}>
-            {titleIcon} {title}
-          </Typography>
-        </Grid>
-      </Grid>
+      <Stack spacing={1} alignItems="center">
+        <Stack spacing={1} alignItems="center" direction="row">
+          <div>{leftSlot}</div>
+          <div>{rightSlot}</div>
+        </Stack>
+        <Typography
+          fontSize={12}
+          color="secondary.dark"
+          sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+        >
+          {titleIcon} {title}
+        </Typography>
+      </Stack>
     </Link>
   );
 };

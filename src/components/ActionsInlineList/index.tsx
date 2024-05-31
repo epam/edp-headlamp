@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react';
 import { IconButton, Stack, Tooltip, useTheme } from '@mui/material';
 import React from 'react';
-import { ConditionalWrapper } from '../ConditionalWrapper';
 import { ActionsInlineListProps } from './types';
 
 export const ActionsInlineList = ({ actions }: ActionsInlineListProps) => {
@@ -14,11 +13,8 @@ export const ActionsInlineList = ({ actions }: ActionsInlineListProps) => {
 
         return (
           <div key={actionId}>
-            <ConditionalWrapper
-              condition={disabled.status}
-              wrapper={(children) => <Tooltip title={disabled.reason}>{children}</Tooltip>}
-            >
-              <Tooltip title={label}>
+            <Tooltip title={disabled.reason || label}>
+              <div>
                 <IconButton
                   component="span"
                   disabled={disabled.status}
@@ -28,8 +24,8 @@ export const ActionsInlineList = ({ actions }: ActionsInlineListProps) => {
                 >
                   <Icon icon={icon} width={24} height={24} />
                 </IconButton>
-              </Tooltip>
-            </ConditionalWrapper>
+              </div>
+            </Tooltip>
           </div>
         );
       })}

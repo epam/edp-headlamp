@@ -1,16 +1,21 @@
 import { Icon } from '@iconify/react';
-import { Box, Button, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import React from 'react';
+import { ButtonWithPermission } from '../../../../../components/ButtonWithPermission';
+import { ConditionalWrapper } from '../../../../../components/ConditionalWrapper';
 import { TableColumn } from '../../../../../components/Table/types';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
+import { PermissionSet } from '../../../../../types/permissions';
 
 export const useUpperColumns = ({
   selected,
   onUninstallClick,
+  permissions,
 }: {
   selected: string[];
   onUninstallClick: () => void;
+  permissions: PermissionSet;
 }): TableColumn<EDPCodebaseKubeObjectInterface>[] => {
   const theme = useTheme();
   const numSelected = React.useMemo(() => selected.length, [selected]);
@@ -24,23 +29,8 @@ export const useUpperColumns = ({
           return (
             <Stack direction="row" alignItems="center" spacing={2}>
               <Box sx={{ minWidth: theme.typography.pxToRem(150) }}>
-                {numSelected > 0 ? (
-                  <Typography variant={'body1'}>{numSelected} item(s) selected</Typography>
-                ) : null}
+                <Typography variant={'body1'}>{numSelected} item(s) selected</Typography>
               </Box>
-              <Tooltip title={'Delete selected components'}>
-                <div>
-                  <Button
-                    onClick={onUninstallClick}
-                    disabled={!numSelected}
-                    size="medium"
-                    sx={{ color: theme.palette.secondary.dark }}
-                    startIcon={<Icon icon={ICONS.BUCKET} />}
-                  >
-                    delete
-                  </Button>
-                </div>
-              </Tooltip>
             </Stack>
           );
         },
@@ -64,9 +54,38 @@ export const useUpperColumns = ({
       {
         id: 'placeholder-4',
         label: '',
-        render: () => null,
+        render: () => (
+          <ConditionalWrapper
+            condition={permissions.create}
+            wrapper={(children) => (
+              <Tooltip title={'Delete selected components'}>
+                <div>{children}</div>
+              </Tooltip>
+            )}
+          >
+            <ButtonWithPermission
+              ButtonProps={{
+                disabled: !numSelected,
+                onClick: onUninstallClick,
+                size: 'medium',
+                startIcon: <Icon icon={ICONS.BUCKET} />,
+                sx: { color: theme.palette.secondary.dark },
+              }}
+              text="You do not have permission to delete Codebase"
+              allowed={permissions.create}
+            >
+              delete
+            </ButtonWithPermission>
+          </ConditionalWrapper>
+        ),
       },
     ],
-    [numSelected, onUninstallClick, theme]
+    [
+      numSelected,
+      onUninstallClick,
+      permissions.create,
+      theme.palette.secondary.dark,
+      theme.typography,
+    ]
   );
 };

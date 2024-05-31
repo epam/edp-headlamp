@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Accordion, AccordionDetails, AccordionSummary, alpha, useTheme } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, alpha } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../../../../k8s/PipelineRun';
@@ -17,6 +17,7 @@ export const CodebaseBranch = ({
   id,
   handlePanelChange,
   codebaseData,
+  defaultBranch,
 }: CodebaseBranchProps) => {
   const [pipelineRuns, setPipelineRuns] = React.useState<{
     all: PipelineRunKubeObjectInterface[];
@@ -68,27 +69,32 @@ export const CodebaseBranch = ({
     labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH}=${normalizedCodebaseBranchName}`,
   });
 
-  const theme = useTheme();
-
   return (
     <div style={{ paddingBottom: rem(16) }}>
       <Accordion expanded={expandedPanel === id} onChange={handlePanelChange(id)}>
         <AccordionSummary
-          expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
-          style={{ borderBottom: `1px solid ${alpha(theme.palette.common.black, 0.2)}` }}
+          expandIcon={<Icon icon={ICONS.ARROW_DOWN} width={20} height={20} />}
+          sx={{
+            padding: (t) => `${t.typography.pxToRem(8)} ${t.typography.pxToRem(24)}`,
+            borderBottom: (t) => `1px solid ${alpha(t.palette.common.black, 0.2)}`,
+
+            '& .MuiAccordionSummary-content': {
+              margin: 0,
+            },
+            '& .MuiAccordionSummary-content.Mui-expanded': {
+              margin: 0,
+            },
+          }}
         >
           <Summary
             codebaseData={codebaseData}
             codebaseBranchData={codebaseBranchData}
             pipelineRuns={pipelineRuns}
+            defaultBranch={defaultBranch}
           />
         </AccordionSummary>
         <AccordionDetails>
-          <Details
-            codebaseData={codebaseData}
-            codebaseBranchData={codebaseBranchData}
-            pipelineRuns={pipelineRuns}
-          />
+          <Details codebaseData={codebaseData} pipelineRuns={pipelineRuns} />
         </AccordionDetails>
       </Accordion>
     </div>

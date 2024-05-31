@@ -233,7 +233,6 @@ export const useColumns = (
                   )}
                   icon={ICONS.GIT_BRANCH}
                   name="source code"
-                  variant="icon"
                 />
               </Grid>
               <Grid item>

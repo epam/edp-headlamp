@@ -4,7 +4,7 @@ export const STATUS_COLOR = {
   SUSPENDED: '#766f94',
   IN_PROGRESS: '#0094FF',
   MISSING: '#FF8A00',
-  UNKNOWN: 'grey',
+  UNKNOWN: '#A2A7B7',
 } as const;
 
 export const CHART_STATUS_COLOR = {
@@ -12,5 +12,5 @@ export const CHART_STATUS_COLOR = {
   ERROR: '#FF005C',
   SUSPENDED: '#FFC754',
   IN_PROGRESS: '#9955EF',
-  UNKNOWN: '#EFEFFF',
+  UNKNOWN: '#A2A7B7',
 } as const;

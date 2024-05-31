@@ -10,11 +10,12 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
+import { BorderedSection } from '../../components/BorderedSection';
 import { Graph } from '../../components/Graph';
 import { Edge } from '../../components/Graph/components/Edge';
 import { Node } from '../../components/Graph/components/Node';
 import { MyNode } from '../../components/Graph/components/types';
-import { InfoColumnsAccordion } from '../../components/InfoColumns';
+import { InfoColumns } from '../../components/InfoColumns';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { StatusIcon } from '../../components/StatusIcon';
 import { ICONS } from '../../icons/iconify-icons-mapping';
@@ -231,7 +232,9 @@ export const PipelineRunGraph = () => {
       <DialogContent>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <InfoColumnsAccordion infoRows={infoRows} title={'Details'} />
+            <BorderedSection title="Details">
+              <InfoColumns infoRows={infoRows} />
+            </BorderedSection>
           </Grid>
           <Grid item xs={12} style={{ minHeight: rem(300) }}>
             <LoadingWrapper isLoading={taskRuns === null && !diagramIsReady}>

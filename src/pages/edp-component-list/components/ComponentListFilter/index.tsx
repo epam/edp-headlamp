@@ -5,18 +5,16 @@ import { ButtonWithPermission } from '../../../../components/ButtonWithPermissio
 import { codebaseTypeSelectOptions } from '../../../../configs/select-options/codebaseTypeSelectOptions';
 import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { EDPCodebaseKubeObject } from '../../../../k8s/EDPCodebase';
-import { EDPCodebaseKubeObjectConfig } from '../../../../k8s/EDPCodebase/config';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../../../providers/Filter/components/Filter/components/SearchControl';
 import { FORM_MODES } from '../../../../types/forms';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../widgets/CreateEditCodebase/constants';
 import { CreateEditCodebaseDialogForwardedProps } from '../../../../widgets/CreateEditCodebase/types';
 import { FILTER_CONTROLS } from '../../constants';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
+import { usePermissionsContext } from '../../providers/Permissions/hooks';
 import { PageFilterExtraControls } from '../../types';
 import { ComponentListFilterProps } from './types';
 
@@ -27,6 +25,8 @@ export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) 
   const { setFilterItem } = usePageFilterContext();
 
   const { setDialog } = useDialogContext();
+
+  const { codebase: codebasePermissions } = usePermissionsContext();
 
   return (
     <Grid container spacing={2} alignItems={'flex-end'} justifyContent={'flex-end'}>
@@ -82,17 +82,8 @@ export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) 
                 forwardedProps: createEditCodebaseDialogForwardedProps,
               }),
           }}
-          item={
-            new EDPCodebaseKubeObject({
-              kind: EDPCodebaseKubeObjectConfig.kind,
-              apiVersion: `${EDPCodebaseKubeObjectConfig.group}/${EDPCodebaseKubeObjectConfig.version}`,
-              // @ts-ignore
-              metadata: {
-                namespace: getDefaultNamespace(),
-              },
-            })
-          }
-          actionCheckName="create"
+          text="You do not have permission to create Codebase"
+          allowed={codebasePermissions.create}
         >
           create component
         </ButtonWithPermission>

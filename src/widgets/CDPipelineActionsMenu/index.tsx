@@ -1,4 +1,3 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
@@ -21,10 +20,11 @@ export const CDPipelineActionsMenu = ({
   data: { CDPipelineData },
   anchorEl,
   handleCloseResourceActionListMenu,
+  permissions,
 }: CDPipelineActionsMenuProps) => {
   const { setDialog } = useDialogContext();
 
-  const getActions = React.useCallback(async () => {
+  const actions = React.useMemo(() => {
     if (!CDPipelineData) {
       return [];
     }
@@ -44,10 +44,12 @@ export const CDPipelineActionsMenu = ({
 
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
-        await createKubeAction({
-          item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
+        createKubeAction({
           name: RESOURCE_ACTIONS.EDIT,
-          actionCheckName: 'update',
+          disabled: {
+            status: permissions.update === false,
+            reason: 'You do not have permission to edit a CD Pipeline',
+          },
           icon: ICONS.PENCIL,
           action: () => {
             setDialog({
@@ -56,10 +58,12 @@ export const CDPipelineActionsMenu = ({
             });
           },
         }),
-        await createKubeAction({
-          item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
+        createKubeAction({
           name: RESOURCE_ACTIONS.DELETE,
-          actionCheckName: 'delete',
+          disabled: {
+            status: permissions.delete === false,
+            reason: 'You do not have permission to delete a CD Pipeline',
+          },
           icon: ICONS.BUCKET,
           action: () => {
             setDialog({
@@ -71,11 +75,13 @@ export const CDPipelineActionsMenu = ({
       ];
     } else {
       return [
-        await createKubeAction({
-          item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
+        createKubeAction({
           name: RESOURCE_ACTIONS.EDIT,
-          actionCheckName: 'update',
           icon: ICONS.PENCIL,
+          disabled: {
+            status: permissions.update === false,
+            reason: 'You do not have permission to edit a CD Pipeline',
+          },
           action: () => {
             handleCloseResourceActionListMenu();
             setDialog({
@@ -84,11 +90,13 @@ export const CDPipelineActionsMenu = ({
             });
           },
         }),
-        await createKubeAction({
-          item: new EDPCDPipelineKubeObject(CDPipelineData) as unknown as KubeObjectInterface,
+        createKubeAction({
           name: RESOURCE_ACTIONS.DELETE,
-          actionCheckName: 'delete',
           icon: ICONS.BUCKET,
+          disabled: {
+            status: permissions.delete === false,
+            reason: 'You do not have permission to delete a CD Pipeline',
+          },
           action: () => {
             handleCloseResourceActionListMenu();
             setDialog({
@@ -99,19 +107,15 @@ export const CDPipelineActionsMenu = ({
         }),
       ];
     }
-  }, [CDPipelineData, backRoute, handleCloseResourceActionListMenu, setDialog, variant]);
-
-  const [actions, setActions] = React.useState([]);
-
-  React.useEffect(() => {
-    getActions().then((actions) => {
-      if (actions.length === 0) {
-        return;
-      }
-
-      setActions(actions);
-    });
-  }, [actions.length, getActions]);
+  }, [
+    CDPipelineData,
+    backRoute,
+    handleCloseResourceActionListMenu,
+    permissions.delete,
+    permissions.update,
+    setDialog,
+    variant,
+  ]);
 
   return variant === ACTION_MENU_TYPES.INLINE ? (
     <ActionsInlineList actions={actions} />

@@ -14,6 +14,7 @@ export const PipelineRunList = ({
   isLoading,
   filterFunction,
   error,
+  permissions,
 }: PipelineRunListProps) => {
   const columns = useColumns();
 
@@ -63,6 +64,7 @@ export const PipelineRunList = ({
   const upperColumns = useUpperColumns({
     selected,
     onDeleteClick: () => setDeleteDialogOpen(true),
+    permissions,
   });
 
   const { data, anchorEl, handleCloseResourceActionListMenu } =
@@ -98,6 +100,7 @@ export const PipelineRunList = ({
       )}
       <PipelineRunActionsMenu
         variant="menu"
+        permissions={permissions}
         data={{
           pipelineRun: data,
         }}

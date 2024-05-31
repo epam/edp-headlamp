@@ -131,8 +131,6 @@ export const PageWithSubMenu: React.FC<PageWithSubMenuProps> = ({ title, list, c
                       sx={{
                         minHeight: 'auto',
                         flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                        textAlign: 'left',
                         gap: theme.typography.pxToRem(10),
                         padding: theme.typography.pxToRem(16),
                         textDecoration: 'none !important',

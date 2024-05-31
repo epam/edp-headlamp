@@ -15,6 +15,7 @@ import { routeEDPSonarIntegration } from '../edp-configuration/pages/edp-sonar-i
 import { StageList } from './components/StageList';
 import { StageListFilter } from './components/StageListFilter';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
+import { usePermissionsContext } from './providers/Permissions/hooks';
 import { EDPCDPipelineRouteParams } from './types';
 
 export const PageView = () => {
@@ -23,6 +24,7 @@ export const PageView = () => {
 
   const { CDPipeline } = useDynamicDataContext();
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
+  const { cdPipeline: CDPipelinePermissions } = usePermissionsContext();
 
   return (
     <PageWrapper
@@ -53,7 +55,7 @@ export const PageView = () => {
               configurationLink={{
                 routeName: routeEDPSonarIntegration.path,
               }}
-              variant="text"
+              isTextButton
             />
           </Grid>
           {!CDPipeline.isLoading && (
@@ -63,6 +65,7 @@ export const PageView = () => {
                   data={{
                     CDPipelineData: CDPipeline.data,
                   }}
+                  permissions={CDPipelinePermissions}
                   backRoute={Router.createRouteURL(routeEDPCDPipelineList.path)}
                   variant="inline"
                 />

@@ -1,15 +1,22 @@
 export const DepTrackURLService = {
-  createDepTrackWidgetImageHref: (
-    depTrackURLOrigin: string,
-    codebaseName: string,
-    codebaseBranchName: string
-  ) => {
+  createProjectByNameApiUrl: (depTrackURLOrigin: string, codebaseName: string) => {
     if (!depTrackURLOrigin) {
       return undefined;
     }
 
-    return `${depTrackURLOrigin}/api/v1/badge/vulns/project/${window.encodeURIComponent(
-      codebaseName
-    )}/${window.encodeURIComponent(codebaseBranchName)}`;
+    const url = new URL(`${depTrackURLOrigin}/api/v1/project`);
+
+    url.searchParams.append('name', codebaseName);
+
+    return url.toString();
+  },
+  createProjectVulnsApiUrl: (depTrackURLOrigin: string, projectUUID: string) => {
+    if (!depTrackURLOrigin) {
+      return undefined;
+    }
+
+    const url = new URL(`${depTrackURLOrigin}/api/v1/metrics/project/${projectUUID}/current`);
+
+    return url.toString();
   },
 };

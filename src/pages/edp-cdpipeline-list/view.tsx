@@ -14,7 +14,6 @@ import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
-import { EDPCDPipelineKubeObjectConfig } from '../../k8s/EDPCDPipeline/config';
 import { useCodebasesByTypeLabelQuery } from '../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
 import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../k8s/EDPCodebase/labels';
 import { useDialogContext } from '../../providers/Dialog/hooks';
@@ -30,6 +29,7 @@ import { CreateEditCDPipelineDialogForwardedProps } from '../../widgets/CreateEd
 import { routeEDPGitOpsConfiguration } from '../edp-configuration/pages/edp-gitops/route';
 import { CDPipelineActions } from './components/CDPipelineActions';
 import { CDPipelineList } from './components/CDPipelineList';
+import { usePermissionsContext } from './providers/Permissions/hooks';
 
 export const PageView = () => {
   const gitOpsCodebaseQuery = useCodebasesByTypeLabelQuery({
@@ -61,6 +61,10 @@ export const PageView = () => {
   const gitOpsConfigurationPageRoute = Router.createRouteURL(routeEDPGitOpsConfiguration.path);
 
   const { filterFunction } = useFilterContext();
+
+  const { cdPipeline: CDPipelinePermissions } = usePermissionsContext();
+
+  console.log(CDPipelinePermissions);
 
   return (
     <PageWrapper>
@@ -101,17 +105,8 @@ export const PageView = () => {
                       }),
                     disabled: !gitOpsCodebaseQuery.data,
                   }}
-                  item={
-                    new EDPCDPipelineKubeObject({
-                      kind: EDPCDPipelineKubeObjectConfig.kind,
-                      apiVersion: `${EDPCDPipelineKubeObjectConfig.group}/${EDPCDPipelineKubeObjectConfig.version}`,
-                      // @ts-ignore
-                      metadata: {
-                        namespace: getDefaultNamespace(),
-                      },
-                    })
-                  }
-                  actionCheckName={'create'}
+                  allowed={CDPipelinePermissions.create}
+                  text="You do not have permission to create a CD Pipeline."
                 >
                   create environment
                 </ButtonWithPermission>

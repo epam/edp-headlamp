@@ -14,8 +14,9 @@ export const QuickLink = ({
   enabledText = `Open in ${name.label}`,
   configurationLink,
   QuickLinkComponent,
-  variant = 'icon',
+  isTextButton = false,
   size = 'medium',
+  variant = 'outlined',
 }: QuickLinkExternalLinkProps) => {
   const { setDialog } = useDialogContext();
 
@@ -65,6 +66,7 @@ export const QuickLink = ({
       tooltipTitle={enabledText}
       link={externalLink}
       variant={variant}
+      isTextButton={isTextButton}
       size={size}
       name={name.label}
     />
@@ -75,6 +77,7 @@ export const QuickLink = ({
       tooltipTitle={renderDisabledTooltip()}
       name={name.label}
       variant={variant}
+      isTextButton={isTextButton}
       size={size}
     />
   );

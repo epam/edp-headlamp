@@ -47,7 +47,7 @@ export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) =
 
   const activeTaskRun = activeAccordion && taskRunListByNameMap?.get(activeAccordion);
   const activeStep = activeTaskRun?.status?.steps?.find(
-    (step: TaskRunKubeObjectInterface) => step.name === activeTab.name
+    (step: TaskRunKubeObjectInterface) => step?.name === activeTab.name
   );
 
   const renderDetails = React.useCallback(() => {
@@ -108,7 +108,7 @@ export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) =
                   <StyledAccordionDetails>
                     <Stack>
                       {taskRunSteps?.map((step) => {
-                        const taskRunStepName = step.name;
+                        const taskRunStepName = step?.name;
 
                         const status = getTaskRunStepStatus(step);
                         const reason = getTaskRunStepReason(step);

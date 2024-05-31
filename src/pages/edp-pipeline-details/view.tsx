@@ -14,6 +14,7 @@ import { PipelineRunActionsMenu } from '../../widgets/PipelineRunActionsMenu';
 import { routeEDPPipelineList } from '../edp-pipelines/route';
 import { PipelineRunDetails } from './components/PipelineRunDetails';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
+import { usePermissionsContext } from './providers/Permissions/hooks';
 import { PipelineRouteParams } from './types';
 
 // Complicated navigation logic
@@ -23,6 +24,8 @@ import { PipelineRouteParams } from './types';
 export const PageView = () => {
   const theme = useTheme();
   const { name } = useParams<PipelineRouteParams>();
+
+  const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
 
   const {
     pipelineRun,
@@ -139,6 +142,7 @@ export const PageView = () => {
                   data={{
                     pipelineRun: pipelineRun.data,
                   }}
+                  permissions={pipelineRunPermissions}
                   backRoute={Router.createRouteURL(routeEDPPipelineList.path)}
                   variant="inline"
                 />

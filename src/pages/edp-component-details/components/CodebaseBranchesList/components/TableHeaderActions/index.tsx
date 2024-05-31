@@ -2,16 +2,15 @@ import { Icon } from '@iconify/react';
 import React from 'react';
 import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { EDPCodebaseBranchKubeObject } from '../../../../../../k8s/EDPCodebaseBranch';
-import { EDPCodebaseBranchKubeObjectConfig } from '../../../../../../k8s/EDPCodebaseBranch/config';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
-import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
 import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../../../../../widgets/CreateCodebaseBranch/constants';
 import { CreateCodebaseBranchDialogForwardedProps } from '../../../../../../widgets/CreateCodebaseBranch/types';
+import { usePermissionsContext } from '../../../../providers/Permissions/hooks';
 import { TableHeaderActionsProps } from './types';
 
 export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActionsProps) => {
   const { setDialog } = useDialogContext<CreateCodebaseBranchDialogForwardedProps>();
+  const { codebaseBranch: codebaseBranchPermissions } = usePermissionsContext();
 
   return (
     <ButtonWithPermission
@@ -29,17 +28,8 @@ export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActio
           });
         },
       }}
-      actionCheckName={'create'}
-      item={
-        new EDPCodebaseBranchKubeObject({
-          kind: EDPCodebaseBranchKubeObjectConfig.kind,
-          apiVersion: `${EDPCodebaseBranchKubeObjectConfig.group}/${EDPCodebaseBranchKubeObjectConfig.version}`,
-          // @ts-ignore
-          metadata: {
-            namespace: getDefaultNamespace(),
-          },
-        })
-      }
+      allowed={codebaseBranchPermissions.create}
+      text="You do not have permission to create a branch."
     >
       Create branch
     </ButtonWithPermission>

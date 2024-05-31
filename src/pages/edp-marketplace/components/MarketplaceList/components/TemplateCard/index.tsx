@@ -1,5 +1,6 @@
-import { Box, Button, Chip, Grid, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, Chip, Grid, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import React from 'react';
+import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
 import {
   BUILD_TOOL_ICON_MAPPING,
   FRAMEWORK_ICON_MAPPING,
@@ -11,7 +12,7 @@ import { getCodebaseMappingByCodebaseType } from '../../../../../../utils/getCod
 import { useStyles } from './styles';
 import { TemplateCardProps } from './types';
 
-export const TemplateCard = ({ template, handleTemplateClick }: TemplateCardProps) => {
+export const TemplateCard = ({ template, handleTemplateClick, permissions }: TemplateCardProps) => {
   const theme = useTheme();
   const {
     spec: {
@@ -140,14 +141,18 @@ export const TemplateCard = ({ template, handleTemplateClick }: TemplateCardProp
             <Typography variant={'caption'}>Version</Typography>
             <Typography variant={'body1'}>{version}</Typography>
           </Stack>
-          <Button
-            variant="outlined"
-            color="primary"
-            size="medium"
-            onClick={() => handleTemplateClick(template)}
+          <ButtonWithPermission
+            allowed={permissions.create}
+            text={'You do not have permission to create Codebase'}
+            ButtonProps={{
+              variant: 'outlined',
+              color: 'primary',
+              size: 'medium',
+              onClick: () => handleTemplateClick(template),
+            }}
           >
             use template
-          </Button>
+          </ButtonWithPermission>
         </Stack>
       </Stack>
     </Box>
