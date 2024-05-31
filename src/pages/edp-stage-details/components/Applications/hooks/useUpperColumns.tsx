@@ -12,10 +12,15 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { ButtonWithPermission } from '../../../../../components/ButtonWithPermission';
+import { ConditionalWrapper } from '../../../../../components/ConditionalWrapper';
 import { TableColumn } from '../../../../../components/Table/types';
 import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { FormSwitch } from '../../../../../providers/Form/components/FormSwitch';
+import { ValueOf } from '../../../../../types/global';
+import { PermissionList } from '../../../../../types/permissions';
+import { permissionChecks } from '../../../constants';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../../types';
 import { ButtonsMap } from '../types';
@@ -29,6 +34,7 @@ export const useUpperColumns = ({
   onStableClick,
   onValuesOverrideAllClick,
   isDeployLoading,
+  permissions,
 }: {
   selected: string[];
   buttonsEnabledMap: ButtonsMap;
@@ -38,6 +44,7 @@ export const useUpperColumns = ({
   onStableClick: () => void;
   onValuesOverrideAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isDeployLoading: boolean;
+  permissions: PermissionList<ValueOf<typeof permissionChecks>>;
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
   const theme = useTheme();
   const numSelected = React.useMemo(() => selected.length, [selected]);
@@ -63,40 +70,58 @@ export const useUpperColumns = ({
           return (
             <Stack direction="row" alignItems="center" spacing={2}>
               <Box sx={{ minWidth: theme.typography.pxToRem(150) }}>
-                {numSelected > 0 ? (
-                  <Typography variant={'body1'}>{numSelected} item(s) selected</Typography>
-                ) : null}
+                <Typography variant={'body1'}>{numSelected} item(s) selected</Typography>
               </Box>
-              <Tooltip title={'Deploy selected applications with selected image stream version'}>
-                <div>
-                  <Button
-                    startIcon={
+              <ConditionalWrapper
+                condition={permissions.pipelineRun.create}
+                wrapper={(children) => (
+                  <Tooltip
+                    title={'Deploy selected applications with selected image stream version'}
+                  >
+                    {children}
+                  </Tooltip>
+                )}
+              >
+                <ButtonWithPermission
+                  ButtonProps={{
+                    startIcon:
                       deployBtnDisabled || isDeployLoading ? (
                         <Icon icon={'line-md:loading-loop'} />
                       ) : (
                         <Icon icon={'solar:upload-linear'} />
-                      )
-                    }
-                    onClick={() => {
+                      ),
+                    onClick: () => {
                       onDeployClick();
                       setDeployBtnDisabled(true);
 
                       timer.current = window.setTimeout(() => {
                         setDeployBtnDisabled(false);
                       }, 10000);
-                    }}
-                    disabled={deployBtnDisabled || !numSelected || !buttonsEnabledMap.deploy}
-                    sx={{ color: theme.palette.secondary.dark }}
-                  >
-                    Deploy
-                  </Button>
-                </div>
-              </Tooltip>
-              <Tooltip title={'Uninstall selected applications'}>
+                    },
+                    disabled: deployBtnDisabled || !numSelected || !buttonsEnabledMap.deploy,
+                    sx: { color: theme.palette.secondary.dark },
+                  }}
+                  allowed={permissions.pipelineRun.create}
+                  text={'You do not have permission to create PipelineRun'}
+                >
+                  Deploy
+                </ButtonWithPermission>
+              </ConditionalWrapper>
+              <Tooltip
+                title={
+                  permissions.argoApplication.delete === false
+                    ? 'You do not have permission to delete Application'
+                    : 'Uninstall selected applications'
+                }
+              >
                 <div>
                   <IconButton
                     onClick={onUninstallClick}
-                    disabled={!numSelected || !buttonsEnabledMap.uninstall}
+                    disabled={
+                      permissions.argoApplication.delete === false ||
+                      !numSelected ||
+                      !buttonsEnabledMap.uninstall
+                    }
                     size="medium"
                     sx={{ color: theme.palette.secondary.dark }}
                   >
@@ -205,12 +230,12 @@ export const useUpperColumns = ({
     ],
     [
       stage?.spec.clusterName,
-      theme.typography,
-      theme.palette.secondary.dark,
+      theme,
       numSelected,
       deployBtnDisabled,
       isDeployLoading,
       buttonsEnabledMap,
+      permissions,
       onUninstallClick,
       onDeployClick,
       register,

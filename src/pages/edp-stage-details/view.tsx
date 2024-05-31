@@ -2,7 +2,8 @@ import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Box, CircularProgress, Grid, Stack } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { InfoColumnsAccordion } from '../../components/InfoColumns';
+import { BorderedSection } from '../../components/BorderedSection';
+import { InfoColumns } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
 import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
@@ -84,7 +85,6 @@ export const PageView = () => {
               configurationLink={{
                 routeName: routeEDPArgoCDIntegration.path,
               }}
-              variant={'icon'}
             />
             <QuickLink
               name={{
@@ -97,7 +97,6 @@ export const PageView = () => {
                 stageSpecNamespace
               )}
               QuickLinkComponent={grafanaQuickLink}
-              variant="icon"
               size="small"
             />
             <QuickLink
@@ -111,7 +110,6 @@ export const PageView = () => {
                 stageSpecNamespace
               )}
               QuickLinkComponent={kibanaQuickLink}
-              variant="icon"
               size="small"
             />
             <Box style={{ marginLeft: rem(20) }}>
@@ -138,7 +136,11 @@ export const PageView = () => {
         {!isStageLoading ? (
           <Grid container spacing={2}>
             <Grid item xs={12} style={{ marginTop: rem(20) }}>
-              <InfoColumnsAccordion title={'Stage Details'} infoRows={infoColumns} />
+              <BorderedSection title="Stage Details">
+                <div>
+                  <InfoColumns infoRows={infoColumns} />
+                </div>
+              </BorderedSection>
             </Grid>
             <Grid item xs={12}>
               <Tabs tabs={tabs} initialTabIdx={0} />

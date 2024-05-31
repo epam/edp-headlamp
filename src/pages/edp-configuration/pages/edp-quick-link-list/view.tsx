@@ -8,7 +8,6 @@ import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObject } from '../../../../k8s/QuickLink';
-import { QuickLinkKubeObjectConfig } from '../../../../k8s/QuickLink/config';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../../../providers/Filter/components/Filter/components/NamespaceControl';
@@ -16,12 +15,12 @@ import { SearchControl } from '../../../../providers/Filter/components/Filter/co
 import { useFilterContext } from '../../../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../../../providers/ResourceActionList';
 import { FORM_MODES } from '../../../../types/forms';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../../../widgets/ManageQuickLink/constants';
 import { menu } from '../../menu';
 import { QuickLinkList } from './components/ComponentList';
 import { QuickLinkActions } from './components/QuickLinkActions';
 import { QUICK_LINK_LIST_PAGE_DESCRIPTION } from './constants';
+import { usePermissionsContext } from './providers/Permissions/hooks';
 
 export const PageView = () => {
   const theme = useTheme();
@@ -32,6 +31,8 @@ export const PageView = () => {
   const { filterFunction } = useFilterContext();
 
   const { setDialog } = useDialogContext();
+
+  const { quickLink: quickLinkPermissions } = usePermissionsContext();
 
   return (
     <PageWithSubMenu list={menu} title="Configuration">
@@ -79,17 +80,8 @@ export const PageView = () => {
                           });
                         },
                       }}
-                      item={
-                        new QuickLinkKubeObject({
-                          kind: QuickLinkKubeObjectConfig.kind,
-                          apiVersion: `${QuickLinkKubeObjectConfig.group}/${QuickLinkKubeObjectConfig.version}`,
-                          // @ts-ignore
-                          metadata: {
-                            namespace: getDefaultNamespace(),
-                          },
-                        })
-                      }
-                      actionCheckName="create"
+                      allowed={quickLinkPermissions.create}
+                      text="You do not have permission to create QuickLink"
                     >
                       add link
                     </ButtonWithPermission>

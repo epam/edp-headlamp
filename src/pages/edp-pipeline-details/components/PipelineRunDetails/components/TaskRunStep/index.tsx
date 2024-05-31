@@ -29,7 +29,7 @@ export const TaskRunStep = ({ taskRun, step }) => {
     units: ['d', 'h', 'm', 's'],
   });
 
-  const tabs = useTabs({ taskRun, stepName: step.name });
+  const tabs = useTabs({ taskRun, stepName: step?.name });
 
   return (
     <Paper>
@@ -45,7 +45,7 @@ export const TaskRunStep = ({ taskRun, step }) => {
                 width={25}
               />
               <Typography fontSize={(t) => t.typography.pxToRem(20)} fontWeight={500}>
-                {step.name}
+                {step?.name}
               </Typography>
               <Typography variant="caption">{reason}</Typography>
             </Stack>

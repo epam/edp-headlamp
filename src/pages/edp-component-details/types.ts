@@ -1,4 +1,4 @@
-export interface QuickLinkDetailsRouteParams {
+export interface ComponentDetailsRouteParams {
   name: string;
   namespace: string;
 }

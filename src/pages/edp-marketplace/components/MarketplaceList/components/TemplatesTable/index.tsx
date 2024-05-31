@@ -12,6 +12,7 @@ export const TemplatesTable = ({
   filterFunction,
   warning,
   error,
+  permissions,
 }: TemplatesTableProps) => {
   const columns = useColumns();
 
@@ -21,7 +22,7 @@ export const TemplatesTable = ({
       columns={columns}
       data={data}
       isLoading={data === null}
-      handleRowClick={(event, row) => handleTemplateClick(row)}
+      handleRowClick={permissions.create === true ? (event, row) => handleTemplateClick(row) : null}
       emptyListComponent={
         warning ? (
           warning

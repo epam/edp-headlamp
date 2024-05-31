@@ -1,5 +1,4 @@
 import { Icon } from '@iconify/react';
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { IconButton } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
@@ -21,6 +20,7 @@ export const PipelineRunActionsMenu = ({
   data: { pipelineRun: _pipelineRun },
   anchorEl,
   handleCloseResourceActionListMenu,
+  permissions,
 }: PipelineRunActionsMenuProps) => {
   const history = useHistory();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -34,7 +34,7 @@ export const PipelineRunActionsMenu = ({
     history.push(backRoute);
   }, [backRoute, history]);
 
-  const getActions = React.useCallback(async () => {
+  const actions = React.useMemo(() => {
     const pipelineRun = { ..._pipelineRun };
     delete pipelineRun.actionType;
 
@@ -44,11 +44,13 @@ export const PipelineRunActionsMenu = ({
 
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
-        await createKubeAction({
-          item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
-          actionCheckName: 'create',
+        createKubeAction({
           name: 'Rerun',
           icon: ICONS.REDO,
+          disabled: {
+            status: permissions.create === false,
+            reason: 'You do not have permission to create PipelineRun',
+          },
           action: () => {
             PipelineRunKubeObject.apiEndpoint.post(createRerunPipelineRunInstance(pipelineRun));
 
@@ -67,9 +69,7 @@ export const PipelineRunActionsMenu = ({
             });
           },
         }),
-        await createKubeAction({
-          item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
-          actionCheckName: 'update',
+        createKubeAction({
           name: 'Cancel',
           icon: ICONS.CANCEL,
           action: () => {
@@ -91,15 +91,22 @@ export const PipelineRunActionsMenu = ({
             });
           },
           disabled: {
-            status: !isInProgress,
-            reason: 'PipelineRun is no longer in progress',
+            status: permissions.update === false || !isInProgress,
+            reason:
+              permissions.update === false
+                ? 'You do not have permission to update PipelineRun'
+                : !isInProgress
+                ? 'PipelineRun is no longer in progress'
+                : undefined,
           },
         }),
-        await createKubeAction({
-          item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
-          actionCheckName: 'delete',
+        createKubeAction({
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
+          disabled: {
+            status: permissions.delete === false,
+            reason: 'You do not have permission to delete PipelineRun',
+          },
           action: () => {
             PipelineRunKubeObject.apiEndpoint.delete(
               pipelineRun.metadata.namespace,
@@ -124,37 +131,44 @@ export const PipelineRunActionsMenu = ({
       ];
     } else {
       return [
-        await createKubeAction({
-          item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
-          actionCheckName: 'create',
+        createKubeAction({
           name: 'Rerun',
           icon: ICONS.REDO,
+          disabled: {
+            status: permissions.create === false,
+            reason: 'You do not have permission to create PipelineRun',
+          },
           action: () => {
             handleCloseResourceActionListMenu();
             PipelineRunKubeObject.apiEndpoint.post(createRerunPipelineRunInstance(pipelineRun));
           },
         }),
-        await createKubeAction({
-          item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
-          actionCheckName: 'update',
+        createKubeAction({
           name: 'Cancel',
           icon: ICONS.CANCEL,
+          disabled: {
+            status: permissions.update === false || !isInProgress,
+            reason:
+              permissions.update === false
+                ? 'You do not have permission to update PipelineRun'
+                : !isInProgress
+                ? 'PipelineRun is no longer in progress'
+                : undefined,
+          },
           action: () => {
             handleCloseResourceActionListMenu();
             const copyPipelineRun = { ...pipelineRun };
             copyPipelineRun.spec.status = 'Cancelled';
             PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
           },
-          disabled: {
-            status: !isInProgress,
-            reason: 'PipelineRun is no longer in progress',
-          },
         }),
-        await createKubeAction({
-          item: new PipelineRunKubeObject(pipelineRun) as unknown as KubeObjectInterface,
-          actionCheckName: 'delete',
+        createKubeAction({
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
+          disabled: {
+            status: permissions.delete === false,
+            reason: 'You do not have permission to delete PipelineRun',
+          },
           action: () => {
             handleCloseResourceActionListMenu();
             PipelineRunKubeObject.apiEndpoint.delete(
@@ -169,24 +183,13 @@ export const PipelineRunActionsMenu = ({
   }, [
     _pipelineRun,
     variant,
+    permissions,
     isInProgress,
     enqueueSnackbar,
     closeSnackbar,
     onDelete,
     handleCloseResourceActionListMenu,
   ]);
-
-  const [actions, setActions] = React.useState([]);
-
-  React.useEffect(() => {
-    getActions().then((actions) => {
-      if (actions.length === 0) {
-        return;
-      }
-
-      setActions(actions);
-    });
-  }, [getActions]);
 
   return variant === ACTION_MENU_TYPES.INLINE ? (
     <ActionsInlineList actions={actions} />

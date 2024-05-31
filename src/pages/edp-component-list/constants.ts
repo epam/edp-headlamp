@@ -15,3 +15,7 @@ export const matchFunctions: MatchFunctions = {
     return item.spec.type === value;
   },
 };
+
+export const permissionChecks = {
+  CODEBASE: 'codebase',
+} as const;

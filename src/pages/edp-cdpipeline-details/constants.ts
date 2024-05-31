@@ -29,3 +29,8 @@ export const matchFunctions: MatchFunctions = {
     );
   },
 };
+
+export const permissionChecks = {
+  CD_PIPELINE: 'cdPipeline',
+  STAGE: 'stage',
+} as const;

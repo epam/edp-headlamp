@@ -27,6 +27,10 @@ export class EDPCodebaseBranchKubeObject extends K8s.cluster.makeKubeObject<EDPC
     return singularForm;
   }
 
+  static get pluralName(): string {
+    return pluralForm;
+  }
+
   get spec(): EDPCodebaseBranchSpecInterface {
     return this.jsonData!.spec;
   }

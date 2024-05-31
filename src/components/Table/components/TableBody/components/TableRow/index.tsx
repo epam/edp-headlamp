@@ -65,11 +65,16 @@ export const TableRow = ({
             component="th"
             scope="row"
             align={textAlign || 'left'}
-            style={{
-              padding: `${theme.typography.pxToRem(12)} ${theme.typography.pxToRem(16)}`,
+            sx={{
+              p: `${theme.typography.pxToRem(5)} ${theme.typography.pxToRem(8)}`,
             }}
           >
-            <Box sx={getColumnStyles(!!columnSortableValuePath)}>{render(item)}</Box>
+            <Box
+              sx={getColumnStyles(!!columnSortableValuePath)}
+              justifyContent={textAlign === 'center' ? 'center' : 'flex-start'}
+            >
+              {render(item)}
+            </Box>
           </TableCell>
         ) : null;
       })}

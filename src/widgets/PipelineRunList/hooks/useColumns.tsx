@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/components/common';
-import { IconButton, Link as MuiLink, Stack, Typography } from '@mui/material';
+import { IconButton, Link as MuiLink } from '@mui/material';
 import React from 'react';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { TableColumn } from '../../../components/Table/types';
@@ -101,8 +101,8 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
         width: '30%',
       },
       {
-        id: 'time',
-        label: 'Time',
+        id: 'startedAt',
+        label: 'Started at',
         render: (resource) => {
           const startedAt = new Date(resource.status?.startTime).toLocaleString('en-mini', {
             month: 'short',
@@ -110,6 +110,15 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             hour: 'numeric',
             minute: 'numeric',
           });
+
+          return startedAt;
+        },
+        width: '15%',
+      },
+      {
+        id: 'time',
+        label: 'Time',
+        render: (resource) => {
           const completionTime = resource?.status?.completionTime;
           const durationTime = !!completionTime
             ? new Date(completionTime).getTime() - new Date(resource.status?.startTime).getTime()
@@ -125,21 +134,9 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
             units: ['d', 'h', 'm', 's'],
           });
 
-          return (
-            <Stack spacing={2}>
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <Icon icon={ICONS.CALENDAR} />
-                <Typography variant="body2">{`Started at: ${startedAt}`}</Typography>
-              </Stack>
-
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <Icon icon={'mingcute:time-line'} />
-                <Typography variant="body2">{`Duration: ${activeDuration}`}</Typography>
-              </Stack>
-            </Stack>
-          );
+          return activeDuration;
         },
-        width: '25%',
+        width: '10%',
       },
       {
         id: 'diagram',
@@ -155,7 +152,7 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
                   },
                 })
               }
-              size="large"
+              size="medium"
             >
               <Icon icon={ICONS.DIAGRAM} />
             </IconButton>

@@ -8,4 +8,6 @@ export interface Tab {
 export interface TabsProps {
   tabs: Tab[];
   initialTabIdx: string | number;
+  rememberLastTab?: boolean;
+  id?: string;
 }

@@ -11,14 +11,15 @@ const DisabledResourceIconLink = ({
   icon,
   withoutDisabledStyle,
   variant,
+  isTextButton,
   name,
   size,
 }: ResourceIconLinkProps) => {
   const theme = useTheme();
 
-  return variant === 'text' ? (
+  return isTextButton ? (
     <Button
-      variant="outlined"
+      variant={variant}
       disabled
       sx={!withoutDisabledStyle ? { opacity: 0.5 } : {}}
       endIcon={
@@ -28,7 +29,7 @@ const DisabledResourceIconLink = ({
     >
       Open in {name}
     </Button>
-  ) : variant === 'icon' ? (
+  ) : (
     <Tooltip title={<div>{tooltipTitle}</div>}>
       <div>
         <IconButton disabled style={!withoutDisabledStyle ? { opacity: 0.5 } : {}} size={size}>
@@ -36,7 +37,7 @@ const DisabledResourceIconLink = ({
         </IconButton>
       </div>
     </Tooltip>
-  ) : null;
+  );
 };
 
 const EnabledResourceIconLink = ({
@@ -44,14 +45,15 @@ const EnabledResourceIconLink = ({
   icon,
   link,
   variant,
+  isTextButton,
   name,
   size,
 }: ResourceIconLinkProps) => {
   const theme = useTheme();
 
-  return variant === 'text' ? (
+  return isTextButton ? (
     <Button
-      variant="outlined"
+      variant={variant}
       component={MuiLink}
       href={link}
       target={'_blank'}
@@ -67,7 +69,7 @@ const EnabledResourceIconLink = ({
     >
       Open in {name}
     </Button>
-  ) : variant === 'icon' ? (
+  ) : (
     <Tooltip
       title={
         <Grid container alignItems={'center'} spacing={1}>
@@ -85,7 +87,7 @@ const EnabledResourceIconLink = ({
         </IconButton>
       </span>
     </Tooltip>
-  ) : null;
+  );
 };
 
 export const ResourceIconLink = ({
@@ -97,6 +99,7 @@ export const ResourceIconLink = ({
   variant,
   name,
   size,
+  isTextButton,
 }: ResourceIconLinkProps) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
@@ -107,6 +110,7 @@ export const ResourceIconLink = ({
           icon={icon}
           withoutDisabledStyle={withoutDisabledStyle}
           variant={variant}
+          isTextButton={isTextButton}
           name={name}
           size={size}
         />
@@ -116,6 +120,7 @@ export const ResourceIconLink = ({
           icon={icon}
           link={link}
           variant={variant}
+          isTextButton={isTextButton}
           name={name}
           size={size}
         />

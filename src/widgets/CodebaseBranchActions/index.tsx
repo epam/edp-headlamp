@@ -1,4 +1,3 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
@@ -19,6 +18,7 @@ export const CodebaseBranchActionsMenu = ({
   variant,
   handleCloseResourceActionListMenu,
   anchorEl,
+  permissions,
 }: CodebaseBranchActionsProps) => {
   const { setDialog } = useDialogContext<DeleteKubeObjectDialogForwardedProps>();
 
@@ -43,7 +43,7 @@ export const CodebaseBranchActionsMenu = ({
     [branch?.spec.branchName, conflictedCDPipeline]
   );
 
-  const getActions = React.useCallback(async () => {
+  const actions = React.useMemo(() => {
     if (!branch) {
       return [];
     }
@@ -51,9 +51,7 @@ export const CodebaseBranchActionsMenu = ({
       return [
         ...(branch.spec.branchName === defaultBranch
           ? [
-              await createKubeAction({
-                item: new EDPCodebaseBranchKubeObject(branch) as unknown as KubeObjectInterface,
-                actionCheckName: 'delete',
+              createKubeAction({
                 name: RESOURCE_ACTIONS.DELETE,
                 disabled: {
                   status: true,
@@ -75,11 +73,13 @@ export const CodebaseBranchActionsMenu = ({
               }),
             ]
           : [
-              await createKubeAction({
-                item: new EDPCodebaseBranchKubeObject(branch) as unknown as KubeObjectInterface,
-                actionCheckName: 'delete',
+              createKubeAction({
                 name: RESOURCE_ACTIONS.DELETE,
                 icon: ICONS.BUCKET,
+                disabled: {
+                  status: permissions.delete === false,
+                  reason: 'You do not have permission to delete a branch',
+                },
                 action: () => {
                   setDialog({
                     modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
@@ -99,9 +99,7 @@ export const CodebaseBranchActionsMenu = ({
       return [
         ...(branch.spec.branchName === defaultBranch
           ? [
-              await createKubeAction({
-                item: new EDPCodebaseBranchKubeObject(branch) as unknown as KubeObjectInterface,
-                actionCheckName: 'delete',
+              createKubeAction({
                 name: RESOURCE_ACTIONS.DELETE,
                 disabled: {
                   status: true,
@@ -125,11 +123,13 @@ export const CodebaseBranchActionsMenu = ({
               }),
             ]
           : [
-              await createKubeAction({
-                item: new EDPCodebaseBranchKubeObject(branch) as unknown as KubeObjectInterface,
-                actionCheckName: 'delete',
+              createKubeAction({
                 name: RESOURCE_ACTIONS.DELETE,
                 icon: ICONS.BUCKET,
+                disabled: {
+                  status: permissions.delete === false,
+                  reason: 'You do not have permission to delete a branch',
+                },
                 action: () => {
                   handleCloseResourceActionListMenu();
 
@@ -153,21 +153,10 @@ export const CodebaseBranchActionsMenu = ({
     defaultBranch,
     handleCloseResourceActionListMenu,
     onBeforeSubmit,
+    permissions,
     setDialog,
     variant,
   ]);
-
-  const [actions, setActions] = React.useState([]);
-
-  React.useEffect(() => {
-    getActions().then((actions) => {
-      if (actions.length === 0) {
-        return;
-      }
-
-      setActions(actions);
-    });
-  }, [actions.length, getActions]);
 
   return variant === ACTION_MENU_TYPES.INLINE ? (
     <ActionsInlineList actions={actions} />

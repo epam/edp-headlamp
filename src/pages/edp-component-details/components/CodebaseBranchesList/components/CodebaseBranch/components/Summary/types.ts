@@ -9,4 +9,5 @@ export interface SummaryProps {
     all: PipelineRunKubeObjectInterface[];
     latestBuildPipelineRun: PipelineRunKubeObjectInterface;
   };
+  defaultBranch: string;
 }

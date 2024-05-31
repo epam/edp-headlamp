@@ -50,9 +50,9 @@ export const TableHead = ({
                   scope="row"
                   align={textAlign || 'left'}
                   colSpan={colSpan || 1}
-                  style={{
+                  sx={{
                     color: theme.palette.text.primary,
-                    padding: `${theme.typography.pxToRem(8)} ${theme.typography.pxToRem(16)}`,
+                    p: `${theme.typography.pxToRem(7)} ${theme.typography.pxToRem(8)}`,
                   }}
                 >
                   <Box sx={getColumnStyles(!!columnSortableValuePath)}>{render()}</Box>

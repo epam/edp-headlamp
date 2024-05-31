@@ -35,3 +35,7 @@ export const matchFunctions: MatchFunctions = {
     return item?.metadata.labels?.[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] === value;
   },
 };
+
+export const permissionChecks = {
+  PIPELINE_RUN: 'pipelineRun',
+} as const;

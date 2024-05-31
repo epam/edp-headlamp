@@ -1,49 +1,35 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { Grid } from '@mui/material';
+import { Stack } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { InfoColumnsAccordion } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
+import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
+import { Tabs } from '../../components/Tabs';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { Resources } from '../../icons/sprites/Resources';
-import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { SYSTEM_QUICK_LINKS, SYSTEM_QUICK_LINKS_LABELS } from '../../k8s/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
-import { rem } from '../../utils/styling/rem';
+import { LinkCreationService } from '../../services/link-creation';
 import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
 import { routeEDPComponentList } from '../edp-component-list/route';
-import { CodebaseBranchesList } from './components/CodebaseBranchesList';
-import { useInfoRows } from './hooks/useInfoRows';
-import { QuickLinkDetailsRouteParams } from './types';
+import { routeEDPSonarIntegration } from '../edp-configuration/pages/edp-sonar-integration/route';
+import { usePageTabs } from './hooks/usePageTabs';
+import { useDynamicDataContext } from './providers/DynamicData/hooks';
+import { usePermissionsContext } from './providers/Permissions/hooks';
+import { ComponentDetailsRouteParams } from './types';
 
 export const PageView = () => {
-  const { namespace, name } = useParams<QuickLinkDetailsRouteParams>();
-  const [component, setComponent] = React.useState<EDPCodebaseKubeObjectInterface>(null);
-  const [, setError] = React.useState<Error>(null);
+  const { name } = useParams<ComponentDetailsRouteParams>();
+  const { component } = useDynamicDataContext();
+  const { codebase: codebasePermissions } = usePermissionsContext();
 
-  const handleStoreComponent = React.useCallback((component: EDPCodebaseKubeObjectInterface) => {
-    setComponent(component);
-  }, []);
+  const componentType = component.data?.spec?.type;
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
 
-  const handleError = React.useCallback((error: Error) => {
-    setError(error);
-  }, []);
-
-  React.useEffect(() => {
-    const cancelStream = EDPCodebaseKubeObject.streamItem(
-      name,
-      namespace,
-      handleStoreComponent,
-      handleError
-    );
-
-    return () => cancelStream();
-  }, [handleError, handleStoreComponent, name, namespace]);
-
-  const infoRows = useInfoRows(component);
-
-  const componentType = component?.spec?.type;
+  const tabs = usePageTabs();
 
   return (
     <PageWrapper
@@ -60,19 +46,38 @@ export const PageView = () => {
       ]}
       headerSlot={
         <>
-          {!!component && (
+          {!!component.data && (
             <div style={{ marginLeft: 'auto' }}>
-              {componentType !== CODEBASE_TYPES.SYSTEM && (
-                <ResourceActionListContextProvider>
-                  <CodebaseActionsMenu
-                    data={{
-                      codebaseData: component,
-                    }}
-                    backRoute={Router.createRouteURL(routeEDPComponentList.path)}
-                    variant="inline"
-                  />
-                </ResourceActionListContextProvider>
-              )}
+              <Stack spacing={2} direction="row" alignItems="center">
+                <QuickLink
+                  name={{
+                    label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.SONAR],
+                    value: SYSTEM_QUICK_LINKS.SONAR,
+                  }}
+                  enabledText="Open the Quality Gates"
+                  icon={ICONS.SONAR}
+                  externalLink={LinkCreationService.sonar.createDashboardLink(
+                    QuickLinksURLS?.[SYSTEM_QUICK_LINKS.SONAR],
+                    name
+                  )}
+                  configurationLink={{
+                    routeName: routeEDPSonarIntegration.path,
+                  }}
+                  isTextButton
+                />
+                {componentType !== CODEBASE_TYPES.SYSTEM && (
+                  <ResourceActionListContextProvider>
+                    <CodebaseActionsMenu
+                      data={{
+                        codebaseData: component.data,
+                      }}
+                      permissions={codebasePermissions}
+                      backRoute={Router.createRouteURL(routeEDPComponentList.path)}
+                      variant="inline"
+                    />
+                  </ResourceActionListContextProvider>
+                )}
+              </Stack>
             </div>
           )}
         </>
@@ -83,20 +88,7 @@ export const PageView = () => {
         description={'Review your codebases, monitor their status, and execute build pipelines.'}
       >
         <Resources />
-        {!!component && (
-          <>
-            <Grid container spacing={8}>
-              <Grid item xs={12} style={{ marginTop: rem(20) }}>
-                <InfoColumnsAccordion infoRows={infoRows} title={'Component Details'} />
-              </Grid>
-              <Grid item xs={12}>
-                <ResourceActionListContextProvider>
-                  <CodebaseBranchesList codebaseData={component} />
-                </ResourceActionListContextProvider>
-              </Grid>
-            </Grid>
-          </>
-        )}
+        <Tabs tabs={tabs} initialTabIdx={0} rememberLastTab id="component-page" />
       </Section>
     </PageWrapper>
   );

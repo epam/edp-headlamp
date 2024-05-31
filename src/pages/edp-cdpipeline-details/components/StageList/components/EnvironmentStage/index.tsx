@@ -111,7 +111,6 @@ export const EnvironmentStage = ({
                       configurationLink={{
                         routeName: routeEDPArgoCDIntegration.path,
                       }}
-                      variant="icon"
                       size="small"
                     />
                     <QuickLink
@@ -125,7 +124,6 @@ export const EnvironmentStage = ({
                         stage.spec.namespace
                       )}
                       QuickLinkComponent={grafanaQuickLink}
-                      variant="icon"
                       size="small"
                     />
                     <QuickLink
@@ -139,7 +137,6 @@ export const EnvironmentStage = ({
                         stage.spec.namespace
                       )}
                       QuickLinkComponent={kibanaQuickLink}
-                      variant="icon"
                       size="small"
                     />
                   </Stack>

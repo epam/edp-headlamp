@@ -1,7 +1,8 @@
-import { Paper, Typography } from '@mui/material';
-import clsx from 'clsx';
+import { Icon } from '@iconify/react';
+import { Stack, Typography } from '@mui/material';
 import React from 'react';
-import { useStyles } from './styles';
+import { STATUS_COLOR } from '../../constants/colors';
+import { ICONS } from '../../icons/iconify-icons-mapping';
 import { NoDataWidgetWrapperProps } from './types';
 
 export const NoDataWidgetWrapper: React.FC<NoDataWidgetWrapperProps> = ({
@@ -10,21 +11,29 @@ export const NoDataWidgetWrapper: React.FC<NoDataWidgetWrapperProps> = ({
   text = 'No data available.',
   children,
 }) => {
-  const classes = useStyles();
-
-  return (
-    <Paper
-      elevation={0}
-      className={clsx(classes.wrapper, { [classes.wrapperWithPadding]: isLoading })}
+  return !isLoading && !hasData ? (
+    <Stack
+      spacing={1}
+      alignItems="center"
+      direction="row"
+      maxWidth={(t) => t.typography.pxToRem(520)}
     >
-      {!isLoading && !hasData ? (
-        <div className={classes.overlap}>
-          <div>
-            {typeof text === 'string' ? <Typography variant={'body1'}>{text}</Typography> : text}
-          </div>
-        </div>
-      ) : null}
-      <div className={clsx({ [classes.noContent]: !isLoading && !hasData })}>{children}</div>
-    </Paper>
+      <Icon
+        icon={ICONS.WARNING}
+        width={32}
+        height={32}
+        color={STATUS_COLOR.UNKNOWN}
+        style={{ flexShrink: 0 }}
+      />
+      {typeof text === 'string' ? (
+        <Typography variant={'body1'} color="secondary.dark">
+          {text}
+        </Typography>
+      ) : (
+        text
+      )}
+    </Stack>
+  ) : (
+    <>{children}</>
   );
 };

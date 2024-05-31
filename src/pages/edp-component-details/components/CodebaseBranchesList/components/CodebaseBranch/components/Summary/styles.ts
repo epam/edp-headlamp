@@ -1,31 +1,24 @@
 import makeStyles from '@mui/styles/makeStyles';
-import { rem } from '../../../../../../../../utils/styling/rem';
+import { STATUS_COLOR } from '../../../../../../../../constants/colors';
 
-export const useStyles = makeStyles(() => ({
-  branchHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: rem(20),
-    lineHeight: 0,
-    width: '100%',
-  },
+export const useStyles = makeStyles((theme) => ({
   pipelineRunStatus: {
-    paddingTop: rem(1),
+    paddingTop: theme.typography.pxToRem(1),
     display: 'flex',
     justifyContent: 'center',
-    width: rem(44),
+    width: theme.typography.pxToRem(44),
   },
   labelChip: {
-    height: rem(20),
+    height: theme.typography.pxToRem(24),
     lineHeight: 1,
-    paddingTop: rem(2),
+    paddingTop: theme.typography.pxToRem(2),
   },
   labelChipBlue: {
-    backgroundColor: '#cbe1f9',
-    color: '#1261af',
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff',
   },
   labelChipGreen: {
-    backgroundColor: '#c3e6cd',
-    color: '#2f6f45',
+    backgroundColor: STATUS_COLOR.SUCCESS,
+    color: '#fff',
   },
 }));

@@ -89,14 +89,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
             </ConditionalWrapper>
           );
         },
-        width: '35%',
-      },
-      {
-        id: 'type',
-        label: 'Type',
-        columnSortableValuePath: 'spec.type',
-        render: ({ spec: { type } }) => capitalizeFirstLetter(type),
-        width: '15%',
+        width: '30%',
       },
       {
         id: 'language',
@@ -177,8 +170,15 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
         width: '15%',
       },
       {
+        id: 'type',
+        label: 'Type',
+        columnSortableValuePath: 'spec.type',
+        render: ({ spec: { type } }) => capitalizeFirstLetter(type),
+        width: '10%',
+      },
+      {
         id: 'actions',
-        label: '',
+        label: 'Actions',
         render: ({ jsonData, spec: { type } }) => {
           if (type === CODEBASE_TYPES.SYSTEM) {
             return <Box sx={{ height: rem(44) }} />;
@@ -197,6 +197,8 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
             </IconButton>
           );
         },
+        textAlign: 'center',
+        width: '5%',
       },
     ],
     [handleOpenResourceActionListMenu]

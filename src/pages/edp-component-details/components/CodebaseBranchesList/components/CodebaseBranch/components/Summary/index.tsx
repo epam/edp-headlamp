@@ -1,41 +1,32 @@
 import { Icon } from '@iconify/react';
-import { Chip, Grid, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, Chip, Grid, IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import clsx from 'clsx';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { EDPCodebaseBranchKubeObject } from '../../../../../../../../k8s/EDPCodebaseBranch';
-import { EDPCodebaseBranchKubeObjectInterface } from '../../../../../../../../k8s/EDPCodebaseBranch/types';
 import { useGitServerByCodebaseQuery } from '../../../../../../../../k8s/EDPGitServer/hooks/useGitServerByCodebaseQuery';
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/PipelineRun/constants';
 import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/PipelineRun/hooks/useCreateBuildPipelineRun';
-import {
-  SYSTEM_QUICK_LINKS,
-  SYSTEM_QUICK_LINKS_LABELS,
-} from '../../../../../../../../k8s/QuickLink/constants';
-import { useQuickLinksURLsQuery } from '../../../../../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { useStorageSizeQuery } from '../../../../../../../../k8s/TriggerTemplate/hooks/useStorageSizeQuery';
-import { useResourceActionListContext } from '../../../../../../../../providers/ResourceActionList/hooks';
-import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { rem } from '../../../../../../../../utils/styling/rem';
-import { routeEDPSonarIntegration } from '../../../../../../../edp-configuration/pages/edp-sonar-integration/route';
-import { QuickLinkDetailsRouteParams } from '../../../../../../types';
+import { CodebaseBranchActionsMenu } from '../../../../../../../../widgets/CodebaseBranchActions';
+import { usePermissionsContext } from '../../../../../../providers/Permissions/hooks';
 import { isDefaultBranch } from '../../../../utils';
 import { useStyles } from './styles';
 import { SummaryProps } from './types';
 
-export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: SummaryProps) => {
-  const { namespace } = useParams<QuickLinkDetailsRouteParams>();
-  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
-
-  const buttonRef = React.createRef<HTMLButtonElement>();
-
-  const { handleOpenResourceActionListMenu } =
-    useResourceActionListContext<EDPCodebaseBranchKubeObjectInterface>();
+export const Summary = ({
+  codebaseData,
+  codebaseBranchData,
+  pipelineRuns,
+  defaultBranch,
+}: SummaryProps) => {
+  const { pipelineRun: pipelineRunPermissions, codebaseBranch: codebaseBranchPermissions } =
+    usePermissionsContext();
   const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
   const { data: storageSize } = useStorageSizeQuery(codebaseData);
   const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
@@ -95,82 +86,84 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
   );
 
   return (
-    <div className={classes.branchHeader}>
-      <StatusIcon
-        icon={codebaseBranchIcon}
-        color={codebaseBranchColor}
-        isRotating={codebaseBranchIsRotating}
-        Title={
-          <>
-            <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-              {`Status: ${status || 'Unknown'}`}
-            </Typography>
-            {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
-              <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                {detailedMessage}
+    <Stack
+      spacing={2}
+      alignItems="center"
+      direction="row"
+      width={'100%'}
+      justifyContent="space-between"
+    >
+      <Stack spacing={2} alignItems="center" direction="row">
+        <StatusIcon
+          icon={codebaseBranchIcon}
+          color={codebaseBranchColor}
+          isRotating={codebaseBranchIsRotating}
+          Title={
+            <>
+              <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                {`Status: ${status || 'Unknown'}`}
               </Typography>
-            )}
-          </>
-        }
-      />
-      <Typography variant={'h6'} style={{ lineHeight: 1, marginTop: rem(2) }}>
-        {codebaseBranchData.spec.branchName}
-      </Typography>
-      {isDefaultBranch(codebaseData, codebaseBranchData) && (
-        <Chip label="default" className={clsx([classes.labelChip, classes.labelChipBlue])} />
-      )}
-      {codebaseBranchData.spec.release && (
-        <Chip label="release" className={clsx([classes.labelChip, classes.labelChipGreen])} />
-      )}
-      <div style={{ marginLeft: 'auto' }}>
+              {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
+                <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                  {detailedMessage}
+                </Typography>
+              )}
+            </>
+          }
+        />
+        <Typography variant={'h6'} style={{ lineHeight: 1, marginTop: rem(2) }}>
+          {codebaseBranchData.spec.branchName}
+        </Typography>
+        {isDefaultBranch(codebaseData, codebaseBranchData) && (
+          <Chip label="default" className={clsx([classes.labelChip, classes.labelChipBlue])} />
+        )}
+        {codebaseBranchData.spec.release && (
+          <Chip label="release" className={clsx([classes.labelChip, classes.labelChipGreen])} />
+        )}
+        <Stack spacing={1} alignItems="center" direction="row">
+          <Typography fontSize={12}>Build status</Typography>
+          <StatusIcon
+            icon={lastPipelineRunIcon}
+            color={lastPipelineRunColor}
+            isRotating={lastPipelineRunIsRotating}
+            width={20}
+            Title={
+              <>
+                <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                  {`Last Build PipelineRun status: ${PipelineRunKubeObject.parseStatus(
+                    pipelineRuns.latestBuildPipelineRun
+                  )}. Reason: ${PipelineRunKubeObject.parseStatusReason(
+                    pipelineRuns.latestBuildPipelineRun
+                  )}`}
+                </Typography>
+              </>
+            }
+          />
+        </Stack>
+        <Stack spacing={1} alignItems="center" direction="row">
+          <Typography fontSize={12}>Build:</Typography>
+          <Chip label={codebaseBranchData?.status?.build || 'NaN'} />
+        </Stack>
+        <Stack spacing={1} alignItems="center" direction="row">
+          <Typography fontSize={12}>Successful build:</Typography>
+          <Chip label={codebaseBranchData?.status?.lastSuccessfulBuild || 'NaN'} />
+        </Stack>
+        <Stack spacing={1} alignItems="center" direction="row">
+          <Typography fontSize={12}>Version:</Typography>
+          <Chip label={codebaseBranchData?.spec?.version || 'NaN'} />
+        </Stack>
+      </Stack>
+
+      <Box sx={{ pr: rem(16) }}>
         <Grid container spacing={1} alignItems={'center'}>
           <Grid item>
-            <div className={classes.pipelineRunStatus}>
-              <StatusIcon
-                icon={lastPipelineRunIcon}
-                color={lastPipelineRunColor}
-                isRotating={lastPipelineRunIsRotating}
-                width={18}
-                Title={
-                  <>
-                    <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                      {`Last Build PipelineRun status: ${PipelineRunKubeObject.parseStatus(
-                        pipelineRuns.latestBuildPipelineRun
-                      )}. Reason: ${PipelineRunKubeObject.parseStatusReason(
-                        pipelineRuns.latestBuildPipelineRun
-                      )}`}
-                    </Typography>
-                  </>
-                }
-              />
-            </div>
-          </Grid>
-          <Grid item>
             <QuickLink
-              name={{
-                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.SONAR],
-                value: SYSTEM_QUICK_LINKS.SONAR,
-              }}
-              enabledText="Open the Quality Gates"
-              icon={ICONS.SONAR}
-              externalLink={LinkCreationService.sonar.createDashboardLink(
-                QuickLinksURLS?.[SYSTEM_QUICK_LINKS.SONAR],
-                codebaseData.metadata.name,
-                codebaseBranchData.spec.branchName
-              )}
-              configurationLink={{
-                routeName: routeEDPSonarIntegration.path,
-              }}
-              variant="icon"
-            />
-          </Grid>
-          <Grid item>
-            <QuickLink
-              enabledText="Open the Source Code"
-              name={{ label: 'the Source Code' }}
-              icon={ICONS.GIT_BRANCH}
+              enabledText="Open in GIT"
+              name={{ label: 'GIT' }}
+              icon={ICONS.NEW_WINDOW}
               externalLink={codebaseData?.status?.gitWebUrl}
-              variant="icon"
+              variant="text"
+              isTextButton
             />
           </Grid>
           <Grid item>
@@ -178,6 +171,7 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
               <IconButton
                 onClick={onBuildButtonClick}
                 disabled={
+                  pipelineRunPermissions.create === false ||
                   PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun) ===
                     PIPELINE_RUN_REASON.RUNNING ||
                   codebaseBranchData?.status?.status !== CUSTOM_RESOURCE_STATUSES.CREATED
@@ -190,22 +184,18 @@ export const Summary = ({ codebaseData, codebaseBranchData, pipelineRuns }: Summ
           </Grid>
 
           <Grid item>
-            <Tooltip title={'Actions'}>
-              <IconButton
-                aria-label={'Actions'}
-                ref={buttonRef}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleOpenResourceActionListMenu(buttonRef.current, codebaseBranchData);
-                }}
-                size="large"
-              >
-                <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
-              </IconButton>
-            </Tooltip>
+            <CodebaseBranchActionsMenu
+              variant="inline"
+              data={{
+                branch: codebaseBranchData,
+                defaultBranch,
+                codebaseData,
+              }}
+              permissions={codebaseBranchPermissions}
+            />
           </Grid>
         </Grid>
-      </div>
-    </div>
+      </Box>
+    </Stack>
   );
 };

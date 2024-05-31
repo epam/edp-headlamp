@@ -98,15 +98,17 @@ export const DataGrid = <DataType extends unknown>({
 
   return (
     <Stack spacing={2}>
-      {renderGrid()}
+      <div>{renderGrid()}</div>
       {showPagination && data?.length > _rowsPerPage && (
-        <Pagination
-          dataCount={readyData && readyData.length}
-          page={page}
-          rowsPerPage={_rowsPerPage}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-        />
+        <div>
+          <Pagination
+            dataCount={readyData && readyData.length}
+            page={page}
+            rowsPerPage={_rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </div>
       )}
     </Stack>
   );

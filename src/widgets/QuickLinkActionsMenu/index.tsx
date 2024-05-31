@@ -1,4 +1,3 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
@@ -22,12 +21,13 @@ export const QuickLinkActionsMenu = ({
   data,
   anchorEl,
   handleCloseResourceActionListMenu,
+  permissions,
 }: QuickLinkActionsMenuProps) => {
   const { setDialog } = useDialogContext();
 
   const isSystemQuickLinkBool = isSystemQuickLink(data);
 
-  const getActions = React.useCallback(async () => {
+  const actions = React.useMemo(() => {
     if (!data) {
       return [];
     }
@@ -48,11 +48,13 @@ export const QuickLinkActionsMenu = ({
 
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
-        await createKubeAction({
-          item: new QuickLinkKubeObject(data) as unknown as KubeObjectInterface,
-          actionCheckName: 'update',
+        createKubeAction({
           name: RESOURCE_ACTIONS.EDIT,
           icon: ICONS.PENCIL,
+          disabled: {
+            status: permissions?.update === false,
+            reason: 'You do not have permission to edit QuickLink',
+          },
           action: () => {
             setDialog({
               modalName: MANAGE_QUICK_LINK_DIALOG_NAME,
@@ -60,30 +62,35 @@ export const QuickLinkActionsMenu = ({
             });
           },
         }),
-        await createKubeAction({
-          item: new QuickLinkKubeObject(data) as unknown as KubeObjectInterface,
-          actionCheckName: 'delete',
+        createKubeAction({
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
+          disabled: {
+            status: permissions?.delete === false || isSystemQuickLinkBool,
+            reason:
+              permissions?.delete === false
+                ? 'You do not have permission to delete QuickLink'
+                : isSystemQuickLinkBool
+                ? 'System QuickLink cannot be deleted'
+                : undefined,
+          },
           action: () => {
             setDialog({
               modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
               forwardedProps: deleteKubeObjectDialogForwardedProps,
             });
-          },
-          disabled: {
-            status: isSystemQuickLinkBool,
-            reason: 'System QuickLink cannot be deleted',
           },
         }),
       ];
     } else {
       return [
-        await createKubeAction({
-          item: new QuickLinkKubeObject(data) as unknown as KubeObjectInterface,
-          actionCheckName: 'update',
+        createKubeAction({
           name: RESOURCE_ACTIONS.EDIT,
           icon: ICONS.PENCIL,
+          disabled: {
+            status: permissions?.update === false,
+            reason: 'You do not have permission to edit QuickLink',
+          },
           action: () => {
             handleCloseResourceActionListMenu();
             setDialog({
@@ -92,21 +99,24 @@ export const QuickLinkActionsMenu = ({
             });
           },
         }),
-        await createKubeAction({
-          item: new QuickLinkKubeObject(data) as unknown as KubeObjectInterface,
-          actionCheckName: 'delete',
+        createKubeAction({
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
+          disabled: {
+            status: permissions?.delete === false || isSystemQuickLinkBool,
+            reason:
+              permissions?.delete === false
+                ? 'You do not have permission to delete QuickLink'
+                : isSystemQuickLinkBool
+                ? 'System QuickLink cannot be deleted'
+                : undefined,
+          },
           action: () => {
             handleCloseResourceActionListMenu();
             setDialog({
               modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
               forwardedProps: deleteKubeObjectDialogForwardedProps,
             });
-          },
-          disabled: {
-            status: isSystemQuickLinkBool,
-            reason: 'System QuickLink cannot be deleted',
           },
         }),
       ];
@@ -116,21 +126,10 @@ export const QuickLinkActionsMenu = ({
     data,
     handleCloseResourceActionListMenu,
     isSystemQuickLinkBool,
+    permissions,
     setDialog,
     variant,
   ]);
-
-  const [actions, setActions] = React.useState([]);
-
-  React.useEffect(() => {
-    getActions().then((actions) => {
-      if (actions.length === 0) {
-        return;
-      }
-
-      setActions(actions);
-    });
-  }, [actions.length, getActions]);
 
   return variant === 'inline' ? (
     <ActionsInlineList actions={actions} />

@@ -1,3 +1,5 @@
+import { DataProviderValue } from '../../types/pages';
+
 export type MetricKey =
   | 'alert_status'
   | 'bugs'
@@ -36,6 +38,8 @@ export type DuplicationRating = {
 
 export interface SonarQubeMetricsProps {
   codebaseName: string;
-  namespace: string;
-  branchName: string;
+  sonarData: DataProviderValue<{
+    metrics: Record<MetricKey, string>;
+    baseUrl: string;
+  }>;
 }

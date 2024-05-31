@@ -12,6 +12,7 @@ import { FORM_MODES } from '../../../../types/forms';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../widgets/CreateEditCodebase/constants';
 import { routeEDPGitServerList } from '../../../edp-configuration/pages/edp-gitserver-list/route';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
+import { usePermissionsContext } from '../../providers/Permissions/hooks';
 import { ComponentMultiDeletion } from './components/ComponentMultiDeletion';
 import { useColumns } from './hooks/useColumns';
 import { useUpperColumns } from './hooks/useUpperColumns';
@@ -81,11 +82,14 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
 
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
 
+  const { codebase: codebasePermissions } = usePermissionsContext();
+
   const upperColumns = useUpperColumns({
     selected,
     onUninstallClick: () => {
       setDeleteDialogOpen(true);
     },
+    permissions: codebasePermissions,
   });
 
   return (

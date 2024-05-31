@@ -4,20 +4,23 @@ import { DialogContextProvider } from '../../providers/Dialog';
 import { NamespacesGuardWrapper } from '../../providers/NamespacesGuardWrapper';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { DynamicDataContextProvider } from './providers/DynamicData/provider';
+import { PermissionsContextProvider } from './providers/Permissions/provider';
 import { PageView } from './view';
 
 export default function () {
   return (
     <PageLogicWrapper>
-      <DialogContextProvider>
-        <NamespacesGuardWrapper>
-          <ResourceActionListContextProvider>
-            <DynamicDataContextProvider>
-              <PageView />
-            </DynamicDataContextProvider>
-          </ResourceActionListContextProvider>
-        </NamespacesGuardWrapper>
-      </DialogContextProvider>
+      <PermissionsContextProvider>
+        <DialogContextProvider>
+          <NamespacesGuardWrapper>
+            <ResourceActionListContextProvider>
+              <DynamicDataContextProvider>
+                <PageView />
+              </DynamicDataContextProvider>
+            </ResourceActionListContextProvider>
+          </NamespacesGuardWrapper>
+        </DialogContextProvider>
+      </PermissionsContextProvider>
     </PageLogicWrapper>
   );
 }

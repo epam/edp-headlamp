@@ -75,8 +75,8 @@ export const PodsLogViewer = () => {
 
   const classes = useStyle();
   const [showPrevious, setShowPrevious] = React.useState<boolean>(false);
-  const [showTimestamps, setShowTimestamps] = React.useState<boolean>(true);
-  const [follow, setFollow] = React.useState<boolean>(true);
+  const [showTimestamps, setShowTimestamps] = React.useState<boolean>(false);
+  const [follow, setFollow] = React.useState<boolean>(false);
   const [lines, setLines] = React.useState<number>(100);
   const [logs, setLogs] = React.useState<{ logs: string[]; lastLineShown: number }>({
     logs: [],
@@ -251,8 +251,8 @@ export const PodsLogViewer = () => {
         <LightTooltip
           title={
             hasContainerRestarted()
-              ? 'logs|Show logs for previous instances of this container.'
-              : 'logs|You can only select this option for containers that have been restarted.'
+              ? 'Show logs for previous instances of this container.'
+              : 'You can only select this option for containers that have been restarted.'
           }
         >
           <FormControlLabel

@@ -1,3 +1,5 @@
+import { ButtonProps } from '@mui/material';
+
 export interface ResourceIconLinkProps {
   tooltipTitle: string | React.ReactElement;
   name: string;
@@ -5,6 +7,7 @@ export interface ResourceIconLinkProps {
   link?: string;
   disabled?: boolean;
   withoutDisabledStyle?: boolean;
-  variant?: 'icon' | 'text';
-  size?: 'small' | 'medium' | 'large';
+  isTextButton?: boolean;
+  size?: ButtonProps['size'];
+  variant?: ButtonProps['variant'];
 }
