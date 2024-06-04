@@ -56,7 +56,11 @@ export const Overview = () => {
         <div>
           <Grid container alignItems={'center'}>
             <Grid item>
-              <SonarQubeMetrics codebaseName={name} sonarData={sonarData} />
+              <SonarQubeMetrics
+                codebaseName={name}
+                sonarData={sonarData}
+                defaultBranch={component.data?.spec.defaultBranch}
+              />
             </Grid>
             <Grid item style={{ marginLeft: 'auto' }}>
               <DependencyTrackMetrics depTrackData={depTrackData} />

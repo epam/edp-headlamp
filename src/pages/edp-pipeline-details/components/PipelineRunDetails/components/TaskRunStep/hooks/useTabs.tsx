@@ -1,16 +1,10 @@
 import React from 'react';
 import { ViewYAML } from '../../../../../../../components/Editor';
-import { PodKubeObject } from '../../../../../../../k8s/Pod';
 import { LogsViewer } from '../../../../../../../widgets/LogViewer';
 import { TabContent } from '../../TabContent';
 
-export const useTabs = ({ taskRun, stepName }) => {
+export const useTabs = ({ taskRun, stepName, pods }) => {
   const details = taskRun?.status?.taskSpec?.steps.find((el) => el.name === stepName);
-
-  const [pods] = PodKubeObject.useList({
-    labelSelector: `tekton.dev/taskRun=${taskRun.metadata.name}`,
-    namespace: taskRun.metadata.namespace,
-  });
 
   const getDefaultContainer = React.useCallback(
     (pod) => {
@@ -22,14 +16,6 @@ export const useTabs = ({ taskRun, stepName }) => {
   return React.useMemo(() => {
     return [
       {
-        label: 'Details',
-        component: (
-          <TabContent>
-            <ViewYAML item={details} />
-          </TabContent>
-        ),
-      },
-      {
         label: 'Logs',
         component: (
           <TabContent>
@@ -37,6 +23,14 @@ export const useTabs = ({ taskRun, stepName }) => {
           </TabContent>
         ),
         disabled: !pods?.length,
+      },
+      {
+        label: 'Details',
+        component: (
+          <TabContent>
+            <ViewYAML item={details} />
+          </TabContent>
+        ),
       },
     ];
   }, [details, getDefaultContainer, pods]);

@@ -13,11 +13,11 @@ export default function () {
       <PermissionsContextProvider>
         <DialogContextProvider>
           <NamespacesGuardWrapper>
-            <DataContextProvider>
-              <DynamicDataContextProvider>
+            <DynamicDataContextProvider>
+              <DataContextProvider>
                 <PageView />
-              </DynamicDataContextProvider>
-            </DataContextProvider>
+              </DataContextProvider>
+            </DynamicDataContextProvider>
           </NamespacesGuardWrapper>
         </DialogContextProvider>
       </PermissionsContextProvider>

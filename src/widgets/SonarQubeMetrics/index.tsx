@@ -82,7 +82,11 @@ const getIconCodeSmells = (value: string) =>
     <Icon icon={'material-symbols:sentiment-dissatisfied'} {...IconProps} />
   );
 
-export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsProps) => {
+export const SonarQubeMetrics = ({
+  codebaseName,
+  defaultBranch,
+  sonarData,
+}: SonarQubeMetricsProps) => {
   const projectID = codebaseName;
 
   const sonarConfigurationPage = Router.createRouteURL(routeEDPSonarIntegration.path);
@@ -110,6 +114,7 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
             link={LinkCreationService.sonar.createLinkByIssueType(
               sonarData.data.baseUrl,
               projectID,
+              defaultBranch,
               'BUG'
             )}
             rightSlot={<Value value={sonarData.data.metrics?.bugs} />}
@@ -121,6 +126,7 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
             link={LinkCreationService.sonar.createLinkByIssueType(
               sonarData.data.baseUrl,
               projectID,
+              defaultBranch,
               'VULNERABILITY'
             )}
             rightSlot={<Value value={sonarData.data.metrics?.vulnerabilities} />}
@@ -132,6 +138,7 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
             link={LinkCreationService.sonar.createLinkByIssueType(
               sonarData.data.baseUrl,
               projectID,
+              defaultBranch,
               'CODE_SMELL'
             )}
             rightSlot={<Value value={sonarData.data.metrics?.code_smells} />}
@@ -159,6 +166,7 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
             link={LinkCreationService.sonar.createLinkByMetricName(
               sonarData.data.baseUrl,
               projectID,
+              defaultBranch,
               'Coverage'
             )}
             title="Coverage"
@@ -179,6 +187,7 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
             link={LinkCreationService.sonar.createLinkByMetricName(
               sonarData.data.baseUrl,
               projectID,
+              defaultBranch,
               'Duplications'
             )}
             leftSlot={<Rating rating={getDuplicationRating(sonarData.data.metrics)} hideValue />}

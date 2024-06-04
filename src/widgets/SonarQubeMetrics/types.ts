@@ -38,6 +38,7 @@ export type DuplicationRating = {
 
 export interface SonarQubeMetricsProps {
   codebaseName: string;
+  defaultBranch: string;
   sonarData: DataProviderValue<{
     metrics: Record<MetricKey, string>;
     baseUrl: string;
