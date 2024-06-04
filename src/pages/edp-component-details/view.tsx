@@ -51,6 +51,16 @@ export const PageView = () => {
               <Stack spacing={2} direction="row" alignItems="center">
                 <QuickLink
                   name={{
+                    label: 'git',
+                    value: 'git',
+                  }}
+                  enabledText="Open in GIT"
+                  icon={ICONS.SONAR}
+                  externalLink={component.data?.status?.gitWebUrl}
+                  isTextButton
+                />
+                <QuickLink
+                  name={{
                     label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.SONAR],
                     value: SYSTEM_QUICK_LINKS.SONAR,
                   }}
