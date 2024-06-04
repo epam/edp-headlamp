@@ -2,6 +2,7 @@ import { Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { StatusIcon } from '../../../../../../components/StatusIcon';
 import { Tabs } from '../../../../../../components/Tabs';
+import { PodKubeObject } from '../../../../../../k8s/Pod';
 import { TaskRunKubeObject } from '../../../../../../k8s/TaskRun';
 import {
   getTaskRunStepReason,
@@ -29,7 +30,15 @@ export const TaskRunStep = ({ taskRun, step }) => {
     units: ['d', 'h', 'm', 's'],
   });
 
-  const tabs = useTabs({ taskRun, stepName: step?.name });
+  const [pods] = PodKubeObject.useList({
+    labelSelector: `tekton.dev/taskRun=${taskRun.metadata.name}`,
+    namespace: taskRun.metadata.namespace,
+  });
+
+  const hasPods = pods?.length > 0;
+  const initialTabIdx = hasPods ? 0 : 1;
+
+  const tabs = useTabs({ taskRun, stepName: step?.name, pods });
 
   return (
     <Paper>
@@ -57,7 +66,7 @@ export const TaskRunStep = ({ taskRun, step }) => {
       </StyledDetailsHeader>
       <Divider orientation="horizontal" />
       <StyledDetailsBody>
-        <Tabs tabs={tabs} initialTabIdx={0} />
+        <Tabs tabs={tabs} initialTabIdx={initialTabIdx} />
       </StyledDetailsBody>
     </Paper>
   );

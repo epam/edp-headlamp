@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
+import { CODEBASE_VERSIONING_TYPES } from '../../../../../../../../constants/codebaseVersioningTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { EDPCodebaseBranchKubeObject } from '../../../../../../../../k8s/EDPCodebaseBranch';
@@ -85,6 +86,8 @@ export const Summary = ({
     [codebaseBranchData, codebaseData, createBuildPipelineRun, gitServerByCodebase, storageSize]
   );
 
+  const isEDPVersioning = codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP;
+
   return (
     <Stack
       spacing={2}
@@ -140,18 +143,22 @@ export const Summary = ({
             }
           />
         </Stack>
-        <Stack spacing={1} alignItems="center" direction="row">
-          <Typography fontSize={12}>Build:</Typography>
-          <Chip label={codebaseBranchData?.status?.build || 'NaN'} />
-        </Stack>
-        <Stack spacing={1} alignItems="center" direction="row">
-          <Typography fontSize={12}>Successful build:</Typography>
-          <Chip label={codebaseBranchData?.status?.lastSuccessfulBuild || 'NaN'} />
-        </Stack>
-        <Stack spacing={1} alignItems="center" direction="row">
-          <Typography fontSize={12}>Version:</Typography>
-          <Chip label={codebaseBranchData?.spec?.version || 'NaN'} />
-        </Stack>
+        {isEDPVersioning ? (
+          <>
+            <Stack spacing={1} alignItems="center" direction="row">
+              <Typography fontSize={12}>Build:</Typography>
+              <Chip label={codebaseBranchData?.status?.build || 'N/A'} />
+            </Stack>
+            <Stack spacing={1} alignItems="center" direction="row">
+              <Typography fontSize={12}>Successful build:</Typography>
+              <Chip label={codebaseBranchData?.status?.lastSuccessfulBuild || 'N/A'} />
+            </Stack>
+            <Stack spacing={1} alignItems="center" direction="row">
+              <Typography fontSize={12}>Version:</Typography>
+              <Chip label={codebaseBranchData?.spec?.version || 'N/A'} />
+            </Stack>
+          </>
+        ) : null}
       </Stack>
 
       <Box sx={{ pr: rem(16) }}>

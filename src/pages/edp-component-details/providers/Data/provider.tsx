@@ -9,6 +9,7 @@ import { LinkCreationService } from '../../../../services/link-creation';
 import { safeDecode, safeEncode } from '../../../../utils/decodeEncode';
 import { MetricKey, SonarQubeMetricsResponse } from '../../../../widgets/SonarQubeMetrics/types';
 import { ComponentDetailsRouteParams } from '../../types';
+import { useDynamicDataContext } from '../DynamicData/hooks';
 import { DataContext } from './context';
 
 const getSonarMetricValues = (metrics: SonarQubeMetricsResponse): Record<MetricKey, string> => {
@@ -56,6 +57,7 @@ const fetcher = async (url: string, headers: Record<string, string>) => {
 export const DataContextProvider: React.FC = ({ children }) => {
   const { namespace, name } = useParams<ComponentDetailsRouteParams>();
   const { data: QuickLinksURLs } = useQuickLinksURLsQuery();
+  const { component } = useDynamicDataContext();
   const sonarQubeBaseURL = QuickLinksURLs?.sonar;
   const depTrackBaseURL = QuickLinksURLs?.['dependency-track'];
 
@@ -121,7 +123,11 @@ export const DataContextProvider: React.FC = ({ children }) => {
     enabled: !!depTrackBaseURL && !!depTrackSecret?.token && !!projectUUID,
   });
 
-  const sonarMetricsApiUrl = LinkCreationService.sonar.createMetricsApiUrl(sonarQubeBaseURL, name);
+  const sonarMetricsApiUrl = LinkCreationService.sonar.createMetricsApiUrl(
+    sonarQubeBaseURL,
+    name,
+    component.data?.spec.defaultBranch
+  );
   const sonarRequestHeaders = {
     Authorization: `Basic ${safeEncode(`${sonarSecret?.token}:`)}`,
   };
@@ -134,7 +140,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
     queryFn: async () => fetcher(sonarMetricsApiUrl, sonarRequestHeaders),
     select: (data: SonarQubeMetricsResponse) => getSonarMetricValues(data),
     onError: () => undefined,
-    enabled: !!sonarQubeBaseURL && !!sonarSecret?.token,
+    enabled: !!sonarQubeBaseURL && !!sonarSecret?.token && !!component.data,
   });
 
   const depTrackError = (depTrackSecretError ||
