@@ -1,7 +1,7 @@
 import { EnrichedApplicationWithArgoApplication } from '../../../../types';
+import { ApplicationsTableMode } from '../../types';
 
-export interface ImageStreamTagsSelectProps {
+export interface ValuesOverrideSwitchProps {
   enrichedApplicationWithArgoApplication: EnrichedApplicationWithArgoApplication;
-  selected: string[];
-  defaultValue?: string;
+  mode: ApplicationsTableMode;
 }

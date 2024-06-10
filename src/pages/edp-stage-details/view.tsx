@@ -1,9 +1,7 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { Box, CircularProgress, Grid, Stack } from '@mui/material';
+import { Box, CircularProgress, Stack } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { BorderedSection } from '../../components/BorderedSection';
-import { InfoColumns } from '../../components/InfoColumns';
 import { PageWrapper } from '../../components/PageWrapper';
 import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
@@ -11,12 +9,10 @@ import { Tabs } from '../../components/Tabs';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { SYSTEM_QUICK_LINKS, SYSTEM_QUICK_LINKS_LABELS } from '../../k8s/QuickLink/constants';
 import { LinkCreationService } from '../../services/link-creation';
-import { rem } from '../../utils/styling/rem';
 import { StageActionsMenu } from '../../widgets/StageActionsMenu';
 import { routeEDPCDPipelineDetails } from '../edp-cdpipeline-details/route';
 import { routeEDPCDPipelineList } from '../edp-cdpipeline-list/route';
 import { routeEDPArgoCDIntegration } from '../edp-configuration/pages/edp-argocd-integration/route';
-import { useInfoColumns } from './hooks/useInfoColumns';
 import { usePageTabs } from './hooks/usePageTabs';
 import { useDataContext } from './providers/Data/hooks';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
@@ -39,7 +35,6 @@ export const PageView = () => {
   const stageSpecNamespace = stage?.spec.namespace;
 
   const tabs = usePageTabs();
-  const infoColumns = useInfoColumns();
 
   const backRoute = Router.createRouteURL(routeEDPCDPipelineDetails.path, {
     name: CDPipelineName,
@@ -85,6 +80,7 @@ export const PageView = () => {
               configurationLink={{
                 routeName: routeEDPArgoCDIntegration.path,
               }}
+              isTextButton
             />
             <QuickLink
               name={{
@@ -97,7 +93,7 @@ export const PageView = () => {
                 stageSpecNamespace
               )}
               QuickLinkComponent={grafanaQuickLink}
-              size="small"
+              isTextButton
             />
             <QuickLink
               name={{
@@ -110,9 +106,9 @@ export const PageView = () => {
                 stageSpecNamespace
               )}
               QuickLinkComponent={kibanaQuickLink}
-              size="small"
+              isTextButton
             />
-            <Box style={{ marginLeft: rem(20) }}>
+            <Box sx={{ ml: (t) => t.typography.pxToRem(20) }}>
               <StageActionsMenu
                 data={{
                   stages: stages.data,
@@ -134,18 +130,9 @@ export const PageView = () => {
         }
       >
         {!isStageLoading ? (
-          <Grid container spacing={2}>
-            <Grid item xs={12} style={{ marginTop: rem(20) }}>
-              <BorderedSection title="Stage Details">
-                <div>
-                  <InfoColumns infoRows={infoColumns} />
-                </div>
-              </BorderedSection>
-            </Grid>
-            <Grid item xs={12}>
-              <Tabs tabs={tabs} initialTabIdx={0} />
-            </Grid>
-          </Grid>
+          <Box sx={{ mt: (t) => t.typography.pxToRem(20) }}>
+            <Tabs tabs={tabs} initialTabIdx={0} rememberLastTab id="stage-page" />
+          </Box>
         ) : (
           <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
         )}

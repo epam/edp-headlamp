@@ -11,18 +11,20 @@ import { SYSTEM_QUICK_LINKS } from '../../../k8s/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { routeEDPPipelineDetails } from '../../../pages/edp-pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
-import { useResourceActionListContext } from '../../../providers/ResourceActionList/hooks';
 import { LinkCreationService } from '../../../services/link-creation';
+import { PermissionSet } from '../../../types/permissions';
 import { humanize } from '../../../utils/date/humanize';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../PipelineRunGraph/constants';
+import { Actions } from '../components/Actions';
 
-export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
+export const useColumns = ({
+  permissions,
+}: {
+  permissions: PermissionSet;
+}): TableColumn<PipelineRunKubeObjectInterface>[] => {
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
 
   const { setDialog } = useDialogContext();
-
-  const { handleOpenResourceActionListMenu } =
-    useResourceActionListContext<PipelineRunKubeObjectInterface>();
 
   return React.useMemo(
     () => [
@@ -163,23 +165,10 @@ export const useColumns = (): TableColumn<PipelineRunKubeObjectInterface>[] => {
       {
         id: 'rerun',
         label: 'Actions',
-        render: (resource) => {
-          const buttonRef = React.createRef<HTMLButtonElement>();
-
-          return (
-            <IconButton
-              ref={buttonRef}
-              aria-label={'Options'}
-              onClick={() => handleOpenResourceActionListMenu(buttonRef.current, resource.jsonData)}
-              size="large"
-            >
-              <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
-            </IconButton>
-          );
-        },
+        render: (resource) => <Actions resource={resource?.jsonData} permissions={permissions} />,
         width: '5%',
       },
     ],
-    [QuickLinksURLS, handleOpenResourceActionListMenu, setDialog]
+    [QuickLinksURLS, permissions, setDialog]
   );
 };

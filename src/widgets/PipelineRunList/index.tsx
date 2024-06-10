@@ -2,8 +2,6 @@ import React from 'react';
 import { EmptyList } from '../../components/EmptyList';
 import { Table } from '../../components/Table';
 import { PipelineRunKubeObjectInterface } from '../../k8s/PipelineRun/types';
-import { useResourceActionListContext } from '../../providers/ResourceActionList/hooks';
-import { PipelineRunActionsMenu } from '../PipelineRunActionsMenu';
 import { DeletionDialog } from './components/DeleteDialog';
 import { useColumns } from './hooks/useColumns';
 import { useUpperColumns } from './hooks/useUpperColumns';
@@ -16,7 +14,7 @@ export const PipelineRunList = ({
   error,
   permissions,
 }: PipelineRunListProps) => {
-  const columns = useColumns();
+  const columns = useColumns({ permissions });
 
   const [selected, setSelected] = React.useState<string[]>([]);
 
@@ -67,9 +65,6 @@ export const PipelineRunList = ({
     permissions,
   });
 
-  const { data, anchorEl, handleCloseResourceActionListMenu } =
-    useResourceActionListContext<PipelineRunKubeObjectInterface>();
-
   const onDelete = React.useCallback(() => {
     setSelected([]);
   }, []);
@@ -98,15 +93,6 @@ export const PipelineRunList = ({
           onDelete={onDelete}
         />
       )}
-      <PipelineRunActionsMenu
-        variant="menu"
-        permissions={permissions}
-        data={{
-          pipelineRun: data,
-        }}
-        anchorEl={anchorEl}
-        handleCloseResourceActionListMenu={handleCloseResourceActionListMenu}
-      />
     </>
   );
 };

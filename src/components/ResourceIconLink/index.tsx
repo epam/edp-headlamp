@@ -22,9 +22,7 @@ const DisabledResourceIconLink = ({
       variant={variant}
       disabled
       sx={!withoutDisabledStyle ? { opacity: 0.5 } : {}}
-      endIcon={
-        <Icon icon={'material-symbols:open-in-new'} color={theme.palette.grey['500']} width="20" />
-      }
+      endIcon={<Icon icon={ICONS.NEW_WINDOW} color={theme.palette.grey['500']} width="20" />}
       size={size}
     >
       Open in {name}
@@ -67,7 +65,7 @@ const EnabledResourceIconLink = ({
       size={size}
       sx={{ color: theme.palette.secondary.dark, borderColor: theme.palette.secondary.dark }}
     >
-      Open in {name}
+      {name}
     </Button>
   ) : (
     <Tooltip
@@ -76,14 +74,19 @@ const EnabledResourceIconLink = ({
           <Grid item>{tooltipTitle}</Grid>
           <span> </span>
           <Grid item>
-            <Icon icon={ICONS.NEW_WINDOW} width="15" height="15" />
+            <Icon
+              icon={ICONS.NEW_WINDOW}
+              width="15"
+              height="15"
+              color={theme.palette.common.white}
+            />
           </Grid>
         </Grid>
       }
     >
       <span>
         <IconButton component={MuiLink} href={link} target={'_blank'} size={size}>
-          <Icon icon={icon} width="20" height="20" />
+          <Icon icon={icon} width="20" height="20" color={theme.palette.text.primary} />
         </IconButton>
       </span>
     </Tooltip>

@@ -5,23 +5,29 @@ import { TabContent } from '../../TabContent';
 
 export const useTabs = ({ taskRun }) => {
   const results = taskRun?.status?.results;
-  const hasResults = results && results.length > 0;
 
   return React.useMemo(() => {
+    const hasParams = taskRun?.spec?.params && taskRun?.spec?.params.length > 0;
+    const hasResults = results && results.length > 0;
+
     return [
-      {
-        label: 'Parameters',
-        component: (
-          <TabContent>
-            <NameValueTable
-              rows={taskRun.spec.params.map((el) => ({
-                name: el.name,
-                value: el.value,
-              }))}
-            />
-          </TabContent>
-        ),
-      },
+      ...(hasParams
+        ? [
+            {
+              label: 'Parameters',
+              component: (
+                <TabContent>
+                  <NameValueTable
+                    rows={taskRun?.spec?.params.map((el) => ({
+                      name: el.name,
+                      value: el.value,
+                    }))}
+                  />
+                </TabContent>
+              ),
+            },
+          ]
+        : []),
       ...(hasResults
         ? [
             {
@@ -29,7 +35,7 @@ export const useTabs = ({ taskRun }) => {
               component: (
                 <TabContent>
                   <NameValueTable
-                    rows={results.map((el) => ({
+                    rows={results?.map((el) => ({
                       name: el.name,
                       value: el.value,
                     }))}
@@ -44,5 +50,5 @@ export const useTabs = ({ taskRun }) => {
         component: <ViewYAML item={taskRun.status} />,
       },
     ];
-  }, [hasResults, results, taskRun]);
+  }, [results, taskRun]);
 };

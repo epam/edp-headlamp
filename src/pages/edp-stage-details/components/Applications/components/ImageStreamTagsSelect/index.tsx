@@ -3,12 +3,12 @@ import { useFormContext } from 'react-hook-form';
 import { createImageStreamTags } from '../../../../../../k8s/EDPCodebaseImageStream/utils/createImageStreamTags';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { SelectOption } from '../../../../../../types/forms';
+import { IMAGE_TAG_POSTFIX } from '../../../../constants';
 import { ImageStreamTagsSelectProps } from './types';
 
 export const ImageStreamTagsSelect = ({
   enrichedApplicationWithArgoApplication,
   selected,
-  handleSelectRowClick,
 }: ImageStreamTagsSelectProps) => {
   const { applicationImageStream, applicationVerifiedImageStream, application } =
     enrichedApplicationWithArgoApplication;
@@ -26,11 +26,8 @@ export const ImageStreamTagsSelect = ({
   return (
     <div style={{ width: '100%' }}>
       <FormSelect
-        {...register(`${application.metadata.name}::image-tag`, {
+        {...register(`${application.metadata.name}${IMAGE_TAG_POSTFIX}`, {
           required: selected.includes(application.metadata.name),
-          onChange: (event) =>
-            !selected.includes(application.metadata.name) &&
-            handleSelectRowClick(event, enrichedApplicationWithArgoApplication),
         })}
         label="Select image tag"
         control={control}

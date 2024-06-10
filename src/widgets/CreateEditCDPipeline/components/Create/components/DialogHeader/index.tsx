@@ -28,7 +28,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
         <Grid container spacing={1} alignItems={'center'}>
           <Grid item>
             <Typography variant={'h5'}>
-              Create CD Pipeline{' '}
+              Create Environment{' '}
               <LearnMoreLink url={EDP_USER_GUIDE.CD_PIPELINE_CREATE.anchors.CREATE_VIA_UI.url} />
             </Typography>
           </Grid>

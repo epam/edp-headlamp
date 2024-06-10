@@ -29,7 +29,7 @@ export enum ICONS {
   ARROW_CIRCLE_UP = 'material-symbols:arrow-circle-up-outline-rounded',
   ARROW_CIRCLE_UP_FILLED = 'heroicons:arrow-up-circle-solid',
   GIT_BRANCH = 'ph:git-branch',
-  NEW_WINDOW = 'radix-icons:open-in-new-window',
+  NEW_WINDOW = 'material-symbols:open-in-new',
   ARGOCD = 'devicon:argocd',
   GRAFANA = 'logos:grafana',
   KIBANA = 'logos:kibana',

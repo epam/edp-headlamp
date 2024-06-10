@@ -4,25 +4,26 @@ import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import React from 'react';
 import { StatusIcon } from '../../../components/StatusIcon';
+import { STATUS_COLOR } from '../../../constants/colors';
 import { TRIGGER_TYPES } from '../../../constants/triggerTypes';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { EDPCDPipelineStageKubeObject } from '../../../k8s/EDPCDPipelineStage';
 import { rem } from '../../../utils/styling/rem';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   labelChip: {
-    height: rem(20),
+    height: theme.typography.pxToRem(24),
     lineHeight: 1,
-    paddingTop: rem(2),
+    paddingTop: theme.typography.pxToRem(2),
   },
   labelChipBlue: {
-    backgroundColor: '#cbe1f9',
-    color: '#1261af',
+    backgroundColor: STATUS_COLOR.SUCCESS,
+    color: '#fff',
   },
   labelChipGreen: {
-    backgroundColor: '#c3e6cd',
-    color: '#2f6f45',
+    backgroundColor: STATUS_COLOR.SUCCESS,
+    color: '#fff',
   },
 }));
 

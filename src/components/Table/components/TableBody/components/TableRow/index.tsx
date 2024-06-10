@@ -2,13 +2,14 @@ import { Box, Checkbox, TableCell, TableRow as MuiTableRow, useTheme } from '@mu
 import React from 'react';
 import { TableRowProps } from './types';
 
-const getRowStyles = (isSelected: boolean) =>
-  isSelected
-    ? {
-        backgroundColor: 'rgb(137 196 244 / 16%)',
-        cursor: 'pointer',
-      }
-    : { cursor: 'pointer' };
+const getRowStyles = (isSelected: boolean) => {
+  return {
+    cursor: 'pointer',
+    ...(isSelected && {
+      backgroundColor: 'rgb(137 196 244 / 16%)',
+    }),
+  };
+};
 
 export const TableRow = ({
   item,
@@ -31,7 +32,7 @@ export const TableRow = ({
           onClick: (event: React.MouseEvent<HTMLTableRowElement>) => {
             handleRowClick(event, row);
           },
-          style: getRowStyles(isSelected),
+          sx: getRowStyles(isSelected),
         }
       : {};
   };
@@ -48,7 +49,14 @@ export const TableRow = ({
   return (
     <MuiTableRow {...selectableRowProps(item, isSelected)}>
       {!!handleSelectRowClick && (
-        <TableCell padding="checkbox">
+        <TableCell
+          component="td"
+          scope="row"
+          align="center"
+          sx={{
+            p: `${theme.typography.pxToRem(5)} ${theme.typography.pxToRem(11)}`,
+          }}
+        >
           {canBeSelected && (
             <Checkbox
               color={'primary'}
@@ -62,7 +70,7 @@ export const TableRow = ({
         return show ? (
           <TableCell
             key={id}
-            component="th"
+            component="td"
             scope="row"
             align={textAlign || 'left'}
             sx={{

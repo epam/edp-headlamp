@@ -1,133 +1,28 @@
-import { Grid } from '@mui/material';
+import { Icon } from '@iconify/react';
+import { Button, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
+import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { Table } from '../../../../components/Table';
-import {
-  CODEBASE_COMMON_BUILD_TOOLS,
-  CODEBASE_COMMON_FRAMEWORKS,
-  CODEBASE_COMMON_LANGUAGES,
-} from '../../../../configs/codebase-mappings';
+import { TableProps } from '../../../../components/Table/types';
+import { TabSection } from '../../../../components/TabSection';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useCreateArgoApplication } from '../../../../k8s/Application/hooks/useCreateArgoApplication';
-import { getDeployedVersion } from '../../../../k8s/Application/utils/getDeployedVersion';
-import { editResource } from '../../../../k8s/common/editResource';
-import { useCreateDeployPipelineRun } from '../../../../k8s/PipelineRun/hooks/useCreateDeployPipelineRun';
-import { mapEvery } from '../../../../utils/loops/mapEvery';
-import { useDataContext } from '../../providers/Data/hooks';
-import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
+import { APPLICATIONS_TABLE_MODE } from '../../constants';
 import { usePermissionsContext } from '../../providers/Permissions/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
+import { useButtonsEnabledMap } from './hooks/useButtonsEnabled';
 import { useColumns } from './hooks/useColumns';
+import { useConfigurationHandlers } from './hooks/useConfigurationHandlers';
 import { useUpperColumns } from './hooks/useUpperColumns';
-import { ApplicationsProps, ButtonsMap } from './types';
-
-const parseTagLabelValue = (tag: string) => {
-  if (tag.includes('::')) {
-    const [label, value] = tag.split('::');
-    return { value, label };
-  } else {
-    return { value: tag, label: undefined };
-  }
-};
-
-const createApplicationPayload = (imageTag: string, customValues: boolean) => ({
-  imageTag,
-  customValues,
-});
-
-const newDeployPipelineRunNames = {
-  generateName: {
-    name: 'generateName',
-    path: ['metadata', 'generateName'],
-  },
-  CDPipelineLabel: {
-    name: 'CDPipelineLabel',
-    path: ['metadata', 'labels', 'app.edp.epam.com/cdpipeline'],
-  },
-  stageLabel: {
-    name: 'stageLabel',
-    path: ['metadata', 'labels', 'app.edp.epam.com/cdstage'],
-  },
-  pipelineTypeLabel: {
-    name: 'pipelineTypeLabel',
-    path: ['metadata', 'labels', 'app.edp.epam.com/pipelinetype'],
-  },
-  applicationsPayloadParam: {
-    name: 'applicationsPayloadParam',
-    path: ['spec', 'params', '0'],
-  },
-  stageParam: {
-    name: 'stageParam',
-    path: ['spec', 'params', '1'],
-  },
-  CDPipelineParam: {
-    name: 'CDPipelineParam',
-    path: ['spec', 'params', '2'],
-  },
-  kubeConfigSecretParam: {
-    name: 'kubeConfigSecretParam',
-    path: ['spec', 'params', '3'],
-  },
-};
+import { ApplicationsProps, ApplicationsTableMode } from './types';
 
 export const Applications = ({
   enrichedApplicationsWithArgoApplications,
   latestDeployPipelineRunIsRunning,
 }: ApplicationsProps) => {
-  const { CDPipeline } = useDataContext();
   const permissions = usePermissionsContext();
-  const {
-    stage: { data: stage },
-    deployPipelineRunTemplate: { data: deployPipelineRunTemplate },
-  } = useDynamicDataContext();
-  const { getValues, setValue, resetField, trigger, watch } = useFormContext();
-  const [selected, setSelected] = React.useState<string[]>([]);
-
-  const handleSelectAllClick = React.useCallback(
-    (
-      event: React.ChangeEvent<HTMLInputElement>,
-      paginatedItems: EnrichedApplicationWithArgoApplication[]
-    ) => {
-      if (event.target.checked) {
-        const newSelected = paginatedItems.map(
-          ({
-            application: {
-              metadata: { name },
-            },
-          }) => name
-        );
-        setSelected(newSelected);
-        return;
-      }
-      setSelected([]);
-    },
-    []
-  );
-
-  const handleSelectRowClick = React.useCallback(
-    (event: React.MouseEvent<unknown>, row: EnrichedApplicationWithArgoApplication) => {
-      const name = row.application.metadata.name;
-      const selectedIndex = selected.indexOf(name);
-      let newSelected: string[] = [];
-
-      if (selectedIndex === -1) {
-        newSelected = newSelected.concat(selected, name);
-      } else if (selectedIndex === 0) {
-        newSelected = newSelected.concat(selected.slice(1));
-      } else if (selectedIndex === selected.length - 1) {
-        newSelected = newSelected.concat(selected.slice(0, -1));
-      } else if (selectedIndex > 0) {
-        newSelected = newSelected.concat(
-          selected.slice(0, selectedIndex),
-          selected.slice(selectedIndex + 1)
-        );
-      }
-
-      setSelected(newSelected);
-    },
-    [selected]
-  );
-
-  const columns = useColumns(handleSelectRowClick, selected);
 
   const enrichedApplicationsByApplicationName = React.useMemo(() => {
     return (
@@ -139,286 +34,189 @@ export const Applications = ({
     );
   }, [enrichedApplicationsWithArgoApplications]);
 
-  const onLatestClick = React.useCallback(() => {
-    for (const selectedApplication of selected) {
-      const selectFieldName = `${selectedApplication}::image-tag`;
-      resetField(selectFieldName);
-
-      const imageStreamBySelectedApplication =
-        enrichedApplicationsByApplicationName.get(selectedApplication)?.applicationImageStream;
-
-      if (
-        !imageStreamBySelectedApplication ||
-        !imageStreamBySelectedApplication?.spec?.tags?.length
-      ) {
-        continue;
-      }
-
-      const imageStreamTag = imageStreamBySelectedApplication?.spec?.tags.at(-1).name;
-
-      if (!imageStreamTag) {
-        continue;
-      }
-
-      setValue(selectFieldName, `latest::${imageStreamTag}`, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    }
-  }, [enrichedApplicationsByApplicationName, resetField, selected, setValue]);
-
-  const onStableClick = React.useCallback(() => {
-    for (const selectedApplication of selected) {
-      const selectFieldName = `${selectedApplication}::image-tag`;
-      resetField(selectFieldName);
-
-      const imageStreamBySelectedApplication =
-        enrichedApplicationsByApplicationName.get(
-          selectedApplication
-        )?.applicationVerifiedImageStream;
-
-      if (
-        !imageStreamBySelectedApplication ||
-        !imageStreamBySelectedApplication?.spec?.tags?.length
-      ) {
-        continue;
-      }
-
-      const imageStreamTag = imageStreamBySelectedApplication?.spec?.tags.at(-1).name;
-
-      if (!imageStreamTag) {
-        continue;
-      }
-
-      setValue(selectFieldName, `stable::${imageStreamTag}`, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    }
-  }, [enrichedApplicationsByApplicationName, resetField, selected, setValue]);
-
-  const onValuesOverrideAllClick = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const boolean = event.target.value;
-      const selected: string[] = [];
-
-      for (const application of enrichedApplicationsWithArgoApplications) {
-        const selectFieldName = `${application.application.metadata.name}::values-override`;
-
-        setValue(selectFieldName, boolean, {
-          shouldValidate: true,
-          shouldDirty: true,
-        });
-
-        if (boolean) {
-          selected.push(application.application.metadata.name);
-        }
-      }
-
-      setSelected(selected);
-    },
-    [enrichedApplicationsWithArgoApplications, setValue]
-  );
-
   const {
     deleteArgoApplication,
     mutations: { argoApplicationDeleteMutation },
   } = useCreateArgoApplication();
-
-  const { createDeployPipelineRun } = useCreateDeployPipelineRun({});
 
   const someArgoApplicationMutationIsLoading = React.useMemo(
     () => argoApplicationDeleteMutation.isLoading,
     [argoApplicationDeleteMutation]
   );
 
+  const [selected, setSelected] = React.useState<string[]>([]);
+  const [mode, setMode] = React.useState<ApplicationsTableMode>(APPLICATIONS_TABLE_MODE.PREVIEW);
+
+  const toggleMode = () =>
+    mode === APPLICATIONS_TABLE_MODE.PREVIEW
+      ? setMode(APPLICATIONS_TABLE_MODE.CONFIGURATION)
+      : setMode(APPLICATIONS_TABLE_MODE.PREVIEW);
+  const {
+    watch,
+    formState: { dirtyFields },
+  } = useFormContext();
   const values = watch();
 
-  const buttonsEnabledMap: ButtonsMap = React.useMemo(() => {
-    if (!selected || !selected.length) {
-      return null;
-    }
+  const isDirty = Object.keys(dirtyFields).length > 0;
 
-    const selectedImageTagsValues = Object.entries(values).filter(([key, value]) => {
-      if (!key.includes('::image-tag')) {
-        return false;
-      }
-
-      const appName = key.split('::')[0];
-      return selected.includes(appName) && !!value;
-    });
-
-    const allAppVersionsAreSelected =
-      selectedImageTagsValues?.length === enrichedApplicationsWithArgoApplications?.length;
-
-    const map = selected.reduce((acc, selectedApplication) => {
-      {
-        const application =
-          enrichedApplicationsByApplicationName.get(selectedApplication)?.application;
-        const argoApplicationBySelectedApplication =
-          enrichedApplicationsByApplicationName.get(selectedApplication)?.argoApplication;
-
-        if (!argoApplicationBySelectedApplication) {
-          acc.set(selectedApplication, {
-            deploy: !latestDeployPipelineRunIsRunning && !someArgoApplicationMutationIsLoading,
-            uninstall: false,
-          });
-          return acc;
-        }
-
-        const isHelm =
-          application?.spec?.lang === CODEBASE_COMMON_LANGUAGES.HELM &&
-          application?.spec?.framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
-          application?.spec?.buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
-
-        const withValuesOverride = argoApplicationBySelectedApplication
-          ? Object.hasOwn(argoApplicationBySelectedApplication?.spec, 'sources')
-          : false;
-
-        const deployedVersion = getDeployedVersion(
-          withValuesOverride,
-          isHelm,
-          argoApplicationBySelectedApplication
-        );
-
-        acc.set(selectedApplication, {
-          deploy:
-            allAppVersionsAreSelected &&
-            !latestDeployPipelineRunIsRunning &&
-            !someArgoApplicationMutationIsLoading,
-          uninstall: !!deployedVersion,
-        });
-        return acc;
-      }
-    }, new Map<string, ButtonsMap>());
-
-    const deployBoolean = mapEvery(map, (value) => value.deploy);
-
-    const uninstallBoolean = mapEvery(map, (value) => value.uninstall);
-
-    return {
-      deploy: deployBoolean,
-      uninstall: uninstallBoolean,
-    };
-  }, [
+  const {
+    handleClickDeploy,
+    handleClickLatest,
+    handleClickOverrideValuesAll,
+    handleClickSelectAll,
+    handleClickSelectRow,
+    handleClickStable,
+    handleClickUninstall,
+  } = useConfigurationHandlers({
     selected,
+    setSelected,
+    enrichedApplicationsByApplicationName,
+    enrichedApplicationsWithArgoApplications,
+    deleteArgoApplication,
     values,
+  });
+
+  const buttonsEnabledMap = useButtonsEnabledMap({
     enrichedApplicationsWithArgoApplications,
     enrichedApplicationsByApplicationName,
     latestDeployPipelineRunIsRunning,
     someArgoApplicationMutationIsLoading,
-  ]);
+    values,
+  });
 
-  const onDeployClick = React.useCallback(async () => {
-    const values = getValues();
-    const valid = await trigger();
-
-    if (!valid) {
-      return;
-    }
-
-    // todo: refactor this hardcode
-    const newDeployPipelineRun = editResource(
-      newDeployPipelineRunNames,
-      deployPipelineRunTemplate,
-      {
-        generateName: `deploy-${CDPipeline.data.metadata.name}-${stage.spec.name}`,
-        CDPipelineLabel: CDPipeline.data.metadata.name,
-        stageLabel: stage.metadata.name,
-        pipelineTypeLabel: 'deploy',
-        applicationsPayloadParam: {
-          name: 'APPLICATIONS_PAYLOAD',
-          value: JSON.stringify(
-            enrichedApplicationsWithArgoApplications
-              .filter(({ application }) => selected.includes(application.metadata.name))
-              .reduce((acc, cur) => {
-                const appName = cur.application.metadata.name;
-                const imageTagFieldValue = values[`${appName}::image-tag`];
-                const valuesOverrideFieldValue = values[`${appName}::values-override`];
-
-                const { value: tagValue } = parseTagLabelValue(imageTagFieldValue);
-
-                acc[appName] = createApplicationPayload(tagValue, valuesOverrideFieldValue);
-                return acc;
-              }, {})
-          ),
-        },
-        stageParam: {
-          name: 'CDSTAGE',
-          value: stage.spec.name,
-        },
-        CDPipelineParam: {
-          name: 'CDPIPELINE',
-          value: CDPipeline.data.metadata.name,
-        },
-        kubeConfigSecretParam: {
-          name: 'KUBECONFIG_SECRET_NAME',
-          value: stage.spec.clusterName,
-        },
-      }
-    );
-
-    await createDeployPipelineRun({ deployPipelineRun: newDeployPipelineRun });
-  }, [
-    CDPipeline,
-    createDeployPipelineRun,
-    deployPipelineRunTemplate,
-    enrichedApplicationsWithArgoApplications,
-    getValues,
+  const columns = useColumns({
     selected,
-    stage,
-    trigger,
-  ]);
-
-  const onUninstallClick = React.useCallback(async () => {
-    for (const enrichedApplication of enrichedApplicationsWithArgoApplications) {
-      const appName = enrichedApplication.application.metadata.name;
-
-      if (!selected.includes(appName)) {
-        continue;
-      }
-
-      const argoApplication = enrichedApplicationsByApplicationName.get(appName)?.argoApplication;
-
-      await deleteArgoApplication({
-        argoApplication,
-      });
-    }
-  }, [
-    deleteArgoApplication,
-    enrichedApplicationsByApplicationName,
-    enrichedApplicationsWithArgoApplications,
-    selected,
-  ]);
+    mode,
+  });
 
   const upperColumns = useUpperColumns({
     selected,
     buttonsEnabledMap,
-    onDeployClick,
-    onUninstallClick,
-    onLatestClick,
-    onStableClick,
-    onValuesOverrideAllClick,
-    isDeployLoading: latestDeployPipelineRunIsRunning,
+    handleClickUninstall,
+    handleClickLatest,
+    handleClickStable,
+    handleClickOverrideValuesAll,
     permissions,
+    mode,
+    values,
   });
 
+  const _TableProps: TableProps<EnrichedApplicationWithArgoApplication> = React.useMemo(() => {
+    return {
+      data: enrichedApplicationsWithArgoApplications,
+      isLoading: enrichedApplicationsWithArgoApplications === null,
+      columns,
+      upperColumns,
+      handleSelectRowClick: mode === APPLICATIONS_TABLE_MODE.PREVIEW ? handleClickSelectRow : null,
+      handleSelectAllClick: mode === APPLICATIONS_TABLE_MODE.PREVIEW ? handleClickSelectAll : null,
+      selected,
+      isSelected: (row) => selected.indexOf(row.application.metadata.name) !== -1,
+    };
+  }, [
+    columns,
+    enrichedApplicationsWithArgoApplications,
+    handleClickSelectAll,
+    handleClickSelectRow,
+    mode,
+    selected,
+    upperColumns,
+  ]);
+
+  const timer = React.useRef<number | null>(null);
+  const [deployBtnDisabled, setDeployBtnDisabled] = React.useState(false);
+  const { reset } = useFormContext();
+  const theme = useTheme();
+
   return (
-    <>
-      <Grid container spacing={2} justifyContent={'flex-end'}>
-        <Grid item xs={12}>
-          <Table<EnrichedApplicationWithArgoApplication>
-            data={enrichedApplicationsWithArgoApplications}
-            isLoading={enrichedApplicationsWithArgoApplications === null}
-            columns={columns}
-            upperColumns={upperColumns}
-            handleSelectRowClick={handleSelectRowClick}
-            handleSelectAllClick={handleSelectAllClick}
-            selected={selected}
-            isSelected={(row) => selected.indexOf(row.application.metadata.name) !== -1}
-          />
-        </Grid>
-      </Grid>
-    </>
+    <TabSection
+      title={
+        <Stack spacing={2} alignItems="center" direction="row" justifyContent="space-between">
+          <Typography fontSize={28} color="primary.dark">
+            Applications
+          </Typography>
+          {mode === APPLICATIONS_TABLE_MODE.PREVIEW && (
+            <Button
+              variant="contained"
+              color="primary"
+              size="medium"
+              startIcon={
+                deployBtnDisabled || latestDeployPipelineRunIsRunning ? (
+                  <Icon icon={'line-md:loading-loop'} />
+                ) : (
+                  <Icon icon={ICONS.PENCIL} />
+                )
+              }
+              onClick={toggleMode}
+              disabled={latestDeployPipelineRunIsRunning || deployBtnDisabled}
+            >
+              {deployBtnDisabled || latestDeployPipelineRunIsRunning
+                ? 'Deploying'
+                : 'Configure deploy'}
+            </Button>
+          )}
+          {mode === APPLICATIONS_TABLE_MODE.CONFIGURATION && (
+            <Stack spacing={3} alignItems="center" direction="row">
+              <Tooltip title={'Reset selected image stream versions'}>
+                <Button
+                  onClick={() => reset()}
+                  disabled={!isDirty}
+                  sx={{ color: theme.palette.secondary.dark }}
+                >
+                  undo changes
+                </Button>
+              </Tooltip>
+              <Button
+                onClick={() => {
+                  reset();
+                  setMode(APPLICATIONS_TABLE_MODE.PREVIEW);
+                }}
+                variant="outlined"
+              >
+                cancel
+              </Button>
+              <ConditionalWrapper
+                condition={permissions.pipelineRun.create}
+                wrapper={(children) => (
+                  <Tooltip
+                    title={'Deploy selected applications with selected image stream version'}
+                  >
+                    {children}
+                  </Tooltip>
+                )}
+              >
+                <ButtonWithPermission
+                  ButtonProps={{
+                    startIcon:
+                      deployBtnDisabled || latestDeployPipelineRunIsRunning ? (
+                        <Icon icon={'line-md:loading-loop'} />
+                      ) : (
+                        <Icon icon={ICONS.CHECK} />
+                      ),
+                    onClick: () => {
+                      handleClickDeploy();
+                      setMode(APPLICATIONS_TABLE_MODE.PREVIEW);
+                      setDeployBtnDisabled(true);
+
+                      timer.current = window.setTimeout(() => {
+                        setDeployBtnDisabled(false);
+                      }, 10000);
+                    },
+                    disabled: deployBtnDisabled || !buttonsEnabledMap.deploy,
+                    variant: 'contained',
+                    color: 'primary',
+                  }}
+                  allowed={permissions.pipelineRun.create}
+                  text={'You do not have permission to create PipelineRun'}
+                >
+                  Start Deploy
+                </ButtonWithPermission>
+              </ConditionalWrapper>
+            </Stack>
+          )}
+        </Stack>
+      }
+    >
+      <Table<EnrichedApplicationWithArgoApplication> {..._TableProps} />
+    </TabSection>
   );
 };

@@ -45,7 +45,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                 <h5
                   class="MuiTypography-root MuiTypography-h5 css-xqgeko-MuiTypography-root"
                 >
-                  Create CD Pipeline
+                  Create Environment
                    
                   <a
                     class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
