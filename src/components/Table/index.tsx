@@ -105,7 +105,7 @@ export const Table = <DataType extends unknown>({
     >
       <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
         <colgroup>
-          {handleSelectRowClick && <col key={'select-checkbox'} width={'4%'} />}
+          {handleSelectRowClick && <col key={'select-checkbox'} width={'64px'} />}
           {columns.map(
             (column) =>
               column.show !== false && <col key={column.id} width={column.width || '100%'} />

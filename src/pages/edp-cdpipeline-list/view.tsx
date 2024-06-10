@@ -64,8 +64,6 @@ export const PageView = () => {
 
   const { cdPipeline: CDPipelinePermissions } = usePermissionsContext();
 
-  console.log(CDPipelinePermissions);
-
   return (
     <PageWrapper>
       <Section

@@ -67,7 +67,7 @@ export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) =
       <Grid item xs={2}>
         <Stack>
           {taskRunListByNameMap &&
-            pipelineRunTasks.allTasks.map(({ name: taskRunName }) => {
+            pipelineRunTasks.allTasks?.map(({ name: taskRunName }) => {
               const taskRun = taskRunListByNameMap.get(taskRunName)?.jsonData;
               const taskRunStatus = TaskRunKubeObject.parseStatus(taskRun);
               const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);

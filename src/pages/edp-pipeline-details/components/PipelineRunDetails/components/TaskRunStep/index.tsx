@@ -1,5 +1,6 @@
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
+import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { StatusIcon } from '../../../../../../components/StatusIcon';
 import { Tabs } from '../../../../../../components/Tabs';
 import { PodKubeObject } from '../../../../../../k8s/Pod';
@@ -36,6 +37,7 @@ export const TaskRunStep = ({ taskRun, step }) => {
   });
 
   const hasPods = pods?.length > 0;
+
   const initialTabIdx = hasPods ? 0 : 1;
 
   const tabs = useTabs({ taskRun, stepName: step?.name, pods });
@@ -66,7 +68,9 @@ export const TaskRunStep = ({ taskRun, step }) => {
       </StyledDetailsHeader>
       <Divider orientation="horizontal" />
       <StyledDetailsBody>
-        <Tabs tabs={tabs} initialTabIdx={initialTabIdx} />
+        <LoadingWrapper isLoading={pods === null}>
+          <Tabs tabs={tabs} initialTabIdx={initialTabIdx} />
+        </LoadingWrapper>
       </StyledDetailsBody>
     </Paper>
   );

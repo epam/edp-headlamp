@@ -71,9 +71,11 @@ export const TableRow = ({
     <MuiTableRow>
       {!!handleSelectAllClick && (
         <TableCell
-          padding="checkbox"
-          style={{
-            color: theme.palette.text.primary,
+          component="th"
+          scope="row"
+          align="center"
+          sx={{
+            p: `${theme.typography.pxToRem(5)} ${theme.typography.pxToRem(11)}`,
           }}
         >
           <Checkbox
@@ -91,6 +93,8 @@ export const TableRow = ({
 
         return show ? (
           <TableCell
+            component="th"
+            scope="row"
             key={id}
             sortDirection={sortBy === id ? sortOrder : false}
             align={textAlign}

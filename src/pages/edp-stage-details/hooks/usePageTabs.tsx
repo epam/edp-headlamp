@@ -1,18 +1,21 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { BorderedSection } from '../../../components/BorderedSection';
+import { InfoColumns } from '../../../components/InfoColumns';
 import { LoadingWrapper } from '../../../components/LoadingWrapper';
+import { TabSection } from '../../../components/TabSection';
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/PipelineRun/constants';
 import { useQuickLinksURLsQuery } from '../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
-import { FormContextProvider } from '../../../providers/Form';
 import { PipelineRunList } from '../../../widgets/PipelineRunList';
-import { Applications } from '../components/Applications';
+import { ApplicationsWrapper } from '../components/ApplicationsWrapper';
 import { Monitoring } from '../components/Monitoring';
 import { useDataContext } from '../providers/Data/hooks';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
 import { usePermissionsContext } from '../providers/Permissions/hooks';
 import { EDPStageDetailsRouteParams } from '../types';
 import { useEnrichedApplicationsWithArgoApplications } from './useEnrichedApplicationsWithArgoApplication';
+import { useInfoColumns } from './useInfoColumns';
 
 export const usePageTabs = () => {
   const { namespace } = useParams<EDPStageDetailsRouteParams>();
@@ -45,9 +48,7 @@ export const usePageTabs = () => {
   const { enrichedApplications } = useDataContext();
 
   const latestDeployPipelineRunIsRunning = React.useMemo(() => {
-    const latestNewDeployPipelineRun = deployPipelineRuns.data?.find((el) => {
-      return el.jsonData?.actionType === 'MODIFIED';
-    })?.jsonData;
+    const latestNewDeployPipelineRun = deployPipelineRuns.data?.[0];
 
     if (!latestNewDeployPipelineRun) {
       return false;
@@ -66,22 +67,36 @@ export const usePageTabs = () => {
   });
 
   const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
+  const infoColumns = useInfoColumns();
 
   return React.useMemo(() => {
     const _isLoading = isLoading || enrichedApplications.isLoading;
 
     return [
       {
+        label: 'Overview',
+        id: 'overview',
+        component: (
+          <LoadingWrapper isLoading={_isLoading}>
+            <TabSection title="Overview">
+              <BorderedSection title="Stage Details">
+                <div>
+                  <InfoColumns infoRows={infoColumns} />
+                </div>
+              </BorderedSection>
+            </TabSection>
+          </LoadingWrapper>
+        ),
+      },
+      {
         label: 'Applications',
         id: 'applications',
         component: (
           <LoadingWrapper isLoading={_isLoading}>
-            <FormContextProvider formSettings={{ mode: 'onBlur' }}>
-              <Applications
-                enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
-                latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
-              />
-            </FormContextProvider>
+            <ApplicationsWrapper
+              enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
+              latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
+            />
           </LoadingWrapper>
         ),
       },
@@ -90,12 +105,14 @@ export const usePageTabs = () => {
         id: 'pipelines',
         component: (
           <LoadingWrapper isLoading={_isLoading}>
-            <PipelineRunList
-              pipelineRuns={deployPipelineRuns.data}
-              isLoading={deployPipelineRuns.isLoading}
-              filterFunction={null}
-              permissions={pipelineRunPermissions}
-            />
+            <TabSection title="Pipelines">
+              <PipelineRunList
+                pipelineRuns={deployPipelineRuns.data}
+                isLoading={deployPipelineRuns.isLoading}
+                filterFunction={null}
+                permissions={pipelineRunPermissions}
+              />
+            </TabSection>
           </LoadingWrapper>
         ),
       },
@@ -104,10 +121,12 @@ export const usePageTabs = () => {
         id: 'monitoring',
         component: (
           <LoadingWrapper isLoading={_isLoading}>
-            <Monitoring
-              grafanaBaseUrl={QuickLinksURLS?.grafana}
-              namespace={stage.data?.spec.namespace}
-            />
+            <TabSection title="Monitoring">
+              <Monitoring
+                grafanaBaseUrl={QuickLinksURLS?.grafana}
+                namespace={stage.data?.spec.namespace}
+              />
+            </TabSection>
           </LoadingWrapper>
         ),
       },
@@ -118,6 +137,7 @@ export const usePageTabs = () => {
     deployPipelineRuns.isLoading,
     enrichedApplications.isLoading,
     enrichedApplicationsWithArgoApplications,
+    infoColumns,
     isLoading,
     latestDeployPipelineRunIsRunning,
     pipelineRunPermissions,
