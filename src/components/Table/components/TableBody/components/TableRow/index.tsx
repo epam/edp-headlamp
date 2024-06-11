@@ -11,6 +11,17 @@ const getRowStyles = (isSelected: boolean) => {
   };
 };
 
+const getFlexPropertyByTextAlign = (textAlign: string) => {
+  switch (textAlign) {
+    case 'center':
+      return 'center';
+    case 'right':
+      return 'flex-end';
+    default:
+      return 'flex-start';
+  }
+};
+
 export const TableRow = ({
   item,
   columns,
@@ -38,10 +49,10 @@ export const TableRow = ({
   };
 
   const getColumnStyles = React.useCallback(
-    (hasSortableValue: boolean) => ({
+    (hasSortableValue: boolean, textAlign: string) => ({
       display: 'flex',
       alignItems: 'center',
-      pl: hasSortableValue ? theme.typography.pxToRem(6) : 0,
+      pl: hasSortableValue && textAlign !== 'center' ? theme.typography.pxToRem(18 + 8) : 0,
     }),
     [theme]
   );
@@ -74,12 +85,12 @@ export const TableRow = ({
             scope="row"
             align={textAlign || 'left'}
             sx={{
-              p: `${theme.typography.pxToRem(5)} ${theme.typography.pxToRem(8)}`,
+              p: `${theme.typography.pxToRem(5)} ${theme.typography.pxToRem(11)}`,
             }}
           >
             <Box
-              sx={getColumnStyles(!!columnSortableValuePath)}
-              justifyContent={textAlign === 'center' ? 'center' : 'flex-start'}
+              sx={getColumnStyles(!!columnSortableValuePath, textAlign)}
+              justifyContent={getFlexPropertyByTextAlign(textAlign)}
             >
               {render(item)}
             </Box>

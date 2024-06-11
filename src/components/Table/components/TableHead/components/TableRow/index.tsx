@@ -1,7 +1,7 @@
 import {
   ButtonBase,
   Checkbox,
-  Grid,
+  Stack,
   SvgIcon,
   TableCell,
   TableRow as MuiTableRow,
@@ -22,6 +22,17 @@ const isAsc = (columnId: string, sortBy: string, sortOrder: ValueOf<typeof SORT_
 
 const getSortOrder = (isDesc: boolean, isAsc: boolean) =>
   isDesc ? SORT_ORDERS.ASC : isAsc ? SORT_ORDERS.UNSET : SORT_ORDERS.DESC;
+
+const getFlexPropertyByTextAlign = (textAlign: string) => {
+  switch (textAlign) {
+    case 'center':
+      return 'center';
+    case 'right':
+      return 'flex-end';
+    default:
+      return 'flex-start';
+  }
+};
 
 export const TableRow = ({
   columns,
@@ -100,34 +111,37 @@ export const TableRow = ({
             align={textAlign}
             sx={{
               color: theme.palette.text.primary,
+              p: `${theme.typography.pxToRem(16)} ${theme.typography.pxToRem(11)}`,
             }}
           >
-            <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+            <Stack
+              direction="row"
+              spacing={1}
+              alignItems={'center'}
+              flexWrap="nowrap"
+              justifyContent={getFlexPropertyByTextAlign(textAlign)}
+            >
               {!!columnSortableValuePath && (
-                <Grid item>
-                  <ButtonBase onClick={() => handleRequestSort(column)} disableRipple>
-                    <SvgIcon
-                      viewBox={'0 0 18 18'}
-                      width={theme.typography.pxToRem(18)}
-                      height={theme.typography.pxToRem(18)}
-                      style={{
-                        width: theme.typography.pxToRem(18),
-                        height: theme.typography.pxToRem(18),
-                        display: 'block',
-                      }}
-                    >
-                      <path d="M5.25 6L9 2.25L12.75 6H5.25Z" fill={upperArrowColor} />
-                      <path d="M5.25 12L9 15.75L12.75 12H5.25Z" fill={bottomArrowColor} />
-                    </SvgIcon>
-                  </ButtonBase>
-                </Grid>
+                <ButtonBase onClick={() => handleRequestSort(column)} disableRipple>
+                  <SvgIcon
+                    viewBox={'0 0 18 18'}
+                    width={theme.typography.pxToRem(18)}
+                    height={theme.typography.pxToRem(18)}
+                    style={{
+                      width: theme.typography.pxToRem(18),
+                      height: theme.typography.pxToRem(18),
+                      display: 'block',
+                    }}
+                  >
+                    <path d="M5.25 6L9 2.25L12.75 6H5.25Z" fill={upperArrowColor} />
+                    <path d="M5.25 12L9 15.75L12.75 12H5.25Z" fill={bottomArrowColor} />
+                  </SvgIcon>
+                </ButtonBase>
               )}
-              <Grid item>
-                <Typography variant={'body1'} sx={{ fontWeight: 600, marginTop: rem(2) }}>
-                  {label}
-                </Typography>
-              </Grid>
-            </Grid>
+              <Typography variant={'body1'} sx={{ fontWeight: 600, marginTop: rem(2) }}>
+                {label}
+              </Typography>
+            </Stack>
           </TableCell>
         ) : null;
       })}

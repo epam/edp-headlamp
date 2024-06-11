@@ -41,7 +41,6 @@ import {
 import { useQuickLinksURLsQuery } from '../../../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../../../services/link-creation';
-import { rem } from '../../../../../utils/styling/rem';
 import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../widgets/PodsLogViewer/constants';
 import { PODS_TERMINAL_DIALOG_NAME } from '../../../../../widgets/PodsTerminal/constants';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
@@ -213,61 +212,57 @@ export const useColumns = ({
 
     const podsColumn: TableColumn<EnrichedApplicationWithArgoApplication> = {
       id: 'pods',
-      label: <div style={{ paddingLeft: rem(10) }}>Pods</div>,
+      label: 'Pods',
       render: (enrichedApplicationWithArgoApplication) => {
         const disabled = !enrichedApplicationWithArgoApplication?.argoApplication;
 
         return (
-          <Grid container spacing={1} alignItems={'center'}>
-            <Grid item>
-              <Tooltip title={'Show Logs'}>
-                <IconButton
-                  onClick={() =>
-                    setDialog({
-                      modalName: PODS_LOG_VIEWER_DIALOG_NAME,
-                      forwardedProps: {
-                        stageNamespace: stage?.spec.namespace,
-                        appName: enrichedApplicationWithArgoApplication?.application?.metadata.name,
-                      },
-                    })
-                  }
-                  disabled={disabled}
-                  size="large"
-                >
-                  <Icon
-                    icon="ph:file-text-bold"
-                    color={disabled ? theme.palette.action.disabled : theme.palette.text.primary}
-                    width={20}
-                    height={20}
-                  />
-                </IconButton>
-              </Tooltip>
-            </Grid>
-            <Grid item>
-              <Tooltip title={'Show Terminal'}>
-                <IconButton
-                  onClick={() =>
-                    setDialog({
-                      modalName: PODS_TERMINAL_DIALOG_NAME,
-                      forwardedProps: {
-                        stageNamespace: stage?.spec.namespace,
-                        appName: enrichedApplicationWithArgoApplication?.application?.metadata.name,
-                      },
-                    })
-                  }
-                  disabled={disabled}
-                  size="large"
-                >
-                  <Icon
-                    icon="mdi:console"
-                    color={disabled ? theme.palette.action.disabled : theme.palette.text.primary}
-                    width={20}
-                    height={20}
-                  />
-                </IconButton>
-              </Tooltip>
-            </Grid>
-          </Grid>
+          <Stack direction="row" spacing={1} alignItems={'center'} justifyContent="center">
+            <Tooltip title={'Show Logs'}>
+              <IconButton
+                onClick={() =>
+                  setDialog({
+                    modalName: PODS_LOG_VIEWER_DIALOG_NAME,
+                    forwardedProps: {
+                      stageNamespace: stage?.spec.namespace,
+                      appName: enrichedApplicationWithArgoApplication?.application?.metadata.name,
+                    },
+                  })
+                }
+                disabled={disabled}
+                size="large"
+              >
+                <Icon
+                  icon="ph:file-text-bold"
+                  color={disabled ? theme.palette.action.disabled : theme.palette.text.primary}
+                  width={20}
+                  height={20}
+                />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={'Show Terminal'}>
+              <IconButton
+                onClick={() =>
+                  setDialog({
+                    modalName: PODS_TERMINAL_DIALOG_NAME,
+                    forwardedProps: {
+                      stageNamespace: stage?.spec.namespace,
+                      appName: enrichedApplicationWithArgoApplication?.application?.metadata.name,
+                    },
+                  })
+                }
+                disabled={disabled}
+                size="large"
+              >
+                <Icon
+                  icon="mdi:console"
+                  color={disabled ? theme.palette.action.disabled : theme.palette.text.primary}
+                  width={20}
+                  height={20}
+                />
+              </IconButton>
+            </Tooltip>
+          </Stack>
         );
       },
       textAlign: 'center',
@@ -305,7 +300,13 @@ export const useColumns = ({
               <Paper elevation={8}>
                 <MenuList>
                   {externalURLs.map((el) => (
-                    <MenuItem key={el} component={MuiLink} href={el} target={'_blank'}>
+                    <MenuItem
+                      key={el}
+                      component={MuiLink}
+                      href={el}
+                      target={'_blank'}
+                      sx={{ whiteSpace: 'normal' }}
+                    >
                       {el}
                     </MenuItem>
                   ))}
@@ -318,12 +319,13 @@ export const useColumns = ({
               },
             }}
           >
-            <div style={{ lineHeight: 0 }}>
+            <Box sx={{ lineHeight: 0, px: (t) => t.typography.pxToRem(32) }}>
               <Icon icon={ICONS.NEW_WINDOW} width={20} height={20} />
-            </div>
+            </Box>
           </Tooltip>
         );
       },
+      textAlign: 'right',
     };
 
     return mode === APPLICATIONS_TABLE_MODE.PREVIEW
