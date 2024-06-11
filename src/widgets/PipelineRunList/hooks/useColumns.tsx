@@ -82,10 +82,6 @@ export const useColumns = ({
             },
           } = resource;
 
-          if (!resource?.status?.pipelineSpec?.params?.[0]?.default) {
-            return <>{pipelineRefName}</>;
-          }
-
           const pipelineLink = LinkCreationService.tekton.createPipelineLink(
             QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON],
             namespace,

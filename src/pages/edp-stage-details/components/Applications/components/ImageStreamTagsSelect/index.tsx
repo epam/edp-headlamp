@@ -8,13 +8,13 @@ import { ImageStreamTagsSelectProps } from './types';
 
 export const ImageStreamTagsSelect = ({
   enrichedApplicationWithArgoApplication,
-  selected,
 }: ImageStreamTagsSelectProps) => {
   const { applicationImageStream, applicationVerifiedImageStream, application } =
     enrichedApplicationWithArgoApplication;
+
   const {
     control,
-    formState: { errors },
+    formState: { errors, defaultValues },
     register,
   } = useFormContext();
 
@@ -23,13 +23,15 @@ export const ImageStreamTagsSelect = ({
     [applicationImageStream, applicationVerifiedImageStream]
   );
 
+  const currentValue = defaultValues?.[`${application?.metadata.name}${IMAGE_TAG_POSTFIX}`];
+
   return (
     <div style={{ width: '100%' }}>
       <FormSelect
         {...register(`${application.metadata.name}${IMAGE_TAG_POSTFIX}`, {
-          required: selected.includes(application.metadata.name),
+          required: 'Select image tag',
         })}
-        label="Select image tag"
+        label={currentValue ? `Deployed version: ${currentValue}` : 'Select image tag'}
         control={control}
         errors={errors}
         options={imageStreamTagsOptions}

@@ -56,7 +56,10 @@ export const useButtonsEnabledMap = ({
 
         if (!argoApplicationBySelectedApplication) {
           acc.set(appName, {
-            deploy: !latestDeployPipelineRunIsRunning && !someArgoApplicationMutationIsLoading,
+            deploy:
+              allAppVersionsAreSelected &&
+              !latestDeployPipelineRunIsRunning &&
+              !someArgoApplicationMutationIsLoading,
             uninstall: false,
           });
           return acc;
@@ -82,7 +85,7 @@ export const useButtonsEnabledMap = ({
             allAppVersionsAreSelected &&
             !latestDeployPipelineRunIsRunning &&
             !someArgoApplicationMutationIsLoading,
-          uninstall: !!deployedVersion,
+          uninstall: !!deployedVersion && !latestDeployPipelineRunIsRunning,
         });
         return acc;
       }

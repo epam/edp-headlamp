@@ -39,7 +39,7 @@ export const GitUrlPath = () => {
       {...register(CODEBASE_FORM_NAMES.gitUrlPath.name, {
         required: 'Enter relative path to repository.',
         pattern: {
-          value: /^.*$/,
+          value: /^\/?[\w-]+$/,
           message: 'Enter valid relative path to repository',
         },
       })}
