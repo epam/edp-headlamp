@@ -268,7 +268,7 @@ export const useConfigurationHandlers = ({
 
     await createDeployPipelineRun({ deployPipelineRun: newDeployPipelineRun });
   }, [
-    CDPipeline.data.metadata.name,
+    CDPipeline.data,
     createDeployPipelineRun,
     deployPipelineRunTemplate,
     enrichedApplicationsWithArgoApplications,

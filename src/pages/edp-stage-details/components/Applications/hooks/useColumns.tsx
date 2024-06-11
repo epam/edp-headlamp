@@ -53,10 +53,8 @@ import { ValuesOverrideSwitch } from '../components/ValuesOverrideSwitch';
 import { ApplicationsTableMode } from '../types';
 
 export const useColumns = ({
-  selected,
   mode,
 }: {
-  selected: string[];
   mode: ApplicationsTableMode;
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
   const theme = useTheme();
@@ -305,7 +303,7 @@ export const useColumns = ({
                       component={MuiLink}
                       href={el}
                       target={'_blank'}
-                      sx={{ whiteSpace: 'normal' }}
+                      sx={{ whiteSpace: 'normal', wordBreak: 'break-all' }}
                     >
                       {el}
                     </MenuItem>
@@ -317,9 +315,10 @@ export const useColumns = ({
               sx: {
                 '& .MuiTooltip-tooltip': { p: '0 !important' },
               },
+              placement: 'top-end',
             }}
           >
-            <Box sx={{ lineHeight: 0, px: (t) => t.typography.pxToRem(32) }}>
+            <Box sx={{ lineHeight: 0, mx: (t) => t.typography.pxToRem(32) }}>
               <Icon icon={ICONS.NEW_WINDOW} width={20} height={20} />
             </Box>
           </Tooltip>
@@ -432,7 +431,6 @@ export const useColumns = ({
               return (
                 <ImageStreamTagsSelect
                   enrichedApplicationWithArgoApplication={enrichedApplicationWithArgoApplication}
-                  selected={selected}
                 />
               );
             },
@@ -452,7 +450,6 @@ export const useColumns = ({
     isDefaultCluster,
     isLoading,
     mode,
-    selected,
     setDialog,
     stage?.spec.name,
     stage?.spec.namespace,

@@ -1,11 +1,11 @@
 import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
 import {
   CODEBASE_COMMON_BUILD_TOOLS,
   CODEBASE_COMMON_FRAMEWORKS,
   CODEBASE_COMMON_LANGUAGES,
 } from '../../../../configs/codebase-mappings';
 import { getDeployedVersion } from '../../../../k8s/Application/utils/getDeployedVersion';
+import { FormContextProvider } from '../../../../providers/Form';
 import {
   ALL_VALUES_OVERRIDE_KEY,
   IMAGE_TAG_POSTFIX,
@@ -18,7 +18,7 @@ export const ApplicationsWrapper = ({
   enrichedApplicationsWithArgoApplications,
   latestDeployPipelineRunIsRunning,
 }: ApplicationsProps) => {
-  const defaultValues = React.useMemo(
+  const baseDefaultValues = React.useMemo(
     () =>
       (enrichedApplicationsWithArgoApplications || []).reduce(
         (acc, cur) => {
@@ -41,8 +41,11 @@ export const ApplicationsWrapper = ({
 
           const deployedVersion = getDeployedVersion(withValuesOverride, isHelm, argoApplication);
 
-          acc[`${name}${IMAGE_TAG_POSTFIX}`] = deployedVersion;
           acc[`${name}${VALUES_OVERRIDE_POSTFIX}`] = withValuesOverride;
+
+          if (deployedVersion !== 'NaN') {
+            acc[`${name}${IMAGE_TAG_POSTFIX}`] = deployedVersion;
+          }
 
           acc[ALL_VALUES_OVERRIDE_KEY] = withValuesOverride;
 
@@ -55,16 +58,17 @@ export const ApplicationsWrapper = ({
     [enrichedApplicationsWithArgoApplications]
   );
 
-  const form = useForm({
-    defaultValues,
-  });
-
   return (
-    <FormProvider {...form}>
+    <FormContextProvider
+      formSettings={{
+        defaultValues: baseDefaultValues,
+        mode: 'onBlur',
+      }}
+    >
       <Applications
         enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
         latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
       />
-    </FormProvider>
+    </FormContextProvider>
   );
 };

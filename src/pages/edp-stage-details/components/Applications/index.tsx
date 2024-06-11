@@ -85,7 +85,6 @@ export const Applications = ({
   });
 
   const columns = useColumns({
-    selected,
     mode,
   });
 

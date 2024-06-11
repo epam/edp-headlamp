@@ -41,7 +41,7 @@ export const Filter = <ControlsKeys extends string = DefaultControlKeys>({
   };
 
   return (
-    <Grid container spacing={2} alignItems={'flex-start'} wrap="nowrap">
+    <Grid container spacing={2} alignItems={'flex-end'} wrap="nowrap">
       {hideFilter ? (
         <>
           {controlsRenderer()}
