@@ -1,5 +1,5 @@
 import { Autocomplete } from '@mui/lab';
-import { Grid, TextField } from '@mui/material';
+import { FormHelperText, Grid, TextField } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
@@ -86,39 +86,45 @@ export const PipelineRunListWithFilter = () => {
             pipelineType: {
               gridXs: 2,
               component: (
-                <FormSelect
-                  {...register('type', {
-                    onChange: handleTypeChange,
-                  })}
-                  control={control}
-                  errors={errors}
-                  name={'type'}
-                  label={'Type'}
-                  options={pipelineRunTypeSelectOptions}
-                  defaultValue={(filter.values.pipelineType as string) ?? PIPELINE_TYPES.ALL}
-                />
+                <>
+                  <FormSelect
+                    {...register('type', {
+                      onChange: handleTypeChange,
+                    })}
+                    control={control}
+                    errors={errors}
+                    name={'type'}
+                    label={'Type'}
+                    options={pipelineRunTypeSelectOptions}
+                    defaultValue={(filter.values.pipelineType as string) ?? PIPELINE_TYPES.ALL}
+                  />
+                  <FormHelperText>Build/Deploy/Review</FormHelperText>
+                </>
               ),
             },
             status: {
               gridXs: 2,
               component: (
-                <FormSelect
-                  {...register('status', {
-                    onChange: handleStatusChange,
-                  })}
-                  control={control}
-                  errors={errors}
-                  name={'status'}
-                  label={'Status'}
-                  options={[
-                    {
-                      label: 'All',
-                      value: 'All',
-                    },
-                    ...PIPELINE_RUN_STATUS_SELECT_OPTIONS,
-                  ]}
-                  defaultValue={(filter.values.status as string) ?? 'All'}
-                />
+                <>
+                  <FormSelect
+                    {...register('status', {
+                      onChange: handleStatusChange,
+                    })}
+                    control={control}
+                    errors={errors}
+                    name={'status'}
+                    label={'Status'}
+                    options={[
+                      {
+                        label: 'All',
+                        value: 'All',
+                      },
+                      ...PIPELINE_RUN_STATUS_SELECT_OPTIONS,
+                    ]}
+                    defaultValue={(filter.values.status as string) ?? 'All'}
+                  />
+                  <FormHelperText>Success/Failure/Unknown</FormHelperText>
+                </>
               ),
             },
             codebases: {
