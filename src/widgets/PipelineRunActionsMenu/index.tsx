@@ -44,62 +44,75 @@ export const PipelineRunActionsMenu = ({
 
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
-        createKubeAction({
-          name: 'Rerun',
-          icon: ICONS.REDO,
-          disabled: {
-            status: permissions.create === false,
-            reason: 'You do not have permission to create PipelineRun',
-          },
-          action: () => {
-            PipelineRunKubeObject.apiEndpoint.post(createRerunPipelineRunInstance(pipelineRun));
+        ...(!isInProgress
+          ? [
+              createKubeAction({
+                name: 'Run again',
+                icon: ICONS.REDO,
+                disabled: {
+                  status: permissions.create === false,
+                  reason: 'You do not have permission to create PipelineRun',
+                },
+                action: () => {
+                  const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
 
-            enqueueSnackbar('The PipelineRun is rerun', {
-              autoHideDuration: 2000,
-              variant: 'info',
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left',
-              },
-              action: (key) => (
-                <IconButton size="small" onClick={() => closeSnackbar(key)}>
-                  <Icon icon={ICONS.CROSS} />
-                </IconButton>
-              ),
-            });
-          },
-        }),
-        createKubeAction({
-          name: 'Cancel',
-          icon: ICONS.CANCEL,
-          action: () => {
-            const copyPipelineRun = { ...pipelineRun };
-            copyPipelineRun.spec.status = 'Cancelled';
-            PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
-            enqueueSnackbar('The PipelineRun is cancelled', {
-              autoHideDuration: 2000,
-              variant: 'info',
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left',
-              },
-              action: (key) => (
-                <IconButton size="small" onClick={() => closeSnackbar(key)}>
-                  <Icon icon={ICONS.CROSS} />
-                </IconButton>
-              ),
-            });
-          },
-          disabled: {
-            status: permissions.update === false || !isInProgress,
-            reason:
-              permissions.update === false
-                ? 'You do not have permission to update PipelineRun'
-                : !isInProgress
-                ? 'PipelineRun is no longer in progress'
-                : undefined,
-          },
-        }),
+                  PipelineRunKubeObject.apiEndpoint.post(newPipelineRun);
+
+                  enqueueSnackbar('The PipelineRun is rerun', {
+                    autoHideDuration: 2000,
+                    variant: 'info',
+                    anchorOrigin: {
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    },
+                    action: (key) => (
+                      <IconButton size="small" onClick={() => closeSnackbar(key)}>
+                        <Icon icon={ICONS.CROSS} />
+                      </IconButton>
+                    ),
+                  });
+                },
+                isTextButton: true,
+              }),
+            ]
+          : []),
+        ...(isInProgress
+          ? [
+              createKubeAction({
+                name: 'Stop run',
+                icon: 'ph:stop-fill',
+                action: () => {
+                  const copyPipelineRun = { ...pipelineRun };
+                  copyPipelineRun.spec.status = 'Cancelled';
+                  PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
+                  enqueueSnackbar('The PipelineRun is cancelled', {
+                    autoHideDuration: 2000,
+                    variant: 'info',
+                    anchorOrigin: {
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    },
+                    action: (key) => (
+                      <IconButton size="small" onClick={() => closeSnackbar(key)}>
+                        <Icon icon={ICONS.CROSS} />
+                      </IconButton>
+                    ),
+                  });
+                },
+                disabled: {
+                  status: permissions.update === false,
+                  reason:
+                    permissions.update === false
+                      ? 'You do not have permission to update PipelineRun'
+                      : !isInProgress
+                      ? 'PipelineRun is no longer in progress'
+                      : undefined,
+                },
+                isTextButton: true,
+              }),
+            ]
+          : []),
+        ,
         createKubeAction({
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
@@ -132,7 +145,7 @@ export const PipelineRunActionsMenu = ({
     } else {
       return [
         createKubeAction({
-          name: 'Rerun',
+          name: 'Run again',
           icon: ICONS.REDO,
           disabled: {
             status: permissions.create === false,
@@ -143,25 +156,29 @@ export const PipelineRunActionsMenu = ({
             PipelineRunKubeObject.apiEndpoint.post(createRerunPipelineRunInstance(pipelineRun));
           },
         }),
-        createKubeAction({
-          name: 'Cancel',
-          icon: ICONS.CANCEL,
-          disabled: {
-            status: permissions.update === false || !isInProgress,
-            reason:
-              permissions.update === false
-                ? 'You do not have permission to update PipelineRun'
-                : !isInProgress
-                ? 'PipelineRun is no longer in progress'
-                : undefined,
-          },
-          action: () => {
-            handleCloseResourceActionListMenu();
-            const copyPipelineRun = { ...pipelineRun };
-            copyPipelineRun.spec.status = 'Cancelled';
-            PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
-          },
-        }),
+        ...(isInProgress
+          ? [
+              createKubeAction({
+                name: 'Stop run',
+                icon: ICONS.CANCEL,
+                disabled: {
+                  status: permissions.update === false || !isInProgress,
+                  reason:
+                    permissions.update === false
+                      ? 'You do not have permission to update PipelineRun'
+                      : !isInProgress
+                      ? 'PipelineRun is no longer in progress'
+                      : undefined,
+                },
+                action: () => {
+                  handleCloseResourceActionListMenu();
+                  const copyPipelineRun = { ...pipelineRun };
+                  copyPipelineRun.spec.status = 'Cancelled';
+                  PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
+                },
+              }),
+            ]
+          : []),
         createKubeAction({
           name: RESOURCE_ACTIONS.DELETE,
           icon: ICONS.BUCKET,
@@ -183,7 +200,9 @@ export const PipelineRunActionsMenu = ({
   }, [
     _pipelineRun,
     variant,
-    permissions,
+    permissions.create,
+    permissions.update,
+    permissions.delete,
     isInProgress,
     enqueueSnackbar,
     closeSnackbar,

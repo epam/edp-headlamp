@@ -15,7 +15,7 @@ export const QuickLink = ({
   configurationLink,
   QuickLinkComponent,
   isTextButton = false,
-  size = 'medium',
+  size = 'small',
   variant = 'outlined',
 }: QuickLinkExternalLinkProps) => {
   const { setDialog } = useDialogContext();

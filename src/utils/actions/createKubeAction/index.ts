@@ -9,6 +9,7 @@ export const createKubeAction = ({
     status: false,
   },
   icon,
+  isTextButton,
 }: {
   name: string;
   item?: KubeObjectInterface;
@@ -19,6 +20,7 @@ export const createKubeAction = ({
     reason?: string;
   };
   icon?: string;
+  isTextButton?: boolean;
 }): KubeObjectAction => {
   return {
     name: name,
@@ -32,5 +34,6 @@ export const createKubeAction = ({
       e.stopPropagation();
       action();
     },
+    isTextButton,
   };
 };

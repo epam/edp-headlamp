@@ -1,6 +1,8 @@
 import { Icon } from '@iconify/react';
 import { Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
+import { BorderedSection } from '../../../../components/BorderedSection';
+import { InfoColumns } from '../../../../components/InfoColumns';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { TaskRunKubeObject } from '../../../../k8s/TaskRun';
@@ -17,6 +19,7 @@ import {
 } from '../../styles';
 import { TaskRun } from './components/TaskRun';
 import { TaskRunStep } from './components/TaskRunStep';
+import { useInfoRows } from './hooks/useInfoRows';
 
 export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) => {
   const initialTask = pipelineRunTasks.allTasks?.[0]?.name;
@@ -62,8 +65,17 @@ export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) =
     return <TaskRunStep taskRun={activeTaskRun} step={activeStep} />;
   }, [activeStep, activeTab.name, activeTab.type, activeTaskRun]);
 
+  const infoRows = useInfoRows();
+
   return (
-    <Grid container spacing={4}>
+    <Grid container rowSpacing={3}>
+      <Grid item xs={12}>
+        <BorderedSection>
+          <div>
+            <InfoColumns infoRows={infoRows} />
+          </div>
+        </BorderedSection>
+      </Grid>
       <Grid item xs={2}>
         <Stack>
           {taskRunListByNameMap &&
@@ -86,10 +98,9 @@ export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) =
                   key={taskRunName}
                   expanded={isExpanded}
                   onChange={handleAccordionChange(taskRunName)}
-                  sx={{ borderLeft: isExpanded ? `2px solid ${color}` : null }}
                 >
                   <StyledAccordionSummary
-                    expandIcon={<Icon icon={ICONS.ARROW_DOWN} />}
+                    expandIcon={taskRunSteps?.length ? <Icon icon={ICONS.ARROW_DOWN} /> : null}
                     isActive={isActive}
                     disableRipple={false}
                     disableTouchRipple={false}
@@ -137,7 +148,7 @@ export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) =
                                 color={color}
                                 isRotating={isRotating}
                                 Title={`Status: ${status}. Reason: ${reason}`}
-                                width={15}
+                                width={20}
                               />
                               <Typography
                                 fontSize={(t) => t.typography.pxToRem(14)}

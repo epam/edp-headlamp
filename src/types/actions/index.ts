@@ -7,4 +7,5 @@ export interface KubeObjectAction {
   };
   action: (e: React.SyntheticEvent) => void;
   icon?: string;
+  isTextButton?: boolean;
 }

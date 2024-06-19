@@ -1,6 +1,13 @@
 import { Accordion, AccordionDetails, AccordionSummary, Button, styled } from '@mui/material';
 
-export const StyledAccordion = styled(Accordion)(() => ({
+export const StyledAccordion = styled(Accordion, {
+  shouldForwardProp: (prop) => prop !== 'expanded',
+})<{
+  expanded?: boolean;
+}>(({ theme, expanded }) => ({
+  borderLeft: expanded ? `2px solid ${theme.palette.primary.main}` : null,
+  maxWidth: expanded ? '100%' : '90%',
+
   '&.Mui-expanded': {
     margin: 0,
 
@@ -53,9 +60,7 @@ export const StyledAccordionChildBtn = styled(Button, {
   },
   textTransform: 'none',
   justifyContent: 'flex-start',
-  padding: `${theme.typography.pxToRem(8)} ${theme.typography.pxToRem(
-    16
-  )} ${theme.typography.pxToRem(8)} ${theme.typography.pxToRem(36)}`,
+  padding: `${theme.typography.pxToRem(10)} ${theme.typography.pxToRem(16)}`,
 }));
 
 export const StyledAccordionDetails = styled(AccordionDetails)(() => ({

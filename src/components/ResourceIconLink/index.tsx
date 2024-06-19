@@ -1,10 +1,27 @@
 import { Icon } from '@iconify/react';
-import { Button, Grid, IconButton, Link as MuiLink, Tooltip, useTheme } from '@mui/material';
+import {
+  Button,
+  ButtonProps,
+  Grid,
+  IconButton,
+  Link as MuiLink,
+  Tooltip,
+  useTheme,
+} from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { ResourceIconLinkProps } from './types';
 
 const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
+
+const iconSizeByBtnSize = (btnSize: ButtonProps['size']) => {
+  switch (btnSize) {
+    case 'small':
+      return 16;
+    case 'medium':
+      return 20;
+  }
+};
 
 const DisabledResourceIconLink = ({
   tooltipTitle,
@@ -17,12 +34,14 @@ const DisabledResourceIconLink = ({
 }: ResourceIconLinkProps) => {
   const theme = useTheme();
 
+  const iconSize = iconSizeByBtnSize(size);
+
   return isTextButton ? (
     <Button
       variant={variant}
       disabled
       sx={!withoutDisabledStyle ? { opacity: 0.5 } : {}}
-      endIcon={<Icon icon={ICONS.NEW_WINDOW} color={theme.palette.grey['500']} width="20" />}
+      endIcon={<Icon icon={ICONS.NEW_WINDOW} color={theme.palette.grey['500']} width={iconSize} />}
       size={size}
     >
       Open in {name}
@@ -31,7 +50,7 @@ const DisabledResourceIconLink = ({
     <Tooltip title={<div>{tooltipTitle}</div>}>
       <div>
         <IconButton disabled style={!withoutDisabledStyle ? { opacity: 0.5 } : {}} size={size}>
-          <Icon icon={icon} color={theme.palette.grey['500']} width="20" />
+          <Icon icon={icon} color={theme.palette.grey['500']} width={iconSize} height={iconSize} />
         </IconButton>
       </div>
     </Tooltip>
@@ -48,6 +67,7 @@ const EnabledResourceIconLink = ({
   size,
 }: ResourceIconLinkProps) => {
   const theme = useTheme();
+  const iconSize = iconSizeByBtnSize(size);
 
   return isTextButton ? (
     <Button
@@ -59,7 +79,7 @@ const EnabledResourceIconLink = ({
         <Icon
           icon={'material-symbols:open-in-new'}
           color={theme.palette.secondary.dark}
-          width="20"
+          width={iconSize}
         />
       }
       size={size}
@@ -86,7 +106,7 @@ const EnabledResourceIconLink = ({
     >
       <span>
         <IconButton component={MuiLink} href={link} target={'_blank'} size={size}>
-          <Icon icon={icon} width="20" height="20" color={theme.palette.text.primary} />
+          <Icon icon={icon} width={iconSize} height={iconSize} color={theme.palette.text.primary} />
         </IconButton>
       </span>
     </Tooltip>
