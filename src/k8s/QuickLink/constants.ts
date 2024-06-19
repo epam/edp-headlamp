@@ -13,6 +13,7 @@ export const SYSTEM_QUICK_LINKS = {
   KIBANA: 'kibana',
   NEXUS: 'nexus',
   SONAR: 'sonar',
+  CODEMIE: 'codemie',
 } as const;
 
 export const SYSTEM_QUICK_LINKS_WITH_CONFIGURATION = [

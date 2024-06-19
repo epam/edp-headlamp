@@ -18,7 +18,7 @@ export enum ICONS {
   INFO_CIRCLE = 'ant-design:info-circle-outlined',
   INFO = 'fe:info',
   ACCEPT_ARROW = 'fluent-mdl2:accept',
-  CROSS = 'fluent-mdl2:cancel',
+  CROSS = 'mdi:close',
   PLAY = 'mdi:play',
   HEART = 'mdi:heart',
   HEART_BROKEN = 'mdi:heart-broken',
