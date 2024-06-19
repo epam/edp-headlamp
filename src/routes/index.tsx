@@ -11,6 +11,8 @@ import RouteEDPArgoCDIntegrationPage from '../pages/edp-configuration/pages/edp-
 import { routeEDPArgoCDIntegration } from '../pages/edp-configuration/pages/edp-argocd-integration/route';
 import RouteEDPClusterListPage from '../pages/edp-configuration/pages/edp-cluster-list/page';
 import { routeEDPClusterList } from '../pages/edp-configuration/pages/edp-cluster-list/route';
+import RouteEDPCodeMieIntegrationPage from '../pages/edp-configuration/pages/edp-codemie-integration/page';
+import { routeEDPCodeMieIntegration } from '../pages/edp-configuration/pages/edp-codemie-integration/route';
 import RouteEDPDefectDojoIntegrationPage from '../pages/edp-configuration/pages/edp-defect-dojo-integration/page';
 import { routeEDPDefectDojoIntegration } from '../pages/edp-configuration/pages/edp-defect-dojo-integration/route';
 import RouteEDPDependencyTrackIntegrationPage from '../pages/edp-configuration/pages/edp-dependency-track-integration/page';
@@ -74,6 +76,7 @@ export default [
   { ...routeEDPJiraIntegration, component: () => <RouteEDPJiraIntegrationPage /> },
   { ...routeEDPGitOpsConfiguration, component: () => <RouteEDPGitOpsConfigurationPage /> },
   { ...routeEDPSSOIntegration, component: () => <RouteEDPSSOIntegrationPage /> },
+  { ...routeEDPCodeMieIntegration, component: () => <RouteEDPCodeMieIntegrationPage /> },
   {
     ...routeQuickLinkList,
     component: () => <RouteEDPQuickLinkListPage />,

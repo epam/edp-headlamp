@@ -2,10 +2,9 @@ import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { STATUS_COLOR } from '../../constants/colors';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { KubeObjectListInterface } from '../../types/k8s';
-import { streamResults } from '../common/streamResults';
 import { SecretKubeObjectConfig } from './config';
 import { SECRET_LABEL_SECRET_TYPE } from './labels';
-import { SecretKubeObjectInterface, StreamSecretsByTypeProps } from './types';
+import { SecretKubeObjectInterface } from './types';
 
 const {
   name: { pluralForm },
@@ -25,21 +24,6 @@ export class SecretKubeObject extends K8s.secret.default {
     const url = `/api/${version}/namespaces/${namespace}/${pluralForm}/${name}`;
 
     return ApiProxy.request(url);
-  }
-
-  static streamSecretsByType({
-    namespace,
-    type,
-    dataHandler,
-    errorHandler,
-  }: StreamSecretsByTypeProps): () => void {
-    const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
-    if (type) {
-      return streamResults(url, dataHandler, errorHandler, {
-        labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${type}`,
-      });
-    }
-    return streamResults(url, dataHandler, errorHandler);
   }
 
   static getStatusIcon(connected: string): [string, string, boolean?] {

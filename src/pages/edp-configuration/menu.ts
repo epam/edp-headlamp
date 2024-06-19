@@ -2,6 +2,7 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { PageDescription } from '../../types/pages';
 import { ARGOCD_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-argocd-integration/constants';
 import { CLUSTER_LIST_PAGE_DESCRIPTION } from './pages/edp-cluster-list/constants';
+import { CODEMIE_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-codemie-integration/constants';
 import { DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-defect-dojo-integration/constants';
 import { DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-dependency-track-integration/constants';
 import { GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION } from './pages/edp-gitops/constants';
@@ -75,5 +76,11 @@ export const menu: SubMenuGroup[] = [
     label: 'Access',
     icon: ICONS.KEY,
     children: [SSO_INTEGRATION_PAGE_DESCRIPTION],
+  },
+  {
+    id: 'genAi',
+    label: 'Gen AI',
+    icon: 'ph:open-ai-logo',
+    children: [CODEMIE_INTEGRATION_PAGE_DESCRIPTION],
   },
 ];
