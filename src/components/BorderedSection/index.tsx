@@ -14,13 +14,13 @@ export const BorderedSection = ({ title, children }: BorderedSectionProps) => {
       }}
     >
       <Stack spacing={3}>
-        {typeof title === 'string' ? (
+        {title && typeof title === 'string' ? (
           <Typography fontSize={20} fontWeight={600} color="primary.dark">
             {title}
           </Typography>
-        ) : (
+        ) : title ? (
           title
-        )}
+        ) : null}
         {children}
       </Stack>
     </Box>
