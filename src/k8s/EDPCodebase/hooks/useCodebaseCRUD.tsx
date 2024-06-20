@@ -1,12 +1,9 @@
-import { Icon } from '@iconify/react';
 import { K8s, Router } from '@kinvolk/headlamp-plugin/lib';
-import { IconButton, Link, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Snackbar } from '../../../components/Snackbar';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
-import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { routeEDPComponentDetails } from '../../../pages/edp-component-details/route';
 import { EDPKubeObjectInterface } from '../../../types/k8s';
 import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
@@ -31,8 +28,7 @@ export const useCodebaseCRUD = ({
   onSuccess?: () => void;
   onError?: () => void;
 }) => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
   const invokeOnSuccessCallback = React.useCallback(
     (codebaseData: EDPCodebaseKubeObjectInterface) => {
@@ -42,38 +38,24 @@ export const useCodebaseCRUD = ({
         namespace: codebaseData.metadata.namespace || getDefaultNamespace(),
         name: codebaseData.metadata.name,
       });
-      enqueueSnackbar(
-        <Typography>
-          <span>Navigate to </span>
-          <Link
-            component="button"
-            variant="body2"
-            underline={'always'}
-            onClick={() => {
-              history.push(codebaseRoute);
-              closeSnackbar();
-            }}
-          >
-            {codebaseData.metadata.name}
-          </Link>
-          <span> page</span>
-        </Typography>,
-        {
-          autoHideDuration: 10000,
-          variant: 'success',
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'left',
-          },
-          action: (key) => (
-            <IconButton size="small" onClick={() => closeSnackbar(key)}>
-              <Icon icon={ICONS.CROSS} />
-            </IconButton>
-          ),
-        }
-      );
+
+      enqueueSnackbar('', {
+        autoHideDuration: 10000,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+        content: (key, message) => (
+          <Snackbar
+            text={String(message)}
+            id={String(key)}
+            link={codebaseRoute}
+            variant="success"
+          />
+        ),
+      });
     },
-    [closeSnackbar, enqueueSnackbar, history, onSuccess]
+    [enqueueSnackbar, onSuccess]
   );
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 

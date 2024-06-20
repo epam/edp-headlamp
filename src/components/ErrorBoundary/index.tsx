@@ -1,5 +1,6 @@
 import { OptionsObject, SnackbarKey, SnackbarMessage, withSnackbar } from 'notistack';
 import * as React from 'react';
+import { Snackbar } from '../Snackbar';
 
 interface State {
   error: string;
@@ -21,7 +22,9 @@ class ErrorBoundary extends React.Component<Props, State> {
     this.setState({ error: errorMessage });
     this.props.enqueueSnackbar(errorMessage, {
       autoHideDuration: 5000,
-      variant: 'error',
+      content: (key, message) => (
+        <Snackbar text={String(message)} id={String(key)} variant="error" />
+      ),
       anchorOrigin: {
         vertical: 'top',
         horizontal: 'right',

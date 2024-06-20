@@ -1,5 +1,6 @@
 import { Link } from '@mui/material';
 import React from 'react';
+import { BorderedSection } from '../../../../components/BorderedSection';
 import { InfoColumns } from '../../../../components/InfoColumns';
 import {
   BUILD_TOOL_ICON_MAPPING,
@@ -11,10 +12,8 @@ import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getCodebaseMappingByCodebaseType } from '../../../../utils/getCodebaseMappingByCodebaseType';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../constants';
 import { CreateCodebaseFromTemplateDialogForwardedProps } from '../../types';
-import { useStyles } from './styles';
 
 export const FormDefaultValues = () => {
-  const classes = useStyles();
   const {
     forwardedProps: { template },
   } = useSpecificDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>(
@@ -57,8 +56,10 @@ export const FormDefaultValues = () => {
   ];
 
   return (
-    <div className={classes.defaultValuesBoard}>
-      <InfoColumns infoRows={infoRows} />
-    </div>
+    <BorderedSection>
+      <div>
+        <InfoColumns infoRows={infoRows} />
+      </div>
+    </BorderedSection>
   );
 };

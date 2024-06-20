@@ -1,31 +1,40 @@
 export const SonarQubeURLService = {
-  createDashboardLink: (
-    sonarURLOrigin: string,
-    codebaseName: string,
-    defaultBranchName: string
-  ) => {
-    if (!sonarURLOrigin) {
+  createDashboardLink: ({
+    baseURL,
+    codebaseName,
+    defaultBranchName,
+  }: {
+    baseURL: string;
+    codebaseName: string;
+    defaultBranchName: string;
+  }) => {
+    if (!baseURL) {
       return undefined;
     }
 
-    const dashboardURL = new URL(`${sonarURLOrigin}/dashboard`);
+    const dashboardURL = new URL(`${baseURL}/dashboard`);
 
     dashboardURL.searchParams.append('id', codebaseName);
     dashboardURL.searchParams.append('branch', defaultBranchName);
 
     return dashboardURL.toString();
   },
-  createLinkByIssueType: (
-    sonarURLOrigin: string,
-    codebaseName: string,
-    issueType: string,
-    defaultBranchName: string
-  ) => {
-    if (!sonarURLOrigin) {
+  createLinkByIssueType: ({
+    baseURL,
+    codebaseName,
+    issueType,
+    defaultBranchName,
+  }: {
+    baseURL: string;
+    codebaseName: string;
+    issueType: string;
+    defaultBranchName: string;
+  }) => {
+    if (!baseURL) {
       return undefined;
     }
 
-    const dashboardURL = new URL(`${sonarURLOrigin}/project/issues`);
+    const dashboardURL = new URL(`${baseURL}/project/issues`);
 
     dashboardURL.searchParams.append('id', codebaseName);
     dashboardURL.searchParams.append('branch', defaultBranchName);
@@ -34,17 +43,22 @@ export const SonarQubeURLService = {
 
     return dashboardURL.toString();
   },
-  createLinkByMetricName: (
-    sonarURLOrigin: string,
-    codebaseName: string,
-    defaultBranchName: string,
-    metricName: string
-  ) => {
-    if (!sonarURLOrigin) {
+  createLinkByMetricName: ({
+    baseURL,
+    codebaseName,
+    defaultBranchName,
+    metricName,
+  }: {
+    baseURL: string;
+    codebaseName: string;
+    defaultBranchName: string;
+    metricName: string;
+  }) => {
+    if (!baseURL) {
       return undefined;
     }
 
-    const componentMeasuresURL = new URL(`${sonarURLOrigin}/component_measures`);
+    const componentMeasuresURL = new URL(`${baseURL}/component_measures`);
 
     componentMeasuresURL.searchParams.append('id', codebaseName);
     componentMeasuresURL.searchParams.append('branch', defaultBranchName);
@@ -52,16 +66,20 @@ export const SonarQubeURLService = {
 
     return componentMeasuresURL.toString();
   },
-  createMetricsApiUrl: (
-    sonarURLOrigin: string,
-    codebaseName: string,
-    defaultBranchName: string
-  ) => {
-    if (!sonarURLOrigin) {
+  createMetricsApiUrl: ({
+    baseURL,
+    codebaseName,
+    defaultBranchName,
+  }: {
+    baseURL: string;
+    codebaseName: string;
+    defaultBranchName: string;
+  }) => {
+    if (!baseURL) {
       return undefined;
     }
 
-    const metricsApiUrl = new URL(`${sonarURLOrigin}/api/measures/component`);
+    const metricsApiUrl = new URL(`${baseURL}/api/measures/component`);
 
     metricsApiUrl.searchParams.append('component', codebaseName);
     metricsApiUrl.searchParams.append('branch', defaultBranchName);

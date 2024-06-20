@@ -1,12 +1,9 @@
-import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { IconButton, Link, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Snackbar } from '../../../components/Snackbar';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
-import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { routeEDPStageDetails } from '../../../pages/edp-stage-details/route';
 import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { EDPCDPipelineStageKubeObject } from '../index';
@@ -23,8 +20,7 @@ export const useCreateCDPipelineStage = ({
   onSuccess?: () => void;
   onError?: () => void;
 }) => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
   const invokeOnSuccessCallback = React.useCallback(
     (CDPipelineStageData: EDPCDPipelineStageKubeObjectInterface) => {
@@ -35,38 +31,24 @@ export const useCreateCDPipelineStage = ({
         namespace: CDPipelineStageData.metadata.namespace || getDefaultNamespace(),
         stageName: CDPipelineStageData.metadata.name,
       });
-      enqueueSnackbar(
-        <Typography>
-          <span>Navigate to </span>
-          <Link
-            component="button"
-            variant="body2"
-            underline={'always'}
-            onClick={() => {
-              history.push(CDPipelineStageRoute);
-              closeSnackbar();
-            }}
-          >
-            {CDPipelineStageData.metadata.name}
-          </Link>
-          <span> page</span>
-        </Typography>,
-        {
-          autoHideDuration: 10000,
-          variant: 'success',
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'left',
-          },
-          action: (key) => (
-            <IconButton size="small" onClick={() => closeSnackbar(key)}>
-              <Icon icon={ICONS.CROSS} />
-            </IconButton>
-          ),
-        }
-      );
+
+      enqueueSnackbar('', {
+        autoHideDuration: 10000,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+        content: (key, message) => (
+          <Snackbar
+            text={String(message)}
+            id={String(key)}
+            link={CDPipelineStageRoute}
+            variant="success"
+          />
+        ),
+      });
     },
-    [closeSnackbar, enqueueSnackbar, history, onSuccess]
+    [enqueueSnackbar, onSuccess]
   );
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 

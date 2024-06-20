@@ -123,11 +123,11 @@ export const DataContextProvider: React.FC = ({ children }) => {
     enabled: !!depTrackBaseURL && !!depTrackSecret?.token && !!projectUUID,
   });
 
-  const sonarMetricsApiUrl = LinkCreationService.sonar.createMetricsApiUrl(
-    sonarQubeBaseURL,
-    name,
-    component.data?.spec.defaultBranch
-  );
+  const sonarMetricsApiUrl = LinkCreationService.sonar.createMetricsApiUrl({
+    baseURL: sonarQubeBaseURL,
+    codebaseName: name,
+    defaultBranchName: component.data?.spec.defaultBranch,
+  });
   const sonarRequestHeaders = {
     Authorization: `Basic ${safeEncode(`${sonarSecret?.token}:`)}`,
   };

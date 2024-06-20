@@ -1,9 +1,7 @@
-import { Icon } from '@iconify/react';
-import { IconButton } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
+import { Snackbar } from '../../components/Snackbar';
 import { CRUD_TYPES } from '../../constants/crudTypes';
-import { ICONS } from '../../icons/iconify-icons-mapping';
 
 interface Options {
   entityName: string;
@@ -11,7 +9,7 @@ interface Options {
 }
 
 export const useRequestStatusMessages = () => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const showBeforeRequestMessage = (mode: CRUD_TYPES, { entityName, customMessage }: Options) => {
     const beforeRequestMessage = (() => {
@@ -27,15 +25,12 @@ export const useRequestStatusMessages = () => {
 
     enqueueSnackbar(beforeRequestMessage, {
       autoHideDuration: 2000,
-      variant: 'info',
       anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'left',
       },
-      action: (key) => (
-        <IconButton size="small" onClick={() => closeSnackbar(key)}>
-          <Icon icon={ICONS.CROSS} />
-        </IconButton>
+      content: (key, message) => (
+        <Snackbar text={String(message)} id={String(key)} variant="info" />
       ),
     });
   };
@@ -53,15 +48,12 @@ export const useRequestStatusMessages = () => {
     })();
     enqueueSnackbar(requestSuccessMessage, {
       autoHideDuration: 5000,
-      variant: 'success',
       anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'left',
       },
-      action: (key) => (
-        <IconButton size="small" onClick={() => closeSnackbar(key)}>
-          <Icon icon={ICONS.CROSS} />
-        </IconButton>
+      content: (key, message) => (
+        <Snackbar text={String(message)} id={String(key)} variant="success" />
       ),
     });
   };
@@ -80,15 +72,12 @@ export const useRequestStatusMessages = () => {
 
     enqueueSnackbar(requestErrorMessage, {
       autoHideDuration: 5000,
-      variant: 'error',
       anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'left',
       },
-      action: (key) => (
-        <IconButton size="small" onClick={() => closeSnackbar(key)}>
-          <Icon icon={ICONS.CROSS} />
-        </IconButton>
+      content: (key, message) => (
+        <Snackbar text={String(message)} id={String(key)} variant="error" />
       ),
     });
   };
@@ -96,15 +85,12 @@ export const useRequestStatusMessages = () => {
   const showRequestErrorDetailedMessage = (error: unknown) => {
     enqueueSnackbar(error.toString(), {
       autoHideDuration: 5000,
-      variant: 'error',
       anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'left',
       },
-      action: (key) => (
-        <IconButton size="small" onClick={() => closeSnackbar(key)}>
-          <Icon icon={ICONS.CROSS} />
-        </IconButton>
+      content: (key, message) => (
+        <Snackbar text={String(message)} id={String(key)} variant="error" />
       ),
     });
   };

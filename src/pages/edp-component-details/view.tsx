@@ -66,11 +66,11 @@ export const PageView = () => {
                   }}
                   enabledText="Open the Quality Gates"
                   icon={ICONS.SONAR}
-                  externalLink={LinkCreationService.sonar.createDashboardLink(
-                    QuickLinksURLS?.[SYSTEM_QUICK_LINKS.SONAR],
-                    name,
-                    component.data?.spec.defaultBranch
-                  )}
+                  externalLink={LinkCreationService.sonar.createDashboardLink({
+                    baseURL: QuickLinksURLS?.[SYSTEM_QUICK_LINKS.SONAR],
+                    codebaseName: name,
+                    defaultBranchName: component.data?.spec.defaultBranch,
+                  })}
                   configurationLink={{
                     routeName: routeEDPSonarIntegration.path,
                   }}
