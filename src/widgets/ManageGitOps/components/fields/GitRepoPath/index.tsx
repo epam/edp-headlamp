@@ -5,8 +5,10 @@ import { GIT_SERVERS } from '../../../../../constants/gitServers';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FieldEvent } from '../../../../../types/forms';
+import { validateField, validationRules } from '../../../../../utils/formFieldValidation';
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { ManageGitOpsDataContext, ManageGitOpsValues } from '../../../types';
+
 // relative path should always start with slash
 
 const slashSymbol = '/';
@@ -31,10 +33,7 @@ export const GitRepoPath = () => {
     <FormTextField
       {...register(CODEBASE_FORM_NAMES.gitRepoPath.name, {
         required: 'Enter relative path to repository.',
-        pattern: {
-          value: /^(?!\/).*(?<!\/)$/,
-          message: 'Path cannot start or end with slash symbol',
-        },
+        validate: (value) => validateField(value, validationRules.GIT_URL_PATH),
         onChange: ({ target: { value } }: FieldEvent) => {
           const isGerrit = gitServerFieldValue === GIT_SERVERS.GERRIT;
 

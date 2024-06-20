@@ -1,10 +1,8 @@
-import { Icon } from '@iconify/react';
 import { Router, Utils } from '@kinvolk/headlamp-plugin/lib';
-import { IconButton, Link, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { Snackbar } from '../../../../components/Snackbar';
 import { LOCAL_STORAGE_SERVICE } from '../../../../services/local-storage';
 import { useDialogContext } from '../../../Dialog/hooks';
 import { NAMESPACES_GUARD_DIALOG_NAME } from '../../components/NamespacesGuard/constants';
@@ -53,35 +51,16 @@ export const useDetectNamespaces = (setKey: React.Dispatch<React.SetStateAction<
     }
 
     if (dialogIsClosedOnce) {
-      enqueueSnackbar(
-        <Typography>
-          <span>{errorMessage} Navigate to </span>
-          <Link
-            component="button"
-            variant="body2"
-            underline={'always'}
-            onClick={() => {
-              history.push(settingsRoute);
-              closeSnackbar();
-            }}
-          >
-            cluster settings
-          </Link>
-          <span> page</span>
-        </Typography>,
-        {
-          autoHideDuration: null,
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'right',
-          },
-          action: (key) => (
-            <IconButton size="small" onClick={() => closeSnackbar(key)}>
-              <Icon icon={ICONS.CROSS} color={'grey'} />
-            </IconButton>
-          ),
-        }
-      );
+      enqueueSnackbar(errorMessage, {
+        autoHideDuration: null,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'right',
+        },
+        content: (key, message) => (
+          <Snackbar text={String(message)} id={String(key)} link={settingsRoute} variant="info" />
+        ),
+      });
       return;
     }
 

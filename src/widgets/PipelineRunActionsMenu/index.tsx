@@ -1,10 +1,9 @@
-import { Icon } from '@iconify/react';
-import { IconButton } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
+import { Snackbar } from '../../components/Snackbar';
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
@@ -23,7 +22,7 @@ export const PipelineRunActionsMenu = ({
   permissions,
 }: PipelineRunActionsMenuProps) => {
   const history = useHistory();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const status = PipelineRunKubeObject.parseStatusReason(_pipelineRun)?.toLowerCase();
 
@@ -60,15 +59,12 @@ export const PipelineRunActionsMenu = ({
 
                   enqueueSnackbar('The PipelineRun is rerun', {
                     autoHideDuration: 2000,
-                    variant: 'info',
                     anchorOrigin: {
                       vertical: 'bottom',
                       horizontal: 'left',
                     },
-                    action: (key) => (
-                      <IconButton size="small" onClick={() => closeSnackbar(key)}>
-                        <Icon icon={ICONS.CROSS} />
-                      </IconButton>
+                    content: (key, message) => (
+                      <Snackbar text={String(message)} id={String(key)} variant="info" />
                     ),
                   });
                 },
@@ -87,15 +83,12 @@ export const PipelineRunActionsMenu = ({
                   PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
                   enqueueSnackbar('The PipelineRun is cancelled', {
                     autoHideDuration: 2000,
-                    variant: 'info',
                     anchorOrigin: {
                       vertical: 'bottom',
                       horizontal: 'left',
                     },
-                    action: (key) => (
-                      <IconButton size="small" onClick={() => closeSnackbar(key)}>
-                        <Icon icon={ICONS.CROSS} />
-                      </IconButton>
+                    content: (key, message) => (
+                      <Snackbar text={String(message)} id={String(key)} variant="info" />
                     ),
                   });
                 },
@@ -127,15 +120,12 @@ export const PipelineRunActionsMenu = ({
             );
             enqueueSnackbar('The PipelineRun is deleted', {
               autoHideDuration: 2000,
-              variant: 'info',
               anchorOrigin: {
                 vertical: 'bottom',
                 horizontal: 'left',
               },
-              action: (key) => (
-                <IconButton size="small" onClick={() => closeSnackbar(key)}>
-                  <Icon icon={ICONS.CROSS} />
-                </IconButton>
+              content: (key, message) => (
+                <Snackbar text={String(message)} id={String(key)} variant="info" />
               ),
             });
             onDelete();
@@ -205,7 +195,6 @@ export const PipelineRunActionsMenu = ({
     permissions.delete,
     isInProgress,
     enqueueSnackbar,
-    closeSnackbar,
     onDelete,
     handleCloseResourceActionListMenu,
   ]);
