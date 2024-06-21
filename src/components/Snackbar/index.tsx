@@ -17,14 +17,12 @@ export const Snackbar = React.forwardRef<
   {
     text: string;
     variant: string;
-    id: string;
     link?: string;
+    handleClose?: () => void;
   }
 >((props, ref) => {
-  const { text, variant, id, link } = props;
+  const { text, variant, handleClose, link } = props;
   const { closeSnackbar } = useSnackbar();
-
-  const handleClose = () => closeSnackbar(id);
 
   const theme = React.useMemo(() => {
     let icon: string = ICONS.INFO;

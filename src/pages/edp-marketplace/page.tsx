@@ -2,7 +2,6 @@ import React from 'react';
 import { PageLogicWrapper } from '../../components/PageLogicWrapper';
 import { DialogContextProvider } from '../../providers/Dialog';
 import { FilterContextProvider } from '../../providers/Filter';
-import { NamespacesGuardWrapper } from '../../providers/NamespacesGuardWrapper';
 import { ViewModeContextProvider } from '../../providers/ViewMode';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { PermissionsContextProvider } from './providers/Permissions/provider';
@@ -19,9 +18,7 @@ export default function () {
               matchFunctions={null}
               saveToLocalStorage
             >
-              <NamespacesGuardWrapper>
-                <PageView />
-              </NamespacesGuardWrapper>
+              <PageView />
             </FilterContextProvider>
           </DialogContextProvider>
         </ViewModeContextProvider>

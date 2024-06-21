@@ -1,16 +1,16 @@
 import { Icon } from '@iconify/react';
 import { IconButton } from '@mui/material';
 import React from 'react';
-import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
-import { PermissionSet } from '../../../../types/permissions';
-import { CodebaseActionsMenu } from '../../../../widgets/CodebaseActionsMenu';
+import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
+import { QuickLinkKubeObjectInterface } from '../../../../../../k8s/QuickLink/types';
+import { PermissionSet } from '../../../../../../types/permissions';
+import { QuickLinkActionsMenu } from '../../../../../../widgets/QuickLinkActionsMenu';
 
 export const Actions = ({
   resource,
   permissions,
 }: {
-  resource: EDPCodebaseKubeObjectInterface;
+  resource: QuickLinkKubeObjectInterface;
   permissions: PermissionSet;
 }) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
@@ -27,11 +27,9 @@ export const Actions = ({
         <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
       </IconButton>
       {anchor ? (
-        <CodebaseActionsMenu
+        <QuickLinkActionsMenu
           variant="menu"
-          data={{
-            codebaseData: resource,
-          }}
+          data={resource}
           permissions={permissions}
           anchorEl={anchor}
           handleCloseResourceActionListMenu={() => setAnchor(null)}

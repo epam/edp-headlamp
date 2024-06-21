@@ -6,7 +6,6 @@ import { Section } from '../../components/Section';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { EDPGitServerKubeObject } from '../../k8s/EDPGitServer';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
-import { ComponentActions } from './components/ComponentActions';
 import { ComponentList } from './components/ComponentList';
 import { ComponentListFilter } from './components/ComponentListFilter';
 
@@ -32,7 +31,6 @@ export const PageView = () => {
           </Grid>
           <Grid item xs={12}>
             <ResourceActionListContextProvider>
-              <ComponentActions />
               <ComponentList noGitServers={noGitServers} />
             </ResourceActionListContextProvider>
           </Grid>

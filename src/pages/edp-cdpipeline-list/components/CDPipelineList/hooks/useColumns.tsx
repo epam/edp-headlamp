@@ -1,25 +1,23 @@
-import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { IconButton, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import React from 'react';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
-import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { EDPCDPipelineKubeObject } from '../../../../../k8s/EDPCDPipeline';
 import { EDPCDPipelineKubeObjectInterface } from '../../../../../k8s/EDPCDPipeline/types';
-import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPCDPipelineDetails } from '../../../../edp-cdpipeline-details/route';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
+import { usePermissionsContext } from '../../../providers/Permissions/hooks';
+import { Actions } from '../../Actions';
 
 export const useColumns = (): TableColumn<
   HeadlampKubeObject<EDPCDPipelineKubeObjectInterface>
 >[] => {
-  const { handleOpenResourceActionListMenu } =
-    useResourceActionListContext<EDPCDPipelineKubeObjectInterface>();
+  const { cdPipeline: permissions } = usePermissionsContext();
 
   return React.useMemo(
     () => [
@@ -104,22 +102,9 @@ export const useColumns = (): TableColumn<
       {
         id: 'actions',
         label: '',
-        render: ({ jsonData }) => {
-          const buttonRef = React.createRef<HTMLButtonElement>();
-
-          return (
-            <IconButton
-              ref={buttonRef}
-              aria-label={'Options'}
-              onClick={() => handleOpenResourceActionListMenu(buttonRef.current, jsonData)}
-              size="large"
-            >
-              <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
-            </IconButton>
-          );
-        },
+        render: (resource) => <Actions resource={resource?.jsonData} permissions={permissions} />,
       },
     ],
-    [handleOpenResourceActionListMenu]
+    [permissions]
   );
 };

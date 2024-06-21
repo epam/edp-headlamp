@@ -23,7 +23,11 @@ class ErrorBoundary extends React.Component<Props, State> {
     this.props.enqueueSnackbar(errorMessage, {
       autoHideDuration: 5000,
       content: (key, message) => (
-        <Snackbar text={String(message)} id={String(key)} variant="error" />
+        <Snackbar
+          text={String(message)}
+          handleClose={() => this.props.closeSnackbar(key)}
+          variant="error"
+        />
       ),
       anchorOrigin: {
         vertical: 'top',

@@ -1,19 +1,19 @@
 import { Icon } from '@iconify/react';
-import { Grid, IconButton, Link as MuiLink, useTheme } from '@mui/material';
+import { Grid, Link as MuiLink, useTheme } from '@mui/material';
 import React from 'react';
 import { TableColumn } from '../../../../../../../components/Table/types';
 import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObjectInterface } from '../../../../../../../k8s/QuickLink/types';
-import { useResourceActionListContext } from '../../../../../../../providers/ResourceActionList/hooks';
 import { HeadlampKubeObject } from '../../../../../../../types/k8s';
+import { usePermissionsContext } from '../../../providers/Permissions/hooks';
+import { Actions } from '../../Actions';
 import { useStyles } from '../styles';
 
 export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObjectInterface>>[] => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const { handleOpenResourceActionListMenu } =
-    useResourceActionListContext<QuickLinkKubeObjectInterface>();
+  const { quickLink: quickLinkPermissions } = usePermissionsContext();
 
   return React.useMemo(
     () => [
@@ -65,22 +65,11 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
       {
         id: 'actions',
         label: '',
-        render: ({ jsonData }) => {
-          const buttonRef = React.createRef<HTMLButtonElement>();
-
-          return (
-            <IconButton
-              ref={buttonRef}
-              aria-label={'Options'}
-              onClick={() => handleOpenResourceActionListMenu(buttonRef.current, jsonData)}
-              size="large"
-            >
-              <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
-            </IconButton>
-          );
-        },
+        render: ({ jsonData }) => (
+          <Actions resource={jsonData} permissions={quickLinkPermissions} />
+        ),
       },
     ],
-    [classes.serviceItemIcon, handleOpenResourceActionListMenu, theme.palette.grey]
+    [classes.serviceItemIcon, quickLinkPermissions, theme.palette.grey]
   );
 };
