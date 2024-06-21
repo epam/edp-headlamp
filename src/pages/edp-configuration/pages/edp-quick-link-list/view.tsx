@@ -18,7 +18,6 @@ import { FORM_MODES } from '../../../../types/forms';
 import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../../../widgets/ManageQuickLink/constants';
 import { menu } from '../../menu';
 import { QuickLinkList } from './components/ComponentList';
-import { QuickLinkActions } from './components/QuickLinkActions';
 import { QUICK_LINK_LIST_PAGE_DESCRIPTION } from './constants';
 import { usePermissionsContext } from './providers/Permissions/hooks';
 
@@ -91,7 +90,6 @@ export const PageView = () => {
               <Grid item xs={12}>
                 <ResourceActionListContextProvider>
                   <QuickLinkList items={items} error={error} filterFunction={filterFunction} />
-                  <QuickLinkActions />
                 </ResourceActionListContextProvider>
               </Grid>
             </Grid>

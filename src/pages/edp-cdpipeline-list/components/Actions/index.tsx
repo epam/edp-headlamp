@@ -2,15 +2,15 @@ import { Icon } from '@iconify/react';
 import { IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
+import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
 import { PermissionSet } from '../../../../types/permissions';
-import { CodebaseActionsMenu } from '../../../../widgets/CodebaseActionsMenu';
+import { CDPipelineActionsMenu } from '../../../../widgets/CDPipelineActionsMenu';
 
 export const Actions = ({
   resource,
   permissions,
 }: {
-  resource: EDPCodebaseKubeObjectInterface;
+  resource: EDPCDPipelineKubeObjectInterface;
   permissions: PermissionSet;
 }) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
@@ -27,10 +27,10 @@ export const Actions = ({
         <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
       </IconButton>
       {anchor ? (
-        <CodebaseActionsMenu
+        <CDPipelineActionsMenu
           variant="menu"
           data={{
-            codebaseData: resource,
+            CDPipelineData: resource,
           }}
           permissions={permissions}
           anchorEl={anchor}

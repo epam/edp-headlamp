@@ -22,7 +22,7 @@ export const PipelineRunActionsMenu = ({
   permissions,
 }: PipelineRunActionsMenuProps) => {
   const history = useHistory();
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const status = PipelineRunKubeObject.parseStatusReason(_pipelineRun)?.toLowerCase();
 
@@ -64,7 +64,11 @@ export const PipelineRunActionsMenu = ({
                       horizontal: 'left',
                     },
                     content: (key, message) => (
-                      <Snackbar text={String(message)} id={String(key)} variant="info" />
+                      <Snackbar
+                        text={String(message)}
+                        handleClose={() => closeSnackbar(key)}
+                        variant="info"
+                      />
                     ),
                   });
                 },
@@ -88,7 +92,11 @@ export const PipelineRunActionsMenu = ({
                       horizontal: 'left',
                     },
                     content: (key, message) => (
-                      <Snackbar text={String(message)} id={String(key)} variant="info" />
+                      <Snackbar
+                        text={String(message)}
+                        handleClose={() => closeSnackbar(key)}
+                        variant="info"
+                      />
                     ),
                   });
                 },
@@ -125,7 +133,11 @@ export const PipelineRunActionsMenu = ({
                 horizontal: 'left',
               },
               content: (key, message) => (
-                <Snackbar text={String(message)} id={String(key)} variant="info" />
+                <Snackbar
+                  text={String(message)}
+                  handleClose={() => closeSnackbar(key)}
+                  variant="info"
+                />
               ),
             });
             onDelete();
@@ -190,11 +202,12 @@ export const PipelineRunActionsMenu = ({
   }, [
     _pipelineRun,
     variant,
+    isInProgress,
     permissions.create,
     permissions.update,
     permissions.delete,
-    isInProgress,
     enqueueSnackbar,
+    closeSnackbar,
     onDelete,
     handleCloseResourceActionListMenu,
   ]);

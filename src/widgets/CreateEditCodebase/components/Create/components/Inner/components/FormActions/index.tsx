@@ -56,8 +56,10 @@ export const FormActions = ({ baseDefaultValues, setActiveTab }: FormActionsProp
   }, [strategyFieldValue, typeFieldValue, reset, baseDefaultValues, setValue]);
 
   const activeTabFormPartName = React.useMemo(() => {
-    const validEntry = Object.values(CONFIGURATION_STEPPER).find(({ idx }) => idx === activeStep);
-    return validEntry?.label;
+    const validEntry = Object.entries(CONFIGURATION_STEPPER).find(
+      ([, { idx }]) => idx === activeStep
+    );
+    return validEntry?.[0];
   }, [activeStep]);
 
   const handleProceed = React.useCallback(async () => {
@@ -65,7 +67,9 @@ export const FormActions = ({ baseDefaultValues, setActiveTab }: FormActionsProp
       // @ts-ignore
       .filter(({ formPart }) => formPart === activeTabFormPartName)
       .map(({ name }) => name);
+
     const hasNoErrors = await trigger(activeTabFormPartNames);
+
     if (hasNoErrors) {
       nextStep();
     }

@@ -23,8 +23,6 @@ import { PodsLogViewer } from '../../widgets/PodsLogViewer';
 import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../widgets/PodsLogViewer/constants';
 import PodsTerminal from '../../widgets/PodsTerminal';
 import { PODS_TERMINAL_DIALOG_NAME } from '../../widgets/PodsTerminal/constants';
-import { NamespacesGuard } from '../NamespacesGuardWrapper/components/NamespacesGuard';
-import { NAMESPACES_GUARD_DIALOG_NAME } from '../NamespacesGuardWrapper/components/NamespacesGuard/constants';
 
 const MemoizedCreateEditCodebase = React.memo(CreateEditCodebase);
 const MemoizedCreateEditCDPipeline = React.memo(CreateEditCDPipeline);
@@ -37,7 +35,6 @@ const MemoizedPodsTerminal = React.memo(PodsTerminal);
 const MemoizedPipelineRunGraph = React.memo(PipelineRunGraph);
 const MemoizedPipelineGraph = React.memo(PipelineGraph);
 const MemoizedConfirmResourcesUpdates = React.memo(ConfirmResourcesUpdates);
-const MemoizedNamespacesGuard = React.memo(NamespacesGuard);
 const MemoizedManageQuickLink = React.memo(ManageQuickLink);
 
 export const MODAL_MAPPING = {
@@ -52,6 +49,5 @@ export const MODAL_MAPPING = {
   [PIPELINE_RUN_GRAPH_DIALOG_NAME]: <MemoizedPipelineRunGraph />,
   [PIPELINE_GRAPH_DIALOG_NAME]: <MemoizedPipelineGraph />,
   [CONFIRM_RESOURCES_UPDATES_DIALOG_NAME]: <MemoizedConfirmResourcesUpdates />,
-  [NAMESPACES_GUARD_DIALOG_NAME]: <MemoizedNamespacesGuard />,
   [MANAGE_QUICK_LINK_DIALOG_NAME]: <MemoizedManageQuickLink />,
 } as const;

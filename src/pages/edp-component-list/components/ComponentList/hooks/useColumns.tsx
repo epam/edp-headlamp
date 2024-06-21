@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Box, Grid, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, Grid, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { ConditionalWrapper } from '../../../../../components/ConditionalWrapper';
 import { StatusIcon } from '../../../../../components/StatusIcon';
@@ -17,16 +17,16 @@ import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/name
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { EDPCodebaseKubeObject } from '../../../../../k8s/EDPCodebase';
 import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
-import { useResourceActionListContext } from '../../../../../providers/ResourceActionList/hooks';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeEDPComponentDetails } from '../../../../edp-component-details/route';
+import { usePermissionsContext } from '../../../providers/Permissions/hooks';
+import { Actions } from '../../ComponentActions';
 
 export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObjectInterface>>[] => {
-  const { handleOpenResourceActionListMenu } =
-    useResourceActionListContext<EDPCodebaseKubeObjectInterface>();
+  const { codebase: permissions } = usePermissionsContext();
 
   return React.useMemo(
     () => [
@@ -184,23 +184,12 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<EDPCodebaseKubeObje
             return <Box sx={{ height: rem(44) }} />;
           }
 
-          const buttonRef = React.createRef<HTMLButtonElement>();
-
-          return (
-            <IconButton
-              ref={buttonRef}
-              aria-label={'Options'}
-              onClick={() => handleOpenResourceActionListMenu(buttonRef.current, jsonData)}
-              size="large"
-            >
-              <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
-            </IconButton>
-          );
+          return <Actions resource={jsonData} permissions={permissions} />;
         },
         textAlign: 'center',
         width: '5%',
       },
     ],
-    [handleOpenResourceActionListMenu]
+    [permissions]
   );
 };

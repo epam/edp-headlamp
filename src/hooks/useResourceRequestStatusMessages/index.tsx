@@ -9,7 +9,7 @@ interface Options {
 }
 
 export const useRequestStatusMessages = () => {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const showBeforeRequestMessage = (mode: CRUD_TYPES, { entityName, customMessage }: Options) => {
     const beforeRequestMessage = (() => {
@@ -30,7 +30,7 @@ export const useRequestStatusMessages = () => {
         horizontal: 'left',
       },
       content: (key, message) => (
-        <Snackbar text={String(message)} id={String(key)} variant="info" />
+        <Snackbar text={String(message)} handleClose={() => closeSnackbar(key)} variant="info" />
       ),
     });
   };
@@ -53,7 +53,7 @@ export const useRequestStatusMessages = () => {
         horizontal: 'left',
       },
       content: (key, message) => (
-        <Snackbar text={String(message)} id={String(key)} variant="success" />
+        <Snackbar text={String(message)} handleClose={() => closeSnackbar(key)} variant="success" />
       ),
     });
   };
@@ -77,7 +77,7 @@ export const useRequestStatusMessages = () => {
         horizontal: 'left',
       },
       content: (key, message) => (
-        <Snackbar text={String(message)} id={String(key)} variant="error" />
+        <Snackbar text={String(message)} handleClose={() => closeSnackbar(key)} variant="error" />
       ),
     });
   };
@@ -90,7 +90,7 @@ export const useRequestStatusMessages = () => {
         horizontal: 'left',
       },
       content: (key, message) => (
-        <Snackbar text={String(message)} id={String(key)} variant="error" />
+        <Snackbar text={String(message)} handleClose={() => closeSnackbar(key)} variant="error" />
       ),
     });
   };

@@ -27,7 +27,6 @@ import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../widgets/CreateEditCDPipeline/constants';
 import { CreateEditCDPipelineDialogForwardedProps } from '../../widgets/CreateEditCDPipeline/types';
 import { routeEDPGitOpsConfiguration } from '../edp-configuration/pages/edp-gitops/route';
-import { CDPipelineActions } from './components/CDPipelineActions';
 import { CDPipelineList } from './components/CDPipelineList';
 import { usePermissionsContext } from './providers/Permissions/hooks';
 
@@ -129,7 +128,6 @@ export const PageView = () => {
                   }
                 />
               </LoadingWrapper>
-              <CDPipelineActions />
             </ResourceActionListContextProvider>
           </Grid>
         </Grid>

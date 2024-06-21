@@ -1,12 +1,8 @@
-import { K8s, Router } from '@kinvolk/headlamp-plugin/lib';
-import { useSnackbar } from 'notistack';
+import { K8s } from '@kinvolk/headlamp-plugin/lib';
 import React from 'react';
-import { Snackbar } from '../../../components/Snackbar';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
-import { routeEDPComponentDetails } from '../../../pages/edp-component-details/route';
 import { EDPKubeObjectInterface } from '../../../types/k8s';
-import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { CodebaseAuthData } from '../../../widgets/CreateEditCodebase/types';
 import { createCodebaseSecretInstance } from '../../Secret/utils/createCodebaseSecretInstance';
 import { EDPCodebaseKubeObject } from '../index';
@@ -28,35 +24,9 @@ export const useCodebaseCRUD = ({
   onSuccess?: () => void;
   onError?: () => void;
 }) => {
-  const { enqueueSnackbar } = useSnackbar();
-
-  const invokeOnSuccessCallback = React.useCallback(
-    (codebaseData: EDPCodebaseKubeObjectInterface) => {
-      onSuccess && onSuccess();
-
-      const codebaseRoute = Router.createRouteURL(routeEDPComponentDetails.path, {
-        namespace: codebaseData.metadata.namespace || getDefaultNamespace(),
-        name: codebaseData.metadata.name,
-      });
-
-      enqueueSnackbar('', {
-        autoHideDuration: 10000,
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'left',
-        },
-        content: (key, message) => (
-          <Snackbar
-            text={String(message)}
-            id={String(key)}
-            link={codebaseRoute}
-            variant="success"
-          />
-        ),
-      });
-    },
-    [enqueueSnackbar, onSuccess]
-  );
+  const invokeOnSuccessCallback = React.useCallback(() => {
+    onSuccess && onSuccess();
+  }, [onSuccess]);
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
   const codebaseCreateMutation = useResourceCRUDMutation<
@@ -84,7 +54,7 @@ export const useCodebaseCRUD = ({
       if (codebaseAuthData === null) {
         codebaseCreateMutation.mutate(codebaseData, {
           onSuccess: () => {
-            invokeOnSuccessCallback(codebaseData);
+            invokeOnSuccessCallback();
           },
           onError: () => {
             invokeOnErrorCallback();
@@ -107,7 +77,7 @@ export const useCodebaseCRUD = ({
         onSuccess: () => {
           codebaseCreateMutation.mutate(codebaseData, {
             onSuccess: () => {
-              invokeOnSuccessCallback(codebaseData);
+              invokeOnSuccessCallback();
             },
             onError: () => {
               codebaseSecretDeleteMutation.mutate(codebaseSecretData as EDPKubeObjectInterface);
@@ -136,7 +106,7 @@ export const useCodebaseCRUD = ({
     async ({ codebaseData }: EditCodebaseProps) => {
       codebaseEditMutation.mutate(codebaseData, {
         onSuccess: () => {
-          invokeOnSuccessCallback(codebaseData);
+          invokeOnSuccessCallback();
         },
         onError: () => {
           invokeOnErrorCallback();
