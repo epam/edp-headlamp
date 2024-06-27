@@ -38,7 +38,7 @@ exports[`renders ManageCodeMie Create component 1`] = `
             <div
               class="MuiAlert-message css-1pxa9xg-MuiAlert-message"
             >
-              Nexus QuickLink has not been found. Please, create it first in order to manage the integration.
+              CodeMie QuickLink has not been found. Please, create it first in order to manage the integration.
             </div>
           </div>
         </div>

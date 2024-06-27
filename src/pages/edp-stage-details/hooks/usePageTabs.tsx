@@ -61,16 +61,13 @@ export const usePageTabs = () => {
     );
   }, [deployPipelineRuns]);
 
-  const enrichedApplicationsWithArgoApplications = useEnrichedApplicationsWithArgoApplications({
-    enrichedApplicationsWithItsImageStreams: enrichedApplications.data,
-    argoApplications: argoApplications.data,
-  });
+  const enrichedApplicationsWithArgoApplications = useEnrichedApplicationsWithArgoApplications();
 
   const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
   const infoColumns = useInfoColumns();
 
   return React.useMemo(() => {
-    const _isLoading = isLoading || enrichedApplications.isLoading;
+    const _isLoading = isLoading || enrichedApplications.isLoading || argoApplications.isLoading;
 
     return [
       {
@@ -133,6 +130,7 @@ export const usePageTabs = () => {
     ];
   }, [
     QuickLinksURLS?.grafana,
+    argoApplications.isLoading,
     deployPipelineRuns.data,
     deployPipelineRuns.isLoading,
     enrichedApplications.isLoading,

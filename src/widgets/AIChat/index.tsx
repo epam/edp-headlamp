@@ -102,14 +102,6 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
     });
   };
 
-  // console.log('AiChat');
-
-  // console.group();
-  // console.log('assistant', assistant);
-  // console.log('conversations', conversations);
-  // console.log('activeConv', activeConversation);
-  // console.groupEnd();
-
   return (
     <>
       <Fab

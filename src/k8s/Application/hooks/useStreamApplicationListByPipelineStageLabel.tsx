@@ -15,9 +15,8 @@ export const useStreamApplicationListByPipelineStageLabel = ({
   CDPipelineMetadataName,
   select,
 }: UseStreamApplicationListByPipelineStageLabelProps) => {
-  const [applicationList, setApplicationList] = React.useState<ApplicationKubeObjectInterface[]>(
-    []
-  );
+  const [applicationList, setApplicationList] =
+    React.useState<ApplicationKubeObjectInterface[]>(null);
 
   React.useEffect(() => {
     if (!stageSpecName) {

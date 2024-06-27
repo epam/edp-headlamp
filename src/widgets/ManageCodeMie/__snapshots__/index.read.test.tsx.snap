@@ -40,7 +40,7 @@ exports[`renders ManageCodeMie Edit component (read-only) 1`] = `
                   name="externalUrl"
                   placeholder="Enter URL"
                   type="text"
-                  value="https://test-nexus.com"
+                  value="https://test-codemie.com"
                 />
                 <span />
                 <fieldset
