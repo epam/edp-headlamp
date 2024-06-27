@@ -11,11 +11,9 @@ export const FormContextProvider: React.FC<FormContextProviderProps> = ({
   const formState = useForm(formSettings);
   const { reset } = formState;
 
-  const baseDefaultValues = formSettings.defaultValues;
-
   React.useEffect(() => {
-    reset(baseDefaultValues, { keepValues: true });
-  }, [baseDefaultValues, reset]);
+    reset(formSettings.defaultValues, { keepValues: true });
+  }, [formSettings, reset]);
 
   const providerValue = React.useMemo(() => ({ formData }), [formData]);
 

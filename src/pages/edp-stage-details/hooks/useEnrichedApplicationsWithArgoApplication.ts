@@ -1,7 +1,5 @@
 import React from 'react';
-import { ApplicationKubeObjectInterface } from '../../../k8s/Application/types';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../k8s/EDPCDPipelineStage/types';
-import { EnrichedApplicationWithItsImageStreams } from '../../../k8s/EDPCodebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { EDPCodebaseImageStreamKubeObjectInterface } from '../../../k8s/EDPCodebaseImageStream/types';
 import { useDataContext } from '../providers/Data/hooks';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
@@ -13,23 +11,20 @@ const findPreviousStage = (
   return stages.find(({ spec: { order: stageOrder } }) => stageOrder === currentStageOrder - 1);
 };
 
-interface UseEnrichedApplicationsProps {
-  enrichedApplicationsWithItsImageStreams: EnrichedApplicationWithItsImageStreams[];
-  argoApplications: ApplicationKubeObjectInterface[];
-}
-
-export const useEnrichedApplicationsWithArgoApplications = ({
-  enrichedApplicationsWithItsImageStreams,
-  argoApplications,
-}: UseEnrichedApplicationsProps) => {
-  const { CDPipeline, stages } = useDataContext();
+export const useEnrichedApplicationsWithArgoApplications = () => {
+  const {
+    CDPipeline: { data: CDPipeline },
+    stages: { data: stages },
+    enrichedApplications: { data: enrichedApplicationsWithItsImageStreams },
+  } = useDataContext();
   const {
     stage: { data: stage, isLoading: isStageLoading },
+    argoApplications: { data: argoApplications, isLoading: argoApplicationsIsLoading },
   } = useDynamicDataContext();
 
-  const inputDockerStreams = CDPipeline.data?.spec.inputDockerStreams;
-  const appsToPromote = CDPipeline.data?.spec.applicationsToPromote;
-  const CDPipelineName = CDPipeline.data?.metadata.name;
+  const inputDockerStreams = CDPipeline?.spec.inputDockerStreams;
+  const appsToPromote = CDPipeline?.spec.applicationsToPromote;
+  const CDPipelineName = CDPipeline?.metadata.name;
   const stageOrder = stage?.spec.order;
 
   const normalizedInputDockerStreamNames = inputDockerStreams?.map((el) => el.replaceAll('.', '-'));
@@ -57,7 +52,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
         );
       }
 
-      const previousStage = findPreviousStage(stages.data, order);
+      const previousStage = findPreviousStage(stages, order);
 
       return (
         imageStreams &&
@@ -83,7 +78,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
   );
 
   return React.useMemo(() => {
-    if (isStageLoading) {
+    if (isStageLoading || argoApplicationsIsLoading) {
       return null;
     }
 
@@ -125,13 +120,14 @@ export const useEnrichedApplicationsWithArgoApplications = ({
     );
   }, [
     isStageLoading,
+    argoApplicationsIsLoading,
     enrichedApplicationsWithItsImageStreams,
     CDPipelineAppsToPromoteSet,
     argoApplications,
-    getImageStreamByToPromoteFlag,
     getImageStreamByStageOrder,
     stageOrder,
+    getImageStreamByToPromoteFlag,
     CDPipelineName,
-    stage,
+    stage?.spec.name,
   ]);
 };

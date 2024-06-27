@@ -11,7 +11,7 @@ export const QuickLinkForm = () => {
       {!quickLink && (
         <Grid item xs={12}>
           <Alert severity="info" variant="outlined">
-            Nexus QuickLink has not been found. Please, create it first in order to manage the
+            CodeMie QuickLink has not been found. Please, create it first in order to manage the
             integration.
           </Alert>
         </Grid>

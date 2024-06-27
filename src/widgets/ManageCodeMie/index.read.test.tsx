@@ -50,14 +50,14 @@ test('renders ManageCodeMie Edit component (read-only)', () => {
           apiVersion: 'v1.edp.epam.com/v1',
           kind: 'QuickLink',
           metadata: {
-            name: SYSTEM_QUICK_LINKS.NEXUS,
+            name: SYSTEM_QUICK_LINKS.CODEMIE,
             namespace: 'test-namespace',
             creationTimestamp: '',
             uid: '',
           },
           spec: {
-            type: SYSTEM_QUICK_LINKS.NEXUS,
-            url: 'https://test-nexus.com',
+            type: SYSTEM_QUICK_LINKS.CODEMIE,
+            url: 'https://test-codemie.com',
             visible: true,
             icon: '',
           },
