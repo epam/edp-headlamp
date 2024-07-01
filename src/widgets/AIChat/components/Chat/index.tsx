@@ -58,7 +58,8 @@ export const Chat = ({
         return _accumulator;
       }
 
-      const generatedText = value.generated_chunk;
+      
+      const generatedText = value.generated_chunk || value.thought.message;
       if (generatedText.trim() !== '') {
         _accumulator.push(generatedText);
       }
