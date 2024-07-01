@@ -76,7 +76,12 @@ export interface ConversationResponseChunk {
   tokens_used: number;
   generated_chunk: string;
   generated: string;
-  thought: string;
+  thought?: {
+    id_: string;
+    in_progress: boolean;
+    tool_name: string;
+    message: string;
+  };
   last: boolean;
   debug: null;
 }

@@ -144,7 +144,7 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
             >
               <Icon icon={'mdi:history'} color={'#fff'} />
             </IconButton>
-            <Typography>AI Assistant</Typography>
+            <Typography>AI Assistant </Typography>
             <IconButton onClick={handleClose}>
               <Icon icon={ICONS.CROSS} color={'#fff'} />
             </IconButton>
@@ -224,7 +224,7 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
               </Stack>
             </Box>
           )}
-          <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0 }}>
             <Chat
               conversation={activeConversation}
               updateConversation={updateConversation}

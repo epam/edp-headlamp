@@ -37,20 +37,21 @@ export const useStreaming = <I, A, C>({
             break;
           }
 
-          const lines = value.split('\n');
+          // Between two JSON objects, there's no newline separator, need to add
+          // Add a comma between JSON objects, making it a valid JSON array string
+          let jsonArrStr = value.replace(/}\s*{/g, '},{');
+          // Add surrounding brackets for the JSON array string
+          jsonArrStr = '[' + jsonArrStr + ']';
 
-          for (let i = 0; i < lines.length; i++) {
-            try {
-              const line = lines[i];
-              if (!line) {
-                continue;
-              }
+          try {
+            const chunks: C[] = JSON.parse(jsonArrStr);
 
-              const chunk: C = JSON.parse(lines[i]);
+            for (const chunk of chunks) {
+              // Send each chunk for processing
               accumulator = await onNewChunk(chunk, accumulator);
-            } catch (e) {
-              console.error('JSON parsing failed for line', lines[i]);
             }
+          } catch (e) {
+            console.error('JSON parsing failed for value', value, 'Error:', e);
           }
         }
       }
