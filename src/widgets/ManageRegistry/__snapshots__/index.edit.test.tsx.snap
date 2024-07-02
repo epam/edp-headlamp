@@ -1915,7 +1915,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Docke
             style="margin: 0px;"
           >
             <span
-              class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-14qtr36-MuiButtonBase-root-MuiCheckbox-root"
+              class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-1pkws1h-MuiButtonBase-root-MuiCheckbox-root"
             >
               <input
                 class="PrivateSwitchBase-input css-1m9pwf3"
@@ -4107,7 +4107,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Docke
             style="margin: 0px;"
           >
             <span
-              class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-14qtr36-MuiButtonBase-root-MuiCheckbox-root"
+              class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-1pkws1h-MuiButtonBase-root-MuiCheckbox-root"
             >
               <input
                 checked=""
@@ -8076,7 +8076,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with GHCR 
             style="margin: 0px;"
           >
             <span
-              class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-14qtr36-MuiButtonBase-root-MuiCheckbox-root"
+              class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-1pkws1h-MuiButtonBase-root-MuiCheckbox-root"
             >
               <input
                 class="PrivateSwitchBase-input css-1m9pwf3"
@@ -10246,7 +10246,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Harbo
             style="margin: 0px;"
           >
             <span
-              class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-14qtr36-MuiButtonBase-root-MuiCheckbox-root"
+              class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-1pkws1h-MuiButtonBase-root-MuiCheckbox-root"
             >
               <input
                 class="PrivateSwitchBase-input css-1m9pwf3"
@@ -12437,7 +12437,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Harbo
             style="margin: 0px;"
           >
             <span
-              class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-14qtr36-MuiButtonBase-root-MuiCheckbox-root"
+              class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-checked MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-1pkws1h-MuiButtonBase-root-MuiCheckbox-root"
             >
               <input
                 checked=""

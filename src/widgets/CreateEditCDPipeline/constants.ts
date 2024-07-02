@@ -1,11 +1,24 @@
 export const CREATE_EDIT_CD_PIPELINE_DIALOG_NAME = 'CREATE_EDIT_CD_PIPELINE_DIALOG';
 
-export const FORM_PART_PIPELINE = 'FORM_PART_PIPELINE';
-export const FORM_PART_APPLICATIONS = 'FORM_PART_APPLICATIONS';
-export const FORM_PART_STAGES = 'FORM_PART_STAGES';
+export const FORM_STEPS = {
+  PIPELINE: 'PIPELINE',
+  APPLICATIONS: 'APPLICATIONS',
+  STAGES: 'STAGES',
+} as const;
 
-export const TAB_INDEXES = {
-  [FORM_PART_PIPELINE]: 0,
-  [FORM_PART_APPLICATIONS]: 1,
-  [FORM_PART_STAGES]: 2,
+export const FORM_STEPPER = {
+  [FORM_STEPS.PIPELINE]: {
+    idx: 0,
+    label: 'Enter name',
+  },
+  [FORM_STEPS.APPLICATIONS]: {
+    idx: 1,
+    label: 'Add components',
+  },
+  [FORM_STEPS.STAGES]: {
+    idx: 2,
+    label: 'Add stages',
+  },
 };
+
+export const FORM_STEPPER_STEPS = Object.values(FORM_STEPPER).map(({ label }) => label);

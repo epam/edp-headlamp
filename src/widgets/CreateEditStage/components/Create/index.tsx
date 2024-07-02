@@ -2,6 +2,7 @@ import { DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import React from 'react';
 import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
 import { FormContextProvider } from '../../../../providers/Form';
+import { StepperContextProvider } from '../../../../providers/Stepper';
 import { DialogHeader } from './components/DialogHeader';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';
@@ -22,15 +23,17 @@ export const Create = () => {
         defaultValues: defaultValues,
       }}
     >
-      <DialogTitle>
-        <DialogHeader setEditorData={setEditorData} setEditorOpen={setEditorOpen} />
-      </DialogTitle>
-      <DialogContent>
-        <Form editorData={editorData} editorOpen={editorOpen} setEditorOpen={setEditorOpen} />
-      </DialogContent>
-      <DialogActions>
-        <FormActions />
-      </DialogActions>
+      <StepperContextProvider>
+        <DialogTitle>
+          <DialogHeader setEditorData={setEditorData} setEditorOpen={setEditorOpen} />
+        </DialogTitle>
+        <DialogContent>
+          <Form editorData={editorData} editorOpen={editorOpen} setEditorOpen={setEditorOpen} />
+        </DialogContent>
+        <DialogActions>
+          <FormActions />
+        </DialogActions>
+      </StepperContextProvider>
     </FormContextProvider>
   );
 };

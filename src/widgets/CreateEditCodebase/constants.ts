@@ -21,7 +21,7 @@ export const SELECTION_STEPPER = {
   },
 };
 
-export const MAIN_STEPPER_STEPS = ['Select component', 'Select strategy'];
+export const MAIN_STEPPER_STEPS = Object.values(SELECTION_STEPPER).map(({ label }) => label);
 
 export const CONFIGURATION_STEPS = {
   CODEBASE_INFO: 'CODEBASE_INFO',
@@ -39,6 +39,8 @@ export const CONFIGURATION_STEPPER = {
   },
 };
 
-export const CONFIGURATION_STEPPER_STEPS = ['Add component info', 'Specify advanced settings'];
+export const CONFIGURATION_STEPPER_STEPS = Object.values(CONFIGURATION_STEPPER).map(
+  ({ label }) => label
+);
 
 export const CONFIGURATION_STEPPER_LAST_INDEX = Object.keys(CONFIGURATION_STEPPER).length - 1;

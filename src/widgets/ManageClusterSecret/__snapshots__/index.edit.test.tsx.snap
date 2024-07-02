@@ -210,7 +210,7 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                       style="margin: 0px;"
                     >
                       <span
-                        class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-14qtr36-MuiButtonBase-root-MuiCheckbox-root"
+                        class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-1pkws1h-MuiButtonBase-root-MuiCheckbox-root"
                       >
                         <input
                           class="PrivateSwitchBase-input css-1m9pwf3"

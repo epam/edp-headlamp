@@ -4,7 +4,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid,
   Stack,
   Step,
   StepLabel,
@@ -76,51 +75,47 @@ export const Selection = ({ setActiveTab }: SelectionProps) => {
               })}
             </Stepper>
           </Box>
-          <Box sx={{ p: `${theme.typography.pxToRem(24)} ${theme.typography.pxToRem(16)}` }}>
+          <Box sx={{ p: `${theme.typography.pxToRem(24)} ${theme.typography.pxToRem(8)}` }}>
             <TabPanel value={activeStep} index={SELECTION_STEPPER.SELECT_COMPONENT.idx}>
-              <Grid container spacing={3}>
-                <MainRadioGroup
-                  {...register(CODEBASE_FORM_NAMES.type.name, {
-                    onChange: ({ target: { value } }: FieldEvent) => {
-                      switch (value) {
-                        case CODEBASE_TYPES.APPLICATION:
-                          setValue(
-                            CODEBASE_FORM_NAMES.deploymentScript.name,
-                            DEPLOYMENT_SCRIPTS.HELM_CHART,
-                            {
-                              shouldDirty: false,
-                            }
-                          );
-                          break;
-                        case CODEBASE_TYPES.AUTOTEST:
-                          setValue(
-                            CODEBASE_FORM_NAMES.testReportFramework.name,
-                            TEST_REPORT_FRAMEWORKS.ALLURE,
-                            {
-                              shouldDirty: false,
-                            }
-                          );
-                          break;
-                      }
-                    },
-                  })}
-                  control={control}
-                  errors={errors}
-                  options={codebaseTypeOptions}
-                  gridItemSize={6}
-                />
-              </Grid>
+              <MainRadioGroup
+                {...register(CODEBASE_FORM_NAMES.type.name, {
+                  onChange: ({ target: { value } }: FieldEvent) => {
+                    switch (value) {
+                      case CODEBASE_TYPES.APPLICATION:
+                        setValue(
+                          CODEBASE_FORM_NAMES.deploymentScript.name,
+                          DEPLOYMENT_SCRIPTS.HELM_CHART,
+                          {
+                            shouldDirty: false,
+                          }
+                        );
+                        break;
+                      case CODEBASE_TYPES.AUTOTEST:
+                        setValue(
+                          CODEBASE_FORM_NAMES.testReportFramework.name,
+                          TEST_REPORT_FRAMEWORKS.ALLURE,
+                          {
+                            shouldDirty: false,
+                          }
+                        );
+                        break;
+                    }
+                  },
+                })}
+                control={control}
+                errors={errors}
+                options={codebaseTypeOptions}
+                gridItemSize={6}
+              />
             </TabPanel>
             <TabPanel value={activeStep} index={SELECTION_STEPPER.SELECT_STRATEGY.idx}>
-              <Grid container spacing={3}>
-                <MainRadioGroup
-                  {...register(CODEBASE_FORM_NAMES.strategy.name, {})}
-                  control={control}
-                  errors={errors}
-                  options={codebaseCreationStrategies}
-                  gridItemSize={6}
-                />
-              </Grid>
+              <MainRadioGroup
+                {...register(CODEBASE_FORM_NAMES.strategy.name)}
+                control={control}
+                errors={errors}
+                options={codebaseCreationStrategies}
+                gridItemSize={6}
+              />
             </TabPanel>
           </Box>
         </Stack>

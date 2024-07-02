@@ -30,325 +30,337 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
         class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-8yphvn-MuiTypography-root-MuiDialogTitle-root"
         id="mui-1"
       >
-        <h4
-          class="MuiTypography-root MuiTypography-h4 css-1nsdt9j-MuiTypography-root"
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1pf3k2c-MuiTypography-root"
         >
           Create application from template
-        </h4>
+        </p>
       </h2>
       <div
         class="MuiDialogContent-root css-ypiqx9-MuiDialogContent-root"
       >
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+          class="MuiBox-root css-1fa7jl4"
         >
           <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+            class="MuiBox-root css-11hlie4"
           >
             <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-wrap-xs-nowrap css-14dv046-MuiGrid-root"
+              class="MuiStack-root css-v2woy3-MuiStack-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 css-17p3wh3-MuiGrid-root"
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-wrap-xs-nowrap css-x9mjaw-MuiGrid-root"
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-wrap-xs-nowrap css-14dv046-MuiGrid-root"
                   >
-                    <img
-                      alt=""
-                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMzIgMzIiPjxnIGZpbGw9Im5vbmUiPjxwYXRoIGZpbGw9IiNGM0FENjEiIGQ9Ik0yOS4zNzQgMmgtNC4xN2EyMi40IDIyLjQgMCAwIDAtNi4xOTQuODc0bC0xLjk5IDMuMTdMMTQuMDEyIDVhMjIuMzk1IDIyLjM5NSAwIDAgMC0zLjI2OSAyLjNhMTkuMDI1IDE5LjAyNSAwIDAgMC02LjcyIDE0LjUxdjMuMjVzLjE3LS4zLjQ5LS44MWMtLjA5LjM4LS4xMy41OS0uMTMuNTl2LjIyaDMuOTJjMi4wOCAwIDQuMDgtLjQ3IDUuODktMS4zNGMuMjEtLjEuMjEtLjQgMC0uNWwtMi4xNy0xLjAxYy0uMTMtLjA0LS4wOS0uMjEuMDQtLjIxaDQuNTNjLjIxIDAgLjQxLS4wOC41Ny0uMjFjMS4zMy0xLjE0IDIuNDUtMi41NCAzLjI3LTQuMTVjLjMtLjYuODctMS42NyAxLjE4LTIuMjVjLjEzLS4yNC4xMi0uNTMtLjAyLS43N2wtMS4zNi0yLjI0YS4yNS4yNSAwIDAgMSAuMjEtLjM4bDEuNTMzLS45OTRsMi4wNDQtMS45OThsMi43Ni0yLjAwMmE0NS44NjEgNDUuODYxIDAgMCAxIDMuMDQzLTMuODE2Yy4xMy0uMTQuMi0uMzMuMi0uNTJhLjY1My42NTMgMCAwIDAtLjY1LS42N1oiLz48cGF0aCBmaWxsPSIjQTU2OTUzIiBkPSJNMTQgMTJoOS4xMTRjLjI2IDAgLjUxLS4xNC42NC0uMzZjLjk0LTEuNTcgMS45Ni0zLjE0IDMuMDQtNC42NGgtNy43OVYyLjg4QTIyLjEyOSAyMi4xMjkgMCAwIDAgMTQgNS4wMTZWMTJaIi8+PHBhdGggZmlsbD0iI0QzODgzRSIgZD0iTTI1LjI4NCA0LjE0YS40OTguNDk4IDAgMCAwLS42NS0uMjNjLTQuNiAyLjA3LTguNzQgNC45NC0xMi4zNCA4LjUzYTQxLjU4NCA0MS41ODQgMCAwIDAtOC45MiAxMy4yMmE0MS40NyA0MS40NyAwIDAgMC0xLjM1IDMuNjdjLS4wOS4zLjA4LjYxLjM4LjY2Yy4yNi4wNS41LS4xMS41Ny0uMzVjLjM4LTEuMjEuODItMi40MSAxLjMyLTMuNTljMi4wNC00LjgzIDQuOTctOS4xOCA4LjctMTIuOWMzLjUxLTMuNTEgNy41NS02LjMgMTIuMDQtOC4zMmEuNS41IDAgMCAwIC4yNS0uNjljMCAuMDEgMCAuMDEgMCAwWiIvPjwvZz48L3N2Zz4="
-                      style="width: 2.5rem;"
-                    />
-                  </div>
-                  <div
-                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-                  >
-                    <h5
-                      aria-label="Documentation as Code with Antora"
-                      class="MuiTypography-root MuiTypography-h5 makeStyles-templateName-2 css-xqgeko-MuiTypography-root"
-                      data-mui-internal-clone-element="true"
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 css-17p3wh3-MuiGrid-root"
                     >
-                      Documentation as Code with Antora
-                    </h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-          >
-            <p
-              class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
-            >
-              Utilize the AsciiDoc markup language to construct, arrange, and manage your documentation while adopting a Documentation as Code methodology.
-            </p>
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-          >
-            <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-lndw90-MuiGrid-root"
-            >
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  Language
-                </p>
-                <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
-                >
-                  <div
-                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-                  >
-                    <span
-                      style="display: block; line-height: 0;"
-                    >
-                      <svg
-                        height="20"
-                        width="20"
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-wrap-xs-nowrap css-x9mjaw-MuiGrid-root"
                       >
-                        <use
-                          xlink:href="#javascript"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <div
-                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-                  >
-                    JavaScript
+                        <div
+                          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                        >
+                          <img
+                            alt=""
+                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMzIgMzIiPjxnIGZpbGw9Im5vbmUiPjxwYXRoIGZpbGw9IiNGM0FENjEiIGQ9Ik0yOS4zNzQgMmgtNC4xN2EyMi40IDIyLjQgMCAwIDAtNi4xOTQuODc0bC0xLjk5IDMuMTdMMTQuMDEyIDVhMjIuMzk1IDIyLjM5NSAwIDAgMC0zLjI2OSAyLjNhMTkuMDI1IDE5LjAyNSAwIDAgMC02LjcyIDE0LjUxdjMuMjVzLjE3LS4zLjQ5LS44MWMtLjA5LjM4LS4xMy41OS0uMTMuNTl2LjIyaDMuOTJjMi4wOCAwIDQuMDgtLjQ3IDUuODktMS4zNGMuMjEtLjEuMjEtLjQgMC0uNWwtMi4xNy0xLjAxYy0uMTMtLjA0LS4wOS0uMjEuMDQtLjIxaDQuNTNjLjIxIDAgLjQxLS4wOC41Ny0uMjFjMS4zMy0xLjE0IDIuNDUtMi41NCAzLjI3LTQuMTVjLjMtLjYuODctMS42NyAxLjE4LTIuMjVjLjEzLS4yNC4xMi0uNTMtLjAyLS43N2wtMS4zNi0yLjI0YS4yNS4yNSAwIDAgMSAuMjEtLjM4bDEuNTMzLS45OTRsMi4wNDQtMS45OThsMi43Ni0yLjAwMmE0NS44NjEgNDUuODYxIDAgMCAxIDMuMDQzLTMuODE2Yy4xMy0uMTQuMi0uMzMuMi0uNTJhLjY1My42NTMgMCAwIDAtLjY1LS42N1oiLz48cGF0aCBmaWxsPSIjQTU2OTUzIiBkPSJNMTQgMTJoOS4xMTRjLjI2IDAgLjUxLS4xNC42NC0uMzZjLjk0LTEuNTcgMS45Ni0zLjE0IDMuMDQtNC42NGgtNy43OVYyLjg4QTIyLjEyOSAyMi4xMjkgMCAwIDAgMTQgNS4wMTZWMTJaIi8+PHBhdGggZmlsbD0iI0QzODgzRSIgZD0iTTI1LjI4NCA0LjE0YS40OTguNDk4IDAgMCAwLS42NS0uMjNjLTQuNiAyLjA3LTguNzQgNC45NC0xMi4zNCA4LjUzYTQxLjU4NCA0MS41ODQgMCAwIDAtOC45MiAxMy4yMmE0MS40NyA0MS40NyAwIDAgMC0xLjM1IDMuNjdjLS4wOS4zLjA4LjYxLjM4LjY2Yy4yNi4wNS41LS4xMS41Ny0uMzVjLjM4LTEuMjEuODItMi40MSAxLjMyLTMuNTljMi4wNC00LjgzIDQuOTctOS4xOCA4LjctMTIuOWMzLjUxLTMuNTEgNy41NS02LjMgMTIuMDQtOC4zMmEuNS41IDAgMCAwIC4yNS0uNjljMCAuMDEgMCAuMDEgMCAwWiIvPjwvZz48L3N2Zz4="
+                            style="width: 2.5rem;"
+                          />
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                        >
+                          <h5
+                            aria-label="Documentation as Code with Antora"
+                            class="MuiTypography-root MuiTypography-h5 makeStyles-templateName-2 css-xqgeko-MuiTypography-root"
+                            data-mui-internal-clone-element="true"
+                          >
+                            Documentation as Code with Antora
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  Framework
-                </p>
                 <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                 >
-                  <div
-                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                  <p
+                    class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
                   >
-                    <span
-                      style="display: block; line-height: 0;"
-                    >
-                      <svg
-                        height="20"
-                        width="20"
-                      >
-                        <use
-                          xlink:href="#antora"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <div
-                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-                  >
-                    Antora
-                  </div>
+                    Utilize the AsciiDoc markup language to construct, arrange, and manage your documentation while adopting a Documentation as Code methodology.
+                  </p>
                 </div>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  Build Tool
-                </p>
                 <div
-                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                 >
                   <div
-                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-lndw90-MuiGrid-root"
                   >
-                    <span
-                      style="display: block; line-height: 0;"
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
                     >
-                      <svg
-                        height="20"
-                        width="20"
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
                       >
-                        <use
-                          xlink:href="#npm"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <div
-                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-                  >
-                    NPM
+                        Language
+                      </p>
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                        >
+                          <span
+                            style="display: block; line-height: 0;"
+                          >
+                            <svg
+                              height="20"
+                              width="20"
+                            >
+                              <use
+                                xlink:href="#javascript"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                        >
+                          JavaScript
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
+                    >
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
+                      >
+                        Framework
+                      </p>
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                        >
+                          <span
+                            style="display: block; line-height: 0;"
+                          >
+                            <svg
+                              height="20"
+                              width="20"
+                            >
+                              <use
+                                xlink:href="#antora"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                        >
+                          Antora
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
+                    >
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
+                      >
+                        Build Tool
+                      </p>
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                        >
+                          <span
+                            style="display: block; line-height: 0;"
+                          >
+                            <svg
+                              height="20"
+                              width="20"
+                            >
+                              <use
+                                xlink:href="#npm"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div
+                          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                        >
+                          NPM
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
+                    >
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
+                      >
+                        Type
+                      </p>
+                      <p
+                        class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+                      >
+                        application
+                      </p>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
+                    >
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
+                      >
+                        Category
+                      </p>
+                      <p
+                        class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+                      >
+                        docs
+                      </p>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
+                    >
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
+                      >
+                        Maturity
+                      </p>
+                      <p
+                        class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+                      >
+                        stable
+                      </p>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
+                    >
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
+                      >
+                        Version
+                      </p>
+                      <p
+                        class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+                      >
+                        0.1.0
+                      </p>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 css-vok43g-MuiGrid-root"
+                    >
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
+                      >
+                        Source
+                      </p>
+                      <a
+                        class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
+                        href="https://github.com/test"
+                        target="_blank"
+                      >
+                        https://github.com/test
+                      </a>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                    >
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
+                      >
+                        Maintainers
+                      </p>
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
+                      >
+                        <div>
+                          <span
+                            class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+                          >
+                            Name:
+                             
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
+                          >
+                            name
+                          </span>
+                        </div>
+                        <div>
+                          <span
+                            class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+                          >
+                            Email:
+                             
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
+                          >
+                            email
+                          </span>
+                        </div>
+                      </p>
+                    </div>
+                    <div
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                    >
+                      <p
+                        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
+                      >
+                        Keywords
+                      </p>
+                      <span
+                        class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
+                      >
+                        antora
+                      </span>
+                      <span
+                        class="MuiTypography-root MuiTypography-body1 css-1ezega9-MuiTypography-root"
+                      >
+                        , 
+                      </span>
+                      <span
+                        class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
+                      >
+                        asciidoc
+                      </span>
+                      <span
+                        class="MuiTypography-root MuiTypography-body1 css-1ezega9-MuiTypography-root"
+                      >
+                        , 
+                      </span>
+                      <span
+                        class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
+                      >
+                        documentation
+                      </span>
+                      <span
+                        class="MuiTypography-root MuiTypography-body1 css-1ezega9-MuiTypography-root"
+                      >
+                        , 
+                      </span>
+                      <span
+                        class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
+                      >
+                        technical writing
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  Type
-                </p>
-                <p
-                  class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
-                >
-                  application
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  Category
-                </p>
-                <p
-                  class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
-                >
-                  docs
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  Maturity
-                </p>
-                <p
-                  class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
-                >
-                  stable
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 css-gj1fbr-MuiGrid-root"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  Version
-                </p>
-                <p
-                  class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
-                >
-                  0.1.0
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 css-vok43g-MuiGrid-root"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  Source
-                </p>
-                <a
-                  class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
-                  href="https://github.com/test"
-                  target="_blank"
-                >
-                  https://github.com/test
-                </a>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  Maintainers
-                </p>
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  <div>
-                    <span
-                      class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
-                    >
-                      Name:
-                       
-                    </span>
-                    <span
-                      class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
-                    >
-                      name
-                    </span>
-                  </div>
-                  <div>
-                    <span
-                      class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
-                    >
-                      Email:
-                       
-                    </span>
-                    <span
-                      class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
-                    >
-                      email
-                    </span>
-                  </div>
-                </p>
-              </div>
-              <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-9vf8gf-MuiTypography-root"
-                >
-                  Keywords
-                </p>
-                <span
-                  class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
-                >
-                  antora
-                </span>
-                <span
-                  class="MuiTypography-root MuiTypography-body1 css-1ezega9-MuiTypography-root"
-                >
-                  , 
-                </span>
-                <span
-                  class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
-                >
-                  asciidoc
-                </span>
-                <span
-                  class="MuiTypography-root MuiTypography-body1 css-1ezega9-MuiTypography-root"
-                >
-                  , 
-                </span>
-                <span
-                  class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
-                >
-                  documentation
-                </span>
-                <span
-                  class="MuiTypography-root MuiTypography-body1 css-1ezega9-MuiTypography-root"
-                >
-                  , 
-                </span>
-                <span
-                  class="MuiTypography-root MuiTypography-caption css-1yjsbnr-MuiTypography-root"
-                >
-                  technical writing
-                </span>
               </div>
             </div>
           </div>
@@ -357,27 +369,30 @@ exports[`renders CreateCodebaseFromTemplate component 1`] = `
       <div
         class="MuiDialogActions-root MuiDialogActions-spacing css-knqc4i-MuiDialogActions-root"
       >
-        <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
-          style="margin-left: auto;"
-          tabindex="0"
-          type="button"
+        <div
+          class="MuiStack-root css-ee32gy-MuiStack-root"
         >
-          cancel
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
-        </button>
-        <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
-          tabindex="0"
-          type="submit"
-        >
-          proceed
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
-        </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="button"
+          >
+            cancel
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="submit"
+          >
+            proceed
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+        </div>
       </div>
     </div>
   </div>

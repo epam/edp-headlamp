@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { LearnMoreLink } from '../../../../../../components/LearnMoreLink';
 import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
@@ -8,6 +8,7 @@ import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../constants';
 import { CreateEditCodebaseDialogForwardedProps } from '../../../../types';
 
 export const DialogHeader = () => {
+  const theme = useTheme();
   const {
     forwardedProps: { codebaseData },
   } = useSpecificDialogContext<CreateEditCodebaseDialogForwardedProps>(
@@ -30,16 +31,14 @@ export const DialogHeader = () => {
   }, [codebaseData]);
 
   return (
-    <Grid container alignItems={'center'} justifyContent={'space-between'} spacing={1}>
-      <Grid item>
-        <Grid container spacing={1} alignItems={'center'}>
-          <Grid item>
-            <Typography variant={'h5'}>
-              {`Edit ${codebaseData?.metadata.name}`} <LearnMoreLink url={docLink} />
-            </Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+    <Stack direction="row" alignItems={'flex-start'} justifyContent={'space-between'} spacing={1}>
+      <Stack spacing={2}>
+        <Typography
+          fontSize={theme.typography.pxToRem(20)}
+          fontWeight={500}
+        >{`Edit ${codebaseData?.metadata.name}`}</Typography>
+        <LearnMoreLink url={docLink} />
+      </Stack>
+    </Stack>
   );
 };
