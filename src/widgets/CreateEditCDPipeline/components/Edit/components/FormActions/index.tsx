@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { editResource } from '../../../../../../k8s/common/editResource';
@@ -56,19 +56,20 @@ export const FormActions = () => {
     [CDPipelineData, editCDPipeline]
   );
 
+  const theme = useTheme();
+
   return (
-    <>
-      <Button onClick={handleResetFields} size="small" component={'button'} disabled={!isDirty}>
-        undo changes
-      </Button>
-      <Button
-        onClick={handleClose}
-        size="small"
-        component={'button'}
-        style={{ marginLeft: 'auto' }}
-      >
-        cancel
-      </Button>
+    <Stack direction="row" spacing={2} justifyContent="space-between" width="100%">
+      <Stack direction="row" spacing={1}>
+        <Box sx={{ color: theme.palette.text.primary }}>
+          <Button onClick={handleClose} size="small" color="inherit">
+            cancel
+          </Button>
+        </Box>
+        <Button onClick={handleResetFields} size="small" disabled={!isDirty}>
+          undo changes
+        </Button>
+      </Stack>
       <Button
         onClick={handleSubmit(onSubmit)}
         variant={'contained'}
@@ -78,6 +79,6 @@ export const FormActions = () => {
       >
         apply
       </Button>
-    </>
+    </Stack>
   );
 };

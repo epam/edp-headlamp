@@ -1,4 +1,4 @@
-import { FORM_PART_APPLICATIONS, FORM_PART_PIPELINE } from './constants';
+import { FORM_STEPS } from './constants';
 
 const NAMES = {
   NAME: 'name',
@@ -15,39 +15,39 @@ const NAMES = {
 export const CDPIPELINE_FORM_NAMES = {
   [NAMES.NAME]: {
     name: NAMES.NAME,
-    formPart: FORM_PART_PIPELINE,
+    formPart: FORM_STEPS.PIPELINE,
     path: ['metadata', 'name'],
   },
   [NAMES.NAMESPACE]: {
     name: NAMES.NAMESPACE,
-    formPart: FORM_PART_PIPELINE,
+    formPart: FORM_STEPS.PIPELINE,
     path: ['metadata', 'namespace'],
   },
   [NAMES.DEPLOYMENT_TYPE]: {
     name: NAMES.DEPLOYMENT_TYPE,
-    formPart: FORM_PART_PIPELINE,
+    formPart: FORM_STEPS.PIPELINE,
     path: ['spec', 'deploymentType'],
   },
   [NAMES.APPLICATIONS]: {
     name: NAMES.APPLICATIONS,
-    formPart: FORM_PART_APPLICATIONS,
+    formPart: FORM_STEPS.APPLICATIONS,
     path: ['spec', 'applications'],
   },
   [NAMES.APPLICATIONS_TO_PROMOTE]: {
     name: NAMES.APPLICATIONS_TO_PROMOTE,
-    formPart: FORM_PART_APPLICATIONS,
+    formPart: FORM_STEPS.APPLICATIONS,
     path: ['spec', 'applicationsToPromote'],
   },
   [NAMES.INPUT_DOCKER_STREAMS]: {
     name: NAMES.INPUT_DOCKER_STREAMS,
-    formPart: FORM_PART_APPLICATIONS,
+    formPart: FORM_STEPS.APPLICATIONS,
     path: ['spec', 'inputDockerStreams'],
   },
 
   // NOT USED IN RESOURCE DATA
   [NAMES.APPLICATIONS_TO_ADD_CHOOSER]: {
     name: NAMES.APPLICATIONS_TO_ADD_CHOOSER,
-    formPart: FORM_PART_APPLICATIONS,
+    formPart: FORM_STEPS.APPLICATIONS,
     notUsedInFormData: true,
   },
 };

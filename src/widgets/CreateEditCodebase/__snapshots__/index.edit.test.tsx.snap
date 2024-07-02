@@ -31,36 +31,27 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
         id="mui-1"
       >
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-1bz7zgk-MuiGrid-root"
+          class="MuiStack-root css-1h9efsi-MuiStack-root"
         >
           <div
-            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+            class="MuiStack-root css-1sazv7p-MuiStack-root"
           >
-            <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-1pf3k2c-MuiTypography-root"
             >
-              <div
-                class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+              Edit test-codebase-name
+            </p>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
+              href="https://epam.github.io/edp-install/user-guide/add-application"
+              target="_blank"
+            >
+              <span
+                class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
               >
-                <h5
-                  class="MuiTypography-root MuiTypography-h5 css-xqgeko-MuiTypography-root"
-                >
-                  Edit test-codebase-name
-                   
-                  <a
-                    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
-                    href="https://epam.github.io/edp-install/user-guide/add-application"
-                    target="_blank"
-                  >
-                    <span
-                      class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
-                    >
-                      Learn more.
-                    </span>
-                  </a>
-                </h5>
-              </div>
-            </div>
+                Learn more.
+              </span>
+            </a>
           </div>
         </div>
       </h2>
@@ -146,7 +137,7 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
                           style="margin: 0px;"
                         >
                           <span
-                            class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-14qtr36-MuiButtonBase-root-MuiCheckbox-root"
+                            class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-1pkws1h-MuiButtonBase-root-MuiCheckbox-root"
                           >
                             <input
                               class="PrivateSwitchBase-input css-1m9pwf3"
@@ -220,33 +211,44 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
       <div
         class="MuiDialogActions-root MuiDialogActions-spacing css-knqc4i-MuiDialogActions-root"
       >
-        <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
-          disabled=""
-          tabindex="-1"
-          type="button"
+        <div
+          class="MuiStack-root css-21szx1-MuiStack-root"
         >
-          undo changes
-        </button>
-        <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
-          style="margin-left: auto;"
-          tabindex="0"
-          type="button"
-        >
-          cancel
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
-        </button>
-        <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
-          disabled=""
-          tabindex="-1"
-          type="button"
-        >
-          apply
-        </button>
+          <div
+            class="MuiStack-root css-niqf4j-MuiStack-root"
+          >
+            <div
+              class="MuiBox-root css-1jolfkj"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                cancel
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+              disabled=""
+              tabindex="-1"
+              type="button"
+            >
+              undo changes
+            </button>
+          </div>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            apply
+          </button>
+        </div>
       </div>
     </div>
   </div>

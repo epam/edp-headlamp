@@ -1,15 +1,13 @@
-import { Button } from '@mui/material';
+import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { TabPanel } from '../../../../../../components/TabPanel';
 import { useCreateCDPipeline } from '../../../../../../k8s/EDPCDPipeline/hooks/useCreateCDPipeline';
 import { createCDPipelineInstance } from '../../../../../../k8s/EDPCDPipeline/utils/createCDPipelineInstance';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { useStepperContext } from '../../../../../../providers/Stepper/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
-import {
-  CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
-  FORM_PART_PIPELINE,
-  TAB_INDEXES,
-} from '../../../../constants';
+import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME, FORM_STEPPER } from '../../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../../names';
 import {
   CreateEditCDPipelineDialogForwardedProps,
@@ -17,17 +15,11 @@ import {
 } from '../../../../types';
 import { FormActionsProps } from './types';
 
-const TAB_INDEXES_LAST_INDEX = Object.keys(TAB_INDEXES).length - 1;
-
-export const FormActions = ({
-  setFormActiveTabIdx,
-  formActiveTabIdx,
-  setStages,
-  stages,
-}: FormActionsProps) => {
+export const FormActions = ({ setStages, stages }: FormActionsProps) => {
   const { closeDialog } = useSpecificDialogContext<CreateEditCDPipelineDialogForwardedProps>(
     CREATE_EDIT_CD_PIPELINE_DIALOG_NAME
   );
+  const { activeStep, setActiveStep, nextStep, prevStep } = useStepperContext();
 
   const {
     reset,
@@ -39,8 +31,7 @@ export const FormActions = ({
   const handleClose = React.useCallback(() => {
     closeDialog();
     reset();
-    setFormActiveTabIdx(TAB_INDEXES[FORM_PART_PIPELINE]);
-  }, [closeDialog, reset, setFormActiveTabIdx]);
+  }, [closeDialog, reset]);
 
   const handleResetFields = React.useCallback(() => {
     reset();
@@ -48,37 +39,36 @@ export const FormActions = ({
   }, [reset, setStages]);
 
   const activeTabFormPartName = React.useMemo(() => {
-    const [validEntry] = Object.entries(TAB_INDEXES).filter(([, idx]) => idx === formActiveTabIdx);
-    const [activeTabName] = validEntry;
-
-    return activeTabName;
-  }, [formActiveTabIdx]);
+    const validEntry = Object.entries(FORM_STEPPER).find(([, { idx }]) => idx === activeStep);
+    return validEntry?.[0];
+  }, [activeStep]);
 
   const handleProceed = React.useCallback(async () => {
     const activeTabFormPartNames = Object.values(CDPIPELINE_FORM_NAMES)
+      // @ts-ignore
       .filter(({ formPart }) => formPart === activeTabFormPartName)
       .map(({ name }) => name);
 
     const hasNoErrors = await trigger(activeTabFormPartNames);
 
     if (hasNoErrors) {
-      setFormActiveTabIdx(formActiveTabIdx + 1);
+      nextStep();
     }
-  }, [activeTabFormPartName, formActiveTabIdx, setFormActiveTabIdx, trigger]);
+  }, [activeTabFormPartName, nextStep, trigger]);
 
-  const getFirstErrorTabName = React.useCallback((errors) => {
+  const getFirstErrorStepName = (errors) => {
     const [firstErrorFieldName] = Object.keys(errors);
     return CDPIPELINE_FORM_NAMES[firstErrorFieldName].formPart;
-  }, []);
+  };
 
   const handleValidationError = React.useCallback(
     (errors: Object) => {
       if (errors) {
-        const firstErrorTabName = getFirstErrorTabName(errors);
-        setFormActiveTabIdx(TAB_INDEXES[firstErrorTabName]);
+        const firstErrorTabName = getFirstErrorStepName(errors);
+        setActiveStep(FORM_STEPPER[firstErrorTabName].idx);
       }
     },
-    [getFirstErrorTabName, setFormActiveTabIdx]
+    [setActiveStep]
   );
 
   const {
@@ -119,35 +109,53 @@ export const FormActions = ({
     [createCDPipeline, stages]
   );
 
+  const theme = useTheme();
+
   return (
-    <>
-      <Button onClick={handleResetFields} size="small" component={'button'} disabled={!isDirty}>
-        undo changes
-      </Button>
-      <Button
-        onClick={handleClose}
-        size="small"
-        component={'button'}
-        style={{ marginLeft: 'auto' }}
-      >
-        cancel
-      </Button>
-      {formActiveTabIdx < TAB_INDEXES_LAST_INDEX && (
-        <Button onClick={handleProceed} variant={'contained'} color={'primary'} size="small">
-          proceed
+    <Stack direction="row" spacing={2} justifyContent="space-between" width="100%">
+      <Stack direction="row" spacing={1}>
+        <Box sx={{ color: theme.palette.text.primary }}>
+          <Button onClick={handleClose} size="small" color="inherit">
+            cancel
+          </Button>
+        </Box>
+        <Button onClick={handleResetFields} size="small" disabled={!isDirty}>
+          undo changes
         </Button>
-      )}
-      {formActiveTabIdx === TAB_INDEXES_LAST_INDEX && (
-        <Button
-          onClick={handleSubmit(onSubmit, handleValidationError)}
-          variant={'contained'}
-          color={'primary'}
-          size="small"
-          disabled={!isDirty || isLoading || !stages.length}
-        >
-          apply
-        </Button>
-      )}
-    </>
+      </Stack>
+      <div>
+        <TabPanel value={activeStep} index={FORM_STEPPER.PIPELINE.idx}>
+          <Button onClick={handleProceed} variant={'contained'} color={'primary'} size="small">
+            next
+          </Button>
+        </TabPanel>
+        <TabPanel value={activeStep} index={FORM_STEPPER.APPLICATIONS.idx}>
+          <Stack direction="row">
+            <Button onClick={prevStep} size="small">
+              back
+            </Button>
+            <Button onClick={handleProceed} variant={'contained'} color={'primary'} size="small">
+              next
+            </Button>
+          </Stack>
+        </TabPanel>
+        <TabPanel value={activeStep} index={FORM_STEPPER.STAGES.idx}>
+          <Stack direction="row">
+            <Button onClick={prevStep} size="small">
+              back
+            </Button>
+            <Button
+              onClick={handleSubmit(onSubmit, handleValidationError)}
+              variant={'contained'}
+              color={'primary'}
+              size="small"
+              disabled={!isDirty || isLoading || !stages.length}
+            >
+              create
+            </Button>
+          </Stack>
+        </TabPanel>
+      </div>
+    </Stack>
   );
 };

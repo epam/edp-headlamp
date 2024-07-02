@@ -31,240 +31,340 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
         id="mui-1"
       >
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-1bz7zgk-MuiGrid-root"
+          class="MuiStack-root css-1h9efsi-MuiStack-root"
         >
           <div
-            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+            class="MuiStack-root css-1sazv7p-MuiStack-root"
           >
-            <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-1pf3k2c-MuiTypography-root"
             >
-              <div
-                class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-              >
-                <h5
-                  class="MuiTypography-root MuiTypography-h5 css-xqgeko-MuiTypography-root"
-                >
-                  Create Environment
-                   
-                  <a
-                    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
-                    href="https://epam.github.io/edp-install/user-guide/add-cd-pipeline/#create-cd-pipeline-in-the-dialog"
-                    target="_blank"
-                  >
-                    <span
-                      class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
-                    >
-                      Learn more.
-                    </span>
-                  </a>
-                </h5>
-              </div>
-            </div>
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
-          >
-            <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
-              style="flex-shrink: 0;"
-              tabindex="0"
-              type="button"
+              Create Environment
+               
+            </p>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
+              href="https://epam.github.io/edp-install/user-guide/add-cd-pipeline/#create-cd-pipeline-in-the-dialog"
+              target="_blank"
             >
               <span
-                class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeSmall css-y6rp3m-MuiButton-startIcon"
+                class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
               >
-                <span />
+                Learn more.
               </span>
-              Edit YAML
-              <span
-                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-              />
-            </button>
+            </a>
           </div>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
+            style="flex-shrink: 0;"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeSmall css-y6rp3m-MuiButton-startIcon"
+            >
+              <span />
+            </span>
+            Edit YAML
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
         </div>
       </h2>
       <div
-        class="MuiDialogContent-root makeStyles-dialogContent-1 css-ypiqx9-MuiDialogContent-root"
+        class="MuiDialogContent-root css-ypiqx9-MuiDialogContent-root"
       >
         <div
-          class="makeStyles-dialogContentTabs-2"
+          class="MuiStack-root css-1sazv7p-MuiStack-root"
         >
           <div
-            class="MuiTabs-root MuiTabs-vertical css-1g4ac1o-MuiTabs-root"
+            class="MuiBox-root css-15682vk"
           >
             <div
-              class="MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller"
-              style="overflow: hidden; margin-right: 0px;"
+              class="MuiStepper-root MuiStepper-horizontal css-m5vj9m-MuiStepper-root"
             >
               <div
-                aria-label="simple tabs example"
-                aria-orientation="vertical"
-                class="MuiTabs-flexContainer MuiTabs-flexContainerVertical css-lfwcke-MuiTabs-flexContainer"
-                role="tablist"
+                class="MuiStep-root MuiStep-horizontal css-1bw0nnu-MuiStep-root"
               >
-                <button
-                  aria-controls="simple-tabpanel-0"
-                  aria-selected="true"
-                  class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected css-4f69fa-MuiButtonBase-root-MuiTab-root"
-                  id="simple-tab-0"
-                  role="tab"
-                  tabindex="0"
-                  type="button"
+                <span
+                  class="MuiStepLabel-root MuiStepLabel-horizontal css-ascpo7-MuiStepLabel-root"
                 >
-                  Pipeline
                   <span
-                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                  />
-                </button>
-                <button
-                  aria-controls="simple-tabpanel-1"
-                  aria-selected="false"
-                  class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-4f69fa-MuiButtonBase-root-MuiTab-root"
-                  id="simple-tab-1"
-                  role="tab"
-                  tabindex="-1"
-                  type="button"
-                >
-                  Applications
+                    class="MuiStepLabel-iconContainer Mui-active css-vnkopk-MuiStepLabel-iconContainer"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root Mui-active css-fhwscg-MuiSvgIcon-root-MuiStepIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="12"
+                      />
+                      <text
+                        class="MuiStepIcon-text css-1ftkp41-MuiStepIcon-text"
+                        dominant-baseline="central"
+                        text-anchor="middle"
+                        x="12"
+                        y="12"
+                      >
+                        1
+                      </text>
+                    </svg>
+                  </span>
                   <span
-                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                  />
-                </button>
-                <button
-                  aria-controls="simple-tabpanel-2"
-                  aria-selected="false"
-                  class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-4f69fa-MuiButtonBase-root-MuiTab-root"
-                  id="simple-tab-2"
-                  role="tab"
-                  tabindex="-1"
-                  type="button"
-                >
-                  Stages
-                  <span
-                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                  />
-                </button>
+                    class="MuiStepLabel-labelContainer css-1vyamtt-MuiStepLabel-labelContainer"
+                  >
+                    <span
+                      class="MuiStepLabel-label Mui-active css-1tvu27n-MuiStepLabel-label"
+                    >
+                      Enter name
+                    </span>
+                  </span>
+                </span>
               </div>
-              <span
-                class="MuiTabs-indicator css-4iq8oz-MuiTabs-indicator"
-                style="top: 0px; height: 0px;"
-              />
+              <div
+                class="MuiStepConnector-root MuiStepConnector-horizontal Mui-disabled css-j5w0w9-MuiStepConnector-root"
+              >
+                <span
+                  class="MuiStepConnector-line MuiStepConnector-lineHorizontal css-z7uhs0-MuiStepConnector-line"
+                />
+              </div>
+              <div
+                class="MuiStep-root MuiStep-horizontal css-1bw0nnu-MuiStep-root"
+              >
+                <span
+                  class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+                >
+                  <span
+                    class="MuiStepLabel-iconContainer Mui-disabled css-vnkopk-MuiStepLabel-iconContainer"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root css-fhwscg-MuiSvgIcon-root-MuiStepIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="12"
+                      />
+                      <text
+                        class="MuiStepIcon-text css-1ftkp41-MuiStepIcon-text"
+                        dominant-baseline="central"
+                        text-anchor="middle"
+                        x="12"
+                        y="12"
+                      >
+                        2
+                      </text>
+                    </svg>
+                  </span>
+                  <span
+                    class="MuiStepLabel-labelContainer css-1vyamtt-MuiStepLabel-labelContainer"
+                  >
+                    <span
+                      class="MuiStepLabel-label Mui-disabled css-1tvu27n-MuiStepLabel-label"
+                    >
+                      Add components
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="MuiStepConnector-root MuiStepConnector-horizontal Mui-disabled css-j5w0w9-MuiStepConnector-root"
+              >
+                <span
+                  class="MuiStepConnector-line MuiStepConnector-lineHorizontal css-z7uhs0-MuiStepConnector-line"
+                />
+              </div>
+              <div
+                class="MuiStep-root MuiStep-horizontal css-1bw0nnu-MuiStep-root"
+              >
+                <span
+                  class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+                >
+                  <span
+                    class="MuiStepLabel-iconContainer Mui-disabled css-vnkopk-MuiStepLabel-iconContainer"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root css-fhwscg-MuiSvgIcon-root-MuiStepIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="12"
+                      />
+                      <text
+                        class="MuiStepIcon-text css-1ftkp41-MuiStepIcon-text"
+                        dominant-baseline="central"
+                        text-anchor="middle"
+                        x="12"
+                        y="12"
+                      >
+                        3
+                      </text>
+                    </svg>
+                  </span>
+                  <span
+                    class="MuiStepLabel-labelContainer css-1vyamtt-MuiStepLabel-labelContainer"
+                  >
+                    <span
+                      class="MuiStepLabel-label Mui-disabled css-1tvu27n-MuiStepLabel-label"
+                    >
+                      Add stages
+                    </span>
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          class="makeStyles-dialogContentForm-3"
-        >
           <div
-            aria-labelledby="simple-tab-0"
-            class="makeStyles-tabPanel-4"
-            id="simple-tabpanel-0"
-            role="tabpanel"
+            class="MuiBox-root css-13tjpkz"
           >
             <div
-              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+              aria-labelledby="simple-tab-0"
+              class="makeStyles-tabPanel-1"
+              id="simple-tabpanel-0"
+              role="tabpanel"
             >
               <div
-                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                class="MuiStack-root css-jfdv4h-MuiStack-root"
               >
                 <div
-                  class="MuiStack-root css-jfdv4h-MuiStack-root"
+                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                 >
                   <div
-                    class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
                   >
-                    <div
-                      class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                    <label
+                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
+                      data-shrink="false"
+                      for="mui-3"
+                      id="mui-3-label"
                     >
-                      <label
-                        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
-                        data-shrink="false"
-                        for="mui-3"
-                        id="mui-3-label"
+                      Pipeline name
+                    </label>
+                    <div
+                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
+                    >
+                      <input
+                        aria-invalid="false"
+                        class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                        id="mui-3"
+                        name="name"
+                        placeholder="Enter pipeline name"
+                        type="text"
+                        value=""
+                      />
+                      <span />
+                      <fieldset
+                        aria-hidden="true"
+                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
                       >
-                        Pipeline name
-                      </label>
-                      <div
-                        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
-                      >
-                        <input
-                          aria-invalid="false"
-                          class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                          id="mui-3"
-                          name="name"
-                          placeholder="Enter pipeline name"
-                          type="text"
-                          value=""
-                        />
-                        <span />
-                        <fieldset
-                          aria-hidden="true"
-                          class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                        <legend
+                          class="css-yjsfm1"
                         >
-                          <legend
-                            class="css-yjsfm1"
-                          >
-                            <span>
-                              Pipeline name
-                            </span>
-                          </legend>
-                        </fieldset>
-                      </div>
+                          <span>
+                            Pipeline name
+                          </span>
+                        </legend>
+                      </fieldset>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div
+              aria-labelledby="simple-tab-1"
+              class="makeStyles-tabPanel-1"
+              hidden=""
+              id="simple-tabpanel-1"
+              role="tabpanel"
+            />
+            <div
+              aria-labelledby="simple-tab-2"
+              class="makeStyles-tabPanel-1"
+              hidden=""
+              id="simple-tabpanel-2"
+              role="tabpanel"
+            />
           </div>
-          <div
-            aria-labelledby="simple-tab-1"
-            class="makeStyles-tabPanel-4"
-            hidden=""
-            id="simple-tabpanel-1"
-            role="tabpanel"
-          />
-          <div
-            aria-labelledby="simple-tab-2"
-            class="makeStyles-tabPanel-4"
-            hidden=""
-            id="simple-tabpanel-2"
-            role="tabpanel"
-          />
         </div>
       </div>
       <div
         class="MuiDialogActions-root MuiDialogActions-spacing css-knqc4i-MuiDialogActions-root"
       >
-        <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
-          disabled=""
-          tabindex="-1"
-          type="button"
+        <div
+          class="MuiStack-root css-21szx1-MuiStack-root"
         >
-          undo changes
-        </button>
-        <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
-          style="margin-left: auto;"
-          tabindex="0"
-          type="button"
-        >
-          cancel
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
-        </button>
-        <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
-          tabindex="0"
-          type="button"
-        >
-          proceed
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
-        </button>
+          <div
+            class="MuiStack-root css-niqf4j-MuiStack-root"
+          >
+            <div
+              class="MuiBox-root css-1jolfkj"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                cancel
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+              disabled=""
+              tabindex="-1"
+              type="button"
+            >
+              undo changes
+            </button>
+          </div>
+          <div>
+            <div
+              aria-labelledby="simple-tab-0"
+              class="makeStyles-tabPanel-1"
+              id="simple-tabpanel-0"
+              role="tabpanel"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                next
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <div
+              aria-labelledby="simple-tab-1"
+              class="makeStyles-tabPanel-1"
+              hidden=""
+              id="simple-tabpanel-1"
+              role="tabpanel"
+            />
+            <div
+              aria-labelledby="simple-tab-2"
+              class="makeStyles-tabPanel-1"
+              hidden=""
+              id="simple-tabpanel-2"
+              role="tabpanel"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>

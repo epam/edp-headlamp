@@ -28,6 +28,7 @@ export const FormCheckbox = React.forwardRef(
                       inputRef={ref}
                       onChange={(e) => field.onChange(e.target.checked)}
                       disabled={disabled}
+                      sx={{ translate: '-9px 0' }}
                     />
                   }
                   label={

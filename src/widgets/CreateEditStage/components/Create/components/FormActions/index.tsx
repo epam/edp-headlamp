@@ -1,11 +1,13 @@
-import { Button } from '@mui/material';
+import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { TabPanel } from '../../../../../../components/TabPanel';
 import { useCreateCDPipelineStage } from '../../../../../../k8s/EDPCDPipelineStage/hooks/useCreateCDPipelineStage';
 import { createCDPipelineStageInstance } from '../../../../../../k8s/EDPCDPipelineStage/utils/createCDPipelineStageInstance';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { useStepperContext } from '../../../../../../providers/Stepper/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
-import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';
+import { CREATE_EDIT_STAGE_DIALOG_NAME, FORM_STEPPER } from '../../../../constants';
 import { STAGE_FORM_NAMES } from '../../../../names';
 import { CreateEditStageDialogForwardedProps, CreateEditStageFormValues } from '../../../../types';
 
@@ -76,30 +78,48 @@ export const FormActions = () => {
 
   const qualityGatesFieldValue = watch(STAGE_FORM_NAMES.qualityGates.name);
 
+  const { activeStep, nextStep, prevStep } = useStepperContext();
+  const theme = useTheme();
+
   return (
-    <>
-      <Button onClick={handleResetFields} size="small" component={'button'} disabled={!isDirty}>
-        undo changes
-      </Button>
-      <Button
-        onClick={handleClose}
-        size="small"
-        component={'button'}
-        style={{ marginLeft: 'auto' }}
-      >
-        cancel
-      </Button>
-      <Button
-        onClick={handleSubmit(onSubmit)}
-        variant={'contained'}
-        color={'primary'}
-        size="small"
-        disabled={
-          !isDirty || isLoading || !qualityGatesFieldValue || !qualityGatesFieldValue.length
-        }
-      >
-        apply
-      </Button>
-    </>
+    <Stack direction="row" spacing={2} justifyContent="space-between" width="100%">
+      <Stack direction="row" spacing={1}>
+        <Box sx={{ color: theme.palette.text.primary }}>
+          <Button onClick={handleClose} size="small" color="inherit">
+            cancel
+          </Button>
+        </Box>
+        <Button onClick={handleResetFields} size="small" disabled={!isDirty}>
+          undo changes
+        </Button>
+      </Stack>
+      <div>
+        <TabPanel value={activeStep} index={FORM_STEPPER.CONFIGURATION.idx}>
+          <Stack direction="row">
+            <Button onClick={nextStep} variant={'contained'} color={'primary'} size="small">
+              next
+            </Button>
+          </Stack>
+        </TabPanel>
+        <TabPanel value={activeStep} index={FORM_STEPPER.QUALITY_GATES.idx}>
+          <Stack direction="row">
+            <Button onClick={prevStep} size="small">
+              back
+            </Button>
+            <Button
+              onClick={handleSubmit(onSubmit)}
+              variant={'contained'}
+              color={'primary'}
+              size="small"
+              disabled={
+                !isDirty || isLoading || !qualityGatesFieldValue || !qualityGatesFieldValue.length
+              }
+            >
+              create
+            </Button>
+          </Stack>
+        </TabPanel>
+      </div>
+    </Stack>
   );
 };

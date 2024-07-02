@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
@@ -52,29 +52,34 @@ export const FormActions = () => {
     [createCodebase]
   );
 
+  const theme = useTheme();
+
+  const handleResetFields = React.useCallback(() => {
+    reset();
+  }, [reset]);
+
   return (
-    <>
-      <Button onClick={() => reset()} size="small" component={'button'} disabled={!isDirty}>
-        undo changes
-      </Button>
-      <Button
-        onClick={closeDialog}
-        size="small"
-        component={'button'}
-        style={{ marginLeft: 'auto' }}
-      >
-        cancel
-      </Button>
+    <Stack direction="row" spacing={2} justifyContent="space-between" width="100%">
+      <Stack direction="row" spacing={1}>
+        <Box sx={{ color: theme.palette.text.primary }}>
+          <Button onClick={closeDialog} size="small" color="inherit">
+            cancel
+          </Button>
+        </Box>
+        <Button onClick={handleResetFields} size="small" disabled={!isDirty}>
+          undo changes
+        </Button>
+      </Stack>
       <Button
         type={'submit'}
+        onClick={handleSubmit(onSubmit)}
         variant={'contained'}
         color={'primary'}
         size="small"
         disabled={!isDirty || codebaseCreateMutation.isLoading}
-        onClick={handleSubmit(onSubmit)}
       >
-        apply
+        create
       </Button>
-    </>
+    </Stack>
   );
 };

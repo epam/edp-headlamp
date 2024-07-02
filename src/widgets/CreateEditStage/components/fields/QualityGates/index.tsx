@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Button, Grid, Tooltip, Typography, useTheme } from '@mui/material';
+import { Button, Divider, Grid, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import { Alert } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -64,83 +64,74 @@ export const QualityGates = () => {
   const autotestsWithBranchesOptions = useAutotestsWithBranches(CDPipelineData?.metadata.namespace);
 
   return (
-    <>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-            <Grid item>
-              <Typography variant={'h6'}>Quality gates</Typography>
-            </Grid>
-            <Grid item>
-              <Tooltip
-                title={
-                  'Define quality gates to ensure specific criteria are met before progressing to the next stage.'
-                }
-              >
-                <Icon icon={ICONS.INFO_CIRCLE} width={18} />
-              </Tooltip>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container spacing={2}>
-            {(qualityGatesFieldValue as QualityGate[]).map((el) => {
-              const key = `quality-gate-row::${el.id}`;
+    <Stack spacing={2}>
+      <Stack direction="row" spacing={1} alignItems="center" flexWrap={'nowrap'}>
+        <Typography variant={'h6'}>Quality gates</Typography>
+        <Tooltip
+          title={
+            'Define quality gates to ensure specific criteria are met before progressing to the next stage.'
+          }
+        >
+          <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+        </Tooltip>
+      </Stack>
+      <Stack spacing={2}>
+        {(qualityGatesFieldValue as QualityGate[]).map((el, idx) => {
+          const key = `quality-gate-row::${el.id}`;
+          const isLast = idx === qualityGatesFieldValue.length - 1;
+          const isOnly = qualityGatesFieldValue.length === 1;
 
-              return (
-                <React.Fragment key={key}>
-                  <Grid item xs={12}>
-                    <Grid container spacing={2} alignItems={'flex-end'}>
-                      <Grid item xs={11}>
-                        <Grid container>
-                          <QualityGateRow
-                            autotestsWithBranchesOptions={autotestsWithBranchesOptions}
-                            currentQualityGate={el}
-                          />
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={1}>
-                        <Button
-                          type={'button'}
-                          size={'small'}
-                          component={'button'}
-                          style={{ minWidth: 0 }}
-                          onClick={() => handleRemoveApplicationRow(el.id)}
-                        >
-                          <Icon
-                            icon={ICONS['BUCKET']}
-                            width={20}
-                            color={theme.palette.grey['500']}
-                          />
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </React.Fragment>
-              );
-            })}
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            type={'button'}
-            size={'small'}
-            component={'button'}
-            style={{ minWidth: 0 }}
-            variant={'contained'}
-            onClick={handleAddApplicationRow}
-          >
-            add
-          </Button>
-        </Grid>
-        {(!qualityGatesFieldValue || !qualityGatesFieldValue.length) && (
-          <Grid item xs={12}>
-            <Alert severity="info" variant="outlined">
-              Add at least one quality gate
-            </Alert>
-          </Grid>
-        )}
-      </Grid>
-    </>
+          return (
+            <div key={key}>
+              <Grid container spacing={1} alignItems="center">
+                <Grid item xs={10}>
+                  <QualityGateRow
+                    autotestsWithBranchesOptions={autotestsWithBranchesOptions}
+                    currentQualityGate={el}
+                  />
+                </Grid>
+                <Grid item xs={2}>
+                  <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={1}>
+                    {!isOnly && (
+                      <Button
+                        type={'button'}
+                        size={'small'}
+                        component={'button'}
+                        style={{ minWidth: 0 }}
+                        onClick={() => handleRemoveApplicationRow(el.id)}
+                      >
+                        <Icon icon={ICONS.BUCKET} width={20} color={theme.palette.secondary.dark} />
+                      </Button>
+                    )}
+                    {!isOnly && isLast && (
+                      <Divider
+                        orientation="vertical"
+                        sx={{ height: theme.typography.pxToRem(28) }}
+                      />
+                    )}
+                    {isLast && (
+                      <Button
+                        type={'button'}
+                        size={'small'}
+                        component={'button'}
+                        style={{ minWidth: 0 }}
+                        onClick={handleAddApplicationRow}
+                      >
+                        <Icon icon={ICONS.PLUS} width={20} color={theme.palette.secondary.dark} />
+                      </Button>
+                    )}
+                  </Stack>
+                </Grid>
+              </Grid>
+            </div>
+          );
+        })}
+      </Stack>
+      {(!qualityGatesFieldValue || !qualityGatesFieldValue.length) && (
+        <Alert severity="info" variant="outlined">
+          Add at least one quality gate
+        </Alert>
+      )}
+    </Stack>
   );
 };

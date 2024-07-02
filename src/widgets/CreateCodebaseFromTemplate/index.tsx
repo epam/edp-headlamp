@@ -4,7 +4,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Stack,
   Typography,
+  useTheme,
 } from '@mui/material';
 import React from 'react';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
@@ -38,6 +40,8 @@ export const CreateCodebaseFromTemplate = () => {
 
   const isFormPanel = value === 1;
 
+  const theme = useTheme();
+
   return (
     <FormContextProvider
       formSettings={{
@@ -47,7 +51,9 @@ export const CreateCodebaseFromTemplate = () => {
     >
       <Dialog open={open} maxWidth={'md'} fullWidth data-testid="dialog">
         <DialogTitle>
-          <Typography variant={'h4'}>Create application from template</Typography>
+          <Typography fontSize={theme.typography.pxToRem(20)} fontWeight={500}>
+            Create application from template
+          </Typography>
         </DialogTitle>
 
         <DialogContent>
@@ -62,13 +68,8 @@ export const CreateCodebaseFromTemplate = () => {
         </DialogContent>
         <DialogActions>
           {isPreviewPanel && (
-            <>
-              <Button
-                onClick={closeDialog}
-                size="small"
-                component={'button'}
-                style={{ marginLeft: 'auto' }}
-              >
+            <Stack direction="row" justifyContent="space-between" width="100%">
+              <Button onClick={closeDialog} size="small" component={'button'} color="inherit">
                 cancel
               </Button>
               <Button
@@ -80,7 +81,7 @@ export const CreateCodebaseFromTemplate = () => {
               >
                 proceed
               </Button>
-            </>
+            </Stack>
           )}
           {isFormPanel && <FormActions />}
         </DialogActions>

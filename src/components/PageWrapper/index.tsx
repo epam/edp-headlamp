@@ -1,7 +1,6 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Box, Breadcrumbs, Button, Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
-import { rem } from '../../utils/styling/rem';
 import { AiChatWrapper } from '../../widgets/AIChat';
 import { PageWrapperProps } from './types';
 
@@ -38,12 +37,23 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
                         component={Link}
                         routeName={url.pathname}
                         params={url.params}
-                        sx={{ minWidth: 0 }}
+                        sx={{
+                          minWidth: 0,
+                          textTransform: 'none',
+                          fontSize: theme.typography.pxToRem(14),
+                        }}
                       >
                         {label}
                       </Button>
                     ) : (
-                      <Typography key={key} color="textPrimary" style={{ marginBottom: rem(1) }}>
+                      <Typography
+                        key={key}
+                        color="textPrimary"
+                        sx={{
+                          marginBottom: theme.typography.pxToRem(1),
+                          fontSize: theme.typography.pxToRem(14),
+                        }}
+                      >
                         {label}
                       </Typography>
                     );
