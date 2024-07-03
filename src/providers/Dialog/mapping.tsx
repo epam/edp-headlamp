@@ -23,6 +23,8 @@ import { PodsLogViewer } from '../../widgets/PodsLogViewer';
 import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../widgets/PodsLogViewer/constants';
 import PodsTerminal from '../../widgets/PodsTerminal';
 import { PODS_TERMINAL_DIALOG_NAME } from '../../widgets/PodsTerminal/constants';
+import { SuccessModal } from '../../widgets/SuccessModal';
+import { SUCCESS_DIALOG_NAME } from '../../widgets/SuccessModal/constants';
 
 const MemoizedCreateEditCodebase = React.memo(CreateEditCodebase);
 const MemoizedCreateEditCDPipeline = React.memo(CreateEditCDPipeline);
@@ -36,6 +38,7 @@ const MemoizedPipelineRunGraph = React.memo(PipelineRunGraph);
 const MemoizedPipelineGraph = React.memo(PipelineGraph);
 const MemoizedConfirmResourcesUpdates = React.memo(ConfirmResourcesUpdates);
 const MemoizedManageQuickLink = React.memo(ManageQuickLink);
+const MemoizedSuccessModal = React.memo(SuccessModal);
 
 export const MODAL_MAPPING = {
   [CREATE_EDIT_CODEBASE_DIALOG_NAME]: <MemoizedCreateEditCodebase />,
@@ -50,4 +53,5 @@ export const MODAL_MAPPING = {
   [PIPELINE_GRAPH_DIALOG_NAME]: <MemoizedPipelineGraph />,
   [CONFIRM_RESOURCES_UPDATES_DIALOG_NAME]: <MemoizedConfirmResourcesUpdates />,
   [MANAGE_QUICK_LINK_DIALOG_NAME]: <MemoizedManageQuickLink />,
+  [SUCCESS_DIALOG_NAME]: <MemoizedSuccessModal />,
 } as const;

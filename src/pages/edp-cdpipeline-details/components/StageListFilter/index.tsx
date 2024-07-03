@@ -59,10 +59,15 @@ export const StageListFilter = () => {
   }, [stages]);
 
   const applicationsOptions = React.useMemo(() => {
-    if (stagesWithApplicationsData.isLoading) {
+    if (
+      stagesWithApplicationsData.isLoading ||
+      !stagesWithApplicationsData.data ||
+      !stagesWithApplicationsData.data.length
+    ) {
       return [];
     }
-    return stagesWithApplicationsData.data?.[0].applications.map(
+
+    return stagesWithApplicationsData.data?.[0]?.applications.map(
       (app) => app.application.metadata.name
     );
   }, [stagesWithApplicationsData]);

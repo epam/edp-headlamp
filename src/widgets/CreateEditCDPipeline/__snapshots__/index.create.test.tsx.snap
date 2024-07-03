@@ -175,55 +175,6 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                   </span>
                 </span>
               </div>
-              <div
-                class="MuiStepConnector-root MuiStepConnector-horizontal Mui-disabled css-j5w0w9-MuiStepConnector-root"
-              >
-                <span
-                  class="MuiStepConnector-line MuiStepConnector-lineHorizontal css-z7uhs0-MuiStepConnector-line"
-                />
-              </div>
-              <div
-                class="MuiStep-root MuiStep-horizontal css-1bw0nnu-MuiStep-root"
-              >
-                <span
-                  class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
-                >
-                  <span
-                    class="MuiStepLabel-iconContainer Mui-disabled css-vnkopk-MuiStepLabel-iconContainer"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root css-fhwscg-MuiSvgIcon-root-MuiStepIcon-root"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        cx="12"
-                        cy="12"
-                        r="12"
-                      />
-                      <text
-                        class="MuiStepIcon-text css-1ftkp41-MuiStepIcon-text"
-                        dominant-baseline="central"
-                        text-anchor="middle"
-                        x="12"
-                        y="12"
-                      >
-                        3
-                      </text>
-                    </svg>
-                  </span>
-                  <span
-                    class="MuiStepLabel-labelContainer css-1vyamtt-MuiStepLabel-labelContainer"
-                  >
-                    <span
-                      class="MuiStepLabel-label Mui-disabled css-1tvu27n-MuiStepLabel-label"
-                    >
-                      Add stages
-                    </span>
-                  </span>
-                </span>
-              </div>
             </div>
           </div>
           <div
@@ -289,13 +240,6 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
               id="simple-tabpanel-1"
               role="tabpanel"
             />
-            <div
-              aria-labelledby="simple-tab-2"
-              class="makeStyles-tabPanel-1"
-              hidden=""
-              id="simple-tabpanel-2"
-              role="tabpanel"
-            />
           </div>
         </div>
       </div>
@@ -354,13 +298,6 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
               class="makeStyles-tabPanel-1"
               hidden=""
               id="simple-tabpanel-1"
-              role="tabpanel"
-            />
-            <div
-              aria-labelledby="simple-tab-2"
-              class="makeStyles-tabPanel-1"
-              hidden=""
-              id="simple-tabpanel-2"
               role="tabpanel"
             />
           </div>
