@@ -8,6 +8,7 @@ export const EmptyList = ({
   customText,
   missingItemName,
   linkText = 'Click here to add a new one',
+  beforeLinkText,
   description,
   handleClick,
   isSearch = false,
@@ -46,15 +47,28 @@ export const EmptyList = ({
             />
           )}
         </Box>
-        <Stack spacing={1} style={{ marginBottom: theme.typography.pxToRem(5) }}>
+        <Stack
+          spacing={1}
+          alignItems="center"
+          style={{ marginBottom: theme.typography.pxToRem(5) }}
+        >
           <Typography fontSize={theme.typography.pxToRem(20)} fontWeight={500}>
             {customText ? customText : `There are no ${missingItemName} here.`}
           </Typography>
-          {!!linkText && !!handleClick && (
-            <Link onClick={handleClick} component={'button'}>
-              <Typography>{linkText}</Typography>
-            </Link>
-          )}
+          <Stack direction="row" alignItems="center" spacing={1}>
+            {!!beforeLinkText && (
+              <Typography variant={'body2'} component="span" color={'textSecondary'}>
+                {beforeLinkText}
+              </Typography>
+            )}
+            {!!linkText && !!handleClick && (
+              <Link onClick={handleClick} component={'button'} lineHeight={1}>
+                <Typography component="span" variant={'body2'}>
+                  {linkText}
+                </Typography>
+              </Link>
+            )}
+          </Stack>
         </Stack>
         {!!description && (
           <Typography variant={'body2'} color={'textSecondary'}>

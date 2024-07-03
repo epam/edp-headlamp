@@ -8,19 +8,10 @@ import { EDPCDPipelineKubeObjectInterface } from '../types';
 
 interface CreateCDPipelineProps {
   CDPipelineData: EDPCDPipelineKubeObjectInterface;
-  CDPipelineStagesData: EDPCDPipelineStageKubeObjectInterface[];
+  onSuccess: (CDPipelineData: EDPCDPipelineKubeObjectInterface) => void;
 }
 
-export const useCreateCDPipeline = ({
-  onSuccess,
-  onError,
-}: {
-  onSuccess?: () => void;
-  onError?: () => void;
-}) => {
-  const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
-  const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
-
+export const useCreateCDPipeline = () => {
   const CDPipelineCreateMutation = useResourceCRUDMutation<
     EDPCDPipelineKubeObjectInterface,
     CRUD_TYPES.CREATE
@@ -42,43 +33,14 @@ export const useCreateCDPipeline = ({
   >('CDPipelineStageDeleteMutation', EDPCDPipelineStageKubeObject, CRUD_TYPES.DELETE);
 
   const createCDPipeline = React.useCallback(
-    async ({ CDPipelineData, CDPipelineStagesData }: CreateCDPipelineProps) => {
+    async ({ CDPipelineData, onSuccess }: CreateCDPipelineProps) => {
       CDPipelineCreateMutation.mutate(CDPipelineData, {
-        onSuccess: async () => {
-          const createdStages: EDPCDPipelineStageKubeObjectInterface[] = [];
-
-          for await (const stage of CDPipelineStagesData) {
-            CDPipelineStageCreateMutation.mutate(stage, {
-              onSuccess: (data, { CDPipelineStageData }) => {
-                createdStages.push(CDPipelineStageData);
-
-                invokeOnSuccessCallback();
-              },
-              onError: async () => {
-                CDPipelineDeleteMutation.mutate(CDPipelineData);
-
-                for await (const createdStage of createdStages) {
-                  CDPipelineStageDeleteMutation.mutate(createdStage);
-                }
-
-                invokeOnErrorCallback();
-              },
-            });
-          }
-        },
-        onError: () => {
-          invokeOnErrorCallback();
+        onSuccess: () => {
+          onSuccess(CDPipelineData);
         },
       });
     },
-    [
-      CDPipelineCreateMutation,
-      CDPipelineDeleteMutation,
-      CDPipelineStageCreateMutation,
-      CDPipelineStageDeleteMutation,
-      invokeOnErrorCallback,
-      invokeOnSuccessCallback,
-    ]
+    [CDPipelineCreateMutation]
   );
 
   const mutations = {

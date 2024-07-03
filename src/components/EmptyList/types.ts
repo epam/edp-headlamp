@@ -3,6 +3,7 @@ export interface EmptyListProps {
   customText?: string;
   description?: string;
   linkText?: string;
+  beforeLinkText?: string;
   handleClick?: () => void;
   isSearch?: boolean;
   icon?: React.ReactNode;

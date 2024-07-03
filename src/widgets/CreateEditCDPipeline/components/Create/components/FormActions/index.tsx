@@ -3,19 +3,26 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { TabPanel } from '../../../../../../components/TabPanel';
 import { useCreateCDPipeline } from '../../../../../../k8s/EDPCDPipeline/hooks/useCreateCDPipeline';
+import { EDPCDPipelineKubeObjectInterface } from '../../../../../../k8s/EDPCDPipeline/types';
 import { createCDPipelineInstance } from '../../../../../../k8s/EDPCDPipeline/utils/createCDPipelineInstance';
-import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { routeEDPCDPipelineDetails } from '../../../../../../pages/edp-cdpipeline-details/route';
+import {
+  useDialogContext,
+  useSpecificDialogContext,
+} from '../../../../../../providers/Dialog/hooks';
 import { useStepperContext } from '../../../../../../providers/Stepper/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
+import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
+import { SUCCESS_DIALOG_NAME } from '../../../../../SuccessModal/constants';
+import { SuccessDialogForwardedProps } from '../../../../../SuccessModal/types';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME, FORM_STEPPER } from '../../../../constants';
 import { CDPIPELINE_FORM_NAMES } from '../../../../names';
 import {
   CreateEditCDPipelineDialogForwardedProps,
   CreateEditCDPipelineFormValues,
 } from '../../../../types';
-import { FormActionsProps } from './types';
 
-export const FormActions = ({ setStages, stages }: FormActionsProps) => {
+export const FormActions = () => {
   const { closeDialog } = useSpecificDialogContext<CreateEditCDPipelineDialogForwardedProps>(
     CREATE_EDIT_CD_PIPELINE_DIALOG_NAME
   );
@@ -35,8 +42,7 @@ export const FormActions = ({ setStages, stages }: FormActionsProps) => {
 
   const handleResetFields = React.useCallback(() => {
     reset();
-    setStages([]);
-  }, [reset, setStages]);
+  }, [reset]);
 
   const activeTabFormPartName = React.useMemo(() => {
     const validEntry = Object.entries(FORM_STEPPER).find(([, { idx }]) => idx === activeStep);
@@ -71,6 +77,36 @@ export const FormActions = ({ setStages, stages }: FormActionsProps) => {
     [setActiveStep]
   );
 
+  const { setDialog } = useDialogContext();
+
+  const onSuccess = React.useCallback(
+    (CDPipelineData: EDPCDPipelineKubeObjectInterface) => {
+      const successModalForwardedProps: SuccessDialogForwardedProps = {
+        dialogTitle: 'Create Environment',
+        title: 'Your new environment is created',
+        description: 'Make sure to add stages to your environment to start deploying applications.',
+        goToLink: {
+          routeName: routeEDPCDPipelineDetails.path,
+          text: 'go to environment',
+          routeParams: {
+            namespace: CDPipelineData.metadata.namespace || getDefaultNamespace(),
+            name: CDPipelineData.metadata.name,
+          },
+        },
+      };
+
+      console.log(successModalForwardedProps);
+
+      setDialog({
+        modalName: SUCCESS_DIALOG_NAME,
+        forwardedProps: successModalForwardedProps,
+      });
+
+      handleClose();
+    },
+    [handleClose, setDialog]
+  );
+
   const {
     createCDPipeline,
     mutations: {
@@ -79,9 +115,7 @@ export const FormActions = ({ setStages, stages }: FormActionsProps) => {
       CDPipelineDeleteMutation,
       CDPipelineStageDeleteMutation,
     },
-  } = useCreateCDPipeline({
-    onSuccess: handleClose,
-  });
+  } = useCreateCDPipeline();
 
   const isLoading = React.useMemo(
     () =>
@@ -103,10 +137,10 @@ export const FormActions = ({ setStages, stages }: FormActionsProps) => {
       const CDPipelineData = createCDPipelineInstance(CDPIPELINE_FORM_NAMES, usedValues);
       await createCDPipeline({
         CDPipelineData: CDPipelineData,
-        CDPipelineStagesData: stages,
+        onSuccess: onSuccess,
       });
     },
-    [createCDPipeline, stages]
+    [createCDPipeline, onSuccess]
   );
 
   const theme = useTheme();
@@ -134,22 +168,12 @@ export const FormActions = ({ setStages, stages }: FormActionsProps) => {
             <Button onClick={prevStep} size="small">
               back
             </Button>
-            <Button onClick={handleProceed} variant={'contained'} color={'primary'} size="small">
-              next
-            </Button>
-          </Stack>
-        </TabPanel>
-        <TabPanel value={activeStep} index={FORM_STEPPER.STAGES.idx}>
-          <Stack direction="row">
-            <Button onClick={prevStep} size="small">
-              back
-            </Button>
             <Button
               onClick={handleSubmit(onSubmit, handleValidationError)}
               variant={'contained'}
               color={'primary'}
               size="small"
-              disabled={!isDirty || isLoading || !stages.length}
+              disabled={!isDirty || isLoading}
             >
               create
             </Button>
