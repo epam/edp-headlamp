@@ -12,7 +12,7 @@ export const HELP_MENU_LIST = [
     id: 1,
     label: 'Join Discussions',
     icon: ICONS.CHAT,
-    url: 'https://github.com/epam/edp-install/discussions',
+    url: 'https://github.com/KubeRocketCI/docs/discussions',
   },
   {
     id: 2,

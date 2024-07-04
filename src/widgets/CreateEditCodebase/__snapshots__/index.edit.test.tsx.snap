@@ -43,7 +43,7 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
             </p>
             <a
               class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
-              href="https://epam.github.io/edp-install/user-guide/add-application"
+              href="https://docs.kuberocketci.io/docs/user-guide/add-application"
               target="_blank"
             >
               <span
@@ -192,7 +192,7 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
                   >
                     <a
                       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
-                      href="https://epam.github.io/edp-install/operator-guide/jira-integration/"
+                      href="https://docs.kuberocketci.io/docs/operator-guide/project-management-and-reporting/jira-integration"
                       target="_blank"
                     >
                       <span

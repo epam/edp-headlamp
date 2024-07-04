@@ -44,7 +44,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
             </p>
             <a
               class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
-              href="https://epam.github.io/edp-install/user-guide/add-cd-pipeline/#create-cd-pipeline-in-the-dialog"
+              href="https://docs.kuberocketci.io/docs/user-guide/add-cd-pipeline#create-environment-using-ui"
               target="_blank"
             >
               <span
