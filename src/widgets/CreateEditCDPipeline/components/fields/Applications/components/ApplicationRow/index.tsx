@@ -158,7 +158,7 @@ export const ApplicationRow = ({ application }: ApplicationRowProps) => {
 
   return (
     <Grid item xs={12} className={classes.application}>
-      <Grid container spacing={1}>
+      <Grid container spacing={2}>
         <Grid item xs={4}>
           <FormTextField
             {...register(
