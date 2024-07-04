@@ -44,7 +44,7 @@ exports[`renders CreateCodebaseBranch component 1`] = `
             </p>
             <a
               class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
-              href="https://epam.github.io/edp-install/user-guide/manage-branches/#add-new-branch"
+              href="https://docs.kuberocketci.io/docs/user-guide/manage-branches#add-new-branch"
               target="_blank"
             >
               <span

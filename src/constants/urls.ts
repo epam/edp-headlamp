@@ -1,5 +1,5 @@
-const EDP_USER_GUIDE_ROOT_URL = 'https://epam.github.io/edp-install/user-guide';
-const EDP_OPERATOR_GUIDE_ROOT_URL = 'https://epam.github.io/edp-install/operator-guide';
+const EDP_USER_GUIDE_ROOT_URL = 'https://docs.kuberocketci.io/docs/user-guide';
+const EDP_OPERATOR_GUIDE_ROOT_URL = 'https://docs.kuberocketci.io/docs/operator-guide';
 
 export const EDP_USER_GUIDE = {
   OVERVIEW: {
@@ -20,10 +20,10 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/application`,
     anchors: {
       CHECK_AND_REMOVE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/application/#check-and-remove-application`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/application#check-and-remove-application`,
       },
       EDIT: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/application/#edit-existing-application`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/application#edit-existing-application`,
       },
     },
   },
@@ -31,16 +31,16 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/add-application`,
     anchors: {
       CREATE_IN_YAML: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-application/#create-application-in-yaml`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-application#create-application-in-yaml`,
       },
       CREATE_VIA_UI: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-application/#create-application-via-ui`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-application#create-application-via-ui`,
       },
       CODEBASE_INFO: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-application/#codebase-info-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-application#codebase-info-menu`,
       },
       ADVANCED_SETTINGS: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-application/#advanced-settings-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-application#advanced-settings-menu`,
       },
     },
   },
@@ -48,19 +48,19 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/autotest`,
     anchors: {
       CHECK_AND_REMOVE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/autotest/#check-and-remove-autotest`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/autotest#check-and-remove-autotest`,
       },
       EDIT: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/autotest/#edit-existing-autotest`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/autotest#edit-existing-autotest`,
       },
       AUTOTEST_AS_QG: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/autotest/#add-autotest-as-a-quality-gate`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/autotest#add-autotest-as-a-quality-gate`,
       },
       CONFIGURE_AT_SPECIFIC_STAGE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/autotest/#configure-autotest-launch-at-specific-stage`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/autotest#configure-autotest-launch-at-specific-stage`,
       },
       LAUNCH_LOCALLY: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/autotest/#launch-autotest-locally`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/autotest#launch-autotest-locally`,
       },
     },
   },
@@ -68,16 +68,16 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/add-autotest`,
     anchors: {
       CREATE_IN_YAML: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-autotest/#create-autotest-in-yaml`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-autotest#create-autotest-in-yaml`,
       },
       CREATE_VIA_UI: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-autotest/#create-autotest-via-ui`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-autotest#create-autotest-via-ui`,
       },
       CODEBASE_INFO: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-autotest/#the-codebase-info-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-autotest#the-codebase-info-menu`,
       },
       ADVANCED_SETTINGS: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-autotest/#the-advanced-settings-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-autotest#the-advanced-settings-menu`,
       },
     },
   },
@@ -85,10 +85,10 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/library`,
     anchors: {
       CHECK_AND_REMOVE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/application/#check-and-remove-library`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/library#check-and-remove-library`,
       },
       EDIT: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/application/#edit-existing-library`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/library#edit-existing-library`,
       },
     },
   },
@@ -96,16 +96,16 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/add-library`,
     anchors: {
       CREATE_IN_YAML: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-library/#create-library-in-yaml`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-library#create-library-in-yaml`,
       },
       CREATE_VIA_UI: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-library/#create-library-via-ui`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-library#create-library-via-ui`,
       },
       CODEBASE_INFO: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-library/#the-codebase-info-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-library#the-codebase-info-menu`,
       },
       ADVANCED_SETTINGS: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-library/#the-advanced-settings-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-library#the-advanced-settings-menu`,
       },
     },
   },
@@ -113,10 +113,10 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/infrastructure`,
     anchors: {
       CHECK_AND_REMOVE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/infrastructure/#check-and-remove-application`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/infrastructure#check-and-remove-application`,
       },
       EDIT: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/infrastructure/#edit-existing-infrastructure`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/infrastructure#edit-existing-infrastructure`,
       },
     },
   },
@@ -124,16 +124,16 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/add-infrastructure`,
     anchors: {
       CREATE_IN_YAML: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-infrastructure/#create-infrastructure-in-yaml`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-infrastructure#create-infrastructure-in-yaml`,
       },
       CREATE_VIA_UI: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-infrastructure/#create-infrastructure-via-ui`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-infrastructure#create-infrastructure-via-ui`,
       },
       CODEBASE_INFO: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-infrastructure/#codebase-info-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-infrastructure#codebase-info-menu`,
       },
       ADVANCED_SETTINGS: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-infrastructure/#advanced-settings-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-infrastructure#advanced-settings-menu`,
       },
     },
   },
@@ -141,13 +141,13 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/manage-branches`,
     anchors: {
       ADD_BRANCH: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-branches/#add-new-branch`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-branches#add-new-branch`,
       },
       BUILD_BRANCH: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-branches/#build-branch`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-branches#build-branch`,
       },
       DELETE_BRANCH: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-branches/#delete-branch`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-branches#delete-branch`,
       },
     },
   },
@@ -155,42 +155,42 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline`,
     anchors: {
       CREATE_IN_YAML: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#create-cd-pipeline-in-yaml`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline#create-environment-in-yaml`,
       },
       CREATE_VIA_UI: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#create-cd-pipeline-in-the-dialog`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline#create-environment-using-ui`,
       },
       PIPELINE_MENU: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#the-pipeline-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline#the-pipeline-menu`,
       },
       APPLICATIONS_MENU: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#the-applications-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline#the-applications-menu`,
       },
       STAGES_MENU: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#the-stages-menu`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline#the-stages-menu`,
       },
     },
   },
   CD_PIPELINE_MANAGE: {
-    url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#manage-cd-pipeline`,
+    url: `${EDP_USER_GUIDE_ROOT_URL}/manage-environments`,
     anchors: {
       EDIT: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#edit-existing-cd-pipeline`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-environments#edit-existing-environment`,
       },
       ADD_STAGE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#add-stage`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-environments#add-a-new-stage`,
       },
       EDIT_STAGE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#edit-stage`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-environments#edit-stage`,
       },
       DELETE_STAGE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#delete-stage`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-environments#delete-stage`,
       },
       VIEW_STAGE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#view-stage-data`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-environments#view-stage-data`,
       },
       DEPLOY_APPLICATION: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-cd-pipeline/#deploy-application`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/manage-environments#deploy-application`,
       },
     },
   },
@@ -198,13 +198,13 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/add-quality-gate`,
     anchors: {
       APPLY: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-quality-gate/#apply-new-quality-gate-to-pipelines`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-quality-gate#apply-new-quality-gate-to-pipelines`,
       },
       RUN: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-quality-gate/#run-quality-gate`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-quality-gate#run-quality-gate`,
       },
       ADD_STAGE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-quality-gate/#add-stage-for-quality-gate`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-quality-gate#add-stage-for-quality-gate`,
       },
     },
   },
@@ -212,10 +212,10 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/add-git-server`,
     anchors: {
       CREATE_IN_YAML: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-git-server/#create-git-server-in-yaml`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-git-server`,
       },
       CREATE_VIA_UI: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/add-git-server/#create-git-server-in-the-dialog`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/add-git-server`,
       },
     },
   },
@@ -226,7 +226,7 @@ export const EDP_USER_GUIDE = {
         url: `${EDP_USER_GUIDE_ROOT_URL}/git-server-overview`,
       },
       DELETE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/git-server-overview/#delete-git-server`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/git-server-overview#delete-git-server`,
       },
     },
   },
@@ -237,10 +237,10 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/cluster`,
     anchors: {
       VIEW_DATA: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/cluster/#view-authentication-data`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/cluster#view-authentication-data`,
       },
       DELETE: {
-        url: `${EDP_USER_GUIDE_ROOT_URL}/cluster/#delete-cluster`,
+        url: `${EDP_USER_GUIDE_ROOT_URL}/cluster#delete-cluster`,
       },
     },
   },
@@ -248,63 +248,63 @@ export const EDP_USER_GUIDE = {
     url: `${EDP_USER_GUIDE_ROOT_URL}/gitops`,
   },
   REGISTRY: {
-    url: `${EDP_USER_GUIDE_ROOT_URL}/manage-container-registries/`,
+    url: `${EDP_USER_GUIDE_ROOT_URL}/manage-container-registries`,
   },
 };
 
 export const EDP_OPERATOR_GUIDE = {
   NEXUS: {
-    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/nexus-sonatype`,
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/artifacts-management/nexus-sonatype`,
     anchors: {
       PREREQUISITES: {
-        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/nexus-sonatype/#prerequisites`,
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/artifacts-management/nexus-sonatype#prerequisites`,
       },
       INSTALLATION: {
-        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/nexus-sonatype/#installation`,
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/artifacts-management/nexus-sonatype#installation`,
       },
       CONFIGURATION: {
-        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/nexus-sonatype/#configuration`,
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/artifacts-management/nexus-sonatype#configuration`,
       },
     },
   },
   SONAR: {
-    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/sonarqube`,
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/code-quality/sonarqube`,
     anchors: {
       PREREQUISITES: {
-        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/sonarqube/#prerequisites`,
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/code-quality/sonarqube#prerequisites`,
       },
       INSTALLATION: {
-        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/sonarqube/#installation`,
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/code-quality/sonarqube#installation`,
       },
       CONFIGURATION: {
-        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/sonarqube/#configuration`,
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/code-quality/sonarqube#configuration`,
       },
     },
   },
   CONTAINER_REGISTRY_HARBOR: {
-    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/container-registry-harbor-integration-tekton-ci/`,
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/artifacts-management/harbor-integration`,
     anchors: {
       OVERVIEW: {
-        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/container-registry-harbor-integration-tekton-ci/#overview`,
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/artifacts-management/harbor-integration#overview`,
       },
       INTEGRATION_PROCEDURE: {
-        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/container-registry-harbor-integration-tekton-ci/#integration-procedure`,
+        url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/artifacts-management/harbor-integration#integration-procedure`,
       },
     },
   },
   DEPENDENCY_TRACK: {
-    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/dependency-track/`,
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/devsecops/dependency-track`,
   },
   JIRA: {
-    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/jira-integration/`,
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/project-management-and-reporting/jira-integration`,
   },
   DEFECT_DOJO: {
-    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/install-defectdojo/`,
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/devsecops/defectdojo`,
   },
   ARGO_CD: {
-    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/argocd-integration/`,
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/cd/argocd-integration`,
   },
   O_AUTH: {
-    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/oauth2-proxy/`,
+    url: `${EDP_OPERATOR_GUIDE_ROOT_URL}/auth/oauth2-proxy`,
   },
 };

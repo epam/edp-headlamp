@@ -3,7 +3,7 @@
 # EDP Portal
 
 <p align="center">
-    <em>Central management tool in the EDP ecosystem. Powered by <a href="https://github.com/kinvolk/headlamp">Headlamp</a>.</em>
+    <em>Central management tool in the the KubeRocketCI (aka EDP) ecosystem. Powered by <a href="https://github.com/kinvolk/headlamp">Headlamp</a>.</em>
     <a href="https://github.com/kinvolk/headlamp"><img width=384 src="docs/headlamp_light.svg"></a>
 </p>
 <p align="center">
@@ -11,12 +11,12 @@
     <a href="https://codecov.io/gh/epam/edp-headlamp"><img alt="Coverage" src="https://codecov.io/gh/epam/edp-headlamp/branch/master/graph/badge.svg?token=14I4A446VF"></a>
 </p>
 
-| :heavy_exclamation_mark: Please refer to [EDP documentation](https://epam.github.io/edp-install/) to get the notion of the main concepts and guidelines. |
+| :heavy_exclamation_mark: Please refer to [KubeRocketCI documentation](https://docs.kuberocketci.io) to get the notion of the main concepts and guidelines. |
 | --- |
 
 ## Overview
 
-EDP Portal is  built on the top of [Headlamp](https://github.com/headlamp-k8s/headlamp). All EDP-specific functionality is written as Headlamp plugins.
+KubeRocketCI Portal is  built on the top of [Headlamp](https://github.com/headlamp-k8s/headlamp). All the platform-specific functionality is written as Headlamp plugins.
 
 https://github-production-user-asset-6210df.s3.amazonaws.com/42180137/285478565-df7f5393-233f-40f2-8acc-b8b0d90cb687.mp4
 
