@@ -95,8 +95,6 @@ export const FormActions = () => {
         },
       };
 
-      console.log(successModalForwardedProps);
-
       setDialog({
         modalName: SUCCESS_DIALOG_NAME,
         forwardedProps: successModalForwardedProps,
