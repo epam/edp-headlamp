@@ -70,7 +70,7 @@ export const TaskRunStep = ({ taskRun, step }) => {
                 component="span"
                 color="secondary.dark"
               >
-                {Object.hasOwn(step, 'terminated') ? duration : 'In progress'}
+                {step && Object.hasOwn(step, 'terminated') ? duration : 'In progress'}
               </Typography>
             </Typography>
           </Stack>
