@@ -16,6 +16,7 @@ import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { menu } from '../../menu';
+import { usePermissionsContext } from '../../providers/Permissions/hooks';
 import { ConfigurationPageContentProps } from './types';
 
 export const ConfigurationPageContent = ({
@@ -26,6 +27,7 @@ export const ConfigurationPageContent = ({
   const theme = useTheme();
 
   const { label, description, docLink } = pageDescription;
+  const { secret: permissions } = usePermissionsContext();
 
   return (
     <>
@@ -47,7 +49,7 @@ export const ConfigurationPageContent = ({
                 <Button
                   variant="contained"
                   onClick={creationForm.onOpen}
-                  disabled={creationForm.isDisabled}
+                  disabled={creationForm.isDisabled || !permissions.create}
                   startIcon={<Icon icon={ICONS.PLUS} width={20} />}
                 >
                   {creationForm.label || 'add'}
