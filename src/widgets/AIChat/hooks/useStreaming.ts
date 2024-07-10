@@ -12,6 +12,45 @@ export interface UseStreamingProps<I, A, C> {
   onError: (error: Error) => void;
 }
 
+export const streamChunkToObject = (chunk) => {
+  // Stream object can return multiple JSON objects at once
+  // e.g. {"generated_chunk": "Hello", "last": false}\n{"generated_chunk": "World", "last": true}
+  // This function converts the string to an array of JSON objects
+  const splitChunks = chunk.split(/}\s*{/);
+  const stringChunks = splitChunks.map((str, index, array) => {
+    // eslint-disable-next-line no-param-reassign
+    if (index !== 0) str = '{' + str;
+    // eslint-disable-next-line no-param-reassign
+    if (index !== array.length - 1) str = str + '}';
+
+    return str;
+  });
+
+  const chunkObjects = [];
+
+  const parseChunks = (stringChunkArray) => {
+    stringChunkArray.some((chunkString, index) => {
+      try {
+        chunkObjects.push(JSON.parse(chunkString));
+      } catch (e) {
+        // If we can't parse the last object it means the string is not parseable - throw error
+        if (index === stringChunkArray.length - 1) throw e;
+        // If not able to parse - join this item with next and try again
+        const remainingItemsLength = stringChunkArray.length - index - 2;
+        parseChunks([
+          [stringChunkArray[index], stringChunkArray[index + 1]].join(''),
+          ...(remainingItemsLength ? stringChunkArray.slice(-remainingItemsLength) : []),
+        ]);
+        return true; // stop parsing remaining items - they will be parsed in the call above
+      }
+    });
+  };
+
+  parseChunks(stringChunks);
+
+  return chunkObjects;
+};
+
 export const useStreaming = <I, A, C>({
   fetcher,
   onStart,
@@ -23,7 +62,8 @@ export const useStreaming = <I, A, C>({
     async (message: I): Promise<A[]> => {
       onStart();
       let accumulator: A[] = [];
-
+      let cachedValue = '';
+      let chunks;
       const response: Response = await fetcher(message);
 
       if (response.body) {
@@ -32,26 +72,28 @@ export const useStreaming = <I, A, C>({
           .getReader();
 
         while (true) {
-          const { done, value } = await reader.read();
-          if (done) {
-            break;
-          }
-
-          // Between two JSON objects, there's no newline separator, need to add
-          // Add a comma between JSON objects, making it a valid JSON array string
-          let jsonArrStr = value.replace(/}\s*{/g, '},{');
-          // Add surrounding brackets for the JSON array string
-          jsonArrStr = '[' + jsonArrStr + ']';
-
           try {
-            const chunks: C[] = JSON.parse(jsonArrStr);
+            const { done, value } = await reader.read();
 
-            for (const chunk of chunks) {
-              // Send each chunk for processing
-              accumulator = await onNewChunk(chunk, accumulator);
+            if (done) break;
+
+            // Stream can return multiple chunks at once
+            try {
+              chunks = streamChunkToObject(cachedValue + value);
+
+              cachedValue = '';
+
+              for (const chunk of chunks) {
+                accumulator = await onNewChunk(chunk, accumulator);
+              }
+            } catch (error) {
+              cachedValue += value;
             }
-          } catch (e) {
-            console.error('JSON parsing failed for value', value, 'Error:', e);
+          } catch (error) {
+            // Request was aborted by user
+            // if (error.name === ABORT_ERROR) return handleAbort(chat, reader);
+            console.log(error.name);
+            throw error;
           }
         }
       }

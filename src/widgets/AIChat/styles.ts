@@ -28,6 +28,7 @@ export const StyledMessageList = styled(Box)(
     flex-grow: 1;
     padding: ${theme.typography.pxToRem(32)} ${theme.typography.pxToRem(16)};
     overflow-y: auto;
+    overflow-x: hidden;
 `
 );
 

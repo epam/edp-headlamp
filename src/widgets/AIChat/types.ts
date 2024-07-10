@@ -13,9 +13,19 @@ export interface ProcessedChunk {
   isCode: boolean;
 }
 
+export interface ResponseThought {
+  id_: string;
+  in_progress: boolean;
+  tool_name: string;
+  message: string;
+  processedChunks?: ProcessedChunk[];
+}
+
 export interface ChatItemResponse {
   message: string | undefined; // is available on streaming finish
-  processedChunks: ProcessedChunk[];
+  processedChunks?: ProcessedChunk[];
+  inProgress?: boolean;
+  thoughts?: ResponseThought[];
 }
 
 export interface HistoryStateItem {
@@ -76,12 +86,7 @@ export interface ConversationResponseChunk {
   tokens_used: number;
   generated_chunk: string;
   generated: string;
-  thought?: {
-    id_: string;
-    in_progress: boolean;
-    tool_name: string;
-    message: string;
-  };
+  thought?: ResponseThought;
   last: boolean;
   debug: null;
 }

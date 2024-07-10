@@ -1,17 +1,98 @@
 import { Icon } from '@iconify/react';
-import { Alert, Box, Button, Stack, TextField, Typography, useTheme } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Alert,
+  Box,
+  Button,
+  Stack,
+  TextField,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import React from 'react';
 import * as sanitizeHtml from 'sanitize-html';
 import { v4 as uuidv4 } from 'uuid';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { authHeaders, routeAssistantChatModel } from '../..';
 import { CHAT_ENTITY } from '../../constants';
 import { useStreaming } from '../../hooks/useStreaming';
 import { StyledChatFooter, StyledLoadingDot, StyledMessageList } from '../../styles';
-import { ConversationItem, ConversationPayload, ConversationResponseChunk } from '../../types';
+import {
+  ChatItemResponse,
+  ConversationItem,
+  ConversationPayload,
+  ConversationResponseChunk,
+  ResponseThought,
+} from '../../types';
 import { createChunkStreamFetcher, createConversationPayload } from '../../utils';
 import formatAiMessage from '../../utils/formatMessage';
 import { Message } from '../Message';
 import { ChatProps } from './types';
+
+const ChatThoughts = ({ thoughts }: { thoughts: ResponseThought[] }) => {
+  const [expanded, setExpanded] = React.useState<string | false>(false);
+
+  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
+  return (
+    <>
+      {thoughts?.map((thought, idx) => {
+        const isLast = idx === thoughts.length - 1;
+        const isLoading = thought.in_progress;
+
+        return (
+          <Accordion
+            expanded={isLoading || isLast || expanded === thought.id_}
+            onChange={handleChange(thought.id_)}
+            sx={{ backgroundColor: 'transparent' }}
+          >
+            <AccordionSummary
+              id={thought.id_}
+              expandIcon={<Icon icon={ICONS.ARROW_DOWN} width={20} height={20} />}
+            >
+              <Typography fontWeight={600} fontSize={14}>
+                Tool: {thought.tool_name}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Stack spacing={1}>
+                <div>
+                  {thought?.processedChunks &&
+                    thought?.processedChunks.map((segment) => {
+                      return (
+                        <React.Fragment key={segment.id}>
+                          {segment.isCode ? (
+                            <code
+                              dangerouslySetInnerHTML={{ __html: sanitizeHtml(segment?.text) }}
+                            />
+                          ) : (
+                            <span
+                              dangerouslySetInnerHTML={{ __html: sanitizeHtml(segment?.text) }}
+                            />
+                          )}
+                        </React.Fragment>
+                      );
+                    })}
+                </div>
+                {isLoading && (
+                  <Stack direction="row" alignItems="center">
+                    <StyledLoadingDot />
+                    <StyledLoadingDot />
+                    <StyledLoadingDot />
+                  </Stack>
+                )}
+              </Stack>
+            </AccordionDetails>
+          </Accordion>
+        );
+      })}
+    </>
+  );
+};
 
 export const Chat = ({
   codemieSecretData,
@@ -20,6 +101,7 @@ export const Chat = ({
   requestError,
 }: ChatProps) => {
   const [_conversation, setConversation] = React.useState<ConversationItem>(conversation);
+  const [isRequestLoading, setIsRequestLoading] = React.useState(false);
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -39,12 +121,17 @@ export const Chat = ({
   >({
     fetcher: assistantChatFetcher,
     onNewChunk: async (value, accumulator) => {
+      setIsRequestLoading(false);
+
       const _accumulator = [...accumulator];
 
       if (value.last) {
         setConversation((prev) => {
           const updatedHistory = [...prev.conversationHistory];
-          updatedHistory[updatedHistory.length - 1].response.message = value.generated;
+          const historyLength = updatedHistory.length;
+          const lastHistoryItem = updatedHistory[historyLength - 1];
+          lastHistoryItem.response.message = value.generated;
+          lastHistoryItem.response.inProgress = false;
 
           const newConversation = {
             ...prev,
@@ -58,42 +145,84 @@ export const Chat = ({
         return _accumulator;
       }
 
-      
-      const generatedText = value.generated_chunk || value.thought.message;
-      if (generatedText.trim() !== '') {
-        _accumulator.push(generatedText);
-      }
-
       let chatStream = _accumulator.join('');
+      let generatedText = '';
 
-      if ((chatStream.match(/```/g) || []).length % 2 === 1) {
-        chatStream += '```'; // append a closing ```
+      if (value.thought) {
+        const thought = value.thought;
+
+        setConversation((prev) => {
+          const historyLength = prev.conversationHistory.length;
+          const lastHistoryItem = prev.conversationHistory[historyLength - 1];
+          if (!lastHistoryItem.response.thoughts) lastHistoryItem.response.thoughts = [];
+
+          const alreadyExistingStateThought = lastHistoryItem.response.thoughts.find(
+            (t) => t.id_ === thought.id_
+          );
+
+          if (alreadyExistingStateThought) {
+            alreadyExistingStateThought.in_progress = thought.in_progress;
+            alreadyExistingStateThought.message += thought.message;
+
+            formatAiMessage(alreadyExistingStateThought.message).then(
+              (res) => (alreadyExistingStateThought.processedChunks = res)
+            );
+
+            if (thought.in_progress === false) {
+              alreadyExistingStateThought.in_progress = false;
+            }
+          } else {
+            if (thought.message.trim() !== '') {
+              lastHistoryItem.response.thoughts = [...lastHistoryItem.response.thoughts, thought];
+            }
+          }
+
+          return {
+            ...prev,
+            conversationHistory: [...prev.conversationHistory],
+          };
+        });
+      } else {
+        generatedText = value.generated_chunk;
+
+        if (generatedText.trim() !== '') {
+          _accumulator.push(generatedText);
+        }
+
+        if ((chatStream.match(/```/g) || []).length % 2 === 1) {
+          chatStream += '```'; // append a closing ```
+        }
+
+        const formattedChunks = await formatAiMessage(chatStream);
+
+        setConversation((prev) => {
+          const updatedHistory = [...prev.conversationHistory];
+          const historyLength = updatedHistory.length;
+          const lastHistoryItem = updatedHistory[historyLength - 1];
+
+          if (!lastHistoryItem.response.inProgress) {
+            lastHistoryItem.response.inProgress = true;
+          }
+
+          lastHistoryItem.response.processedChunks = [...formattedChunks];
+
+          return {
+            ...prev,
+            conversationHistory: updatedHistory,
+          };
+        });
       }
-
-      const formattedChunks = await formatAiMessage(chatStream);
-
-      setConversation((prev) => {
-        const updatedHistory = [...prev.conversationHistory];
-
-        updatedHistory[updatedHistory.length - 1].response.processedChunks = [...formattedChunks];
-        return {
-          ...prev,
-          conversationHistory: updatedHistory,
-        };
-      });
 
       return _accumulator;
     },
-    onStart: () => {},
+    onStart: () => {
+      setIsRequestLoading(true);
+    },
     onFinish: (data) => {
       console.log('finish', data);
     },
     onError: (error) => console.log('error', error),
   });
-
-  React.useEffect(() => {
-    setConversation(conversation);
-  }, [conversation]);
 
   const handleSendMessage = React.useCallback(
     (text: string) => {
@@ -126,7 +255,54 @@ export const Chat = ({
 
   const isEmpty =
     !_conversation?.conversationHistory || _conversation?.conversationHistory.length === 0;
+
   const theme = useTheme();
+
+  React.useEffect(() => {
+    setConversation(conversation);
+  }, [conversation]);
+
+  const renderChatResponse = React.useCallback(
+    (chatResponse: ChatItemResponse, isLast: boolean) => {
+      const responseType = chatResponse.thoughts ? 'multiple' : 'single';
+
+      if (isRequestLoading && isLast) {
+        return (
+          <Stack direction="row" alignItems="center">
+            <StyledLoadingDot />
+            <StyledLoadingDot />
+            <StyledLoadingDot />
+          </Stack>
+        );
+      }
+
+      switch (responseType) {
+        case 'single':
+          return chatResponse.inProgress ? (
+            <Stack direction="row" alignItems="center">
+              <StyledLoadingDot />
+              <StyledLoadingDot />
+              <StyledLoadingDot />
+            </Stack>
+          ) : (
+            chatResponse.processedChunks.map((segment) => (
+              <React.Fragment key={segment.id}>
+                {segment.isCode ? (
+                  <code dangerouslySetInnerHTML={{ __html: sanitizeHtml(segment?.text) }} />
+                ) : (
+                  <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(segment?.text) }} />
+                )}
+              </React.Fragment>
+            ))
+          );
+        case 'multiple':
+          return <ChatThoughts thoughts={chatResponse.thoughts} />;
+        default:
+          return null;
+      }
+    },
+    [isRequestLoading]
+  );
 
   return (
     <>
@@ -143,7 +319,8 @@ export const Chat = ({
         >
           {!isEmpty ? (
             <Stack spacing={2} width="100%">
-              {_conversation.conversationHistory.map((chat) => {
+              {_conversation.conversationHistory.map((chat, idx) => {
+                const isLast = idx === _conversation.conversationHistory.length - 1;
                 return (
                   <Stack spacing={2} alignItems="center" key={chat.id}>
                     <Message
@@ -154,29 +331,7 @@ export const Chat = ({
                     <Message
                       entityRole={CHAT_ENTITY.ASSISTANT}
                       createdAt={chat.createdAt}
-                      content={
-                        chat.response.processedChunks.length === 0 ? (
-                          <Stack direction="row" alignItems="center">
-                            <StyledLoadingDot />
-                            <StyledLoadingDot />
-                            <StyledLoadingDot />
-                          </Stack>
-                        ) : (
-                          chat.response.processedChunks.map((segment) => (
-                            <React.Fragment key={segment.id}>
-                              {segment.isCode ? (
-                                <code
-                                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(segment?.text) }}
-                                />
-                              ) : (
-                                <span
-                                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(segment?.text) }}
-                                />
-                              )}
-                            </React.Fragment>
-                          ))
-                        )
-                      }
+                      content={renderChatResponse(chat.response, isLast)}
                     />
                   </Stack>
                 );
