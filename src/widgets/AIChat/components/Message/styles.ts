@@ -18,6 +18,7 @@ export const StyledMessage = styled(Box, {
   entityRole?: string;
 }>(
   ({ theme, entityRole }) => `
+      min-width: 0;
       background-color: ${
         entityRole === CHAT_ENTITY.USER ? theme.palette.primary.main : theme.palette.action.hover
       };

@@ -4,6 +4,7 @@ import {
   ConversationPayload,
   HistoryPayloadItem,
   HistoryStateItem,
+  ResponseThought,
 } from './types';
 
 interface FetcherOptions extends RequestInit {
@@ -139,5 +140,22 @@ export const copyToClipboard = (message) => {
       .catch(() => {
         // toaster.error('Could not copy text', err)
       });
+  }
+};
+
+export const handleThought = (thought: ResponseThought, conversation: ConversationItem) => {
+  const historyLength = conversation.conversationHistory.length;
+  const lastHistoryItem = conversation.conversationHistory[historyLength - 1];
+
+  const alreadyExistingStateThought = lastHistoryItem.response.thoughts.find(
+    (t) => t.id_ === thought.id_
+  );
+
+  if (alreadyExistingStateThought) {
+    if (thought.tool_name)
+      alreadyExistingStateThought.message += `**Tool:** ${thought.tool_name} \n`;
+    if (thought.message) alreadyExistingStateThought.message += `${thought.message}`;
+  } else {
+    lastHistoryItem.response.thoughts.push(thought);
   }
 };
