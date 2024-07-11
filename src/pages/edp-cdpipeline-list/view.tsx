@@ -61,7 +61,8 @@ export const PageView = () => {
 
   const { filterFunction } = useFilterContext();
 
-  const { cdPipeline: CDPipelinePermissions } = usePermissionsContext();
+  const { cdPipeline: CDPipelinePermissions, codebase: codebasePermissions } =
+    usePermissionsContext();
 
   return (
     <PageWrapper>
@@ -118,12 +119,16 @@ export const PageView = () => {
                   error={error}
                   filterFunction={filterFunction}
                   blockerComponent={
-                    !gitOpsCodebaseQuery.data && (
-                      <EmptyList
-                        customText={'No GitOps repository configured.'}
-                        linkText={'Click here to add a repository.'}
-                        handleClick={() => history.push(gitOpsConfigurationPageRoute)}
-                      />
+                    codebasePermissions.create ? (
+                      !gitOpsCodebaseQuery.data && (
+                        <EmptyList
+                          customText={'No GitOps repository configured.'}
+                          linkText={'Click here to add a repository.'}
+                          handleClick={() => history.push(gitOpsConfigurationPageRoute)}
+                        />
+                      )
+                    ) : (
+                      <EmptyList customText="You do not have permission to create GitOps repository." />
                     )
                   }
                 />

@@ -1,0 +1,23 @@
+const JIRA_SERVER_NAMES = {
+  URL: 'url',
+} as const;
+
+export const JIRA_SERVER_FORM_NAMES = {
+  [JIRA_SERVER_NAMES.URL]: {
+    name: JIRA_SERVER_NAMES.URL,
+  },
+};
+
+const INTEGRATION_SECRET_NAMES = {
+  USERNAME: 'username',
+  PASSWORD: 'password',
+} as const;
+
+export const INTEGRATION_SECRET_FORM_NAMES = {
+  [INTEGRATION_SECRET_NAMES.USERNAME]: {
+    name: INTEGRATION_SECRET_NAMES.USERNAME,
+  },
+  [INTEGRATION_SECRET_NAMES.PASSWORD]: {
+    name: INTEGRATION_SECRET_NAMES.PASSWORD,
+  },
+};

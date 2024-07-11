@@ -92,6 +92,46 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
     permissions: codebasePermissions,
   });
 
+  const renderEmptyListComponent = React.useCallback(() => {
+    const componentsAreLoaded = items !== null;
+
+    if (!codebasePermissions.create) {
+      return <EmptyList customText="You do not have permission to create components." />;
+    }
+
+    if (componentsAreLoaded && noGitServers) {
+      return (
+        <EmptyList
+          customText={'No Git Servers Connected.'}
+          linkText={'Click here to add a Git Server.'}
+          handleClick={() => history.push(gitServersConfigurationPageRoute)}
+        />
+      );
+    }
+
+    return (
+      <EmptyList
+        customText={"Let's kickstart the application onboarding!"}
+        linkText={'Click here to add a new application and integrate with the platform.'}
+        handleClick={() => {
+          setDialog({
+            modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
+            forwardedProps: {
+              mode: FORM_MODES.CREATE,
+            },
+          });
+        }}
+      />
+    );
+  }, [
+    codebasePermissions.create,
+    gitServersConfigurationPageRoute,
+    history,
+    items,
+    noGitServers,
+    setDialog,
+  ]);
+
   return (
     <>
       <Resources />
@@ -107,28 +147,7 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
         selected={selected}
         isSelected={(row) => selected.indexOf(row.metadata.name) !== -1}
         canBeSelected={(row) => row.spec.type !== CODEBASE_TYPES.SYSTEM}
-        emptyListComponent={
-          items !== null && noGitServers ? (
-            <EmptyList
-              customText={'No Git Servers Connected.'}
-              linkText={'Click here to add a Git Server.'}
-              handleClick={() => history.push(gitServersConfigurationPageRoute)}
-            />
-          ) : (
-            <EmptyList
-              customText={"Let's kickstart the application onboarding!"}
-              linkText={'Click here to add a new application and integrate with the platform.'}
-              handleClick={() => {
-                setDialog({
-                  modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-                  forwardedProps: {
-                    mode: FORM_MODES.CREATE,
-                  },
-                });
-              }}
-            />
-          )
-        }
+        emptyListComponent={renderEmptyListComponent()}
       />
       {deleteDialogOpen && (
         <ComponentMultiDeletion

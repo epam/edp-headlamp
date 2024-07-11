@@ -7,4 +7,7 @@ export const PermissionsContext = React.createContext<PermissionsContextProvider
     update: false,
     delete: false,
   },
+  codebase: {
+    create: false,
+  },
 });

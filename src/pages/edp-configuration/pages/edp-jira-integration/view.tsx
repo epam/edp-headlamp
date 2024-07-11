@@ -16,10 +16,9 @@ import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { JiraServerKubeObject } from '../../../../k8s/JiraServer';
 import { SecretKubeObject } from '../../../../k8s/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/Secret/labels';
-import { FORM_MODES } from '../../../../types/forms';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
-import { ManageJira } from '../../../../widgets/ManageJira';
+import { ManageJiraServer } from '../../../../widgets/ManageJiraServer';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './constants';
 
@@ -32,7 +31,6 @@ export const PageView = () => {
 
   const jiraServer = jiraServers?.[0]?.jsonData;
   const jiraServerSecret = jiraServerSecrets?.[0]?.jsonData;
-  const mode = !!jiraServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const ownerReference = jiraServerSecret?.metadata?.ownerReferences?.[0]?.kind;
   const error = jiraServersError || jiraServerSecretsError;
   const isLoading = (jiraServers === null || jiraServerSecrets === null) && !error;
@@ -110,36 +108,26 @@ export const PageView = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ManageJira
-              formData={{
-                jiraServer,
-                jiraServerSecret,
-                ownerReference,
-                isReadOnly: !!ownerReference,
-                mode,
-                handleClosePanel: handleCloseCreateDialog,
-              }}
+            <ManageJiraServer
+              secret={jiraServerSecret}
+              jiraServer={jiraServer}
+              ownerReference={ownerReference}
             />
           </AccordionDetails>
         </Accordion>
       </LoadingWrapper>
     );
-  }, [error, jiraServerSecret, isLoading, jiraServer, mode]);
+  }, [error, jiraServerSecret, isLoading, jiraServer]);
 
   return (
     <ConfigurationPageContent
       creationForm={{
         label: 'Add Integration',
         component: (
-          <ManageJira
-            formData={{
-              jiraServer,
-              jiraServerSecret,
-              ownerReference,
-              isReadOnly: !!ownerReference,
-              mode,
-              handleClosePanel: handleCloseCreateDialog,
-            }}
+          <ManageJiraServer
+            secret={jiraServerSecret}
+            jiraServer={jiraServer}
+            ownerReference={ownerReference}
           />
         ),
         isOpen: isCreateDialogOpen,

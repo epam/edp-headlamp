@@ -11,4 +11,9 @@ export const JiraServerMock = {
     available: true,
     status: 'finished',
   },
+  spec: {
+    apiUrl: 'https://test-jira.com',
+    credentialName: 'ci-jira',
+    rootUrl: 'https://test-jira.com',
+  },
 };

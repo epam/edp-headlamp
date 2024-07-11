@@ -134,12 +134,13 @@ export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) =
                         return (
                           <StyledAccordionChildBtn
                             color="inherit"
-                            onClick={() =>
+                            onClick={() => {
                               setActiveTab({
                                 type: 'step',
                                 name: taskRunStepName,
-                              })
-                            }
+                              });
+                              setActiveAccordion(taskRunName);
+                            }}
                             isActive={isActive}
                           >
                             <Stack direction="row" alignItems="center" spacing={2}>
