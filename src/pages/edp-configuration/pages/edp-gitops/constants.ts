@@ -8,3 +8,7 @@ export const GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION: PageDescription = {
   routePath: '/configuration/gitops',
   docLink: EDP_USER_GUIDE.GIT_OPS.url,
 };
+
+export const permissionChecks = {
+  CODEBASE: 'codebase',
+} as const;

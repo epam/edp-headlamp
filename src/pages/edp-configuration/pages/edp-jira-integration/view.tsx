@@ -112,6 +112,7 @@ export const PageView = () => {
               secret={jiraServerSecret}
               jiraServer={jiraServer}
               ownerReference={ownerReference}
+              handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
@@ -128,6 +129,7 @@ export const PageView = () => {
             secret={jiraServerSecret}
             jiraServer={jiraServer}
             ownerReference={ownerReference}
+            handleClosePanel={handleCloseCreateDialog}
           />
         ),
         isOpen: isCreateDialogOpen,

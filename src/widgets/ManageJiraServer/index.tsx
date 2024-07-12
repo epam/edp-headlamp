@@ -29,9 +29,10 @@ export const ManageJiraServer = ({
 
   const jiraServerEditForm = useJiraServerEditForm({
     jiraServer,
+    handleClosePanel,
   });
 
-  const jiraServerCreateForm = useJiraServerCreateForm();
+  const jiraServerCreateForm = useJiraServerCreateForm({ handleClosePanel });
 
   const jiraServerFormData: FormItem = React.useMemo(
     () =>

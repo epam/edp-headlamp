@@ -7,7 +7,7 @@ import { JiraServerKubeObjectInterface } from '../../../k8s/JiraServer/types';
 import { createJiraServerInstance } from '../../../k8s/JiraServer/utils/createJiraServerInstance';
 import { JiraServerFormValues } from '../types';
 
-export const useJiraServerCreateForm = () => {
+export const useJiraServerCreateForm = ({ handleClosePanel }: { handleClosePanel: () => void }) => {
   const jiraServerCreateMutation = useResourceCRUDMutation<
     JiraServerKubeObjectInterface,
     CRUD_TYPES.CREATE
@@ -29,9 +29,11 @@ export const useJiraServerCreateForm = () => {
 
       const newJiraServerData = createJiraServerInstance(url);
 
-      jiraServerCreateMutation.mutate(newJiraServerData);
+      jiraServerCreateMutation.mutate(newJiraServerData, {
+        onSuccess: () => handleClosePanel(),
+      });
     },
-    [jiraServerCreateMutation]
+    [handleClosePanel, jiraServerCreateMutation]
   );
 
   return React.useMemo(

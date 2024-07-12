@@ -9,8 +9,10 @@ import { JiraServerFormValues } from '../types';
 
 export const useJiraServerEditForm = ({
   jiraServer,
+  handleClosePanel,
 }: {
   jiraServer: JiraServerKubeObjectInterface;
+  handleClosePanel: () => void;
 }) => {
   const jiraServerEditMutation = useResourceCRUDMutation<
     JiraServerKubeObjectInterface,
@@ -45,9 +47,11 @@ export const useJiraServerEditForm = ({
         },
       };
 
-      jiraServerEditMutation.mutate(newJiraServerData);
+      jiraServerEditMutation.mutate(newJiraServerData, {
+        onSuccess: () => handleClosePanel(),
+      });
     },
-    [jiraServer, jiraServerEditMutation]
+    [handleClosePanel, jiraServer, jiraServerEditMutation]
   );
 
   return React.useMemo(
