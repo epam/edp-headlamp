@@ -31,6 +31,7 @@ import { ManageGitOps } from '../../../../widgets/ManageGitOps';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { routeEDPGitServerList } from '../edp-gitserver-list/route';
 import { GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION } from './constants';
+import { usePermissionsContext } from './providers/Permissions/hooks';
 
 export const PageView = () => {
   const [codebases, codebasesError] = EDPCodebaseKubeObject.useList({
@@ -59,6 +60,8 @@ export const PageView = () => {
   const handleOpenCreateDialog = () => setCreateDialogOpen(true);
   const handleCloseCreateDialog = () => setCreateDialogOpen(false);
 
+  const { codebase: codebasePermissions } = usePermissionsContext();
+
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(error);
 
@@ -73,6 +76,12 @@ export const PageView = () => {
           linkText={'Click here to add a Git Server.'}
           handleClick={() => history.push(gitServersConfigurationPageRoute)}
         />
+      );
+    }
+
+    if (!isLoading && !codebasePermissions.create) {
+      return (
+        <EmptyList customText={'You do not have permissions to create GitOps repositories.'} />
       );
     }
 
@@ -137,6 +146,7 @@ export const PageView = () => {
       </LoadingWrapper>
     );
   }, [
+    codebasePermissions.create,
     color,
     error,
     gitOpsCodebase,
