@@ -119,16 +119,12 @@ export const PageView = () => {
                   error={error}
                   filterFunction={filterFunction}
                   blockerComponent={
-                    codebasePermissions.create ? (
-                      !gitOpsCodebaseQuery.data && (
-                        <EmptyList
-                          customText={'No GitOps repository configured.'}
-                          linkText={'Click here to add a repository.'}
-                          handleClick={() => history.push(gitOpsConfigurationPageRoute)}
-                        />
-                      )
-                    ) : (
-                      <EmptyList customText="You do not have permission to create GitOps repository." />
+                    !gitOpsCodebaseQuery.data && (
+                      <EmptyList
+                        customText={'No GitOps repository configured.'}
+                        linkText={'Click here to add a repository.'}
+                        handleClick={() => history.push(gitOpsConfigurationPageRoute)}
+                      />
                     )
                   }
                 />
