@@ -41,6 +41,10 @@ export const PageView = () => {
     () =>
       ingresses
         ? ingresses.filter((ingress) => {
+            if (!ingress.metadata.annotations) {
+              return false;
+            }
+
             return 'nginx.ingress.kubernetes.io/auth-url' in ingress.metadata.annotations;
           })
         : null,
