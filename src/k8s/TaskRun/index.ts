@@ -89,11 +89,11 @@ export class TaskRunKubeObject extends K8s.cluster.makeKubeObject<TaskRunKubeObj
     status: ValueOf<typeof TASK_RUN_STEP_STATUS>,
     reason: ValueOf<typeof TASK_RUN_STEP_REASON>
   ): [string, string, boolean?] {
-    if (status === undefined || reason === undefined) {
+    if (status === undefined) {
       return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }
     const _status = status.toLowerCase();
-    const _reason = reason.toLowerCase();
+    const _reason = reason && reason.toLowerCase();
 
     switch (_status) {
       case TASK_RUN_STEP_STATUS.RUNNING:
