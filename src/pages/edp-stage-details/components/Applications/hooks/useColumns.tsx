@@ -169,7 +169,7 @@ export const useColumns = ({
           <Grid item>
             <Tooltip
               title={
-                'Redefines pipeline settings, thus enabling a GitOps approach for the Environment .'
+                'Override default deployment settings with custom configurations.'
               }
             >
               <Icon icon={ICONS.INFO_CIRCLE} width={20} />
@@ -275,7 +275,7 @@ export const useColumns = ({
           <Grid item>
             <Tooltip
               title={
-                'The Ingress endpoint directs you to the deployed application. To view the link, ensure your application is deployed with an Ingress controller.'
+                'The Ingress endpoint directs you to the deployed application. To view the link, ensure your application is deployed with an Ingress resource.'
               }
             >
               <Icon icon={ICONS.INFO_CIRCLE} width={20} />
