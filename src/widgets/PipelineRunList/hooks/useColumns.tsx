@@ -2,11 +2,13 @@ import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { IconButton, Link as MuiLink } from '@mui/material';
 import React from 'react';
+import { ResourceIconLink } from '../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { TableColumn } from '../../../components/Table/types';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/PipelineRun/types';
+import { getPullRequestURL } from '../../../k8s/PipelineRun/utils/getPullRequestURL';
 import { SYSTEM_QUICK_LINKS } from '../../../k8s/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
 import { routeEDPPipelineDetails } from '../../../pages/edp-pipeline-details/route';
@@ -97,6 +99,28 @@ export const useColumns = ({
           );
         },
         width: '30%',
+      },
+      {
+        id: 'pullRequestUrl',
+        label: 'Pull Request',
+        render: (resource) => {
+          const link = getPullRequestURL(resource);
+
+          if (!link) {
+            return null;
+          }
+
+          return (
+            <ResourceIconLink
+              tooltipTitle={'Go to the Pull Request page'}
+              link={link}
+              icon={ICONS.NEW_WINDOW}
+              name="pull request"
+            />
+          );
+        },
+        width: '10%',
+        textAlign: 'center',
       },
       {
         id: 'startedAt',

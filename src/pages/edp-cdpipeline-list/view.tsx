@@ -61,8 +61,7 @@ export const PageView = () => {
 
   const { filterFunction } = useFilterContext();
 
-  const { cdPipeline: CDPipelinePermissions, codebase: codebasePermissions } =
-    usePermissionsContext();
+  const { cdPipeline: CDPipelinePermissions } = usePermissionsContext();
 
   return (
     <PageWrapper>
