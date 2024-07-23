@@ -33,7 +33,7 @@ config:
   oidc:
     enabled: false
     # -- Keycloak URL
-    keycloakUrl: "https://keycloak.example.com"
+    keycloakUrl: "https://keycloak.example.com/auth"
     # -- OIDC client ID
     clientID: ""
     # -- OIDC client secret name
