@@ -25,12 +25,12 @@ A Helm chart for EDP Headlamp
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity settings for pod assignment |
 | config.baseURL | string | `""` | base url path at which headlamp should run |
-| config.oidc | object | `{"clientID":"","clientSecretKey":"","clientSecretName":"","enabled":false,"issuerRealm":"","keycloakUrl":"https://keycloak.example.com","scopes":""}` | For detailed instructions, refer to: https://epam.github.io/edp-install/operator-guide/configure-keycloak-oidc-eks/, https://epam.github.io/edp-install/operator-guide/headlamp-oidc/ |
+| config.oidc | object | `{"clientID":"","clientSecretKey":"","clientSecretName":"","enabled":false,"issuerRealm":"","keycloakUrl":"https://keycloak.example.com/auth","scopes":""}` | For detailed instructions, refer to: https://epam.github.io/edp-install/operator-guide/configure-keycloak-oidc-eks/, https://epam.github.io/edp-install/operator-guide/headlamp-oidc/ |
 | config.oidc.clientID | string | `""` | OIDC client ID |
 | config.oidc.clientSecretKey | string | `""` | OIDC client secret key |
 | config.oidc.clientSecretName | string | `""` | OIDC client secret name |
 | config.oidc.issuerRealm | string | `""` | OIDC issuer realm |
-| config.oidc.keycloakUrl | string | `"https://keycloak.example.com"` | Keycloak URL |
+| config.oidc.keycloakUrl | string | `"https://keycloak.example.com/auth"` | Keycloak URL |
 | config.oidc.scopes | string | `""` | OIDC scopes to be used |
 | extraVolumeMounts | list | `[]` | Additional volumeMounts to be added to the container |
 | extraVolumes | list | `[]` | Additional volumes to be added to the pod |
