@@ -18,8 +18,6 @@ export const URL = () => {
     },
   } = useFormsContext();
 
-  console.log(defaultValues);
-
   return (
     <FormTextField
       {...register(JIRA_SERVER_FORM_NAMES.url.name, {

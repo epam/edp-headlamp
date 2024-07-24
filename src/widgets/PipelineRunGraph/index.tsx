@@ -1,11 +1,11 @@
 import { Icon } from '@iconify/react';
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   Grid,
   IconButton,
-  Link,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -26,8 +26,8 @@ import { TaskRunKubeObject } from '../../k8s/TaskRun';
 import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../k8s/TaskRun/labels';
 import { TaskRunKubeObjectInterface, TaskRunStep } from '../../k8s/TaskRun/types';
 import { getTaskRunStepReason, getTaskRunStepStatus } from '../../k8s/TaskRun/utils/getStatus';
+import { routeEDPPipelineDetails } from '../../pages/edp-pipeline-details/route';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
-import { LinkCreationService } from '../../services/link-creation';
 import { rem } from '../../utils/styling/rem';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from './constants';
 import { useInfoRows } from './hooks/useInfoRows';
@@ -69,13 +69,6 @@ export const PipelineRunGraph = () => {
         taskRunReason
       );
 
-      const taskRunAnchorLink = LinkCreationService.tekton.createPipelineRunLink(
-        tektonBaseURL,
-        namespace,
-        pipelineRun.metadata.name,
-        taskRunName
-      );
-
       return (
         <div style={{ padding: `${rem(10)} 0` }}>
           <Grid container spacing={1}>
@@ -91,7 +84,14 @@ export const PipelineRunGraph = () => {
                   />
                 </Grid>
                 <Grid item>
-                  <Link href={taskRunAnchorLink} target={'_blank'}>
+                  <Link
+                    routeName={routeEDPPipelineDetails.path}
+                    params={{
+                      namespace,
+                      name: pipelineRun.metadata.name,
+                    }}
+                    search={`?taskRun=${name}`}
+                  >
                     <Typography variant={'subtitle2'} className={classes.treeItemTitle}>
                       {taskRunName}
                     </Typography>
@@ -114,14 +114,6 @@ export const PipelineRunGraph = () => {
                       reason
                     );
 
-                    const taskRunStepLink = LinkCreationService.tekton.createPipelineRunLink(
-                      tektonBaseURL,
-                      namespace,
-                      pipelineRun.metadata.name,
-                      taskRunName,
-                      stepName
-                    );
-
                     return (
                       <Grid item xs={12}>
                         <Grid container spacing={1} alignItems={'center'}>
@@ -135,7 +127,14 @@ export const PipelineRunGraph = () => {
                             />
                           </Grid>
                           <Grid item>
-                            <Link href={taskRunStepLink} target={'_blank'}>
+                            <Link
+                              routeName={routeEDPPipelineDetails.path}
+                              params={{
+                                namespace,
+                                name: pipelineRun.metadata.name,
+                              }}
+                              search={`?taskRun=${taskRunName}&step=${stepName}`}
+                            >
                               <Typography variant={'subtitle2'} title={stepName}>
                                 {stepName}
                               </Typography>
@@ -152,7 +151,7 @@ export const PipelineRunGraph = () => {
         </div>
       );
     },
-    [classes.treeItemTitle, namespace, pipelineRun.metadata.name, tektonBaseURL]
+    [classes.treeItemTitle, namespace, pipelineRun.metadata.name]
   );
 
   const renderNode = React.useCallback(
@@ -166,13 +165,6 @@ export const PipelineRunGraph = () => {
       const status = TaskRunKubeObject.parseStatus(TaskRunByName);
       const reason = TaskRunKubeObject.parseStatusReason(TaskRunByName);
       const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(status, reason);
-
-      const taskRunAnchorLink = LinkCreationService.tekton.createPipelineRunLink(
-        tektonBaseURL,
-        namespace,
-        pipelineRun.metadata.name,
-        name
-      );
 
       return (
         // @ts-ignore
@@ -193,7 +185,14 @@ export const PipelineRunGraph = () => {
                 />
               </Grid>
               <Grid item style={{ overflow: 'hidden' }}>
-                <Link href={taskRunAnchorLink} target={'_blank'}>
+                <Link
+                  routeName={routeEDPPipelineDetails.path}
+                  params={{
+                    namespace,
+                    name: pipelineRun.metadata.name,
+                  }}
+                  search={`?taskRun=${name}`}
+                >
                   <Typography variant={'subtitle2'} className={classes.treeItemTitle}>
                     {name}
                   </Typography>
@@ -204,7 +203,7 @@ export const PipelineRunGraph = () => {
         </Node>
       );
     },
-    [classes.treeItemTitle, namespace, pipelineRun.metadata.name, renderTaskLegend, tektonBaseURL]
+    [classes.treeItemTitle, namespace, pipelineRun.metadata.name, renderTaskLegend]
   );
 
   const infoRows = useInfoRows(tektonBaseURL);

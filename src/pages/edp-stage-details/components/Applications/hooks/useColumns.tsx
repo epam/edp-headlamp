@@ -167,11 +167,7 @@ export const useColumns = ({
         <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
           <Grid item>Values override</Grid>
           <Grid item>
-            <Tooltip
-              title={
-                'Override default deployment settings with custom configurations.'
-              }
-            >
+            <Tooltip title={'Override default deployment settings with custom configurations.'}>
               <Icon icon={ICONS.INFO_CIRCLE} width={20} />
             </Tooltip>
           </Grid>
