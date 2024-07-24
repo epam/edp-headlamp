@@ -1,7 +1,11 @@
-import { Link } from '@mui/material';
+import { Icon } from '@iconify/react';
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Link as MuiLink, Stack } from '@mui/material';
 import React from 'react';
 import { StatusIcon } from '../../../components/StatusIcon';
+import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
+import { routeEDPPipelineDetails } from '../../../pages/edp-pipeline-details/route';
 import { useSpecificDialogContext } from '../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../services/link-creation';
 import { formatFullYear, humanizeDefault } from '../../../utils/date/humanize';
@@ -24,12 +28,6 @@ export const useInfoRows = (tektonBaseURL: string) => {
   const namespace = pipelineRun?.metadata.namespace;
 
   return React.useMemo(() => {
-    const pipelineRunLink = LinkCreationService.tekton.createPipelineRunLink(
-      tektonBaseURL,
-      namespace,
-      pipelineRunName
-    );
-
     const pipelineLink = pipelineRun?.status?.pipelineSpec?.params?.[0]?.default
       ? LinkCreationService.tekton.createPipelineLink(tektonBaseURL, namespace, pipelineRefName)
       : pipelineRefName;
@@ -82,7 +80,13 @@ export const useInfoRows = (tektonBaseURL: string) => {
         {
           label: 'PipelineRun',
           text: (
-            <Link href={pipelineRunLink} target="_blank" rel="noopener">
+            <Link
+              routeName={routeEDPPipelineDetails.path}
+              params={{
+                namespace,
+                name: pipelineRunName,
+              }}
+            >
               {pipelineRunName}
             </Link>
           ),
@@ -90,9 +94,14 @@ export const useInfoRows = (tektonBaseURL: string) => {
         {
           label: 'Pipeline',
           text: (
-            <Link href={pipelineLink} target="_blank" rel="noopener">
-              {pipelineRefName}
-            </Link>
+            <MuiLink href={pipelineLink} target="_blank" rel="noopener">
+              <Stack direction="row" spacing={1} alignItems="center">
+                <span>{pipelineRefName}</span>
+                <span>
+                  <Icon icon={ICONS.NEW_WINDOW} />
+                </span>
+              </Stack>
+            </MuiLink>
           ),
         },
       ],

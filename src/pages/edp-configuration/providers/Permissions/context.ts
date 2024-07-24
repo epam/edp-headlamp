@@ -5,6 +5,6 @@ export const PermissionsContext = React.createContext<PermissionsContextProvider
   secret: {
     create: false,
     update: false,
-    delete: false
+    delete: false,
   },
 });

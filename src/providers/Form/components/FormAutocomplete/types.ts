@@ -1,4 +1,4 @@
-import { Control, FieldErrors } from "react-hook-form";
+import { Control, FieldErrors } from 'react-hook-form';
 
 export interface FormAutocompleteProps<T> {
   name: string;

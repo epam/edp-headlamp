@@ -1,21 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Button, styled } from '@mui/material';
-
-export const StyledAccordion = styled(Accordion, {
-  shouldForwardProp: (prop) => prop !== 'expanded',
-})<{
-  expanded?: boolean;
-}>(({ theme, expanded }) => ({
-  borderLeft: expanded ? `2px solid ${theme.palette.primary.main}` : null,
-  maxWidth: expanded ? '100%' : '90%',
-
-  '&.Mui-expanded': {
-    margin: 0,
-
-    '&::before': {
-      opacity: 1,
-    },
-  },
-}));
+import { AccordionDetails, AccordionSummary, Button, styled } from '@mui/material';
 
 export const StyledAccordionSummary = styled(AccordionSummary, {
   shouldForwardProp: (prop) => prop !== 'isActive',

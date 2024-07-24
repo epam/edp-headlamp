@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Grid, IconButton, Link } from '@mui/material';
+import { Grid, IconButton, Link, Stack } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { PipelineKubeObject } from '../../../../k8s/Pipeline';
@@ -12,10 +12,15 @@ export const Pipeline = ({ pipelineLink, pipelineName, namespace }) => {
   const { setDialog } = useDialogContext();
 
   return (
-    <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+    <Grid container spacing={2} alignItems={'center'} wrap={'nowrap'}>
       <Grid item>
-        <Link href={pipelineLink} target={'_blank'}>
-          {pipelineName}
+        <Link href={pipelineLink} target={'_blank'} sx={{ wordBreak: 'break-all' }}>
+          <Stack direction="row" spacing={0.5} alignItems="center">
+            <span>{pipelineName}</span>
+            <span>
+              <Icon icon={ICONS.NEW_WINDOW} />
+            </span>
+          </Stack>
         </Link>
       </Grid>
       <Grid item>
