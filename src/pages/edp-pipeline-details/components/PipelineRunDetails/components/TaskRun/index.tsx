@@ -25,7 +25,7 @@ export const TaskRun = ({ taskRun }: { taskRun: TaskRunKubeObjectInterface }) =>
 
   const tabs = useTabs({ taskRun });
 
-  return (
+  return taskRun ? (
     <Paper>
       <StyledDetailsHeader>
         <Stack spacing={1}>
@@ -71,5 +71,5 @@ export const TaskRun = ({ taskRun }: { taskRun: TaskRunKubeObjectInterface }) =>
         <Tabs tabs={tabs} initialTabIdx={0} />
       </StyledDetailsBody>
     </Paper>
-  );
+  ) : null;
 };

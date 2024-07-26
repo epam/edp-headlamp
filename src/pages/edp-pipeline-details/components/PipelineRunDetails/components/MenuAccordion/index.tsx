@@ -15,6 +15,24 @@ import {
   StyledAccordionSummary,
 } from '../../../../styles';
 
+export function updateUnexecutedSteps(steps) {
+  if (!steps) {
+    return steps;
+  }
+  let errorIndex = steps.length - 1;
+  return steps.map((step, index) => {
+    if (!step.terminated || step.terminated.reason !== 'Completed') {
+      errorIndex = Math.min(index, errorIndex);
+    }
+    if (index > errorIndex) {
+      // eslint-disable-next-line no-unused-vars
+      const { running, terminated, ...rest } = step;
+      return { ...rest };
+    }
+    return step;
+  });
+}
+
 export const MenuAccordion = ({ taskRunName, taskRunListByNameMap, setQueryParams }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -28,7 +46,7 @@ export const MenuAccordion = ({ taskRunName, taskRunListByNameMap, setQueryParam
 
   const [icon, color, isRotating] = TaskRunKubeObject.getStatusIcon(taskRunStatus, taskRunReason);
 
-  const taskRunSteps = taskRun?.status?.steps;
+  const taskRunSteps = updateUnexecutedSteps(taskRun?.status?.steps);
   const isExpanded = queryParamTaskRun === taskRunName;
   const isActive = queryParamTaskRun === taskRunName && !queryParamStep;
 

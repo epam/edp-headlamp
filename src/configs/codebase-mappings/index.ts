@@ -39,6 +39,7 @@ export const CODEBASE_COMMON_FRAMEWORKS = {
   GIN: 'gin',
   AWS: 'aws',
   GIT_OPS: 'gitops',
+  ANSIBLE: 'ansible'
 } as const;
 
 export const CODEBASE_COMMON_BUILD_TOOLS = {

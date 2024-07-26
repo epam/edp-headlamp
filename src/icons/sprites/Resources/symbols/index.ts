@@ -38,3 +38,4 @@ export * from './ECR';
 export * from './Harbor';
 export * from './Openshift';
 export * from './Nexus';
+export * from './Ansible';

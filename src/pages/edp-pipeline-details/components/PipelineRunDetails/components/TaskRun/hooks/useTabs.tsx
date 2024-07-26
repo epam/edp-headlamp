@@ -47,7 +47,7 @@ export const useTabs = ({ taskRun }) => {
         : []),
       {
         label: 'Status',
-        component: <ViewYAML item={taskRun.status} />,
+        component: <ViewYAML item={taskRun?.status} />,
       },
     ];
   }, [results, taskRun]);

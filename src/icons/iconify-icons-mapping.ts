@@ -73,4 +73,5 @@ export enum ICONS {
   KEY = 'solar:key-bold',
   REDO = 'uil:redo',
   CANCEL = 'mdi:cancel-bold',
+  QUEUE = 'hugeicons:queue-02',
 }

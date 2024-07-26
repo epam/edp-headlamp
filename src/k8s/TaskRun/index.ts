@@ -99,7 +99,7 @@ export class TaskRunKubeObject extends K8s.cluster.makeKubeObject<TaskRunKubeObj
       case TASK_RUN_STEP_STATUS.RUNNING:
         return [ICONS.LOADER_CIRCLE, STATUS_COLOR.IN_PROGRESS, true];
       case TASK_RUN_STEP_STATUS.WAITING:
-        return [ICONS.LOADER_CIRCLE, STATUS_COLOR.IN_PROGRESS, true];
+        return [ICONS.QUEUE, STATUS_COLOR.UNKNOWN];
       case TASK_RUN_STEP_STATUS.TERMINATED:
         if (_reason === TASK_RUN_STEP_REASON.COMPLETED) {
           return [ICONS.CHECK_CIRCLE, STATUS_COLOR.SUCCESS];

@@ -3,12 +3,17 @@ import React from 'react';
 import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { Tabs } from '../../../../../../components/Tabs';
 import { PodKubeObject } from '../../../../../../k8s/Pod';
-import { getTaskRunStepReason } from '../../../../../../k8s/TaskRun/utils/getStatus';
+import {
+  getTaskRunStepReason,
+  getTaskRunStepStatus,
+} from '../../../../../../k8s/TaskRun/utils/getStatus';
 import { humanize } from '../../../../../../utils/date/humanize';
+import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
 import { StyledDetailsBody, StyledDetailsHeader } from '../../styles';
 import { useTabs } from './hooks/useTabs';
 
 export const TaskRunStep = ({ taskRun, step }) => {
+  const status = getTaskRunStepStatus(step);
   const reason = getTaskRunStepReason(step);
 
   const completionTime = step?.terminated?.finishedAt || new Date().toISOString();
@@ -56,7 +61,7 @@ export const TaskRunStep = ({ taskRun, step }) => {
                 component="span"
                 color="secondary.dark"
               >
-                {reason}
+                {capitalizeFirstLetter(reason || status || 'unknown')}
               </Typography>
             </Typography>
             <Typography
