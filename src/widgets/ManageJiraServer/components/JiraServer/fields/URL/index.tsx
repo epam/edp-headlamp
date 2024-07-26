@@ -12,7 +12,7 @@ export const URL = () => {
         form: {
           register,
           control,
-          formState: { errors, defaultValues },
+          formState: { errors },
         },
       },
     },

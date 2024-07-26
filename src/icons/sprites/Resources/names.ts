@@ -39,5 +39,6 @@ export const RESOURCE_ICON_NAMES = {
   HARBOR: 'harbor',
   OPENSHIFT: 'openshift',
   NEXUS: 'nexus',
+  ANSIBLE: 'ansible',
   OTHER: 'other',
 } as const;

@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Angular,
+  Ansible,
   Antora,
   AWS,
   Beego,
@@ -49,6 +50,7 @@ export const Resources = () => {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       display={'none'}
     >
+      <Ansible />
       <Beego />
       <Codenarc />
       <Container />
