@@ -1,12 +1,12 @@
-import { EDPGitServerKubeObjectInterface } from '../../../../k8s/EDPGitServer/types';
-import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
+import { SecretKubeObjectInterface } from '../../../../k8s/groups/default/Secret/types';
+import { GitServerKubeObjectInterface } from '../../../../k8s/groups/EDP/GitServer/types';
 
 export interface DataContextProviderValue {
-  gitServer: EDPGitServerKubeObjectInterface;
+  gitServer: GitServerKubeObjectInterface;
   gitServerSecret: SecretKubeObjectInterface;
 }
 
 export interface DataContextProviderProps {
-  gitServer: EDPGitServerKubeObjectInterface;
+  gitServer: GitServerKubeObjectInterface;
   gitServerSecret: SecretKubeObjectInterface;
 }

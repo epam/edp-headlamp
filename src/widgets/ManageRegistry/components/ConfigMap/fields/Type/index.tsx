@@ -8,7 +8,7 @@ import {
   CONTAINER_REGISTRY_TYPE,
   CONTAINER_REGISTRY_TYPE_BY_PLATFORM,
   CONTAINER_REGISTRY_TYPE_LABEL_MAP,
-} from '../../../../../../k8s/ConfigMap/constants';
+} from '../../../../../../k8s/groups/default/ConfigMap/constants';
 import { FormRadioGroup } from '../../../../../../providers/Form/components/FormRadioGroup';
 import { FieldEvent, FORM_MODES } from '../../../../../../types/forms';
 import { ValueOf } from '../../../../../../types/global';

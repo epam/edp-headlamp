@@ -19,14 +19,17 @@ import { InfoColumns } from '../../components/InfoColumns';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { StatusIcon } from '../../components/StatusIcon';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { PipelineRunKubeObject } from '../../k8s/PipelineRun';
-import { SYSTEM_QUICK_LINKS } from '../../k8s/QuickLink/constants';
-import { useQuickLinksURLsQuery } from '../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
-import { TaskRunKubeObject } from '../../k8s/TaskRun';
-import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../k8s/TaskRun/labels';
-import { TaskRunKubeObjectInterface, TaskRunStep } from '../../k8s/TaskRun/types';
-import { getTaskRunStepReason, getTaskRunStepStatus } from '../../k8s/TaskRun/utils/getStatus';
-import { routeEDPPipelineDetails } from '../../pages/edp-pipeline-details/route';
+import { SYSTEM_QUICK_LINKS } from '../../k8s/groups/EDP/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
+import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
+import { TaskRunKubeObject } from '../../k8s/groups/Tekton/TaskRun';
+import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../k8s/groups/Tekton/TaskRun/labels';
+import { TaskRunKubeObjectInterface, TaskRunStep } from '../../k8s/groups/Tekton/TaskRun/types';
+import {
+  getTaskRunStepReason,
+  getTaskRunStepStatus,
+} from '../../k8s/groups/Tekton/TaskRun/utils/getStatus';
+import { routePipelineDetails } from '../../pages/pipeline-details/route';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { rem } from '../../utils/styling/rem';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from './constants';
@@ -85,7 +88,7 @@ export const PipelineRunGraph = () => {
                 </Grid>
                 <Grid item>
                   <Link
-                    routeName={routeEDPPipelineDetails.path}
+                    routeName={routePipelineDetails.path}
                     params={{
                       namespace,
                       name: pipelineRun.metadata.name,
@@ -128,7 +131,7 @@ export const PipelineRunGraph = () => {
                           </Grid>
                           <Grid item>
                             <Link
-                              routeName={routeEDPPipelineDetails.path}
+                              routeName={routePipelineDetails.path}
                               params={{
                                 namespace,
                                 name: pipelineRun.metadata.name,
@@ -186,7 +189,7 @@ export const PipelineRunGraph = () => {
               </Grid>
               <Grid item style={{ overflow: 'hidden' }}>
                 <Link
-                  routeName={routeEDPPipelineDetails.path}
+                  routeName={routePipelineDetails.path}
                   params={{
                     namespace,
                     name: pipelineRun.metadata.name,

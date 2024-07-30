@@ -1,4 +1,4 @@
-import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
+import { CodebaseKubeObjectInterface } from '../../../k8s/groups/EDP/Codebase/types';
 import { isGroovyLibrary } from './index';
 
 test('cheking isGroovyLibrary', () => {
@@ -8,7 +8,7 @@ test('cheking isGroovyLibrary', () => {
         type: 'library',
         lang: 'groovy-pipeline',
       },
-    } as EDPCodebaseKubeObjectInterface)
+    } as CodebaseKubeObjectInterface)
   ).toBeTruthy();
 });
 
@@ -20,7 +20,7 @@ describe('cheking isGroovyLibrary', () => {
           type: 'library',
           lang: 'groovy-pipeline',
         },
-      } as EDPCodebaseKubeObjectInterface)
+      } as CodebaseKubeObjectInterface)
     ).toBeTruthy();
   });
   it('should return false if spec type is not library and lang is not groovy-pipeline', () => {
@@ -29,7 +29,7 @@ describe('cheking isGroovyLibrary', () => {
         spec: {
           type: 'library',
         },
-      } as EDPCodebaseKubeObjectInterface)
+      } as CodebaseKubeObjectInterface)
     ).toBeFalsy();
   });
 });

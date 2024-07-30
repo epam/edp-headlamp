@@ -1,7 +1,7 @@
 import React from 'react';
 import { EmptyList } from '../../components/EmptyList';
 import { Table } from '../../components/Table';
-import { PipelineRunKubeObjectInterface } from '../../k8s/PipelineRun/types';
+import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { DeletionDialog } from './components/DeleteDialog';
 import { useColumns } from './hooks/useColumns';
 import { useUpperColumns } from './hooks/useUpperColumns';

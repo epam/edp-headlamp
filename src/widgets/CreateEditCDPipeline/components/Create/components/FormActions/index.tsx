@@ -2,10 +2,10 @@ import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { TabPanel } from '../../../../../../components/TabPanel';
-import { useCreateCDPipeline } from '../../../../../../k8s/EDPCDPipeline/hooks/useCreateCDPipeline';
-import { EDPCDPipelineKubeObjectInterface } from '../../../../../../k8s/EDPCDPipeline/types';
-import { createCDPipelineInstance } from '../../../../../../k8s/EDPCDPipeline/utils/createCDPipelineInstance';
-import { routeEDPCDPipelineDetails } from '../../../../../../pages/edp-cdpipeline-details/route';
+import { useCreateCDPipeline } from '../../../../../../k8s/groups/EDP/CDPipeline/hooks/useCreateCDPipeline';
+import { CDPipelineKubeObjectInterface } from '../../../../../../k8s/groups/EDP/CDPipeline/types';
+import { createCDPipelineInstance } from '../../../../../../k8s/groups/EDP/CDPipeline/utils/createCDPipelineInstance';
+import { routeCDPipelineDetails } from '../../../../../../pages/cdpipeline-details/route';
 import {
   useDialogContext,
   useSpecificDialogContext,
@@ -80,13 +80,13 @@ export const FormActions = () => {
   const { setDialog } = useDialogContext();
 
   const onSuccess = React.useCallback(
-    (CDPipelineData: EDPCDPipelineKubeObjectInterface) => {
+    (CDPipelineData: CDPipelineKubeObjectInterface) => {
       const successModalForwardedProps: SuccessDialogForwardedProps = {
         dialogTitle: 'Create Environment',
         title: 'Your new environment is created',
         description: 'Make sure to add stages to your environment to start deploying applications.',
         goToLink: {
-          routeName: routeEDPCDPipelineDetails.path,
+          routeName: routeCDPipelineDetails.path,
           text: 'go to environment',
           routeParams: {
             namespace: CDPipelineData.metadata.namespace || getDefaultNamespace(),

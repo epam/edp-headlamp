@@ -1,4 +1,4 @@
-import { EDPCDPipelineStageSpecQualityGatesInterface } from '../../../../../k8s/EDPCDPipelineStage/types';
+import { StageSpecQualityGatesInterface } from '../../../../../k8s/groups/EDP/Stage/types';
 
 export interface AutotestWithBranchesOption {
   name: string;
@@ -6,6 +6,6 @@ export interface AutotestWithBranchesOption {
   disabled?: boolean;
 }
 
-export interface QualityGate extends EDPCDPipelineStageSpecQualityGatesInterface {
+export interface QualityGate extends StageSpecQualityGatesInterface {
   id: number;
 }

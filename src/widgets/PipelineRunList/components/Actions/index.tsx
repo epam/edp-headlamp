@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
+import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
 import { PermissionSet } from '../../../../types/permissions';
 import { PipelineRunActionsMenu } from '../../../PipelineRunActionsMenu';
 

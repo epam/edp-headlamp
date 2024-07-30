@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { GIT_SERVERS } from '../../../../constants/gitServers';
-import { useGitServerListQuery } from '../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
+import { useGitServerListQuery } from '../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { CODEBASE_FORM_NAMES } from '../../names';
 import { ManageGitOpsValues } from '../../types';
 import { GitRepoPath, GitServer, Name } from '../fields';

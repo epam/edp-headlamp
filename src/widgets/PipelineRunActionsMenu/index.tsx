@@ -7,9 +7,9 @@ import { Snackbar } from '../../components/Snackbar';
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { PipelineRunKubeObject } from '../../k8s/PipelineRun';
-import { PIPELINE_RUN_REASON } from '../../k8s/PipelineRun/constants';
-import { createRerunPipelineRunInstance } from '../../k8s/PipelineRun/utils/createRerunPipelineRunInstance';
+import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
+import { PIPELINE_RUN_REASON } from '../../k8s/groups/Tekton/PipelineRun/constants';
+import { createRerunPipelineRunInstance } from '../../k8s/groups/Tekton/PipelineRun/utils/createRerunPipelineRunInstance';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { PipelineRunActionsMenuProps } from './types';
 

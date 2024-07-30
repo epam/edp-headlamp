@@ -1,6 +1,6 @@
 import { DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import React from 'react';
-import { EDPCDPipelineStageKubeObjectInterface } from '../../../../k8s/EDPCDPipelineStage/types';
+import { StageKubeObjectInterface } from '../../../../k8s/groups/EDP/Stage/types';
 import { FormContextProvider } from '../../../../providers/Form';
 import { StepperContextProvider } from '../../../../providers/Stepper';
 import { DialogHeader } from './components/DialogHeader';
@@ -10,8 +10,8 @@ import { useDefaultValues } from './hooks/useDefaultValues';
 
 export const Create = () => {
   const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
-  const [editorData, setEditorData] = React.useState<EDPCDPipelineStageKubeObjectInterface>(
-    {} as EDPCDPipelineStageKubeObjectInterface
+  const [editorData, setEditorData] = React.useState<StageKubeObjectInterface>(
+    {} as StageKubeObjectInterface
   );
 
   const defaultValues = useDefaultValues();

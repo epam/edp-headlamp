@@ -1,11 +1,11 @@
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { CodebaseKubeObjectInterface } from '../../k8s/groups/EDP/Codebase/types';
 import { ValueOf } from '../../types/global';
 import { PermissionSet } from '../../types/permissions';
 
 export interface CodebaseActionsMenuProps {
   data: {
-    codebaseData: EDPCodebaseKubeObjectInterface;
+    codebaseData: CodebaseKubeObjectInterface;
   };
   backRoute?: string;
   variant?: ValueOf<typeof ACTION_MENU_TYPES>;

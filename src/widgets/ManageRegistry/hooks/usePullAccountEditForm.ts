@@ -1,10 +1,10 @@
 import React from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
-import { CONTAINER_REGISTRY_TYPE } from '../../../k8s/ConfigMap/constants';
-import { REGISTRY_SECRET_NAMES } from '../../../k8s/Secret/constants';
-import { useSecretCRUD } from '../../../k8s/Secret/hooks/useSecretCRUD';
-import { SecretKubeObjectInterface } from '../../../k8s/Secret/types';
-import { createRegistrySecretInstance } from '../../../k8s/Secret/utils/createRegistrySecretInstance';
+import { CONTAINER_REGISTRY_TYPE } from '../../../k8s/groups/default/ConfigMap/constants';
+import { REGISTRY_SECRET_NAMES } from '../../../k8s/groups/default/Secret/constants';
+import { useSecretCRUD } from '../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
+import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
+import { createRegistrySecretInstance } from '../../../k8s/groups/default/Secret/utils/createRegistrySecretInstance';
 import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE, GHCR_ENDPOINT_VALUE } from '../constants';
 import { PULL_ACCOUNT_FORM_NAMES } from '../names';
 import { PullAccountFormValues, SharedFormValues } from '../types';

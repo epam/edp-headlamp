@@ -2,7 +2,7 @@ import {
   APPLICATION_LABEL_SELECTOR_APP_NAME,
   APPLICATION_LABEL_SELECTOR_PIPELINE,
   APPLICATION_LABEL_SELECTOR_STAGE,
-} from '../../../k8s/Application/labels';
+} from '../../../k8s/groups/ArgoCD/Application/labels';
 import { createURLObjectFromURLOrigin } from '../index';
 
 export const ArgoCDURLService = {

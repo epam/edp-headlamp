@@ -9,7 +9,7 @@ import {
   useTheme,
 } from '@mui/material';
 import React from 'react';
-import { EDPCodebaseKubeObjectInterface } from '../../../../../../k8s/EDPCodebase/types';
+import { CodebaseKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Codebase/types';
 import { useStepperContext } from '../../../../../../providers/Stepper/hooks';
 import { CONFIGURATION_STEPPER_STEPS } from '../../../../constants';
 import { DialogHeader } from './components/DialogHeader';
@@ -24,8 +24,8 @@ export const Configuration = ({ baseDefaultValues, setActiveTab }: Configuration
   const classes = useStyles();
 
   const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
-  const [editorData, setEditorData] = React.useState<EDPCodebaseKubeObjectInterface>(
-    {} as EDPCodebaseKubeObjectInterface
+  const [editorData, setEditorData] = React.useState<CodebaseKubeObjectInterface>(
+    {} as CodebaseKubeObjectInterface
   );
 
   return (

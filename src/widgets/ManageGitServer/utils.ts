@@ -1,11 +1,11 @@
 import { GIT_PROVIDERS } from '../../constants/gitProviders';
-import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
-import { createGitServerSecretName } from '../../k8s/EDPGitServer/utils/createGitServerInstance';
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
+import { GitServerKubeObjectInterface } from '../../k8s/groups/EDP/GitServer/types';
+import { createGitServerSecretName } from '../../k8s/groups/EDP/GitServer/utils/createGitServerInstance';
 import { ValueOf } from '../../types/global';
 
 export const getGitServerSecret = (
-  gitServer: EDPGitServerKubeObjectInterface | undefined,
+  gitServer: GitServerKubeObjectInterface | undefined,
   repositorySecrets: SecretKubeObjectInterface[],
   gitServerProviderFieldValue: string
 ) => {

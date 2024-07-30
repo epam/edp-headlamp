@@ -1,4 +1,4 @@
-import { IRSA_ROLE_ARN_ANNOTATION } from '../../k8s/ServiceAccount/constants';
+import { IRSA_ROLE_ARN_ANNOTATION } from '../../k8s/groups/default/ServiceAccount/constants';
 
 const SHARED_NAMES = {
   REGISTRY_TYPE: 'registryType',

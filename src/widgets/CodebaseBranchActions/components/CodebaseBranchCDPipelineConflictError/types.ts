@@ -1,6 +1,6 @@
-import { EDPCDPipelineKubeObjectInterface } from '../../../../k8s/EDPCDPipeline/types';
+import { CDPipelineKubeObjectInterface } from '../../../../k8s/groups/EDP/CDPipeline/types';
 
 export interface CodebaseBranchCDPipelineConflictErrorProps {
-  conflictedCDPipeline: EDPCDPipelineKubeObjectInterface;
+  conflictedCDPipeline: CDPipelineKubeObjectInterface;
   name: string;
 }

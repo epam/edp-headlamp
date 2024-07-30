@@ -2,9 +2,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
-import { JiraServerKubeObject } from '../../../k8s/JiraServer';
-import { JiraServerKubeObjectInterface } from '../../../k8s/JiraServer/types';
-import { createJiraServerInstance } from '../../../k8s/JiraServer/utils/createJiraServerInstance';
+import { JiraServerKubeObject } from '../../../k8s/groups/EDP/JiraServer';
+import { JiraServerKubeObjectInterface } from '../../../k8s/groups/EDP/JiraServer/types';
+import { createJiraServerInstance } from '../../../k8s/groups/EDP/JiraServer/utils/createJiraServerInstance';
 import { JiraServerFormValues } from '../types';
 
 export const useJiraServerCreateForm = ({ handleClosePanel }: { handleClosePanel: () => void }) => {

@@ -5,7 +5,7 @@ import { ActionsMenuList } from '../../components/ActionsMenuList';
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
+import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
@@ -39,7 +39,7 @@ export const StageActionsMenu = ({
 
     const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
       objectName: stage?.spec?.name,
-      kubeObject: EDPCDPipelineStageKubeObject,
+      kubeObject: StageKubeObject,
       kubeObjectData: stage,
       description: `Confirm the deletion of the CD stage with all its components`,
       backRoute,
@@ -48,7 +48,7 @@ export const StageActionsMenu = ({
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
         await createKubeAction({
-          item: new EDPCDPipelineStageKubeObject(stage) as unknown as KubeObjectInterface,
+          item: new StageKubeObject(stage) as unknown as KubeObjectInterface,
           actionCheckName: 'update',
           name: RESOURCE_ACTIONS.EDIT,
           icon: ICONS.PENCIL,
@@ -69,7 +69,7 @@ export const StageActionsMenu = ({
     } else {
       return [
         await createKubeAction({
-          item: new EDPCDPipelineStageKubeObject(stage) as unknown as KubeObjectInterface,
+          item: new StageKubeObject(stage) as unknown as KubeObjectInterface,
           actionCheckName: 'update',
           name: RESOURCE_ACTIONS.EDIT,
           icon: ICONS.PENCIL,

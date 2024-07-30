@@ -5,9 +5,9 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
-import { SYSTEM_QUICK_LINKS } from '../../k8s/QuickLink/constants';
-import { INTEGRATION_SECRET_NAMES } from '../../k8s/Secret/constants';
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
+import { INTEGRATION_SECRET_NAMES } from '../../k8s/groups/default/Secret/constants';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
+import { SYSTEM_QUICK_LINKS } from '../../k8s/groups/EDP/QuickLink/constants';
 import { FORM_MODES } from '../../types/forms';
 import { ManageCodeMie } from './index';
 

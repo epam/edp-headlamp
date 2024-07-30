@@ -5,10 +5,10 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
-import { JiraServerMock } from '../../k8s/JiraServer/mocks/jira-server.mock';
-import { JiraServerKubeObjectInterface } from '../../k8s/JiraServer/types';
-import { JiraCISecretMock } from '../../k8s/Secret/mocks/jira-ci-secret.mock';
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
+import { JiraCISecretMock } from '../../k8s/groups/default/Secret/mocks/jira-ci-secret.mock';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
+import { JiraServerMock } from '../../k8s/groups/EDP/JiraServer/mocks/jira-server.mock';
+import { JiraServerKubeObjectInterface } from '../../k8s/groups/EDP/JiraServer/types';
 import { ManageJiraServer } from './index';
 
 test('renders ManageJiraServer Edit component', () => {

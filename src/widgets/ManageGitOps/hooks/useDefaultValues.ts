@@ -4,7 +4,7 @@ import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../constants/creationStrategies';
 import { DEPLOYMENT_SCRIPTS } from '../../../constants/deploymentScripts';
-import { useGitServerListQuery } from '../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
+import { useGitServerListQuery } from '../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { GIT_OPS_CODEBASE_NAME } from '../constants';
 import { CODEBASE_FORM_NAMES } from '../names';
 import { ManageGitOpsDataContext } from '../types';

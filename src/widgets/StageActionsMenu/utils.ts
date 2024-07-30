@@ -1,18 +1,17 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { EDPCDPipelineStageKubeObject } from '../../k8s/EDPCDPipelineStage';
-import { EDPCDPipelineStageKubeObjectInterface } from '../../k8s/EDPCDPipelineStage/types';
+import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
+import { StageKubeObjectInterface } from '../../k8s/groups/EDP/Stage/types';
 import { KubeObjectAction } from '../../types/actions';
 import { DeepPartial } from '../../types/global';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 
-const getStageOrder = (stage: DeepPartial<EDPCDPipelineStageKubeObjectInterface>): number =>
-  stage.spec.order;
+const getStageOrder = (stage: DeepPartial<StageKubeObjectInterface>): number => stage.spec.order;
 
 export const createDeleteAction = async (
-  allStages: EDPCDPipelineStageKubeObjectInterface[],
-  currentStage: EDPCDPipelineStageKubeObjectInterface,
+  allStages: StageKubeObjectInterface[],
+  currentStage: StageKubeObjectInterface,
   action: () => void
 ): Promise<KubeObjectAction> => {
   if (!currentStage) {
@@ -44,7 +43,7 @@ export const createDeleteAction = async (
 
   if (currentStageOrder > highestOtherStagesOrder) {
     return await createKubeAction({
-      item: new EDPCDPipelineStageKubeObject(currentStage) as unknown as KubeObjectInterface,
+      item: new StageKubeObject(currentStage) as unknown as KubeObjectInterface,
       actionCheckName: 'delete',
       name: RESOURCE_ACTIONS.DELETE,
       icon: ICONS.BUCKET,
@@ -53,7 +52,7 @@ export const createDeleteAction = async (
   }
 
   return await createKubeAction({
-    item: new EDPCDPipelineStageKubeObject(currentStage) as unknown as KubeObjectInterface,
+    item: new StageKubeObject(currentStage) as unknown as KubeObjectInterface,
     actionCheckName: 'delete',
     name: RESOURCE_ACTIONS.DELETE,
     disabled: {

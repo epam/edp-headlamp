@@ -3,19 +3,20 @@ import { useForm } from 'react-hook-form';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { GIT_PROVIDERS } from '../../../constants/gitProviders';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
-import { EDPGitServerKubeObject } from '../../../k8s/EDPGitServer';
-import { EDPGitServerKubeObjectInterface } from '../../../k8s/EDPGitServer/types';
-import { createGitServerInstance } from '../../../k8s/EDPGitServer/utils/createGitServerInstance';
+import { GitServerKubeObject } from '../../../k8s/groups/EDP/GitServer';
+import { GitServerKubeObjectInterface } from '../../../k8s/groups/EDP/GitServer/types';
+import { createGitServerInstance } from '../../../k8s/groups/EDP/GitServer/utils/createGitServerInstance';
 import { getUsedValues } from '../../../utils/forms/getUsedValues';
 import { GIT_USER } from '../constants';
 import { GIT_SERVER_FORM_NAMES } from '../names';
 import { GitServerFormValues } from '../types';
 
 export const useGitServerCreateForm = ({ handleClosePanel }: { handleClosePanel: () => void }) => {
-  const createMutation = useResourceCRUDMutation<
-    EDPGitServerKubeObjectInterface,
+  const createMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, CRUD_TYPES.CREATE>(
+    'gitServerCreateMutation',
+    GitServerKubeObject,
     CRUD_TYPES.CREATE
-  >('gitServerCreateMutation', EDPGitServerKubeObject, CRUD_TYPES.CREATE);
+  );
 
   const defaultValues = React.useMemo(() => {
     return {

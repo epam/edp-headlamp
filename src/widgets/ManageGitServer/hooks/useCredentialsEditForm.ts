@@ -4,8 +4,8 @@ import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { GIT_PROVIDERS } from '../../../constants/gitProviders';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { editResource } from '../../../k8s/common/editResource';
-import { SecretKubeObject } from '../../../k8s/Secret';
-import { SecretKubeObjectInterface } from '../../../k8s/Secret/types';
+import { SecretKubeObject } from '../../../k8s/groups/default/Secret';
+import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
 import { safeDecode, safeEncode } from '../../../utils/decodeEncode';
 import {
   CREDENTIALS_FORM_NAME,

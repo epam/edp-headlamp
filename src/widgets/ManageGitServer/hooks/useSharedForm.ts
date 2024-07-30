@@ -1,12 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { GIT_PROVIDERS } from '../../../constants/gitProviders';
-import { EDPGitServerKubeObjectInterface } from '../../../k8s/EDPGitServer/types';
+import { GitServerKubeObjectInterface } from '../../../k8s/groups/EDP/GitServer/types';
 import { GIT_USER } from '../constants';
 import { SHARED_FORM_NAMES } from '../names';
 import { SharedFormValues } from '../types';
 
-export const useSharedForm = ({ gitServer }: { gitServer: EDPGitServerKubeObjectInterface }) => {
+export const useSharedForm = ({ gitServer }: { gitServer: GitServerKubeObjectInterface }) => {
   const defaultValues = React.useMemo(() => {
     const gitProvider = gitServer?.spec.gitProvider || GIT_PROVIDERS.GERRIT;
     const gitUser = (() => {

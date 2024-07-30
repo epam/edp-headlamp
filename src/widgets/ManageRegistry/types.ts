@@ -1,6 +1,6 @@
-import { ConfigMapKubeObjectInterface } from '../../k8s/ConfigMap/types';
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
-import { ServiceAccountKubeObjectInterface } from '../../k8s/ServiceAccount/types';
+import { ConfigMapKubeObjectInterface } from '../../k8s/groups/default/ConfigMap/types';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
+import { ServiceAccountKubeObjectInterface } from '../../k8s/groups/default/ServiceAccount/types';
 import { FormValues } from '../../types/forms';
 import { ValueOf } from '../../types/global';
 import { FORM_NAMES } from './constants';

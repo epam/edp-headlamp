@@ -3,7 +3,7 @@ import { Box, Button, Stack, Tooltip } from '@mui/material';
 import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { CONTAINER_REGISTRY_TYPE } from '../../../../k8s/ConfigMap/constants';
+import { CONTAINER_REGISTRY_TYPE } from '../../../../k8s/groups/default/ConfigMap/constants';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { CONFIRM_RESOURCES_UPDATES_DIALOG_NAME } from '../../../ConfirmResourcesUpdates/constants';
 import { useRegistryFormsContext } from '../../hooks/useRegistryFormsContext';

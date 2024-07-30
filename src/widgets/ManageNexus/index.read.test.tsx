@@ -5,9 +5,9 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
-import { SYSTEM_QUICK_LINKS } from '../../k8s/QuickLink/constants';
-import { NexusCISecretWithOwnerMock } from '../../k8s/Secret/mocks/nexus-ci-secret.mock';
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
+import { NexusCISecretWithOwnerMock } from '../../k8s/groups/default/Secret/mocks/nexus-ci-secret.mock';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
+import { SYSTEM_QUICK_LINKS } from '../../k8s/groups/EDP/QuickLink/constants';
 import { FORM_MODES } from '../../types/forms';
 import { ManageNexus } from './index';
 

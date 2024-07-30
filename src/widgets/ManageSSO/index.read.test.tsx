@@ -5,8 +5,8 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
-import { SSOCISecretWithOwnerMock } from '../../k8s/Secret/mocks/sso-ci-secret.mock';
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
+import { SSOCISecretWithOwnerMock } from '../../k8s/groups/default/Secret/mocks/sso-ci-secret.mock';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { FORM_MODES } from '../../types/forms';
 import { ManageSSO } from './index';
 

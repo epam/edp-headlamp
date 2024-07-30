@@ -2,7 +2,7 @@ import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { editResource } from '../../../../../../k8s/common/editResource';
-import { useQuickLinkCRUD } from '../../../../../../k8s/QuickLink/hooks/useQuickLinkCRUD';
+import { useQuickLinkCRUD } from '../../../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinkCRUD';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../../../constants';
 import { QUICK_LINK_FORM_NAMES } from '../../../../names';

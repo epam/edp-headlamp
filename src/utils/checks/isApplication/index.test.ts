@@ -1,4 +1,4 @@
-import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
+import { CodebaseKubeObjectInterface } from '../../../k8s/groups/EDP/Codebase/types';
 import { isApplication } from './index';
 
 describe('cheking isApplication', () => {
@@ -8,7 +8,7 @@ describe('cheking isApplication', () => {
         spec: {
           type: 'application',
         },
-      } as EDPCodebaseKubeObjectInterface)
+      } as CodebaseKubeObjectInterface)
     ).toBeTruthy();
   });
   it('should return false if spec type is not application', () => {
@@ -17,7 +17,7 @@ describe('cheking isApplication', () => {
         spec: {
           type: 'library',
         },
-      } as EDPCodebaseKubeObjectInterface)
+      } as CodebaseKubeObjectInterface)
     ).toBeFalsy();
   });
 });

@@ -6,7 +6,7 @@ import { LearnMoreLink } from '../../../../../../../../components/LearnMoreLink'
 import { CODEBASE_TYPES } from '../../../../../../../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../../../../../../../constants/urls';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
-import { createCodebaseInstance } from '../../../../../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
+import { createCodebaseInstance } from '../../../../../../../../k8s/groups/EDP/Codebase/utils/createCodebaseInstance';
 import { capitalizeFirstLetter } from '../../../../../../../../utils/format/capitalizeFirstLetter';
 import { getUsedValues } from '../../../../../../../../utils/forms/getUsedValues';
 import { CODEBASE_FORM_NAMES } from '../../../../../../names';

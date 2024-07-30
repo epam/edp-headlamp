@@ -4,7 +4,7 @@ import { ActionsMenuList } from '../../components/ActionsMenuList';
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { EDPCDPipelineKubeObject } from '../../k8s/EDPCDPipeline';
+import { CDPipelineKubeObject } from '../../k8s/groups/EDP/CDPipeline';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
@@ -36,7 +36,7 @@ export const CDPipelineActionsMenu = ({
 
     const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
       objectName: CDPipelineData?.metadata.name,
-      kubeObject: EDPCDPipelineKubeObject,
+      kubeObject: CDPipelineKubeObject,
       kubeObjectData: CDPipelineData,
       description: `Confirm the deletion of the CD Pipeline with all its components`,
       backRoute,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../constants/creationStrategies';
-import { useGitServerListQuery } from '../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
+import { useGitServerListQuery } from '../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { useSpecificDialogContext } from '../../../providers/Dialog/hooks';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../constants';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../names';

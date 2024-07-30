@@ -1,11 +1,11 @@
 import { editResource } from '../../../k8s/common/editResource';
-import { CONTAINER_REGISTRY_TYPE } from '../../../k8s/ConfigMap/constants';
-import { useConfigMapCRUD } from '../../../k8s/ConfigMap/hooks/useConfigMapCRUD';
-import { ConfigMapKubeObjectInterface } from '../../../k8s/ConfigMap/types';
-import { useSecretCRUD } from '../../../k8s/Secret/hooks/useSecretCRUD';
-import { SecretKubeObjectInterface } from '../../../k8s/Secret/types';
-import { useEditServiceAccount } from '../../../k8s/ServiceAccount/hooks/useEditServiceAccount';
-import { ServiceAccountKubeObjectInterface } from '../../../k8s/ServiceAccount/types';
+import { CONTAINER_REGISTRY_TYPE } from '../../../k8s/groups/default/ConfigMap/constants';
+import { useConfigMapCRUD } from '../../../k8s/groups/default/ConfigMap/hooks/useConfigMapCRUD';
+import { ConfigMapKubeObjectInterface } from '../../../k8s/groups/default/ConfigMap/types';
+import { useSecretCRUD } from '../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
+import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
+import { useEditServiceAccount } from '../../../k8s/groups/default/ServiceAccount/hooks/useEditServiceAccount';
+import { ServiceAccountKubeObjectInterface } from '../../../k8s/groups/default/ServiceAccount/types';
 import { CONFIG_MAP_FORM_NAMES, SERVICE_ACCOUNT_FORM_NAMES } from '../names';
 
 export const useResetRegistry = ({

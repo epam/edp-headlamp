@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { ConfigMapKubeObjectInterface } from '../../../k8s/ConfigMap/types';
-import { SecretKubeObjectInterface } from '../../../k8s/Secret/types';
+import { ConfigMapKubeObjectInterface } from '../../../k8s/groups/default/ConfigMap/types';
+import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
 import { SHARED_FORM_NAMES } from '../names';
 import { SharedFormValues } from '../types';
 import { getUsernameAndPassword } from '../utils';

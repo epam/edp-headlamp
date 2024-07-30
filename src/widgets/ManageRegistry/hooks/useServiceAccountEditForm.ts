@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { editResource } from '../../../k8s/common/editResource';
-import { IRSA_ROLE_ARN_ANNOTATION } from '../../../k8s/ServiceAccount/constants';
-import { useEditServiceAccount } from '../../../k8s/ServiceAccount/hooks/useEditServiceAccount';
-import { ServiceAccountKubeObjectInterface } from '../../../k8s/ServiceAccount/types';
+import { IRSA_ROLE_ARN_ANNOTATION } from '../../../k8s/groups/default/ServiceAccount/constants';
+import { useEditServiceAccount } from '../../../k8s/groups/default/ServiceAccount/hooks/useEditServiceAccount';
+import { ServiceAccountKubeObjectInterface } from '../../../k8s/groups/default/ServiceAccount/types';
 import { SERVICE_ACCOUNT_FORM_NAMES } from '../names';
 import { ServiceAccountFormValues } from '../types';
 

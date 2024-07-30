@@ -1,7 +1,7 @@
 import { CI_TOOLS } from '../../constants/ciTools';
 import { GIT_PROVIDERS } from '../../constants/gitProviders';
 import { RESOURCE_ICON_NAMES } from '../../icons/sprites/Resources/names';
-import { CONTAINER_REGISTRY_TYPE } from '../../k8s/ConfigMap/constants';
+import { CONTAINER_REGISTRY_TYPE } from '../../k8s/groups/default/ConfigMap/constants';
 import {
   CODEBASE_COMMON_BUILD_TOOLS,
   CODEBASE_COMMON_FRAMEWORKS,

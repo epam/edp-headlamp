@@ -1,10 +1,10 @@
-import { useCDPipelineByApplicationItUsesQuery } from '../../../k8s/EDPCDPipeline/hooks/useCDPipelineByApplicationItUsesQuery';
-import { useCDPipelineByAutotestItUsesInItsStagesQuery } from '../../../k8s/EDPCDPipeline/hooks/useCDPipelineByAutotestItUsesInItsStagesQuery';
-import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
+import { useCDPipelineByApplicationItUsesQuery } from '../../../k8s/groups/EDP/CDPipeline/hooks/useCDPipelineByApplicationItUsesQuery';
+import { useCDPipelineByAutotestItUsesInItsStagesQuery } from '../../../k8s/groups/EDP/CDPipeline/hooks/useCDPipelineByAutotestItUsesInItsStagesQuery';
+import { CodebaseKubeObjectInterface } from '../../../k8s/groups/EDP/Codebase/types';
 import { isApplication } from '../../../utils/checks/isApplication';
 import { isAutotest } from '../../../utils/checks/isAutotest';
 
-export const useDeletionConflict = (codebase: EDPCodebaseKubeObjectInterface) => {
+export const useDeletionConflict = (codebase: CodebaseKubeObjectInterface) => {
   const CDPipelineByAutotestItUsesInItsStagesQuery = useCDPipelineByAutotestItUsesInItsStagesQuery({
     props: {
       codebaseName: codebase?.metadata.name,

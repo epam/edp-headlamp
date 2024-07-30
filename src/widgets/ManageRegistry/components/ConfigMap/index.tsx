@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import { CONTAINER_REGISTRY_TYPE } from '../../../../k8s/ConfigMap/constants';
+import { CONTAINER_REGISTRY_TYPE } from '../../../../k8s/groups/default/ConfigMap/constants';
 import { useRegistryFormsContext } from '../../hooks/useRegistryFormsContext';
 import { SHARED_FORM_NAMES } from '../../names';
 import { AWSRegion, RegistryEndpoint, RegistrySpace, Type } from './fields';

@@ -1,6 +1,6 @@
 import { DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import React from 'react';
-import { QuickLinkKubeObjectInterface } from '../../../../k8s/QuickLink/types';
+import { QuickLinkKubeObjectInterface } from '../../../../k8s/groups/EDP/QuickLink/types';
 import { FormContextProvider } from '../../../../providers/Form';
 import { DialogHeader } from './components/DialogHeader';
 import { Form } from './components/Form';

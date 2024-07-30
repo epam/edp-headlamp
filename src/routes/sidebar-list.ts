@@ -1,4 +1,4 @@
-import { routeQuickLinkList } from '../pages/edp-configuration/pages/edp-quick-link-list/route';
+import { routeQuickLinkList } from '../pages/configuration/pages/edp-quick-link-list/route';
 import { createNewSidebarItem } from '../utils/routes/createNewSidebarItem';
 import { createSidebarItemName } from '../utils/routes/createSidebarItemName';
 import {

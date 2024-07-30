@@ -1,9 +1,9 @@
 import React from 'react';
-import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDPCDPipelineStage/types';
+import { StageKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Stage/types';
 
 export interface FormActionsProps {
   setFormActiveTabIdx: React.Dispatch<React.SetStateAction<number>>;
   formActiveTabIdx: number;
-  setStages: React.Dispatch<React.SetStateAction<EDPCDPipelineStageKubeObjectInterface[]>>;
-  stages: EDPCDPipelineStageKubeObjectInterface[];
+  setStages: React.Dispatch<React.SetStateAction<StageKubeObjectInterface[]>>;
+  stages: StageKubeObjectInterface[];
 }

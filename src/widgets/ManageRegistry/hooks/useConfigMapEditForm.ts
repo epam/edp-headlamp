@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { editResource } from '../../../k8s/common/editResource';
-import { CONTAINER_REGISTRY_TYPE } from '../../../k8s/ConfigMap/constants';
-import { useConfigMapCRUD } from '../../../k8s/ConfigMap/hooks/useConfigMapCRUD';
-import { ConfigMapKubeObjectInterface } from '../../../k8s/ConfigMap/types';
+import { CONTAINER_REGISTRY_TYPE } from '../../../k8s/groups/default/ConfigMap/constants';
+import { useConfigMapCRUD } from '../../../k8s/groups/default/ConfigMap/hooks/useConfigMapCRUD';
+import { ConfigMapKubeObjectInterface } from '../../../k8s/groups/default/ConfigMap/types';
 import { DOCKER_HUB_REGISTRY_ENDPOINT, GHCR_ENDPOINT } from '../constants';
 import { CONFIG_MAP_FORM_NAMES } from '../names';
 import { ConfigMapFormValues } from '../types';

@@ -2,7 +2,7 @@ import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { editResource } from '../../../../../../k8s/common/editResource';
-import { useEditCDPipelineStage } from '../../../../../../k8s/EDPCDPipelineStage/hooks/useEditCDPipelineStage';
+import { useEditCDPipelineStage } from '../../../../../../k8s/groups/EDP/Stage/hooks/useEditCDPipelineStage';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';

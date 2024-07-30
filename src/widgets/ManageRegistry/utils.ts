@@ -1,4 +1,4 @@
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { safeDecode } from '../../utils/decodeEncode';
 
 export const parseConfigJson = (configJson: string) => {

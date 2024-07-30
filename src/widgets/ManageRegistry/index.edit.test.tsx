@@ -8,18 +8,18 @@ import { TestWrapper } from '../../../mocks/wrappers/default';
 import {
   CONTAINER_REGISTRY_PLATFORM,
   CONTAINER_REGISTRY_TYPE,
-} from '../../k8s/ConfigMap/constants';
-import { createEdpConfigMapMock } from '../../k8s/ConfigMap/mocks/edp-config-map.mock';
-import { ConfigMapKubeObjectInterface } from '../../k8s/ConfigMap/types';
+} from '../../k8s/groups/default/ConfigMap/constants';
+import { createEdpConfigMapMock } from '../../k8s/groups/default/ConfigMap/mocks/edp-config-map.mock';
+import { ConfigMapKubeObjectInterface } from '../../k8s/groups/default/ConfigMap/types';
 import {
   ECRPushSecretMock,
   kanikoDockerSecretWithOwnerMock,
   openshiftPushSecretMock,
-} from '../../k8s/Secret/mocks/kaniko-config-secret.mock';
-import { regcredSecretWithOwnerMock } from '../../k8s/Secret/mocks/regcred-config-secret.mock';
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
-import { tektonServiceAccountMock } from '../../k8s/ServiceAccount/mocks/tekton.mock';
-import { ServiceAccountKubeObjectInterface } from '../../k8s/ServiceAccount/types';
+} from '../../k8s/groups/default/Secret/mocks/kaniko-config-secret.mock';
+import { regcredSecretWithOwnerMock } from '../../k8s/groups/default/Secret/mocks/regcred-config-secret.mock';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
+import { tektonServiceAccountMock } from '../../k8s/groups/default/ServiceAccount/mocks/tekton.mock';
+import { ServiceAccountKubeObjectInterface } from '../../k8s/groups/default/ServiceAccount/types';
 import { ManageRegistry } from './index';
 
 describe('testing ManageRegistry Edit', () => {
