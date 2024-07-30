@@ -1,8 +1,8 @@
 import React from 'react';
-import { EDPCodebaseKubeObjectInterface } from '../../../../../../../../k8s/EDPCodebase/types';
+import { CodebaseKubeObjectInterface } from '../../../../../../../../k8s/groups/EDP/Codebase/types';
 
 export interface FormProps {
   editorOpen: boolean;
-  editorData: EDPCodebaseKubeObjectInterface;
+  editorData: CodebaseKubeObjectInterface;
   setEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

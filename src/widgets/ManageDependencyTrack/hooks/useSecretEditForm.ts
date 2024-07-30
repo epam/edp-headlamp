@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useSecretCRUD } from '../../../k8s/Secret/hooks/useSecretCRUD';
-import { SecretKubeObjectInterface } from '../../../k8s/Secret/types';
-import { createDependencyTrackIntegrationSecretInstance } from '../../../k8s/Secret/utils/createDependencyTrackIntegrationSecretInstance';
+import { useSecretCRUD } from '../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
+import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
+import { createDependencyTrackIntegrationSecretInstance } from '../../../k8s/groups/default/Secret/utils/createDependencyTrackIntegrationSecretInstance';
 import { safeDecode } from '../../../utils/decodeEncode';
 import { INTEGRATION_SECRET_FORM_NAMES } from '../names';
 import { IntegrationSecretFormValues } from '../types';

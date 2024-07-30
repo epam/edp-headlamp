@@ -5,7 +5,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
-import { useAutotestsWithBranches } from '../../../../../k8s/EDPCodebase/hooks/useAutotestsWithBranches';
+import { useAutotestsWithBranches } from '../../../../../k8s/groups/EDP/Codebase/hooks/useAutotestsWithBranches';
 import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../constants';
 import { STAGE_FORM_NAMES } from '../../../names';

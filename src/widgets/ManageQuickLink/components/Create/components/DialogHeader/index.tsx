@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { LearnMoreLink } from '../../../../../../components/LearnMoreLink';
 import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { createQuickLinkInstance } from '../../../../../../k8s/QuickLink/utils/createQuickLinkInstance';
+import { createQuickLinkInstance } from '../../../../../../k8s/groups/EDP/QuickLink/utils/createQuickLinkInstance';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../../../constants';

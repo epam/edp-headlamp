@@ -1,5 +1,5 @@
 import { ButtonProps } from '@mui/material';
-import { QuickLinkKubeObjectInterface } from '../../k8s/QuickLink/types';
+import { QuickLinkKubeObjectInterface } from '../../k8s/groups/EDP/QuickLink/types';
 
 export interface QuickLinkExternalLinkProps {
   icon: string;

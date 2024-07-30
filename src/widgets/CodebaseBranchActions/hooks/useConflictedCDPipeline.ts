@@ -1,14 +1,14 @@
-import { useCDPipelineByAutotestBranchItUsesInItsStagesQuery } from '../../../k8s/EDPCDPipeline/hooks/useCDPipelineByAutotestBranchItUsesInItsStagesQuery';
-import { useCDPipelineByCodebaseBranchItUsesQuery } from '../../../k8s/EDPCDPipeline/hooks/useCDPipelineByCodebaseBranchItUsesQuery';
-import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
-import { EDPCodebaseBranchKubeObjectInterface } from '../../../k8s/EDPCodebaseBranch/types';
+import { useCDPipelineByAutotestBranchItUsesInItsStagesQuery } from '../../../k8s/groups/EDP/CDPipeline/hooks/useCDPipelineByAutotestBranchItUsesInItsStagesQuery';
+import { useCDPipelineByCodebaseBranchItUsesQuery } from '../../../k8s/groups/EDP/CDPipeline/hooks/useCDPipelineByCodebaseBranchItUsesQuery';
+import { CodebaseKubeObjectInterface } from '../../../k8s/groups/EDP/Codebase/types';
+import { CodebaseBranchKubeObjectInterface } from '../../../k8s/groups/EDP/CodebaseBranch/types';
 import { isAutotest } from '../../../utils/checks/isAutotest';
 import { isGroovyLibrary } from '../../../utils/checks/isGroovyLibrary';
 import { isLibrary } from '../../../utils/checks/isLibrary';
 
 export const useConflictedCDPipeline = (
-  codebaseBranch: EDPCodebaseBranchKubeObjectInterface,
-  codebase: EDPCodebaseKubeObjectInterface
+  codebaseBranch: CodebaseBranchKubeObjectInterface,
+  codebase: CodebaseKubeObjectInterface
 ) => {
   const codebaseBranchSpecName = codebaseBranch?.spec.branchName;
   const codebaseBranchMetadataName = codebaseBranch?.metadata.name;

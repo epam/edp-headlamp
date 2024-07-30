@@ -2,7 +2,7 @@ import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { editResource } from '../../../../../../k8s/common/editResource';
-import { useCodebaseCRUD } from '../../../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
+import { useCodebaseCRUD } from '../../../../../../k8s/groups/EDP/Codebase/hooks/useCodebaseCRUD';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../constants';

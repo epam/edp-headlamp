@@ -1,4 +1,4 @@
-import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from '../../k8s/EDPCodebaseBranch/labels';
+import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from '../../k8s/groups/EDP/CodebaseBranch/labels';
 import { BackwardNameMapping } from '../../types/forms';
 import { CONFIGURATION_STEPS } from '../CreateEditCodebase/constants';
 

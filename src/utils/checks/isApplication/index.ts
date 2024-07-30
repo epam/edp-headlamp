@@ -1,5 +1,5 @@
 import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
-import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
+import { CodebaseKubeObjectInterface } from '../../../k8s/groups/EDP/Codebase/types';
 
-export const isApplication = ({ spec: { type } }: EDPCodebaseKubeObjectInterface): boolean =>
+export const isApplication = ({ spec: { type } }: CodebaseKubeObjectInterface): boolean =>
   type === CODEBASE_TYPES['APPLICATION'];

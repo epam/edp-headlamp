@@ -1,6 +1,6 @@
 import React from 'react';
 import { VALIDATED_PROTOCOLS } from '../../../../../../constants/validatedProtocols';
-import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
+import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/groups/default/ConfigMap/constants';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../../types/forms';
 import { getValidURLPattern } from '../../../../../../utils/checks/getValidURLPattern';

@@ -6,8 +6,8 @@ import { ActionsMenuList } from '../../components/ActionsMenuList';
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { EDPCodebaseKubeObject } from '../../k8s/EDPCodebase';
-import { routeEDPCDPipelineDetails } from '../../pages/edp-cdpipeline-details/route';
+import { CodebaseKubeObject } from '../../k8s/groups/EDP/Codebase';
+import { routeCDPipelineDetails } from '../../pages/cdpipeline-details/route';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
@@ -46,7 +46,7 @@ export const CodebaseActionsMenu = ({
         </Typography>
         <div className={classes.conflictEntityName}>
           <Link
-            routeName={routeEDPCDPipelineDetails.path}
+            routeName={routeCDPipelineDetails.path}
             params={{
               name: conflictedCDPipeline.metadata.name,
               namespace: conflictedCDPipeline.metadata.namespace,
@@ -86,7 +86,7 @@ export const CodebaseActionsMenu = ({
 
     const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
       objectName: codebaseData?.metadata?.name,
-      kubeObject: EDPCodebaseKubeObject,
+      kubeObject: CodebaseKubeObject,
       kubeObjectData: codebaseData,
       description: `Confirm the deletion of the codebase with all its components`,
       onBeforeSubmit,

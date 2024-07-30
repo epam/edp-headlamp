@@ -1,6 +1,6 @@
-import { ConfigMapKubeObjectInterface } from '../../../../k8s/ConfigMap/types';
-import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
-import { ServiceAccountKubeObjectInterface } from '../../../../k8s/ServiceAccount/types';
+import { ConfigMapKubeObjectInterface } from '../../../../k8s/groups/default/ConfigMap/types';
+import { SecretKubeObjectInterface } from '../../../../k8s/groups/default/Secret/types';
+import { ServiceAccountKubeObjectInterface } from '../../../../k8s/groups/default/ServiceAccount/types';
 
 export interface DataContextProviderValue {
   EDPConfigMap: ConfigMapKubeObjectInterface;

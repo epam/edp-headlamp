@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
 import { useHandleEditorSave } from '../../../../hooks/useHandleEditorSave';
-import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
+import { CodebaseBranchKubeObjectInterface } from '../../../../k8s/groups/EDP/CodebaseBranch/types';
 import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../constants';
@@ -58,7 +58,7 @@ export const Form = ({
   });
 
   const onEditorSave = React.useCallback(
-    (editorReturnValues: EDPCodebaseBranchKubeObjectInterface[]) => {
+    (editorReturnValues: CodebaseBranchKubeObjectInterface[]) => {
       const formValues = getValues();
       const usedValues = getUsedValues(formValues, CODEBASE_BRANCH_FORM_NAMES);
       handleEditorSave(editorReturnValues, usedValues);

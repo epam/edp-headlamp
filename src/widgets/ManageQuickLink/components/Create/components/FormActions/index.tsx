@@ -1,8 +1,8 @@
 import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useQuickLinkCRUD } from '../../../../../../k8s/QuickLink/hooks/useQuickLinkCRUD';
-import { createQuickLinkInstance } from '../../../../../../k8s/QuickLink/utils/createQuickLinkInstance';
+import { useQuickLinkCRUD } from '../../../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinkCRUD';
+import { createQuickLinkInstance } from '../../../../../../k8s/groups/EDP/QuickLink/utils/createQuickLinkInstance';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../../../constants';
 import { QUICK_LINK_FORM_NAMES } from '../../../../names';

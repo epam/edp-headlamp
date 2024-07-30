@@ -6,17 +6,17 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
 import {
-  gitServerGerritMock,
-  gitServerGithubMock,
-  gitServerGitlabMock,
-} from '../../k8s/EDPGitServer/mocks/gitServer.mock';
-import { EDPGitServerKubeObjectInterface } from '../../k8s/EDPGitServer/types';
-import {
   GerritCISecretWithOwnerMock,
   GithubCISecretWithOwnerMock,
   GitlabCISecretWithOwnerMock,
-} from '../../k8s/Secret/mocks/git-server-ci-secret.mock';
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
+} from '../../k8s/groups/default/Secret/mocks/git-server-ci-secret.mock';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
+import {
+  gitServerGerritMock,
+  gitServerGithubMock,
+  gitServerGitlabMock,
+} from '../../k8s/groups/EDP/GitServer/mocks/gitServer.mock';
+import { GitServerKubeObjectInterface } from '../../k8s/groups/EDP/GitServer/types';
 import { ManageGitServer } from './index';
 
 describe('testing ManageGitServer Edit', () => {
@@ -25,7 +25,7 @@ describe('testing ManageGitServer Edit', () => {
       <TestWrapper>
         <ManageGitServer
           webhookURL={'https://example.com'}
-          gitServer={gitServerGithubMock as EDPGitServerKubeObjectInterface}
+          gitServer={gitServerGithubMock as GitServerKubeObjectInterface}
           repositorySecrets={[GithubCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //
@@ -43,7 +43,7 @@ describe('testing ManageGitServer Edit', () => {
       <TestWrapper>
         <ManageGitServer
           webhookURL={'https://example.com'}
-          gitServer={gitServerGitlabMock as EDPGitServerKubeObjectInterface}
+          gitServer={gitServerGitlabMock as GitServerKubeObjectInterface}
           repositorySecrets={[GitlabCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //
@@ -61,7 +61,7 @@ describe('testing ManageGitServer Edit', () => {
       <TestWrapper>
         <ManageGitServer
           webhookURL={'https://example.com'}
-          gitServer={gitServerGerritMock as EDPGitServerKubeObjectInterface}
+          gitServer={gitServerGerritMock as GitServerKubeObjectInterface}
           repositorySecrets={[GerritCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //
@@ -79,7 +79,7 @@ describe('testing ManageGitServer Edit', () => {
       <TestWrapper>
         <ManageGitServer
           webhookURL={'https://example.com'}
-          gitServer={gitServerGerritMock as EDPGitServerKubeObjectInterface}
+          gitServer={gitServerGerritMock as GitServerKubeObjectInterface}
           repositorySecrets={[GerritCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //

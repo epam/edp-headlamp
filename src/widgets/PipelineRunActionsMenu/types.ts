@@ -1,5 +1,5 @@
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
-import { PipelineRunKubeObjectInterface } from '../../k8s/PipelineRun/types';
+import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { ValueOf } from '../../types/global';
 import { PermissionSet } from '../../types/permissions';
 

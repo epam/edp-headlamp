@@ -5,7 +5,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { NoDataWidgetWrapper } from '../../components/NoDataWidgetWrapper';
-import { routeEDPSonarIntegration } from '../../pages/edp-configuration/pages/edp-sonar-integration/route';
+import { routeEDPSonarIntegration } from '../../pages/configuration/pages/edp-sonar-integration/route';
 import { LinkCreationService } from '../../services/link-creation';
 import { MetricsItem } from './components/MetricsItem';
 import { Rating } from './components/Rating';

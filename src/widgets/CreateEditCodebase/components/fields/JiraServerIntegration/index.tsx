@@ -4,7 +4,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { LearnMoreLink } from '../../../../../components/LearnMoreLink';
 import { EDP_OPERATOR_GUIDE } from '../../../../../constants/urls';
-import { useJiraServerNameListQuery } from '../../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
+import { useJiraServerNameListQuery } from '../../../../../k8s/groups/EDP/JiraServer/hooks/useJiraServerNameListQuery';
 import { FormCheckbox } from '../../../../../providers/Form/components/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { CODEBASE_FORM_NAMES } from '../../../names';

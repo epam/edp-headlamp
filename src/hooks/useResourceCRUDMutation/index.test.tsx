@@ -7,7 +7,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import React, { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { CRUD_TYPES } from '../../constants/crudTypes';
-import { QuickLinkKubeObject } from '../../k8s/QuickLink';
+import { QuickLinkKubeObject } from '../../k8s/groups/EDP/QuickLink';
 import { mutationDataMock } from './data.mock';
 import { useResourceCRUDMutation } from './index';
 

@@ -1,6 +1,6 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import React from 'react';
-import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
+import { CodebaseBranchKubeObjectInterface } from '../../k8s/groups/EDP/CodebaseBranch/types';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { FormContextProvider } from '../../providers/Form';
 import { DialogHeader } from './components/DialogHeader';
@@ -12,8 +12,8 @@ import { CreateCodebaseBranchDialogForwardedProps } from './types';
 
 export const CreateCodebaseBranch = () => {
   const [editorOpen, setEditorOpen] = React.useState<boolean>(false);
-  const [editorData, setEditorData] = React.useState<EDPCodebaseBranchKubeObjectInterface>(
-    {} as EDPCodebaseBranchKubeObjectInterface
+  const [editorData, setEditorData] = React.useState<CodebaseBranchKubeObjectInterface>(
+    {} as CodebaseBranchKubeObjectInterface
   );
   const {
     open,

@@ -1,4 +1,4 @@
-import { SubMenuGroup } from '../../pages/edp-configuration/menu';
+import { SubMenuGroup } from '../../pages/configuration/menu';
 
 export interface PageWithSubMenuProps {
   list: SubMenuGroup[];

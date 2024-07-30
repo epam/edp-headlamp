@@ -3,7 +3,7 @@ import { Button, IconButton, Stack, Tooltip } from '@mui/material';
 import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { SecretKubeObject } from '../../../../k8s/Secret';
+import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../../DeleteKubeObject/constants';

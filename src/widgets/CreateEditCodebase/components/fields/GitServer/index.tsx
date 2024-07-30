@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { StatusIcon } from '../../../../../components/StatusIcon';
-import { EDPGitServerKubeObject } from '../../../../../k8s/EDPGitServer';
-import { useGitServerListQuery } from '../../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
+import { GitServerKubeObject } from '../../../../../k8s/groups/EDP/GitServer';
+import { useGitServerListQuery } from '../../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { CreateCodebaseFormValues } from '../../Create/types';
@@ -14,7 +14,7 @@ export const GitServer = () => {
       gitServers?.items.map((gitServer) => {
         const connected = gitServer?.status?.connected;
 
-        const [icon, color] = EDPGitServerKubeObject.getStatusIcon(connected);
+        const [icon, color] = GitServerKubeObject.getStatusIcon(connected);
 
         return {
           label: gitServer.metadata.name,

@@ -5,7 +5,7 @@ import { ButtonWithPermission } from '../../../components/ButtonWithPermission';
 import { ConditionalWrapper } from '../../../components/ConditionalWrapper';
 import { TableColumn } from '../../../components/Table/types';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
-import { PipelineRunKubeObjectInterface } from '../../../k8s/PipelineRun/types';
+import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
 import { PermissionSet } from '../../../types/permissions';
 
 export const useUpperColumns = ({

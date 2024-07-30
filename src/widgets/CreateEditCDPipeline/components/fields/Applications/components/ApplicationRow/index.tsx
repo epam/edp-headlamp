@@ -4,7 +4,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../../../../constants/ui';
 import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
-import { useCodebaseBranchesByCodebaseNameLabelQuery } from '../../../../../../../k8s/EDPCodebaseBranch/hooks/useCodebaseBranchesByCodebaseNameLabelQuery';
+import { useCodebaseBranchesByCodebaseNameLabelQuery } from '../../../../../../../k8s/groups/EDP/CodebaseBranch/hooks/useCodebaseBranchesByCodebaseNameLabelQuery';
 import { useSpecificDialogContext } from '../../../../../../../providers/Dialog/hooks';
 import { FormCheckbox } from '../../../../../../../providers/Form/components/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../../../providers/Form/components/FormControlLabelWithTooltip';

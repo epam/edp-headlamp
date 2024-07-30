@@ -9,8 +9,8 @@ import {
   GerritCISecretWithOwnerMock,
   GithubCISecretWithOwnerMock,
   GitlabCISecretWithOwnerMock,
-} from '../../k8s/Secret/mocks/git-server-ci-secret.mock';
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
+} from '../../k8s/groups/default/Secret/mocks/git-server-ci-secret.mock';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { ManageGitServer } from './index';
 
 describe('testing ManageGitServer Create', () => {

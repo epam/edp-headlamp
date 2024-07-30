@@ -1,8 +1,8 @@
 import React from 'react';
-import { EDPCDPipelineKubeObjectInterface } from '../../../../../../k8s/EDPCDPipeline/types';
+import { CDPipelineKubeObjectInterface } from '../../../../../../k8s/groups/EDP/CDPipeline/types';
 
 export interface FormProps {
   editorOpen: boolean;
-  editorData: EDPCDPipelineKubeObjectInterface;
+  editorData: CDPipelineKubeObjectInterface;
   setEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

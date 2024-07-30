@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { GIT_SERVERS } from '../../../../../constants/gitServers';
-import { useGitServerListQuery } from '../../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
+import { useGitServerListQuery } from '../../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { validateField, validationRules } from '../../../../../utils/formFieldValidation';
 import { CODEBASE_FORM_NAMES } from '../../../names';

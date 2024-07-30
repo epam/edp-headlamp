@@ -1,5 +1,5 @@
-import { EDPCodebaseKubeObjectInterface } from '../../../../../../../k8s/EDPCodebase/types';
+import { CodebaseKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/Codebase/types';
 
 export interface ApplicationRowProps {
-  application: EDPCodebaseKubeObjectInterface;
+  application: CodebaseKubeObjectInterface;
 }

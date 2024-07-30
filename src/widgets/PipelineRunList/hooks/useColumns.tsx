@@ -6,12 +6,12 @@ import { ResourceIconLink } from '../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { TableColumn } from '../../../components/Table/types';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
-import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
-import { PipelineRunKubeObjectInterface } from '../../../k8s/PipelineRun/types';
-import { getPullRequestURL } from '../../../k8s/PipelineRun/utils/getPullRequestURL';
-import { SYSTEM_QUICK_LINKS } from '../../../k8s/QuickLink/constants';
-import { useQuickLinksURLsQuery } from '../../../k8s/QuickLink/hooks/useQuickLinksURLQuery';
-import { routeEDPPipelineDetails } from '../../../pages/edp-pipeline-details/route';
+import { SYSTEM_QUICK_LINKS } from '../../../k8s/groups/EDP/QuickLink/constants';
+import { useQuickLinksURLsQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
+import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
+import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
+import { getPullRequestURL } from '../../../k8s/groups/Tekton/PipelineRun/utils/getPullRequestURL';
+import { routePipelineDetails } from '../../../pages/pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../services/link-creation';
 import { PermissionSet } from '../../../types/permissions';
@@ -61,7 +61,7 @@ export const useColumns = ({
 
           return (
             <Link
-              routeName={routeEDPPipelineDetails.path}
+              routeName={routePipelineDetails.path}
               params={{
                 name,
                 namespace,

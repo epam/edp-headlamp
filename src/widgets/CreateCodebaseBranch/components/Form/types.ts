@@ -1,9 +1,9 @@
 import React from 'react';
-import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
+import { CodebaseBranchKubeObjectInterface } from '../../../../k8s/groups/EDP/CodebaseBranch/types';
 
 export interface FormProps {
   editorOpen: boolean;
   setEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  editorData: EDPCodebaseBranchKubeObjectInterface;
+  editorData: CodebaseBranchKubeObjectInterface;
   defaultBranchVersion: string;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useSecretCRUD } from '../../../k8s/Secret/hooks/useSecretCRUD';
-import { createCodeMieIntegrationSecretInstance } from '../../../k8s/Secret/utils/createCodeMieIntegrationSecretInstance';
+import { useSecretCRUD } from '../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
+import { createCodeMieIntegrationSecretInstance } from '../../../k8s/groups/default/Secret/utils/createCodeMieIntegrationSecretInstance';
 import { IntegrationSecretFormValues } from '../types';
 
 export const useSecretCreateForm = ({ handleClosePanel }: { handleClosePanel: () => void }) => {

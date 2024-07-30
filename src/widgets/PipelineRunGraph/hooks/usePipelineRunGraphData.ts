@@ -1,9 +1,9 @@
 import React from 'react';
-import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
-import { usePipelineRunData } from '../../../k8s/PipelineRun/hooks/usePipelineRunData';
-import { PipelineRunKubeObjectInterface } from '../../../k8s/PipelineRun/types';
-import { TaskRunKubeObject } from '../../../k8s/TaskRun';
-import { TaskRunKubeObjectInterface } from '../../../k8s/TaskRun/types';
+import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
+import { usePipelineRunData } from '../../../k8s/groups/Tekton/PipelineRun/hooks/usePipelineRunData';
+import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
+import { TaskRunKubeObject } from '../../../k8s/groups/Tekton/TaskRun';
+import { TaskRunKubeObjectInterface } from '../../../k8s/groups/Tekton/TaskRun/types';
 
 export const usePipelineRunGraphData = (
   taskRuns: TaskRunKubeObjectInterface[],

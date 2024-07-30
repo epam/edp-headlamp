@@ -1,3 +1,3 @@
-export * from './AssistantId';
 export * from './ApiUrl';
+export * from './AssistantId';
 export * from './TokenEndpointUrl';

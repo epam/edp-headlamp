@@ -1,8 +1,8 @@
 import React from 'react';
-import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../k8s/EDPCDPipelineStage/types';
+import { StageKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Stage/types';
 
 export interface FormProps {
   editorOpen: boolean;
-  editorData: EDPCDPipelineStageKubeObjectInterface;
+  editorData: StageKubeObjectInterface;
   setEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

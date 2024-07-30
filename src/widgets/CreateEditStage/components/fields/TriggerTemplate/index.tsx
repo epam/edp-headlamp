@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useDeployTriggerTemplateListQuery } from '../../../../../k8s/TriggerTemplate/hooks/useDeployTriggerTemplateListQuery';
+import { useDeployTriggerTemplateListQuery } from '../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useDeployTriggerTemplateListQuery';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
 import { STAGE_FORM_NAMES } from '../../../names';
 import { CreateEditStageFormValues } from '../../../types';

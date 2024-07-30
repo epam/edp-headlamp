@@ -1,7 +1,7 @@
 import React from 'react';
-import { EDPCodebaseBranchKubeObjectInterface } from '../../../../k8s/EDPCodebaseBranch/types';
+import { CodebaseBranchKubeObjectInterface } from '../../../../k8s/groups/EDP/CodebaseBranch/types';
 
 export interface DialogHeaderProps {
   setEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setEditorData: React.Dispatch<React.SetStateAction<EDPCodebaseBranchKubeObjectInterface>>;
+  setEditorData: React.Dispatch<React.SetStateAction<CodebaseBranchKubeObjectInterface>>;
 }

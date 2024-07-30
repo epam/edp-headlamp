@@ -9,8 +9,8 @@ import {
 import React from 'react';
 import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
-import { PipelineRunKubeObject } from '../../../../k8s/PipelineRun';
-import { PipelineRunKubeObjectInterface } from '../../../../k8s/PipelineRun/types';
+import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
+import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
 
 const CONFIRM_TEXT_VALUE = 'confirm';
 

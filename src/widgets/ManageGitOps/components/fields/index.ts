@@ -1,3 +1,3 @@
-export * from './Name';
-export * from './GitServer';
 export * from './GitRepoPath';
+export * from './GitServer';
+export * from './Name';

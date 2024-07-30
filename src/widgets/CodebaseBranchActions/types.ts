@@ -1,14 +1,14 @@
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
-import { EDPCodebaseBranchKubeObjectInterface } from '../../k8s/EDPCodebaseBranch/types';
+import { CodebaseKubeObjectInterface } from '../../k8s/groups/EDP/Codebase/types';
+import { CodebaseBranchKubeObjectInterface } from '../../k8s/groups/EDP/CodebaseBranch/types';
 import { ValueOf } from '../../types/global';
 import { PermissionSet } from '../../types/permissions';
 
 export interface CodebaseBranchActionsProps {
   data: {
-    branch: EDPCodebaseBranchKubeObjectInterface;
+    branch: CodebaseBranchKubeObjectInterface;
     defaultBranch: string;
-    codebaseData: EDPCodebaseKubeObjectInterface;
+    codebaseData: CodebaseKubeObjectInterface;
   };
   backRoute?: string;
   variant?: ValueOf<typeof ACTION_MENU_TYPES>;

@@ -1,5 +1,5 @@
-import { JiraServerKubeObjectInterface } from '../../k8s/JiraServer/types';
-import { SecretKubeObjectInterface } from '../../k8s/Secret/types';
+import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
+import { JiraServerKubeObjectInterface } from '../../k8s/groups/EDP/JiraServer/types';
 import { FormValues } from '../../types/forms';
 import { ValueOf } from '../../types/global';
 import { FORM_NAMES } from './constants';

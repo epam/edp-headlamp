@@ -4,9 +4,9 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { SecretKubeObject } from '../../../../../../k8s/Secret';
-import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
-import { createSSOIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createSSOIntegrationSecretInstance';
+import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
+import { useSecretCRUD } from '../../../../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
+import { createSSOIntegrationSecretInstance } from '../../../../../../k8s/groups/default/Secret/utils/createSSOIntegrationSecretInstance';
 import {
   useDialogContext,
   useSpecificDialogContext,

@@ -6,7 +6,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Terminal as XTerminal } from 'xterm';
 import { LogViewer } from '../../components/LogViewer';
-import { PodKubeObjectInterface } from '../../k8s/Pod/types';
+import { PodKubeObjectInterface } from '../../k8s/groups/default/Pod/types';
 
 // TODO this file is a copy of headlamp\frontend\src\components\common\LogViewer.tsx
 

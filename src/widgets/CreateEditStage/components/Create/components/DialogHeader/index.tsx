@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { LearnMoreLink } from '../../../../../../components/LearnMoreLink';
 import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { createCDPipelineStageInstance } from '../../../../../../k8s/EDPCDPipelineStage/utils/createCDPipelineStageInstance';
+import { createCDPipelineStageInstance } from '../../../../../../k8s/groups/EDP/Stage/utils/createCDPipelineStageInstance';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';

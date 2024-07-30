@@ -1,9 +1,9 @@
-import { EDPCodebaseKubeObjectInterface } from '../../k8s/EDPCodebase/types';
+import { CodebaseKubeObjectInterface } from '../../k8s/groups/EDP/Codebase/types';
 import { FormValues } from '../../types/forms';
 import { CODEBASE_FORM_NAMES } from './names';
 
 export interface ManageGitOpsDataContext {
-  currentElement: EDPCodebaseKubeObjectInterface | 'placeholder';
+  currentElement: CodebaseKubeObjectInterface | 'placeholder';
   isReadOnly?: boolean;
   handleClosePlaceholder?: () => void;
 }

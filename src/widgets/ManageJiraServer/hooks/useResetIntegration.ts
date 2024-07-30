@@ -1,7 +1,7 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { JiraServerKubeObject } from '../../../k8s/JiraServer';
-import { SecretKubeObject } from '../../../k8s/Secret';
-import { SecretKubeObjectInterface } from '../../../k8s/Secret/types';
+import { SecretKubeObject } from '../../../k8s/groups/default/Secret';
+import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
+import { JiraServerKubeObject } from '../../../k8s/groups/EDP/JiraServer';
 import { useDeleteKubeObject } from '../../DeleteKubeObject/hooks/useDeleteKubeObject';
 
 export const useResetIntegration = () => {

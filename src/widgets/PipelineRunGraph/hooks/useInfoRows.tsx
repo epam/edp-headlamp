@@ -4,8 +4,8 @@ import { Link as MuiLink, Stack } from '@mui/material';
 import React from 'react';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
-import { PipelineRunKubeObject } from '../../../k8s/PipelineRun';
-import { routeEDPPipelineDetails } from '../../../pages/edp-pipeline-details/route';
+import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
+import { routePipelineDetails } from '../../../pages/pipeline-details/route';
 import { useSpecificDialogContext } from '../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../services/link-creation';
 import { formatFullYear, humanizeDefault } from '../../../utils/date/humanize';
@@ -81,7 +81,7 @@ export const useInfoRows = (tektonBaseURL: string) => {
           label: 'PipelineRun',
           text: (
             <Link
-              routeName={routeEDPPipelineDetails.path}
+              routeName={routePipelineDetails.path}
               params={{
                 namespace,
                 name: pipelineRunName,

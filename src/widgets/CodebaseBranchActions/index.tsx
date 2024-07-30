@@ -4,7 +4,7 @@ import { ActionsMenuList } from '../../components/ActionsMenuList';
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { EDPCodebaseBranchKubeObject } from '../../k8s/EDPCodebaseBranch';
+import { CodebaseBranchKubeObject } from '../../k8s/groups/EDP/CodebaseBranch';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
@@ -63,7 +63,7 @@ export const CodebaseBranchActionsMenu = ({
                     modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
                     forwardedProps: {
                       objectName: branch?.spec?.branchName,
-                      kubeObject: EDPCodebaseBranchKubeObject,
+                      kubeObject: CodebaseBranchKubeObject,
                       kubeObjectData: branch,
                       description: `Confirm the deletion of the codebase branch with all its components`,
                       onBeforeSubmit,
@@ -85,7 +85,7 @@ export const CodebaseBranchActionsMenu = ({
                     modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
                     forwardedProps: {
                       objectName: branch?.spec?.branchName,
-                      kubeObject: EDPCodebaseBranchKubeObject,
+                      kubeObject: CodebaseBranchKubeObject,
                       kubeObjectData: branch,
                       description: `Confirm the deletion of the codebase branch with all its components`,
                       onBeforeSubmit,
@@ -113,7 +113,7 @@ export const CodebaseBranchActionsMenu = ({
                     modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
                     forwardedProps: {
                       objectName: branch?.spec?.branchName,
-                      kubeObject: EDPCodebaseBranchKubeObject,
+                      kubeObject: CodebaseBranchKubeObject,
                       kubeObjectData: branch,
                       description: `Confirm the deletion of the codebase branch with all its components`,
                       onBeforeSubmit,
@@ -137,7 +137,7 @@ export const CodebaseBranchActionsMenu = ({
                     modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
                     forwardedProps: {
                       objectName: branch?.spec?.branchName,
-                      kubeObject: EDPCodebaseBranchKubeObject,
+                      kubeObject: CodebaseBranchKubeObject,
                       kubeObjectData: branch,
                       description: `Confirm the deletion of the codebase branch with all its components`,
                       onBeforeSubmit,

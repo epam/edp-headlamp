@@ -1,5 +1,5 @@
-import { QuickLinkKubeObjectInterface } from '../../../../k8s/QuickLink/types';
-import { SecretKubeObjectInterface } from '../../../../k8s/Secret/types';
+import { SecretKubeObjectInterface } from '../../../../k8s/groups/default/Secret/types';
+import { QuickLinkKubeObjectInterface } from '../../../../k8s/groups/EDP/QuickLink/types';
 import { FORM_MODES } from '../../../../types/forms';
 import { ValueOf } from '../../../../types/global';
 

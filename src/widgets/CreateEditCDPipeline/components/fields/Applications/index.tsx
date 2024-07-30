@@ -5,8 +5,8 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
-import { useCodebasesByTypeLabelQuery } from '../../../../../k8s/EDPCodebase/hooks/useCodebasesByTypeLabelQuery';
-import { EDPCodebaseKubeObjectInterface } from '../../../../../k8s/EDPCodebase/types';
+import { useCodebasesByTypeLabelQuery } from '../../../../../k8s/groups/EDP/Codebase/hooks/useCodebasesByTypeLabelQuery';
+import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
 import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
 import { FormAutocomplete } from '../../../../../providers/Form/components/FormAutocomplete';
 import { FieldEvent } from '../../../../../types/forms';
@@ -20,7 +20,7 @@ import {
 import { ApplicationRow } from './components/ApplicationRow';
 
 const getUsedApps = (
-  applicationList: KubeObjectListInterface<EDPCodebaseKubeObjectInterface>,
+  applicationList: KubeObjectListInterface<CodebaseKubeObjectInterface>,
   applicationsFieldValue: string[]
 ) => {
   return applicationList
@@ -29,7 +29,7 @@ const getUsedApps = (
 };
 
 const getUnusedApps = (
-  applicationList: KubeObjectListInterface<EDPCodebaseKubeObjectInterface>,
+  applicationList: KubeObjectListInterface<CodebaseKubeObjectInterface>,
   applicationsFieldValue: string[]
 ) => {
   return applicationList

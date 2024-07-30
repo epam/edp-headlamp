@@ -3,7 +3,7 @@ import { Box, CircularProgress, Link, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { NoDataWidgetWrapper } from '../../components/NoDataWidgetWrapper';
-import { routeEDPDependencyTrackIntegration } from '../../pages/edp-configuration/pages/edp-dependency-track-integration/route';
+import { routeEDPDependencyTrackIntegration } from '../../pages/configuration/pages/edp-dependency-track-integration/route';
 import { DeeptrackVulnerabilitiesProps } from './types';
 
 const MetricsCell = ({

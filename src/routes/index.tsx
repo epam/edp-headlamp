@@ -1,69 +1,69 @@
 import React from 'react';
-import RouteEDPCDPipelineDetailsPage from '../pages/edp-cdpipeline-details/page';
-import { routeEDPCDPipelineDetails } from '../pages/edp-cdpipeline-details/route';
-import RouteEDPCDPipelineListPage from '../pages/edp-cdpipeline-list/page';
-import { routeEDPCDPipelineList } from '../pages/edp-cdpipeline-list/route';
-import RouteEDPComponentDetailsPage from '../pages/edp-component-details/page';
-import { routeEDPComponentDetails } from '../pages/edp-component-details/route';
-import RouteEDPComponentListPage from '../pages/edp-component-list/page';
-import { routeEDPComponentList } from '../pages/edp-component-list/route';
-import RouteEDPArgoCDIntegrationPage from '../pages/edp-configuration/pages/edp-argocd-integration/page';
-import { routeEDPArgoCDIntegration } from '../pages/edp-configuration/pages/edp-argocd-integration/route';
-import RouteEDPClusterListPage from '../pages/edp-configuration/pages/edp-cluster-list/page';
-import { routeEDPClusterList } from '../pages/edp-configuration/pages/edp-cluster-list/route';
-import RouteEDPCodeMieIntegrationPage from '../pages/edp-configuration/pages/edp-codemie-integration/page';
-import { routeEDPCodeMieIntegration } from '../pages/edp-configuration/pages/edp-codemie-integration/route';
-import RouteEDPDefectDojoIntegrationPage from '../pages/edp-configuration/pages/edp-defect-dojo-integration/page';
-import { routeEDPDefectDojoIntegration } from '../pages/edp-configuration/pages/edp-defect-dojo-integration/route';
-import RouteEDPDependencyTrackIntegrationPage from '../pages/edp-configuration/pages/edp-dependency-track-integration/page';
-import { routeEDPDependencyTrackIntegration } from '../pages/edp-configuration/pages/edp-dependency-track-integration/route';
-import RouteEDPGitOpsConfigurationPage from '../pages/edp-configuration/pages/edp-gitops/page';
-import { routeEDPGitOpsConfiguration } from '../pages/edp-configuration/pages/edp-gitops/route';
-import RouteEDPGitServerListPage from '../pages/edp-configuration/pages/edp-gitserver-list/page';
-import { routeEDPGitServerList } from '../pages/edp-configuration/pages/edp-gitserver-list/route';
-import RouteEDPJiraIntegrationPage from '../pages/edp-configuration/pages/edp-jira-integration/page';
-import { routeEDPJiraIntegration } from '../pages/edp-configuration/pages/edp-jira-integration/route';
-import RouteEDPNexusIntegrationPage from '../pages/edp-configuration/pages/edp-nexus-integration/page';
-import { routeEDPNexusIntegration } from '../pages/edp-configuration/pages/edp-nexus-integration/route';
-import RouteEDPQuickLinkListPage from '../pages/edp-configuration/pages/edp-quick-link-list/page';
-import { routeQuickLinkList } from '../pages/edp-configuration/pages/edp-quick-link-list/route';
-import RouteEDPRegistryListPage from '../pages/edp-configuration/pages/edp-registry-list/page';
-import { routeEDPRegistryList } from '../pages/edp-configuration/pages/edp-registry-list/route';
-import RouteEDPSonarIntegrationPage from '../pages/edp-configuration/pages/edp-sonar-integration/page';
-import { routeEDPSonarIntegration } from '../pages/edp-configuration/pages/edp-sonar-integration/route';
-import RouteEDPSSOIntegrationPage from '../pages/edp-configuration/pages/edp-sso-integration/page';
-import { routeEDPSSOIntegration } from '../pages/edp-configuration/pages/edp-sso-integration/route';
-import RouteEDPMarketplacePage from '../pages/edp-marketplace/page';
-import { routeEDPMarketplace } from '../pages/edp-marketplace/route';
-import RouteEDPOverviewListPage from '../pages/edp-overview-list/page';
-import { routeEDPOverviewList } from '../pages/edp-overview-list/route';
-import RouteEDPPipelineDetailsPage from '../pages/edp-pipeline-details/page';
-import { routeEDPPipelineDetails } from '../pages/edp-pipeline-details/route';
-import RouteEDPPipelineListPage from '../pages/edp-pipelines/page';
-import { routeEDPPipelineList } from '../pages/edp-pipelines/route';
-import RouteEDPStageDetailsPage from '../pages/edp-stage-details/page';
-import { routeEDPStageDetails } from '../pages/edp-stage-details/route';
+import RouteCDPipelineDetailsPage from '../pages/cdpipeline-details/page';
+import { routeCDPipelineDetails } from '../pages/cdpipeline-details/route';
+import RouteCDPipelineListPage from '../pages/cdpipeline-list/page';
+import { routeCDPipelineList } from '../pages/cdpipeline-list/route';
+import RouteComponentDetailsPage from '../pages/component-details/page';
+import { routeComponentDetails } from '../pages/component-details/route';
+import RouteComponentListPage from '../pages/component-list/page';
+import { routeComponentList } from '../pages/component-list/route';
+import RouteEDPArgoCDIntegrationPage from '../pages/configuration/pages/edp-argocd-integration/page';
+import { routeEDPArgoCDIntegration } from '../pages/configuration/pages/edp-argocd-integration/route';
+import RouteEDPClusterListPage from '../pages/configuration/pages/edp-cluster-list/page';
+import { routeEDPClusterList } from '../pages/configuration/pages/edp-cluster-list/route';
+import RouteEDPCodeMieIntegrationPage from '../pages/configuration/pages/edp-codemie-integration/page';
+import { routeEDPCodeMieIntegration } from '../pages/configuration/pages/edp-codemie-integration/route';
+import RouteEDPDefectDojoIntegrationPage from '../pages/configuration/pages/edp-defect-dojo-integration/page';
+import { routeEDPDefectDojoIntegration } from '../pages/configuration/pages/edp-defect-dojo-integration/route';
+import RouteEDPDependencyTrackIntegrationPage from '../pages/configuration/pages/edp-dependency-track-integration/page';
+import { routeEDPDependencyTrackIntegration } from '../pages/configuration/pages/edp-dependency-track-integration/route';
+import RouteEDPGitOpsConfigurationPage from '../pages/configuration/pages/edp-gitops/page';
+import { routeEDPGitOpsConfiguration } from '../pages/configuration/pages/edp-gitops/route';
+import RouteGitServerListPage from '../pages/configuration/pages/edp-gitserver-list/page';
+import { routeGitServerList } from '../pages/configuration/pages/edp-gitserver-list/route';
+import RouteEDPJiraIntegrationPage from '../pages/configuration/pages/edp-jira-integration/page';
+import { routeEDPJiraIntegration } from '../pages/configuration/pages/edp-jira-integration/route';
+import RouteEDPNexusIntegrationPage from '../pages/configuration/pages/edp-nexus-integration/page';
+import { routeEDPNexusIntegration } from '../pages/configuration/pages/edp-nexus-integration/route';
+import RouteEDPQuickLinkListPage from '../pages/configuration/pages/edp-quick-link-list/page';
+import { routeQuickLinkList } from '../pages/configuration/pages/edp-quick-link-list/route';
+import RouteEDPRegistryListPage from '../pages/configuration/pages/edp-registry-list/page';
+import { routeEDPRegistryList } from '../pages/configuration/pages/edp-registry-list/route';
+import RouteEDPSonarIntegrationPage from '../pages/configuration/pages/edp-sonar-integration/page';
+import { routeEDPSonarIntegration } from '../pages/configuration/pages/edp-sonar-integration/route';
+import RouteEDPSSOIntegrationPage from '../pages/configuration/pages/edp-sso-integration/page';
+import { routeEDPSSOIntegration } from '../pages/configuration/pages/edp-sso-integration/route';
+import RouteEDPMarketplacePage from '../pages/marketplace/page';
+import { routeMarketplace } from '../pages/marketplace/route';
+import RouteEDPOverviewListPage from '../pages/overview-list/page';
+import { routeOverviewList } from '../pages/overview-list/route';
+import RouteEDPPipelineDetailsPage from '../pages/pipeline-details/page';
+import { routePipelineDetails } from '../pages/pipeline-details/route';
+import RouteEDPPipelineListPage from '../pages/pipelines/page';
+import { routePipelineList } from '../pages/pipelines/route';
+import RouteEDPStageDetailsPage from '../pages/stage-details/page';
+import { routeStageDetails } from '../pages/stage-details/route';
 
 export default [
   // Overview
-  { ...routeEDPOverviewList, component: () => <RouteEDPOverviewListPage /> },
+  { ...routeOverviewList, component: () => <RouteEDPOverviewListPage /> },
 
   // Pipelines
-  { ...routeEDPPipelineList, component: () => <RouteEDPPipelineListPage /> },
-  { ...routeEDPPipelineDetails, component: () => <RouteEDPPipelineDetailsPage /> },
+  { ...routePipelineList, component: () => <RouteEDPPipelineListPage /> },
+  { ...routePipelineDetails, component: () => <RouteEDPPipelineDetailsPage /> },
 
   // Components & children
-  { ...routeEDPComponentList, component: () => <RouteEDPComponentListPage /> },
-  { ...routeEDPComponentDetails, component: () => <RouteEDPComponentDetailsPage /> },
+  { ...routeComponentList, component: () => <RouteComponentListPage /> },
+  { ...routeComponentDetails, component: () => <RouteComponentDetailsPage /> },
 
   // CD Pipelines & children
-  { ...routeEDPCDPipelineList, component: () => <RouteEDPCDPipelineListPage /> },
-  { ...routeEDPCDPipelineDetails, component: () => <RouteEDPCDPipelineDetailsPage /> },
-  { ...routeEDPStageDetails, component: () => <RouteEDPStageDetailsPage /> },
+  { ...routeCDPipelineList, component: () => <RouteCDPipelineListPage /> },
+  { ...routeCDPipelineDetails, component: () => <RouteCDPipelineDetailsPage /> },
+  { ...routeStageDetails, component: () => <RouteEDPStageDetailsPage /> },
 
   // Configuration Group
   { ...routeEDPClusterList, component: () => <RouteEDPClusterListPage /> },
-  { ...routeEDPGitServerList, component: () => <RouteEDPGitServerListPage /> },
+  { ...routeGitServerList, component: () => <RouteGitServerListPage /> },
   { ...routeEDPRegistryList, component: () => <RouteEDPRegistryListPage /> },
   { ...routeEDPSonarIntegration, component: () => <RouteEDPSonarIntegrationPage /> },
   { ...routeEDPArgoCDIntegration, component: () => <RouteEDPArgoCDIntegrationPage /> },
@@ -83,5 +83,5 @@ export default [
   },
   // Marketplace
 
-  { ...routeEDPMarketplace, component: () => <RouteEDPMarketplacePage /> },
+  { ...routeMarketplace, component: () => <RouteEDPMarketplacePage /> },
 ];

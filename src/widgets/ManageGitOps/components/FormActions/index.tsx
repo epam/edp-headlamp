@@ -1,8 +1,8 @@
 import { Button, Grid } from '@mui/material';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { useCodebaseCRUD } from '../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
-import { createCodebaseInstance } from '../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
+import { useCodebaseCRUD } from '../../../../k8s/groups/EDP/Codebase/hooks/useCodebaseCRUD';
+import { createCodebaseInstance } from '../../../../k8s/groups/EDP/Codebase/utils/createCodebaseInstance';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';

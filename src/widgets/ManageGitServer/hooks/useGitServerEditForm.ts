@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { editResource } from '../../../k8s/common/editResource';
-import { EDPGitServerKubeObject } from '../../../k8s/EDPGitServer';
-import { EDPGitServerKubeObjectInterface } from '../../../k8s/EDPGitServer/types';
+import { GitServerKubeObject } from '../../../k8s/groups/EDP/GitServer';
+import { GitServerKubeObjectInterface } from '../../../k8s/groups/EDP/GitServer/types';
 import { getUsedValues } from '../../../utils/forms/getUsedValues';
 import { GIT_SERVER_FORM_NAMES } from '../names';
 import { GitServerFormValues } from '../types';
@@ -13,12 +13,12 @@ export const useGitServerEditForm = ({
   gitServer,
   webhookURL,
 }: {
-  gitServer: EDPGitServerKubeObjectInterface;
+  gitServer: GitServerKubeObjectInterface;
   webhookURL: string;
 }) => {
-  const editMutation = useResourceCRUDMutation<EDPGitServerKubeObjectInterface, CRUD_TYPES.EDIT>(
+  const editMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, CRUD_TYPES.EDIT>(
     'gitServerEditMutation',
-    EDPGitServerKubeObject,
+    GitServerKubeObject,
     CRUD_TYPES.EDIT
   );
 

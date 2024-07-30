@@ -10,7 +10,7 @@ import {
 } from '../../../../configs/icon-mappings';
 import { RESOURCE_ICON_NAMES } from '../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../icons/UseSpriteSymbol';
-import { EDPTemplateKubeObjectInterface } from '../../../../k8s/EDPTemplate/types';
+import { TemplateKubeObjectInterface } from '../../../../k8s/groups/EDP/Template/types';
 import { getCodebaseMappingByCodebaseType } from '../../../../utils/getCodebaseMappingByCodebaseType';
 import { rem } from '../../../../utils/styling/rem';
 
@@ -29,7 +29,7 @@ export const useStyles = makeStyles(() => ({
   },
 }));
 
-export const Preview = ({ template }: { template: EDPTemplateKubeObjectInterface }) => {
+export const Preview = ({ template }: { template: TemplateKubeObjectInterface }) => {
   const classes = useStyles();
   const codebaseMapping = getCodebaseMappingByCodebaseType(template?.spec.type);
 

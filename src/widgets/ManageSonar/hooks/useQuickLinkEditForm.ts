@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { editResource } from '../../../k8s/common/editResource';
-import { useQuickLinkCRUD } from '../../../k8s/QuickLink/hooks/useQuickLinkCRUD';
-import { QuickLinkKubeObjectInterface } from '../../../k8s/QuickLink/types';
+import { useQuickLinkCRUD } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinkCRUD';
+import { QuickLinkKubeObjectInterface } from '../../../k8s/groups/EDP/QuickLink/types';
 import { QUICK_LINK_FORM_NAMES } from '../names';
 import { QuickLinkFormValues } from '../types';
 

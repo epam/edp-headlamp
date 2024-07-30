@@ -2,9 +2,9 @@ import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CI_TOOLS } from '../../../../constants/ciTools';
-import { useCodebaseCRUD } from '../../../../k8s/EDPCodebase/hooks/useCodebaseCRUD';
-import { EDPCodebaseKubeObjectInterface } from '../../../../k8s/EDPCodebase/types';
-import { createCodebaseInstance } from '../../../../k8s/EDPCodebase/utils/createCodebaseInstance';
+import { useCodebaseCRUD } from '../../../../k8s/groups/EDP/Codebase/hooks/useCodebaseCRUD';
+import { CodebaseKubeObjectInterface } from '../../../../k8s/groups/EDP/Codebase/types';
+import { createCodebaseInstance } from '../../../../k8s/groups/EDP/Codebase/utils/createCodebaseInstance';
 import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../constants';
@@ -45,7 +45,7 @@ export const FormActions = () => {
       });
 
       await createCodebase({
-        codebaseData: codebaseInstance as EDPCodebaseKubeObjectInterface,
+        codebaseData: codebaseInstance as CodebaseKubeObjectInterface,
         codebaseAuthData: null,
       });
     },

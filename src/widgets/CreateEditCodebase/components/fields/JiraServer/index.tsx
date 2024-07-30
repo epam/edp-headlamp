@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useJiraServerNameListQuery } from '../../../../../k8s/JiraServer/hooks/useJiraServerNameListQuery';
+import { useJiraServerNameListQuery } from '../../../../../k8s/groups/EDP/JiraServer/hooks/useJiraServerNameListQuery';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { CODEBASE_FORM_NAMES } from '../../../names';

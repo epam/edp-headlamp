@@ -1,6 +1,6 @@
 import React from 'react';
 import { STATUS_COLOR } from '../../../constants/colors';
-import { PipelineKubeObjectInterface } from '../../../k8s/Pipeline/types';
+import { PipelineKubeObjectInterface } from '../../../k8s/groups/Tekton/Pipeline/types';
 
 export const usePipelineGraphData = (pipeline: PipelineKubeObjectInterface) => {
   const pipelineTasks = React.useMemo(() => {

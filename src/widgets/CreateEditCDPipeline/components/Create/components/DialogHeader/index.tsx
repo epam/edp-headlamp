@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { LearnMoreLink } from '../../../../../../components/LearnMoreLink';
 import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { createCDPipelineInstance } from '../../../../../../k8s/EDPCDPipeline/utils/createCDPipelineInstance';
+import { createCDPipelineInstance } from '../../../../../../k8s/groups/EDP/CDPipeline/utils/createCDPipelineInstance';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CDPIPELINE_FORM_NAMES } from '../../../../names';
 import { CreateEditCDPipelineFormValues } from '../../../../types';

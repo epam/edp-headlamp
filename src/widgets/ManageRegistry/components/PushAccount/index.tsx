@@ -3,12 +3,12 @@ import { Grid, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { CONTAINER_REGISTRY_TYPE } from '../../../../k8s/ConfigMap/constants';
-import { SecretKubeObject } from '../../../../k8s/Secret';
+import { CONTAINER_REGISTRY_TYPE } from '../../../../k8s/groups/default/ConfigMap/constants';
+import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
 import {
   SECRET_ANNOTATION_INTEGRATION_SECRET_CONNECTED,
   SECRET_ANNOTATION_INTEGRATION_SECRET_ERROR,
-} from '../../../../k8s/Secret/annotations';
+} from '../../../../k8s/groups/default/Secret/annotations';
 import { rem } from '../../../../utils/styling/rem';
 import { useRegistryFormsContext } from '../../hooks/useRegistryFormsContext';
 import { SHARED_FORM_NAMES } from '../../names';

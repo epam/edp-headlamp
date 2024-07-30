@@ -1,5 +1,5 @@
 import React from 'react';
-import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/ConfigMap/constants';
+import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/groups/default/ConfigMap/constants';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { useRegistryFormsContext } from '../../../../hooks/useRegistryFormsContext';
 import { CONFIG_MAP_FORM_NAMES } from '../../../../names';

@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import { CONTAINER_REGISTRY_TYPE } from '../../k8s/ConfigMap/constants';
+import { CONTAINER_REGISTRY_TYPE } from '../../k8s/groups/default/ConfigMap/constants';
 import { MultiFormContextProvider } from '../../providers/MultiForm';
 import { FormItem } from '../../providers/MultiForm/types';
 import { FORM_MODES } from '../../types/forms';

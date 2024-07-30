@@ -1,8 +1,8 @@
 import { Button, Grid } from '@mui/material';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { useSecretCRUD } from '../../../../../../k8s/Secret/hooks/useSecretCRUD';
-import { createSSOIntegrationSecretInstance } from '../../../../../../k8s/Secret/utils/createSSOIntegrationSecretInstance';
+import { useSecretCRUD } from '../../../../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
+import { createSSOIntegrationSecretInstance } from '../../../../../../k8s/groups/default/Secret/utils/createSSOIntegrationSecretInstance';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
 import {
   ManageSSOIntegrationSecretFormDataContext,

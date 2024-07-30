@@ -1,11 +1,11 @@
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
-import { EDPCDPipelineKubeObjectInterface } from '../../k8s/EDPCDPipeline/types';
+import { CDPipelineKubeObjectInterface } from '../../k8s/groups/EDP/CDPipeline/types';
 import { ValueOf } from '../../types/global';
 import { PermissionSet } from '../../types/permissions';
 
 export interface CDPipelineActionsMenuProps {
   data: {
-    CDPipelineData: EDPCDPipelineKubeObjectInterface;
+    CDPipelineData: CDPipelineKubeObjectInterface;
   };
   backRoute?: string;
   variant?: ValueOf<typeof ACTION_MENU_TYPES>;

@@ -3,13 +3,13 @@ import { useForm, UseFormReturn } from 'react-hook-form';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { GIT_PROVIDERS } from '../../../constants/gitProviders';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
-import { SecretKubeObject } from '../../../k8s/Secret';
-import { SecretKubeObjectInterface } from '../../../k8s/Secret/types';
+import { SecretKubeObject } from '../../../k8s/groups/default/Secret';
+import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
 import {
   createGerritGitServerSecretInstance,
   createGithubGitServerSecretInstance,
   createGitlabGitServerSecretInstance,
-} from '../../../k8s/Secret/utils/createGitServerSecretInstance';
+} from '../../../k8s/groups/default/Secret/utils/createGitServerSecretInstance';
 import { GIT_USER } from '../constants';
 import { CredentialsFormValues, SharedFormValues } from '../types';
 

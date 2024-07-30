@@ -1,7 +1,7 @@
 import React from 'react';
 import { CI_TOOLS } from '../../../../../constants/ciTools';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../../constants/codebaseVersioningTypes';
-import { useGitServerListQuery } from '../../../../../k8s/EDPGitServer/hooks/useGitServerListQuery';
+import { useGitServerListQuery } from '../../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { CreateCodebaseFormValues } from '../types';
 

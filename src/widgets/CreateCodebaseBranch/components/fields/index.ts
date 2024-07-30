@@ -1,5 +1,5 @@
 export * from './BranchName';
-export * from './ReleaseBranch';
-export * from './DefaultBranchVersion';
 export * from './BranchVersion';
+export * from './DefaultBranchVersion';
 export * from './FromCommit';
+export * from './ReleaseBranch';

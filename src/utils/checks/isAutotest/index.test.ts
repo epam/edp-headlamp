@@ -1,4 +1,4 @@
-import { EDPCodebaseKubeObjectInterface } from '../../../k8s/EDPCodebase/types';
+import { CodebaseKubeObjectInterface } from '../../../k8s/groups/EDP/Codebase/types';
 import { isAutotest } from './index';
 
 describe('cheking isAutotest', () => {
@@ -8,7 +8,7 @@ describe('cheking isAutotest', () => {
         spec: {
           type: 'autotest',
         },
-      } as EDPCodebaseKubeObjectInterface)
+      } as CodebaseKubeObjectInterface)
     ).toBeTruthy();
   });
   it('should return false if spec type is not autotests', () => {
@@ -17,7 +17,7 @@ describe('cheking isAutotest', () => {
         spec: {
           type: 'library',
         },
-      } as EDPCodebaseKubeObjectInterface)
+      } as CodebaseKubeObjectInterface)
     ).toBeFalsy();
   });
 });

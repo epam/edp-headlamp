@@ -1,9 +1,9 @@
-import { EDPTemplateKubeObjectInterface } from '../../k8s/EDPTemplate/types';
+import { TemplateKubeObjectInterface } from '../../k8s/groups/EDP/Template/types';
 import { FormValues } from '../../types/forms';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from './names';
 
 export interface CreateCodebaseFromTemplateDialogForwardedProps {
-  template: EDPTemplateKubeObjectInterface;
+  template: TemplateKubeObjectInterface;
 }
 
 export type CreateCodebaseFromTemplateFormValues = FormValues<

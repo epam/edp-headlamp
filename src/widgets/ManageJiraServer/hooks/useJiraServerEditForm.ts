@@ -2,8 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
-import { JiraServerKubeObject } from '../../../k8s/JiraServer';
-import { JiraServerKubeObjectInterface } from '../../../k8s/JiraServer/types';
+import { JiraServerKubeObject } from '../../../k8s/groups/EDP/JiraServer';
+import { JiraServerKubeObjectInterface } from '../../../k8s/groups/EDP/JiraServer/types';
 import { JIRA_SERVER_FORM_NAMES } from '../names';
 import { JiraServerFormValues } from '../types';
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { useCDPipelineStageListQuery } from '../../../../../../../k8s/EDPCDPipelineStage/hooks/useCDPipelineStageListQuery';
-import { EDPCDPipelineStageKubeObjectInterface } from '../../../../../../../k8s/EDPCDPipelineStage/types';
+import { useCDPipelineStageListQuery } from '../../../../../../../k8s/groups/EDP/Stage/hooks/useCDPipelineStageListQuery';
+import { StageKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/Stage/types';
 
 export const useConflictedStage = (clusterName: string) => {
-  const [stage, setStage] = React.useState<EDPCDPipelineStageKubeObjectInterface>(null);
+  const [stage, setStage] = React.useState<StageKubeObjectInterface>(null);
 
   useCDPipelineStageListQuery({
     options: {
