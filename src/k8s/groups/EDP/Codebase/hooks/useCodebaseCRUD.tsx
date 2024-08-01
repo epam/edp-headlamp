@@ -4,9 +4,9 @@ import { CRUD_TYPES } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { EDPKubeObjectInterface } from '../../../../../types/k8s';
 import { CodebaseAuthData } from '../../../../../widgets/CreateEditCodebase/types';
-import { createCodebaseSecretInstance } from '../../../default/Secret/utils/createCodebaseSecretInstance';
 import { CodebaseKubeObject } from '../index';
 import { CodebaseKubeObjectInterface } from '../types';
+import { createCodebaseSecretInstance } from '../utils/createCodebaseSecretInstance';
 
 interface CreateCodebaseProps {
   codebaseData: CodebaseKubeObjectInterface;

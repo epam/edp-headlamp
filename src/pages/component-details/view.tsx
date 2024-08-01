@@ -18,7 +18,7 @@ import { ResourceActionListContextProvider } from '../../providers/ResourceActio
 import { LinkCreationService } from '../../services/link-creation';
 import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
 import { routeComponentList } from '../component-list/route';
-import { routeEDPSonarIntegration } from '../configuration/pages/edp-sonar-integration/route';
+import { routeSonar } from '../configuration/pages/sonar/route';
 import { usePageTabs } from './hooks/usePageTabs';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 import { usePermissionsContext } from './providers/Permissions/hooks';
@@ -75,7 +75,7 @@ export const PageView = () => {
                     defaultBranchName: component.data?.spec.defaultBranch,
                   })}
                   configurationLink={{
-                    routeName: routeEDPSonarIntegration.path,
+                    routeName: routeSonar.path,
                   }}
                   isTextButton
                 />

@@ -1,18 +1,19 @@
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { PageDescription } from '../../types/pages';
-import { ARGOCD_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-argocd-integration/constants';
-import { CLUSTER_LIST_PAGE_DESCRIPTION } from './pages/edp-cluster-list/constants';
-import { CODEMIE_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-codemie-integration/constants';
-import { DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-defect-dojo-integration/constants';
-import { DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-dependency-track-integration/constants';
-import { GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION } from './pages/edp-gitops/constants';
-import { GIT_SERVER_LIST_PAGE_DESCRIPTION } from './pages/edp-gitserver-list/constants';
-import { JIRA_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-jira-integration/constants';
-import { NEXUS_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-nexus-integration/constants';
-import { QUICK_LINK_LIST_PAGE_DESCRIPTION } from './pages/edp-quick-link-list/constants';
-import { REGISTRY_LIST_PAGE_DESCRIPTION } from './pages/edp-registry-list/constants';
-import { SONAR_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-sonar-integration/constants';
-import { SSO_INTEGRATION_PAGE_DESCRIPTION } from './pages/edp-sso-integration/constants';
+import { pageDescription as argoCDPageDescription } from './pages/argocd/constants';
+import { pageDescription as chatAssistantPageDescription } from './pages/chat-assistant/constants';
+import { pageDescription as clustersPageDescription } from './pages/clusters/constants';
+import { pageDescription as codemiePageDescription } from './pages/codemie/constants';
+import { pageDescription as defectDojoPageDescription } from './pages/defect-dojo/constants';
+import { pageDescription as dependencyTrackPageDescription } from './pages/dependency-track/constants';
+import { pageDescription as gitOpsPageDescription } from './pages/gitops/constants';
+import { pageDescription as gitServersPageDescription } from './pages/gitservers/constants';
+import { pageDescription as jiraPageDescription } from './pages/jira/constants';
+import { pageDescription as nexusPageDescription } from './pages/nexus/constants';
+import { pageDescription as quickLinksPageDescription } from './pages/quicklinks/constants';
+import { pageDescription as registryPageDescription } from './pages/registry/constants';
+import { pageDescription as sonarPageDescription } from './pages/sonar/constants';
+import { pageDescription as ssoPageDescription } from './pages/sso/constants';
 
 export interface SubMenuGroup {
   id: string;
@@ -26,61 +27,54 @@ export const menu: SubMenuGroup[] = [
     id: 'quick-access',
     label: 'Quick Access',
     icon: ICONS.LIGHTNING_BOLT,
-    children: [QUICK_LINK_LIST_PAGE_DESCRIPTION],
+    children: [quickLinksPageDescription],
   },
   {
     id: 'artifacts-storage',
     label: 'Artifacts Storage',
     icon: ICONS.STORAGE,
-    children: [NEXUS_INTEGRATION_PAGE_DESCRIPTION, REGISTRY_LIST_PAGE_DESCRIPTION],
+    children: [nexusPageDescription, registryPageDescription],
   },
   {
     id: 'deployment',
     label: 'Deployment',
     icon: ICONS.ROCKET_ROUNDED,
-    children: [
-      CLUSTER_LIST_PAGE_DESCRIPTION,
-      GIT_OPS_CONFIGURATION_PAGE_DESCRIPTION,
-      ARGOCD_INTEGRATION_PAGE_DESCRIPTION,
-    ],
+    children: [clustersPageDescription, gitOpsPageDescription, argoCDPageDescription],
   },
   {
     id: 'security',
     label: 'Security',
     icon: ICONS.SECURITY,
-    children: [
-      DEFECT_DOJO_INTEGRATION_PAGE_DESCRIPTION,
-      DEPENDENCY_TRACK_INTEGRATION_PAGE_DESCRIPTION,
-    ],
+    children: [defectDojoPageDescription, dependencyTrackPageDescription],
   },
   {
     id: 'code-quality',
     label: 'Code Quality',
     icon: ICONS.CUP,
-    children: [SONAR_INTEGRATION_PAGE_DESCRIPTION],
+    children: [sonarPageDescription],
   },
   {
     id: 'version-control',
     label: 'Version Control System',
     icon: ICONS.LAYERS,
-    children: [GIT_SERVER_LIST_PAGE_DESCRIPTION],
+    children: [gitServersPageDescription],
   },
   {
     id: 'management-tool',
     label: 'Management Tool',
     icon: ICONS.TOOLS,
-    children: [JIRA_INTEGRATION_PAGE_DESCRIPTION],
+    children: [jiraPageDescription],
   },
   {
     id: 'access',
     label: 'Access',
     icon: ICONS.KEY,
-    children: [SSO_INTEGRATION_PAGE_DESCRIPTION],
+    children: [ssoPageDescription],
   },
   {
     id: 'genAi',
     label: 'Gen AI',
     icon: 'ph:open-ai-logo',
-    children: [CODEMIE_INTEGRATION_PAGE_DESCRIPTION],
+    children: [chatAssistantPageDescription, codemiePageDescription],
   },
 ];

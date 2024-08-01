@@ -5,10 +5,9 @@ import { useQuery } from 'react-query';
 import { v4 as uuidv4 } from 'uuid';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../k8s/groups/default/Secret';
-import { INTEGRATION_SECRET_NAMES } from '../../k8s/groups/default/Secret/constants';
+import { SECRET_LABEL_SECRET_TYPE } from '../../k8s/groups/default/Secret/labels';
 import { LOCAL_STORAGE_SERVICE } from '../../services/local-storage';
 import { safeDecode } from '../../utils/decodeEncode';
-import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { Chat } from './components/Chat';
 import { ChatHistory } from './components/ChatHistory';
 import { StyledChatBody, StyledChatHeader } from './styles';
@@ -200,13 +199,13 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
 };
 
 export const AiChatWrapper = () => {
-  const [codemieSecret] = SecretKubeObject.useGet(
-    INTEGRATION_SECRET_NAMES.CODEMIE,
-    getDefaultNamespace()
-  );
+  const [codemieSecrets] = SecretKubeObject.useList({
+    labelSelector: `${SECRET_LABEL_SECRET_TYPE}=chat-assistant`,
+  });
+  const codemieSecret = codemieSecrets?.[0]?.jsonData;
 
   const codemieSecretData = React.useMemo(() => {
-    if (codemieSecret === null) {
+    if (!codemieSecret) {
       return null;
     }
 

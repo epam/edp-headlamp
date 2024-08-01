@@ -24,7 +24,7 @@ import { LinkCreationService } from '../../../../../../../../services/link-creat
 import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../../../../widgets/PodsLogViewer/constants';
 import { PODS_TERMINAL_DIALOG_NAME } from '../../../../../../../../widgets/PodsTerminal/constants';
 import { routeComponentDetails } from '../../../../../../../component-details/route';
-import { routeEDPArgoCDIntegration } from '../../../../../../../configuration/pages/edp-argocd-integration/route';
+import { routeArgoCD } from '../../../../../../../configuration/pages/argocd/route';
 import { StyledChip } from '../../styles';
 import { StyledCard } from './styles';
 import { ApplicationCardProps } from './types';
@@ -129,7 +129,7 @@ export const ApplicationCard = ({
                   icon={ICONS.ARGOCD}
                   externalLink={_createArgoCDLink(argoApplication)}
                   configurationLink={{
-                    routeName: routeEDPArgoCDIntegration.path,
+                    routeName: routeArgoCD.path,
                   }}
                   size="small"
                 />

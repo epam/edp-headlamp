@@ -10,7 +10,7 @@ import { CodebaseKubeObjectInterface } from '../../../../k8s/groups/EDP/Codebase
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../widgets/CreateEditCodebase/constants';
-import { routeGitServerList } from '../../../configuration/pages/edp-gitserver-list/route';
+import { routeGitServerList } from '../../../configuration/pages/gitservers/route';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
 import { usePermissionsContext } from '../../providers/Permissions/hooks';
 import { ComponentMultiDeletion } from './components/ComponentMultiDeletion';

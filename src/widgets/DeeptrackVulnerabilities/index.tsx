@@ -3,7 +3,7 @@ import { Box, CircularProgress, Link, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { NoDataWidgetWrapper } from '../../components/NoDataWidgetWrapper';
-import { routeEDPDependencyTrackIntegration } from '../../pages/configuration/pages/edp-dependency-track-integration/route';
+import { routeDependencyTrack } from '../../pages/configuration/pages/dependency-track/route';
 import { DeeptrackVulnerabilitiesProps } from './types';
 
 const MetricsCell = ({
@@ -45,9 +45,7 @@ const MetricsCell = ({
 export const DependencyTrackMetrics = ({ depTrackData }: DeeptrackVulnerabilitiesProps) => {
   const history = useHistory();
 
-  const dependencyTrackConfigurationPage = Router.createRouteURL(
-    routeEDPDependencyTrackIntegration.path
-  );
+  const dependencyTrackConfigurationPage = Router.createRouteURL(routeDependencyTrack.path);
 
   return (
     <NoDataWidgetWrapper

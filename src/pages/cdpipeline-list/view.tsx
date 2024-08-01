@@ -26,7 +26,7 @@ import { FORM_MODES } from '../../types/forms';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../widgets/CreateEditCDPipeline/constants';
 import { CreateEditCDPipelineDialogForwardedProps } from '../../widgets/CreateEditCDPipeline/types';
-import { routeEDPGitOpsConfiguration } from '../configuration/pages/edp-gitops/route';
+import { routeGitOps } from '../configuration/pages/gitops/route';
 import { CDPipelineList } from './components/CDPipelineList';
 import { usePermissionsContext } from './providers/Permissions/hooks';
 
@@ -57,7 +57,7 @@ export const PageView = () => {
 
   const history = useHistory();
 
-  const gitOpsConfigurationPageRoute = Router.createRouteURL(routeEDPGitOpsConfiguration.path);
+  const gitOpsConfigurationPageRoute = Router.createRouteURL(routeGitOps.path);
 
   const { filterFunction } = useFilterContext();
 
