@@ -5,7 +5,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { NoDataWidgetWrapper } from '../../components/NoDataWidgetWrapper';
-import { routeEDPSonarIntegration } from '../../pages/configuration/pages/edp-sonar-integration/route';
+import { routeSonar } from '../../pages/configuration/pages/sonar/route';
 import { LinkCreationService } from '../../services/link-creation';
 import { MetricsItem } from './components/MetricsItem';
 import { Rating } from './components/Rating';
@@ -89,7 +89,7 @@ export const SonarQubeMetrics = ({
 }: SonarQubeMetricsProps) => {
   const projectID = codebaseName;
 
-  const sonarConfigurationPage = Router.createRouteURL(routeEDPSonarIntegration.path);
+  const sonarConfigurationPage = Router.createRouteURL(routeSonar.path);
   const history = useHistory();
 
   return (

@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
 import { EDP_USER_GUIDE } from '../../../../../constants/urls';
 import { useClusterSecretListQuery } from '../../../../../k8s/groups/default/Secret/hooks/useClusterSecretListQuery';
-import { routeEDPClusterList } from '../../../../../pages/configuration/pages/edp-cluster-list/route';
+import { routeClusters } from '../../../../../pages/configuration/pages/clusters/route';
 import { FormSelect } from '../../../../../providers/Form/components/FormSelect';
 import { STAGE_FORM_NAMES } from '../../../names';
 import { CreateEditStageFormValues } from '../../../types';
@@ -38,7 +38,7 @@ export const Cluster = () => {
   }, [data, isLoading]);
 
   const history = useHistory();
-  const clusterConfigurationPage = Router.createRouteURL(routeEDPClusterList.path);
+  const clusterConfigurationPage = Router.createRouteURL(routeClusters.path);
 
   return (
     <FormSelect

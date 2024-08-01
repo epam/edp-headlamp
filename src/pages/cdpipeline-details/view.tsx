@@ -14,7 +14,7 @@ import { useQuickLinksURLsQuery } from '../../k8s/groups/EDP/QuickLink/hooks/use
 import { LinkCreationService } from '../../services/link-creation';
 import { CDPipelineActionsMenu } from '../../widgets/CDPipelineActionsMenu';
 import { routeCDPipelineList } from '../cdpipeline-list/route';
-import { routeEDPSonarIntegration } from '../configuration/pages/edp-sonar-integration/route';
+import { routeSonar } from '../configuration/pages/sonar/route';
 import { StageList } from './components/StageList';
 import { StageListFilter } from './components/StageListFilter';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
@@ -56,7 +56,7 @@ export const PageView = () => {
                 name
               )}
               configurationLink={{
-                routeName: routeEDPSonarIntegration.path,
+                routeName: routeSonar.path,
               }}
               isTextButton
             />

@@ -15,7 +15,7 @@ import { LinkCreationService } from '../../services/link-creation';
 import { StageActionsMenu } from '../../widgets/StageActionsMenu';
 import { routeCDPipelineDetails } from '../cdpipeline-details/route';
 import { routeCDPipelineList } from '../cdpipeline-list/route';
-import { routeEDPArgoCDIntegration } from '../configuration/pages/edp-argocd-integration/route';
+import { routeArgoCD } from '../configuration/pages/argocd/route';
 import { usePageTabs } from './hooks/usePageTabs';
 import { useDataContext } from './providers/Data/hooks';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
@@ -81,7 +81,7 @@ export const PageView = () => {
                 stageSpecName
               )}
               configurationLink={{
-                routeName: routeEDPArgoCDIntegration.path,
+                routeName: routeArgoCD.path,
               }}
               isTextButton
             />

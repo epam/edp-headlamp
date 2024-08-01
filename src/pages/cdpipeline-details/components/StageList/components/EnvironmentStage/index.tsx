@@ -11,7 +11,7 @@ import {
 } from '../../../../../../k8s/groups/EDP/QuickLink/constants';
 import { StageKubeObject } from '../../../../../../k8s/groups/EDP/Stage';
 import { LinkCreationService } from '../../../../../../services/link-creation';
-import { routeEDPArgoCDIntegration } from '../../../../../configuration/pages/edp-argocd-integration/route';
+import { routeArgoCD } from '../../../../../configuration/pages/argocd/route';
 import { routeStageDetails } from '../../../../../stage-details/route';
 import { usePageFilterContext } from '../../../../hooks/usePageFilterContext';
 import { ApplicationCard } from './components/ApplicationCard';
@@ -109,7 +109,7 @@ export const EnvironmentStage = ({
                         stage.spec.name
                       )}
                       configurationLink={{
-                        routeName: routeEDPArgoCDIntegration.path,
+                        routeName: routeArgoCD.path,
                       }}
                       size="small"
                     />
