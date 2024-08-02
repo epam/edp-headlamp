@@ -1,4 +1,6 @@
 import React from 'react';
+import { ConfirmModal } from '../../widgets/ConfirmModal';
+import { CONFIRM_DIALOG_NAME } from '../../widgets/ConfirmModal/constants';
 import { ConfirmResourcesUpdates } from '../../widgets/ConfirmResourcesUpdates';
 import { CONFIRM_RESOURCES_UPDATES_DIALOG_NAME } from '../../widgets/ConfirmResourcesUpdates/constants';
 import { CreateCodebaseBranch } from '../../widgets/CreateCodebaseBranch';
@@ -39,6 +41,7 @@ const MemoizedPipelineGraph = React.memo(PipelineGraph);
 const MemoizedConfirmResourcesUpdates = React.memo(ConfirmResourcesUpdates);
 const MemoizedManageQuickLink = React.memo(ManageQuickLink);
 const MemoizedSuccessModal = React.memo(SuccessModal);
+const MemoizedConfirmModal = React.memo(ConfirmModal);
 
 export const MODAL_MAPPING = {
   [CREATE_EDIT_CODEBASE_DIALOG_NAME]: <MemoizedCreateEditCodebase />,
@@ -54,4 +57,5 @@ export const MODAL_MAPPING = {
   [CONFIRM_RESOURCES_UPDATES_DIALOG_NAME]: <MemoizedConfirmResourcesUpdates />,
   [MANAGE_QUICK_LINK_DIALOG_NAME]: <MemoizedManageQuickLink />,
   [SUCCESS_DIALOG_NAME]: <MemoizedSuccessModal />,
+  [CONFIRM_DIALOG_NAME]: <MemoizedConfirmModal />,
 } as const;

@@ -22,6 +22,7 @@ export interface StageSpecInterface {
   };
   triggerType: string;
   triggerTemplate: string;
+  cleanTemplate: string;
   namespace: string;
   clusterName: string;
 }

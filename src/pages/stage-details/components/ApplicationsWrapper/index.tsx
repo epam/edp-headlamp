@@ -17,6 +17,7 @@ import { ApplicationsProps } from '../Applications/types';
 export const ApplicationsWrapper = ({
   enrichedApplicationsWithArgoApplications,
   latestDeployPipelineRunIsRunning,
+  latestCleanPipelineRunIsRunning,
 }: ApplicationsProps) => {
   const baseDefaultValues = React.useMemo(
     () =>
@@ -68,6 +69,7 @@ export const ApplicationsWrapper = ({
       <Applications
         enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
         latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
+        latestCleanPipelineRunIsRunning={latestCleanPipelineRunIsRunning}
       />
     </FormContextProvider>
   );

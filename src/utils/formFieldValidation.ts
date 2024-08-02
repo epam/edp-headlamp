@@ -15,7 +15,7 @@ export const validationRules: Record<string, ValidationRule[]> = {
       message: 'String has to start with an alphabet letter or a number',
     },
     {
-      pattern: /^[a-zA-Z0-9-]+(\/[a-zA-Z0-9-]+)*$/,
+      pattern: /^[a-zA-Z0-9-_]+(\/[a-zA-Z0-9-_]+)*$/,
       message: 'String can only contain alphanumeric characters, dash, and slash',
     },
   ],

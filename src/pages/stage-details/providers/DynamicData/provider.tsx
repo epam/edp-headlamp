@@ -40,6 +40,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const stageSpecName = stage?.spec.name;
   const stageMetadataName = stage?.metadata.name;
   const stageTriggerTemplate = stage?.spec.triggerTemplate;
+  const stageCleanTemplate = stage?.spec.cleanTemplate;
 
   const [pipelineRuns, pipelineRunsError] = PipelineRunKubeObject.useList();
   const [gitServers, gitServersError] = GitServerKubeObject.useList();
@@ -58,6 +59,18 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       [PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE]: CDPipelineName,
       [PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE]: stageMetadataName,
       [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.DEPLOY,
+    });
+  }, [CDPipelineName, sortedPipelineRuns, stageMetadataName]);
+
+  const cleanPipelineRuns = React.useMemo(() => {
+    if (!stageMetadataName || !CDPipelineName || sortedPipelineRuns === null) {
+      return null; // loading
+    }
+
+    return filterByLabels(sortedPipelineRuns, {
+      [PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE]: CDPipelineName,
+      [PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE]: stageMetadataName,
+      [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.CLEAN,
     });
   }, [CDPipelineName, sortedPipelineRuns, stageMetadataName]);
 
@@ -109,6 +122,16 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     },
   });
 
+  const cleanPipelineRunTemplate = useTriggerTemplateByNameQuery({
+    props: {
+      name: stageCleanTemplate,
+    },
+    options: {
+      enabled: !!stageCleanTemplate,
+      select: (data) => data.spec.resourcetemplates?.[0],
+    },
+  });
+
   const DataContextValue = React.useMemo(
     () => ({
       stage: {
@@ -126,6 +149,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: deployPipelineRuns === null,
         error: pipelineRunsError,
       },
+      cleanPipelineRuns: {
+        data: cleanPipelineRuns,
+        isLoading: cleanPipelineRuns === null,
+        error: pipelineRunsError,
+      },
       autotestRunnerPipelineRuns: {
         data: autotestRunnerPipelineRuns,
         isLoading: autotestRunnerPipelineRuns === null,
@@ -141,6 +169,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: deployPipelineRunTemplate.isLoading,
         error: deployPipelineRunTemplate.error as ApiError,
       },
+      cleanPipelineRunTemplate: {
+        data: cleanPipelineRunTemplate.data,
+        isLoading: cleanPipelineRunTemplate.isLoading,
+        error: cleanPipelineRunTemplate.error as ApiError,
+      },
       gitServers: {
         data: gitServers,
         isLoading: gitServers === null,
@@ -153,11 +186,15 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       autotestPipelineRuns,
       pipelineRunsError,
       deployPipelineRuns,
+      cleanPipelineRuns,
       autotestRunnerPipelineRuns,
       argoApplications,
       deployPipelineRunTemplate.data,
       deployPipelineRunTemplate.isLoading,
       deployPipelineRunTemplate.error,
+      cleanPipelineRunTemplate.data,
+      cleanPipelineRunTemplate.isLoading,
+      cleanPipelineRunTemplate.error,
       gitServers,
       gitServersError,
     ]

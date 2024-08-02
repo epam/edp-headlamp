@@ -5,7 +5,7 @@ import { FormSelect } from '../../../../../providers/Form/components/FormSelect'
 import { STAGE_FORM_NAMES } from '../../../names';
 import { CreateEditStageFormValues } from '../../../types';
 
-export const TriggerTemplate = () => {
+export const DeployTemplate = () => {
   const {
     register,
     control,
@@ -27,9 +27,9 @@ export const TriggerTemplate = () => {
   return (
     <FormSelect
       {...register(STAGE_FORM_NAMES.triggerTemplate.name, {
-        required: 'Select Pipeline template',
+        required: 'Select Deploy Pipeline template',
       })}
-      label={'Pipeline template'}
+      label={'Deploy Pipeline template'}
       title="Choose a predefined blueprint outlining the deployment process for your application(s)."
       control={control}
       errors={errors}

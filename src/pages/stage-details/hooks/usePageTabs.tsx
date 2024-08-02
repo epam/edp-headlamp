@@ -26,6 +26,7 @@ export const usePageTabs = () => {
     autotestPipelineRuns,
     autotestRunnerPipelineRuns,
     deployPipelineRuns,
+    cleanPipelineRuns,
     argoApplications,
   } = useDynamicDataContext();
 
@@ -61,6 +62,20 @@ export const usePageTabs = () => {
     );
   }, [deployPipelineRuns]);
 
+  const latestCleanPipelineRunIsRunning = React.useMemo(() => {
+    const latestNewCleanPipelineRun = cleanPipelineRuns.data?.[0];
+
+    if (!latestNewCleanPipelineRun) {
+      return false;
+    }
+
+    return (
+      !latestNewCleanPipelineRun?.status ||
+      PipelineRunKubeObject.parseStatusReason(latestNewCleanPipelineRun)?.toLowerCase() ===
+        PIPELINE_RUN_REASON.RUNNING
+    );
+  }, [cleanPipelineRuns]);
+
   const enrichedApplicationsWithArgoApplications = useEnrichedApplicationsWithArgoApplications();
 
   const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
@@ -93,6 +108,7 @@ export const usePageTabs = () => {
             <ApplicationsWrapper
               enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
               latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
+              latestCleanPipelineRunIsRunning={latestCleanPipelineRunIsRunning}
             />
           </LoadingWrapper>
         ),
@@ -137,6 +153,7 @@ export const usePageTabs = () => {
     enrichedApplicationsWithArgoApplications,
     infoColumns,
     isLoading,
+    latestCleanPipelineRunIsRunning,
     latestDeployPipelineRunIsRunning,
     pipelineRunPermissions,
     stage.data?.spec.namespace,

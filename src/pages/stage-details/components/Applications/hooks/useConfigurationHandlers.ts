@@ -2,12 +2,15 @@ import React from 'react';
 import { FieldValues, useFormContext } from 'react-hook-form';
 import { editResource } from '../../../../../k8s/common/editResource';
 import { ApplicationKubeObjectInterface } from '../../../../../k8s/groups/ArgoCD/Application/types';
+import { useCreateCleanPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateCleanPipelineRun';
 import { useCreateDeployPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateDeployPipelineRun';
 import {
   PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE,
   PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE,
   PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
 } from '../../../../../k8s/groups/Tekton/PipelineRun/labels';
+import { useDialogContext } from '../../../../../providers/Dialog/hooks';
+import { CONFIRM_DIALOG_NAME } from '../../../../../widgets/ConfirmModal/constants';
 import { IMAGE_TAG_POSTFIX, VALUES_OVERRIDE_POSTFIX } from '../../../constants';
 import { useDataContext } from '../../../providers/Data/hooks';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
@@ -62,6 +65,33 @@ const newDeployPipelineRunNames = {
   },
 };
 
+const newCleanPipelineRunNames = {
+  generateName: {
+    name: 'generateName',
+    path: ['metadata', 'generateName'],
+  },
+  CDPipelineLabel: {
+    name: 'CDPipelineLabel',
+    path: ['metadata', 'labels', PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE],
+  },
+  stageLabel: {
+    name: 'stageLabel',
+    path: ['metadata', 'labels', PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE],
+  },
+  pipelineTypeLabel: {
+    name: 'pipelineTypeLabel',
+    path: ['metadata', 'labels', PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE],
+  },
+  stageParam: {
+    name: 'stageParam',
+    path: ['spec', 'params', '0'],
+  },
+  CDPipelineParam: {
+    name: 'CDPipelineParam',
+    path: ['spec', 'params', '1'],
+  },
+};
+
 export const useConfigurationHandlers = ({
   values,
   selected,
@@ -85,11 +115,15 @@ export const useConfigurationHandlers = ({
   const {
     stage: { data: stage },
     deployPipelineRunTemplate: { data: deployPipelineRunTemplate },
+    cleanPipelineRunTemplate: { data: cleanPipelineRunTemplate },
   } = useDynamicDataContext();
 
   const { setValue, resetField, trigger } = useFormContext();
 
   const { createDeployPipelineRun } = useCreateDeployPipelineRun({});
+  const { createCleanPipelineRun } = useCreateCleanPipelineRun({});
+
+  const { setDialog } = useDialogContext();
 
   const handleClickLatest = React.useCallback(() => {
     for (const { application } of enrichedApplicationsWithArgoApplications) {
@@ -279,6 +313,41 @@ export const useConfigurationHandlers = ({
     values,
   ]);
 
+  const handleClean = React.useCallback(async () => {
+    const newCleanPipelineRun = editResource(newCleanPipelineRunNames, cleanPipelineRunTemplate, {
+      generateName: `clean-${CDPipeline.data.metadata.name}-${stage.spec.name}-`,
+      CDPipelineLabel: CDPipeline.data.metadata.name,
+      stageLabel: stage.metadata.name,
+      pipelineTypeLabel: 'clean',
+      stageParam: {
+        name: 'CDSTAGE',
+        value: stage.spec.name,
+      },
+      CDPipelineParam: {
+        name: 'CDPIPELINE',
+        value: CDPipeline.data.metadata.name,
+      },
+    });
+
+    await createCleanPipelineRun({ cleanPipelineRun: newCleanPipelineRun });
+  }, [
+    CDPipeline.data.metadata.name,
+    cleanPipelineRunTemplate,
+    createCleanPipelineRun,
+    stage.metadata.name,
+    stage.spec.name,
+  ]);
+
+  const handleClickClean = React.useCallback(async () => {
+    setDialog({
+      modalName: CONFIRM_DIALOG_NAME,
+      forwardedProps: {
+        text: 'Are you sure you want to clean up the environment?',
+        actionCallback: () => handleClean(),
+      },
+    });
+  }, [handleClean, setDialog]);
+
   const handleClickUninstall = React.useCallback(async () => {
     for (const enrichedApplication of enrichedApplicationsWithArgoApplications) {
       const appName = enrichedApplication.application.metadata.name;
@@ -304,6 +373,7 @@ export const useConfigurationHandlers = ({
 
   return {
     handleClickDeploy,
+    handleClickClean,
     handleClickUninstall,
     handleClickSelectRow,
     handleClickSelectAll,

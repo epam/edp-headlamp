@@ -37,8 +37,6 @@ export const useCodemieProjectEditForm = ({
         values
       );
 
-      console.log(codemieProject, updatedCodemieProjectInstance);
-
       codemieEditMutation.mutate(updatedCodemieProjectInstance, { onSuccess: handleClosePanel });
     },
     [codemieProject, codemieEditMutation, handleClosePanel]

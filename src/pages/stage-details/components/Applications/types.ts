@@ -5,6 +5,7 @@ import { EnrichedApplicationWithArgoApplication } from '../../types';
 export interface ApplicationsProps {
   enrichedApplicationsWithArgoApplications: EnrichedApplicationWithArgoApplication[];
   latestDeployPipelineRunIsRunning: boolean;
+  latestCleanPipelineRunIsRunning: boolean;
 }
 
 export interface ButtonsMap {

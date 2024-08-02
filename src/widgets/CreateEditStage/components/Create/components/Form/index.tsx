@@ -16,12 +16,13 @@ import {
 import { STAGE_FORM_BACKWARD_NAME_MAPPING, STAGE_FORM_NAMES } from '../../../../names';
 import { CreateEditStageDialogForwardedProps, CreateEditStageFormValues } from '../../../../types';
 import {
+  CleanTemplate,
   Cluster,
+  DeployTemplate,
   Description,
   Namespace,
   QualityGates,
   StageName,
-  TriggerTemplate,
   TriggerType,
 } from '../../../fields';
 import { FormProps } from './types';
@@ -93,7 +94,10 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
                 <TriggerType />
               </Grid>
               <Grid item xs={6}>
-                <TriggerTemplate />
+                <DeployTemplate />
+              </Grid>
+              <Grid item xs={6}>
+                <CleanTemplate />
               </Grid>
             </Grid>
           </TabPanel>
