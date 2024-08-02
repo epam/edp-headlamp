@@ -98,6 +98,14 @@ export const useInfoColumns = () => {
           text: stage?.spec.namespace,
         },
         {
+          label: 'Deploy Pipeline Template',
+          text: stage?.spec.triggerTemplate,
+        },
+        {
+          label: 'Clean Pipeline Template',
+          text: stage?.spec.cleanTemplate,
+        },
+        {
           label: 'Description',
           text: stage?.spec.description,
           columnXs: 6,

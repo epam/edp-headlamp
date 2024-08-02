@@ -21,6 +21,7 @@ import { ApplicationsProps, ApplicationsTableMode } from './types';
 export const Applications = ({
   enrichedApplicationsWithArgoApplications,
   latestDeployPipelineRunIsRunning,
+  latestCleanPipelineRunIsRunning,
 }: ApplicationsProps) => {
   const permissions = usePermissionsContext();
 
@@ -61,6 +62,7 @@ export const Applications = ({
 
   const {
     handleClickDeploy,
+    handleClickClean,
     handleClickLatest,
     handleClickOverrideValuesAll,
     handleClickSelectAll,
@@ -134,24 +136,38 @@ export const Applications = ({
             Applications
           </Typography>
           {mode === APPLICATIONS_TABLE_MODE.PREVIEW && (
-            <Button
-              variant="contained"
-              color="primary"
-              size="medium"
-              startIcon={
-                deployBtnDisabled || latestDeployPipelineRunIsRunning ? (
-                  <Icon icon={'line-md:loading-loop'} />
-                ) : (
-                  <Icon icon={ICONS.PENCIL} />
-                )
-              }
-              onClick={toggleMode}
-              disabled={latestDeployPipelineRunIsRunning || deployBtnDisabled}
-            >
-              {deployBtnDisabled || latestDeployPipelineRunIsRunning
-                ? 'Deploying'
-                : 'Configure deploy'}
-            </Button>
+            <Stack spacing={2} alignItems="center" direction="row">
+              <Button
+                variant="outlined"
+                size="medium"
+                onClick={handleClickClean}
+                disabled={latestDeployPipelineRunIsRunning || latestCleanPipelineRunIsRunning}
+              >
+                Clean
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                size="medium"
+                startIcon={
+                  deployBtnDisabled || latestDeployPipelineRunIsRunning ? (
+                    <Icon icon={'line-md:loading-loop'} />
+                  ) : (
+                    <Icon icon={ICONS.PENCIL} />
+                  )
+                }
+                onClick={toggleMode}
+                disabled={
+                  latestDeployPipelineRunIsRunning ||
+                  latestCleanPipelineRunIsRunning ||
+                  deployBtnDisabled
+                }
+              >
+                {deployBtnDisabled || latestDeployPipelineRunIsRunning
+                  ? 'Deploying'
+                  : 'Configure deploy'}
+              </Button>
+            </Stack>
           )}
           {mode === APPLICATIONS_TABLE_MODE.CONFIGURATION && (
             <Stack spacing={3} alignItems="center" direction="row">

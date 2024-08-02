@@ -22,6 +22,7 @@ const pipelineRunTypes = [
   PIPELINE_TYPES.BUILD,
   PIPELINE_TYPES.DEPLOY,
   PIPELINE_TYPES.REVIEW,
+  PIPELINE_TYPES.CLEAN,
 ];
 
 const pipelineRunTypeSelectOptions = pipelineRunTypes.map((value) => ({
@@ -98,7 +99,7 @@ export const PipelineRunListWithFilter = () => {
                     options={pipelineRunTypeSelectOptions}
                     defaultValue={(filter.values.pipelineType as string) ?? PIPELINE_TYPES.ALL}
                   />
-                  <FormHelperText>Build/Deploy/Review</FormHelperText>
+                  <FormHelperText>Build/Deploy/Review/Clean</FormHelperText>
                 </>
               ),
             },

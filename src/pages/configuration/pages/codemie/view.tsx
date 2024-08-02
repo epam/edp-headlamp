@@ -29,15 +29,6 @@ export const PageView = () => {
     codemieSecret,
   } = useDynamicDataContext();
 
-  console.log({
-    codemie,
-    codemieProject,
-    codemieProjectSettings,
-    codemieProjectSettingsSecret,
-    codemieQuickLink,
-    codemieSecret,
-  });
-
   const error =
     codemie?.error ||
     codemieProject?.error ||

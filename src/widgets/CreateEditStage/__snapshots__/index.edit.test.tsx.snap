@@ -62,6 +62,86 @@ exports[`renders CreateEditStage Edit component 1`] = `
           class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
         >
           <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
+              >
+                <div
+                  class="MuiStack-root css-jfdv4h-MuiStack-root"
+                >
+                  <div
+                    class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                  >
+                    <label
+                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
+                      data-shrink="false"
+                    >
+                      Trigger type
+                    </label>
+                    <div
+                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd makeStyles-selectWithDefaultValue-1 css-p2czvz-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+                    >
+                      <div
+                        aria-controls="mui-2"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-labelledby="mui-component-select-triggerType"
+                        class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-14oa7yt-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+                        id="mui-component-select-triggerType"
+                        role="combobox"
+                        tabindex="0"
+                      >
+                        Trigger type
+                      </div>
+                      <input
+                        aria-hidden="true"
+                        aria-invalid="false"
+                        class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                        name="triggerType"
+                        tabindex="-1"
+                        value=""
+                      />
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+                        data-testid="ArrowDropDownIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M7 10l5 5 5-5z"
+                        />
+                      </svg>
+                      <div
+                        class="MuiBox-root css-3avfg1"
+                      >
+                        <span />
+                      </div>
+                      <fieldset
+                        aria-hidden="true"
+                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                      >
+                        <legend
+                          class="css-ihdtdm"
+                        >
+                          <span
+                            class="notranslate"
+                          >
+                            ​
+                          </span>
+                        </legend>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
           >
             <div
@@ -74,28 +154,28 @@ exports[`renders CreateEditStage Edit component 1`] = `
                   class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
                   data-shrink="false"
                 >
-                  Trigger type
+                  Deploy Pipeline template
                 </label>
                 <div
                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd makeStyles-selectWithDefaultValue-1 css-p2czvz-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                 >
                   <div
-                    aria-controls="mui-2"
+                    aria-controls="mui-4"
                     aria-expanded="false"
                     aria-haspopup="listbox"
-                    aria-labelledby="mui-component-select-triggerType"
+                    aria-labelledby="mui-component-select-triggerTemplate"
                     class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-14oa7yt-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-                    id="mui-component-select-triggerType"
+                    id="mui-component-select-triggerTemplate"
                     role="combobox"
                     tabindex="0"
                   >
-                    Trigger type
+                    Deploy Pipeline template
                   </div>
                   <input
                     aria-hidden="true"
                     aria-invalid="false"
                     class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-                    name="triggerType"
+                    name="triggerTemplate"
                     tabindex="-1"
                     value=""
                   />
@@ -146,28 +226,28 @@ exports[`renders CreateEditStage Edit component 1`] = `
                   class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
                   data-shrink="false"
                 >
-                  Pipeline template
+                  Clean Pipeline template
                 </label>
                 <div
                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd makeStyles-selectWithDefaultValue-1 css-p2czvz-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                 >
                   <div
-                    aria-controls="mui-4"
+                    aria-controls="mui-6"
                     aria-expanded="false"
                     aria-haspopup="listbox"
-                    aria-labelledby="mui-component-select-triggerTemplate"
+                    aria-labelledby="mui-component-select-cleanTemplate"
                     class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-14oa7yt-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-                    id="mui-component-select-triggerTemplate"
+                    id="mui-component-select-cleanTemplate"
                     role="combobox"
                     tabindex="0"
                   >
-                    Pipeline template
+                    Clean Pipeline template
                   </div>
                   <input
                     aria-hidden="true"
                     aria-invalid="false"
                     class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-                    name="triggerTemplate"
+                    name="cleanTemplate"
                     tabindex="-1"
                     value=""
                   />

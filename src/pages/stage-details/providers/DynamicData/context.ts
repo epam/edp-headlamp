@@ -11,8 +11,10 @@ export const DynamicDataContext = React.createContext<DynamicDataContextProvider
   stage: initialData,
   autotestPipelineRuns: initialData,
   deployPipelineRuns: initialData,
+  cleanPipelineRuns: initialData,
   autotestRunnerPipelineRuns: initialData,
   argoApplications: initialData,
   deployPipelineRunTemplate: initialData,
+  cleanPipelineRunTemplate: initialData,
   gitServers: initialData,
 });

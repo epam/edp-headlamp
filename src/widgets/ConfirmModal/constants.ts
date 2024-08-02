@@ -1,0 +1,1 @@
+export const CONFIRM_DIALOG_NAME = 'CONFIRM_DIALOG';
