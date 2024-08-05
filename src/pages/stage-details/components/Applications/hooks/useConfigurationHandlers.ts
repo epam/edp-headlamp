@@ -280,7 +280,6 @@ export const useConfigurationHandlers = ({
         generateName: `deploy-${CDPipeline.data.metadata.name}-${stage.spec.name}`,
         CDPipelineLabel: CDPipeline.data.metadata.name,
         stageLabel: stage.metadata.name,
-        pipelineTypeLabel: 'deploy',
         applicationsPayloadParam: {
           name: 'APPLICATIONS_PAYLOAD',
           value: JSON.stringify(appPayload),

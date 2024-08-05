@@ -4,8 +4,11 @@ import { PipelineRunKubeObjectConfig } from '../../../../k8s/groups/Tekton/Pipel
 import { ValueOf } from '../../../../types/global';
 import { PermissionList } from '../../../../types/permissions';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { permissionChecks } from '../../constants';
 import { PermissionsContext } from './context';
+
+const permissionChecks = {
+  PIPELINE_RUN: 'pipelineRun',
+} as const;
 
 const PipelineRunInstance = new PipelineRunKubeObject({
   apiVersion: `${PipelineRunKubeObjectConfig.group}/${PipelineRunKubeObjectConfig.version}`,

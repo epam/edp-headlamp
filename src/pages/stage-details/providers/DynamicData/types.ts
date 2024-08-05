@@ -6,10 +6,9 @@ import { DataProviderValue } from '../../../../types/pages';
 
 export interface DynamicDataContextProviderValue {
   stage: DataProviderValue<StageKubeObjectInterface>;
-  autotestPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
+  pipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
   deployPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
   cleanPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
-  autotestRunnerPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
   argoApplications: DataProviderValue<ApplicationKubeObjectInterface[]>;
   deployPipelineRunTemplate: DataProviderValue<PipelineRunKubeObjectInterface>;
   cleanPipelineRunTemplate: DataProviderValue<PipelineRunKubeObjectInterface>;

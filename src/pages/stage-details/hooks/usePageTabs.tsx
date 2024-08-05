@@ -4,10 +4,14 @@ import { BorderedSection } from '../../../components/BorderedSection';
 import { InfoColumns } from '../../../components/InfoColumns';
 import { LoadingWrapper } from '../../../components/LoadingWrapper';
 import { TabSection } from '../../../components/TabSection';
+import { PIPELINE_TYPES } from '../../../constants/pipelineTypes';
 import { useQuickLinksURLsQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/groups/Tekton/PipelineRun/constants';
+import { FilterContextProvider } from '../../../providers/Filter';
+import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { PipelineRunList } from '../../../widgets/PipelineRunList';
+import { FILTER_CONTROLS, matchFunctions } from '../../../widgets/PipelineRunList/constants';
 import { ApplicationsWrapper } from '../components/ApplicationsWrapper';
 import { Monitoring } from '../components/Monitoring';
 import { useDataContext } from '../providers/Data/hooks';
@@ -21,29 +25,12 @@ export const usePageTabs = () => {
   const { namespace } = useParams<EDPStageDetailsRouteParams>();
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
 
-  const {
-    stage,
-    autotestPipelineRuns,
-    autotestRunnerPipelineRuns,
-    deployPipelineRuns,
-    cleanPipelineRuns,
-    argoApplications,
-  } = useDynamicDataContext();
+  const { stage, pipelineRuns, deployPipelineRuns, cleanPipelineRuns, argoApplications } =
+    useDynamicDataContext();
 
   const isLoading = React.useMemo(
-    () =>
-      stage.isLoading ||
-      autotestPipelineRuns.isLoading ||
-      autotestRunnerPipelineRuns.isLoading ||
-      deployPipelineRuns.isLoading ||
-      argoApplications.isLoading,
-    [
-      argoApplications.isLoading,
-      autotestPipelineRuns.isLoading,
-      autotestRunnerPipelineRuns.isLoading,
-      deployPipelineRuns.isLoading,
-      stage.isLoading,
-    ]
+    () => stage.isLoading || deployPipelineRuns.isLoading || argoApplications.isLoading,
+    [argoApplications.isLoading, deployPipelineRuns.isLoading, stage.isLoading]
   );
 
   const { enrichedApplications } = useDataContext();
@@ -119,12 +106,24 @@ export const usePageTabs = () => {
         component: (
           <LoadingWrapper isLoading={_isLoading}>
             <TabSection title="Pipelines">
-              <PipelineRunList
-                pipelineRuns={deployPipelineRuns.data}
-                isLoading={deployPipelineRuns.isLoading}
-                filterFunction={null}
-                permissions={pipelineRunPermissions}
-              />
+              <FilterContextProvider
+                entityID={`PIPELINE_RUN_LIST_STAGE_DETAILS::${getDefaultNamespace()}`}
+                matchFunctions={matchFunctions}
+                saveToLocalStorage
+              >
+                <PipelineRunList
+                  pipelineRuns={pipelineRuns.data}
+                  isLoading={pipelineRuns.isLoading}
+                  error={pipelineRuns.error}
+                  permissions={pipelineRunPermissions}
+                  pipelineRunTypes={[
+                    PIPELINE_TYPES.ALL,
+                    PIPELINE_TYPES.DEPLOY,
+                    PIPELINE_TYPES.CLEAN,
+                  ]}
+                  filterControls={[FILTER_CONTROLS.PIPELINE_TYPE, FILTER_CONTROLS.STATUS]}
+                />
+              </FilterContextProvider>
             </TabSection>
           </LoadingWrapper>
         ),
@@ -147,8 +146,6 @@ export const usePageTabs = () => {
   }, [
     QuickLinksURLS?.grafana,
     argoApplications.isLoading,
-    deployPipelineRuns.data,
-    deployPipelineRuns.isLoading,
     enrichedApplications.isLoading,
     enrichedApplicationsWithArgoApplications,
     infoColumns,
@@ -156,6 +153,9 @@ export const usePageTabs = () => {
     latestCleanPipelineRunIsRunning,
     latestDeployPipelineRunIsRunning,
     pipelineRunPermissions,
+    pipelineRuns.data,
+    pipelineRuns.error,
+    pipelineRuns.isLoading,
     stage.data?.spec.namespace,
   ]);
 };

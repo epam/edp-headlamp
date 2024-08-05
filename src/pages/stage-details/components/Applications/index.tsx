@@ -141,6 +141,13 @@ export const Applications = ({
                 variant="outlined"
                 size="medium"
                 onClick={handleClickClean}
+                startIcon={
+                  latestCleanPipelineRunIsRunning ? (
+                    <Icon icon={'line-md:loading-loop'} />
+                  ) : (
+                    <Icon icon={ICONS.BUCKET} />
+                  )
+                }
                 disabled={latestDeployPipelineRunIsRunning || latestCleanPipelineRunIsRunning}
               >
                 Clean

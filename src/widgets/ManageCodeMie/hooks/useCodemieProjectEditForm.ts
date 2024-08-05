@@ -25,7 +25,7 @@ export const useCodemieProjectEditForm = ({
       [CODEMIE_PROJECT_FORM_NAMES.projectName.name]: codemieProject?.metadata.name,
       [CODEMIE_PROJECT_FORM_NAMES.codemieRefName.name]: codemieProject?.spec.codemieRef.name,
     };
-  }, [codemieProject.metadata.name, codemieProject.spec.codemieRef.name]);
+  }, [codemieProject?.metadata.name, codemieProject?.spec.codemieRef.name]);
 
   const form = useForm<CodemieProjectFormValues>({ defaultValues: defaultValues });
 
