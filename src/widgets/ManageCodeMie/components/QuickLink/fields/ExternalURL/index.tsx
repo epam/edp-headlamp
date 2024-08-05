@@ -24,7 +24,6 @@ export const ExternalURL = () => {
   return (
     <FormTextField
       {...register(QUICK_LINK_FORM_NAMES.externalUrl.name, {
-        required: 'Enter the external CodeMie URL.',
         pattern: {
           value: getValidURLPattern(VALIDATED_PROTOCOLS.STRICT_HTTPS),
           message: 'Enter a valid URL with HTTPS protocol.',

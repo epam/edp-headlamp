@@ -1,6 +1,12 @@
 import { GIT_PROVIDERS } from '../../../../../../constants/gitProviders';
+import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { createRandomString } from '../../../../../../utils/createRandomString';
 import { PipelineRunKubeObjectConfig } from '../../config';
+import {
+  PIPELINE_RUN_LABEL_SELECTOR_CODEBASE,
+  PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH,
+  PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
+} from '../../labels';
 import { PipelineRunKubeObjectInterface } from '../../types';
 import { generateBuildPipelineRef } from '../index';
 
@@ -55,9 +61,9 @@ export const createBuildPipelineRunInstance = ({
       namespace,
       name: `${trimmedPipelineRunNameStartValue}-build-${createRandomString(4)}`,
       labels: {
-        'app.edp.epam.com/codebasebranch': codebaseBranchMetadataName,
-        'app.edp.epam.com/codebase': codebaseName,
-        'app.edp.epam.com/pipelinetype': 'build',
+        [PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH]: codebaseBranchMetadataName,
+        [PIPELINE_RUN_LABEL_SELECTOR_CODEBASE]: codebaseName,
+        [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.BUILD,
       },
       annotations: {
         'argocd.argoproj.io/compare-options': 'IgnoreExtraneous',

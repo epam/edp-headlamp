@@ -44,7 +44,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     () => ({
       codemieQuickLink: {
         data: codemieQuickLink,
-        isLoading: codemieQuickLink === null,
+        isLoading: codemieQuickLink === null && !codemieQuickLinkError,
         error: codemieQuickLinkError,
       },
       codemie: {
