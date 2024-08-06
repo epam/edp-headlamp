@@ -12,6 +12,7 @@ import { useCreateArgoApplication } from '../../../../k8s/groups/ArgoCD/Applicat
 import { APPLICATIONS_TABLE_MODE } from '../../constants';
 import { usePermissionsContext } from '../../providers/Permissions/hooks';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
+import { ApplicationsMultiDeletion } from '../ApplicationsMultiDeletion';
 import { useButtonsEnabledMap } from './hooks/useButtonsEnabled';
 import { useColumns } from './hooks/useColumns';
 import { useConfigurationHandlers } from './hooks/useConfigurationHandlers';
@@ -24,6 +25,10 @@ export const Applications = ({
   latestCleanPipelineRunIsRunning,
 }: ApplicationsProps) => {
   const permissions = usePermissionsContext();
+
+  const allArgoApplications = enrichedApplicationsWithArgoApplications?.map(
+    ({ argoApplication }) => argoApplication
+  );
 
   const enrichedApplicationsByApplicationName = React.useMemo(() => {
     return (
@@ -46,7 +51,9 @@ export const Applications = ({
   );
 
   const [selected, setSelected] = React.useState<string[]>([]);
+
   const [mode, setMode] = React.useState<ApplicationsTableMode>(APPLICATIONS_TABLE_MODE.PREVIEW);
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
 
   const toggleMode = () =>
     mode === APPLICATIONS_TABLE_MODE.PREVIEW
@@ -74,8 +81,8 @@ export const Applications = ({
     setSelected,
     enrichedApplicationsByApplicationName,
     enrichedApplicationsWithArgoApplications,
-    deleteArgoApplication,
     values,
+    setDeleteDialogOpen,
   });
 
   const buttonsEnabledMap = useButtonsEnabledMap({
@@ -239,6 +246,17 @@ export const Applications = ({
       }
     >
       <Table<EnrichedApplicationWithArgoApplication> {..._TableProps} />
+      <ApplicationsMultiDeletion
+        applications={allArgoApplications}
+        selected={selected}
+        open={deleteDialogOpen}
+        handleClose={() => setDeleteDialogOpen(false)}
+        onDelete={() => {
+          setSelected([]);
+          setDeleteDialogOpen(false);
+        }}
+        deleteArgoApplication={deleteArgoApplication}
+      />
     </TabSection>
   );
 };

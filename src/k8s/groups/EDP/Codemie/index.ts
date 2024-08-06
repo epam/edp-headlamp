@@ -8,7 +8,9 @@ const {
   version,
 } = CodemieKubeObjectConfig;
 
-export class CodemieKubeObject extends K8s.cluster.makeKubeObject<CodemieKubeObjectInterface>(singularForm) {
+export class CodemieKubeObject extends K8s.cluster.makeKubeObject<CodemieKubeObjectInterface>(
+  singularForm
+) {
   static apiEndpoint = ApiProxy.apiFactoryWithNamespace(group, version, pluralForm);
 
   static get className(): string {
