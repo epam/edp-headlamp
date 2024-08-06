@@ -219,7 +219,7 @@ export const Chat = ({
       setIsRequestLoading(true);
     },
     onFinish: (data) => {
-      console.log('finish', data);
+      // console.log('finish', data);
     },
     onError: (error) => console.log('error', error),
   });

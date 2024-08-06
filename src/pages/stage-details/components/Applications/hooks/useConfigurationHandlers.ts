@@ -1,7 +1,6 @@
 import React from 'react';
 import { FieldValues, useFormContext } from 'react-hook-form';
 import { editResource } from '../../../../../k8s/common/editResource';
-import { ApplicationKubeObjectInterface } from '../../../../../k8s/groups/ArgoCD/Application/types';
 import { useCreateCleanPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateCleanPipelineRun';
 import { useCreateDeployPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateDeployPipelineRun';
 import {
@@ -98,18 +97,14 @@ export const useConfigurationHandlers = ({
   setSelected,
   enrichedApplicationsByApplicationName,
   enrichedApplicationsWithArgoApplications,
-  deleteArgoApplication,
+  setDeleteDialogOpen,
 }: {
   values: FieldValues;
   selected: string[];
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;
   enrichedApplicationsByApplicationName: Map<string, EnrichedApplicationWithArgoApplication>;
   enrichedApplicationsWithArgoApplications: EnrichedApplicationWithArgoApplication[];
-  deleteArgoApplication: ({
-    argoApplication,
-  }: {
-    argoApplication: ApplicationKubeObjectInterface;
-  }) => Promise<void>;
+  setDeleteDialogOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { CDPipeline } = useDataContext();
   const {
@@ -348,27 +343,8 @@ export const useConfigurationHandlers = ({
   }, [handleClean, setDialog]);
 
   const handleClickUninstall = React.useCallback(async () => {
-    for (const enrichedApplication of enrichedApplicationsWithArgoApplications) {
-      const appName = enrichedApplication.application.metadata.name;
-
-      if (!selected.includes(appName)) {
-        continue;
-      }
-
-      const argoApplication = enrichedApplicationsByApplicationName.get(appName)?.argoApplication;
-
-      await deleteArgoApplication({
-        argoApplication,
-      });
-    }
-    setSelected([]);
-  }, [
-    deleteArgoApplication,
-    enrichedApplicationsByApplicationName,
-    enrichedApplicationsWithArgoApplications,
-    selected,
-    setSelected,
-  ]);
+    setDeleteDialogOpen(true);
+  }, [setDeleteDialogOpen]);
 
   return {
     handleClickDeploy,
