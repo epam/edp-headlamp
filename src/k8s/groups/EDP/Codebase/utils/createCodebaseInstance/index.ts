@@ -32,10 +32,13 @@ export const createCodebaseInstance = (
   }
 
   if (base.spec.gitUrlPath) {
-    base.spec.gitUrlPath =
+    set(
+      base,
+      ['spec', 'gitUrlPath'],
       base.spec.gitUrlPath.at(0) === slashSymbol
         ? base.spec.gitUrlPath
-        : `${slashSymbol}${base.spec.gitUrlPath}`;
+        : `${slashSymbol}${base.spec.gitUrlPath}`
+    );
   }
 
   return base as CodebaseKubeObjectInterface;

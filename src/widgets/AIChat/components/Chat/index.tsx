@@ -218,7 +218,7 @@ export const Chat = ({
     onStart: () => {
       setIsRequestLoading(true);
     },
-    onFinish: (data) => {
+    onFinish: () => {
       // console.log('finish', data);
     },
     onError: (error) => console.log('error', error),

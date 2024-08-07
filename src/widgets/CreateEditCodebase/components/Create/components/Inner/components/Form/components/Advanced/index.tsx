@@ -12,6 +12,7 @@ import {
   JiraServerIntegration,
   TicketNamePattern,
 } from '../../../../../../../fields';
+import { CodemieIntegration } from '../../../../../../../fields/CodemieIntegration';
 import { CreateCodebaseFormValues } from '../../../../../../types';
 
 export const Advanced = () => {
@@ -35,6 +36,9 @@ export const Advanced = () => {
       </Grid>
       <Grid item xs={12}>
         <JiraServerIntegration />
+      </Grid>
+      <Grid item xs={12}>
+        <CodemieIntegration />
       </Grid>
 
       {jiraServersNames && jiraServersNames.length && hasJiraServerIntegrationFieldValue ? (
