@@ -168,10 +168,10 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
                               style="display: inline-block; margin-top: 0.125rem;"
                             >
                               <span
-                                class="makeStyles-labelWrap-3"
+                                class="makeStyles-labelWrap-5"
                               >
                                 <span
-                                  class="MuiTypography-root MuiTypography-body1 makeStyles-label-4 css-1ezega9-MuiTypography-root"
+                                  class="MuiTypography-root MuiTypography-body1 makeStyles-label-6 css-1ezega9-MuiTypography-root"
                                 >
                                   Integrate with Jira server
                                 </span>
@@ -201,6 +201,114 @@ exports[`renders CreateEditCodebase Edit component 1`] = `
                         Learn more.
                       </span>
                     </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+              >
+                <div
+                  class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-colorInfo MuiAlert-outlinedInfo MuiAlert-outlined css-9zueo3-MuiPaper-root-MuiAlert-root"
+                  role="alert"
+                >
+                  <div
+                    class="MuiAlert-icon css-1ytlwq5-MuiAlert-icon"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                      data-testid="InfoOutlinedIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="MuiAlert-message css-1pxa9xg-MuiAlert-message"
+                  >
+                    There is no Codemie or CodemieProject available
+                  </div>
+                </div>
+              </div>
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                  >
+                    <div
+                      class="MuiStack-root css-jfdv4h-MuiStack-root"
+                    >
+                      <div
+                        class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                      >
+                        <label
+                          class="MuiFormControlLabel-root Mui-disabled MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
+                          style="margin: 0px;"
+                        >
+                          <span
+                            aria-disabled="true"
+                            class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-disabled PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-disabled MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-1pkws1h-MuiButtonBase-root-MuiCheckbox-root"
+                            tabindex="-1"
+                          >
+                            <input
+                              class="PrivateSwitchBase-input css-1m9pwf3"
+                              data-indeterminate="false"
+                              disabled=""
+                              name="hasCodemieIntegration"
+                              type="checkbox"
+                              value="false"
+                            />
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                              data-testid="CheckBoxOutlineBlankIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                              />
+                            </svg>
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label Mui-disabled css-1ezega9-MuiTypography-root"
+                          >
+                            <span
+                              style="display: inline-block; margin-top: 0.125rem;"
+                            >
+                              <span
+                                class="makeStyles-labelWrap-7"
+                              >
+                                <span
+                                  class="MuiTypography-root MuiTypography-body1 makeStyles-label-8 css-1ezega9-MuiTypography-root"
+                                >
+                                  Integrate with Codemie
+                                </span>
+                                <div
+                                  class="MuiBox-root css-0"
+                                  style="height: 1.25rem;"
+                                />
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,3 +1,4 @@
+import { CODEBASE_LABEL_SELECTOR_CODEMIE_INTEGRATION } from '../../k8s/groups/EDP/Codebase/labels';
 import { BackwardNameMapping } from '../../types/forms';
 import { CONFIGURATION_STEPS } from './constants';
 
@@ -24,12 +25,14 @@ const NAMES = {
   COMMIT_MESSAGE_PATTERN: 'commitMessagePattern',
   TICKET_NAME_PATTERN: 'ticketNamePattern',
   JIRA_ISSUE_METADATA_PAYLOAD: 'jiraIssueMetadataPayload',
+  CODEMIE_INTEGRATION_LABEL: 'codemieIntegrationLabel',
 
   // NOT USED IN RESOURCE DATA
   HAS_CODEBASE_AUTH: 'hasCodebaseAuth',
   REPOSITORY_LOGIN: 'repositoryLogin',
   REPOSITORY_PASSWORD_OR_API_TOKEN: 'repositoryPasswordOrApiToken',
   HAS_JIRA_SERVER_INTEGRATION: 'hasJiraServerIntegration',
+  HAS_CODEMIE_INTEGRATION: 'hasCodemieIntegration',
   VERSIONING_START_FROM_VERSION: 'versioningStartFromVersion',
   VERSIONING_START_FROM_SNAPSHOT: 'versioningStartFromSnapshot',
   ADVANCED_MAPPING_FIELD_NAME: 'advancedMappingFieldName',
@@ -147,6 +150,11 @@ export const CODEBASE_FORM_NAMES = {
     formPart: CONFIGURATION_STEPS.ADVANCED_SETTINGS,
     path: ['spec', 'jiraIssueMetadataPayload'],
   },
+  [NAMES.CODEMIE_INTEGRATION_LABEL]: {
+    name: NAMES.CODEMIE_INTEGRATION_LABEL,
+    formPart: CONFIGURATION_STEPS.ADVANCED_SETTINGS,
+    path: ['metadata', 'labels', CODEBASE_LABEL_SELECTOR_CODEMIE_INTEGRATION],
+  },
 
   // NOT USED IN RESOURCE DATA
   [NAMES.HAS_CODEBASE_AUTH]: {
@@ -163,6 +171,10 @@ export const CODEBASE_FORM_NAMES = {
   },
   [NAMES.HAS_JIRA_SERVER_INTEGRATION]: {
     name: NAMES.HAS_JIRA_SERVER_INTEGRATION,
+    notUsedInFormData: true,
+  },
+  [NAMES.HAS_CODEMIE_INTEGRATION]: {
+    name: NAMES.HAS_CODEMIE_INTEGRATION,
     notUsedInFormData: true,
   },
   [NAMES.VERSIONING_START_FROM_VERSION]: {
@@ -198,6 +210,13 @@ export const CODEBASE_BACKWARDS_NAME_MAPPING: BackwardNameMapping = {
       },
       type: {
         formItemName: NAMES.VERSIONING_TYPE,
+      },
+    },
+  },
+  labels: {
+    children: {
+      [CODEBASE_LABEL_SELECTOR_CODEMIE_INTEGRATION]: {
+        formItemName: NAMES.CODEMIE_INTEGRATION_LABEL,
       },
     },
   },
