@@ -4,11 +4,7 @@ import { DeepPartial } from '../../../../../../types/global';
 import { EDPKubeObjectInterface } from '../../../../../../types/k8s';
 import { safeEncode } from '../../../../../../utils/decodeEncode';
 import { CodemieSecretFormValues } from '../../../../../../widgets/ManageCodeMie/types';
-import {
-  SECRET_LABEL_ASSOCIATED_KIND,
-  SECRET_LABEL_SECRET_TYPE,
-} from '../../../../default/Secret/labels';
-import { CodemieKubeObjectConfig } from '../../config';
+import { SECRET_LABEL_SECRET_TYPE } from '../../../../default/Secret/labels';
 
 export const createCodemieSecretInstance = (
   names: {
@@ -25,7 +21,6 @@ export const createCodemieSecretInstance = (
       name,
       labels: {
         [SECRET_LABEL_SECRET_TYPE]: 'codemie',
-        [SECRET_LABEL_ASSOCIATED_KIND]: CodemieKubeObjectConfig.kind,
       },
     },
     data: {

@@ -1,14 +1,9 @@
 import React from 'react';
 import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
-import {
-  SECRET_LABEL_ASSOCIATED_KIND,
-  SECRET_LABEL_SECRET_TYPE,
-} from '../../../../../../k8s/groups/default/Secret/labels';
+import { SECRET_LABEL_SECRET_TYPE } from '../../../../../../k8s/groups/default/Secret/labels';
 import { CodemieKubeObject } from '../../../../../../k8s/groups/EDP/Codemie';
-import { CodemieKubeObjectConfig } from '../../../../../../k8s/groups/EDP/Codemie/config';
 import { CodemieProjectKubeObject } from '../../../../../../k8s/groups/EDP/CodemieProject';
 import { CodemieProjectSettingsKubeObject } from '../../../../../../k8s/groups/EDP/CodemieProjectSettings';
-import { CodemieProjectSettingsKubeObjectConfig } from '../../../../../../k8s/groups/EDP/CodemieProjectSettings/config';
 import { QuickLinkKubeObject } from '../../../../../../k8s/groups/EDP/QuickLink';
 import { SYSTEM_QUICK_LINKS } from '../../../../../../k8s/groups/EDP/QuickLink/constants';
 import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
@@ -29,16 +24,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=codemie`,
   });
 
-  const codemieSecret = codemieSecrets?.find(
-    (secret) =>
-      secret.metadata.labels?.[SECRET_LABEL_ASSOCIATED_KIND] === CodemieKubeObjectConfig.kind
-  );
-
-  const codemieProjectSettingsSecret = codemieSecrets?.find(
-    (secret) =>
-      secret.metadata.labels?.[SECRET_LABEL_ASSOCIATED_KIND] ===
-      CodemieProjectSettingsKubeObjectConfig.kind
-  );
+  const codemieSecret = codemieSecrets?.[0];
 
   const DataContextValue = React.useMemo(
     () => ({
@@ -67,11 +53,6 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: codemieSecrets === null,
         error: codemieSecretsError,
       },
-      codemieProjectSettingsSecret: {
-        data: codemieProjectSettingsSecret,
-        isLoading: codemieSecrets === null,
-        error: codemieSecretsError,
-      },
     }),
     [
       codemie,
@@ -80,7 +61,6 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       codemieProjectError,
       codemieProjectSettings,
       codemieProjectSettingsError,
-      codemieProjectSettingsSecret,
       codemieQuickLink,
       codemieQuickLinkError,
       codemieSecret,

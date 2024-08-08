@@ -5,21 +5,12 @@ import { FormItem } from '../../providers/MultiForm/types';
 import { FORM_MODES } from '../../types/forms';
 import { Actions } from './components/Actions';
 import { CodemieForm } from './components/Codemie';
-import { CodemieProjectForm } from './components/CodemieProject';
-import { CodemieProjectSettingsForm } from './components/CodemieProjectSettings';
-import { CodemieProjectSettingsSecretForm } from './components/CodemieProjectSettingsSecret';
 import { CodemieSecretForm } from './components/CodemieSecret';
 import { QuickLinkForm } from './components/QuickLink';
 import { useCodemieCreateForm } from './hooks/useCodemieCreateForm';
 import { useCodemieEditForm } from './hooks/useCodemieEditForm';
-import { useCodemieProjectCreateForm } from './hooks/useCodemieProjectCreateForm';
-import { useCodemieProjectEditForm } from './hooks/useCodemieProjectEditForm';
-import { useCodemieProjectSettingsCreateForm } from './hooks/useCodemieProjectSettingsCreateForm';
-import { useCodemieProjectSettingsEditForm } from './hooks/useCodemieProjectSettingsEditForm';
 import { useCodemieSecretCreateForm } from './hooks/useCodemieSecretCreateForm';
 import { useCodemieSecretEditForm } from './hooks/useCodemieSecretEditForm';
-import { useCodemieSettingsSecretCreateForm } from './hooks/useCodemieSettingsSecretCreateForm';
-import { useCodemieSettingsSecretEditForm } from './hooks/useCodemieSettingsSecretEditForm';
 import { useQuickLinkEditForm } from './hooks/useQuickLinkEditForm';
 import { DataContextProvider } from './providers/Data';
 import { FormNames, ManageCodeMieProps } from './types';
@@ -27,22 +18,12 @@ import { FormNames, ManageCodeMieProps } from './types';
 export const ManageCodeMie = ({
   quickLink,
   codemie,
-  codemieProject,
-  codemieProjectSettings,
   codemieSecret,
-  codemieProjectSettingsSecret,
   handleClosePanel,
 }: ManageCodeMieProps) => {
   const quickLinkFormMode = FORM_MODES.EDIT;
   const codemieFormMode = codemie ? FORM_MODES.EDIT : FORM_MODES.CREATE;
   const codemieSecretFormMode = codemieSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
-  const codemieProjectFormMode = codemieProject ? FORM_MODES.EDIT : FORM_MODES.CREATE;
-  const codemieProjectSettingsFormMode = codemieProjectSettings
-    ? FORM_MODES.EDIT
-    : FORM_MODES.CREATE;
-  const codemieProjectSettingsSecretFormMode = codemieProjectSettingsSecret
-    ? FORM_MODES.EDIT
-    : FORM_MODES.CREATE;
 
   const quickLinkEditForm = useQuickLinkEditForm({
     quickLink,
@@ -55,30 +36,6 @@ export const ManageCodeMie = ({
   const codemieSecretEditForm = useCodemieSecretEditForm({
     handleClosePanel,
     secret: codemieSecret,
-  });
-
-  const codemieProjectCreateForm = useCodemieProjectCreateForm({ handleClosePanel });
-  const codemieProjectEditForm = useCodemieProjectEditForm({
-    handleClosePanel,
-    codemieProject,
-  });
-
-  const codemieProjectSettingsCreateForm = useCodemieProjectSettingsCreateForm({
-    handleClosePanel,
-  });
-  const codemieProjectSettingsEditForm = useCodemieProjectSettingsEditForm({
-    handleClosePanel,
-    codemieProjectSettings,
-  });
-
-  const codemieProjectSettingsSecretCreateForm = useCodemieSettingsSecretCreateForm({
-    handleClosePanel,
-    codemieProject,
-  });
-  const codemieProjectSettingsSecretEditForm = useCodemieSettingsSecretEditForm({
-    handleClosePanel,
-    secret: codemieProjectSettingsSecret,
-    codemieProject,
   });
 
   const quickLinkFormData: FormItem = React.useMemo(
@@ -150,103 +107,12 @@ export const ManageCodeMie = ({
     ]
   );
 
-  const codemieProjectFormData: FormItem = React.useMemo(
-    () =>
-      codemieProjectFormMode === FORM_MODES.CREATE
-        ? {
-            mode: FORM_MODES.CREATE,
-            form: codemieProjectCreateForm.form,
-            onSubmit: codemieProjectCreateForm.form.handleSubmit(
-              codemieProjectCreateForm.handleSubmit
-            ),
-            isSubmitting: codemieProjectCreateForm.mutation.isLoading,
-          }
-        : {
-            mode: FORM_MODES.EDIT,
-            form: codemieProjectEditForm.form,
-            onSubmit: codemieProjectEditForm.form.handleSubmit(codemieProjectEditForm.handleSubmit),
-            isSubmitting: codemieProjectEditForm.mutation.isLoading,
-          },
-    [
-      codemieProjectCreateForm.form,
-      codemieProjectCreateForm.handleSubmit,
-      codemieProjectCreateForm.mutation.isLoading,
-      codemieProjectEditForm.form,
-      codemieProjectEditForm.handleSubmit,
-      codemieProjectEditForm.mutation.isLoading,
-      codemieProjectFormMode,
-    ]
-  );
-
-  const codemieProjectSettingsFormData: FormItem = React.useMemo(
-    () =>
-      codemieProjectSettingsFormMode === FORM_MODES.CREATE
-        ? {
-            mode: FORM_MODES.CREATE,
-            form: codemieProjectSettingsCreateForm.form,
-            onSubmit: codemieProjectSettingsCreateForm.form.handleSubmit(
-              codemieProjectSettingsCreateForm.handleSubmit
-            ),
-            isSubmitting: codemieProjectSettingsCreateForm.mutation.isLoading,
-          }
-        : {
-            mode: FORM_MODES.EDIT,
-            form: codemieProjectSettingsEditForm.form,
-            onSubmit: codemieProjectSettingsEditForm.form.handleSubmit(
-              codemieProjectSettingsEditForm.handleSubmit
-            ),
-            isSubmitting: codemieProjectSettingsEditForm.mutation.isLoading,
-          },
-    [
-      codemieProjectSettingsCreateForm.form,
-      codemieProjectSettingsCreateForm.handleSubmit,
-      codemieProjectSettingsCreateForm.mutation.isLoading,
-      codemieProjectSettingsEditForm.form,
-      codemieProjectSettingsEditForm.handleSubmit,
-      codemieProjectSettingsEditForm.mutation.isLoading,
-      codemieProjectSettingsFormMode,
-    ]
-  );
-
-  const codemieProjectSettingsSecretFormData: FormItem = React.useMemo(
-    () =>
-      codemieProjectSettingsSecretFormMode === FORM_MODES.CREATE
-        ? {
-            mode: FORM_MODES.CREATE,
-            form: codemieProjectSettingsSecretCreateForm.form,
-            onSubmit: codemieProjectSettingsSecretCreateForm.form.handleSubmit(
-              codemieProjectSettingsSecretCreateForm.handleSubmit
-            ),
-            isSubmitting: codemieProjectSettingsSecretCreateForm.mutation.isLoading,
-          }
-        : {
-            mode: FORM_MODES.EDIT,
-            form: codemieProjectSettingsSecretEditForm.form,
-            onSubmit: codemieProjectSettingsSecretEditForm.form.handleSubmit(
-              codemieProjectSettingsSecretEditForm.handleSubmit
-            ),
-            isSubmitting: codemieProjectSettingsSecretEditForm.mutation.isLoading,
-          },
-    [
-      codemieProjectSettingsSecretCreateForm.form,
-      codemieProjectSettingsSecretCreateForm.handleSubmit,
-      codemieProjectSettingsSecretCreateForm.mutation.isLoading,
-      codemieProjectSettingsSecretEditForm.form,
-      codemieProjectSettingsSecretEditForm.handleSubmit,
-      codemieProjectSettingsSecretEditForm.mutation.isLoading,
-      codemieProjectSettingsSecretFormMode,
-    ]
-  );
-
   return (
     <div data-testid="form">
       <DataContextProvider
         quickLink={quickLink}
         codemie={codemie}
         codemieSecret={codemieSecret}
-        codemieProject={codemieProject}
-        codemieProjectSettings={codemieProjectSettings}
-        codemieProjectSettingsSecret={codemieProjectSettingsSecret}
         handleClosePanel={handleClosePanel}
       >
         <MultiFormContextProvider<FormNames>
@@ -254,9 +120,6 @@ export const ManageCodeMie = ({
             quickLink: quickLinkFormData,
             codemie: codemieFormData,
             codemieSecret: codemieSecretFormData,
-            codemieProject: codemieProjectFormData,
-            codemieProjectSettings: codemieProjectSettingsFormData,
-            codemieProjectSettingsSecret: codemieProjectSettingsSecretFormData,
           }}
           sharedForm={null}
         >
@@ -269,15 +132,6 @@ export const ManageCodeMie = ({
             </Grid>
             <Grid item xs={12}>
               <CodemieSecretForm />
-            </Grid>
-            <Grid item xs={12}>
-              <CodemieProjectForm />
-            </Grid>
-            <Grid item xs={12}>
-              <CodemieProjectSettingsForm />
-            </Grid>
-            <Grid item xs={12}>
-              <CodemieProjectSettingsSecretForm />
             </Grid>
             <Grid item xs={12}>
               <Actions />
