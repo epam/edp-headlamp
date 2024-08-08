@@ -1,9 +1,5 @@
 import { CODEMIE_SECRET_FORM_NAMES } from '../../../../../../widgets/ManageCodeMie/names';
-import {
-  SECRET_LABEL_ASSOCIATED_KIND,
-  SECRET_LABEL_SECRET_TYPE,
-} from '../../../../default/Secret/labels';
-import { CodemieKubeObjectConfig } from '../../config';
+import { SECRET_LABEL_SECRET_TYPE } from '../../../../default/Secret/labels';
 import { createCodemieSecretInstance } from './index';
 
 describe('testing createCodemieSecretInstance', () => {
@@ -21,7 +17,6 @@ describe('testing createCodemieSecretInstance', () => {
         name: 'codemie',
         labels: {
           [SECRET_LABEL_SECRET_TYPE]: 'codemie',
-          [SECRET_LABEL_ASSOCIATED_KIND]: CodemieKubeObjectConfig.kind,
         },
       },
       type: 'Opaque',

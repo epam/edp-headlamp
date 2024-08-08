@@ -7,9 +7,6 @@ export const DataContextProvider: React.FC<DataContextProviderProps> = ({
   quickLink,
   codemie,
   codemieSecret,
-  codemieProject,
-  codemieProjectSettings,
-  codemieProjectSettingsSecret,
   handleClosePanel,
 }) => {
   return (
@@ -18,9 +15,6 @@ export const DataContextProvider: React.FC<DataContextProviderProps> = ({
         quickLink,
         codemie,
         codemieSecret,
-        codemieProject,
-        codemieProjectSettings,
-        codemieProjectSettingsSecret,
         handleClosePanel,
       }}
     >

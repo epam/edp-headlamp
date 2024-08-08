@@ -10,6 +10,5 @@ export interface DynamicDataContextProviderValue {
   codemieProject: DataProviderValue<CodemieProjectKubeObjectInterface[]>;
   codemieProjectSettings: DataProviderValue<CodemieProjectSettingsKubeObjectInterface[]>;
   codemieSecret: DataProviderValue<SecretKubeObjectInterface>;
-  codemieProjectSettingsSecret: DataProviderValue<SecretKubeObjectInterface>;
   codemieQuickLink: DataProviderValue<QuickLinkKubeObjectInterface>;
 }

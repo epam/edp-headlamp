@@ -12,6 +12,5 @@ export const DynamicDataContext = React.createContext<DynamicDataContextProvider
   codemieProject: initialData,
   codemieProjectSettings: initialData,
   codemieSecret: initialData,
-  codemieProjectSettingsSecret: initialData,
   codemieQuickLink: initialData,
 });

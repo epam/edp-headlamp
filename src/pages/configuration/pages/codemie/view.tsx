@@ -1,17 +1,27 @@
 import { Icon } from '@iconify/react';
-import { Accordion, AccordionDetails, AccordionSummary, Tooltip } from '@mui/material';
+import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Paper,
+  Stack,
+  Tooltip,
+  useTheme,
+} from '@mui/material';
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
 import { EmptyList } from '../../../../components/EmptyList';
 import { ErrorContent } from '../../../../components/ErrorContent';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { StatusIcon } from '../../../../components/StatusIcon';
+import { CRUD_TYPES } from '../../../../constants/crudTypes';
+import { useResourceCRUDMutation } from '../../../../hooks/useResourceCRUDMutation';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
-import {
-  SECRET_ANNOTATION_INTEGRATION_SECRET_CONNECTED,
-  SECRET_ANNOTATION_INTEGRATION_SECRET_ERROR,
-} from '../../../../k8s/groups/default/Secret/annotations';
+import { CodemieKubeObject } from '../../../../k8s/groups/EDP/Codemie';
+import { CodemieProjectSettingsKubeObject } from '../../../../k8s/groups/EDP/CodemieProjectSettings';
+import { CodemieProjectSettingsKubeObjectInterface } from '../../../../k8s/groups/EDP/CodemieProjectSettings/types';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
 import { ManageCodeMie } from '../../../../widgets/ManageCodeMie';
@@ -20,30 +30,22 @@ import { pageDescription } from './constants';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
-  const {
-    codemie,
-    codemieProject,
-    codemieProjectSettings,
-    codemieProjectSettingsSecret,
-    codemieQuickLink,
-    codemieSecret,
-  } = useDynamicDataContext();
+  const { codemie, codemieProject, codemieProjectSettings, codemieQuickLink, codemieSecret } =
+    useDynamicDataContext();
 
   const error =
     codemie?.error ||
     codemieProject?.error ||
     codemieProjectSettings?.error ||
     codemieQuickLink?.error ||
-    codemieSecret?.error ||
-    codemieProjectSettingsSecret?.error;
+    codemieSecret?.error;
 
   const isLoading =
     codemie?.isLoading ||
     codemieProject?.isLoading ||
     codemieProjectSettings?.isLoading ||
     codemieQuickLink?.isLoading ||
-    codemieSecret?.isLoading ||
-    codemieProjectSettingsSecret?.isLoading;
+    codemieSecret?.isLoading;
 
   const [isCreateDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
 
@@ -71,12 +73,10 @@ export const PageView = () => {
 
     const ownerReference = codemieSecret.data?.metadata?.ownerReferences?.[0]?.kind;
 
-    const connected =
-      codemieSecret.data?.metadata?.annotations?.[SECRET_ANNOTATION_INTEGRATION_SECRET_CONNECTED];
-    const statusError =
-      codemieSecret.data?.metadata?.annotations?.[SECRET_ANNOTATION_INTEGRATION_SECRET_ERROR];
+    const status = codemieProject.data?.[0]?.status?.value;
+    const statusError = codemieProject.data?.[0]?.status?.error;
 
-    const [icon, color] = SecretKubeObject.getStatusIcon(connected);
+    const [icon, color] = CodemieKubeObject.getStatusIcon(status);
 
     return (
       <LoadingWrapper isLoading={isLoading}>
@@ -91,7 +91,7 @@ export const PageView = () => {
                     Title={
                       <>
                         <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                          {`Connected: ${connected === undefined ? 'Unknown' : connected}`}
+                          {`Status: ${status || 'Unknown'}`}
                         </Typography>
                         {!!statusError && (
                           <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
@@ -102,7 +102,7 @@ export const PageView = () => {
                     }
                   />
                 </Grid>
-                <Grid item>{codemie.data?.[0]?.metadata.name}</Grid>
+                <Grid item>{codemieProject.data?.[0]?.metadata.name}</Grid>
                 {!!ownerReference && (
                   <Grid item>
                     <Tooltip title={`Managed by ${ownerReference}`}>
@@ -124,25 +124,51 @@ export const PageView = () => {
               quickLink={codemieQuickLink.data}
               codemie={codemie.data?.[0]}
               codemieSecret={codemieSecret.data}
-              codemieProject={codemieProject.data?.[0]}
-              codemieProjectSettings={codemieProjectSettings.data?.[0]}
-              codemieProjectSettingsSecret={codemieProjectSettingsSecret.data}
               handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
       </LoadingWrapper>
     );
-  }, [
-    error,
-    codemie,
-    isLoading,
-    codemieSecret.data,
-    codemieQuickLink.data,
-    codemieProject.data,
-    codemieProjectSettings.data,
-    codemieProjectSettingsSecret.data,
-  ]);
+  }, [error, codemie, isLoading, codemieSecret.data, codemieProject.data, codemieQuickLink.data]);
+
+  const [editor, setEditor] = React.useState<{
+    open: boolean;
+    data: CodemieProjectSettingsKubeObjectInterface | undefined;
+  }>({
+    open: false,
+    data: undefined,
+  });
+
+  const handleOpenEditor = (data: CodemieProjectSettingsKubeObjectInterface) => {
+    setEditor({ open: true, data });
+  };
+
+  const handleCloseEditor = () => {
+    setEditor({ open: false, data: undefined });
+  };
+
+  const codemieProjectSettingsEditMutation = useResourceCRUDMutation<
+    CodemieProjectSettingsKubeObjectInterface,
+    CRUD_TYPES.EDIT
+  >('codemieProjectSettingsEditMutation', CodemieProjectSettingsKubeObject, CRUD_TYPES.EDIT, {
+    customMessages: {
+      onMutate: 'Applying changes...',
+      onError: 'Failed to update settings',
+      onSuccess: 'Start updating settings',
+    },
+  });
+
+  const handleEditorSave = (data: CodemieProjectSettingsKubeObjectInterface[]) => {
+    const [item] = data;
+    codemieProjectSettingsEditMutation.mutate(item, {
+      onSuccess: () => {
+        handleCloseEditor();
+      },
+    });
+  };
+
+  const theme = useTheme();
 
   return (
     <ConfigurationPageContent
@@ -153,20 +179,62 @@ export const PageView = () => {
             quickLink={codemieQuickLink.data}
             codemie={codemie.data?.[0]}
             codemieSecret={codemieSecret.data}
-            codemieProject={codemieProject.data?.[0]}
-            codemieProjectSettings={codemieProjectSettings.data?.[0]}
-            codemieProjectSettingsSecret={codemieProjectSettingsSecret.data}
             handleClosePanel={handleCloseCreateDialog}
           />
         ),
         isOpen: isCreateDialogOpen,
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
-        isDisabled: isLoading || !!codemieSecret,
+        isDisabled: true,
       }}
       pageDescription={pageDescription}
     >
-      {renderPageContent()}
+      <Grid container spacing={4}>
+        <Grid item xs={12}>
+          {renderPageContent()}
+        </Grid>
+        <Grid item xs={12} sx={{ pb: (t) => t.typography.pxToRem(40) }}>
+          <Typography
+            fontSize={theme.typography.pxToRem(24)}
+            color="primary.dark"
+            sx={{ mb: (t) => t.typography.pxToRem(24) }}
+          >
+            Codemie Project Settings
+          </Typography>
+          <LoadingWrapper isLoading={codemieProjectSettings.isLoading}>
+            {codemieProjectSettings.data?.map((setting) => (
+              <Paper sx={{ p: (t) => `${t.typography.pxToRem(10)} ${t.typography.pxToRem(20)}` }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Typography variant={'h6'}>{setting.metadata.name}</Typography>
+                  <Button
+                    startIcon={<Icon icon={ICONS.PENCIL} />}
+                    size="small"
+                    component={'button'}
+                    style={{ flexShrink: 0 }}
+                    color="inherit"
+                    onClick={() => handleOpenEditor(setting)}
+                  >
+                    Edit YAML
+                  </Button>
+                </Stack>
+              </Paper>
+            ))}
+            {editor.open && editor.data?.jsonData && (
+              <EditorDialog
+                open={editor.open}
+                item={editor.data?.jsonData}
+                onClose={handleCloseEditor}
+                onSave={handleEditorSave}
+              />
+            )}
+          </LoadingWrapper>
+        </Grid>
+      </Grid>
     </ConfigurationPageContent>
   );
 };

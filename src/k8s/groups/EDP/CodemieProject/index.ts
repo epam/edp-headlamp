@@ -20,4 +20,8 @@ export class CodemieProjectKubeObject extends K8s.cluster.makeKubeObject<Codemie
   get spec(): CodemieProjectKubeObjectInterface['spec'] {
     return this.jsonData!.spec;
   }
+
+  get status(): CodemieProjectKubeObjectInterface['status'] {
+    return this.jsonData!.status;
+  }
 }

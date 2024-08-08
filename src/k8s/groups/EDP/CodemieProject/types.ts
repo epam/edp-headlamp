@@ -8,4 +8,8 @@ export interface CodemieProjectKubeObjectInterface extends KubeObjectInterface {
     };
     name: string;
   };
+  status: {
+    value: string;
+    error?: string;
+  };
 }
