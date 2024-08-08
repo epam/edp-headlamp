@@ -12,10 +12,10 @@ global:
   platform: "kubernetes"
 
 image:
-  # -- EDP headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp)
+  # -- KubeRocketCI headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp)
   repository: epamedp/edp-headlamp
   # -- If not defined then .Chart.AppVersion is used
-  # -- EDP headlamp Docker image tag. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp/tags)
+  # -- KubeRocketCI headlamp Docker image tag. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp/tags)
   tag:
 
 # -- An optional list of references to secrets in the same namespace to use for pulling any of the images used
@@ -29,7 +29,7 @@ config:
   # -- base url path at which headlamp should run
   baseURL: ""
   # -- Ensure that the specified client is associated with cluster OIDC integration.
-  # -- For detailed instructions, refer to: https://epam.github.io/edp-install/operator-guide/configure-keycloak-oidc-eks/, https://epam.github.io/edp-install/operator-guide/headlamp-oidc/
+  # -- For detailed instructions, refer to: https://docs.kuberocketci.io/docs/operator-guide/auth/configure-keycloak-oidc-eks, https://docs.kuberocketci.io/docs/operator-guide/auth/ui-portal-oidc
   oidc:
     enabled: false
     # -- Keycloak URL
@@ -107,7 +107,7 @@ ingress:
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
-  #      - portal-edp.example.com
+  #      - portal-krci.example.com
   # -- Defines the base URL for the portal.
   # -- If hosts not defined the will create by pattern "portal-[namespace].[global DNS wildcard]"
   host: ""

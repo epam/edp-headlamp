@@ -1,6 +1,6 @@
 [![codecov](https://codecov.io/gh/epam/edp-headlamp/branch/master/graph/badge.svg?token=14I4A446VF)](https://codecov.io/gh/epam/edp-headlamp)
 
-# EDP Portal
+# KubeRocketCI Portal
 
 <p align="center">
     <em>Central management tool in the the KubeRocketCI (aka EDP) ecosystem. Powered by <a href="https://github.com/kinvolk/headlamp">Headlamp</a>.</em>
@@ -87,7 +87,7 @@ https://github-production-user-asset-6210df.s3.amazonaws.com/42180137/285478565-
 
 ## Installation
 
-In order to install the EDP Headlamp, follow the steps below:
+In order to install the KubeRocketCI Headlamp, follow the steps below:
 
 1. To add the Helm EPAMEDP Charts for local client, run "helm repo add":
 
@@ -105,7 +105,7 @@ In order to install the EDP Headlamp, follow the steps below:
 
      ```bash
      NAME                	            CHART VERSION	APP VERSION	    DESCRIPTION
-     epamedp/edp-headlamp	            0.13.0        	0.13.0      	A Helm chart for EDP Headlamp
+     epamedp/edp-headlamp	            0.15.0        	0.15.0      	A Helm chart for KubeRocketCI Headlamp
      ```
 
     _**NOTE:** It is highly recommended to use the latest released version._
