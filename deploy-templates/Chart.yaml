@@ -1,11 +1,11 @@
 apiVersion: v2
-description: A Helm chart for EDP Headlamp
-home: https://epam.github.io/edp-install/
+description: A Helm chart for KubeRocketCI Headlamp
+home: https://docs.kuberocketci.io/
 name: edp-headlamp
 type: application
 version: 0.16.0-SNAPSHOT
 appVersion: 0.16.0-SNAPSHOT
-icon: https://epam.github.io/edp-install/assets/logo.png
+icon: https://docs.kuberocketci.io/img/logo.svg
 keywords:
   - edp
   - kubernetes
@@ -15,7 +15,7 @@ keywords:
 maintainers:
   - name: epmd-edp
     email: SupportEPMD-EDP@epam.com
-    url: https://solutionshub.epam.com/solution/epam-delivery-platform
+    url: https://solutionshub.epam.com/solution/kuberocketci
   - name: sergk
     url: https://github.com/SergK
 sources:
@@ -32,7 +32,7 @@ annotations:
       image: epamedp/edp-headlamp:0.15.0
   artifacthub.io/operatorCapabilities: Full Lifecycle
   artifacthub.io/links: |
-    - name: EDP Documentation
-      url: https://epam.github.io/edp-install/
+    - name: KubeRocketCI Documentation
+      url: https://docs.kuberocketci.io
     - name: EPAM SolutionHub
-      url: https://solutionshub.epam.com/solution/epam-delivery-platform
+      url: https://solutionshub.epam.com/solution/kuberocketci

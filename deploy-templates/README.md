@@ -2,15 +2,15 @@
 
 ![Version: 0.16.0-SNAPSHOT](https://img.shields.io/badge/Version-0.16.0--SNAPSHOT-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.16.0-SNAPSHOT](https://img.shields.io/badge/AppVersion-0.16.0--SNAPSHOT-informational?style=flat-square)
 
-A Helm chart for EDP Headlamp
+A Helm chart for KubeRocketCI Headlamp
 
-**Homepage:** <https://epam.github.io/edp-install/>
+**Homepage:** <https://docs.kuberocketci.io/>
 
 ## Maintainers
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| epmd-edp | <SupportEPMD-EDP@epam.com> | <https://solutionshub.epam.com/solution/epam-delivery-platform> |
+| epmd-edp | <SupportEPMD-EDP@epam.com> | <https://solutionshub.epam.com/solution/kuberocketci> |
 | sergk |  | <https://github.com/SergK> |
 
 ## Source Code
@@ -25,7 +25,7 @@ A Helm chart for EDP Headlamp
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity settings for pod assignment |
 | config.baseURL | string | `""` | base url path at which headlamp should run |
-| config.oidc | object | `{"clientID":"","clientSecretKey":"","clientSecretName":"","enabled":false,"issuerRealm":"","keycloakUrl":"https://keycloak.example.com/auth","scopes":""}` | For detailed instructions, refer to: https://epam.github.io/edp-install/operator-guide/configure-keycloak-oidc-eks/, https://epam.github.io/edp-install/operator-guide/headlamp-oidc/ |
+| config.oidc | object | `{"clientID":"","clientSecretKey":"","clientSecretName":"","enabled":false,"issuerRealm":"","keycloakUrl":"https://keycloak.example.com/auth","scopes":""}` | For detailed instructions, refer to: https://docs.kuberocketci.io/docs/operator-guide/auth/configure-keycloak-oidc-eks, https://docs.kuberocketci.io/docs/operator-guide/auth/ui-portal-oidc |
 | config.oidc.clientID | string | `""` | OIDC client ID |
 | config.oidc.clientSecretKey | string | `""` | OIDC client secret key |
 | config.oidc.clientSecretName | string | `""` | OIDC client secret name |
@@ -37,8 +37,8 @@ A Helm chart for EDP Headlamp
 | fullnameOverride | string | `""` | Overrides the full name of the chart |
 | global.dnsWildCard | string | `nil` | a cluster DNS wildcard name |
 | global.platform | string | `"kubernetes"` | platform type that can be "kubernetes" or "openshift" |
-| image.repository | string | `"epamedp/edp-headlamp"` | EDP headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp) |
-| image.tag | string | `nil` | EDP headlamp Docker image tag. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp/tags) |
+| image.repository | string | `"epamedp/edp-headlamp"` | KubeRocketCI headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp) |
+| image.tag | string | `nil` | KubeRocketCI headlamp Docker image tag. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp/tags) |
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |
 | ingress.annotations | object | `{}` | Annotations for Ingress resource |
 | ingress.enabled | bool | `true` | Enable external endpoint access. Default Ingress/Route host pattern: portal-{{ .Release.Namespace }}.{{ .Values.global.dnsWildCard }} |
