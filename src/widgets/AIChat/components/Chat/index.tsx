@@ -12,7 +12,6 @@ import {
   useTheme,
 } from '@mui/material';
 import React from 'react';
-import * as sanitizeHtml from 'sanitize-html';
 import { v4 as uuidv4 } from 'uuid';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { authHeaders, routeAssistantChatModel } from '../..';
@@ -28,6 +27,7 @@ import {
 } from '../../types';
 import { createChunkStreamFetcher, createConversationPayload } from '../../utils';
 import formatAiMessage from '../../utils/formatMessage';
+import { sanitizeMessage } from '../../utils/sanitizeMessage';
 import { Message } from '../Message';
 import { ChatProps } from './types';
 
@@ -67,11 +67,11 @@ const ChatThoughts = ({ thoughts }: { thoughts: ResponseThought[] }) => {
                         <React.Fragment key={segment.id}>
                           {segment.isCode ? (
                             <code
-                              dangerouslySetInnerHTML={{ __html: sanitizeHtml(segment?.text) }}
+                              dangerouslySetInnerHTML={{ __html: sanitizeMessage(segment?.text) }}
                             />
                           ) : (
                             <span
-                              dangerouslySetInnerHTML={{ __html: sanitizeHtml(segment?.text) }}
+                              dangerouslySetInnerHTML={{ __html: sanitizeMessage(segment?.text) }}
                             />
                           )}
                         </React.Fragment>
@@ -288,9 +288,9 @@ export const Chat = ({
             chatResponse.processedChunks.map((segment) => (
               <React.Fragment key={segment.id}>
                 {segment.isCode ? (
-                  <code dangerouslySetInnerHTML={{ __html: sanitizeHtml(segment?.text) }} />
+                  <code dangerouslySetInnerHTML={{ __html: sanitizeMessage(segment?.text) }} />
                 ) : (
-                  <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(segment?.text) }} />
+                  <span dangerouslySetInnerHTML={{ __html: sanitizeMessage(segment?.text) }} />
                 )}
               </React.Fragment>
             ))

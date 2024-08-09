@@ -14,7 +14,7 @@ describe('testing createChatAssistantIntegrationSecretInstance', () => {
       metadata: {
         name: 'ci-codemie',
         labels: {
-          'app.edp.epam.com/secret-type': 'codemie',
+          'app.edp.epam.com/secret-type': 'chat-assistant',
           'app.edp.epam.com/integration-secret': 'true',
         },
       },
