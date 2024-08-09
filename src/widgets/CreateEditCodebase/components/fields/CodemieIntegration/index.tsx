@@ -4,11 +4,14 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CodemieKubeObject } from '../../../../../k8s/groups/EDP/Codemie';
 import { CodemieProjectKubeObject } from '../../../../../k8s/groups/EDP/CodemieProject';
+import { useSpecificDialogContext } from '../../../../../providers/Dialog/hooks';
 import { FormCheckbox } from '../../../../../providers/Form/components/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../providers/Form/components/FormControlLabelWithTooltip';
-import { FieldEvent } from '../../../../../types/forms';
+import { FieldEvent, FORM_MODES } from '../../../../../types/forms';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
+import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../constants';
 import { CODEBASE_FORM_NAMES } from '../../../names';
+import { CreateEditCodebaseDialogForwardedProps } from '../../../types';
 import { CreateCodebaseFormValues } from '../../Create/types';
 
 export const CodemieIntegration = () => {
@@ -19,6 +22,12 @@ export const CodemieIntegration = () => {
     setValue,
   } = useFormContext<CreateCodebaseFormValues>();
 
+  const {
+    forwardedProps: { mode },
+  } = useSpecificDialogContext<CreateEditCodebaseDialogForwardedProps>(
+    CREATE_EDIT_CODEBASE_DIALOG_NAME
+  );
+
   const defaultNamespace = getDefaultNamespace();
 
   const [codemie, codemieError] = CodemieKubeObject.useGet('codemie', defaultNamespace);
@@ -28,8 +37,8 @@ export const CodemieIntegration = () => {
   );
 
   const hasCodemieAndProject = codemie && codemieProject;
-  const noError = !codemieError && !codemieProjectError;
-  const codemieStatusIsOk = codemie?.status?.connected === 'true';
+  const hasError = codemieError || codemieProjectError;
+  const codemieStatusIsOk = !!codemie?.status?.connected;
   const codemieProjectStatusIsOk = codemieProject?.status?.value === 'created';
 
   return (
@@ -58,7 +67,11 @@ export const CodemieIntegration = () => {
               control={control}
               errors={errors}
               disabled={
-                !hasCodemieAndProject || !codemieStatusIsOk || !codemieProjectStatusIsOk || !noError
+                !hasCodemieAndProject ||
+                !codemieStatusIsOk ||
+                !codemieProjectStatusIsOk ||
+                !!hasError ||
+                mode === FORM_MODES.EDIT
               }
             />
           </Grid>

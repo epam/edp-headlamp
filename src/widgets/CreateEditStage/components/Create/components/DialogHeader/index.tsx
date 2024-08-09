@@ -46,7 +46,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
     <Stack direction="row" alignItems={'flex-start'} justifyContent={'space-between'} spacing={1}>
       <Stack spacing={2}>
         <Typography fontSize={theme.typography.pxToRem(20)} fontWeight={500}>
-          {`Create stage for "${CDPipelineData?.metadata.name}"`}{' '}
+          {`Create Environment for "${CDPipelineData?.metadata.name}"`}{' '}
         </Typography>
         <LearnMoreLink url={EDP_USER_GUIDE.CD_PIPELINE_MANAGE.anchors.ADD_STAGE.url} />
       </Stack>

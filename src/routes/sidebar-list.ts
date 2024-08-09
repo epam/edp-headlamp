@@ -2,9 +2,9 @@ import { routeQuickLinkList } from '../pages/configuration/pages/quicklinks/rout
 import { createNewSidebarItem } from '../utils/routes/createNewSidebarItem';
 import { createSidebarItemName } from '../utils/routes/createSidebarItemName';
 import {
-  CDPIPELINES_ROUTE_NAME,
   COMPONENTS_ROUTE_NAME,
   CONFIGURATION_ROUTE_NAME,
+  DEPLOYMENT_FLOWS_ROUTE_NAME,
   MARKETPLACE_ROUTE_NAME,
   PIPELINES_ROUTE_NAME,
 } from './names';
@@ -24,8 +24,8 @@ export const SIDEBAR_LIST: SidebarItem[] = [
   createNewSidebarItem('Marketplace', MARKETPLACE_ROUTE_NAME, 'material-symbols:shopping-cart'),
   createNewSidebarItem('Components', COMPONENTS_ROUTE_NAME, 'material-symbols:layers'),
   createNewSidebarItem(
-    'Environments',
-    CDPIPELINES_ROUTE_NAME,
+    'Deployment Flows',
+    DEPLOYMENT_FLOWS_ROUTE_NAME,
     'material-symbols:view-stream-rounded'
   ),
   {

@@ -39,7 +39,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
             <p
               class="MuiTypography-root MuiTypography-body1 css-1pf3k2c-MuiTypography-root"
             >
-              Create Environment
+              Create Deployment Flow
                
             </p>
             <a

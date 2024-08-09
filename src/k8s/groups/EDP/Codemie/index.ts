@@ -24,6 +24,10 @@ export class CodemieKubeObject extends K8s.cluster.makeKubeObject<CodemieKubeObj
     return this.jsonData!.spec;
   }
 
+  get status(): CodemieKubeObjectInterface['status'] {
+    return this.jsonData!.status;
+  }
+
   static getStatusIcon(status: string): [string, string, boolean?] {
     if (status === undefined) {
       return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];

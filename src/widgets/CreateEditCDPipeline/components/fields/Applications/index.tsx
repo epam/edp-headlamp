@@ -106,7 +106,7 @@ export const Applications = () => {
         errors={errors}
         label="Applications"
         placeholder={'Select applications'}
-        title={'Select the applications linked to this environment.'}
+        title={'Select the applications linked to this Deployment Flow.'}
       />
       <div>
         <Grid container spacing={2}>
@@ -123,7 +123,7 @@ export const Applications = () => {
                       <Grid item>
                         <Tooltip
                           title={
-                            'Specify the branch of the selected applications for deployment within this environment.'
+                            'Specify the branch of the selected applications for deployment within this Deployment Flow.'
                           }
                         >
                           <Icon icon={ICONS.INFO_CIRCLE} width={18} />

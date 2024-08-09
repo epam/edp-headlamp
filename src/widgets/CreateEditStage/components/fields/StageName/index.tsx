@@ -29,7 +29,7 @@ export const StageName = ({ otherStagesNames }: StageNameProps) => {
   return (
     <FormTextField
       {...register(STAGE_FORM_NAMES.name.name, {
-        required: `Enter a stage name. `,
+        required: `Enter an Environment name. `,
         pattern: {
           value: /^[a-z](?!.*--[^-])[a-z0-9-]*[a-z0-9]$/,
           message: nameRequirementLabel,
@@ -42,15 +42,15 @@ export const StageName = ({ otherStagesNames }: StageNameProps) => {
         },
         validate: (name) => {
           if (otherStagesNames.includes(name)) {
-            return `"${name}" has been already added to the stages that will be created`;
+            return `"${name}" has been already added to the Environments that will be created`;
           }
         },
       })}
-      label={'Stage name'}
+      label={'Environment name'}
       title={
-        'Specify a stage name. This name identifies the specific environment within your deployment pipeline.'
+        'Specify an Environment name. This name identifies the specific environment within your deployment pipeline.'
       }
-      placeholder={'Enter stage name'}
+      placeholder={'Enter an Environment name'}
       control={control}
       errors={errors}
     />

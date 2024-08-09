@@ -192,7 +192,7 @@ export const StageListFilter = () => {
           text="You do not have permission to create a stage."
           allowed={stagePermissions.create}
         >
-          create stage
+          create environment
         </ButtonWithPermission>
       </Grid>
     </Grid>

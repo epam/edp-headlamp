@@ -12,4 +12,9 @@ export interface CodemieKubeObjectInterface extends KubeObjectInterface {
     };
     url: string;
   };
+  status: {
+    connected: string;
+    error: string;
+    user: string;
+  };
 }

@@ -28,7 +28,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
     <Stack direction="row" alignItems={'flex-start'} justifyContent={'space-between'} spacing={1}>
       <Stack spacing={2}>
         <Typography fontSize={theme.typography.pxToRem(20)} fontWeight={500}>
-          Create Environment{' '}
+          Create Deployment Flow{' '}
         </Typography>
         <LearnMoreLink url={EDP_USER_GUIDE.CD_PIPELINE_CREATE.anchors.CREATE_VIA_UI.url} />
       </Stack>

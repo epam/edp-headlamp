@@ -50,7 +50,7 @@ export const PageView = () => {
   return (
     <PageWrapper
       breadcrumbs={[
-        { label: 'Environments', url: { pathname: routeCDPipelineList.path } },
+        { label: 'Deployment Flows', url: { pathname: routeCDPipelineList.path } },
         {
           label: CDPipelineName,
           url: {
@@ -129,7 +129,7 @@ export const PageView = () => {
       <Section
         title={stage?.spec.name}
         description={
-          'Manage, deploy, test, and troubleshoot your applications across distinct  stages.'
+          'Manage, deploy, test, and troubleshoot your applications across distinct Environments.'
         }
       >
         {!isStageLoading ? (
