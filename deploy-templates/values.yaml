@@ -107,7 +107,7 @@ ingress:
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
-  #      - portal-krci.example.com
+  #      - portal-edp.example.com
   # -- Defines the base URL for the portal.
   # -- If hosts not defined the will create by pattern "portal-[namespace].[global DNS wildcard]"
   host: ""
