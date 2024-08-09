@@ -19,7 +19,7 @@ export const createChatAssistantIntegrationSecretInstance = ({
     metadata: {
       name: INTEGRATION_SECRET_NAMES.CODEMIE,
       labels: {
-        [SECRET_LABEL_SECRET_TYPE]: 'codemie',
+        [SECRET_LABEL_SECRET_TYPE]: 'chat-assistant',
         [SECRET_LABEL_INTEGRATION_SECRET]: 'true',
       },
     },
