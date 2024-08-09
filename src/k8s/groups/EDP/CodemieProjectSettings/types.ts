@@ -18,4 +18,8 @@ export interface CodemieProjectSettingsKubeObjectInterface extends KubeObjectInt
     projectName: string;
     type: string;
   };
+  status: {
+    value: string;
+    error?: string;
+  };
 }

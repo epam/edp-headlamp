@@ -140,7 +140,7 @@ export const PipelineRunList = <Controls extends DefaultControls>({
     ({ target: { value } }: FieldEvent) => {
       // TODO: fix types
       // @ts-ignore
-      setFilterItem(FILTER_CONTROLS.CODEBASES, value);
+      setFilterItem(FILTER_CONTROLS.PIPELINE_TYPE, value);
     },
     [setFilterItem]
   );
@@ -249,7 +249,7 @@ export const PipelineRunList = <Controls extends DefaultControls>({
   }, [
     control,
     errors,
-    filter.values,
+    filter,
     filterControls,
     handleCodebasesChange,
     handleStatusChange,
