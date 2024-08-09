@@ -199,31 +199,62 @@ export const PageView = () => {
             color="primary.dark"
             sx={{ mb: (t) => t.typography.pxToRem(24) }}
           >
-            Codemie Project Settings
+            Project Settings
           </Typography>
           <LoadingWrapper isLoading={codemieProjectSettings.isLoading}>
-            {codemieProjectSettings.data?.map((setting) => (
-              <Paper sx={{ p: (t) => `${t.typography.pxToRem(10)} ${t.typography.pxToRem(20)}` }}>
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Typography variant={'h6'}>{setting.metadata.name}</Typography>
-                  <Button
-                    startIcon={<Icon icon={ICONS.PENCIL} />}
-                    size="small"
-                    component={'button'}
-                    style={{ flexShrink: 0 }}
-                    color="inherit"
-                    onClick={() => handleOpenEditor(setting)}
-                  >
-                    Edit YAML
-                  </Button>
-                </Stack>
-              </Paper>
-            ))}
+            <Grid container spacing={2}>
+              {codemieProjectSettings.data?.map((setting) => {
+                const status = setting?.status?.value;
+                const statusError = setting?.status?.error;
+
+                const [icon, color] = CodemieProjectSettingsKubeObject.getStatusIcon(status);
+
+                return (
+                  <Grid item xs={12} key={setting.metadata.name}>
+                    <Paper
+                      sx={{ p: (t) => `${t.typography.pxToRem(10)} ${t.typography.pxToRem(20)}` }}
+                    >
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="center"
+                        justifyContent="space-between"
+                      >
+                        <Stack direction="row" spacing={2} alignItems="center">
+                          <StatusIcon
+                            icon={icon}
+                            color={color}
+                            Title={
+                              <>
+                                <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                                  {`Status: ${status || 'Unknown'}`}
+                                </Typography>
+                                {!!statusError && (
+                                  <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                                    {statusError}
+                                  </Typography>
+                                )}
+                              </>
+                            }
+                          />
+                          <Typography variant={'h6'}>{setting.metadata.name}</Typography>
+                        </Stack>
+                        <Button
+                          startIcon={<Icon icon={ICONS.PENCIL} />}
+                          size="small"
+                          component={'button'}
+                          style={{ flexShrink: 0 }}
+                          color="inherit"
+                          onClick={() => handleOpenEditor(setting)}
+                        >
+                          Edit YAML
+                        </Button>
+                      </Stack>
+                    </Paper>
+                  </Grid>
+                );
+              })}
+            </Grid>
             {editor.open && editor.data?.jsonData && (
               <EditorDialog
                 open={editor.open}

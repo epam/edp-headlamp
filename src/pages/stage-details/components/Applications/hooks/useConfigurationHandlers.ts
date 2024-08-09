@@ -1,5 +1,7 @@
 import React from 'react';
 import { FieldValues, useFormContext } from 'react-hook-form';
+import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { useRequestStatusMessages } from '../../../../../hooks/useResourceRequestStatusMessages';
 import { editResource } from '../../../../../k8s/common/editResource';
 import { useCreateCleanPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateCleanPipelineRun';
 import { useCreateDeployPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateDeployPipelineRun';
@@ -106,6 +108,7 @@ export const useConfigurationHandlers = ({
   enrichedApplicationsWithArgoApplications: EnrichedApplicationWithArgoApplication[];
   setDeleteDialogOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const { showRequestErrorMessage } = useRequestStatusMessages();
   const { CDPipeline } = useDataContext();
   const {
     stage: { data: stage },
@@ -308,6 +311,15 @@ export const useConfigurationHandlers = ({
   ]);
 
   const handleClean = React.useCallback(async () => {
+    if (!cleanPipelineRunTemplate) {
+      showRequestErrorMessage(CRUD_TYPES.CREATE, {
+        customMessage: 'Clean PipelineRun template is not found.',
+        entityName: 'Clean PipelineRun',
+      });
+
+      return;
+    }
+
     const newCleanPipelineRun = editResource(newCleanPipelineRunNames, cleanPipelineRunTemplate, {
       generateName: `clean-${CDPipeline.data.metadata.name}-${stage.spec.name}-`,
       CDPipelineLabel: CDPipeline.data.metadata.name,
@@ -328,6 +340,7 @@ export const useConfigurationHandlers = ({
     CDPipeline.data.metadata.name,
     cleanPipelineRunTemplate,
     createCleanPipelineRun,
+    showRequestErrorMessage,
     stage.metadata.name,
     stage.spec.name,
   ]);
