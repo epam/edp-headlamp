@@ -33,7 +33,7 @@ export const PageView = () => {
     <PageWrapper
       breadcrumbs={[
         {
-          label: 'Environments',
+          label: 'Deployment Flows',
           url: {
             pathname: routeCDPipelineList.path,
           },
@@ -80,7 +80,7 @@ export const PageView = () => {
     >
       <Section
         title={<Typography fontSize={theme.typography.pxToRem(48)}>{name}</Typography>}
-        description={'Inspect the Environment and operate stages.'}
+        description={`Defines the sequence and logic for promoting artifacts through various environments. It maps out an artifact's progression path from development to production.`}
       >
         <Grid container spacing={3}>
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>

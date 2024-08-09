@@ -1,9 +1,9 @@
-import { CDPIPELINES_ROUTE_NAME } from '../../routes/names';
+import { DEPLOYMENT_FLOWS_ROUTE_NAME } from '../../routes/names';
 import { createSidebarItemName } from '../../utils/routes/createSidebarItemName';
 
 export const routeCDPipelineDetails = {
-  name: 'CD Pipeline Details',
-  path: '/cdpipelines/:namespace/:name',
-  sidebar: createSidebarItemName(CDPIPELINES_ROUTE_NAME),
+  name: 'Deployment Flow Details',
+  path: '/deployment-flows/:namespace/:name',
+  sidebar: createSidebarItemName(DEPLOYMENT_FLOWS_ROUTE_NAME),
   exact: true,
 };

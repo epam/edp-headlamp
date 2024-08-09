@@ -31,7 +31,7 @@ export const CDPipelineList = ({
       emptyListComponent={
         CDPipelinePermissions.create ? (
           <EmptyList
-            missingItemName={'Environments'}
+            missingItemName={'Deployment Flows'}
             handleClick={() => {
               setDialog({
                 modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
@@ -41,11 +41,11 @@ export const CDPipelineList = ({
               });
             }}
             description={
-              'Take the first step towards managing your environments by adding a new one here.'
+              'Take the first step towards managing your Deployment Flows by adding a new one here.'
             }
           />
         ) : (
-          <EmptyList customText="You do not have permission to create Environments." />
+          <EmptyList customText="You do not have permission to create Deployment Flows." />
         )
       }
     />

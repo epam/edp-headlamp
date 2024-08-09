@@ -36,7 +36,7 @@ export const CDPipelinesGraph = () => {
             fill: CHART_STATUS_COLOR.UNKNOWN,
           },
         ]}
-        title={`Environments (${graphData.total || 0})`}
+        title={`Deployment Flows (${graphData.total || 0})`}
         // @ts-ignore
         legend={
           <Stack spacing={0.5}>

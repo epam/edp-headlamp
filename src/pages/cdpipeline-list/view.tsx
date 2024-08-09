@@ -66,10 +66,10 @@ export const PageView = () => {
   return (
     <PageWrapper>
       <Section
-        title="Environments"
+        title="Deployment Flows"
         description={
           <>
-            Manage your environments with deployed applications.{' '}
+            Manage your deployment flows with deployed applications.{' '}
             <LearnMoreLink url={EDP_USER_GUIDE.CD_PIPELINE_CREATE.anchors.CREATE_VIA_UI.url} />
           </>
         }
@@ -105,7 +105,7 @@ export const PageView = () => {
                   allowed={CDPipelinePermissions.create}
                   text="You do not have permission to create a CD Pipeline."
                 >
-                  create environment
+                  create deployment flow
                 </ButtonWithPermission>
               </Grid>
             </Grid>

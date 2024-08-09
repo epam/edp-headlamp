@@ -35,7 +35,7 @@ export const StagesGraph = () => {
             fill: CHART_STATUS_COLOR.UNKNOWN,
           },
         ]}
-        title={`Stages (${graphData.total || 0})`}
+        title={`Environments (${graphData.total || 0})`}
         // @ts-ignore
         legend={
           <Stack spacing={0.5}>

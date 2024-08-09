@@ -39,7 +39,7 @@ exports[`renders CreateEditStage Create component 1`] = `
             <p
               class="MuiTypography-root MuiTypography-body1 css-1pf3k2c-MuiTypography-root"
             >
-              Create stage for "test-cdpipeline-name"
+              Create Environment for "test-cdpipeline-name"
                
             </p>
             <a
@@ -279,7 +279,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                           for="mui-5"
                           id="mui-5-label"
                         >
-                          Stage name
+                          Environment name
                         </label>
                         <div
                           class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
@@ -289,7 +289,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                             class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                             id="mui-5"
                             name="name"
-                            placeholder="Enter stage name"
+                            placeholder="Enter an Environment name"
                             type="text"
                             value=""
                           />
@@ -302,7 +302,7 @@ exports[`renders CreateEditStage Create component 1`] = `
                               class="css-yjsfm1"
                             >
                               <span>
-                                Stage name
+                                Environment name
                               </span>
                             </legend>
                           </fieldset>

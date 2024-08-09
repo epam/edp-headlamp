@@ -82,12 +82,12 @@ export const FormActions = () => {
   const onSuccess = React.useCallback(
     (CDPipelineData: CDPipelineKubeObjectInterface) => {
       const successModalForwardedProps: SuccessDialogForwardedProps = {
-        dialogTitle: 'Create Environment',
-        title: 'Your new environment is created',
-        description: 'Make sure to add stages to your environment to start deploying applications.',
+        dialogTitle: 'Create Deployment Flow',
+        title: 'Your new Deployment Flow is created',
+        description: 'Make sure to add Environments to your Deployment Flow to start deploying applications.',
         goToLink: {
           routeName: routeCDPipelineDetails.path,
-          text: 'go to environment',
+          text: 'go to Deployment Flow',
           routeParams: {
             namespace: CDPipelineData.metadata.namespace || getDefaultNamespace(),
             name: CDPipelineData.metadata.name,

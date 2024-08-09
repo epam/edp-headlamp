@@ -412,7 +412,7 @@ export const useColumns = ({
                         </Typography>
                         <Typography component="div" variant="body2">
                           This field is enabled after a successful build and promotion through
-                          previous stages, if any.
+                          previous Environments, if any.
                         </Typography>
                       </>
                     }

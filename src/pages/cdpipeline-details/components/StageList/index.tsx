@@ -67,7 +67,7 @@ export const StageList = () => {
         <CircularProgress />
       ) : filteredStages.length === 0 ? (
         <EmptyList
-          missingItemName="stages"
+          missingItemName="Environments"
           icon={
             <Icon
               icon="majesticons:table-plus-line"
@@ -76,7 +76,7 @@ export const StageList = () => {
             />
           }
           linkText={'by adding a new one here.'}
-          beforeLinkText="Take the first step towards managing your environment stages"
+          beforeLinkText="Take the first step towards managing your Environment"
           handleClick={() => {
             setDialog({
               modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
