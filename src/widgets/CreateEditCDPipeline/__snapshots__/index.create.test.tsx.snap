@@ -170,7 +170,7 @@ exports[`renders CreateEditCDPipeline Create component 1`] = `
                     <span
                       class="MuiStepLabel-label Mui-disabled css-1tvu27n-MuiStepLabel-label"
                     >
-                      Add components
+                      Add applications
                     </span>
                   </span>
                 </span>

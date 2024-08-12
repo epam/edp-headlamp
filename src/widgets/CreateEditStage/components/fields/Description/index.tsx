@@ -14,11 +14,13 @@ export const Description = () => {
   return (
     <FormTextField
       {...register(STAGE_FORM_NAMES.description.name, {
-        required: `Enter a stage description.`,
+        required: `Enter description.`,
       })}
       label={'Description'}
-      title={'Provide a brief description of the stage to convey its purpose and characteristics.'}
-      placeholder={'Enter stage description'}
+      title={
+        'Provide a brief description of the environment to convey its purpose and characteristics.'
+      }
+      placeholder={'Enter description'}
       control={control}
       errors={errors}
     />

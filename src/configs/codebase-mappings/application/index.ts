@@ -16,6 +16,8 @@ export type ApplicationLanguageKeys =
   | typeof CODEBASE_COMMON_LANGUAGES.PYTHON
   | typeof CODEBASE_COMMON_LANGUAGES.GO
   | typeof CODEBASE_COMMON_LANGUAGES.C_SHARP
+  | typeof CODEBASE_COMMON_LANGUAGES.C
+  | typeof CODEBASE_COMMON_LANGUAGES.CPP
   | typeof CODEBASE_COMMON_LANGUAGES.HELM
   | typeof CODEBASE_COMMON_LANGUAGES.OTHER;
 
@@ -193,6 +195,58 @@ export const APPLICATION_MAPPING: ApplicationMapping = {
         name: '.NET',
         value: CODEBASE_COMMON_BUILD_TOOLS.DOTNET,
         icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.DOTNET],
+      },
+    },
+  },
+  [CODEBASE_COMMON_LANGUAGES.C]: {
+    language: {
+      name: 'C',
+      value: CODEBASE_COMMON_LANGUAGES.C,
+      icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.C],
+    },
+    frameworks: {
+      [CODEBASE_COMMON_FRAMEWORKS.NONE]: {
+        name: 'None',
+        value: CODEBASE_COMMON_FRAMEWORKS.NONE,
+        icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.NONE],
+      },
+    },
+    buildTools: {
+      [CODEBASE_COMMON_BUILD_TOOLS.MAKE]: {
+        name: 'Make',
+        value: CODEBASE_COMMON_BUILD_TOOLS.MAKE,
+        icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.MAKE],
+      },
+      [CODEBASE_COMMON_BUILD_TOOLS.C_MAKE]: {
+        name: 'CMake',
+        value: CODEBASE_COMMON_BUILD_TOOLS.C_MAKE,
+        icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.C_MAKE],
+      },
+    },
+  },
+  [CODEBASE_COMMON_LANGUAGES.CPP]: {
+    language: {
+      name: 'C++',
+      value: CODEBASE_COMMON_LANGUAGES.CPP,
+      icon: LANGUAGE_ICON_MAPPING[CODEBASE_COMMON_LANGUAGES.CPP],
+    },
+    frameworks: {
+      [CODEBASE_COMMON_FRAMEWORKS.NONE]: {
+        name: 'None',
+        value: CODEBASE_COMMON_FRAMEWORKS.NONE,
+        icon: FRAMEWORK_ICON_MAPPING[CODEBASE_COMMON_FRAMEWORKS.NONE],
+      },
+    },
+    buildTools: {
+      [CODEBASE_COMMON_BUILD_TOOLS.MAKE]: {
+        name: 'Make',
+        value: CODEBASE_COMMON_BUILD_TOOLS.MAKE,
+        icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.MAKE],
+      },
+      [CODEBASE_COMMON_BUILD_TOOLS.C_MAKE]: {
+        name: 'CMake',
+        value: CODEBASE_COMMON_BUILD_TOOLS.C_MAKE,
+        icon: BUILD_TOOL_ICON_MAPPING[CODEBASE_COMMON_BUILD_TOOLS.C_MAKE],
       },
     },
   },

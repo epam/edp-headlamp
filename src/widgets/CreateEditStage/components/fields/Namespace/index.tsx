@@ -27,7 +27,7 @@ export const Namespace = () => {
         },
       })}
       label={'Namespace'}
-      title={'Target namespace for deploying stage workload.'}
+      title={'Target namespace for deploying environment workload.'}
       placeholder={'Enter namespace to deploy to'}
       control={control}
       errors={errors}

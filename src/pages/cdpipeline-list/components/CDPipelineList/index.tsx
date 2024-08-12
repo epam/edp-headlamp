@@ -41,7 +41,7 @@ export const CDPipelineList = ({
               });
             }}
             description={
-              'Take the first step towards managing your Deployment Flows by adding a new one here.'
+              'Take the first step towards managing your Deployment Flow by adding a new environment here.'
             }
           />
         ) : (

@@ -84,7 +84,8 @@ export const FormActions = () => {
       const successModalForwardedProps: SuccessDialogForwardedProps = {
         dialogTitle: 'Create Deployment Flow',
         title: 'Your new Deployment Flow is created',
-        description: 'Make sure to add Environments to your Deployment Flow to start deploying applications.',
+        description:
+          'Kickstart application rollouts by adding Environments to your Deployment Flow.',
         goToLink: {
           routeName: routeCDPipelineDetails.path,
           text: 'go to Deployment Flow',

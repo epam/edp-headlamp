@@ -55,7 +55,7 @@ export const CodebaseActionsMenu = ({
             {conflictedCDPipeline.metadata.name}
           </Link>
         </div>
-        <Typography component={'span'}> CD Pipeline</Typography>
+        <Typography component={'span'}> Deployment Flow</Typography>
       </div>
     );
   }, [classes, codebaseData, conflictedCDPipeline]);

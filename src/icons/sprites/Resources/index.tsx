@@ -5,8 +5,11 @@ import {
   Antora,
   AWS,
   Beego,
+  C,
+  CMake,
   Codenarc,
   Container,
+  CPP,
   CSharp,
   Docker,
   DotNet,
@@ -28,9 +31,11 @@ import {
   JavaScript,
   Kaniko,
   Kustomize,
+  Make,
   Maven,
   NextJS,
   Nexus,
+  None,
   Npm,
   Opa,
   Openshift,
@@ -91,6 +96,11 @@ export const Resources = () => {
       <Harbor />
       <Openshift />
       <Nexus />
+      <None />
+      <Make />
+      <CMake />
+      <C />
+      <CPP />
     </svg>
   );
 };

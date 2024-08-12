@@ -68,9 +68,7 @@ export const QualityGates = () => {
       <Stack direction="row" spacing={1} alignItems="center" flexWrap={'nowrap'}>
         <Typography variant={'h6'}>Quality gates</Typography>
         <Tooltip
-          title={
-            'Define quality gates to ensure specific criteria are met before progressing to the next stage.'
-          }
+          title={'Define quality gates before promoting applications to the next environment.'}
         >
           <Icon icon={ICONS.INFO_CIRCLE} width={18} />
         </Tooltip>

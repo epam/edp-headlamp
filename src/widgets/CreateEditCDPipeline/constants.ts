@@ -12,7 +12,7 @@ export const FORM_STEPPER = {
   },
   [FORM_STEPS.APPLICATIONS]: {
     idx: 1,
-    label: 'Add components',
+    label: 'Add applications',
   },
 };
 

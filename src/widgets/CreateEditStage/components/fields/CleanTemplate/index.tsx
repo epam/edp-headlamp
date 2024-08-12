@@ -30,7 +30,7 @@ export const CleanTemplate = () => {
         required: 'Select Clean Pipeline template',
       })}
       label={'Clean Pipeline template'}
-      title="Choose a predefined blueprint outlining the cleaning process for your environment."
+      title="Choose a blueprint pipeline for environment cleanup."
       control={control}
       errors={errors}
       options={options}
