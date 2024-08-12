@@ -38,7 +38,7 @@ export const CDPipelineActionsMenu = ({
       objectName: CDPipelineData?.metadata.name,
       kubeObject: CDPipelineKubeObject,
       kubeObjectData: CDPipelineData,
-      description: `Confirm the deletion of the CD Pipeline with all its components`,
+      description: `Confirm the deletion of the Deployment Flow with all its environments.`,
       backRoute,
     };
 
@@ -48,7 +48,7 @@ export const CDPipelineActionsMenu = ({
           name: RESOURCE_ACTIONS.EDIT,
           disabled: {
             status: permissions.update === false,
-            reason: 'You do not have permission to edit a CD Pipeline',
+            reason: 'You do not have permission to edit a Deployment Flow',
           },
           icon: ICONS.PENCIL,
           action: () => {
@@ -62,7 +62,7 @@ export const CDPipelineActionsMenu = ({
           name: RESOURCE_ACTIONS.DELETE,
           disabled: {
             status: permissions.delete === false,
-            reason: 'You do not have permission to delete a CD Pipeline',
+            reason: 'You do not have permission to delete a Deployment Flow',
           },
           icon: ICONS.BUCKET,
           action: () => {
@@ -80,7 +80,7 @@ export const CDPipelineActionsMenu = ({
           icon: ICONS.PENCIL,
           disabled: {
             status: permissions.update === false,
-            reason: 'You do not have permission to edit a CD Pipeline',
+            reason: 'You do not have permission to edit a Deployment Flow',
           },
           action: () => {
             handleCloseResourceActionListMenu();
@@ -95,7 +95,7 @@ export const CDPipelineActionsMenu = ({
           icon: ICONS.BUCKET,
           disabled: {
             status: permissions.delete === false,
-            reason: 'You do not have permission to delete a CD Pipeline',
+            reason: 'You do not have permission to delete a Deployment Flow',
           },
           action: () => {
             handleCloseResourceActionListMenu();

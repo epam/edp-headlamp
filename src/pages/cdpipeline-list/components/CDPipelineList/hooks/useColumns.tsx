@@ -48,7 +48,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
       },
       {
         id: 'cdPipeline',
-        label: 'CD Pipeline',
+        label: 'Deployment Flow',
         columnSortableValuePath: 'metadata.name',
         render: ({ metadata: { name, namespace } }) => {
           return (

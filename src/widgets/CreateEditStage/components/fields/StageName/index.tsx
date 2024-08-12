@@ -48,7 +48,7 @@ export const StageName = ({ otherStagesNames }: StageNameProps) => {
       })}
       label={'Environment name'}
       title={
-        'Specify an Environment name. This name identifies the specific environment within your deployment pipeline.'
+        'Specify an environment name. This name identifies the specific environment within your Deployment Flow.'
       }
       placeholder={'Enter an Environment name'}
       control={control}

@@ -22,7 +22,7 @@ export const createDeleteAction = async (
   // so, in case it doesn't have any stage
   // probably this is something wrong and somebody messed-up CR
   if (allStages.length === 0) {
-    throw new Error('CD Pipeline should have at least one stage');
+    throw new Error('Deployment Flow should have at least one Environment');
   }
 
   // we don't let user remove last stage
@@ -31,7 +31,7 @@ export const createDeleteAction = async (
       name: RESOURCE_ACTIONS.DELETE,
       disabled: {
         status: true,
-        reason: 'CD pipeline should have at least one stage',
+        reason: 'Deployment Flow should have at least one Environment',
       },
       icon: ICONS.BUCKET,
     });
@@ -57,7 +57,7 @@ export const createDeleteAction = async (
     name: RESOURCE_ACTIONS.DELETE,
     disabled: {
       status: true,
-      reason: 'You are able to delete only the last stage',
+      reason: 'You are able to delete only the last Environment',
     },
     icon: ICONS.BUCKET,
   });

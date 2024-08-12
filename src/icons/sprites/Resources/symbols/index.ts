@@ -39,3 +39,8 @@ export * from './ReactSymbol';
 export * from './Tekton';
 export * from './Terraform';
 export * from './Vue';
+export * from './None';
+export * from './Make';
+export * from './Cmake';
+export * from './C';
+export * from './CPP';

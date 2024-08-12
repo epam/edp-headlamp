@@ -48,20 +48,19 @@ export const Cluster = () => {
       label={'Cluster'}
       title={
         <>
-          Select the Kubernetes cluster for the stage deployment. Make sure it matches the
-          deployment needs. To select another cluster for stage deployment, visit the{' '}
+          Select the Kubernetes cluster for the environment deployment. Make sure it matches the
+          deployment needs. To manage clusters, visit the section in the{' '}
           <Link
             component="button"
             onClick={() => {
               history.push(clusterConfigurationPage);
             }}
           >
-            Clusters
-          </Link>{' '}
-          section in the Configuration tab to connect the platform with it. You can find detailed
-          instructions on connecting clusters in our documentation{' '}
+            Configuration tab.
+          </Link>
+          <br />
           <Link href={EDP_USER_GUIDE.CLUSTER_CREATE.url} target={'_blank'}>
-            here
+            More details
           </Link>
           .
         </>

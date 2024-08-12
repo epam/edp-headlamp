@@ -9,6 +9,8 @@ export const CODEBASE_COMMON_LANGUAGES = {
   HELM: 'helm',
   GO: 'go',
   C_SHARP: 'csharp',
+  C: 'c',
+  CPP: 'cpp',
   OTHER: 'other',
 } as const;
 
@@ -40,6 +42,7 @@ export const CODEBASE_COMMON_FRAMEWORKS = {
   AWS: 'aws',
   GIT_OPS: 'gitops',
   ANSIBLE: 'ansible',
+  NONE: 'none',
 } as const;
 
 export const CODEBASE_COMMON_BUILD_TOOLS = {
@@ -54,4 +57,6 @@ export const CODEBASE_COMMON_BUILD_TOOLS = {
   OPA: 'opa',
   KANIKO: 'kaniko',
   HELM: 'helm',
+  MAKE: 'make',
+  C_MAKE: 'cmake',
 } as const;

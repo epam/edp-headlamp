@@ -69,7 +69,7 @@ export const PageView = () => {
         title="Deployment Flows"
         description={
           <>
-            Manage your deployment flows with deployed applications.{' '}
+            Orchestrate and Monitor Your Deployment Flows.{' '}
             <LearnMoreLink url={EDP_USER_GUIDE.CD_PIPELINE_CREATE.anchors.CREATE_VIA_UI.url} />
           </>
         }
@@ -103,7 +103,7 @@ export const PageView = () => {
                     disabled: !gitOpsCodebaseQuery.data,
                   }}
                   allowed={CDPipelinePermissions.create}
-                  text="You do not have permission to create a CD Pipeline."
+                  text="You do not have permission to create a Deployment Flow."
                 >
                   create deployment flow
                 </ButtonWithPermission>

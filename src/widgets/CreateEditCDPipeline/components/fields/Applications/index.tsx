@@ -122,9 +122,7 @@ export const Applications = () => {
                       <Grid item>Branch</Grid>
                       <Grid item>
                         <Tooltip
-                          title={
-                            'Specify the branch of the selected applications for deployment within this Deployment Flow.'
-                          }
+                          title={'Specify the branch of the selected applications for deployment.'}
                         >
                           <Icon icon={ICONS.INFO_CIRCLE} width={18} />
                         </Tooltip>
@@ -138,7 +136,7 @@ export const Applications = () => {
                         <Grid item>
                           <Tooltip
                             title={
-                              'Enables the promotion of applications to the next pipeline stage upon the successful pass through all quality gates.'
+                              'Enables the promotion of applications to the higher environment upon the successful pass through all quality gates.'
                             }
                           >
                             <Icon icon={ICONS.INFO_CIRCLE} width={18} />

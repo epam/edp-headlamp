@@ -40,5 +40,10 @@ export const RESOURCE_ICON_NAMES = {
   OPENSHIFT: 'openshift',
   NEXUS: 'nexus',
   ANSIBLE: 'ansible',
+  C: 'c',
+  CPP: 'cpp',
+  MAKE: 'make',
+  C_MAKE: 'cmake',
+  NONE: 'none',
   OTHER: 'other',
 } as const;
