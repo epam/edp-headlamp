@@ -17,6 +17,22 @@ export const matchFunctions: MatchFunctions<ValueOf<typeof FILTER_CONTROLS>> = {
   [FILTER_CONTROLS.CODEBASES]: (item: PipelineRunKubeObjectInterface, value: string[]) => {
     if (!value || value.length === 0) return true;
 
+    const pipelineType = item?.metadata.labels?.[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE];
+
+    if (pipelineType === PIPELINE_TYPES.DEPLOY || pipelineType === PIPELINE_TYPES.CLEAN) {
+      const appPayload = item?.spec?.params?.find(
+        (param: { name: string; value: string }) => param.name === 'APPLICATIONS_PAYLOAD'
+      );
+
+      if (!appPayload) {
+        return false;
+      }
+
+      const appPayloadValue = JSON.parse(appPayload.value);
+
+      return Object.keys(appPayloadValue).some((key) => value.includes(key));
+    }
+
     const itemCodebase = item?.metadata.labels?.[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE];
 
     return value.includes(itemCodebase);
