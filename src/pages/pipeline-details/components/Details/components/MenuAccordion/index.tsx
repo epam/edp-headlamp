@@ -33,7 +33,12 @@ export function updateUnexecutedSteps(steps) {
   });
 }
 
-export const MenuAccordion = ({ taskRunName, taskRunListByNameMap, setQueryParams }) => {
+export const MenuAccordion = ({
+  taskRunName,
+  taskRunListByNameMap,
+  taskListByTaskRunNameMap,
+  setQueryParams,
+}) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -41,12 +46,13 @@ export const MenuAccordion = ({ taskRunName, taskRunListByNameMap, setQueryParam
   const queryParamStep = queryParams.get('step');
 
   const taskRun = taskRunListByNameMap.get(taskRunName)?.jsonData;
+  const task = taskListByTaskRunNameMap.get(taskRunName)?.jsonData;
   const taskRunStatus = TaskRunKubeObject.parseStatus(taskRun);
   const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);
 
   const [icon, color, isRotating] = TaskRunKubeObject.getStatusIcon(taskRunStatus, taskRunReason);
 
-  const taskRunSteps = updateUnexecutedSteps(taskRun?.status?.steps);
+  const taskRunSteps = updateUnexecutedSteps(taskRun ? taskRun?.status?.steps : task?.spec.steps);
   const isExpanded = queryParamTaskRun === taskRunName;
   const isActive = queryParamTaskRun === taskRunName && !queryParamStep;
 

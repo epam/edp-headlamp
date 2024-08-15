@@ -1,10 +1,12 @@
 import React from 'react';
+import { TaskKubeObjectInterface } from '../../Task/types';
 import { TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK } from '../../TaskRun/labels';
 import { TaskRunKubeObjectInterface } from '../../TaskRun/types';
 import { PipelineRunKubeObjectInterface } from '../types';
 
 export const usePipelineRunData = (
   taskRuns: TaskRunKubeObjectInterface[] | null,
+  tasks: TaskKubeObjectInterface[] | null,
   pipelineRun: PipelineRunKubeObjectInterface | null
 ) => {
   const pipelineRunTasks = React.useMemo(() => {
@@ -40,6 +42,20 @@ export const usePipelineRunData = (
     }, new Map());
   }, [taskRuns, pipelineRunTasks]);
 
+  const taskListByTaskRunNameMap = React.useMemo(() => {
+    if (pipelineRun === null || tasks === null) {
+      return;
+    }
+
+    return pipelineRunTasks.allTasks.reduce((acc, item) => {
+      acc.set(
+        item.name,
+        tasks.find((task) => task.metadata.name === item.taskRef.name)
+      );
+      return acc;
+    }, new Map<string, TaskKubeObjectInterface>());
+  }, [pipelineRun, pipelineRunTasks.allTasks, tasks]);
+
   const taskRunListByNameMap = React.useMemo(() => {
     if (taskRuns === null) {
       return;
@@ -57,7 +73,14 @@ export const usePipelineRunData = (
       pipelineRunMainTasksMap,
       pipelineRunFinallyTasksMap,
       taskRunListByNameMap,
+      taskListByTaskRunNameMap,
     }),
-    [pipelineRunFinallyTasksMap, pipelineRunMainTasksMap, pipelineRunTasks, taskRunListByNameMap]
+    [
+      pipelineRunFinallyTasksMap,
+      pipelineRunMainTasksMap,
+      pipelineRunTasks,
+      taskListByTaskRunNameMap,
+      taskRunListByNameMap,
+    ]
   );
 };

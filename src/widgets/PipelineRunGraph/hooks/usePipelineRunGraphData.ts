@@ -2,6 +2,7 @@ import React from 'react';
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
 import { usePipelineRunData } from '../../../k8s/groups/Tekton/PipelineRun/hooks/usePipelineRunData';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
+import { TaskKubeObject } from '../../../k8s/groups/Tekton/Task';
 import { TaskRunKubeObject } from '../../../k8s/groups/Tekton/TaskRun';
 import { TaskRunKubeObjectInterface } from '../../../k8s/groups/Tekton/TaskRun/types';
 
@@ -9,14 +10,16 @@ export const usePipelineRunGraphData = (
   taskRuns: TaskRunKubeObjectInterface[],
   pipelineRun: PipelineRunKubeObjectInterface
 ) => {
+  const [tasks] = TaskKubeObject.useList();
+
   const {
     pipelineRunTasks,
     pipelineRunFinallyTasksMap,
     pipelineRunMainTasksMap,
     taskRunListByNameMap,
-  } = usePipelineRunData(taskRuns, pipelineRun);
+  } = usePipelineRunData(taskRuns, tasks, pipelineRun);
 
-  const isLoading = taskRuns === null || pipelineRun === null;
+  const isLoading = taskRuns === null || pipelineRun === null || tasks === null;
 
   const noTasks = React.useMemo(() => {
     return (

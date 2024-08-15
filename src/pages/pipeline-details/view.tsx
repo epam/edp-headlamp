@@ -4,9 +4,10 @@ import { useParams } from 'react-router-dom';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
+import { Tabs } from '../../components/Tabs';
 import { PipelineRunActionsMenu } from '../../widgets/PipelineRunActionsMenu';
-import { routePipelineList } from '../pipelines/route';
-import { PipelineRunDetails } from './components/PipelineRunDetails';
+import { routePipelineRunList } from '../pipelines/route';
+import { useTabs } from './hooks/useTabs';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 import { usePermissionsContext } from './providers/Permissions/hooks';
 import { PipelineRouteParams } from './types';
@@ -22,11 +23,10 @@ export const PageView = () => {
 
   const {
     pipelineRun,
-    pipelineRunData: {
-      data: { pipelineRunTasks, taskRunListByNameMap },
-      isLoading: pipelineRunDataIsLoading,
-    },
+    pipelineRunData: { isLoading: pipelineRunDataIsLoading },
   } = useDynamicDataContext();
+
+  const tabs = useTabs();
 
   return (
     <PageWrapper
@@ -34,7 +34,7 @@ export const PageView = () => {
         {
           label: 'Pipelines',
           url: {
-            pathname: routePipelineList.path,
+            pathname: routePipelineRunList.path,
           },
         },
         {
@@ -49,7 +49,7 @@ export const PageView = () => {
                 pipelineRun: pipelineRun.data,
               }}
               permissions={pipelineRunPermissions}
-              backRoute={Router.createRouteURL(routePipelineList.path)}
+              backRoute={Router.createRouteURL(routePipelineRunList.path)}
               variant="inline"
             />
           )}
@@ -58,10 +58,7 @@ export const PageView = () => {
     >
       <Section title={name}>
         <LoadingWrapper isLoading={pipelineRunDataIsLoading}>
-          <PipelineRunDetails
-            pipelineRunTasks={pipelineRunTasks}
-            taskRunListByNameMap={taskRunListByNameMap}
-          />
+          <Tabs tabs={tabs} initialTabIdx={0} rememberLastTab id="pipelinerun-details-page" />
         </LoadingWrapper>
       </Section>
     </PageWrapper>

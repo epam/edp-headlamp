@@ -1,26 +1,12 @@
-import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  IconButton,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Grid, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import { BorderedSection } from '../../components/BorderedSection';
 import { Graph } from '../../components/Graph';
 import { Edge } from '../../components/Graph/components/Edge';
 import { Node } from '../../components/Graph/components/Node';
 import { MyNode } from '../../components/Graph/components/types';
-import { InfoColumns } from '../../components/InfoColumns';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { StatusIcon } from '../../components/StatusIcon';
-import { ICONS } from '../../icons/iconify-icons-mapping';
-import { SYSTEM_QUICK_LINKS } from '../../k8s/groups/EDP/QuickLink/constants';
-import { useQuickLinksURLsQuery } from '../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
 import { TaskRunKubeObject } from '../../k8s/groups/Tekton/TaskRun';
 import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../k8s/groups/Tekton/TaskRun/labels';
@@ -29,30 +15,16 @@ import {
   getTaskRunStepReason,
   getTaskRunStepStatus,
 } from '../../k8s/groups/Tekton/TaskRun/utils/getStatus';
-import { routePipelineDetails } from '../../pages/pipeline-details/route';
-import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
+import { routePipelineRunDetails } from '../../pages/pipeline-details/route';
 import { rem } from '../../utils/styling/rem';
-import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from './constants';
-import { useInfoRows } from './hooks/useInfoRows';
 import { usePipelineRunGraphData } from './hooks/usePipelineRunGraphData';
 import { useStyles } from './styles';
-import { PipelineRunGraphDialogForwardedProps } from './types';
+import { PipelineRunGraphProps } from './types';
 
-export const PipelineRunGraph = () => {
+export const PipelineRunGraph = ({ pipelineRun }: PipelineRunGraphProps) => {
   const classes = useStyles();
 
-  const {
-    open,
-    forwardedProps: { pipelineRun },
-    closeDialog,
-  } = useSpecificDialogContext<PipelineRunGraphDialogForwardedProps>(
-    PIPELINE_RUN_GRAPH_DIALOG_NAME
-  );
-
   const namespace = pipelineRun?.metadata.namespace;
-
-  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
-  const tektonBaseURL = QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON];
 
   const [taskRuns] = TaskRunKubeObject.useList({
     labelSelector: `${TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN}=${pipelineRun.metadata.name}`,
@@ -88,7 +60,7 @@ export const PipelineRunGraph = () => {
                 </Grid>
                 <Grid item>
                   <Link
-                    routeName={routePipelineDetails.path}
+                    routeName={routePipelineRunDetails.path}
                     params={{
                       namespace,
                       name: pipelineRun.metadata.name,
@@ -131,7 +103,7 @@ export const PipelineRunGraph = () => {
                           </Grid>
                           <Grid item>
                             <Link
-                              routeName={routePipelineDetails.path}
+                              routeName={routePipelineRunDetails.path}
                               params={{
                                 namespace,
                                 name: pipelineRun.metadata.name,
@@ -189,7 +161,7 @@ export const PipelineRunGraph = () => {
               </Grid>
               <Grid item style={{ overflow: 'hidden' }}>
                 <Link
-                  routeName={routePipelineDetails.path}
+                  routeName={routePipelineRunDetails.path}
                   params={{
                     namespace,
                     name: pipelineRun.metadata.name,
@@ -209,58 +181,25 @@ export const PipelineRunGraph = () => {
     [classes.treeItemTitle, namespace, pipelineRun.metadata.name, renderTaskLegend]
   );
 
-  const infoRows = useInfoRows(tektonBaseURL);
-
   return (
-    <Dialog
-      open={open}
-      fullWidth
-      onClose={() => closeDialog()}
-      maxWidth={'xl'}
-      className={classes.dialog}
-    >
-      <DialogTitle>
-        <Grid container spacing={2} alignItems={'center'} justifyContent={'space-between'}>
-          <Grid item>
-            <Typography variant={'h4'}>Tree Diagram</Typography>
-          </Grid>
-          <Grid item>
-            <IconButton onClick={() => closeDialog()} size="large">
-              <Icon icon={ICONS.CROSS} />
-            </IconButton>
-          </Grid>
-        </Grid>
-      </DialogTitle>
-      <DialogContent>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <BorderedSection title="Details">
-              <InfoColumns infoRows={infoRows} />
-            </BorderedSection>
-          </Grid>
-          <Grid item xs={12} style={{ minHeight: rem(300) }}>
-            <LoadingWrapper isLoading={taskRuns === null && !diagramIsReady}>
-              {diagramIsReady && (
-                <div>
-                  <Graph
-                    direction={'RIGHT'}
-                    nodes={nodes}
-                    edges={edges}
-                    id={'pipeline-run-steps'}
-                    renderEdge={(edge) => <Edge direction={'RIGHT'} {...edge} />}
-                    renderNode={renderNode}
-                  />
-                </div>
-              )}
-              {!taskRuns?.length ? (
-                <Typography variant={'body1'} align={'center'}>
-                  Couldn't find TaskRuns for the PipelineRun
-                </Typography>
-              ) : null}
-            </LoadingWrapper>
-          </Grid>
-        </Grid>
-      </DialogContent>
-    </Dialog>
+    <LoadingWrapper isLoading={taskRuns === null && !diagramIsReady}>
+      {diagramIsReady && (
+        <div>
+          <Graph
+            direction={'RIGHT'}
+            nodes={nodes}
+            edges={edges}
+            id={'pipeline-run-steps'}
+            renderEdge={(edge) => <Edge direction={'RIGHT'} {...edge} />}
+            renderNode={renderNode}
+          />
+        </div>
+      )}
+      {taskRuns !== null && !taskRuns?.length ? (
+        <Typography variant={'body1'} align={'center'}>
+          Couldn't find TaskRuns for the PipelineRun
+        </Typography>
+      ) : null}
+    </LoadingWrapper>
   );
 };

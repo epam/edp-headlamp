@@ -5,7 +5,7 @@ import React from 'react';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
-import { routePipelineDetails } from '../../../pages/pipeline-details/route';
+import { routePipelineRunDetails } from '../../../pages/pipeline-details/route';
 import { useSpecificDialogContext } from '../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../services/link-creation';
 import { formatFullYear, humanizeDefault } from '../../../utils/date/humanize';
@@ -81,7 +81,7 @@ export const useInfoRows = (tektonBaseURL: string) => {
           label: 'PipelineRun',
           text: (
             <Link
-              routeName={routePipelineDetails.path}
+              routeName={routePipelineRunDetails.path}
               params={{
                 namespace,
                 name: pipelineRunName,

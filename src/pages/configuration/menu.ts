@@ -10,6 +10,7 @@ import { pageDescription as gitOpsPageDescription } from './pages/gitops/constan
 import { pageDescription as gitServersPageDescription } from './pages/gitservers/constants';
 import { pageDescription as jiraPageDescription } from './pages/jira/constants';
 import { pageDescription as nexusPageDescription } from './pages/nexus/constants';
+import { pageDescription as pipelinesPageDescription } from './pages/pipeline-list/constants';
 import { pageDescription as quickLinksPageDescription } from './pages/quicklinks/constants';
 import { pageDescription as registryPageDescription } from './pages/registry/constants';
 import { pageDescription as sonarPageDescription } from './pages/sonar/constants';
@@ -28,6 +29,12 @@ export const menu: SubMenuGroup[] = [
     label: 'Quick Access',
     icon: ICONS.LIGHTNING_BOLT,
     children: [quickLinksPageDescription],
+  },
+  {
+    id: 'tekton',
+    label: 'Tekton',
+    icon: ICONS.TEKTON,
+    children: [pipelinesPageDescription],
   },
   {
     id: 'artifacts-storage',

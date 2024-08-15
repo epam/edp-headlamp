@@ -3,12 +3,16 @@ import React from 'react';
 import { ViewYAML } from '../../../../../../../components/Editor';
 import { TabContent } from '../../TabContent';
 
-export const useTabs = ({ taskRun }) => {
+export const useTabs = ({ taskRun, task }) => {
   const results = taskRun?.status?.results;
+  const taskRunIsLoaded = !!taskRun;
+  const hasParams = taskRun?.spec?.params && taskRun?.spec?.params.length > 0;
+  const hasResults = results && results.length > 0;
 
   return React.useMemo(() => {
-    const hasParams = taskRun?.spec?.params && taskRun?.spec?.params.length > 0;
-    const hasResults = results && results.length > 0;
+    if (!task) {
+      return [];
+    }
 
     return [
       ...(hasParams
@@ -47,8 +51,22 @@ export const useTabs = ({ taskRun }) => {
         : []),
       {
         label: 'Status',
-        component: <ViewYAML item={taskRun?.status} />,
+        component: (
+          <ViewYAML
+            item={
+              taskRunIsLoaded ? taskRun?.status : { steps: task.spec.steps.map((el) => el.name) }
+            }
+          />
+        ),
       },
     ];
-  }, [results, taskRun]);
+  }, [
+    hasParams,
+    hasResults,
+    results,
+    task,
+    taskRun?.spec?.params,
+    taskRun?.status,
+    taskRunIsLoaded,
+  ]);
 };

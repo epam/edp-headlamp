@@ -11,12 +11,12 @@ import { useQuickLinksURLsQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
 import { getPullRequestURL } from '../../../k8s/groups/Tekton/PipelineRun/utils/getPullRequestURL';
-import { routePipelineDetails } from '../../../pages/pipeline-details/route';
+import { routePipelineRunDetails } from '../../../pages/pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../services/link-creation';
 import { PermissionSet } from '../../../types/permissions';
 import { humanize } from '../../../utils/date/humanize';
-import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../PipelineRunGraph/constants';
+import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../PipelineRunGraphDialog/constants';
 import { Actions } from '../components/Actions';
 
 export const useColumns = ({
@@ -61,7 +61,7 @@ export const useColumns = ({
 
           return (
             <Link
-              routeName={routePipelineDetails.path}
+              routeName={routePipelineRunDetails.path}
               params={{
                 name,
                 namespace,

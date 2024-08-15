@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
 import { usePipelineRunData } from '../../../../k8s/groups/Tekton/PipelineRun/hooks/usePipelineRunData';
+import { TaskKubeObject } from '../../../../k8s/groups/Tekton/Task';
 import { TaskRunKubeObject } from '../../../../k8s/groups/Tekton/TaskRun';
 import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../../../k8s/groups/Tekton/TaskRun/labels';
 import { PipelineRouteParams } from '../../types';
@@ -16,12 +17,15 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     labelSelector: `${TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN}=${name}`,
   });
 
+  const [tasks, tasksError] = TaskKubeObject.useList();
+
   const {
     taskRunListByNameMap,
+    taskListByTaskRunNameMap,
     pipelineRunFinallyTasksMap,
     pipelineRunMainTasksMap,
     pipelineRunTasks,
-  } = usePipelineRunData(taskRuns, pipelineRun);
+  } = usePipelineRunData(taskRuns, tasks, pipelineRun);
 
   const DataContextValue = React.useMemo(
     () => ({
@@ -38,12 +42,17 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       pipelineRunData: {
         data: {
           taskRunListByNameMap,
+          taskListByTaskRunNameMap,
           pipelineRunFinallyTasksMap,
           pipelineRunMainTasksMap,
           pipelineRunTasks,
         },
-        isLoading: taskRuns === null || pipelineRun === null || !pipelineRunTasks.allTasks.length,
-        error: taskRunErrors || pipelineRunError,
+        isLoading:
+          taskRuns === null ||
+          tasks === null ||
+          pipelineRun === null ||
+          !pipelineRunTasks.allTasks.length,
+        error: taskRunErrors || tasksError || pipelineRunError,
       },
     }),
     [
@@ -52,9 +61,12 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       pipelineRunFinallyTasksMap,
       pipelineRunMainTasksMap,
       pipelineRunTasks,
+      taskListByTaskRunNameMap,
       taskRunErrors,
       taskRunListByNameMap,
       taskRuns,
+      tasks,
+      tasksError,
     ]
   );
 

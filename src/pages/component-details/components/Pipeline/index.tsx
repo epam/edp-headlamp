@@ -4,7 +4,7 @@ import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { PipelineKubeObject } from '../../../../k8s/groups/Tekton/Pipeline';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
-import { PIPELINE_GRAPH_DIALOG_NAME } from '../../../../widgets/PipelineGraph/constants';
+import { PIPELINE_GRAPH_DIALOG_NAME } from '../../../../widgets/PipelineGraphDialog/constants';
 
 export const Pipeline = ({ pipelineLink, pipelineName, namespace }) => {
   const [item] = PipelineKubeObject.useGet(pipelineName, namespace);

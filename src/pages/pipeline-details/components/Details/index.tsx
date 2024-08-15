@@ -2,15 +2,12 @@ import { Grid, Stack } from '@mui/material';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { BorderedSection } from '../../../../components/BorderedSection';
-import { InfoColumns } from '../../../../components/InfoColumns';
 import { TaskRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/TaskRun/types';
 import { MenuAccordion } from './components/MenuAccordion';
 import { TaskRun } from './components/TaskRun';
 import { TaskRunStep } from './components/TaskRunStep';
-import { useInfoRows } from './hooks/useInfoRows';
 
-export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) => {
+export const Details = ({ pipelineRunTasks, taskRunListByNameMap, taskListByTaskRunNameMap }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -40,25 +37,30 @@ export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) =
 
   const renderDetails = React.useCallback(() => {
     const activeTaskRun = taskRunListByNameMap?.get(queryParamTaskRun || initialTaskRunName);
+    const activeTask = taskListByTaskRunNameMap?.get(queryParamTaskRun || initialTaskRunName);
 
     if (!queryParamTaskRun) {
-      return <TaskRun taskRun={activeTaskRun} />;
+      return <TaskRun taskRun={activeTaskRun} task={activeTask} taskRunName={queryParamTaskRun} />;
     }
 
-    const activeStep = activeTaskRun?.status?.steps?.find(
+    const activeStep = activeTask?.spec?.steps?.find(
       (step: TaskRunKubeObjectInterface) => step?.name === queryParamStep
     );
 
     if (queryParamTaskRun && !queryParamStep) {
-      return <TaskRun taskRun={activeTaskRun} />;
+      return <TaskRun taskRun={activeTaskRun} task={activeTask} taskRunName={queryParamTaskRun} />;
     } else if (queryParamTaskRun && queryParamStep) {
-      return <TaskRunStep taskRun={activeTaskRun} step={activeStep} />;
+      return <TaskRunStep taskRun={activeTaskRun} task={activeTask} step={activeStep} />;
     }
 
     return null;
-  }, [initialTaskRunName, queryParamStep, queryParamTaskRun, taskRunListByNameMap]);
-
-  const infoRows = useInfoRows();
+  }, [
+    initialTaskRunName,
+    queryParamStep,
+    queryParamTaskRun,
+    taskListByTaskRunNameMap,
+    taskRunListByNameMap,
+  ]);
 
   React.useEffect(() => {
     if (!queryParamTaskRun) {
@@ -68,13 +70,6 @@ export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) =
 
   return (
     <Grid container rowSpacing={3}>
-      <Grid item xs={12}>
-        <BorderedSection>
-          <div>
-            <InfoColumns infoRows={infoRows} />
-          </div>
-        </BorderedSection>
-      </Grid>
       <Grid item xs={2}>
         <Stack>
           {taskRunListByNameMap &&
@@ -83,6 +78,7 @@ export const PipelineRunDetails = ({ pipelineRunTasks, taskRunListByNameMap }) =
                 key={taskRunName}
                 taskRunName={taskRunName}
                 taskRunListByNameMap={taskRunListByNameMap}
+                taskListByTaskRunNameMap={taskListByTaskRunNameMap}
                 setQueryParams={setQueryParams}
               />
             ))}
