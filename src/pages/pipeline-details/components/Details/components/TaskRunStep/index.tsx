@@ -11,8 +11,9 @@ import { humanize } from '../../../../../../utils/date/humanize';
 import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
 import { StyledDetailsBody, StyledDetailsHeader } from '../../styles';
 import { useTabs } from './hooks/useTabs';
+import { TaskRunStepProps } from './types';
 
-export const TaskRunStep = ({ taskRun, step }) => {
+export const TaskRunStep = ({ taskRun, task, step }: TaskRunStepProps) => {
   const status = getTaskRunStepStatus(step);
   const reason = getTaskRunStepReason(step);
 
@@ -30,15 +31,15 @@ export const TaskRunStep = ({ taskRun, step }) => {
   });
 
   const [pods] = PodKubeObject.useList({
-    labelSelector: `tekton.dev/taskRun=${taskRun.metadata.name}`,
-    namespace: taskRun.metadata.namespace,
+    labelSelector: `tekton.dev/taskRun=${taskRun?.metadata.name}`,
+    namespace: taskRun?.metadata.namespace,
   });
 
   const hasPods = pods?.length > 0;
 
   const initialTabIdx = hasPods ? 0 : 1;
 
-  const tabs = useTabs({ taskRun, stepName: step?.name, pods });
+  const tabs = useTabs({ taskRun, stepName: step?.name, pods, task });
 
   return (
     <Paper>

@@ -2,12 +2,12 @@ import { Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { Tabs } from '../../../../../../components/Tabs';
 import { TaskRunKubeObject } from '../../../../../../k8s/groups/Tekton/TaskRun';
-import { TaskRunKubeObjectInterface } from '../../../../../../k8s/groups/Tekton/TaskRun/types';
 import { humanize } from '../../../../../../utils/date/humanize';
 import { StyledDetailsBody, StyledDetailsHeader } from '../../styles';
 import { useTabs } from './hooks/useTabs';
+import { TaskRunProps } from './types';
 
-export const TaskRun = ({ taskRun }: { taskRun: TaskRunKubeObjectInterface }) => {
+export const TaskRun = ({ taskRun, task, taskRunName }: TaskRunProps) => {
   const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);
 
   const completionTime = taskRun?.status?.completionTime;
@@ -23,15 +23,15 @@ export const TaskRun = ({ taskRun }: { taskRun: TaskRunKubeObjectInterface }) =>
     units: ['d', 'h', 'm', 's'],
   });
 
-  const tabs = useTabs({ taskRun });
+  const tabs = useTabs({ taskRun, task });
 
-  return taskRun ? (
+  return (
     <Paper>
       <StyledDetailsHeader>
         <Stack spacing={1}>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Typography fontSize={(t) => t.typography.pxToRem(20)} fontWeight={500}>
-              {taskRun.metadata.labels['tekton.dev/pipelineTask']}
+              {taskRunName}
             </Typography>
           </Stack>
           <Stack direction="row" alignItems="center" spacing={3}>
@@ -71,5 +71,5 @@ export const TaskRun = ({ taskRun }: { taskRun: TaskRunKubeObjectInterface }) =>
         <Tabs tabs={tabs} initialTabIdx={0} />
       </StyledDetailsBody>
     </Paper>
-  ) : null;
+  );
 };

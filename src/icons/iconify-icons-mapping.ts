@@ -74,4 +74,5 @@ export enum ICONS {
   REDO = 'uil:redo',
   CANCEL = 'mdi:cancel-bold',
   QUEUE = 'hugeicons:queue-02',
+  TEKTON = 'simple-icons:tekton',
 }

@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Chip, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { InfoRow } from '../../../../../components/InfoColumns/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
@@ -59,6 +59,10 @@ export const useInfoRows = (): InfoRow[] | null => {
     };
   }, [pipelineRun]);
 
+  const pipelineRunLabels = Object.entries(pipelineRun.data.metadata.labels).map(
+    ([key, value]) => `${key}:${value}`
+  );
+
   return React.useMemo(() => {
     return [
       [
@@ -88,6 +92,32 @@ export const useInfoRows = (): InfoRow[] | null => {
           text: statusObject.updatedLast,
         },
       ],
+      [
+        {
+          label: 'Labels',
+          text: (
+            <Grid container spacing={1} flexWrap="wrap">
+              {pipelineRunLabels.map((el) => (
+                <Grid item key={el}>
+                  <Chip label={el} size="small" />
+                </Grid>
+              ))}
+            </Grid>
+          ),
+          columnXs: 12,
+        },
+      ],
     ];
-  }, [color, icon, isRotating, reason, status, statusObject]);
+  }, [
+    color,
+    icon,
+    isRotating,
+    pipelineRunLabels,
+    reason,
+    status,
+    statusObject.activeDuration,
+    statusObject.message,
+    statusObject.startedAt,
+    statusObject.updatedLast,
+  ]);
 };

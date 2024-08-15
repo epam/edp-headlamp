@@ -1,6 +1,6 @@
 import { createSidebarItemName } from '../../utils/routes/createSidebarItemName';
 
-export const routePipelineList = {
+export const routePipelineRunList = {
   name: 'Pipelines',
   path: '/pipelines',
   sidebar: createSidebarItemName('pipelines'),
