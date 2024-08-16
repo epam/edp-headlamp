@@ -4,8 +4,6 @@ import React from 'react';
 import { BorderedSection } from '../../components/BorderedSection';
 import { InfoColumns } from '../../components/InfoColumns';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { SYSTEM_QUICK_LINKS } from '../../k8s/groups/EDP/QuickLink/constants';
-import { useQuickLinksURLsQuery } from '../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { useSpecificDialogContext } from '../../providers/Dialog/hooks';
 import { rem } from '../../utils/styling/rem';
 import { PipelineRunGraph } from '../PipelineRunGraph';
@@ -25,12 +23,7 @@ export const PipelineRunGraphDialog = () => {
     PIPELINE_RUN_GRAPH_DIALOG_NAME
   );
 
-  const namespace = pipelineRun?.metadata.namespace;
-
-  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
-  const tektonBaseURL = QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON];
-
-  const infoRows = useInfoRows(tektonBaseURL);
+  const infoRows = useInfoRows();
 
   return (
     <Dialog

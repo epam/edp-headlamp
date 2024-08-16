@@ -250,6 +250,9 @@ export const EDP_USER_GUIDE = {
   REGISTRY: {
     url: `${EDP_USER_GUIDE_ROOT_URL}/manage-container-registries`,
   },
+  CONFIGURATION: {
+    url: `${EDP_USER_GUIDE_ROOT_URL}/configuration-overview`,
+  },
 };
 
 export const EDP_OPERATOR_GUIDE = {

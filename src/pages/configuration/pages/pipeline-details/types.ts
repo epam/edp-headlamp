@@ -1,4 +1,4 @@
 export interface PipelineDetailsRouteParams {
-    name: string;
-    namespace: string;
-  }
+  name: string;
+  namespace: string;
+}

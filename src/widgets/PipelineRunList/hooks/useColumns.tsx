@@ -1,19 +1,17 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/components/common';
-import { IconButton, Link as MuiLink } from '@mui/material';
+import { IconButton } from '@mui/material';
 import React from 'react';
 import { ResourceIconLink } from '../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { TableColumn } from '../../../components/Table/types';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
-import { SYSTEM_QUICK_LINKS } from '../../../k8s/groups/EDP/QuickLink/constants';
-import { useQuickLinksURLsQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
 import { getPullRequestURL } from '../../../k8s/groups/Tekton/PipelineRun/utils/getPullRequestURL';
+import { routePipelineDetails } from '../../../pages/configuration/pages/pipeline-details/route';
 import { routePipelineRunDetails } from '../../../pages/pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
-import { LinkCreationService } from '../../../services/link-creation';
 import { PermissionSet } from '../../../types/permissions';
 import { humanize } from '../../../utils/date/humanize';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../PipelineRunGraphDialog/constants';
@@ -24,8 +22,6 @@ export const useColumns = ({
 }: {
   permissions: PermissionSet;
 }): TableColumn<PipelineRunKubeObjectInterface>[] => {
-  const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
-
   const { setDialog } = useDialogContext();
 
   return React.useMemo(
@@ -84,18 +80,16 @@ export const useColumns = ({
             },
           } = resource;
 
-          const pipelineLink = LinkCreationService.tekton.createPipelineLink(
-            QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON],
-            namespace,
-            pipelineRefName
-          );
-
           return (
-            <>
-              <MuiLink href={pipelineLink} target="_blank" rel="noopener">
-                {pipelineRefName}
-              </MuiLink>
-            </>
+            <Link
+              routeName={routePipelineDetails.path}
+              params={{
+                name: pipelineRefName,
+                namespace,
+              }}
+            >
+              {pipelineRefName}
+            </Link>
           );
         },
         width: '30%',
@@ -189,6 +183,6 @@ export const useColumns = ({
         width: '5%',
       },
     ],
-    [QuickLinksURLS, permissions, setDialog]
+    [permissions, setDialog]
   );
 };
