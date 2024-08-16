@@ -2,6 +2,7 @@ import React from 'react';
 import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../../../k8s/groups/default/Secret/labels';
 import { CodemieKubeObject } from '../../../../../../k8s/groups/EDP/Codemie';
+import { CodemieApplicationKubeObject } from '../../../../../../k8s/groups/EDP/CodemieApplication';
 import { CodemieProjectKubeObject } from '../../../../../../k8s/groups/EDP/CodemieProject';
 import { CodemieProjectSettingsKubeObject } from '../../../../../../k8s/groups/EDP/CodemieProjectSettings';
 import { QuickLinkKubeObject } from '../../../../../../k8s/groups/EDP/QuickLink';
@@ -23,6 +24,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const [codemieSecrets, codemieSecretsError] = SecretKubeObject.useList({
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=codemie`,
   });
+
+  const [codemieApplications, codemieApplicationsError] = CodemieApplicationKubeObject.useList();
 
   const codemieSecret = codemieSecrets?.[0];
 
@@ -48,6 +51,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: codemieProjectSettings === null,
         error: codemieProjectSettingsError,
       },
+      codemieApplications: {
+        data: codemieApplications,
+        isLoading: codemieApplications === null,
+        error: codemieApplicationsError,
+      },
       codemieSecret: {
         data: codemieSecret,
         isLoading: codemieSecrets === null,
@@ -56,6 +64,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     }),
     [
       codemie,
+      codemieApplications,
+      codemieApplicationsError,
       codemieError,
       codemieProject,
       codemieProjectError,

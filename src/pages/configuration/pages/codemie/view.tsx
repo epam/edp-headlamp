@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react';
 import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import {
   Accordion,
   AccordionDetails,
@@ -20,7 +21,11 @@ import { CRUD_TYPES } from '../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../hooks/useResourceCRUDMutation';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { CodemieKubeObject } from '../../../../k8s/groups/EDP/Codemie';
+import { CodemieApplicationKubeObject } from '../../../../k8s/groups/EDP/CodemieApplication';
+import { CodemieApplicationKubeObjectConfig } from '../../../../k8s/groups/EDP/CodemieApplication/config';
+import { CodemieApplicationKubeObjectInterface } from '../../../../k8s/groups/EDP/CodemieApplication/types';
 import { CodemieProjectSettingsKubeObject } from '../../../../k8s/groups/EDP/CodemieProjectSettings';
+import { CodemieProjectSettingsKubeObjectConfig } from '../../../../k8s/groups/EDP/CodemieProjectSettings/config';
 import { CodemieProjectSettingsKubeObjectInterface } from '../../../../k8s/groups/EDP/CodemieProjectSettings/types';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
@@ -30,22 +35,30 @@ import { pageDescription } from './constants';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
-  const { codemie, codemieProject, codemieProjectSettings, codemieQuickLink, codemieSecret } =
-    useDynamicDataContext();
+  const {
+    codemie,
+    codemieProject,
+    codemieProjectSettings,
+    codemieQuickLink,
+    codemieSecret,
+    codemieApplications,
+  } = useDynamicDataContext();
 
   const error =
     codemie?.error ||
     codemieProject?.error ||
     codemieProjectSettings?.error ||
     codemieQuickLink?.error ||
-    codemieSecret?.error;
+    codemieSecret?.error ||
+    codemieApplications?.error;
 
   const isLoading =
     codemie?.isLoading ||
     codemieProject?.isLoading ||
     codemieProjectSettings?.isLoading ||
     codemieQuickLink?.isLoading ||
-    codemieSecret?.isLoading;
+    codemieSecret?.isLoading ||
+    codemieApplications?.isLoading;
 
   const [isCreateDialogOpen, setCreateDialogOpen] = React.useState<boolean>(false);
 
@@ -134,13 +147,13 @@ export const PageView = () => {
 
   const [editor, setEditor] = React.useState<{
     open: boolean;
-    data: CodemieProjectSettingsKubeObjectInterface | undefined;
+    data: KubeObjectInterface | undefined;
   }>({
     open: false,
     data: undefined,
   });
 
-  const handleOpenEditor = (data: CodemieProjectSettingsKubeObjectInterface) => {
+  const handleOpenEditor = (data: KubeObjectInterface) => {
     setEditor({ open: true, data });
   };
 
@@ -159,13 +172,36 @@ export const PageView = () => {
     },
   });
 
-  const handleEditorSave = (data: CodemieProjectSettingsKubeObjectInterface[]) => {
+  const codemieApplicationEditMutation = useResourceCRUDMutation<
+    CodemieApplicationKubeObjectInterface,
+    CRUD_TYPES.EDIT
+  >('codemieApplicationEditMutation', CodemieApplicationKubeObject, CRUD_TYPES.EDIT, {
+    customMessages: {
+      onMutate: 'Applying changes...',
+      onError: 'Failed to update application',
+      onSuccess: 'Start updating application',
+    },
+  });
+
+  const handleEditorSave = (
+    data: CodemieProjectSettingsKubeObjectInterface[] | CodemieApplicationKubeObjectInterface[]
+  ) => {
     const [item] = data;
-    codemieProjectSettingsEditMutation.mutate(item, {
-      onSuccess: () => {
-        handleCloseEditor();
-      },
-    });
+
+    if (item.kind === CodemieProjectSettingsKubeObjectConfig.kind) {
+      codemieProjectSettingsEditMutation.mutate(item as CodemieProjectSettingsKubeObjectInterface, {
+        onSuccess: () => {
+          handleCloseEditor();
+        },
+      });
+      return;
+    } else if (item.kind === CodemieApplicationKubeObjectConfig.kind) {
+      codemieApplicationEditMutation.mutate(item as CodemieApplicationKubeObjectInterface, {
+        onSuccess: () => {
+          handleCloseEditor();
+        },
+      });
+    }
   };
 
   const theme = useTheme();
@@ -193,7 +229,7 @@ export const PageView = () => {
         <Grid item xs={12}>
           {renderPageContent()}
         </Grid>
-        <Grid item xs={12} sx={{ pb: (t) => t.typography.pxToRem(40) }}>
+        <Grid item xs={12}>
           <Typography
             fontSize={theme.typography.pxToRem(24)}
             color="primary.dark"
@@ -246,6 +282,78 @@ export const PageView = () => {
                           style={{ flexShrink: 0 }}
                           color="inherit"
                           onClick={() => handleOpenEditor(setting)}
+                        >
+                          Edit YAML
+                        </Button>
+                      </Stack>
+                    </Paper>
+                  </Grid>
+                );
+              })}
+            </Grid>
+            {editor.open && editor.data?.jsonData && (
+              <EditorDialog
+                open={editor.open}
+                item={editor.data?.jsonData}
+                onClose={handleCloseEditor}
+                onSave={handleEditorSave}
+              />
+            )}
+          </LoadingWrapper>
+        </Grid>
+        <Grid item xs={12} sx={{ pb: (t) => t.typography.pxToRem(40) }}>
+          <Typography
+            fontSize={theme.typography.pxToRem(24)}
+            color="primary.dark"
+            sx={{ mb: (t) => t.typography.pxToRem(24) }}
+          >
+            Applications
+          </Typography>
+          <LoadingWrapper isLoading={codemieApplications.isLoading}>
+            <Grid container spacing={2}>
+              {codemieApplications.data?.map((application) => {
+                const status = application?.status?.value;
+                const statusError = application?.status?.error;
+
+                const [icon, color] = CodemieApplicationKubeObject.getStatusIcon(status);
+
+                return (
+                  <Grid item xs={12} key={application.metadata.name}>
+                    <Paper
+                      sx={{ p: (t) => `${t.typography.pxToRem(10)} ${t.typography.pxToRem(20)}` }}
+                    >
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="center"
+                        justifyContent="space-between"
+                      >
+                        <Stack direction="row" spacing={2} alignItems="center">
+                          <StatusIcon
+                            icon={icon}
+                            color={color}
+                            Title={
+                              <>
+                                <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                                  {`Status: ${status || 'Unknown'}`}
+                                </Typography>
+                                {!!statusError && (
+                                  <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                                    {statusError}
+                                  </Typography>
+                                )}
+                              </>
+                            }
+                          />
+                          <Typography variant={'h6'}>{application.metadata.name}</Typography>
+                        </Stack>
+                        <Button
+                          startIcon={<Icon icon={ICONS.PENCIL} />}
+                          size="small"
+                          component={'button'}
+                          style={{ flexShrink: 0 }}
+                          color="inherit"
+                          onClick={() => handleOpenEditor(application)}
                         >
                           Edit YAML
                         </Button>
