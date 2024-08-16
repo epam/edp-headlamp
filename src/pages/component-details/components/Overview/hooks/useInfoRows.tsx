@@ -18,13 +18,10 @@ import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/name
 import { CodebaseKubeObject } from '../../../../../k8s/groups/EDP/Codebase';
 import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
 import { useGitServerByCodebaseQuery } from '../../../../../k8s/groups/EDP/GitServer/hooks/useGitServerByCodebaseQuery';
-import { SYSTEM_QUICK_LINKS } from '../../../../../k8s/groups/EDP/QuickLink/constants';
-import { useQuickLinksURLsQuery } from '../../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import {
   generateBuildPipelineRef,
   generateReviewPipelineRef,
 } from '../../../../../k8s/groups/Tekton/PipelineRun/utils';
-import { LinkCreationService } from '../../../../../services/link-creation';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
 import { ComponentDetailsRouteParams } from '../../../types';
@@ -50,9 +47,6 @@ export const useInfoRows = (component: CodebaseKubeObjectInterface): InfoRow[] |
   const classes = useStyles();
 
   const { namespace } = useParams<ComponentDetailsRouteParams>();
-
-  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
-  const tektonBaseURL = QuickLinksURLS?.[SYSTEM_QUICK_LINKS.TEKTON];
 
   const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
     props: { codebaseGitServer: component?.spec.gitServer },
@@ -95,18 +89,6 @@ export const useInfoRows = (component: CodebaseKubeObjectInterface): InfoRow[] |
       codebaseType: component.spec.type,
       codebaseVersioningType: component.spec.versioning.type,
     });
-
-    const reviewPipelineLink = LinkCreationService.tekton.createPipelineLink(
-      tektonBaseURL,
-      namespace,
-      reviewPipelineRefName
-    );
-
-    const buildPipelineLink = LinkCreationService.tekton.createPipelineLink(
-      tektonBaseURL,
-      namespace,
-      buildPipelineRefName
-    );
 
     const isCodebaseTypeSystem = type === CODEBASE_TYPES.SYSTEM;
 
@@ -210,35 +192,23 @@ export const useInfoRows = (component: CodebaseKubeObjectInterface): InfoRow[] |
         },
       ],
       [
-        ...(reviewPipelineLink && !isCodebaseTypeSystem
+        ...(!isCodebaseTypeSystem
           ? [
               {
                 label: 'Review Pipeline',
-                text: (
-                  <Pipeline
-                    pipelineLink={reviewPipelineLink}
-                    pipelineName={reviewPipelineRefName}
-                    namespace={namespace}
-                  />
-                ),
+                text: <Pipeline pipelineName={reviewPipelineRefName} namespace={namespace} />,
               },
             ]
           : []),
-        ...(buildPipelineLink && !isCodebaseTypeSystem
+        ...(!isCodebaseTypeSystem
           ? [
               {
                 label: 'Build Pipeline',
-                text: (
-                  <Pipeline
-                    pipelineLink={buildPipelineLink}
-                    pipelineName={buildPipelineRefName}
-                    namespace={namespace}
-                  />
-                ),
+                text: <Pipeline pipelineName={buildPipelineRefName} namespace={namespace} />,
               },
             ]
           : []),
       ],
     ];
-  }, [classes, component, gitServerByCodebase, namespace, tektonBaseURL]);
+  }, [classes, component, gitServerByCodebase, namespace]);
 };

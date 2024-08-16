@@ -1,12 +1,20 @@
 import { Icon } from '@iconify/react';
-import { Grid, IconButton, Link, Stack } from '@mui/material';
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { Grid, IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { PipelineKubeObject } from '../../../../k8s/groups/Tekton/Pipeline';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { PIPELINE_GRAPH_DIALOG_NAME } from '../../../../widgets/PipelineGraphDialog/constants';
+import { routePipelineDetails } from '../../../configuration/pages/pipeline-details/route';
 
-export const Pipeline = ({ pipelineLink, pipelineName, namespace }) => {
+export const Pipeline = ({
+  pipelineName,
+  namespace,
+}: {
+  pipelineName: string;
+  namespace: string;
+}) => {
   const [item] = PipelineKubeObject.useGet(pipelineName, namespace);
 
   const { setDialog } = useDialogContext();
@@ -14,13 +22,14 @@ export const Pipeline = ({ pipelineLink, pipelineName, namespace }) => {
   return (
     <Grid container spacing={2} alignItems={'center'} wrap={'nowrap'}>
       <Grid item>
-        <Link href={pipelineLink} target={'_blank'} sx={{ wordBreak: 'break-all' }}>
-          <Stack direction="row" spacing={0.5} alignItems="center">
-            <span>{pipelineName}</span>
-            <span>
-              <Icon icon={ICONS.NEW_WINDOW} />
-            </span>
-          </Stack>
+        <Link
+          routeName={routePipelineDetails.path}
+          params={{
+            name: pipelineName,
+            namespace,
+          }}
+        >
+          {pipelineName}
         </Link>
       </Grid>
       <Grid item>
