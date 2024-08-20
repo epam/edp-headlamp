@@ -12,12 +12,15 @@ export const useCreateCDPipelineStage = ({
   onSuccess,
   onError,
 }: {
-  onSuccess?: () => void;
+  onSuccess?: (stageData: StageKubeObjectInterface) => void;
   onError?: () => void;
 }) => {
-  const invokeOnSuccessCallback = React.useCallback(() => {
-    onSuccess && onSuccess();
-  }, [onSuccess]);
+  const invokeOnSuccessCallback = React.useCallback(
+    (stageData: StageKubeObjectInterface) => {
+      onSuccess && onSuccess(stageData);
+    },
+    [onSuccess]
+  );
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
   const CDPipelineStageCreateMutation = useResourceCRUDMutation<
@@ -29,7 +32,7 @@ export const useCreateCDPipelineStage = ({
     async ({ CDPipelineStageData }: CreateCDPipelineStageProps) => {
       CDPipelineStageCreateMutation.mutate(CDPipelineStageData, {
         onSuccess: () => {
-          invokeOnSuccessCallback();
+          invokeOnSuccessCallback(CDPipelineStageData);
         },
         onError: () => {
           invokeOnErrorCallback();

@@ -3,10 +3,19 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { TabPanel } from '../../../../../../../../components/TabPanel';
 import { useCodebaseCRUD } from '../../../../../../../../k8s/groups/EDP/Codebase/hooks/useCodebaseCRUD';
+import { CodebaseKubeObjectInterface } from '../../../../../../../../k8s/groups/EDP/Codebase/types';
 import { createCodebaseInstance } from '../../../../../../../../k8s/groups/EDP/Codebase/utils/createCodebaseInstance';
-import { useSpecificDialogContext } from '../../../../../../../../providers/Dialog/hooks';
+import { routeComponentDetails } from '../../../../../../../../pages/component-details/route';
+import {
+  useDialogContext,
+  useSpecificDialogContext,
+} from '../../../../../../../../providers/Dialog/hooks';
 import { useStepperContext } from '../../../../../../../../providers/Stepper/hooks';
+import { capitalizeFirstLetter } from '../../../../../../../../utils/format/capitalizeFirstLetter';
 import { getUsedValues } from '../../../../../../../../utils/forms/getUsedValues';
+import { getDefaultNamespace } from '../../../../../../../../utils/getDefaultNamespace';
+import { SUCCESS_DIALOG_NAME } from '../../../../../../../SuccessModal/constants';
+import { SuccessDialogForwardedProps } from '../../../../../../../SuccessModal/types';
 import {
   CONFIGURATION_STEPPER,
   CREATE_EDIT_CODEBASE_DIALOG_NAME,
@@ -20,6 +29,7 @@ import { FormActionsProps } from './types';
 export const FormActions = ({ baseDefaultValues, setActiveTab }: FormActionsProps) => {
   const theme = useTheme();
   const { activeStep, setActiveStep, nextStep } = useStepperContext();
+  const { setDialog } = useDialogContext();
   const { closeDialog } = useSpecificDialogContext<CreateEditCodebaseDialogForwardedProps>(
     CREATE_EDIT_CODEBASE_DIALOG_NAME
   );
@@ -90,6 +100,33 @@ export const FormActions = ({ baseDefaultValues, setActiveTab }: FormActionsProp
     [getFirstErrorStepName, setActiveStep]
   );
 
+  const onSuccess = React.useCallback(
+    (codebaseData: CodebaseKubeObjectInterface) => {
+      const capitalizedType = capitalizeFirstLetter(typeFieldValue);
+      const successModalForwardedProps: SuccessDialogForwardedProps = {
+        dialogTitle: `Create ${capitalizedType}`,
+        title: `Your new ${capitalizedType} is created`,
+        description: `Browse your new ${capitalizedType} and start working with it.`,
+        goToLink: {
+          routeName: routeComponentDetails.path,
+          text: `go to ${typeFieldValue}`,
+          routeParams: {
+            namespace: codebaseData.metadata.namespace || getDefaultNamespace(),
+            name: codebaseData.metadata.name,
+          },
+        },
+      };
+
+      setDialog({
+        modalName: SUCCESS_DIALOG_NAME,
+        forwardedProps: successModalForwardedProps,
+      });
+
+      handleClose();
+    },
+    [handleClose, setDialog, typeFieldValue]
+  );
+
   const {
     createCodebase,
     mutations: {
@@ -98,7 +135,7 @@ export const FormActions = ({ baseDefaultValues, setActiveTab }: FormActionsProp
       codebaseSecretDeleteMutation,
     },
   } = useCodebaseCRUD({
-    onSuccess: handleClose,
+    onSuccess: onSuccess,
   });
 
   const isLoading = React.useMemo(

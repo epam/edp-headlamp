@@ -10,15 +10,8 @@ import {
   TASK_RUN_STEP_REASON,
   TASK_RUN_STEP_STATUS,
 } from './constants';
-import {
-  TASK_RUN_LABEL_SELECTOR_CD_PIPELINE_NAME,
-  TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN,
-  TASK_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
-} from './labels';
-import {
-  StreamTaskRunListByPipelineNameAndPipelineTypeProps,
-  TaskRunKubeObjectInterface,
-} from './types';
+import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from './labels';
+import { StreamTaskRunListByPipelineNameProps, TaskRunKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -111,17 +104,15 @@ export class TaskRunKubeObject extends K8s.cluster.makeKubeObject<TaskRunKubeObj
     }
   }
 
-  static streamListByPipelineNameAndPipelineType({
+  static streamListByPipelineRunName = ({
     namespace,
-    CDPipelineName,
-    pipelineType,
     parentPipelineRunName,
     dataHandler,
     errorHandler,
-  }: StreamTaskRunListByPipelineNameAndPipelineTypeProps): () => void {
+  }: StreamTaskRunListByPipelineNameProps) => {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, dataHandler, errorHandler, {
-      labelSelector: `${TASK_RUN_LABEL_SELECTOR_CD_PIPELINE_NAME}=${CDPipelineName},${TASK_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType},${TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN}=${parentPipelineRunName}`,
+      labelSelector: `${TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN}=${parentPipelineRunName}`,
     });
-  }
+  };
 }

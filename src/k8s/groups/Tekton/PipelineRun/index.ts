@@ -2,9 +2,10 @@ import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { ValueOf } from '../../../../types/global';
+import { streamResult } from '../../../common/streamResult';
 import { PipelineRunKubeObjectConfig } from './config';
 import { PIPELINE_RUN_REASON, PIPELINE_RUN_STATUS } from './constants';
-import { PipelineRunKubeObjectInterface } from './types';
+import { PipelineRunKubeObjectInterface, StreamItemProps } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -76,5 +77,10 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
       default:
         return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }
+  }
+
+  static streamItem({ namespace, name, dataHandler, errorHandler }: StreamItemProps): () => void {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+    return streamResult(url, name, dataHandler, errorHandler);
   }
 }

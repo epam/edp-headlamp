@@ -37,6 +37,8 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
 
       if (sortedCodebaseBranches.length === 1) {
         setExpandedPanel(`${sortedCodebaseBranches[0].spec.branchName}:0`);
+      } else {
+        setExpandedPanel(null);
       }
     },
     [setCurrentCodebaseBranches, codebaseData]

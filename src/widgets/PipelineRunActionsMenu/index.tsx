@@ -1,3 +1,4 @@
+import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -10,7 +11,9 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../k8s/groups/Tekton/PipelineRun/constants';
 import { createRerunPipelineRunInstance } from '../../k8s/groups/Tekton/PipelineRun/utils/createRerunPipelineRunInstance';
+import { routePipelineRunDetails } from '../../pages/pipeline-details/route';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { PipelineRunActionsMenuProps } from './types';
 
 export const PipelineRunActionsMenu = ({
@@ -41,6 +44,9 @@ export const PipelineRunActionsMenu = ({
       return [];
     }
 
+    const createGoToRoute = (params: any) =>
+      Router.createRouteURL(routePipelineRunDetails.path, params);
+
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
         ...(!isInProgress
@@ -57,8 +63,8 @@ export const PipelineRunActionsMenu = ({
 
                   PipelineRunKubeObject.apiEndpoint.post(newPipelineRun);
 
-                  enqueueSnackbar('The PipelineRun is rerun', {
-                    autoHideDuration: 2000,
+                  enqueueSnackbar('The PipelineRun is successfully rerun.', {
+                    persist: true,
                     anchorOrigin: {
                       vertical: 'bottom',
                       horizontal: 'left',
@@ -67,7 +73,15 @@ export const PipelineRunActionsMenu = ({
                       <Snackbar
                         text={String(message)}
                         handleClose={() => closeSnackbar(key)}
-                        variant="info"
+                        pushLocation={() =>
+                          history.push(
+                            createGoToRoute({
+                              namespace: newPipelineRun.metadata.namespace || getDefaultNamespace(),
+                              name: newPipelineRun.metadata.name,
+                            })
+                          )
+                        }
+                        variant="success"
                       />
                     ),
                   });
@@ -155,7 +169,32 @@ export const PipelineRunActionsMenu = ({
           },
           action: () => {
             handleCloseResourceActionListMenu();
-            PipelineRunKubeObject.apiEndpoint.post(createRerunPipelineRunInstance(pipelineRun));
+            const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
+
+            PipelineRunKubeObject.apiEndpoint.post(newPipelineRun);
+
+            enqueueSnackbar('The PipelineRun is successfully rerun.', {
+              persist: true,
+              anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
+              content: (key, message) => (
+                <Snackbar
+                  text={String(message)}
+                  handleClose={() => closeSnackbar(key)}
+                  pushLocation={() =>
+                    history.push(
+                      createGoToRoute({
+                        namespace: newPipelineRun.metadata.namespace || getDefaultNamespace(),
+                        name: newPipelineRun.metadata.name,
+                      })
+                    )
+                  }
+                  variant="success"
+                />
+              ),
+            });
           },
         }),
         ...(isInProgress
@@ -208,6 +247,7 @@ export const PipelineRunActionsMenu = ({
     permissions.delete,
     enqueueSnackbar,
     closeSnackbar,
+    history,
     onDelete,
     handleCloseResourceActionListMenu,
   ]);

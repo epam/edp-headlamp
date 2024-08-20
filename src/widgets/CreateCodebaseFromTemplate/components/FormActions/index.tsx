@@ -5,8 +5,12 @@ import { CI_TOOLS } from '../../../../constants/ciTools';
 import { useCodebaseCRUD } from '../../../../k8s/groups/EDP/Codebase/hooks/useCodebaseCRUD';
 import { CodebaseKubeObjectInterface } from '../../../../k8s/groups/EDP/Codebase/types';
 import { createCodebaseInstance } from '../../../../k8s/groups/EDP/Codebase/utils/createCodebaseInstance';
-import { useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
+import { routeComponentDetails } from '../../../../pages/component-details/route';
+import { useDialogContext, useSpecificDialogContext } from '../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
+import { SUCCESS_DIALOG_NAME } from '../../../SuccessModal/constants';
+import { SuccessDialogForwardedProps } from '../../../SuccessModal/types';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../constants';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../../names';
 import {
@@ -15,6 +19,7 @@ import {
 } from '../../types';
 
 export const FormActions = () => {
+  const { setDialog } = useDialogContext();
   const { closeDialog } = useSpecificDialogContext<CreateCodebaseFromTemplateDialogForwardedProps>(
     CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME
   );
@@ -25,14 +30,38 @@ export const FormActions = () => {
     handleSubmit,
   } = useFormContext<CreateCodebaseFromTemplateFormValues>();
 
+  const onSuccess = React.useCallback(
+    (codebaseData: CodebaseKubeObjectInterface) => {
+      const successModalForwardedProps: SuccessDialogForwardedProps = {
+        dialogTitle: `Create Application`,
+        title: `Your new Application is created`,
+        description: `Browse your new Application and start working with it.`,
+        goToLink: {
+          routeName: routeComponentDetails.path,
+          text: `go to application`,
+          routeParams: {
+            namespace: codebaseData.metadata.namespace || getDefaultNamespace(),
+            name: codebaseData.metadata.name,
+          },
+        },
+      };
+
+      setDialog({
+        modalName: SUCCESS_DIALOG_NAME,
+        forwardedProps: successModalForwardedProps,
+      });
+
+      closeDialog();
+      reset();
+    },
+    [closeDialog, reset, setDialog]
+  );
+
   const {
     createCodebase,
     mutations: { codebaseCreateMutation },
   } = useCodebaseCRUD({
-    onSuccess: () => {
-      closeDialog();
-      reset();
-    },
+    onSuccess: onSuccess,
   });
 
   const onSubmit = React.useCallback(
