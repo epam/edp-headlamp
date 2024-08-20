@@ -21,12 +21,15 @@ export const useCodebaseCRUD = ({
   onSuccess,
   onError,
 }: {
-  onSuccess?: () => void;
+  onSuccess?: (codebaseData: CodebaseKubeObjectInterface) => void;
   onError?: () => void;
 }) => {
-  const invokeOnSuccessCallback = React.useCallback(() => {
-    onSuccess && onSuccess();
-  }, [onSuccess]);
+  const invokeOnSuccessCallback = React.useCallback(
+    (codebaseData: CodebaseKubeObjectInterface) => {
+      onSuccess && onSuccess(codebaseData);
+    },
+    [onSuccess]
+  );
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
   const codebaseCreateMutation = useResourceCRUDMutation<
@@ -54,7 +57,7 @@ export const useCodebaseCRUD = ({
       if (codebaseAuthData === null) {
         codebaseCreateMutation.mutate(codebaseData, {
           onSuccess: () => {
-            invokeOnSuccessCallback();
+            invokeOnSuccessCallback(codebaseData);
           },
           onError: () => {
             invokeOnErrorCallback();
@@ -77,7 +80,7 @@ export const useCodebaseCRUD = ({
         onSuccess: () => {
           codebaseCreateMutation.mutate(codebaseData, {
             onSuccess: () => {
-              invokeOnSuccessCallback();
+              invokeOnSuccessCallback(codebaseData);
             },
             onError: () => {
               codebaseSecretDeleteMutation.mutate(codebaseSecretData as EDPKubeObjectInterface);
@@ -106,7 +109,7 @@ export const useCodebaseCRUD = ({
     async ({ codebaseData }: EditCodebaseProps) => {
       codebaseEditMutation.mutate(codebaseData, {
         onSuccess: () => {
-          invokeOnSuccessCallback();
+          invokeOnSuccessCallback(codebaseData);
         },
         onError: () => {
           invokeOnErrorCallback();

@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
 import { SnackbarContent, useSnackbar } from 'notistack';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 
 const SNACKBAR_VARIANT = {
@@ -17,11 +16,11 @@ export const Snackbar = React.forwardRef<
   {
     text: string;
     variant: string;
-    link?: string;
+    pushLocation?: () => void;
     handleClose?: () => void;
   }
 >((props, ref) => {
-  const { text, variant, handleClose, link } = props;
+  const { text, variant, handleClose, pushLocation } = props;
   const { closeSnackbar } = useSnackbar();
 
   const theme = React.useMemo(() => {
@@ -57,8 +56,6 @@ export const Snackbar = React.forwardRef<
     };
   }, [variant]);
 
-  const history = useHistory();
-
   return (
     <SnackbarContent ref={ref} role={variant}>
       <Box
@@ -78,13 +75,13 @@ export const Snackbar = React.forwardRef<
               {text}
             </Typography>
           </Stack>
-          {link && (
+          {pushLocation && (
             <Button
               size="small"
               variant="outlined"
               color="inherit"
               onClick={() => {
-                history.push(link);
+                pushLocation();
                 closeSnackbar();
               }}
             >

@@ -45,7 +45,7 @@ export const MenuAccordion = ({
   const queryParamTaskRun = queryParams.get('taskRun');
   const queryParamStep = queryParams.get('step');
 
-  const taskRun = taskRunListByNameMap.get(taskRunName)?.jsonData;
+  const taskRun = taskRunListByNameMap.get(taskRunName);
   const task = taskListByTaskRunNameMap.get(taskRunName)?.jsonData;
   const taskRunStatus = TaskRunKubeObject.parseStatus(taskRun);
   const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);

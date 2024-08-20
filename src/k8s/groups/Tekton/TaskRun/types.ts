@@ -4,11 +4,9 @@ import { TASK_RUN_STEP_REASON } from './constants';
 
 export interface TaskRunKubeObjectInterface extends KubeObjectInterface {}
 
-export interface StreamTaskRunListByPipelineNameAndPipelineTypeProps {
-  namespace: string;
-  CDPipelineName: string;
-  pipelineType: string;
+export interface StreamTaskRunListByPipelineNameProps {
   parentPipelineRunName: string;
+  namespace: string;
   dataHandler: (data: TaskRunKubeObjectInterface[]) => void;
   errorHandler: (err: Error) => void;
 }

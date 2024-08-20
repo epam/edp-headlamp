@@ -10,9 +10,4 @@ export interface CreateEditStageDialogForwardedProps {
   CDPipelineData: CDPipelineKubeObjectInterface;
   otherStages: StageKubeObjectInterface[];
   stage?: StageKubeObjectInterface;
-  handleApply?: ({
-    CDPipelineStageData,
-  }: {
-    CDPipelineStageData: StageKubeObjectInterface;
-  }) => void;
 }

@@ -1,5 +1,6 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { cloneDeep } from 'lodash';
+import { createRandomString } from '../../../../../../utils/createRandomString';
 import { PipelineRunKubeObjectInterface } from '../../types';
 
 const rerunIdentifier = '-r-';
@@ -12,12 +13,12 @@ const removeSystemLabels = (resource: KubeObjectInterface) => {
   });
 };
 
-const getGenerateNamePrefixForRerun = (name: string) => {
+const getNamePrefixForRerun = (name: string) => {
   let root = name;
   if (name.includes(rerunIdentifier)) {
     root = name.substring(0, name.lastIndexOf(rerunIdentifier));
   }
-  return `${root}${rerunIdentifier}`;
+  return `${root}${rerunIdentifier}${createRandomString()}`;
 };
 
 const generateNewPipelineRunPayload = ({
@@ -31,9 +32,9 @@ const generateNewPipelineRunPayload = ({
 
   const payload = cloneDeep(pipelineRun);
 
-  function getGenerateName() {
+  function getName() {
     if (rerun) {
-      return getGenerateNamePrefixForRerun(name);
+      return getNamePrefixForRerun(name);
     }
 
     return generateName || `${name}-`;
@@ -42,7 +43,7 @@ const generateNewPipelineRunPayload = ({
   // @ts-ignore
   payload.metadata = {
     annotations: annotations || {},
-    generateName: getGenerateName(),
+    name: getName(),
     labels: labels || {},
     namespace,
   };

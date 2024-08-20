@@ -3,17 +3,27 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { TabPanel } from '../../../../../../components/TabPanel';
 import { useCreateCDPipelineStage } from '../../../../../../k8s/groups/EDP/Stage/hooks/useCreateCDPipelineStage';
+import { StageKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Stage/types';
 import { createCDPipelineStageInstance } from '../../../../../../k8s/groups/EDP/Stage/utils/createCDPipelineStageInstance';
-import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
+import { routeStageDetails } from '../../../../../../pages/stage-details/route';
+import {
+  useDialogContext,
+  useSpecificDialogContext,
+} from '../../../../../../providers/Dialog/hooks';
 import { useStepperContext } from '../../../../../../providers/Stepper/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
+import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
+import { SUCCESS_DIALOG_NAME } from '../../../../../SuccessModal/constants';
+import { SuccessDialogForwardedProps } from '../../../../../SuccessModal/types';
 import { CREATE_EDIT_STAGE_DIALOG_NAME, FORM_STEPPER } from '../../../../constants';
 import { STAGE_FORM_NAMES } from '../../../../names';
 import { CreateEditStageDialogForwardedProps, CreateEditStageFormValues } from '../../../../types';
 
 export const FormActions = () => {
+  const { setDialog } = useDialogContext();
+
   const {
-    forwardedProps: { CDPipelineData, handleApply: customHandleApply },
+    forwardedProps: { CDPipelineData },
     closeDialog,
   } = useSpecificDialogContext<CreateEditStageDialogForwardedProps>(CREATE_EDIT_STAGE_DIALOG_NAME);
 
@@ -33,11 +43,38 @@ export const FormActions = () => {
     reset();
   }, [reset]);
 
+  const onSuccess = React.useCallback(
+    (stageData: StageKubeObjectInterface) => {
+      const successModalForwardedProps: SuccessDialogForwardedProps = {
+        dialogTitle: `Create Environment`,
+        title: `Your new Environment is created`,
+        description: `Browse your new Environment and start working with it.`,
+        goToLink: {
+          routeName: routeStageDetails.path,
+          text: `go to ennvironment`,
+          routeParams: {
+            namespace: stageData.metadata.namespace || getDefaultNamespace(),
+            stageName: stageData.metadata.name,
+            CDPipelineName: CDPipelineData.metadata.name,
+          },
+        },
+      };
+
+      setDialog({
+        modalName: SUCCESS_DIALOG_NAME,
+        forwardedProps: successModalForwardedProps,
+      });
+
+      handleClose();
+    },
+    [CDPipelineData.metadata.name, handleClose, setDialog]
+  );
+
   const {
     createCDPipelineStage,
     mutations: { CDPipelineStageCreateMutation },
   } = useCreateCDPipelineStage({
-    onSuccess: handleClose,
+    onSuccess: onSuccess,
   });
 
   const isLoading = React.useMemo(
@@ -62,18 +99,12 @@ export const FormActions = () => {
         },
         CDPipelineData
       );
-      if (customHandleApply) {
-        customHandleApply({
-          CDPipelineStageData,
-        });
-        closeDialog();
-      } else {
-        await createCDPipelineStage({
-          CDPipelineStageData,
-        });
-      }
+
+      await createCDPipelineStage({
+        CDPipelineStageData,
+      });
     },
-    [CDPipelineData, closeDialog, createCDPipelineStage, customHandleApply]
+    [CDPipelineData, createCDPipelineStage]
   );
 
   const qualityGatesFieldValue = watch(STAGE_FORM_NAMES.qualityGates.name);

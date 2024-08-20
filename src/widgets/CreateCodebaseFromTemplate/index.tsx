@@ -60,10 +60,12 @@ export const CreateCodebaseFromTemplate = () => {
           {isPreviewPanel && <Preview template={template} />}
 
           {isFormPanel && (
-            <>
-              <FormDefaultValues />
-              <Form />
-            </>
+            <Stack spacing={2}>
+              <div>
+                <FormDefaultValues />
+                <Form />
+              </div>
+            </Stack>
           )}
         </DialogContent>
         <DialogActions>

@@ -34,12 +34,20 @@ export const SuccessModal = () => {
       <DialogContent>
         <Stack spacing={1} alignItems="center">
           <Icon icon="ph:confetti" width={theme.typography.pxToRem(128)} color="#A2A7B7" />
-          <Typography color="primary.dark" fontSize={theme.typography.pxToRem(20)} fontWeight={500}>
-            {title}
-          </Typography>
-          <Typography color="secondary.dark" fontSize={theme.typography.pxToRem(14)}>
-            {description}
-          </Typography>
+          {title && (
+            <Typography
+              color="primary.dark"
+              fontSize={theme.typography.pxToRem(20)}
+              fontWeight={500}
+            >
+              {title}
+            </Typography>
+          )}
+          {description && (
+            <Typography color="secondary.dark" fontSize={theme.typography.pxToRem(14)}>
+              {description}
+            </Typography>
+          )}
         </Stack>
       </DialogContent>
       <DialogActions>
@@ -52,6 +60,7 @@ export const SuccessModal = () => {
           params={goToLink.routeParams}
           color="primary"
           variant="contained"
+          onClick={() => closeDialog()}
         >
           {goToLink.text}
         </Button>

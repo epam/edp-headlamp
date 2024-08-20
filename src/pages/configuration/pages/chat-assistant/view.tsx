@@ -56,7 +56,7 @@ export const PageView = () => {
       return (
         <>
           <EmptyList
-            customText={'No CodeMie integration secrets found.'}
+            customText={'No Chat Assistant integration found.'}
             linkText={'Click here to add integration.'}
             handleClick={handleOpenCreateDialog}
           />
