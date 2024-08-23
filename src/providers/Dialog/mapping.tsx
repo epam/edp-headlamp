@@ -3,8 +3,6 @@ import { ConfirmModal } from '../../widgets/ConfirmModal';
 import { CONFIRM_DIALOG_NAME } from '../../widgets/ConfirmModal/constants';
 import { ConfirmResourcesUpdates } from '../../widgets/ConfirmResourcesUpdates';
 import { CONFIRM_RESOURCES_UPDATES_DIALOG_NAME } from '../../widgets/ConfirmResourcesUpdates/constants';
-import { CreateCodebaseBranch } from '../../widgets/CreateCodebaseBranch';
-import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../widgets/CreateCodebaseBranch/constants';
 import { CreateCodebaseFromTemplate } from '../../widgets/CreateCodebaseFromTemplate';
 import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../widgets/CreateCodebaseFromTemplate/constants';
 import { CreateEditCDPipeline } from '../../widgets/CreateEditCDPipeline';
@@ -17,8 +15,6 @@ import { DeleteKubeObject } from '../../widgets/DeleteKubeObject';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../widgets/DeleteKubeObject/constants';
 import { ManageQuickLink } from '../../widgets/ManageQuickLink';
 import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../widgets/ManageQuickLink/constants';
-import { PipelineGraphDialog } from '../../widgets/PipelineGraphDialog';
-import { PIPELINE_GRAPH_DIALOG_NAME } from '../../widgets/PipelineGraphDialog/constants';
 import { PipelineRunGraphDialog } from '../../widgets/PipelineRunGraphDialog';
 import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../widgets/PipelineRunGraphDialog/constants';
 import { PodsLogViewer } from '../../widgets/PodsLogViewer';
@@ -32,12 +28,10 @@ const MemoizedCreateEditCodebase = React.memo(CreateEditCodebase);
 const MemoizedCreateEditCDPipeline = React.memo(CreateEditCDPipeline);
 const MemoizedCreateEditStage = React.memo(CreateEditStage);
 const MemoizedCreateCodebaseFromTemplate = React.memo(CreateCodebaseFromTemplate);
-const MemoizedCreateCodebaseBranch = React.memo(CreateCodebaseBranch);
 const MemoizedDeleteKubeObject = React.memo(DeleteKubeObject);
 const MemoizedPodsLogViewer = React.memo(PodsLogViewer);
 const MemoizedPodsTerminal = React.memo(PodsTerminal);
 const MemoizedPipelineRunGraph = React.memo(PipelineRunGraphDialog);
-const MemoizedPipelineGraph = React.memo(PipelineGraphDialog);
 const MemoizedConfirmResourcesUpdates = React.memo(ConfirmResourcesUpdates);
 const MemoizedManageQuickLink = React.memo(ManageQuickLink);
 const MemoizedSuccessModal = React.memo(SuccessModal);
@@ -48,12 +42,10 @@ export const MODAL_MAPPING = {
   [CREATE_EDIT_CD_PIPELINE_DIALOG_NAME]: <MemoizedCreateEditCDPipeline />,
   [CREATE_EDIT_STAGE_DIALOG_NAME]: <MemoizedCreateEditStage />,
   [CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME]: <MemoizedCreateCodebaseFromTemplate />,
-  [CREATE_CODEBASE_BRANCH_DIALOG_NAME]: <MemoizedCreateCodebaseBranch />,
   [DELETE_KUBE_OBJECT_DIALOG_NAME]: <MemoizedDeleteKubeObject />,
   [PODS_LOG_VIEWER_DIALOG_NAME]: <MemoizedPodsLogViewer />,
   [PODS_TERMINAL_DIALOG_NAME]: <MemoizedPodsTerminal />,
   [PIPELINE_RUN_GRAPH_DIALOG_NAME]: <MemoizedPipelineRunGraph />,
-  [PIPELINE_GRAPH_DIALOG_NAME]: <MemoizedPipelineGraph />,
   [CONFIRM_RESOURCES_UPDATES_DIALOG_NAME]: <MemoizedConfirmResourcesUpdates />,
   [MANAGE_QUICK_LINK_DIALOG_NAME]: <MemoizedManageQuickLink />,
   [SUCCESS_DIALOG_NAME]: <MemoizedSuccessModal />,

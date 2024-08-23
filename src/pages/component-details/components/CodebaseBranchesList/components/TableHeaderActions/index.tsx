@@ -2,14 +2,17 @@ import { Icon } from '@iconify/react';
 import React from 'react';
 import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
-import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../../../../../widgets/CreateCodebaseBranch/constants';
-import { CreateCodebaseBranchDialogForwardedProps } from '../../../../../../widgets/CreateCodebaseBranch/types';
+import { useDialogContext } from '../../../../../../providers/NewDialog/hooks';
+import { ManageCodebaseBranchDialog } from '../../../../../../widgets/dialogs/ManageCodebaseBranch';
+import { useDynamicDataContext } from '../../../../providers/DynamicData/hooks';
 import { usePermissionsContext } from '../../../../providers/Permissions/hooks';
 import { TableHeaderActionsProps } from './types';
 
 export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActionsProps) => {
-  const { setDialog } = useDialogContext<CreateCodebaseBranchDialogForwardedProps>();
+  const { setDialog } = useDialogContext();
+  const {
+    pipelines: { data: pipelines },
+  } = useDynamicDataContext();
   const { codebaseBranch: codebaseBranchPermissions } = usePermissionsContext();
 
   return (
@@ -19,12 +22,10 @@ export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActio
         color: 'primary',
         variant: 'contained',
         onClick: () => {
-          setDialog({
-            modalName: CREATE_CODEBASE_BRANCH_DIALOG_NAME,
-            forwardedProps: {
-              codebase,
-              defaultBranch,
-            },
+          setDialog(ManageCodebaseBranchDialog, {
+            codebase,
+            defaultBranch,
+            pipelines,
           });
         },
       }}

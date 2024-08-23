@@ -14,9 +14,9 @@ import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/groups/Tekton/P
 import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateBuildPipelineRun';
 import { useStorageSizeQuery } from '../../../../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useStorageSizeQuery';
 import { rem } from '../../../../../../../../utils/styling/rem';
-import { CodebaseBranchActionsMenu } from '../../../../../../../../widgets/CodebaseBranchActions';
 import { usePermissionsContext } from '../../../../../../providers/Permissions/hooks';
 import { isDefaultBranch } from '../../../../utils';
+import { Actions } from '../Actions';
 import { useStyles } from './styles';
 import { SummaryProps } from './types';
 
@@ -25,9 +25,9 @@ export const Summary = ({
   codebaseBranchData,
   pipelineRuns,
   defaultBranch,
+  pipelines,
 }: SummaryProps) => {
-  const { pipelineRun: pipelineRunPermissions, codebaseBranch: codebaseBranchPermissions } =
-    usePermissionsContext();
+  const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
   const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
   const { data: storageSize } = useStorageSizeQuery(codebaseData);
   const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
@@ -61,25 +61,9 @@ export const Summary = ({
 
       await createBuildPipelineRun({
         namespace: codebaseData.metadata.namespace,
-        codebaseBranchData: {
-          codebaseBranchName: codebaseBranchData?.spec.branchName,
-          codebaseBranchMetadataName: codebaseBranchData?.metadata.name,
-        },
-        codebaseData: {
-          codebaseName: codebaseData.metadata.name,
-          codebaseBuildTool: codebaseData.spec.buildTool,
-          codebaseVersioningType: codebaseData.spec.versioning.type,
-          codebaseType: codebaseData.spec.type,
-          codebaseFramework: codebaseData.spec.framework,
-          codebaseGitUrlPath: codebaseData.spec.gitUrlPath,
-        },
-        gitServerData: {
-          gitUser: gitServerByCodebase.spec.gitUser,
-          gitHost: gitServerByCodebase.spec.gitHost,
-          gitProvider: gitServerByCodebase.spec.gitProvider,
-          sshPort: gitServerByCodebase.spec.sshPort,
-          nameSshKeySecret: gitServerByCodebase.spec.nameSshKeySecret,
-        },
+        codebase: codebaseData,
+        codebaseBranch: codebaseBranchData,
+        gitServer: gitServerByCodebase,
         storageSize: storageSize,
       });
     },
@@ -190,15 +174,18 @@ export const Summary = ({
             </Tooltip>
           </Grid>
 
-          <Grid item>
-            <CodebaseBranchActionsMenu
-              variant="inline"
-              data={{
-                branch: codebaseBranchData,
-                defaultBranch,
-                codebaseData,
-              }}
-              permissions={codebaseBranchPermissions}
+          <Grid
+            item
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+          >
+            <Actions
+              codebaseBranchData={codebaseBranchData}
+              codebaseData={codebaseData}
+              defaultBranch={defaultBranch}
+              pipelines={pipelines}
             />
           </Grid>
         </Grid>

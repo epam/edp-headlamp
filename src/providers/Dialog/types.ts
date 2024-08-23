@@ -25,3 +25,10 @@ export interface DialogContextProviderValue<ForwardedPropsType> {
   openDialog: (modalName: ModalName) => void;
   closeDialog: (modalName: ModalName) => void;
 }
+
+export interface DialogForwardedProps<Data> {
+  open: boolean;
+  openDialog: () => void;
+  closeDialog: () => void;
+  forwardedProps: Data;
+}

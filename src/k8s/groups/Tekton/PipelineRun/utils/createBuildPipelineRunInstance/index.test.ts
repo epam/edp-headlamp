@@ -3,6 +3,9 @@
  */
 
 import { jest } from '@jest/globals';
+import { CodebaseKubeObjectInterface } from '../../../../EDP/Codebase/types';
+import { CodebaseBranchKubeObjectInterface } from '../../../../EDP/CodebaseBranch/types';
+import { GitServerKubeObjectInterface } from '../../../../EDP/GitServer/types';
 import { createBuildPipelineRunInstance } from './index';
 
 beforeEach(() => {
@@ -20,25 +23,35 @@ describe('testing createBuildPipelineRunInstance', () => {
   it('should return valid kube object', () => {
     const object = createBuildPipelineRunInstance({
       namespace: 'test-namespace',
-      codebaseData: {
-        codebaseName: 'test-codebase-name',
-        codebaseBuildTool: 'test-build-tool',
-        codebaseVersioningType: 'test-versioning-type',
-        codebaseType: 'application',
-        codebaseFramework: 'test-framework',
-        codebaseGitUrlPath: '/test-git-url-path',
-      },
-      codebaseBranchData: {
-        codebaseBranchMetadataName: 'test-codebase-name-test-codebase-branch-name',
-        codebaseBranchName: 'test-codebase-branch-name',
-      },
-      gitServerData: {
-        gitHost: 'test-git-host',
-        gitUser: 'test-git-user',
-        gitProvider: 'test-git-provider',
-        sshPort: 123,
-        nameSshKeySecret: 'test-ssh-key-secret',
-      },
+      codebase: {
+        metadata: { name: 'test-codebase-name' },
+        spec: {
+          buildTool: 'test-build-tool',
+          type: 'application',
+          framework: 'test-framework',
+          gitUrlPath: '/test-git-url-path',
+          versioning: {
+            type: 'test-versioning-type',
+          },
+        },
+      } as CodebaseKubeObjectInterface,
+      codebaseBranch: {
+        metadata: {
+          name: 'test-codebase-name-test-codebase-branch-name',
+        },
+        spec: {
+          branchName: 'test-codebase-branch-name',
+        },
+      } as CodebaseBranchKubeObjectInterface,
+      gitServer: {
+        spec: {
+          gitHost: 'test-git-host',
+          gitUser: 'test-git-user',
+          sshPort: 123,
+          nameSshKeySecret: 'test-ssh-key-secret',
+          gitProvider: 'test-git-provider',
+        },
+      } as GitServerKubeObjectInterface,
       storageSize: '1Gi',
     });
 

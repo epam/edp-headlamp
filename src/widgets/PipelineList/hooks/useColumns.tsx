@@ -6,8 +6,8 @@ import { TableColumn } from '../../../components/Table/types';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineKubeObjectInterface } from '../../../k8s/groups/Tekton/Pipeline/types';
 import { routePipelineDetails } from '../../../pages/configuration/pages/pipeline-details/route';
-import { useDialogContext } from '../../../providers/Dialog/hooks';
-import { PIPELINE_GRAPH_DIALOG_NAME } from '../../PipelineGraphDialog/constants';
+import { useDialogContext } from '../../../providers/NewDialog/hooks';
+import { PipelineGraphDialog } from '../../dialogs/PipelineGraph';
 
 export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
   const { setDialog } = useDialogContext();
@@ -50,11 +50,8 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
           return (
             <IconButton
               onClick={() =>
-                setDialog({
-                  modalName: PIPELINE_GRAPH_DIALOG_NAME,
-                  forwardedProps: {
-                    pipeline: resource,
-                  },
+                setDialog(PipelineGraphDialog, {
+                  pipeline: resource,
                 })
               }
               size="medium"

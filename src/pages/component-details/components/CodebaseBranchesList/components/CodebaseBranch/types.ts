@@ -8,5 +8,9 @@ export interface CodebaseBranchProps {
   id: string;
   codebaseData: CodebaseKubeObjectInterface;
   handlePanelChange: (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
-  defaultBranch: string;
+  defaultBranch: CodebaseBranchKubeObjectInterface;
+  pipelines: {
+    review: string;
+    build: string;
+  };
 }

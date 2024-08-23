@@ -18,6 +18,7 @@ export const CodebaseBranch = ({
   handlePanelChange,
   codebaseData,
   defaultBranch,
+  pipelines,
 }: CodebaseBranchProps) => {
   const [pipelineRuns, setPipelineRuns] = React.useState<{
     all: PipelineRunKubeObjectInterface[];
@@ -91,6 +92,7 @@ export const CodebaseBranch = ({
             codebaseBranchData={codebaseBranchData}
             pipelineRuns={pipelineRuns}
             defaultBranch={defaultBranch}
+            pipelines={pipelines}
           />
         </AccordionSummary>
         <AccordionDetails>

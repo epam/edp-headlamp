@@ -6,21 +6,26 @@ import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { CodebaseBranchKubeObject } from '../../k8s/groups/EDP/CodebaseBranch';
 import { useDialogContext } from '../../providers/Dialog/hooks';
+import { useDialogContext as useNewDialogContext } from '../../providers/NewDialog/hooks';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
 import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
+import { ManageCodebaseBranchDialog } from '../dialogs/ManageCodebaseBranch';
 import { CodebaseBranchCDPipelineConflictError } from './components/CodebaseBranchCDPipelineConflictError';
 import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
 import { CodebaseBranchActionsProps } from './types';
 
 export const CodebaseBranchActionsMenu = ({
-  data: { defaultBranch, codebaseData, branch },
+  data: { defaultBranch, codebaseData, branch, pipelines },
   variant,
   handleCloseResourceActionListMenu,
   anchorEl,
   permissions,
 }: CodebaseBranchActionsProps) => {
   const { setDialog } = useDialogContext<DeleteKubeObjectDialogForwardedProps>();
+  const { setDialog: setNewDialog } = useNewDialogContext();
+
+  const defaultBranchName = defaultBranch?.spec.branchName;
 
   const conflictedCDPipeline = useConflictedCDPipeline(branch, codebaseData);
 
@@ -47,9 +52,29 @@ export const CodebaseBranchActionsMenu = ({
     if (!branch) {
       return [];
     }
+
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
-        ...(branch.spec.branchName === defaultBranch
+        createKubeAction({
+          name: RESOURCE_ACTIONS.EDIT,
+          disabled: {
+            status: permissions.update === false,
+            reason: 'You do not have permission to edit a Deployment Flow',
+          },
+          icon: ICONS.PENCIL,
+          action: () => {
+            setNewDialog(ManageCodebaseBranchDialog, {
+              codebase: codebaseData,
+              defaultBranch,
+              codebaseBranch: branch,
+              pipelines: {
+                review: pipelines?.review,
+                build: pipelines?.build,
+              },
+            });
+          },
+        }),
+        ...(branch.spec.branchName === defaultBranchName
           ? [
               createKubeAction({
                 name: RESOURCE_ACTIONS.DELETE,
@@ -97,7 +122,28 @@ export const CodebaseBranchActionsMenu = ({
       ];
     } else {
       return [
-        ...(branch.spec.branchName === defaultBranch
+        createKubeAction({
+          name: RESOURCE_ACTIONS.EDIT,
+          disabled: {
+            status: permissions.update === false,
+            reason: 'You do not have permission to edit a Deployment Flow',
+          },
+          icon: ICONS.PENCIL,
+          action: () => {
+            handleCloseResourceActionListMenu();
+
+            setNewDialog(ManageCodebaseBranchDialog, {
+              codebase: codebaseData,
+              defaultBranch,
+              codebaseBranch: branch,
+              pipelines: {
+                review: pipelines?.review,
+                build: pipelines?.build,
+              },
+            });
+          },
+        }),
+        ...(branch.spec.branchName === defaultBranchName
           ? [
               createKubeAction({
                 name: RESOURCE_ACTIONS.DELETE,
@@ -150,11 +196,17 @@ export const CodebaseBranchActionsMenu = ({
     }
   }, [
     branch,
+    codebaseData,
     defaultBranch,
+    defaultBranchName,
     handleCloseResourceActionListMenu,
     onBeforeSubmit,
-    permissions,
+    permissions.delete,
+    permissions.update,
+    pipelines?.build,
+    pipelines?.review,
     setDialog,
+    setNewDialog,
     variant,
   ]);
 

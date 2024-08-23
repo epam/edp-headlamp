@@ -9,6 +9,10 @@ export interface CodebaseBranchSpecInterface {
     additionalProperties: string;
   } | null;
   version: string | null;
+  pipelines: {
+    review: string;
+    build: string;
+  };
 }
 
 export interface CodebaseBranchStatusInterface {
