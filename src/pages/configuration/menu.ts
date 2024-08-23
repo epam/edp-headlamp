@@ -15,6 +15,7 @@ import { pageDescription as quickLinksPageDescription } from './pages/quicklinks
 import { pageDescription as registryPageDescription } from './pages/registry/constants';
 import { pageDescription as sonarPageDescription } from './pages/sonar/constants';
 import { pageDescription as ssoPageDescription } from './pages/sso/constants';
+import { pageDescription as tasksPageDescription } from './pages/task-list/constants';
 
 export interface SubMenuGroup {
   id: string;
@@ -34,7 +35,7 @@ export const menu: SubMenuGroup[] = [
     id: 'tekton',
     label: 'Tekton',
     icon: ICONS.TEKTON,
-    children: [pipelinesPageDescription],
+    children: [pipelinesPageDescription, tasksPageDescription],
   },
   {
     id: 'artifacts-storage',

@@ -4,8 +4,8 @@ import { Grid, IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { PipelineKubeObject } from '../../../../k8s/groups/Tekton/Pipeline';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
-import { PIPELINE_GRAPH_DIALOG_NAME } from '../../../../widgets/PipelineGraphDialog/constants';
+import { useDialogContext } from '../../../../providers/NewDialog/hooks';
+import { PipelineGraphDialog } from '../../../../widgets/dialogs/PipelineGraph';
 import { routePipelineDetails } from '../../../configuration/pages/pipeline-details/route';
 
 export const Pipeline = ({
@@ -35,11 +35,8 @@ export const Pipeline = ({
       <Grid item>
         <IconButton
           onClick={() =>
-            setDialog({
-              modalName: PIPELINE_GRAPH_DIALOG_NAME,
-              forwardedProps: {
-                pipeline: item,
-              },
+            setDialog(PipelineGraphDialog, {
+              pipeline: item,
             })
           }
           size={'small'}

@@ -1,4 +1,4 @@
-import { CODEBASE_BRANCH_FORM_NAMES } from '../../../../../../widgets/CreateCodebaseBranch/names';
+import { CODEBASE_BRANCH_FORM_NAMES } from '../../../../../../widgets/dialogs/ManageCodebaseBranch/names';
 import { createCodebaseBranchInstance } from './index';
 
 describe('testing createCodebaseBranchInstanceBasedOnFormValues', () => {
@@ -9,6 +9,8 @@ describe('testing createCodebaseBranchInstanceBasedOnFormValues', () => {
         fromCommit: 'com',
         release: false,
         branchName: 'test',
+        reviewPipeline: 'test-review-pipeline',
+        buildPipeline: 'test-build-pipeline',
       },
       'test-codebase-name'
     );
@@ -20,6 +22,10 @@ describe('testing createCodebaseBranchInstanceBasedOnFormValues', () => {
         branchName: 'test',
         fromCommit: 'com',
         release: false,
+        pipelines: {
+          review: 'test-review-pipeline',
+          build: 'test-build-pipeline',
+        },
       },
       metadata: {
         name: 'test-codebase-name-test',

@@ -9,4 +9,5 @@ const initialData = {
 
 export const DynamicDataContext = React.createContext<DynamicDataContextProviderValue>({
   component: initialData,
+  pipelines: initialData,
 });

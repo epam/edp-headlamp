@@ -1,31 +1,18 @@
 import React, { useCallback } from 'react';
 import { CRUD_TYPES } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
+import { CodebaseKubeObjectInterface } from '../../../EDP/Codebase/types';
+import { CodebaseBranchKubeObjectInterface } from '../../../EDP/CodebaseBranch/types';
+import { GitServerKubeObjectInterface } from '../../../EDP/GitServer/types';
 import { PipelineRunKubeObject } from '../index';
 import { PipelineRunKubeObjectInterface } from '../types';
 import { createBuildPipelineRunInstance } from '../utils/createBuildPipelineRunInstance';
 
 export interface CreateBuildPipelineRunProps {
   namespace: string;
-  codebaseData: {
-    codebaseName: string;
-    codebaseType: string;
-    codebaseFramework: string;
-    codebaseBuildTool: string;
-    codebaseVersioningType: string;
-    codebaseGitUrlPath: string;
-  };
-  codebaseBranchData: {
-    codebaseBranchMetadataName: string;
-    codebaseBranchName: string;
-  };
-  gitServerData: {
-    gitUser: string;
-    gitHost: string;
-    gitProvider: string;
-    sshPort: number;
-    nameSshKeySecret: string;
-  };
+  codebase: CodebaseKubeObjectInterface;
+  codebaseBranch: CodebaseBranchKubeObjectInterface;
+  gitServer: GitServerKubeObjectInterface;
   storageSize: string;
 }
 

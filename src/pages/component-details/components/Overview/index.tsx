@@ -19,10 +19,11 @@ const getStatusLabel = (status: string) => statusMap?.[status] || 'Unknown';
 
 export const Overview = () => {
   const { name } = useParams<ComponentDetailsRouteParams>();
-
-  const { component } = useDynamicDataContext();
+  const {
+    component: { data: component },
+  } = useDynamicDataContext();
   const { sonarData, depTrackData } = useDataContext();
-  const infoRows = useInfoRows(component.data);
+  const infoRows = useInfoRows();
 
   return (
     <Stack spacing={3}>

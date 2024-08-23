@@ -1,6 +1,9 @@
 import { GIT_PROVIDERS } from '../../../../../../constants/gitProviders';
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { createRandomString } from '../../../../../../utils/createRandomString';
+import { CodebaseKubeObjectInterface } from '../../../../EDP/Codebase/types';
+import { CodebaseBranchKubeObjectInterface } from '../../../../EDP/CodebaseBranch/types';
+import { GitServerKubeObjectInterface } from '../../../../EDP/GitServer/types';
 import { PipelineRunKubeObjectConfig } from '../../config';
 import {
   PIPELINE_RUN_LABEL_SELECTOR_CODEBASE,
@@ -14,40 +17,31 @@ const { kind, group, version } = PipelineRunKubeObjectConfig;
 
 export const createBuildPipelineRunInstance = ({
   namespace,
-  codebaseData: {
-    codebaseName,
-    codebaseBuildTool,
-    codebaseVersioningType,
-    codebaseType,
-    codebaseFramework,
-    codebaseGitUrlPath,
-  },
-  codebaseBranchData: { codebaseBranchMetadataName, codebaseBranchName },
-  gitServerData: { gitUser, gitHost, gitProvider, sshPort, nameSshKeySecret },
+  codebase,
+  codebaseBranch,
+  gitServer,
   storageSize,
 }: {
   namespace: string;
-  codebaseData: {
-    codebaseName: string;
-    codebaseType: string;
-    codebaseFramework: string;
-    codebaseBuildTool: string;
-    codebaseVersioningType: string;
-    codebaseGitUrlPath: string;
-  };
-  codebaseBranchData: {
-    codebaseBranchMetadataName: string;
-    codebaseBranchName: string;
-  };
-  gitServerData: {
-    gitUser: string;
-    gitHost: string;
-    gitProvider: string;
-    sshPort: number;
-    nameSshKeySecret: string;
-  };
+  codebase: CodebaseKubeObjectInterface;
+  codebaseBranch: CodebaseBranchKubeObjectInterface;
+  gitServer: GitServerKubeObjectInterface;
   storageSize: string;
 }): PipelineRunKubeObjectInterface => {
+  const {
+    metadata: { name: codebaseName },
+    spec: { gitUrlPath: codebaseGitUrlPath, buildTool: codebaseBuildTool },
+  } = codebase;
+
+  const {
+    metadata: { name: codebaseBranchMetadataName },
+    spec: { branchName: codebaseBranchName },
+  } = codebaseBranch;
+
+  const {
+    spec: { gitUser, gitHost, gitProvider, sshPort, nameSshKeySecret },
+  } = gitServer;
+
   const normalizedCodebaseBranchName = codebaseBranchName.replaceAll('/', '-').replaceAll('.', '-');
   const trimmedPipelineRunNameStartValue = `${codebaseName}-${normalizedCodebaseBranchName}`.slice(
     0,
@@ -90,11 +84,8 @@ export const createBuildPipelineRunInstance = ({
       ],
       pipelineRef: {
         name: generateBuildPipelineRef({
-          gitProvider,
-          codebaseBuildTool,
-          codebaseFramework,
-          codebaseType,
-          codebaseVersioningType,
+          gitServer,
+          component: codebase,
         }),
       },
       taskRunTemplate: {

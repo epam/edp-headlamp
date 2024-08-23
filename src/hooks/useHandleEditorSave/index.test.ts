@@ -4,13 +4,13 @@
 
 import { renderHook } from '@testing-library/react-hooks';
 import {
-  CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING,
-  CODEBASE_BRANCH_FORM_NAMES,
-} from '../../widgets/CreateCodebaseBranch/names';
-import {
   CODEBASE_BACKWARDS_NAME_MAPPING,
   CODEBASE_FORM_NAMES,
 } from '../../widgets/CreateEditCodebase/names';
+import {
+  CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING,
+  CODEBASE_BRANCH_FORM_NAMES,
+} from '../../widgets/dialogs/ManageCodebaseBranch/names';
 import { useHandleEditorSave } from './index';
 import {
   applicationCloneStrategyEditorPropsObjectMock,

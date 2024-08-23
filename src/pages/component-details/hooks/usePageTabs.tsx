@@ -29,7 +29,7 @@ export const usePageTabs = () => {
           <Box sx={{ mt: (t) => t.typography.pxToRem(24) }}>
             <LoadingWrapper isLoading={component.isLoading}>
               <ResourceActionListContextProvider>
-                <CodebaseBranchesList codebaseData={component.data} />
+                <CodebaseBranchesList />
               </ResourceActionListContextProvider>
             </LoadingWrapper>
           </Box>

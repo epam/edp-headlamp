@@ -2,7 +2,7 @@ import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { TabPanel } from '../../../../../../components/TabPanel';
-import { useCreateCDPipelineStage } from '../../../../../../k8s/groups/EDP/Stage/hooks/useCreateCDPipelineStage';
+import { useStageCRUD } from '../../../../../../k8s/groups/EDP/Stage/hooks/useStageCRUD';
 import { StageKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Stage/types';
 import { createCDPipelineStageInstance } from '../../../../../../k8s/groups/EDP/Stage/utils/createCDPipelineStageInstance';
 import { routeStageDetails } from '../../../../../../pages/stage-details/route';
@@ -71,21 +71,21 @@ export const FormActions = () => {
   );
 
   const {
-    createCDPipelineStage,
-    mutations: { CDPipelineStageCreateMutation },
-  } = useCreateCDPipelineStage({
+    createStage,
+    mutations: { stageCreateMutation },
+  } = useStageCRUD({
     onSuccess: onSuccess,
   });
 
   const isLoading = React.useMemo(
-    () => CDPipelineStageCreateMutation.isLoading,
-    [CDPipelineStageCreateMutation.isLoading]
+    () => stageCreateMutation.isLoading,
+    [stageCreateMutation.isLoading]
   );
 
   const onSubmit = React.useCallback(
     async (values: CreateEditStageFormValues) => {
       const usedValues = getUsedValues(values, STAGE_FORM_NAMES);
-      const CDPipelineStageData = createCDPipelineStageInstance(
+      const stageData = createCDPipelineStageInstance(
         STAGE_FORM_NAMES,
         {
           ...usedValues,
@@ -100,11 +100,11 @@ export const FormActions = () => {
         CDPipelineData
       );
 
-      await createCDPipelineStage({
-        CDPipelineStageData,
+      await createStage({
+        stageData,
       });
     },
-    [CDPipelineData, createCDPipelineStage]
+    [CDPipelineData, createStage]
   );
 
   const qualityGatesFieldValue = watch(STAGE_FORM_NAMES.qualityGates.name);

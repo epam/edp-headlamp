@@ -2,7 +2,7 @@ import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { editResource } from '../../../../../../k8s/common/editResource';
-import { useEditCDPipelineStage } from '../../../../../../k8s/groups/EDP/Stage/hooks/useEditCDPipelineStage';
+import { useStageCRUD } from '../../../../../../k8s/groups/EDP/Stage/hooks/useStageCRUD';
 import { useSpecificDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { getUsedValues } from '../../../../../../utils/forms/getUsedValues';
 import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../constants';
@@ -30,25 +30,22 @@ export const FormActions = () => {
   }, [reset]);
 
   const {
-    editCDPipelineStage,
-    mutations: { CDPipelineStageEditMutation },
-  } = useEditCDPipelineStage({
+    editStage,
+    mutations: { stageEditMutation },
+  } = useStageCRUD({
     onSuccess: handleClose,
   });
 
-  const isLoading = React.useMemo(
-    () => CDPipelineStageEditMutation.isLoading,
-    [CDPipelineStageEditMutation.isLoading]
-  );
+  const isLoading = React.useMemo(() => stageEditMutation.isLoading, [stageEditMutation.isLoading]);
 
   const onSubmit = React.useCallback(
     async (values: CreateEditStageFormValues) => {
       const usedValues = getUsedValues(values, STAGE_FORM_NAMES);
-      const newCDPipelineStageData = editResource(STAGE_FORM_NAMES, stage, usedValues);
+      const stageData = editResource(STAGE_FORM_NAMES, stage, usedValues);
 
-      await editCDPipelineStage({ CDPipelineStageData: newCDPipelineStageData });
+      await editStage({ stageData });
     },
-    [stage, editCDPipelineStage]
+    [stage, editStage]
   );
 
   const theme = useTheme();

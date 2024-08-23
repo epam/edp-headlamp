@@ -16,14 +16,9 @@ import { CODEBASE_VERSIONING_TYPES } from '../../../../../constants/codebaseVers
 import { STATUS_COLOR } from '../../../../../constants/colors';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { CodebaseKubeObject } from '../../../../../k8s/groups/EDP/Codebase';
-import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
-import { useGitServerByCodebaseQuery } from '../../../../../k8s/groups/EDP/GitServer/hooks/useGitServerByCodebaseQuery';
-import {
-  generateBuildPipelineRef,
-  generateReviewPipelineRef,
-} from '../../../../../k8s/groups/Tekton/PipelineRun/utils';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
+import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { ComponentDetailsRouteParams } from '../../../types';
 import { Pipeline } from '../../Pipeline';
 
@@ -43,17 +38,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const useInfoRows = (component: CodebaseKubeObjectInterface): InfoRow[] | null => {
+export const useInfoRows = (): InfoRow[] | null => {
+  const {
+    component: { data: component },
+    pipelines: { data: pipelines },
+  } = useDynamicDataContext();
+
   const classes = useStyles();
 
   const { namespace } = useParams<ComponentDetailsRouteParams>();
 
-  const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
-    props: { codebaseGitServer: component?.spec.gitServer },
-  });
-
   return React.useMemo(() => {
-    if (!component || !gitServerByCodebase) {
+    if (!component) {
       return null;
     }
 
@@ -74,21 +70,6 @@ export const useInfoRows = (component: CodebaseKubeObjectInterface): InfoRow[] |
     const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
     const [icon, color, isRotating] = CodebaseKubeObject.getStatusIcon(component?.status?.status);
-
-    const reviewPipelineRefName = generateReviewPipelineRef({
-      gitProvider: gitServerByCodebase.spec.gitProvider,
-      codebaseBuildTool: component.spec.buildTool,
-      codebaseFramework: component.spec.framework,
-      codebaseType: component.spec.type,
-    });
-
-    const buildPipelineRefName = generateBuildPipelineRef({
-      gitProvider: gitServerByCodebase.spec.gitProvider,
-      codebaseBuildTool: component.spec.buildTool,
-      codebaseFramework: component.spec.framework,
-      codebaseType: component.spec.type,
-      codebaseVersioningType: component.spec.versioning.type,
-    });
 
     const isCodebaseTypeSystem = type === CODEBASE_TYPES.SYSTEM;
 
@@ -192,23 +173,23 @@ export const useInfoRows = (component: CodebaseKubeObjectInterface): InfoRow[] |
         },
       ],
       [
-        ...(!isCodebaseTypeSystem
+        ...(!isCodebaseTypeSystem && pipelines?.review
           ? [
               {
                 label: 'Review Pipeline',
-                text: <Pipeline pipelineName={reviewPipelineRefName} namespace={namespace} />,
+                text: <Pipeline pipelineName={pipelines?.review} namespace={namespace} />,
               },
             ]
           : []),
-        ...(!isCodebaseTypeSystem
+        ...(!isCodebaseTypeSystem && pipelines?.build
           ? [
               {
                 label: 'Build Pipeline',
-                text: <Pipeline pipelineName={buildPipelineRefName} namespace={namespace} />,
+                text: <Pipeline pipelineName={pipelines?.build} namespace={namespace} />,
               },
             ]
           : []),
       ],
     ];
-  }, [classes, component, gitServerByCodebase, namespace]);
+  }, [classes.labelChip, classes.labelChipGreen, component, namespace, pipelines]);
 };

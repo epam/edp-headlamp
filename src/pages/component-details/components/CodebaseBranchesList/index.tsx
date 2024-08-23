@@ -6,20 +6,23 @@ import { Section } from '../../../../components/Section';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { CodebaseBranchKubeObject } from '../../../../k8s/groups/EDP/CodebaseBranch';
 import { CodebaseBranchKubeObjectInterface } from '../../../../k8s/groups/EDP/CodebaseBranch/types';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
-import { CREATE_CODEBASE_BRANCH_DIALOG_NAME } from '../../../../widgets/CreateCodebaseBranch/constants';
+import { useDialogContext } from '../../../../providers/NewDialog/hooks';
+import { ManageCodebaseBranchDialog } from '../../../../widgets/dialogs/ManageCodebaseBranch';
+import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { CodebaseBranch } from './components/CodebaseBranch';
 import { TableHeaderActions } from './components/TableHeaderActions';
-import { CodebaseBranchesListProps } from './types';
 import { isDefaultBranch } from './utils';
 
-export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps) => {
+export const CodebaseBranchesList = () => {
   const { setDialog } = useDialogContext();
+  const {
+    component: { data: component },
+    pipelines: { data: pipelines },
+  } = useDynamicDataContext();
 
   const {
     metadata: { name, namespace },
-    spec: { defaultBranch },
-  } = codebaseData;
+  } = component;
 
   const [currentCodebaseBranches, setCurrentCodebaseBranches] =
     React.useState<CodebaseBranchKubeObjectInterface[]>(null);
@@ -32,16 +35,16 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
 
   const handleStoreCodebaseBranches = React.useCallback(
     (data: CodebaseBranchKubeObjectInterface[]) => {
-      const sortedCodebaseBranches = data.sort((a) => (isDefaultBranch(codebaseData, a) ? -1 : 1));
+      const sortedCodebaseBranches = data.sort((a) => (isDefaultBranch(component, a) ? -1 : 1));
       setCurrentCodebaseBranches(sortedCodebaseBranches);
 
       if (sortedCodebaseBranches.length === 1) {
-        setExpandedPanel(`${sortedCodebaseBranches[0].spec.branchName}:0`);
+        setExpandedPanel(sortedCodebaseBranches[0].spec.branchName);
       } else {
         setExpandedPanel(null);
       }
     },
-    [setCurrentCodebaseBranches, codebaseData]
+    [setCurrentCodebaseBranches, component]
   );
 
   const handleError = React.useCallback((error: Error) => {
@@ -69,10 +72,7 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
             </Typography>
           </Grid>
           <Grid item style={{ marginLeft: 'auto' }}>
-            <TableHeaderActions
-              codebase={codebaseData}
-              defaultBranch={currentCodebaseBranches?.[0]}
-            />
+            <TableHeaderActions codebase={component} defaultBranch={currentCodebaseBranches?.[0]} />
           </Grid>
         </Grid>
       }
@@ -85,33 +85,31 @@ export const CodebaseBranchesList = ({ codebaseData }: CodebaseBranchesListProps
         </Grid>
       ) : currentCodebaseBranches.length ? (
         <>
-          {currentCodebaseBranches.map(
-            (codebaseBranchData: CodebaseBranchKubeObjectInterface, idx: number) => {
-              const branchId = `${codebaseBranchData.spec.branchName}:${idx}`;
+          {currentCodebaseBranches.map((codebaseBranchData: CodebaseBranchKubeObjectInterface) => {
+            const branchId = codebaseBranchData.spec.branchName;
 
-              return (
-                <CodebaseBranch
-                  key={branchId}
-                  id={branchId}
-                  codebaseBranchData={codebaseBranchData}
-                  expandedPanel={expandedPanel}
-                  codebaseData={codebaseData}
-                  handlePanelChange={handleChange}
-                  defaultBranch={defaultBranch}
-                />
-              );
-            }
-          )}
+            return (
+              <CodebaseBranch
+                key={branchId}
+                id={branchId}
+                codebaseBranchData={codebaseBranchData}
+                expandedPanel={expandedPanel}
+                codebaseData={component}
+                handlePanelChange={handleChange}
+                defaultBranch={currentCodebaseBranches?.[0]}
+                pipelines={pipelines}
+              />
+            );
+          })}
         </>
       ) : (
         <EmptyList
           missingItemName={'branches'}
           handleClick={() =>
-            setDialog({
-              modalName: CREATE_CODEBASE_BRANCH_DIALOG_NAME,
-              forwardedProps: {
-                codebase: codebaseData,
-              },
+            setDialog(ManageCodebaseBranchDialog, {
+              codebase: component,
+              defaultBranch: currentCodebaseBranches?.[0],
+              pipelines,
             })
           }
         />
