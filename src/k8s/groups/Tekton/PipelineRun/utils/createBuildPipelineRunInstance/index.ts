@@ -11,7 +11,6 @@ import {
   PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
 } from '../../labels';
 import { PipelineRunKubeObjectInterface } from '../../types';
-import { generateBuildPipelineRef } from '../index';
 
 const { kind, group, version } = PipelineRunKubeObjectConfig;
 
@@ -83,10 +82,7 @@ export const createBuildPipelineRunInstance = ({
         },
       ],
       pipelineRef: {
-        name: generateBuildPipelineRef({
-          gitServer,
-          component: codebase,
-        }),
+        name: codebaseBranch.spec.pipelines.build,
       },
       taskRunTemplate: {
         serviceAccountName: 'tekton',
