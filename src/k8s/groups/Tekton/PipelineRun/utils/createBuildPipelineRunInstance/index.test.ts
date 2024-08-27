@@ -41,6 +41,10 @@ describe('testing createBuildPipelineRunInstance', () => {
         },
         spec: {
           branchName: 'test-codebase-branch-name',
+          pipelines: {
+            build: 'test-build-pipeline',
+            review: 'test-review-pipeline',
+          },
         },
       } as CodebaseBranchKubeObjectInterface,
       gitServer: {
@@ -87,7 +91,7 @@ describe('testing createBuildPipelineRunInstance', () => {
           { name: 'CODEBASE_NAME', value: 'test-codebase-name' },
         ],
         pipelineRef: {
-          name: 'test-git-provider-test-build-tool-test-framework-app-build-test-versioning-type',
+          name: 'test-build-pipeline',
         },
         taskRunTemplate: {
           serviceAccountName: 'tekton',
