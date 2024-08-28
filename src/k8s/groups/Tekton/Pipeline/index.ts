@@ -35,4 +35,9 @@ export class PipelineKubeObject extends K8s.cluster.makeKubeObject<PipelineKubeO
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${PIPELINE_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType}`;
     return ApiProxy.request(url);
   }
+
+  static getItemByName(namespace: string, name: string): Promise<PipelineKubeObjectInterface> {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}/${name}`;
+    return ApiProxy.request(url);
+  }
 }

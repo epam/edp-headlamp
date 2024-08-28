@@ -10,8 +10,6 @@ export const PipelineGraphDialog = ({
   props: { pipeline },
   state: { closeDialog, open },
 }: PipelineGraphDialogProps) => {
-  console.log(pipeline);
-
   return (
     <Dialog open={open} fullWidth onClose={() => closeDialog()} maxWidth={'xl'}>
       <DialogTitle>

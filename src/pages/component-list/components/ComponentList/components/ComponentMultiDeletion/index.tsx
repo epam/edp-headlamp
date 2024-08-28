@@ -14,9 +14,9 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
+import { useDeleteKubeObject } from '../../../../../../k8s/common/hooks/useDeleteKubeObject';
 import { CodebaseKubeObject } from '../../../../../../k8s/groups/EDP/Codebase';
 import { CodebaseKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Codebase/types';
-import { useDeleteKubeObject } from '../../../../../../widgets/DeleteKubeObject/hooks/useDeleteKubeObject';
 import { routeCDPipelineDetails } from '../../../../../cdpipeline-details/route';
 import { routeComponentDetails } from '../../../../../component-details/route';
 import { routeStageDetails } from '../../../../../stage-details/route';

@@ -6,9 +6,9 @@ import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
 import { useSecretCRUD } from '../../../../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
 import { createClusterSecretInstance } from '../../../../../../k8s/groups/default/Secret/utils/createClusterSecretInstance';
-import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
-import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../../../../DeleteKubeObject/constants';
+import { useDialogContext } from '../../../../../../providers/NewDialog/hooks';
+import { DeleteKubeObjectDialog } from '../../../../../dialogs/DeleteKubeObject';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../../types';
 import { ClusterCDPipelineConflictError } from './components/ClusterCDPipelineConflictError';
 import { useConflictedStage } from './hooks/useConflictedStage';
@@ -81,15 +81,12 @@ export const FormActions = () => {
   );
 
   const handleClickDelete = React.useCallback(() => {
-    setDialog({
-      modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-      forwardedProps: {
-        objectName: clusterName,
-        kubeObject: SecretKubeObject,
-        kubeObjectData: currentElement,
-        description: `Confirm the deletion of the cluster`,
-        onBeforeSubmit,
-      },
+    setDialog(DeleteKubeObjectDialog, {
+      objectName: clusterName,
+      kubeObject: SecretKubeObject,
+      kubeObjectData: currentElement,
+      description: `Confirm the deletion of the cluster`,
+      onBeforeSubmit,
     });
   }, [clusterName, currentElement, onBeforeSubmit, setDialog]);
 

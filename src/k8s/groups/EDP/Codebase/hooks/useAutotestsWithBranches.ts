@@ -1,7 +1,7 @@
 import React from 'react';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
-import { AutotestWithBranchesOption } from '../../../../../widgets/CreateEditStage/components/fields/QualityGates/types';
+import { AutotestWithBranchesOption } from '../../../../../widgets/dialogs/ManageStage/components/fields/QualityGates/types';
 import { CodebaseBranchKubeObject } from '../../CodebaseBranch';
 import { useCodebasesByTypeLabelQuery } from './useCodebasesByTypeLabelQuery';
 

@@ -5,10 +5,8 @@ import { EmptyList } from '../../../../components/EmptyList';
 import { HorizontalScrollContainer } from '../../../../components/HorizontalScrollContainer';
 import { useQuickLinksQuery } from '../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksQuery';
 import { useQuickLinksURLsQuery } from '../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
-import { FORM_MODES } from '../../../../types/forms';
-import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../widgets/CreateEditStage/constants';
-import { CreateEditStageDialogForwardedProps } from '../../../../widgets/CreateEditStage/types';
+import { useDialogContext } from '../../../../providers/NewDialog/hooks';
+import { ManageStageDialog } from '../../../../widgets/dialogs/ManageStage';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { EnvironmentStage } from './components/EnvironmentStage';
@@ -44,22 +42,7 @@ export const StageList = () => {
     return stagesWithApplicationsData.data.filter(filterFunction);
   }, [stagesWithApplicationsData, filterFunction]);
 
-  const { setDialog } = useDialogContext<CreateEditStageDialogForwardedProps>();
-
-  const forwardedProps: CreateEditStageDialogForwardedProps = React.useMemo(() => {
-    if (isLoading) {
-      return {
-        CDPipelineData: null,
-        otherStages: [],
-        mode: FORM_MODES.CREATE,
-      };
-    }
-    return {
-      CDPipelineData: CDPipeline.data,
-      otherStages: stages.data,
-      mode: FORM_MODES.CREATE,
-    };
-  }, [CDPipeline, isLoading, stages]);
+  const { setDialog } = useDialogContext();
 
   return (
     <HorizontalScrollContainer>
@@ -78,10 +61,12 @@ export const StageList = () => {
           linkText={'by adding a new one here.'}
           beforeLinkText="Take the first step towards managing your Environment"
           handleClick={() => {
-            setDialog({
-              modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
-              forwardedProps,
-            });
+            setDialog(
+              ManageStageDialog,
+              isLoading
+                ? { CDPipelineData: null, otherStages: [] }
+                : { CDPipelineData: CDPipeline.data, otherStages: stages.data }
+            );
           }}
         />
       ) : (

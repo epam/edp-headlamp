@@ -1,0 +1,1 @@
+export const DIALOG_NAME = 'DELETE_KUBE_OBJECT';

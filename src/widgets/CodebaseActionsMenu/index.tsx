@@ -9,13 +9,13 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { CodebaseKubeObject } from '../../k8s/groups/EDP/Codebase';
 import { routeCDPipelineDetails } from '../../pages/cdpipeline-details/route';
 import { useDialogContext } from '../../providers/Dialog/hooks';
+import { useDialogContext as useNewDialogContext } from '../../providers/NewDialog/hooks';
 import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../CreateEditCodebase/constants';
 import { CreateEditCodebaseDialogForwardedProps } from '../CreateEditCodebase/types';
-import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
-import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
+import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
 import { useDeletionConflict } from './hooks/useDeletionConflict';
 import { useStyles } from './styles';
 import { CodebaseActionsMenuProps } from './types';
@@ -31,6 +31,7 @@ export const CodebaseActionsMenu = ({
   const classes = useStyles();
 
   const { setDialog } = useDialogContext();
+  const { setDialog: setNewDialog } = useNewDialogContext();
 
   const conflictedCDPipeline = useDeletionConflict(codebaseData);
 
@@ -84,7 +85,7 @@ export const CodebaseActionsMenu = ({
       mode: FORM_MODES.EDIT,
     };
 
-    const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+    const deleteKubeObjectDialogProps = {
       objectName: codebaseData?.metadata?.name,
       kubeObject: CodebaseKubeObject,
       kubeObjectData: codebaseData,
@@ -117,10 +118,7 @@ export const CodebaseActionsMenu = ({
             reason: 'You do not have permission to delete Codebase',
           },
           action: () => {
-            setDialog({
-              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-              forwardedProps: deleteKubeObjectDialogForwardedProps,
-            });
+            setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
           },
         }),
       ];
@@ -150,10 +148,7 @@ export const CodebaseActionsMenu = ({
           },
           action: () => {
             handleCloseResourceActionListMenu();
-            setDialog({
-              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-              forwardedProps: deleteKubeObjectDialogForwardedProps,
-            });
+            setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
           },
         }),
       ];
@@ -166,6 +161,7 @@ export const CodebaseActionsMenu = ({
     permissions.delete,
     permissions.update,
     setDialog,
+    setNewDialog,
     variant,
   ]);
 

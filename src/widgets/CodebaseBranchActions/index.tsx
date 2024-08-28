@@ -5,11 +5,9 @@ import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { CodebaseBranchKubeObject } from '../../k8s/groups/EDP/CodebaseBranch';
-import { useDialogContext } from '../../providers/Dialog/hooks';
 import { useDialogContext as useNewDialogContext } from '../../providers/NewDialog/hooks';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
-import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
-import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
+import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
 import { ManageCodebaseBranchDialog } from '../dialogs/ManageCodebaseBranch';
 import { CodebaseBranchCDPipelineConflictError } from './components/CodebaseBranchCDPipelineConflictError';
 import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
@@ -22,7 +20,6 @@ export const CodebaseBranchActionsMenu = ({
   anchorEl,
   permissions,
 }: CodebaseBranchActionsProps) => {
-  const { setDialog } = useDialogContext<DeleteKubeObjectDialogForwardedProps>();
   const { setDialog: setNewDialog } = useNewDialogContext();
 
   const defaultBranchName = defaultBranch?.spec.branchName;
@@ -53,6 +50,24 @@ export const CodebaseBranchActionsMenu = ({
       return [];
     }
 
+    const codebaseBranchDialogProps = {
+      codebase: codebaseData,
+      defaultBranch,
+      codebaseBranch: branch,
+      pipelines: {
+        review: pipelines?.review,
+        build: pipelines?.build,
+      },
+    };
+
+    const deleteKubeObjectDialogProps = {
+      objectName: branch?.spec?.branchName,
+      kubeObject: CodebaseBranchKubeObject,
+      kubeObjectData: branch,
+      description: `Confirm the deletion of the codebase branch with all its components`,
+      onBeforeSubmit,
+    };
+
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
         createKubeAction({
@@ -63,15 +78,7 @@ export const CodebaseBranchActionsMenu = ({
           },
           icon: ICONS.PENCIL,
           action: () => {
-            setNewDialog(ManageCodebaseBranchDialog, {
-              codebase: codebaseData,
-              defaultBranch,
-              codebaseBranch: branch,
-              pipelines: {
-                review: pipelines?.review,
-                build: pipelines?.build,
-              },
-            });
+            setNewDialog(ManageCodebaseBranchDialog, codebaseBranchDialogProps);
           },
         }),
         ...(branch.spec.branchName === defaultBranchName
@@ -84,16 +91,7 @@ export const CodebaseBranchActionsMenu = ({
                 },
                 icon: ICONS.BUCKET,
                 action: () => {
-                  setDialog({
-                    modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-                    forwardedProps: {
-                      objectName: branch?.spec?.branchName,
-                      kubeObject: CodebaseBranchKubeObject,
-                      kubeObjectData: branch,
-                      description: `Confirm the deletion of the codebase branch with all its components`,
-                      onBeforeSubmit,
-                    },
-                  });
+                  setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
                 },
               }),
             ]
@@ -106,16 +104,7 @@ export const CodebaseBranchActionsMenu = ({
                   reason: 'You do not have permission to delete a branch',
                 },
                 action: () => {
-                  setDialog({
-                    modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-                    forwardedProps: {
-                      objectName: branch?.spec?.branchName,
-                      kubeObject: CodebaseBranchKubeObject,
-                      kubeObjectData: branch,
-                      description: `Confirm the deletion of the codebase branch with all its components`,
-                      onBeforeSubmit,
-                    },
-                  });
+                  setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
                 },
               }),
             ]),
@@ -132,15 +121,7 @@ export const CodebaseBranchActionsMenu = ({
           action: () => {
             handleCloseResourceActionListMenu();
 
-            setNewDialog(ManageCodebaseBranchDialog, {
-              codebase: codebaseData,
-              defaultBranch,
-              codebaseBranch: branch,
-              pipelines: {
-                review: pipelines?.review,
-                build: pipelines?.build,
-              },
-            });
+            setNewDialog(ManageCodebaseBranchDialog, codebaseBranchDialogProps);
           },
         }),
         ...(branch.spec.branchName === defaultBranchName
@@ -155,16 +136,7 @@ export const CodebaseBranchActionsMenu = ({
                 action: () => {
                   handleCloseResourceActionListMenu();
 
-                  setDialog({
-                    modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-                    forwardedProps: {
-                      objectName: branch?.spec?.branchName,
-                      kubeObject: CodebaseBranchKubeObject,
-                      kubeObjectData: branch,
-                      description: `Confirm the deletion of the codebase branch with all its components`,
-                      onBeforeSubmit,
-                    },
-                  });
+                  setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
                 },
               }),
             ]
@@ -179,16 +151,7 @@ export const CodebaseBranchActionsMenu = ({
                 action: () => {
                   handleCloseResourceActionListMenu();
 
-                  setDialog({
-                    modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-                    forwardedProps: {
-                      objectName: branch?.spec?.branchName,
-                      kubeObject: CodebaseBranchKubeObject,
-                      kubeObjectData: branch,
-                      description: `Confirm the deletion of the codebase branch with all its components`,
-                      onBeforeSubmit,
-                    },
-                  });
+                  setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
                 },
               }),
             ]),
@@ -205,7 +168,6 @@ export const CodebaseBranchActionsMenu = ({
     permissions.update,
     pipelines?.build,
     pipelines?.review,
-    setDialog,
     setNewDialog,
     variant,
   ]);

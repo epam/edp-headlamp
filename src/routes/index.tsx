@@ -37,8 +37,6 @@ import RouteRegistryListPage from '../pages/configuration/pages/registry/page';
 import { routeRegistry } from '../pages/configuration/pages/registry/route';
 import RouteSonarPage from '../pages/configuration/pages/sonar/page';
 import { routeSonar } from '../pages/configuration/pages/sonar/route';
-import RouteSSOPage from '../pages/configuration/pages/sso/page';
-import { routeSSO } from '../pages/configuration/pages/sso/route';
 import RouteTaskDetailsPage from '../pages/configuration/pages/task-details/page';
 import { routeTaskDetails } from '../pages/configuration/pages/task-details/route';
 import RouteTaskListPage from '../pages/configuration/pages/task-list/page';
@@ -85,7 +83,6 @@ export default [
   },
   { ...routeJira, component: () => <RouteJiraPage /> },
   { ...routeGitOps, component: () => <RouteGitOpsConfigurationPage /> },
-  { ...routeSSO, component: () => <RouteSSOPage /> },
   { ...routeCodemie, component: () => <RouteCodeMiePage /> },
   { ...routeChatAssitant, component: () => <RouteChatAssistantPage /> },
 

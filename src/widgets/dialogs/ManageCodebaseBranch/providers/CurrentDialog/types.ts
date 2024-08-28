@@ -5,7 +5,7 @@ import { ManageCodebaseBranchDialogProps } from '../../types';
 
 export interface CurrentDialogContextProviderProps extends ManageCodebaseBranchDialogProps {}
 
-export interface CurrentDialogContextProviderValue extends ManageCodebaseBranchDialogProps {
+export interface CurrentDialogContextProviderValue extends CurrentDialogContextProviderProps {
   extra: {
     buildPipelines: DataProviderValue<KubeObjectListInterface<PipelineKubeObjectInterface>>;
     reviewPipelines: DataProviderValue<KubeObjectListInterface<PipelineKubeObjectInterface>>;

@@ -1,4 +1,4 @@
-import { STAGE_FORM_NAMES } from '../../../../../../widgets/CreateEditStage/names';
+import { STAGE_FORM_NAMES } from '../../../../../../widgets/dialogs/ManageStage/names';
 import { createCDPipelineStageInstance } from './index';
 
 describe('testing createCDPipelineStageInstance', () => {

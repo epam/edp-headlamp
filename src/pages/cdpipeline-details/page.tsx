@@ -2,6 +2,7 @@ import React from 'react';
 import { PageLogicWrapper } from '../../components/PageLogicWrapper';
 import { DialogContextProvider } from '../../providers/Dialog';
 import { FilterContextProvider } from '../../providers/Filter';
+import { NewDialogContextProvider } from '../../providers/NewDialog/provider';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { matchFunctions } from './constants';
@@ -13,19 +14,21 @@ export default function () {
   return (
     <PageLogicWrapper>
       <PermissionsContextProvider>
-        <DialogContextProvider>
-          <ResourceActionListContextProvider>
-            <FilterContextProvider
-              entityID={`CDPIPELINE_OVERVIEW::${getDefaultNamespace()}`}
-              matchFunctions={matchFunctions}
-              saveToLocalStorage={false}
-            >
-              <DynamicDataContextProvider>
-                <PageView />
-              </DynamicDataContextProvider>
-            </FilterContextProvider>
-          </ResourceActionListContextProvider>
-        </DialogContextProvider>
+        <NewDialogContextProvider>
+          <DialogContextProvider>
+            <ResourceActionListContextProvider>
+              <FilterContextProvider
+                entityID={`CDPIPELINE_OVERVIEW::${getDefaultNamespace()}`}
+                matchFunctions={matchFunctions}
+                saveToLocalStorage={false}
+              >
+                <DynamicDataContextProvider>
+                  <PageView />
+                </DynamicDataContextProvider>
+              </FilterContextProvider>
+            </ResourceActionListContextProvider>
+          </DialogContextProvider>
+        </NewDialogContextProvider>
       </PermissionsContextProvider>
     </PageLogicWrapper>
   );

@@ -4,9 +4,9 @@ import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { useDialogContext } from '../../../../providers/NewDialog/hooks';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
-import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../../../DeleteKubeObject/constants';
+import { DeleteKubeObjectDialog } from '../../../dialogs/DeleteKubeObject';
 import { useFormsContext } from '../../hooks/useFormsContext';
 import { useDataContext } from '../../providers/Data/hooks';
 
@@ -17,15 +17,12 @@ export const Actions = () => {
 
   const { setDialog } = useDialogContext();
 
-  const handleDelete = React.useCallback(async () => {
-    setDialog({
-      modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-      forwardedProps: {
-        kubeObject: SecretKubeObject,
-        kubeObjectData: secret as EDPKubeObjectInterface,
-        objectName: secret?.metadata.name,
-        description: `Confirm the deletion of the secret`,
-      },
+  const handleDelete = React.useCallback(() => {
+    setDialog(DeleteKubeObjectDialog, {
+      kubeObject: SecretKubeObject,
+      kubeObjectData: secret as EDPKubeObjectInterface,
+      objectName: secret?.metadata.name,
+      description: `Confirm the deletion of the secret`,
     });
   }, [secret, setDialog]);
 

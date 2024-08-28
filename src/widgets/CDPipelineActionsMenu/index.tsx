@@ -6,12 +6,12 @@ import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { CDPipelineKubeObject } from '../../k8s/groups/EDP/CDPipeline';
 import { useDialogContext } from '../../providers/Dialog/hooks';
+import { useDialogContext as useNewDialogContext } from '../../providers/NewDialog/hooks';
 import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../CreateEditCDPipeline/constants';
 import { CreateEditCDPipelineDialogForwardedProps } from '../CreateEditCDPipeline/types';
-import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
-import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
+import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
 import { CDPipelineActionsMenuProps } from './types';
 
 export const CDPipelineActionsMenu = ({
@@ -23,6 +23,7 @@ export const CDPipelineActionsMenu = ({
   permissions,
 }: CDPipelineActionsMenuProps) => {
   const { setDialog } = useDialogContext();
+  const { setDialog: setNewDialog } = useNewDialogContext();
 
   const actions = React.useMemo(() => {
     if (!CDPipelineData) {
@@ -34,7 +35,7 @@ export const CDPipelineActionsMenu = ({
       mode: FORM_MODES.EDIT,
     };
 
-    const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+    const deleteKubeObjectDialogProps = {
       objectName: CDPipelineData?.metadata.name,
       kubeObject: CDPipelineKubeObject,
       kubeObjectData: CDPipelineData,
@@ -66,10 +67,7 @@ export const CDPipelineActionsMenu = ({
           },
           icon: ICONS.BUCKET,
           action: () => {
-            setDialog({
-              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-              forwardedProps: deleteKubeObjectDialogForwardedProps,
-            });
+            setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
           },
         }),
       ];
@@ -99,10 +97,7 @@ export const CDPipelineActionsMenu = ({
           },
           action: () => {
             handleCloseResourceActionListMenu();
-            setDialog({
-              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-              forwardedProps: deleteKubeObjectDialogForwardedProps,
-            });
+            setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
           },
         }),
       ];
@@ -114,6 +109,7 @@ export const CDPipelineActionsMenu = ({
     permissions.delete,
     permissions.update,
     setDialog,
+    setNewDialog,
     variant,
   ]);
 
