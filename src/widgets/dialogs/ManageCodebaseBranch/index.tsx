@@ -3,7 +3,7 @@ import React from 'react';
 import { FORM_MODES } from '../../../types/forms';
 import { Create } from './components/Create';
 import { Edit } from './components/Edit';
-import { MANAGE_CODEBASE_BRANCH_DIALOG_CREATE } from './constants';
+import { DIALOG_NAME } from './constants';
 import { CurrentDialogContextProvider } from './providers/CurrentDialog/provider';
 import { ManageCodebaseBranchDialogProps } from './types';
 
@@ -24,4 +24,4 @@ export const ManageCodebaseBranchDialog: React.FC<ManageCodebaseBranchDialogProp
   );
 };
 
-ManageCodebaseBranchDialog.displayName = MANAGE_CODEBASE_BRANCH_DIALOG_CREATE;
+ManageCodebaseBranchDialog.displayName = DIALOG_NAME;

@@ -12,12 +12,11 @@ import {
 import React from 'react';
 import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
 import { APPLICATION_HEALTH_STATUS } from '../../../../k8s/groups/ArgoCD/Application/constants';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
-import { FieldEvent, FORM_MODES } from '../../../../types/forms';
+import { useDialogContext } from '../../../../providers/NewDialog/hooks';
+import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
-import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../../../../widgets/CreateEditStage/constants';
-import { CreateEditStageDialogForwardedProps } from '../../../../widgets/CreateEditStage/types';
+import { ManageStageDialog } from '../../../../widgets/dialogs/ManageStage';
 import { FILTER_CONTROLS } from '../../constants';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
@@ -33,22 +32,7 @@ export const StageListFilter = () => {
     [CDPipeline.isLoading, stages.isLoading]
   );
 
-  const { setDialog } = useDialogContext<CreateEditStageDialogForwardedProps>();
-
-  const forwardedProps: CreateEditStageDialogForwardedProps = React.useMemo(() => {
-    if (isLoading) {
-      return {
-        CDPipelineData: null,
-        otherStages: [],
-        mode: FORM_MODES.CREATE,
-      };
-    }
-    return {
-      CDPipelineData: CDPipeline.data,
-      otherStages: stages.data,
-      mode: FORM_MODES.CREATE,
-    };
-  }, [CDPipeline, isLoading, stages]);
+  const { setDialog } = useDialogContext();
 
   const { filter, setFilterItem } = usePageFilterContext();
 
@@ -183,10 +167,15 @@ export const StageListFilter = () => {
             color: 'primary',
             variant: 'contained',
             onClick: () => {
-              setDialog({
-                modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
-                forwardedProps,
-              });
+              setDialog(
+                ManageStageDialog,
+                isLoading
+                  ? {
+                      CDPipelineData: null,
+                      otherStages: [],
+                    }
+                  : { CDPipelineData: CDPipeline.data, otherStages: stages.data }
+              );
             },
           }}
           text="You do not have permission to create a stage."

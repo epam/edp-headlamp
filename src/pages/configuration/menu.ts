@@ -14,7 +14,6 @@ import { pageDescription as pipelinesPageDescription } from './pages/pipeline-li
 import { pageDescription as quickLinksPageDescription } from './pages/quicklinks/constants';
 import { pageDescription as registryPageDescription } from './pages/registry/constants';
 import { pageDescription as sonarPageDescription } from './pages/sonar/constants';
-import { pageDescription as ssoPageDescription } from './pages/sso/constants';
 import { pageDescription as tasksPageDescription } from './pages/task-list/constants';
 
 export interface SubMenuGroup {
@@ -72,12 +71,6 @@ export const menu: SubMenuGroup[] = [
     label: 'Management Tool',
     icon: ICONS.TOOLS,
     children: [jiraPageDescription],
-  },
-  {
-    id: 'access',
-    label: 'Access',
-    icon: ICONS.KEY,
-    children: [ssoPageDescription],
   },
   {
     id: 'genAi',

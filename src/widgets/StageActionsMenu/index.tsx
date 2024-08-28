@@ -6,13 +6,10 @@ import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
-import { useDialogContext } from '../../providers/Dialog/hooks';
-import { FORM_MODES } from '../../types/forms';
+import { useDialogContext } from '../../providers/NewDialog/hooks';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
-import { CREATE_EDIT_STAGE_DIALOG_NAME } from '../CreateEditStage/constants';
-import { CreateEditStageDialogForwardedProps } from '../CreateEditStage/types';
-import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
-import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
+import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
+import { ManageStageDialog } from '../dialogs/ManageStage';
 import { StageActionsMenuProps } from './types';
 import { createDeleteAction } from './utils';
 
@@ -30,14 +27,7 @@ export const StageActionsMenu = ({
       return [];
     }
 
-    const createEditStageDialogForwardedProps: CreateEditStageDialogForwardedProps = {
-      stage: stage,
-      mode: FORM_MODES.EDIT,
-      otherStages: stages,
-      CDPipelineData,
-    };
-
-    const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+    const deleteKubeObjectDialogProps = {
       objectName: stage?.spec?.name,
       kubeObject: StageKubeObject,
       kubeObjectData: stage,
@@ -45,30 +35,30 @@ export const StageActionsMenu = ({
       backRoute,
     };
 
+    const manageStageDialogProps = {
+      stage,
+      otherStages: stages,
+      CDPipelineData,
+    };
+
     if (variant === ACTION_MENU_TYPES.INLINE) {
       return [
-        await createKubeAction({
+        createKubeAction({
           item: new StageKubeObject(stage) as unknown as KubeObjectInterface,
           actionCheckName: 'update',
           name: RESOURCE_ACTIONS.EDIT,
           icon: ICONS.PENCIL,
           action: () => {
-            setDialog({
-              modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
-              forwardedProps: createEditStageDialogForwardedProps,
-            });
+            setDialog(ManageStageDialog, manageStageDialogProps);
           },
         }),
         await createDeleteAction(stages, stage, () => {
-          setDialog({
-            modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-            forwardedProps: deleteKubeObjectDialogForwardedProps,
-          });
+          setDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
         }),
       ];
     } else {
       return [
-        await createKubeAction({
+        createKubeAction({
           item: new StageKubeObject(stage) as unknown as KubeObjectInterface,
           actionCheckName: 'update',
           name: RESOURCE_ACTIONS.EDIT,
@@ -76,19 +66,13 @@ export const StageActionsMenu = ({
           action: () => {
             handleCloseResourceActionListMenu();
 
-            setDialog({
-              modalName: CREATE_EDIT_STAGE_DIALOG_NAME,
-              forwardedProps: createEditStageDialogForwardedProps,
-            });
+            setDialog(ManageStageDialog, manageStageDialogProps);
           },
         }),
         await createDeleteAction(stages, stage, () => {
           handleCloseResourceActionListMenu();
 
-          setDialog({
-            modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-            forwardedProps: deleteKubeObjectDialogForwardedProps,
-          });
+          setDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
         }),
       ];
     }

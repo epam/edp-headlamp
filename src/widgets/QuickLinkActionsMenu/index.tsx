@@ -7,10 +7,10 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObject } from '../../k8s/groups/EDP/QuickLink';
 import { isSystemQuickLink } from '../../k8s/groups/EDP/QuickLink/utils/isSystemQuickLink';
 import { useDialogContext } from '../../providers/Dialog/hooks';
+import { useDialogContext as useNewDialogContext } from '../../providers/NewDialog/hooks';
 import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
-import { DELETE_KUBE_OBJECT_DIALOG_NAME } from '../DeleteKubeObject/constants';
-import { DeleteKubeObjectDialogForwardedProps } from '../DeleteKubeObject/types';
+import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
 import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../ManageQuickLink/constants';
 import { ManageQuickLinkDialogForwardedProps } from '../ManageQuickLink/types';
 import { QuickLinkActionsMenuProps } from './types';
@@ -24,6 +24,7 @@ export const QuickLinkActionsMenu = ({
   permissions,
 }: QuickLinkActionsMenuProps) => {
   const { setDialog } = useDialogContext();
+  const { setDialog: setNewDialog } = useNewDialogContext();
 
   const isSystemQuickLinkBool = isSystemQuickLink(data);
 
@@ -38,7 +39,7 @@ export const QuickLinkActionsMenu = ({
       isSystem: isSystemQuickLinkBool,
     };
 
-    const deleteKubeObjectDialogForwardedProps: DeleteKubeObjectDialogForwardedProps = {
+    const deleteKubeObjectDialogProps = {
       objectName: data?.metadata?.name,
       kubeObject: QuickLinkKubeObject,
       kubeObjectData: data,
@@ -75,10 +76,7 @@ export const QuickLinkActionsMenu = ({
                 : undefined,
           },
           action: () => {
-            setDialog({
-              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-              forwardedProps: deleteKubeObjectDialogForwardedProps,
-            });
+            setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
           },
         }),
       ];
@@ -113,10 +111,7 @@ export const QuickLinkActionsMenu = ({
           },
           action: () => {
             handleCloseResourceActionListMenu();
-            setDialog({
-              modalName: DELETE_KUBE_OBJECT_DIALOG_NAME,
-              forwardedProps: deleteKubeObjectDialogForwardedProps,
-            });
+            setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
           },
         }),
       ];
@@ -126,8 +121,10 @@ export const QuickLinkActionsMenu = ({
     data,
     handleCloseResourceActionListMenu,
     isSystemQuickLinkBool,
-    permissions,
+    permissions?.delete,
+    permissions?.update,
     setDialog,
+    setNewDialog,
     variant,
   ]);
 
