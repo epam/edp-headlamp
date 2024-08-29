@@ -593,14 +593,20 @@ exports[`ManageStageDialog renders ManageStageDialog Create component 1`] = `
                         <div
                           class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                         >
-                          <button
-                            class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
-                            disabled=""
-                            tabindex="-1"
-                            type="button"
+                          <div
+                            aria-label="Select pipeline template."
+                            class=""
+                            data-mui-internal-clone-element="true"
                           >
-                            <span />
-                          </button>
+                            <button
+                              class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
+                              disabled=""
+                              tabindex="-1"
+                              type="button"
+                            >
+                              <span />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -631,7 +637,7 @@ exports[`ManageStageDialog renders ManageStageDialog Create component 1`] = `
                             class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd makeStyles-selectWithDefaultValue-2 css-p2czvz-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                           >
                             <div
-                              aria-controls="mui-14"
+                              aria-controls="mui-15"
                               aria-expanded="false"
                               aria-haspopup="listbox"
                               aria-labelledby="mui-component-select-cleanTemplate"
@@ -693,14 +699,20 @@ exports[`ManageStageDialog renders ManageStageDialog Create component 1`] = `
                         <div
                           class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                         >
-                          <button
-                            class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
-                            disabled=""
-                            tabindex="-1"
-                            type="button"
+                          <div
+                            aria-label="Select pipeline template."
+                            class=""
+                            data-mui-internal-clone-element="true"
                           >
-                            <span />
-                          </button>
+                            <button
+                              class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
+                              disabled=""
+                              tabindex="-1"
+                              type="button"
+                            >
+                              <span />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -813,13 +825,13 @@ exports[`ManageStageDialog renders ManageStageDialog Edit component 1`] = `
     tabindex="-1"
   >
     <div
-      aria-labelledby="mui-16"
+      aria-labelledby="mui-18"
       class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth css-1ntld2w-MuiPaper-root-MuiDialog-paper"
       role="dialog"
     >
       <h2
         class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-8yphvn-MuiTypography-root-MuiDialogTitle-root"
-        id="mui-16"
+        id="mui-18"
       >
         <div
           class="MuiStack-root css-1h9efsi-MuiStack-root"
@@ -877,7 +889,7 @@ exports[`ManageStageDialog renders ManageStageDialog Edit component 1`] = `
                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd makeStyles-selectWithDefaultValue-3 css-p2czvz-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                     >
                       <div
-                        aria-controls="mui-17"
+                        aria-controls="mui-19"
                         aria-expanded="false"
                         aria-haspopup="listbox"
                         aria-labelledby="mui-component-select-triggerType"
@@ -957,7 +969,7 @@ exports[`ManageStageDialog renders ManageStageDialog Edit component 1`] = `
                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd makeStyles-selectWithDefaultValue-3 css-p2czvz-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                     >
                       <div
-                        aria-controls="mui-19"
+                        aria-controls="mui-21"
                         aria-expanded="false"
                         aria-haspopup="listbox"
                         aria-labelledby="mui-component-select-triggerTemplate"
@@ -1019,14 +1031,20 @@ exports[`ManageStageDialog renders ManageStageDialog Edit component 1`] = `
                   <div
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
-                    <button
-                      class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
-                      disabled=""
-                      tabindex="-1"
-                      type="button"
+                    <div
+                      aria-label="Select pipeline template."
+                      class=""
+                      data-mui-internal-clone-element="true"
                     >
-                      <span />
-                    </button>
+                      <button
+                        class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
+                        disabled=""
+                        tabindex="-1"
+                        type="button"
+                      >
+                        <span />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1057,7 +1075,7 @@ exports[`ManageStageDialog renders ManageStageDialog Edit component 1`] = `
                       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd makeStyles-selectWithDefaultValue-3 css-p2czvz-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                     >
                       <div
-                        aria-controls="mui-21"
+                        aria-controls="mui-24"
                         aria-expanded="false"
                         aria-haspopup="listbox"
                         aria-labelledby="mui-component-select-cleanTemplate"
@@ -1119,14 +1137,20 @@ exports[`ManageStageDialog renders ManageStageDialog Edit component 1`] = `
                   <div
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
                   >
-                    <button
-                      class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
-                      disabled=""
-                      tabindex="-1"
-                      type="button"
+                    <div
+                      aria-label="Select pipeline template."
+                      class=""
+                      data-mui-internal-clone-element="true"
                     >
-                      <span />
-                    </button>
+                      <button
+                        class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
+                        disabled=""
+                        tabindex="-1"
+                        type="button"
+                      >
+                        <span />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
