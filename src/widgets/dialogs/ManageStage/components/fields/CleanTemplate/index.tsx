@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
-import { Box, IconButton, Stack } from '@mui/material';
+import { Box, IconButton, Stack, Tooltip } from '@mui/material';
 import React from 'react';
+import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../../../constants/ui';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
@@ -46,6 +47,8 @@ export const CleanTemplate = () => {
     },
   });
 
+  const _pipelineIsLoading = fieldValue && pipelineIsLoading;
+
   return (
     <Stack spacing={2} direction="row" alignItems="center">
       <Box flexGrow={1}>
@@ -62,18 +65,35 @@ export const CleanTemplate = () => {
       </Box>
 
       <Box sx={{ pt: (t) => t.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
-        <LoadingWrapper isLoading={fieldValue && pipelineIsLoading} size={20}>
-          <IconButton
-            onClick={() => {
-              setDialog(PipelineGraphDialog, {
-                pipeline,
-              });
-            }}
-            disabled={!fieldValue}
-            size={'small'}
+        <LoadingWrapper isLoading={_pipelineIsLoading} size={20}>
+          <ConditionalWrapper
+            condition={!_pipelineIsLoading && !pipeline}
+            wrapper={(children) => (
+              <Tooltip
+                title={
+                  fieldValue
+                    ? 'The selected template refers to a non-existent pipeline.'
+                    : 'Select pipeline template.'
+                }
+              >
+                {children}
+              </Tooltip>
+            )}
           >
-            <Icon icon={ICONS.DIAGRAM} width={20} />
-          </IconButton>
+            <div>
+              <IconButton
+                onClick={() => {
+                  setDialog(PipelineGraphDialog, {
+                    pipeline,
+                  });
+                }}
+                disabled={!fieldValue || !pipeline}
+                size={'small'}
+              >
+                <Icon icon={ICONS.DIAGRAM} width={20} />
+              </IconButton>
+            </div>
+          </ConditionalWrapper>
         </LoadingWrapper>
       </Box>
     </Stack>
