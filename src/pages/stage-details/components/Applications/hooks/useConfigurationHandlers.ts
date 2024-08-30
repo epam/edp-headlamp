@@ -11,7 +11,7 @@ import {
   PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
 } from '../../../../../k8s/groups/Tekton/PipelineRun/labels';
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
-import { CONFIRM_DIALOG_NAME } from '../../../../../widgets/ConfirmModal/constants';
+import { ConfirmDialog } from '../../../../../widgets/dialogs/Confirm';
 import { IMAGE_TAG_POSTFIX, VALUES_OVERRIDE_POSTFIX } from '../../../constants';
 import { useDataContext } from '../../../providers/Data/hooks';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
@@ -346,12 +346,9 @@ export const useConfigurationHandlers = ({
   ]);
 
   const handleClickClean = React.useCallback(async () => {
-    setDialog({
-      modalName: CONFIRM_DIALOG_NAME,
-      forwardedProps: {
-        text: 'Are you sure you want to clean up the environment?',
-        actionCallback: () => handleClean(),
-      },
+    setDialog(ConfirmDialog, {
+      text: 'Are you sure you want to clean up the environment?',
+      actionCallback: () => handleClean(),
     });
   }, [handleClean, setDialog]);
 

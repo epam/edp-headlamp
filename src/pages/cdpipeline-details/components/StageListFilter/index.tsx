@@ -12,8 +12,8 @@ import {
 import React from 'react';
 import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
 import { APPLICATION_HEALTH_STATUS } from '../../../../k8s/groups/ArgoCD/Application/constants';
+import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
-import { useDialogContext } from '../../../../providers/NewDialog/hooks';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { ManageStageDialog } from '../../../../widgets/dialogs/ManageStage';

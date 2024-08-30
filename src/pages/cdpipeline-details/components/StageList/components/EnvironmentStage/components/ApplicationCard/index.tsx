@@ -21,8 +21,8 @@ import {
 } from '../../../../../../../../k8s/groups/EDP/QuickLink/constants';
 import { useDialogContext } from '../../../../../../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../../../../../../services/link-creation';
-import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../../../../widgets/PodsLogViewer/constants';
-import { PODS_TERMINAL_DIALOG_NAME } from '../../../../../../../../widgets/PodsTerminal/constants';
+import { PodsLogViewerDialog } from '../../../../../../../../widgets/dialogs/PodsLogViewer';
+import { PodsTerminalDialog } from '../../../../../../../../widgets/dialogs/PodsTerminal';
 import { routeComponentDetails } from '../../../../../../../component-details/route';
 import { routeArgoCD } from '../../../../../../../configuration/pages/argocd/route';
 import { StyledChip } from '../../styles';
@@ -169,12 +169,9 @@ export const ApplicationCard = ({
                 variant="text"
                 sx={{ color: theme.palette.secondary.dark }}
                 onClick={() =>
-                  setDialog({
-                    modalName: PODS_LOG_VIEWER_DIALOG_NAME,
-                    forwardedProps: {
-                      stageNamespace: stage.spec.namespace,
-                      appName: application.metadata.name,
-                    },
+                  setDialog(PodsLogViewerDialog, {
+                    stageNamespace: stage.spec.namespace,
+                    appName: application.metadata.name,
                   })
                 }
                 disabled={!argoApplication}
@@ -186,12 +183,9 @@ export const ApplicationCard = ({
                 variant="text"
                 sx={{ color: theme.palette.secondary.dark }}
                 onClick={() =>
-                  setDialog({
-                    modalName: PODS_TERMINAL_DIALOG_NAME,
-                    forwardedProps: {
-                      stageNamespace: stage.spec.namespace,
-                      appName: application.metadata.name,
-                    },
+                  setDialog(PodsTerminalDialog, {
+                    stageNamespace: stage.spec.namespace,
+                    appName: application.metadata.name,
                   })
                 }
                 disabled={!argoApplication}

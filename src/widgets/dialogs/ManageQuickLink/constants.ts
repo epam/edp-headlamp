@@ -1,0 +1,1 @@
+export const DIALOG_NAME = 'MANAGE_QUICK_LINK_DIALOG';

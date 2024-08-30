@@ -1,6 +1,6 @@
 import { CDPipelineKubeObjectInterface } from '../../../k8s/groups/EDP/CDPipeline/types';
 import { StageKubeObjectInterface } from '../../../k8s/groups/EDP/Stage/types';
-import { DialogProps } from '../../../providers/NewDialog/context';
+import { DialogProps } from '../../../providers/Dialog/types';
 import { FormValues } from '../../../types/forms';
 import { STAGE_FORM_NAMES } from './names';
 

@@ -6,7 +6,7 @@ import { TableColumn } from '../../../components/Table/types';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineKubeObjectInterface } from '../../../k8s/groups/Tekton/Pipeline/types';
 import { routePipelineDetails } from '../../../pages/configuration/pages/pipeline-details/route';
-import { useDialogContext } from '../../../providers/NewDialog/hooks';
+import { useDialogContext } from '../../../providers/Dialog/hooks';
 import { PipelineGraphDialog } from '../../dialogs/PipelineGraph';
 
 export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {

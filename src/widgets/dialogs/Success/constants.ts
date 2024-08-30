@@ -1,0 +1,1 @@
+export const DIALOG_NAME = 'SUCCESS_DIALOG';

@@ -1,0 +1,1 @@
+export const DIALOG_NAME = 'PODS_LOG_VIEWER_DIALOG';

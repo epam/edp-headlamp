@@ -5,7 +5,7 @@ import { EmptyList } from '../../../../components/EmptyList';
 import { HorizontalScrollContainer } from '../../../../components/HorizontalScrollContainer';
 import { useQuickLinksQuery } from '../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksQuery';
 import { useQuickLinksURLsQuery } from '../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
-import { useDialogContext } from '../../../../providers/NewDialog/hooks';
+import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { ManageStageDialog } from '../../../../widgets/dialogs/ManageStage';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';

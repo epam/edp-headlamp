@@ -14,8 +14,7 @@ import { NamespaceControl } from '../../../../providers/Filter/components/Filter
 import { SearchControl } from '../../../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../../../providers/ResourceActionList';
-import { FORM_MODES } from '../../../../types/forms';
-import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../../../widgets/ManageQuickLink/constants';
+import { ManageQuickLinkDialog } from '../../../../widgets/dialogs/ManageQuickLink';
 import { menu } from '../../menu';
 import { QuickLinkList } from './components/ComponentList';
 import { pageDescription } from './constants';
@@ -70,12 +69,7 @@ export const PageView = () => {
                         color: 'primary',
                         variant: 'contained',
                         onClick: () => {
-                          setDialog({
-                            modalName: MANAGE_QUICK_LINK_DIALOG_NAME,
-                            forwardedProps: {
-                              mode: FORM_MODES.CREATE,
-                            },
-                          });
+                          setDialog(ManageQuickLinkDialog, { quickLink: null });
                         },
                       }}
                       allowed={quickLinkPermissions.create}

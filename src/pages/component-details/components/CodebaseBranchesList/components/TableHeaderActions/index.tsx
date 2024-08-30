@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import React from 'react';
 import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { useDialogContext } from '../../../../../../providers/NewDialog/hooks';
+import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { ManageCodebaseBranchDialog } from '../../../../../../widgets/dialogs/ManageCodebaseBranch';
 import { useDynamicDataContext } from '../../../../providers/DynamicData/hooks';
 import { usePermissionsContext } from '../../../../providers/Permissions/hooks';

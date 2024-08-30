@@ -5,7 +5,7 @@ import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../k8s/groups/default/ConfigMap/constants';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
-import { CONFIRM_RESOURCES_UPDATES_DIALOG_NAME } from '../../../ConfirmResourcesUpdates/constants';
+import { ConfirmResourcesUpdatesDialog } from '../../../dialogs/ConfirmResourcesUpdates';
 import { useRegistryFormsContext } from '../../hooks/useRegistryFormsContext';
 import { useResetRegistry } from '../../hooks/useResetRegistry';
 import { useDataContext } from '../../providers/Data/hooks';
@@ -67,14 +67,12 @@ export const Actions = ({ handleCloseCreateDialog }) => {
             color="primary"
             style={{ pointerEvents: 'auto' }}
             onClick={() => {
-              setDialog({
-                modalName: CONFIRM_RESOURCES_UPDATES_DIALOG_NAME,
-                forwardedProps: {
-                  deleteCallback: () => {
-                    resetRegistry();
-                  },
-                  text: 'Are you sure you want to reset the registry?',
+              setDialog(ConfirmResourcesUpdatesDialog, {
+                deleteCallback: () => {
+                  resetRegistry();
                 },
+                text: 'Are you sure you want to reset the registry?',
+                resourcesArray: [],
               });
             }}
             startIcon={<Icon icon={ICONS.WARNING} />}

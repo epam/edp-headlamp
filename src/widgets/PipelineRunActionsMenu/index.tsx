@@ -47,197 +47,90 @@ export const PipelineRunActionsMenu = ({
     const createGoToRoute = (params: any) =>
       Router.createRouteURL(routePipelineRunDetails.path, params);
 
-    if (variant === ACTION_MENU_TYPES.INLINE) {
-      return [
-        ...(!isInProgress
-          ? [
-              createKubeAction({
-                name: 'Run again',
-                icon: ICONS.REDO,
-                disabled: {
-                  status: permissions.create === false,
-                  reason: 'You do not have permission to create PipelineRun',
-                },
-                action: () => {
-                  const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
-
-                  PipelineRunKubeObject.apiEndpoint.post(newPipelineRun);
-
-                  enqueueSnackbar('The PipelineRun is successfully rerun.', {
-                    persist: true,
-                    anchorOrigin: {
-                      vertical: 'bottom',
-                      horizontal: 'left',
-                    },
-                    content: (key, message) => (
-                      <Snackbar
-                        text={String(message)}
-                        handleClose={() => closeSnackbar(key)}
-                        pushLocation={() =>
-                          history.push(
-                            createGoToRoute({
-                              namespace: newPipelineRun.metadata.namespace || getDefaultNamespace(),
-                              name: newPipelineRun.metadata.name,
-                            })
-                          )
-                        }
-                        variant="success"
-                      />
-                    ),
-                  });
-                },
-                isTextButton: true,
-              }),
-            ]
-          : []),
-        ...(isInProgress
-          ? [
-              createKubeAction({
-                name: 'Stop run',
-                icon: 'ph:stop-fill',
-                action: () => {
-                  const copyPipelineRun = { ...pipelineRun };
-                  copyPipelineRun.spec.status = 'Cancelled';
-                  PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
-                  enqueueSnackbar('The PipelineRun is cancelled', {
-                    autoHideDuration: 2000,
-                    anchorOrigin: {
-                      vertical: 'bottom',
-                      horizontal: 'left',
-                    },
-                    content: (key, message) => (
-                      <Snackbar
-                        text={String(message)}
-                        handleClose={() => closeSnackbar(key)}
-                        variant="info"
-                      />
-                    ),
-                  });
-                },
-                disabled: {
-                  status: permissions.update === false,
-                  reason:
-                    permissions.update === false
-                      ? 'You do not have permission to update PipelineRun'
-                      : !isInProgress
-                      ? 'PipelineRun is no longer in progress'
-                      : undefined,
-                },
-                isTextButton: true,
-              }),
-            ]
-          : []),
-        ,
-        createKubeAction({
-          name: RESOURCE_ACTIONS.DELETE,
-          icon: ICONS.BUCKET,
-          disabled: {
-            status: permissions.delete === false,
-            reason: 'You do not have permission to delete PipelineRun',
-          },
-          action: () => {
-            PipelineRunKubeObject.apiEndpoint.delete(
-              pipelineRun.metadata.namespace,
-              pipelineRun.metadata.name
-            );
-            enqueueSnackbar('The PipelineRun is deleted', {
-              autoHideDuration: 2000,
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left',
-              },
-              content: (key, message) => (
-                <Snackbar
-                  text={String(message)}
-                  handleClose={() => closeSnackbar(key)}
-                  variant="info"
-                />
-              ),
-            });
-            onDelete();
-          },
-        }),
-      ];
-    } else {
-      return [
-        createKubeAction({
-          name: 'Run again',
-          icon: ICONS.REDO,
-          disabled: {
-            status: permissions.create === false,
-            reason: 'You do not have permission to create PipelineRun',
-          },
-          action: () => {
+    return [
+      createKubeAction({
+        name: 'Run again',
+        icon: ICONS.REDO,
+        disabled: {
+          status: permissions.create === false,
+          reason: 'You do not have permission to create PipelineRun',
+        },
+        action: () => {
+          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
-            const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
+          }
 
-            PipelineRunKubeObject.apiEndpoint.post(newPipelineRun);
+          const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
 
-            enqueueSnackbar('The PipelineRun is successfully rerun.', {
-              persist: true,
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left',
+          PipelineRunKubeObject.apiEndpoint.post(newPipelineRun);
+
+          enqueueSnackbar('The PipelineRun is successfully rerun.', {
+            persist: true,
+            anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'left',
+            },
+            content: (key, message) => (
+              <Snackbar
+                text={String(message)}
+                handleClose={() => closeSnackbar(key)}
+                pushLocation={() =>
+                  history.push(
+                    createGoToRoute({
+                      namespace: newPipelineRun.metadata.namespace || getDefaultNamespace(),
+                      name: newPipelineRun.metadata.name,
+                    })
+                  )
+                }
+                variant="success"
+              />
+            ),
+          });
+        },
+      }),
+      ...(isInProgress
+        ? [
+            createKubeAction({
+              name: 'Stop run',
+              icon: ICONS.CANCEL,
+              disabled: {
+                status: permissions.update === false || !isInProgress,
+                reason:
+                  permissions.update === false
+                    ? 'You do not have permission to update PipelineRun'
+                    : !isInProgress
+                    ? 'PipelineRun is no longer in progress'
+                    : undefined,
               },
-              content: (key, message) => (
-                <Snackbar
-                  text={String(message)}
-                  handleClose={() => closeSnackbar(key)}
-                  pushLocation={() =>
-                    history.push(
-                      createGoToRoute({
-                        namespace: newPipelineRun.metadata.namespace || getDefaultNamespace(),
-                        name: newPipelineRun.metadata.name,
-                      })
-                    )
-                  }
-                  variant="success"
-                />
-              ),
-            });
-          },
-        }),
-        ...(isInProgress
-          ? [
-              createKubeAction({
-                name: 'Stop run',
-                icon: ICONS.CANCEL,
-                disabled: {
-                  status: permissions.update === false || !isInProgress,
-                  reason:
-                    permissions.update === false
-                      ? 'You do not have permission to update PipelineRun'
-                      : !isInProgress
-                      ? 'PipelineRun is no longer in progress'
-                      : undefined,
-                },
-                action: () => {
+              action: () => {
+                if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
                   handleCloseResourceActionListMenu();
-                  const copyPipelineRun = { ...pipelineRun };
-                  copyPipelineRun.spec.status = 'Cancelled';
-                  PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
-                },
-              }),
-            ]
-          : []),
-        createKubeAction({
-          name: RESOURCE_ACTIONS.DELETE,
-          icon: ICONS.BUCKET,
-          disabled: {
-            status: permissions.delete === false,
-            reason: 'You do not have permission to delete PipelineRun',
-          },
-          action: () => {
-            handleCloseResourceActionListMenu();
-            PipelineRunKubeObject.apiEndpoint.delete(
-              pipelineRun.metadata.namespace,
-              pipelineRun.metadata.name
-            );
-            onDelete();
-          },
-        }),
-      ];
-    }
+                }
+
+                const copyPipelineRun = { ...pipelineRun };
+                copyPipelineRun.spec.status = 'Cancelled';
+                PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
+              },
+            }),
+          ]
+        : []),
+      createKubeAction({
+        name: RESOURCE_ACTIONS.DELETE,
+        icon: ICONS.BUCKET,
+        disabled: {
+          status: permissions.delete === false,
+          reason: 'You do not have permission to delete PipelineRun',
+        },
+        action: () => {
+          handleCloseResourceActionListMenu();
+          PipelineRunKubeObject.apiEndpoint.delete(
+            pipelineRun.metadata.namespace,
+            pipelineRun.metadata.name
+          );
+          onDelete();
+        },
+      }),
+    ];
   }, [
     _pipelineRun,
     variant,

@@ -22,10 +22,8 @@ import { NamespaceControl } from '../../providers/Filter/components/Filter/compo
 import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
-import { FORM_MODES } from '../../types/forms';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
-import { CREATE_EDIT_CD_PIPELINE_DIALOG_NAME } from '../../widgets/CreateEditCDPipeline/constants';
-import { CreateEditCDPipelineDialogForwardedProps } from '../../widgets/CreateEditCDPipeline/types';
+import { ManageCDPipelineDialog } from '../../widgets/dialogs/ManageCDPipeline';
 import { routeGitOps } from '../configuration/pages/gitops/route';
 import { CDPipelineList } from './components/CDPipelineList';
 import { usePermissionsContext } from './providers/Permissions/hooks';
@@ -51,9 +49,6 @@ export const PageView = () => {
   const isLoading = (CDPipelines === null || gitOpsCodebaseQuery.isLoading) && !error;
 
   const { setDialog } = useDialogContext();
-
-  const createEditCDPipelineDialogForwardedProps: CreateEditCDPipelineDialogForwardedProps =
-    React.useMemo(() => ({ mode: FORM_MODES.CREATE }), []);
 
   const history = useHistory();
 
@@ -96,9 +91,8 @@ export const PageView = () => {
                     color: 'primary',
                     startIcon: <Icon icon={ICONS.PLUS} />,
                     onClick: () =>
-                      setDialog({
-                        modalName: CREATE_EDIT_CD_PIPELINE_DIALOG_NAME,
-                        forwardedProps: createEditCDPipelineDialogForwardedProps,
+                      setDialog(ManageCDPipelineDialog, {
+                        CDPipelineData: null,
                       }),
                     disabled: !gitOpsCodebaseQuery.data,
                   }}

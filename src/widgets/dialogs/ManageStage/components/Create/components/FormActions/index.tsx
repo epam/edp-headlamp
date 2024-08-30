@@ -9,8 +9,7 @@ import { useDialogContext } from '../../../../../../../providers/Dialog/hooks';
 import { useStepperContext } from '../../../../../../../providers/Stepper/hooks';
 import { getUsedValues } from '../../../../../../../utils/forms/getUsedValues';
 import { getDefaultNamespace } from '../../../../../../../utils/getDefaultNamespace';
-import { SUCCESS_DIALOG_NAME } from '../../../../../../SuccessModal/constants';
-import { SuccessDialogForwardedProps } from '../../../../../../SuccessModal/types';
+import { SuccessDialog } from '../../../../../Success';
 import { FORM_STEPPER } from '../../../../constants';
 import { useTypedFormContext } from '../../../../hooks/useFormContext';
 import { STAGE_FORM_NAMES } from '../../../../names';
@@ -43,7 +42,7 @@ export const FormActions = () => {
 
   const onSuccess = React.useCallback(
     (stageData: StageKubeObjectInterface) => {
-      const successModalForwardedProps: SuccessDialogForwardedProps = {
+      setDialog(SuccessDialog, {
         dialogTitle: `Create Environment`,
         title: `Your new Environment is created`,
         description: `Browse your new Environment and start working with it.`,
@@ -56,11 +55,6 @@ export const FormActions = () => {
             CDPipelineName: CDPipelineData.metadata.name,
           },
         },
-      };
-
-      setDialog({
-        modalName: SUCCESS_DIALOG_NAME,
-        forwardedProps: successModalForwardedProps,
       });
 
       handleClose();

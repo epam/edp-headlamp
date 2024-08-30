@@ -9,13 +9,10 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { CodebaseKubeObject } from '../../k8s/groups/EDP/Codebase';
 import { routeCDPipelineDetails } from '../../pages/cdpipeline-details/route';
 import { useDialogContext } from '../../providers/Dialog/hooks';
-import { useDialogContext as useNewDialogContext } from '../../providers/NewDialog/hooks';
-import { FORM_MODES } from '../../types/forms';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
-import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../CreateEditCodebase/constants';
-import { CreateEditCodebaseDialogForwardedProps } from '../CreateEditCodebase/types';
 import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
+import { ManageCodebaseDialog } from '../dialogs/ManageCodebase';
 import { useDeletionConflict } from './hooks/useDeletionConflict';
 import { useStyles } from './styles';
 import { CodebaseActionsMenuProps } from './types';
@@ -31,7 +28,6 @@ export const CodebaseActionsMenu = ({
   const classes = useStyles();
 
   const { setDialog } = useDialogContext();
-  const { setDialog: setNewDialog } = useNewDialogContext();
 
   const conflictedCDPipeline = useDeletionConflict(codebaseData);
 
@@ -80,79 +76,45 @@ export const CodebaseActionsMenu = ({
       return [];
     }
 
-    const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps = {
-      codebaseData: codebaseData,
-      mode: FORM_MODES.EDIT,
-    };
-
-    const deleteKubeObjectDialogProps = {
-      objectName: codebaseData?.metadata?.name,
-      kubeObject: CodebaseKubeObject,
-      kubeObjectData: codebaseData,
-      description: `Confirm the deletion of the codebase with all its components`,
-      onBeforeSubmit,
-      backRoute,
-    };
-
-    if (variant === ACTION_MENU_TYPES.INLINE) {
-      return [
-        createKubeAction({
-          name: RESOURCE_ACTIONS.EDIT,
-          icon: ICONS.PENCIL,
-          disabled: {
-            status: permissions.update === false,
-            reason: 'You do not have permission to update Codebase',
-          },
-          action: () => {
-            setDialog({
-              modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-              forwardedProps: createEditCodebaseDialogForwardedProps,
-            });
-          },
-        }),
-        createKubeAction({
-          name: RESOURCE_ACTIONS.DELETE,
-          icon: ICONS.BUCKET,
-          disabled: {
-            status: permissions.delete === false,
-            reason: 'You do not have permission to delete Codebase',
-          },
-          action: () => {
-            setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
-          },
-        }),
-      ];
-    } else {
-      return [
-        createKubeAction({
-          name: RESOURCE_ACTIONS.EDIT,
-          icon: ICONS.PENCIL,
-          disabled: {
-            status: permissions.update === false,
-            reason: 'You do not have permission to update Codebase',
-          },
-          action: () => {
+    return [
+      createKubeAction({
+        name: RESOURCE_ACTIONS.EDIT,
+        icon: ICONS.PENCIL,
+        disabled: {
+          status: permissions.update === false,
+          reason: 'You do not have permission to update Codebase',
+        },
+        action: () => {
+          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
-            setDialog({
-              modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-              forwardedProps: createEditCodebaseDialogForwardedProps,
-            });
-          },
-        }),
-        createKubeAction({
-          name: RESOURCE_ACTIONS.DELETE,
-          icon: ICONS.BUCKET,
-          disabled: {
-            status: permissions.delete === false,
-            reason: 'You do not have permission to delete Codebase',
-          },
-          action: () => {
+          }
+
+          setDialog(ManageCodebaseDialog, { codebaseData });
+        },
+      }),
+      createKubeAction({
+        name: RESOURCE_ACTIONS.DELETE,
+        icon: ICONS.BUCKET,
+        disabled: {
+          status: permissions.delete === false,
+          reason: 'You do not have permission to delete Codebase',
+        },
+        action: () => {
+          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
-            setNewDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
-          },
-        }),
-      ];
-    }
+          }
+
+          setDialog(DeleteKubeObjectDialog, {
+            objectName: codebaseData?.metadata?.name,
+            kubeObject: CodebaseKubeObject,
+            kubeObjectData: codebaseData,
+            description: `Confirm the deletion of the codebase with all its components`,
+            onBeforeSubmit,
+            backRoute,
+          });
+        },
+      }),
+    ];
   }, [
     backRoute,
     codebaseData,
@@ -161,7 +123,6 @@ export const CodebaseActionsMenu = ({
     permissions.delete,
     permissions.update,
     setDialog,
-    setNewDialog,
     variant,
   ]);
 

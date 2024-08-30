@@ -6,7 +6,7 @@ import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
-import { useDialogContext } from '../../providers/NewDialog/hooks';
+import { useDialogContext } from '../../providers/Dialog/hooks';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
 import { ManageStageDialog } from '../dialogs/ManageStage';
@@ -27,55 +27,38 @@ export const StageActionsMenu = ({
       return [];
     }
 
-    const deleteKubeObjectDialogProps = {
-      objectName: stage?.spec?.name,
-      kubeObject: StageKubeObject,
-      kubeObjectData: stage,
-      description: `Confirm the deletion of the CD stage with all its components`,
-      backRoute,
-    };
-
-    const manageStageDialogProps = {
-      stage,
-      otherStages: stages,
-      CDPipelineData,
-    };
-
-    if (variant === ACTION_MENU_TYPES.INLINE) {
-      return [
-        createKubeAction({
-          item: new StageKubeObject(stage) as unknown as KubeObjectInterface,
-          actionCheckName: 'update',
-          name: RESOURCE_ACTIONS.EDIT,
-          icon: ICONS.PENCIL,
-          action: () => {
-            setDialog(ManageStageDialog, manageStageDialogProps);
-          },
-        }),
-        await createDeleteAction(stages, stage, () => {
-          setDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
-        }),
-      ];
-    } else {
-      return [
-        createKubeAction({
-          item: new StageKubeObject(stage) as unknown as KubeObjectInterface,
-          actionCheckName: 'update',
-          name: RESOURCE_ACTIONS.EDIT,
-          icon: ICONS.PENCIL,
-          action: () => {
+    return [
+      createKubeAction({
+        item: new StageKubeObject(stage) as unknown as KubeObjectInterface,
+        actionCheckName: 'update',
+        name: RESOURCE_ACTIONS.EDIT,
+        icon: ICONS.PENCIL,
+        action: () => {
+          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
+          }
 
-            setDialog(ManageStageDialog, manageStageDialogProps);
-          },
-        }),
-        await createDeleteAction(stages, stage, () => {
+          setDialog(ManageStageDialog, {
+            stage,
+            otherStages: stages,
+            CDPipelineData,
+          });
+        },
+      }),
+      await createDeleteAction(stages, stage, () => {
+        if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
           handleCloseResourceActionListMenu();
+        }
 
-          setDialog(DeleteKubeObjectDialog, deleteKubeObjectDialogProps);
-        }),
-      ];
-    }
+        setDialog(DeleteKubeObjectDialog, {
+          objectName: stage?.spec?.name,
+          kubeObject: StageKubeObject,
+          kubeObjectData: stage,
+          description: `Confirm the deletion of the CD stage with all its components`,
+          backRoute,
+        });
+      }),
+    ];
   }, [
     CDPipelineData,
     backRoute,

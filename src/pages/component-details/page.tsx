@@ -1,7 +1,6 @@
 import React from 'react';
 import { PageLogicWrapper } from '../../components/PageLogicWrapper';
-import { DialogContextProvider } from '../../providers/Dialog';
-import { NewDialogContextProvider } from '../../providers/NewDialog/provider';
+import { DialogContextProvider } from '../../providers/Dialog/provider';
 import { DataContextProvider } from './providers/Data/provider';
 import { DynamicDataContextProvider } from './providers/DynamicData/provider';
 import { PermissionsContextProvider } from './providers/Permissions/provider';
@@ -11,15 +10,13 @@ export default function () {
   return (
     <PageLogicWrapper>
       <PermissionsContextProvider>
-        <NewDialogContextProvider>
-          <DialogContextProvider>
-            <DynamicDataContextProvider>
-              <DataContextProvider>
-                <PageView />
-              </DataContextProvider>
-            </DynamicDataContextProvider>
-          </DialogContextProvider>
-        </NewDialogContextProvider>
+        <DialogContextProvider>
+          <DynamicDataContextProvider>
+            <DataContextProvider>
+              <PageView />
+            </DataContextProvider>
+          </DynamicDataContextProvider>
+        </DialogContextProvider>
       </PermissionsContextProvider>
     </PageLogicWrapper>
   );

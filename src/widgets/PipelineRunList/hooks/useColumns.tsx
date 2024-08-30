@@ -14,7 +14,7 @@ import { routePipelineRunDetails } from '../../../pages/pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
 import { PermissionSet } from '../../../types/permissions';
 import { humanize } from '../../../utils/date/humanize';
-import { PIPELINE_RUN_GRAPH_DIALOG_NAME } from '../../PipelineRunGraphDialog/constants';
+import { PipelineRunGraphDialog } from '../../dialogs/PipelineRunGraph';
 import { Actions } from '../components/Actions';
 
 export const useColumns = ({
@@ -161,11 +161,8 @@ export const useColumns = ({
           return (
             <IconButton
               onClick={() =>
-                setDialog({
-                  modalName: PIPELINE_RUN_GRAPH_DIALOG_NAME,
-                  forwardedProps: {
-                    pipelineRun: resource,
-                  },
+                setDialog(PipelineRunGraphDialog, {
+                  pipelineRun: resource,
                 })
               }
               size="medium"

@@ -4,7 +4,7 @@ import { Grid, IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { PipelineKubeObject } from '../../../../k8s/groups/Tekton/Pipeline';
-import { useDialogContext } from '../../../../providers/NewDialog/hooks';
+import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { PipelineGraphDialog } from '../../../../widgets/dialogs/PipelineGraph';
 import { routePipelineDetails } from '../../../configuration/pages/pipeline-details/route';
 

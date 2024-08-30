@@ -1,0 +1,576 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageCDPipelineDialog renders ManageCDPipelineDialog Create component 1`] = `
+<div
+  class="MuiDialog-root MuiModal-root css-zw3mfo-MuiModal-root-MuiDialog-root"
+  data-testid="dialog"
+  role="presentation"
+>
+  <div
+    aria-hidden="true"
+    class="MuiBackdrop-root MuiModal-backdrop css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+  />
+  <div
+    data-testid="sentinelStart"
+    tabindex="0"
+  />
+  <div
+    class="MuiDialog-container MuiDialog-scrollPaper css-hz1bth-MuiDialog-container"
+    role="presentation"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+    tabindex="-1"
+  >
+    <div
+      aria-labelledby="mui-1"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth css-1ntld2w-MuiPaper-root-MuiDialog-paper"
+      role="dialog"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-8yphvn-MuiTypography-root-MuiDialogTitle-root"
+        id="mui-1"
+      >
+        <div
+          class="MuiStack-root css-1h9efsi-MuiStack-root"
+        >
+          <div
+            class="MuiStack-root css-1sazv7p-MuiStack-root"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-1pf3k2c-MuiTypography-root"
+            >
+              Create Deployment Flow
+               
+            </p>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
+              href="https://docs.kuberocketci.io/docs/user-guide/add-cd-pipeline#create-environment-using-ui"
+              target="_blank"
+            >
+              <span
+                class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+              >
+                Learn more.
+              </span>
+            </a>
+          </div>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
+            style="flex-shrink: 0;"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-icon MuiButton-startIcon MuiButton-iconSizeSmall css-y6rp3m-MuiButton-startIcon"
+            >
+              <span />
+            </span>
+            Edit YAML
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </h2>
+      <div
+        class="MuiDialogContent-root css-ypiqx9-MuiDialogContent-root"
+      >
+        <div
+          class="MuiStack-root css-1sazv7p-MuiStack-root"
+        >
+          <div
+            class="MuiBox-root css-15682vk"
+          >
+            <div
+              class="MuiStepper-root MuiStepper-horizontal css-m5vj9m-MuiStepper-root"
+            >
+              <div
+                class="MuiStep-root MuiStep-horizontal css-1bw0nnu-MuiStep-root"
+              >
+                <span
+                  class="MuiStepLabel-root MuiStepLabel-horizontal css-ascpo7-MuiStepLabel-root"
+                >
+                  <span
+                    class="MuiStepLabel-iconContainer Mui-active css-vnkopk-MuiStepLabel-iconContainer"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root Mui-active css-fhwscg-MuiSvgIcon-root-MuiStepIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="12"
+                      />
+                      <text
+                        class="MuiStepIcon-text css-1ftkp41-MuiStepIcon-text"
+                        dominant-baseline="central"
+                        text-anchor="middle"
+                        x="12"
+                        y="12"
+                      >
+                        1
+                      </text>
+                    </svg>
+                  </span>
+                  <span
+                    class="MuiStepLabel-labelContainer css-1vyamtt-MuiStepLabel-labelContainer"
+                  >
+                    <span
+                      class="MuiStepLabel-label Mui-active css-1tvu27n-MuiStepLabel-label"
+                    >
+                      Enter name
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="MuiStepConnector-root MuiStepConnector-horizontal Mui-disabled css-j5w0w9-MuiStepConnector-root"
+              >
+                <span
+                  class="MuiStepConnector-line MuiStepConnector-lineHorizontal css-z7uhs0-MuiStepConnector-line"
+                />
+              </div>
+              <div
+                class="MuiStep-root MuiStep-horizontal css-1bw0nnu-MuiStep-root"
+              >
+                <span
+                  class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+                >
+                  <span
+                    class="MuiStepLabel-iconContainer Mui-disabled css-vnkopk-MuiStepLabel-iconContainer"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root css-fhwscg-MuiSvgIcon-root-MuiStepIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="12"
+                      />
+                      <text
+                        class="MuiStepIcon-text css-1ftkp41-MuiStepIcon-text"
+                        dominant-baseline="central"
+                        text-anchor="middle"
+                        x="12"
+                        y="12"
+                      >
+                        2
+                      </text>
+                    </svg>
+                  </span>
+                  <span
+                    class="MuiStepLabel-labelContainer css-1vyamtt-MuiStepLabel-labelContainer"
+                  >
+                    <span
+                      class="MuiStepLabel-label Mui-disabled css-1tvu27n-MuiStepLabel-label"
+                    >
+                      Add applications
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiBox-root css-13tjpkz"
+          >
+            <div
+              aria-labelledby="simple-tab-0"
+              class="makeStyles-tabPanel-1"
+              id="simple-tabpanel-0"
+              role="tabpanel"
+            >
+              <div
+                class="MuiStack-root css-jfdv4h-MuiStack-root"
+              >
+                <div
+                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                >
+                  <div
+                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                  >
+                    <label
+                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
+                      data-shrink="false"
+                      for="mui-3"
+                      id="mui-3-label"
+                    >
+                      Pipeline name
+                    </label>
+                    <div
+                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
+                    >
+                      <input
+                        aria-invalid="false"
+                        class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                        id="mui-3"
+                        name="name"
+                        placeholder="Enter pipeline name"
+                        type="text"
+                        value=""
+                      />
+                      <span />
+                      <fieldset
+                        aria-hidden="true"
+                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                      >
+                        <legend
+                          class="css-yjsfm1"
+                        >
+                          <span>
+                            Pipeline name
+                          </span>
+                        </legend>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="simple-tab-1"
+              class="makeStyles-tabPanel-1"
+              hidden=""
+              id="simple-tabpanel-1"
+              role="tabpanel"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiDialogActions-root MuiDialogActions-spacing css-knqc4i-MuiDialogActions-root"
+      >
+        <div
+          class="MuiStack-root css-21szx1-MuiStack-root"
+        >
+          <div
+            class="MuiStack-root css-niqf4j-MuiStack-root"
+          >
+            <div
+              class="MuiBox-root css-1jolfkj"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                cancel
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+              disabled=""
+              tabindex="-1"
+              type="button"
+            >
+              undo changes
+            </button>
+          </div>
+          <div>
+            <div
+              aria-labelledby="simple-tab-0"
+              class="makeStyles-tabPanel-1"
+              id="simple-tabpanel-0"
+              role="tabpanel"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                next
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <div
+              aria-labelledby="simple-tab-1"
+              class="makeStyles-tabPanel-1"
+              hidden=""
+              id="simple-tabpanel-1"
+              role="tabpanel"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    data-testid="sentinelEnd"
+    tabindex="0"
+  />
+</div>
+`;
+
+exports[`ManageCDPipelineDialog renders ManageCDPipelineDialog Edit component 1`] = `
+<div
+  class="MuiDialog-root MuiModal-root css-zw3mfo-MuiModal-root-MuiDialog-root"
+  data-testid="dialog"
+  role="presentation"
+>
+  <div
+    aria-hidden="true"
+    class="MuiBackdrop-root MuiModal-backdrop css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+  />
+  <div
+    data-testid="sentinelStart"
+    tabindex="0"
+  />
+  <div
+    class="MuiDialog-container MuiDialog-scrollPaper css-hz1bth-MuiDialog-container"
+    role="presentation"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+    tabindex="-1"
+  >
+    <div
+      aria-labelledby="mui-4"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth css-1ntld2w-MuiPaper-root-MuiDialog-paper"
+      role="dialog"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-8yphvn-MuiTypography-root-MuiDialogTitle-root"
+        id="mui-4"
+      >
+        <div
+          class="MuiStack-root css-1h9efsi-MuiStack-root"
+        >
+          <div
+            class="MuiStack-root css-1sazv7p-MuiStack-root"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-1pf3k2c-MuiTypography-root"
+            >
+              Edit test-cdpipeline
+               
+            </p>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
+              href="https://docs.kuberocketci.io/docs/user-guide/manage-environments#edit-existing-environment"
+              target="_blank"
+            >
+              <span
+                class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+              >
+                Learn more.
+              </span>
+            </a>
+          </div>
+        </div>
+      </h2>
+      <div
+        class="MuiDialogContent-root css-ypiqx9-MuiDialogContent-root"
+      >
+        <div
+          class="MuiStack-root css-v2woy3-MuiStack-root"
+        >
+          <div
+            class="MuiStack-root css-jfdv4h-MuiStack-root"
+          >
+            <div
+              class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+            >
+              <div
+                class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon css-clttge-MuiAutocomplete-root"
+                name="applicationsToAddChooser"
+              >
+                <div
+                  class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+                  style="margin-top: 0px;"
+                >
+                  <label
+                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-njj7m9-MuiFormLabel-root-MuiInputLabel-root"
+                    data-shrink="true"
+                    for="mui-7"
+                    id="mui-7-label"
+                  >
+                    Applications
+                  </label>
+                  <div
+                    class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedStart MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-1fnx1rt-MuiInputBase-root-MuiInput-root"
+                  >
+                    <div
+                      class="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeSmall MuiChip-colorPrimary MuiChip-deletable MuiChip-deletableColorPrimary MuiChip-filledPrimary MuiAutocomplete-tag MuiAutocomplete-tagSizeMedium css-1wwkvww-MuiButtonBase-root-MuiChip-root"
+                      data-tag-index="0"
+                      role="button"
+                      tabindex="-1"
+                    >
+                      <span
+                        class="MuiChip-label MuiChip-labelSmall css-wjsjww-MuiChip-label"
+                      >
+                        test-application-1
+                      </span>
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiChip-deleteIcon MuiChip-deleteIconSmall MuiChip-deleteIconColorPrimary MuiChip-deleteIconFilledColorPrimary css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CancelIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="MuiButtonBase-root MuiChip-root MuiChip-filled MuiChip-sizeSmall MuiChip-colorPrimary MuiChip-deletable MuiChip-deletableColorPrimary MuiChip-filledPrimary MuiAutocomplete-tag MuiAutocomplete-tagSizeMedium css-1wwkvww-MuiButtonBase-root-MuiChip-root"
+                      data-tag-index="1"
+                      role="button"
+                      tabindex="-1"
+                    >
+                      <span
+                        class="MuiChip-label MuiChip-labelSmall css-wjsjww-MuiChip-label"
+                      >
+                        test-application-2
+                      </span>
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiChip-deleteIcon MuiChip-deleteIconSmall MuiChip-deleteIconColorPrimary MuiChip-deleteIconFilledColorPrimary css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CancelIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+                        />
+                      </svg>
+                    </div>
+                    <input
+                      aria-autocomplete="both"
+                      aria-expanded="false"
+                      aria-invalid="false"
+                      autocapitalize="none"
+                      autocomplete="off"
+                      class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                      id="mui-7"
+                      placeholder="Select applications"
+                      role="combobox"
+                      spellcheck="false"
+                      type="text"
+                      value=""
+                    />
+                    <div
+                      class="MuiStack-root css-1iec9nd-MuiStack-root"
+                    >
+                      <div
+                        class="MuiAutocomplete-endAdornment css-p1olib-MuiAutocomplete-endAdornment"
+                      >
+                        <button
+                          aria-label="Clear"
+                          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-clearIndicator css-1glvl0p-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-clearIndicator"
+                          tabindex="-1"
+                          title="Clear"
+                          type="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+                            data-testid="CloseIcon"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                            />
+                          </svg>
+                          <span
+                            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                          />
+                        </button>
+                        <button
+                          aria-label="Open"
+                          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-popupIndicator css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator"
+                          tabindex="-1"
+                          title="Open"
+                          type="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                            data-testid="ArrowDropDownIcon"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M7 10l5 5 5-5z"
+                            />
+                          </svg>
+                          <span
+                            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                          />
+                        </button>
+                      </div>
+                      <span />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiDialogActions-root MuiDialogActions-spacing css-knqc4i-MuiDialogActions-root"
+      >
+        <div
+          class="MuiStack-root css-21szx1-MuiStack-root"
+        >
+          <div
+            class="MuiStack-root css-niqf4j-MuiStack-root"
+          >
+            <div
+              class="MuiBox-root css-1jolfkj"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                cancel
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+              disabled=""
+              tabindex="-1"
+              type="button"
+            >
+              undo changes
+            </button>
+          </div>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            apply
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    data-testid="sentinelEnd"
+    tabindex="0"
+  />
+</div>
+`;
