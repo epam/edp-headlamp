@@ -1,6 +1,6 @@
 import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from '../../../k8s/groups/EDP/CodebaseBranch/labels';
 import { BackwardNameMapping } from '../../../types/forms';
-import { CONFIGURATION_STEPS } from '../../CreateEditCodebase/constants';
+import { CONFIGURATION_STEPS } from '../../dialogs/ManageCodebase/constants';
 
 const NAMES = {
   NAME: 'name',

@@ -1,4 +1,4 @@
-import { QUICK_LINK_FORM_NAMES } from '../../../../../../widgets/ManageQuickLink/names';
+import { QUICK_LINK_FORM_NAMES } from '../../../../../../widgets/dialogs/ManageQuickLink/names';
 import { createQuickLinkInstance } from './index';
 
 describe('testing createQuickLinkInstance', () => {

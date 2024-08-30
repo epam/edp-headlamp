@@ -1,0 +1,1 @@
+export const DIALOG_NAME = 'PIPELINE_RUN_GRAPH_DIALOG';

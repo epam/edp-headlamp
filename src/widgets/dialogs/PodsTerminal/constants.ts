@@ -1,0 +1,1 @@
+export const DIALOG_NAME = 'PODS_TERMINAL_DIALOG';

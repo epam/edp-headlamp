@@ -3,8 +3,7 @@ import { IconButton, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
-import { FORM_MODES } from '../../../../../../types/forms';
-import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../../../../../widgets/ManageQuickLink/constants';
+import { ManageQuickLinkDialog } from '../../../../../../widgets/dialogs/ManageQuickLink';
 import { usePermissionsContext } from '../../../../providers/Permissions/hooks';
 import { useStyles } from './styles';
 
@@ -17,14 +16,7 @@ export const AddNewQuickLinkCard = () => {
   return (
     <IconButton
       className={classes.cardRoot}
-      onClick={() =>
-        setDialog({
-          modalName: MANAGE_QUICK_LINK_DIALOG_NAME,
-          forwardedProps: {
-            mode: FORM_MODES.CREATE,
-          },
-        })
-      }
+      onClick={() => setDialog(ManageQuickLinkDialog, { quickLink: null })}
       disabled={!permissions.create}
     >
       <Stack direction="row" spacing={2} alignItems="center">

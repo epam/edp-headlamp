@@ -41,8 +41,8 @@ import {
 import { useQuickLinksURLsQuery } from '../../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../../../services/link-creation';
-import { PODS_LOG_VIEWER_DIALOG_NAME } from '../../../../../widgets/PodsLogViewer/constants';
-import { PODS_TERMINAL_DIALOG_NAME } from '../../../../../widgets/PodsTerminal/constants';
+import { PodsLogViewerDialog } from '../../../../../widgets/dialogs/PodsLogViewer';
+import { PodsTerminalDialog } from '../../../../../widgets/dialogs/PodsTerminal';
 import { routeComponentDetails } from '../../../../component-details/route';
 import { APPLICATIONS_TABLE_MODE } from '../../../constants';
 import { useDataContext } from '../../../providers/Data/hooks';
@@ -215,12 +215,9 @@ export const useColumns = ({
             <Tooltip title={'Show Logs'}>
               <IconButton
                 onClick={() =>
-                  setDialog({
-                    modalName: PODS_LOG_VIEWER_DIALOG_NAME,
-                    forwardedProps: {
-                      stageNamespace: stage?.spec.namespace,
-                      appName: enrichedApplicationWithArgoApplication?.application?.metadata.name,
-                    },
+                  setDialog(PodsLogViewerDialog, {
+                    stageNamespace: stage?.spec.namespace,
+                    appName: enrichedApplicationWithArgoApplication?.application?.metadata.name,
                   })
                 }
                 disabled={disabled}
@@ -237,12 +234,9 @@ export const useColumns = ({
             <Tooltip title={'Show Terminal'}>
               <IconButton
                 onClick={() =>
-                  setDialog({
-                    modalName: PODS_TERMINAL_DIALOG_NAME,
-                    forwardedProps: {
-                      stageNamespace: stage?.spec.namespace,
-                      appName: enrichedApplicationWithArgoApplication?.application?.metadata.name,
-                    },
+                  setDialog(PodsTerminalDialog, {
+                    stageNamespace: stage?.spec.namespace,
+                    appName: enrichedApplicationWithArgoApplication?.application?.metadata.name,
                   })
                 }
                 disabled={disabled}

@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
-import { CodebaseBranchActionsMenu } from '../../../../../../../../widgets/CodebaseBranchActions';
+import { CodebaseBranchActionsMenu } from '../../../../../../../../widgets/CodebaseBranchActionsMenu';
 import { usePermissionsContext } from '../../../../../../providers/Permissions/hooks';
 import { ActionsProps } from './types';
 

@@ -4,7 +4,7 @@ import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
-import { useDialogContext } from '../../../../providers/NewDialog/hooks';
+import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { DeleteKubeObjectDialog } from '../../../dialogs/DeleteKubeObject';
 import { useFormsContext } from '../../hooks/useFormsContext';

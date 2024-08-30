@@ -9,7 +9,7 @@ import { TemplateKubeObjectInterface } from '../../../../k8s/groups/EDP/Template
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { useViewModeContext } from '../../../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../../../providers/ViewMode/types';
-import { CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME } from '../../../../widgets/CreateCodebaseFromTemplate/constants';
+import { CreateCodebaseFromTemplateDialog } from '../../../../widgets/dialogs/CreateCodebaseFromTemplate';
 import { usePermissionsContext } from '../../providers/Permissions/hooks';
 import { TemplateCard } from './components/TemplateCard';
 import { TemplatesTable } from './components/TemplatesTable';
@@ -23,11 +23,8 @@ export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProp
   const handleTemplateClick = React.useCallback(
     (template: TemplateKubeObjectInterface) => {
       if (template) {
-        setDialog({
-          modalName: CREATE_CODEBASE_FROM_TEMPLATE_DIALOG_NAME,
-          forwardedProps: {
-            template,
-          },
+        setDialog(CreateCodebaseFromTemplateDialog, {
+          template,
         });
       }
     },

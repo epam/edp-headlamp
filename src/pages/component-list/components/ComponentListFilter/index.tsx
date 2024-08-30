@@ -9,9 +9,7 @@ import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../../../providers/Filter/components/Filter/components/SearchControl';
-import { FORM_MODES } from '../../../../types/forms';
-import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../widgets/CreateEditCodebase/constants';
-import { CreateEditCodebaseDialogForwardedProps } from '../../../../widgets/CreateEditCodebase/types';
+import { ManageCodebaseDialog } from '../../../../widgets/dialogs/ManageCodebase';
 import { FILTER_CONTROLS } from '../../constants';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
 import { usePermissionsContext } from '../../providers/Permissions/hooks';
@@ -19,9 +17,6 @@ import { PageFilterExtraControls } from '../../types';
 import { ComponentListFilterProps } from './types';
 
 export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) => {
-  const createEditCodebaseDialogForwardedProps: CreateEditCodebaseDialogForwardedProps =
-    React.useMemo(() => ({ mode: FORM_MODES.CREATE }), []);
-
   const { setFilterItem } = usePageFilterContext();
 
   const { setDialog } = useDialogContext();
@@ -76,11 +71,7 @@ export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) 
             color: 'primary',
             variant: 'contained',
             disabled: noGitServers,
-            onClick: () =>
-              setDialog({
-                modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-                forwardedProps: createEditCodebaseDialogForwardedProps,
-              }),
+            onClick: () => setDialog(ManageCodebaseDialog, { codebaseData: null }),
           }}
           text="You do not have permission to create Codebase"
           allowed={codebasePermissions.create}

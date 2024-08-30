@@ -8,8 +8,7 @@ import { Resources } from '../../../../icons/sprites/Resources';
 import { CodebaseKubeObject } from '../../../../k8s/groups/EDP/Codebase';
 import { CodebaseKubeObjectInterface } from '../../../../k8s/groups/EDP/Codebase/types';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
-import { FORM_MODES } from '../../../../types/forms';
-import { CREATE_EDIT_CODEBASE_DIALOG_NAME } from '../../../../widgets/CreateEditCodebase/constants';
+import { ManageCodebaseDialog } from '../../../../widgets/dialogs/ManageCodebase';
 import { routeGitServerList } from '../../../configuration/pages/gitservers/route';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
 import { usePermissionsContext } from '../../providers/Permissions/hooks';
@@ -111,12 +110,7 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
         customText={"Let's kickstart the application onboarding!"}
         linkText={'Click here to add a new application and integrate with the platform.'}
         handleClick={() => {
-          setDialog({
-            modalName: CREATE_EDIT_CODEBASE_DIALOG_NAME,
-            forwardedProps: {
-              mode: FORM_MODES.CREATE,
-            },
-          });
+          setDialog(ManageCodebaseDialog, { codebaseData: null });
         }}
       />
     );

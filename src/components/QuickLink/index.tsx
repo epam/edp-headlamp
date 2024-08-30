@@ -1,9 +1,9 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Grid, Link as MuiLink } from '@mui/material';
 import React from 'react';
+import { SYSTEM_QUICK_LINKS } from '../../k8s/groups/EDP/QuickLink/constants';
 import { useDialogContext } from '../../providers/Dialog/hooks';
-import { FORM_MODES } from '../../types/forms';
-import { MANAGE_QUICK_LINK_DIALOG_NAME } from '../../widgets/ManageQuickLink/constants';
+import { ManageQuickLinkDialog } from '../../widgets/dialogs/ManageQuickLink';
 import { ResourceIconLink } from '../ResourceIconLink';
 import { QuickLinkExternalLinkProps } from './types';
 
@@ -42,12 +42,9 @@ export const QuickLink = ({
               <MuiLink
                 component="button"
                 onClick={() =>
-                  setDialog({
-                    modalName: MANAGE_QUICK_LINK_DIALOG_NAME,
-                    forwardedProps: {
-                      QuickLink: QuickLinkComponent,
-                      mode: FORM_MODES.EDIT,
-                    },
+                  setDialog(ManageQuickLinkDialog, {
+                    quickLink: QuickLinkComponent,
+                    isSystem: Object.hasOwn(SYSTEM_QUICK_LINKS, QuickLinkComponent?.metadata.name),
                   })
                 }
               >

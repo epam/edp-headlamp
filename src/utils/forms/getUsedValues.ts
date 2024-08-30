@@ -8,7 +8,7 @@ export const getUsedValues = (values: FieldValues, names: { [key: string]: FormN
     const nameObject = names?.[key];
     const isUsedInResourceCreation = nameObject && Object.hasOwn(nameObject, 'path');
 
-    if (value === '' || value === null || !nameObject || !isUsedInResourceCreation) {
+    if (value === null || !nameObject || !isUsedInResourceCreation) {
       continue;
     }
 

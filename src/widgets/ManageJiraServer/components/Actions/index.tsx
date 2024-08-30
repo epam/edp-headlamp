@@ -4,7 +4,7 @@ import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
-import { CONFIRM_RESOURCES_UPDATES_DIALOG_NAME } from '../../../ConfirmResourcesUpdates/constants';
+import { ConfirmResourcesUpdatesDialog } from '../../../dialogs/ConfirmResourcesUpdates';
 import { useFormsContext } from '../../hooks/useFormsContext';
 import { useResetIntegration } from '../../hooks/useResetIntegration';
 import { useDataContext } from '../../providers/Data/hooks';
@@ -37,14 +37,12 @@ export const Actions = ({ handleCloseCreateDialog }) => {
               color="primary"
               style={{ pointerEvents: 'auto' }}
               onClick={() => {
-                setDialog({
-                  modalName: CONFIRM_RESOURCES_UPDATES_DIALOG_NAME,
-                  forwardedProps: {
-                    deleteCallback: () => {
-                      resetJiraIntegration({ jiraServer, jiraServerSecret: secret });
-                    },
-                    text: 'Are you sure you want to reset the integration?',
+                setDialog(ConfirmResourcesUpdatesDialog, {
+                  deleteCallback: () => {
+                    resetJiraIntegration({ jiraServer, jiraServerSecret: secret });
                   },
+                  text: 'Are you sure you want to reset the integration?',
+                  resourcesArray: [],
                 });
               }}
               startIcon={<Icon icon={ICONS.WARNING} />}

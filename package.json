@@ -21,7 +21,7 @@
     "storybook": "headlamp-plugin storybook",
     "storybook-build": "headlamp-plugin storybook-build"
   },
-  "prettier": "./.prettierrc.js",
+  "prettier": "./.prettierrc",
   "eslintConfig": {
     "extends": [
       "@kinvolk",

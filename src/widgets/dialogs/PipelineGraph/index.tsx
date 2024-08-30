@@ -6,10 +6,10 @@ import { PipelineGraph } from '../../PipelineGraph';
 import { PIPELINE_GRAPH_DIALOG_NAME } from './constants';
 import { PipelineGraphDialogProps } from './types';
 
-export const PipelineGraphDialog = ({
+export const PipelineGraphDialog: React.FC<PipelineGraphDialogProps> = ({
   props: { pipeline },
   state: { closeDialog, open },
-}: PipelineGraphDialogProps) => {
+}) => {
   return (
     <Dialog open={open} fullWidth onClose={() => closeDialog()} maxWidth={'xl'}>
       <DialogTitle>

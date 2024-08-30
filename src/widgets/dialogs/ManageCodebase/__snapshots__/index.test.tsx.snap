@@ -1,0 +1,832 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManageCodebaseDialog renders ManageCodebaseDialog Create component 1`] = `
+<div
+  class="MuiDialog-root MuiModal-root css-zw3mfo-MuiModal-root-MuiDialog-root"
+  data-testid="dialog"
+  role="presentation"
+>
+  <div
+    aria-hidden="true"
+    class="MuiBackdrop-root MuiModal-backdrop css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+  />
+  <div
+    data-testid="sentinelStart"
+    tabindex="0"
+  />
+  <div
+    class="MuiDialog-container MuiDialog-scrollPaper css-hz1bth-MuiDialog-container"
+    role="presentation"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+    tabindex="-1"
+  >
+    <div
+      aria-labelledby="mui-1"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-1wv64i4-MuiPaper-root-MuiDialog-paper"
+      role="dialog"
+    >
+      <div
+        aria-labelledby="simple-tab-SELECTION"
+        class="makeStyles-tabPanel-1"
+        id="simple-tabpanel-SELECTION"
+        role="tabpanel"
+      >
+        <h2
+          class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-8yphvn-MuiTypography-root-MuiDialogTitle-root"
+          id="mui-1"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-1pf3k2c-MuiTypography-root"
+          >
+            Create new component
+          </p>
+        </h2>
+        <div
+          class="MuiDialogContent-root css-ypiqx9-MuiDialogContent-root"
+        >
+          <div
+            class="MuiStack-root css-1sazv7p-MuiStack-root"
+          >
+            <div
+              class="MuiBox-root css-15682vk"
+            >
+              <div
+                class="MuiStepper-root MuiStepper-horizontal css-m5vj9m-MuiStepper-root"
+              >
+                <div
+                  class="MuiStep-root MuiStep-horizontal css-1bw0nnu-MuiStep-root"
+                >
+                  <span
+                    class="MuiStepLabel-root MuiStepLabel-horizontal css-ascpo7-MuiStepLabel-root"
+                  >
+                    <span
+                      class="MuiStepLabel-iconContainer Mui-active css-vnkopk-MuiStepLabel-iconContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root Mui-active css-fhwscg-MuiSvgIcon-root-MuiStepIcon-root"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="12"
+                        />
+                        <text
+                          class="MuiStepIcon-text css-1ftkp41-MuiStepIcon-text"
+                          dominant-baseline="central"
+                          text-anchor="middle"
+                          x="12"
+                          y="12"
+                        >
+                          1
+                        </text>
+                      </svg>
+                    </span>
+                    <span
+                      class="MuiStepLabel-labelContainer css-1vyamtt-MuiStepLabel-labelContainer"
+                    >
+                      <span
+                        class="MuiStepLabel-label Mui-active css-1tvu27n-MuiStepLabel-label"
+                      >
+                        Select component
+                      </span>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="MuiStepConnector-root MuiStepConnector-horizontal Mui-disabled css-j5w0w9-MuiStepConnector-root"
+                >
+                  <span
+                    class="MuiStepConnector-line MuiStepConnector-lineHorizontal css-z7uhs0-MuiStepConnector-line"
+                  />
+                </div>
+                <div
+                  class="MuiStep-root MuiStep-horizontal css-1bw0nnu-MuiStep-root"
+                >
+                  <span
+                    class="MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+                  >
+                    <span
+                      class="MuiStepLabel-iconContainer Mui-disabled css-vnkopk-MuiStepLabel-iconContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiStepIcon-root css-fhwscg-MuiSvgIcon-root-MuiStepIcon-root"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="12"
+                        />
+                        <text
+                          class="MuiStepIcon-text css-1ftkp41-MuiStepIcon-text"
+                          dominant-baseline="central"
+                          text-anchor="middle"
+                          x="12"
+                          y="12"
+                        >
+                          2
+                        </text>
+                      </svg>
+                    </span>
+                    <span
+                      class="MuiStepLabel-labelContainer css-1vyamtt-MuiStepLabel-labelContainer"
+                    >
+                      <span
+                        class="MuiStepLabel-label Mui-disabled css-1tvu27n-MuiStepLabel-label"
+                      >
+                        Select strategy
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiBox-root css-13tjpkz"
+            >
+              <div
+                aria-labelledby="simple-tab-0"
+                class="makeStyles-tabPanel-1"
+                id="simple-tabpanel-0"
+                role="tabpanel"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                  >
+                    <div
+                      class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
+                      style="width: 100%;"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+                        >
+                          <div
+                            class="MuiFormGroup-root MuiFormGroup-row MuiRadioGroup-root MuiRadioGroup-row makeStyles-radioGroup-2 css-qfz70r-MuiFormGroup-root"
+                            role="radiogroup"
+                          >
+                            <div
+                              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+                            >
+                              <div
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
+                              >
+                                <button
+                                  class="MuiButtonBase-root makeStyles-radioControlButton-3 css-10d1a0h-MuiButtonBase-root"
+                                  tabindex="0"
+                                  type="button"
+                                >
+                                  <label
+                                    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-5 css-j204z7-MuiFormControlLabel-root"
+                                  >
+                                    <span
+                                      class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input css-1m9pwf3"
+                                        name="type"
+                                        type="radio"
+                                        value="infrastructure"
+                                      />
+                                      <div
+                                        class="MuiStack-root css-13tomfg-MuiStack-root"
+                                      >
+                                        <span />
+                                        <div
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
+                                        >
+                                          Infrastructure
+                                        </div>
+                                      </div>
+                                    </span>
+                                    <span
+                                      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
+                                    >
+                                      <span
+                                        class="MuiStack-root css-1x33toh-MuiStack-root"
+                                        style="height: auto;"
+                                      >
+                                        <div
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
+                                        >
+                                          Deploys and manages the infrastructure components in cloud environments using Infrastructure as Code (IaC) approach. Manage, Version and Promote your IaC environments here.
+                                        </div>
+                                      </span>
+                                    </span>
+                                  </label>
+                                  <span
+                                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                  />
+                                </button>
+                              </div>
+                              <div
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
+                              >
+                                <button
+                                  class="MuiButtonBase-root makeStyles-radioControlButton-3 css-10d1a0h-MuiButtonBase-root"
+                                  tabindex="0"
+                                  type="button"
+                                >
+                                  <label
+                                    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-5 css-j204z7-MuiFormControlLabel-root"
+                                  >
+                                    <span
+                                      class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input css-1m9pwf3"
+                                        name="type"
+                                        type="radio"
+                                        value="application"
+                                      />
+                                      <div
+                                        class="MuiStack-root css-13tomfg-MuiStack-root"
+                                      >
+                                        <span />
+                                        <div
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
+                                        >
+                                          Application
+                                        </div>
+                                      </div>
+                                    </span>
+                                    <span
+                                      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
+                                    >
+                                      <span
+                                        class="MuiStack-root css-1x33toh-MuiStack-root"
+                                        style="height: auto;"
+                                      >
+                                        <div
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
+                                        >
+                                          Deploys services and includes configuration files, deployment scripts, and other resources needed to create and manage the application's infrastructure.
+                                        </div>
+                                      </span>
+                                    </span>
+                                  </label>
+                                  <span
+                                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                  />
+                                </button>
+                              </div>
+                              <div
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
+                              >
+                                <button
+                                  class="MuiButtonBase-root makeStyles-radioControlButton-3 css-10d1a0h-MuiButtonBase-root"
+                                  tabindex="0"
+                                  type="button"
+                                >
+                                  <label
+                                    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-5 css-j204z7-MuiFormControlLabel-root"
+                                  >
+                                    <span
+                                      class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input css-1m9pwf3"
+                                        name="type"
+                                        type="radio"
+                                        value="library"
+                                      />
+                                      <div
+                                        class="MuiStack-root css-13tomfg-MuiStack-root"
+                                      >
+                                        <span />
+                                        <div
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
+                                        >
+                                          Library
+                                        </div>
+                                      </div>
+                                    </span>
+                                    <span
+                                      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
+                                    >
+                                      <span
+                                        class="MuiStack-root css-1x33toh-MuiStack-root"
+                                        style="height: auto;"
+                                      >
+                                        <div
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
+                                        >
+                                          Provides reusable code that can be incorporated into services. It includes additional functions, modules that might be shared across services.
+                                        </div>
+                                      </span>
+                                    </span>
+                                  </label>
+                                  <span
+                                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                  />
+                                </button>
+                              </div>
+                              <div
+                                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
+                              >
+                                <button
+                                  class="MuiButtonBase-root makeStyles-radioControlButton-3 css-10d1a0h-MuiButtonBase-root"
+                                  tabindex="0"
+                                  type="button"
+                                >
+                                  <label
+                                    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-5 css-j204z7-MuiFormControlLabel-root"
+                                  >
+                                    <span
+                                      class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
+                                    >
+                                      <input
+                                        class="PrivateSwitchBase-input css-1m9pwf3"
+                                        name="type"
+                                        type="radio"
+                                        value="autotest"
+                                      />
+                                      <div
+                                        class="MuiStack-root css-13tomfg-MuiStack-root"
+                                      >
+                                        <span />
+                                        <div
+                                          class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft css-pz2823-MuiTypography-root"
+                                        >
+                                          Autotest
+                                        </div>
+                                      </div>
+                                    </span>
+                                    <span
+                                      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
+                                    >
+                                      <span
+                                        class="MuiStack-root css-1x33toh-MuiStack-root"
+                                        style="height: auto;"
+                                      >
+                                        <div
+                                          class="MuiTypography-root MuiTypography-caption MuiTypography-alignLeft css-t7w1x-MuiTypography-root"
+                                        >
+                                          Onboard and start defining Quality Gate for deployment pipelines here.
+                                        </div>
+                                      </span>
+                                    </span>
+                                  </label>
+                                  <span
+                                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                  />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-labelledby="simple-tab-1"
+                class="makeStyles-tabPanel-1"
+                hidden=""
+                id="simple-tabpanel-1"
+                role="tabpanel"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiDialogActions-root MuiDialogActions-spacing css-knqc4i-MuiDialogActions-root"
+        >
+          <div
+            class="MuiStack-root css-21szx1-MuiStack-root"
+          >
+            <div
+              class="MuiBox-root css-1jolfkj"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                cancel
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <div>
+              <div
+                aria-labelledby="simple-tab-0"
+                class="makeStyles-tabPanel-1"
+                id="simple-tabpanel-0"
+                role="tabpanel"
+              >
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
+                  disabled=""
+                  tabindex="-1"
+                  type="button"
+                >
+                  next
+                </button>
+              </div>
+              <div
+                aria-labelledby="simple-tab-1"
+                class="makeStyles-tabPanel-1"
+                hidden=""
+                id="simple-tabpanel-1"
+                role="tabpanel"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        aria-labelledby="simple-tab-CONFIGURATION"
+        class="makeStyles-tabPanel-1"
+        hidden=""
+        id="simple-tabpanel-CONFIGURATION"
+        role="tabpanel"
+      />
+    </div>
+  </div>
+  <div
+    data-testid="sentinelEnd"
+    tabindex="0"
+  />
+</div>
+`;
+
+exports[`ManageCodebaseDialog renders ManageCodebaseDialog Edit component 1`] = `
+<div
+  class="MuiDialog-root MuiModal-root css-zw3mfo-MuiModal-root-MuiDialog-root"
+  data-testid="dialog"
+  role="presentation"
+>
+  <div
+    aria-hidden="true"
+    class="MuiBackdrop-root MuiModal-backdrop css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+  />
+  <div
+    data-testid="sentinelStart"
+    tabindex="0"
+  />
+  <div
+    class="MuiDialog-container MuiDialog-scrollPaper css-hz1bth-MuiDialog-container"
+    role="presentation"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+    tabindex="-1"
+  >
+    <div
+      aria-labelledby="mui-2"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-1wv64i4-MuiPaper-root-MuiDialog-paper"
+      role="dialog"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-8yphvn-MuiTypography-root-MuiDialogTitle-root"
+        id="mui-2"
+      >
+        <div
+          class="MuiStack-root css-1h9efsi-MuiStack-root"
+        >
+          <div
+            class="MuiStack-root css-1sazv7p-MuiStack-root"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-1pf3k2c-MuiTypography-root"
+            >
+              Edit test-codebase-name
+            </p>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
+              href="https://docs.kuberocketci.io/docs/user-guide/add-application"
+              target="_blank"
+            >
+              <span
+                class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+              >
+                Learn more.
+              </span>
+            </a>
+          </div>
+        </div>
+      </h2>
+      <div
+        class="MuiDialogContent-root css-ypiqx9-MuiDialogContent-root"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-a5rdam-MuiGrid-root"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+          >
+            <div
+              class="MuiStack-root css-jfdv4h-MuiStack-root"
+            >
+              <div
+                class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+              >
+                <div
+                  class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                >
+                  <label
+                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
+                    data-shrink="false"
+                    for="mui-4"
+                    id="mui-4-label"
+                  >
+                    Specify the pattern to validate a commit message
+                  </label>
+                  <div
+                    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
+                  >
+                    <input
+                      aria-invalid="false"
+                      class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                      id="mui-4"
+                      name="commitMessagePattern"
+                      placeholder="^\\[PROJECT_NAME-\\d{4}\\]:.*"
+                      type="text"
+                      value=""
+                    />
+                    <span />
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-yjsfm1"
+                      >
+                        <span>
+                          Specify the pattern to validate a commit message
+                        </span>
+                      </legend>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                  >
+                    <div
+                      class="MuiStack-root css-jfdv4h-MuiStack-root"
+                    >
+                      <div
+                        class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                      >
+                        <label
+                          class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
+                          style="margin: 0px;"
+                        >
+                          <span
+                            class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-1pkws1h-MuiButtonBase-root-MuiCheckbox-root"
+                          >
+                            <input
+                              class="PrivateSwitchBase-input css-1m9pwf3"
+                              data-indeterminate="false"
+                              name="hasJiraServerIntegration"
+                              type="checkbox"
+                              value="false"
+                            />
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                              data-testid="CheckBoxOutlineBlankIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                              />
+                            </svg>
+                            <span
+                              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                            />
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1ezega9-MuiTypography-root"
+                          >
+                            <span
+                              style="display: inline-block; margin-top: 0.125rem;"
+                            >
+                              <span
+                                class="makeStyles-labelWrap-10"
+                              >
+                                <span
+                                  class="MuiTypography-root MuiTypography-body1 makeStyles-label-11 css-1ezega9-MuiTypography-root"
+                                >
+                                  Integrate with Jira server
+                                </span>
+                                <div
+                                  class="MuiBox-root css-0"
+                                  style="height: 1.25rem;"
+                                />
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                     
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                  >
+                    <a
+                      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-9d13eh-MuiTypography-root-MuiLink-root"
+                      href="https://docs.kuberocketci.io/docs/operator-guide/project-management-and-reporting/jira-integration"
+                      target="_blank"
+                    >
+                      <span
+                        class="MuiTypography-root MuiTypography-body2 css-ab4e19-MuiTypography-root"
+                      >
+                        Learn more.
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-mhc70k-MuiGrid-root"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+              >
+                <div
+                  class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-colorInfo MuiAlert-outlinedInfo MuiAlert-outlined css-9zueo3-MuiPaper-root-MuiAlert-root"
+                  role="alert"
+                >
+                  <div
+                    class="MuiAlert-icon css-1ytlwq5-MuiAlert-icon"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+                      data-testid="InfoOutlinedIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="MuiAlert-message css-1pxa9xg-MuiAlert-message"
+                  >
+                    There is no Codemie or CodemieProject available
+                  </div>
+                </div>
+              </div>
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 css-7ldjcq-MuiGrid-root"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                  >
+                    <div
+                      class="MuiStack-root css-jfdv4h-MuiStack-root"
+                    >
+                      <div
+                        class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                      >
+                        <label
+                          class="MuiFormControlLabel-root Mui-disabled MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
+                          style="margin: 0px;"
+                        >
+                          <span
+                            aria-disabled="true"
+                            class="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-disabled PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium Mui-disabled MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-sizeMedium css-1pkws1h-MuiButtonBase-root-MuiCheckbox-root"
+                            tabindex="-1"
+                          >
+                            <input
+                              class="PrivateSwitchBase-input css-1m9pwf3"
+                              data-indeterminate="false"
+                              disabled=""
+                              name="hasCodemieIntegration"
+                              type="checkbox"
+                              value="false"
+                            />
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                              data-testid="CheckBoxOutlineBlankIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                              />
+                            </svg>
+                          </span>
+                          <span
+                            class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label Mui-disabled css-1ezega9-MuiTypography-root"
+                          >
+                            <span
+                              style="display: inline-block; margin-top: 0.125rem;"
+                            >
+                              <span
+                                class="makeStyles-labelWrap-12"
+                              >
+                                <span
+                                  class="MuiTypography-root MuiTypography-body1 makeStyles-label-13 css-1ezega9-MuiTypography-root"
+                                >
+                                  Integrate with Codemie
+                                </span>
+                                <div
+                                  class="MuiBox-root css-0"
+                                  style="height: 1.25rem;"
+                                />
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiDialogActions-root MuiDialogActions-spacing css-knqc4i-MuiDialogActions-root"
+      >
+        <div
+          class="MuiStack-root css-21szx1-MuiStack-root"
+        >
+          <div
+            class="MuiStack-root css-niqf4j-MuiStack-root"
+          >
+            <div
+              class="MuiBox-root css-1jolfkj"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
+                tabindex="0"
+                type="button"
+              >
+                cancel
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+              disabled=""
+              tabindex="-1"
+              type="button"
+            >
+              undo changes
+            </button>
+          </div>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-vw8gqz-MuiButtonBase-root-MuiButton-root"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            apply
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    data-testid="sentinelEnd"
+    tabindex="0"
+  />
+</div>
+`;

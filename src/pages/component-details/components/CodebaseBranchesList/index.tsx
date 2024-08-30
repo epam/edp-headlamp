@@ -6,7 +6,7 @@ import { Section } from '../../../../components/Section';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { CodebaseBranchKubeObject } from '../../../../k8s/groups/EDP/CodebaseBranch';
 import { CodebaseBranchKubeObjectInterface } from '../../../../k8s/groups/EDP/CodebaseBranch/types';
-import { useDialogContext } from '../../../../providers/NewDialog/hooks';
+import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { ManageCodebaseBranchDialog } from '../../../../widgets/dialogs/ManageCodebaseBranch';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { CodebaseBranch } from './components/CodebaseBranch';

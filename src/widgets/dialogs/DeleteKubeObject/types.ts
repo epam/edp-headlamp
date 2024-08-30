@@ -1,6 +1,6 @@
 import { KubeObject } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
-import { DialogProps } from '../../../providers/NewDialog/context';
+import { DialogProps } from '../../../providers/Dialog/types';
 import { EDPKubeObjectInterface } from '../../../types/k8s';
 
 export interface DeleteKubeObjectDialogProps
