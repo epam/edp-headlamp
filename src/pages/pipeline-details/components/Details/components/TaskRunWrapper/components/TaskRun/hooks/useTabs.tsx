@@ -1,7 +1,7 @@
 import { NameValueTable } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import React from 'react';
-import { ViewYAML } from '../../../../../../../components/Editor';
-import { TabContent } from '../../TabContent';
+import { ViewYAML } from '../../../../../../../../../components/Editor';
+import { TabContent } from '../../../../TabContent';
 
 export const useTabs = ({ taskRun, task }) => {
   const results = taskRun?.status?.results;
@@ -10,10 +10,6 @@ export const useTabs = ({ taskRun, task }) => {
   const hasResults = results && results.length > 0;
 
   return React.useMemo(() => {
-    if (!task) {
-      return [];
-    }
-
     return [
       ...(hasParams
         ? [

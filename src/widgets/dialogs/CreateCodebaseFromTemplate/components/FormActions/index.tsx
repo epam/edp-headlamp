@@ -1,6 +1,5 @@
 import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
-import { CI_TOOLS } from '../../../../../constants/ciTools';
 import { useCodebaseCRUD } from '../../../../../k8s/groups/EDP/Codebase/hooks/useCodebaseCRUD';
 import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
 import { createCodebaseInstance } from '../../../../../k8s/groups/EDP/Codebase/utils/createCodebaseInstance';
@@ -59,10 +58,10 @@ export const FormActions = () => {
     async (values) => {
       const usedValues = getUsedValues(values, CODEBASE_FROM_TEMPLATE_FORM_NAMES);
 
-      const codebaseInstance = createCodebaseInstance(CODEBASE_FROM_TEMPLATE_FORM_NAMES, {
-        ...usedValues,
-        ciTool: CI_TOOLS.TEKTON,
-      });
+      const codebaseInstance = createCodebaseInstance(
+        CODEBASE_FROM_TEMPLATE_FORM_NAMES,
+        usedValues
+      );
 
       await createCodebase({
         codebaseData: codebaseInstance as CodebaseKubeObjectInterface,

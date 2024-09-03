@@ -24,7 +24,7 @@ export const CreateCodebaseFromTemplateDialog: React.FC<CreateCodebaseFromTempla
   state,
 }) => {
   const { closeDialog, open } = state;
-  const baseDefaultValues = useDefaultValues();
+  const baseDefaultValues = useDefaultValues(props.template);
   const [value, setValue] = React.useState(0);
 
   const handleChange = (newValue: number) => {
@@ -57,8 +57,8 @@ export const CreateCodebaseFromTemplateDialog: React.FC<CreateCodebaseFromTempla
 
             {isFormPanel && (
               <Stack spacing={2}>
+                <FormDefaultValues />
                 <div>
-                  <FormDefaultValues />
                   <Form />
                 </div>
               </Stack>

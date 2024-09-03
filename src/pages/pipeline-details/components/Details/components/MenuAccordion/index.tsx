@@ -4,7 +4,11 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { StatusIcon } from '../../../../../../components/StatusIcon';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
+import { ApprovalTaskKubeObject } from '../../../../../../k8s/groups/EDP/ApprovalTask';
+import { APPROVAL_TASK_STATUS } from '../../../../../../k8s/groups/EDP/ApprovalTask/constants';
+import { ApprovalTaskKubeObjectInterface } from '../../../../../../k8s/groups/EDP/ApprovalTask/types';
 import { TaskRunKubeObject } from '../../../../../../k8s/groups/Tekton/TaskRun';
+import { TaskRunKubeObjectInterface } from '../../../../../../k8s/groups/Tekton/TaskRun/types';
 import {
   getTaskRunStepReason,
   getTaskRunStepStatus,
@@ -14,6 +18,9 @@ import {
   StyledAccordionDetails,
   StyledAccordionSummary,
 } from '../../../../styles';
+
+const approvalTaskBackground =
+  'repeating-linear-gradient(45deg, rgba(96, 96, 96, 0.15), rgba(96, 96, 96, 0.15) 10px, rgba(70, 70, 70, 0.15) 10px, rgba(70, 70, 70, 0.15) 20px);';
 
 export function updateUnexecutedSteps(steps) {
   if (!steps) {
@@ -33,24 +40,49 @@ export function updateUnexecutedSteps(steps) {
   });
 }
 
-export const MenuAccordion = ({
-  taskRunName,
-  taskRunListByNameMap,
-  taskListByTaskRunNameMap,
-  setQueryParams,
-}) => {
+const getTaskStatusData = (
+  approvalTask: ApprovalTaskKubeObjectInterface,
+  taskRun: TaskRunKubeObjectInterface
+) => {
+  if (approvalTask) {
+    return ApprovalTaskKubeObject.getStatusIcon(approvalTask?.spec?.action);
+  }
+
+  const taskRunStatus = TaskRunKubeObject.parseStatus(taskRun);
+  const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);
+
+  return TaskRunKubeObject.getStatusIcon(taskRunStatus, taskRunReason);
+};
+
+const getStatusTitle = (
+  approvalTask: ApprovalTaskKubeObjectInterface,
+  taskRun: TaskRunKubeObjectInterface
+) => {
+  if (approvalTask) {
+    return `Status: ${approvalTask?.spec?.action}`;
+  }
+
+  const taskRunStatus = TaskRunKubeObject.parseStatus(taskRun);
+  const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);
+  return `Status: ${taskRunStatus}. Reason: ${taskRunReason}`;
+};
+
+export const MenuAccordion = ({ taskRunName, pipelineRunTasksByNameMap, setQueryParams }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
   const queryParamTaskRun = queryParams.get('taskRun');
   const queryParamStep = queryParams.get('step');
 
-  const taskRun = taskRunListByNameMap.get(taskRunName);
-  const task = taskListByTaskRunNameMap.get(taskRunName)?.jsonData;
-  const taskRunStatus = TaskRunKubeObject.parseStatus(taskRun);
-  const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);
+  const pipelineRunTaskData = pipelineRunTasksByNameMap.get(taskRunName);
 
-  const [icon, color, isRotating] = TaskRunKubeObject.getStatusIcon(taskRunStatus, taskRunReason);
+  const approvalTask = pipelineRunTaskData.approvalTask;
+
+  const taskRun = pipelineRunTaskData.taskRun;
+  const task = pipelineRunTaskData.task?.jsonData;
+
+  const [icon, color, isRotating] = getTaskStatusData(approvalTask, taskRun);
+  const statusTitle = getStatusTitle(approvalTask, taskRun);
 
   const taskRunSteps = updateUnexecutedSteps(taskRun ? taskRun?.status?.steps : task?.spec.steps);
   const isExpanded = queryParamTaskRun === taskRunName;
@@ -85,13 +117,19 @@ export const MenuAccordion = ({
         isActive={isActive}
         disableRipple={false}
         disableTouchRipple={false}
+        sx={{
+          ...(pipelineRunTaskData.approvalTask &&
+          pipelineRunTaskData.approvalTask?.spec.action === APPROVAL_TASK_STATUS.PENDING
+            ? { background: approvalTaskBackground }
+            : {}),
+        }}
       >
         <Stack direction="row" alignItems="center" spacing={2}>
           <StatusIcon
             icon={icon}
             color={color}
             isRotating={isRotating}
-            Title={`Status: ${taskRunStatus}. Reason: ${taskRunReason}`}
+            Title={statusTitle}
             width={20}
           />
           <Typography>{taskRunName}</Typography>

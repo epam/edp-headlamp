@@ -1,6 +1,8 @@
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { ApprovalTaskKubeObject } from '../../../../k8s/groups/EDP/ApprovalTask';
+import { ApprovalTaskKubeObjectInterface } from '../../../../k8s/groups/EDP/ApprovalTask/types';
 import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
 import { usePipelineRunData } from '../../../../k8s/groups/Tekton/PipelineRun/hooks/usePipelineRunData';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
@@ -51,13 +53,30 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
 
   const [tasks, tasksError] = TaskKubeObject.useList();
 
-  const {
-    taskRunListByNameMap,
-    taskListByTaskRunNameMap,
-    pipelineRunFinallyTasksMap,
-    pipelineRunMainTasksMap,
-    pipelineRunTasks,
-  } = usePipelineRunData(taskRuns, tasks, pipelineRun);
+  const [approvalTasks, setApprovalTasks] = React.useState<ApprovalTaskKubeObjectInterface[]>(null);
+  const [approvalTasksError, setApprovalTasksError] = React.useState<ApiError | null>(null);
+
+  React.useEffect(() => {
+    const cancelStream = ApprovalTaskKubeObject.streamListByPipelineRunName({
+      namespace,
+      pipelineRunName: name,
+      dataHandler: (data) => {
+        setApprovalTasks(data);
+      },
+      errorHandler: (error) => setApprovalTasksError(error as ApiError),
+    });
+
+    return () => {
+      cancelStream();
+    };
+  }, [namespace, name]);
+
+  const { pipelineRunTasks, pipelineRunTasksByNameMap } = usePipelineRunData({
+    taskRuns,
+    tasks,
+    pipelineRun,
+    approvalTasks,
+  });
 
   const DataContextValue = React.useMemo(
     () => ({
@@ -73,29 +92,26 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       },
       pipelineRunData: {
         data: {
-          taskRunListByNameMap,
-          taskListByTaskRunNameMap,
-          pipelineRunFinallyTasksMap,
-          pipelineRunMainTasksMap,
           pipelineRunTasks,
+          pipelineRunTasksByNameMap,
         },
         isLoading:
           taskRuns === null ||
           tasks === null ||
           pipelineRun === null ||
+          approvalTasks === null ||
           !pipelineRunTasks.allTasks.length,
-        error: taskRunErrors || tasksError || pipelineRunError,
+        error: taskRunErrors || tasksError || pipelineRunError || approvalTasksError,
       },
     }),
     [
+      approvalTasks,
+      approvalTasksError,
       pipelineRun,
       pipelineRunError,
-      pipelineRunFinallyTasksMap,
-      pipelineRunMainTasksMap,
       pipelineRunTasks,
-      taskListByTaskRunNameMap,
+      pipelineRunTasksByNameMap,
       taskRunErrors,
-      taskRunListByNameMap,
       taskRuns,
       tasks,
       tasksError,

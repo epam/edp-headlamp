@@ -2,19 +2,15 @@ import React from 'react';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
 import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
 import { useGitServerListQuery } from '../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
+import { TemplateKubeObjectInterface } from '../../../../k8s/groups/EDP/Template/types';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../names';
-import { useCurrentDialog } from '../providers/CurrentDialog/hooks';
 
 const defaultEDPVersioningValue = '0.1.0-SNAPSHOT';
 const defaultBranchName = 'main';
 const [defaultEDPVersioningVersion, defaultEDPVersioningVersionPostfix] =
   defaultEDPVersioningValue.split('-');
 
-export const useDefaultValues = () => {
-  const {
-    props: { template },
-  } = useCurrentDialog();
-
+export const useDefaultValues = (template: TemplateKubeObjectInterface) => {
   const { data: gitServers } = useGitServerListQuery({});
   const firstValidGitServer = gitServers?.items.find((gitServer) => gitServer.status.connected);
 

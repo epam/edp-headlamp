@@ -75,4 +75,6 @@ export enum ICONS {
   CANCEL = 'mdi:cancel-bold',
   QUEUE = 'hugeicons:queue-02',
   TEKTON = 'simple-icons:tekton',
+  CLOCK = 'mdi:clock',
+  TIMEOUT = 'eos-icons:timeout',
 }

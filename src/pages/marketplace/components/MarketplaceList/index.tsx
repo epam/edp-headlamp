@@ -24,7 +24,7 @@ export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProp
     (template: TemplateKubeObjectInterface) => {
       if (template) {
         setDialog(CreateCodebaseFromTemplateDialog, {
-          template,
+          template: template?.jsonData,
         });
       }
     },

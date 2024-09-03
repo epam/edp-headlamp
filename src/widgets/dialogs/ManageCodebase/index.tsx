@@ -11,8 +11,6 @@ export const ManageCodebaseDialog: React.FC<ManageCodebaseDialogProps> = ({ prop
   const theme = useTheme();
   const { codebaseData } = props;
 
-  console.log(codebaseData);
-
   const { open } = state;
 
   const mode = !!codebaseData ? FORM_MODES.EDIT : FORM_MODES.CREATE;

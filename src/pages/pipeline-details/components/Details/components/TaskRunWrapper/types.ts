@@ -1,6 +1,5 @@
 import { PipelineRunTaskData } from '../../../../../../k8s/groups/Tekton/PipelineRun/types';
 
-export interface TaskRunStepProps {
+export interface TaskRunWrapperProps {
   pipelineRunTaskData: PipelineRunTaskData;
-  stepName: string;
 }
