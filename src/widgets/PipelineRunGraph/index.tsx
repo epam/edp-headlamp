@@ -7,7 +7,8 @@ import { Node } from '../../components/Graph/components/Node';
 import { MyNode } from '../../components/Graph/components/types';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { StatusIcon } from '../../components/StatusIcon';
-import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
+import { ApprovalTaskKubeObject } from '../../k8s/groups/EDP/ApprovalTask';
+import { ApprovalTaskKubeObjectInterface } from '../../k8s/groups/EDP/ApprovalTask/types';
 import { TaskRunKubeObject } from '../../k8s/groups/Tekton/TaskRun';
 import { TASK_RUN_LABEL_SELECTOR_PARENT_PIPELINE_RUN } from '../../k8s/groups/Tekton/TaskRun/labels';
 import { TaskRunKubeObjectInterface, TaskRunStep } from '../../k8s/groups/Tekton/TaskRun/types';
@@ -20,6 +21,33 @@ import { rem } from '../../utils/styling/rem';
 import { usePipelineRunGraphData } from './hooks/usePipelineRunGraphData';
 import { useStyles } from './styles';
 import { PipelineRunGraphProps } from './types';
+
+const getTaskStatusData = (
+  approvalTask: ApprovalTaskKubeObjectInterface,
+  taskRun: TaskRunKubeObjectInterface
+) => {
+  if (approvalTask) {
+    return ApprovalTaskKubeObject.getStatusIcon(approvalTask?.spec?.action);
+  }
+
+  const taskRunStatus = TaskRunKubeObject.parseStatus(taskRun);
+  const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);
+
+  return TaskRunKubeObject.getStatusIcon(taskRunStatus, taskRunReason);
+};
+
+const getStatusTitle = (
+  approvalTask: ApprovalTaskKubeObjectInterface,
+  taskRun: TaskRunKubeObjectInterface
+) => {
+  if (approvalTask) {
+    return `Status: ${approvalTask?.spec?.action}`;
+  }
+
+  const taskRunStatus = TaskRunKubeObject.parseStatus(taskRun);
+  const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);
+  return `Status: ${taskRunStatus}. Reason: ${taskRunReason}`;
+};
 
 export const PipelineRunGraph = ({ pipelineRun }: PipelineRunGraphProps) => {
   const classes = useStyles();
@@ -35,14 +63,14 @@ export const PipelineRunGraph = ({ pipelineRun }: PipelineRunGraphProps) => {
   const diagramIsReady = nodes !== null && edges !== null;
 
   const renderTaskLegend = React.useCallback(
-    (steps: TaskRunStep[], taskRun: TaskRunKubeObjectInterface, taskRunName: string) => {
-      const taskRunStatus = TaskRunKubeObject.parseStatus(taskRun);
-      const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);
-
-      const [icon, color, isRotating] = TaskRunKubeObject.getStatusIcon(
-        taskRunStatus,
-        taskRunReason
-      );
+    (
+      steps: TaskRunStep[],
+      taskRun: TaskRunKubeObjectInterface,
+      taskRunName: string,
+      approvalTask?: ApprovalTaskKubeObjectInterface
+    ) => {
+      const [icon, color, isRotating] = getTaskStatusData(approvalTask, taskRun);
+      const statusTitle = getStatusTitle(approvalTask, taskRun);
 
       return (
         <div style={{ padding: `${rem(10)} 0` }}>
@@ -54,7 +82,7 @@ export const PipelineRunGraph = ({ pipelineRun }: PipelineRunGraphProps) => {
                     icon={icon}
                     color={color}
                     isRotating={isRotating}
-                    Title={`Status: ${taskRunStatus}. Reason: ${taskRunReason}`}
+                    Title={statusTitle}
                     width={15}
                   />
                 </Grid>
@@ -130,22 +158,26 @@ export const PipelineRunGraph = ({ pipelineRun }: PipelineRunGraphProps) => {
   );
 
   const renderNode = React.useCallback(
-    (node: MyNode<{ name: string; TaskRunByName: TaskRunKubeObjectInterface }>) => {
+    (
+      node: MyNode<{
+        name: string;
+        taskRun: TaskRunKubeObjectInterface;
+        approvalTask: ApprovalTaskKubeObjectInterface;
+      }>
+    ) => {
       const {
-        data: { name, TaskRunByName },
+        data: { name, taskRun, approvalTask },
       } = node;
 
-      const steps = TaskRunByName?.status?.steps;
+      const steps = taskRun?.status?.steps;
 
-      const status = TaskRunKubeObject.parseStatus(TaskRunByName);
-      const reason = TaskRunKubeObject.parseStatusReason(TaskRunByName);
-      const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(status, reason);
+      const [icon, color, isRotating] = getTaskStatusData(approvalTask, taskRun);
 
       return (
         // @ts-ignore
         <Node {...node}>
           <Tooltip
-            title={<>{renderTaskLegend(steps, TaskRunByName, name)}</>}
+            title={<>{renderTaskLegend(steps, taskRun, name, approvalTask)}</>}
             arrow
             placement={'bottom'}
           >

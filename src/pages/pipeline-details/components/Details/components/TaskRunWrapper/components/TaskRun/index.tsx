@@ -1,13 +1,16 @@
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
-import { Tabs } from '../../../../../../components/Tabs';
-import { TaskRunKubeObject } from '../../../../../../k8s/groups/Tekton/TaskRun';
-import { humanize } from '../../../../../../utils/date/humanize';
-import { StyledDetailsBody, StyledDetailsHeader } from '../../styles';
+import { Tabs } from '../../../../../../../../components/Tabs';
+import { TaskRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/TaskRun';
+import { TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK } from '../../../../../../../../k8s/groups/Tekton/TaskRun/labels';
+import { humanize } from '../../../../../../../../utils/date/humanize';
+import { StyledDetailsBody, StyledDetailsHeader } from '../../../../styles';
 import { useTabs } from './hooks/useTabs';
 import { TaskRunProps } from './types';
 
-export const TaskRun = ({ taskRun, task, taskRunName }: TaskRunProps) => {
+export const TaskRun = ({ pipelineRunTaskData }: TaskRunProps) => {
+  const { taskRun, task } = pipelineRunTaskData;
+  const taskRunName = taskRun?.metadata?.labels?.[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK];
   const taskRunReason = TaskRunKubeObject.parseStatusReason(taskRun);
 
   const completionTime = taskRun?.status?.completionTime;

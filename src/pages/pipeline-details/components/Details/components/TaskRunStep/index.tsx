@@ -3,6 +3,7 @@ import React from 'react';
 import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { Tabs } from '../../../../../../components/Tabs';
 import { PodKubeObject } from '../../../../../../k8s/groups/default/Pod';
+import { TaskRunKubeObjectInterface } from '../../../../../../k8s/groups/Tekton/TaskRun/types';
 import {
   getTaskRunStepReason,
   getTaskRunStepStatus,
@@ -13,7 +14,15 @@ import { StyledDetailsBody, StyledDetailsHeader } from '../../styles';
 import { useTabs } from './hooks/useTabs';
 import { TaskRunStepProps } from './types';
 
-export const TaskRunStep = ({ taskRun, task, step }: TaskRunStepProps) => {
+export const TaskRunStep = ({ pipelineRunTaskData, stepName }: TaskRunStepProps) => {
+  const step = pipelineRunTaskData.taskRun
+    ? pipelineRunTaskData.taskRun?.status?.steps?.find(
+        (step: TaskRunKubeObjectInterface) => step?.name === stepName
+      )
+    : pipelineRunTaskData.task?.step?.steps?.find(
+        (step: TaskRunKubeObjectInterface) => step?.name === stepName
+      );
+
   const status = getTaskRunStepStatus(step);
   const reason = getTaskRunStepReason(step);
 
@@ -31,15 +40,20 @@ export const TaskRunStep = ({ taskRun, task, step }: TaskRunStepProps) => {
   });
 
   const [pods] = PodKubeObject.useList({
-    labelSelector: `tekton.dev/taskRun=${taskRun?.metadata.name}`,
-    namespace: taskRun?.metadata.namespace,
+    labelSelector: `tekton.dev/taskRun=${pipelineRunTaskData.taskRun?.metadata.name}`,
+    namespace: pipelineRunTaskData.taskRun?.metadata.namespace,
   });
 
   const hasPods = pods?.length > 0;
 
   const initialTabIdx = hasPods ? 0 : 1;
 
-  const tabs = useTabs({ taskRun, stepName: step?.name, pods, task });
+  const tabs = useTabs({
+    taskRun: pipelineRunTaskData.taskRun,
+    stepName: step?.name,
+    pods,
+    task: pipelineRunTaskData.task,
+  });
 
   return (
     <Paper>

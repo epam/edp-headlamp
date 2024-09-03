@@ -7,12 +7,7 @@ import { Overview } from '../components/Overview';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
 
 export const useTabs = () => {
-  const {
-    pipelineRun,
-    pipelineRunData: {
-      data: { pipelineRunTasks, taskRunListByNameMap, taskListByTaskRunNameMap },
-    },
-  } = useDynamicDataContext();
+  const { pipelineRun } = useDynamicDataContext();
 
   return React.useMemo(() => {
     return [
@@ -36,11 +31,7 @@ export const useTabs = () => {
               pt: (t) => t.typography.pxToRem(24),
             }}
           >
-            <Details
-              pipelineRunTasks={pipelineRunTasks}
-              taskRunListByNameMap={taskRunListByNameMap}
-              taskListByTaskRunNameMap={taskListByTaskRunNameMap}
-            />
+            <Details />
           </Box>
         ),
       },
@@ -69,5 +60,5 @@ export const useTabs = () => {
         ),
       },
     ];
-  }, [pipelineRun.data, pipelineRunTasks, taskListByTaskRunNameMap, taskRunListByNameMap]);
+  }, [pipelineRun.data]);
 };

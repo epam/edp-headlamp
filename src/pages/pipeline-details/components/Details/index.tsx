@@ -1,17 +1,22 @@
 import { Grid, Stack } from '@mui/material';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import { TaskRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/TaskRun/types';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { MenuAccordion } from './components/MenuAccordion';
-import { TaskRun } from './components/TaskRun';
 import { TaskRunStep } from './components/TaskRunStep';
+import { TaskRunWrapper } from './components/TaskRunWrapper';
 
-export const Details = ({ pipelineRunTasks, taskRunListByNameMap, taskListByTaskRunNameMap }) => {
+export const Details = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
   const history = useHistory();
+
+  const {
+    pipelineRunData: {
+      data: { pipelineRunTasks, pipelineRunTasksByNameMap },
+    },
+  } = useDynamicDataContext();
 
   const setQueryParams = React.useCallback(
     (taskRun: string, step?: string) => {
@@ -36,31 +41,20 @@ export const Details = ({ pipelineRunTasks, taskRunListByNameMap, taskListByTask
   const initialTaskRunName = pipelineRunTasks.allTasks?.[0]?.name;
 
   const renderDetails = React.useCallback(() => {
-    const activeTaskRun = taskRunListByNameMap?.get(queryParamTaskRun || initialTaskRunName);
-    const activeTask = taskListByTaskRunNameMap?.get(queryParamTaskRun || initialTaskRunName);
-
-    if (!queryParamTaskRun) {
-      return <TaskRun taskRun={activeTaskRun} task={activeTask} taskRunName={queryParamTaskRun} />;
-    }
-
-    const activeStep = activeTask?.spec?.steps?.find(
-      (step: TaskRunKubeObjectInterface) => step?.name === queryParamStep
+    const activePipelineRunTaskData = pipelineRunTasksByNameMap?.get(
+      queryParamTaskRun || initialTaskRunName
     );
 
-    if (queryParamTaskRun && !queryParamStep) {
-      return <TaskRun taskRun={activeTaskRun} task={activeTask} taskRunName={queryParamTaskRun} />;
+    if (!queryParamTaskRun || (queryParamTaskRun && !queryParamStep)) {
+      return <TaskRunWrapper pipelineRunTaskData={activePipelineRunTaskData} />;
     } else if (queryParamTaskRun && queryParamStep) {
-      return <TaskRunStep taskRun={activeTaskRun} task={activeTask} step={activeStep} />;
+      return (
+        <TaskRunStep pipelineRunTaskData={activePipelineRunTaskData} stepName={queryParamStep} />
+      );
     }
 
     return null;
-  }, [
-    initialTaskRunName,
-    queryParamStep,
-    queryParamTaskRun,
-    taskListByTaskRunNameMap,
-    taskRunListByNameMap,
-  ]);
+  }, [initialTaskRunName, pipelineRunTasksByNameMap, queryParamStep, queryParamTaskRun]);
 
   React.useEffect(() => {
     if (!queryParamTaskRun) {
@@ -72,13 +66,12 @@ export const Details = ({ pipelineRunTasks, taskRunListByNameMap, taskListByTask
     <Grid container rowSpacing={3}>
       <Grid item xs={2}>
         <Stack>
-          {taskRunListByNameMap &&
+          {pipelineRunTasksByNameMap &&
             pipelineRunTasks.allTasks?.map(({ name: taskRunName }) => (
               <MenuAccordion
                 key={taskRunName}
+                pipelineRunTasksByNameMap={pipelineRunTasksByNameMap}
                 taskRunName={taskRunName}
-                taskRunListByNameMap={taskRunListByNameMap}
-                taskListByTaskRunNameMap={taskListByTaskRunNameMap}
                 setQueryParams={setQueryParams}
               />
             ))}
