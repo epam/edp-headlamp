@@ -4,6 +4,12 @@ import React from 'react';
 import { ValueOf } from '../../types/global';
 import { SORT_ORDERS } from './constants';
 
+export interface SortState<DataType> {
+  order: ValueOf<typeof SORT_ORDERS>;
+  sortFn: (a: DataType, b: DataType) => number;
+  sortBy: string;
+}
+
 export interface TableProps<DataType = unknown> {
   isLoading: boolean;
   data: DataType[];
@@ -36,8 +42,9 @@ export interface TableProps<DataType = unknown> {
 export interface TableColumn<DataType> {
   id: any;
   label: string | React.ReactElement;
-  columnSortableValuePath?: string | string[];
   render: (data?: DataType) => React.ReactElement | string | number;
+  columnSortableValuePath?: string | string[];
+  customSortFn?: (a: DataType, b: DataType) => number;
   show?: boolean;
   customizable?: boolean;
   textAlign?: TableCellProps['align'];

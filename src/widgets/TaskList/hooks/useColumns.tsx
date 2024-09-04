@@ -10,6 +10,7 @@ export const useColumns = (): TableColumn<TaskKubeObjectInterface>[] => {
       {
         id: 'name',
         label: 'Name',
+        columnSortableValuePath: 'metadata.name',
         render: ({ metadata: { name, namespace } }) => (
           <Link
             routeName={routeTaskDetails.path}
@@ -21,11 +22,32 @@ export const useColumns = (): TableColumn<TaskKubeObjectInterface>[] => {
             {name}
           </Link>
         ),
-        width: '75%',
+        width: '25%',
+      },
+      {
+        id: 'description',
+        label: 'Description',
+        render: ({ spec: { description } }) => description,
+        width: '50%',
       },
       {
         id: 'createdAt',
         label: 'Created At',
+        customSortFn: (a, b) => {
+          const aStartTime = a?.status?.startTime;
+          const bStartTime = b?.status?.startTime;
+
+          const aStartTimeDate = new Date(aStartTime).getTime();
+          const bStartTimeDate = new Date(bStartTime).getTime();
+
+          if (aStartTimeDate < bStartTimeDate) {
+            return -1;
+          } else if (aStartTimeDate > bStartTimeDate) {
+            return 1;
+          }
+
+          return 0;
+        },
         render: ({ metadata: { creationTimestamp } }) => {
           return new Date(creationTimestamp).toLocaleString('en-mini', {
             month: 'short',

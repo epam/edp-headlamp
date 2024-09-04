@@ -1,40 +1,25 @@
-import { get } from 'lodash';
 import React from 'react';
 import { ValueOf } from '../../../types/global';
 import { SORT_ORDERS } from '../constants';
 
-export interface UseDataProps {
-  data: any[];
-  filterFunction: (el: any) => boolean;
-  sortOrder: ValueOf<typeof SORT_ORDERS>;
-  columnSortableValuePath?: string | string[];
+export interface UseDataProps<DataType> {
+  data: DataType[];
+  sort: {
+    order: ValueOf<typeof SORT_ORDERS>;
+    sortFn: (a: DataType, b: DataType) => number;
+  };
+  filterFunction: (el: DataType) => boolean;
   isLoading: boolean;
   error: unknown;
 }
 
-const createSortFunction =
-  (sortOrder: ValueOf<typeof SORT_ORDERS>, columnSortableValuePath: string | string[]) =>
-  (a, b) => {
-    const aProperty = get(a, columnSortableValuePath)?.toString().toLowerCase() || '';
-    const bProperty = get(b, columnSortableValuePath)?.toString().toLowerCase() || '';
-
-    if (sortOrder === SORT_ORDERS.DESC) {
-      return aProperty < bProperty ? -1 : 1;
-    } else if (sortOrder === SORT_ORDERS.ASC) {
-      return aProperty > bProperty ? -1 : 1;
-    } else {
-      return 0;
-    }
-  };
-
-export const useReadyData = ({
+export const useReadyData = <DataType>({
   data,
   filterFunction,
-  columnSortableValuePath,
-  sortOrder,
+  sort,
   isLoading,
   error,
-}: UseDataProps) => {
+}: UseDataProps<DataType>) => {
   return React.useMemo(() => {
     if (!data || isLoading || error) {
       return null;
@@ -46,10 +31,10 @@ export const useReadyData = ({
       result = result.filter(filterFunction);
     }
 
-    if (columnSortableValuePath) {
-      result = result.sort(createSortFunction(sortOrder, columnSortableValuePath));
+    if (sort.sortFn) {
+      result = result.sort(sort.sortFn);
     }
 
     return result;
-  }, [columnSortableValuePath, data, error, isLoading, filterFunction, sortOrder]);
+  }, [data, isLoading, error, filterFunction, sort.sortFn]);
 };

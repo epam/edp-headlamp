@@ -12,10 +12,8 @@ import { TableHeadProps } from './types';
 export const TableHead = ({
   columns,
   upperColumns,
-  sortOrder,
-  setSortOrder,
-  defaultSortBy = 'name',
-  setColumnSortableValuePath,
+  sort,
+  setSort,
   rowCount,
   selectableRowCount,
   selected,
@@ -64,12 +62,10 @@ export const TableHead = ({
       ) : null}
       <TableRow
         columns={columns}
-        defaultSortBy={defaultSortBy}
         rowCount={rowCount}
         selectableRowCount={selectableRowCount}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-        setColumnSortableValuePath={setColumnSortableValuePath}
+        sort={sort}
+        setSort={setSort}
         selected={selected}
         handleSelectAllClick={handleSelectAllClick}
       />

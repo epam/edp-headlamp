@@ -13,33 +13,20 @@ import { ValueOf } from '../../../../../../types/global';
 import { rem } from '../../../../../../utils/styling/rem';
 import { SORT_ORDERS } from '../../../../constants';
 import { TableColumn } from '../../../../types';
+import {
+  createCustomSortFunction,
+  createSortFunction,
+  getFlexPropertyByTextAlign,
+  getSortOrder,
+  isAsc,
+  isDesc,
+} from '../../../../utils';
 import { TableRowProps } from './types';
-
-const isDesc = (columnId: string, sortBy: string, sortOrder: ValueOf<typeof SORT_ORDERS>) =>
-  sortBy === columnId && sortOrder === SORT_ORDERS.DESC;
-const isAsc = (columnId: string, sortBy: string, sortOrder: ValueOf<typeof SORT_ORDERS>) =>
-  sortBy === columnId && sortOrder === SORT_ORDERS.ASC;
-
-const getSortOrder = (isDesc: boolean, isAsc: boolean) =>
-  isDesc ? SORT_ORDERS.ASC : isAsc ? SORT_ORDERS.UNSET : SORT_ORDERS.DESC;
-
-const getFlexPropertyByTextAlign = (textAlign: string) => {
-  switch (textAlign) {
-    case 'center':
-      return 'center';
-    case 'right':
-      return 'flex-end';
-    default:
-      return 'flex-start';
-  }
-};
 
 export const TableRow = ({
   columns,
-  sortOrder,
-  setSortOrder,
-  defaultSortBy = 'name',
-  setColumnSortableValuePath,
+  sort,
+  setSort,
   rowCount,
   selected,
   handleSelectAllClick,
@@ -47,15 +34,18 @@ export const TableRow = ({
 }: TableRowProps) => {
   const theme = useTheme();
 
-  const [sortBy, setSortBy] = React.useState<string>(defaultSortBy);
-
   const handleRequestSort = (column: TableColumn<any>) => {
-    const _isDesc = isDesc(column.id, sortBy, sortOrder);
-    const _isAsc = isAsc(column.id, sortBy, sortOrder);
+    const _isDesc = isDesc(column.id, sort.sortBy, sort.order);
+    const _isAsc = isAsc(column.id, sort.sortBy, sort.order);
     const newSortOrder = getSortOrder(_isDesc, _isAsc);
-    setSortOrder(newSortOrder);
-    setSortBy(column.id);
-    setColumnSortableValuePath(column.columnSortableValuePath);
+
+    setSort({
+      order: newSortOrder,
+      sortFn: column.columnSortableValuePath
+        ? createSortFunction(newSortOrder, column.columnSortableValuePath)
+        : createCustomSortFunction(newSortOrder, column.customSortFn),
+      sortBy: column.id,
+    });
   };
 
   const numSelected = React.useMemo(() => selected?.length, [selected]);
@@ -98,16 +88,23 @@ export const TableRow = ({
         </TableCell>
       )}
       {columns.map((column) => {
-        const { show = true, id, textAlign = 'left', columnSortableValuePath, label } = column;
-        const activeColumnSort = sortBy === id;
-        const { upperArrowColor, bottomArrowColor } = getArrowsColors(activeColumnSort, sortOrder);
+        const {
+          show = true,
+          id,
+          textAlign = 'left',
+          columnSortableValuePath,
+          customSortFn,
+          label,
+        } = column;
+        const activeColumnSort = sort.sortBy === id;
+        const { upperArrowColor, bottomArrowColor } = getArrowsColors(activeColumnSort, sort.order);
 
         return show ? (
           <TableCell
             component="th"
             scope="row"
             key={id}
-            sortDirection={sortBy === id ? sortOrder : false}
+            sortDirection={sort.sortBy === id ? sort.order : false}
             align={textAlign}
             sx={{
               color: theme.palette.text.primary,
@@ -121,7 +118,7 @@ export const TableRow = ({
               flexWrap="nowrap"
               justifyContent={getFlexPropertyByTextAlign(textAlign)}
             >
-              {!!columnSortableValuePath && (
+              {(!!columnSortableValuePath || !!customSortFn) && (
                 <ButtonBase onClick={() => handleRequestSort(column)} disableRipple>
                   <SvgIcon
                     viewBox={'0 0 18 18'}

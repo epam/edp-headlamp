@@ -5,7 +5,7 @@ import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../../../constants/ui';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
-import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
+import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
 import { PipelineGraphDialog } from '../../../../PipelineGraph';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
 import { CODEBASE_BRANCH_FORM_NAMES } from '../../../names';
@@ -48,10 +48,11 @@ export const BuildPipeline = () => {
   return (
     <Stack spacing={2} direction="row" alignItems="center">
       <Box flexGrow={1}>
-        <FormSelect
+        <FormAutocompleteSingle
           {...register(CODEBASE_BRANCH_FORM_NAMES.buildPipeline.name, {
             required: 'Select Build pipeline',
           })}
+          placeholder={'Select Build pipeline'}
           label={'Build pipeline'}
           control={control}
           errors={errors}
