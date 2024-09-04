@@ -65,60 +65,93 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Create co
                   <div
                     class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                   >
-                    <label
-                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
-                      data-shrink="false"
-                    >
-                      Review pipeline
-                    </label>
                     <div
-                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl makeStyles-selectWithDefaultValue-1 css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+                      class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon css-clttge-MuiAutocomplete-root"
+                      name="reviewPipeline"
                     >
                       <div
-                        aria-controls="mui-2"
-                        aria-expanded="false"
-                        aria-haspopup="listbox"
-                        aria-labelledby="mui-component-select-reviewPipeline"
-                        class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-17praur-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-component-select-reviewPipeline"
-                        role="combobox"
-                        tabindex="0"
+                        class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+                        style="margin-top: 0px;"
                       >
-                        Review pipeline
-                      </div>
-                      <input
-                        aria-hidden="true"
-                        aria-invalid="false"
-                        class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-                        name="reviewPipeline"
-                        tabindex="-1"
-                        value=""
-                      />
-                      <svg
-                        aria-hidden="true"
-                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
-                        data-testid="ArrowDropDownIcon"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M7 10l5 5 5-5z"
-                        />
-                      </svg>
-                      <fieldset
-                        aria-hidden="true"
-                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                      >
-                        <legend
-                          class="css-ihdtdm"
+                        <label
+                          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-standard css-1m6rpgr-MuiFormLabel-root-MuiInputLabel-root"
+                          data-shrink="false"
+                          for="mui-3"
+                          id="mui-3-label"
                         >
-                          <span
-                            class="notranslate"
+                          Review pipeline
+                        </label>
+                        <div
+                          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-1fnx1rt-MuiInputBase-root-MuiInput-root"
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-invalid="false"
+                            autocapitalize="none"
+                            autocomplete="off"
+                            class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                            id="mui-3"
+                            placeholder="Select Review pipeline"
+                            role="combobox"
+                            spellcheck="false"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            class="MuiStack-root css-1iec9nd-MuiStack-root"
                           >
-                            ​
-                          </span>
-                        </legend>
-                      </fieldset>
+                            <div
+                              class="MuiAutocomplete-endAdornment css-p1olib-MuiAutocomplete-endAdornment"
+                            >
+                              <button
+                                aria-label="Clear"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-clearIndicator css-1glvl0p-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-clearIndicator"
+                                tabindex="-1"
+                                title="Clear"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+                                  data-testid="CloseIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                                  />
+                                </svg>
+                                <span
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                aria-label="Open"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-popupIndicator css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator"
+                                tabindex="-1"
+                                title="Open"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                                  data-testid="ArrowDropDownIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M7 10l5 5 5-5z"
+                                  />
+                                </svg>
+                                <span
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -167,60 +200,93 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Create co
                   <div
                     class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                   >
-                    <label
-                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
-                      data-shrink="false"
-                    >
-                      Build pipeline
-                    </label>
                     <div
-                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl makeStyles-selectWithDefaultValue-1 css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+                      class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon css-clttge-MuiAutocomplete-root"
+                      name="buildPipeline"
                     >
                       <div
-                        aria-controls="mui-3"
-                        aria-expanded="false"
-                        aria-haspopup="listbox"
-                        aria-labelledby="mui-component-select-buildPipeline"
-                        class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-17praur-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-component-select-buildPipeline"
-                        role="combobox"
-                        tabindex="0"
+                        class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+                        style="margin-top: 0px;"
                       >
-                        Build pipeline
-                      </div>
-                      <input
-                        aria-hidden="true"
-                        aria-invalid="false"
-                        class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-                        name="buildPipeline"
-                        tabindex="-1"
-                        value=""
-                      />
-                      <svg
-                        aria-hidden="true"
-                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
-                        data-testid="ArrowDropDownIcon"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M7 10l5 5 5-5z"
-                        />
-                      </svg>
-                      <fieldset
-                        aria-hidden="true"
-                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                      >
-                        <legend
-                          class="css-ihdtdm"
+                        <label
+                          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-standard css-1m6rpgr-MuiFormLabel-root-MuiInputLabel-root"
+                          data-shrink="false"
+                          for="mui-5"
+                          id="mui-5-label"
                         >
-                          <span
-                            class="notranslate"
+                          Build pipeline
+                        </label>
+                        <div
+                          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-1fnx1rt-MuiInputBase-root-MuiInput-root"
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-invalid="false"
+                            autocapitalize="none"
+                            autocomplete="off"
+                            class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                            id="mui-5"
+                            placeholder="Select Build pipeline"
+                            role="combobox"
+                            spellcheck="false"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            class="MuiStack-root css-1iec9nd-MuiStack-root"
                           >
-                            ​
-                          </span>
-                        </legend>
-                      </fieldset>
+                            <div
+                              class="MuiAutocomplete-endAdornment css-p1olib-MuiAutocomplete-endAdornment"
+                            >
+                              <button
+                                aria-label="Clear"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-clearIndicator css-1glvl0p-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-clearIndicator"
+                                tabindex="-1"
+                                title="Clear"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+                                  data-testid="CloseIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                                  />
+                                </svg>
+                                <span
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                aria-label="Open"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-popupIndicator css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator"
+                                tabindex="-1"
+                                title="Open"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                                  data-testid="ArrowDropDownIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M7 10l5 5 5-5z"
+                                  />
+                                </svg>
+                                <span
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -329,13 +395,13 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
     tabindex="-1"
   >
     <div
-      aria-labelledby="mui-4"
+      aria-labelledby="mui-6"
       class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-15hyav-MuiPaper-root-MuiDialog-paper"
       role="dialog"
     >
       <h2
         class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-8yphvn-MuiTypography-root-MuiDialogTitle-root"
-        id="mui-4"
+        id="mui-6"
       >
         <div
           class="MuiStack-root css-1h9efsi-MuiStack-root"
@@ -430,10 +496,10 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       style="display: inline-block; margin-top: 0.125rem;"
                     >
                       <span
-                        class="makeStyles-labelWrap-5"
+                        class="makeStyles-labelWrap-3"
                       >
                         <span
-                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-6 css-1ezega9-MuiTypography-root"
+                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-4 css-1ezega9-MuiTypography-root"
                         >
                           Release branch
                         </span>
@@ -466,8 +532,8 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="false"
-                      for="mui-6"
-                      id="mui-6-label"
+                      for="mui-8"
+                      id="mui-8-label"
                     >
                       Branch Name
                     </label>
@@ -477,7 +543,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-6"
+                        id="mui-8"
                         name="branchName"
                         placeholder="Enter Branch Name"
                         type="text"
@@ -520,8 +586,8 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="false"
-                      for="mui-8"
-                      id="mui-8-label"
+                      for="mui-10"
+                      id="mui-10-label"
                     >
                       From Commit Hash 
                     </label>
@@ -531,7 +597,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-8"
+                        id="mui-10"
                         name="fromCommit"
                         placeholder="Enter Commit"
                         type="text"
@@ -577,8 +643,8 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       <label
                         class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                         data-shrink="true"
-                        for="mui-10"
-                        id="mui-10-label"
+                        for="mui-12"
+                        id="mui-12-label"
                       >
                         Branch version
                       </label>
@@ -588,7 +654,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         <input
                           aria-invalid="false"
                           class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                          id="mui-10"
+                          id="mui-12"
                           name="releaseBranchVersionStart"
                           placeholder="0.0.0"
                           type="text"
@@ -630,7 +696,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         <input
                           aria-invalid="false"
                           class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                          id="mui-11"
+                          id="mui-13"
                           name="releaseBranchVersionPostfix"
                           placeholder="SNAPSHOT"
                           type="text"
@@ -672,60 +738,93 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                   <div
                     class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                   >
-                    <label
-                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
-                      data-shrink="true"
-                    >
-                      Review pipeline
-                    </label>
                     <div
-                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl  css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+                      class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon css-clttge-MuiAutocomplete-root"
+                      name="reviewPipeline"
                     >
                       <div
-                        aria-controls="mui-12"
-                        aria-expanded="false"
-                        aria-haspopup="listbox"
-                        aria-labelledby="mui-component-select-reviewPipeline"
-                        class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-17praur-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-component-select-reviewPipeline"
-                        role="combobox"
-                        tabindex="0"
+                        class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+                        style="margin-top: 0px;"
                       >
-                        test-review-pipeline
-                      </div>
-                      <input
-                        aria-hidden="true"
-                        aria-invalid="false"
-                        class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-                        name="reviewPipeline"
-                        tabindex="-1"
-                        value="test-review-pipeline"
-                      />
-                      <svg
-                        aria-hidden="true"
-                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
-                        data-testid="ArrowDropDownIcon"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M7 10l5 5 5-5z"
-                        />
-                      </svg>
-                      <fieldset
-                        aria-hidden="true"
-                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                      >
-                        <legend
-                          class="css-ihdtdm"
+                        <label
+                          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-njj7m9-MuiFormLabel-root-MuiInputLabel-root"
+                          data-shrink="true"
+                          for="mui-15"
+                          id="mui-15-label"
                         >
-                          <span
-                            class="notranslate"
+                          Review pipeline
+                        </label>
+                        <div
+                          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-1fnx1rt-MuiInputBase-root-MuiInput-root"
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-invalid="false"
+                            autocapitalize="none"
+                            autocomplete="off"
+                            class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                            id="mui-15"
+                            placeholder="Select Review pipeline"
+                            role="combobox"
+                            spellcheck="false"
+                            type="text"
+                            value="test-review-pipeline"
+                          />
+                          <div
+                            class="MuiStack-root css-1iec9nd-MuiStack-root"
                           >
-                            ​
-                          </span>
-                        </legend>
-                      </fieldset>
+                            <div
+                              class="MuiAutocomplete-endAdornment css-p1olib-MuiAutocomplete-endAdornment"
+                            >
+                              <button
+                                aria-label="Clear"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-clearIndicator css-1glvl0p-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-clearIndicator"
+                                tabindex="-1"
+                                title="Clear"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+                                  data-testid="CloseIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                                  />
+                                </svg>
+                                <span
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                aria-label="Open"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-popupIndicator css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator"
+                                tabindex="-1"
+                                title="Open"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                                  data-testid="ArrowDropDownIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M7 10l5 5 5-5z"
+                                  />
+                                </svg>
+                                <span
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -774,60 +873,93 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                   <div
                     class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                   >
-                    <label
-                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
-                      data-shrink="true"
-                    >
-                      Build pipeline
-                    </label>
                     <div
-                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl  css-zc9d61-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+                      class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon css-clttge-MuiAutocomplete-root"
+                      name="buildPipeline"
                     >
                       <div
-                        aria-controls="mui-13"
-                        aria-expanded="false"
-                        aria-haspopup="listbox"
-                        aria-labelledby="mui-component-select-buildPipeline"
-                        class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-17praur-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-component-select-buildPipeline"
-                        role="combobox"
-                        tabindex="0"
+                        class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+                        style="margin-top: 0px;"
                       >
-                        test-build-pipeline
-                      </div>
-                      <input
-                        aria-hidden="true"
-                        aria-invalid="false"
-                        class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
-                        name="buildPipeline"
-                        tabindex="-1"
-                        value="test-build-pipeline"
-                      />
-                      <svg
-                        aria-hidden="true"
-                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
-                        data-testid="ArrowDropDownIcon"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M7 10l5 5 5-5z"
-                        />
-                      </svg>
-                      <fieldset
-                        aria-hidden="true"
-                        class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                      >
-                        <legend
-                          class="css-ihdtdm"
+                        <label
+                          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-njj7m9-MuiFormLabel-root-MuiInputLabel-root"
+                          data-shrink="true"
+                          for="mui-17"
+                          id="mui-17-label"
                         >
-                          <span
-                            class="notranslate"
+                          Build pipeline
+                        </label>
+                        <div
+                          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-1fnx1rt-MuiInputBase-root-MuiInput-root"
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-invalid="false"
+                            autocapitalize="none"
+                            autocomplete="off"
+                            class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                            id="mui-17"
+                            placeholder="Select Build pipeline"
+                            role="combobox"
+                            spellcheck="false"
+                            type="text"
+                            value="test-build-pipeline"
+                          />
+                          <div
+                            class="MuiStack-root css-1iec9nd-MuiStack-root"
                           >
-                            ​
-                          </span>
-                        </legend>
-                      </fieldset>
+                            <div
+                              class="MuiAutocomplete-endAdornment css-p1olib-MuiAutocomplete-endAdornment"
+                            >
+                              <button
+                                aria-label="Clear"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-clearIndicator css-1glvl0p-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-clearIndicator"
+                                tabindex="-1"
+                                title="Clear"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+                                  data-testid="CloseIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                                  />
+                                </svg>
+                                <span
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                />
+                              </button>
+                              <button
+                                aria-label="Open"
+                                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-popupIndicator css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator"
+                                tabindex="-1"
+                                title="Open"
+                                type="button"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                                  data-testid="ArrowDropDownIcon"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M7 10l5 5 5-5z"
+                                  />
+                                </svg>
+                                <span
+                                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                                />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

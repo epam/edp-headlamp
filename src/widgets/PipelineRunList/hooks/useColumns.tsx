@@ -29,6 +29,7 @@ export const useColumns = ({
       {
         id: 'status',
         label: 'Status',
+        columnSortableValuePath: 'status.conditions[0].status',
         render: (resource) => {
           const status = PipelineRunKubeObject.parseStatus(resource);
           const reason = PipelineRunKubeObject.parseStatusReason(resource);
@@ -50,6 +51,7 @@ export const useColumns = ({
       {
         id: 'run',
         label: 'Run',
+        columnSortableValuePath: 'metadata.name',
         render: (resource) => {
           const {
             metadata: { name, namespace },
@@ -72,6 +74,7 @@ export const useColumns = ({
       {
         id: 'pipeline',
         label: 'Pipeline',
+        columnSortableValuePath: 'spec.pipelineRef.name',
         render: (resource) => {
           const {
             metadata: { namespace },
@@ -119,6 +122,21 @@ export const useColumns = ({
       {
         id: 'startedAt',
         label: 'Started at',
+        customSortFn: (a, b) => {
+          const aStartTime = a?.status?.startTime;
+          const bStartTime = b?.status?.startTime;
+
+          const aStartTimeDate = new Date(aStartTime).getTime();
+          const bStartTimeDate = new Date(bStartTime).getTime();
+
+          if (aStartTimeDate < bStartTimeDate) {
+            return -1;
+          } else if (aStartTimeDate > bStartTimeDate) {
+            return 1;
+          }
+
+          return 0;
+        },
         render: (resource) => {
           const startedAt = new Date(resource.status?.startTime).toLocaleString('en-mini', {
             month: 'short',
@@ -134,6 +152,28 @@ export const useColumns = ({
       {
         id: 'time',
         label: 'Time',
+        customSortFn: (a, b) => {
+          const aStartTime = a?.status?.startTime;
+          const aCompletionTime = a?.status?.completionTime;
+          const bStartTime = b?.status?.startTime;
+          const bCompletionTime = b?.status?.completionTime;
+
+          const aDurationTime = !!aCompletionTime
+            ? new Date(aCompletionTime).getTime() - new Date(aStartTime).getTime()
+            : new Date().getTime() - new Date(aStartTime).getTime();
+
+          const bDurationTime = !!bCompletionTime
+            ? new Date(bCompletionTime).getTime() - new Date(bStartTime).getTime()
+            : new Date().getTime() - new Date(bStartTime).getTime();
+
+          if (aDurationTime < bDurationTime) {
+            return -1;
+          } else if (aDurationTime > bDurationTime) {
+            return 1;
+          }
+
+          return 0;
+        },
         render: (resource) => {
           const completionTime = resource?.status?.completionTime;
           const durationTime = !!completionTime

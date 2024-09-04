@@ -1,14 +1,14 @@
 import { Paper, Table as MuiTable } from '@mui/material';
 import React from 'react';
 import { usePagination } from '../../hooks/usePagination';
-import { ValueOf } from '../../types/global';
 import { rem } from '../../utils/styling/rem';
 import { TableBody } from './components/TableBody';
 import { TableHead } from './components/TableHead';
 import { TablePagination } from './components/TablePagination';
 import { SORT_ORDERS } from './constants';
 import { useReadyData } from './hooks/useReadyData';
-import { TableProps } from './types';
+import { SortState, TableProps } from './types';
+import { createSortFunction } from './utils';
 
 export const Table = <DataType extends unknown>({
   data,
@@ -46,18 +46,18 @@ export const Table = <DataType extends unknown>({
     rowsPerPage,
   });
 
-  const [columnSortableValuePath, setColumnSortableValuePath] = React.useState<string | string[]>(
-    defaultSortBy
-  );
-  const [sortOrder, setSortOrder] = React.useState<ValueOf<typeof SORT_ORDERS>>(defaultSortOrder);
+  const [sort, setSort] = React.useState<SortState<DataType>>({
+    order: defaultSortOrder,
+    sortFn: createSortFunction(defaultSortOrder, defaultSortBy),
+    sortBy: defaultSortBy,
+  });
 
-  const readyData = useReadyData({
+  const readyData = useReadyData<DataType>({
     data,
     isLoading,
     error,
     filterFunction,
-    sortOrder,
-    columnSortableValuePath,
+    sort,
   });
 
   const isReadyDataLoading = readyData === null;
@@ -112,12 +112,10 @@ export const Table = <DataType extends unknown>({
           )}
         </colgroup>
         <TableHead
-          setColumnSortableValuePath={setColumnSortableValuePath}
           columns={columns}
           upperColumns={upperColumns}
-          sortOrder={sortOrder}
-          setSortOrder={setSortOrder}
-          defaultSortBy={defaultSortBy}
+          sort={sort}
+          setSort={setSort}
           rowCount={rowCount}
           selectableRowCount={selectableRowCount}
           selected={selected}

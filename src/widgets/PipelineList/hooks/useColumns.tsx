@@ -17,6 +17,7 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
       {
         id: 'name',
         label: 'Name',
+        columnSortableValuePath: 'metadata.name',
         render: ({ metadata: { name, namespace } }) => (
           <Link
             routeName={routePipelineDetails.path}
@@ -33,6 +34,21 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
       {
         id: 'createdAt',
         label: 'Created At',
+        customSortFn: (a, b) => {
+          const aStartTime = a?.status?.startTime;
+          const bStartTime = b?.status?.startTime;
+
+          const aStartTimeDate = new Date(aStartTime).getTime();
+          const bStartTimeDate = new Date(bStartTime).getTime();
+
+          if (aStartTimeDate < bStartTimeDate) {
+            return -1;
+          } else if (aStartTimeDate > bStartTimeDate) {
+            return 1;
+          }
+
+          return 0;
+        },
         render: ({ metadata: { creationTimestamp } }) => {
           return new Date(creationTimestamp).toLocaleString('en-mini', {
             month: 'short',
