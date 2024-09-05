@@ -43,6 +43,7 @@ export const StageName = ({ otherStagesNames }: StageNameProps) => {
             return `"${name}" has been already added to the Environments that will be created`;
           }
         },
+        maxLength: { value: 10, message: 'Name must be not more than 10 characters long' },
       })}
       label={'Environment name'}
       title={

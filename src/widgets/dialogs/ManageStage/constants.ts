@@ -1,6 +1,6 @@
 export const DIALOG_NAME = 'MANAGE_STAGE';
 
-const FORM_STEPS = {
+export const FORM_STEPS = {
   CONFIGURATION: 'CONFIGURATION',
   QUALITY_GATES: 'QUALITY_GATES',
 } as const;

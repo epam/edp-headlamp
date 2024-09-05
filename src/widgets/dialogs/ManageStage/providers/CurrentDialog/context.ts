@@ -19,7 +19,7 @@ export const CurrentDialogContext = React.createContext<CurrentDialogContextProv
   },
   state: dialogInitialState,
   extra: {
-    buildPipelines: null,
-    reviewPipelines: null,
+    cleanTriggerTemplateList: null,
+    deployTriggerTemplateList: null,
   },
 });

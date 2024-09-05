@@ -1,7 +1,7 @@
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
-import { PIPELINE_TYPES } from '../../../../../constants/pipelineTypes';
-import { usePipelineByTypeListQuery } from '../../../../../k8s/groups/Tekton/Pipeline/hooks/usePipelineByTypeListQuery';
+import { useCleanTriggerTemplateListQuery } from '../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useCleanTriggerTemplateListQuery';
+import { useDeployTriggerTemplateListQuery } from '../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useDeployTriggerTemplateListQuery';
 import { CurrentDialogContext } from './context';
 import { CurrentDialogContextProviderProps } from './types';
 
@@ -11,51 +11,43 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
   state,
 }) => {
   const {
-    data: buildPipelines,
-    error: buildPipelinesError,
-    isLoading: buildPipelinesIsLoading,
-  } = usePipelineByTypeListQuery({
-    props: {
-      pipelineType: PIPELINE_TYPES.BUILD,
-    },
-  });
+    data: cleanTriggerTemplateList,
+    isLoading: cleanTriggerTemplateListIsLoading,
+    error: cleanTriggerTemplateListError,
+  } = useCleanTriggerTemplateListQuery({});
 
   const {
-    data: reviewPipelines,
-    error: reviewPipelinesError,
-    isLoading: reviewPipelinesIsLoading,
-  } = usePipelineByTypeListQuery({
-    props: {
-      pipelineType: PIPELINE_TYPES.REVIEW,
-    },
-  });
+    data: deployTriggerTemplateList,
+    isLoading: deployTriggerTemplateListIsLoading,
+    error: deployTriggerTemplateListError,
+  } = useDeployTriggerTemplateListQuery({});
 
   const CurrentDialogContextValue = React.useMemo(
     () => ({
       props,
       state,
       extra: {
-        buildPipelines: {
-          data: buildPipelines,
-          error: buildPipelinesError as ApiError,
-          isLoading: buildPipelinesIsLoading,
+        cleanTriggerTemplateList: {
+          data: cleanTriggerTemplateList,
+          isLoading: cleanTriggerTemplateListIsLoading,
+          error: cleanTriggerTemplateListError as ApiError,
         },
-        reviewPipelines: {
-          data: reviewPipelines,
-          error: reviewPipelinesError as ApiError,
-          isLoading: reviewPipelinesIsLoading,
+        deployTriggerTemplateList: {
+          data: deployTriggerTemplateList,
+          isLoading: deployTriggerTemplateListIsLoading,
+          error: deployTriggerTemplateListError as ApiError,
         },
       },
     }),
     [
       props,
       state,
-      buildPipelines,
-      buildPipelinesError,
-      buildPipelinesIsLoading,
-      reviewPipelines,
-      reviewPipelinesError,
-      reviewPipelinesIsLoading,
+      cleanTriggerTemplateList,
+      cleanTriggerTemplateListIsLoading,
+      cleanTriggerTemplateListError,
+      deployTriggerTemplateList,
+      deployTriggerTemplateListIsLoading,
+      deployTriggerTemplateListError,
     ]
   );
 

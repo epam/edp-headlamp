@@ -1,4 +1,5 @@
 import { BackwardNameMapping } from '../../../types/forms';
+import { FORM_STEPS } from './constants';
 
 const NAMES = {
   NAME: 'name',
@@ -24,6 +25,7 @@ export const STAGE_FORM_NAMES = {
   [NAMES.NAME]: {
     name: NAMES.NAME,
     path: ['metadata', 'name'],
+    formPart: FORM_STEPS.CONFIGURATION,
   },
   [NAMES.NAMESPACE]: {
     name: NAMES.NAMESPACE,
@@ -32,10 +34,12 @@ export const STAGE_FORM_NAMES = {
   [NAMES.DEPLOY_NAMESPACE]: {
     name: NAMES.DEPLOY_NAMESPACE,
     path: ['spec', 'namespace'],
+    formPart: FORM_STEPS.CONFIGURATION,
   },
   [NAMES.DESCRIPTION]: {
     name: NAMES.DESCRIPTION,
     path: ['spec', 'description'],
+    formPart: FORM_STEPS.CONFIGURATION,
   },
   [NAMES.QUALITY_GATES]: {
     name: NAMES.QUALITY_GATES,
@@ -56,6 +60,7 @@ export const STAGE_FORM_NAMES = {
   [NAMES.TRIGGER_TYPE]: {
     name: NAMES.TRIGGER_TYPE,
     path: ['spec', 'triggerType'],
+    formPart: FORM_STEPS.CONFIGURATION,
   },
   [NAMES.ORDER]: {
     name: NAMES.ORDER,
@@ -68,14 +73,17 @@ export const STAGE_FORM_NAMES = {
   [NAMES.CLUSTER_NAME]: {
     name: NAMES.CLUSTER_NAME,
     path: ['spec', 'clusterName'],
+    formPart: FORM_STEPS.CONFIGURATION,
   },
   [NAMES.TRIGGER_TEMPLATE]: {
     name: NAMES.TRIGGER_TEMPLATE,
     path: ['spec', 'triggerTemplate'],
+    formPart: FORM_STEPS.CONFIGURATION,
   },
   [NAMES.CLEAN_TEMPLATE]: {
     name: NAMES.CLEAN_TEMPLATE,
     path: ['spec', 'cleanTemplate'],
+    formPart: FORM_STEPS.CONFIGURATION,
   },
 
   // NOT USED IN RESOURCE DATA

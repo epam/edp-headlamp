@@ -1,4 +1,4 @@
-import { PipelineKubeObjectInterface } from '../../../../../k8s/groups/Tekton/Pipeline/types';
+import { TriggerTemplateKubeObjectInterface } from '../../../../../k8s/groups/Tekton/TriggerTemplate/types';
 import { KubeObjectListInterface } from '../../../../../types/k8s';
 import { DataProviderValue } from '../../../../../types/pages';
 import { ManageStageDialogProps } from '../../types';
@@ -7,7 +7,11 @@ export interface CurrentDialogContextProviderProps extends ManageStageDialogProp
 
 export interface CurrentDialogContextProviderValue extends CurrentDialogContextProviderProps {
   extra: {
-    buildPipelines: DataProviderValue<KubeObjectListInterface<PipelineKubeObjectInterface>>;
-    reviewPipelines: DataProviderValue<KubeObjectListInterface<PipelineKubeObjectInterface>>;
+    cleanTriggerTemplateList: DataProviderValue<
+      KubeObjectListInterface<TriggerTemplateKubeObjectInterface>
+    >;
+    deployTriggerTemplateList: DataProviderValue<
+      KubeObjectListInterface<TriggerTemplateKubeObjectInterface>
+    >;
   };
 }

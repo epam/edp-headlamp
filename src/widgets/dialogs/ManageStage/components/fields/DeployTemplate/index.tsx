@@ -6,12 +6,12 @@ import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../../../constants/ui';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { usePipelineByNameQuery } from '../../../../../../k8s/groups/Tekton/Pipeline/hooks/usePipelineByNameQuery';
-import { useDeployTriggerTemplateListQuery } from '../../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useDeployTriggerTemplateListQuery';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { PipelineGraphDialog } from '../../../../PipelineGraph';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
 import { STAGE_FORM_NAMES } from '../../../names';
+import { useCurrentDialog } from '../../../providers/CurrentDialog/hooks';
 
 export const DeployTemplate = () => {
   const { setDialog } = useDialogContext();
@@ -22,21 +22,25 @@ export const DeployTemplate = () => {
     formState: { errors },
   } = useTypedFormContext();
 
-  const { data, isLoading } = useDeployTriggerTemplateListQuery({});
+  const {
+    extra: { deployTriggerTemplateList },
+  } = useCurrentDialog();
 
   const options = React.useMemo(() => {
-    if (isLoading || !data) {
+    if (deployTriggerTemplateList.isLoading || !deployTriggerTemplateList.data) {
       return [];
     }
-    return data?.items.map(({ metadata: { name } }) => ({
+    return deployTriggerTemplateList.data?.items.map(({ metadata: { name } }) => ({
       label: name,
       value: name,
     }));
-  }, [data, isLoading]);
+  }, [deployTriggerTemplateList.data, deployTriggerTemplateList.isLoading]);
 
   const fieldValue = watch(STAGE_FORM_NAMES.triggerTemplate.name);
 
-  const templateByName = data?.items.find((item) => item.metadata.name === fieldValue);
+  const templateByName = deployTriggerTemplateList.data?.items.find(
+    (item) => item.metadata.name === fieldValue
+  );
 
   const { data: pipeline, isLoading: pipelineIsLoading } = usePipelineByNameQuery({
     props: {
