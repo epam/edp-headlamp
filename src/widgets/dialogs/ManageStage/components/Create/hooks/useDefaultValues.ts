@@ -9,6 +9,7 @@ import { DEFAULT_QUALITY_GATE } from '../../fields/QualityGates/constants';
 export const useDefaultValues = () => {
   const {
     props: { CDPipelineData, otherStages },
+    extra: { cleanTriggerTemplateList, deployTriggerTemplateList },
   } = useCurrentDialog();
 
   const stagesQuantity = otherStages.length;
@@ -24,7 +25,17 @@ export const useDefaultValues = () => {
       [STAGE_FORM_NAMES.cluster.name]: DEFAULT_CLUSTER,
       [STAGE_FORM_NAMES.qualityGates.name]: [DEFAULT_QUALITY_GATE],
       [STAGE_FORM_NAMES.deployNamespace.name]: `${namespace}-${CDPipelineName}`,
+      [STAGE_FORM_NAMES.triggerTemplate.name]:
+        deployTriggerTemplateList.data?.items?.[0]?.metadata.name,
+      [STAGE_FORM_NAMES.cleanTemplate.name]:
+        cleanTriggerTemplateList.data?.items?.[0]?.metadata.name,
     }),
-    [CDPipelineName, namespace, stagesQuantity]
+    [
+      CDPipelineName,
+      cleanTriggerTemplateList.data?.items,
+      deployTriggerTemplateList.data?.items,
+      namespace,
+      stagesQuantity,
+    ]
   );
 };

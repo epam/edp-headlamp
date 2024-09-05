@@ -22,7 +22,19 @@ export const DeploymentScript = () => {
         required: 'Select the deployment script',
       })}
       label={'Deployment Options'}
-      title={'Choose the deployment script'}
+      title={
+        <>
+          Select the deployment approach that best suits your target environment:
+          <ul>
+            <li>
+              <strong>Helm</strong>: Deploy applications within Kubernetes clusters.
+            </li>
+            <li>
+              <strong>RPM</strong>: Install applications on RPM-based Linux distributions.
+            </li>
+          </ul>
+        </>
+      }
       control={control}
       errors={errors}
       options={options}

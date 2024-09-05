@@ -29,6 +29,7 @@ export const FormActions = () => {
     formState: { isDirty },
     watch,
     handleSubmit,
+    trigger,
   } = useTypedFormContext();
 
   const handleClose = React.useCallback(() => {
@@ -104,6 +105,24 @@ export const FormActions = () => {
   const { activeStep, nextStep, prevStep } = useStepperContext();
   const theme = useTheme();
 
+  const activeTabFormPartName = React.useMemo(() => {
+    const validEntry = Object.entries(FORM_STEPPER).find(([, { idx }]) => idx === activeStep);
+    return validEntry?.[0];
+  }, [activeStep]);
+
+  const handleProceed = React.useCallback(async () => {
+    const activeTabFormPartNames = Object.values(STAGE_FORM_NAMES)
+      // @ts-ignore
+      .filter(({ formPart }) => formPart === activeTabFormPartName)
+      .map(({ name }) => name);
+
+    const hasNoErrors = await trigger(activeTabFormPartNames);
+
+    if (hasNoErrors) {
+      nextStep();
+    }
+  }, [activeTabFormPartName, nextStep, trigger]);
+
   return (
     <Stack direction="row" spacing={2} justifyContent="space-between" width="100%">
       <Stack direction="row" spacing={1}>
@@ -119,7 +138,7 @@ export const FormActions = () => {
       <div>
         <TabPanel value={activeStep} index={FORM_STEPPER.CONFIGURATION.idx}>
           <Stack direction="row">
-            <Button onClick={nextStep} variant={'contained'} color={'primary'} size="small">
+            <Button onClick={handleProceed} variant={'contained'} color={'primary'} size="small">
               next
             </Button>
           </Stack>
