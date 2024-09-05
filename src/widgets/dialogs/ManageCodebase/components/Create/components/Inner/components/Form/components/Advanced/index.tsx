@@ -8,6 +8,7 @@ import {
   CodebaseVersioning,
   CommitMessagePattern,
   DefaultBranch,
+  DeploymentScript,
   JiraServer,
   JiraServerIntegration,
   TicketNamePattern,
@@ -26,6 +27,9 @@ export const Advanced = () => {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <DefaultBranch />
+      </Grid>
+      <Grid item xs={12}>
+        <DeploymentScript />
       </Grid>
       <Grid item xs={12}>
         <CodebaseVersioning />
