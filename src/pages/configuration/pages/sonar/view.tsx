@@ -28,6 +28,7 @@ import { rem } from '../../../../utils/styling/rem';
 import { ManageSonar } from '../../../../widgets/ManageSonar';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { pageDescription } from './constants';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const [sonarSecrets, sonarSecretsError] = SecretKubeObject.useList({
@@ -51,6 +52,8 @@ export const PageView = () => {
 
   const handleOpenCreateDialog = () => setCreateDialogOpen(true);
   const handleCloseCreateDialog = () => setCreateDialogOpen(false);
+
+  const permissions = useTypedPermissions();
 
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(error);
@@ -152,6 +155,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!sonarSecret,
+        permissions: {
+          create: permissions.create.Secret,
+        },
       }}
       pageDescription={pageDescription}
     >

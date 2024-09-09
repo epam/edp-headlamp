@@ -5,7 +5,7 @@ import {
   CODEBASE_COMMON_LANGUAGES,
 } from '../../../../configs/codebase-mappings';
 import { getDeployedVersion } from '../../../../k8s/groups/ArgoCD/Application/utils/getDeployedVersion';
-import { FormContextProvider } from '../../../../providers/Form';
+import { FormContextProvider } from '../../../../providers/Form/provider';
 import {
   ALL_VALUES_OVERRIDE_KEY,
   IMAGE_TAG_POSTFIX,

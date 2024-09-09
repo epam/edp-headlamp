@@ -3,16 +3,16 @@ import React from 'react';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
-import { FilterContextProvider } from '../../providers/Filter';
+import { FilterContextProvider } from '../../providers/Filter/provider';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { PipelineRunList } from '../../widgets/PipelineRunList';
 import { matchFunctions } from '../../widgets/PipelineRunList/constants';
-import { usePermissionsContext } from './providers/Permissions/hooks';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const theme = useTheme();
 
-  const { pipelineRun: permissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
   const [items, error] = PipelineRunKubeObject.useList();
 
   return (
@@ -34,7 +34,11 @@ export const PageView = () => {
             pipelineRuns={items}
             isLoading={items === null}
             error={error}
-            permissions={permissions}
+            permissions={{
+              create: permissions.create.PipelineRun,
+              update: permissions.update.PipelineRun,
+              delete: permissions.delete.PipelineRun,
+            }}
           />
         </FilterContextProvider>
       </Section>

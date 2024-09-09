@@ -8,6 +8,7 @@ import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageRegistry } from '../../../../widgets/ManageRegistry';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { pageDescription } from './constants';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
@@ -32,6 +33,8 @@ export const PageView = () => {
 
   const handleOpenCreateDialog = () => setCreateDialogOpen(true);
   const handleCloseCreateDialog = () => setCreateDialogOpen(false);
+
+  const permissions = useTypedPermissions();
 
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(error);
@@ -103,6 +106,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!registryType,
+        permissions: {
+          create: permissions.create.Secret,
+        },
       }}
       pageDescription={pageDescription}
     >

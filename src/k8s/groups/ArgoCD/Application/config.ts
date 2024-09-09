@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const ApplicationKubeObjectConfig: KubeObjectConfig = {
+export const ApplicationKubeObjectConfig = {
   kind: 'Application',
   name: {
     singularForm: 'application',
@@ -8,4 +6,4 @@ export const ApplicationKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'argoproj.io',
   version: 'v1alpha1',
-};
+} as const;

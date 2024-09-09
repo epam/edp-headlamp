@@ -22,11 +22,11 @@ import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFir
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeComponentDetails } from '../../../../component-details/route';
-import { usePermissionsContext } from '../../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../../hooks/useTypedPermissions';
 import { Actions } from '../../ComponentActions';
 
 export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectInterface>>[] => {
-  const { codebase: permissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return React.useMemo(
     () => [
@@ -184,7 +184,16 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
             return <Box sx={{ height: rem(44) }} />;
           }
 
-          return <Actions resource={jsonData} permissions={permissions} />;
+          return (
+            <Actions
+              resource={jsonData}
+              permissions={{
+                create: permissions.create.Codebase,
+                update: permissions.update.Codebase,
+                delete: permissions.delete.Codebase,
+              }}
+            />
+          );
         },
         textAlign: 'center',
         width: '5%',

@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const ApprovalTaskKubeObjectConfig: KubeObjectConfig = {
+export const ApprovalTaskKubeObjectConfig = {
   kind: 'ApprovalTask',
   name: {
     singularForm: 'approvaltask',
@@ -8,4 +6,4 @@ export const ApprovalTaskKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'edp.epam.com',
   version: 'v1alpha1',
-};
+} as const;

@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const GerritKubeObjectConfig: KubeObjectConfig = {
+export const GerritKubeObjectConfig = {
   kind: 'Gerrit',
   name: {
     singularForm: 'gerrit',
@@ -8,4 +6,4 @@ export const GerritKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'v2.edp.epam.com',
   version: 'v1',
-};
+} as const;

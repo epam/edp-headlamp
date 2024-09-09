@@ -10,7 +10,7 @@ import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { useViewModeContext } from '../../../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../../../providers/ViewMode/types';
 import { CreateCodebaseFromTemplateDialog } from '../../../../widgets/dialogs/CreateCodebaseFromTemplate';
-import { usePermissionsContext } from '../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { TemplateCard } from './components/TemplateCard';
 import { TemplatesTable } from './components/TemplatesTable';
 import { MarketplaceListProps } from './types';
@@ -31,7 +31,7 @@ export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProp
     [setDialog]
   );
 
-  const { codebase: codebasePermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <>
@@ -40,7 +40,9 @@ export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProp
         <TemplatesTable
           data={items}
           handleTemplateClick={handleTemplateClick}
-          permissions={codebasePermissions}
+          permissions={{
+            create: permissions.create.Codebase,
+          }}
           filterFunction={filterFunction}
           warning={warning}
           error={error}
@@ -70,7 +72,9 @@ export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProp
                 <TemplateCard
                   handleTemplateClick={handleTemplateClick}
                   template={item}
-                  permissions={codebasePermissions}
+                  permissions={{
+                    create: permissions.create.Codebase,
+                  }}
                 />
               </Grid>
             );

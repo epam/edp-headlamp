@@ -28,6 +28,7 @@ import { rem } from '../../../../utils/styling/rem';
 import { ManageDependencyTrack } from '../../../../widgets/ManageDependencyTrack';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { pageDescription } from './constants';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const [dependencyTrackSecrets, dependencyTrackSecretsError] = SecretKubeObject.useList({
@@ -50,6 +51,8 @@ export const PageView = () => {
 
   const handleOpenCreateDialog = () => setCreateDialogOpen(true);
   const handleCloseCreateDialog = () => setCreateDialogOpen(false);
+
+  const permissions = useTypedPermissions();
 
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(error);
@@ -153,6 +156,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!dependencyTrackSecret,
+        permissions: {
+          create: permissions.create.Secret,
+        },
       }}
       pageDescription={pageDescription}
     >

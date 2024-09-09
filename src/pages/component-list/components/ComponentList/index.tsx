@@ -11,7 +11,7 @@ import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { ManageCodebaseDialog } from '../../../../widgets/dialogs/ManageCodebase';
 import { routeGitServerList } from '../../../configuration/pages/gitservers/route';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
-import { usePermissionsContext } from '../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { ComponentMultiDeletion } from './components/ComponentMultiDeletion';
 import { useColumns } from './hooks/useColumns';
 import { useUpperColumns } from './hooks/useUpperColumns';
@@ -78,20 +78,24 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
 
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
 
-  const { codebase: codebasePermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   const upperColumns = useUpperColumns({
     selected,
     onUninstallClick: () => {
       setDeleteDialogOpen(true);
     },
-    permissions: codebasePermissions,
+    permissions: {
+      create: permissions.create.Codebase,
+      update: permissions.update.Codebase,
+      delete: permissions.delete.Codebase,
+    },
   });
 
   const renderEmptyListComponent = React.useCallback(() => {
     const componentsAreLoaded = items !== null;
 
-    if (!codebasePermissions.create) {
+    if (!permissions.create.Codebase) {
       return <EmptyList customText="You do not have permission to create components." />;
     }
 
@@ -115,11 +119,11 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
       />
     );
   }, [
-    codebasePermissions.create,
     gitServersConfigurationPageRoute,
     history,
     items,
     noGitServers,
+    permissions.create.Codebase,
     setDialog,
   ]);
 

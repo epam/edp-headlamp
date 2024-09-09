@@ -11,11 +11,11 @@ import { sortByName } from '../../../../../utils/sort/sortByName';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeCDPipelineDetails } from '../../../../cdpipeline-details/route';
 import { routeComponentDetails } from '../../../../component-details/route';
-import { usePermissionsContext } from '../../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../../hooks/useTypedPermissions';
 import { Actions } from '../../Actions';
 
 export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjectInterface>>[] => {
-  const { cdPipeline: permissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return React.useMemo(
     () => [
@@ -100,7 +100,16 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
       {
         id: 'actions',
         label: '',
-        render: (resource) => <Actions resource={resource?.jsonData} permissions={permissions} />,
+        render: (resource) => (
+          <Actions
+            resource={resource?.jsonData}
+            permissions={{
+              create: permissions.create.CDPipeline,
+              update: permissions.update.CDPipeline,
+              delete: permissions.delete.CDPipeline,
+            }}
+          />
+        ),
       },
     ],
     [permissions]

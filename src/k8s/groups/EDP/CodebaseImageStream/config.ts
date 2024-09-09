@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const CodebaseImageStreamKubeObjectConfig: KubeObjectConfig = {
+export const CodebaseImageStreamKubeObjectConfig = {
   kind: 'CodebaseImageStream',
   name: {
     singularForm: 'codebaseimagestream',
@@ -8,4 +6,4 @@ export const CodebaseImageStreamKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'v2.edp.epam.com',
   version: 'v1',
-};
+} as const;

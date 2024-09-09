@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import { MultiFormContextProvider } from '../../providers/MultiForm';
+import { MultiFormContextProvider } from '../../providers/MultiForm/provider';
 import { FormItem } from '../../providers/MultiForm/types';
 import { FORM_MODES } from '../../types/forms';
 import { Actions } from './components/Actions';

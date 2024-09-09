@@ -1,4 +1,5 @@
 import { PageDescription } from '../../../../types/pages';
+import { PermissionSet } from '../../../../types/permissions';
 
 export interface ConfigurationPageContentProps {
   creationForm: {
@@ -6,6 +7,7 @@ export interface ConfigurationPageContentProps {
     isOpen: boolean;
     onClose: () => void;
     onOpen: () => void;
+    permissions: PermissionSet;
     label?: string;
     isDisabled?: boolean;
   };

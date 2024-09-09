@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const CustomRunKubeObjectConfig: KubeObjectConfig = {
+export const CustomRunKubeObjectConfig = {
   kind: 'CustomRun',
   name: {
     singularForm: 'customrun',
@@ -8,4 +6,4 @@ export const CustomRunKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'tekton.dev',
   version: 'v1beta1',
-};
+} as const;

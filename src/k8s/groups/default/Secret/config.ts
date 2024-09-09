@@ -1,10 +1,8 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const SecretKubeObjectConfig: KubeObjectConfig = {
+export const SecretKubeObjectConfig = {
   kind: 'Secret',
   name: {
     singularForm: 'secret',
     pluralForm: 'secrets',
   },
   version: 'v1',
-};
+} as const;

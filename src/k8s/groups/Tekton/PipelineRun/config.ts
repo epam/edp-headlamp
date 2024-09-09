@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const PipelineRunKubeObjectConfig: KubeObjectConfig = {
+export const PipelineRunKubeObjectConfig = {
   kind: 'PipelineRun',
   name: {
     singularForm: 'pipelinerun',
@@ -8,4 +6,4 @@ export const PipelineRunKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'tekton.dev',
   version: 'v1',
-};
+} as const;

@@ -5,7 +5,7 @@ import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { GitServerKubeObject } from '../../k8s/groups/EDP/GitServer';
-import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
+import { ResourceActionListContextProvider } from '../../providers/ResourceActionList/provider';
 import { ComponentList } from './components/ComponentList';
 import { ComponentListFilter } from './components/ComponentListFilter';
 

@@ -22,6 +22,7 @@ import { rem } from '../../../../utils/styling/rem';
 import { ManageChatAssistant } from '../../../../widgets/ManageChatAssistant';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { pageDescription } from './constants';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const [chatAssistantSecrets, chatAssistantSecretsError] = SecretKubeObject.useList({
@@ -44,6 +45,8 @@ export const PageView = () => {
 
   const handleOpenCreateDialog = () => setCreateDialogOpen(true);
   const handleCloseCreateDialog = () => setCreateDialogOpen(false);
+
+  const permissions = useTypedPermissions();
 
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(error);
@@ -145,6 +148,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!chatAssistantSecret,
+        permissions: {
+          create: permissions.create.Secret,
+        },
       }}
       pageDescription={pageDescription}
     >

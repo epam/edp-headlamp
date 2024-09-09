@@ -1,8 +1,8 @@
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
 import { PIPELINE_TYPES } from '../../../../../../../../constants/pipelineTypes';
-import { FilterContextProvider } from '../../../../../../../../providers/Filter';
-import { ResourceActionListContextProvider } from '../../../../../../../../providers/ResourceActionList';
+import { FilterContextProvider } from '../../../../../../../../providers/Filter/provider';
+import { ResourceActionListContextProvider } from '../../../../../../../../providers/ResourceActionList/provider';
 import { getDefaultNamespace } from '../../../../../../../../utils/getDefaultNamespace';
 import { rem } from '../../../../../../../../utils/styling/rem';
 import { PipelineRunList } from '../../../../../../../../widgets/PipelineRunList';
@@ -10,11 +10,11 @@ import {
   FILTER_CONTROLS,
   matchFunctions,
 } from '../../../../../../../../widgets/PipelineRunList/constants';
-import { usePermissionsContext } from '../../../../../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
 import { DetailsProps } from './types';
 
 export const Details = ({ pipelineRuns }: DetailsProps) => {
-  const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <Grid container spacing={4} style={{ marginTop: rem(20) }}>
@@ -33,7 +33,11 @@ export const Details = ({ pipelineRuns }: DetailsProps) => {
                 <PipelineRunList
                   pipelineRuns={pipelineRuns.all}
                   isLoading={pipelineRuns.all === null}
-                  permissions={pipelineRunPermissions}
+                  permissions={{
+                    create: permissions.create.PipelineRun,
+                    update: permissions.update.PipelineRun,
+                    delete: permissions.delete.PipelineRun,
+                  }}
                   pipelineRunTypes={[
                     PIPELINE_TYPES.ALL,
                     PIPELINE_TYPES.REVIEW,

@@ -21,6 +21,7 @@ import { rem } from '../../../../utils/styling/rem';
 import { ManageJiraServer } from '../../../../widgets/ManageJiraServer';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { pageDescription } from './constants';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const [jiraServers, jiraServersError] = JiraServerKubeObject.useList();
@@ -39,6 +40,8 @@ export const PageView = () => {
 
   const handleOpenCreateDialog = () => setCreateDialogOpen(true);
   const handleCloseCreateDialog = () => setCreateDialogOpen(false);
+
+  const permissions = useTypedPermissions();
 
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(error);
@@ -136,6 +139,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!jiraServerSecret,
+        permissions: {
+          create: permissions.create.Secret && permissions.create.JiraServer,
+        },
       }}
       pageDescription={pageDescription}
     >

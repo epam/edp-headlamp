@@ -5,7 +5,7 @@ import { TableColumn } from '../../../../../../../components/Table/types';
 import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/QuickLink/types';
 import { HeadlampKubeObject } from '../../../../../../../types/k8s';
-import { usePermissionsContext } from '../../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../../hooks/useTypedPermissions';
 import { Actions } from '../../Actions';
 import { useStyles } from '../styles';
 
@@ -13,7 +13,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
   const classes = useStyles();
   const theme = useTheme();
 
-  const { quickLink: quickLinkPermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return React.useMemo(
     () => [
@@ -66,10 +66,23 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
         id: 'actions',
         label: '',
         render: ({ jsonData }) => (
-          <Actions resource={jsonData} permissions={quickLinkPermissions} />
+          <Actions
+            resource={jsonData}
+            permissions={{
+              create: permissions.create.QuickLink,
+              update: permissions.update.QuickLink,
+              delete: permissions.delete.QuickLink,
+            }}
+          />
         ),
       },
     ],
-    [classes.serviceItemIcon, quickLinkPermissions, theme.palette.grey]
+    [
+      classes.serviceItemIcon,
+      permissions.create.QuickLink,
+      permissions.delete.QuickLink,
+      permissions.update.QuickLink,
+      theme.palette.grey,
+    ]
   );
 };

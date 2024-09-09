@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const CodebaseBranchKubeObjectConfig: KubeObjectConfig = {
+export const CodebaseBranchKubeObjectConfig = {
   kind: 'CodebaseBranch',
   name: {
     singularForm: 'codebasebranch',
@@ -8,4 +6,4 @@ export const CodebaseBranchKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'v2.edp.epam.com',
   version: 'v1',
-};
+} as const;
