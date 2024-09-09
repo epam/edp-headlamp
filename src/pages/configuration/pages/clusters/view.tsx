@@ -20,6 +20,7 @@ import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageClusterSecret } from '../../../../widgets/ManageClusterSecret';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { pageDescription } from './constants';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const [clusterSecrets, clusterSecretsError] = SecretKubeObject.useList({
@@ -39,6 +40,7 @@ export const PageView = () => {
     setExpandedPanel(isExpanded ? panel : null);
   };
 
+  const permissions = useTypedPermissions();
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(clusterSecretsError);
 
@@ -135,6 +137,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading,
+        permissions: {
+          create: permissions.create.Secret,
+        },
       }}
       pageDescription={pageDescription}
     >

@@ -12,7 +12,7 @@ import { SearchControl } from '../../../../providers/Filter/components/Filter/co
 import { ManageCodebaseDialog } from '../../../../widgets/dialogs/ManageCodebase';
 import { FILTER_CONTROLS } from '../../constants';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
-import { usePermissionsContext } from '../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { PageFilterExtraControls } from '../../types';
 import { ComponentListFilterProps } from './types';
 
@@ -21,7 +21,7 @@ export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) 
 
   const { setDialog } = useDialogContext();
 
-  const { codebase: codebasePermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <Grid container spacing={2} alignItems={'flex-end'} justifyContent={'flex-end'}>
@@ -74,7 +74,7 @@ export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) 
             onClick: () => setDialog(ManageCodebaseDialog, { codebaseData: null }),
           }}
           text="You do not have permission to create Codebase"
-          allowed={codebasePermissions.create}
+          allowed={permissions.create.Codebase}
         >
           create component
         </ButtonWithPermission>

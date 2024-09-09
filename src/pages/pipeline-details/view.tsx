@@ -8,8 +8,8 @@ import { Tabs } from '../../components/Tabs';
 import { PipelineRunActionsMenu } from '../../widgets/PipelineRunActionsMenu';
 import { routePipelineRunList } from '../pipelines/route';
 import { useTabs } from './hooks/useTabs';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
-import { usePermissionsContext } from './providers/Permissions/hooks';
 import { PipelineRouteParams } from './types';
 
 // Complicated navigation logic
@@ -19,7 +19,7 @@ import { PipelineRouteParams } from './types';
 export const PageView = () => {
   const { name } = useParams<PipelineRouteParams>();
 
-  const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   const {
     pipelineRun,
@@ -48,7 +48,11 @@ export const PageView = () => {
               data={{
                 pipelineRun: pipelineRun.data,
               }}
-              permissions={pipelineRunPermissions}
+              permissions={{
+                create: permissions.create.PipelineRun,
+                update: permissions.update.PipelineRun,
+                delete: permissions.delete.PipelineRun,
+              }}
               backRoute={Router.createRouteURL(routePipelineRunList.path)}
               variant="inline"
             />

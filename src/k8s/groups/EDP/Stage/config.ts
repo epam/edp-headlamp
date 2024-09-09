@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const StageKubeObjectConfig: KubeObjectConfig = {
+export const StageKubeObjectConfig = {
   kind: 'Stage',
   name: {
     singularForm: 'stage',
@@ -8,4 +6,4 @@ export const StageKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'v2.edp.epam.com',
   version: 'v1',
-};
+} as const;

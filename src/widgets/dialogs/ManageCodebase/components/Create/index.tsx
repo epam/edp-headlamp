@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabPanel } from '../../../../../components/TabPanel';
-import { FormContextProvider } from '../../../../../providers/Form';
-import { StepperContextProvider } from '../../../../../providers/Stepper';
+import { FormContextProvider } from '../../../../../providers/Form/provider';
+import { StepperContextProvider } from '../../../../../providers/Stepper/provider';
 import { ValueOf } from '../../../../../types/global';
 import { MAIN_TABS } from '../../constants';
 import { Configuration } from './components/Inner';

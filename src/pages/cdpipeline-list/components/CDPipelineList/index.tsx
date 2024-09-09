@@ -3,7 +3,7 @@ import { EmptyList } from '../../../../components/EmptyList';
 import { Table } from '../../../../components/Table';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { ManageCDPipelineDialog } from '../../../../widgets/dialogs/ManageCDPipeline';
-import { usePermissionsContext } from '../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { useColumns } from './hooks/useColumns';
 import { CDPipelineListProps } from './types';
 
@@ -17,7 +17,7 @@ export const CDPipelineList = ({
 
   const { setDialog } = useDialogContext();
 
-  const { cdPipeline: CDPipelinePermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <Table
@@ -28,7 +28,7 @@ export const CDPipelineList = ({
       filterFunction={filterFunction}
       blockerComponent={blockerComponent}
       emptyListComponent={
-        CDPipelinePermissions.create ? (
+        permissions.create.CDPipeline ? (
           <EmptyList
             missingItemName={'Deployment Flows'}
             handleClick={() => {

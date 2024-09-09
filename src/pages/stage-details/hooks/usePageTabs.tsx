@@ -8,7 +8,7 @@ import { PIPELINE_TYPES } from '../../../constants/pipelineTypes';
 import { useQuickLinksURLsQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/groups/Tekton/PipelineRun/constants';
-import { FilterContextProvider } from '../../../providers/Filter';
+import { FilterContextProvider } from '../../../providers/Filter/provider';
 import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { PipelineRunList } from '../../../widgets/PipelineRunList';
 import { FILTER_CONTROLS, matchFunctions } from '../../../widgets/PipelineRunList/constants';

@@ -31,7 +31,7 @@ import { ManageGitOps } from '../../../../widgets/ManageGitOps';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { routeGitServerList } from '../gitservers/route';
 import { pageDescription } from './constants';
-import { usePermissionsContext } from './providers/Permissions/hooks';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const [codebases, codebasesError] = CodebaseKubeObject.useList({
@@ -60,7 +60,7 @@ export const PageView = () => {
   const handleOpenCreateDialog = () => setCreateDialogOpen(true);
   const handleCloseCreateDialog = () => setCreateDialogOpen(false);
 
-  const { codebase: codebasePermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(error);
@@ -79,7 +79,7 @@ export const PageView = () => {
       );
     }
 
-    if (!isLoading && !codebasePermissions.create) {
+    if (!isLoading && !permissions.create.Codebase) {
       return (
         <EmptyList customText={'You do not have permissions to create GitOps repositories.'} />
       );
@@ -146,7 +146,6 @@ export const PageView = () => {
       </LoadingWrapper>
     );
   }, [
-    codebasePermissions.create,
     color,
     error,
     gitOpsCodebase,
@@ -156,6 +155,7 @@ export const PageView = () => {
     icon,
     isLoading,
     isRotating,
+    permissions.create.Codebase,
     status,
   ]);
 
@@ -175,6 +175,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!gitOpsCodebase,
+        permissions: {
+          create: permissions.create.Codebase,
+        },
       }}
       pageDescription={pageDescription}
     >

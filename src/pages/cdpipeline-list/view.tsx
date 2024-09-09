@@ -21,12 +21,12 @@ import { Filter } from '../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../providers/Filter/hooks';
-import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
+import { ResourceActionListContextProvider } from '../../providers/ResourceActionList/provider';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { ManageCDPipelineDialog } from '../../widgets/dialogs/ManageCDPipeline';
 import { routeGitOps } from '../configuration/pages/gitops/route';
 import { CDPipelineList } from './components/CDPipelineList';
-import { usePermissionsContext } from './providers/Permissions/hooks';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const gitOpsCodebaseQuery = useCodebasesByTypeLabelQuery({
@@ -56,7 +56,7 @@ export const PageView = () => {
 
   const { filterFunction } = useFilterContext();
 
-  const { cdPipeline: CDPipelinePermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <PageWrapper>
@@ -96,7 +96,7 @@ export const PageView = () => {
                       }),
                     disabled: !gitOpsCodebaseQuery.data,
                   }}
-                  allowed={CDPipelinePermissions.create}
+                  allowed={permissions.create.CDPipeline}
                   text="You do not have permission to create a Deployment Flow."
                 >
                   create deployment flow

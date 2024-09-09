@@ -13,12 +13,12 @@ import { Filter } from '../../../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../../../providers/Filter/hooks';
-import { ResourceActionListContextProvider } from '../../../../providers/ResourceActionList';
+import { ResourceActionListContextProvider } from '../../../../providers/ResourceActionList/provider';
 import { ManageQuickLinkDialog } from '../../../../widgets/dialogs/ManageQuickLink';
 import { menu } from '../../menu';
 import { QuickLinkList } from './components/ComponentList';
 import { pageDescription } from './constants';
-import { usePermissionsContext } from './providers/Permissions/hooks';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const theme = useTheme();
@@ -30,7 +30,7 @@ export const PageView = () => {
 
   const { setDialog } = useDialogContext();
 
-  const { quickLink: quickLinkPermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <PageWithSubMenu list={menu} title="Configuration">
@@ -72,7 +72,7 @@ export const PageView = () => {
                           setDialog(ManageQuickLinkDialog, { quickLink: null });
                         },
                       }}
-                      allowed={quickLinkPermissions.create}
+                      allowed={permissions.create.QuickLink}
                       text="You do not have permission to create QuickLink"
                     >
                       add link

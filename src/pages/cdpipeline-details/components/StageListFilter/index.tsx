@@ -19,8 +19,8 @@ import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstL
 import { ManageStageDialog } from '../../../../widgets/dialogs/ManageStage';
 import { FILTER_CONTROLS } from '../../constants';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
+import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
-import { usePermissionsContext } from '../../providers/Permissions/hooks';
 import { PageFilterExtraControls } from '../../types';
 
 export const StageListFilter = () => {
@@ -82,7 +82,7 @@ export const StageListFilter = () => {
     value: status,
   }));
 
-  const { stage: stagePermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <Grid container spacing={2} alignItems={'flex-end'} justifyContent={'flex-end'}>
@@ -179,7 +179,7 @@ export const StageListFilter = () => {
             },
           }}
           text="You do not have permission to create a stage."
-          allowed={stagePermissions.create}
+          allowed={permissions.create.Stage}
         >
           create environment
         </ButtonWithPermission>

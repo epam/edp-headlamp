@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const CodemieProjectSettingsKubeObjectConfig: KubeObjectConfig = {
+export const CodemieProjectSettingsKubeObjectConfig = {
   kind: 'CodemieProjectSettings',
   name: {
     singularForm: 'codemieprojectsettings',
@@ -8,4 +6,4 @@ export const CodemieProjectSettingsKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'edp.epam.com',
   version: 'v1alpha1',
-};
+} as const;

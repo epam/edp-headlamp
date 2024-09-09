@@ -2,18 +2,22 @@ import React from 'react';
 import { QuickLinkKubeObjectInterface } from '../../../../k8s/groups/EDP/QuickLink/types';
 import { useResourceActionListContext } from '../../../../providers/ResourceActionList/hooks';
 import { QuickLinkActionsMenu } from '../../../../widgets/QuickLinkActionsMenu';
-import { usePermissionsContext } from '../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 
 export const QuickLinkActions = () => {
   const { data, anchorEl, handleCloseResourceActionListMenu } =
     useResourceActionListContext<QuickLinkKubeObjectInterface>();
 
-  const { quickLink: quickLinkPermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <QuickLinkActionsMenu
       data={data}
-      permissions={quickLinkPermissions}
+      permissions={{
+        create: permissions.create.QuickLink,
+        update: permissions.update.QuickLink,
+        delete: permissions.delete.QuickLink,
+      }}
       anchorEl={anchorEl}
       handleCloseResourceActionListMenu={handleCloseResourceActionListMenu}
       variant="menu"

@@ -17,8 +17,8 @@ import { routeCDPipelineList } from '../cdpipeline-list/route';
 import { routeSonar } from '../configuration/pages/sonar/route';
 import { StageList } from './components/StageList';
 import { StageListFilter } from './components/StageListFilter';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
-import { usePermissionsContext } from './providers/Permissions/hooks';
 import { CDPipelineRouteParams } from './types';
 
 export const PageView = () => {
@@ -27,7 +27,7 @@ export const PageView = () => {
 
   const { CDPipeline } = useDynamicDataContext();
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
-  const { cdPipeline: CDPipelinePermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <PageWrapper
@@ -68,7 +68,10 @@ export const PageView = () => {
                   data={{
                     CDPipelineData: CDPipeline.data,
                   }}
-                  permissions={CDPipelinePermissions}
+                  permissions={{
+                    update: permissions.update.CDPipeline,
+                    delete: permissions.delete.CDPipeline,
+                  }}
                   backRoute={Router.createRouteURL(routeCDPipelineList.path)}
                   variant="inline"
                 />

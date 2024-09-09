@@ -3,7 +3,7 @@ import { IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { CodebaseBranchActionsMenu } from '../../../../../../../../widgets/CodebaseBranchActionsMenu';
-import { usePermissionsContext } from '../../../../../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
 import { ActionsProps } from './types';
 
 export const Actions = ({
@@ -15,7 +15,7 @@ export const Actions = ({
   const buttonRef = React.createRef<HTMLButtonElement>();
   const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement>(null);
 
-  const { codebaseBranch: codebaseBranchPermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <>
@@ -35,7 +35,10 @@ export const Actions = ({
           codebaseData,
           pipelines,
         }}
-        permissions={codebaseBranchPermissions}
+        permissions={{
+          update: permissions.update.CodebaseBranch,
+          delete: permissions.delete.CodebaseBranch,
+        }}
         anchorEl={anchor}
         handleCloseResourceActionListMenu={() => setAnchor(null)}
       />

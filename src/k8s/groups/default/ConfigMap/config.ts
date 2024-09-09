@@ -1,10 +1,8 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const ConfigMapKubeObjectConfig: KubeObjectConfig = {
+export const ConfigMapKubeObjectConfig = {
   kind: 'ConfigMap',
   name: {
     singularForm: 'configmap',
     pluralForm: 'configmaps',
   },
   version: 'v1',
-};
+} as const;

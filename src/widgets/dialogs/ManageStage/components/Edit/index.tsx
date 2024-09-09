@@ -1,6 +1,6 @@
 import { DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import React from 'react';
-import { FormContextProvider } from '../../../../../providers/Form';
+import { FormContextProvider } from '../../../../../providers/Form/provider';
 import { DialogHeader } from './components/DialogHeader';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';

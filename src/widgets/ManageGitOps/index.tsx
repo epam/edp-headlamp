@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import { FormContextProvider } from '../../providers/Form';
+import { FormContextProvider } from '../../providers/Form/provider';
 import { Create } from './components/Create';
 import { FormActions } from './components/FormActions';
 import { View } from './components/View';

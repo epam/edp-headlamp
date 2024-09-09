@@ -122,7 +122,7 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
               <Button variant="contained" onClick={handleClickApprove}>
                 approve
               </Button>
-              <Button onClick={handleClickReject}>decline</Button>
+              <Button onClick={handleClickReject}>reject</Button>
             </Stack>
           )}
         </Stack>

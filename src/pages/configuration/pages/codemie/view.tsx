@@ -6,12 +6,13 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  Grid,
   Paper,
   Stack,
   Tooltip,
+  Typography,
   useTheme,
 } from '@mui/material';
-import { Grid, Typography } from '@mui/material';
 import React from 'react';
 import { EmptyList } from '../../../../components/EmptyList';
 import { ErrorContent } from '../../../../components/ErrorContent';
@@ -32,6 +33,7 @@ import { rem } from '../../../../utils/styling/rem';
 import { ManageCodeMie } from '../../../../widgets/ManageCodeMie';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { pageDescription } from './constants';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
@@ -64,6 +66,8 @@ export const PageView = () => {
 
   const handleOpenCreateDialog = () => setCreateDialogOpen(true);
   const handleCloseCreateDialog = () => setCreateDialogOpen(false);
+
+  const permissions = useTypedPermissions();
 
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(error);
@@ -222,6 +226,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: true,
+        permissions: {
+          create: permissions.create.Secret,
+        },
       }}
       pageDescription={pageDescription}
     >

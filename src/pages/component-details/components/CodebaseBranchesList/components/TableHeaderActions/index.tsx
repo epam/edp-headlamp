@@ -4,8 +4,8 @@ import { ButtonWithPermission } from '../../../../../../components/ButtonWithPer
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { ManageCodebaseBranchDialog } from '../../../../../../widgets/dialogs/ManageCodebaseBranch';
+import { useTypedPermissions } from '../../../../hooks/useTypedPermissions';
 import { useDynamicDataContext } from '../../../../providers/DynamicData/hooks';
-import { usePermissionsContext } from '../../../../providers/Permissions/hooks';
 import { TableHeaderActionsProps } from './types';
 
 export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActionsProps) => {
@@ -13,7 +13,7 @@ export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActio
   const {
     pipelines: { data: pipelines },
   } = useDynamicDataContext();
-  const { codebaseBranch: codebaseBranchPermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <ButtonWithPermission
@@ -29,7 +29,7 @@ export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActio
           });
         },
       }}
-      allowed={codebaseBranchPermissions.create}
+      allowed={permissions.create.CodebaseBranch}
       text="You do not have permission to create a branch."
     >
       Create branch

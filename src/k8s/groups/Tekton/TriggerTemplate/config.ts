@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const TriggerTemplateKubeObjectConfig: KubeObjectConfig = {
+export const TriggerTemplateKubeObjectConfig = {
   kind: 'TriggerTemplate',
   name: {
     singularForm: 'triggertemplate',
@@ -8,4 +6,4 @@ export const TriggerTemplateKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'triggers.tekton.dev',
   version: 'v1beta1',
-};
+} as const;

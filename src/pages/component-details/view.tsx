@@ -14,20 +14,20 @@ import {
   SYSTEM_QUICK_LINKS_LABELS,
 } from '../../k8s/groups/EDP/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
-import { ResourceActionListContextProvider } from '../../providers/ResourceActionList';
+import { ResourceActionListContextProvider } from '../../providers/ResourceActionList/provider';
 import { LinkCreationService } from '../../services/link-creation';
 import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
 import { routeComponentList } from '../component-list/route';
 import { routeSonar } from '../configuration/pages/sonar/route';
 import { usePageTabs } from './hooks/usePageTabs';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
-import { usePermissionsContext } from './providers/Permissions/hooks';
 import { ComponentDetailsRouteParams } from './types';
 
 export const PageView = () => {
   const { name } = useParams<ComponentDetailsRouteParams>();
   const { component } = useDynamicDataContext();
-  const { codebase: codebasePermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   const componentType = component.data?.spec?.type;
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
@@ -85,7 +85,10 @@ export const PageView = () => {
                       data={{
                         codebaseData: component.data,
                       }}
-                      permissions={codebasePermissions}
+                      permissions={{
+                        update: permissions.update.Codebase,
+                        delete: permissions.delete.Codebase,
+                      }}
                       backRoute={Router.createRouteURL(routeComponentList.path)}
                       variant="inline"
                     />

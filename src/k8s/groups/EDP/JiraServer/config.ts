@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const JiraServerKubeObjectConfig: KubeObjectConfig = {
+export const JiraServerKubeObjectConfig = {
   kind: 'JiraServer',
   name: {
     singularForm: 'jiraserver',
@@ -8,4 +6,4 @@ export const JiraServerKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'v2.edp.epam.com',
   version: 'v1',
-};
+} as const;

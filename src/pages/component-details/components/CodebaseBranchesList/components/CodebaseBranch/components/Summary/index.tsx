@@ -14,7 +14,7 @@ import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/groups/Tekton/P
 import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateBuildPipelineRun';
 import { useStorageSizeQuery } from '../../../../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useStorageSizeQuery';
 import { rem } from '../../../../../../../../utils/styling/rem';
-import { usePermissionsContext } from '../../../../../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
 import { isDefaultBranch } from '../../../../utils';
 import { Actions } from '../Actions';
 import { useStyles } from './styles';
@@ -27,7 +27,7 @@ export const Summary = ({
   defaultBranch,
   pipelines,
 }: SummaryProps) => {
-  const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
   const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
   const { data: storageSize } = useStorageSizeQuery(codebaseData);
   const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
@@ -162,7 +162,7 @@ export const Summary = ({
               <IconButton
                 onClick={onBuildButtonClick}
                 disabled={
-                  pipelineRunPermissions.create === false ||
+                  permissions.create.PipelineRun === false ||
                   PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun) ===
                     PIPELINE_RUN_REASON.RUNNING ||
                   codebaseBranchData?.status?.status !== CUSTOM_RESOURCE_STATUSES.CREATED

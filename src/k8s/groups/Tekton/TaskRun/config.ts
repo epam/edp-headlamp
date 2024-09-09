@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const TaskRunKubeObjectConfig: KubeObjectConfig = {
+export const TaskRunKubeObjectConfig = {
   kind: 'TaskRun',
   name: {
     singularForm: 'taskrun',
@@ -8,4 +6,4 @@ export const TaskRunKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'tekton.dev',
   version: 'v1',
-};
+} as const;

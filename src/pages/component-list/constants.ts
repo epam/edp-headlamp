@@ -1,4 +1,6 @@
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
+import { CodebaseKubeObject } from '../../k8s/groups/EDP/Codebase';
+import { CodebaseKubeObjectConfig } from '../../k8s/groups/EDP/Codebase/config';
 import { CodebaseKubeObjectInterface } from '../../k8s/groups/EDP/Codebase/types';
 import { MatchFunctions } from './types';
 
@@ -16,6 +18,8 @@ export const matchFunctions: MatchFunctions = {
   },
 };
 
-export const permissionChecks = {
-  CODEBASE: 'codebase',
-} as const;
+export const permissionsToCheckConfig = {
+  create: [{ instance: CodebaseKubeObject, config: CodebaseKubeObjectConfig }],
+  update: [{ instance: CodebaseKubeObject, config: CodebaseKubeObjectConfig }],
+  delete: [{ instance: CodebaseKubeObject, config: CodebaseKubeObjectConfig }],
+};

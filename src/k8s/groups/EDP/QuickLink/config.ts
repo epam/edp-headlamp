@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const QuickLinkKubeObjectConfig: KubeObjectConfig = {
+export const QuickLinkKubeObjectConfig = {
   kind: 'QuickLink',
   name: {
     singularForm: 'quicklink',
@@ -8,4 +6,4 @@ export const QuickLinkKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'v2.edp.epam.com',
   version: 'v1',
-};
+} as const;

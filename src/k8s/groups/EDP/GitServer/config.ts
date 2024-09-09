@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const GitServerKubeObjectConfig: KubeObjectConfig = {
+export const GitServerKubeObjectConfig = {
   kind: 'GitServer',
   name: {
     singularForm: 'gitserver',
@@ -8,4 +6,4 @@ export const GitServerKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'v2.edp.epam.com',
   version: 'v1',
-};
+} as const;

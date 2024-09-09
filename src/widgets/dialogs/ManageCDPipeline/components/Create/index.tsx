@@ -1,8 +1,8 @@
 import { DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import React from 'react';
 import { CDPipelineKubeObjectInterface } from '../../../../../k8s/groups/EDP/CDPipeline/types';
-import { FormContextProvider } from '../../../../../providers/Form';
-import { StepperContextProvider } from '../../../../../providers/Stepper';
+import { FormContextProvider } from '../../../../../providers/Form/provider';
+import { StepperContextProvider } from '../../../../../providers/Stepper/provider';
 import { DialogHeader } from './components/DialogHeader';
 import { Form } from './components/Form';
 import { FormActions } from './components/FormActions';

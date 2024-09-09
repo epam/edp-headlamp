@@ -4,20 +4,20 @@ import React from 'react';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { ManageQuickLinkDialog } from '../../../../../../widgets/dialogs/ManageQuickLink';
-import { usePermissionsContext } from '../../../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../../../hooks/useTypedPermissions';
 import { useStyles } from './styles';
 
 export const AddNewQuickLinkCard = () => {
   const classes = useStyles();
 
   const { setDialog } = useDialogContext();
-  const { quickLink: permissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   return (
     <IconButton
       className={classes.cardRoot}
       onClick={() => setDialog(ManageQuickLinkDialog, { quickLink: null })}
-      disabled={!permissions.create}
+      disabled={!permissions.create.QuickLink}
     >
       <Stack direction="row" spacing={2} alignItems="center">
         <Icon icon={ICONS.PLUS} width={14} height={14} color={'inherit'} />

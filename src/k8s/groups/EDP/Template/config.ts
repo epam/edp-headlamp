@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const TemplateKubeObjectConfig: KubeObjectConfig = {
+export const TemplateKubeObjectConfig = {
   kind: 'Template',
   name: {
     singularForm: 'template',
@@ -8,4 +6,4 @@ export const TemplateKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'v2.edp.epam.com',
   version: 'v1alpha1',
-};
+} as const;

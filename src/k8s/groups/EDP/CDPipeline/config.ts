@@ -1,6 +1,4 @@
-import { KubeObjectConfig } from '../../../../types/configs/k8s';
-
-export const CDPipelineKubeObjectConfig: KubeObjectConfig = {
+export const CDPipelineKubeObjectConfig = {
   kind: 'CDPipeline',
   name: {
     singularForm: 'cdpipeline',
@@ -8,4 +6,4 @@ export const CDPipelineKubeObjectConfig: KubeObjectConfig = {
   },
   group: 'v2.edp.epam.com',
   version: 'v1',
-};
+} as const;
