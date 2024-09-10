@@ -216,7 +216,7 @@ export const useColumns = ({
       {
         id: 'rerun',
         label: 'Actions',
-        render: (resource) => <Actions resource={resource?.jsonData} permissions={permissions} />,
+        render: (resource) => <Actions resource={resource} permissions={permissions} />,
         width: '5%',
       },
     ],

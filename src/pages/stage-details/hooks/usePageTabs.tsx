@@ -25,8 +25,15 @@ export const usePageTabs = () => {
   const { namespace } = useParams<EDPStageDetailsRouteParams>();
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
 
-  const { stage, pipelineRuns, deployPipelineRuns, cleanPipelineRuns, argoApplications } =
-    useDynamicDataContext();
+  const {
+    stage,
+    pipelineRuns,
+    deployPipelineRuns,
+    cleanPipelineRuns,
+    argoApplications,
+    newPipelineRunAdded,
+    setNewPipelineRunAdded,
+  } = useDynamicDataContext();
 
   const isLoading = React.useMemo(
     () => stage.isLoading || deployPipelineRuns.isLoading || argoApplications.isLoading,
@@ -127,6 +134,8 @@ export const usePageTabs = () => {
             </TabSection>
           </LoadingWrapper>
         ),
+        highlightNew: newPipelineRunAdded,
+        onClick: () => setNewPipelineRunAdded(false),
       },
       {
         label: 'Monitoring',
@@ -152,10 +161,12 @@ export const usePageTabs = () => {
     isLoading,
     latestCleanPipelineRunIsRunning,
     latestDeployPipelineRunIsRunning,
+    newPipelineRunAdded,
     pipelineRunPermissions,
     pipelineRuns.data,
     pipelineRuns.error,
     pipelineRuns.isLoading,
+    setNewPipelineRunAdded,
     stage.data?.spec.namespace,
   ]);
 };

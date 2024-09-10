@@ -3,6 +3,8 @@ export interface Tab {
   component: React.ReactNode;
   icon?: React.ReactElement;
   disabled?: boolean;
+  highlightNew?: boolean;
+  onClick?: () => void;
 }
 
 export interface TabsProps {

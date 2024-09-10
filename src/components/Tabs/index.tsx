@@ -38,12 +38,15 @@ export const Tabs = ({ tabs, initialTabIdx, rememberLastTab, id }: TabsProps) =>
         textColor={'primary'}
         className={classes.tabs}
       >
-        {tabs.map(({ label, icon, disabled = false }, idx) => (
+        {tabs.map(({ label, icon, disabled = false, highlightNew, onClick }, idx) => (
           <Tab
             key={`tab::${idx}`}
-            label={label}
+            label={
+              highlightNew ? <span className={classes.tabWithHighlightDot}>{label}</span> : label
+            }
             disabled={disabled}
             icon={icon}
+            onClick={onClick}
             {...a11yProps(idx)}
           />
         ))}

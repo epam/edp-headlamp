@@ -16,4 +16,8 @@ export const DynamicDataContext = React.createContext<DynamicDataContextProvider
   deployPipelineRunTemplate: initialData,
   cleanPipelineRunTemplate: initialData,
   gitServers: initialData,
+  newPipelineRunAdded: false,
+  setNewPipelineRunAdded: () => {
+    //
+  },
 });
