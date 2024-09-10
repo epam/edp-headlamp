@@ -25,6 +25,13 @@ export interface StreamItemProps {
   errorHandler: (err: Error) => void;
 }
 
+export interface StreamListByStageNameProps {
+  stageMetadataName: string;
+  namespace: string;
+  dataHandler: (data: TaskRunKubeObjectInterface[]) => void;
+  errorHandler: (err: Error) => void;
+}
+
 export interface PipelineRunTaskData {
   pipelineRunTask: PipelineRunTask;
   task: TaskKubeObjectInterface;

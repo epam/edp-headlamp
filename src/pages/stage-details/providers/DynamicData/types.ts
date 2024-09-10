@@ -13,4 +13,6 @@ export interface DynamicDataContextProviderValue {
   deployPipelineRunTemplate: DataProviderValue<PipelineRunKubeObjectInterface>;
   cleanPipelineRunTemplate: DataProviderValue<PipelineRunKubeObjectInterface>;
   gitServers: DataProviderValue<GitServerKubeObjectInterface[]>;
+  newPipelineRunAdded: boolean;
+  setNewPipelineRunAdded: React.Dispatch<React.SetStateAction<boolean>>;
 }

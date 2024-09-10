@@ -3,9 +3,15 @@ import { STATUS_COLOR } from '../../../../constants/colors';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { ValueOf } from '../../../../types/global';
 import { streamResult } from '../../../common/streamResult';
+import { streamResults } from '../../../common/streamResults';
 import { PipelineRunKubeObjectConfig } from './config';
 import { PIPELINE_RUN_REASON, PIPELINE_RUN_STATUS } from './constants';
-import { PipelineRunKubeObjectInterface, StreamItemProps } from './types';
+import { PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE } from './labels';
+import {
+  PipelineRunKubeObjectInterface,
+  StreamItemProps,
+  StreamListByStageNameProps,
+} from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -83,4 +89,16 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResult(url, name, dataHandler, errorHandler);
   }
+
+  static streamListByStageName = ({
+    namespace,
+    stageMetadataName,
+    dataHandler,
+    errorHandler,
+  }: StreamListByStageNameProps) => {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+    return streamResults(url, dataHandler, errorHandler, {
+      labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE}=${stageMetadataName}`,
+    });
+  };
 }

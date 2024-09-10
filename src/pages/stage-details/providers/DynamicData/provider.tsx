@@ -42,40 +42,60 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const stageTriggerTemplate = stage?.spec.triggerTemplate;
   const stageCleanTemplate = stage?.spec.cleanTemplate;
 
-  const [pipelineRuns, pipelineRunsError] = PipelineRunKubeObject.useList({
-    labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE}=${stageMetadataName}`,
-  });
+  const [pipelineRuns, setPipelineRuns] = React.useState<PipelineRunKubeObjectInterface[]>(null);
+
+  const [newPipelineRunAdded, setNewPipelineRunAdded] = React.useState<boolean>(false);
+
+  const [pipelineRunsError, setPipelineRunsError] = React.useState<ApiError | null>(null);
+
+  React.useEffect(() => {
+    const cancelStream = PipelineRunKubeObject.streamListByStageName({
+      namespace,
+      stageMetadataName: stageMetadataName,
+      dataHandler: (data) => {
+        setPipelineRuns((prev) => {
+          const prevListLength = prev?.length || 0;
+
+          if (prev && data.length > prevListLength) {
+            setNewPipelineRunAdded(true);
+          }
+
+          return sortFn(data);
+        });
+      },
+      errorHandler: (error) => setPipelineRunsError(error as ApiError),
+    });
+
+    return () => {
+      cancelStream();
+    };
+  }, [namespace, stageMetadataName]);
 
   const [gitServers, gitServersError] = GitServerKubeObject.useList();
 
-  const sortedPipelineRuns = React.useMemo(
-    () => (pipelineRuns === null ? null : sortFn(pipelineRuns)),
-    [pipelineRuns]
-  );
-
   const deployPipelineRuns = React.useMemo(() => {
-    if (!stageMetadataName || !CDPipelineName || sortedPipelineRuns === null) {
+    if (!stageMetadataName || !CDPipelineName || pipelineRuns === null) {
       return null; // loading
     }
 
-    return filterByLabels(sortedPipelineRuns, {
+    return filterByLabels(pipelineRuns, {
       [PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE]: CDPipelineName,
       [PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE]: stageMetadataName,
       [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.DEPLOY,
     });
-  }, [CDPipelineName, sortedPipelineRuns, stageMetadataName]);
+  }, [CDPipelineName, pipelineRuns, stageMetadataName]);
 
   const cleanPipelineRuns = React.useMemo(() => {
-    if (!stageMetadataName || !CDPipelineName || sortedPipelineRuns === null) {
+    if (!stageMetadataName || !CDPipelineName || pipelineRuns === null) {
       return null; // loading
     }
 
-    return filterByLabels(sortedPipelineRuns, {
+    return filterByLabels(pipelineRuns, {
       [PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE]: CDPipelineName,
       [PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE]: stageMetadataName,
       [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.CLEAN,
     });
-  }, [CDPipelineName, sortedPipelineRuns, stageMetadataName]);
+  }, [CDPipelineName, pipelineRuns, stageMetadataName]);
 
   const argoApplications = useStreamApplicationListByPipelineStageLabel({
     namespace,
@@ -111,7 +131,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         error,
       },
       pipelineRuns: {
-        data: sortedPipelineRuns,
+        data: pipelineRuns,
         isLoading: pipelineRuns === null,
         error: pipelineRunsError,
       },
@@ -145,11 +165,12 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: gitServers === null,
         error: gitServersError,
       },
+      newPipelineRunAdded,
+      setNewPipelineRunAdded,
     }),
     [
       stage,
       error,
-      sortedPipelineRuns,
       pipelineRuns,
       pipelineRunsError,
       deployPipelineRuns,
@@ -163,6 +184,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       cleanPipelineRunTemplate.error,
       gitServers,
       gitServersError,
+      newPipelineRunAdded,
     ]
   );
 
