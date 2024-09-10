@@ -31,7 +31,7 @@ export const Actions = ({
           variant="menu"
           permissions={permissions}
           data={{
-            pipelineRun: resource,
+            pipelineRun: resource?.jsonData || resource,
           }}
           anchorEl={anchor}
           handleCloseResourceActionListMenu={() => setAnchor(null)}
