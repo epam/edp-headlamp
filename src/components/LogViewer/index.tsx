@@ -8,16 +8,8 @@ import { ITerminalOptions, Terminal as XTerminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import { ISearchOptions, SearchAddon } from 'xterm-addon-search';
 
-interface styleProps {
-  isFullScreen: boolean;
-}
-
 const useStyle = makeStyles((theme) => ({
-  dialogContent: {
-    height: '80%',
-    minHeight: '80%',
-    display: 'flex',
-    flexDirection: 'column',
+  root: {
     '& .xterm ': {
       height: '100vh', // So the terminal doesn't stay shrunk when shrinking vertically and maximizing again.
       '& .xterm-viewport': {
@@ -46,11 +38,9 @@ const useStyle = makeStyles((theme) => ({
     color: theme.palette.common.white,
   },
   terminal: {
-    backgroundColor: theme.palette.common.black,
-    height: ({ isFullScreen }: styleProps) => (isFullScreen ? '100vh' : '500px'),
-    width: '100%',
-    overflow: 'scroll',
-    marginTop: theme.spacing(3),
+    '& .terminal.xterm': {
+      padding: 10,
+    },
   },
   containerFormControl: {
     minWidth: '11rem',
@@ -82,7 +72,9 @@ export function LogViewer(props: LogViewerProps) {
     cursorStyle: 'bar',
     scrollback: 10000,
     rows: 30, // initial rows before fit
-    lineHeight: 1.21,
+    fontFamily: 'IBM Plex Mono,monospace',
+    fontSize: 12,
+    lineHeight: 1.26,
   };
 
   function downloadLog() {
@@ -193,6 +185,7 @@ export function LogViewer(props: LogViewerProps) {
       <Box className={classes.logBox}>
         <div
           id="xterm-container"
+          className={classes.terminal}
           ref={(ref) => setTerminalContainerRef(ref)}
           style={{ flex: 1, display: 'flex', flexDirection: 'column-reverse' }}
         />
