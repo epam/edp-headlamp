@@ -296,6 +296,9 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
           scrollback: 10000,
           rows: 30, // initial rows before fit
           windowsMode: isWindows,
+          fontSize: 12,
+          fontFamily: 'IBM Plex Mono, monospace',
+          lineHeight: 1.26,
         }),
         connected: false,
         reconnectOnEnter: false,
