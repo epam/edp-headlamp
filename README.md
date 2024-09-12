@@ -25,62 +25,237 @@ https://github-production-user-asset-6210df.s3.amazonaws.com/42180137/285478565-
 <table>
     <tr>
         <td>
-            <img alt="EDP Components page screenshot" src="docs/assets/components.png">
+            <img alt="Overview" src="docs/assets/overview.png">
         </td>
     </tr>
     <tr>
         <td>
-            <img alt="EDP Component page screenshot" src="docs/assets/component.png">
+            <img alt="Pipelines" src="docs/assets/pipelines.png">
         </td>
     </tr>
     <tr>
         <td>
-            <img alt="EDP configuration page screenshot" src="docs/assets/configuration.png">
+            <img alt="Pipeline Overview" src="docs/assets/pipeline_overview.png">
         </td>
     </tr>
     <tr>
         <td>
-            <img alt="EDP Create Component Start screenshot" src="docs/assets/create_component_start.png">
+            <img alt="Pipeline Details" src="docs/assets/pipeline_details.png">
         </td>
     </tr>
     <tr>
         <td>
-            <img alt="EDP Create Component screenshot" src="docs/assets/create_component.png">
+            <img alt="Pipeline Details" src="docs/assets/pipeline_details_2.png">
         </td>
     </tr>
     <tr>
         <td>
-            <img alt="EDP Create Component Doc screenshot" src="docs/assets/create_component_doc.png">
+            <img alt="Pipeline Details" src="docs/assets/pipeline_details_3.png">
         </td>
     </tr>
     <tr>
         <td>
-            <img alt="EDP Create Component Editor screenshot" src="docs/assets/create_component_editor.png">
+            <img alt="Pipeline Diagram" src="docs/assets/pipeline_diagram.png">
         </td>
     </tr>
     <tr>
         <td>
-            <img alt="EDP Create Component Advanced screenshot" src="docs/assets/create_component_advanced.png">
-        </td>
-    </tr>
-   <tr>
-        <td>
-            <img alt="EDP CDPipeline page screenshot" src="docs/assets/marketplace.png">
-        </td>
-    </tr>
-   <tr>
-        <td>
-            <img alt="EDP CDPipeline page screenshot" src="docs/assets/cdpipeline.png">
-        </td>
-    </tr>
-   <tr>
-        <td>
-            <img alt="EDP CI Pipeline screenshot" src="docs/assets/pipelineview.png">
+            <img alt="Marketplace" src="docs/assets/marketplace.png">
         </td>
     </tr>
     <tr>
         <td>
-            <img alt="EDP overview page screenshot" src="docs/assets/overview.png">
+            <img alt="Marketplace Use Template" src="docs/assets/marketplace_use_template.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Components" src="docs/assets/components.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Component Overview" src="docs/assets/component_overview.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Component Branches" src="docs/assets/component_branches.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Component Branches" src="docs/assets/component_branches_2.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Component Branches" src="docs/assets/component_branches_2.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Deployment Flows" src="docs/assets/deployment_flows.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Deployment Flow" src="docs/assets/deployment_flow.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Environment Overview" src="docs/assets/environment_overview.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Environment Applications" src="docs/assets/environment_applications.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Environment Applications Deploy" src="docs/assets/environment_applications_deploy.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Environment Applications Deploy" src="docs/assets/environment_applications_deploy_2.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Environment Pipelines" src="docs/assets/environment_pipelines.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Environment Pipelines" src="docs/assets/environment_pipelines_2.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Environment Monitoring" src="docs/assets/environment_monitoring.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Links" src="docs/assets/links.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Tekton Pipelines" src="docs/assets/tekton_pipelines.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Tekton Tasks" src="docs/assets/tekton_tasks.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Nexus" src="docs/assets/nexus.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Registry" src="docs/assets/registry.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Clusters" src="docs/assets/clusters.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="GitOps" src="docs/assets/gitops.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Argo CD" src="docs/assets/argocd.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="DefectDojo" src="docs/assets/defectdojo.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="DefectDojo" src="docs/assets/defectdojo.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="DependencyTrack" src="docs/assets/deptrack.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="SonarQube" src="docs/assets/sonarqube.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="GitServers" src="docs/assets/gitservers.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Jira" src="docs/assets/jira.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Jira" src="docs/assets/jira.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Headlamp features" src="docs/assets/headlamp.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Application Create" src="docs/assets/application_create.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Application Create" src="docs/assets/application_create_2.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Application Create" src="docs/assets/application_create_3.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Application Create" src="docs/assets/application_create_4.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Deployment Flow Create" src="docs/assets/deployment_flow_create.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Deployment Flow Create" src="docs/assets/deployment_flow_create_2.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Environment Create" src="docs/assets/environment_create.png">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img alt="Environment Create" src="docs/assets/environment_create_2.png">
         </td>
     </tr>
 </table>

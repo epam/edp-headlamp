@@ -49,7 +49,7 @@ export const FormActions = () => {
         description: `Browse your new Environment and start working with it.`,
         goToLink: {
           routeName: routeStageDetails.path,
-          text: `go to ennvironment`,
+          text: `go to environment`,
           routeParams: {
             namespace: stageData.metadata.namespace || getDefaultNamespace(),
             stageName: stageData.metadata.name,
