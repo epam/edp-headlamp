@@ -13,6 +13,7 @@ export const PageView = () => {
   const theme = useTheme();
 
   const permissions = useTypedPermissions();
+
   const [items, error] = PipelineRunKubeObject.useList();
 
   return (

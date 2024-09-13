@@ -50,7 +50,7 @@ export const useTabs = ({ taskRun, task }) => {
         component: (
           <ViewYAML
             item={
-              taskRunIsLoaded ? taskRun?.status : { steps: task.spec.steps.map((el) => el.name) }
+              taskRunIsLoaded ? taskRun?.status : { steps: task?.spec?.steps.map((el) => el.name) }
             }
           />
         ),

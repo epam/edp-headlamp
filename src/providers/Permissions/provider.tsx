@@ -1,58 +1,54 @@
 import React from 'react';
+import { useQueries } from 'react-query';
+import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { PermissionsContext } from './context';
-import { PermissionConfig, PermissionsConfig, PermissionsProviderProps } from './types';
+import { PermissionConfig, PermissionsProviderProps } from './types';
 
-const initializePermissionsState = <T extends Record<string, PermissionConfig[]>>(
-  configs: T
-): PermissionsConfig<T> => {
-  const initialState: PermissionsConfig<T> = {} as PermissionsConfig<T>;
-  Object.keys(configs).forEach((action) => {
-    initialState[action as keyof T] = {} as any;
-    configs[action].forEach((configItem) => {
-      initialState[action][configItem.config.kind] = false;
-    });
+const fetchPermission = async (action, configItem) => {
+  const { instance: Instance, config } = configItem;
+  const apiVersion = `${config.group}/${config.version}`;
+  const kubeObject = new Instance({
+    apiVersion,
+    kind: config.kind,
+    metadata: { namespace: getDefaultNamespace() },
   });
-  return initialState;
+  const result = await kubeObject.getAuthorization(action);
+  return {
+    action,
+    kind: config.kind,
+    allowed: result.status.allowed,
+  };
 };
 
 export const PermissionsContextProvider = <T extends Record<string, PermissionConfig[]>>({
   children,
   permissionConfigs,
 }: PermissionsProviderProps<T>) => {
-  const [permissions, setPermissions] = React.useState<PermissionsConfig<T>>(
-    initializePermissionsState(permissionConfigs)
+  const queryResults = useQueries(
+    Object.entries(permissionConfigs).flatMap(([action, configs]) =>
+      configs.map((configItem) => ({
+        queryKey: ['permissions', action, configItem.config.kind],
+        queryFn: () => fetchPermission(action, configItem),
+        staleTime: 60000, // 1 minute cache time
+      }))
+    )
   );
 
-  React.useEffect(() => {
-    async function fetchPermissions() {
-      const resultMap: PermissionsConfig<T> = initializePermissionsState(permissionConfigs);
-
-      for (const action in permissionConfigs) {
-        resultMap[action] = {} as any;
-
-        for (const configItem of permissionConfigs[action]) {
-          const { instance: Instance, config } = configItem;
-          const apiVersion = `${config.group}/${config.version}`;
-          const kubeObject = new Instance({
-            apiVersion: apiVersion,
-            kind: config.kind,
-            // @ts-ignore
-            metadata: {
-              namespace: getDefaultNamespace(),
-            },
-          });
-
-          const result = await kubeObject.getAuthorization(action);
-          resultMap[action][config.kind] = result.status.allowed;
-        }
-      }
-
-      setPermissions(resultMap);
+  const permissions = queryResults.reduce((acc, result) => {
+    if (result.isSuccess && result.data) {
+      const { action, kind, allowed } = result.data;
+      if (!acc[action]) acc[action] = {};
+      acc[action][kind] = allowed;
     }
+    return acc;
+  }, {});
 
-    fetchPermissions();
-  }, [permissionConfigs]);
+  const isFetching = queryResults.some((result) => result.isLoading);
 
-  return <PermissionsContext.Provider value={permissions}>{children}</PermissionsContext.Provider>;
+  return (
+    <PermissionsContext.Provider value={permissions}>
+      <LoadingWrapper isLoading={isFetching}>{children}</LoadingWrapper>
+    </PermissionsContext.Provider>
+  );
 };

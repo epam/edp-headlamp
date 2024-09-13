@@ -122,7 +122,10 @@ export const PipelineRunActionsMenu = ({
           reason: 'You do not have permission to delete PipelineRun',
         },
         action: () => {
-          handleCloseResourceActionListMenu();
+          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+            handleCloseResourceActionListMenu();
+          }
+
           PipelineRunKubeObject.apiEndpoint.delete(
             pipelineRun.metadata.namespace,
             pipelineRun.metadata.name
