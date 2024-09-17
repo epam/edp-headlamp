@@ -1,6 +1,78 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Features
+
+- Cache permissions ([#378](https://github.com/epam/edp-headlamp/issues/378))
+- Update screenshots ([#375](https://github.com/epam/edp-headlamp/issues/375))
+- Show user name, update terminal ([#372](https://github.com/epam/edp-headlamp/issues/372))
+- Highlight pipelines tab ([#369](https://github.com/epam/edp-headlamp/issues/369))
+- Update env creation ([#365](https://github.com/epam/edp-headlamp/issues/365))
+- Add deployment script select ([#363](https://github.com/epam/edp-headlamp/issues/363))
+- Add table custom sort ([#361](https://github.com/epam/edp-headlamp/issues/361))
+- Add pipeline approve logic ([#359](https://github.com/epam/edp-headlamp/issues/359))
+- Add diagram btn in pipeline select ([#351](https://github.com/epam/edp-headlamp/issues/351))
+- Update build pipeline ref name ([#348](https://github.com/epam/edp-headlamp/issues/348))
+- Add pipelines select, task list ([#348](https://github.com/epam/edp-headlamp/issues/348))
+- Add action success modals ([#344](https://github.com/epam/edp-headlamp/issues/344))
+- Add codemie applications ([#342](https://github.com/epam/edp-headlamp/issues/342))
+- Update pipeline links ([#339](https://github.com/epam/edp-headlamp/issues/339))
+- Add pipelines page ([#339](https://github.com/epam/edp-headlamp/issues/339))
+- Add c and cpp langs ([#335](https://github.com/epam/edp-headlamp/issues/335))
+- Update labels ([#333](https://github.com/epam/edp-headlamp/issues/333))
+- Update genai codemie page ([#324](https://github.com/epam/edp-headlamp/issues/324))
+- Add codebase codemie integration ([#323](https://github.com/epam/edp-headlamp/issues/323))
+- Add ArgoApp delete confirmation ([#321](https://github.com/epam/edp-headlamp/issues/321))
+- Update pipelines table and filter ([#319](https://github.com/epam/edp-headlamp/issues/319))
+- Add clean env behaviour ([#317](https://github.com/epam/edp-headlamp/issues/317))
+- Add codemie integration page ([#315](https://github.com/epam/edp-headlamp/issues/315))
+- Group k8s objects ([#313](https://github.com/epam/edp-headlamp/issues/313))
+- Add ansible framework option ([#311](https://github.com/epam/edp-headlamp/issues/311))
+- Add query nav in pipeline page ([#309](https://github.com/epam/edp-headlamp/issues/309))
+- Add pull request link ([#304](https://github.com/epam/edp-headlamp/issues/304))
+- Update chat logic ([#295](https://github.com/epam/edp-headlamp/issues/295))
+- Add permissions checks in cfg pages ([#293](https://github.com/epam/edp-headlamp/issues/293))
+- Add err msg in create modal ([#291](https://github.com/epam/edp-headlamp/issues/291))
+- Update apps field in env creation ([#284](https://github.com/epam/edp-headlamp/issues/284))
+- Update environment creation ([#282](https://github.com/epam/edp-headlamp/issues/282))
+- Update create/edit modals ([#280](https://github.com/epam/edp-headlamp/issues/280)) ([#281](https://github.com/epam/edp-headlamp/issues/281))
+- Add CodeMie chat integration ([#272](https://github.com/epam/edp-headlamp/issues/272))
+- Update unset namespace behaviour ([#270](https://github.com/epam/edp-headlamp/issues/270)) ([#271](https://github.com/epam/edp-headlamp/issues/271))
+- Update snackbars ([#268](https://github.com/epam/edp-headlamp/issues/268)) ([#269](https://github.com/epam/edp-headlamp/issues/269))
+- Update pipeline page ([#266](https://github.com/epam/edp-headlamp/issues/266))
+
+### Bug Fixes
+
+- Fix username get crash ([#372](https://github.com/epam/edp-headlamp/issues/372))
+- Fix pipeline actions ([#369](https://github.com/epam/edp-headlamp/issues/369))
+- Fix nonexistant pipeline diagram btn ([#351](https://github.com/epam/edp-headlamp/issues/351))
+- Update pipelines filter ([#337](https://github.com/epam/edp-headlamp/issues/337))
+- Sanitize CodeMie html ([#331](https://github.com/epam/edp-headlamp/issues/331))
+- Fix bugs on pipelines page ([#327](https://github.com/epam/edp-headlamp/issues/327))
+- Fix pipeline crash when no params ([#304](https://github.com/epam/edp-headlamp/issues/304))
+- Fix issues ([#302](https://github.com/epam/edp-headlamp/issues/302))
+- Fix issues after review ([#298](https://github.com/epam/edp-headlamp/issues/298))
+- Fix issues after review ([#298](https://github.com/epam/edp-headlamp/issues/298))
+- Fix multiple issues ([#297](https://github.com/epam/edp-headlamp/issues/297))
+- Update codemie chat response ([#273](https://github.com/epam/edp-headlamp/issues/273))
+- Fix values override default value ([#277](https://github.com/epam/edp-headlamp/issues/277))
+
+### Code Refactoring
+
+- Permissions provider ([#367](https://github.com/epam/edp-headlamp/issues/367))
+- Update dialog provider ([#354](https://github.com/epam/edp-headlamp/issues/354))
+
+### Routine
+
+- Re-structure documentation assets ([#375](https://github.com/epam/edp-headlamp/issues/375))
+- Update Dockerfile base image ([#346](https://github.com/epam/edp-headlamp/issues/346))
+- Update KubeRocketCI names and documentation links ([#325](https://github.com/epam/edp-headlamp/issues/325))
+- Update KubeRocketCI names and documentation links ([#325](https://github.com/epam/edp-headlamp/issues/325))
+- Replace hardcoded Keycloak URL prefix([#307](https://github.com/epam/edp-headlamp/issues/307))
+- Update information label for values override ([#298](https://github.com/epam/edp-headlamp/issues/298))
+- Update links to new documentation location ([#288](https://github.com/epam/edp-headlamp/issues/288))
+- Update current development version ([#263](https://github.com/epam/edp-headlamp/issues/263))
+
 
 <a name="v0.15.0"></a>
 ## [v0.15.0] - 2024-06-12
