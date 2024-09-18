@@ -2,13 +2,13 @@ import React from 'react';
 import { VALIDATED_PROTOCOLS } from '../../../../../../../constants/validatedProtocols';
 import { FormTextField } from '../../../../../../../providers/Form/components/FormTextField';
 import { getValidURLPattern } from '../../../../../../../utils/checks/getValidURLPattern';
-import { useGitServerFormsContext } from '../../../../../hooks/useGitServerFormsContext';
+import { useFormsContext } from '../../../../../hooks/useFormsContext';
 import { GIT_SERVER_FORM_NAMES } from '../../../../../names';
 
 export const HostName = () => {
   const {
     forms: { gitServer: gitServerForm },
-  } = useGitServerFormsContext();
+  } = useFormsContext();
 
   return (
     <FormTextField

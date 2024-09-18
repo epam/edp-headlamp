@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormTextFieldEditable } from '../../../../../../../providers/Form/components/FormTextFieldEditable';
 import { FORM_MODES } from '../../../../../../../types/forms';
-import { useGitServerFormsContext } from '../../../../../hooks/useGitServerFormsContext';
+import { useFormsContext } from '../../../../../hooks/useFormsContext';
 import { GIT_SERVER_FORM_NAMES } from '../../../../../names';
 import { useDataContext } from '../../../../../providers/Data/hooks';
 
@@ -10,7 +10,7 @@ export const UserName = () => {
 
   const {
     forms: { gitServer: gitServerForm },
-  } = useGitServerFormsContext();
+  } = useFormsContext();
 
   const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 

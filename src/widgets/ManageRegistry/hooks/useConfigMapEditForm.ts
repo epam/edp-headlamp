@@ -4,15 +4,19 @@ import { editResource } from '../../../k8s/common/editResource';
 import { CONTAINER_REGISTRY_TYPE } from '../../../k8s/groups/default/ConfigMap/constants';
 import { useConfigMapCRUD } from '../../../k8s/groups/default/ConfigMap/hooks/useConfigMapCRUD';
 import { ConfigMapKubeObjectInterface } from '../../../k8s/groups/default/ConfigMap/types';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { DOCKER_HUB_REGISTRY_ENDPOINT, GHCR_ENDPOINT } from '../constants';
 import { CONFIG_MAP_FORM_NAMES } from '../names';
-import { ConfigMapFormValues } from '../types';
+import { ConfigMapFormValues, WidgetPermissions } from '../types';
 
 export const useConfigMapEditForm = ({
   EDPConfigMap,
+  permissions,
 }: {
   EDPConfigMap: ConfigMapKubeObjectInterface;
-}) => {
+  permissions: WidgetPermissions;
+}): FormItem => {
   const {
     editConfigMap,
     mutations: { configMapEditMutation },
@@ -107,14 +111,33 @@ export const useConfigMapEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: ConfigMapFormValues) => {
+      if (!permissions.update.ConfigMap.allowed) {
+        return false;
+      }
+
       const updatedConfigMap = getUpdatedConfigMap(values);
       editConfigMap({ configMapData: updatedConfigMap });
     },
-    [editConfigMap, getUpdatedConfigMap]
+    [editConfigMap, getUpdatedConfigMap, permissions.update.ConfigMap.allowed]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: configMapEditMutation, handleSubmit }),
-    [form, configMapEditMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.EDIT,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: configMapEditMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.update.ConfigMap.allowed,
+        reason: permissions.update.ConfigMap.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      configMapEditMutation.isLoading,
+      permissions.update.ConfigMap.allowed,
+      permissions.update.ConfigMap.reason,
+    ]
   );
 };

@@ -1,4 +1,4 @@
 import { usePermissions } from '../../../../../providers/Permissions/hooks';
-import { permissionsToCheckConfig } from '../constants';
+import { pagePermissionsToCheck } from '../constants';
 
-export const useTypedPermissions = () => usePermissions<typeof permissionsToCheckConfig>();
+export const useTypedPermissions = () => usePermissions<typeof pagePermissionsToCheck>();

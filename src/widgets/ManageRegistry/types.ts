@@ -1,9 +1,10 @@
 import { ConfigMapKubeObjectInterface } from '../../k8s/groups/default/ConfigMap/types';
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { ServiceAccountKubeObjectInterface } from '../../k8s/groups/default/ServiceAccount/types';
+import { PermissionsConfig } from '../../providers/Permissions/types';
 import { FormValues } from '../../types/forms';
 import { ValueOf } from '../../types/global';
-import { FORM_NAMES } from './constants';
+import { FORM_NAMES, widgetPermissionsToCheck } from './constants';
 import {
   CONFIG_MAP_FORM_NAMES,
   PULL_ACCOUNT_FORM_NAMES,
@@ -14,11 +15,14 @@ import {
 
 export type FormNames = Exclude<ValueOf<typeof FORM_NAMES>, typeof FORM_NAMES.SHARED>;
 
+export type WidgetPermissions = PermissionsConfig<typeof widgetPermissionsToCheck>;
+
 export interface ManageRegistryProps {
   EDPConfigMap: ConfigMapKubeObjectInterface;
   pushAccountSecret: SecretKubeObjectInterface;
   pullAccountSecret: SecretKubeObjectInterface;
   tektonServiceAccount: ServiceAccountKubeObjectInterface;
+  permissions: WidgetPermissions;
   handleCloseCreateDialog?: () => void;
 }
 

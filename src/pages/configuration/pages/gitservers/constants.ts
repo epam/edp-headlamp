@@ -13,11 +13,14 @@ export const pageDescription: PageDescription = {
   routePath: '/configuration/gitservers',
 };
 
-export const permissionsToCheckConfig = {
+export const pagePermissionsToCheck = {
   create: [
     { instance: SecretKubeObject, config: SecretKubeObjectConfig },
     { instance: GitServerKubeObject, config: GitServerKubeObjectConfig },
   ],
-  update: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
+  update: [
+    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
+    { instance: GitServerKubeObject, config: GitServerKubeObjectConfig },
+  ],
   delete: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
 };

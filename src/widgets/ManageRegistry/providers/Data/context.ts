@@ -6,4 +6,8 @@ export const DataContext = React.createContext<DataContextProviderValue>({
   pushAccountSecret: null,
   pullAccountSecret: null,
   tektonServiceAccount: null,
+  permissions: null,
+  handleCloseCreateDialog: () => {
+    //
+  },
 });

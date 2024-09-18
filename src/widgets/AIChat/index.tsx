@@ -33,8 +33,6 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
-  const [requestError, setRequestError] = React.useState<Error | null>(null);
-
   const [conversations, setConversations] = React.useState<ConversationState>(loadConversations);
   const conversationsArray = Object.values(conversations).sort((a, b) =>
     a.conversationHistory?.[0]?.createdAt < b.conversationHistory?.[0]?.createdAt ? 1 : -1
@@ -44,9 +42,12 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
   const toggleShowHistory = () => setShowHistory((prev) => !prev);
 
   const [activeConversation, setActiveConversation] = React.useState<ConversationItem>(null);
+  const assistantUrl = `${codemieSecretData?.apiUrl}/${routeAssistantById(
+    codemieSecretData?.assistantId
+  )}`;
 
   const getAssistantFetcher = createFetcher({
-    url: `${codemieSecretData?.apiUrl}/${routeAssistantById(codemieSecretData?.assistantId)}`,
+    url: assistantUrl,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -54,9 +55,12 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
     },
   });
 
-  const { data: assistantData } = useQuery({
+  const query = useQuery({
     queryKey: ['assistant', codemieSecretData?.assistantId],
     queryFn: () => getAssistantFetcher(),
+    staleTime: 60000, // 1 minute
+    cacheTime: 60000, // 1 minute
+    retry: false,
     onSuccess: (data) => {
       const newConversation = createStateConversation({
         conversationId: newConversationID,
@@ -70,8 +74,9 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
       }));
       setActiveConversation(newConversation);
     },
-    onError: (error: Error) => setRequestError(error),
   });
+
+  const { data: assistantData, error: requestError } = query;
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -189,7 +194,7 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
               conversation={activeConversation}
               updateConversation={updateConversation}
               codemieSecretData={codemieSecretData}
-              requestError={requestError}
+              requestError={requestError as Error}
             />
           </Box>
         </StyledChatBody>

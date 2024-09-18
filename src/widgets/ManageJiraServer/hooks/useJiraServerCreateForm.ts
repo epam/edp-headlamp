@@ -5,9 +5,17 @@ import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation'
 import { JiraServerKubeObject } from '../../../k8s/groups/EDP/JiraServer';
 import { JiraServerKubeObjectInterface } from '../../../k8s/groups/EDP/JiraServer/types';
 import { createJiraServerInstance } from '../../../k8s/groups/EDP/JiraServer/utils/createJiraServerInstance';
-import { JiraServerFormValues } from '../types';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
+import { JiraServerFormValues, WidgetPermissions } from '../types';
 
-export const useJiraServerCreateForm = ({ handleClosePanel }: { handleClosePanel: () => void }) => {
+export const useJiraServerCreateForm = ({
+  handleClosePanel,
+  permissions,
+}: {
+  handleClosePanel: () => void;
+  permissions: WidgetPermissions;
+}): FormItem => {
   const jiraServerCreateMutation = useResourceCRUDMutation<
     JiraServerKubeObjectInterface,
     CRUD_TYPES.CREATE
@@ -25,6 +33,10 @@ export const useJiraServerCreateForm = ({ handleClosePanel }: { handleClosePanel
 
   const handleSubmit = React.useCallback(
     async (values: JiraServerFormValues) => {
+      if (!permissions.create.JiraServer.allowed) {
+        return false;
+      }
+
       const { url } = values;
 
       const newJiraServerData = createJiraServerInstance(url);
@@ -33,11 +45,26 @@ export const useJiraServerCreateForm = ({ handleClosePanel }: { handleClosePanel
         onSuccess: () => handleClosePanel(),
       });
     },
-    [handleClosePanel, jiraServerCreateMutation]
+    [handleClosePanel, jiraServerCreateMutation, permissions.create.JiraServer.allowed]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: jiraServerCreateMutation, handleSubmit }),
-    [form, jiraServerCreateMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.CREATE,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: jiraServerCreateMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.create.JiraServer.allowed,
+        reason: permissions.create.JiraServer.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      jiraServerCreateMutation.isLoading,
+      permissions.create.JiraServer.allowed,
+      permissions.create.JiraServer.reason,
+    ]
   );
 };

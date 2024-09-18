@@ -124,12 +124,13 @@ export const PageView = () => {
               mode={mode}
               ownerReference={ownerReference}
               handleClosePanel={handleCloseCreateDialog}
+              permissions={permissions}
             />
           </AccordionDetails>
         </Accordion>
       </LoadingWrapper>
     );
-  }, [error, isLoading, mode, nexusQuickLink, nexusSecret]);
+  }, [error, isLoading, mode, nexusQuickLink, nexusSecret, permissions]);
 
   return (
     <ConfigurationPageContent
@@ -142,14 +143,16 @@ export const PageView = () => {
             mode={mode}
             ownerReference={null}
             handleClosePanel={handleCloseCreateDialog}
+            permissions={permissions}
           />
         ),
         isOpen: isCreateDialogOpen,
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!nexusSecret,
-        permissions: {
-          create: permissions.create.Secret,
+        permission: {
+          allowed: permissions.create.Secret.allowed && permissions.update.QuickLink.allowed,
+          reason: permissions.create.Secret.reason || permissions.update.QuickLink.reason,
         },
       }}
       pageDescription={pageDescription}

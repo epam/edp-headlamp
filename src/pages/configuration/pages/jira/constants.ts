@@ -13,11 +13,14 @@ export const pageDescription: PageDescription = {
   docLink: EDP_OPERATOR_GUIDE.JIRA.url,
 };
 
-export const permissionsToCheckConfig = {
+export const pagePermissionsToCheck = {
   create: [
     { instance: SecretKubeObject, config: SecretKubeObjectConfig },
     { instance: JiraServerKubeObject, config: JiraServerKubeObjectConfig },
   ],
-  update: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
+  update: [
+    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
+    { instance: JiraServerKubeObject, config: JiraServerKubeObjectConfig },
+  ],
   delete: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
 };

@@ -11,9 +11,16 @@ import { useFormsContext } from '../../hooks/useFormsContext';
 import { useDataContext } from '../../providers/Data/hooks';
 
 export const Actions = () => {
-  const { resetAll, submitAll, isAnyFormDirty, isAnyFormSubmitting } = useFormsContext();
+  const {
+    forms,
+    resetAll,
+    submitAll,
+    isAnyFormDirty,
+    isAnyFormSubmitting,
+    isAnyFormForbiddenToSubmit,
+  } = useFormsContext();
 
-  const { secret, ownerReference } = useDataContext();
+  const { secret, ownerReference, permissions } = useDataContext();
 
   const { setDialog } = useDialogContext();
 
@@ -26,19 +33,28 @@ export const Actions = () => {
     });
   }, [secret, setDialog]);
 
+  const canDelete = !ownerReference && permissions.delete.Secret.allowed;
+
+  const deleteDisabledTooltip = ownerReference
+    ? 'You cannot delete this integration because the secret has owner references.'
+    : permissions.delete.Secret.reason;
+
+  const submitDisabledTooltip = isAnyFormForbiddenToSubmit
+    ? Object.values(forms).find(({ allowedToSubmit: { isAllowed } }) => !isAllowed)
+        ?.allowedToSubmit.reason
+    : '';
+
   return (
     <Stack direction="row" alignItems="center" spacing={2} sx={{ justifyContent: 'space-between' }}>
       <ConditionalWrapper
-        condition={!!ownerReference}
+        condition={!canDelete}
         wrapper={(children) => (
-          <Tooltip
-            title={'You cannot delete this integration because the secret has owner references.'}
-          >
+          <Tooltip title={deleteDisabledTooltip}>
             <div>{children}</div>
           </Tooltip>
         )}
       >
-        <IconButton onClick={handleDelete} disabled={!!ownerReference} size="large">
+        <IconButton onClick={handleDelete} disabled={!canDelete} size="large">
           <Icon icon={ICONS.BUCKET} width="20" />
         </IconButton>
       </ConditionalWrapper>
@@ -52,16 +68,25 @@ export const Actions = () => {
       >
         undo changes
       </Button>
-      <Button
-        onClick={() => submitAll(true)}
-        size={'small'}
-        component={'button'}
-        variant={'contained'}
-        color={'primary'}
-        disabled={!isAnyFormDirty || isAnyFormSubmitting}
+      <ConditionalWrapper
+        condition={isAnyFormForbiddenToSubmit}
+        wrapper={(children) => (
+          <Tooltip title={submitDisabledTooltip}>
+            <div>{children}</div>
+          </Tooltip>
+        )}
       >
-        save
-      </Button>
+        <Button
+          onClick={() => submitAll(true)}
+          size={'small'}
+          component={'button'}
+          variant={'contained'}
+          color={'primary'}
+          disabled={!isAnyFormDirty || isAnyFormSubmitting || isAnyFormForbiddenToSubmit}
+        >
+          save
+        </Button>
+      </ConditionalWrapper>
     </Stack>
   );
 };

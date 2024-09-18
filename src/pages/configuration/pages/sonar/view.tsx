@@ -130,13 +130,14 @@ export const PageView = () => {
               quickLink={sonarQuickLink}
               mode={mode}
               ownerReference={ownerReference}
+              permissions={permissions}
               handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
       </LoadingWrapper>
     );
-  }, [error, sonarSecret, isLoading, sonarQuickLink, mode]);
+  }, [error, sonarSecret, isLoading, sonarQuickLink, mode, permissions]);
 
   return (
     <ConfigurationPageContent
@@ -148,6 +149,7 @@ export const PageView = () => {
             quickLink={sonarQuickLink}
             mode={mode}
             ownerReference={null}
+            permissions={permissions}
             handleClosePanel={handleCloseCreateDialog}
           />
         ),
@@ -155,8 +157,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!sonarSecret,
-        permissions: {
-          create: permissions.create.Secret,
+        permission: {
+          allowed: permissions.create.Secret.allowed && permissions.update.QuickLink.allowed,
+          reason: permissions.create.Secret.reason || permissions.update.QuickLink.reason,
         },
       }}
       pageDescription={pageDescription}

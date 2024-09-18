@@ -10,14 +10,18 @@ import {
   createGithubGitServerSecretInstance,
   createGitlabGitServerSecretInstance,
 } from '../../../k8s/groups/default/Secret/utils/createGitServerSecretInstance';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { GIT_USER } from '../constants';
-import { CredentialsFormValues, SharedFormValues } from '../types';
+import { CredentialsFormValues, SharedFormValues, WidgetPermissions } from '../types';
 
 export const useCredentialsCreateForm = ({
   sharedForm,
+  permissions,
 }: {
   sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
-}) => {
+  permissions: WidgetPermissions;
+}): FormItem => {
   const createMutation = useResourceCRUDMutation<SecretKubeObjectInterface, CRUD_TYPES.CREATE>(
     'gitServerCreateMutation',
     SecretKubeObject,
@@ -28,6 +32,10 @@ export const useCredentialsCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: CredentialsFormValues) => {
+      if (!permissions.create.Secret.allowed) {
+        return false;
+      }
+
       const sharedValues = sharedForm.getValues();
 
       const newGitServerSecret = (() => {
@@ -55,11 +63,26 @@ export const useCredentialsCreateForm = ({
       })();
       createMutation.mutate(newGitServerSecret);
     },
-    [sharedForm, createMutation]
+    [permissions.create.Secret.allowed, sharedForm, createMutation]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: createMutation, handleSubmit }),
-    [form, createMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.CREATE,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: createMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.create.Secret.allowed,
+        reason: permissions.create.Secret.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      createMutation.isLoading,
+      permissions.create.Secret.allowed,
+      permissions.create.Secret.reason,
+    ]
   );
 };

@@ -184,16 +184,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
             return <Box sx={{ height: rem(44) }} />;
           }
 
-          return (
-            <Actions
-              resource={jsonData}
-              permissions={{
-                create: permissions.create.Codebase,
-                update: permissions.update.Codebase,
-                delete: permissions.delete.Codebase,
-              }}
-            />
-          );
+          return <Actions resource={jsonData} permissions={permissions} />;
         },
         textAlign: 'center',
         width: '5%',

@@ -9,18 +9,22 @@ import {
   createOpenshiftPushSecretInstance,
   createRegistrySecretInstance,
 } from '../../../k8s/groups/default/Secret/utils/createRegistrySecretInstance';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE, GHCR_ENDPOINT_VALUE } from '../constants';
 import { PUSH_ACCOUNT_FORM_NAMES } from '../names';
-import { PushAccountFormValues, SharedFormValues } from '../types';
+import { PushAccountFormValues, SharedFormValues, WidgetPermissions } from '../types';
 import { getAuth, getUsernameAndPassword } from '../utils';
 
 export const usePushAccountEditForm = ({
   pushAccountSecret,
   sharedForm,
+  permissions,
 }: {
   pushAccountSecret: SecretKubeObjectInterface;
   sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
-}) => {
+  permissions: WidgetPermissions;
+}): FormItem => {
   const {
     editSecret,
     mutations: { secretEditMutation },
@@ -57,6 +61,10 @@ export const usePushAccountEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: PushAccountFormValues) => {
+      if (!permissions.update.Secret.allowed) {
+        return false;
+      }
+
       const sharedValues = sharedForm.getValues();
 
       switch (sharedValues.registryType) {
@@ -111,11 +119,26 @@ export const usePushAccountEditForm = ({
           break;
       }
     },
-    [editSecret, sharedForm]
+    [editSecret, permissions.update.Secret.allowed, sharedForm]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: secretEditMutation, handleSubmit }),
-    [form, secretEditMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.EDIT,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: secretEditMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.update.Secret.allowed,
+        reason: permissions.update.Secret.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      secretEditMutation.isLoading,
+      permissions.update.Secret.allowed,
+      permissions.update.Secret.reason,
+    ]
   );
 };

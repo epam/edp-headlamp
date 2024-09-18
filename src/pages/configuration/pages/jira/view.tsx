@@ -115,13 +115,14 @@ export const PageView = () => {
               secret={jiraServerSecret}
               jiraServer={jiraServer}
               ownerReference={ownerReference}
+              permissions={permissions}
               handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
       </LoadingWrapper>
     );
-  }, [error, jiraServerSecret, isLoading, jiraServer]);
+  }, [error, jiraServerSecret, isLoading, jiraServer, permissions]);
 
   return (
     <ConfigurationPageContent
@@ -132,6 +133,7 @@ export const PageView = () => {
             secret={jiraServerSecret}
             jiraServer={jiraServer}
             ownerReference={ownerReference}
+            permissions={permissions}
             handleClosePanel={handleCloseCreateDialog}
           />
         ),
@@ -139,8 +141,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!jiraServerSecret,
-        permissions: {
-          create: permissions.create.Secret && permissions.create.JiraServer,
+        permission: {
+          allowed: permissions.create.Secret.allowed && permissions.create.JiraServer.allowed,
+          reason: permissions.create.Secret.reason || permissions.create.JiraServer.reason,
         },
       }}
       pageDescription={pageDescription}

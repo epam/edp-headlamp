@@ -1,7 +1,6 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Box, Breadcrumbs, Button, Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
-import { AiChatWrapper } from '../../widgets/AIChat';
 import { PageWrapperProps } from './types';
 
 export const PageWrapper: React.FC<PageWrapperProps> = ({
@@ -67,7 +66,6 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
         </Grid>
       ) : null}
       {children}
-      <AiChatWrapper />
     </Box>
   );
 };

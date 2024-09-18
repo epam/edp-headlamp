@@ -123,13 +123,14 @@ export const PageView = () => {
               quickLink={chatAssistantQuickLink}
               mode={mode}
               ownerReference={ownerReference}
+              permissions={permissions}
               handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
       </LoadingWrapper>
     );
-  }, [error, isLoading, mode, chatAssistantQuickLink, chatAssistantSecret]);
+  }, [error, chatAssistantSecret, isLoading, chatAssistantQuickLink, mode, permissions]);
 
   return (
     <ConfigurationPageContent
@@ -141,6 +142,7 @@ export const PageView = () => {
             quickLink={chatAssistantQuickLink}
             mode={mode}
             ownerReference={null}
+            permissions={permissions}
             handleClosePanel={handleCloseCreateDialog}
           />
         ),
@@ -148,8 +150,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!chatAssistantSecret,
-        permissions: {
-          create: permissions.create.Secret,
+        permission: {
+          allowed: permissions.create.Secret.allowed,
+          reason: permissions.create.Secret.reason,
         },
       }}
       pageDescription={pageDescription}

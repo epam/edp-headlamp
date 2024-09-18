@@ -16,6 +16,29 @@ describe('testing ManageRegistry Create', () => {
           pushAccountSecret={undefined}
           pullAccountSecret={undefined}
           tektonServiceAccount={undefined}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            update: {
+              ConfigMap: {
+                allowed: true,
+              },
+              Secret: {
+                allowed: true,
+              },
+              ServiceAccount: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );

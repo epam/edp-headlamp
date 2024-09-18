@@ -96,8 +96,8 @@ export const PageView = () => {
                       }),
                     disabled: !gitOpsCodebaseQuery.data,
                   }}
-                  allowed={permissions.create.CDPipeline}
-                  text="You do not have permission to create a Deployment Flow."
+                  disabled={!permissions.create.CDPipeline.allowed}
+                  reason={permissions.create.CDPipeline.reason}
                 >
                   create deployment flow
                 </ButtonWithPermission>

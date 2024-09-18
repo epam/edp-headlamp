@@ -14,6 +14,29 @@ test('renders ManageJiraServer Create component', () => {
         secret={null}
         jiraServer={null}
         ownerReference={null}
+        permissions={{
+          create: {
+            Secret: {
+              allowed: true,
+            },
+            JiraServer: {
+              allowed: true,
+            },
+          },
+          update: {
+            Secret: {
+              allowed: true,
+            },
+            JiraServer: {
+              allowed: true,
+            },
+          },
+          delete: {
+            Secret: {
+              allowed: true,
+            },
+          },
+        }}
         handleClosePanel={jest.fn()}
       />
     </TestWrapper>

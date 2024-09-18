@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormTextFieldPassword } from '../../../../../../../providers/Form/components/FormTextFieldPassword';
 import { FORM_MODES } from '../../../../../../../types/forms';
-import { useGitServerFormsContext } from '../../../../../hooks/useGitServerFormsContext';
+import { useFormsContext } from '../../../../../hooks/useFormsContext';
 import { CREDENTIALS_FORM_NAME } from '../../../../../names';
 import { useDataContext } from '../../../../../providers/Data/hooks';
 
@@ -10,7 +10,7 @@ export const SSHPublicKey = () => {
 
   const {
     forms: { credentials: credentialsForm },
-  } = useGitServerFormsContext();
+  } = useFormsContext();
 
   const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 

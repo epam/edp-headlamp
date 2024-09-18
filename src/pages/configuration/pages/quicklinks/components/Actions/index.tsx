@@ -3,15 +3,16 @@ import { IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObjectInterface } from '../../../../../../k8s/groups/EDP/QuickLink/types';
-import { PermissionSet } from '../../../../../../types/permissions';
+import { PermissionsConfig } from '../../../../../../providers/Permissions/types';
 import { QuickLinkActionsMenu } from '../../../../../../widgets/QuickLinkActionsMenu';
+import { pagePermissionsToCheck } from '../../constants';
 
 export const Actions = ({
   resource,
   permissions,
 }: {
   resource: QuickLinkKubeObjectInterface;
-  permissions: PermissionSet;
+  permissions: PermissionsConfig<typeof pagePermissionsToCheck>;
 }) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
   const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement>(null);

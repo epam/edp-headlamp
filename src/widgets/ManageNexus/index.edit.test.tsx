@@ -33,6 +33,26 @@ test('renders ManageNexus Edit component', () => {
           },
           status: '',
         }}
+        permissions={{
+          create: {
+            Secret: {
+              allowed: true,
+            },
+          },
+          update: {
+            QuickLink: {
+              allowed: true,
+            },
+            Secret: {
+              allowed: true,
+            },
+          },
+          delete: {
+            Secret: {
+              allowed: true,
+            },
+          },
+        }}
         ownerReference={null}
         mode={FORM_MODES.EDIT}
         handleClosePanel={jest.fn()}

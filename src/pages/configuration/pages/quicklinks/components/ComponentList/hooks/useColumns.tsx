@@ -65,24 +65,9 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
       {
         id: 'actions',
         label: '',
-        render: ({ jsonData }) => (
-          <Actions
-            resource={jsonData}
-            permissions={{
-              create: permissions.create.QuickLink,
-              update: permissions.update.QuickLink,
-              delete: permissions.delete.QuickLink,
-            }}
-          />
-        ),
+        render: ({ jsonData }) => <Actions resource={jsonData} permissions={permissions} />,
       },
     ],
-    [
-      classes.serviceItemIcon,
-      permissions.create.QuickLink,
-      permissions.delete.QuickLink,
-      permissions.update.QuickLink,
-      theme.palette.grey,
-    ]
+    [classes.serviceItemIcon, permissions, theme.palette.grey]
   );
 };

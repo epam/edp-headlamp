@@ -15,6 +15,26 @@ test('renders ManageNexus Create component', () => {
         secret={null}
         quickLink={null}
         ownerReference={null}
+        permissions={{
+          create: {
+            Secret: {
+              allowed: true,
+            },
+          },
+          update: {
+            QuickLink: {
+              allowed: true,
+            },
+            Secret: {
+              allowed: true,
+            },
+          },
+          delete: {
+            Secret: {
+              allowed: true,
+            },
+          },
+        }}
         mode={FORM_MODES.CREATE}
         handleClosePanel={jest.fn()}
       />

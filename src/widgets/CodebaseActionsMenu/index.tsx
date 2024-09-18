@@ -81,8 +81,8 @@ export const CodebaseActionsMenu = ({
         name: RESOURCE_ACTIONS.EDIT,
         icon: ICONS.PENCIL,
         disabled: {
-          status: permissions.update === false,
-          reason: 'You do not have permission to update Codebase',
+          status: !permissions.update.Codebase.allowed,
+          reason: permissions.update.Codebase.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
@@ -96,8 +96,8 @@ export const CodebaseActionsMenu = ({
         name: RESOURCE_ACTIONS.DELETE,
         icon: ICONS.BUCKET,
         disabled: {
-          status: permissions.delete === false,
-          reason: 'You do not have permission to delete Codebase',
+          status: !permissions.delete.Codebase.allowed,
+          reason: permissions.delete.Codebase.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
@@ -108,7 +108,7 @@ export const CodebaseActionsMenu = ({
             objectName: codebaseData?.metadata?.name,
             kubeObject: CodebaseKubeObject,
             kubeObjectData: codebaseData,
-            description: `Confirm the deletion of the codebase with all its components`,
+            description: 'Confirm the deletion of the codebase with all its components',
             onBeforeSubmit,
             backRoute,
           });

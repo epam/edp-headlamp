@@ -38,6 +38,26 @@ test('renders ManageNexus Edit component (read-only)', () => {
         ownerReference={ownerReference}
         mode={FORM_MODES.EDIT}
         handleClosePanel={jest.fn()}
+        permissions={{
+          create: {
+            Secret: {
+              allowed: true,
+            },
+          },
+          update: {
+            QuickLink: {
+              allowed: true,
+            },
+            Secret: {
+              allowed: true,
+            },
+          },
+          delete: {
+            Secret: {
+              allowed: true,
+            },
+          },
+        }}
       />
     </TestWrapper>
   );

@@ -129,13 +129,14 @@ export const PageView = () => {
               quickLink={argoCDQuickLink}
               mode={mode}
               ownerReference={ownerReference}
+              permissions={permissions}
               handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
       </LoadingWrapper>
     );
-  }, [error, argoCDSecret, isLoading, argoCDQuickLink, mode]);
+  }, [error, argoCDSecret, isLoading, argoCDQuickLink, mode, permissions]);
 
   return (
     <ConfigurationPageContent
@@ -147,6 +148,7 @@ export const PageView = () => {
             quickLink={argoCDQuickLink}
             mode={mode}
             ownerReference={null}
+            permissions={permissions}
             handleClosePanel={handleCloseCreateDialog}
           />
         ),
@@ -154,8 +156,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!argoCDSecret,
-        permissions: {
-          create: permissions.create.Secret,
+        permission: {
+          allowed: permissions.create.Secret.allowed && permissions.update.QuickLink.allowed,
+          reason: permissions.create.Secret.reason || permissions.update.QuickLink.reason,
         },
       }}
       pageDescription={pageDescription}

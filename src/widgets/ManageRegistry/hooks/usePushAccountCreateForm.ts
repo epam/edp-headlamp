@@ -9,18 +9,22 @@ import {
   createOpenshiftPushSecretInstance,
   createRegistrySecretInstance,
 } from '../../../k8s/groups/default/Secret/utils/createRegistrySecretInstance';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE, GHCR_ENDPOINT_VALUE } from '../constants';
 import { PUSH_ACCOUNT_FORM_NAMES } from '../names';
-import { PushAccountFormValues, SharedFormValues } from '../types';
+import { PushAccountFormValues, SharedFormValues, WidgetPermissions } from '../types';
 import { getAuth, getUsernameAndPassword } from '../utils';
 
 export const usePushAccountCreateForm = ({
   pushAccountSecret,
   sharedForm,
+  permissions,
 }: {
   pushAccountSecret: SecretKubeObjectInterface;
   sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
-}) => {
+  permissions: WidgetPermissions;
+}): FormItem => {
   const {
     createSecret,
     mutations: { secretCreateMutation },
@@ -62,6 +66,10 @@ export const usePushAccountCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: PushAccountFormValues) => {
+      if (!permissions.create.Secret.allowed) {
+        return false;
+      }
+
       const sharedValues = sharedForm.getValues();
 
       switch (sharedValues.registryType) {
@@ -116,11 +124,26 @@ export const usePushAccountCreateForm = ({
           break;
       }
     },
-    [createSecret, sharedForm]
+    [createSecret, permissions.create.Secret.allowed, sharedForm]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: secretCreateMutation, handleSubmit }),
-    [form, secretCreateMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.CREATE,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: secretCreateMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.create.Secret.allowed,
+        reason: permissions.create.Secret.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      secretCreateMutation.isLoading,
+      permissions.create.Secret.allowed,
+      permissions.create.Secret.reason,
+    ]
   );
 };

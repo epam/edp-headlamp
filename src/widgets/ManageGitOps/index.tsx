@@ -25,7 +25,7 @@ export const ManageGitOps = ({ formData }: ManageGitOpsProps) => {
           {isReadOnly ? <View /> : <Create />}
         </Grid>
         <Grid item xs={12}>
-          <FormActions />
+          <FormActions permissions={formData.permissions} />
         </Grid>
       </Grid>
     </FormContextProvider>

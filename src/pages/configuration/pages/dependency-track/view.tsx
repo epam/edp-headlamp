@@ -131,13 +131,14 @@ export const PageView = () => {
               quickLink={depTrackQuickLink}
               mode={mode}
               ownerReference={ownerReference}
+              permissions={permissions}
               handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
       </LoadingWrapper>
     );
-  }, [error, dependencyTrackSecret, isLoading, depTrackQuickLink, mode]);
+  }, [error, dependencyTrackSecret, isLoading, depTrackQuickLink, mode, permissions]);
 
   return (
     <ConfigurationPageContent
@@ -149,6 +150,7 @@ export const PageView = () => {
             quickLink={depTrackQuickLink}
             mode={mode}
             ownerReference={null}
+            permissions={permissions}
             handleClosePanel={handleCloseCreateDialog}
           />
         ),
@@ -156,8 +158,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!dependencyTrackSecret,
-        permissions: {
-          create: permissions.create.Secret,
+        permission: {
+          allowed: permissions.create.Secret.allowed && permissions.update.QuickLink.allowed,
+          reason: permissions.create.Secret.reason || permissions.update.QuickLink.reason,
         },
       }}
       pageDescription={pageDescription}

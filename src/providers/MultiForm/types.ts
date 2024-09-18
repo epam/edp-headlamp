@@ -7,6 +7,10 @@ export type FormItem = {
   form: UseFormReturn<any, any, undefined>;
   onSubmit: () => Promise<void>;
   isSubmitting: boolean;
+  allowedToSubmit: {
+    isAllowed: boolean;
+    reason: string | undefined;
+  };
 };
 
 export interface MultiFormContextProviderValue<FormName extends string> {
@@ -15,6 +19,7 @@ export interface MultiFormContextProviderValue<FormName extends string> {
   resetAll: () => void;
   submitAll: (dirty?: boolean) => void;
   isAnyFormDirty: boolean;
+  isAnyFormForbiddenToSubmit: boolean;
   isAnyFormSubmitting: boolean;
 }
 

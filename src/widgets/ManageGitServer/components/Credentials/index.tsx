@@ -3,13 +3,13 @@ import { Grid, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { useGitServerFormsContext } from '../../hooks/useGitServerFormsContext';
+import { useFormsContext } from '../../hooks/useFormsContext';
 import { GIT_SERVER_FORM_NAMES } from '../../names';
 import { SSHPrivateKey, SSHPublicKey, Token } from './components/fields';
 import { CredentialsFormProps } from './types';
 
 export const CredentialsForm = ({ gitServerSecret }: CredentialsFormProps) => {
-  const { sharedForm } = useGitServerFormsContext();
+  const { sharedForm } = useFormsContext();
 
   const gitServerSecretOwnerReference = gitServerSecret?.metadata?.ownerReferences?.[0].kind;
 

@@ -7,7 +7,9 @@ export const DataContextProvider: React.FC<DataContextProviderProps> = ({
   EDPConfigMap,
   pushAccountSecret,
   pullAccountSecret,
+  permissions,
   tektonServiceAccount,
+  handleCloseCreateDialog,
 }) => {
   return (
     <DataContext.Provider
@@ -15,7 +17,9 @@ export const DataContextProvider: React.FC<DataContextProviderProps> = ({
         EDPConfigMap,
         pushAccountSecret,
         pullAccountSecret,
+        permissions,
         tektonServiceAccount,
+        handleCloseCreateDialog,
       }}
     >
       {children}

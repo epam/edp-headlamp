@@ -1,4 +1,6 @@
 import { PIPELINE_TYPES } from '../../constants/pipelineTypes';
+import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
+import { PipelineRunKubeObjectConfig } from '../../k8s/groups/Tekton/PipelineRun/config';
 import {
   PIPELINE_RUN_LABEL_SELECTOR_CODEBASE,
   PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
@@ -53,6 +55,8 @@ export const matchFunctions: MatchFunctions<ValueOf<typeof FILTER_CONTROLS>> = {
   },
 };
 
-export const permissionChecks = {
-  PIPELINE_RUN: 'pipelineRun',
-} as const;
+export const widgetPermissionsToCheck = {
+  create: [{ instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig }],
+  update: [{ instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig }],
+  delete: [{ instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig }],
+};

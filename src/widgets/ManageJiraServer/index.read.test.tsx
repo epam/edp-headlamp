@@ -20,6 +20,29 @@ test('renders ManageJiraServer Edit component (read-only)', () => {
         secret={JiraCISecretWithOwnerMock as unknown as SecretKubeObjectInterface}
         jiraServer={JiraServerMock as JiraServerKubeObjectInterface}
         ownerReference={ownerReference}
+        permissions={{
+          create: {
+            Secret: {
+              allowed: true,
+            },
+            JiraServer: {
+              allowed: true,
+            },
+          },
+          update: {
+            Secret: {
+              allowed: true,
+            },
+            JiraServer: {
+              allowed: true,
+            },
+          },
+          delete: {
+            Secret: {
+              allowed: true,
+            },
+          },
+        }}
         handleClosePanel={jest.fn()}
       />
     </TestWrapper>

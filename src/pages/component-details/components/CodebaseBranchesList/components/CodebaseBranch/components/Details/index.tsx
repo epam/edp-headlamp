@@ -33,11 +33,7 @@ export const Details = ({ pipelineRuns }: DetailsProps) => {
                 <PipelineRunList
                   pipelineRuns={pipelineRuns.all}
                   isLoading={pipelineRuns.all === null}
-                  permissions={{
-                    create: permissions.create.PipelineRun,
-                    update: permissions.update.PipelineRun,
-                    delete: permissions.delete.PipelineRun,
-                  }}
+                  permissions={permissions}
                   pipelineRunTypes={[
                     PIPELINE_TYPES.ALL,
                     PIPELINE_TYPES.REVIEW,

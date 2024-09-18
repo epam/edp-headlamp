@@ -6,12 +6,20 @@ import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation'
 import { GitServerKubeObject } from '../../../k8s/groups/EDP/GitServer';
 import { GitServerKubeObjectInterface } from '../../../k8s/groups/EDP/GitServer/types';
 import { createGitServerInstance } from '../../../k8s/groups/EDP/GitServer/utils/createGitServerInstance';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { getUsedValues } from '../../../utils/forms/getUsedValues';
 import { GIT_USER } from '../constants';
 import { GIT_SERVER_FORM_NAMES } from '../names';
-import { GitServerFormValues } from '../types';
+import { GitServerFormValues, WidgetPermissions } from '../types';
 
-export const useGitServerCreateForm = ({ handleClosePanel }: { handleClosePanel: () => void }) => {
+export const useGitServerCreateForm = ({
+  handleClosePanel,
+  permissions,
+}: {
+  handleClosePanel: () => void;
+  permissions: WidgetPermissions;
+}): FormItem => {
   const createMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, CRUD_TYPES.CREATE>(
     'gitServerCreateMutation',
     GitServerKubeObject,
@@ -24,6 +32,7 @@ export const useGitServerCreateForm = ({ handleClosePanel }: { handleClosePanel:
       [GIT_SERVER_FORM_NAMES.sshPort.name]: 22,
       [GIT_SERVER_FORM_NAMES.httpsPort.name]: 443,
       [GIT_SERVER_FORM_NAMES.gitUser.name]: GIT_USER.GERRIT,
+      [GIT_SERVER_FORM_NAMES.skipWebhookSSLVerification.name]: false,
     };
   }, []);
 
@@ -33,6 +42,10 @@ export const useGitServerCreateForm = ({ handleClosePanel }: { handleClosePanel:
 
   const handleSubmit = React.useCallback(
     async (values: GitServerFormValues) => {
+      if (!permissions.create.GitServer.allowed) {
+        return false;
+      }
+
       const transformedValues = {
         ...values,
         sshPort: Number(values.sshPort),
@@ -58,11 +71,26 @@ export const useGitServerCreateForm = ({ handleClosePanel }: { handleClosePanel:
         },
       });
     },
-    [createMutation, handleClosePanel]
+    [createMutation, handleClosePanel, permissions.create.GitServer.allowed]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: createMutation, handleSubmit }),
-    [form, createMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.CREATE,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: createMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.create.GitServer.allowed,
+        reason: permissions.create.GitServer.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      createMutation.isLoading,
+      permissions.create.GitServer.allowed,
+      permissions.create.GitServer.reason,
+    ]
   );
 };

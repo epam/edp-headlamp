@@ -40,9 +40,7 @@ export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProp
         <TemplatesTable
           data={items}
           handleTemplateClick={handleTemplateClick}
-          permissions={{
-            create: permissions.create.Codebase,
-          }}
+          permissions={permissions}
           filterFunction={filterFunction}
           warning={warning}
           error={error}
@@ -72,9 +70,7 @@ export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProp
                 <TemplateCard
                   handleTemplateClick={handleTemplateClick}
                   template={item}
-                  permissions={{
-                    create: permissions.create.Codebase,
-                  }}
+                  permissions={permissions}
                 />
               </Grid>
             );

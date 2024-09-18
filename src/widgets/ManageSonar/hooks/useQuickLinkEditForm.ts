@@ -3,14 +3,18 @@ import { useForm } from 'react-hook-form';
 import { editResource } from '../../../k8s/common/editResource';
 import { useQuickLinkCRUD } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinkCRUD';
 import { QuickLinkKubeObjectInterface } from '../../../k8s/groups/EDP/QuickLink/types';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { QUICK_LINK_FORM_NAMES } from '../names';
-import { QuickLinkFormValues } from '../types';
+import { QuickLinkFormValues, WidgetPermissions } from '../types';
 
 export const useQuickLinkEditForm = ({
   quickLink,
+  permissions,
 }: {
   quickLink: QuickLinkKubeObjectInterface;
-}) => {
+  permissions: WidgetPermissions;
+}): FormItem => {
   const {
     editQuickLink,
     mutations: { QuickLinkEditMutation },
@@ -33,17 +37,36 @@ export const useQuickLinkEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: QuickLinkFormValues) => {
+      if (!permissions.update.QuickLink.allowed) {
+        return false;
+      }
+
       const newQuickLinkData = editResource(QUICK_LINK_FORM_NAMES, quickLink, values);
 
       await editQuickLink({
         QuickLinkData: newQuickLinkData,
       });
     },
-    [quickLink, editQuickLink]
+    [permissions.update.QuickLink.allowed, quickLink, editQuickLink]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: QuickLinkEditMutation, handleSubmit }),
-    [form, QuickLinkEditMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.EDIT,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: QuickLinkEditMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.update.QuickLink.allowed,
+        reason: permissions.update.QuickLink.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      QuickLinkEditMutation.isLoading,
+      permissions.update.QuickLink.allowed,
+      permissions.update.QuickLink.reason,
+    ]
   );
 };

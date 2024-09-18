@@ -71,6 +71,7 @@ export const PageView = () => {
                   pullAccountSecret={pullAccountSecret.data}
                   pushAccountSecret={pushAccountSecret.data}
                   tektonServiceAccount={tektonServiceAccount.data}
+                  permissions={permissions}
                   handleCloseCreateDialog={handleCloseCreateDialog}
                 />
               </Grid>
@@ -83,6 +84,7 @@ export const PageView = () => {
     EDPConfigMap.data,
     error,
     isLoading,
+    permissions,
     pullAccountSecret.data,
     pushAccountSecret.data,
     registryType,
@@ -99,6 +101,7 @@ export const PageView = () => {
             pullAccountSecret={pullAccountSecret.data}
             pushAccountSecret={pushAccountSecret.data}
             tektonServiceAccount={tektonServiceAccount.data}
+            permissions={permissions}
             handleCloseCreateDialog={handleCloseCreateDialog}
           />
         ),
@@ -106,8 +109,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!registryType,
-        permissions: {
-          create: permissions.create.Secret,
+        permission: {
+          allowed: permissions.create.Secret.allowed,
+          reason: permissions.create.Secret.reason,
         },
       }}
       pageDescription={pageDescription}

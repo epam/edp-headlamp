@@ -17,7 +17,7 @@ export const permissionChecks = {
   QUICK_LINK: 'quickLink',
 } as const;
 
-export const permissionsToCheckConfig = {
+export const pagePermissionsToCheck = {
   create: [
     { instance: SecretKubeObject, config: SecretKubeObjectConfig },
     { instance: QuickLinkKubeObject, config: QuickLinkKubeObjectConfig },

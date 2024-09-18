@@ -5,18 +5,22 @@ import { REGISTRY_SECRET_NAMES } from '../../../k8s/groups/default/Secret/consta
 import { useSecretCRUD } from '../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
 import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
 import { createRegistrySecretInstance } from '../../../k8s/groups/default/Secret/utils/createRegistrySecretInstance';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE, GHCR_ENDPOINT_VALUE } from '../constants';
 import { PULL_ACCOUNT_FORM_NAMES } from '../names';
-import { PullAccountFormValues, SharedFormValues } from '../types';
+import { PullAccountFormValues, SharedFormValues, WidgetPermissions } from '../types';
 import { getUsernameAndPassword } from '../utils';
 
 export const usePullAccountCreateForm = ({
   pullAccountSecret,
   sharedForm,
+  permissions,
 }: {
   pullAccountSecret: SecretKubeObjectInterface;
   sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
-}) => {
+  permissions: WidgetPermissions;
+}): FormItem => {
   const {
     createSecret,
     mutations: { secretCreateMutation },
@@ -50,6 +54,10 @@ export const usePullAccountCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: PullAccountFormValues) => {
+      if (!permissions.create.Secret.allowed) {
+        return false;
+      }
+
       const sharedValues = sharedForm.getValues();
       switch (sharedValues.registryType) {
         case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
@@ -87,11 +95,26 @@ export const usePullAccountCreateForm = ({
           break;
       }
     },
-    [createSecret, sharedForm]
+    [createSecret, permissions.create.Secret.allowed, sharedForm]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: secretCreateMutation, handleSubmit }),
-    [form, secretCreateMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.CREATE,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: secretCreateMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.create.Secret.allowed,
+        reason: permissions.create.Secret.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      secretCreateMutation.isLoading,
+      permissions.create.Secret.allowed,
+      permissions.create.Secret.reason,
+    ]
   );
 };

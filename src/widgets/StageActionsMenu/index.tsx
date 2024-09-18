@@ -19,6 +19,7 @@ export const StageActionsMenu = ({
   handleCloseResourceActionListMenu,
   anchorEl,
   variant,
+  permissions,
 }: StageActionsMenuProps) => {
   const { setDialog } = useDialogContext();
 
@@ -33,6 +34,10 @@ export const StageActionsMenu = ({
         actionCheckName: 'update',
         name: RESOURCE_ACTIONS.EDIT,
         icon: ICONS.PENCIL,
+        disabled: {
+          status: !permissions.update.Stage.allowed,
+          reason: permissions.update.Stage.reason,
+        },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
@@ -45,24 +50,30 @@ export const StageActionsMenu = ({
           });
         },
       }),
-      await createDeleteAction(stages, stage, () => {
-        if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
-          handleCloseResourceActionListMenu();
-        }
+      await createDeleteAction({
+        allStages: stages,
+        currentStage: stage,
+        permissions,
+        action: () => {
+          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+            handleCloseResourceActionListMenu();
+          }
 
-        setDialog(DeleteKubeObjectDialog, {
-          objectName: stage?.spec?.name,
-          kubeObject: StageKubeObject,
-          kubeObjectData: stage,
-          description: `Confirm the deletion of the CD stage with all its components`,
-          backRoute,
-        });
+          setDialog(DeleteKubeObjectDialog, {
+            objectName: stage?.spec?.name,
+            kubeObject: StageKubeObject,
+            kubeObjectData: stage,
+            description: `Confirm the deletion of the CD stage with all its components`,
+            backRoute,
+          });
+        },
       }),
     ];
   }, [
     CDPipelineData,
     backRoute,
     handleCloseResourceActionListMenu,
+    permissions,
     setDialog,
     stage,
     stages,

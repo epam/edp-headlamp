@@ -3,15 +3,16 @@ import { IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { CDPipelineKubeObjectInterface } from '../../../../k8s/groups/EDP/CDPipeline/types';
-import { PermissionSet } from '../../../../types/permissions';
+import { PermissionsConfig } from '../../../../providers/Permissions/types';
 import { CDPipelineActionsMenu } from '../../../../widgets/CDPipelineActionsMenu';
+import { permissionsToCheckConfig } from '../../constants';
 
 export const Actions = ({
   resource,
   permissions,
 }: {
   resource: CDPipelineKubeObjectInterface;
-  permissions: PermissionSet;
+  permissions: PermissionsConfig<typeof permissionsToCheckConfig>;
 }) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
   const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement>(null);

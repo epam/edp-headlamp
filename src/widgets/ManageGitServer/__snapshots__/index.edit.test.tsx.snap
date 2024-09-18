@@ -2119,7 +2119,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                         data-indeterminate="false"
                         name="skipWebhookSSLVerification"
                         type="checkbox"
-                        value=""
+                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -4495,7 +4495,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                         data-indeterminate="false"
                         name="skipWebhookSSLVerification"
                         type="checkbox"
-                        value=""
+                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -6871,7 +6871,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                         data-indeterminate="false"
                         name="skipWebhookSSLVerification"
                         type="checkbox"
-                        value=""
+                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -9241,7 +9241,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                         data-indeterminate="false"
                         name="skipWebhookSSLVerification"
                         type="checkbox"
-                        value=""
+                        value="false"
                       />
                       <svg
                         aria-hidden="true"

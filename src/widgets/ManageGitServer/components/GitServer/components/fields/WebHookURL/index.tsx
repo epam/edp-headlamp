@@ -1,12 +1,12 @@
 import React from 'react';
 import { FormTextField } from '../../../../../../../providers/Form/components/FormTextField';
-import { useGitServerFormsContext } from '../../../../../hooks/useGitServerFormsContext';
+import { useFormsContext } from '../../../../../hooks/useFormsContext';
 import { GIT_SERVER_FORM_NAMES } from '../../../../../names';
 
 export const WebHookURL = () => {
   const {
     forms: { gitServer: gitServerForm },
-  } = useGitServerFormsContext();
+  } = useFormsContext();
 
   const overrideWebhookURLFieldValue = gitServerForm.form.watch(
     GIT_SERVER_FORM_NAMES.overrideWebhookURL.name

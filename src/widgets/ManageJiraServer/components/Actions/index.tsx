@@ -10,25 +10,39 @@ import { useResetIntegration } from '../../hooks/useResetIntegration';
 import { useDataContext } from '../../providers/Data/hooks';
 
 export const Actions = ({ handleCloseCreateDialog }) => {
-  const { resetAll, submitAll, isAnyFormDirty, isAnyFormSubmitting } = useFormsContext();
+  const {
+    forms,
+    resetAll,
+    submitAll,
+    isAnyFormDirty,
+    isAnyFormSubmitting,
+    isAnyFormForbiddenToSubmit,
+  } = useFormsContext();
 
-  const { jiraServer, secret, ownerReference } = useDataContext();
+  const { jiraServer, secret, ownerReference, permissions } = useDataContext();
 
   const { resetJiraIntegration, isLoading: isResetting } = useResetIntegration();
   const { setDialog } = useDialogContext();
+
+  const submitDisabledTooltip = isAnyFormForbiddenToSubmit
+    ? Object.values(forms).find(({ allowedToSubmit: { isAllowed } }) => !isAllowed)?.allowedToSubmit
+        .reason
+    : '';
+
+  const canReset = !ownerReference && permissions.delete.Secret.allowed;
+
+  const deleteDisabledTooltip = ownerReference
+    ? 'Jira Secret has external owners. Please, delete it by your own.'
+    : permissions.delete.Secret.reason;
 
   return (
     <Stack direction="row" spacing={2} sx={{ justifyContent: 'space-between' }}>
       <Box sx={{ mr: 'auto' }}>
         {(jiraServer || secret) && (
           <ConditionalWrapper
-            condition={!!ownerReference}
+            condition={!canReset}
             wrapper={(children) => {
-              return (
-                <Tooltip title={'Jira Secret has external owners. Please, delete it by your own.'}>
-                  {children}
-                </Tooltip>
-              );
+              return <Tooltip title={deleteDisabledTooltip}>{children}</Tooltip>;
             }}
           >
             <Button
@@ -57,19 +71,30 @@ export const Actions = ({ handleCloseCreateDialog }) => {
         <Button onClick={resetAll} size="small" component={'button'} disabled={!isAnyFormDirty}>
           undo changes
         </Button>
-        <Button
-          onClick={() => {
-            submitAll(true);
-            handleCloseCreateDialog();
-          }}
-          size={'small'}
-          component={'button'}
-          variant={'contained'}
-          color={'primary'}
-          disabled={!isAnyFormDirty || isAnyFormSubmitting || isResetting}
+        <ConditionalWrapper
+          condition={isAnyFormForbiddenToSubmit}
+          wrapper={(children) => (
+            <Tooltip title={submitDisabledTooltip}>
+              <div>{children}</div>
+            </Tooltip>
+          )}
         >
-          save
-        </Button>
+          <Button
+            onClick={() => {
+              submitAll(true);
+              handleCloseCreateDialog();
+            }}
+            size={'small'}
+            component={'button'}
+            variant={'contained'}
+            color={'primary'}
+            disabled={
+              !isAnyFormDirty || isAnyFormSubmitting || isResetting || isAnyFormForbiddenToSubmit
+            }
+          >
+            save
+          </Button>
+        </ConditionalWrapper>
       </Stack>
     </Stack>
   );

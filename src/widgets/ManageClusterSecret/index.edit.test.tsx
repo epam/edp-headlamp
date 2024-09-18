@@ -28,6 +28,23 @@ test('renders ManageClusterSecret Edit component', () => {
             },
           },
           mode: FORM_MODES.EDIT,
+          permissions: {
+            create: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          },
         }}
       />
     </TestWrapper>

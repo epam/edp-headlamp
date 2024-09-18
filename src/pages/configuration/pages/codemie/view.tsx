@@ -141,13 +141,22 @@ export const PageView = () => {
               quickLink={codemieQuickLink.data}
               codemie={codemie.data?.[0]}
               codemieSecret={codemieSecret.data}
+              permissions={permissions}
               handleClosePanel={handleCloseCreateDialog}
             />
           </AccordionDetails>
         </Accordion>
       </LoadingWrapper>
     );
-  }, [error, codemie, isLoading, codemieSecret.data, codemieProject.data, codemieQuickLink.data]);
+  }, [
+    error,
+    codemie,
+    isLoading,
+    codemieSecret.data,
+    codemieProject.data,
+    codemieQuickLink.data,
+    permissions,
+  ]);
 
   const [editor, setEditor] = React.useState<{
     open: boolean;
@@ -219,6 +228,7 @@ export const PageView = () => {
             quickLink={codemieQuickLink.data}
             codemie={codemie.data?.[0]}
             codemieSecret={codemieSecret.data}
+            permissions={permissions}
             handleClosePanel={handleCloseCreateDialog}
           />
         ),
@@ -226,8 +236,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: true,
-        permissions: {
-          create: permissions.create.Secret,
+        permission: {
+          allowed: permissions.create.Secret.allowed,
+          reason: permissions.create.Secret.reason,
         },
       }}
       pageDescription={pageDescription}

@@ -29,8 +29,8 @@ export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActio
           });
         },
       }}
-      allowed={permissions.create.CodebaseBranch}
-      text="You do not have permission to create a branch."
+      disabled={!permissions.create.CodebaseBranch.allowed}
+      reason={permissions.create.CodebaseBranch.reason}
     >
       Create branch
     </ButtonWithPermission>

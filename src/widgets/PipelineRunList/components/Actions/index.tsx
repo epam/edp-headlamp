@@ -3,15 +3,15 @@ import { IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
-import { PermissionSet } from '../../../../types/permissions';
 import { PipelineRunActionsMenu } from '../../../PipelineRunActionsMenu';
+import { WidgetPermissions } from '../../types';
 
 export const Actions = ({
   resource,
   permissions,
 }: {
   resource: PipelineRunKubeObjectInterface;
-  permissions: PermissionSet;
+  permissions: WidgetPermissions;
 }) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
   const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement>(null);
