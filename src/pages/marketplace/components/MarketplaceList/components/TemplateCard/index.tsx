@@ -142,8 +142,8 @@ export const TemplateCard = ({ template, handleTemplateClick, permissions }: Tem
             <Typography variant={'body1'}>{version}</Typography>
           </Stack>
           <ButtonWithPermission
-            allowed={permissions.create}
-            text={'You do not have permission to create Codebase'}
+            disabled={!permissions.create.Codebase.allowed}
+            reason={permissions.create.Codebase.reason}
             ButtonProps={{
               variant: 'outlined',
               color: 'primary',

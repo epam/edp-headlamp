@@ -1,8 +1,9 @@
 import { TemplateKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Template/types';
-import { PermissionSet } from '../../../../../../types/permissions';
+import { PermissionsConfig } from '../../../../../../providers/Permissions/types';
+import { permissionsToCheckConfig } from '../../../../constants';
 
 export interface TemplateCardProps {
   template: TemplateKubeObjectInterface;
   handleTemplateClick(template: TemplateKubeObjectInterface): void;
-  permissions: PermissionSet;
+  permissions: PermissionsConfig<typeof permissionsToCheckConfig>;
 }

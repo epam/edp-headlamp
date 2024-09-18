@@ -1,4 +1,5 @@
-import { PermissionSet } from '../../types/permissions';
+import { PermissionsConfig } from '../../providers/Permissions/types';
+import { widgetPermissionsToCheck } from './constants';
 
 export interface QuickLinkActionsMenuProps {
   data: any;
@@ -6,5 +7,5 @@ export interface QuickLinkActionsMenuProps {
   variant?: 'menu' | 'inline';
   anchorEl?: HTMLElement;
   handleCloseResourceActionListMenu?: () => void;
-  permissions: PermissionSet;
+  permissions: PermissionsConfig<typeof widgetPermissionsToCheck>;
 }

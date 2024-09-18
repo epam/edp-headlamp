@@ -1,6 +1,7 @@
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { TemplateKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Template/types';
-import { PermissionSet } from '../../../../../../types/permissions';
+import { PermissionsConfig } from '../../../../../../providers/Permissions/types';
+import { permissionsToCheckConfig } from '../../../../constants';
 
 export interface TemplatesTableProps {
   data: TemplateKubeObjectInterface[];
@@ -8,5 +9,5 @@ export interface TemplatesTableProps {
   filterFunction?: ((...args: TemplateKubeObjectInterface[]) => boolean) | null;
   warning?: React.ReactNode;
   error?: ApiError;
-  permissions: PermissionSet;
+  permissions: PermissionsConfig<typeof permissionsToCheckConfig>;
 }

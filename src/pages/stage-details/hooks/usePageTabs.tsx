@@ -16,10 +16,10 @@ import { ApplicationsWrapper } from '../components/ApplicationsWrapper';
 import { Monitoring } from '../components/Monitoring';
 import { useDataContext } from '../providers/Data/hooks';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
-import { usePermissionsContext } from '../providers/Permissions/hooks';
 import { EDPStageDetailsRouteParams } from '../types';
 import { useEnrichedApplicationsWithArgoApplications } from './useEnrichedApplicationsWithArgoApplication';
 import { useInfoColumns } from './useInfoColumns';
+import { useTypedPermissions } from './useTypedPermissions';
 
 export const usePageTabs = () => {
   const { namespace } = useParams<EDPStageDetailsRouteParams>();
@@ -72,7 +72,7 @@ export const usePageTabs = () => {
 
   const enrichedApplicationsWithArgoApplications = useEnrichedApplicationsWithArgoApplications();
 
-  const { pipelineRun: pipelineRunPermissions } = usePermissionsContext();
+  const permissions = useTypedPermissions();
   const infoColumns = useInfoColumns();
 
   return React.useMemo(() => {
@@ -122,7 +122,7 @@ export const usePageTabs = () => {
                   pipelineRuns={pipelineRuns.data}
                   isLoading={pipelineRuns.isLoading}
                   error={pipelineRuns.error}
-                  permissions={pipelineRunPermissions}
+                  permissions={permissions}
                   pipelineRunTypes={[
                     PIPELINE_TYPES.ALL,
                     PIPELINE_TYPES.DEPLOY,
@@ -162,7 +162,7 @@ export const usePageTabs = () => {
     latestCleanPipelineRunIsRunning,
     latestDeployPipelineRunIsRunning,
     newPipelineRunAdded,
-    pipelineRunPermissions,
+    permissions,
     pipelineRuns.data,
     pipelineRuns.error,
     pipelineRuns.isLoading,

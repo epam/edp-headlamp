@@ -4,14 +4,18 @@ import { editResource } from '../../../k8s/common/editResource';
 import { IRSA_ROLE_ARN_ANNOTATION } from '../../../k8s/groups/default/ServiceAccount/constants';
 import { useEditServiceAccount } from '../../../k8s/groups/default/ServiceAccount/hooks/useEditServiceAccount';
 import { ServiceAccountKubeObjectInterface } from '../../../k8s/groups/default/ServiceAccount/types';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { SERVICE_ACCOUNT_FORM_NAMES } from '../names';
-import { ServiceAccountFormValues } from '../types';
+import { ServiceAccountFormValues, WidgetPermissions } from '../types';
 
 export const useServiceAccountEditForm = ({
   tektonServiceAccount,
+  permissions,
 }: {
   tektonServiceAccount: ServiceAccountKubeObjectInterface;
-}) => {
+  permissions: WidgetPermissions;
+}): FormItem => {
   const {
     editServiceAccount,
     mutations: { serviceAccountEditMutation },
@@ -34,6 +38,10 @@ export const useServiceAccountEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: ServiceAccountFormValues) => {
+      if (!permissions.update.ServiceAccount.allowed) {
+        return false;
+      }
+
       const updatedServiceAccount = editResource(
         SERVICE_ACCOUNT_FORM_NAMES,
         tektonServiceAccount as ServiceAccountKubeObjectInterface,
@@ -41,11 +49,26 @@ export const useServiceAccountEditForm = ({
       );
       editServiceAccount({ serviceAccount: updatedServiceAccount });
     },
-    [editServiceAccount, tektonServiceAccount]
+    [editServiceAccount, permissions.update.ServiceAccount.allowed, tektonServiceAccount]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: serviceAccountEditMutation, handleSubmit }),
-    [form, serviceAccountEditMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.EDIT,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: serviceAccountEditMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.update.ServiceAccount.allowed,
+        reason: permissions.update.ServiceAccount.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      serviceAccountEditMutation.isLoading,
+      permissions.update.ServiceAccount.allowed,
+      permissions.update.ServiceAccount.reason,
+    ]
   );
 };

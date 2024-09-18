@@ -100,16 +100,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
       {
         id: 'actions',
         label: '',
-        render: (resource) => (
-          <Actions
-            resource={resource?.jsonData}
-            permissions={{
-              create: permissions.create.CDPipeline,
-              update: permissions.update.CDPipeline,
-              delete: permissions.delete.CDPipeline,
-            }}
-          />
-        ),
+        render: (resource) => <Actions resource={resource?.jsonData} permissions={permissions} />,
       },
     ],
     [permissions]

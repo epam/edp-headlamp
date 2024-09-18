@@ -92,7 +92,6 @@ export const useStreaming = <I, A, C>({
           } catch (error) {
             // Request was aborted by user
             // if (error.name === ABORT_ERROR) return handleAbort(chat, reader);
-            // console.log(error.name);
             throw error;
           }
         }

@@ -10,7 +10,7 @@ import { TabSection } from '../../../../components/TabSection';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useCreateArgoApplication } from '../../../../k8s/groups/ArgoCD/Application/hooks/useCreateArgoApplication';
 import { APPLICATIONS_TABLE_MODE } from '../../constants';
-import { usePermissionsContext } from '../../providers/Permissions/hooks';
+import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
 import { ApplicationsMultiDeletion } from '../ApplicationsMultiDeletion';
 import { useButtonsEnabledMap } from './hooks/useButtonsEnabled';
@@ -24,7 +24,7 @@ export const Applications = ({
   latestDeployPipelineRunIsRunning,
   latestCleanPipelineRunIsRunning,
 }: ApplicationsProps) => {
-  const permissions = usePermissionsContext();
+  const permissions = useTypedPermissions();
 
   const allArgoApplications = enrichedApplicationsWithArgoApplications?.map(
     ({ argoApplication }) => argoApplication
@@ -144,43 +144,47 @@ export const Applications = ({
           </Typography>
           {mode === APPLICATIONS_TABLE_MODE.PREVIEW && (
             <Stack spacing={2} alignItems="center" direction="row">
-              <Button
-                variant="outlined"
-                size="medium"
-                onClick={handleClickClean}
-                startIcon={
-                  latestCleanPipelineRunIsRunning ? (
+              <ButtonWithPermission
+                ButtonProps={{
+                  variant: 'outlined',
+                  size: 'medium',
+                  onClick: handleClickClean,
+                  startIcon: latestCleanPipelineRunIsRunning ? (
                     <Icon icon={'line-md:loading-loop'} />
                   ) : (
                     <Icon icon={ICONS.BUCKET} />
-                  )
-                }
-                disabled={latestDeployPipelineRunIsRunning || latestCleanPipelineRunIsRunning}
+                  ),
+                  disabled: latestDeployPipelineRunIsRunning || latestCleanPipelineRunIsRunning,
+                }}
+                disabled={!permissions.create.PipelineRun.allowed}
+                reason={permissions.create.PipelineRun.reason}
               >
                 Clean
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                size="medium"
-                startIcon={
-                  deployBtnDisabled || latestDeployPipelineRunIsRunning ? (
-                    <Icon icon={'line-md:loading-loop'} />
-                  ) : (
-                    <Icon icon={ICONS.PENCIL} />
-                  )
-                }
-                onClick={toggleMode}
-                disabled={
-                  latestDeployPipelineRunIsRunning ||
-                  latestCleanPipelineRunIsRunning ||
-                  deployBtnDisabled
-                }
+              </ButtonWithPermission>
+              <ButtonWithPermission
+                ButtonProps={{
+                  variant: 'contained',
+                  color: 'primary',
+                  size: 'medium',
+                  onClick: toggleMode,
+                  startIcon:
+                    deployBtnDisabled || latestDeployPipelineRunIsRunning ? (
+                      <Icon icon={'line-md:loading-loop'} />
+                    ) : (
+                      <Icon icon={ICONS.PENCIL} />
+                    ),
+                  disabled:
+                    latestDeployPipelineRunIsRunning ||
+                    latestCleanPipelineRunIsRunning ||
+                    deployBtnDisabled,
+                }}
+                disabled={!permissions.create.PipelineRun.allowed}
+                reason={permissions.create.PipelineRun.reason}
               >
                 {deployBtnDisabled || latestDeployPipelineRunIsRunning
                   ? 'Deploying'
                   : 'Configure deploy'}
-              </Button>
+              </ButtonWithPermission>
             </Stack>
           )}
           {mode === APPLICATIONS_TABLE_MODE.CONFIGURATION && (
@@ -204,7 +208,7 @@ export const Applications = ({
                 cancel
               </Button>
               <ConditionalWrapper
-                condition={permissions.pipelineRun.create}
+                condition={permissions.create.PipelineRun.allowed}
                 wrapper={(children) => (
                   <Tooltip
                     title={'Deploy selected applications with selected image stream version'}
@@ -234,8 +238,8 @@ export const Applications = ({
                     variant: 'contained',
                     color: 'primary',
                   }}
-                  allowed={permissions.pipelineRun.create}
-                  text={'You do not have permission to create PipelineRun'}
+                  disabled={!permissions.create.PipelineRun.allowed}
+                  reason={permissions.create.PipelineRun.reason}
                 >
                   Start Deploy
                 </ButtonWithPermission>

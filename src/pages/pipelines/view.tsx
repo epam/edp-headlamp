@@ -35,11 +35,7 @@ export const PageView = () => {
             pipelineRuns={items}
             isLoading={items === null}
             error={error}
-            permissions={{
-              create: permissions.create.PipelineRun,
-              update: permissions.update.PipelineRun,
-              delete: permissions.delete.PipelineRun,
-            }}
+            permissions={permissions}
           />
         </FilterContextProvider>
       </Section>

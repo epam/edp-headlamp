@@ -4,13 +4,13 @@ import { DialogContextProvider } from '../../../../providers/Dialog/provider';
 import { FilterContextProvider } from '../../../../providers/Filter/provider';
 import { PermissionsContextProvider } from '../../../../providers/Permissions/provider';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
-import { permissionsToCheckConfig } from './constants';
+import { pagePermissionsToCheck } from './constants';
 import { PageView } from './view';
 
 export default function () {
   return (
     <PageLogicWrapper>
-      <PermissionsContextProvider permissionConfigs={permissionsToCheckConfig}>
+      <PermissionsContextProvider permissionConfigs={pagePermissionsToCheck}>
         <DialogContextProvider>
           <FilterContextProvider
             entityID={`QUICK_LINK_LIST::${getDefaultNamespace()}`}

@@ -85,10 +85,7 @@ export const PageView = () => {
                       data={{
                         codebaseData: component.data,
                       }}
-                      permissions={{
-                        update: permissions.update.Codebase,
-                        delete: permissions.delete.Codebase,
-                      }}
+                      permissions={permissions}
                       backRoute={Router.createRouteURL(routeComponentList.path)}
                       variant="inline"
                     />

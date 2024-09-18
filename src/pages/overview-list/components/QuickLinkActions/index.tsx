@@ -13,11 +13,7 @@ export const QuickLinkActions = () => {
   return (
     <QuickLinkActionsMenu
       data={data}
-      permissions={{
-        create: permissions.create.QuickLink,
-        update: permissions.update.QuickLink,
-        delete: permissions.delete.QuickLink,
-      }}
+      permissions={permissions}
       anchorEl={anchorEl}
       handleCloseResourceActionListMenu={handleCloseResourceActionListMenu}
       variant="menu"

@@ -73,8 +73,8 @@ export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) 
             disabled: noGitServers,
             onClick: () => setDialog(ManageCodebaseDialog, { codebaseData: null }),
           }}
-          text="You do not have permission to create Codebase"
-          allowed={permissions.create.Codebase}
+          disabled={!permissions.create.Codebase.allowed}
+          reason={permissions.create.Codebase.reason}
         >
           create component
         </ButtonWithPermission>

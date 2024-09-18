@@ -85,18 +85,14 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
     onUninstallClick: () => {
       setDeleteDialogOpen(true);
     },
-    permissions: {
-      create: permissions.create.Codebase,
-      update: permissions.update.Codebase,
-      delete: permissions.delete.Codebase,
-    },
+    permissions,
   });
 
   const renderEmptyListComponent = React.useCallback(() => {
     const componentsAreLoaded = items !== null;
 
-    if (!permissions.create.Codebase) {
-      return <EmptyList customText="You do not have permission to create components." />;
+    if (!permissions.create.Codebase.allowed) {
+      return <EmptyList customText={permissions.create.Codebase.reason} />;
     }
 
     if (componentsAreLoaded && noGitServers) {

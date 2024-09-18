@@ -12,15 +12,15 @@ import { getPullRequestURL } from '../../../k8s/groups/Tekton/PipelineRun/utils/
 import { routePipelineDetails } from '../../../pages/configuration/pages/pipeline-details/route';
 import { routePipelineRunDetails } from '../../../pages/pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
-import { PermissionSet } from '../../../types/permissions';
 import { humanize } from '../../../utils/date/humanize';
 import { PipelineRunGraphDialog } from '../../dialogs/PipelineRunGraph';
 import { Actions } from '../components/Actions';
+import { WidgetPermissions } from '../types';
 
 export const useColumns = ({
   permissions,
 }: {
-  permissions: PermissionSet;
+  permissions: WidgetPermissions;
 }): TableColumn<PipelineRunKubeObjectInterface>[] => {
   const { setDialog } = useDialogContext();
 

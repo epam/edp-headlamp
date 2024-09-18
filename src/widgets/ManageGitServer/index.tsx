@@ -1,8 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { MultiFormContextProvider } from '../../providers/MultiForm/provider';
-import { FormItem } from '../../providers/MultiForm/types';
-import { FORM_MODES } from '../../types/forms';
 import { Actions } from './components/Actions';
 import { CredentialsForm } from './components/Credentials';
 import { GitServerForm } from './components/GitServer';
@@ -20,10 +18,9 @@ export const ManageGitServer = ({
   gitServer,
   webhookURL,
   repositorySecrets,
+  permissions,
   handleClosePanel,
 }: ManageGitServerProps) => {
-  const gitServerFormMode = gitServer ? FORM_MODES.EDIT : FORM_MODES.CREATE;
-
   const { form: sharedForm } = useSharedForm({ gitServer });
   const gitProviderSharedValue = sharedForm.watch(GIT_SERVER_FORM_NAMES.gitProvider.name);
 
@@ -32,66 +29,38 @@ export const ManageGitServer = ({
     [gitProviderSharedValue, gitServer, repositorySecrets]
   );
 
-  const credentialsFormMode = gitServerSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
-
   const gitServerCreateForm = useGitServerCreateForm({
     handleClosePanel,
+    permissions,
   });
 
-  const gitServerEditForm = useGitServerEditForm({ gitServer, webhookURL });
+  const gitServerEditForm = useGitServerEditForm({ gitServer, webhookURL, permissions });
 
   const credentialsCreateForm = useCredentialsCreateForm({
     sharedForm,
+    permissions,
   });
 
   const credentialsEditForm = useCredentialsEditForm({
     sharedForm,
     gitServerSecret,
+    permissions,
   });
 
-  const gitServerFormData: FormItem = React.useMemo(
-    () =>
-      gitServerFormMode === FORM_MODES.CREATE
-        ? {
-            mode: FORM_MODES.CREATE,
-            form: gitServerCreateForm.form,
-            onSubmit: gitServerCreateForm.form.handleSubmit(gitServerCreateForm.handleSubmit),
-            isSubmitting: gitServerCreateForm.mutation.isLoading,
-          }
-        : {
-            mode: FORM_MODES.EDIT,
-            form: gitServerEditForm.form,
-            onSubmit: gitServerEditForm.form.handleSubmit(gitServerEditForm.handleSubmit),
-            isSubmitting: gitServerEditForm.mutation.isLoading,
-          },
-    [gitServerCreateForm, gitServerEditForm, gitServerFormMode]
-  );
-
-  const credentialsFormData: FormItem = React.useMemo(
-    () =>
-      credentialsFormMode === FORM_MODES.CREATE
-        ? {
-            mode: FORM_MODES.CREATE,
-            form: credentialsCreateForm.form,
-            onSubmit: credentialsCreateForm.form.handleSubmit(credentialsCreateForm.handleSubmit),
-            isSubmitting: credentialsCreateForm.mutation.isLoading,
-          }
-        : {
-            mode: FORM_MODES.EDIT,
-            form: credentialsEditForm.form,
-            onSubmit: credentialsEditForm.form.handleSubmit(credentialsEditForm.handleSubmit),
-            isSubmitting: credentialsEditForm.mutation.isLoading,
-          },
-    [credentialsCreateForm, credentialsEditForm, credentialsFormMode]
-  );
+  const gitServerForm = gitServer ? gitServerEditForm : gitServerCreateForm;
+  const credentialsForm = gitServerSecret ? credentialsEditForm : credentialsCreateForm;
 
   return (
     <div data-testid="form">
-      <DataContextProvider gitServer={gitServer} gitServerSecret={gitServerSecret}>
+      <DataContextProvider
+        gitServer={gitServer}
+        gitServerSecret={gitServerSecret}
+        permissions={permissions}
+      >
         <MultiFormContextProvider<FormNames>
           forms={{
-            gitServer: gitServerFormData,
-            credentials: credentialsFormData,
+            gitServer: gitServerForm,
+            credentials: credentialsForm,
           }}
           sharedForm={sharedForm}
         >

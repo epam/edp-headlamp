@@ -28,7 +28,7 @@ export const CDPipelineList = ({
       filterFunction={filterFunction}
       blockerComponent={blockerComponent}
       emptyListComponent={
-        permissions.create.CDPipeline ? (
+        permissions.create.CDPipeline.allowed ? (
           <EmptyList
             missingItemName={'Deployment Flows'}
             handleClick={() => {
@@ -41,7 +41,7 @@ export const CDPipelineList = ({
             }
           />
         ) : (
-          <EmptyList customText="You do not have permission to create Deployment Flows." />
+          <EmptyList customText={permissions.create.CDPipeline.reason} />
         )
       }
     />

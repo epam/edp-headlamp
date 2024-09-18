@@ -1,7 +1,8 @@
 import { Icon } from '@iconify/react';
-import { Button, Grid, IconButton } from '@mui/material';
+import { Button, Grid, IconButton, Tooltip } from '@mui/material';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
+import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
 import { useSecretCRUD } from '../../../../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
@@ -16,7 +17,7 @@ import { useConflictedStage } from './hooks/useConflictedStage';
 export const FormActions = () => {
   const { setDialog } = useDialogContext();
   const {
-    formData: { currentElement },
+    formData: { currentElement, permissions },
   } = useFormContext<ManageClusterSecretDataContext>();
 
   const {
@@ -40,6 +41,10 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageClusterSecretValues) => {
+      if (!permissions.update.Secret.allowed) {
+        return false;
+      }
+
       const { clusterName, clusterHost, clusterToken, clusterCertificate, skipTLSVerify } = values;
 
       const newClusterSecretData = createClusterSecretInstance({
@@ -54,7 +59,7 @@ export const FormActions = () => {
         secretData: newClusterSecretData,
       });
     },
-    [editSecret]
+    [editSecret, permissions.update.Secret.allowed]
   );
 
   const clusterName = currentElement.metadata.name;
@@ -106,17 +111,26 @@ export const FormActions = () => {
               </Button>
             </Grid>
             <Grid item>
-              <Button
-                type={'button'}
-                size={'small'}
-                component={'button'}
-                variant={'contained'}
-                color={'primary'}
-                disabled={isLoading || !isDirty}
-                onClick={handleSubmit(onSubmit)}
+              <ConditionalWrapper
+                condition={!permissions.update.Secret.allowed}
+                wrapper={(children) => (
+                  <Tooltip title={permissions.update.Secret.reason}>
+                    <div>{children}</div>
+                  </Tooltip>
+                )}
               >
-                save
-              </Button>
+                <Button
+                  type={'button'}
+                  size={'small'}
+                  component={'button'}
+                  variant={'contained'}
+                  color={'primary'}
+                  disabled={isLoading || !isDirty || !permissions.update.Secret.allowed}
+                  onClick={handleSubmit(onSubmit)}
+                >
+                  save
+                </Button>
+              </ConditionalWrapper>
             </Grid>
           </Grid>
         </Grid>

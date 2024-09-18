@@ -14,6 +14,15 @@ test('renders ManageGitOps Create component', () => {
         formData={{
           currentElement: 'placeholder',
           handleClosePlaceholder: jest.fn(),
+          permissions: {
+            create: {
+              Codebase: {
+                allowed: true,
+              },
+            },
+            update: {},
+            delete: {},
+          },
         }}
       />
     </TestWrapper>

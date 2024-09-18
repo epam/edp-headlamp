@@ -140,6 +140,7 @@ export const PageView = () => {
                         webhookURL={webhookURL}
                         repositorySecrets={repositorySecrets.data}
                         handleClosePanel={handleCloseCreateDialog}
+                        permissions={permissions}
                       />
                     )}
                   </AccordionDetails>
@@ -157,6 +158,7 @@ export const PageView = () => {
     gitServers.data,
     gitServersLength,
     isLoading,
+    permissions,
     repositorySecrets.data,
     theme.typography,
   ]);
@@ -171,14 +173,16 @@ export const PageView = () => {
             webhookURL={null}
             repositorySecrets={repositorySecrets.data}
             handleClosePanel={handleCloseCreateDialog}
+            permissions={permissions}
           />
         ),
         isOpen: isCreateDialogOpen,
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading,
-        permissions: {
-          create: permissions.create.Secret && permissions.create.GitServer,
+        permission: {
+          allowed: permissions.create.Secret.allowed && permissions.create.GitServer.allowed,
+          reason: permissions.create.Secret.reason || permissions.create.GitServer.reason,
         },
       }}
       pageDescription={pageDescription}

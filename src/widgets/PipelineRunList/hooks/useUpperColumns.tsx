@@ -6,7 +6,7 @@ import { ConditionalWrapper } from '../../../components/ConditionalWrapper';
 import { TableColumn } from '../../../components/Table/types';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
-import { PermissionSet } from '../../../types/permissions';
+import { WidgetPermissions } from '../types';
 
 export const useUpperColumns = ({
   selected,
@@ -15,7 +15,7 @@ export const useUpperColumns = ({
 }: {
   selected: string[];
   onDeleteClick: () => void;
-  permissions: PermissionSet;
+  permissions: WidgetPermissions;
 }): TableColumn<PipelineRunKubeObjectInterface>[] => {
   const theme = useTheme();
   const numSelected = React.useMemo(() => selected.length, [selected]);
@@ -34,7 +34,7 @@ export const useUpperColumns = ({
             </Stack>
           );
         },
-        colSpan: 5,
+        colSpan: 4,
       },
       {
         id: 'placeholder-1',
@@ -56,7 +56,7 @@ export const useUpperColumns = ({
         label: '',
         render: () => (
           <ConditionalWrapper
-            condition={permissions.delete}
+            condition={permissions.delete.PipelineRun.allowed}
             wrapper={(children) => (
               <Tooltip title={'Delete selected PipelineRuns'}>
                 <div>{children}</div>
@@ -71,8 +71,8 @@ export const useUpperColumns = ({
                 disabled: !numSelected,
                 sx: { color: theme.palette.secondary.dark },
               }}
-              text="You do not have permission to delete PipelineRun"
-              allowed={permissions.delete}
+              reason={permissions.delete.PipelineRun.reason}
+              disabled={!permissions.delete.PipelineRun.allowed}
             >
               delete
             </ButtonWithPermission>

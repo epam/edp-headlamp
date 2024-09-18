@@ -1,15 +1,16 @@
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Tooltip } from '@mui/material';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
+import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { useCodebaseCRUD } from '../../../../k8s/groups/EDP/Codebase/hooks/useCodebaseCRUD';
 import { createCodebaseInstance } from '../../../../k8s/groups/EDP/Codebase/utils/createCodebaseInstance';
 import { useFormContext } from '../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { getUsedValues } from '../../../../utils/forms/getUsedValues';
 import { CODEBASE_FORM_NAMES } from '../../names';
-import { ManageGitOpsDataContext, ManageGitOpsValues } from '../../types';
+import { ManageGitOpsDataContext, ManageGitOpsValues, WidgetPermissions } from '../../types';
 
-export const FormActions = () => {
+export const FormActions = ({ permissions }: { permissions: WidgetPermissions }) => {
   const {
     reset,
     formState: { isDirty },
@@ -52,6 +53,10 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageGitOpsValues) => {
+      if (!permissions.create.Codebase.allowed) {
+        return false;
+      }
+
       const usedValues = getUsedValues(values, CODEBASE_FORM_NAMES);
       const codebaseData = createCodebaseInstance(CODEBASE_FORM_NAMES, usedValues);
 
@@ -60,7 +65,7 @@ export const FormActions = () => {
         codebaseAuthData: null,
       });
     },
-    [createCodebase]
+    [createCodebase, permissions.create.Codebase.allowed]
   );
 
   return (
@@ -86,17 +91,26 @@ export const FormActions = () => {
               </Button>
             </Grid>
             <Grid item>
-              <Button
-                type={'button'}
-                size={'small'}
-                component={'button'}
-                variant={'contained'}
-                color={'primary'}
-                disabled={isLoading || isReadOnly}
-                onClick={handleSubmit(onSubmit)}
+              <ConditionalWrapper
+                condition={!permissions.create.Codebase.allowed}
+                wrapper={(children) => (
+                  <Tooltip title={permissions.create.Codebase.reason}>
+                    <div>{children}</div>
+                  </Tooltip>
+                )}
               >
-                save
-              </Button>
+                <Button
+                  type={'button'}
+                  size={'small'}
+                  component={'button'}
+                  variant={'contained'}
+                  color={'primary'}
+                  disabled={isLoading || isReadOnly || !permissions.create.Codebase.allowed}
+                  onClick={handleSubmit(onSubmit)}
+                >
+                  save
+                </Button>
+              </ConditionalWrapper>
             </Grid>
           </Grid>
         </Grid>

@@ -7,10 +7,12 @@ import {
   Grid,
   IconButton,
   Stack,
+  Tooltip,
   Typography,
   useTheme,
 } from '@mui/material';
 import React from 'react';
+import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
@@ -44,14 +46,23 @@ export const ConfigurationPageContent = ({
             </Grid>
             <Grid item xs={12}>
               <Stack direction="row" justifyContent="flex-end">
-                <Button
-                  variant="contained"
-                  onClick={creationForm.onOpen}
-                  disabled={creationForm.isDisabled || !creationForm.permissions.create}
-                  startIcon={<Icon icon={ICONS.PLUS} width={20} />}
+                <ConditionalWrapper
+                  condition={!creationForm.permission.allowed}
+                  wrapper={(children) => (
+                    <Tooltip title={creationForm.permission.reason}>
+                      <div>{children}</div>
+                    </Tooltip>
+                  )}
                 >
-                  {creationForm.label || 'add'}
-                </Button>
+                  <Button
+                    variant="contained"
+                    onClick={creationForm.onOpen}
+                    disabled={creationForm.isDisabled || !creationForm.permission.allowed}
+                    startIcon={<Icon icon={ICONS.PLUS} width={20} />}
+                  >
+                    {creationForm.label || 'add'}
+                  </Button>
+                </ConditionalWrapper>
               </Stack>
             </Grid>
             <Grid item xs={12}>

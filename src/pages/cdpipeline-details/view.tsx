@@ -68,10 +68,7 @@ export const PageView = () => {
                   data={{
                     CDPipelineData: CDPipeline.data,
                   }}
-                  permissions={{
-                    update: permissions.update.CDPipeline,
-                    delete: permissions.delete.CDPipeline,
-                  }}
+                  permissions={permissions}
                   backRoute={Router.createRouteURL(routeCDPipelineList.path)}
                   variant="inline"
                 />

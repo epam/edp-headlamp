@@ -30,6 +30,29 @@ describe('testing ManageGitServer Edit', () => {
           handleClosePanel={() => {
             //
           }}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );
@@ -47,6 +70,29 @@ describe('testing ManageGitServer Edit', () => {
           repositorySecrets={[GitlabCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //
+          }}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
           }}
         />
       </TestWrapper>
@@ -66,6 +112,29 @@ describe('testing ManageGitServer Edit', () => {
           handleClosePanel={() => {
             //
           }}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );
@@ -83,6 +152,29 @@ describe('testing ManageGitServer Edit', () => {
           repositorySecrets={[GerritCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //
+          }}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
           }}
         />
       </TestWrapper>

@@ -72,6 +72,29 @@ export const Summary = ({
 
   const isEDPVersioning = codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP;
 
+  const latestBuildIsRunning =
+    PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun) ===
+    PIPELINE_RUN_REASON.RUNNING;
+
+  const codebaseBranchStatusIsOk =
+    codebaseBranchData?.status?.status === CUSTOM_RESOURCE_STATUSES.CREATED;
+
+  const buildButtonTooltip = (() => {
+    if (!permissions.create.PipelineRun.allowed) {
+      return 'You do not have permission to create PipelineRun';
+    }
+
+    if (latestBuildIsRunning) {
+      return 'Latest build PipelineRun is running';
+    }
+
+    if (!codebaseBranchStatusIsOk) {
+      return `Codebase branch status is ${codebaseBranchData?.status?.status}`;
+    }
+
+    return 'Trigger build PipelineRun';
+  })();
+
   return (
     <Stack
       spacing={2}
@@ -158,19 +181,20 @@ export const Summary = ({
             />
           </Grid>
           <Grid item>
-            <Tooltip title={'Trigger build pipeline run'}>
-              <IconButton
-                onClick={onBuildButtonClick}
-                disabled={
-                  permissions.create.PipelineRun === false ||
-                  PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun) ===
-                    PIPELINE_RUN_REASON.RUNNING ||
-                  codebaseBranchData?.status?.status !== CUSTOM_RESOURCE_STATUSES.CREATED
-                }
-                size="medium"
-              >
-                <Icon icon={ICONS.PLAY} />
-              </IconButton>
+            <Tooltip title={buildButtonTooltip}>
+              <div>
+                <IconButton
+                  onClick={onBuildButtonClick}
+                  disabled={
+                    !permissions.create.PipelineRun.allowed ||
+                    latestBuildIsRunning ||
+                    !codebaseBranchStatusIsOk
+                  }
+                  size="medium"
+                >
+                  <Icon icon={ICONS.PLAY} />
+                </IconButton>
+              </div>
             </Tooltip>
           </Grid>
 

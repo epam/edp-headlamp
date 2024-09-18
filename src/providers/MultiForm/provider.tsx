@@ -7,27 +7,49 @@ export const MultiFormContextProvider = <FormName extends string>({
   forms,
   sharedForm,
 }: MultiFormContextProviderProps<FormName>) => {
+  const { isAnyFormDirty, isAnyFormSubmitting, isAnyFormForbiddenToSubmit } = React.useMemo(
+    () =>
+      Object.values<FormItem>(forms).reduce<{
+        isAnyFormDirty: boolean;
+        isAnyFormSubmitting: boolean;
+        isAnyFormForbiddenToSubmit: boolean;
+      }>(
+        (acc, formItem) => {
+          const form = formItem.form;
+
+          if (
+            !acc.isAnyFormDirty &&
+            form.formState.dirtyFields &&
+            Object.keys(form.formState.dirtyFields).length > 0
+          ) {
+            acc.isAnyFormDirty = true;
+          }
+
+          if (!acc.isAnyFormSubmitting && formItem.isSubmitting) {
+            acc.isAnyFormSubmitting = true;
+          }
+
+          if (!acc.isAnyFormForbiddenToSubmit && !formItem.allowedToSubmit.isAllowed) {
+            acc.isAnyFormForbiddenToSubmit = true;
+          }
+
+          return acc;
+        },
+        {
+          isAnyFormDirty: false,
+          isAnyFormSubmitting: false,
+          isAnyFormForbiddenToSubmit: false,
+        }
+      ),
+    [forms]
+  );
+
   const resetAll = React.useCallback(async () => {
     const resetPromises = Object.values<FormItem>(forms).map((formItem) =>
       formItem.form.reset({}, { keepDirty: false })
     );
     await Promise.all(resetPromises);
   }, [forms]);
-
-  const isAnyFormDirty = React.useMemo(
-    () =>
-      Object.values<FormItem>(forms).some(
-        (formItem) =>
-          formItem.form.formState.dirtyFields &&
-          Object.keys(formItem.form.formState.dirtyFields).length > 0
-      ),
-    [forms]
-  );
-
-  const isAnyFormSubmitting = React.useMemo(
-    () => Object.values<FormItem>(forms).some((formItem) => formItem.isSubmitting),
-    [forms]
-  );
 
   const submitAll = React.useCallback(
     async (onlyDirty: boolean = true) => {
@@ -65,9 +87,18 @@ export const MultiFormContextProvider = <FormName extends string>({
       submitAll,
       isAnyFormDirty,
       isAnyFormSubmitting,
+      isAnyFormForbiddenToSubmit,
       sharedForm,
     }),
-    [isAnyFormDirty, isAnyFormSubmitting, forms, resetAll, submitAll, sharedForm]
+    [
+      forms,
+      resetAll,
+      submitAll,
+      isAnyFormDirty,
+      isAnyFormSubmitting,
+      isAnyFormForbiddenToSubmit,
+      sharedForm,
+    ]
   );
 
   return <MultiFormContext.Provider value={value}>{children}</MultiFormContext.Provider>;

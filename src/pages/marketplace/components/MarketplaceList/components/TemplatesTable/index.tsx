@@ -22,7 +22,9 @@ export const TemplatesTable = ({
       columns={columns}
       data={data}
       isLoading={data === null}
-      handleRowClick={permissions.create === true ? (event, row) => handleTemplateClick(row) : null}
+      handleRowClick={
+        permissions.create.Codebase.allowed ? (event, row) => handleTemplateClick(row) : null
+      }
       emptyListComponent={
         warning ? (
           warning

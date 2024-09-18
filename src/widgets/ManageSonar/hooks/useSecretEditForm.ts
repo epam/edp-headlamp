@@ -3,16 +3,19 @@ import { useForm } from 'react-hook-form';
 import { useSecretCRUD } from '../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
 import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
 import { createSonarQubeIntegrationSecretInstance } from '../../../k8s/groups/default/Secret/utils/createSonarQubeIntegrationSecretInstance';
+import { FORM_MODES } from '../../../types/forms';
 import { safeDecode } from '../../../utils/decodeEncode';
 import { INTEGRATION_SECRET_FORM_NAMES } from '../names';
-import { IntegrationSecretFormValues } from '../types';
+import { IntegrationSecretFormValues, WidgetPermissions } from '../types';
 
 export const useSecretEditForm = ({
   handleClosePanel,
   secret,
+  permissions,
 }: {
   handleClosePanel: () => void;
   secret: SecretKubeObjectInterface;
+  permissions: WidgetPermissions;
 }) => {
   const {
     editSecret,
@@ -42,7 +45,22 @@ export const useSecretEditForm = ({
   );
 
   return React.useMemo(
-    () => ({ form, mutation: secretEditMutation, handleSubmit }),
-    [form, secretEditMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.EDIT,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: secretEditMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.update.Secret.allowed,
+        reason: permissions.update.Secret.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      secretEditMutation.isLoading,
+      permissions.update.Secret.allowed,
+      permissions.update.Secret.reason,
+    ]
   );
 };

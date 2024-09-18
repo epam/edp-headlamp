@@ -5,18 +5,22 @@ import { REGISTRY_SECRET_NAMES } from '../../../k8s/groups/default/Secret/consta
 import { useSecretCRUD } from '../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
 import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
 import { createRegistrySecretInstance } from '../../../k8s/groups/default/Secret/utils/createRegistrySecretInstance';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { DOCKER_HUB_REGISTRY_ENDPOINT_VALUE, GHCR_ENDPOINT_VALUE } from '../constants';
 import { PULL_ACCOUNT_FORM_NAMES } from '../names';
-import { PullAccountFormValues, SharedFormValues } from '../types';
+import { PullAccountFormValues, SharedFormValues, WidgetPermissions } from '../types';
 import { getUsernameAndPassword } from '../utils';
 
 export const usePullAccountEditForm = ({
   pullAccountSecret,
   sharedForm,
+  permissions,
 }: {
   pullAccountSecret: SecretKubeObjectInterface;
   sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
-}) => {
+  permissions: WidgetPermissions;
+}): FormItem => {
   const {
     editSecret,
     mutations: { secretEditMutation },
@@ -42,6 +46,10 @@ export const usePullAccountEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: PullAccountFormValues) => {
+      if (!permissions.update.Secret.allowed) {
+        return false;
+      }
+
       const sharedValues = sharedForm.getValues();
       switch (sharedValues.registryType) {
         case CONTAINER_REGISTRY_TYPE.DOCKER_HUB:
@@ -79,11 +87,26 @@ export const usePullAccountEditForm = ({
           break;
       }
     },
-    [editSecret, sharedForm]
+    [editSecret, permissions.update.Secret.allowed, sharedForm]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: secretEditMutation, handleSubmit }),
-    [form, secretEditMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.EDIT,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: secretEditMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.update.Secret.allowed,
+        reason: permissions.update.Secret.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      secretEditMutation.isLoading,
+      permissions.update.Secret.allowed,
+      permissions.update.Secret.reason,
+    ]
   );
 };

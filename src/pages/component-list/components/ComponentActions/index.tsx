@@ -3,15 +3,16 @@ import { IconButton } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { CodebaseKubeObjectInterface } from '../../../../k8s/groups/EDP/Codebase/types';
-import { PermissionSet } from '../../../../types/permissions';
+import { PermissionsConfig } from '../../../../providers/Permissions/types';
 import { CodebaseActionsMenu } from '../../../../widgets/CodebaseActionsMenu';
+import { permissionsToCheckConfig } from '../../constants';
 
 export const Actions = ({
   resource,
   permissions,
 }: {
   resource: CodebaseKubeObjectInterface;
-  permissions: PermissionSet;
+  permissions: PermissionsConfig<typeof permissionsToCheckConfig>;
 }) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
   const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement>(null);

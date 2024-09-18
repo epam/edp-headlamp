@@ -6,7 +6,8 @@ import { ConditionalWrapper } from '../../../../../components/ConditionalWrapper
 import { TableColumn } from '../../../../../components/Table/types';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
-import { PermissionSet } from '../../../../../types/permissions';
+import { PermissionsConfig } from '../../../../../providers/Permissions/types';
+import { permissionsToCheckConfig } from '../../../constants';
 
 export const useUpperColumns = ({
   selected,
@@ -15,7 +16,7 @@ export const useUpperColumns = ({
 }: {
   selected: string[];
   onUninstallClick: () => void;
-  permissions: PermissionSet;
+  permissions: PermissionsConfig<typeof permissionsToCheckConfig>;
 }): TableColumn<CodebaseKubeObjectInterface>[] => {
   const theme = useTheme();
   const numSelected = React.useMemo(() => selected.length, [selected]);
@@ -56,7 +57,7 @@ export const useUpperColumns = ({
         label: '',
         render: () => (
           <ConditionalWrapper
-            condition={permissions.create}
+            condition={permissions.delete.Codebase.allowed}
             wrapper={(children) => (
               <Tooltip title={'Delete selected components'}>
                 <div>{children}</div>
@@ -71,8 +72,8 @@ export const useUpperColumns = ({
                 startIcon: <Icon icon={ICONS.BUCKET} />,
                 sx: { color: theme.palette.secondary.dark },
               }}
-              text="You do not have permission to delete Codebase"
-              allowed={permissions.create}
+              disabled={!permissions.delete.Codebase.allowed}
+              reason={permissions.delete.Codebase.reason}
             >
               delete
             </ButtonWithPermission>
@@ -83,7 +84,8 @@ export const useUpperColumns = ({
     [
       numSelected,
       onUninstallClick,
-      permissions.create,
+      permissions.delete.Codebase.allowed,
+      permissions.delete.Codebase.reason,
       theme.palette.secondary.dark,
       theme.typography,
     ]

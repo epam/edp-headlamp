@@ -35,10 +35,7 @@ export const Actions = ({
           codebaseData,
           pipelines,
         }}
-        permissions={{
-          update: permissions.update.CodebaseBranch,
-          delete: permissions.delete.CodebaseBranch,
-        }}
+        permissions={permissions}
         anchorEl={anchor}
         handleCloseResourceActionListMenu={() => setAnchor(null)}
       />

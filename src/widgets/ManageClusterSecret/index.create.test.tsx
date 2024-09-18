@@ -15,6 +15,23 @@ test('renders ManageClusterSecret Create component', () => {
         formData={{
           handleClosePlaceholder: jest.fn(),
           mode: FORM_MODES.CREATE,
+          permissions: {
+            create: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          },
         }}
       />
     </TestWrapper>

@@ -17,6 +17,7 @@ import { routeCDPipelineDetails } from '../cdpipeline-details/route';
 import { routeCDPipelineList } from '../cdpipeline-list/route';
 import { routeArgoCD } from '../configuration/pages/argocd/route';
 import { usePageTabs } from './hooks/usePageTabs';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 import { useDataContext } from './providers/Data/hooks';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 import { EDPStageDetailsRouteParams } from './types';
@@ -46,6 +47,8 @@ export const PageView = () => {
 
   const isDataLoading =
     CDPipeline.isLoading || stages.isLoading || QuickLinks.isLoading || QuickLinksURLs.isLoading;
+
+  const permissions = useTypedPermissions();
 
   return (
     <PageWrapper
@@ -118,6 +121,7 @@ export const PageView = () => {
                   CDPipelineData: CDPipeline.data,
                   stage,
                 }}
+                permissions={permissions}
                 backRoute={backRoute}
                 variant="inline"
               />

@@ -31,8 +31,8 @@ export const CDPipelineActionsMenu = ({
         name: RESOURCE_ACTIONS.EDIT,
         icon: ICONS.PENCIL,
         disabled: {
-          status: permissions.update === false,
-          reason: 'You do not have permission to edit a Deployment Flow',
+          status: !permissions.update.CDPipeline.allowed,
+          reason: permissions.update.CDPipeline.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
@@ -45,8 +45,8 @@ export const CDPipelineActionsMenu = ({
         name: RESOURCE_ACTIONS.DELETE,
         icon: ICONS.BUCKET,
         disabled: {
-          status: permissions.delete === false,
-          reason: 'You do not have permission to delete a Deployment Flow',
+          status: !permissions.delete.CDPipeline.allowed,
+          reason: permissions.delete.CDPipeline.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {

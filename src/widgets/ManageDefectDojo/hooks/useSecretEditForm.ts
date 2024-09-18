@@ -3,17 +3,21 @@ import { useForm } from 'react-hook-form';
 import { useSecretCRUD } from '../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
 import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
 import { createDefectDojoIntegrationSecretInstance } from '../../../k8s/groups/default/Secret/utils/createDefectDojoIntegrationSecretInstance';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { safeDecode } from '../../../utils/decodeEncode';
 import { INTEGRATION_SECRET_FORM_NAMES } from '../names';
-import { IntegrationSecretFormValues } from '../types';
+import { IntegrationSecretFormValues, WidgetPermissions } from '../types';
 
 export const useSecretEditForm = ({
   handleClosePanel,
   secret,
+  permissions,
 }: {
   handleClosePanel: () => void;
   secret: SecretKubeObjectInterface;
-}) => {
+  permissions: WidgetPermissions;
+}): FormItem => {
   const {
     editSecret,
     mutations: { secretEditMutation },
@@ -34,15 +38,34 @@ export const useSecretEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: IntegrationSecretFormValues) => {
+      if (!permissions.update.Secret.allowed) {
+        return false;
+      }
+
       const secretInstance = createDefectDojoIntegrationSecretInstance(values);
 
       await editSecret({ secretData: secretInstance });
     },
-    [editSecret]
+    [editSecret, permissions.update.Secret.allowed]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: secretEditMutation, handleSubmit }),
-    [form, secretEditMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.EDIT,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: secretEditMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.update.Secret.allowed,
+        reason: permissions.update.Secret.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      secretEditMutation.isLoading,
+      permissions.update.Secret.allowed,
+      permissions.update.Secret.reason,
+    ]
   );
 };

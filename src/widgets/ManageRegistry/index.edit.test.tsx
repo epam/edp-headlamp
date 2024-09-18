@@ -38,6 +38,29 @@ describe('testing ManageRegistry Edit', () => {
           tektonServiceAccount={
             tektonServiceAccountMock as unknown as ServiceAccountKubeObjectInterface
           }
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            update: {
+              ConfigMap: {
+                allowed: true,
+              },
+              Secret: {
+                allowed: true,
+              },
+              ServiceAccount: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );
@@ -60,6 +83,29 @@ describe('testing ManageRegistry Edit', () => {
           pushAccountSecret={undefined}
           pullAccountSecret={undefined}
           tektonServiceAccount={undefined}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            update: {
+              ConfigMap: {
+                allowed: true,
+              },
+              Secret: {
+                allowed: true,
+              },
+              ServiceAccount: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );
@@ -81,6 +127,29 @@ describe('testing ManageRegistry Edit', () => {
           pushAccountSecret={undefined}
           pullAccountSecret={undefined}
           tektonServiceAccount={undefined}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            update: {
+              ConfigMap: {
+                allowed: true,
+              },
+              Secret: {
+                allowed: true,
+              },
+              ServiceAccount: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );
@@ -102,6 +171,29 @@ describe('testing ManageRegistry Edit', () => {
           pushAccountSecret={undefined}
           pullAccountSecret={undefined}
           tektonServiceAccount={undefined}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            update: {
+              ConfigMap: {
+                allowed: true,
+              },
+              Secret: {
+                allowed: true,
+              },
+              ServiceAccount: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );
@@ -123,6 +215,29 @@ describe('testing ManageRegistry Edit', () => {
           pushAccountSecret={openshiftPushSecretMock as unknown as SecretKubeObjectInterface}
           pullAccountSecret={undefined}
           tektonServiceAccount={undefined}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            update: {
+              ConfigMap: {
+                allowed: true,
+              },
+              Secret: {
+                allowed: true,
+              },
+              ServiceAccount: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );
@@ -147,6 +262,29 @@ describe('testing ManageRegistry Edit', () => {
           }
           pullAccountSecret={regcredSecretWithOwnerMock as unknown as SecretKubeObjectInterface}
           tektonServiceAccount={undefined}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            update: {
+              ConfigMap: {
+                allowed: true,
+              },
+              Secret: {
+                allowed: true,
+              },
+              ServiceAccount: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );
@@ -170,6 +308,29 @@ describe('testing ManageRegistry Edit', () => {
           }
           pullAccountSecret={regcredSecretWithOwnerMock as unknown as SecretKubeObjectInterface}
           tektonServiceAccount={undefined}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+            },
+            update: {
+              ConfigMap: {
+                allowed: true,
+              },
+              Secret: {
+                allowed: true,
+              },
+              ServiceAccount: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );

@@ -24,6 +24,29 @@ describe('testing ManageGitServer Create', () => {
           handleClosePanel={() => {
             //
           }}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );
@@ -41,6 +64,29 @@ describe('testing ManageGitServer Create', () => {
           repositorySecrets={[GitlabCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //
+          }}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
           }}
         />
       </TestWrapper>
@@ -60,6 +106,29 @@ describe('testing ManageGitServer Create', () => {
           handleClosePanel={() => {
             //
           }}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
         />
       </TestWrapper>
     );
@@ -77,6 +146,29 @@ describe('testing ManageGitServer Create', () => {
           repositorySecrets={[]}
           handleClosePanel={() => {
             //
+          }}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
           }}
         />
       </TestWrapper>

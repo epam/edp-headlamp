@@ -11,7 +11,7 @@ export const pageDescription: PageDescription = {
   docLink: EDP_USER_GUIDE.MANAGE_CLUSTER.url,
 };
 
-export const permissionsToCheckConfig = {
+export const pagePermissionsToCheck = {
   create: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
   update: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
   delete: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],

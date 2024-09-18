@@ -8,14 +8,14 @@ import { UseSpriteSymbol } from '../../../../../../../icons/UseSpriteSymbol';
 import { FormRadioGroup } from '../../../../../../../providers/Form/components/FormRadioGroup';
 import { FieldEvent, FORM_MODES } from '../../../../../../../types/forms';
 import { GIT_USER } from '../../../../../constants';
-import { useGitServerFormsContext } from '../../../../../hooks/useGitServerFormsContext';
+import { useFormsContext } from '../../../../../hooks/useFormsContext';
 import { GIT_SERVER_FORM_NAMES } from '../../../../../names';
 
 export const GitProvider = () => {
   const {
     forms: { gitServer: gitServerForm },
     sharedForm,
-  } = useGitServerFormsContext();
+  } = useFormsContext();
 
   const handleFieldValueChange = React.useCallback(
     ({ target: { value } }: FieldEvent) => {

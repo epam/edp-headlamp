@@ -52,8 +52,8 @@ export const PipelineRunActionsMenu = ({
         name: 'Run again',
         icon: ICONS.REDO,
         disabled: {
-          status: permissions.create === false,
-          reason: 'You do not have permission to create PipelineRun',
+          status: !permissions.create.PipelineRun.allowed,
+          reason: permissions.create.PipelineRun.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
@@ -94,13 +94,12 @@ export const PipelineRunActionsMenu = ({
               name: 'Stop run',
               icon: ICONS.CANCEL,
               disabled: {
-                status: permissions.update === false || !isInProgress,
-                reason:
-                  permissions.update === false
-                    ? 'You do not have permission to update PipelineRun'
-                    : !isInProgress
-                    ? 'PipelineRun is no longer in progress'
-                    : undefined,
+                status: !permissions.update.PipelineRun.allowed || !isInProgress,
+                reason: !permissions.update.PipelineRun.allowed
+                  ? permissions.update.PipelineRun.reason
+                  : !isInProgress
+                  ? 'PipelineRun is no longer in progress'
+                  : undefined,
               },
               action: () => {
                 if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
@@ -118,8 +117,8 @@ export const PipelineRunActionsMenu = ({
         name: RESOURCE_ACTIONS.DELETE,
         icon: ICONS.BUCKET,
         disabled: {
-          status: permissions.delete === false,
-          reason: 'You do not have permission to delete PipelineRun',
+          status: !permissions.delete.PipelineRun.allowed,
+          reason: permissions.delete.PipelineRun.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {

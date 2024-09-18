@@ -79,10 +79,8 @@ export const PageView = () => {
       );
     }
 
-    if (!isLoading && !permissions.create.Codebase) {
-      return (
-        <EmptyList customText={'You do not have permissions to create GitOps repositories.'} />
-      );
+    if (!isLoading && !permissions.create.Codebase.allowed) {
+      return <EmptyList customText={permissions.create.Codebase.reason} />;
     }
 
     if (!isLoading && !gitOpsCodebase && !error) {
@@ -139,6 +137,7 @@ export const PageView = () => {
               formData={{
                 currentElement: gitOpsCodebase,
                 isReadOnly: true,
+                permissions,
               }}
             />
           </AccordionDetails>
@@ -155,7 +154,7 @@ export const PageView = () => {
     icon,
     isLoading,
     isRotating,
-    permissions.create.Codebase,
+    permissions,
     status,
   ]);
 
@@ -168,6 +167,7 @@ export const PageView = () => {
             formData={{
               currentElement: 'placeholder',
               handleClosePlaceholder: handleCloseCreateDialog,
+              permissions,
             }}
           />
         ),
@@ -175,8 +175,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!gitOpsCodebase,
-        permissions: {
-          create: permissions.create.Codebase,
+        permission: {
+          allowed: permissions.create.Codebase.allowed,
+          reason: permissions.create.Codebase.reason,
         },
       }}
       pageDescription={pageDescription}

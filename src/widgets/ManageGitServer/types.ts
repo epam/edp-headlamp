@@ -1,16 +1,20 @@
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { GitServerKubeObjectInterface } from '../../k8s/groups/EDP/GitServer/types';
+import { PermissionsConfig } from '../../providers/Permissions/types';
 import { FormValues } from '../../types/forms';
 import { ValueOf } from '../../types/global';
-import { FORM_NAMES } from './constants';
+import { FORM_NAMES, widgetPermissionsToCheck } from './constants';
 import { CREDENTIALS_FORM_NAME, GIT_SERVER_FORM_NAMES, SHARED_FORM_NAMES } from './names';
 
 export type FormNames = Exclude<ValueOf<typeof FORM_NAMES>, typeof FORM_NAMES.SHARED>;
+
+export type WidgetPermissions = PermissionsConfig<typeof widgetPermissionsToCheck>;
 
 export interface ManageGitServerProps {
   gitServer: GitServerKubeObjectInterface;
   webhookURL: string;
   repositorySecrets: SecretKubeObjectInterface[];
+  permissions: WidgetPermissions;
   handleClosePanel: () => void;
 }
 

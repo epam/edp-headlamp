@@ -2,8 +2,6 @@ import { Grid } from '@mui/material';
 import React from 'react';
 import { CONTAINER_REGISTRY_TYPE } from '../../k8s/groups/default/ConfigMap/constants';
 import { MultiFormContextProvider } from '../../providers/MultiForm/provider';
-import { FormItem } from '../../providers/MultiForm/types';
-import { FORM_MODES } from '../../types/forms';
 import { Actions } from './components/Actions';
 import { ConfigMapForm } from './components/ConfigMap';
 import { UseSameAccount } from './components/fields';
@@ -30,14 +28,9 @@ export const ManageRegistry = ({
   pushAccountSecret,
   pullAccountSecret,
   tektonServiceAccount,
+  permissions,
   handleCloseCreateDialog,
 }: ManageRegistryProps) => {
-  const pushAccountFormMode = pushAccountSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
-  const pullAccountFormMode = pullAccountSecret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
-  const configMapFormMode = EDPConfigMap?.data.container_registry_type
-    ? FORM_MODES.EDIT
-    : FORM_MODES.CREATE;
-
   const sharedForm = useSharedForm({
     EDPConfigMap,
     pushAccountSecret,
@@ -49,86 +42,39 @@ export const ManageRegistry = ({
   const pushAccountCreateForm = usePushAccountCreateForm({
     pushAccountSecret,
     sharedForm: sharedForm.form,
+    permissions,
   });
 
   const pushAccountEditForm = usePushAccountEditForm({
     pushAccountSecret,
     sharedForm: sharedForm.form,
+    permissions,
   });
 
   const pullAccountCreateForm = usePullAccountCreateForm({
     pullAccountSecret,
     sharedForm: sharedForm.form,
+    permissions,
   });
 
   const pullAccountEditForm = usePullAccountEditForm({
     pullAccountSecret,
     sharedForm: sharedForm.form,
+    permissions,
   });
 
   const configMapEditForm = useConfigMapEditForm({
     EDPConfigMap,
+    permissions,
   });
 
   const serviceAccountEditForm = useServiceAccountEditForm({
     tektonServiceAccount,
+    permissions,
   });
 
-  const pushAccountFormData: FormItem = React.useMemo(
-    () =>
-      pushAccountFormMode === FORM_MODES.CREATE
-        ? {
-            mode: pushAccountFormMode,
-            form: pushAccountCreateForm.form,
-            onSubmit: pushAccountCreateForm.form.handleSubmit(pushAccountCreateForm.handleSubmit),
-            isSubmitting: pushAccountCreateForm.mutation.isLoading,
-          }
-        : {
-            mode: pushAccountFormMode,
-            form: pushAccountEditForm.form,
-            onSubmit: pushAccountEditForm.form.handleSubmit(pushAccountEditForm.handleSubmit),
-            isSubmitting: pushAccountEditForm.mutation.isLoading,
-          },
-    [pushAccountCreateForm, pushAccountEditForm, pushAccountFormMode]
-  );
-
-  const pullAccountFormData: FormItem = React.useMemo(
-    () =>
-      pullAccountFormMode === FORM_MODES.CREATE
-        ? {
-            mode: pullAccountFormMode,
-            form: pullAccountCreateForm.form,
-            onSubmit: pullAccountCreateForm.form.handleSubmit(pullAccountCreateForm.handleSubmit),
-            isSubmitting: pullAccountCreateForm.mutation.isLoading,
-          }
-        : {
-            mode: pullAccountFormMode,
-            form: pullAccountEditForm.form,
-            onSubmit: pullAccountEditForm.form.handleSubmit(pullAccountEditForm.handleSubmit),
-            isSubmitting: pullAccountEditForm.mutation.isLoading,
-          },
-    [pullAccountCreateForm, pullAccountEditForm, pullAccountFormMode]
-  );
-
-  const configMapFormData: FormItem = React.useMemo(
-    () => ({
-      mode: configMapFormMode,
-      form: configMapEditForm.form,
-      onSubmit: configMapEditForm.form.handleSubmit(configMapEditForm.handleSubmit),
-      isSubmitting: configMapEditForm.mutation.isLoading,
-    }),
-    [configMapEditForm, configMapFormMode]
-  );
-
-  const serviceAccountFormData: FormItem = React.useMemo(
-    () => ({
-      mode: FORM_MODES.EDIT,
-      form: serviceAccountEditForm.form,
-      onSubmit: serviceAccountEditForm.form.handleSubmit(serviceAccountEditForm.handleSubmit),
-      isSubmitting: serviceAccountEditForm.mutation.isLoading,
-    }),
-    [serviceAccountEditForm]
-  );
+  const pushAccountForm = pushAccountSecret ? pushAccountEditForm : pushAccountCreateForm;
+  const pullAccountForm = pullAccountSecret ? pullAccountEditForm : pullAccountCreateForm;
 
   return (
     <div data-testid="form">
@@ -137,13 +83,14 @@ export const ManageRegistry = ({
         pushAccountSecret={pushAccountSecret}
         pullAccountSecret={pullAccountSecret}
         tektonServiceAccount={tektonServiceAccount}
+        permissions={permissions}
       >
         <MultiFormContextProvider<FormNames>
           forms={{
-            pushAccount: pushAccountFormData,
-            pullAccount: pullAccountFormData,
-            configMap: configMapFormData,
-            serviceAccount: serviceAccountFormData,
+            pushAccount: pushAccountForm,
+            pullAccount: pullAccountForm,
+            configMap: configMapEditForm,
+            serviceAccount: serviceAccountEditForm,
           }}
           sharedForm={sharedForm.form}
         >

@@ -4,15 +4,18 @@ import { CRUD_TYPES } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { JiraServerKubeObject } from '../../../k8s/groups/EDP/JiraServer';
 import { JiraServerKubeObjectInterface } from '../../../k8s/groups/EDP/JiraServer/types';
+import { FORM_MODES } from '../../../types/forms';
 import { JIRA_SERVER_FORM_NAMES } from '../names';
-import { JiraServerFormValues } from '../types';
+import { JiraServerFormValues, WidgetPermissions } from '../types';
 
 export const useJiraServerEditForm = ({
   jiraServer,
   handleClosePanel,
+  permissions,
 }: {
   jiraServer: JiraServerKubeObjectInterface;
   handleClosePanel: () => void;
+  permissions: WidgetPermissions;
 }) => {
   const jiraServerEditMutation = useResourceCRUDMutation<
     JiraServerKubeObjectInterface,
@@ -36,6 +39,10 @@ export const useJiraServerEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: JiraServerFormValues) => {
+      if (!permissions.update.JiraServer.allowed) {
+        return false;
+      }
+
       const { url } = values;
 
       const newJiraServerData = {
@@ -51,11 +58,26 @@ export const useJiraServerEditForm = ({
         onSuccess: () => handleClosePanel(),
       });
     },
-    [handleClosePanel, jiraServer, jiraServerEditMutation]
+    [handleClosePanel, jiraServer, jiraServerEditMutation, permissions.update.JiraServer.allowed]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: jiraServerEditMutation, handleSubmit }),
-    [form, jiraServerEditMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.EDIT,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: jiraServerEditMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.update.JiraServer.allowed,
+        reason: permissions.update.JiraServer.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      jiraServerEditMutation.isLoading,
+      permissions.update.JiraServer.allowed,
+      permissions.update.JiraServer.reason,
+    ]
   );
 };

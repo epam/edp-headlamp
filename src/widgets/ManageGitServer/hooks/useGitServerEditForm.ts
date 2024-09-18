@@ -5,17 +5,21 @@ import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation'
 import { editResource } from '../../../k8s/common/editResource';
 import { GitServerKubeObject } from '../../../k8s/groups/EDP/GitServer';
 import { GitServerKubeObjectInterface } from '../../../k8s/groups/EDP/GitServer/types';
+import { FormItem } from '../../../providers/MultiForm/types';
+import { FORM_MODES } from '../../../types/forms';
 import { getUsedValues } from '../../../utils/forms/getUsedValues';
 import { GIT_SERVER_FORM_NAMES } from '../names';
-import { GitServerFormValues } from '../types';
+import { GitServerFormValues, WidgetPermissions } from '../types';
 
 export const useGitServerEditForm = ({
   gitServer,
   webhookURL,
+  permissions,
 }: {
   gitServer: GitServerKubeObjectInterface;
   webhookURL: string;
-}) => {
+  permissions: WidgetPermissions;
+}): FormItem => {
   const editMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, CRUD_TYPES.EDIT>(
     'gitServerEditMutation',
     GitServerKubeObject,
@@ -40,7 +44,7 @@ export const useGitServerEditForm = ({
       [GIT_SERVER_FORM_NAMES.gitUser.name]: gitServer.spec.gitUser || '',
       [GIT_SERVER_FORM_NAMES.gitHost.name]: gitServer.spec.gitHost || '',
       [GIT_SERVER_FORM_NAMES.skipWebhookSSLVerification.name]:
-        gitServer.spec.skipWebhookSSLVerification || '',
+        gitServer.spec.skipWebhookSSLVerification || false,
       [GIT_SERVER_FORM_NAMES.overrideWebhookURL.name]: !!gitServer.spec?.webhookUrl,
       [GIT_SERVER_FORM_NAMES.webhookURL.name]: webhookURLValue,
     };
@@ -56,6 +60,10 @@ export const useGitServerEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: GitServerFormValues) => {
+      if (!permissions.update.GitServer.allowed) {
+        return false;
+      }
+
       const transformedValues = {
         ...values,
         sshPort: Number(values.sshPort),
@@ -79,11 +87,26 @@ export const useGitServerEditForm = ({
       const newGitServer = editResource(GIT_SERVER_FORM_NAMES, gitServer, gitServerValues);
       editMutation.mutate(newGitServer);
     },
-    [gitServer, editMutation]
+    [permissions.update.GitServer.allowed, gitServer, editMutation]
   );
 
   return React.useMemo(
-    () => ({ form, mutation: editMutation, handleSubmit }),
-    [form, editMutation, handleSubmit]
+    () => ({
+      mode: FORM_MODES.EDIT,
+      form,
+      onSubmit: form.handleSubmit(handleSubmit),
+      isSubmitting: editMutation.isLoading,
+      allowedToSubmit: {
+        isAllowed: permissions.update.GitServer.allowed,
+        reason: permissions.update.GitServer.reason,
+      },
+    }),
+    [
+      form,
+      handleSubmit,
+      editMutation.isLoading,
+      permissions.update.GitServer.allowed,
+      permissions.update.GitServer.reason,
+    ]
   );
 };

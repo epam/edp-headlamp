@@ -36,6 +36,26 @@ test('renders ManageDependencyTrack Edit component (read-only)', () => {
         }}
         ownerReference={ownerReference}
         mode={FORM_MODES.EDIT}
+        permissions={{
+          create: {
+            Secret: {
+              allowed: true,
+            },
+          },
+          update: {
+            QuickLink: {
+              allowed: true,
+            },
+            Secret: {
+              allowed: true,
+            },
+          },
+          delete: {
+            Secret: {
+              allowed: true,
+            },
+          },
+        }}
         handleClosePanel={jest.fn()}
       />
     </TestWrapper>

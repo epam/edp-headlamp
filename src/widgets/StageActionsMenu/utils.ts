@@ -3,17 +3,24 @@ import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
 import { StageKubeObjectInterface } from '../../k8s/groups/EDP/Stage/types';
+import { PermissionsConfig } from '../../providers/Permissions/types';
 import { KubeObjectAction } from '../../types/actions';
-import { DeepPartial } from '../../types/global';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { widgetPermissionsToCheck } from './constants';
 
-const getStageOrder = (stage: DeepPartial<StageKubeObjectInterface>): number => stage.spec.order;
+const getStageOrder = (stage: StageKubeObjectInterface): number => stage.spec.order;
 
-export const createDeleteAction = async (
-  allStages: StageKubeObjectInterface[],
-  currentStage: StageKubeObjectInterface,
-  action: () => void
-): Promise<KubeObjectAction> => {
+export const createDeleteAction = async ({
+  allStages,
+  currentStage,
+  action,
+  permissions,
+}: {
+  allStages: StageKubeObjectInterface[];
+  currentStage: StageKubeObjectInterface;
+  action: () => void;
+  permissions: PermissionsConfig<typeof widgetPermissionsToCheck>;
+}): Promise<KubeObjectAction> => {
   if (!currentStage) {
     return;
   }
@@ -42,11 +49,15 @@ export const createDeleteAction = async (
   const highestOtherStagesOrder = Math.max(...otherStages.map(getStageOrder));
 
   if (currentStageOrder > highestOtherStagesOrder) {
-    return await createKubeAction({
+    return createKubeAction({
       item: new StageKubeObject(currentStage) as unknown as KubeObjectInterface,
       actionCheckName: 'delete',
       name: RESOURCE_ACTIONS.DELETE,
       icon: ICONS.BUCKET,
+      disabled: {
+        status: !permissions.delete.Stage.allowed,
+        reason: permissions.delete.Stage.reason,
+      },
       action: action,
     });
   }

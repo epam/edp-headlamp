@@ -11,9 +11,16 @@ import { useResetRegistry } from '../../hooks/useResetRegistry';
 import { useDataContext } from '../../providers/Data/hooks';
 
 export const Actions = ({ handleCloseCreateDialog }) => {
-  const { resetAll, submitAll, isAnyFormDirty, isAnyFormSubmitting } = useRegistryFormsContext();
+  const {
+    forms,
+    resetAll,
+    submitAll,
+    isAnyFormDirty,
+    isAnyFormSubmitting,
+    isAnyFormForbiddenToSubmit,
+  } = useRegistryFormsContext();
 
-  const { EDPConfigMap, pushAccountSecret, pullAccountSecret, tektonServiceAccount } =
+  const { EDPConfigMap, pushAccountSecret, pullAccountSecret, tektonServiceAccount, permissions } =
     useDataContext();
 
   const { resetRegistry, isLoading: isResetting } = useResetRegistry({
@@ -46,19 +53,24 @@ export const Actions = ({ handleCloseCreateDialog }) => {
 
   const { setDialog } = useDialogContext();
 
+  const submitDisabledTooltip = isAnyFormForbiddenToSubmit
+    ? Object.values(forms).find(({ allowedToSubmit: { isAllowed } }) => !isAllowed)?.allowedToSubmit
+        .reason
+    : '';
+
+  const canReset = !someOfTheSecretsHasExternalOwner && permissions.delete.Secret.allowed;
+
+  const deleteDisabledTooltip = someOfTheSecretsHasExternalOwner
+    ? 'Some of the secrets has external owners. Please, delete it by your own.'
+    : permissions.delete.Secret.reason;
+
   return (
     <Stack direction="row" spacing={2} sx={{ justifyContent: 'space-between' }}>
       <Box sx={{ mr: 'auto' }}>
         <ConditionalWrapper
-          condition={someOfTheSecretsHasExternalOwner}
+          condition={!canReset}
           wrapper={(children) => {
-            return (
-              <Tooltip
-                title={'Some of the secrets has external owners. Please, delete it by your own.'}
-              >
-                {children}
-              </Tooltip>
-            );
+            return <Tooltip title={deleteDisabledTooltip}>{children}</Tooltip>;
           }}
         >
           <Button
@@ -86,19 +98,30 @@ export const Actions = ({ handleCloseCreateDialog }) => {
         <Button onClick={resetAll} size="small" component={'button'} disabled={!isAnyFormDirty}>
           undo changes
         </Button>
-        <Button
-          onClick={() => {
-            submitAll(true);
-            handleCloseCreateDialog();
-          }}
-          size={'small'}
-          component={'button'}
-          variant={'contained'}
-          color={'primary'}
-          disabled={!isAnyFormDirty || isAnyFormSubmitting || isResetting}
+        <ConditionalWrapper
+          condition={isAnyFormForbiddenToSubmit}
+          wrapper={(children) => (
+            <Tooltip title={submitDisabledTooltip}>
+              <div>{children}</div>
+            </Tooltip>
+          )}
         >
-          save
-        </Button>
+          <Button
+            onClick={() => {
+              submitAll(true);
+              handleCloseCreateDialog();
+            }}
+            size={'small'}
+            component={'button'}
+            variant={'contained'}
+            color={'primary'}
+            disabled={
+              !isAnyFormDirty || isAnyFormSubmitting || isResetting || isAnyFormForbiddenToSubmit
+            }
+          >
+            save
+          </Button>
+        </ConditionalWrapper>
       </Stack>
     </Stack>
   );

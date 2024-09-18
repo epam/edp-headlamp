@@ -48,11 +48,7 @@ export const PageView = () => {
               data={{
                 pipelineRun: pipelineRun.data,
               }}
-              permissions={{
-                create: permissions.create.PipelineRun,
-                update: permissions.update.PipelineRun,
-                delete: permissions.delete.PipelineRun,
-              }}
+              permissions={permissions}
               backRoute={Router.createRouteURL(routePipelineRunList.path)}
               variant="inline"
             />

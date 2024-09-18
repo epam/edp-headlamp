@@ -48,7 +48,7 @@ const ChatThoughts = ({ thoughts }: { thoughts: ResponseThought[] }) => {
           <Accordion
             expanded={isLoading || isLast || expanded === thought.id_}
             onChange={handleChange(thought.id_)}
-            sx={{ backgroundColor: 'transparent' }}
+            sx={{ backgroundColor: 'transparent', minWidth: '30vw' }}
           >
             <AccordionSummary
               id={thought.id_}
@@ -219,9 +219,11 @@ export const Chat = ({
       setIsRequestLoading(true);
     },
     onFinish: () => {
-      // console.log('finish', data);
+      //
     },
-    onError: (error) => console.log('error', error),
+    onError: () => {
+      //
+    },
   });
 
   const handleSendMessage = React.useCallback(

@@ -8,13 +8,12 @@ import { TableColumn } from '../../../../../components/Table/types';
 import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { FormSwitch } from '../../../../../providers/Form/components/FormSwitch';
-import { ValueOf } from '../../../../../types/global';
-import { PermissionList } from '../../../../../types/permissions';
+import { PermissionsConfig } from '../../../../../providers/Permissions/types';
 import {
   ALL_VALUES_OVERRIDE_KEY,
   APPLICATIONS_TABLE_MODE,
   IMAGE_TAG_POSTFIX,
-  permissionChecks,
+  permissionsToCheckConfig,
   VALUES_OVERRIDE_POSTFIX,
 } from '../../../constants';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
@@ -38,7 +37,7 @@ export const useUpperColumns = ({
   handleClickLatest: () => void;
   handleClickStable: () => void;
   handleClickOverrideValuesAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  permissions: PermissionList<ValueOf<typeof permissionChecks>>;
+  permissions: PermissionsConfig<typeof permissionsToCheckConfig>;
   mode: ApplicationsTableMode;
   values: FieldValues;
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
@@ -102,7 +101,7 @@ export const useUpperColumns = ({
               label: '',
               render: () => (
                 <ConditionalWrapper
-                  condition={permissions.argoApplication.delete}
+                  condition={permissions.delete.Application.allowed}
                   wrapper={(children) => (
                     <Tooltip title="Uninstall selected applications">
                       <div>{children}</div>
@@ -114,14 +113,11 @@ export const useUpperColumns = ({
                       size: 'medium',
                       startIcon: <Icon icon={ICONS.BUCKET} />,
                       onClick: handleClickUninstall,
-                      disabled:
-                        permissions.argoApplication.delete === false ||
-                        !numSelected ||
-                        !buttonsEnabledMap.uninstall,
+                      disabled: !numSelected || !buttonsEnabledMap.uninstall,
                       sx: { color: theme.palette.secondary.dark },
                     }}
-                    text="You do not have permission to delete Application"
-                    allowed={permissions.argoApplication.delete}
+                    disabled={!permissions.delete.Application.allowed}
+                    reason={permissions.delete.Application.reason}
                   >
                     delete
                   </ButtonWithPermission>
@@ -219,7 +215,8 @@ export const useUpperColumns = ({
       theme.typography,
       theme.palette.secondary.dark,
       numSelected,
-      permissions.argoApplication.delete,
+      permissions.delete.Application.allowed,
+      permissions.delete.Application.reason,
       handleClickUninstall,
       buttonsEnabledMap.uninstall,
       handleClickLatest,

@@ -1,13 +1,13 @@
 import React from 'react';
 import { FormCheckbox } from '../../../../../../../providers/Form/components/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../../../providers/Form/components/FormControlLabelWithTooltip';
-import { useGitServerFormsContext } from '../../../../../hooks/useGitServerFormsContext';
+import { useFormsContext } from '../../../../../hooks/useFormsContext';
 import { GIT_SERVER_FORM_NAMES } from '../../../../../names';
 
 export const OverrideWebhookURL = () => {
   const {
     forms: { gitServer: gitServerForm },
-  } = useGitServerFormsContext();
+  } = useFormsContext();
 
   return (
     <FormCheckbox

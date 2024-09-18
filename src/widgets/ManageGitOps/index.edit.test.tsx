@@ -47,6 +47,15 @@ test('renders ManageGitOps Edit component', () => {
           },
           isReadOnly: true,
           handleDeleteRow: jest.fn(),
+          permissions: {
+            create: {
+              Codebase: {
+                allowed: true,
+              },
+            },
+            update: {},
+            delete: {},
+          },
         }}
       />
     </TestWrapper>

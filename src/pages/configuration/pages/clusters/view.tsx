@@ -71,7 +71,7 @@ export const PageView = () => {
 
             const secretName = secret?.metadata.name;
 
-            const isExpanded = expandedPanel === secretName;
+            const isExpanded = expandedPanel === secretName || singleItem;
 
             return (
               <Grid item xs={12} key={secret.metadata.uid}>
@@ -109,6 +109,7 @@ export const PageView = () => {
                         currentElement: secret,
                         mode: FORM_MODES.EDIT,
                         handleClosePlaceholder: handleCloseCreateDialog,
+                        permissions,
                       }}
                     />
                   </AccordionDetails>
@@ -119,7 +120,7 @@ export const PageView = () => {
         </Grid>
       </LoadingWrapper>
     );
-  }, [clusterSecrets, clusterSecretsError, expandedPanel, isLoading]);
+  }, [clusterSecrets, clusterSecretsError, expandedPanel, isLoading, permissions]);
 
   return (
     <ConfigurationPageContent
@@ -130,6 +131,7 @@ export const PageView = () => {
             formData={{
               mode: FORM_MODES.CREATE,
               handleClosePlaceholder: handleCloseCreateDialog,
+              permissions,
             }}
           />
         ),
@@ -137,8 +139,9 @@ export const PageView = () => {
         onOpen: handleOpenCreateDialog,
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading,
-        permissions: {
-          create: permissions.create.Secret,
+        permission: {
+          allowed: permissions.create.Secret.allowed,
+          reason: permissions.create.Secret.reason,
         },
       }}
       pageDescription={pageDescription}

@@ -63,6 +63,26 @@ test('renders ManageChatAssistant Edit component (read-only)', () => {
           },
           status: '',
         }}
+        permissions={{
+          create: {
+            Secret: {
+              allowed: true,
+            },
+          },
+          update: {
+            QuickLink: {
+              allowed: true,
+            },
+            Secret: {
+              allowed: true,
+            },
+          },
+          delete: {
+            Secret: {
+              allowed: true,
+            },
+          },
+        }}
         ownerReference={ownerReference}
         mode={FORM_MODES.EDIT}
         handleClosePanel={jest.fn()}
