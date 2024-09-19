@@ -29,7 +29,13 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
             {name}
           </Link>
         ),
-        width: '75%',
+        width: '25%',
+      },
+      {
+        id: 'description',
+        label: 'Description',
+        render: ({ spec: { description } }) => description,
+        width: '50%',
       },
       {
         id: 'createdAt',
