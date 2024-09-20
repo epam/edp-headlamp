@@ -309,14 +309,6 @@ export const PageView = () => {
                 );
               })}
             </Grid>
-            {editor.open && editor.data?.jsonData && (
-              <EditorDialog
-                open={editor.open}
-                item={editor.data?.jsonData}
-                onClose={handleCloseEditor}
-                onSave={handleEditorSave}
-              />
-            )}
           </LoadingWrapper>
         </Grid>
         <Grid item xs={12} sx={{ pb: (t) => t.typography.pxToRem(40) }}>
@@ -381,17 +373,17 @@ export const PageView = () => {
                 );
               })}
             </Grid>
-            {editor.open && editor.data?.jsonData && (
-              <EditorDialog
-                open={editor.open}
-                item={editor.data?.jsonData}
-                onClose={handleCloseEditor}
-                onSave={handleEditorSave}
-              />
-            )}
           </LoadingWrapper>
         </Grid>
       </Grid>
+      {editor.open && editor.data?.jsonData && (
+        <EditorDialog
+          open={editor.open}
+          item={editor.data?.jsonData}
+          onClose={handleCloseEditor}
+          onSave={handleEditorSave}
+        />
+      )}
     </ConfigurationPageContent>
   );
 };

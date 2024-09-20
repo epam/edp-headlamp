@@ -1,4 +1,6 @@
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
+import { ApplicationKubeObject } from '../../../../k8s/groups/ArgoCD/Application';
+import { ApplicationKubeObjectConfig } from '../../../../k8s/groups/ArgoCD/Application/config';
 import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
 import { SecretKubeObjectConfig } from '../../../../k8s/groups/default/Secret/config';
 import { PageDescription } from '../../../../types/pages';
@@ -12,7 +14,16 @@ export const pageDescription: PageDescription = {
 };
 
 export const pagePermissionsToCheck = {
-  create: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
-  update: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
-  delete: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
+  create: [
+    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
+    { instance: ApplicationKubeObject, config: ApplicationKubeObjectConfig },
+  ],
+  update: [
+    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
+    { instance: ApplicationKubeObject, config: ApplicationKubeObjectConfig },
+  ],
+  delete: [
+    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
+    { instance: ApplicationKubeObject, config: ApplicationKubeObjectConfig },
+  ],
 };
