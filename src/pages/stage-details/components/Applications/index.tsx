@@ -8,7 +8,7 @@ import { Table } from '../../../../components/Table';
 import { TableProps } from '../../../../components/Table/types';
 import { TabSection } from '../../../../components/TabSection';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { useCreateArgoApplication } from '../../../../k8s/groups/ArgoCD/Application/hooks/useCreateArgoApplication';
+import { useArgoApplicationCRUD } from '../../../../k8s/groups/ArgoCD/Application/hooks/useArgoApplicationCRUD';
 import { APPLICATIONS_TABLE_MODE } from '../../constants';
 import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
@@ -43,7 +43,7 @@ export const Applications = ({
   const {
     deleteArgoApplication,
     mutations: { argoApplicationDeleteMutation },
-  } = useCreateArgoApplication();
+  } = useArgoApplicationCRUD();
 
   const someArgoApplicationMutationIsLoading = React.useMemo(
     () => argoApplicationDeleteMutation.isLoading,

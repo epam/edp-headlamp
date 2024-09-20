@@ -1,0 +1,1 @@
+export const DIALOG_NAME = 'MANAGE_V_CLUSTER_DIALOG';
