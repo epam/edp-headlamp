@@ -48,6 +48,7 @@
     "carbon-components-react": "7.59.6",
     "clsx": "^1.2.1",
     "d3-path": "3.1.0",
+    "dompurify": "^3.1.6",
     "elkjs": "^0.8.2",
     "humanize-duration": "^3.27.3",
     "lodash": "^4.17.21",
@@ -63,7 +64,6 @@
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
     "react-zoom-pan-pinch": "^3.1.0",
-    "sanitize-html": "^2.13.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

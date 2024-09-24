@@ -160,7 +160,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Create co
                 class="MuiBox-root css-17bmav7"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container css-1hbmzt3-MuiGrid-root"
+                  class="MuiGrid-root MuiGrid-container css-qupyqv-MuiGrid-root"
                 >
                   <span
                     class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary css-1rcnq9c-MuiCircularProgress-root"
@@ -295,7 +295,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Create co
                 class="MuiBox-root css-17bmav7"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container css-1hbmzt3-MuiGrid-root"
+                  class="MuiGrid-root MuiGrid-container css-qupyqv-MuiGrid-root"
                 >
                   <span
                     class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary css-1rcnq9c-MuiCircularProgress-root"
@@ -833,7 +833,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                 class="MuiBox-root css-17bmav7"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container css-1hbmzt3-MuiGrid-root"
+                  class="MuiGrid-root MuiGrid-container css-qupyqv-MuiGrid-root"
                 >
                   <span
                     class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary css-1rcnq9c-MuiCircularProgress-root"
@@ -968,7 +968,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                 class="MuiBox-root css-17bmav7"
               >
                 <div
-                  class="MuiGrid-root MuiGrid-container css-1hbmzt3-MuiGrid-root"
+                  class="MuiGrid-root MuiGrid-container css-qupyqv-MuiGrid-root"
                 >
                   <span
                     class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary css-1rcnq9c-MuiCircularProgress-root"

@@ -3,6 +3,7 @@ import { Box, Fab, IconButton, Popover, Stack, Typography } from '@mui/material'
 import React from 'react';
 import { useQuery } from 'react-query';
 import { v4 as uuidv4 } from 'uuid';
+import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../k8s/groups/default/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../k8s/groups/default/Secret/labels';
@@ -55,12 +56,13 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
     },
   });
 
-  const query = useQuery({
+  const {
+    data: assistantData,
+    error: requestError,
+    isLoading: assistantDataIsLoading,
+  } = useQuery({
     queryKey: ['assistant', codemieSecretData?.assistantId],
     queryFn: () => getAssistantFetcher(),
-    staleTime: 60000, // 1 minute
-    cacheTime: 60000, // 1 minute
-    retry: false,
     onSuccess: (data) => {
       const newConversation = createStateConversation({
         conversationId: newConversationID,
@@ -75,8 +77,6 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
       setActiveConversation(newConversation);
     },
   });
-
-  const { data: assistantData, error: requestError } = query;
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -190,12 +190,14 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
             </Box>
           )}
           <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0 }}>
-            <Chat
-              conversation={activeConversation}
-              updateConversation={updateConversation}
-              codemieSecretData={codemieSecretData}
-              requestError={requestError as Error}
-            />
+            <LoadingWrapper isLoading={assistantDataIsLoading}>
+              <Chat
+                conversation={activeConversation}
+                updateConversation={updateConversation}
+                codemieSecretData={codemieSecretData}
+                requestError={requestError as Error}
+              />
+            </LoadingWrapper>
           </Box>
         </StyledChatBody>
       </Popover>
