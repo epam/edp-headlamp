@@ -6,15 +6,11 @@ export const LoadingWrapper: React.FC<{ isLoading: boolean; size?: number }> = (
   isLoading,
   size = 40,
 }) => {
-  return (
-    <Grid container justifyContent={'center'} alignItems={'center'}>
-      {isLoading ? (
-        <CircularProgress size={size} />
-      ) : (
-        <Grid item xs={12}>
-          {children}
-        </Grid>
-      )}
+  return isLoading ? (
+    <Grid container justifyContent={'center'} alignItems={'center'} sx={{ height: '100%' }}>
+      <CircularProgress size={size} />
     </Grid>
+  ) : (
+    <>{children}</>
   );
 };

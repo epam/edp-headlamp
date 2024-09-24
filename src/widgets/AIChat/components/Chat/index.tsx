@@ -232,7 +232,7 @@ export const Chat = ({
         const newConversation = {
           ...prev,
           conversationHistory: [
-            ...prev.conversationHistory,
+            ...(prev?.conversationHistory || []),
             {
               id: uuidv4(),
               createdAt: new Date().toISOString(),
