@@ -10,6 +10,7 @@ const NAMES = {
 
   // NOT USED IN RESOURCE DATA
   APPLICATIONS_TO_ADD_CHOOSER: 'applicationsToAddChooser',
+  APPLICATIONS_FIELD_ARRAY: 'applicationsFieldArray',
 } as const;
 
 export const CDPIPELINE_FORM_NAMES = {
@@ -47,6 +48,11 @@ export const CDPIPELINE_FORM_NAMES = {
   // NOT USED IN RESOURCE DATA
   [NAMES.APPLICATIONS_TO_ADD_CHOOSER]: {
     name: NAMES.APPLICATIONS_TO_ADD_CHOOSER,
+    formPart: FORM_STEPS.APPLICATIONS,
+    notUsedInFormData: true,
+  },
+  [NAMES.APPLICATIONS_FIELD_ARRAY]: {
+    name: NAMES.APPLICATIONS_FIELD_ARRAY,
     formPart: FORM_STEPS.APPLICATIONS,
     notUsedInFormData: true,
   },

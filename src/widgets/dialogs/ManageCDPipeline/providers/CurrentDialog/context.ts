@@ -16,4 +16,7 @@ export const CurrentDialogContext = React.createContext<CurrentDialogContextProv
     CDPipelineData: null,
   },
   state: dialogInitialState,
+  extra: {
+    applications: [],
+  },
 });

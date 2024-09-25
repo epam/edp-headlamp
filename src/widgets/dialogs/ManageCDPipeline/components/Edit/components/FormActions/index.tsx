@@ -15,7 +15,7 @@ export const FormActions = () => {
   } = useCurrentDialog();
   const {
     reset,
-    formState: { isDirty },
+    formState: { dirtyFields },
     handleSubmit,
   } = useTypedFormContext();
 
@@ -51,6 +51,8 @@ export const FormActions = () => {
   );
 
   const theme = useTheme();
+
+  const isDirty = Object.keys(dirtyFields).length;
 
   return (
     <Stack direction="row" spacing={2} justifyContent="space-between" width="100%">

@@ -14,9 +14,10 @@ import {
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { SelectOption } from '../../../../types/forms';
 import { FormAutocompleteProps } from './types';
 
-export const FormAutocomplete = <T,>(props: FormAutocompleteProps<T>) => {
+export const FormAutocomplete = <T extends SelectOption>(props: FormAutocompleteProps<T>) => {
   const {
     name,
     label,
@@ -88,7 +89,7 @@ export const FormAutocomplete = <T,>(props: FormAutocompleteProps<T>) => {
                         }}
                         checked={selected}
                       />
-                      {option}
+                      {option.label}
                     </li>
                   );
                 }}
@@ -123,7 +124,7 @@ export const FormAutocomplete = <T,>(props: FormAutocompleteProps<T>) => {
                         <Chip
                           {...getTagProps({ index })}
                           key={index}
-                          label={option}
+                          label={option.label}
                           color="primary"
                           size="small"
                         />
@@ -134,10 +135,14 @@ export const FormAutocomplete = <T,>(props: FormAutocompleteProps<T>) => {
                   );
                 }}
                 {...field}
+                isOptionEqualToValue={(option, value) => option.value === value.value}
                 onChange={(e, data) => {
-                  field.onChange(data);
+                  const valueArray = data.map((item) => item.value);
+                  field.onChange(valueArray);
                 }}
-                value={field.value || []}
+                value={
+                  field.value ? options.filter((option) => field.value.includes(option.value)) : []
+                }
               />
             );
           }}

@@ -12,9 +12,12 @@ import {
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { SelectOption } from '../../../../types/forms';
 import { FormAutocompleteSingleProps } from './types';
 
-export const FormAutocompleteSingle = <T,>(props: FormAutocompleteSingleProps<T>) => {
+export const FormAutocompleteSingle = <T extends SelectOption>(
+  props: FormAutocompleteSingleProps<T>
+) => {
   const {
     name,
     label,
@@ -80,11 +83,12 @@ export const FormAutocompleteSingle = <T,>(props: FormAutocompleteSingleProps<T>
                     placeholder={placeholder}
                   />
                 )}
-                {...field}
-                onChange={(e, data) => {
-                  field.onChange(data.value);
+                isOptionEqualToValue={(option, value) => option.value === value.value}
+                getOptionLabel={(option) => option.label || ''}
+                onChange={(event, newValue) => {
+                  field.onChange(newValue ? newValue.value : '');
                 }}
-                value={field.value || []}
+                value={options.find((option) => option.value === field.value) || null}
               />
             );
           }}
