@@ -1,39 +1,18 @@
 import { Icon } from '@iconify/react';
-import { Alert, CircularProgress, Grid, Stack, Tooltip, Typography } from '@mui/material';
+import { Grid, Stack, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
+import { useFieldArray } from 'react-hook-form';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
-import { useCodebasesByTypeLabelQuery } from '../../../../../../k8s/groups/EDP/Codebase/hooks/useCodebasesByTypeLabelQuery';
-import { CodebaseKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Codebase/types';
 import { FormAutocomplete } from '../../../../../../providers/Form/components/FormAutocomplete';
 import { FieldEvent } from '../../../../../../types/forms';
-import { KubeObjectListInterface } from '../../../../../../types/k8s';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
 import { CDPIPELINE_FORM_NAMES } from '../../../names';
 import { useCurrentDialog } from '../../../providers/CurrentDialog/hooks';
 import { ApplicationRow } from './components/ApplicationRow';
 
-const getUsedApps = (
-  applicationList: KubeObjectListInterface<CodebaseKubeObjectInterface>,
-  applicationsFieldValue: string[]
-) => {
-  return applicationList
-    ? applicationList.items.filter((app) => applicationsFieldValue.includes(app.metadata.name))
-    : [];
-};
-
-const getUnusedApps = (
-  applicationList: KubeObjectListInterface<CodebaseKubeObjectInterface>,
-  applicationsFieldValue: string[]
-) => {
-  return applicationList
-    ? applicationList.items.filter((app) => !applicationsFieldValue.includes(app.metadata.name))
-    : [];
-};
-
 export const Applications = () => {
   const {
-    props: { CDPipelineData },
+    extra: { applications },
   } = useCurrentDialog();
 
   const {
@@ -41,59 +20,70 @@ export const Applications = () => {
     formState: { errors },
     control,
     watch,
+    getValues,
     setValue,
-    trigger,
   } = useTypedFormContext();
 
-  register(CDPIPELINE_FORM_NAMES.applications.name, {
-    required: 'Select applications',
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: CDPIPELINE_FORM_NAMES.applicationsFieldArray.name,
   });
 
-  register(CDPIPELINE_FORM_NAMES.applicationsToPromote.name);
-
-  register(CDPIPELINE_FORM_NAMES.inputDockerStreams.name, {
-    required: 'Select branch',
-  });
-
-  const applicationsBranchesFieldValue = watch(CDPIPELINE_FORM_NAMES.inputDockerStreams.name);
-  const applicationsFieldValue = watch(CDPIPELINE_FORM_NAMES.applications.name);
-
-  const {
-    data: applicationList,
-    isLoading,
-    error,
-  } = useCodebasesByTypeLabelQuery({
-    props: {
-      namespace: CDPipelineData?.metadata.namespace,
-      codebaseType: CODEBASE_TYPES.APPLICATION,
-    },
-  });
-
-  const handleApplicationsListChange = React.useCallback(
-    async (newApps: string[]) => {
-      setValue(CDPIPELINE_FORM_NAMES.applications.name, newApps);
-      await trigger(CDPIPELINE_FORM_NAMES.applications.name);
-    },
-    [setValue, trigger]
+  const applicationsOptions = React.useMemo(
+    () =>
+      applications.map((app) => ({
+        label: app.metadata.name,
+        value: app.metadata.name,
+      })),
+    [applications]
   );
 
-  const usedApplications = React.useMemo(
-    () => getUsedApps(applicationList, applicationsFieldValue),
-    [applicationsFieldValue, applicationList]
-  );
+  const applicationsFieldArrayValue = watch(CDPIPELINE_FORM_NAMES.applicationsFieldArray.name) as {
+    appName: string;
+    appBranch: string;
+    appToPromote: string;
+  }[];
 
-  const unusedApplications = React.useMemo(
-    () => getUnusedApps(applicationList, applicationsFieldValue),
-    [applicationsFieldValue, applicationList]
-  );
+  const handleApplicationChanges = (newApplications: string[]) => {
+    const currentAppNames = applicationsFieldArrayValue?.map((app) => app.appName);
+    const addedApplications = newApplications.filter((app) => !currentAppNames.includes(app));
+
+    addedApplications.forEach((app) => {
+      append({ appName: app });
+    });
+
+    const removedApplications = applicationsFieldArrayValue
+      .map((app, index) => ({ ...app, index }))
+      .filter((app) => !newApplications.includes(app.appName));
+
+    const removedApplicationsBranchesNames = removedApplications.map((app) => app.appBranch);
+
+    const newInputDockerStreamsValue = getValues(
+      CDPIPELINE_FORM_NAMES.inputDockerStreams.name
+    ).filter((stream) => !removedApplicationsBranchesNames.includes(stream));
+
+    setValue(CDPIPELINE_FORM_NAMES.inputDockerStreams.name, newInputDockerStreamsValue);
+
+    const removedApplicationIndices = removedApplications.map((app) => app.index);
+
+    setValue(CDPIPELINE_FORM_NAMES.applications.name, newApplications, { shouldDirty: false });
+
+    setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, newApplications, {
+      shouldDirty: false,
+    });
+
+    removedApplicationIndices.reverse().forEach((index) => {
+      remove(index);
+    });
+  };
 
   return (
     <Stack spacing={3}>
       <FormAutocomplete
         {...register(CDPIPELINE_FORM_NAMES.applicationsToAddChooser.name, {
-          onChange: ({ target: { value } }: FieldEvent) => handleApplicationsListChange(value),
+          onChange: ({ target: { value } }: FieldEvent) => handleApplicationChanges(value),
         })}
-        options={unusedApplications ? unusedApplications.map((el) => el.metadata.name) : []}
+        options={applicationsOptions}
         control={control}
         errors={errors}
         label="Applications"
@@ -102,77 +92,57 @@ export const Applications = () => {
       />
       <div>
         <Grid container spacing={2}>
-          {!!applicationList && !!applicationList.items.length ? (
+          {!!fields && !!fields.length ? (
             <>
-              {!!usedApplications.length ? (
-                <>
-                  <Grid item xs={4}>
-                    <Typography>Application</Typography>
+              <Grid item xs={4}>
+                <Typography>Application</Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                  <Grid item>Branch</Grid>
+                  <Grid item>
+                    <Tooltip
+                      title={'Specify the branch of the selected applications for deployment.'}
+                    >
+                      <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+                    </Tooltip>
                   </Grid>
-                  <Grid item xs={4}>
-                    <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-                      <Grid item>Branch</Grid>
-                      <Grid item>
-                        <Tooltip
-                          title={'Specify the branch of the selected applications for deployment.'}
-                        >
-                          <Icon icon={ICONS.INFO_CIRCLE} width={18} />
-                        </Tooltip>
-                      </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography>
+                  <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                    <Grid item>To promote</Grid>
+                    <Grid item>
+                      <Tooltip
+                        title={
+                          'Enables the promotion of applications to the higher environment upon the successful pass through all quality gates.'
+                        }
+                      >
+                        <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+                      </Tooltip>
                     </Grid>
                   </Grid>
-                  <Grid item xs={3}>
-                    <Typography>
-                      <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-                        <Grid item>To promote</Grid>
-                        <Grid item>
-                          <Tooltip
-                            title={
-                              'Enables the promotion of applications to the higher environment upon the successful pass through all quality gates.'
-                            }
-                          >
-                            <Icon icon={ICONS.INFO_CIRCLE} width={18} />
-                          </Tooltip>
-                        </Grid>
-                      </Grid>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={1}>
-                    <Typography>Delete</Typography>
-                  </Grid>
-                </>
-              ) : null}
-              {isLoading && (
-                <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-                  <CircularProgress />
-                </Grid>
-              )}
-              {!!error && <Typography color={'error'}>{error}</Typography>}
-              {!isLoading && !error && (
-                <>
-                  {usedApplications.map((application, idx) => {
-                    const key = `${application.metadata.name}::${idx}`;
-
-                    return <ApplicationRow key={key} application={application} />;
-                  })}
-                </>
-              )}
+                </Typography>
+              </Grid>
+              <Grid item xs={1}>
+                <Typography>Delete</Typography>
+              </Grid>
             </>
           ) : null}
+          {fields.map((field, index) => {
+            return (
+              <ApplicationRow
+                //@ts-ignore
+                application={applications.find((el) => el.metadata.name === field.appName)}
+                removeRow={() => remove(index)}
+                index={index}
+                key={field.id}
+              />
+            );
+          })}
         </Grid>
       </div>
-      {(!applicationsFieldValue || !applicationsFieldValue.length) && (
-        <Alert severity="info" variant="outlined">
-          Add at least one application
-        </Alert>
-      )}
-      {(!applicationsBranchesFieldValue || !applicationsBranchesFieldValue.length) &&
-      applicationsFieldValue &&
-      applicationsFieldValue.length ? (
-        <Alert severity="info" variant="outlined">
-          Select the application branch
-        </Alert>
-      ) : null}
     </Stack>
   );
 };

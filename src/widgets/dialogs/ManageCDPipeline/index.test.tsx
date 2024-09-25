@@ -36,6 +36,7 @@ describe('ManageCDPipelineDialog', () => {
             CDPipelineData: {
               metadata: {
                 name: 'test-cdpipeline',
+                namespace: 'test-namespace',
                 uid: 'test-uid',
                 creationTimestamp: 'test-creationTimestamp',
               },

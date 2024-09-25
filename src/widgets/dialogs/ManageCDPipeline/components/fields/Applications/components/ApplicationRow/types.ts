@@ -2,4 +2,6 @@ import { CodebaseKubeObjectInterface } from '../../../../../../../../k8s/groups/
 
 export interface ApplicationRowProps {
   application: CodebaseKubeObjectInterface;
+  index: number;
+  removeRow: () => void;
 }

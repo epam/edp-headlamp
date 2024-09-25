@@ -9,6 +9,8 @@ export const useDefaultValues = () => {
       [CDPIPELINE_FORM_NAMES.applicationsToPromote.name]: [],
       [CDPIPELINE_FORM_NAMES.inputDockerStreams.name]: [],
       [CDPIPELINE_FORM_NAMES.deploymentType.name]: DEPLOYMENT_TYPES.CONTAINER,
+      [CDPIPELINE_FORM_NAMES.applicationsToAddChooser.name]: [],
+      [CDPIPELINE_FORM_NAMES.applicationsFieldArray.name]: [],
     }),
     []
   );

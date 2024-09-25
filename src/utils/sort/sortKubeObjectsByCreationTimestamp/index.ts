@@ -2,14 +2,15 @@ import { EDPKubeObjectInterface } from '../../../types/k8s';
 
 export const sortKubeObjectByCreationTimestamp = (
   a: EDPKubeObjectInterface,
-  b: EDPKubeObjectInterface
+  b: EDPKubeObjectInterface,
+  backwards?: boolean
 ): number => {
-  const aPipelineRunCreationTimeStamp = a.metadata.creationTimestamp.valueOf();
-  const bPipelineRunCreationTimeStamp = b.metadata.creationTimestamp.valueOf();
+  const aResourceCreationTimeStamp = a.metadata.creationTimestamp.valueOf();
+  const bResourceCreationTimeStamp = b.metadata.creationTimestamp.valueOf();
 
-  if (aPipelineRunCreationTimeStamp > bPipelineRunCreationTimeStamp) {
-    return -1;
+  if (aResourceCreationTimeStamp > bResourceCreationTimeStamp) {
+    return backwards ? 1 : -1;
   } else {
-    return 1;
+    return backwards ? -1 : 1;
   }
 };
