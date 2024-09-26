@@ -72,7 +72,6 @@ export const PageView = () => {
                   externalLink={LinkCreationService.sonar.createDashboardLink({
                     baseURL: QuickLinksURLS?.[SYSTEM_QUICK_LINKS.SONAR],
                     codebaseName: name,
-                    defaultBranchName: component.data?.spec.defaultBranch,
                   })}
                   configurationLink={{
                     routeName: routeSonar.path,

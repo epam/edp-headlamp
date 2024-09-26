@@ -126,7 +126,6 @@ export const DataContextProvider: React.FC = ({ children }) => {
   const sonarMetricsApiUrl = LinkCreationService.sonar.createMetricsApiUrl({
     baseURL: sonarQubeBaseURL,
     codebaseName: name,
-    defaultBranchName: component.data?.spec.defaultBranch,
   });
   const sonarRequestHeaders = {
     Authorization: `Basic ${safeEncode(`${sonarSecret?.token}:`)}`,

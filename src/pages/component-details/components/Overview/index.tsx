@@ -7,7 +7,6 @@ import { STATUS_COLOR } from '../../../../constants/colors';
 import { DependencyTrackMetrics } from '../../../../widgets/DeeptrackVulnerabilities';
 import { SonarQubeMetrics } from '../../../../widgets/SonarQubeMetrics';
 import { useDataContext } from '../../providers/Data/hooks';
-import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { ComponentDetailsRouteParams } from '../../types';
 import { useInfoRows } from './hooks/useInfoRows';
 
@@ -19,9 +18,7 @@ const getStatusLabel = (status: string) => statusMap?.[status] || 'Unknown';
 
 export const Overview = () => {
   const { name } = useParams<ComponentDetailsRouteParams>();
-  const {
-    component: { data: component },
-  } = useDynamicDataContext();
+
   const { sonarData, depTrackData } = useDataContext();
   const infoRows = useInfoRows();
 
@@ -57,11 +54,7 @@ export const Overview = () => {
         <div>
           <Grid container alignItems={'center'}>
             <Grid item>
-              <SonarQubeMetrics
-                codebaseName={name}
-                sonarData={sonarData}
-                defaultBranch={component.data?.spec.defaultBranch}
-              />
+              <SonarQubeMetrics codebaseName={name} sonarData={sonarData} />
             </Grid>
             <Grid item style={{ marginLeft: 'auto' }}>
               <DependencyTrackMetrics depTrackData={depTrackData} />
