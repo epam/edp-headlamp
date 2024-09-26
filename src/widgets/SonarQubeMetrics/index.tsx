@@ -84,7 +84,6 @@ const getIconCodeSmells = (value: string) =>
 
 export const SonarQubeMetrics = ({
   codebaseName,
-  defaultBranch,
   sonarData,
 }: SonarQubeMetricsProps) => {
   const projectID = codebaseName;
@@ -115,7 +114,6 @@ export const SonarQubeMetrics = ({
               baseURL: sonarData.data.baseUrl,
               codebaseName: projectID,
               issueType: 'BUG',
-              defaultBranchName: defaultBranch,
             })}
             rightSlot={<Value value={sonarData.data.metrics?.bugs} />}
             leftSlot={<Rating rating={sonarData.data.metrics?.reliability_rating} />}
@@ -127,7 +125,6 @@ export const SonarQubeMetrics = ({
               baseURL: sonarData.data.baseUrl,
               codebaseName: projectID,
               issueType: 'VULNERABILITY',
-              defaultBranchName: defaultBranch,
             })}
             rightSlot={<Value value={sonarData.data.metrics?.vulnerabilities} />}
             leftSlot={<Rating rating={sonarData.data.metrics?.security_rating} />}
@@ -139,7 +136,6 @@ export const SonarQubeMetrics = ({
               baseURL: sonarData.data.baseUrl,
               codebaseName: projectID,
               issueType: 'CODE_SMELL',
-              defaultBranchName: defaultBranch,
             })}
             rightSlot={<Value value={sonarData.data.metrics?.code_smells} />}
             leftSlot={<Rating rating={sonarData.data.metrics?.sqale_rating} />}
@@ -166,7 +162,6 @@ export const SonarQubeMetrics = ({
             link={LinkCreationService.sonar.createLinkByMetricName({
               baseURL: sonarData.data.baseUrl,
               codebaseName: projectID,
-              defaultBranchName: defaultBranch,
               metricName: 'Coverage',
             })}
             title="Coverage"
@@ -187,7 +182,6 @@ export const SonarQubeMetrics = ({
             link={LinkCreationService.sonar.createLinkByMetricName({
               baseURL: sonarData.data.baseUrl,
               codebaseName: projectID,
-              defaultBranchName: defaultBranch,
               metricName: 'Duplications',
             })}
             leftSlot={<Rating rating={getDuplicationRating(sonarData.data.metrics)} hideValue />}
