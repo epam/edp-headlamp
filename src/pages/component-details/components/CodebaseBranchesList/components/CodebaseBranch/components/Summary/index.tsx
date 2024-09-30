@@ -12,7 +12,7 @@ import { useGitServerByCodebaseQuery } from '../../../../../../../../k8s/groups/
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/constants';
 import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateBuildPipelineRun';
-import { useStorageSizeQuery } from '../../../../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useStorageSizeQuery';
+import { useTriggerTemplateByNameQuery } from '../../../../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useTriggerTemplateByNameQuery';
 import { rem } from '../../../../../../../../utils/styling/rem';
 import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
 import { isDefaultBranch } from '../../../../utils';
@@ -29,10 +29,21 @@ export const Summary = ({
 }: SummaryProps) => {
   const permissions = useTypedPermissions();
   const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
-  const { data: storageSize } = useStorageSizeQuery(codebaseData);
+
   const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
     props: { codebaseGitServer: codebaseData?.spec.gitServer },
   });
+
+  const { data: buildTriggerTemplate } = useTriggerTemplateByNameQuery({
+    props: {
+      name: `${gitServerByCodebase?.spec?.gitProvider}-build-template`,
+    },
+    options: {
+      enabled: !!gitServerByCodebase,
+    },
+  });
+
+  console.log(buildTriggerTemplate);
 
   const classes = useStyles();
   const status = codebaseBranchData?.status?.status;
@@ -51,23 +62,23 @@ export const Summary = ({
     async (e) => {
       e.stopPropagation();
 
-      if (!storageSize) {
-        throw new Error(`Trigger template's storage property has not been found`);
-      }
-
       if (!gitServerByCodebase) {
         throw new Error(`Codebase Git Server has not been found`);
       }
 
       await createBuildPipelineRun({
-        namespace: codebaseData.metadata.namespace,
         codebase: codebaseData,
         codebaseBranch: codebaseBranchData,
-        gitServer: gitServerByCodebase,
-        storageSize: storageSize,
+        triggerTemplate: buildTriggerTemplate,
       });
     },
-    [codebaseBranchData, codebaseData, createBuildPipelineRun, gitServerByCodebase, storageSize]
+    [
+      buildTriggerTemplate,
+      codebaseBranchData,
+      codebaseData,
+      createBuildPipelineRun,
+      gitServerByCodebase,
+    ]
   );
 
   const isEDPVersioning = codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP;
@@ -81,7 +92,7 @@ export const Summary = ({
 
   const buildButtonTooltip = (() => {
     if (!permissions.create.PipelineRun.allowed) {
-      return 'You do not have permission to create PipelineRun';
+      return permissions.create.PipelineRun.reason;
     }
 
     if (latestBuildIsRunning) {
