@@ -1,28 +1,10 @@
-/**
- * @jest-environment jsdom
- */
-
-import { jest } from '@jest/globals';
 import { CodebaseKubeObjectInterface } from '../../../../EDP/Codebase/types';
 import { CodebaseBranchKubeObjectInterface } from '../../../../EDP/CodebaseBranch/types';
-import { GitServerKubeObjectInterface } from '../../../../EDP/GitServer/types';
 import { createBuildPipelineRunInstance } from './index';
-
-beforeEach(() => {
-  jest
-    .spyOn(global.window.crypto, 'getRandomValues')
-    .mockReturnValue(new Uint32Array([2736861854, 4288701136, 612580786, 3178865852, 3429947584]));
-});
-
-afterEach(() => {
-  jest.clearAllMocks();
-  jest.spyOn(global.window.crypto, 'getRandomValues').mockRestore();
-});
 
 describe('testing createBuildPipelineRunInstance', () => {
   it('should return valid kube object', () => {
     const object = createBuildPipelineRunInstance({
-      namespace: 'test-namespace',
       codebase: {
         metadata: { name: 'test-codebase-name' },
         spec: {
@@ -47,78 +29,217 @@ describe('testing createBuildPipelineRunInstance', () => {
           },
         },
       } as CodebaseBranchKubeObjectInterface,
-      gitServer: {
-        spec: {
-          gitHost: 'test-git-host',
-          gitUser: 'test-git-user',
-          sshPort: 123,
-          nameSshKeySecret: 'test-ssh-key-secret',
-          gitProvider: 'test-git-provider',
+      triggerTemplate: {
+        apiVersion: 'triggers.tekton.dev/v1beta1',
+        kind: 'TriggerTemplate',
+        metadata: {
+          name: 'gerrit-build-template',
+          namespace: 'test-namespace',
+          creationTimestamp: '',
+          uid: '',
         },
-      } as GitServerKubeObjectInterface,
-      storageSize: '1Gi',
+        spec: {
+          params: [
+            {
+              default: 'master',
+              description: 'The git revision',
+              name: 'gitrevision',
+            },
+            {
+              description: 'Gerrit project name',
+              name: 'gerritproject',
+            },
+            {
+              description: 'Codebase name used in pipeline',
+              name: 'codebase',
+            },
+            {
+              description: 'Codebasebranch name used in pipeline',
+              name: 'codebasebranch',
+            },
+            {
+              description: 'Change number from Merge Request',
+              name: 'changeNumber',
+            },
+            {
+              description: 'Patchset number from Merge Request',
+              name: 'patchsetNumber',
+            },
+            {
+              description: 'Ticket name pattern',
+              name: 'ticketNamePattern',
+            },
+            {
+              description: 'Commit message pattern to run commit-validate task',
+              name: 'commitMessagePattern',
+            },
+            {
+              description: 'Commit message',
+              name: 'commitMessage',
+            },
+            {
+              description: 'Jira issue payload',
+              name: 'jiraIssueMetadataPayload',
+            },
+            {
+              description: 'Jira server name',
+              name: 'jiraServer',
+            },
+            {
+              description:
+                'Pipeline to trigger. Populated by edp interceptor from codebasebranch spec',
+              name: 'pipelineName',
+            },
+          ],
+          resourcetemplates: [
+            {
+              apiVersion: 'tekton.dev/v1',
+              kind: 'PipelineRun',
+              metadata: {
+                annotations: {
+                  'argocd.argoproj.io/compare-options': 'IgnoreExtraneous',
+                },
+                generateName: '$(tt.params.codebasebranch)-build-',
+                labels: {
+                  'app.edp.epam.com/codebase': '$(tt.params.codebase)',
+                  'app.edp.epam.com/codebasebranch': '$(tt.params.codebasebranch)',
+                  'app.edp.epam.com/pipelinetype': 'build',
+                },
+              },
+              spec: {
+                params: [
+                  {
+                    name: 'git-source-url',
+                    value: 'ssh://git-user@gitProvider:777/$(tt.params.gerritproject)',
+                  },
+                  {
+                    name: 'git-source-revision',
+                    value: '$(tt.params.gitrevision)',
+                  },
+                  {
+                    name: 'CODEBASE_NAME',
+                    value: '$(tt.params.codebase)',
+                  },
+                  {
+                    name: 'CODEBASEBRANCH_NAME',
+                    value: '$(tt.params.codebasebranch)',
+                  },
+                  {
+                    name: 'changeNumber',
+                    value: '$(tt.params.changeNumber)',
+                  },
+                  {
+                    name: 'patchsetNumber',
+                    value: '$(tt.params.patchsetNumber)',
+                  },
+                  {
+                    name: 'TICKET_NAME_PATTERN',
+                    value: '$(tt.params.ticketNamePattern)',
+                  },
+                  {
+                    name: 'COMMIT_MESSAGE_PATTERN',
+                    value: '$(tt.params.commitMessagePattern)',
+                  },
+                  {
+                    name: 'COMMIT_MESSAGE',
+                    value: '$(tt.params.commitMessage)',
+                  },
+                  {
+                    name: 'JIRA_ISSUE_METADATA_PAYLOAD',
+                    value: '$(tt.params.jiraIssueMetadataPayload)',
+                  },
+                  {
+                    name: 'JIRA_SERVER',
+                    value: '$(tt.params.jiraServer)',
+                  },
+                ],
+                pipelineRef: {
+                  name: '$(tt.params.pipelineName)',
+                },
+                taskRunTemplate: {
+                  serviceAccountName: 'tekton',
+                },
+                workspaces: [
+                  {
+                    name: 'shared-workspace',
+                    subPath: 'codebase',
+                    volumeClaimTemplate: {
+                      spec: {
+                        accessModes: ['ReadWriteOnce'],
+                        resources: {
+                          requests: {
+                            storage: '5Gi',
+                          },
+                        },
+                      },
+                    },
+                  },
+                  {
+                    name: 'ssh-creds',
+                    secret: {
+                      secretName: 'secretName',
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
     });
 
     expect(object).toEqual({
       apiVersion: 'tekton.dev/v1',
       kind: 'PipelineRun',
       metadata: {
-        namespace: 'test-namespace',
-        name: 'test-codebase-name-test-codebase--build-8ygse',
+        annotations: { 'argocd.argoproj.io/compare-options': 'IgnoreExtraneous' },
+        generateName: 'test-codebase-name-test-codebase-branch-name-build-',
         labels: {
-          'app.edp.epam.com/codebasebranch': 'test-codebase-name-test-codebase-branch-name',
           'app.edp.epam.com/codebase': 'test-codebase-name',
+          'app.edp.epam.com/codebasebranch': 'test-codebase-name-test-codebase-branch-name',
           'app.edp.epam.com/pipelinetype': 'build',
-        },
-        annotations: {
-          'argocd.argoproj.io/compare-options': 'IgnoreExtraneous',
         },
       },
       spec: {
         params: [
           {
             name: 'git-source-url',
-            value: 'ssh://test-git-user@test-git-host:123/test-git-url-path',
+            value: 'ssh://git-user@gitProvider:777/test-git-url-path',
           },
           {
             name: 'git-source-revision',
             value: 'test-codebase-branch-name',
           },
+          { name: 'CODEBASE_NAME', value: 'test-codebase-name' },
           {
             name: 'CODEBASEBRANCH_NAME',
             value: 'test-codebase-name-test-codebase-branch-name',
           },
-          { name: 'CODEBASE_NAME', value: 'test-codebase-name' },
+          { name: 'changeNumber', value: '1' },
+          { name: 'patchsetNumber', value: '1' },
+          { name: 'TICKET_NAME_PATTERN', value: '' },
+          { name: 'COMMIT_MESSAGE_PATTERN', value: '' },
+          { name: 'COMMIT_MESSAGE', value: '' },
+          { name: 'JIRA_ISSUE_METADATA_PAYLOAD', value: '' },
+          { name: 'JIRA_SERVER', value: '' },
         ],
-        pipelineRef: {
-          name: 'test-build-pipeline',
-        },
-        taskRunTemplate: {
-          serviceAccountName: 'tekton',
-        },
-        timeouts: {
-          pipeline: '1h0m0s',
-        },
+        pipelineRef: { name: 'test-build-pipeline' },
+        taskRunTemplate: { serviceAccountName: 'tekton' },
         workspaces: [
-          {
-            name: 'settings',
-            configMap: { name: 'custom-test-build-tool-settings' },
-          },
           {
             name: 'shared-workspace',
             subPath: 'codebase',
             volumeClaimTemplate: {
-              metadata: { creationTimestamp: null },
               spec: {
                 accessModes: ['ReadWriteOnce'],
-                resources: { requests: { storage: '1Gi' } },
+                resources: { requests: { storage: '5Gi' } },
               },
-              status: {},
             },
           },
+          { name: 'ssh-creds', secret: { secretName: 'secretName' } },
           {
-            name: 'ssh-creds',
-            secret: { secretName: 'test-ssh-key-secret' },
+            name: 'settings',
+            configMap: { name: 'custom-test-build-tool-settings' },
           },
         ],
       },
