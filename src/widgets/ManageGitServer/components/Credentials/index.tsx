@@ -50,6 +50,17 @@ export const CredentialsForm = ({ gitServerSecret }: CredentialsFormProps) => {
             </Grid>
           </>
         );
+      case GIT_PROVIDERS.BITBUCKET:
+        return (
+          <>
+            <Grid item xs={12}>
+              <SSHPrivateKey />
+            </Grid>
+            <Grid item xs={12}>
+              <Token />
+            </Grid>
+          </>
+        );
     }
   }, [sharedGitProviderValue]);
 

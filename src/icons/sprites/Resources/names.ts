@@ -26,6 +26,7 @@ export const RESOURCE_ICON_NAMES = {
   TEKTON: 'tekton',
   GITHUB: 'github',
   GITLAB: 'gitlab',
+  BITBUCKET: 'bitbucket',
   GERRIT: 'gerrit',
   VUE: 'vue',
   NEXTJS: 'next',

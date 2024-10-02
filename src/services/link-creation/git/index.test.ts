@@ -36,5 +36,16 @@ describe('testing link-creation GitURLService', () => {
     ).toEqual(
       'https://test-gerrit.com/gitweb?p=edp-gitops.git&f=test-pipeline-name%2Ftest-stage-name%2Ftest-app-name-values.yaml&hb=refs%2Fheads%2Fmain&a=blob'
     );
+    expect(
+      GitURLService.createGitOpsValuesYamlFileLink(
+        'https://git.test.com/test-project/test-env/edp-gitops',
+        'test-pipeline-name',
+        'test-stage-name',
+        'test-app-name',
+        GIT_SERVERS.BITBUCKET
+      )
+    ).toEqual(
+      'https://git.test.com/test-project/test-env/edp-gitops/blob/main/test-pipeline-name/test-stage-name/test-app-name-values.yaml'
+    );
   });
 });

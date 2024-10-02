@@ -13,6 +13,7 @@ export const GIT_USER = {
   GERRIT: 'edp-ci',
   GITHUB: 'git',
   GITLAB: 'git',
+  BITBUCKET: 'git',
 };
 
 export const widgetPermissionsToCheck = {

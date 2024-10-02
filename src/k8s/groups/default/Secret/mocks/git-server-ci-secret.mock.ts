@@ -156,3 +156,56 @@ export const GerritCISecretWithOwnerMock = {
   },
   type: 'Opaque',
 };
+
+/*
+ * Encoded data
+ * id_rsa: test-id_rsa
+ * secretString: test-secretString
+ * token: test-token
+ *
+ * */
+
+export const BitbucketCISecretMock = {
+  apiVersion: 'v1',
+  kind: 'Secret',
+  metadata: {
+    name: 'ci-bitbucket',
+    namespace: 'test-namespace',
+    labels: {
+      'app.edp.epam.com/secret-type': 'repository',
+    },
+  },
+  immutable: false,
+  data: {
+    id_rsa: 'dGVzdC1pZF9yc2E=',
+    secretString: 'dGVzdC1zZWNyZXRTdHJpbmc=',
+    token: 'dGVzdC10b2tlbg==',
+  },
+  type: 'Opaque',
+};
+
+export const BitbucketCISecretWithOwnerMock = {
+  apiVersion: 'v1',
+  kind: 'Secret',
+  metadata: {
+    name: 'ci-bitbucket',
+    namespace: 'test-namespace',
+    labels: {
+      'app.edp.epam.com/secret-type': 'repository',
+    },
+    ownerReferences: [
+      {
+        apiVersion: 'external-secrets.io/v1beta1',
+        kind: 'ExternalSecret',
+        name: 'ci-bitbucket',
+      },
+    ],
+  },
+  immutable: false,
+  data: {
+    id_rsa: 'dGVzdC1pZF9yc2E=',
+    secretString: 'dGVzdC1zZWNyZXRTdHJpbmc=',
+    token: 'dGVzdC10b2tlbg==',
+  },
+  type: 'Opaque',
+};

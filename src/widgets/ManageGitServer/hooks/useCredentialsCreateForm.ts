@@ -9,6 +9,7 @@ import {
   createGerritGitServerSecretInstance,
   createGithubGitServerSecretInstance,
   createGitlabGitServerSecretInstance,
+  createBitbucketGitServerSecretInstance,
 } from '../../../k8s/groups/default/Secret/utils/createGitServerSecretInstance';
 import { FormItem } from '../../../providers/MultiForm/types';
 import { FORM_MODES } from '../../../types/forms';
@@ -54,6 +55,11 @@ export const useCredentialsCreateForm = ({
             });
           case GIT_PROVIDERS.GITLAB:
             return createGitlabGitServerSecretInstance({
+              sshPrivateKey: values.sshPrivateKey,
+              token: values.token,
+            });
+          case GIT_PROVIDERS.BITBUCKET:
+            return createBitbucketGitServerSecretInstance({
               sshPrivateKey: values.sshPrivateKey,
               token: values.token,
             });

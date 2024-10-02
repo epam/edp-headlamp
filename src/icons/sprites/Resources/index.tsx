@@ -21,6 +21,7 @@ import {
   Gin,
   Github,
   Gitlab,
+  Bitbucket,
   GitOps,
   Go,
   Gradle,
@@ -84,6 +85,7 @@ export const Resources = () => {
       <Gerrit />
       <Github />
       <Gitlab />
+      <Bitbucket />
       <Vue />
       <Express />
       <Angular />

@@ -2,6 +2,7 @@ import {
   createGerritGitServerSecretInstance,
   createGithubGitServerSecretInstance,
   createGitlabGitServerSecretInstance,
+  createBitbucketGitServerSecretInstance,
 } from './index';
 
 describe('testing createGitServerSecretInstance', () => {
@@ -67,6 +68,28 @@ describe('testing createGitServerSecretInstance', () => {
           'app.edp.epam.com/secret-type': 'repository',
         },
         name: 'ci-gitlab',
+      },
+      data: {
+        id_rsa: 'dGVzdCBwcml2YXRlIHNzaCBrZXkK',
+        token: 'dGVzdC10b2tlbg==',
+      },
+    });
+  });
+
+  it('should create correct Bitbucket git server secret', () => {
+    const object = createBitbucketGitServerSecretInstance({
+      sshPrivateKey: 'test private ssh key',
+      token: 'test-token',
+    });
+
+    expect(object).toEqual({
+      apiVersion: 'v1',
+      kind: 'Secret',
+      metadata: {
+        labels: {
+          'app.edp.epam.com/secret-type': 'repository',
+        },
+        name: 'ci-bitbucket',
       },
       data: {
         id_rsa: 'dGVzdCBwcml2YXRlIHNzaCBrZXkK',

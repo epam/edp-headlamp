@@ -17,6 +17,8 @@ export const useSharedForm = ({ gitServer }: { gitServer: GitServerKubeObjectInt
           return GIT_USER.GITHUB;
         case GIT_PROVIDERS.GITLAB:
           return GIT_USER.GITLAB;
+        case GIT_PROVIDERS.BITBUCKET:
+          return GIT_USER.BITBUCKET;
       }
     })();
 

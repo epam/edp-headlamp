@@ -14,6 +14,7 @@ import {
   GIT_SERVER_GERRIT_SECRET_FORM_NAMES,
   GIT_SERVER_GITHUB_SECRET_FORM_NAMES,
   GIT_SERVER_GITLAB_SECRET_FORM_NAMES,
+  GIT_SERVER_BITBUCKET_SECRET_FORM_NAMES,
 } from '../names';
 import { CredentialsFormValues, SharedFormValues, WidgetPermissions } from '../types';
 
@@ -65,6 +66,13 @@ export const useCredentialsEditForm = ({
           [CREDENTIALS_FORM_NAME.token.name]: safeDecode(gitServerSecret?.data.token),
         };
         break;
+      case GIT_PROVIDERS.BITBUCKET:
+        base = {
+          ...base,
+          [CREDENTIALS_FORM_NAME.sshPrivateKey.name]: safeDecode(gitServerSecret?.data['id_rsa']),
+          [CREDENTIALS_FORM_NAME.token.name]: safeDecode(gitServerSecret?.data.token),
+        };
+        break;
       default:
         break;
     }
@@ -104,6 +112,11 @@ export const useCredentialsEditForm = ({
             });
           case GIT_PROVIDERS.GITLAB:
             return editResource(GIT_SERVER_GITLAB_SECRET_FORM_NAMES, gitServerSecret, {
+              sshPrivateKey: safeEncode(values.sshPrivateKey),
+              token: safeEncode(values.token),
+            });
+          case GIT_PROVIDERS.BITBUCKET:
+            return editResource(GIT_SERVER_BITBUCKET_SECRET_FORM_NAMES, gitServerSecret, {
               sshPrivateKey: safeEncode(values.sshPrivateKey),
               token: safeEncode(values.token),
             });

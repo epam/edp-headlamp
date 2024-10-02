@@ -42,6 +42,26 @@ describe('testing getPullRequestURL function', () => {
     expect(result).toBe('https://my-gitlab-provider.com/user/test/merge_requests/456');
   });
 
+  it('should return the correct URL for Bitbucket', () => {
+    const pipelineRun = {
+      spec: {
+        params: [
+          { name: 'git-source-url', value: 'git@my-bitbucket-provider.com:user/test.git' },
+          { name: 'changeNumber', value: '456' },
+        ],
+      },
+      metadata: {
+        labels: {
+          'triggers.tekton.dev/trigger': 'bitbucket-review',
+        },
+      },
+    };
+
+    const result = getPullRequestURL(pipelineRun as unknown as PipelineKubeObjectInterface);
+
+    expect(result).toBe('https://my-bitbucket-provider.com/user/test/pull-requests/456');
+  });
+
   it('should return null if gitSourceUrl or changeNumber is missing', () => {
     const pipelineRun = {
       spec: {

@@ -24,7 +24,7 @@ export const GitURLService = {
       gitHostURLObject.searchParams.append('a', 'blob');
 
       return gitHostURLObject.href;
-    } else if (gitServer === GIT_SERVERS.GITHUB || gitServer === GIT_SERVERS.GITLAB) {
+    } else if (gitServer === GIT_SERVERS.GITHUB || gitServer === GIT_SERVERS.GITLAB || gitServer === GIT_SERVERS.BITBUCKET) {
       return `${gitHostURLObject.href}/blob/main/${pipelineName}/${stageName}/${appName}-values.yaml`;
     }
   },

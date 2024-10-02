@@ -9,12 +9,14 @@ import {
   GerritCISecretWithOwnerMock,
   GithubCISecretWithOwnerMock,
   GitlabCISecretWithOwnerMock,
+  BitbucketCISecretWithOwnerMock,
 } from '../../k8s/groups/default/Secret/mocks/git-server-ci-secret.mock';
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import {
   gitServerGerritMock,
   gitServerGithubMock,
   gitServerGitlabMock,
+  gitServerBitbucketMock,
 } from '../../k8s/groups/EDP/GitServer/mocks/gitServer.mock';
 import { GitServerKubeObjectInterface } from '../../k8s/groups/EDP/GitServer/types';
 import { ManageGitServer } from './index';
@@ -68,6 +70,47 @@ describe('testing ManageGitServer Edit', () => {
           webhookURL={'https://example.com'}
           gitServer={gitServerGitlabMock as GitServerKubeObjectInterface}
           repositorySecrets={[GitlabCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
+          handleClosePanel={() => {
+            //
+          }}
+          permissions={{
+            create: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            update: {
+              Secret: {
+                allowed: true,
+              },
+              GitServer: {
+                allowed: true,
+              },
+            },
+            delete: {
+              Secret: {
+                allowed: true,
+              },
+            },
+          }}
+        />
+      </TestWrapper>
+    );
+
+    const dialog = screen.getByTestId('form');
+    expect(dialog).toMatchSnapshot();
+  });
+
+  test('renders ManageGitServer component with Bitbucket gitserver and ci-bitbucket secret', () => {
+    render(
+      <TestWrapper>
+        <ManageGitServer
+          webhookURL={'https://example.com'}
+          gitServer={gitServerBitbucketMock as GitServerKubeObjectInterface}
+          repositorySecrets={[BitbucketCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //
           }}
