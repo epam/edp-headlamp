@@ -35,6 +35,9 @@ export const GitProvider = () => {
         case GIT_PROVIDERS.GITLAB:
           gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, GIT_USER.GITLAB);
           break;
+        case GIT_PROVIDERS.BITBUCKET:
+          gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, GIT_USER.BITBUCKET);
+          break;
       }
     },
     [gitServerForm.form, sharedForm]

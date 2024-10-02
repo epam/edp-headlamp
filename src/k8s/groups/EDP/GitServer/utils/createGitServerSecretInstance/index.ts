@@ -79,3 +79,27 @@ export const createGitlabGitServerSecretInstance = ({
     },
   };
 };
+
+export const createBitbucketGitServerSecretInstance = ({
+  sshPrivateKey,
+  token,
+}: {
+  sshPrivateKey: string;
+  token: string;
+}): SecretKubeObjectInterface => {
+  return {
+    apiVersion: 'v1',
+    kind: 'Secret',
+    // @ts-ignore
+    metadata: {
+      labels: {
+        [SECRET_LABEL_SECRET_TYPE]: 'repository',
+      },
+      name: 'ci-bitbucket',
+    },
+    data: {
+      id_rsa: safeEncode(sshPrivateKey.trim() + '\n'),
+      token: safeEncode(token),
+    },
+  };
+};

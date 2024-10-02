@@ -15,4 +15,8 @@ export const gitProviderOptions: SelectOption[] = [
     label: capitalizeFirstLetter(GIT_PROVIDERS.GITHUB),
     value: GIT_PROVIDERS.GITHUB,
   },
+  {
+    label: capitalizeFirstLetter(GIT_PROVIDERS.BITBUCKET),
+    value: GIT_PROVIDERS.BITBUCKET,
+  },
 ];

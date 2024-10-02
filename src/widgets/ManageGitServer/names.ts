@@ -130,3 +130,14 @@ export const GIT_SERVER_GITLAB_SECRET_FORM_NAMES = {
     path: ['data', 'token'],
   },
 };
+
+export const GIT_SERVER_BITBUCKET_SECRET_FORM_NAMES = {
+  sshPrivateKey: {
+    name: 'sshPrivateKey',
+    path: ['data', 'id_rsa'],
+  },
+  token: {
+    name: 'token',
+    path: ['data', 'token'],
+  },
+};

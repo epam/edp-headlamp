@@ -60,3 +60,23 @@ export const gitServerGerritMock: DeepPartial<GitServerKubeObjectInterface> = {
     connected: true,
   },
 };
+
+export const gitServerBitbucketMock: DeepPartial<GitServerKubeObjectInterface> = {
+  apiVersion: 'v2.edp.epam.com/v1',
+  kind: 'GitServer',
+  metadata: {
+    name: 'bitbucket',
+    namespace: 'test-namespace',
+  },
+  spec: {
+    gitHost: 'bitbucket.org',
+    gitProvider: 'bitbucket',
+    gitUser: 'git',
+    httpsPort: 111,
+    nameSshKeySecret: 'ci-bitbucket',
+    sshPort: 111,
+  },
+  status: {
+    connected: true,
+  },
+};

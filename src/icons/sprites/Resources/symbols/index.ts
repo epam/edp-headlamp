@@ -16,6 +16,7 @@ export * from './Gerrit';
 export * from './Gin';
 export * from './Github';
 export * from './Gitlab';
+export * from './Bitbucket';
 export * from './GitOps';
 export * from './Go';
 export * from './Gradle';

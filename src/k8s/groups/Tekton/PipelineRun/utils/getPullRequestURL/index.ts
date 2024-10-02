@@ -33,6 +33,9 @@ export const getPullRequestURL = (pipelineRun: PipelineRunKubeObjectInterface): 
     case GIT_PROVIDERS.GITLAB:
       url.pathname += `/merge_requests/${changeNumber}`;
       break;
+    case GIT_PROVIDERS.BITBUCKET:
+      url.pathname += `/pull-requests/${changeNumber}`;
+      break;
     default:
       break;
   }
