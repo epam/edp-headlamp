@@ -4,6 +4,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { useStreamApplicationListByPipelineStageLabel } from '../../../../k8s/groups/ArgoCD/Application/hooks/useStreamApplicationListByPipelineStageLabel';
+import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
 import { GitServerKubeObject } from '../../../../k8s/groups/EDP/GitServer';
 import { StageKubeObject } from '../../../../k8s/groups/EDP/Stage';
 import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
@@ -14,6 +15,7 @@ import {
 } from '../../../../k8s/groups/Tekton/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
 import { useTriggerTemplateByNameQuery } from '../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useTriggerTemplateByNameQuery';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { DynamicDataContext } from './context';
@@ -47,6 +49,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const [newPipelineRunAdded, setNewPipelineRunAdded] = React.useState<boolean>(false);
 
   const [pipelineRunsError, setPipelineRunsError] = React.useState<ApiError | null>(null);
+
+  const [variablesSecret, variablesSecretError] = SecretKubeObject.useGet(
+    stageMetadataName,
+    getDefaultNamespace()
+  );
 
   React.useEffect(() => {
     const cancelStream = PipelineRunKubeObject.streamListByStageName({
@@ -165,6 +172,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: gitServers === null,
         error: gitServersError,
       },
+      variablesSecret: {
+        data: variablesSecret,
+        isLoading: variablesSecret === null,
+        error: variablesSecretError,
+      },
       newPipelineRunAdded,
       setNewPipelineRunAdded,
     }),
@@ -184,6 +196,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       cleanPipelineRunTemplate.error,
       gitServers,
       gitServersError,
+      variablesSecret,
+      variablesSecretError,
       newPipelineRunAdded,
     ]
   );

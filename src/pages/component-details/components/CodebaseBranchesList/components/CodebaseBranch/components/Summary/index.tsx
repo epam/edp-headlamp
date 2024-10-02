@@ -43,8 +43,6 @@ export const Summary = ({
     },
   });
 
-  console.log(buildTriggerTemplate);
-
   const classes = useStyles();
   const status = codebaseBranchData?.status?.status;
   const detailedMessage = codebaseBranchData?.status?.detailedMessage;
