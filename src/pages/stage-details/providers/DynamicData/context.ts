@@ -20,4 +20,5 @@ export const DynamicDataContext = React.createContext<DynamicDataContextProvider
   setNewPipelineRunAdded: () => {
     //
   },
+  variablesSecret: initialData,
 });

@@ -1,4 +1,5 @@
 import { ApplicationKubeObjectInterface } from '../../../../k8s/groups/ArgoCD/Application/types';
+import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
 import { GitServerKubeObjectInterface } from '../../../../k8s/groups/EDP/GitServer/types';
 import { StageKubeObjectInterface } from '../../../../k8s/groups/EDP/Stage/types';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
@@ -15,4 +16,5 @@ export interface DynamicDataContextProviderValue {
   gitServers: DataProviderValue<GitServerKubeObjectInterface[]>;
   newPipelineRunAdded: boolean;
   setNewPipelineRunAdded: React.Dispatch<React.SetStateAction<boolean>>;
+  variablesSecret: DataProviderValue<SecretKubeObject>;
 }

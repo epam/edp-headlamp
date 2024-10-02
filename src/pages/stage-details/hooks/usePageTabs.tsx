@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { BorderedSection } from '../../../components/BorderedSection';
+import { EmptyList } from '../../../components/EmptyList';
 import { InfoColumns } from '../../../components/InfoColumns';
 import { LoadingWrapper } from '../../../components/LoadingWrapper';
 import { TabSection } from '../../../components/TabSection';
@@ -14,6 +15,7 @@ import { PipelineRunList } from '../../../widgets/PipelineRunList';
 import { FILTER_CONTROLS, matchFunctions } from '../../../widgets/PipelineRunList/constants';
 import { ApplicationsWrapper } from '../components/ApplicationsWrapper';
 import { Monitoring } from '../components/Monitoring';
+import { Variables } from '../components/Variables';
 import { useDataContext } from '../providers/Data/hooks';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
 import { EDPStageDetailsRouteParams } from '../types';
@@ -22,7 +24,7 @@ import { useInfoColumns } from './useInfoColumns';
 import { useTypedPermissions } from './useTypedPermissions';
 
 export const usePageTabs = () => {
-  const { namespace } = useParams<EDPStageDetailsRouteParams>();
+  const { namespace, stageName } = useParams<EDPStageDetailsRouteParams>();
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
 
   const {
@@ -33,6 +35,7 @@ export const usePageTabs = () => {
     argoApplications,
     newPipelineRunAdded,
     setNewPipelineRunAdded,
+    variablesSecret,
   } = useDynamicDataContext();
 
   const isLoading = React.useMemo(
@@ -151,6 +154,21 @@ export const usePageTabs = () => {
           </LoadingWrapper>
         ),
       },
+      {
+        label: 'Variables',
+        id: 'variables',
+        component: (
+          <LoadingWrapper isLoading={variablesSecret.isLoading && !variablesSecret.error}>
+            <TabSection title="Variables">
+              {variablesSecret.data ? (
+                <Variables variablesSecret={variablesSecret.data?.jsonData} />
+              ) : (
+                <EmptyList missingItemName={`${stageName} variables secrets`} />
+              )}
+            </TabSection>
+          </LoadingWrapper>
+        ),
+      },
     ];
   }, [
     QuickLinksURLS?.grafana,
@@ -168,5 +186,9 @@ export const usePageTabs = () => {
     pipelineRuns.isLoading,
     setNewPipelineRunAdded,
     stage.data?.spec.namespace,
+    stageName,
+    variablesSecret.data,
+    variablesSecret.error,
+    variablesSecret.isLoading,
   ]);
 };
