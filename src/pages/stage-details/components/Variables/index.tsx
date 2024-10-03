@@ -5,25 +5,23 @@ import React from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../constants/ui';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { useSecretCRUD } from '../../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
-import { SecretKubeObjectInterface } from '../../../../k8s/groups/default/Secret/types';
+import { useConfigMapCRUD } from '../../../../k8s/groups/default/ConfigMap/hooks/useConfigMapCRUD';
+import { ConfigMapKubeObjectInterface } from '../../../../k8s/groups/default/ConfigMap/types';
 import { FormTextField } from '../../../../providers/Form/components/FormTextField';
-import { FormTextFieldPassword } from '../../../../providers/Form/components/FormTextFieldPassword';
-import { safeDecode, safeEncode } from '../../../../utils/decodeEncode';
 
-export const Variables = ({ variablesSecret }: { variablesSecret: SecretKubeObjectInterface }) => {
+export const Variables = ({ configMap }: { configMap: ConfigMapKubeObjectInterface }) => {
   const {
-    editSecret,
-    mutations: { secretEditMutation },
-  } = useSecretCRUD({});
+    editConfigMap,
+    mutations: { configMapEditMutation },
+  } = useConfigMapCRUD({});
 
-  const dataEntries = Object.entries<string>(variablesSecret?.data || {});
+  const dataEntries = Object.entries<string>(configMap?.data || {});
 
   const defaultValues = {
     variables: dataEntries.map(([key, value]) => ({
       key,
-      value: safeDecode(value),
-    })) as { key?: string; value?: string }[],
+      value,
+    })),
   };
 
   const form = useForm({
@@ -53,13 +51,13 @@ export const Variables = ({ variablesSecret }: { variablesSecret: SecretKubeObje
   const theme = useTheme();
 
   const onSubmit = (values) => {
-    const secretCopy = { ...variablesSecret };
-    secretCopy.data = values.variables.reduce((acc, { key, value }) => {
-      acc[key] = safeEncode(value);
+    const configMapCopy = { ...configMap };
+    configMapCopy.data = values.variables.reduce((acc, { key, value }) => {
+      acc[key] = value;
       return acc;
     }, {});
 
-    editSecret({ secretData: secretCopy });
+    editConfigMap({ configMapData: configMapCopy });
     reset(values, { keepValues: true });
   };
 
@@ -85,7 +83,7 @@ export const Variables = ({ variablesSecret }: { variablesSecret: SecretKubeObje
                 value: (
                   <Stack spacing={2} direction="row" alignItems="center">
                     <Box flexGrow={1}>
-                      <FormTextFieldPassword
+                      <FormTextField
                         {...register(`variables.${index}.value`, {
                           required: 'Enter a value',
                         })}
@@ -137,7 +135,7 @@ export const Variables = ({ variablesSecret }: { variablesSecret: SecretKubeObje
               component={'button'}
               variant={'contained'}
               color={'primary'}
-              disabled={secretEditMutation.isLoading || !isDirty}
+              disabled={configMapEditMutation.isLoading || !isDirty}
               onClick={handleSubmit(onSubmit)}
             >
               save
