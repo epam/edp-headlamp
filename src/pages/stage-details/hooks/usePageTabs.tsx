@@ -35,7 +35,7 @@ export const usePageTabs = () => {
     argoApplications,
     newPipelineRunAdded,
     setNewPipelineRunAdded,
-    variablesSecret,
+    variablesConfigMap,
   } = useDynamicDataContext();
 
   const isLoading = React.useMemo(
@@ -158,12 +158,12 @@ export const usePageTabs = () => {
         label: 'Variables',
         id: 'variables',
         component: (
-          <LoadingWrapper isLoading={variablesSecret.isLoading && !variablesSecret.error}>
+          <LoadingWrapper isLoading={variablesConfigMap.isLoading && !variablesConfigMap.error}>
             <TabSection title="Variables">
-              {variablesSecret.data ? (
-                <Variables variablesSecret={variablesSecret.data?.jsonData} />
+              {variablesConfigMap.data ? (
+                <Variables configMap={variablesConfigMap.data?.jsonData} />
               ) : (
-                <EmptyList missingItemName={`${stageName} variables secrets`} />
+                <EmptyList missingItemName={`ConfigMap ${stageName} is not found.`} />
               )}
             </TabSection>
           </LoadingWrapper>
@@ -187,8 +187,8 @@ export const usePageTabs = () => {
     setNewPipelineRunAdded,
     stage.data?.spec.namespace,
     stageName,
-    variablesSecret.data,
-    variablesSecret.error,
-    variablesSecret.isLoading,
+    variablesConfigMap.data,
+    variablesConfigMap.error,
+    variablesConfigMap.isLoading,
   ]);
 };

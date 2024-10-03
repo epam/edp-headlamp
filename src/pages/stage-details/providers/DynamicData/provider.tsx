@@ -4,7 +4,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { useStreamApplicationListByPipelineStageLabel } from '../../../../k8s/groups/ArgoCD/Application/hooks/useStreamApplicationListByPipelineStageLabel';
-import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
+import { ConfigMapKubeObject } from '../../../../k8s/groups/default/ConfigMap';
 import { GitServerKubeObject } from '../../../../k8s/groups/EDP/GitServer';
 import { StageKubeObject } from '../../../../k8s/groups/EDP/Stage';
 import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
@@ -50,7 +50,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
 
   const [pipelineRunsError, setPipelineRunsError] = React.useState<ApiError | null>(null);
 
-  const [variablesSecret, variablesSecretError] = SecretKubeObject.useGet(
+  const [variablesConfigMap, variablesConfigMapError] = ConfigMapKubeObject.useGet(
     stageMetadataName,
     getDefaultNamespace()
   );
@@ -172,10 +172,10 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: gitServers === null,
         error: gitServersError,
       },
-      variablesSecret: {
-        data: variablesSecret,
-        isLoading: variablesSecret === null,
-        error: variablesSecretError,
+      variablesConfigMap: {
+        data: variablesConfigMap,
+        isLoading: variablesConfigMap === null,
+        error: variablesConfigMapError,
       },
       newPipelineRunAdded,
       setNewPipelineRunAdded,
@@ -196,8 +196,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       cleanPipelineRunTemplate.error,
       gitServers,
       gitServersError,
-      variablesSecret,
-      variablesSecretError,
+      variablesConfigMap,
+      variablesConfigMapError,
       newPipelineRunAdded,
     ]
   );
