@@ -6,17 +6,17 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
 import {
+  BitbucketCISecretWithOwnerMock,
   GerritCISecretWithOwnerMock,
   GithubCISecretWithOwnerMock,
   GitlabCISecretWithOwnerMock,
-  BitbucketCISecretWithOwnerMock,
 } from '../../k8s/groups/default/Secret/mocks/git-server-ci-secret.mock';
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import {
+  gitServerBitbucketMock,
   gitServerGerritMock,
   gitServerGithubMock,
   gitServerGitlabMock,
-  gitServerBitbucketMock,
 } from '../../k8s/groups/EDP/GitServer/mocks/gitServer.mock';
 import { GitServerKubeObjectInterface } from '../../k8s/groups/EDP/GitServer/types';
 import { ManageGitServer } from './index';
@@ -110,7 +110,9 @@ describe('testing ManageGitServer Edit', () => {
         <ManageGitServer
           webhookURL={'https://example.com'}
           gitServer={gitServerBitbucketMock as GitServerKubeObjectInterface}
-          repositorySecrets={[BitbucketCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
+          repositorySecrets={[
+            BitbucketCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
+          ]}
           handleClosePanel={() => {
             //
           }}

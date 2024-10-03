@@ -1,7 +1,7 @@
-import { SecretKubeObject } from "../../k8s/groups/default/Secret";
-import { SecretKubeObjectConfig } from "../../k8s/groups/default/Secret/config";
-import { QuickLinkKubeObject } from "../../k8s/groups/EDP/QuickLink";
-import { QuickLinkKubeObjectConfig } from "../../k8s/groups/EDP/QuickLink/config";
+import { SecretKubeObject } from '../../k8s/groups/default/Secret';
+import { SecretKubeObjectConfig } from '../../k8s/groups/default/Secret/config';
+import { QuickLinkKubeObject } from '../../k8s/groups/EDP/QuickLink';
+import { QuickLinkKubeObjectConfig } from '../../k8s/groups/EDP/QuickLink/config';
 
 export const FORM_NAMES = {
   QUICK_LINK: 'quickLink',

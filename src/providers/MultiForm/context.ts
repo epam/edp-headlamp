@@ -13,5 +13,5 @@ export const MultiFormContext = React.createContext<MultiFormContextProviderValu
   },
   isAnyFormDirty: false,
   isAnyFormSubmitting: false,
-  isAnyFormForbiddenToSubmit: false
+  isAnyFormForbiddenToSubmit: false,
 });

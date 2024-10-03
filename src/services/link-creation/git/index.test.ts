@@ -45,7 +45,7 @@ describe('testing link-creation GitURLService', () => {
         GIT_SERVERS.BITBUCKET
       )
     ).toEqual(
-      'https://git.test.com/test-project/test-env/edp-gitops/blob/main/test-pipeline-name/test-stage-name/test-app-name-values.yaml'
+      'https://git.test.com/test-project/test-env/edp-gitops/src/main/test-pipeline-name/test-stage-name/test-app-name-values.yaml'
     );
   });
 });

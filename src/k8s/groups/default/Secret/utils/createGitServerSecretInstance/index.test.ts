@@ -1,8 +1,8 @@
 import {
+  createBitbucketGitServerSecretInstance,
   createGerritGitServerSecretInstance,
   createGithubGitServerSecretInstance,
   createGitlabGitServerSecretInstance,
-  createBitbucketGitServerSecretInstance,
 } from './index';
 
 describe('testing createGitServerSecretInstance', () => {

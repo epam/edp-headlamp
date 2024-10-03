@@ -8,5 +8,5 @@ export const DataContext = React.createContext<DataContextProviderValue>({
   handleClosePanel: () => {
     //
   },
-  permissions: null
+  permissions: null,
 });
