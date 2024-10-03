@@ -3,6 +3,13 @@
 
 ### Features
 
+- Add env variables section ([#404](https://github.com/epam/edp-headlamp/issues/404))
+- Add support for the Bitbucket Cloud GitServer ([#402](https://github.com/epam/edp-headlamp/issues/402))
+- Update build run creation ([#400](https://github.com/epam/edp-headlamp/issues/400))
+- Update applications add and remove ([#393](https://github.com/epam/edp-headlamp/issues/393))
+- Add virtual clusters creation ([#388](https://github.com/epam/edp-headlamp/issues/388))
+- Add description column and validation ([#386](https://github.com/epam/edp-headlamp/issues/386))
+- Improve configuration permissions ([#384](https://github.com/epam/edp-headlamp/issues/384))
 - Cache permissions ([#378](https://github.com/epam/edp-headlamp/issues/378))
 - Update screenshots ([#375](https://github.com/epam/edp-headlamp/issues/375))
 - Show user name, update terminal ([#372](https://github.com/epam/edp-headlamp/issues/372))
@@ -43,6 +50,8 @@
 
 ### Bug Fixes
 
+- Fix sonar metrics ([#397](https://github.com/epam/edp-headlamp/issues/397))
+- Update sanitize util ([#391](https://github.com/epam/edp-headlamp/issues/391))
 - Fix username get crash ([#372](https://github.com/epam/edp-headlamp/issues/372))
 - Fix pipeline actions ([#369](https://github.com/epam/edp-headlamp/issues/369))
 - Fix nonexistant pipeline diagram btn ([#351](https://github.com/epam/edp-headlamp/issues/351))
@@ -64,6 +73,7 @@
 
 ### Routine
 
+- Update image version ([#395](https://github.com/epam/edp-headlamp/issues/395)) ([#396](https://github.com/epam/edp-headlamp/issues/396))
 - Re-structure documentation assets ([#375](https://github.com/epam/edp-headlamp/issues/375))
 - Update Dockerfile base image ([#346](https://github.com/epam/edp-headlamp/issues/346))
 - Update KubeRocketCI names and documentation links ([#325](https://github.com/epam/edp-headlamp/issues/325))
@@ -72,6 +82,10 @@
 - Update information label for values override ([#298](https://github.com/epam/edp-headlamp/issues/298))
 - Update links to new documentation location ([#288](https://github.com/epam/edp-headlamp/issues/288))
 - Update current development version ([#263](https://github.com/epam/edp-headlamp/issues/263))
+
+### Documentation
+
+- Update CHANGELOG.md file ([#382](https://github.com/epam/edp-headlamp/issues/382))
 
 
 <a name="v0.15.0"></a>
