@@ -82,10 +82,7 @@ const getIconCodeSmells = (value: string) =>
     <Icon icon={'material-symbols:sentiment-dissatisfied'} {...IconProps} />
   );
 
-export const SonarQubeMetrics = ({
-  codebaseName,
-  sonarData,
-}: SonarQubeMetricsProps) => {
+export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsProps) => {
   const projectID = codebaseName;
 
   const sonarConfigurationPage = Router.createRouteURL(routeSonar.path);

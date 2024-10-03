@@ -40,8 +40,8 @@ export const Actions = () => {
     : permissions.delete.Secret.reason;
 
   const submitDisabledTooltip = isAnyFormForbiddenToSubmit
-    ? Object.values(forms).find(({ allowedToSubmit: { isAllowed } }) => !isAllowed)
-        ?.allowedToSubmit.reason
+    ? Object.values(forms).find(({ allowedToSubmit: { isAllowed } }) => !isAllowed)?.allowedToSubmit
+        .reason
     : '';
 
   return (

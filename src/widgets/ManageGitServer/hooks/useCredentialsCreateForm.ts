@@ -6,10 +6,10 @@ import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation'
 import { SecretKubeObject } from '../../../k8s/groups/default/Secret';
 import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
 import {
+  createBitbucketGitServerSecretInstance,
   createGerritGitServerSecretInstance,
   createGithubGitServerSecretInstance,
   createGitlabGitServerSecretInstance,
-  createBitbucketGitServerSecretInstance,
 } from '../../../k8s/groups/default/Secret/utils/createGitServerSecretInstance';
 import { FormItem } from '../../../providers/MultiForm/types';
 import { FORM_MODES } from '../../../types/forms';

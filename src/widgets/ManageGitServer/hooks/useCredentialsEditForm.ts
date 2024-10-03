@@ -11,10 +11,10 @@ import { FORM_MODES } from '../../../types/forms';
 import { safeDecode, safeEncode } from '../../../utils/decodeEncode';
 import {
   CREDENTIALS_FORM_NAME,
+  GIT_SERVER_BITBUCKET_SECRET_FORM_NAMES,
   GIT_SERVER_GERRIT_SECRET_FORM_NAMES,
   GIT_SERVER_GITHUB_SECRET_FORM_NAMES,
   GIT_SERVER_GITLAB_SECRET_FORM_NAMES,
-  GIT_SERVER_BITBUCKET_SECRET_FORM_NAMES,
 } from '../names';
 import { CredentialsFormValues, SharedFormValues, WidgetPermissions } from '../types';
 

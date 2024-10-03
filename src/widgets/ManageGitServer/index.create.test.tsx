@@ -6,10 +6,10 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
 import {
+  BitbucketCISecretWithOwnerMock,
   GerritCISecretWithOwnerMock,
   GithubCISecretWithOwnerMock,
   GitlabCISecretWithOwnerMock,
-  BitbucketCISecretWithOwnerMock,
 } from '../../k8s/groups/default/Secret/mocks/git-server-ci-secret.mock';
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { ManageGitServer } from './index';
@@ -185,7 +185,9 @@ describe('testing ManageGitServer Create', () => {
         <ManageGitServer
           gitServer={null}
           webhookURL={null}
-          repositorySecrets={[BitbucketCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
+          repositorySecrets={[
+            BitbucketCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
+          ]}
           handleClosePanel={() => {
             //
           }}
@@ -219,5 +221,4 @@ describe('testing ManageGitServer Create', () => {
     const dialog = screen.getByTestId('form');
     expect(dialog).toMatchSnapshot();
   });
-
 });
