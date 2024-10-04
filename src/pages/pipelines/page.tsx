@@ -4,6 +4,7 @@ import { DialogContextProvider } from '../../providers/Dialog/provider';
 import { PermissionsContextProvider } from '../../providers/Permissions/provider';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList/provider';
 import { permissionsToCheckConfig } from './constants';
+import { DynamicDataContextProvider } from './providers/DynamicData/provider';
 import { PageView } from './view';
 
 export default function () {
@@ -12,7 +13,9 @@ export default function () {
       <PermissionsContextProvider permissionConfigs={permissionsToCheckConfig}>
         <DialogContextProvider>
           <ResourceActionListContextProvider>
-            <PageView />
+            <DynamicDataContextProvider>
+              <PageView />
+            </DynamicDataContextProvider>
           </ResourceActionListContextProvider>
         </DialogContextProvider>
       </PermissionsContextProvider>

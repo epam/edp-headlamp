@@ -3,6 +3,6 @@ import { QuickLinkKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Q
 
 export interface QuickLinkListProps {
   items: QuickLinkKubeObjectInterface[];
-  error: ApiError;
+  errors: ApiError[] | null;
   filterFunction: (item: QuickLinkKubeObjectInterface) => boolean;
 }

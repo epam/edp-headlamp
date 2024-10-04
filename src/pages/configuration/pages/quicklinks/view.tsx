@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react';
 import { EmptyContent } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
@@ -8,6 +9,7 @@ import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObject } from '../../../../k8s/groups/EDP/QuickLink';
+import { QuickLinkKubeObjectInterface } from '../../../../k8s/groups/EDP/QuickLink/types';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../../../providers/Filter/components/Filter/components/NamespaceControl';
@@ -22,9 +24,17 @@ import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const theme = useTheme();
-  const [items, error] = QuickLinkKubeObject.useList();
+  const [quickLinks, setQuickLinks] = React.useState<QuickLinkKubeObjectInterface[] | null>(null);
+  const [quickLinksErrors, setQuickLinksErrors] = React.useState<ApiError[] | null>(null);
 
-  const isLoading = items === null;
+  QuickLinkKubeObject.useApiList(
+    (data) => setQuickLinks(data),
+    (error) => {
+      setQuickLinksErrors((prev) => (prev ? [...prev, error] : [error]));
+    }
+  );
+
+  const isLoading = quickLinks === null;
 
   const { filterFunction } = useFilterContext();
 
@@ -82,14 +92,18 @@ export const PageView = () => {
               </Grid>
               <Grid item xs={12}>
                 <ResourceActionListContextProvider>
-                  <QuickLinkList items={items} error={error} filterFunction={filterFunction} />
+                  <QuickLinkList
+                    items={quickLinks}
+                    errors={quickLinksErrors}
+                    filterFunction={filterFunction}
+                  />
                 </ResourceActionListContextProvider>
               </Grid>
             </Grid>
           </Grid>
-          {!isLoading && items?.length === 0 && (
+          {!isLoading && quickLinks?.length === 0 && (
             <Grid item xs={12}>
-              <EmptyContent color={'textSecondary'}>No components found</EmptyContent>
+              <EmptyContent color={'textSecondary'}>No QuickLinks found</EmptyContent>
             </Grid>
           )}
         </Grid>

@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid, Stack } from '@mui/material';
+import { Alert, Box, CircularProgress, Grid, Stack } from '@mui/material';
 import React from 'react';
 import { usePagination } from '../../hooks/usePagination';
 import { EmptyList } from '../EmptyList';
@@ -9,7 +9,8 @@ import { DataGridProps } from './types';
 
 export const DataGrid = <DataType extends unknown>({
   isLoading,
-  error,
+  blockerError,
+  errors,
   spacing,
   renderItem,
   filterFunction,
@@ -39,7 +40,7 @@ export const DataGrid = <DataType extends unknown>({
     data,
     filterFunction,
     isLoading: data === null,
-    error,
+    error: blockerError,
   });
 
   const isReadyDataLoading = readyData === null;
@@ -53,10 +54,10 @@ export const DataGrid = <DataType extends unknown>({
   }, [data, isLoading, isReadyDataLoading, readyData]);
 
   const renderGrid = React.useCallback(() => {
-    if (error) {
+    if (blockerError) {
       return (
         <Box display="flex" justifyContent={'center'}>
-          <ErrorContent error={error} outlined />
+          <ErrorContent error={blockerError} outlined />
         </Box>
       );
     }
@@ -71,11 +72,26 @@ export const DataGrid = <DataType extends unknown>({
 
     if (readyData !== null) {
       return (
-        <Grid container spacing={spacing}>
-          {readyData.slice(page * _rowsPerPage, page * _rowsPerPage + _rowsPerPage).map((item) => {
-            return <>{renderItem(item)}</>;
-          })}
-        </Grid>
+        <Stack spacing={2}>
+          <div>
+            {errors && !!errors.length && (
+              <Alert severity="warning">
+                {errors.map((error) => (
+                  <div>{error?.message || error?.toString()}</div>
+                ))}
+              </Alert>
+            )}
+          </div>
+          <div>
+            <Grid container spacing={spacing}>
+              {readyData
+                .slice(page * _rowsPerPage, page * _rowsPerPage + _rowsPerPage)
+                .map((item) => {
+                  return <>{renderItem(item)}</>;
+                })}
+            </Grid>
+          </div>
+        </Stack>
       );
     }
 
@@ -85,15 +101,16 @@ export const DataGrid = <DataType extends unknown>({
 
     return <>{emptyListComponent}</>;
   }, [
-    _rowsPerPage,
-    emptyListComponent,
-    error,
-    hasEmptyResult,
+    blockerError,
     isLoading,
-    page,
     readyData,
-    renderItem,
+    hasEmptyResult,
+    emptyListComponent,
     spacing,
+    page,
+    _rowsPerPage,
+    errors,
+    renderItem,
   ]);
 
   return (

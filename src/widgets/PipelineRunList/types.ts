@@ -9,7 +9,8 @@ export interface PipelineRunListProps {
   pipelineRuns: PipelineRunKubeObjectInterface[];
   isLoading: boolean;
   permissions: WidgetPermissions;
-  error?: ApiError;
+  blockerError?: ApiError;
+  errors?: ApiError[] | null;
   pipelineRunTypes?: PIPELINE_TYPES[];
   filterControls?: ValueOf<typeof FILTER_CONTROLS>[];
 }

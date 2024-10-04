@@ -124,7 +124,7 @@ export const usePageTabs = () => {
                 <PipelineRunList
                   pipelineRuns={pipelineRuns.data}
                   isLoading={pipelineRuns.isLoading}
-                  error={pipelineRuns.error}
+                  blockerError={pipelineRuns.error}
                   permissions={permissions}
                   pipelineRunTypes={[
                     PIPELINE_TYPES.ALL,

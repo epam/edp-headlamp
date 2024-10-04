@@ -30,7 +30,7 @@ export const TaskList = ({ tasks, isLoading, error }: TaskListProps) => {
         }}
       />
       <Table
-        error={error}
+        blockerError={error}
         columns={columns}
         data={tasks}
         isLoading={isLoading}

@@ -68,6 +68,7 @@ export const Summary = ({
         codebase: codebaseData,
         codebaseBranch: codebaseBranchData,
         triggerTemplate: buildTriggerTemplate,
+        gitServer: gitServerByCodebase,
       });
     },
     [

@@ -35,7 +35,7 @@ export const PipelineList = ({ pipelines, isLoading, error }: PipelineListProps)
         }}
       />
       <Table
-        error={error}
+        blockerError={error}
         columns={columns}
         data={sortedPipelines}
         isLoading={isLoading}

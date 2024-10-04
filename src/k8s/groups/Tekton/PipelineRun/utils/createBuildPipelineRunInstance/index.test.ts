@@ -1,5 +1,6 @@
 import { CodebaseKubeObjectInterface } from '../../../../EDP/Codebase/types';
 import { CodebaseBranchKubeObjectInterface } from '../../../../EDP/CodebaseBranch/types';
+import { GitServerKubeObjectInterface } from '../../../../EDP/GitServer/types';
 import { createBuildPipelineRunInstance } from './index';
 
 describe('testing createBuildPipelineRunInstance', () => {
@@ -186,6 +187,15 @@ describe('testing createBuildPipelineRunInstance', () => {
           ],
         },
       },
+      gitServer: {
+        spec: {
+          gitHost: 'test-git-host',
+          gitUser: 'test-git-user',
+          sshPort: 123,
+          nameSshKeySecret: 'test-ssh-key-secret',
+          gitProvider: 'test-git-provider',
+        },
+      } as GitServerKubeObjectInterface,
     });
 
     expect(object).toEqual({
@@ -204,7 +214,7 @@ describe('testing createBuildPipelineRunInstance', () => {
         params: [
           {
             name: 'git-source-url',
-            value: 'ssh://git-user@gitProvider:777/test-git-url-path',
+            value: 'ssh://test-git-user@test-git-host:123/test-git-url-path',
           },
           {
             name: 'git-source-revision',

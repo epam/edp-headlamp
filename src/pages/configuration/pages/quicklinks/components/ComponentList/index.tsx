@@ -3,7 +3,7 @@ import { Table } from '../../../../../../components/Table';
 import { useColumns } from './hooks/useColumns';
 import { QuickLinkListProps } from './types';
 
-export const QuickLinkList = ({ items, error, filterFunction }: QuickLinkListProps) => {
+export const QuickLinkList = ({ items, errors, filterFunction }: QuickLinkListProps) => {
   const columns = useColumns();
 
   return (
@@ -11,7 +11,7 @@ export const QuickLinkList = ({ items, error, filterFunction }: QuickLinkListPro
       <Table
         isLoading={!items}
         data={items}
-        error={error}
+        errors={errors}
         columns={columns}
         filterFunction={filterFunction}
       />

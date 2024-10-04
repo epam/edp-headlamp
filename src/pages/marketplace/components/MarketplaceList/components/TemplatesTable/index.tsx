@@ -11,14 +11,14 @@ export const TemplatesTable = ({
   handleTemplateClick,
   filterFunction,
   warning,
-  error,
+  errors,
   permissions,
 }: TemplatesTableProps) => {
   const columns = useColumns();
 
   return (
     <Table<TemplateKubeObjectInterface>
-      error={error}
+      errors={errors}
       columns={columns}
       data={data}
       isLoading={data === null}

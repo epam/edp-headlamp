@@ -1,6 +1,7 @@
 import React from 'react';
 import { CDPipelineKubeObject } from '../../../../../k8s/groups/EDP/CDPipeline';
 import { EDP_CDPIPELINE_STATUS } from '../../../../../k8s/groups/EDP/CDPipeline/constants';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 
 interface GraphData {
   total: number;
@@ -11,7 +12,9 @@ interface GraphData {
 }
 
 export const useCDPipelinesGraphData = () => {
-  const [CDPipelines, CDPipelinesError] = CDPipelineKubeObject.useList();
+  const [CDPipelines, CDPipelinesError] = CDPipelineKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
   const isLoading = CDPipelines === null && !CDPipelinesError;
 
   const graphData = React.useMemo(() => {

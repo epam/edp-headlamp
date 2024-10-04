@@ -2,19 +2,19 @@ import { Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
-import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
 import { FilterContextProvider } from '../../providers/Filter/provider';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { PipelineRunList } from '../../widgets/PipelineRunList';
 import { matchFunctions } from '../../widgets/PipelineRunList/constants';
 import { useTypedPermissions } from './hooks/useTypedPermissions';
+import { useDynamicDataContext } from './providers/DynamicData/hooks';
 
 export const PageView = () => {
   const theme = useTheme();
 
   const permissions = useTypedPermissions();
 
-  const [items, error] = PipelineRunKubeObject.useList();
+  const { pipelineRuns } = useDynamicDataContext();
 
   return (
     <PageWrapper>
@@ -32,9 +32,9 @@ export const PageView = () => {
           saveToLocalStorage
         >
           <PipelineRunList
-            pipelineRuns={items}
-            isLoading={items === null}
-            error={error}
+            pipelineRuns={pipelineRuns.data}
+            isLoading={pipelineRuns.isLoading}
+            errors={pipelineRuns.errors}
             permissions={permissions}
           />
         </FilterContextProvider>

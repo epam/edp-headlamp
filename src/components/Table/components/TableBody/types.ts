@@ -4,7 +4,8 @@ import { TableColumn } from '../../types';
 
 export interface TableBodyProps<DataType = unknown> {
   isLoading: boolean;
-  error?: ApiError;
+  blockerError?: ApiError;
+  errors?: ApiError[] | null;
   readyData: DataType[];
   columns: readonly TableColumn<DataType>[];
   blockerComponent?: React.ReactNode;
