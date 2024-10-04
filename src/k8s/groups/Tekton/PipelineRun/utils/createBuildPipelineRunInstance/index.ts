@@ -1,6 +1,7 @@
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { CodebaseKubeObjectInterface } from '../../../../EDP/Codebase/types';
 import { CodebaseBranchKubeObjectInterface } from '../../../../EDP/CodebaseBranch/types';
+import { GitServerKubeObjectInterface } from '../../../../EDP/GitServer/types';
 import { TriggerTemplateKubeObjectInterface } from '../../../TriggerTemplate/types';
 import {
   PIPELINE_RUN_LABEL_SELECTOR_CODEBASE,
@@ -13,10 +14,12 @@ export const createBuildPipelineRunInstance = ({
   codebase,
   codebaseBranch,
   triggerTemplate,
+  gitServer,
 }: {
   codebase: CodebaseKubeObjectInterface;
   codebaseBranch: CodebaseBranchKubeObjectInterface;
   triggerTemplate: TriggerTemplateKubeObjectInterface;
+  gitServer: GitServerKubeObjectInterface;
 }): PipelineRunKubeObjectInterface => {
   const {
     metadata: { name: codebaseName },
@@ -27,6 +30,10 @@ export const createBuildPipelineRunInstance = ({
     metadata: { name: codebaseBranchMetadataName },
     spec: { branchName: codebaseBranchName },
   } = codebaseBranch;
+
+  const {
+    spec: { gitUser, gitHost, sshPort },
+  } = gitServer;
 
   const base = { ...triggerTemplate.spec.resourcetemplates[0] };
 
@@ -51,10 +58,7 @@ export const createBuildPipelineRunInstance = ({
   for (const param of base.spec.params) {
     switch (param.name) {
       case 'git-source-url':
-        param.value = param.value.replace(
-          '$(tt.params.gerritproject)',
-          codebaseGitUrlPath.replace('/', '')
-        );
+        param.value = `ssh://${gitUser}@${gitHost}:${sshPort}${codebaseGitUrlPath}`;
         break;
       case 'git-source-revision':
         param.value = codebaseBranchName;

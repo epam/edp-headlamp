@@ -3,6 +3,7 @@ import { CRUD_TYPES } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { CodebaseKubeObjectInterface } from '../../../EDP/Codebase/types';
 import { CodebaseBranchKubeObjectInterface } from '../../../EDP/CodebaseBranch/types';
+import { GitServerKubeObjectInterface } from '../../../EDP/GitServer/types';
 import { TriggerTemplateKubeObjectInterface } from '../../TriggerTemplate/types';
 import { PipelineRunKubeObject } from '../index';
 import { PipelineRunKubeObjectInterface } from '../types';
@@ -12,6 +13,7 @@ export interface CreateBuildPipelineRunProps {
   codebase: CodebaseKubeObjectInterface;
   codebaseBranch: CodebaseBranchKubeObjectInterface;
   triggerTemplate: TriggerTemplateKubeObjectInterface;
+  gitServer: GitServerKubeObjectInterface;
 }
 
 export const useCreateBuildPipelineRun = ({

@@ -24,7 +24,8 @@ export interface TableProps<DataType = unknown> {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     row: DataType
   ) => void;
-  error?: ApiError;
+  blockerError?: ApiError;
+  errors?: ApiError[] | null;
   handleSelectAllClick?: (
     event: React.ChangeEvent<HTMLInputElement>,
     paginatedItems: DataType[]

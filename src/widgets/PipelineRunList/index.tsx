@@ -8,6 +8,7 @@ import { PIPELINE_RUN_STATUS_SELECT_OPTIONS } from '../../k8s/groups/Tekton/Pipe
 import { PIPELINE_RUN_LABEL_SELECTOR_CODEBASE } from '../../k8s/groups/Tekton/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { Filter } from '../../providers/Filter/components/Filter';
+import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
 import { useFilterContext } from '../../providers/Filter/hooks';
 import { FormSelect } from '../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../types/forms';
@@ -25,7 +26,8 @@ type DefaultControls = ValueOf<typeof FILTER_CONTROLS>;
 export const PipelineRunList = <Controls extends DefaultControls>({
   pipelineRuns,
   isLoading,
-  error,
+  blockerError,
+  errors,
   permissions,
   pipelineRunTypes = [
     PIPELINE_TYPES.ALL,
@@ -110,7 +112,7 @@ export const PipelineRunList = <Controls extends DefaultControls>({
   const {
     register,
     control,
-    formState: { errors },
+    formState: { errors: formErrors },
   } = useForm();
 
   const { filter, setFilterItem, filterFunction } = useFilterContext<
@@ -149,6 +151,14 @@ export const PipelineRunList = <Controls extends DefaultControls>({
 
   const controls = React.useMemo(() => {
     return {
+      namespace: {
+        component: (
+          <div>
+            <NamespaceControl />
+            <FormHelperText> </FormHelperText>
+          </div>
+        ),
+      },
       ...(filterControls.includes(FILTER_CONTROLS.PIPELINE_TYPE)
         ? {
             pipelineType: {
@@ -160,7 +170,7 @@ export const PipelineRunList = <Controls extends DefaultControls>({
                       onChange: handleTypeChange,
                     })}
                     control={control}
-                    errors={errors}
+                    errors={formErrors}
                     name={'type'}
                     label={'Type'}
                     options={pipelineRunTypes.map((value) => ({
@@ -188,7 +198,7 @@ export const PipelineRunList = <Controls extends DefaultControls>({
                       onChange: handleStatusChange,
                     })}
                     control={control}
-                    errors={errors}
+                    errors={formErrors}
                     name={'status'}
                     label={'Status'}
                     options={[
@@ -211,7 +221,7 @@ export const PipelineRunList = <Controls extends DefaultControls>({
       ...(filterControls.includes(FILTER_CONTROLS.CODEBASES)
         ? {
             codebases: {
-              gridXs: 8,
+              gridXs: 6,
               component: (
                 <Autocomplete
                   multiple
@@ -248,7 +258,7 @@ export const PipelineRunList = <Controls extends DefaultControls>({
     };
   }, [
     control,
-    errors,
+    formErrors,
     filter,
     filterControls,
     handleCodebasesChange,
@@ -270,7 +280,8 @@ export const PipelineRunList = <Controls extends DefaultControls>({
         </Grid>
         <Grid item xs={12}>
           <Table
-            error={error}
+            blockerError={blockerError}
+            errors={errors}
             columns={columns}
             upperColumns={upperColumns}
             data={sortedPipelineRuns}

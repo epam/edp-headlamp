@@ -1,19 +1,16 @@
 import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { Grid } from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ButtonWithPermission } from '../../components/ButtonWithPermission';
 import { EmptyList } from '../../components/EmptyList';
 import { LearnMoreLink } from '../../components/LearnMoreLink';
-import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { CDPipelineKubeObject } from '../../k8s/groups/EDP/CDPipeline';
 import { useCodebasesByTypeLabelQuery } from '../../k8s/groups/EDP/Codebase/hooks/useCodebasesByTypeLabelQuery';
 import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../k8s/groups/EDP/Codebase/labels';
 import { useDialogContext } from '../../providers/Dialog/hooks';
@@ -42,11 +39,6 @@ export const PageView = () => {
       },
     },
   });
-
-  const [CDPipelines, CDPipelinesError] = CDPipelineKubeObject.useList();
-
-  const error = CDPipelinesError || (gitOpsCodebaseQuery.error as ApiError);
-  const isLoading = (CDPipelines === null || gitOpsCodebaseQuery.isLoading) && !error;
 
   const { setDialog } = useDialogContext();
 
@@ -106,22 +98,18 @@ export const PageView = () => {
           </Grid>
           <Grid item xs={12}>
             <ResourceActionListContextProvider>
-              <LoadingWrapper isLoading={isLoading}>
-                <CDPipelineList
-                  CDPipelines={CDPipelines}
-                  error={error}
-                  filterFunction={filterFunction}
-                  blockerComponent={
-                    !gitOpsCodebaseQuery.data && (
-                      <EmptyList
-                        customText={'No GitOps repository configured.'}
-                        linkText={'Click here to add a repository.'}
-                        handleClick={() => history.push(gitOpsConfigurationPageRoute)}
-                      />
-                    )
-                  }
-                />
-              </LoadingWrapper>
+              <CDPipelineList
+                filterFunction={filterFunction}
+                blockerComponent={
+                  !gitOpsCodebaseQuery.data && (
+                    <EmptyList
+                      customText={'No GitOps repository configured.'}
+                      linkText={'Click here to add a repository.'}
+                      handleClick={() => history.push(gitOpsConfigurationPageRoute)}
+                    />
+                  )
+                }
+              />
             </ResourceActionListContextProvider>
           </Grid>
         </Grid>

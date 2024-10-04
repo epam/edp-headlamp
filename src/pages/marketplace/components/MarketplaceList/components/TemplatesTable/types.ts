@@ -8,6 +8,6 @@ export interface TemplatesTableProps {
   handleTemplateClick(template: TemplateKubeObjectInterface): void;
   filterFunction?: ((...args: TemplateKubeObjectInterface[]) => boolean) | null;
   warning?: React.ReactNode;
-  error?: ApiError;
+  errors?: ApiError[] | null;
   permissions: PermissionsConfig<typeof permissionsToCheckConfig>;
 }

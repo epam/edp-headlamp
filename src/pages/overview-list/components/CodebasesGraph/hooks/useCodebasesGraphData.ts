@@ -1,6 +1,7 @@
 import React from 'react';
 import { CodebaseKubeObject } from '../../../../../k8s/groups/EDP/Codebase';
 import { EDP_CODEBASE_STATUS } from '../../../../../k8s/groups/EDP/Codebase/constants';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 
 interface GraphData {
   total: number;
@@ -11,7 +12,9 @@ interface GraphData {
 }
 
 export const useCodebasesGraphData = () => {
-  const [codebases, codebasesError] = CodebaseKubeObject.useList();
+  const [codebases, codebasesError] = CodebaseKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
   const isLoading = codebases === null && !codebasesError;
 
   const graphData = React.useMemo(() => {

@@ -15,7 +15,8 @@ export const Table = <DataType extends unknown>({
   columns,
   upperColumns,
   isLoading = false,
-  error,
+  blockerError,
+  errors,
   defaultSortBy = 'name',
   defaultSortOrder = SORT_ORDERS.DESC,
   emptyListComponent,
@@ -55,7 +56,7 @@ export const Table = <DataType extends unknown>({
   const readyData = useReadyData<DataType>({
     data,
     isLoading,
-    error,
+    error: blockerError,
     filterFunction,
     sort,
   });
@@ -124,7 +125,8 @@ export const Table = <DataType extends unknown>({
         <TableBody
           columns={columns}
           readyData={readyData}
-          error={error}
+          blockerError={blockerError}
+          errors={errors}
           isLoading={isLoading}
           handleRowClick={handleRowClick}
           handleSelectRowClick={handleSelectRowClick}

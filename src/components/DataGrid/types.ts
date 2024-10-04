@@ -7,7 +7,8 @@ export interface DataGridProps<DataType = unknown> {
   spacing: GridSpacing;
   renderItem: (item: DataType) => React.ReactElement;
   data: DataType[];
-  error?: ApiError;
+  blockerError?: ApiError;
+  errors?: ApiError[] | null;
   filterFunction?: ((...args: DataType[]) => boolean) | null;
   showPagination?: boolean;
   reflectInURL?: boolean;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StageKubeObject } from '../../../../../k8s/groups/EDP/Stage';
 import { EDP_CDPIPELINE_STAGE_STATUS } from '../../../../../k8s/groups/EDP/Stage/constants';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 
 interface GraphData {
   total: number;
@@ -11,7 +12,9 @@ interface GraphData {
 }
 
 export const useStagesGraphData = () => {
-  const [stages, stagesError] = StageKubeObject.useList();
+  const [stages, stagesError] = StageKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
   const isLoading = stages === null && !stagesError;
 
   const graphData = React.useMemo(() => {

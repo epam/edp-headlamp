@@ -4,13 +4,13 @@ import { DataGrid } from '../../../../components/DataGrid';
 import { EmptyList } from '../../../../components/EmptyList';
 import { Shop } from '../../../../icons/other/Shop';
 import { Resources } from '../../../../icons/sprites/Resources';
-import { TemplateKubeObject } from '../../../../k8s/groups/EDP/Template';
 import { TemplateKubeObjectInterface } from '../../../../k8s/groups/EDP/Template/types';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { useViewModeContext } from '../../../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../../../providers/ViewMode/types';
 import { CreateCodebaseFromTemplateDialog } from '../../../../widgets/dialogs/CreateCodebaseFromTemplate';
 import { useTypedPermissions } from '../../hooks/useTypedPermissions';
+import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { TemplateCard } from './components/TemplateCard';
 import { TemplatesTable } from './components/TemplatesTable';
 import { MarketplaceListProps } from './types';
@@ -18,7 +18,7 @@ import { MarketplaceListProps } from './types';
 export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProps) => {
   const { setDialog } = useDialogContext();
   const { viewMode } = useViewModeContext();
-  const [items, error] = TemplateKubeObject.useList();
+  const { templates } = useDynamicDataContext();
 
   const handleTemplateClick = React.useCallback(
     (template: TemplateKubeObjectInterface) => {
@@ -38,18 +38,18 @@ export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProp
       <Resources />
       {viewMode === VIEW_MODES.TABLE ? (
         <TemplatesTable
-          data={items}
+          data={templates.data}
           handleTemplateClick={handleTemplateClick}
           permissions={permissions}
           filterFunction={filterFunction}
           warning={warning}
-          error={error}
+          errors={templates.errors}
         />
       ) : viewMode === VIEW_MODES.GRID ? (
         <DataGrid<TemplateKubeObjectInterface>
-          data={items}
-          error={error}
-          isLoading={items === null}
+          data={templates.data}
+          errors={templates.errors}
+          isLoading={templates.isLoading}
           spacing={3}
           filterFunction={filterFunction}
           emptyListComponent={

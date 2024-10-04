@@ -4,6 +4,7 @@ import {
   PIPELINE_RUN_REASON,
   PIPELINE_RUN_STATUS,
 } from '../../../../../k8s/groups/Tekton/PipelineRun/constants';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 
 interface GraphData {
   total: number;
@@ -15,7 +16,9 @@ interface GraphData {
 }
 
 export const usePipelineRunsGraphData = () => {
-  const [pipelineRuns, pipelineRunsError] = PipelineRunKubeObject.useList();
+  const [pipelineRuns, pipelineRunsError] = PipelineRunKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
   const isLoading = pipelineRuns === null && !pipelineRunsError;
 
   const graphData = React.useMemo(() => {

@@ -5,13 +5,16 @@ import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { PageWithSubMenu } from '../../../../components/PageWithSubMenu';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { TaskKubeObject } from '../../../../k8s/groups/Tekton/Task';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { TaskList } from '../../../../widgets/TaskList';
 import { menu } from '../../menu';
 import { pageDescription } from './constants';
 
 export const PageView = () => {
   const theme = useTheme();
-  const [items, error] = TaskKubeObject.useList();
+  const [items, error] = TaskKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
 
   const isLoading = items === null;
 

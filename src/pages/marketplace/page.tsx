@@ -6,6 +6,7 @@ import { PermissionsContextProvider } from '../../providers/Permissions/provider
 import { ViewModeContextProvider } from '../../providers/ViewMode/provider';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { permissionsToCheckConfig } from './constants';
+import { DynamicDataContextProvider } from './providers/DynamicData/provider';
 import { PageView } from './view';
 
 export default function () {
@@ -19,7 +20,9 @@ export default function () {
               matchFunctions={null}
               saveToLocalStorage
             >
-              <PageView />
+              <DynamicDataContextProvider>
+                <PageView />
+              </DynamicDataContextProvider>
             </FilterContextProvider>
           </DialogContextProvider>
         </ViewModeContextProvider>

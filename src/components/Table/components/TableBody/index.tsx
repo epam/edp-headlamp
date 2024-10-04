@@ -1,4 +1,5 @@
 import {
+  Alert,
   CircularProgress,
   TableBody as MuiTableBody,
   TableCell,
@@ -14,7 +15,8 @@ const isSelectedRow = (isSelected: (row: unknown) => boolean, row: unknown) =>
   isSelected ? isSelected(row) : false;
 
 export const TableBody = ({
-  error,
+  blockerError,
+  errors,
   isLoading,
   columns,
   readyData,
@@ -33,11 +35,11 @@ export const TableBody = ({
     const _columnsLength = columns.length;
     const columnsLength = hasSelection ? _columnsLength + 1 : _columnsLength;
 
-    if (error) {
+    if (blockerError) {
       return (
         <MuiTableRow>
           <TableCell colSpan={columnsLength} align={'center'}>
-            <ErrorContent error={error} />
+            <ErrorContent error={blockerError} />
           </TableCell>
         </MuiTableRow>
       );
@@ -64,24 +66,39 @@ export const TableBody = ({
     }
 
     if (readyData !== null && readyData?.length) {
-      return readyData
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        .map((row, idx: number) => {
-          const _isSelected = isSelectedRow(isSelected, row);
-          const _canBeSelected = canBeSelected ? canBeSelected(row) : true;
+      return (
+        <>
+          {errors && !!errors.length && (
+            <MuiTableRow>
+              <TableCell colSpan={columns.length} align={'center'}>
+                <Alert severity="warning">
+                  {errors.map((error) => (
+                    <div>{error?.message || error?.toString()}</div>
+                  ))}
+                </Alert>
+              </TableCell>
+            </MuiTableRow>
+          )}
+          {readyData
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((row, idx: number) => {
+              const _isSelected = isSelectedRow(isSelected, row);
+              const _canBeSelected = canBeSelected ? canBeSelected(row) : true;
 
-          return (
-            <TableRow
-              key={`table-row-${idx}`}
-              item={row}
-              columns={columns}
-              isSelected={_isSelected}
-              canBeSelected={_canBeSelected}
-              handleRowClick={handleRowClick}
-              handleSelectRowClick={handleSelectRowClick}
-            />
-          );
-        });
+              return (
+                <TableRow
+                  key={`table-row-${idx}`}
+                  item={row}
+                  columns={columns}
+                  isSelected={_isSelected}
+                  canBeSelected={_canBeSelected}
+                  handleRowClick={handleRowClick}
+                  handleSelectRowClick={handleSelectRowClick}
+                />
+              );
+            })}
+        </>
+      );
     }
 
     if (hasEmptyResult) {
@@ -102,19 +119,20 @@ export const TableBody = ({
       </MuiTableRow>
     );
   }, [
-    blockerComponent,
-    canBeSelected,
-    columns,
-    emptyListComponent,
-    error,
-    handleRowClick,
     handleSelectRowClick,
-    hasEmptyResult,
+    columns,
+    blockerError,
+    blockerComponent,
     isLoading,
-    isSelected,
-    page,
     readyData,
+    hasEmptyResult,
+    emptyListComponent,
+    page,
     rowsPerPage,
+    errors,
+    isSelected,
+    canBeSelected,
+    handleRowClick,
   ]);
 
   return <MuiTableBody>{renderTableBody()}</MuiTableBody>;

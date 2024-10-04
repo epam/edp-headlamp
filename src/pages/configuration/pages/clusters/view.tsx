@@ -5,33 +5,33 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Button,
+  // Button,
   Grid,
-  IconButton,
-  Paper,
+  // IconButton,
+  // Paper,
   Stack,
   Tooltip,
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
+// import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { EmptyList } from '../../../../components/EmptyList';
 import { ErrorContent } from '../../../../components/ErrorContent';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
-import { StatusIcon } from '../../../../components/StatusIcon';
+// import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
-import { ApplicationKubeObject } from '../../../../k8s/groups/ArgoCD/Application';
+// import { ApplicationKubeObject } from '../../../../k8s/groups/ArgoCD/Application';
 import { useArgoApplicationCRUD } from '../../../../k8s/groups/ArgoCD/Application/hooks/useArgoApplicationCRUD';
-import { APPLICATION_LABEL_SELECTOR_APP_TYPE } from '../../../../k8s/groups/ArgoCD/Application/labels';
+// import { APPLICATION_LABEL_SELECTOR_APP_TYPE } from '../../../../k8s/groups/ArgoCD/Application/labels';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/groups/ArgoCD/Application/types';
 import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/groups/default/Secret/labels';
-import { useDialogContext } from '../../../../providers/Dialog/hooks';
+// import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
-import { DeleteKubeObjectDialog } from '../../../../widgets/dialogs/DeleteKubeObject';
-import { ManageVClusterDialog } from '../../../../widgets/dialogs/ManageVCluster';
+// import { DeleteKubeObjectDialog } from '../../../../widgets/dialogs/DeleteKubeObject';
+// import { ManageVClusterDialog } from '../../../../widgets/dialogs/ManageVCluster';
 import { ManageClusterSecret } from '../../../../widgets/ManageClusterSecret';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { pageDescription } from './constants';
@@ -43,10 +43,10 @@ export const PageView = () => {
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=cluster`,
   });
 
-  const [vClusterApps, vClusterAppsError] = ApplicationKubeObject.useList({
-    namespace: getDefaultNamespace(),
-    labelSelector: `${APPLICATION_LABEL_SELECTOR_APP_TYPE}=cluster`,
-  });
+  // const [vClusterApps, vClusterAppsError] = ApplicationKubeObject.useList({
+  //   namespace: getDefaultNamespace(),
+  //   labelSelector: `${APPLICATION_LABEL_SELECTOR_APP_TYPE}=cluster`,
+  // });
 
   const isLoading = clusterSecrets === null && !clusterSecretsError;
 
@@ -68,9 +68,9 @@ export const PageView = () => {
     data: undefined,
   });
 
-  const handleOpenEditor = (data: KubeObjectInterface) => {
-    setEditor({ open: true, data });
-  };
+  // const handleOpenEditor = (data: KubeObjectInterface) => {
+  //   setEditor({ open: true, data });
+  // };
 
   const handleCloseEditor = () => {
     setEditor({ open: false, data: undefined });
@@ -91,22 +91,22 @@ export const PageView = () => {
   };
 
   const permissions = useTypedPermissions();
-  const { setDialog } = useDialogContext();
-  const handleDeleteApplication = React.useCallback(
-    (application: ApplicationKubeObjectInterface) => {
-      if (!permissions.delete.Application.allowed) {
-        return;
-      }
+  // const { setDialog } = useDialogContext();
+  // const handleDeleteApplication = React.useCallback(
+  //   (application: ApplicationKubeObjectInterface) => {
+  //     if (!permissions.delete.Application.allowed) {
+  //       return;
+  //     }
 
-      setDialog(DeleteKubeObjectDialog, {
-        kubeObject: ApplicationKubeObject,
-        kubeObjectData: application,
-        objectName: application?.metadata.name,
-        description: `Confirm the deletion of the application`,
-      });
-    },
-    [permissions.delete.Application.allowed, setDialog]
-  );
+  //     setDialog(DeleteKubeObjectDialog, {
+  //       kubeObject: ApplicationKubeObject,
+  //       kubeObjectData: application,
+  //       objectName: application?.metadata.name,
+  //       description: `Confirm the deletion of the application`,
+  //     });
+  //   },
+  //   [permissions.delete.Application.allowed, setDialog]
+  // );
 
   const renderPageContent = React.useCallback(() => {
     const forbiddenError = getForbiddenError(clusterSecretsError);
@@ -191,107 +191,107 @@ export const PageView = () => {
     );
   }, [clusterSecrets, clusterSecretsError, expandedPanel, isLoading, permissions]);
 
-  const renderExtraContent = React.useCallback(() => {
-    const forbiddenError = getForbiddenError(vClusterAppsError);
+  // const renderExtraContent = React.useCallback(() => {
+  //   const forbiddenError = getForbiddenError(vClusterAppsError);
 
-    if (forbiddenError) {
-      return <ErrorContent error={forbiddenError} outlined />;
-    }
+  //   if (forbiddenError) {
+  //     return <ErrorContent error={forbiddenError} outlined />;
+  //   }
 
-    if (!vClusterApps?.length && vClusterApps !== null && !vClusterAppsError) {
-      return (
-        <>
-          <EmptyList
-            customText={'No virtual clusters found.'}
-            linkText={'Click here to add a virtual cluster.'}
-            handleClick={() => setDialog(ManageVClusterDialog, {})}
-          />
-        </>
-      );
-    }
+  //   if (!vClusterApps?.length && vClusterApps !== null && !vClusterAppsError) {
+  //     return (
+  //       <>
+  //         <EmptyList
+  //           customText={'No virtual clusters found.'}
+  //           linkText={'Click here to add a virtual cluster.'}
+  //           handleClick={() => setDialog(ManageVClusterDialog, {})}
+  //         />
+  //       </>
+  //     );
+  //   }
 
-    return (
-      <LoadingWrapper isLoading={vClusterApps === null}>
-        <Grid container spacing={2}>
-          {vClusterApps?.map((application) => {
-            const health = application?.status?.health?.status;
+  //   return (
+  //     <LoadingWrapper isLoading={vClusterApps === null}>
+  //       <Grid container spacing={2}>
+  //         {vClusterApps?.map((application) => {
+  //           const health = application?.status?.health?.status;
 
-            const [icon, color, isRotating] = ApplicationKubeObject.getHealthStatusIcon(health);
+  //           const [icon, color, isRotating] = ApplicationKubeObject.getHealthStatusIcon(health);
 
-            return (
-              <Grid item xs={12} key={application.metadata.name}>
-                <Paper sx={{ p: (t) => `${t.typography.pxToRem(10)} ${t.typography.pxToRem(20)}` }}>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Stack spacing={2} direction="row" alignItems="center">
-                      <StatusIcon
-                        Title={`Health status: ${health || 'Unknown'}`}
-                        icon={icon}
-                        color={color}
-                        isRotating={isRotating}
-                      />
-                      <Typography variant={'h6'}>{application.metadata.name}</Typography>
-                    </Stack>
-                    <Stack spacing={2} direction="row" alignItems="center">
-                      <ConditionalWrapper
-                        condition={!permissions.delete.Application.allowed}
-                        wrapper={(children) => (
-                          <Tooltip title={permissions.delete.Application.reason}>
-                            <div>{children}</div>
-                          </Tooltip>
-                        )}
-                      >
-                        <IconButton
-                          onClick={() => handleDeleteApplication(application)}
-                          disabled={!permissions.delete.Application.allowed}
-                          size="large"
-                        >
-                          <Icon icon={ICONS.BUCKET} width="20" />
-                        </IconButton>
-                      </ConditionalWrapper>
-                      <ConditionalWrapper
-                        condition={!permissions.update.Application.allowed}
-                        wrapper={(children) => (
-                          <Tooltip title={permissions.update.Application.reason}>
-                            <div>{children}</div>
-                          </Tooltip>
-                        )}
-                      >
-                        <Button
-                          startIcon={<Icon icon={ICONS.PENCIL} />}
-                          size="small"
-                          component={'button'}
-                          style={{ flexShrink: 0 }}
-                          color="inherit"
-                          onClick={() => handleOpenEditor(application)}
-                          disabled={!permissions.update.Application.allowed}
-                        >
-                          Edit YAML
-                        </Button>
-                      </ConditionalWrapper>
-                    </Stack>
-                  </Stack>
-                </Paper>
-              </Grid>
-            );
-          })}
-        </Grid>
-      </LoadingWrapper>
-    );
-  }, [
-    handleDeleteApplication,
-    permissions.delete.Application.allowed,
-    permissions.delete.Application.reason,
-    permissions.update.Application.allowed,
-    permissions.update.Application.reason,
-    setDialog,
-    vClusterApps,
-    vClusterAppsError,
-  ]);
+  //           return (
+  //             <Grid item xs={12} key={application.metadata.name}>
+  //               <Paper sx={{ p: (t) => `${t.typography.pxToRem(10)} ${t.typography.pxToRem(20)}` }}>
+  //                 <Stack
+  //                   direction="row"
+  //                   spacing={2}
+  //                   alignItems="center"
+  //                   justifyContent="space-between"
+  //                 >
+  //                   <Stack spacing={2} direction="row" alignItems="center">
+  //                     <StatusIcon
+  //                       Title={`Health status: ${health || 'Unknown'}`}
+  //                       icon={icon}
+  //                       color={color}
+  //                       isRotating={isRotating}
+  //                     />
+  //                     <Typography variant={'h6'}>{application.metadata.name}</Typography>
+  //                   </Stack>
+  //                   <Stack spacing={2} direction="row" alignItems="center">
+  //                     <ConditionalWrapper
+  //                       condition={!permissions.delete.Application.allowed}
+  //                       wrapper={(children) => (
+  //                         <Tooltip title={permissions.delete.Application.reason}>
+  //                           <div>{children}</div>
+  //                         </Tooltip>
+  //                       )}
+  //                     >
+  //                       <IconButton
+  //                         onClick={() => handleDeleteApplication(application)}
+  //                         disabled={!permissions.delete.Application.allowed}
+  //                         size="large"
+  //                       >
+  //                         <Icon icon={ICONS.BUCKET} width="20" />
+  //                       </IconButton>
+  //                     </ConditionalWrapper>
+  //                     <ConditionalWrapper
+  //                       condition={!permissions.update.Application.allowed}
+  //                       wrapper={(children) => (
+  //                         <Tooltip title={permissions.update.Application.reason}>
+  //                           <div>{children}</div>
+  //                         </Tooltip>
+  //                       )}
+  //                     >
+  //                       <Button
+  //                         startIcon={<Icon icon={ICONS.PENCIL} />}
+  //                         size="small"
+  //                         component={'button'}
+  //                         style={{ flexShrink: 0 }}
+  //                         color="inherit"
+  //                         onClick={() => handleOpenEditor(application)}
+  //                         disabled={!permissions.update.Application.allowed}
+  //                       >
+  //                         Edit YAML
+  //                       </Button>
+  //                     </ConditionalWrapper>
+  //                   </Stack>
+  //                 </Stack>
+  //               </Paper>
+  //             </Grid>
+  //           );
+  //         })}
+  //       </Grid>
+  //     </LoadingWrapper>
+  //   );
+  // }, [
+  //   handleDeleteApplication,
+  //   permissions.delete.Application.allowed,
+  //   permissions.delete.Application.reason,
+  //   permissions.update.Application.allowed,
+  //   permissions.update.Application.reason,
+  //   setDialog,
+  //   vClusterApps,
+  //   vClusterAppsError,
+  // ]);
 
   return (
     <ConfigurationPageContent
@@ -319,7 +319,7 @@ export const PageView = () => {
     >
       <Stack spacing={2}>
         {renderPageContent()}
-        <Typography fontSize={(t) => t.typography.pxToRem(28)} color="primary.dark" gutterBottom>
+        {/* <Typography fontSize={(t) => t.typography.pxToRem(28)} color="primary.dark" gutterBottom>
           Virtual clusters
         </Typography>
         <Typography variant={'body1'}>Manage Virtual clusters</Typography>
@@ -346,7 +346,7 @@ export const PageView = () => {
             </ConditionalWrapper>
           </Stack>
           {renderExtraContent()}
-        </Stack>
+        </Stack> */}
       </Stack>
       {editor.open && editor.data?.jsonData && (
         <EditorDialog
