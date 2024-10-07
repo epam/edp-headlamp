@@ -18,8 +18,9 @@ export default function () {
             matchFunctions={null}
             saveToLocalStorage
           >
-            <PageView />
-            <DynamicDataContextProvider></DynamicDataContextProvider>
+            <DynamicDataContextProvider>
+              <PageView />
+            </DynamicDataContextProvider>
           </FilterContextProvider>
         </PermissionsContextProvider>
       </DialogContextProvider>
