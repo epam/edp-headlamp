@@ -51,16 +51,16 @@ export const FormActions = () => {
           routeName: routeStageDetails.path,
           text: `go to environment`,
           routeParams: {
-            namespace: stageData.metadata.namespace || getDefaultNamespace(),
-            stageName: stageData.metadata.name,
-            CDPipelineName: CDPipelineData.metadata.name,
+            namespace: stageData?.metadata.namespace || getDefaultNamespace(),
+            stageName: stageData?.metadata.name,
+            CDPipelineName: CDPipelineData?.metadata.name,
           },
         },
       });
 
       handleClose();
     },
-    [CDPipelineData.metadata.name, handleClose, setDialog]
+    [CDPipelineData?.metadata.name, handleClose, setDialog]
   );
 
   const {

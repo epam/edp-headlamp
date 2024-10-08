@@ -13,8 +13,8 @@ export const useDefaultValues = () => {
   } = useCurrentDialog();
 
   const stagesQuantity = otherStages.length;
-  const namespace = CDPipelineData.metadata.namespace || getDefaultNamespace();
-  const CDPipelineName = CDPipelineData.metadata.name;
+  const namespace = CDPipelineData?.metadata.namespace || getDefaultNamespace();
+  const CDPipelineName = CDPipelineData?.metadata.name;
 
   return React.useMemo(
     () => ({
