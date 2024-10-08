@@ -38,21 +38,21 @@ export const Applications = () => {
     [applications]
   );
 
-  const applicationsFieldArrayValue = watch(CDPIPELINE_FORM_NAMES.applicationsFieldArray.name) as {
+  const currentAppFieldArrayValue = watch(CDPIPELINE_FORM_NAMES.applicationsFieldArray.name) as {
     appName: string;
     appBranch: string;
     appToPromote: string;
   }[];
 
   const handleApplicationChanges = (newApplications: string[]) => {
-    const currentAppNames = applicationsFieldArrayValue?.map((app) => app.appName);
-    const addedApplications = newApplications.filter((app) => !currentAppNames.includes(app));
+    const prevAppNames = currentAppFieldArrayValue?.map((app) => app.appName);
+    const addedApplications = newApplications.filter((app) => !prevAppNames.includes(app));
 
     addedApplications.forEach((app) => {
-      append({ appName: app });
+      append({ appName: app, appBranch: '', appToPromote: false });
     });
 
-    const removedApplications = applicationsFieldArrayValue
+    const removedApplications = currentAppFieldArrayValue
       .map((app, index) => ({ ...app, index }))
       .filter((app) => !newApplications.includes(app.appName));
 
@@ -68,7 +68,19 @@ export const Applications = () => {
 
     setValue(CDPIPELINE_FORM_NAMES.applications.name, newApplications, { shouldDirty: false });
 
-    setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, newApplications, {
+    const newApplicationsToPromoteValue = newApplications.reduce((acc, appName) => {
+      const appToPromote = currentAppFieldArrayValue.find(
+        (app) => app.appName === appName
+      )?.appToPromote;
+
+      if (appToPromote) {
+        acc.push(appName);
+      }
+
+      return acc;
+    }, []);
+
+    setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, newApplicationsToPromoteValue, {
       shouldDirty: false,
     });
 
