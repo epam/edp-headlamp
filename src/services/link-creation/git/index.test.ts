@@ -1,4 +1,4 @@
-import { GIT_SERVERS } from '../../../constants/gitServers';
+import { GIT_PROVIDERS } from '../../../constants/gitProviders';
 import { GitURLService } from './index';
 
 describe('testing link-creation GitURLService', () => {
@@ -9,7 +9,7 @@ describe('testing link-creation GitURLService', () => {
         'test-pipeline-name',
         'test-stage-name',
         'test-app-name',
-        GIT_SERVERS.GITHUB
+        GIT_PROVIDERS.GITHUB
       )
     ).toEqual(
       'https://git.test.com/test-project/test-env/edp-gitops/blob/main/test-pipeline-name/test-stage-name/test-app-name-values.yaml'
@@ -20,7 +20,7 @@ describe('testing link-creation GitURLService', () => {
         'test-pipeline-name',
         'test-stage-name',
         'test-app-name',
-        GIT_SERVERS.GITLAB
+        GIT_PROVIDERS.GITLAB
       )
     ).toEqual(
       'https://git.test.com/test-project/test-env/edp-gitops/blob/main/test-pipeline-name/test-stage-name/test-app-name-values.yaml'
@@ -31,7 +31,7 @@ describe('testing link-creation GitURLService', () => {
         'test-pipeline-name',
         'test-stage-name',
         'test-app-name',
-        GIT_SERVERS.GERRIT
+        GIT_PROVIDERS.GERRIT
       )
     ).toEqual(
       'https://test-gerrit.com/gitweb?p=edp-gitops.git&f=test-pipeline-name%2Ftest-stage-name%2Ftest-app-name-values.yaml&hb=refs%2Fheads%2Fmain&a=blob'
@@ -42,10 +42,41 @@ describe('testing link-creation GitURLService', () => {
         'test-pipeline-name',
         'test-stage-name',
         'test-app-name',
-        GIT_SERVERS.BITBUCKET
+        GIT_PROVIDERS.BITBUCKET
       )
     ).toEqual(
       'https://git.test.com/test-project/test-env/edp-gitops/src/main/test-pipeline-name/test-stage-name/test-app-name-values.yaml'
     );
+  });
+
+  it('should successfully create repo branch link based on given git server, baseUrl, and branch', () => {
+    expect(
+      GitURLService.createRepoBranchLink(
+        GIT_PROVIDERS.GITHUB,
+        'https://git.test.com/test-project/test-repo',
+        'test-branch'
+      )
+    ).toEqual('https://git.test.com/test-project/test-repo/tree/test-branch');
+    expect(
+      GitURLService.createRepoBranchLink(
+        GIT_PROVIDERS.GITLAB,
+        'https://git.test.com/test-project/test-repo',
+        'test-branch'
+      )
+    ).toEqual('https://git.test.com/test-project/test-repo/-/tree/test-branch');
+    expect(
+      GitURLService.createRepoBranchLink(
+        GIT_PROVIDERS.GERRIT,
+        'https://test-gerrit.com/gitweb?p=test-repo',
+        'test-branch'
+      )
+    ).toEqual('https://test-gerrit.com/gitweb?p=test-repo&a=refs%2Fheads%2Ftest-branch');
+    expect(
+      GitURLService.createRepoBranchLink(
+        GIT_PROVIDERS.BITBUCKET,
+        'https://git.test.com/test-project/test-repo',
+        'test-branch'
+      )
+    ).toEqual('https://git.test.com/test-project/test-repo/src/test-branch');
   });
 });

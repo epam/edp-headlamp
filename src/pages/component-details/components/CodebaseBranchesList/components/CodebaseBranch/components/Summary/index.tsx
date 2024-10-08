@@ -5,6 +5,7 @@ import React from 'react';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../../../../../constants/codebaseVersioningTypes';
+import { GIT_PROVIDERS } from '../../../../../../../../constants/gitProviders';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { CodebaseBranchKubeObject } from '../../../../../../../../k8s/groups/EDP/CodebaseBranch';
@@ -13,6 +14,7 @@ import { PipelineRunKubeObject } from '../../../../../../../../k8s/groups/Tekton
 import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/constants';
 import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateBuildPipelineRun';
 import { useTriggerTemplateByNameQuery } from '../../../../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useTriggerTemplateByNameQuery';
+import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { rem } from '../../../../../../../../utils/styling/rem';
 import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
 import { isDefaultBranch } from '../../../../utils';
@@ -185,7 +187,11 @@ export const Summary = ({
               enabledText="Open in GIT"
               name={{ label: 'GIT' }}
               icon={ICONS.NEW_WINDOW}
-              externalLink={codebaseData?.status?.gitWebUrl}
+              externalLink={LinkCreationService.git.createRepoBranchLink(
+                gitServerByCodebase?.spec.gitProvider as GIT_PROVIDERS,
+                codebaseData?.status?.gitWebUrl,
+                codebaseBranchData?.spec.branchName
+              )}
               variant="text"
               isTextButton
             />
