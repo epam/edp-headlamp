@@ -18,13 +18,13 @@ export const useDefaultValues = () => {
         (app) => app
       ),
       [CDPIPELINE_FORM_NAMES.applicationsFieldArray.name]: CDPipelineData?.spec.applications.map(
-        (app) => ({
+        (app, idx) => ({
           appName: app,
           appBranch: {
-            label: '',
-            value: undefined,
+            label: CDPipelineData?.spec.inputDockerStreams[idx],
+            value: CDPipelineData?.spec.inputDockerStreams[idx],
           },
-          appToPromote: undefined,
+          appToPromote: CDPipelineData?.spec.applicationsToPromote.includes(app),
         })
       ),
     }),

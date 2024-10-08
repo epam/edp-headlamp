@@ -112,11 +112,6 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
     // @ts-ignore
     setValue(rowAppBranchField, newBranchFieldValue);
 
-    // @ts-ignore
-    setValue(rowAppToPromoteField, CDPipelineData?.spec?.applicationsToPromote?.includes(appName), {
-      shouldDirty: false,
-    });
-
     setValue(CDPIPELINE_FORM_NAMES.inputDockerStreams.name, [
       ...getValues(CDPIPELINE_FORM_NAMES.inputDockerStreams.name).filter(
         (el) => el !== newBranchFieldValue
@@ -125,14 +120,12 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
     ]);
   }, [
     CDPipelineData?.spec.applications,
-    CDPipelineData?.spec?.applicationsToPromote,
     CDPipelineData?.spec.inputDockerStreams,
     appName,
     applicationBranchesList,
     applicationBranchesListIsLoading,
     getValues,
     rowAppBranchField,
-    rowAppToPromoteField,
     setValue,
   ]);
 
@@ -211,10 +204,12 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
                     CDPIPELINE_FORM_NAMES.applicationsToPromote.name
                   );
 
-                  setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, [
+                  const newValue = [
                     ...currentAppsToPromoteValue.filter((el) => el !== appName),
                     ...(value ? [appName] : []),
-                  ]);
+                  ];
+
+                  setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, newValue);
                 },
               }
             )}
