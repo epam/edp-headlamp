@@ -84,8 +84,8 @@ export const FormActions = () => {
           routeName: routeCDPipelineDetails.path,
           text: 'go to Deployment Flow',
           routeParams: {
-            namespace: CDPipelineData.metadata.namespace || getDefaultNamespace(),
-            name: CDPipelineData.metadata.name,
+            namespace: CDPipelineData?.metadata.namespace || getDefaultNamespace(),
+            name: CDPipelineData?.metadata.name,
           },
         },
       });

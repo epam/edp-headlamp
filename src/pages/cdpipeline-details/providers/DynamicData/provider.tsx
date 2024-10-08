@@ -47,8 +47,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     }
 
     const argoApplicationsMap = argoApplications.reduce((map, argoApplication) => {
-      const appName = argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_APP_NAME];
-      const stageName = argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_STAGE];
+      const appName = argoApplication?.metadata.labels[APPLICATION_LABEL_SELECTOR_APP_NAME];
+      const stageName = argoApplication?.metadata.labels[APPLICATION_LABEL_SELECTOR_STAGE];
       map[`${appName}${stageName}`] = argoApplication;
       return map;
     }, {});
@@ -57,7 +57,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       stage,
       applications: applications.map((application) => {
         const argoApplication =
-          argoApplicationsMap[`${application.metadata.name}${stage.spec.name}`];
+          argoApplicationsMap[`${application?.metadata.name}${stage.spec.name}`];
         return { application, argoApplication };
       }),
     }));

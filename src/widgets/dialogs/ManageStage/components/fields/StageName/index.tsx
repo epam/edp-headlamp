@@ -21,8 +21,8 @@ export const StageName = ({ otherStagesNames }: StageNameProps) => {
     props: { CDPipelineData },
   } = useCurrentDialog();
 
-  const namespace = CDPipelineData.metadata.namespace || getDefaultNamespace();
-  const CDPipelineName = CDPipelineData.metadata.name;
+  const namespace = CDPipelineData?.metadata.namespace || getDefaultNamespace();
+  const CDPipelineName = CDPipelineData?.metadata.name;
 
   return (
     <FormTextField
