@@ -101,6 +101,7 @@ export const PageView = () => {
               <CDPipelineList
                 filterFunction={filterFunction}
                 blockerComponent={
+                  gitOpsCodebaseQuery.isFetched &&
                   !gitOpsCodebaseQuery.data && (
                     <EmptyList
                       customText={'No GitOps repository configured.'}
