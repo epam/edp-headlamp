@@ -1,20 +1,8 @@
 import React, { useCallback } from 'react';
 import { CRUD_TYPES } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
-import { CodebaseKubeObjectInterface } from '../../../EDP/Codebase/types';
-import { CodebaseBranchKubeObjectInterface } from '../../../EDP/CodebaseBranch/types';
-import { GitServerKubeObjectInterface } from '../../../EDP/GitServer/types';
-import { TriggerTemplateKubeObjectInterface } from '../../TriggerTemplate/types';
 import { PipelineRunKubeObject } from '../index';
 import { PipelineRunKubeObjectInterface } from '../types';
-import { createBuildPipelineRunInstance } from '../utils/createBuildPipelineRunInstance';
-
-export interface CreateBuildPipelineRunProps {
-  codebase: CodebaseKubeObjectInterface;
-  codebaseBranch: CodebaseBranchKubeObjectInterface;
-  triggerTemplate: TriggerTemplateKubeObjectInterface;
-  gitServer: GitServerKubeObjectInterface;
-}
 
 export const useCreateBuildPipelineRun = ({
   onSuccess,
@@ -38,9 +26,8 @@ export const useCreateBuildPipelineRun = ({
   });
 
   const createBuildPipelineRun = React.useCallback(
-    async (data: CreateBuildPipelineRunProps) => {
-      const buildPipelineRunData = createBuildPipelineRunInstance(data);
-      buildPipelineRunCreateMutation.mutate(buildPipelineRunData, {
+    (data: PipelineRunKubeObjectInterface) => {
+      buildPipelineRunCreateMutation.mutate(data, {
         onSuccess: () => {
           invokeOnSuccessCallback();
         },

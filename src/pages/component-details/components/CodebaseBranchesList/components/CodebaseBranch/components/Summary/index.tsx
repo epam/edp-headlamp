@@ -13,6 +13,7 @@ import { useGitServerByCodebaseQuery } from '../../../../../../../../k8s/groups/
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/constants';
 import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateBuildPipelineRun';
+import { createBuildPipelineRunInstance } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/utils/createBuildPipelineRunInstance';
 import { useTriggerTemplateByNameQuery } from '../../../../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useTriggerTemplateByNameQuery';
 import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { rem } from '../../../../../../../../utils/styling/rem';
@@ -59,19 +60,31 @@ export const Summary = ({
     );
 
   const onBuildButtonClick = React.useCallback(
-    async (e) => {
+    (e) => {
       e.stopPropagation();
 
       if (!gitServerByCodebase) {
-        throw new Error(`Codebase Git Server has not been found`);
+        console.error('Codebase Git server has not been found');
+        return;
       }
 
-      await createBuildPipelineRun({
+      const buildPipelineRunTemplate = buildTriggerTemplate.spec.resourcetemplates[0];
+
+      if (!buildPipelineRunTemplate) {
+        console.error('Build PipelineRun template has not been found');
+        return;
+      }
+
+      const buildPipelineRunTemplateCopy = JSON.parse(JSON.stringify(buildPipelineRunTemplate));
+
+      const buildPipelineRunData = createBuildPipelineRunInstance({
         codebase: codebaseData,
         codebaseBranch: codebaseBranchData,
-        triggerTemplate: buildTriggerTemplate,
+        pipelineRunTemplate: buildPipelineRunTemplateCopy,
         gitServer: gitServerByCodebase,
       });
+
+      createBuildPipelineRun(buildPipelineRunData);
     },
     [
       buildTriggerTemplate,

@@ -55,7 +55,7 @@ export const DeletionDialog = ({
     }
 
     selectedPipelineRuns.forEach((item) => {
-      const pipelineRun = item?.jsonData;
+      const pipelineRun = item;
 
       PipelineRunKubeObject.apiEndpoint.delete(
         pipelineRun.metadata.namespace,

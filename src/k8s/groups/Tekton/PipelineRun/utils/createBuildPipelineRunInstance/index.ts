@@ -2,7 +2,6 @@ import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { CodebaseKubeObjectInterface } from '../../../../EDP/Codebase/types';
 import { CodebaseBranchKubeObjectInterface } from '../../../../EDP/CodebaseBranch/types';
 import { GitServerKubeObjectInterface } from '../../../../EDP/GitServer/types';
-import { TriggerTemplateKubeObjectInterface } from '../../../TriggerTemplate/types';
 import {
   PIPELINE_RUN_LABEL_SELECTOR_CODEBASE,
   PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH,
@@ -13,12 +12,12 @@ import { PipelineRunKubeObjectInterface } from '../../types';
 export const createBuildPipelineRunInstance = ({
   codebase,
   codebaseBranch,
-  triggerTemplate,
+  pipelineRunTemplate,
   gitServer,
 }: {
   codebase: CodebaseKubeObjectInterface;
   codebaseBranch: CodebaseBranchKubeObjectInterface;
-  triggerTemplate: TriggerTemplateKubeObjectInterface;
+  pipelineRunTemplate: PipelineRunKubeObjectInterface;
   gitServer: GitServerKubeObjectInterface;
 }): PipelineRunKubeObjectInterface => {
   const {
@@ -35,7 +34,7 @@ export const createBuildPipelineRunInstance = ({
     spec: { gitUser, gitHost, sshPort },
   } = gitServer;
 
-  const base = { ...triggerTemplate.spec.resourcetemplates[0] };
+  const base = { ...pipelineRunTemplate };
 
   base.metadata.generateName = base.metadata.generateName.replace(
     '$(tt.params.codebasebranch)',
@@ -48,12 +47,15 @@ export const createBuildPipelineRunInstance = ({
 
   base.spec.pipelineRef.name = codebaseBranch.spec.pipelines.build;
 
-  base.spec.workspaces.push({
-    name: 'settings',
-    configMap: {
-      name: `custom-${codebaseBuildTool}-settings`,
+  base.spec.workspaces = [
+    ...base.spec.workspaces,
+    {
+      name: 'settings',
+      configMap: {
+        name: `custom-${codebaseBuildTool}-settings`,
+      },
     },
-  });
+  ];
 
   for (const param of base.spec.params) {
     switch (param.name) {
