@@ -77,4 +77,6 @@ export enum ICONS {
   TEKTON = 'simple-icons:tekton',
   CLOCK = 'mdi:clock',
   TIMEOUT = 'eos-icons:timeout',
+  ARROW_DROPDOWN = 'material-symbols:arrow-drop-down',
+  COMMENT = 'mdi:comment-text-outline',
 }

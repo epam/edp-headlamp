@@ -1,20 +1,67 @@
+import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { Button, Divider, Paper, Stack, Typography } from '@mui/material';
+import { Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { Tabs } from '../../../../../../../../components/Tabs';
 import { CRUD_TYPES } from '../../../../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../../../../hooks/useResourceCRUDMutation';
+import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { ApprovalTaskKubeObject } from '../../../../../../../../k8s/groups/EDP/ApprovalTask';
 import { APPROVAL_TASK_STATUS } from '../../../../../../../../k8s/groups/EDP/ApprovalTask/constants';
+import { ApprovalTaskKubeObjectInterface } from '../../../../../../../../k8s/groups/EDP/ApprovalTask/types';
 import { CustomRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/CustomRun';
 import { TaskRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/TaskRun';
 import { TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK } from '../../../../../../../../k8s/groups/Tekton/TaskRun/labels';
+import { useDialogContext } from '../../../../../../../../providers/Dialog/hooks';
 import { humanize } from '../../../../../../../../utils/date/humanize';
 import { StyledDetailsBody, StyledDetailsHeader } from '../../../../styles';
+import { ChoiceButtonGroup } from './components/ChoiceButtonGroup';
+import { CommentDialog } from './components/CommentDialog';
 import { useTabs } from './hooks/useTabs';
 import { CustomTaskRunProps } from './types';
 
+const updateApprovalTask = ({
+  approvalTask,
+  action,
+  approvedBy,
+  comment,
+}: {
+  approvalTask: ApprovalTaskKubeObjectInterface;
+  action: string;
+  approvedBy?: string;
+  comment?: string;
+}) => {
+  const updatedApprovalTask = {
+    ...approvalTask,
+    spec: {
+      ...approvalTask.spec,
+      action,
+      approve: {
+        approvedBy,
+        comment,
+      },
+    },
+  };
+
+  return updatedApprovalTask;
+};
+
+function getTokens() {
+  return JSON.parse(localStorage.tokens || '{}');
+}
+
+function getToken(cluster: string) {
+  return getTokens()[cluster];
+}
+
+function getUserInfo(cluster: string) {
+  const user = getToken(cluster)?.split('.')[1];
+  return user ? JSON.parse(atob(user)) : null;
+}
+
 export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
+  const cluster = Utils.getCluster();
+  const userInfo = !!cluster && getUserInfo(cluster);
   const { approvalTask } = pipelineRunTaskData;
 
   const isPending = approvalTask?.spec?.action === 'Pending';
@@ -52,29 +99,71 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
     CRUD_TYPES.EDIT
   );
 
-  const handleClickApprove = () => {
-    const updatedApprovalTask = {
-      ...approvalTask,
-      spec: {
-        ...approvalTask.spec,
-        action: APPROVAL_TASK_STATUS.APPROVED,
+  const handleClickApproveOrReject = React.useCallback(
+    (action: string, comment?: string) => {
+      const updatedApprovalTask = updateApprovalTask({
+        approvalTask,
+        approvedBy: userInfo?.email || 'dev',
+        comment,
+        action,
+      });
+
+      approvalTaskEditMutation.mutate(updatedApprovalTask);
+    },
+    [approvalTask, approvalTaskEditMutation, userInfo?.email]
+  );
+
+  const { setDialog } = useDialogContext();
+
+  const approveOptions = React.useMemo(
+    () => [
+      {
+        id: 'approve',
+        icon: ICONS.ARROW_CHECK,
+        label: 'Approve',
+        onClick: () => handleClickApproveOrReject(APPROVAL_TASK_STATUS.APPROVED),
       },
-    };
-
-    approvalTaskEditMutation.mutate(updatedApprovalTask);
-  };
-
-  const handleClickReject = () => {
-    const updatedApprovalTask = {
-      ...approvalTask,
-      spec: {
-        ...approvalTask.spec,
-        action: APPROVAL_TASK_STATUS.REJECTED,
+      {
+        id: 'approveWithComment',
+        icon: ICONS.COMMENT,
+        label: 'Approve with comment',
+        onClick: () => {
+          setDialog(CommentDialog, {
+            title: 'Approve with comment',
+            onFormSubmit: (comment: string) => {
+              handleClickApproveOrReject(APPROVAL_TASK_STATUS.APPROVED, comment);
+            },
+          });
+        },
       },
-    };
+    ],
+    [handleClickApproveOrReject, setDialog]
+  );
 
-    approvalTaskEditMutation.mutate(updatedApprovalTask);
-  };
+  const rejectOptions = React.useMemo(
+    () => [
+      {
+        id: 'reject',
+        icon: ICONS.CROSS,
+        label: 'Reject',
+        onClick: () => handleClickApproveOrReject(APPROVAL_TASK_STATUS.REJECTED),
+      },
+      {
+        id: 'rejectWithComment',
+        icon: ICONS.COMMENT,
+        label: 'Reject with comment',
+        onClick: () => {
+          setDialog(CommentDialog, {
+            title: 'Reject with comment',
+            onFormSubmit: (comment: string) => {
+              handleClickApproveOrReject(APPROVAL_TASK_STATUS.REJECTED, comment);
+            },
+          });
+        },
+      },
+    ],
+    [handleClickApproveOrReject, setDialog]
+  );
 
   return (
     <Paper>
@@ -119,10 +208,8 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
           </Stack>
           {isPending && (
             <Stack direction="row" spacing={2} alignItems="center">
-              <Button variant="contained" onClick={handleClickApprove}>
-                approve
-              </Button>
-              <Button onClick={handleClickReject}>reject</Button>
+              <ChoiceButtonGroup options={approveOptions} type="accept" />
+              <ChoiceButtonGroup options={rejectOptions} type="reject" />
             </Stack>
           )}
         </Stack>
