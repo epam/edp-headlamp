@@ -15,6 +15,9 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
       namespace: props.CDPipelineData?.metadata.namespace,
       codebaseType: CODEBASE_TYPES.APPLICATION,
     },
+    options: {
+      cacheTime: 0,
+    },
   });
 
   const CurrentDialogContextValue = React.useMemo(
