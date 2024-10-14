@@ -123,7 +123,7 @@ export const useConfigMapEditForm = ({
 
   return React.useMemo(
     () => ({
-      mode: FORM_MODES.EDIT,
+      mode: EDPConfigMap?.data.container_registry_type === '' ? FORM_MODES.CREATE : FORM_MODES.EDIT,
       form,
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: configMapEditMutation.isLoading,
@@ -133,6 +133,7 @@ export const useConfigMapEditForm = ({
       },
     }),
     [
+      EDPConfigMap?.data.container_registry_type,
       form,
       handleSubmit,
       configMapEditMutation.isLoading,
