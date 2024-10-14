@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Button, Grid, useTheme } from '@mui/material';
 import React from 'react';
+import { LoadingWrapper } from '../../../../../../../../components/LoadingWrapper';
 import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../../../../../constants/ui';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { useCodebaseBranchesByCodebaseNameLabelQuery } from '../../../../../../../../k8s/groups/EDP/CodebaseBranch/hooks/useCodebaseBranchesByCodebaseNameLabelQuery';
@@ -82,7 +83,7 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
   }, [appName, applicationsFieldArrayValue, inputDockerStreamsValue, removeRow, setValue]);
 
   const setDefaultValues = React.useCallback(() => {
-    if (applicationBranchesListIsLoading) {
+    if (applicationBranchesListIsLoading || !applicationBranchesList?.length) {
       return;
     }
 
@@ -136,100 +137,109 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
   // @ts-ignore
   const rowAppBranchFieldValue = watch(rowAppBranchField);
 
+  const appBranchError =
+    errors[CDPIPELINE_FORM_NAMES.applicationsFieldArray.name]?.[index]?.appBranch;
+
   return (
     <Grid item xs={12} className={classes.application}>
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <FormTextField
-            {...register(
-              // @ts-ignore
-              rowAppNameField
-            )}
-            label="Application"
-            disabled
-            defaultValue={appName}
-            control={control}
-            errors={errors}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <FormAutocompleteSingle
-            placeholder={'Select branch'}
-            {...register(
-              // @ts-ignore
-              rowAppBranchField,
-              {
-                required: 'Select branch',
-                onChange: ({ target: { value } }: FieldEvent) => {
-                  const currentInputDockerStreamsValue = getValues(
-                    CDPIPELINE_FORM_NAMES.inputDockerStreams.name
-                  );
+      <LoadingWrapper isLoading={applicationBranchesListIsLoading}>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <FormTextField
+              {...register(
+                // @ts-ignore
+                rowAppNameField
+              )}
+              label="Application"
+              disabled
+              defaultValue={appName}
+              control={control}
+              errors={errors}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <FormAutocompleteSingle
+              placeholder={'Select branch'}
+              {...register(
+                // @ts-ignore
+                rowAppBranchField,
+                {
+                  required: 'Select branch',
+                  onChange: ({ target: { value } }: FieldEvent) => {
+                    const currentInputDockerStreamsValue = getValues(
+                      CDPIPELINE_FORM_NAMES.inputDockerStreams.name
+                    );
 
-                  const newInputDockerStreamsValue = [
-                    ...currentInputDockerStreamsValue.filter((el) => el !== rowAppBranchFieldValue),
-                    value,
-                  ];
-                  setValue(
-                    CDPIPELINE_FORM_NAMES.inputDockerStreams.name,
-                    newInputDockerStreamsValue
-                  );
-                },
+                    const newInputDockerStreamsValue = [
+                      ...currentInputDockerStreamsValue.filter(
+                        (el) => el !== rowAppBranchFieldValue
+                      ),
+                      value,
+                    ];
+                    setValue(
+                      CDPIPELINE_FORM_NAMES.inputDockerStreams.name,
+                      newInputDockerStreamsValue
+                    );
+                  },
+                }
+              )}
+              label="Branch"
+              control={control}
+              errors={{
+                [appBranchError?.ref?.name]: appBranchError,
+              }}
+              defaultValue={{
+                label: '',
+                value: '',
+              }}
+              options={
+                applicationBranchesList
+                  ? applicationBranchesList.map((el) => ({
+                      label: el.spec.branchName,
+                      value: el.metadata.name,
+                    }))
+                  : []
               }
-            )}
-            label="Branch"
-            control={control}
-            errors={errors}
-            defaultValue={{
-              label: '',
-              value: '',
-            }}
-            options={
-              applicationBranchesList
-                ? applicationBranchesList.map((el) => ({
-                    label: el.spec.branchName,
-                    value: el.metadata.name,
-                  }))
-                : []
-            }
-          />
-        </Grid>
-        <Grid item xs={3} sx={{ mt: theme.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
-          <FormCheckbox
-            {...register(
-              // @ts-ignore
-              rowAppToPromoteField,
-              {
-                onChange: ({ target: { value } }: FieldEvent) => {
-                  const currentAppsToPromoteValue = getValues(
-                    CDPIPELINE_FORM_NAMES.applicationsToPromote.name
-                  );
+            />
+          </Grid>
+          <Grid item xs={3} sx={{ mt: theme.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
+            <FormCheckbox
+              {...register(
+                // @ts-ignore
+                rowAppToPromoteField,
+                {
+                  onChange: ({ target: { value } }: FieldEvent) => {
+                    const currentAppsToPromoteValue = getValues(
+                      CDPIPELINE_FORM_NAMES.applicationsToPromote.name
+                    );
 
-                  const newValue = [
-                    ...currentAppsToPromoteValue.filter((el) => el !== appName),
-                    ...(value ? [appName] : []),
-                  ];
+                    const newValue = [
+                      ...currentAppsToPromoteValue.filter((el) => el !== appName),
+                      ...(value ? [appName] : []),
+                    ];
 
-                  setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, newValue);
-                },
-              }
-            )}
-            label={<FormControlLabelWithTooltip label={'Promote in pipeline'} />}
-            control={control}
-            errors={errors}
-          />
+                    setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, newValue);
+                  },
+                }
+              )}
+              label={<FormControlLabelWithTooltip label={'Promote in pipeline'} />}
+              control={control}
+              errors={errors}
+            />
+          </Grid>
+          <Grid item xs={1} sx={{ mt: theme.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
+            <Button
+              type={'button'}
+              size={'small'}
+              component={'button'}
+              style={{ minWidth: 0 }}
+              onClick={handleDeleteApplicationRow}
+            >
+              <Icon icon={ICONS['BUCKET']} width={20} color={theme.palette.grey['500']} />
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={1} sx={{ mt: theme.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
-          <Button
-            type={'button'}
-            size={'small'}
-            component={'button'}
-            style={{ minWidth: 0 }}
-            onClick={handleDeleteApplicationRow}
-          >
-            <Icon icon={ICONS['BUCKET']} width={20} color={theme.palette.grey['500']} />
-          </Button>
-        </Grid>
-      </Grid>
+      </LoadingWrapper>
     </Grid>
   );
 };
