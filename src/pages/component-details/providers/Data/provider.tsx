@@ -1,16 +1,50 @@
+import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { INTEGRATION_SECRET_NAMES } from '../../../../k8s/groups/default/Secret/constants';
-import { useSecretByNameQuery } from '../../../../k8s/groups/default/Secret/hooks/useSecretByName';
+import { ConfigMapKubeObject } from '../../../../k8s/groups/default/ConfigMap';
+import { EDP_CONFIG_CONFIG_MAP_NAME } from '../../../../k8s/groups/default/ConfigMap/constants';
+import { SYSTEM_QUICK_LINKS } from '../../../../k8s/groups/EDP/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
-import { LinkCreationService } from '../../../../services/link-creation';
-import { safeDecode, safeEncode } from '../../../../utils/decodeEncode';
+import {
+  ApiServiceBase,
+  DependencyTrackApiService,
+  SonarApiService,
+} from '../../../../services/api';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { MetricKey, SonarQubeMetricsResponse } from '../../../../widgets/SonarQubeMetrics/types';
 import { ComponentDetailsRouteParams } from '../../types';
-import { useDynamicDataContext } from '../DynamicData/hooks';
 import { DataContext } from './context';
+
+function getToken(cluster: string) {
+  return JSON.parse(localStorage.tokens || '{}')?.[cluster];
+}
+
+const getDepTrackProjectDefaultVersion = (projectCollection: {
+  collection: {
+    active: boolean;
+    classifier: string;
+    lastBomImport: number;
+    lastBomImportFormat: string;
+    lastInheritedRiskScore: number;
+    name: string;
+    properties: string[];
+    tags: string[];
+    uuid: string;
+    version: string;
+  }[];
+}) => {
+  if (!projectCollection) {
+    return null;
+  }
+
+  const main = projectCollection.collection.find((item) => item.version === 'main');
+
+  const project = main || projectCollection.collection[0];
+
+  return project?.uuid;
+};
 
 const getSonarMetricValues = (metrics: SonarQubeMetricsResponse): Record<MetricKey, string> => {
   const values: Record<MetricKey, string> = {
@@ -37,152 +71,103 @@ const getSonarMetricValues = (metrics: SonarQubeMetricsResponse): Record<MetricK
   return values;
 };
 
-const fetcher = async (url: string, headers: Record<string, string>) => {
-  return fetch(url, {
-    method: 'GET',
-    headers,
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error(`Request failed: ${response.status}`);
-      }
-    })
-    .catch((error) => {
-      throw new Error(`Request failed: ${error?.message}`);
-    });
-};
-
 export const DataContextProvider: React.FC = ({ children }) => {
+  const cluster = Utils.getCluster();
+  const token = getToken(cluster);
   const { namespace, name } = useParams<ComponentDetailsRouteParams>();
-  const { data: QuickLinksURLs } = useQuickLinksURLsQuery();
-  const { component } = useDynamicDataContext();
-  const sonarQubeBaseURL = QuickLinksURLs?.sonar;
-  const depTrackBaseURL = QuickLinksURLs?.['dependency-track'];
 
-  const { data: sonarSecret, error: sonarSecretError } = useSecretByNameQuery<{
-    token: string;
-  }>({
-    props: {
-      namespace,
-      name: INTEGRATION_SECRET_NAMES.SONAR,
-    },
-    options: {
-      select: (data) => ({
-        token: safeDecode(data?.data?.token),
-      }),
-    },
-  });
-
-  const { data: depTrackSecret, error: depTrackSecretError } = useSecretByNameQuery<{
-    token: string;
-  }>({
-    props: {
-      namespace,
-      name: INTEGRATION_SECRET_NAMES.DEPENDENCY_TRACK,
-    },
-    options: {
-      select: (data) => ({
-        token: safeDecode(data?.data?.token),
-      }),
-    },
-  });
-
-  const depTrackRequestHeaders = {
-    'X-Api-Key': depTrackSecret?.token,
-  };
-
-  const projectByNameApiUrl = LinkCreationService.depTrack.createProjectByNameApiUrl(
-    depTrackBaseURL,
-    name
+  const [EDPConfigMap] = ConfigMapKubeObject.useGet(
+    EDP_CONFIG_CONFIG_MAP_NAME,
+    getDefaultNamespace()
   );
 
-  const { data: projectUUID, error: depTrackProjectError } = useQuery(
-    ['depTrackProjectByName', { codebaseName: name }],
+  const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
+
+  const apiGatewayUrl = EDPConfigMap?.data?.api_gateway_url;
+
+  const noApiGatewayUrlError = React.useMemo(
+    () =>
+      !apiGatewayUrl && {
+        message: 'No API Gateway URL found in the EDP Config ConfigMap',
+      },
+    [apiGatewayUrl]
+  );
+
+  const apiService = new ApiServiceBase(apiGatewayUrl, token);
+
+  const sonarApiService = new SonarApiService(apiService);
+  const depTrackApiService = new DependencyTrackApiService(apiService);
+
+  const {
+    data: sonarMetrics,
+    isFetched: sonarMetricsIsFetched,
+    error: sonarMetricsError,
+  } = useQuery(
+    ['sonarMetrics', namespace, name],
+    () => apiService.createFetcher(sonarApiService.getMetricsEndpoint(name)),
     {
-      queryFn: async () => fetcher(projectByNameApiUrl, depTrackRequestHeaders),
-      select: (data) => data?.[0]?.uuid,
-      onError: () => undefined,
-      enabled: !!depTrackBaseURL && !!depTrackSecret?.token,
+      enabled: !!apiService.apiBaseURL,
+      select: (data) => getSonarMetricValues(data),
     }
   );
 
-  const projectVulnsApiUrl = LinkCreationService.depTrack.createProjectVulnsApiUrl(
-    depTrackBaseURL,
-    projectUUID
+  const {
+    data: depTrackProject,
+    error: depTrackProjectError,
+    status: depTrackProjectQueryStatus,
+  } = useQuery(
+    ['depTrackProject', namespace, name],
+    () => apiService.createFetcher(depTrackApiService.getProjectEndpoint(name)),
+    {
+      enabled: !!apiService.apiBaseURL,
+    }
   );
 
-  const {
-    data: projectVulnsData,
-    isFetched: projectVulnsDataIsFetched,
-    error: projectVulnsDataError,
-  } = useQuery(['depTrackProjectVulns', { projectUUID: projectUUID }], {
-    queryFn: async () => fetcher(projectVulnsApiUrl, depTrackRequestHeaders),
-    onError: () => undefined,
-    enabled: !!depTrackBaseURL && !!depTrackSecret?.token && !!projectUUID,
-  });
+  const depTrackProjectID = getDepTrackProjectDefaultVersion(depTrackProject);
 
-  const sonarMetricsApiUrl = LinkCreationService.sonar.createMetricsApiUrl({
-    baseURL: sonarQubeBaseURL,
-    codebaseName: name,
-  });
-  const sonarRequestHeaders = {
-    Authorization: `Basic ${safeEncode(`${sonarSecret?.token}:`)}`,
-  };
-
-  const {
-    data: sonarMetricsData,
-    isFetched: sonarMetricsDataIsFetched,
-    error: sonarMetricsDataError,
-  } = useQuery(['sonarQubeMetrics', { codebaseName: name }], {
-    queryFn: async () => fetcher(sonarMetricsApiUrl, sonarRequestHeaders),
-    select: (data: SonarQubeMetricsResponse) => getSonarMetricValues(data),
-    onError: () => undefined,
-    enabled: !!sonarQubeBaseURL && !!sonarSecret?.token && !!component.data,
-  });
-
-  const depTrackError = (depTrackSecretError ||
-    depTrackProjectError ||
-    projectVulnsDataError) as ApiError;
-
-  const depTrackIsLoading = !depTrackBaseURL
-    ? false
-    : !projectVulnsDataIsFetched && !!depTrackSecret?.token && !depTrackError;
-
-  const sonarError = (sonarSecretError || sonarMetricsDataError) as ApiError;
-  const sonarIsLoading = !sonarQubeBaseURL
-    ? false
-    : !sonarMetricsDataIsFetched && !!sonarSecret?.token && !sonarError;
+  const { data: depTrackProjectMetrics, error: depTrackProjectMetricsError } = useQuery(
+    ['depTrackProjectMetrics', namespace, name],
+    () => apiService.createFetcher(depTrackApiService.getProjectMetricsEndpoint(depTrackProjectID)),
+    {
+      enabled: !!apiService.apiBaseURL && !!depTrackProjectID,
+    }
+  );
 
   const DataContextValue = React.useMemo(
     () => ({
       depTrackData: {
         data: {
-          metrics: projectVulnsData,
-          baseUrl: depTrackBaseURL,
+          metrics: depTrackProjectMetrics,
+          baseUrl: QuickLinksURLS?.[SYSTEM_QUICK_LINKS.DEPENDENCY_TRACK],
         },
-        error: depTrackError,
-        isLoading: depTrackIsLoading,
+        error: (noApiGatewayUrlError ||
+          depTrackProjectError ||
+          depTrackProjectMetricsError) as ApiError,
+        isLoading:
+          !noApiGatewayUrlError &&
+          depTrackProjectQueryStatus !== 'success' &&
+          !depTrackProjectError &&
+          !depTrackProjectMetricsError,
       },
       sonarData: {
         data: {
-          metrics: sonarMetricsData,
-          baseUrl: sonarQubeBaseURL,
+          metrics: sonarMetrics,
+          baseUrl: QuickLinksURLS?.[SYSTEM_QUICK_LINKS.SONAR],
         },
-        error: sonarError,
-        isLoading: sonarIsLoading,
+        error: (noApiGatewayUrlError || sonarMetricsError) as ApiError,
+        isLoading: !noApiGatewayUrlError && !sonarMetricsIsFetched,
       },
     }),
     [
-      depTrackBaseURL,
-      depTrackError,
-      depTrackIsLoading,
-      projectVulnsData,
-      sonarError,
-      sonarIsLoading,
-      sonarMetricsData,
-      sonarQubeBaseURL,
+      QuickLinksURLS,
+      depTrackProjectError,
+      depTrackProjectMetrics,
+      depTrackProjectMetricsError,
+      depTrackProjectQueryStatus,
+      noApiGatewayUrlError,
+      sonarMetrics,
+      sonarMetricsError,
+      sonarMetricsIsFetched,
     ]
   );
 
