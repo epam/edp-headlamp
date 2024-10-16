@@ -10,7 +10,8 @@ export function getQueryClient() {
     queryClientInstance = new QueryClient({
       defaultOptions: {
         queries: {
-          staleTime: Infinity,
+          staleTime: 0,
+          cacheTime: 0,
           refetchOnWindowFocus: false,
           retry: false,
         },
