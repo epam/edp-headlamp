@@ -35,7 +35,16 @@ export class SonarApiService {
   }
 
   getMetricsEndpoint(componentName: string) {
-    return `${this.apiService.apiBaseURL}/widgets/sonarqube/measures/component?component=${componentName}&metricKeys=bugs,code_smells,coverage,duplicated_lines_density,ncloc,sqale_rating,alert_status,reliability_rating,security_hotspots,security_rating,sqale_index,vulnerabilities`;
+    const params = new URLSearchParams({
+      component: componentName,
+      metricKeys:
+        'bugs,code_smells,coverage,duplicated_lines_density,ncloc,sqale_rating,alert_status,reliability_rating,security_hotspots,security_rating,sqale_index,vulnerabilities',
+    });
+
+    return new URL(
+      `/widgets/sonarqube/measures/component?${params.toString()}`,
+      this.apiService.apiBaseURL
+    ).toString();
   }
 }
 
@@ -47,10 +56,22 @@ export class DependencyTrackApiService {
   }
 
   getProjectEndpoint(projectName: string) {
-    return `${this.apiService.apiBaseURL}/widgets/deptrack/project?name=${projectName}`;
+    const params = new URLSearchParams({
+      name: projectName,
+    });
+    return new URL(
+      `/widgets/deptrack/project?${params.toString()}`,
+      this.apiService.apiBaseURL
+    ).toString();
   }
 
   getProjectMetricsEndpoint(projectID: string) {
-    return `${this.apiService.apiBaseURL}/widgets/deptrack/metrics/project/${projectID}/current`;
+    const params = new URLSearchParams({
+      projectID: projectID,
+    });
+    return new URL(
+      `/widgets/deptrack/metrics/project/${projectID}/current?${params.toString()}`,
+      this.apiService.apiBaseURL
+    ).toString();
   }
 }

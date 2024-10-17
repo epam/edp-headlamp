@@ -6,8 +6,6 @@ import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../../../../../constants/ui'
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { useCodebaseBranchesByCodebaseNameLabelQuery } from '../../../../../../../../k8s/groups/EDP/CodebaseBranch/hooks/useCodebaseBranchesByCodebaseNameLabelQuery';
 import { FormAutocompleteSingle } from '../../../../../../../../providers/Form/components/FormAutocompleteSingle';
-import { FormCheckbox } from '../../../../../../../../providers/Form/components/FormCheckbox';
-import { FormControlLabelWithTooltip } from '../../../../../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { FormTextField } from '../../../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../../../../types/forms';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
@@ -49,7 +47,6 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
 
   const rowAppNameField = `${CDPIPELINE_FORM_NAMES.applicationsFieldArray.name}.${index}.appName`;
   const rowAppBranchField = `${CDPIPELINE_FORM_NAMES.applicationsFieldArray.name}.${index}.appBranch`;
-  const rowAppToPromoteField = `${CDPIPELINE_FORM_NAMES.applicationsFieldArray.name}.${index}.appToPromote`;
 
   const applicationsFieldArrayValue = watch(CDPIPELINE_FORM_NAMES.applicationsFieldArray.name);
   const inputDockerStreamsValue = watch(CDPIPELINE_FORM_NAMES.inputDockerStreams.name);
@@ -144,7 +141,7 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
     <Grid item xs={12} className={classes.application}>
       <LoadingWrapper isLoading={applicationBranchesListIsLoading}>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={5}>
             <FormTextField
               {...register(
                 // @ts-ignore
@@ -157,7 +154,7 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
               errors={errors}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <FormAutocompleteSingle
               placeholder={'Select branch'}
               {...register(
@@ -200,31 +197,6 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
                     }))
                   : []
               }
-            />
-          </Grid>
-          <Grid item xs={3} sx={{ mt: theme.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
-            <FormCheckbox
-              {...register(
-                // @ts-ignore
-                rowAppToPromoteField,
-                {
-                  onChange: ({ target: { value } }: FieldEvent) => {
-                    const currentAppsToPromoteValue = getValues(
-                      CDPIPELINE_FORM_NAMES.applicationsToPromote.name
-                    );
-
-                    const newValue = [
-                      ...currentAppsToPromoteValue.filter((el) => el !== appName),
-                      ...(value ? [appName] : []),
-                    ];
-
-                    setValue(CDPIPELINE_FORM_NAMES.applicationsToPromote.name, newValue);
-                  },
-                }
-              )}
-              label={<FormControlLabelWithTooltip label={'Promote in pipeline'} />}
-              control={control}
-              errors={errors}
             />
           </Grid>
           <Grid item xs={1} sx={{ mt: theme.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>

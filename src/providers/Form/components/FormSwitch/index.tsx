@@ -15,6 +15,7 @@ export const FormSwitch = React.forwardRef(
       defaultValue = false,
       disabled,
       align = 'flex-start',
+      labelPlacement = 'end',
       ...props
     }: FormSwitchProps,
     ref: React.RefObject<HTMLInputElement>
@@ -50,6 +51,7 @@ export const FormSwitch = React.forwardRef(
                         {label}
                       </span>
                     }
+                    labelPlacement={labelPlacement}
                   />
                 );
               }}
