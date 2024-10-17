@@ -46,12 +46,8 @@ const updateApprovalTask = ({
   return updatedApprovalTask;
 };
 
-function getTokens() {
-  return JSON.parse(localStorage.tokens || '{}');
-}
-
 function getToken(cluster: string) {
-  return getTokens()[cluster];
+  return JSON.parse(localStorage.tokens || '{}')?.[cluster];
 }
 
 function getUserInfo(cluster: string) {
