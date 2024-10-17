@@ -1,3 +1,4 @@
+import { FormControlLabelProps } from '@mui/material';
 import React from 'react';
 import { Control } from 'react-hook-form/dist/types';
 import { FieldErrors } from 'react-hook-form/dist/types/errors';
@@ -10,4 +11,5 @@ export interface FormSwitchProps {
   defaultValue?: boolean;
   disabled?: boolean;
   align?: React.CSSProperties['justifyContent'];
+  labelPlacement?: FormControlLabelProps['labelPlacement'];
 }
