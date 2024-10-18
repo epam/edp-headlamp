@@ -17,6 +17,8 @@ export const useDefaultValues = () => {
       [CDPIPELINE_FORM_NAMES.applicationsToAddChooser.name]: CDPipelineData?.spec.applications.map(
         (app) => app
       ),
+      [CDPIPELINE_FORM_NAMES.applicationsToPromoteAll.name]:
+        !!CDPipelineData?.spec.applicationsToPromote?.length,
       [CDPIPELINE_FORM_NAMES.applicationsFieldArray.name]: CDPipelineData?.spec.applications.map(
         (app, idx) => ({
           appName: app,
