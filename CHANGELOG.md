@@ -1,8 +1,17 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="v0.16.0"></a>
+## [v0.16.0] - 2024-10-18
 ### Features
 
+- Set edp as default versioning type ([#437](https://github.com/epam/edp-headlamp/issues/437))
+- Update deployment flow promote ([#432](https://github.com/epam/edp-headlamp/issues/432)) ([#433](https://github.com/epam/edp-headlamp/issues/433))
+- Add krakend backend integration ([#427](https://github.com/epam/edp-headlamp/issues/427))
+- Update approve reject ([#423](https://github.com/epam/edp-headlamp/issues/423))
+- Update codebase branch link ([#412](https://github.com/epam/edp-headlamp/issues/412))
+- Update env variables to use configmap ([#404](https://github.com/epam/edp-headlamp/issues/404))
 - Add env variables section ([#404](https://github.com/epam/edp-headlamp/issues/404))
 - Add support for the Bitbucket Cloud GitServer ([#402](https://github.com/epam/edp-headlamp/issues/402))
 - Update build run creation ([#400](https://github.com/epam/edp-headlamp/issues/400))
@@ -50,6 +59,17 @@
 
 ### Bug Fixes
 
+- To promote default value ([#432](https://github.com/epam/edp-headlamp/issues/432)) ([#434](https://github.com/epam/edp-headlamp/issues/434))
+- Requests caching ([#427](https://github.com/epam/edp-headlamp/issues/427))
+- No branch crash, registry create, login redirect ([#419](https://github.com/epam/edp-headlamp/issues/419))
+- Fix pipelines ([#421](https://github.com/epam/edp-headlamp/issues/421))
+- Fix redirect after auth ([#419](https://github.com/epam/edp-headlamp/issues/419)) ([#420](https://github.com/epam/edp-headlamp/issues/420))
+- Try fix redirect after auth ([#418](https://github.com/epam/edp-headlamp/issues/418))
+- Try fix tests crash on prod ([#416](https://github.com/epam/edp-headlamp/issues/416))
+- Fix to promote default values ([#414](https://github.com/epam/edp-headlamp/issues/414))
+- Fix cdpipeline list provider [#410](https://github.com/epam/edp-headlamp/issues/410)
+- Fix multi ns errors ([#409](https://github.com/epam/edp-headlamp/issues/409))
+- Fix gitops custom value path for bitbucket ([#402](https://github.com/epam/edp-headlamp/issues/402))
 - Fix sonar metrics ([#397](https://github.com/epam/edp-headlamp/issues/397))
 - Update sanitize util ([#391](https://github.com/epam/edp-headlamp/issues/391))
 - Fix username get crash ([#372](https://github.com/epam/edp-headlamp/issues/372))
@@ -73,6 +93,7 @@
 
 ### Routine
 
+- Add annotation to control pod seesion timeout([#435](https://github.com/epam/edp-headlamp/issues/435))
 - Update image version ([#395](https://github.com/epam/edp-headlamp/issues/395)) ([#396](https://github.com/epam/edp-headlamp/issues/396))
 - Re-structure documentation assets ([#375](https://github.com/epam/edp-headlamp/issues/375))
 - Update Dockerfile base image ([#346](https://github.com/epam/edp-headlamp/issues/346))
@@ -85,6 +106,7 @@
 
 ### Documentation
 
+- Update changelog file for release notes ([#382](https://github.com/epam/edp-headlamp/issues/382))
 - Update CHANGELOG.md file ([#382](https://github.com/epam/edp-headlamp/issues/382))
 
 
@@ -507,7 +529,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.15.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.16.0...HEAD
+[v0.16.0]: https://github.com/epam/edp-headlamp/compare/v0.15.0...v0.16.0
 [v0.15.0]: https://github.com/epam/edp-headlamp/compare/v0.14.0...v0.15.0
 [v0.14.0]: https://github.com/epam/edp-headlamp/compare/v0.13.1...v0.14.0
 [v0.13.1]: https://github.com/epam/edp-headlamp/compare/v0.13.0...v0.13.1
