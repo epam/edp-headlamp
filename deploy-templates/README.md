@@ -40,7 +40,7 @@ A Helm chart for KubeRocketCI Headlamp
 | image.repository | string | `"epamedp/edp-headlamp"` | KubeRocketCI headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp) |
 | image.tag | string | `nil` | KubeRocketCI headlamp Docker image tag. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp/tags) |
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |
-| ingress.annotations | object | `{}` | Annotations for Ingress resource |
+| ingress.annotations | object | `{"nginx.ingress.kubernetes.io/proxy-read-timeout":"1800"}` | Annotations for Ingress resource |
 | ingress.enabled | bool | `true` | Enable external endpoint access. Default Ingress/Route host pattern: portal-{{ .Release.Namespace }}.{{ .Values.global.dnsWildCard }} |
 | ingress.host | string | `""` | If hosts not defined the will create by pattern "portal-[namespace].[global DNS wildcard]" |
 | ingress.tls | list | `[]` | If hosts not defined the will create by pattern "portal-[namespace].[global DNS wildcard]" |
