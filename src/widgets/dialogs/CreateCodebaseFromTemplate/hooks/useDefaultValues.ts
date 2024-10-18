@@ -5,8 +5,8 @@ import { useGitServerListQuery } from '../../../../k8s/groups/EDP/GitServer/hook
 import { TemplateKubeObjectInterface } from '../../../../k8s/groups/EDP/Template/types';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../names';
 
-const defaultEDPVersioningValue = '0.1.0-SNAPSHOT';
 const defaultBranchName = 'main';
+const defaultEDPVersioningValue = '0.1.0-SNAPSHOT';
 const [defaultEDPVersioningVersion, defaultEDPVersioningVersionPostfix] =
   defaultEDPVersioningValue.split('-');
 
