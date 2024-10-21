@@ -13,6 +13,10 @@ export const Name = () => {
     <FormTextField
       {...gitServerForm.form.register(GIT_SERVER_FORM_NAMES.name.name, {
         required: 'Enter the Git server name.',
+        pattern: {
+          value: /^[a-z]+$/,
+          message: 'The name should contain lowercase letters only.',
+        },
       })}
       label={'Name'}
       title={'Enter the name of your Git Server (e.g., my-github).'}
