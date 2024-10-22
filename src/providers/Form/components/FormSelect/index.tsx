@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 import {
   Box,
   FormControl,
+  FormHelperText,
   InputLabel,
   ListItemIcon,
   ListItemText,
@@ -31,6 +32,7 @@ export const FormSelect = React.forwardRef(
       options = [],
       errors,
       disabled,
+      helperText,
       ...props
     }: FormSelectProps,
     ref: React.RefObject<HTMLInputElement>
@@ -118,6 +120,7 @@ export const FormSelect = React.forwardRef(
             control={control}
             {...props}
           />
+          {helperText && <FormHelperText>{helperText}</FormHelperText>}
         </FormControl>
         {hasError && (
           <Typography component={'span'} variant={'subtitle2'} color={'error'}>

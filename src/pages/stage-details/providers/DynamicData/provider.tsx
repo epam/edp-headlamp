@@ -3,7 +3,8 @@ import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluste
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
-import { useStreamApplicationListByPipelineStageLabel } from '../../../../k8s/groups/ArgoCD/Application/hooks/useStreamApplicationListByPipelineStageLabel';
+import { ApplicationKubeObject } from '../../../../k8s/groups/ArgoCD/Application';
+import { ApplicationKubeObjectInterface } from '../../../../k8s/groups/ArgoCD/Application/types';
 import { ConfigMapKubeObject } from '../../../../k8s/groups/default/ConfigMap';
 import { GitServerKubeObject } from '../../../../k8s/groups/EDP/GitServer';
 import { StageKubeObject } from '../../../../k8s/groups/EDP/Stage';
@@ -26,6 +27,21 @@ const filterByLabels = (items: KubeObjectInterface[], labels: Record<string, str
       return item.metadata.labels?.[label[0]] === label[1];
     })
   );
+};
+
+const checkApplicationsForStatusChange = (
+  oldData: ApplicationKubeObjectInterface[],
+  newData: ApplicationKubeObjectInterface[]
+) => {
+  return oldData.some((oldApp, index) => {
+    const newApp = newData[index];
+    if (!newApp || !oldApp) return false;
+    const oldStatus = oldApp.status?.health?.status;
+    const newStatus = newApp.status?.health?.status;
+    const oldSync = oldApp.status?.sync?.status;
+    const newSync = newApp.status?.sync?.status;
+    return oldStatus !== newStatus || oldSync !== newSync;
+  });
 };
 
 const sortFn = (data: PipelineRunKubeObjectInterface[]) =>
@@ -104,11 +120,30 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     });
   }, [CDPipelineName, pipelineRuns, stageMetadataName]);
 
-  const argoApplications = useStreamApplicationListByPipelineStageLabel({
-    namespace,
-    stageSpecName,
-    CDPipelineMetadataName: CDPipelineName,
-  });
+  const [applicationList, setApplicationList] =
+    React.useState<ApplicationKubeObjectInterface[]>(null);
+
+  React.useEffect(() => {
+    if (!stageSpecName) {
+      return;
+    }
+
+    const cancelStream = ApplicationKubeObject.streamApplicationListByPipelineStageLabel({
+      namespace,
+      stageSpecName,
+      CDPipelineMetadataName: CDPipelineName,
+      dataHandler: (newData) => {
+        if (!applicationList || checkApplicationsForStatusChange(applicationList, newData)) {
+          setApplicationList(newData);
+        }
+      },
+      errorHandler: (error) => console.error(error),
+    });
+
+    return () => {
+      cancelStream();
+    };
+  }, [CDPipelineName, applicationList, namespace, stageSpecName]);
 
   const deployPipelineRunTemplate = useTriggerTemplateByNameQuery({
     props: {
@@ -153,8 +188,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         error: pipelineRunsError,
       },
       argoApplications: {
-        data: argoApplications,
-        isLoading: argoApplications === null,
+        data: applicationList,
+        isLoading: applicationList === null,
         error: null,
       },
       deployPipelineRunTemplate: {
@@ -187,7 +222,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       pipelineRunsError,
       deployPipelineRuns,
       cleanPipelineRuns,
-      argoApplications,
+      applicationList,
       deployPipelineRunTemplate.data,
       deployPipelineRunTemplate.isLoading,
       deployPipelineRunTemplate.error,
