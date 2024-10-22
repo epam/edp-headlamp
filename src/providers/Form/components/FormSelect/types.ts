@@ -11,5 +11,6 @@ export interface FormSelectProps {
   label?: string;
   title?: string | React.ReactElement;
   defaultValue?: string;
+  helperText?: string;
   disabled?: boolean;
 }
