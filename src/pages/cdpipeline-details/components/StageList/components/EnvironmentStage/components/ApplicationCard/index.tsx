@@ -3,6 +3,7 @@ import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Button, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
+import { ConditionalWrapper } from '../../../../../../../../components/ConditionalWrapper';
 import { LoadingWrapper } from '../../../../../../../../components/LoadingWrapper';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
@@ -15,6 +16,7 @@ import {
   APPLICATION_LABEL_SELECTOR_STAGE,
 } from '../../../../../../../../k8s/groups/ArgoCD/Application/labels';
 import { ApplicationKubeObjectInterface } from '../../../../../../../../k8s/groups/ArgoCD/Application/types';
+import { PodKubeObject } from '../../../../../../../../k8s/groups/default/Pod';
 import {
   SYSTEM_QUICK_LINKS,
   SYSTEM_QUICK_LINKS_LABELS,
@@ -41,6 +43,7 @@ export const ApplicationCard = ({
   argoApplication,
   QuickLinksURLS,
   CDPipeline,
+  stagePods,
 }: ApplicationCardProps) => {
   const theme = useTheme();
 
@@ -66,6 +69,42 @@ export const ApplicationCard = ({
   );
 
   const isExternalCluster = stage.spec.clusterName !== DEFAULT_CLUSTER;
+
+  const applicationPods = React.useMemo(() => {
+    if (!stagePods || !stagePods.length || !argoApplication) {
+      return [];
+    }
+    return stagePods.reduce((acc, pod) => {
+      if (
+        pod.metadata.labels['app.kubernetes.io/instance'] ===
+        argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_APP_NAME]
+      ) {
+        //@ts-ignore
+        acc.push(new PodKubeObject(pod));
+      }
+      return acc;
+    }, []);
+  }, [argoApplication, stagePods]);
+
+  const podButtonDisabled = React.useMemo(() => {
+    if (!argoApplication) {
+      return {
+        status: true,
+        reason: 'Could not find ArgoCD Application for this application',
+      };
+    }
+
+    if (!applicationPods || !applicationPods.length) {
+      return {
+        status: true,
+        reason: 'Could not find Pods for this application',
+      };
+    }
+
+    return {
+      status: false,
+    };
+  }, [argoApplication, applicationPods]);
 
   return (
     <LoadingWrapper isLoading={!argoApplication?.status?.health}>
@@ -165,34 +204,50 @@ export const ApplicationCard = ({
           </Stack>
           {!isExternalCluster && (
             <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
-              <Button
-                variant="text"
-                sx={{ color: theme.palette.secondary.dark }}
-                onClick={() =>
-                  setDialog(PodsLogViewerDialog, {
-                    stageNamespace: stage.spec.namespace,
-                    appName: application.metadata.name,
-                  })
-                }
-                disabled={!argoApplication}
-                endIcon={<Icon icon={'mdi:file-document-box-outline'} width={18} height={18} />}
+              <ConditionalWrapper
+                condition={podButtonDisabled.status}
+                wrapper={(children) => (
+                  <Tooltip title={podButtonDisabled.reason}>
+                    <div>{children}</div>
+                  </Tooltip>
+                )}
               >
-                logs
-              </Button>
-              <Button
-                variant="text"
-                sx={{ color: theme.palette.secondary.dark }}
-                onClick={() =>
-                  setDialog(PodsTerminalDialog, {
-                    stageNamespace: stage.spec.namespace,
-                    appName: application.metadata.name,
-                  })
-                }
-                disabled={!argoApplication}
-                endIcon={<Icon icon={'material-symbols:terminal'} width={18} height={18} />}
+                <Button
+                  variant="text"
+                  sx={{ color: theme.palette.secondary.dark }}
+                  onClick={() =>
+                    setDialog(PodsLogViewerDialog, {
+                      pods: applicationPods,
+                    })
+                  }
+                  disabled={podButtonDisabled.status}
+                  endIcon={<Icon icon={'mdi:file-document-box-outline'} width={18} height={18} />}
+                >
+                  logs
+                </Button>
+              </ConditionalWrapper>
+              <ConditionalWrapper
+                condition={podButtonDisabled.status}
+                wrapper={(children) => (
+                  <Tooltip title={podButtonDisabled.reason}>
+                    <div>{children}</div>
+                  </Tooltip>
+                )}
               >
-                terminal
-              </Button>
+                <Button
+                  variant="text"
+                  sx={{ color: theme.palette.secondary.dark }}
+                  onClick={() =>
+                    setDialog(PodsTerminalDialog, {
+                      pods: applicationPods,
+                    })
+                  }
+                  disabled={podButtonDisabled.status}
+                  endIcon={<Icon icon={'material-symbols:terminal'} width={18} height={18} />}
+                >
+                  terminal
+                </Button>
+              </ConditionalWrapper>
             </Stack>
           )}
         </Stack>

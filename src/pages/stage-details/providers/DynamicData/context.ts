@@ -21,4 +21,5 @@ export const DynamicDataContext = React.createContext<DynamicDataContextProvider
     //
   },
   variablesConfigMap: initialData,
+  applicationPodsMap: initialData,
 });

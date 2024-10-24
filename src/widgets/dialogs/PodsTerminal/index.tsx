@@ -1,5 +1,14 @@
 import { Dialog } from '@kinvolk/headlamp-plugin/lib/components/common';
-import { Box, DialogContent, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
+import {
+  Box,
+  DialogContent,
+  FormControl,
+  Grid,
+  InputLabel,
+  ListSubheader,
+  MenuItem,
+  Select,
+} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import _ from 'lodash';
 import React from 'react';
@@ -64,35 +73,25 @@ interface XTerminalConnected {
 
 type execReturn = ReturnType<PodKubeObject['exec']>;
 
+const getDefaultContainer = (pod: PodKubeObjectInterface) => {
+  if (!pod) {
+    return '';
+  }
+
+  return pod.spec.containers.length > 0 ? pod.spec.containers[0].name : '';
+};
+
 export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, state }) => {
-  const { stageNamespace, appName, isAttach } = props;
+  const { pods, isAttach } = props;
   const { open, closeDialog } = state;
 
-  const [items, setItems] = React.useState<PodKubeObjectInterface[]>(null);
-  const [item, setItem] = React.useState<PodKubeObjectInterface>(null);
-  const [, setError] = React.useState<unknown>(null);
-  PodKubeObject.useApiList(
-    (pods: PodKubeObjectInterface[]) => {
-      setItems(pods);
-      const newActivePod = pods[0];
+  const firstPod = pods?.[0];
 
-      setItem(newActivePod);
-      setContainer(
-        newActivePod?.spec.containers.length > 0 ? newActivePod?.spec.containers[0].name : ''
-      );
-    },
-    (error) => {
-      setError(error);
-    },
-    {
-      labelSelector: `app.kubernetes.io/instance=${appName}`,
-      namespace: stageNamespace,
-    }
-  );
+  const [activePod, setActivePod] = React.useState<PodKubeObjectInterface>(firstPod);
+  const [container, setContainer] = React.useState<string>(getDefaultContainer(firstPod));
 
   const classes = useStyle();
   const [terminalContainerRef, setTerminalContainerRef] = React.useState<HTMLElement | null>(null);
-  const [container, setContainer] = React.useState<string | null>(null);
   const execOrAttachRef = React.useRef<execReturn | null>(null);
   const fitAddonRef = React.useRef<FitAddon | null>(null);
   const xtermRef = React.useRef<XTerminalConnected | null>(null);
@@ -101,10 +100,6 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
     currentIdx: 0,
   });
   const { t } = useTranslation('resource');
-
-  function getDefaultContainer() {
-    return item?.spec.containers.length > 0 ? item?.spec.containers[0].name : '';
-  }
 
   // @todo: Give the real exec type when we have it.
   function setupTerminal(containerRef: HTMLElement, xterm: XTerminal, fitAddon: FitAddon) {
@@ -313,7 +308,7 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
             t('Trying to attach to the container {{ container }}…', { container }) + '\n'
           );
 
-          execOrAttachRef.current = await item?.attach(
+          execOrAttachRef.current = await activePod?.attach(
             container,
             (items: ArrayBuffer) => onData(xtermRef.current!, items),
             { failCb: () => shellConnectFailed(xtermRef.current!) }
@@ -323,7 +318,7 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
 
           xtermRef?.current?.xterm.writeln(`Trying to run "${command}"…\n`);
 
-          execOrAttachRef.current = await item?.exec(
+          execOrAttachRef.current = await activePod?.exec(
             container,
             (items: ArrayBuffer) => onData(xtermRef.current!, items),
             { command: [command], failCb: () => shellConnectFailed(xtermRef.current!) }
@@ -348,16 +343,6 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
     [container, terminalContainerRef, shells, open]
   );
 
-  React.useEffect(
-    () => {
-      if (open && container === null) {
-        setContainer(getDefaultContainer());
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [open]
-  );
-
   React.useEffect(() => {
     if (!isAttach && shells.available.length === 0) {
       setShells({
@@ -366,10 +351,10 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item]);
+  }, [activePod]);
 
   function getAvailableShells() {
-    const selector = item?.spec?.nodeSelector || {};
+    const selector = activePod?.spec?.nodeSelector || {};
     const os = selector['kubernetes.io/os'] || selector['beta.kubernetes.io/os'];
     if (os === 'linux') {
       return ['bash', '/bin/bash', 'sh', '/bin/sh'];
@@ -384,7 +369,7 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
   }
 
   function handlePodChange(event: any) {
-    setItem(event.target.value);
+    setActivePod(event.target.value);
   }
 
   function isSuccessfulExitError(channel: number, text: string): boolean {
@@ -430,7 +415,9 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
       keepMounted
       withFullScreen
       onClose={(_, reason) => reason !== 'backdropClick' && closeDialog()}
-      title={isAttach ? `Attach: ${item?.metadata.name}` : `Terminal: ${item?.metadata.name}`}
+      title={
+        isAttach ? `Attach: ${activePod?.metadata.name}` : `Terminal: ${activePod?.metadata.name}`
+      }
     >
       <DialogContent className={classes.dialogContent}>
         <Box>
@@ -443,16 +430,14 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
                 <Select
                   labelId="pod-name-chooser-terminal-label"
                   id="pod-name-chooser-terminal"
-                  value={item ? item.metadata.name : ''}
+                  value={activePod ? activePod.metadata.name : ''}
                   onChange={handlePodChange}
                 >
-                  {items &&
-                    !!items.length &&
-                    items.map(({ metadata: { name } }) => (
-                      <MenuItem value={name} key={name}>
-                        {name}
-                      </MenuItem>
-                    ))}
+                  {(pods || []).map(({ metadata: { name } }) => (
+                    <MenuItem value={name} key={name}>
+                      {name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -464,15 +449,21 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
                 <Select
                   labelId="container-name-chooser-label"
                   id="container-name-chooser"
-                  value={container !== null ? container : getDefaultContainer()}
+                  value={container !== null ? container : getDefaultContainer(activePod)}
                   onChange={handleContainerChange}
                 >
-                  {item &&
-                    item?.spec.containers.map(({ name }) => (
-                      <MenuItem value={name} key={name}>
-                        {name}
-                      </MenuItem>
-                    ))}
+                  <ListSubheader color="inherit">Containers</ListSubheader>
+                  {(activePod?.spec.containers || []).map(({ name }) => (
+                    <MenuItem value={name} key={name}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                  <ListSubheader color="inherit">Init Containers</ListSubheader>
+                  {(activePod?.spec.initContainers || []).map(({ name }) => (
+                    <MenuItem value={name} key={name}>
+                      {name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
