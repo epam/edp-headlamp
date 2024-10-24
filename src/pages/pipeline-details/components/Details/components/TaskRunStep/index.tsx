@@ -19,7 +19,7 @@ export const TaskRunStep = ({ pipelineRunTaskData, stepName }: TaskRunStepProps)
     ? pipelineRunTaskData.taskRun?.status?.steps?.find(
         (step: TaskRunKubeObjectInterface) => step?.name === stepName
       )
-    : pipelineRunTaskData.task?.step?.steps?.find(
+    : pipelineRunTaskData.task?.spec?.steps?.find(
         (step: TaskRunKubeObjectInterface) => step?.name === stepName
       );
 
@@ -54,6 +54,8 @@ export const TaskRunStep = ({ pipelineRunTaskData, stepName }: TaskRunStepProps)
     pods,
     task: pipelineRunTaskData.task,
   });
+
+  const taskDescription = pipelineRunTaskData.task?.spec?.description || '';
 
   return (
     <Paper>
@@ -94,6 +96,22 @@ export const TaskRunStep = ({ pipelineRunTaskData, stepName }: TaskRunStepProps)
               </Typography>
             </Typography>
           </Stack>
+          {taskDescription && (
+            <Typography
+              fontSize={(t) => t.typography.pxToRem(14)}
+              fontWeight={500}
+              color="primary.dark"
+            >
+              Description:{' '}
+              <Typography
+                fontSize={(t) => t.typography.pxToRem(14)}
+                component="span"
+                color="secondary.dark"
+              >
+                {taskDescription}
+              </Typography>
+            </Typography>
+          )}
         </Stack>
       </StyledDetailsHeader>
       <Divider orientation="horizontal" />

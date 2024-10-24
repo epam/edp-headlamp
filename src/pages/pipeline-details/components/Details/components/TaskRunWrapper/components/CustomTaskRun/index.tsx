@@ -161,6 +161,8 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
     [handleClickApproveOrReject, setDialog]
   );
 
+  const taskDescription = pipelineRunTaskData.task?.spec?.description || '';
+
   return (
     <Paper>
       <StyledDetailsHeader>
@@ -201,6 +203,22 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
                 </Typography>
               </Typography>
             </Stack>
+            {taskDescription && (
+              <Typography
+                fontSize={(t) => t.typography.pxToRem(14)}
+                fontWeight={500}
+                color="primary.dark"
+              >
+                Description:{' '}
+                <Typography
+                  fontSize={(t) => t.typography.pxToRem(14)}
+                  component="span"
+                  color="secondary.dark"
+                >
+                  {taskDescription}
+                </Typography>
+              </Typography>
+            )}
           </Stack>
           {isPending && (
             <Stack direction="row" spacing={2} alignItems="center">

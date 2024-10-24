@@ -28,6 +28,8 @@ export const TaskRun = ({ pipelineRunTaskData }: TaskRunProps) => {
 
   const tabs = useTabs({ taskRun, task });
 
+  const taskDescription = pipelineRunTaskData.task?.spec?.description || '';
+
   return (
     <Paper>
       <StyledDetailsHeader>
@@ -67,6 +69,22 @@ export const TaskRun = ({ pipelineRunTaskData }: TaskRunProps) => {
               </Typography>
             </Typography>
           </Stack>
+          {taskDescription && (
+            <Typography
+              fontSize={(t) => t.typography.pxToRem(14)}
+              fontWeight={500}
+              color="primary.dark"
+            >
+              Description:{' '}
+              <Typography
+                fontSize={(t) => t.typography.pxToRem(14)}
+                component="span"
+                color="secondary.dark"
+              >
+                {taskDescription}
+              </Typography>
+            </Typography>
+          )}
         </Stack>
       </StyledDetailsHeader>
       <Divider orientation="horizontal" />
