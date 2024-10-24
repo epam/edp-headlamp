@@ -5,6 +5,8 @@ import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { QuickLink } from '../../../../../../components/QuickLink';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObject } from '../../../../../../k8s/groups/ArgoCD/Application';
+import { PodKubeObject } from '../../../../../../k8s/groups/default/Pod';
+import { PodKubeObjectInterface } from '../../../../../../k8s/groups/default/Pod/types';
 import {
   SYSTEM_QUICK_LINKS,
   SYSTEM_QUICK_LINKS_LABELS,
@@ -63,6 +65,26 @@ export const EnvironmentStage = ({
 
     return _applications;
   }, [applications, filter]);
+
+  const [stagePods, setStagePods] = React.useState<PodKubeObjectInterface[]>(null);
+
+  React.useEffect(() => {
+    if (!stage) {
+      return;
+    }
+
+    const cancelStream = PodKubeObject.streamList({
+      namespace: stage.spec.namespace,
+      dataHandler: (newData) => {
+        setStagePods(newData);
+      },
+      errorHandler: (error) => console.error(error),
+    });
+
+    return () => {
+      cancelStream();
+    };
+  }, [stage]);
 
   return (
     <StyledCardWrapper>
@@ -172,6 +194,7 @@ export const EnvironmentStage = ({
                     application={el.application}
                     argoApplication={el.argoApplication}
                     QuickLinksURLS={QuickLinksURLS}
+                    stagePods={stagePods}
                   />
                 ) : null;
               })}

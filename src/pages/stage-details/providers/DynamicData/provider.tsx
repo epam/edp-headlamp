@@ -4,8 +4,11 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
 import { ApplicationKubeObject } from '../../../../k8s/groups/ArgoCD/Application';
+import { APPLICATION_LABEL_SELECTOR_APP_NAME } from '../../../../k8s/groups/ArgoCD/Application/labels';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/groups/ArgoCD/Application/types';
 import { ConfigMapKubeObject } from '../../../../k8s/groups/default/ConfigMap';
+import { PodKubeObject } from '../../../../k8s/groups/default/Pod';
+import { PodKubeObjectInterface } from '../../../../k8s/groups/default/Pod/types';
 import { GitServerKubeObject } from '../../../../k8s/groups/EDP/GitServer';
 import { StageKubeObject } from '../../../../k8s/groups/EDP/Stage';
 import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
@@ -57,6 +60,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const [stage, error] = StageKubeObject.useGet(stageMetadataName, namespace);
 
   const stageSpecName = stage?.spec.name;
+  const stageSpecNamespace = stage?.spec.namespace;
+
   const stageTriggerTemplate = stage?.spec.triggerTemplate;
   const stageCleanTemplate = stage?.spec.cleanTemplate;
 
@@ -145,6 +150,54 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     };
   }, [CDPipelineName, applicationList, namespace, stageSpecName]);
 
+  const [stagePods, setStagePods] = React.useState<PodKubeObjectInterface[]>(null);
+
+  React.useEffect(() => {
+    if (!stageSpecNamespace) {
+      return;
+    }
+
+    const cancelStream = PodKubeObject.streamList({
+      namespace: stageSpecNamespace,
+      dataHandler: (newData) => {
+        setStagePods(newData);
+      },
+      errorHandler: (error) => console.error(error),
+    });
+
+    return () => {
+      cancelStream();
+    };
+  }, [namespace, stageSpecNamespace]);
+
+  const applicationsListNames = React.useMemo(() => {
+    return (applicationList || []).map(
+      (app) => app.metadata.labels?.[APPLICATION_LABEL_SELECTOR_APP_NAME]
+    );
+  }, [applicationList]);
+
+  const applicationPodsMap = React.useMemo(() => {
+    if (stagePods === null) {
+      return null;
+    }
+
+    return stagePods.reduce<Record<string, PodKubeObjectInterface[]>>((acc, pod) => {
+      const appName = pod.metadata.labels?.['app.kubernetes.io/instance'] || 'unknown';
+
+      if (!applicationsListNames.includes(appName) || appName === 'unknown') {
+        return acc;
+      }
+
+      if (!acc[appName]) {
+        acc[appName] = [];
+      }
+      //@ts-ignore
+      acc[appName].push(new PodKubeObject(pod));
+
+      return acc;
+    }, {});
+  }, [applicationsListNames, stagePods]);
+
   const deployPipelineRunTemplate = useTriggerTemplateByNameQuery({
     props: {
       name: stageTriggerTemplate,
@@ -212,6 +265,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         isLoading: variablesConfigMap === null,
         error: variablesConfigMapError,
       },
+      applicationPodsMap: {
+        data: applicationPodsMap,
+        isLoading: applicationPodsMap === null,
+        error: null,
+      },
       newPipelineRunAdded,
       setNewPipelineRunAdded,
     }),
@@ -233,6 +291,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       gitServersError,
       variablesConfigMap,
       variablesConfigMapError,
+      applicationPodsMap,
       newPipelineRunAdded,
     ]
   );

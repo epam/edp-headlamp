@@ -1,12 +1,19 @@
 import { LightTooltip, LogViewer } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { KubeContainerStatus } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { FormControl, FormControlLabel, InputLabel, MenuItem, Select, Switch } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  ListSubheader,
+  MenuItem,
+  Select,
+  Switch,
+} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import _ from 'lodash';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Terminal as XTerminal } from 'xterm';
-import { PodKubeObject } from '../../../k8s/groups/default/Pod';
 import { PodKubeObjectInterface } from '../../../k8s/groups/default/Pod/types';
 import { DIALOG_NAME } from './constants';
 import { PodsLogViewerDialogProps } from './types';
@@ -36,38 +43,13 @@ const getDefaultContainer = (pod: PodKubeObjectInterface) => {
 };
 
 export const PodsLogViewerDialog: React.FC<PodsLogViewerDialogProps> = ({ props, state }) => {
-  const { stageNamespace, appName } = props;
+  const { pods } = props;
   const { open, closeDialog } = state;
 
-  const [pods, setPods] = React.useState<PodKubeObjectInterface[]>(null);
-  const [activePod, setActivePod] = React.useState<PodKubeObjectInterface>(null);
-  const [container, setContainer] = React.useState<string>(null);
-  const [, setError] = React.useState<unknown>(null);
-  PodKubeObject.useApiList(
-    (pods: PodKubeObjectInterface[]) => {
-      setPods(pods);
-    },
-    (error) => setError(error),
-    {
-      labelSelector: `app.kubernetes.io/instance=${appName}`,
-      namespace: stageNamespace,
-    }
-  );
+  const firstPod = pods?.[0];
 
-  React.useEffect(() => {
-    if (!pods || activePod) {
-      return;
-    }
-
-    const newActivePod = pods?.[0];
-
-    if (!newActivePod) {
-      return;
-    }
-
-    setActivePod(newActivePod);
-    setContainer(getDefaultContainer(newActivePod));
-  }, [activePod, pods]);
+  const [activePod, setActivePod] = React.useState<PodKubeObjectInterface>(firstPod);
+  const [container, setContainer] = React.useState<string>(getDefaultContainer(firstPod));
 
   const classes = useStyle();
   const [showPrevious, setShowPrevious] = React.useState<boolean>(false);
@@ -219,12 +201,18 @@ export const PodsLogViewerDialog: React.FC<PodsLogViewerDialogProps> = ({ props,
             value={container}
             onChange={handleContainerChange}
           >
-            {activePod &&
-              activePod.spec.containers.map(({ name }) => (
-                <MenuItem value={name} key={name}>
-                  {name}
-                </MenuItem>
-              ))}
+            <ListSubheader color="inherit">Containers</ListSubheader>
+            {(activePod?.spec.containers || []).map(({ name }) => (
+              <MenuItem value={name} key={name}>
+                {name}
+              </MenuItem>
+            ))}
+            <ListSubheader color="inherit">Init Containers</ListSubheader>
+            {(activePod?.spec.initContainers || []).map(({ name }) => (
+              <MenuItem value={name} key={name}>
+                {name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>,
         <FormControl className={classes.linesFormControl}>

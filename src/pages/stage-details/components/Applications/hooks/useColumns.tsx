@@ -42,7 +42,6 @@ import { useQuickLinksURLsQuery } from '../../../../../k8s/groups/EDP/QuickLink/
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../../../services/link-creation';
 import { PodsLogViewerDialog } from '../../../../../widgets/dialogs/PodsLogViewer';
-import { PodsTerminalDialog } from '../../../../../widgets/dialogs/PodsTerminal';
 import { routeComponentDetails } from '../../../../component-details/route';
 import { APPLICATIONS_TABLE_MODE } from '../../../constants';
 import { useDataContext } from '../../../providers/Data/hooks';
@@ -64,6 +63,7 @@ export const useColumns = ({
   const {
     stage: { data: stage, isLoading: isStageLoading },
     gitServers: { data: gitServers, isLoading: isGitServersLoading },
+    applicationPodsMap: { data: applicationPodsMap },
   } = useDynamicDataContext();
   const _createArgoCDLink = React.useCallback(
     (argoApplication: ApplicationKubeObjectInterface) =>
@@ -208,47 +208,63 @@ export const useColumns = ({
       id: 'pods',
       label: 'Pods',
       render: (enrichedApplicationWithArgoApplication) => {
-        const disabled = !enrichedApplicationWithArgoApplication?.argoApplication;
+        const appName = enrichedApplicationWithArgoApplication?.application?.metadata.name;
+        const appPods = applicationPodsMap?.[appName];
+        const disabled = (() => {
+          if (!enrichedApplicationWithArgoApplication?.argoApplication) {
+            return {
+              status: true,
+              reason: 'Could not find ArgoCD Application for this application',
+            };
+          }
+
+          if (!appPods) {
+            return {
+              status: true,
+              reason: 'Could not find Pods for this application',
+            };
+          }
+
+          return {
+            status: false,
+          };
+        })();
+
+        const buttonIconColor = disabled.status
+          ? theme.palette.action.disabled
+          : theme.palette.text.primary;
 
         return (
           <Stack direction="row" spacing={1} alignItems={'center'} justifyContent="center">
-            <Tooltip title={'Show Logs'}>
-              <IconButton
-                onClick={() =>
-                  setDialog(PodsLogViewerDialog, {
-                    stageNamespace: stage?.spec.namespace,
-                    appName: enrichedApplicationWithArgoApplication?.application?.metadata.name,
-                  })
-                }
-                disabled={disabled}
-                size="large"
-              >
-                <Icon
-                  icon="ph:file-text-bold"
-                  color={disabled ? theme.palette.action.disabled : theme.palette.text.primary}
-                  width={20}
-                  height={20}
-                />
-              </IconButton>
+            <Tooltip title={disabled.status ? disabled.reason : 'Show Logs'}>
+              <div>
+                <IconButton
+                  onClick={() =>
+                    setDialog(PodsLogViewerDialog, {
+                      pods: appPods,
+                    })
+                  }
+                  disabled={disabled.status}
+                  size="large"
+                >
+                  <Icon icon="ph:file-text-bold" color={buttonIconColor} width={20} height={20} />
+                </IconButton>
+              </div>
             </Tooltip>
-            <Tooltip title={'Show Terminal'}>
-              <IconButton
-                onClick={() =>
-                  setDialog(PodsTerminalDialog, {
-                    stageNamespace: stage?.spec.namespace,
-                    appName: enrichedApplicationWithArgoApplication?.application?.metadata.name,
-                  })
-                }
-                disabled={disabled}
-                size="large"
-              >
-                <Icon
-                  icon="mdi:console"
-                  color={disabled ? theme.palette.action.disabled : theme.palette.text.primary}
-                  width={20}
-                  height={20}
-                />
-              </IconButton>
+            <Tooltip title={disabled.status ? disabled.reason : 'Show Terminal'}>
+              <div>
+                <IconButton
+                  onClick={() =>
+                    setDialog(PodsLogViewerDialog, {
+                      pods: appPods,
+                    })
+                  }
+                  disabled={disabled.status}
+                  size="large"
+                >
+                  <Icon icon="mdi:console" color={buttonIconColor} width={20} height={20} />
+                </IconButton>
+              </div>
             </Tooltip>
           </Stack>
         );
@@ -435,6 +451,7 @@ export const useColumns = ({
   }, [
     CDPipelineName,
     _createArgoCDLink,
+    applicationPodsMap,
     gitOpsCodebase.data?.status.gitWebUrl,
     gitOpsGitServer?.spec.gitProvider,
     isDefaultCluster,
@@ -442,7 +459,6 @@ export const useColumns = ({
     mode,
     setDialog,
     stage?.spec.name,
-    stage?.spec.namespace,
     theme.palette.action.disabled,
     theme.palette.grey,
     theme.palette.text.primary,
