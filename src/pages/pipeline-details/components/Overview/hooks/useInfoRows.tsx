@@ -75,10 +75,7 @@ export const useInfoRows = (): InfoRow[] | null => {
             </Stack>
           ),
         },
-        {
-          label: 'Tasks completed',
-          text: statusObject.message?.split('Tasks Completed: ')[1],
-        },
+
         {
           label: 'Started at',
           text: statusObject.startedAt,
@@ -90,6 +87,13 @@ export const useInfoRows = (): InfoRow[] | null => {
         {
           label: 'Last updated',
           text: statusObject.updatedLast,
+        },
+      ],
+      [
+        {
+          label: 'Message',
+          text: statusObject.message,
+          columnXs: 12,
         },
       ],
       [

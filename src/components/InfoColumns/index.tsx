@@ -31,7 +31,7 @@ export const InfoColumns = ({ infoRows }: InfoColumnsProps) => {
                           <Typography
                             fontSize={13}
                             color="secondary.dark"
-                            sx={{ lineHeight: 1, wordBreak: 'break-word' }}
+                            sx={{ wordBreak: 'break-word' }}
                           >
                             {text}
                           </Typography>
