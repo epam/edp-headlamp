@@ -1,3 +1,4 @@
+import { Box, Stack } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { createImageStreamTags } from '../../../../../../k8s/groups/EDP/CodebaseImageStream/utils/createImageStreamTags';
@@ -16,6 +17,7 @@ export const ImageStreamTagsSelect = ({
     control,
     formState: { errors, defaultValues },
     register,
+    watch,
   } = useFormContext();
 
   const imageStreamTagsOptions: SelectOption[] = React.useMemo(
@@ -23,37 +25,60 @@ export const ImageStreamTagsSelect = ({
     [applicationImageStream, applicationVerifiedImageStream]
   );
 
-  const currentValue = defaultValues?.[`${application?.metadata.name}${IMAGE_TAG_POSTFIX}`];
+  const currentDefaultValue = defaultValues?.[`${application?.metadata.name}${IMAGE_TAG_POSTFIX}`];
+  const currentValue = watch(
+    `${application.metadata.name}${IMAGE_TAG_POSTFIX}`,
+    currentDefaultValue
+  );
+
+  const imageTagsLength = imageStreamTagsOptions.length;
 
   const label = React.useMemo(() => {
-    if (currentValue) {
-      return `Deployed version: ${currentValue}`;
+    if (currentDefaultValue) {
+      return `Deployed version: ${currentDefaultValue}`;
     }
 
-    if (imageStreamTagsOptions.length) {
+    if (imageTagsLength) {
       return 'Select image tag';
     }
 
     return 'No image tags available';
-  }, [currentValue, imageStreamTagsOptions.length]);
+  }, [currentDefaultValue, imageTagsLength]);
+
+  const isSameAsDefaultValue = currentValue?.includes(currentDefaultValue);
 
   return (
-    <div style={{ width: '100%' }}>
-      <FormSelect
-        {...register(`${application.metadata.name}${IMAGE_TAG_POSTFIX}`, {
-          required: 'Select image tag',
-        })}
-        label={label}
-        control={control}
-        errors={errors}
-        options={imageStreamTagsOptions}
-        disabled={!imageStreamTagsOptions.length}
-        helperText={
-          imageStreamTagsOptions.length
-            ? ''
-            : 'Run at least one build pipeline to produce the necessary artifacts.'
-        }
+    <Stack direction="row" spacing={1} width="100%">
+      <Box
+        sx={{
+          flexShrink: 0,
+          width: '4px',
+          backgroundColor: (t) =>
+            !imageTagsLength
+              ? t.palette.error.main
+              : isSameAsDefaultValue
+              ? t.palette.action.disabled
+              : t.palette.primary.main,
+          borderRadius: '1px',
+        }}
       />
-    </div>
+      <Box flexGrow={1}>
+        <FormSelect
+          {...register(`${application.metadata.name}${IMAGE_TAG_POSTFIX}`, {
+            required: 'Select image tag',
+          })}
+          label={label}
+          control={control}
+          errors={errors}
+          options={imageStreamTagsOptions}
+          disabled={!imageStreamTagsOptions.length}
+          helperText={
+            imageStreamTagsOptions.length
+              ? ''
+              : 'Run at least one build pipeline to produce the necessary artifacts.'
+          }
+        />
+      </Box>
+    </Stack>
   );
 };
