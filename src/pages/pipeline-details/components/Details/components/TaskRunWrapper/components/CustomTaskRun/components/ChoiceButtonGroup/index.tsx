@@ -1,6 +1,5 @@
 import { Icon } from '@iconify/react';
 import {
-  Button,
   ButtonGroup,
   ClickAwayListener,
   Grow,
@@ -12,7 +11,9 @@ import {
   Popper,
 } from '@mui/material';
 import React from 'react';
+import { ButtonWithPermission } from '../../../../../../../../../../components/ButtonWithPermission';
 import { ICONS } from '../../../../../../../../../../icons/iconify-icons-mapping';
+import { useTypedPermissions } from '../../../../../../../../hooks/useTypedPermissions';
 
 export const ChoiceButtonGroup = ({
   options,
@@ -38,18 +39,32 @@ export const ChoiceButtonGroup = ({
 
   const optionsWithoutFirstItem = options.slice(1);
 
+  const permissions = useTypedPermissions();
+
   return (
     <>
       <ButtonGroup variant={type === 'accept' ? 'contained' : 'outlined'} ref={anchorRef}>
-        <Button
-          startIcon={<Icon icon={options[0].icon} width={25} height={25} />}
-          onClick={options[0].onClick}
+        <ButtonWithPermission
+          ButtonProps={{
+            startIcon: <Icon icon={options[0].icon} width={25} height={25} />,
+            onClick: options[0].onClick,
+          }}
+          disabled={!permissions.update.ApprovalTask.allowed}
+          reason={permissions.update.ApprovalTask.reason}
         >
           {options[0].label}
-        </Button>
-        <Button size="small" onClick={handleToggle}>
+        </ButtonWithPermission>
+        <ButtonWithPermission
+          ButtonProps={{
+            size: 'small',
+            onClick: handleToggle,
+            sx: { height: '100%' },
+          }}
+          disabled={!permissions.update.ApprovalTask.allowed}
+          reason={permissions.update.ApprovalTask.reason}
+        >
           <Icon icon={ICONS.ARROW_DROPDOWN} width={25} height={25} />
-        </Button>
+        </ButtonWithPermission>
       </ButtonGroup>
       <Popper
         sx={{ zIndex: 1 }}
