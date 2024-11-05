@@ -2,6 +2,28 @@
 ## [Unreleased]
 
 
+<a name="v0.17.0"></a>
+## [v0.17.0] - 2024-11-05
+### Features
+
+- Add permission check for approve button ([#456](https://github.com/epam/edp-headlamp/issues/456))
+- Implement OIDC integration with Microsoft Entra IdP ([#454](https://github.com/epam/edp-headlamp/issues/454))
+- Show version diff marker ([#450](https://github.com/epam/edp-headlamp/issues/450))
+- Improve pods features ([#445](https://github.com/epam/edp-headlamp/issues/445))
+- Improve applications table update ([#443](https://github.com/epam/edp-headlamp/issues/443))
+
+### Bug Fixes
+
+- Pipeline run message ([#452](https://github.com/epam/edp-headlamp/issues/452))
+- Task content show ([#448](https://github.com/epam/edp-headlamp/issues/448))
+- Add validation for name field ([#441](https://github.com/epam/edp-headlamp/issues/441))
+
+### Routine
+
+- Update Pull Request Template ([#234](https://github.com/epam/edp-headlamp/issues/234))
+- Update current development version ([#439](https://github.com/epam/edp-headlamp/issues/439))
+
+
 <a name="v0.16.0"></a>
 ## [v0.16.0] - 2024-10-18
 ### Features
@@ -529,7 +551,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.16.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.17.0...HEAD
+[v0.17.0]: https://github.com/epam/edp-headlamp/compare/v0.16.0...v0.17.0
 [v0.16.0]: https://github.com/epam/edp-headlamp/compare/v0.15.0...v0.16.0
 [v0.15.0]: https://github.com/epam/edp-headlamp/compare/v0.14.0...v0.15.0
 [v0.14.0]: https://github.com/epam/edp-headlamp/compare/v0.13.1...v0.14.0
