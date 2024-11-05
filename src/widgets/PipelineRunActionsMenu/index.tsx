@@ -1,8 +1,9 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
+import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
 import { Snackbar } from '../../components/Snackbar';
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
@@ -14,6 +15,7 @@ import { createRerunPipelineRunInstance } from '../../k8s/groups/Tekton/Pipeline
 import { routePipelineRunDetails } from '../../pages/pipeline-details/route';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
+import { CustomActionsInlineList } from './components/CustomActionsInlineList';
 import { PipelineRunActionsMenuProps } from './types';
 
 export const PipelineRunActionsMenu = ({
@@ -36,6 +38,60 @@ export const PipelineRunActionsMenu = ({
     history.push(backRoute);
   }, [backRoute, history]);
 
+  const createGoToRoute = (params: any) =>
+    Router.createRouteURL(routePipelineRunDetails.path, params);
+
+  const [editor, setEditor] = React.useState<{
+    open: boolean;
+    data: KubeObjectInterface | undefined;
+  }>({
+    open: false,
+    data: undefined,
+  });
+
+  const handleOpenEditor = (data: KubeObjectInterface) => {
+    setEditor({ open: true, data });
+  };
+
+  const handleCloseEditor = () => {
+    setEditor({ open: false, data: undefined });
+  };
+
+  const handleEditorSave = (data: KubeObjectInterface[]) => {
+    const [item] = data;
+
+    if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+      handleCloseResourceActionListMenu();
+    }
+
+    PipelineRunKubeObject.apiEndpoint.post(item);
+
+    enqueueSnackbar('The PipelineRun is successfully run.', {
+      persist: true,
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'left',
+      },
+      content: (key, message) => (
+        <Snackbar
+          text={String(message)}
+          handleClose={() => closeSnackbar(key)}
+          pushLocation={() =>
+            history.push(
+              createGoToRoute({
+                namespace: item.metadata.namespace || getDefaultNamespace(),
+                name: item.metadata.name,
+              })
+            )
+          }
+          variant="success"
+        />
+      ),
+    });
+
+    handleCloseEditor();
+  };
+
   const actions = React.useMemo(() => {
     const pipelineRun = { ..._pipelineRun };
     delete pipelineRun.actionType;
@@ -43,9 +99,6 @@ export const PipelineRunActionsMenu = ({
     if (!pipelineRun) {
       return [];
     }
-
-    const createGoToRoute = (params: any) =>
-      Router.createRouteURL(routePipelineRunDetails.path, params);
 
     return [
       createKubeAction({
@@ -86,6 +139,19 @@ export const PipelineRunActionsMenu = ({
               />
             ),
           });
+        },
+      }),
+      createKubeAction({
+        name: 'Run with params',
+        icon: ICONS.SETTINGS_REDO,
+        disabled: {
+          status: !permissions.create.PipelineRun.allowed,
+          reason: permissions.create.PipelineRun.reason,
+        },
+        action: () => {
+          const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
+          handleOpenEditor(newPipelineRun);
+          handleCloseResourceActionListMenu();
         },
       }),
       ...(isInProgress
@@ -147,13 +213,32 @@ export const PipelineRunActionsMenu = ({
     handleCloseResourceActionListMenu,
   ]);
 
-  return variant === ACTION_MENU_TYPES.INLINE ? (
-    <ActionsInlineList actions={actions} />
-  ) : variant === ACTION_MENU_TYPES.MENU ? (
-    <ActionsMenuList
-      actions={actions}
-      anchorEl={anchorEl}
-      handleCloseActionsMenu={handleCloseResourceActionListMenu}
-    />
-  ) : null;
+  const groupActions = actions.slice(0, 2);
+  const inlineActions = actions.slice(2);
+
+  return (
+    <>
+      {editor.open && editor.data && (
+        <EditorDialog
+          open={editor.open}
+          item={editor.data}
+          onClose={handleCloseEditor}
+          onSave={handleEditorSave}
+        />
+      )}
+      {variant === ACTION_MENU_TYPES.INLINE ? (
+        <CustomActionsInlineList
+          groupActions={groupActions}
+          inlineActions={inlineActions}
+          permissions={permissions}
+        />
+      ) : variant === ACTION_MENU_TYPES.MENU && anchorEl ? (
+        <ActionsMenuList
+          actions={actions}
+          anchorEl={anchorEl}
+          handleCloseActionsMenu={handleCloseResourceActionListMenu}
+        />
+      ) : null}
+    </>
+  );
 };

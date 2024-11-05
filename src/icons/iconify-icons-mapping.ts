@@ -72,6 +72,7 @@ export enum ICONS {
   TOOLS = 'mdi:tools',
   KEY = 'solar:key-bold',
   REDO = 'uil:redo',
+  SETTINGS_REDO = 'mdi:cog-refresh-outline',
   CANCEL = 'mdi:cancel-bold',
   QUEUE = 'hugeicons:queue-02',
   TEKTON = 'simple-icons:tekton',
