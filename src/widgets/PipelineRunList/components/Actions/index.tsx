@@ -26,17 +26,15 @@ export const Actions = ({
       >
         <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
       </IconButton>
-      {anchor ? (
-        <PipelineRunActionsMenu
-          variant="menu"
-          permissions={permissions}
-          data={{
-            pipelineRun: resource?.jsonData || resource,
-          }}
-          anchorEl={anchor}
-          handleCloseResourceActionListMenu={() => setAnchor(null)}
-        />
-      ) : null}
+      <PipelineRunActionsMenu
+        variant="menu"
+        permissions={permissions}
+        data={{
+          pipelineRun: resource?.jsonData || resource,
+        }}
+        anchorEl={anchor}
+        handleCloseResourceActionListMenu={() => setAnchor(null)}
+      />
     </>
   );
 };
