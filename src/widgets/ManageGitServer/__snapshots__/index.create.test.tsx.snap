@@ -2376,6 +2376,7 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                     >
                       <input
                         aria-invalid="false"
+                        autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         id="mui-95"
                         name="sshPublicKey"
@@ -4831,6 +4832,7 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                     >
                       <input
                         aria-invalid="false"
+                        autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         id="mui-19"
                         name="sshPublicKey"
@@ -7286,6 +7288,7 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                     >
                       <input
                         aria-invalid="false"
+                        autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         id="mui-38"
                         name="sshPublicKey"
@@ -9741,6 +9744,7 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                     >
                       <input
                         aria-invalid="false"
+                        autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         id="mui-57"
                         name="sshPublicKey"
@@ -12196,6 +12200,7 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                     >
                       <input
                         aria-invalid="false"
+                        autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         id="mui-76"
                         name="sshPublicKey"

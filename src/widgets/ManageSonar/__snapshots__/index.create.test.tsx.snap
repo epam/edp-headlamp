@@ -195,6 +195,7 @@ exports[`renders ManageSonar Create component 1`] = `
                 >
                   <input
                     aria-invalid="false"
+                    autocomplete="off"
                     class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                     id="mui-6"
                     name="token"
