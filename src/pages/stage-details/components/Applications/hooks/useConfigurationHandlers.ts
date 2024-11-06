@@ -2,14 +2,10 @@ import React from 'react';
 import { FieldValues, useFormContext } from 'react-hook-form';
 import { CRUD_TYPES } from '../../../../../constants/crudTypes';
 import { useRequestStatusMessages } from '../../../../../hooks/useResourceRequestStatusMessages';
-import { editResource } from '../../../../../k8s/common/editResource';
 import { useCreateCleanPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateCleanPipelineRun';
 import { useCreateDeployPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateDeployPipelineRun';
-import {
-  PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE,
-  PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE,
-  PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
-} from '../../../../../k8s/groups/Tekton/PipelineRun/labels';
+import { createCleanPipelineRunInstance } from '../../../../../k8s/groups/Tekton/PipelineRun/utils/createCleanPipelineRunInstance';
+import { createDeployPipelineRunInstance } from '../../../../../k8s/groups/Tekton/PipelineRun/utils/createDeployPipelineRunInstance';
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
 import { ConfirmDialog } from '../../../../../widgets/dialogs/Confirm';
 import { IMAGE_TAG_POSTFIX, VALUES_OVERRIDE_POSTFIX } from '../../../constants';
@@ -30,68 +26,6 @@ const createApplicationPayload = (imageTag: string, customValues: boolean) => ({
   imageTag,
   customValues,
 });
-
-const newDeployPipelineRunNames = {
-  generateName: {
-    name: 'generateName',
-    path: ['metadata', 'generateName'],
-  },
-  CDPipelineLabel: {
-    name: 'CDPipelineLabel',
-    path: ['metadata', 'labels', PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE],
-  },
-  stageLabel: {
-    name: 'stageLabel',
-    path: ['metadata', 'labels', PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE],
-  },
-  pipelineTypeLabel: {
-    name: 'pipelineTypeLabel',
-    path: ['metadata', 'labels', PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE],
-  },
-  applicationsPayloadParam: {
-    name: 'applicationsPayloadParam',
-    path: ['spec', 'params', '0'],
-  },
-  stageParam: {
-    name: 'stageParam',
-    path: ['spec', 'params', '1'],
-  },
-  CDPipelineParam: {
-    name: 'CDPipelineParam',
-    path: ['spec', 'params', '2'],
-  },
-  kubeConfigSecretParam: {
-    name: 'kubeConfigSecretParam',
-    path: ['spec', 'params', '3'],
-  },
-};
-
-const newCleanPipelineRunNames = {
-  generateName: {
-    name: 'generateName',
-    path: ['metadata', 'generateName'],
-  },
-  CDPipelineLabel: {
-    name: 'CDPipelineLabel',
-    path: ['metadata', 'labels', PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE],
-  },
-  stageLabel: {
-    name: 'stageLabel',
-    path: ['metadata', 'labels', PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE],
-  },
-  pipelineTypeLabel: {
-    name: 'pipelineTypeLabel',
-    path: ['metadata', 'labels', PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE],
-  },
-  stageParam: {
-    name: 'stageParam',
-    path: ['spec', 'params', '0'],
-  },
-  CDPipelineParam: {
-    name: 'CDPipelineParam',
-    path: ['spec', 'params', '1'],
-  },
-};
 
 export const useConfigurationHandlers = ({
   values,
@@ -259,10 +193,18 @@ export const useConfigurationHandlers = ({
       return;
     }
 
-    const appPayload = enrichedApplicationsWithArgoApplications.reduce((acc, cur) => {
+    const appPayload = enrichedApplicationsWithArgoApplications.reduce<
+      Record<
+        string,
+        {
+          imageTag: string;
+          customValues: boolean;
+        }
+      >
+    >((acc, cur) => {
       const appName = cur.application.metadata.name;
-      const imageTagFieldValue = values[`${appName}${IMAGE_TAG_POSTFIX}`];
-      const valuesOverrideFieldValue = values[`${appName}${VALUES_OVERRIDE_POSTFIX}`];
+      const imageTagFieldValue = values[`${appName}${IMAGE_TAG_POSTFIX}`] as string;
+      const valuesOverrideFieldValue = values[`${appName}${VALUES_OVERRIDE_POSTFIX}`] as boolean;
 
       const { value: tagValue } = parseTagLabelValue(imageTagFieldValue);
 
@@ -270,32 +212,12 @@ export const useConfigurationHandlers = ({
       return acc;
     }, {});
 
-    // todo: refactor this hardcode
-    const newDeployPipelineRun = editResource(
-      newDeployPipelineRunNames,
-      deployPipelineRunTemplate,
-      {
-        generateName: `deploy-${CDPipeline.data.metadata.name}-${stage.spec.name}`,
-        CDPipelineLabel: CDPipeline.data.metadata.name,
-        stageLabel: stage.metadata.name,
-        applicationsPayloadParam: {
-          name: 'APPLICATIONS_PAYLOAD',
-          value: JSON.stringify(appPayload),
-        },
-        stageParam: {
-          name: 'CDSTAGE',
-          value: stage.spec.name,
-        },
-        CDPipelineParam: {
-          name: 'CDPIPELINE',
-          value: CDPipeline.data.metadata.name,
-        },
-        kubeConfigSecretParam: {
-          name: 'KUBECONFIG_SECRET_NAME',
-          value: stage.spec.clusterName,
-        },
-      }
-    );
+    const newDeployPipelineRun = createDeployPipelineRunInstance({
+      CDPipeline: CDPipeline.data,
+      stage,
+      pipelineRunTemplate: deployPipelineRunTemplate,
+      appPayload,
+    });
 
     await createDeployPipelineRun({ deployPipelineRun: newDeployPipelineRun });
   }, [
@@ -303,9 +225,7 @@ export const useConfigurationHandlers = ({
     createDeployPipelineRun,
     deployPipelineRunTemplate,
     enrichedApplicationsWithArgoApplications,
-    stage.metadata.name,
-    stage.spec.clusterName,
-    stage.spec.name,
+    stage,
     trigger,
     values,
   ]);
@@ -320,29 +240,19 @@ export const useConfigurationHandlers = ({
       return;
     }
 
-    const newCleanPipelineRun = editResource(newCleanPipelineRunNames, cleanPipelineRunTemplate, {
-      generateName: `clean-${CDPipeline.data.metadata.name}-${stage.spec.name}-`,
-      CDPipelineLabel: CDPipeline.data.metadata.name,
-      stageLabel: stage.metadata.name,
-      pipelineTypeLabel: 'clean',
-      stageParam: {
-        name: 'CDSTAGE',
-        value: stage.spec.name,
-      },
-      CDPipelineParam: {
-        name: 'CDPIPELINE',
-        value: CDPipeline.data.metadata.name,
-      },
+    const newCleanPipelineRun = createCleanPipelineRunInstance({
+      CDPipeline: CDPipeline.data,
+      stage,
+      pipelineRunTemplate: cleanPipelineRunTemplate,
     });
 
     await createCleanPipelineRun({ cleanPipelineRun: newCleanPipelineRun });
   }, [
-    CDPipeline.data.metadata.name,
+    CDPipeline.data,
     cleanPipelineRunTemplate,
     createCleanPipelineRun,
     showRequestErrorMessage,
-    stage.metadata.name,
-    stage.spec.name,
+    stage,
   ]);
 
   const handleClickClean = React.useCallback(async () => {
