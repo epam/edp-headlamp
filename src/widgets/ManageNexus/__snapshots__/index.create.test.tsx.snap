@@ -245,6 +245,7 @@ exports[`renders ManageNexus Create component 1`] = `
                 >
                   <input
                     aria-invalid="false"
+                    autocomplete="off"
                     class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                     id="mui-8"
                     name="password"

@@ -2013,6 +2013,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Docke
                   >
                     <input
                       aria-invalid="false"
+                      autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                       id="mui-34"
                       name="pushAccountPassword"
@@ -2231,6 +2232,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Docke
                   >
                     <input
                       aria-invalid="false"
+                      autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                       id="mui-40"
                       name="pullAccountPassword"
@@ -4360,6 +4362,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Docke
                     <input
                       aria-describedby="mui-90-helper-text"
                       aria-invalid="false"
+                      autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                       disabled=""
                       id="mui-90"
@@ -8660,6 +8663,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with GHCR 
                   >
                     <input
                       aria-invalid="false"
+                      autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                       id="mui-50"
                       name="pushAccountPassword"
@@ -8878,6 +8882,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with GHCR 
                   >
                     <input
                       aria-invalid="false"
+                      autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                       id="mui-56"
                       name="pullAccountPassword"
@@ -10992,6 +10997,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Harbo
                   >
                     <input
                       aria-invalid="false"
+                      autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                       id="mui-18"
                       name="pushAccountPassword"
@@ -11210,6 +11216,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Harbo
                   >
                     <input
                       aria-invalid="false"
+                      autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                       id="mui-24"
                       name="pullAccountPassword"
@@ -13338,6 +13345,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Harbo
                     <input
                       aria-describedby="mui-75-helper-text"
                       aria-invalid="false"
+                      autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                       disabled=""
                       id="mui-75"
@@ -15550,6 +15558,7 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Opens
                   >
                     <input
                       aria-invalid="false"
+                      autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                       id="mui-64"
                       name="pushAccountPassword"

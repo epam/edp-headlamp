@@ -217,6 +217,7 @@ exports[`renders ManageNexus Edit component (read-only) 1`] = `
                   <input
                     aria-describedby="mui-8-helper-text"
                     aria-invalid="false"
+                    autocomplete="off"
                     class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                     disabled=""
                     id="mui-8"

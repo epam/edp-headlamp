@@ -2369,6 +2369,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                     >
                       <input
                         aria-invalid="false"
+                        autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         id="mui-54"
                         name="token"
@@ -4811,6 +4812,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     >
                       <input
                         aria-invalid="false"
+                        autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         id="mui-73"
                         name="sshPublicKey"
@@ -7259,6 +7261,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     >
                       <input
                         aria-invalid="false"
+                        autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         id="mui-92"
                         name="sshPublicKey"
@@ -9707,6 +9710,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                     >
                       <input
                         aria-invalid="false"
+                        autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         id="mui-18"
                         name="token"
@@ -12149,6 +12153,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                     >
                       <input
                         aria-invalid="false"
+                        autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         id="mui-36"
                         name="token"
