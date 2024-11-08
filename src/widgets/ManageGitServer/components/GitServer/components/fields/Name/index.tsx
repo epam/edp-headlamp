@@ -4,6 +4,8 @@ import { FORM_MODES } from '../../../../../../../types/forms';
 import { useFormsContext } from '../../../../../hooks/useFormsContext';
 import { GIT_SERVER_FORM_NAMES } from '../../../../../names';
 
+const nameRequirementLabel = `Name must be not less than two characters long. It must contain only lowercase letters, numbers, and dashes. It cannot start or end with a dash, and cannot have whitespaces`;
+
 export const Name = () => {
   const {
     forms: { gitServer: gitServerForm },
@@ -14,8 +16,8 @@ export const Name = () => {
       {...gitServerForm.form.register(GIT_SERVER_FORM_NAMES.name.name, {
         required: 'Enter the Git server name.',
         pattern: {
-          value: /^[a-z]+$/,
-          message: 'The name should contain lowercase letters only.',
+          value: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+          message: nameRequirementLabel,
         },
       })}
       label={'Name'}
