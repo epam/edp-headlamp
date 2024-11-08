@@ -20,8 +20,12 @@ export const Namespace = () => {
           value: 63,
           message: 'You exceeded the maximum length of 63',
         },
+        minLength: {
+          value: 2,
+          message: 'You must enter at least 2 characters',
+        },
         pattern: {
-          value: /^[a-z](?!.*--[^-])[a-z0-9-]*[a-z0-9]$/,
+          value: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
           message: nameRequirementLabel,
         },
       })}
