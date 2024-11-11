@@ -42,6 +42,7 @@ import { useQuickLinksURLsQuery } from '../../../../../k8s/groups/EDP/QuickLink/
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
 import { LinkCreationService } from '../../../../../services/link-creation';
 import { PodsLogViewerDialog } from '../../../../../widgets/dialogs/PodsLogViewer';
+import { PodsTerminalDialog } from '../../../../../widgets/dialogs/PodsTerminal';
 import { routeComponentDetails } from '../../../../component-details/route';
 import { APPLICATIONS_TABLE_MODE } from '../../../constants';
 import { useDataContext } from '../../../providers/Data/hooks';
@@ -255,7 +256,7 @@ export const useColumns = ({
               <div>
                 <IconButton
                   onClick={() =>
-                    setDialog(PodsLogViewerDialog, {
+                    setDialog(PodsTerminalDialog, {
                       pods: appPods,
                     })
                   }

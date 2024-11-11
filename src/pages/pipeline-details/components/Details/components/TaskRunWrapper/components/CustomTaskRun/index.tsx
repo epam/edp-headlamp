@@ -2,7 +2,6 @@ import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
-import { Tabs } from '../../../../../../../../components/Tabs';
 import { CRUD_TYPES } from '../../../../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../../../../hooks/useResourceCRUDMutation';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
@@ -13,6 +12,8 @@ import { CustomRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/C
 import { TaskRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/TaskRun';
 import { TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK } from '../../../../../../../../k8s/groups/Tekton/TaskRun/labels';
 import { useDialogContext } from '../../../../../../../../providers/Dialog/hooks';
+import { Tabs } from '../../../../../../../../providers/Tabs/components/Tabs';
+import { useTabsContext } from '../../../../../../../../providers/Tabs/hooks';
 import { humanize } from '../../../../../../../../utils/date/humanize';
 import { StyledDetailsBody, StyledDetailsHeader } from '../../../../styles';
 import { ChoiceButtonGroup } from './components/ChoiceButtonGroup';
@@ -163,6 +164,8 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
 
   const taskDescription = pipelineRunTaskData.task?.spec?.description || '';
 
+  const { activeTab, handleChangeTab } = useTabsContext();
+
   return (
     <Paper>
       <StyledDetailsHeader>
@@ -230,7 +233,7 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
       </StyledDetailsHeader>
       <Divider orientation="horizontal" />
       <StyledDetailsBody>
-        <Tabs tabs={tabs} initialTabIdx={0} />
+        <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
       </StyledDetailsBody>
     </Paper>
   );

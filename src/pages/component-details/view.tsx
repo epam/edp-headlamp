@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { PageWrapper } from '../../components/PageWrapper';
 import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
-import { Tabs } from '../../components/Tabs';
 import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { Resources } from '../../icons/sprites/Resources';
@@ -15,6 +14,8 @@ import {
 } from '../../k8s/groups/EDP/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList/provider';
+import { Tabs } from '../../providers/Tabs/components/Tabs';
+import { useTabsContext } from '../../providers/Tabs/hooks';
 import { LinkCreationService } from '../../services/link-creation';
 import { CodebaseActionsMenu } from '../../widgets/CodebaseActionsMenu';
 import { routeComponentList } from '../component-list/route';
@@ -33,6 +34,8 @@ export const PageView = () => {
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
 
   const tabs = usePageTabs();
+
+  const { activeTab, handleChangeTab } = useTabsContext();
 
   return (
     <PageWrapper
@@ -101,7 +104,7 @@ export const PageView = () => {
         description={'Review your codebases, monitor their status, and execute build pipelines.'}
       >
         <Resources />
-        <Tabs tabs={tabs} initialTabIdx={0} rememberLastTab id="component-page" />
+        <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
       </Section>
     </PageWrapper>
   );

@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
-import { Tabs } from '../../components/Tabs';
+import { Tabs } from '../../providers/Tabs/components/Tabs';
+import { useTabsContext } from '../../providers/Tabs/hooks';
 import { PipelineRunActionsMenu } from '../../widgets/PipelineRunActionsMenu';
 import { routePipelineRunList } from '../pipelines/route';
 import { useTabs } from './hooks/useTabs';
@@ -27,6 +28,7 @@ export const PageView = () => {
   } = useDynamicDataContext();
 
   const tabs = useTabs();
+  const { activeTab, handleChangeTab } = useTabsContext();
 
   return (
     <PageWrapper
@@ -58,7 +60,7 @@ export const PageView = () => {
     >
       <Section title={name}>
         <LoadingWrapper isLoading={pipelineRunDataIsLoading}>
-          <Tabs tabs={tabs} initialTabIdx={0} rememberLastTab id="pipelinerun-details-page" />
+          <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
         </LoadingWrapper>
       </Section>
     </PageWrapper>

@@ -458,7 +458,9 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
                       {name}
                     </MenuItem>
                   ))}
-                  <ListSubheader color="inherit">Init Containers</ListSubheader>
+                  {activePod?.spec?.initContainers?.length && (
+                    <ListSubheader color="inherit">Init Containers</ListSubheader>
+                  )}
                   {(activePod?.spec.initContainers || []).map(({ name }) => (
                     <MenuItem value={name} key={name}>
                       {name}
