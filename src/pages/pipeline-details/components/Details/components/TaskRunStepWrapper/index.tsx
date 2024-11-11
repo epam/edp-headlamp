@@ -1,20 +1,21 @@
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
-import { Tabs } from '../../../../../../components/Tabs';
 import { PodKubeObject } from '../../../../../../k8s/groups/default/Pod';
 import { TaskRunKubeObjectInterface } from '../../../../../../k8s/groups/Tekton/TaskRun/types';
 import {
   getTaskRunStepReason,
   getTaskRunStepStatus,
 } from '../../../../../../k8s/groups/Tekton/TaskRun/utils/getStatus';
+import { TabsContextProvider } from '../../../../../../providers/Tabs/provider';
 import { humanize } from '../../../../../../utils/date/humanize';
 import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
 import { StyledDetailsBody, StyledDetailsHeader } from '../../styles';
+import { TaskRunStep } from './components/TaskRunStep';
 import { useTabs } from './hooks/useTabs';
 import { TaskRunStepProps } from './types';
 
-export const TaskRunStep = ({ pipelineRunTaskData, stepName }: TaskRunStepProps) => {
+export const TaskRunStepWrapper = ({ pipelineRunTaskData, stepName }: TaskRunStepProps) => {
   const step = pipelineRunTaskData.taskRun
     ? pipelineRunTaskData.taskRun?.status?.steps?.find(
         (step: TaskRunKubeObjectInterface) => step?.name === stepName
@@ -117,7 +118,12 @@ export const TaskRunStep = ({ pipelineRunTaskData, stepName }: TaskRunStepProps)
       <Divider orientation="horizontal" />
       <StyledDetailsBody>
         <LoadingWrapper isLoading={pods === null}>
-          <Tabs tabs={tabs} initialTabIdx={initialTabIdx} />
+          <TabsContextProvider
+            id="pipeline-details-page-inner-taskrun-step"
+            initialTabIdx={initialTabIdx}
+          >
+            <TaskRunStep tabs={tabs} />
+          </TabsContextProvider>
         </LoadingWrapper>
       </StyledDetailsBody>
     </Paper>

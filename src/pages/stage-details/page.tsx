@@ -3,6 +3,7 @@ import { PageLogicWrapper } from '../../components/PageLogicWrapper';
 import { DialogContextProvider } from '../../providers/Dialog/provider';
 import { PermissionsContextProvider } from '../../providers/Permissions/provider';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList/provider';
+import { TabsContextProvider } from '../../providers/Tabs/provider';
 import { permissionsToCheckConfig } from './constants';
 import { DataContextProvider } from './providers/Data/provider';
 import { DynamicDataContextProvider } from './providers/DynamicData/provider';
@@ -14,11 +15,13 @@ export default function () {
       <PermissionsContextProvider permissionConfigs={permissionsToCheckConfig}>
         <DialogContextProvider>
           <ResourceActionListContextProvider>
-            <DataContextProvider>
-              <DynamicDataContextProvider>
-                <PageView />
-              </DynamicDataContextProvider>
-            </DataContextProvider>
+            <TabsContextProvider initialTabIdx={0} rememberLastTab id="stage-page">
+              <DataContextProvider>
+                <DynamicDataContextProvider>
+                  <PageView />
+                </DynamicDataContextProvider>
+              </DataContextProvider>
+            </TabsContextProvider>
           </ResourceActionListContextProvider>
         </DialogContextProvider>
       </PermissionsContextProvider>

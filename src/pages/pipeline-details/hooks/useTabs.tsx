@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import { ViewYAML } from '../../../components/Editor';
+import { useTabsContext } from '../../../providers/Tabs/hooks';
 import { PipelineRunGraph } from '../../../widgets/PipelineRunGraph';
 import { Details } from '../components/Details';
 import { Overview } from '../components/Overview';
@@ -8,6 +9,12 @@ import { useDynamicDataContext } from '../providers/DynamicData/hooks';
 
 export const useTabs = () => {
   const { pipelineRun } = useDynamicDataContext();
+
+  const { handleChangeTab } = useTabsContext();
+
+  const onNodeElementLinkClick = React.useCallback(() => {
+    handleChangeTab(null, 1);
+  }, [handleChangeTab]);
 
   return React.useMemo(() => {
     return [
@@ -55,10 +62,13 @@ export const useTabs = () => {
               pt: (t) => t.typography.pxToRem(24),
             }}
           >
-            <PipelineRunGraph pipelineRun={pipelineRun.data} />
+            <PipelineRunGraph
+              pipelineRun={pipelineRun.data}
+              onNodeElementLinkClick={onNodeElementLinkClick}
+            />
           </Box>
         ),
       },
     ];
-  }, [pipelineRun.data]);
+  }, [onNodeElementLinkClick, pipelineRun.data]);
 };

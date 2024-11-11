@@ -5,12 +5,13 @@ import { useParams } from 'react-router-dom';
 import { PageWrapper } from '../../components/PageWrapper';
 import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
-import { Tabs } from '../../components/Tabs';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import {
   SYSTEM_QUICK_LINKS,
   SYSTEM_QUICK_LINKS_LABELS,
 } from '../../k8s/groups/EDP/QuickLink/constants';
+import { Tabs } from '../../providers/Tabs/components/Tabs';
+import { useTabsContext } from '../../providers/Tabs/hooks';
 import { LinkCreationService } from '../../services/link-creation';
 import { StageActionsMenu } from '../../widgets/StageActionsMenu';
 import { routeCDPipelineDetails } from '../cdpipeline-details/route';
@@ -49,6 +50,9 @@ export const PageView = () => {
     CDPipeline.isLoading || stages.isLoading || QuickLinks.isLoading || QuickLinksURLs.isLoading;
 
   const permissions = useTypedPermissions();
+
+
+  const { activeTab, handleChangeTab} = useTabsContext();
 
   return (
     <PageWrapper
@@ -138,7 +142,7 @@ export const PageView = () => {
       >
         {!isStageLoading ? (
           <Box sx={{ mt: (t) => t.typography.pxToRem(20) }}>
-            <Tabs tabs={tabs} initialTabIdx={0} rememberLastTab id="stage-page" />
+            <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
           </Box>
         ) : (
           <CircularProgress style={{ display: 'block', margin: '0 auto' }} />

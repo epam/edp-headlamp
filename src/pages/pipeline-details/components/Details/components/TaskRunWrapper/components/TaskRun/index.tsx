@@ -1,8 +1,9 @@
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
-import { Tabs } from '../../../../../../../../components/Tabs';
 import { TaskRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/TaskRun';
 import { TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK } from '../../../../../../../../k8s/groups/Tekton/TaskRun/labels';
+import { Tabs } from '../../../../../../../../providers/Tabs/components/Tabs';
+import { useTabsContext } from '../../../../../../../../providers/Tabs/hooks';
 import { humanize } from '../../../../../../../../utils/date/humanize';
 import { StyledDetailsBody, StyledDetailsHeader } from '../../../../styles';
 import { useTabs } from './hooks/useTabs';
@@ -29,6 +30,8 @@ export const TaskRun = ({ pipelineRunTaskData }: TaskRunProps) => {
   const tabs = useTabs({ taskRun, task });
 
   const taskDescription = pipelineRunTaskData.task?.spec?.description || '';
+
+  const { activeTab, handleChangeTab } = useTabsContext();
 
   return (
     <Paper>
@@ -89,7 +92,7 @@ export const TaskRun = ({ pipelineRunTaskData }: TaskRunProps) => {
       </StyledDetailsHeader>
       <Divider orientation="horizontal" />
       <StyledDetailsBody>
-        <Tabs tabs={tabs} initialTabIdx={0} />
+        <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
       </StyledDetailsBody>
     </Paper>
   );

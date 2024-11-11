@@ -2,4 +2,5 @@ import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/Pipeline
 
 export interface PipelineRunGraphProps {
   pipelineRun: PipelineRunKubeObjectInterface;
+  onNodeElementLinkClick?: () => void;
 }

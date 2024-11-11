@@ -9,7 +9,6 @@ export interface Tab {
 
 export interface TabsProps {
   tabs: Tab[];
-  initialTabIdx: string | number;
-  rememberLastTab?: boolean;
-  id?: string;
+  activeTabIdx: number;
+  handleChangeTab: (event: React.ChangeEvent<{}>, newActiveTabIdx: number) => void;
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
 import { MenuAccordion } from './components/MenuAccordion';
-import { TaskRunStep } from './components/TaskRunStep';
+import { TaskRunStepWrapper } from './components/TaskRunStepWrapper';
 import { TaskRunWrapper } from './components/TaskRunWrapper';
 
 export const Details = () => {
@@ -49,7 +49,10 @@ export const Details = () => {
       return <TaskRunWrapper pipelineRunTaskData={activePipelineRunTaskData} />;
     } else if (queryParamTaskRun && queryParamStep) {
       return (
-        <TaskRunStep pipelineRunTaskData={activePipelineRunTaskData} stepName={queryParamStep} />
+        <TaskRunStepWrapper
+          pipelineRunTaskData={activePipelineRunTaskData}
+          stepName={queryParamStep}
+        />
       );
     }
 
