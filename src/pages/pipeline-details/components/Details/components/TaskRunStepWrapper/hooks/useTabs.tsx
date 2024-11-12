@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewYAML } from '../../../../../../../components/Editor';
-import { LogsViewer } from '../../../../../../../widgets/LogViewer';
+import { PodsLogViewer } from '../../../../../../../widgets/PodsLogViewer';
 import { TabContent } from '../../TabContent';
 
 export const useTabs = ({ taskRun, task, stepName, pods }) => {
@@ -21,7 +21,7 @@ export const useTabs = ({ taskRun, task, stepName, pods }) => {
         label: 'Logs',
         component: (
           <TabContent>
-            <LogsViewer pods={pods} getDefaultContainer={getDefaultContainer} />
+            <PodsLogViewer pods={pods} getDefaultContainer={getDefaultContainer} />
           </TabContent>
         ),
         disabled: !pods?.length,

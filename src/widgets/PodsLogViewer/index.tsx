@@ -1,4 +1,4 @@
-import { LightTooltip, LogViewer } from '@kinvolk/headlamp-plugin/lib/components/common';
+import { LightTooltip } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { KubeContainerStatus } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import {
   FormControl,
@@ -14,11 +14,9 @@ import _ from 'lodash';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Terminal as XTerminal } from 'xterm';
-import { PodKubeObjectInterface } from '../../../k8s/groups/default/Pod/types';
-import { DIALOG_NAME } from './constants';
-import { PodsLogViewerDialogProps } from './types';
-
-// TODO this file is a copy of headlamp\frontend\src\components\common\LogViewer.tsx
+import { LogViewer } from '../../components/LogViewer';
+import { PodKubeObjectInterface } from '../../k8s/groups/default/Pod/types';
+import { PodsLogViewerInnerProps, PodsLogViewerProps } from './types';
 
 const useStyle = makeStyles((theme) => ({
   containerFormControl: {
@@ -34,23 +32,13 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const getDefaultContainer = (pod: PodKubeObjectInterface) => {
-  if (!pod) {
-    return '';
-  }
-
-  return pod.spec.containers.length > 0 ? pod.spec.containers[0].name : '';
-};
-
-export const PodsLogViewerDialog: React.FC<PodsLogViewerDialogProps> = ({ props, state }) => {
-  const { pods } = props;
-  const { open, closeDialog } = state;
-
-  const firstPod = pods?.[0];
-
-  const [activePod, setActivePod] = React.useState<PodKubeObjectInterface>(firstPod);
-  const [container, setContainer] = React.useState<string>(getDefaultContainer(firstPod));
-
+const PodsLogViewerInner: React.FC<PodsLogViewerInnerProps> = ({
+  pods,
+  activePod,
+  container,
+  setContainer,
+  handlePodChange,
+}) => {
   const classes = useStyle();
   const [showPrevious, setShowPrevious] = React.useState<boolean>(false);
   const [showTimestamps, setShowTimestamps] = React.useState<boolean>(false);
@@ -60,7 +48,6 @@ export const PodsLogViewerDialog: React.FC<PodsLogViewerDialogProps> = ({ props,
     logs: [],
     lastLineShown: -1,
   });
-
   const xtermRef = React.useRef<XTerminal | null>(null);
   const { t } = useTranslation('frequent');
 
@@ -104,7 +91,7 @@ export const PodsLogViewerDialog: React.FC<PodsLogViewerDialogProps> = ({ props,
     () => {
       let callback: any = null;
 
-      if (open && !!activePod) {
+      if (!!activePod) {
         xtermRef.current?.clear();
         setLogs({ logs: [], lastLineShown: -1 });
 
@@ -123,20 +110,11 @@ export const PodsLogViewerDialog: React.FC<PodsLogViewerDialogProps> = ({ props,
       };
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [container, lines, open, showPrevious, showTimestamps, follow, activePod]
+    [container, lines, open, showPrevious, showTimestamps, follow]
   );
 
   const handleContainerChange = (event: any) => {
     setContainer(event.target.value);
-  };
-
-  const handlePodChange = (event: any) => {
-    const newPodName = event.target.value;
-    const newPod = pods.find(({ metadata: { name } }) => name === newPodName);
-    if (newPod) {
-      setActivePod(newPod);
-      setContainer(getDefaultContainer(newPod));
-    }
   };
 
   const handleLinesChange = (event: any) => {
@@ -168,10 +146,7 @@ export const PodsLogViewerDialog: React.FC<PodsLogViewerDialogProps> = ({ props,
 
   return (
     <LogViewer
-      title={`Logs: ${activePod?.getName()}`}
       downloadName={`${activePod?.getName()}_${container}`}
-      open={open}
-      onClose={() => closeDialog()}
       logs={logs.logs}
       xtermRef={xtermRef}
       topActions={[
@@ -290,4 +265,31 @@ export const PodsLogViewerDialog: React.FC<PodsLogViewerDialogProps> = ({ props,
   );
 };
 
-PodsLogViewerDialog.displayName = DIALOG_NAME;
+export const PodsLogViewer: React.FC<PodsLogViewerProps> = ({ pods, getDefaultContainer }) => {
+  const firstPod = pods?.[0];
+
+  const [activePod, setActivePod] = React.useState<PodKubeObjectInterface>(firstPod);
+  const [container, setContainer] = React.useState<string>(getDefaultContainer(firstPod));
+
+  const handlePodChange = React.useCallback(
+    (event: any) => {
+      const newPodName = event.target.value;
+      const newPod = pods.find(({ metadata: { name } }) => name === newPodName);
+      if (newPod) {
+        setActivePod(newPod);
+        setContainer(getDefaultContainer(newPod));
+      }
+    },
+    [getDefaultContainer, pods]
+  );
+
+  return (
+    <PodsLogViewerInner
+      pods={pods}
+      activePod={activePod}
+      handlePodChange={handlePodChange}
+      container={container}
+      setContainer={setContainer}
+    />
+  );
+};
