@@ -26,6 +26,7 @@ import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const [chatAssistantSecrets, chatAssistantSecretsError] = SecretKubeObject.useList({
+    namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=chat-assistant`,
   });
   const chatAssistantSecret = chatAssistantSecrets?.[0]?.jsonData;

@@ -18,7 +18,7 @@ import { useTriggerTemplateByNameQuery } from '../../../../../../../../k8s/group
 import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { rem } from '../../../../../../../../utils/styling/rem';
 import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
-import { isDefaultBranch } from '../../../../utils';
+import { isDefaultBranch } from '../../../../../../utils';
 import { Actions } from '../Actions';
 import { useStyles } from './styles';
 import { SummaryProps } from './types';

@@ -16,6 +16,7 @@ import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/groups/default/Secret/labels';
 import { JiraServerKubeObject } from '../../../../k8s/groups/EDP/JiraServer';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
 import { ManageJiraServer } from '../../../../widgets/ManageJiraServer';
@@ -24,9 +25,12 @@ import { pageDescription } from './constants';
 import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
-  const [jiraServers, jiraServersError] = JiraServerKubeObject.useList();
+  const [jiraServers, jiraServersError] = JiraServerKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
 
   const [jiraServerSecrets, jiraServerSecretsError] = SecretKubeObject.useList({
+    namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=jira`,
   });
 

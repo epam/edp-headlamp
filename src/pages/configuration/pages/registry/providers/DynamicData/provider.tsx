@@ -5,22 +5,28 @@ import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
 import { REGISTRY_SECRET_NAMES } from '../../../../../../k8s/groups/default/Secret/constants';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../../../k8s/groups/default/Secret/labels';
 import { ServiceAccountKubeObject } from '../../../../../../k8s/groups/default/ServiceAccount';
+import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
 import { DynamicDataContext } from './context';
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
-  const [configMaps, configMapsError] = ConfigMapKubeObject.useList();
+  const [configMaps, configMapsError] = ConfigMapKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
 
   const EDPConfigMap = configMaps?.find(
     (item) => item.metadata.name === EDP_CONFIG_CONFIG_MAP_NAME
   );
 
-  const [serviceAccounts, serviceAccountsError] = ServiceAccountKubeObject.useList();
+  const [serviceAccounts, serviceAccountsError] = ServiceAccountKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
 
   const tektonServiceAccount = serviceAccounts?.find(
     (el) => el?.metadata?.name === 'tekton'
   )?.jsonData;
 
   const [registrySecrets, registrySecretsError] = SecretKubeObject.useList({
+    namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=registry`,
   });
 

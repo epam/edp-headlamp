@@ -2,6 +2,7 @@ import React from 'react';
 import { UseQueryOptions } from 'react-query';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { KubeObjectListInterface } from '../../../../../types/k8s';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { CDPipelineKubeObjectInterface } from '../../CDPipeline/types';
 import { CodebaseImageStreamKubeObject } from '../../CodebaseImageStream';
 import { CodebaseImageStreamKubeObjectInterface } from '../../CodebaseImageStream/types';
@@ -48,7 +49,7 @@ export const useEnrichedApplicationsWithImageStreamsQuery = ({
   );
 
   const [codebaseImageStreams] = CodebaseImageStreamKubeObject.useList({
-    namespace: CDPipelineData?.metadata.namespace,
+    namespace: CDPipelineData?.metadata.namespace || getDefaultNamespace(),
   });
 
   return useCodebasesByTypeLabelQuery<EnrichedApplicationWithItsImageStreams[]>({

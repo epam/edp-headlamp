@@ -19,7 +19,6 @@ import {
 } from '../../../../k8s/groups/Tekton/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
 import { useTriggerTemplateByNameQuery } from '../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useTriggerTemplateByNameQuery';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { DynamicDataContext } from './context';
@@ -73,7 +72,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
 
   const [variablesConfigMap, variablesConfigMapError] = ConfigMapKubeObject.useGet(
     stageMetadataName,
-    getDefaultNamespace()
+    namespace
   );
 
   React.useEffect(() => {
@@ -99,7 +98,9 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     };
   }, [namespace, stageMetadataName]);
 
-  const [gitServers, gitServersError] = GitServerKubeObject.useList();
+  const [gitServers, gitServersError] = GitServerKubeObject.useList({
+    namespace,
+  });
 
   const deployPipelineRuns = React.useMemo(() => {
     if (!stageMetadataName || !CDPipelineName || pipelineRuns === null) {

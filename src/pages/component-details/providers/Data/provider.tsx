@@ -12,7 +12,6 @@ import {
   DependencyTrackApiService,
   SonarApiService,
 } from '../../../../services/api';
-import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { MetricKey, SonarQubeMetricsResponse } from '../../../../widgets/SonarQubeMetrics/types';
 import { ComponentDetailsRouteParams } from '../../types';
 import { DataContext } from './context';
@@ -76,10 +75,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
   const token = getToken(cluster);
   const { namespace, name } = useParams<ComponentDetailsRouteParams>();
 
-  const [EDPConfigMap] = ConfigMapKubeObject.useGet(
-    EDP_CONFIG_CONFIG_MAP_NAME,
-    getDefaultNamespace()
-  );
+  const [EDPConfigMap] = ConfigMapKubeObject.useGet(EDP_CONFIG_CONFIG_MAP_NAME, namespace);
 
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
 

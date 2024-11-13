@@ -32,6 +32,7 @@ import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const [defectDojoSecrets, defectDojoSecretsError] = SecretKubeObject.useList({
+    namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.DEFECT_DOJO}`,
   });
 

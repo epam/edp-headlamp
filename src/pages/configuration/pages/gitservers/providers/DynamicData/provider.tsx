@@ -4,16 +4,25 @@ import { ConfigMapKubeObject } from '../../../../../../k8s/groups/default/Config
 import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../../../k8s/groups/default/Secret/labels';
 import { GitServerKubeObject } from '../../../../../../k8s/groups/EDP/GitServer';
+import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
 import { DynamicDataContext } from './context';
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
-  const [configMaps, configMapsError] = ConfigMapKubeObject.useList();
+  const [configMaps, configMapsError] = ConfigMapKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
 
-  const [ingresses, ingressesError] = K8s.ingress.default.useList();
+  const [ingresses, ingressesError] = K8s.ingress.default.useList({
+    namespace: getDefaultNamespace(),
+  });
 
-  const [gitServers, gitServersError] = GitServerKubeObject.useList({});
+  const [gitServers, gitServersError] = GitServerKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
 
   const [repositorySecrets, repositorySecretsError] = SecretKubeObject.useList({
+    namespace: getDefaultNamespace(),
+
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=repository`,
   });
 

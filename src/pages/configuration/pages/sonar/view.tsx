@@ -32,6 +32,7 @@ import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
   const [sonarSecrets, sonarSecretsError] = SecretKubeObject.useList({
+    namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=${SYSTEM_QUICK_LINKS.SONAR}`,
   });
 
