@@ -21,6 +21,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const [CDPipeline, CDPipelineGetError] = CDPipelineKubeObject.useGet(name, namespace);
 
   const [stages, stagesError] = StageKubeObject.useList({
+    namespace,
     labelSelector: `${STAGE_LABEL_SELECTOR_CD_PIPELINE_NAME}=${name}`,
   });
 
@@ -33,10 +34,12 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   }, [stages]);
 
   const [applications, applicationsError] = CodebaseKubeObject.useList({
+    namespace,
     labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPES.APPLICATION}`,
   });
 
   const [argoApplications, argoApplicationsError] = ApplicationKubeObject.useList({
+    namespace,
     labelSelector: `${APPLICATION_LABEL_SELECTOR_PIPELINE}=${name}`,
   });
 

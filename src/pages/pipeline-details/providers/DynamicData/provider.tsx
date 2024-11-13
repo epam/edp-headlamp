@@ -99,13 +99,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
           taskRuns === null ||
           tasks === null ||
           pipelineRun === null ||
-          approvalTasks === null ||
           !pipelineRunTasks.allTasks.length,
         error: taskRunErrors || tasksError || pipelineRunError || approvalTasksError,
       },
     }),
     [
-      approvalTasks,
       approvalTasksError,
       pipelineRun,
       pipelineRunError,

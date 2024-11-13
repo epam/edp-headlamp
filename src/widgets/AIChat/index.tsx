@@ -9,6 +9,7 @@ import { SecretKubeObject } from '../../k8s/groups/default/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../k8s/groups/default/Secret/labels';
 import { LOCAL_STORAGE_SERVICE } from '../../services/local-storage';
 import { safeDecode } from '../../utils/decodeEncode';
+import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { Chat } from './components/Chat';
 import { ChatHistory } from './components/ChatHistory';
 import { StyledChatBody, StyledChatHeader } from './styles';
@@ -207,6 +208,7 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
 
 export const AiChatWrapper = () => {
   const [codemieSecrets] = SecretKubeObject.useList({
+    namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=chat-assistant`,
   });
   const codemieSecret = codemieSecrets?.[0]?.jsonData;

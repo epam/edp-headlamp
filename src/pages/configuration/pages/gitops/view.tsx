@@ -47,7 +47,9 @@ export const PageView = () => {
   const status = gitOpsCodebase?.status?.status;
   const [icon, color, isRotating] = CodebaseKubeObject.getStatusIcon(status);
 
-  const [gitServers, gitServersError] = GitServerKubeObject.useList();
+  const [gitServers, gitServersError] = GitServerKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
   const history = useHistory();
 
   const gitServersConfigurationPageRoute = Router.createRouteURL(routeGitServerList.path);

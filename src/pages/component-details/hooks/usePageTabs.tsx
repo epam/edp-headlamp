@@ -7,7 +7,7 @@ import { Overview } from '../components/Overview';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
 
 export const usePageTabs = () => {
-  const { component } = useDynamicDataContext();
+  const { component, codebaseBranches } = useDynamicDataContext();
 
   return React.useMemo(() => {
     return [
@@ -27,7 +27,7 @@ export const usePageTabs = () => {
         id: 'branches',
         component: (
           <Box sx={{ mt: (t) => t.typography.pxToRem(24) }}>
-            <LoadingWrapper isLoading={component.isLoading}>
+            <LoadingWrapper isLoading={component.isLoading || codebaseBranches.isLoading}>
               <ResourceActionListContextProvider>
                 <CodebaseBranchesList />
               </ResourceActionListContextProvider>
@@ -36,5 +36,5 @@ export const usePageTabs = () => {
         ),
       },
     ];
-  }, [component]);
+  }, [codebaseBranches.isLoading, component.isLoading]);
 };

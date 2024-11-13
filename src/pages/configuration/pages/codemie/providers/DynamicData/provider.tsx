@@ -16,16 +16,25 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     getDefaultNamespace()
   );
 
-  const [codemie, codemieError] = CodemieKubeObject.useList();
-  const [codemieProject, codemieProjectError] = CodemieProjectKubeObject.useList();
+  const [codemie, codemieError] = CodemieKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
+  const [codemieProject, codemieProjectError] = CodemieProjectKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
   const [codemieProjectSettings, codemieProjectSettingsError] =
-    CodemieProjectSettingsKubeObject.useList();
+    CodemieProjectSettingsKubeObject.useList({
+      namespace: getDefaultNamespace(),
+    });
 
   const [codemieSecrets, codemieSecretsError] = SecretKubeObject.useList({
+    namespace: getDefaultNamespace(),
     labelSelector: `${SECRET_LABEL_SECRET_TYPE}=codemie`,
   });
 
-  const [codemieApplications, codemieApplicationsError] = CodemieApplicationKubeObject.useList();
+  const [codemieApplications, codemieApplicationsError] = CodemieApplicationKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
 
   const codemieSecret = codemieSecrets?.[0];
 
