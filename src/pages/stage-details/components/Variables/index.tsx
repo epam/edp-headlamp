@@ -51,69 +51,70 @@ export const Variables = ({ configMap }: { configMap: ConfigMapKubeObjectInterfa
 
   const theme = useTheme();
 
-  const onSubmit = (values) => {
-    const configMapCopy = { ...configMap };
-    configMapCopy.data = values.variables.reduce((acc, { key, value }) => {
-      acc[key] = value;
-      return acc;
-    }, {});
+  const onSubmit = React.useCallback(
+    (values) => {
+      const configMapCopy = { ...configMap };
+      configMapCopy.data = values.variables.reduce((acc, { key, value }) => {
+        acc[key] = value;
+        return acc;
+      }, {});
 
-    editConfigMap({ configMapData: configMapCopy });
-    reset(values, { keepValues: true });
-  };
+      editConfigMap({ configMapData: configMapCopy });
+      reset(values, { keepValues: true });
+    },
+    [configMap, editConfigMap, reset]
+  );
 
-  const appendNewRow = () => append({ key: '', value: '' });
+  const appendNewRow = React.useCallback(() => append({ key: '', value: '' }), [append]);
 
-  return (
-    <FormProvider {...form}>
-      {!fields?.length ? (
-        <EmptyList
-          customText="No variables found."
-          handleClick={appendNewRow}
-          linkText="Click here to add a new variable."
-        />
-      ) : (
+  const renderContent = React.useCallback(() => {
+    if (fields.length || dataEntries?.length) {
+      return (
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={4}>
-            <NameValueTable
-              rows={fields.map((field, index) => {
-                return {
-                  name: (
-                    <FormTextField
-                      {...register(`variables.${index}.key`, {
-                        required: 'Enter a key',
-                      })}
-                      placeholder={'Var name'}
-                      label={'Key'}
-                      control={control}
-                      errors={errors}
-                      key={`${field.id}-key`}
-                    />
-                  ),
-                  value: (
-                    <Stack spacing={2} direction="row" alignItems="center">
-                      <Box flexGrow={1}>
-                        <FormTextField
-                          {...register(`variables.${index}.value`, {
-                            required: 'Enter a value',
-                          })}
-                          label={'Value'}
-                          placeholder={'Var value'}
-                          control={control}
-                          errors={errors}
-                          key={`${field.id}-value`}
-                        />
-                      </Box>
-                      <Box sx={{ pt: (t) => t.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
-                        <IconButton onClick={() => handleDelete(index)} size="medium">
-                          <Icon icon={ICONS.BUCKET} width="20" />
-                        </IconButton>
-                      </Box>
-                    </Stack>
-                  ),
-                };
-              })}
-            />
+            {fields.length ? (
+              <NameValueTable
+                rows={fields.map((field, index) => {
+                  return {
+                    name: (
+                      <FormTextField
+                        {...register(`variables.${index}.key`, {
+                          required: 'Enter a key',
+                        })}
+                        placeholder={'Var name'}
+                        label={'Key'}
+                        control={control}
+                        errors={errors}
+                        key={`${field.id}-key`}
+                      />
+                    ),
+                    value: (
+                      <Stack spacing={2} direction="row" alignItems="center">
+                        <Box flexGrow={1}>
+                          <FormTextField
+                            {...register(`variables.${index}.value`, {
+                              required: 'Enter a value',
+                            })}
+                            label={'Value'}
+                            placeholder={'Var value'}
+                            control={control}
+                            errors={errors}
+                            key={`${field.id}-value`}
+                          />
+                        </Box>
+                        <Box sx={{ pt: (t) => t.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
+                          <IconButton onClick={() => handleDelete(index)} size="medium">
+                            <Icon icon={ICONS.BUCKET} width="20" />
+                          </IconButton>
+                        </Box>
+                      </Stack>
+                    ),
+                  };
+                })}
+              />
+            ) : (
+              <EmptyList customText="Are you sure you want to save empty variable list?" />
+            )}
             <Stack alignItems="flex-end" sx={{ pr: (t) => t.typography.pxToRem(16) }}>
               <Button
                 type={'button'}
@@ -153,7 +154,33 @@ export const Variables = ({ configMap }: { configMap: ConfigMapKubeObjectInterfa
             </Stack>
           </Stack>
         </form>
-      )}
-    </FormProvider>
-  );
+      );
+    }
+
+    if (!dataEntries?.length) {
+      return (
+        <EmptyList
+          customText="No variables found."
+          handleClick={appendNewRow}
+          linkText="Click here to add a new variable."
+        />
+      );
+    }
+  }, [
+    appendNewRow,
+    configMapEditMutation.isLoading,
+    control,
+    dataEntries?.length,
+    errors,
+    fields,
+    handleDelete,
+    handleSubmit,
+    isDirty,
+    onSubmit,
+    register,
+    reset,
+    theme.palette.secondary.dark,
+  ]);
+
+  return <FormProvider {...form}>{renderContent()}</FormProvider>;
 };
