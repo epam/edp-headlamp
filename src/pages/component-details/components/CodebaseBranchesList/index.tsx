@@ -53,10 +53,7 @@ export const CodebaseBranchesList = () => {
                 id={branchId}
                 codebaseBranchData={codebaseBranchData}
                 expandedPanel={expandedPanel}
-                codebaseData={component}
                 handlePanelChange={handleChange}
-                defaultBranch={codebaseBranches?.[0]}
-                pipelines={pipelines}
               />
             );
           })}

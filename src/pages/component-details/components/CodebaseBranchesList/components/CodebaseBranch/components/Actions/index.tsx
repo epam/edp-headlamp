@@ -4,18 +4,22 @@ import React from 'react';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { CodebaseBranchActionsMenu } from '../../../../../../../../widgets/CodebaseBranchActionsMenu';
 import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
+import { useDynamicDataContext } from '../../../../../../providers/DynamicData/hooks';
 import { ActionsProps } from './types';
 
-export const Actions = ({
-  codebaseBranchData,
-  codebaseData,
-  pipelines,
-  defaultBranch,
-}: ActionsProps) => {
+export const Actions = ({ codebaseBranchData }: ActionsProps) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
   const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement>(null);
 
   const permissions = useTypedPermissions();
+
+  const {
+    codebaseBranches: { data: codebaseBranches },
+    component: { data: codebaseData },
+    pipelines: { data: pipelines },
+  } = useDynamicDataContext();
+
+  const defaultBranch = codebaseBranches?.[0];
 
   return (
     <>

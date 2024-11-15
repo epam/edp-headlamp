@@ -7,6 +7,7 @@ import { PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH } from '../../../../../../k
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/groups/Tekton/PipelineRun/types';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
+import { useDynamicDataContext } from '../../../../providers/DynamicData/hooks';
 import { Details } from './components/Details';
 import { Summary } from './components/Summary';
 import { CodebaseBranchProps } from './types';
@@ -16,10 +17,11 @@ export const CodebaseBranch = ({
   expandedPanel,
   id,
   handlePanelChange,
-  codebaseData,
-  defaultBranch,
-  pipelines,
 }: CodebaseBranchProps) => {
+  const {
+    component: { data: codebaseData },
+  } = useDynamicDataContext();
+
   const [pipelineRuns, setPipelineRuns] = React.useState<{
     all: PipelineRunKubeObjectInterface[];
     latestBuildPipelineRun: PipelineRunKubeObjectInterface;
@@ -87,13 +89,7 @@ export const CodebaseBranch = ({
             },
           }}
         >
-          <Summary
-            codebaseData={codebaseData}
-            codebaseBranchData={codebaseBranchData}
-            pipelineRuns={pipelineRuns}
-            defaultBranch={defaultBranch}
-            pipelines={pipelines}
-          />
+          <Summary codebaseBranchData={codebaseBranchData} pipelineRuns={pipelineRuns} />
         </AccordionSummary>
         <AccordionDetails>
           <Details codebaseData={codebaseData} pipelineRuns={pipelineRuns} />

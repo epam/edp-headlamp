@@ -15,13 +15,19 @@ export const useTabs = ({ taskRun, task, stepName, pods }) => {
     [stepName]
   );
 
+  const defaultContainer = getDefaultContainer(pods?.[0]);
+
   return React.useMemo(() => {
     return [
       {
         label: 'Logs',
         component: (
           <TabContent>
-            <PodsLogViewer pods={pods} getDefaultContainer={getDefaultContainer} />
+            <PodsLogViewer
+              key={defaultContainer}
+              pods={pods}
+              getDefaultContainer={getDefaultContainer}
+            />
           </TabContent>
         ),
         disabled: !pods?.length,
@@ -35,5 +41,5 @@ export const useTabs = ({ taskRun, task, stepName, pods }) => {
         ),
       },
     ];
-  }, [details, getDefaultContainer, pods]);
+  }, [defaultContainer, details, getDefaultContainer, pods]);
 };

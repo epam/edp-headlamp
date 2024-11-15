@@ -1,4 +1,4 @@
-import { PodKubeObjectInterface } from "../../k8s/groups/default/Pod/types";
+import { PodKubeObjectInterface } from '../../k8s/groups/default/Pod/types';
 
 export interface PodsLogViewerProps {
   pods: PodKubeObjectInterface[];

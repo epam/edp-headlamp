@@ -13,7 +13,7 @@ export default function () {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const queryParamTaskRun = queryParams.get('taskRun');
-  
+
   return (
     <PageLogicWrapper>
       <PermissionsContextProvider permissionConfigs={permissionsToCheckConfig}>

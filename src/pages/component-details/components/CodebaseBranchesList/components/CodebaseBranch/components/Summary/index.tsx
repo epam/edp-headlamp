@@ -9,7 +9,6 @@ import { GIT_PROVIDERS } from '../../../../../../../../constants/gitProviders';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { CodebaseBranchKubeObject } from '../../../../../../../../k8s/groups/EDP/CodebaseBranch';
-import { useGitServerByCodebaseQuery } from '../../../../../../../../k8s/groups/EDP/GitServer/hooks/useGitServerByCodebaseQuery';
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/constants';
 import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateBuildPipelineRun';
@@ -18,24 +17,20 @@ import { useTriggerTemplateByNameQuery } from '../../../../../../../../k8s/group
 import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { rem } from '../../../../../../../../utils/styling/rem';
 import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
+import { useDynamicDataContext } from '../../../../../../providers/DynamicData/hooks';
 import { isDefaultBranch } from '../../../../../../utils';
 import { Actions } from '../Actions';
 import { useStyles } from './styles';
 import { SummaryProps } from './types';
 
-export const Summary = ({
-  codebaseData,
-  codebaseBranchData,
-  pipelineRuns,
-  defaultBranch,
-  pipelines,
-}: SummaryProps) => {
+export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
+  const {
+    component: { data: codebaseData },
+    gitServerByCodebase: { data: gitServerByCodebase },
+  } = useDynamicDataContext();
+
   const permissions = useTypedPermissions();
   const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
-
-  const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
-    props: { codebaseGitServer: codebaseData?.spec.gitServer },
-  });
 
   const { data: buildTriggerTemplate } = useTriggerTemplateByNameQuery({
     props: {
@@ -234,12 +229,7 @@ export const Summary = ({
               e.stopPropagation();
             }}
           >
-            <Actions
-              codebaseBranchData={codebaseBranchData}
-              codebaseData={codebaseData}
-              defaultBranch={defaultBranch}
-              pipelines={pipelines}
-            />
+            <Actions codebaseBranchData={codebaseBranchData} />
           </Grid>
         </Grid>
       </Box>

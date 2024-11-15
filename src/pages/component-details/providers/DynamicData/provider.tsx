@@ -1,3 +1,4 @@
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { CodebaseKubeObject } from '../../../../k8s/groups/EDP/Codebase';
@@ -17,7 +18,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
 
   const [component, error] = CodebaseKubeObject.useGet(name, namespace);
 
-  const { data: gitServerByCodebase } = useGitServerByCodebaseQuery({
+  const {
+    data: gitServerByCodebase,
+    isLoading: gitServerByCodebaseIsLoading,
+    error: gitServerByCodebaseError,
+  } = useGitServerByCodebaseQuery({
     props: { codebaseGitServer: component?.spec.gitServer },
   });
 
@@ -60,6 +65,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         error: codebaseBranchesError,
         isLoading: codebaseBranches === null,
       },
+      gitServerByCodebase: {
+        data: gitServerByCodebase,
+        error: gitServerByCodebaseError as ApiError,
+        isLoading: gitServerByCodebaseIsLoading,
+      },
     }),
     [
       buildPipelineRefName,
@@ -67,6 +77,9 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       codebaseBranchesError,
       component,
       error,
+      gitServerByCodebase,
+      gitServerByCodebaseError,
+      gitServerByCodebaseIsLoading,
       reviewPipelineRefName,
       sortedCodebaseBranches,
     ]

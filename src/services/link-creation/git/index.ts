@@ -31,6 +31,10 @@ export const GitURLService = {
     }
   },
   createRepoBranchLink: (gitServer: GIT_PROVIDERS, baseUrl: string, branch: string) => {
+    if (!gitServer) {
+      return baseUrl;
+    }
+
     const updatedUrl = new URL(baseUrl);
 
     switch (gitServer.toLowerCase()) {
