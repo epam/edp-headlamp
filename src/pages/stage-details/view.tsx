@@ -51,8 +51,7 @@ export const PageView = () => {
 
   const permissions = useTypedPermissions();
 
-
-  const { activeTab, handleChangeTab} = useTabsContext();
+  const { activeTab, handleChangeTab } = useTabsContext();
 
   return (
     <PageWrapper
