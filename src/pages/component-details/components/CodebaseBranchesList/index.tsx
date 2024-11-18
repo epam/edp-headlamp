@@ -45,13 +45,14 @@ export const CodebaseBranchesList = () => {
       {codebaseBranches.length ? (
         <>
           {codebaseBranches.map((codebaseBranchData: CodebaseBranchKubeObjectInterface) => {
-            const branchId = codebaseBranchData.spec.branchName;
+            const codebaseBranch = codebaseBranchData?.jsonData;
+            const branchId = codebaseBranch.spec.branchName;
 
             return (
               <CodebaseBranch
                 key={branchId}
                 id={branchId}
-                codebaseBranchData={codebaseBranchData}
+                codebaseBranchData={codebaseBranch}
                 expandedPanel={expandedPanel}
                 handlePanelChange={handleChange}
               />
@@ -64,7 +65,7 @@ export const CodebaseBranchesList = () => {
           handleClick={() =>
             setDialog(ManageCodebaseBranchDialog, {
               codebase: component,
-              defaultBranch: codebaseBranches?.[0],
+              defaultBranch: codebaseBranches?.[0]?.jsonData,
               pipelines,
             })
           }
