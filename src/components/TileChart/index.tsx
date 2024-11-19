@@ -29,7 +29,7 @@ export const MyTileChart = ({
             <Box sx={BoxSx}>
               {!!data && <PercentageCircle data={data} total={total} {...others} />}
             </Box>
-            <Box sx={{ pt: '16px' }}>{legend}</Box>
+            {legend && <Box sx={{ pt: '16px' }}>{legend}</Box>}
           </Stack>
         )}
       </Stack>
