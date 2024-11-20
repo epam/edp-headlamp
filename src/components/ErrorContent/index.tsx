@@ -61,8 +61,31 @@ export const ErrorContent = ({
             </Stack>
           </Stack>
         );
+      case 404:
+        return (
+          <Stack
+            direction={orientation === 'horizontal' ? 'row' : 'column'}
+            spacing={1}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Icon icon={'tabler:error-404'} color="#A2A7B7" width={48} height={48} />
+            <Stack spacing={1} direction="row" alignItems="center">
+              <Typography component="span" fontSize={theme.typography.pxToRem(14)} color="#596D80">
+                Sorry. The requested resource was not found.
+              </Typography>
+              <Link
+                component={'button'}
+                onClick={handleOpen}
+                sx={{ fontSize: theme.typography.pxToRem(14) }}
+              >
+                More details
+              </Link>
+            </Stack>
+          </Stack>
+        );
       default:
-        return 'Not Found';
+        return 'Oops! Something went wrong. Please try again later.';
     }
   }, [error?.status, orientation, theme.typography]);
 

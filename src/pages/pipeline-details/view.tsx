@@ -1,6 +1,7 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { ErrorContent } from '../../components/ErrorContent';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
@@ -30,6 +31,28 @@ export const PageView = () => {
   const tabs = useTabs();
   const { activeTab, handleChangeTab } = useTabsContext();
 
+  const resourceIsLoaded =
+    !pipelineRun.isLoading && !pipelineRunDataIsLoading && !pipelineRun.error;
+
+  const renderPageContent = React.useCallback(() => {
+    if (pipelineRun.error) {
+      return <ErrorContent error={pipelineRun.error} />;
+    }
+
+    return (
+      <LoadingWrapper isLoading={pipelineRun.isLoading || pipelineRunDataIsLoading}>
+        <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
+      </LoadingWrapper>
+    );
+  }, [
+    pipelineRun.error,
+    pipelineRun.isLoading,
+    pipelineRunDataIsLoading,
+    tabs,
+    activeTab,
+    handleChangeTab,
+  ]);
+
   return (
     <PageWrapper
       breadcrumbs={[
@@ -45,7 +68,7 @@ export const PageView = () => {
       ]}
       headerSlot={
         <div>
-          {!pipelineRun.isLoading && (
+          {resourceIsLoaded && (
             <PipelineRunActionsMenu
               data={{
                 pipelineRun: pipelineRun.data,
@@ -58,11 +81,7 @@ export const PageView = () => {
         </div>
       }
     >
-      <Section title={name}>
-        <LoadingWrapper isLoading={pipelineRunDataIsLoading}>
-          <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
-        </LoadingWrapper>
-      </Section>
+      <Section title={name}>{renderPageContent()}</Section>
     </PageWrapper>
   );
 };
