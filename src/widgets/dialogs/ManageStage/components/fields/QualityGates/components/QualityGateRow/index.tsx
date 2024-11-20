@@ -275,25 +275,29 @@ export const QualityGateRow = ({
               options={availableQualityGateTypeSelectOptions}
             />
           </Grid>
-          <Grid item xs={3}>
-            <FormTextField
-              {...register(
-                // @ts-ignore
-                createQualityGateStepNameFieldName(currentQualityGate.id),
-                {
-                  required: 'Enter step name.',
-                  onChange: handleChangeQualityGateStepName,
-                }
-              )}
-              label={'Step name'}
-              title={
-                'Name the deployment step within the stage to distinguish different phases of the deployment process.'
-              }
-              placeholder={'Enter step name'}
-              control={control}
-              errors={errors}
-            />
-          </Grid>
+          {currentQualityGateTypeFieldValue &&
+            currentQualityGateTypeFieldValue !== QUALITY_GATE_TYPES.MANUAL && (
+              <Grid item xs={3}>
+                <FormTextField
+                  {...register(
+                    // @ts-ignore
+                    createQualityGateStepNameFieldName(currentQualityGate.id),
+                    {
+                      required: 'Enter step name.',
+                      onChange: handleChangeQualityGateStepName,
+                    }
+                  )}
+                  label={'Step name'}
+                  title={
+                    'Name the deployment step within the stage to distinguish different phases of the deployment process.'
+                  }
+                  placeholder={'Enter step name'}
+                  control={control}
+                  errors={errors}
+                />
+              </Grid>
+            )}
+
           {!!autotestsWithBranchesOptions.length &&
           currentQualityGateTypeFieldValue === QUALITY_GATE_TYPES.AUTOTESTS ? (
             <>
