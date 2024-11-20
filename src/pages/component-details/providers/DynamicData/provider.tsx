@@ -41,9 +41,10 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     labelSelector: `${CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME}=${name}`,
   });
 
-  const sortedCodebaseBranches = codebaseBranches?.sort((a) =>
-    isDefaultBranch(component, a) ? -1 : 1
-  );
+  const sortedCodebaseBranches =
+    component === null
+      ? null
+      : codebaseBranches?.sort((a) => (isDefaultBranch(component, a) ? -1 : 1));
 
   const DataContextValue = React.useMemo(
     () => ({
