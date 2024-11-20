@@ -1,7 +1,9 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { Box, CircularProgress, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { ErrorContent } from '../../components/ErrorContent';
+import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
@@ -28,7 +30,7 @@ export const PageView = () => {
 
   const { CDPipeline, stages, QuickLinks, QuickLinksURLs } = useDataContext();
   const {
-    stage: { data: stage, isLoading: isStageLoading },
+    stage: { data: stage, isLoading: isStageLoading, error: stageError },
   } = useDynamicDataContext();
 
   const grafanaQuickLink =
@@ -53,6 +55,20 @@ export const PageView = () => {
 
   const { activeTab, handleChangeTab } = useTabsContext();
 
+  const resourceIsLoaded = !isStageLoading && !stageError;
+
+  const renderPageContent = React.useCallback(() => {
+    if (stageError) {
+      return <ErrorContent error={stageError} />;
+    }
+
+    return (
+      <LoadingWrapper isLoading={isStageLoading}>
+        <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
+      </LoadingWrapper>
+    );
+  }, [activeTab, handleChangeTab, isStageLoading, stageError, tabs]);
+
   return (
     <PageWrapper
       breadcrumbs={[
@@ -73,7 +89,7 @@ export const PageView = () => {
       ]}
       headerSlot={
         !isDataLoading &&
-        !isStageLoading && (
+        resourceIsLoaded && (
           <Stack direction="row" alignItems="center" spacing={1}>
             <QuickLink
               name={{
@@ -139,13 +155,7 @@ export const PageView = () => {
           'Manage, deploy, test, and troubleshoot your applications across distinct Environments.'
         }
       >
-        {!isStageLoading ? (
-          <Box sx={{ mt: (t) => t.typography.pxToRem(20) }}>
-            <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
-          </Box>
-        ) : (
-          <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
-        )}
+        {renderPageContent()}
       </Section>
     </PageWrapper>
   );

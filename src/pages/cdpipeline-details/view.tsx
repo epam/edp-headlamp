@@ -2,6 +2,8 @@ import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { ErrorContent } from '../../components/ErrorContent';
+import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
@@ -28,6 +30,27 @@ export const PageView = () => {
   const { CDPipeline } = useDynamicDataContext();
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
   const permissions = useTypedPermissions();
+
+  const resourceIsLoaded = !CDPipeline.isLoading && !CDPipeline.error;
+
+  const renderPageContent = React.useCallback(() => {
+    if (CDPipeline.error) {
+      return <ErrorContent error={CDPipeline.error} />;
+    }
+
+    return (
+      <LoadingWrapper isLoading={CDPipeline.isLoading}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <StageListFilter />
+          </Grid>
+          <Grid item xs={12} sx={{ pr: '2px' }}>
+            <StageList />
+          </Grid>
+        </Grid>
+      </LoadingWrapper>
+    );
+  }, [CDPipeline.error, CDPipeline.isLoading]);
 
   return (
     <PageWrapper
@@ -61,7 +84,7 @@ export const PageView = () => {
               isTextButton
             />
           </Grid>
-          {!CDPipeline.isLoading && (
+          {resourceIsLoaded && (
             <>
               <Grid item>
                 <CDPipelineActionsMenu
@@ -82,14 +105,7 @@ export const PageView = () => {
         title={<Typography fontSize={theme.typography.pxToRem(48)}>{name}</Typography>}
         description={`Defines the sequence and logic for promoting artifacts through various environments. It maps out an artifact's progression path from development to production.`}
       >
-        <Grid container spacing={3}>
-          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <StageListFilter />
-          </Grid>
-          <Grid item xs={12} sx={{ pr: '2px' }}>
-            <StageList />
-          </Grid>
-        </Grid>
+        {renderPageContent()}
       </Section>
     </PageWrapper>
   );

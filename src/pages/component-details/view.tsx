@@ -2,6 +2,8 @@ import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { Stack } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { ErrorContent } from '../../components/ErrorContent';
+import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
@@ -37,6 +39,21 @@ export const PageView = () => {
 
   const { activeTab, handleChangeTab } = useTabsContext();
 
+  const resourceIsLoaded = !component.isLoading && !component.error;
+
+  const renderPageContent = React.useCallback(() => {
+    if (component.error) {
+      return <ErrorContent error={component.error} />;
+    }
+
+    return (
+      <LoadingWrapper isLoading={component.isLoading}>
+        <Resources />
+        <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
+      </LoadingWrapper>
+    );
+  }, [activeTab, component.error, component.isLoading, handleChangeTab, tabs]);
+
   return (
     <PageWrapper
       breadcrumbs={[
@@ -52,7 +69,7 @@ export const PageView = () => {
       ]}
       headerSlot={
         <>
-          {!!component.data && (
+          {resourceIsLoaded && (
             <div style={{ marginLeft: 'auto' }}>
               <Stack spacing={2} direction="row" alignItems="center">
                 <QuickLink
@@ -103,8 +120,7 @@ export const PageView = () => {
         title={name}
         description={'Review your codebases, monitor their status, and execute build pipelines.'}
       >
-        <Resources />
-        <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
+        {renderPageContent()}
       </Section>
     </PageWrapper>
   );
