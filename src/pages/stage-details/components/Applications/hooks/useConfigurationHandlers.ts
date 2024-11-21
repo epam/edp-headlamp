@@ -233,8 +233,12 @@ export const useConfigurationHandlers = ({
   const handleClean = React.useCallback(async () => {
     if (!cleanPipelineRunTemplate) {
       showRequestErrorMessage(CRUD_TYPES.CREATE, {
-        customMessage: 'Clean PipelineRun template is not found.',
-        entityName: 'Clean PipelineRun',
+        customMessage: {
+          message: 'Clean PipelineRun template is not found.',
+          options: {
+            variant: 'error',
+          },
+        },
       });
 
       return;

@@ -1,11 +1,14 @@
-import { useSnackbar } from 'notistack';
+import { OptionsObject, useSnackbar } from 'notistack';
 import React from 'react';
 import { Snackbar } from '../../components/Snackbar';
 import { CRUD_TYPES } from '../../constants/crudTypes';
 
 interface Options {
-  entityName: string;
-  customMessage?: string;
+  entityName?: string;
+  customMessage?: {
+    message: string;
+    options?: OptionsObject;
+  };
 }
 
 export const useRequestStatusMessages = () => {
@@ -15,71 +18,108 @@ export const useRequestStatusMessages = () => {
     const beforeRequestMessage = (() => {
       switch (mode) {
         case CRUD_TYPES.CREATE:
-          return customMessage || `Applying ${entityName}`;
+          return `Applying ${entityName}`;
         case CRUD_TYPES.EDIT:
-          return customMessage || `Updating ${entityName}`;
+          return `Updating ${entityName}`;
         case CRUD_TYPES.DELETE:
-          return customMessage || `Deleting ${entityName}`;
+          return `Deleting ${entityName}`;
       }
     })();
 
-    enqueueSnackbar(beforeRequestMessage, {
+    const defaultOptions = {
       autoHideDuration: 2000,
       anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'left',
       },
+      variant: 'info',
       content: (key, message) => (
         <Snackbar text={String(message)} handleClose={() => closeSnackbar(key)} variant="info" />
       ),
-    });
+    } as const;
+
+    if (customMessage) {
+      const { message, options = {} } = customMessage;
+      const mergedOptions = {
+        ...defaultOptions,
+        ...options,
+      };
+      enqueueSnackbar(message, mergedOptions);
+    } else {
+      enqueueSnackbar(beforeRequestMessage, defaultOptions);
+    }
   };
 
   const showRequestSuccessMessage = (mode: CRUD_TYPES, { entityName, customMessage }: Options) => {
     const requestSuccessMessage = (() => {
       switch (mode) {
         case CRUD_TYPES.CREATE:
-          return customMessage || `${entityName} has been successfully applied`;
+          return `${entityName} has been successfully applied`;
         case CRUD_TYPES.EDIT:
-          return customMessage || `${entityName} has been successfully updated`;
+          return `${entityName} has been successfully updated`;
         case CRUD_TYPES.DELETE:
-          return customMessage || `${entityName} has been successfully deleted`;
+          return `${entityName} has been successfully deleted`;
       }
     })();
-    enqueueSnackbar(requestSuccessMessage, {
+
+    const defaultOptions = {
       autoHideDuration: 5000,
       anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'left',
       },
+      variant: 'success',
       content: (key, message) => (
         <Snackbar text={String(message)} handleClose={() => closeSnackbar(key)} variant="success" />
       ),
-    });
+    } as const;
+
+    if (customMessage) {
+      const { message, options = {} } = customMessage;
+      const mergedOptions = {
+        ...defaultOptions,
+        ...options,
+      };
+      enqueueSnackbar(message, mergedOptions);
+    } else {
+      enqueueSnackbar(requestSuccessMessage, defaultOptions);
+    }
   };
 
   const showRequestErrorMessage = (mode: CRUD_TYPES, { entityName, customMessage }: Options) => {
     const requestErrorMessage = (() => {
       switch (mode) {
         case CRUD_TYPES.CREATE:
-          return customMessage || `Failed to apply ${entityName}`;
+          return `Failed to apply ${entityName}`;
         case CRUD_TYPES.EDIT:
-          return customMessage || `Failed to update ${entityName}`;
+          return `Failed to update ${entityName}`;
         case CRUD_TYPES.DELETE:
-          return customMessage || `Failed to delete ${entityName}`;
+          return `Failed to delete ${entityName}`;
       }
     })();
 
-    enqueueSnackbar(requestErrorMessage, {
+    const defaultOptions = {
       autoHideDuration: 5000,
       anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'left',
       },
+      variant: 'error',
       content: (key, message) => (
         <Snackbar text={String(message)} handleClose={() => closeSnackbar(key)} variant="error" />
       ),
-    });
+    } as const;
+
+    if (customMessage) {
+      const { message, options = {} } = customMessage;
+      const mergedOptions = {
+        ...defaultOptions,
+        ...options,
+      };
+      enqueueSnackbar(message, mergedOptions);
+    } else {
+      enqueueSnackbar(requestErrorMessage, defaultOptions);
+    }
   };
 
   const showRequestErrorDetailedMessage = (error: unknown) => {
@@ -100,5 +140,6 @@ export const useRequestStatusMessages = () => {
     showRequestSuccessMessage,
     showRequestErrorMessage,
     showRequestErrorDetailedMessage,
+    closeSnackbar,
   };
 };

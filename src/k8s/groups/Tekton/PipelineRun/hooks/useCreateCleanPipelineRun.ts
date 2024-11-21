@@ -22,11 +22,17 @@ export const useCreateCleanPipelineRun = ({
     PipelineRunKubeObjectInterface,
     CRUD_TYPES.CREATE
   >('cleanPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE, {
-    customMessages: {
-      onMutate: 'Creating clean PipelineRun',
-      onError: 'Failed to create clean PipelineRun',
-      onSuccess: 'Start cleaning application(s)',
-    },
+    createCustomMessages: () => ({
+      onMutate: {
+        message: 'Creating clean PipelineRun',
+      },
+      onError: {
+        message: 'Failed to create clean PipelineRun',
+      },
+      onSuccess: {
+        message: 'Start cleaning application(s)',
+      },
+    }),
   });
 
   const createCleanPipelineRun = React.useCallback(

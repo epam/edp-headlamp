@@ -7,10 +7,13 @@ import { useHistory } from 'react-router-dom';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
 import { Snackbar } from '../../components/Snackbar';
 import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
+import { CRUD_TYPES } from '../../constants/crudTypes';
 import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
+import { useResourceCRUDMutation } from '../../hooks/useResourceCRUDMutation';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../k8s/groups/Tekton/PipelineRun/constants';
+import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { createRerunPipelineRunInstance } from '../../k8s/groups/Tekton/PipelineRun/utils/createRerunPipelineRunInstance';
 import { routePipelineRunDetails } from '../../pages/pipeline-details/route';
 import { createKubeAction } from '../../utils/actions/createKubeAction';
@@ -27,9 +30,78 @@ export const PipelineRunActionsMenu = ({
   permissions,
 }: PipelineRunActionsMenuProps) => {
   const history = useHistory();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { closeSnackbar } = useSnackbar();
 
   const status = PipelineRunKubeObject.parseStatusReason(_pipelineRun)?.toLowerCase();
+
+  const pipelineRunCreateMutation = useResourceCRUDMutation<
+    PipelineRunKubeObjectInterface,
+    CRUD_TYPES.CREATE
+  >('pipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE, {
+    createCustomMessages: (item) => ({
+      onMutate: {
+        message: 'Creating a new PipelineRun',
+      },
+      onError: {
+        message: 'Failed to create a new PipelineRun',
+      },
+      onSuccess: {
+        message: 'PipelineRun created successfully',
+        options: {
+          persist: true,
+          content: (key, message) => (
+            <Snackbar
+              text={String(message)}
+              handleClose={() => closeSnackbar(key)}
+              pushLocation={() =>
+                history.push(
+                  createGoToRoute({
+                    namespace: item.metadata.namespace || getDefaultNamespace(),
+                    name: item.metadata.name,
+                  })
+                )
+              }
+              variant={'success'}
+            />
+          ),
+        },
+      },
+    }),
+  });
+
+  const pipelineRunEditMutation = useResourceCRUDMutation<
+    PipelineRunKubeObjectInterface,
+    CRUD_TYPES.EDIT
+  >('pipelineRunEditMutation', PipelineRunKubeObject, CRUD_TYPES.EDIT, {
+    createCustomMessages: () => ({
+      onMutate: {
+        message: 'Stopping PipelineRun',
+      },
+      onError: {
+        message: 'Failed to update  PipelineRun',
+      },
+      onSuccess: {
+        message: 'PipelineRun stopped successfully',
+      },
+    }),
+  });
+
+  const pipelineRunDeleteMutation = useResourceCRUDMutation<
+    PipelineRunKubeObjectInterface,
+    CRUD_TYPES.DELETE
+  >('pipelineRunDeleteMutation', PipelineRunKubeObject, CRUD_TYPES.DELETE, {
+    createCustomMessages: () => ({
+      onMutate: {
+        message: 'Deleting PipelineRun',
+      },
+      onError: {
+        message: 'Failed to delete PipelineRun',
+      },
+      onSuccess: {
+        message: 'PipelineRun deleted successfully',
+      },
+    }),
+  });
 
   const isInProgress =
     status === PIPELINE_RUN_REASON.STARTED || status === PIPELINE_RUN_REASON.RUNNING;
@@ -64,30 +136,7 @@ export const PipelineRunActionsMenu = ({
       handleCloseResourceActionListMenu();
     }
 
-    PipelineRunKubeObject.apiEndpoint.post(item);
-
-    enqueueSnackbar('The PipelineRun is successfully run.', {
-      persist: true,
-      anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'left',
-      },
-      content: (key, message) => (
-        <Snackbar
-          text={String(message)}
-          handleClose={() => closeSnackbar(key)}
-          pushLocation={() =>
-            history.push(
-              createGoToRoute({
-                namespace: item.metadata.namespace || getDefaultNamespace(),
-                name: item.metadata.name,
-              })
-            )
-          }
-          variant="success"
-        />
-      ),
-    });
+    pipelineRunCreateMutation.mutate(item);
 
     handleCloseEditor();
   };
@@ -115,30 +164,7 @@ export const PipelineRunActionsMenu = ({
 
           const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
 
-          PipelineRunKubeObject.apiEndpoint.post(newPipelineRun);
-
-          enqueueSnackbar('The PipelineRun is successfully rerun.', {
-            persist: true,
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'left',
-            },
-            content: (key, message) => (
-              <Snackbar
-                text={String(message)}
-                handleClose={() => closeSnackbar(key)}
-                pushLocation={() =>
-                  history.push(
-                    createGoToRoute({
-                      namespace: newPipelineRun.metadata.namespace || getDefaultNamespace(),
-                      name: newPipelineRun.metadata.name,
-                    })
-                  )
-                }
-                variant="success"
-              />
-            ),
-          });
+          pipelineRunCreateMutation.mutate(newPipelineRun);
         },
       }),
       createKubeAction({
@@ -172,9 +198,10 @@ export const PipelineRunActionsMenu = ({
                   handleCloseResourceActionListMenu();
                 }
 
-                const copyPipelineRun = { ...pipelineRun };
-                copyPipelineRun.spec.status = 'Cancelled';
-                PipelineRunKubeObject.apiEndpoint.put(copyPipelineRun);
+                const newPipelineRun = { ...pipelineRun };
+                newPipelineRun.spec.status = 'Cancelled';
+
+                pipelineRunEditMutation.mutate(newPipelineRun);
               },
             }),
           ]
@@ -191,26 +218,27 @@ export const PipelineRunActionsMenu = ({
             handleCloseResourceActionListMenu();
           }
 
-          PipelineRunKubeObject.apiEndpoint.delete(
-            pipelineRun.metadata.namespace,
-            pipelineRun.metadata.name
-          );
-          onDelete();
+          pipelineRunDeleteMutation.mutate(pipelineRun, {
+            onSuccess: onDelete,
+          });
         },
       }),
     ];
   }, [
     _pipelineRun,
-    variant,
+    permissions.create.PipelineRun.allowed,
+    permissions.create.PipelineRun.reason,
+    permissions.update.PipelineRun.allowed,
+    permissions.update.PipelineRun.reason,
+    permissions.delete.PipelineRun.allowed,
+    permissions.delete.PipelineRun.reason,
     isInProgress,
-    permissions.create,
-    permissions.update,
-    permissions.delete,
-    enqueueSnackbar,
-    closeSnackbar,
-    history,
-    onDelete,
+    variant,
     handleCloseResourceActionListMenu,
+    pipelineRunCreateMutation,
+    pipelineRunEditMutation,
+    pipelineRunDeleteMutation,
+    onDelete,
   ]);
 
   const groupActions = actions.slice(0, 2);

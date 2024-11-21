@@ -64,8 +64,9 @@ export const DeletionDialog = ({
     });
 
     showBeforeRequestMessage(CRUD_TYPES.DELETE, {
-      customMessage: 'Selected PipelineRuns have been deleted',
-      entityName: 'PipelineRuns',
+      customMessage: {
+        message: 'Selected PipelineRuns have been deleted',
+      },
     });
 
     setValue('');

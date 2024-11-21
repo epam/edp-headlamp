@@ -178,22 +178,34 @@ export const PageView = () => {
     CodemieProjectSettingsKubeObjectInterface,
     CRUD_TYPES.EDIT
   >('codemieProjectSettingsEditMutation', CodemieProjectSettingsKubeObject, CRUD_TYPES.EDIT, {
-    customMessages: {
-      onMutate: 'Applying changes...',
-      onError: 'Failed to update settings',
-      onSuccess: 'Start updating settings',
-    },
+    createCustomMessages: () => ({
+      onMutate: {
+        message: 'Applying changes...',
+      },
+      onError: {
+        message: 'Failed to update settings',
+      },
+      onSuccess: {
+        message: 'Start updating settings',
+      },
+    }),
   });
 
   const codemieApplicationEditMutation = useResourceCRUDMutation<
     CodemieApplicationKubeObjectInterface,
     CRUD_TYPES.EDIT
   >('codemieApplicationEditMutation', CodemieApplicationKubeObject, CRUD_TYPES.EDIT, {
-    customMessages: {
-      onMutate: 'Applying changes...',
-      onError: 'Failed to update application',
-      onSuccess: 'Start updating application',
-    },
+    createCustomMessages: () => ({
+      onMutate: {
+        message: 'Applying changes...',
+      },
+      onError: {
+        message: 'Failed to update application',
+      },
+      onSuccess: {
+        message: 'Start updating application',
+      },
+    }),
   });
 
   const handleEditorSave = (

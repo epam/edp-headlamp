@@ -22,11 +22,17 @@ export const useCreateDeployPipelineRun = ({
     PipelineRunKubeObjectInterface,
     CRUD_TYPES.CREATE
   >('deployPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE, {
-    customMessages: {
-      onMutate: 'Creating deploy PipelineRun',
-      onError: 'Failed to create deploy PipelineRun',
-      onSuccess: 'Start deploying application(s)',
-    },
+    createCustomMessages: () => ({
+      onMutate: {
+        message: 'Creating deploy PipelineRun',
+      },
+      onError: {
+        message: 'Failed to create deploy PipelineRun',
+      },
+      onSuccess: {
+        message: 'Start deploying application(s)',
+      },
+    }),
   });
 
   const createDeployPipelineRun = React.useCallback(

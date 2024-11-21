@@ -61,11 +61,9 @@ describe('testing useResourceCRUDMutation hook', () => {
       expect(result.current.data).toEqual(mutationDataMock);
       expect(result.current.variables).toEqual(mutationDataMock);
       expect(mockShowBeforeRequestMessage).toHaveBeenCalledWith(CRUD_TYPES.CREATE, {
-        customMessage: undefined,
         entityName: `${result.current.variables.kind} ${result.current.variables.metadata.name}`,
       });
       expect(mockShowRequestSuccessMessage).toHaveBeenCalledWith(CRUD_TYPES.CREATE, {
-        customMessage: undefined,
         entityName: `${result.current.variables.kind} ${result.current.variables.metadata.name}`,
       });
       expect(mockShowRequestErrorMessage).not.toHaveBeenCalled();
@@ -90,16 +88,16 @@ describe('testing useResourceCRUDMutation hook', () => {
       expect(result.current.isError).toBe(true);
       expect(result.current.error).toEqual({ error: 'error' });
       expect(result.current.variables).toEqual(mutationDataMock);
+
       expect(mockShowBeforeRequestMessage).toHaveBeenCalledWith(CRUD_TYPES.EDIT, {
-        customMessage: undefined,
         entityName: `${result.current.variables.kind} ${result.current.variables.metadata.name}`,
       });
+
       expect(mockShowRequestSuccessMessage).not.toHaveBeenCalled();
+
       expect(mockShowRequestErrorMessage).toHaveBeenCalledWith(CRUD_TYPES.EDIT, {
-        customMessage: undefined,
         entityName: `${result.current.variables.kind} ${result.current.variables.metadata.name}`,
       });
-      expect(mockShowRequestErrorDetailedMessage).toHaveBeenCalledWith(result.current.error);
     });
   });
 });
