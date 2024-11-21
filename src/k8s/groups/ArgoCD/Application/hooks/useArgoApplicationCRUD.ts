@@ -21,33 +21,51 @@ export const useArgoApplicationCRUD = () => {
     ApplicationKubeObjectInterface,
     CRUD_TYPES.CREATE
   >('argoApplicationCreateMutation', ApplicationKubeObject, CRUD_TYPES.CREATE, {
-    customMessages: {
-      onMutate: 'Creating application...',
-      onError: 'Failed to create application',
-      onSuccess: 'Start creating application',
-    },
+    createCustomMessages: () => ({
+      onMutate: {
+        message: 'Creating application...',
+      },
+      onError: {
+        message: 'Failed to create application',
+      },
+      onSuccess: {
+        message: 'Start creating application',
+      },
+    }),
   });
 
   const argoApplicationDeleteMutation = useResourceCRUDMutation<
     ApplicationKubeObjectInterface,
     CRUD_TYPES.DELETE
   >('argoApplicationDeleteMutation', ApplicationKubeObject, CRUD_TYPES.DELETE, {
-    customMessages: {
-      onMutate: 'Uninstalling application...',
-      onError: 'Failed to uninstall application',
-      onSuccess: 'Start uninstalling application',
-    },
+    createCustomMessages: () => ({
+      onMutate: {
+        message: 'Uninstalling application...',
+      },
+      onError: {
+        message: 'Failed to uninstall application',
+      },
+      onSuccess: {
+        message: 'Start uninstalling application',
+      },
+    }),
   });
 
   const argoApplicationEditMutation = useResourceCRUDMutation<
     ApplicationKubeObjectInterface,
     CRUD_TYPES.EDIT
   >('argoApplicationEditMutation', ApplicationKubeObject, CRUD_TYPES.EDIT, {
-    customMessages: {
-      onMutate: 'Updating application...',
-      onError: 'Failed to update application',
-      onSuccess: 'Start updating application',
-    },
+    createCustomMessages: () => ({
+      onMutate: {
+        message: 'Updating application...',
+      },
+      onError: {
+        message: 'Failed to update application',
+      },
+      onSuccess: {
+        message: 'Start updating application',
+      },
+    }),
   });
 
   const createArgoApplication = React.useCallback(

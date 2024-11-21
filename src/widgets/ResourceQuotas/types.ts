@@ -9,4 +9,3 @@ export interface QuotaDetails {
 export interface ParsedQuotas {
   [entity: string]: QuotaDetails;
 }
-

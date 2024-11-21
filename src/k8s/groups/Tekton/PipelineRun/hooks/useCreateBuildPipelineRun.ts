@@ -18,11 +18,17 @@ export const useCreateBuildPipelineRun = ({
     PipelineRunKubeObjectInterface,
     CRUD_TYPES.CREATE
   >('buildPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE, {
-    customMessages: {
-      onMutate: 'Creating build PipelineRun',
-      onError: 'Failed to create build PipelineRun',
-      onSuccess: 'Start building application(s)',
-    },
+    createCustomMessages: () => ({
+      onMutate: {
+        message: 'Creating build PipelineRun',
+      },
+      onError: {
+        message: 'Failed to create build PipelineRun',
+      },
+      onSuccess: {
+        message: 'Start building application(s)',
+      },
+    }),
   });
 
   const createBuildPipelineRun = React.useCallback(
