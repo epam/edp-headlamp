@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
+import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
-import { SnackbarContent, useSnackbar } from 'notistack';
+import { SnackbarContent, SnackbarKey, useSnackbar } from 'notistack';
 import React from 'react';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 
@@ -14,13 +15,20 @@ const SNACKBAR_VARIANT = {
 export const Snackbar = React.forwardRef<
   HTMLDivElement,
   {
+    snackbarKey: SnackbarKey;
     text: string;
     variant: string;
-    pushLocation?: () => void;
+    pushLocation?: {
+      href: {
+        routeName: string;
+        params: Record<string, string>;
+      };
+      text?: string;
+    };
     handleClose?: () => void;
   }
 >((props, ref) => {
-  const { text, variant, handleClose, pushLocation } = props;
+  const { text, variant, snackbarKey, pushLocation } = props;
   const { closeSnackbar } = useSnackbar();
 
   const theme = React.useMemo(() => {
@@ -56,6 +64,10 @@ export const Snackbar = React.forwardRef<
     };
   }, [variant]);
 
+  const handleClose = () => {
+    closeSnackbar(snackbarKey);
+  };
+
   return (
     <SnackbarContent ref={ref} role={variant}>
       <Box
@@ -77,15 +89,15 @@ export const Snackbar = React.forwardRef<
           </Stack>
           {pushLocation && (
             <Button
+              component={Link}
               size="small"
               variant="outlined"
               color="inherit"
-              onClick={() => {
-                pushLocation();
-                closeSnackbar();
-              }}
+              routeName={pushLocation.href.routeName}
+              params={pushLocation.href.params}
+              onClick={handleClose}
             >
-              go to page
+              {pushLocation.text || 'Go to page'}
             </Button>
           )}
           <IconButton size="small" onClick={handleClose}>

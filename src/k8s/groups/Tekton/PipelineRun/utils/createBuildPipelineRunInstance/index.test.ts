@@ -1,7 +1,15 @@
+import { v4 as uuidv4 } from 'uuid';
 import { CodebaseKubeObjectInterface } from '../../../../EDP/Codebase/types';
 import { CodebaseBranchKubeObjectInterface } from '../../../../EDP/CodebaseBranch/types';
 import { GitServerKubeObjectInterface } from '../../../../EDP/GitServer/types';
 import { createBuildPipelineRunInstance } from './index';
+
+jest.mock('uuid', () => ({
+  v4: jest.fn(),
+}));
+
+const MOCKED_UUID = '1234';
+(uuidv4 as jest.Mock).mockReturnValue(MOCKED_UUID);
 
 describe('testing createBuildPipelineRunInstance', () => {
   it('should return valid kube object', () => {
@@ -138,7 +146,7 @@ describe('testing createBuildPipelineRunInstance', () => {
       kind: 'PipelineRun',
       metadata: {
         annotations: { 'argocd.argoproj.io/compare-options': 'IgnoreExtraneous' },
-        generateName: 'test-codebase-name-test-codebase-branch-name-build-',
+        name: `test-codebase-name-test-codebase-branch-name-build-${MOCKED_UUID}`,
         labels: {
           'app.edp.epam.com/codebase': 'test-codebase-name',
           'app.edp.epam.com/codebasebranch': 'test-codebase-name-test-codebase-branch-name',

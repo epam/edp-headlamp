@@ -87,12 +87,6 @@ export const PipelineRunList = <Controls extends DefaultControls>({
 
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
 
-  const upperColumns = useUpperColumns({
-    selected,
-    onDeleteClick: () => setDeleteDialogOpen(true),
-    permissions,
-  });
-
   const onDelete = React.useCallback(() => {
     setSelected([]);
   }, []);
@@ -100,6 +94,13 @@ export const PipelineRunList = <Controls extends DefaultControls>({
   const sortedPipelineRuns = React.useMemo(() => {
     return pipelineRuns?.sort(sortKubeObjectByCreationTimestamp);
   }, [pipelineRuns]);
+
+  const upperColumns = useUpperColumns({
+    selected,
+    onDeleteClick: () => setDeleteDialogOpen(true),
+    permissions,
+    isEmpty: !pipelineRuns?.length,
+  });
 
   const pipelineCodebases = React.useMemo(() => {
     return new Set(
