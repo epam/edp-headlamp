@@ -1,6 +1,9 @@
 import React from 'react';
+import { Snackbar } from '../../../../../components/Snackbar';
 import { CRUD_TYPES } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
+import { routePipelineRunDetails } from '../../../../../pages/pipeline-details/route';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { PipelineRunKubeObject } from '../index';
 import { PipelineRunKubeObjectInterface } from '../types';
 
@@ -22,7 +25,7 @@ export const useCreateDeployPipelineRun = ({
     PipelineRunKubeObjectInterface,
     CRUD_TYPES.CREATE
   >('deployPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE, {
-    createCustomMessages: () => ({
+    createCustomMessages: (item) => ({
       onMutate: {
         message: 'Creating deploy PipelineRun',
       },
@@ -31,6 +34,26 @@ export const useCreateDeployPipelineRun = ({
       },
       onSuccess: {
         message: 'Start deploying application(s)',
+        options: {
+          persist: true,
+          content: (key, message) => (
+            <Snackbar
+              text={String(message)}
+              snackbarKey={key}
+              pushLocation={{
+                href: {
+                  routeName: routePipelineRunDetails.path,
+                  params: {
+                    namespace: item.metadata.namespace || getDefaultNamespace(),
+                    name: item.metadata.name,
+                  },
+                },
+                text: 'Check status',
+              }}
+              variant={'success'}
+            />
+          ),
+        },
       },
     }),
   });

@@ -24,6 +24,7 @@ class ErrorBoundary extends React.Component<Props, State> {
       autoHideDuration: 5000,
       content: (key, message) => (
         <Snackbar
+          snackbarKey={key}
           text={String(message)}
           handleClose={() => this.props.closeSnackbar(key)}
           variant="error"

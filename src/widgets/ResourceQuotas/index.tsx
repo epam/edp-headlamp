@@ -17,11 +17,11 @@ export const ResourceQuotas = () => {
       return { quotas: null, highestUsedQuota: null };
     }
 
-    const concatAnnotations = items.reduce((acc, item) => {
-      return { ...acc, ...item.metadata.annotations };
-    }, {});
+    const useAnnotations = Object.keys(items[0]?.metadata?.annotations || {}).some((key) =>
+      key.includes('quota.capsule.clastix.io')
+    );
 
-    return parseResourceQuota(concatAnnotations);
+    return parseResourceQuota(items, useAnnotations);
   }, [items]);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

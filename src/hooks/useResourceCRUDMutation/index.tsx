@@ -49,7 +49,6 @@ export const useResourceCRUDMutation = <
     showRequestErrorMessage,
     showRequestSuccessMessage,
     showRequestErrorDetailedMessage,
-    closeSnackbar,
   } = useRequestStatusMessages();
 
   const namespace = getDefaultNamespace();
@@ -103,11 +102,7 @@ export const useResourceCRUDMutation = <
           },
           variant: 'info',
           content: (key, message) => (
-            <Snackbar
-              text={String(message)}
-              handleClose={() => closeSnackbar(key)}
-              variant="info"
-            />
+            <Snackbar snackbarKey={key} text={String(message)} variant="info" />
           ),
         } as const;
 
@@ -145,11 +140,7 @@ export const useResourceCRUDMutation = <
           },
           variant: 'success',
           content: (key, message) => (
-            <Snackbar
-              text={String(message)}
-              handleClose={() => closeSnackbar(key)}
-              variant="success"
-            />
+            <Snackbar snackbarKey={key} text={String(message)} variant="success" />
           ),
         } as const;
 
@@ -187,11 +178,7 @@ export const useResourceCRUDMutation = <
           },
           variant: 'error',
           content: (key, message) => (
-            <Snackbar
-              text={String(message)}
-              handleClose={() => closeSnackbar(key)}
-              variant="error"
-            />
+            <Snackbar snackbarKey={key} text={String(message)} variant="error" />
           ),
         } as const;
 

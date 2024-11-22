@@ -1,7 +1,5 @@
-import { Router } from '@kinvolk/headlamp-plugin/lib';
 import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
@@ -30,7 +28,6 @@ export const PipelineRunActionsMenu = ({
   permissions,
 }: PipelineRunActionsMenuProps) => {
   const history = useHistory();
-  const { closeSnackbar } = useSnackbar();
 
   const status = PipelineRunKubeObject.parseStatusReason(_pipelineRun)?.toLowerCase();
 
@@ -51,16 +48,18 @@ export const PipelineRunActionsMenu = ({
           persist: true,
           content: (key, message) => (
             <Snackbar
+              snackbarKey={key}
               text={String(message)}
-              handleClose={() => closeSnackbar(key)}
-              pushLocation={() =>
-                history.push(
-                  createGoToRoute({
+              pushLocation={{
+                href: {
+                  routeName: routePipelineRunDetails.path,
+                  params: {
                     namespace: item.metadata.namespace || getDefaultNamespace(),
                     name: item.metadata.name,
-                  })
-                )
-              }
+                  },
+                },
+                text: 'Check status',
+              }}
               variant={'success'}
             />
           ),
@@ -109,9 +108,6 @@ export const PipelineRunActionsMenu = ({
   const onDelete = React.useCallback(() => {
     history.push(backRoute);
   }, [backRoute, history]);
-
-  const createGoToRoute = (params: any) =>
-    Router.createRouteURL(routePipelineRunDetails.path, params);
 
   const [editor, setEditor] = React.useState<{
     open: boolean;

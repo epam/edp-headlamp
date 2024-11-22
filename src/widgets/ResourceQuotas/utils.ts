@@ -1,4 +1,5 @@
 import { Theme } from '@mui/material';
+import { ResourceQuotaKubeObjectInterface } from '../../k8s/groups/default/ResourceQuota/types';
 import { ParsedQuotas, QuotaDetails } from './types';
 
 export const convertToNumber = (value: string): number => {
@@ -20,36 +21,60 @@ export const convertToNumber = (value: string): number => {
 };
 
 export const parseResourceQuota = (
-  annotations: Record<string, string>
+  items: ResourceQuotaKubeObjectInterface[],
+  useAnnotations: boolean
 ): {
   quotas: ParsedQuotas;
   highestUsedQuota: QuotaDetails | null;
 } => {
-  const quotas: ParsedQuotas = {};
-  let highestUsedQuota: QuotaDetails | null = null;
+  const quotas = items.reduce<ParsedQuotas>((acc, item) => {
+    if (useAnnotations) {
+      const annotations = item.metadata.annotations || {};
+      Object.keys(annotations).forEach((key) => {
+        const [category, entity] = key.substring(key.lastIndexOf('/') + 1).split('-');
+        const value = convertToNumber(annotations[key]);
 
-  Object.keys(annotations).forEach((key) => {
-    const initialVal = annotations[key];
-    const value = convertToNumber(initialVal);
-    const subKey = key.substring(key.lastIndexOf('/') + 1);
-    const [category, entity] = subKey.split('-');
+        if (!acc[entity]) acc[entity] = {};
+        acc[entity][category] = value;
+        acc[entity][`${category}_initial`] = annotations[key];
+      });
+    } else {
+      const status = item.status || {};
+      ['hard', 'used'].forEach((statusType) => {
+        const statusData = status[statusType] || {};
+        Object.keys(statusData).forEach((key) => {
+          const entity = key;
+          const value = convertToNumber(statusData[key]);
 
-    if (!quotas[entity]) {
-      quotas[entity] = {};
+          if (!acc[entity]) acc[entity] = {};
+          acc[entity][statusType] = value;
+          acc[entity][`${statusType}_initial`] = statusData[key]; // Ensure initial value is captured similarly
+        });
+      });
     }
 
-    quotas[entity][category] = value;
-    quotas[entity][`${category}_initial`] = initialVal;
+    return acc;
+  }, {});
 
-    if (quotas[entity].hard && quotas[entity].used && quotas[entity].hard > 0) {
-      const usedPercentage = (quotas[entity].used / quotas[entity].hard) * 100;
-      quotas[entity].usedPercentage = usedPercentage;
+  const highestUsedQuota = Object.entries(quotas).reduce<QuotaDetails | null>(
+    (acc, [entity, details]) => {
+      const used = details.used || 0;
+      const hard = details.hard || 0;
+      const usedPercentage = (used / hard) * 100;
 
-      if (highestUsedQuota === null || usedPercentage > highestUsedQuota.usedPercentage) {
-        highestUsedQuota = { ...quotas[entity] };
+      if (!acc || usedPercentage > acc.usedPercentage) {
+        return {
+          entity,
+          used,
+          hard,
+          usedPercentage,
+        };
       }
-    }
-  });
+
+      return acc;
+    },
+    null
+  );
 
   return { quotas, highestUsedQuota };
 };

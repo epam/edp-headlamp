@@ -1,5 +1,12 @@
+import { v4 as uuidv4 } from 'uuid';
 import { createDeployPipelineRunInstance } from './index';
 
+jest.mock('uuid', () => ({
+  v4: jest.fn(),
+}));
+
+const MOCKED_UUID = '1234';
+(uuidv4 as jest.Mock).mockReturnValue(MOCKED_UUID);
 describe('testing createDeployPipelineRunInstance', () => {
   it('should return valid kube object', () => {
     const object = createDeployPipelineRunInstance({
@@ -116,7 +123,7 @@ describe('testing createDeployPipelineRunInstance', () => {
       kind: 'PipelineRun',
       metadata: {
         annotations: { 'argocd.argoproj.io/compare-options': 'IgnoreExtraneous' },
-        generateName: 'deploy-test-pipe-sit',
+        name: `deploy-test-pipe-sit-${MOCKED_UUID}`,
         labels: {
           'app.edp.epam.com/cdpipeline': 'test-pipe',
           'app.edp.epam.com/cdstage': 'test-pipe-sit',

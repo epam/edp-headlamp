@@ -1,8 +1,9 @@
-export const createRandomString = (
-  stringLength: number = 5,
-  stringChars: string = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-): string =>
-  [...window.crypto.getRandomValues(new Uint32Array(stringLength))]
-    .map((x) => stringChars[x % stringChars.length])
-    .join('')
-    .toLowerCase();
+import { v4 as uuidv4 } from 'uuid';
+
+export const createRandomString = (stringLength: number = 5): string => {
+  const uuid = uuidv4();
+
+  const continuousUUID = uuid.replace(/-/g, '');
+
+  return continuousUUID.slice(0, stringLength);
+};

@@ -12,10 +12,12 @@ export const useUpperColumns = ({
   selected,
   onDeleteClick,
   permissions,
+  isEmpty,
 }: {
   selected: string[];
   onDeleteClick: () => void;
   permissions: WidgetPermissions;
+  isEmpty: boolean;
 }): TableColumn<PipelineRunKubeObjectInterface>[] => {
   const theme = useTheme();
   const numSelected = React.useMemo(() => selected.length, [selected]);
@@ -34,22 +36,7 @@ export const useUpperColumns = ({
             </Stack>
           );
         },
-        colSpan: 4,
-      },
-      {
-        id: 'placeholder-1',
-        label: '',
-        render: () => null,
-      },
-      {
-        id: 'placeholder-2',
-        label: '',
-        render: () => null,
-      },
-      {
-        id: 'placeholder-3',
-        label: '',
-        render: () => null,
+        colSpan: isEmpty ? 7 : 8,
       },
       {
         id: 'placeholder-4',
@@ -80,6 +67,14 @@ export const useUpperColumns = ({
         ),
       },
     ],
-    [numSelected, onDeleteClick, permissions.delete, theme.palette.secondary.dark, theme.typography]
+    [
+      isEmpty,
+      numSelected,
+      onDeleteClick,
+      permissions.delete.PipelineRun.allowed,
+      permissions.delete.PipelineRun.reason,
+      theme.palette.secondary.dark,
+      theme.typography,
+    ]
   );
 };
