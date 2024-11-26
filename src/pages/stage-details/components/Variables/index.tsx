@@ -103,7 +103,11 @@ export const Variables = ({ configMap }: { configMap: ConfigMapKubeObjectInterfa
                           />
                         </Box>
                         <Box sx={{ pt: (t) => t.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT) }}>
-                          <IconButton onClick={() => handleDelete(index)} size="medium">
+                          <IconButton
+                            onClick={() => handleDelete(index)}
+                            size="medium"
+                            data-test="delete"
+                          >
                             <Icon icon={ICONS.BUCKET} width="20" />
                           </IconButton>
                         </Box>
@@ -123,7 +127,12 @@ export const Variables = ({ configMap }: { configMap: ConfigMapKubeObjectInterfa
                 style={{ minWidth: 0 }}
                 onClick={appendNewRow}
               >
-                <Icon icon={ICONS.PLUS} width={20} color={theme.palette.secondary.dark} />
+                <Icon
+                  icon={ICONS.PLUS}
+                  width={20}
+                  color={theme.palette.secondary.dark}
+                  data-test="add"
+                />
               </Button>
             </Stack>
             <Stack
