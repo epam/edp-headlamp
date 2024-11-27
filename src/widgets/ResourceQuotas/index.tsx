@@ -1,28 +1,123 @@
-import { PercentageCircle } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Box, IconButton, Popover, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
+import { Box, IconButton, Popover, Stack, Tooltip, useTheme } from '@mui/material';
 import React from 'react';
+import { BorderedSection } from '../../components/BorderedSection';
+import { LoadingWrapper } from '../../components/LoadingWrapper';
+import { DEFAULT_CLUSTER } from '../../constants/clusters';
 import { ResourceQuotaKubeObject } from '../../k8s/groups/default/ResourceQuota';
 import { RESOURCE_QUOTA_LABEL_TENANT } from '../../k8s/groups/default/ResourceQuota/labels';
+import { ResourceQuotaKubeObjectInterface } from '../../k8s/groups/default/ResourceQuota/types';
+import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
+import { StageKubeObjectInterface } from '../../k8s/groups/EDP/Stage/types';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { CircleProgress } from './components/CircleProgress';
+import { RQItem } from './components/RQItem';
+import { ParsedQuotas, QuotaDetails } from './types';
 import { getColorByLoadPercentage, parseResourceQuota } from './utils';
 
 export const ResourceQuotas = () => {
-  const [items] = ResourceQuotaKubeObject.useList({
-    labelSelector: `${RESOURCE_QUOTA_LABEL_TENANT}=${getDefaultNamespace()}`,
-  });
+  const defaultNamespace = getDefaultNamespace();
 
-  const { quotas, highestUsedQuota } = React.useMemo(() => {
-    if (items === null || items?.length === 0) {
-      return { quotas: null, highestUsedQuota: null };
+  const [globalRQs, setGlobalRQs] = React.useState<{
+    quotas: ParsedQuotas;
+    highestUsedQuota: QuotaDetails | null;
+  }>(null);
+  const [globalRQsError, setGlobalRQsError] = React.useState<Error | ApiError>(null);
+
+  const handleSetGlobalRQs = React.useCallback((items: ResourceQuotaKubeObjectInterface[]) => {
+    if (items?.length === 0) {
+      setGlobalRQs({
+        quotas: {},
+        highestUsedQuota: null,
+      });
+      return;
     }
 
     const useAnnotations = Object.keys(items[0]?.metadata?.annotations || {}).some((key) =>
       key.includes('quota.capsule.clastix.io')
     );
 
-    return parseResourceQuota(items, useAnnotations);
-  }, [items]);
+    setGlobalRQs(parseResourceQuota(items, useAnnotations));
+  }, []);
+
+  ResourceQuotaKubeObject.useApiList(handleSetGlobalRQs, setGlobalRQsError, {
+    namespace: defaultNamespace,
+    labelSelector: `${RESOURCE_QUOTA_LABEL_TENANT}=${defaultNamespace}`,
+  });
+
+  const [firstInClusterStage, setFirstInClusterStage] =
+    React.useState<StageKubeObjectInterface>(null);
+  const [stagesError, setStagesError] = React.useState<Error | ApiError>(null);
+
+  const stageIsLoading = firstInClusterStage === null && !stagesError;
+
+  const handleGetFirstInClusterStage = React.useCallback((stages: StageKubeObjectInterface[]) => {
+    const firstFind = stages.find((stage) => stage.spec.clusterName === DEFAULT_CLUSTER);
+    setFirstInClusterStage(firstFind);
+  }, []);
+
+  StageKubeObject.useApiList(handleGetFirstInClusterStage, setStagesError, {
+    namespace: defaultNamespace,
+  });
+
+  const [stageRQs, setStageRQs] = React.useState<{
+    quotas: ParsedQuotas;
+    highestUsedQuota: QuotaDetails | null;
+  }>(null);
+  const [stageRQsError, setStageRQsError] = React.useState<Error | ApiError>(null);
+
+  const handleSetStageRQs = React.useCallback((items: ResourceQuotaKubeObjectInterface[]) => {
+    if (items?.length === 0) {
+      setStageRQs({
+        quotas: {},
+        highestUsedQuota: null,
+      });
+      return;
+    }
+
+    const useAnnotations = Object.keys(items[0]?.metadata?.annotations || {}).some((key) =>
+      key.includes('quota.capsule.clastix.io')
+    );
+
+    setStageRQs(parseResourceQuota(items, useAnnotations));
+  }, []);
+
+  React.useEffect(() => {
+    if (stageIsLoading) {
+      return;
+    }
+
+    const cancelStream = ResourceQuotaKubeObject.streamList({
+      namespace: firstInClusterStage?.spec.namespace,
+      tenantNamespace: defaultNamespace,
+      dataHandler: handleSetStageRQs,
+      errorHandler: setStageRQsError,
+    });
+
+    return () => cancelStream();
+  }, [defaultNamespace, firstInClusterStage?.spec.namespace, handleSetStageRQs, stageIsLoading]);
+
+  const highestUsedQuota = React.useMemo(() => {
+    if (globalRQs === null || stageRQs === null) {
+      return null;
+    }
+
+    if (globalRQs.highestUsedQuota === null && stageRQs.highestUsedQuota === null) {
+      return null;
+    }
+
+    if (globalRQs.highestUsedQuota === null) {
+      return stageRQs.highestUsedQuota;
+    }
+
+    if (stageRQs.highestUsedQuota === null) {
+      return globalRQs.highestUsedQuota;
+    }
+
+    return globalRQs.highestUsedQuota.usedPercentage > stageRQs.highestUsedQuota.usedPercentage
+      ? globalRQs.highestUsedQuota
+      : stageRQs.highestUsedQuota;
+  }, [globalRQs, stageRQs]);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -39,7 +134,10 @@ export const ResourceQuotas = () => {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  if (quotas === null) {
+  const globalRQsDataIsLoading = globalRQs === null && !globalRQsError;
+  const stageRQsDataIsLoading = stageRQs === null && !stageRQsError;
+
+  if (globalRQsDataIsLoading || stageRQsDataIsLoading) {
     return null;
   }
 
@@ -70,40 +168,26 @@ export const ResourceQuotas = () => {
           horizontal: 'right',
         }}
       >
-        <Box sx={{ py: theme.typography.pxToRem(20), px: theme.typography.pxToRem(30) }}>
-          <Stack direction="row" spacing={5}>
-            {Object.entries(quotas).map(([entity, details]) => {
-              const { hard, used } = details;
-              const loadPercentage = Math.floor((used / hard) * 100);
-              const color = getColorByLoadPercentage(theme, loadPercentage);
-
-              return (
-                <Box sx={{ flex: '1 1 0', minWidth: theme.typography.pxToRem(100) }}>
-                  <Stack alignItems="center" spacing={1}>
-                    <Typography color="primary.dark" variant="subtitle2">
-                      {entity}
-                    </Typography>
-                    <Box sx={{ width: '40px', height: '40px' }}>
-                      <PercentageCircle
-                        data={[
-                          {
-                            name: 'OK',
-                            value: loadPercentage,
-                            fill: color,
-                          },
-                        ]}
-                        total={100}
-                        size={50}
-                        thickness={6}
-                      />
-                    </Box>
-                    <Typography color="primary.dark" variant="caption">
-                      {details?.['used_initial']} / {details?.['hard_initial']}
-                    </Typography>
-                  </Stack>
-                </Box>
-              );
-            })}
+        <Box sx={{ py: theme.typography.pxToRem(40), px: theme.typography.pxToRem(40) }}>
+          <Stack spacing={5}>
+            <LoadingWrapper isLoading={globalRQsDataIsLoading}>
+              <BorderedSection title="Global Resource Quotas">
+                <Stack direction="row" spacing={5}>
+                  {Object.entries(globalRQs.quotas).map(([entity, details]) => (
+                    <RQItem key={`global-${entity}`} entity={entity} details={details} />
+                  ))}
+                </Stack>
+              </BorderedSection>
+            </LoadingWrapper>
+            <LoadingWrapper isLoading={stageRQsDataIsLoading}>
+              <BorderedSection title="Deployment Flow Resource Quotas">
+                <Stack direction="row" spacing={5}>
+                  {Object.entries(stageRQs.quotas).map(([entity, details]) => (
+                    <RQItem key={`stage-${entity}`} entity={entity} details={details} />
+                  ))}
+                </Stack>
+              </BorderedSection>
+            </LoadingWrapper>
           </Stack>
         </Box>
       </Popover>
