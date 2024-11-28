@@ -1,6 +1,10 @@
+import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
+import { EDP_CONFIG_CONFIG_MAP_NAME } from '../../../../k8s/groups/default/ConfigMap/constants';
+import { useEDPConfigMapQuery } from '../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { ApprovalTaskKubeObject } from '../../../../k8s/groups/EDP/ApprovalTask';
 import { ApprovalTaskKubeObjectInterface } from '../../../../k8s/groups/EDP/ApprovalTask/types';
 import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
@@ -9,8 +13,14 @@ import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/Pi
 import { TaskKubeObject } from '../../../../k8s/groups/Tekton/Task';
 import { TaskRunKubeObject } from '../../../../k8s/groups/Tekton/TaskRun';
 import { TaskRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/TaskRun/types';
+import { ApiServiceBase, OpensearchApiService } from '../../../../services/api';
 import { PipelineRouteParams } from '../../types';
 import { DynamicDataContext } from './context';
+import { OpensearchResponse } from './types';
+
+function getToken(cluster: string) {
+  return JSON.parse(localStorage.tokens || '{}')?.[cluster];
+}
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const { namespace, name } = useParams<PipelineRouteParams>();
@@ -19,6 +29,10 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const [pipelineRunError, setPipelineRunError] = React.useState<ApiError | null>(null);
 
   React.useEffect(() => {
+    if (pipelineRunError) {
+      return;
+    }
+
     const cancelStream = PipelineRunKubeObject.streamItem({
       namespace,
       name,
@@ -31,12 +45,16 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     return () => {
       cancelStream();
     };
-  }, [namespace, name]);
+  }, [namespace, name, pipelineRunError]);
 
   const [taskRuns, setTaskRuns] = React.useState<TaskRunKubeObjectInterface[]>(null);
   const [taskRunErrors, setTaskRunErrors] = React.useState<ApiError | null>(null);
 
   React.useEffect(() => {
+    if (pipelineRunError) {
+      return;
+    }
+
     const cancelStream = TaskRunKubeObject.streamListByPipelineRunName({
       namespace,
       parentPipelineRunName: name,
@@ -49,7 +67,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     return () => {
       cancelStream();
     };
-  }, [namespace, name]);
+  }, [namespace, name, pipelineRunError]);
 
   const [tasks, tasksError] = TaskKubeObject.useList();
 
@@ -57,6 +75,10 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const [approvalTasksError, setApprovalTasksError] = React.useState<ApiError | null>(null);
 
   React.useEffect(() => {
+    if (pipelineRunError) {
+      return;
+    }
+
     const cancelStream = ApprovalTaskKubeObject.streamListByPipelineRunName({
       namespace,
       pipelineRunName: name,
@@ -69,7 +91,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     return () => {
       cancelStream();
     };
-  }, [namespace, name]);
+  }, [namespace, name, pipelineRunError]);
 
   const { pipelineRunTasks, pipelineRunTasksByNameMap } = usePipelineRunData({
     taskRuns,
@@ -77,6 +99,74 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     pipelineRun,
     approvalTasks,
   });
+
+  const { data: EDPConfigMap } = useEDPConfigMapQuery({
+    props: {
+      name: EDP_CONFIG_CONFIG_MAP_NAME,
+    },
+    options: {
+      enabled: !pipelineRun && !!pipelineRunError,
+    },
+  });
+
+  const cluster = Utils.getCluster();
+  const token = getToken(cluster);
+  const apiGatewayUrl = EDPConfigMap?.data?.api_gateway_url;
+
+  const apiService = new ApiServiceBase(apiGatewayUrl, token);
+
+  const opensearchApiService = new OpensearchApiService(apiService);
+
+  const {
+    data: fallbackLogs,
+    isLoading: isFallbackLogsLoading,
+    error: fallbackLogsError,
+  } = useQuery<OpensearchResponse>(
+    ['openSearchLogs', namespace, name],
+    () =>
+      apiService.createFetcher(
+        opensearchApiService.getLogsEndpoint(),
+        JSON.stringify({
+          _source: ['log'],
+          query: {
+            bool: {
+              must: [
+                {
+                  match_phrase: {
+                    'kubernetes.namespace_name': namespace,
+                  },
+                },
+                {
+                  match_phrase: {
+                    'kubernetes.labels.tekton_dev/pipelineRun': name,
+                  },
+                },
+                {
+                  range: {
+                    '@timestamp': {
+                      gte: 'now-1d',
+                      lte: 'now',
+                    },
+                  },
+                },
+              ],
+            },
+          },
+          sort: [
+            {
+              '@timestamp': {
+                order: 'asc',
+              },
+            },
+          ],
+          size: 500,
+        }),
+        'POST'
+      ),
+    {
+      enabled: !!apiService.apiBaseURL,
+    }
+  );
 
   const DataContextValue = React.useMemo(
     () => ({
@@ -102,9 +192,17 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
           !pipelineRunTasks.allTasks.length,
         error: taskRunErrors || tasksError || pipelineRunError || approvalTasksError,
       },
+      fallbackLogs: {
+        data: fallbackLogs,
+        isLoading: isFallbackLogsLoading,
+        error: fallbackLogsError as ApiError,
+      },
     }),
     [
       approvalTasksError,
+      fallbackLogs,
+      fallbackLogsError,
+      isFallbackLogsLoading,
       pipelineRun,
       pipelineRunError,
       pipelineRunTasks,

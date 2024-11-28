@@ -11,4 +11,5 @@ export const DynamicDataContext = React.createContext<DynamicDataContextProvider
   pipelineRun: initialData,
   taskRuns: initialData,
   pipelineRunData: initialData,
+  fallbackLogs: initialData,
 });
