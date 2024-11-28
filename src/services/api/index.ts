@@ -6,13 +6,15 @@ export class ApiServiceBase {
     this.apiBaseURL = apiGatewayUrl;
     this.headers = new Headers({
       Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
     });
   }
 
-  createFetcher(url: string) {
+  createFetcher(url: string, body?: RequestInit['body'], method: RequestInit['method'] = 'GET') {
     return fetch(url, {
-      method: 'GET',
+      method: method,
       headers: this.headers,
+      ...(body && { body }),
     })
       .then((response) => {
         if (response.ok) {
@@ -73,5 +75,17 @@ export class DependencyTrackApiService {
       `/widgets/deptrack/metrics/project/${projectID}/current?${params.toString()}`,
       this.apiService.apiBaseURL
     ).toString();
+  }
+}
+
+export class OpensearchApiService {
+  apiService: ApiServiceBase;
+
+  constructor(apiService: ApiServiceBase) {
+    this.apiService = apiService;
+  }
+
+  getLogsEndpoint() {
+    return new URL(`/search/logs`, this.apiService.apiBaseURL).toString();
   }
 }

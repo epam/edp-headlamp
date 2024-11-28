@@ -1,8 +1,10 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
+import { Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ErrorContent } from '../../components/ErrorContent';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
+import { LogViewer } from '../../components/LogViewer';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { Tabs } from '../../providers/Tabs/components/Tabs';
@@ -26,6 +28,7 @@ export const PageView = () => {
   const {
     pipelineRun,
     pipelineRunData: { isLoading: pipelineRunDataIsLoading },
+    fallbackLogs,
   } = useDynamicDataContext();
 
   const tabs = useTabs();
@@ -36,7 +39,20 @@ export const PageView = () => {
 
   const renderPageContent = React.useCallback(() => {
     if (pipelineRun.error) {
-      return <ErrorContent error={pipelineRun.error} />;
+      return (
+        <Stack spacing={1}>
+          <ErrorContent error={pipelineRun.error} />
+          <LoadingWrapper isLoading={fallbackLogs.isLoading}>
+            <Stack spacing={2}>
+              <LogViewer
+                downloadName={`fallback-logs-${name}.log`}
+                logs={(fallbackLogs.data?.hits?.hits || []).map((el) => `${el._source.log}\n`)}
+                topActions={[<Typography variant="h6">Reserve Logs</Typography>]}
+              />
+            </Stack>
+          </LoadingWrapper>
+        </Stack>
+      );
     }
 
     return (
@@ -51,6 +67,9 @@ export const PageView = () => {
     tabs,
     activeTab,
     handleChangeTab,
+    fallbackLogs.isLoading,
+    fallbackLogs.data?.hits?.hits,
+    name,
   ]);
 
   return (

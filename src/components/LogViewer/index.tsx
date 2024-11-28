@@ -140,6 +140,7 @@ export function LogViewer(props: LogViewerProps) {
     }
 
     xtermRef.current?.clear();
+
     xtermRef.current?.write(getJointLogs());
 
     return function cleanup() {};
