@@ -4,13 +4,13 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ErrorContent } from '../../components/ErrorContent';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
-import { LogViewer } from '../../components/LogViewer';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
 import { Tabs } from '../../providers/Tabs/components/Tabs';
 import { useTabsContext } from '../../providers/Tabs/hooks';
 import { PipelineRunActionsMenu } from '../../widgets/PipelineRunActionsMenu';
 import { routePipelineRunList } from '../pipelines/route';
+import { ReserveLogs } from './components/ReserveLogs';
 import { useTabs } from './hooks/useTabs';
 import { useTypedPermissions } from './hooks/useTypedPermissions';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
@@ -28,7 +28,7 @@ export const PageView = () => {
   const {
     pipelineRun,
     pipelineRunData: { isLoading: pipelineRunDataIsLoading },
-    fallbackLogs,
+    logs,
   } = useDynamicDataContext();
 
   const tabs = useTabs();
@@ -42,15 +42,14 @@ export const PageView = () => {
       return (
         <Stack spacing={1}>
           <ErrorContent error={pipelineRun.error} />
-          <LoadingWrapper isLoading={fallbackLogs.isLoading}>
-            <Stack spacing={2}>
-              <LogViewer
-                downloadName={`fallback-logs-${name}.log`}
-                logs={(fallbackLogs.data?.hits?.hits || []).map((el) => `${el._source.log}\n`)}
-                topActions={[<Typography variant="h6">Reserve Logs</Typography>]}
-              />
-            </Stack>
-          </LoadingWrapper>
+          {logs.error ? (
+            <ErrorContent error={logs.error} />
+          ) : (
+            <LoadingWrapper isLoading={logs.isLoading}>
+              <Typography variant="h6">Reserve Logs</Typography>
+              <ReserveLogs logs={logs.data} />
+            </LoadingWrapper>
+          )}
         </Stack>
       );
     }
@@ -67,9 +66,9 @@ export const PageView = () => {
     tabs,
     activeTab,
     handleChangeTab,
-    fallbackLogs.isLoading,
-    fallbackLogs.data?.hits?.hits,
-    name,
+    logs.error,
+    logs.isLoading,
+    logs.data,
   ]);
 
   return (
