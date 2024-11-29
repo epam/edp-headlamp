@@ -11,12 +11,15 @@ import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun
 import { usePipelineRunData } from '../../../../k8s/groups/Tekton/PipelineRun/hooks/usePipelineRunData';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
 import { TaskKubeObject } from '../../../../k8s/groups/Tekton/Task';
+import { TaskKubeObjectInterface } from '../../../../k8s/groups/Tekton/Task/types';
 import { TaskRunKubeObject } from '../../../../k8s/groups/Tekton/TaskRun';
 import { TaskRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/TaskRun/types';
 import { ApiServiceBase, OpensearchApiService } from '../../../../services/api';
 import { PipelineRouteParams } from '../../types';
 import { DynamicDataContext } from './context';
-import { OpensearchResponse } from './types';
+import { getLogsQuery } from './logs.query';
+import { NormalizedLogs, OpensearchResponse } from './types';
+import { normalizeLogs } from './utils';
 
 function getToken(cluster: string) {
   return JSON.parse(localStorage.tokens || '{}')?.[cluster];
@@ -29,69 +32,76 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const [pipelineRunError, setPipelineRunError] = React.useState<ApiError | null>(null);
 
   React.useEffect(() => {
-    if (pipelineRunError) {
-      return;
-    }
-
     const cancelStream = PipelineRunKubeObject.streamItem({
       namespace,
       name,
-      dataHandler: (data) => {
-        setPipelineRun(data);
-      },
+      dataHandler: setPipelineRun,
       errorHandler: (error) => setPipelineRunError(error as ApiError),
     });
 
     return () => {
       cancelStream();
     };
-  }, [namespace, name, pipelineRunError]);
+  }, [namespace, name]);
 
   const [taskRuns, setTaskRuns] = React.useState<TaskRunKubeObjectInterface[]>(null);
   const [taskRunErrors, setTaskRunErrors] = React.useState<ApiError | null>(null);
 
   React.useEffect(() => {
-    if (pipelineRunError) {
+    if (!pipelineRun) {
       return;
     }
 
     const cancelStream = TaskRunKubeObject.streamListByPipelineRunName({
       namespace,
       parentPipelineRunName: name,
-      dataHandler: (data) => {
-        setTaskRuns(data);
-      },
+      dataHandler: setTaskRuns,
       errorHandler: (error) => setTaskRunErrors(error as ApiError),
     });
 
     return () => {
       cancelStream();
     };
-  }, [namespace, name, pipelineRunError]);
+  }, [namespace, name, pipelineRun]);
 
-  const [tasks, tasksError] = TaskKubeObject.useList();
+  const [tasks, setTasks] = React.useState<TaskKubeObjectInterface[]>(null);
+  const [tasksError, setTasksError] = React.useState<ApiError | null>(null);
+
+  React.useEffect(() => {
+    if (!pipelineRun) {
+      return;
+    }
+
+    const cancelStream = TaskKubeObject.streamList({
+      namespace,
+      dataHandler: setTasks,
+      errorHandler: (error) => setTasksError(error as ApiError),
+    });
+
+    return () => {
+      cancelStream();
+    };
+  }, [namespace, name, pipelineRun]);
 
   const [approvalTasks, setApprovalTasks] = React.useState<ApprovalTaskKubeObjectInterface[]>(null);
   const [approvalTasksError, setApprovalTasksError] = React.useState<ApiError | null>(null);
 
   React.useEffect(() => {
-    if (pipelineRunError) {
+    if (!pipelineRun) {
       return;
     }
 
     const cancelStream = ApprovalTaskKubeObject.streamListByPipelineRunName({
       namespace,
       pipelineRunName: name,
-      dataHandler: (data) => {
-        setApprovalTasks(data);
-      },
+      dataHandler: setApprovalTasks,
       errorHandler: (error) => setApprovalTasksError(error as ApiError),
     });
 
     return () => {
       cancelStream();
     };
-  }, [namespace, name, pipelineRunError]);
+  }, [namespace, name, pipelineRun]);
 
   const { pipelineRunTasks, pipelineRunTasksByNameMap } = usePipelineRunData({
     taskRuns,
@@ -118,53 +128,20 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const opensearchApiService = new OpensearchApiService(apiService);
 
   const {
-    data: fallbackLogs,
-    isLoading: isFallbackLogsLoading,
-    error: fallbackLogsError,
-  } = useQuery<OpensearchResponse>(
+    data: logs,
+    isFetched: isLogsFetched,
+    error: logsError,
+  } = useQuery<OpensearchResponse, unknown, NormalizedLogs>(
     ['openSearchLogs', namespace, name],
     () =>
       apiService.createFetcher(
         opensearchApiService.getLogsEndpoint(),
-        JSON.stringify({
-          _source: ['log'],
-          query: {
-            bool: {
-              must: [
-                {
-                  match_phrase: {
-                    'kubernetes.namespace_name': namespace,
-                  },
-                },
-                {
-                  match_phrase: {
-                    'kubernetes.labels.tekton_dev/pipelineRun': name,
-                  },
-                },
-                {
-                  range: {
-                    '@timestamp': {
-                      gte: 'now-1d',
-                      lte: 'now',
-                    },
-                  },
-                },
-              ],
-            },
-          },
-          sort: [
-            {
-              '@timestamp': {
-                order: 'asc',
-              },
-            },
-          ],
-          size: 500,
-        }),
+        JSON.stringify(getLogsQuery(namespace, name)),
         'POST'
       ),
     {
       enabled: !!apiService.apiBaseURL,
+      select: (data) => normalizeLogs(data),
     }
   );
 
@@ -192,17 +169,17 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
           !pipelineRunTasks.allTasks.length,
         error: taskRunErrors || tasksError || pipelineRunError || approvalTasksError,
       },
-      fallbackLogs: {
-        data: fallbackLogs,
-        isLoading: isFallbackLogsLoading,
-        error: fallbackLogsError as ApiError,
+      logs: {
+        data: logs,
+        isLoading: !isLogsFetched,
+        error: logsError as ApiError,
       },
     }),
     [
       approvalTasksError,
-      fallbackLogs,
-      fallbackLogsError,
-      isFallbackLogsLoading,
+      isLogsFetched,
+      logs,
+      logsError,
       pipelineRun,
       pipelineRunError,
       pipelineRunTasks,

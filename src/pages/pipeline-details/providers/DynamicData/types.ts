@@ -18,6 +18,9 @@ export interface OpensearchResponse {
       _index: string;
       _score: any;
       _source: {
+        kubernetes: {
+          labels: Record<string, string>;
+        };
         log: string;
       };
       sort: number[];
@@ -32,9 +35,14 @@ export interface OpensearchResponse {
   took: number;
 }
 
+export interface NormalizedLogs {
+  map: Record<string, string[]>;
+  order: string[];
+}
+
 export interface DynamicDataContextProviderValue {
   pipelineRun: DataProviderValue<PipelineRunKubeObjectInterface>;
   taskRuns: DataProviderValue<TaskRunKubeObjectInterface[]>;
   pipelineRunData: DataProviderValue<PipelineRunData>;
-  fallbackLogs: DataProviderValue<OpensearchResponse>;
+  logs: DataProviderValue<NormalizedLogs>;
 }

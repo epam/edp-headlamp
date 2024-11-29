@@ -95,7 +95,7 @@ export const ErrorContent = ({
       sx={
         outlined
           ? {
-              p: theme.typography.pxToRem(16),
+              p: theme.typography.pxToRem(10),
               borderTop: `1px solid ${theme.palette.action.selected}`,
               borderBottom: `1px solid ${theme.palette.action.selected}`,
             }

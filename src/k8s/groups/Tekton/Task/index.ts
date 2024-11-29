@@ -1,6 +1,7 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
+import { streamResults } from '../../../common/streamResults';
 import { TaskKubeObjectConfig } from './config';
-import { TaskKubeObjectInterface } from './types';
+import { StreamListProps, TaskKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -24,4 +25,9 @@ export class TaskKubeObject extends K8s.cluster.makeKubeObject<TaskKubeObjectInt
   get status(): any {
     return this.jsonData!.status;
   }
+
+  static streamList = ({ namespace, dataHandler, errorHandler }: StreamListProps) => {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
+    return streamResults(url, dataHandler, errorHandler);
+  };
 }
