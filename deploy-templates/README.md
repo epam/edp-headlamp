@@ -36,6 +36,7 @@ A Helm chart for KubeRocketCI Headlamp
 | fullnameOverride | string | `""` | Overrides the full name of the chart |
 | global.dnsWildCard | string | `nil` | a cluster DNS wildcard name |
 | global.platform | string | `"kubernetes"` | platform type that can be "kubernetes" or "openshift" |
+| image.registry | string | `"docker.io"` | Set the image registry, default to Docker Hub; can be customized to use an alternative provider |
 | image.repository | string | `"epamedp/edp-headlamp"` | KubeRocketCI headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp) |
 | image.tag | string | `nil` | KubeRocketCI headlamp Docker image tag. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp/tags) |
 | imagePullSecrets | list | `[]` | An optional list of references to secrets in the same namespace to use for pulling any of the images used |
