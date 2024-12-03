@@ -16,7 +16,6 @@ export class ResourceQuotaKubeObject extends K8s.ResourceClasses.ResourceQuota {
     dataHandler,
     errorHandler,
   }: StreamListProps): () => void {
-    console.log(tenantNamespace);
 
     const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, dataHandler, errorHandler, {

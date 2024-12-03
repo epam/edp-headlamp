@@ -38,6 +38,7 @@ export interface OpensearchResponse {
 export interface NormalizedLogs {
   map: Record<string, string[]>;
   order: string[];
+  all: string[];
 }
 
 export interface DynamicDataContextProviderValue {

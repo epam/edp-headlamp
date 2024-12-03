@@ -1,8 +1,8 @@
-import { OpensearchResponse } from './types';
+import { NormalizedLogs, OpensearchResponse } from './types';
 
-export const normalizeLogs = (response: OpensearchResponse) => {
+export const normalizeLogs = (response: OpensearchResponse): NormalizedLogs => {
   if (!response?.hits?.hits || !response.hits.hits.length) {
-    return { map: {}, order: [] };
+    return { map: {}, order: [], all: [] };
   }
 
   const result = (response?.hits?.hits || []).reduce(
@@ -18,11 +18,14 @@ export const normalizeLogs = (response: OpensearchResponse) => {
         acc.order.push(taskName);
       }
 
-      acc.map[taskName].push(`${cur._source.log}\n` || '');
+      const logStr = `${cur._source.log}\n` || '';
+
+      acc.map[taskName].push(logStr);
+      acc.all.push(logStr);
       return acc;
     },
-    { map: {}, order: [] }
+    { map: {}, order: [], all: [] }
   );
 
-  return { map: result.map, order: result.order };
+  return { map: result.map, order: result.order, all: result.all };
 };

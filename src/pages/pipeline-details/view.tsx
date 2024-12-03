@@ -1,8 +1,8 @@
+import { Icon } from '@iconify/react';
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { ErrorContent } from '../../components/ErrorContent';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
@@ -37,19 +37,29 @@ export const PageView = () => {
   const resourceIsLoaded =
     !pipelineRun.isLoading && !pipelineRunDataIsLoading && !pipelineRun.error;
 
+  const theme = useTheme();
+
   const renderPageContent = React.useCallback(() => {
     if (pipelineRun.error) {
       return (
         <Stack spacing={1}>
-          <ErrorContent error={pipelineRun.error} />
-          {logs.error ? (
-            <ErrorContent error={logs.error} />
-          ) : (
-            <LoadingWrapper isLoading={logs.isLoading}>
-              <Typography variant="h6">Reserve Logs</Typography>
-              <ReserveLogs logs={logs.data} />
-            </LoadingWrapper>
-          )}
+          <LoadingWrapper isLoading={logs.isLoading}>
+            <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
+              <Icon icon={'ph:warning-fill'} color="#A2A7B7" width={48} height={48} />
+              <Stack spacing={1} direction="row" alignItems="center">
+                <Typography
+                  component="span"
+                  fontSize={theme.typography.pxToRem(14)}
+                  color="#596D80"
+                >
+                  {logs.error
+                    ? 'No logs were found for the requested pipeline run. This might have been caused by environment cleanup. Please ensure you have checked the correct resource.'
+                    : 'No pipeline runs were found for the requested resource. Logs have been retrieved from OpenSearch.'}
+                </Typography>
+              </Stack>
+            </Stack>
+            {!logs.error && <ReserveLogs />}
+          </LoadingWrapper>
         </Stack>
       );
     }
@@ -66,9 +76,9 @@ export const PageView = () => {
     tabs,
     activeTab,
     handleChangeTab,
+    theme.typography,
     logs.error,
     logs.isLoading,
-    logs.data,
   ]);
 
   return (
