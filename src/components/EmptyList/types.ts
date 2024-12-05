@@ -7,4 +7,5 @@ export interface EmptyListProps {
   handleClick?: () => void;
   isSearch?: boolean;
   icon?: React.ReactNode;
+  iconSize?: number;
 }
