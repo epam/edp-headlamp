@@ -2,8 +2,10 @@ import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { Box, IconButton, Popover, Stack, Tooltip, useTheme } from '@mui/material';
 import React from 'react';
 import { BorderedSection } from '../../components/BorderedSection';
+import { EmptyList } from '../../components/EmptyList';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { DEFAULT_CLUSTER } from '../../constants/clusters';
+import { TenantKubeObject } from '../../k8s/groups/Capsule/Tenant';
 import { ResourceQuotaKubeObject } from '../../k8s/groups/default/ResourceQuota';
 import { RESOURCE_QUOTA_LABEL_TENANT } from '../../k8s/groups/default/ResourceQuota/labels';
 import { ResourceQuotaKubeObjectInterface } from '../../k8s/groups/default/ResourceQuota/types';
@@ -64,6 +66,7 @@ export const ResourceQuotas = () => {
     quotas: ParsedQuotas;
     highestUsedQuota: QuotaDetails | null;
   }>(null);
+
   const [stageRQsError, setStageRQsError] = React.useState<Error | ApiError>(null);
 
   const handleSetStageRQs = React.useCallback((items: ResourceQuotaKubeObjectInterface[]) => {
@@ -82,6 +85,33 @@ export const ResourceQuotas = () => {
     setStageRQs(parseResourceQuota(items, useAnnotations));
   }, []);
 
+  const [namespacesQuota, setNamespacesQuota] = React.useState<{
+    quotas: ParsedQuotas;
+    highestUsedQuota: QuotaDetails | null;
+  }>(null);
+
+  TenantKubeObject.useApiGet((data) => {
+    const namespacesHard = data.spec.namespaceOptions.quota;
+    const namespacesUsed = data.status.size;
+
+    const usedPercentage = (namespacesUsed / namespacesHard) * 100;
+
+    setNamespacesQuota({
+      quotas: {
+        namespaces: {
+          hard: namespacesHard,
+          hard_initial: namespacesHard,
+          used: namespacesUsed,
+          used_initial: namespacesUsed,
+          usedPercentage: usedPercentage,
+        },
+      },
+      highestUsedQuota: {
+        usedPercentage: usedPercentage,
+      },
+    });
+  }, `edp-workload-${defaultNamespace}`);
+
   React.useEffect(() => {
     if (stageIsLoading) {
       return;
@@ -98,26 +128,22 @@ export const ResourceQuotas = () => {
   }, [defaultNamespace, firstInClusterStage?.spec.namespace, handleSetStageRQs, stageIsLoading]);
 
   const highestUsedQuota = React.useMemo(() => {
-    if (globalRQs === null || stageRQs === null) {
+    if (globalRQs === null || stageRQs === null || namespacesQuota === null) {
       return null;
     }
 
-    if (globalRQs.highestUsedQuota === null && stageRQs.highestUsedQuota === null) {
+    const quotas = [
+      globalRQs.highestUsedQuota,
+      stageRQs.highestUsedQuota,
+      namespacesQuota.highestUsedQuota,
+    ].filter(Boolean);
+
+    if (quotas.length === 0) {
       return null;
     }
 
-    if (globalRQs.highestUsedQuota === null) {
-      return stageRQs.highestUsedQuota;
-    }
-
-    if (stageRQs.highestUsedQuota === null) {
-      return globalRQs.highestUsedQuota;
-    }
-
-    return globalRQs.highestUsedQuota.usedPercentage > stageRQs.highestUsedQuota.usedPercentage
-      ? globalRQs.highestUsedQuota
-      : stageRQs.highestUsedQuota;
-  }, [globalRQs, stageRQs]);
+    return quotas.reduce((max, quota) => (quota.usedPercentage > max.usedPercentage ? quota : max));
+  }, [globalRQs, stageRQs, namespacesQuota]);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -145,7 +171,7 @@ export const ResourceQuotas = () => {
 
   return (
     <>
-      <Tooltip title="Resource Quotas">
+      <Tooltip title="Platform Resource Usage">
         <IconButton onClick={handleClick} size="large">
           <CircleProgress
             loadPercentage={highestUsedQuota.usedPercentage}
@@ -171,21 +197,38 @@ export const ResourceQuotas = () => {
         <Box sx={{ py: theme.typography.pxToRem(40), px: theme.typography.pxToRem(40) }}>
           <Stack spacing={5}>
             <LoadingWrapper isLoading={globalRQsDataIsLoading}>
-              <BorderedSection title="Global Resource Quotas">
+              <BorderedSection title="Platform Resource Usage">
                 <Stack direction="row" spacing={5}>
-                  {Object.entries(globalRQs.quotas).map(([entity, details]) => (
-                    <RQItem key={`global-${entity}`} entity={entity} details={details} />
-                  ))}
+                  {Object.keys(globalRQs.quotas).length === 0 ? (
+                    <EmptyList
+                      customText="Failed to retrieve resource information from the platform. Check your platform configuration."
+                      iconSize={64}
+                    />
+                  ) : (
+                    Object.entries(globalRQs.quotas).map(([entity, details]) => (
+                      <RQItem key={`global-${entity}`} entity={entity} details={details} />
+                    ))
+                  )}
                 </Stack>
               </BorderedSection>
             </LoadingWrapper>
             <LoadingWrapper isLoading={stageRQsDataIsLoading}>
-              <BorderedSection title="Deployment Flow Resource Quotas">
-                <Stack direction="row" spacing={5}>
-                  {Object.entries(stageRQs.quotas).map(([entity, details]) => (
-                    <RQItem key={`stage-${entity}`} entity={entity} details={details} />
-                  ))}
-                </Stack>
+              <BorderedSection title="Deployment Flows Resource Usage">
+                {Object.keys(stageRQs.quotas).length === 0 ? (
+                  <EmptyList
+                    customText="Resource information is not available yet. It may take some time for the data to be generated."
+                    iconSize={64}
+                  />
+                ) : (
+                  <Stack direction="row" spacing={5}>
+                    {Object.entries(stageRQs.quotas).map(([entity, details]) => (
+                      <RQItem key={`stage-${entity}`} entity={entity} details={details} />
+                    ))}
+                    {Object.entries(namespacesQuota.quotas).map(([entity, details]) => (
+                      <RQItem key={`stage-${entity}`} entity={entity} details={details} />
+                    ))}
+                  </Stack>
+                )}
               </BorderedSection>
             </LoadingWrapper>
           </Stack>

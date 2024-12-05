@@ -1,6 +1,7 @@
 import { PercentageCircle } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Box, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
+import { entityMapping } from '../../constants';
 import { QuotaDetails } from '../../types';
 import { getColorByLoadPercentage } from '../../utils';
 
@@ -14,8 +15,8 @@ export const RQItem = ({ entity, details }: { entity: string; details: QuotaDeta
   return (
     <Box sx={{ flex: '1 1 0', minWidth: theme.typography.pxToRem(100) }}>
       <Stack alignItems="center" spacing={1}>
-        <Typography color="primary.dark" variant="subtitle2">
-          {entity}
+        <Typography color="primary.dark" variant="subtitle2" whiteSpace="nowrap">
+          {entityMapping?.[entity] || entity}
         </Typography>
         <Box sx={{ width: '40px', height: '40px' }}>
           <PercentageCircle

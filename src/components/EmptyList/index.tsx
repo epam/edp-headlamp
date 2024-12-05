@@ -13,6 +13,7 @@ export const EmptyList = ({
   handleClick,
   isSearch = false,
   icon,
+  iconSize = 128,
 }: EmptyListProps) => {
   const theme = useTheme();
   return (
@@ -41,8 +42,8 @@ export const EmptyList = ({
           ) : (
             <Icon
               icon={isSearch ? ICONS.SEARCH : ICONS.WARNING}
-              width={theme.typography.pxToRem(128)}
-              height={theme.typography.pxToRem(128)}
+              width={theme.typography.pxToRem(iconSize)}
+              height={theme.typography.pxToRem(iconSize)}
               color="#A2A7B7"
             />
           )}
