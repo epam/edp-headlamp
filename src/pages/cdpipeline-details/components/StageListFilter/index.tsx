@@ -3,17 +3,23 @@ import { Autocomplete } from '@mui/lab';
 import {
   FormControl,
   Grid,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
+  Stack,
   TextField,
+  Tooltip,
   useTheme,
 } from '@mui/material';
 import React from 'react';
 import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { APPLICATION_HEALTH_STATUS } from '../../../../k8s/groups/ArgoCD/Application/constants';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
+import { useViewModeContext } from '../../../../providers/ViewMode/hooks';
+import { VIEW_MODES } from '../../../../providers/ViewMode/types';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { ManageStageDialog } from '../../../../widgets/dialogs/ManageStage';
@@ -83,9 +89,11 @@ export const StageListFilter = () => {
   }));
 
   const permissions = useTypedPermissions();
+  const { viewMode, handleChangeViewMode } = useViewModeContext();
+
 
   return (
-    <Grid container spacing={2} alignItems={'flex-end'} justifyContent={'flex-end'}>
+    <Grid container spacing={2} alignItems={'center'} justifyContent={'flex-end'}>
       <Grid item flexGrow={1}>
         <Filter<PageFilterExtraControls>
           controls={{
@@ -159,6 +167,26 @@ export const StageListFilter = () => {
             },
           }}
         />
+      </Grid>
+      <Grid item>
+        <Stack direction="row" spacing={0} justifyContent={'flex-end'}>
+          <Tooltip title={'View Less Details'}>
+            <IconButton onClick={() => handleChangeViewMode(VIEW_MODES.COMPACT)} size="large">
+              <Icon
+                icon={ICONS.VIEW_DETAILS_LESS}
+                color={viewMode === VIEW_MODES.COMPACT ? theme.palette.primary.main : 'inherit'}
+              />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={'View More Details'}>
+            <IconButton onClick={() => handleChangeViewMode(VIEW_MODES.DETAILED)} size="large">
+              <Icon
+                icon={ICONS.VIEW_DETAILS_MORE}
+                color={viewMode === VIEW_MODES.DETAILED ? theme.palette.primary.main : 'inherit'}
+              />
+            </IconButton>
+          </Tooltip>
+        </Stack>
       </Grid>
       <Grid item>
         <ButtonWithPermission

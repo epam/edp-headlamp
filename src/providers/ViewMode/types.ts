@@ -3,6 +3,8 @@ import { ValueOf } from '../../types/global';
 export const VIEW_MODES = {
   TABLE: 'table',
   GRID: 'grid',
+  COMPACT: 'compact',
+  DETAILED: 'detailed',
 } as const;
 
 export type ViewMode = ValueOf<typeof VIEW_MODES>;
@@ -15,4 +17,5 @@ export interface ViewModeContextProviderValue {
 
 export interface ViewModeContextProviderProps {
   entityID: string;
+  defaultViewMode?: ViewMode;
 }

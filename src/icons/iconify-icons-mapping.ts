@@ -42,6 +42,8 @@ export enum ICONS {
   SETTINGS = 'solar:settings-outline',
   VIEW_TABLE = 'ph:table',
   VIEW_GRID = 'ph:grid-nine',
+  VIEW_DETAILS_LESS = 'gg:details-less',
+  VIEW_DETAILS_MORE = 'gg:details-more',
   BASKET = 'mdi:shopping-outline',
   REGISTRY = 'carbon:container-registry',
   UPDATE = 'radix-icons:update',

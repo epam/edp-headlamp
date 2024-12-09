@@ -25,6 +25,7 @@ export const EnvironmentStage = ({
   CDPipeline,
   QuickLinksURLS,
   QuickLinks,
+  viewMode,
 }: EnvironmentStageProps) => {
   const theme = useTheme();
 
@@ -190,11 +191,11 @@ export const EnvironmentStage = ({
                   <ApplicationCard
                     key={key}
                     stage={stage}
-                    CDPipeline={CDPipeline}
                     application={el.application}
                     argoApplication={el.argoApplication}
                     QuickLinksURLS={QuickLinksURLS}
                     stagePods={stagePods}
+                    viewMode={viewMode}
                   />
                 ) : null;
               })}

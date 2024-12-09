@@ -6,9 +6,10 @@ import { VIEW_MODES, ViewMode, ViewModeContextProviderProps } from './types';
 export const ViewModeContextProvider: React.FC<ViewModeContextProviderProps> = ({
   children,
   entityID,
+  defaultViewMode = VIEW_MODES.GRID,
 }) => {
   const [viewMode, setViewMode] = React.useState<ViewMode>(
-    () => (LOCAL_STORAGE_SERVICE.getItem(`VIEW_MODE::${entityID}`) as ViewMode) || VIEW_MODES.GRID
+    () => (LOCAL_STORAGE_SERVICE.getItem(`VIEW_MODE::${entityID}`) as ViewMode) || defaultViewMode
   );
 
   const handleChangeViewMode = React.useCallback(

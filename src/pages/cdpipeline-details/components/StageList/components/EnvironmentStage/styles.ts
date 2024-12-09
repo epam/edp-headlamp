@@ -19,7 +19,7 @@ export const StyledCardHeader = styled(Paper, {
     top: 0;
     left: 100%;
     bottom: 0;
-    width: ${theme.typography.pxToRem(16)};
+    width: ${theme.typography.pxToRem(32)};
     height: 100%;
     background-color: inherit;
     clip-path: polygon(0 0, 0% 100%, 100% 50%);
@@ -30,7 +30,9 @@ export const StyledCardHeader = styled(Paper, {
 
 export const StyledCardWrapper = styled('div')(
   ({ theme }) => `
-  padding: ${theme.typography.pxToRem(16)};
+  padding: ${theme.typography.pxToRem(16)} ${theme.typography.pxToRem(
+    32
+  )} ${theme.typography.pxToRem(16)} ${theme.typography.pxToRem(16)};
   background-color: ${theme.palette.secondary.main};
   border-radius: ${theme.typography.pxToRem(4)};
 `

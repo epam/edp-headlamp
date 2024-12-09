@@ -4,6 +4,8 @@ import { DialogContextProvider } from '../../providers/Dialog/provider';
 import { FilterContextProvider } from '../../providers/Filter/provider';
 import { PermissionsContextProvider } from '../../providers/Permissions/provider';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList/provider';
+import { ViewModeContextProvider } from '../../providers/ViewMode/provider';
+import { VIEW_MODES } from '../../providers/ViewMode/types';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { matchFunctions, permissionsToCheckConfig } from './constants';
 import { DynamicDataContextProvider } from './providers/DynamicData/provider';
@@ -21,7 +23,12 @@ export default function () {
               saveToLocalStorage={false}
             >
               <DynamicDataContextProvider>
-                <PageView />
+                <ViewModeContextProvider
+                  entityID={'cdpipeline'}
+                  defaultViewMode={VIEW_MODES.COMPACT}
+                >
+                  <PageView />
+                </ViewModeContextProvider>
               </DynamicDataContextProvider>
             </FilterContextProvider>
           </PermissionsContextProvider>
