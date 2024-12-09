@@ -12,6 +12,8 @@ global:
   platform: "kubernetes"
 
 image:
+  # -- Set the image registry, default to Docker Hub; can be customized to use an alternative provider
+  registry: "docker.io"
   # -- KubeRocketCI headlamp Docker image name. The released image can be found on [Dockerhub](https://hub.docker.com/r/epamedp/edp-headlamp)
   repository: epamedp/edp-headlamp
   # -- If not defined then .Chart.AppVersion is used
@@ -108,7 +110,7 @@ ingress:
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
-  #      - portal-edp.example.com
+  #      - portal-krci.example.com
   # -- Defines the base URL for the portal.
   # -- If hosts not defined the will create by pattern "portal-[namespace].[global DNS wildcard]"
   host: ""
