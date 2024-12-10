@@ -41,7 +41,7 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageClusterSecretValues) => {
-      if (!permissions.update.Secret.allowed) {
+      if (!permissions?.update?.Secret.allowed) {
         return false;
       }
 
@@ -59,7 +59,7 @@ export const FormActions = () => {
         secretData: newClusterSecretData,
       });
     },
-    [editSecret, permissions.update.Secret.allowed]
+    [editSecret, permissions?.update?.Secret.allowed]
   );
 
   const clusterName = currentElement.metadata.name;
@@ -112,9 +112,9 @@ export const FormActions = () => {
             </Grid>
             <Grid item>
               <ConditionalWrapper
-                condition={!permissions.update.Secret.allowed}
+                condition={!permissions?.update?.Secret.allowed}
                 wrapper={(children) => (
-                  <Tooltip title={permissions.update.Secret.reason}>
+                  <Tooltip title={permissions?.update?.Secret.reason}>
                     <div>{children}</div>
                   </Tooltip>
                 )}
@@ -125,7 +125,7 @@ export const FormActions = () => {
                   component={'button'}
                   variant={'contained'}
                   color={'primary'}
-                  disabled={isLoading || !isDirty || !permissions.update.Secret.allowed}
+                  disabled={isLoading || !isDirty || !permissions?.update?.Secret.allowed}
                   onClick={handleSubmit(onSubmit)}
                 >
                   save

@@ -82,8 +82,8 @@ export const PageView = () => {
                           setDialog(ManageQuickLinkDialog, { quickLink: null });
                         },
                       }}
-                      disabled={!permissions.create.QuickLink.allowed}
-                      reason={permissions.create.QuickLink.reason}
+                      disabled={!permissions?.create?.QuickLink.allowed}
+                      reason={permissions?.create?.QuickLink.reason}
                     >
                       add link
                     </ButtonWithPermission>

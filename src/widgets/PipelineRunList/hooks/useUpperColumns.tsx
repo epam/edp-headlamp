@@ -43,7 +43,7 @@ export const useUpperColumns = ({
         label: '',
         render: () => (
           <ConditionalWrapper
-            condition={permissions.delete.PipelineRun.allowed}
+            condition={permissions?.delete?.PipelineRun.allowed}
             wrapper={(children) => (
               <Tooltip title={'Delete selected PipelineRuns'}>
                 <div>{children}</div>
@@ -58,8 +58,8 @@ export const useUpperColumns = ({
                 disabled: !numSelected,
                 sx: { color: theme.palette.secondary.dark },
               }}
-              reason={permissions.delete.PipelineRun.reason}
-              disabled={!permissions.delete.PipelineRun.allowed}
+              reason={permissions?.delete?.PipelineRun.reason}
+              disabled={!permissions?.delete?.PipelineRun.allowed}
             >
               delete
             </ButtonWithPermission>
@@ -71,8 +71,8 @@ export const useUpperColumns = ({
       isEmpty,
       numSelected,
       onDeleteClick,
-      permissions.delete.PipelineRun.allowed,
-      permissions.delete.PipelineRun.reason,
+      permissions?.delete?.PipelineRun.allowed,
+      permissions?.delete?.PipelineRun.reason,
       theme.palette.secondary.dark,
       theme.typography,
     ]

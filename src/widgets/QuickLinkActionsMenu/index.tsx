@@ -34,8 +34,8 @@ export const QuickLinkActionsMenu = ({
         name: RESOURCE_ACTIONS.EDIT,
         icon: ICONS.PENCIL,
         disabled: {
-          status: !permissions.update.QuickLink.allowed,
-          reason: permissions.update.QuickLink.reason,
+          status: !permissions?.update?.QuickLink.allowed,
+          reason: permissions?.update?.QuickLink.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
@@ -52,9 +52,9 @@ export const QuickLinkActionsMenu = ({
         name: RESOURCE_ACTIONS.DELETE,
         icon: ICONS.BUCKET,
         disabled: {
-          status: !permissions.delete.QuickLink.allowed || isSystemQuickLinkBool,
-          reason: !permissions.delete.QuickLink.allowed
-            ? permissions.delete.QuickLink.reason
+          status: !permissions?.delete?.QuickLink.allowed || isSystemQuickLinkBool,
+          reason: !permissions?.delete?.QuickLink.allowed
+            ? permissions?.delete?.QuickLink.reason
             : isSystemQuickLinkBool
             ? 'System QuickLink cannot be deleted'
             : undefined,

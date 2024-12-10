@@ -38,7 +38,7 @@ export const useServiceAccountEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: ServiceAccountFormValues) => {
-      if (!permissions.update.ServiceAccount.allowed) {
+      if (!permissions?.update?.ServiceAccount.allowed) {
         return false;
       }
 
@@ -49,7 +49,7 @@ export const useServiceAccountEditForm = ({
       );
       editServiceAccount({ serviceAccount: updatedServiceAccount });
     },
-    [editServiceAccount, permissions.update.ServiceAccount.allowed, tektonServiceAccount]
+    [editServiceAccount, permissions?.update?.ServiceAccount.allowed, tektonServiceAccount]
   );
 
   return React.useMemo(
@@ -59,16 +59,16 @@ export const useServiceAccountEditForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: serviceAccountEditMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions.update.ServiceAccount.allowed,
-        reason: permissions.update.ServiceAccount.reason,
+        isAllowed: permissions?.update?.ServiceAccount.allowed,
+        reason: permissions?.update?.ServiceAccount.reason,
       },
     }),
     [
       form,
       handleSubmit,
       serviceAccountEditMutation.isLoading,
-      permissions.update.ServiceAccount.allowed,
-      permissions.update.ServiceAccount.reason,
+      permissions?.update?.ServiceAccount.allowed,
+      permissions?.update?.ServiceAccount.reason,
     ]
   );
 };

@@ -81,8 +81,8 @@ export const PageView = () => {
       );
     }
 
-    if (!isLoading && !permissions.create.Codebase.allowed) {
-      return <EmptyList customText={permissions.create.Codebase.reason} />;
+    if (!isLoading && !permissions?.create?.Codebase.allowed) {
+      return <EmptyList customText={permissions?.create?.Codebase.reason} />;
     }
 
     if (!isLoading && !gitOpsCodebase && !error) {
@@ -178,8 +178,8 @@ export const PageView = () => {
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!gitOpsCodebase,
         permission: {
-          allowed: permissions.create.Codebase.allowed,
-          reason: permissions.create.Codebase.reason,
+          allowed: permissions?.create?.Codebase.allowed,
+          reason: permissions?.create?.Codebase.reason,
         },
       }}
       pageDescription={pageDescription}

@@ -91,8 +91,8 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
   const renderEmptyListComponent = React.useCallback(() => {
     const componentsAreLoaded = codebases.data !== null;
 
-    if (!permissions.create.Codebase.allowed) {
-      return <EmptyList customText={permissions.create.Codebase.reason} />;
+    if (!permissions?.create?.Codebase.allowed) {
+      return <EmptyList customText={permissions?.create?.Codebase.reason} />;
     }
 
     if (componentsAreLoaded && noGitServers) {
@@ -119,8 +119,8 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
     gitServersConfigurationPageRoute,
     history,
     noGitServers,
-    permissions.create.Codebase.allowed,
-    permissions.create.Codebase.reason,
+    permissions?.create?.Codebase.allowed,
+    permissions?.create?.Codebase.reason,
     setDialog,
   ]);
 

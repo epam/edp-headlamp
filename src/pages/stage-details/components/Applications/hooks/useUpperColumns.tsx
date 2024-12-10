@@ -101,7 +101,7 @@ export const useUpperColumns = ({
               label: '',
               render: () => (
                 <ConditionalWrapper
-                  condition={permissions.delete.Application.allowed}
+                  condition={permissions?.delete?.Application.allowed}
                   wrapper={(children) => (
                     <Tooltip title="Uninstall selected applications">
                       <div>{children}</div>
@@ -116,8 +116,8 @@ export const useUpperColumns = ({
                       disabled: !numSelected || !buttonsEnabledMap.uninstall,
                       sx: { color: theme.palette.secondary.dark },
                     }}
-                    disabled={!permissions.delete.Application.allowed}
-                    reason={permissions.delete.Application.reason}
+                    disabled={!permissions?.delete?.Application.allowed}
+                    reason={permissions?.delete?.Application.reason}
                   >
                     delete
                   </ButtonWithPermission>
@@ -215,8 +215,8 @@ export const useUpperColumns = ({
       theme.typography,
       theme.palette.secondary.dark,
       numSelected,
-      permissions.delete.Application.allowed,
-      permissions.delete.Application.reason,
+      permissions?.delete?.Application.allowed,
+      permissions?.delete?.Application.reason,
       handleClickUninstall,
       buttonsEnabledMap.uninstall,
       handleClickLatest,

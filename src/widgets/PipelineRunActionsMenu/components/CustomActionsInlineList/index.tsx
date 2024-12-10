@@ -54,8 +54,8 @@ export const CustomActionsInlineList = ({
                 borderColor: theme.palette.secondary.dark,
               },
             }}
-            disabled={!permissions.create.PipelineRun.allowed}
-            reason={permissions.create.PipelineRun.reason}
+            disabled={!permissions?.create?.PipelineRun.allowed}
+            reason={permissions?.create?.PipelineRun.reason}
           >
             {groupActions[0].label}
           </ButtonWithPermission>
@@ -69,8 +69,8 @@ export const CustomActionsInlineList = ({
                 borderColor: theme.palette.secondary.dark,
               },
             }}
-            disabled={!permissions.create.PipelineRun.allowed}
-            reason={permissions.create.PipelineRun.reason}
+            disabled={!permissions?.create?.PipelineRun.allowed}
+            reason={permissions?.create?.PipelineRun.reason}
           >
             <Icon
               icon={ICONS.ARROW_DROPDOWN}

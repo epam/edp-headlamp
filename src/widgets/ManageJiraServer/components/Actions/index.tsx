@@ -29,11 +29,11 @@ export const Actions = ({ handleCloseCreateDialog }) => {
         .reason
     : '';
 
-  const canReset = !ownerReference && permissions.delete.Secret.allowed;
+  const canReset = !ownerReference && permissions?.delete?.Secret.allowed;
 
   const deleteDisabledTooltip = ownerReference
     ? 'Jira Secret has external owners. Please, delete it by your own.'
-    : permissions.delete.Secret.reason;
+    : permissions?.delete?.Secret.reason;
 
   return (
     <Stack direction="row" spacing={2} sx={{ justifyContent: 'space-between' }}>

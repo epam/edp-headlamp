@@ -81,8 +81,8 @@ export const CodebaseActionsMenu = ({
         name: RESOURCE_ACTIONS.EDIT,
         icon: ICONS.PENCIL,
         disabled: {
-          status: !permissions.update.Codebase.allowed,
-          reason: permissions.update.Codebase.reason,
+          status: !permissions?.update?.Codebase.allowed,
+          reason: permissions?.update?.Codebase.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
@@ -96,8 +96,8 @@ export const CodebaseActionsMenu = ({
         name: RESOURCE_ACTIONS.DELETE,
         icon: ICONS.BUCKET,
         disabled: {
-          status: !permissions.delete.Codebase.allowed,
-          reason: permissions.delete.Codebase.reason,
+          status: !permissions?.delete?.Codebase.allowed,
+          reason: permissions?.delete?.Codebase.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {

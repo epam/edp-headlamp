@@ -38,16 +38,16 @@ export const useSecretCreateForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: secretCreateMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions.create.Secret.allowed,
-        reason: permissions.create.Secret.reason,
+        isAllowed: permissions?.create?.Secret.allowed,
+        reason: permissions?.create?.Secret.reason,
       },
     }),
     [
       form,
       handleSubmit,
       secretCreateMutation.isLoading,
-      permissions.create.Secret.allowed,
-      permissions.create.Secret.reason,
+      permissions?.create?.Secret.allowed,
+      permissions?.create?.Secret.reason,
     ]
   );
 };

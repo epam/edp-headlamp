@@ -249,8 +249,8 @@ export const PageView = () => {
         onClose: handleCloseCreateDialog,
         isDisabled: true,
         permission: {
-          allowed: permissions.create.Secret.allowed,
-          reason: permissions.create.Secret.reason,
+          allowed: permissions?.create?.Secret.allowed,
+          reason: permissions?.create?.Secret.reason,
         },
       }}
       pageDescription={pageDescription}

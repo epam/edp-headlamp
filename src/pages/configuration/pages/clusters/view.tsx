@@ -94,7 +94,7 @@ export const PageView = () => {
   // const { setDialog } = useDialogContext();
   // const handleDeleteApplication = React.useCallback(
   //   (application: ApplicationKubeObjectInterface) => {
-  //     if (!permissions.delete.Application.allowed) {
+  //     if (!permissions?.delete?.Application.allowed) {
   //       return;
   //     }
 
@@ -105,7 +105,7 @@ export const PageView = () => {
   //       description: `Confirm the deletion of the application`,
   //     });
   //   },
-  //   [permissions.delete.Application.allowed, setDialog]
+  //   [permissions?.delete?.Application.allowed, setDialog]
   // );
 
   const renderPageContent = React.useCallback(() => {
@@ -238,25 +238,25 @@ export const PageView = () => {
   //                   </Stack>
   //                   <Stack spacing={2} direction="row" alignItems="center">
   //                     <ConditionalWrapper
-  //                       condition={!permissions.delete.Application.allowed}
+  //                       condition={!permissions?.delete?.Application.allowed}
   //                       wrapper={(children) => (
-  //                         <Tooltip title={permissions.delete.Application.reason}>
+  //                         <Tooltip title={permissions?.delete?.Application.reason}>
   //                           <div>{children}</div>
   //                         </Tooltip>
   //                       )}
   //                     >
   //                       <IconButton
   //                         onClick={() => handleDeleteApplication(application)}
-  //                         disabled={!permissions.delete.Application.allowed}
+  //                         disabled={!permissions?.delete?.Application.allowed}
   //                         size="large"
   //                       >
   //                         <Icon icon={ICONS.BUCKET} width="20" />
   //                       </IconButton>
   //                     </ConditionalWrapper>
   //                     <ConditionalWrapper
-  //                       condition={!permissions.update.Application.allowed}
+  //                       condition={!permissions?.update?.Application.allowed}
   //                       wrapper={(children) => (
-  //                         <Tooltip title={permissions.update.Application.reason}>
+  //                         <Tooltip title={permissions?.update?.Application.reason}>
   //                           <div>{children}</div>
   //                         </Tooltip>
   //                       )}
@@ -268,7 +268,7 @@ export const PageView = () => {
   //                         style={{ flexShrink: 0 }}
   //                         color="inherit"
   //                         onClick={() => handleOpenEditor(application)}
-  //                         disabled={!permissions.update.Application.allowed}
+  //                         disabled={!permissions?.update?.Application.allowed}
   //                       >
   //                         Edit YAML
   //                       </Button>
@@ -284,10 +284,10 @@ export const PageView = () => {
   //   );
   // }, [
   //   handleDeleteApplication,
-  //   permissions.delete.Application.allowed,
-  //   permissions.delete.Application.reason,
-  //   permissions.update.Application.allowed,
-  //   permissions.update.Application.reason,
+  //   permissions?.delete?.Application.allowed,
+  //   permissions?.delete?.Application.reason,
+  //   permissions?.update?.Application.allowed,
+  //   permissions?.update?.Application.reason,
   //   setDialog,
   //   vClusterApps,
   //   vClusterAppsError,
@@ -311,8 +311,8 @@ export const PageView = () => {
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading,
         permission: {
-          allowed: permissions.create.Secret.allowed,
-          reason: permissions.create.Secret.reason,
+          allowed: permissions?.create?.Secret.allowed,
+          reason: permissions?.create?.Secret.reason,
         },
       }}
       pageDescription={pageDescription}
@@ -326,9 +326,9 @@ export const PageView = () => {
         <Stack spacing={3}>
           <Stack direction="row" justifyContent="flex-end">
             <ConditionalWrapper
-              condition={!permissions.create.Application.allowed}
+              condition={!permissions?.create?.Application.allowed}
               wrapper={(children) => (
-                <Tooltip title={permissions.create.Application.reason}>
+                <Tooltip title={permissions?.create?.Application.reason}>
                   <div>{children}</div>
                 </Tooltip>
               )}
@@ -338,7 +338,7 @@ export const PageView = () => {
                 onClick={() => {
                   setDialog(ManageVClusterDialog, {});
                 }}
-                disabled={!permissions.create.Application.allowed}
+                disabled={!permissions?.create?.Application.allowed}
                 startIcon={<Icon icon={ICONS.PLUS} width={20} />}
               >
                 Create cluster

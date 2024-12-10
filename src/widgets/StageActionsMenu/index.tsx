@@ -35,8 +35,8 @@ export const StageActionsMenu = ({
         name: RESOURCE_ACTIONS.EDIT,
         icon: ICONS.PENCIL,
         disabled: {
-          status: !permissions.update.Stage.allowed,
-          reason: permissions.update.Stage.reason,
+          status: !permissions?.update?.Stage.allowed,
+          reason: permissions?.update?.Stage.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {

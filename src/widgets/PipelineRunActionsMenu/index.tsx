@@ -150,8 +150,8 @@ export const PipelineRunActionsMenu = ({
         name: 'Run again',
         icon: ICONS.REDO,
         disabled: {
-          status: !permissions.create.PipelineRun.allowed,
-          reason: permissions.create.PipelineRun.reason,
+          status: !permissions?.create?.PipelineRun.allowed,
+          reason: permissions?.create?.PipelineRun.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
@@ -167,8 +167,8 @@ export const PipelineRunActionsMenu = ({
         name: 'Run with params',
         icon: ICONS.SETTINGS_REDO,
         disabled: {
-          status: !permissions.create.PipelineRun.allowed,
-          reason: permissions.create.PipelineRun.reason,
+          status: !permissions?.create?.PipelineRun.allowed,
+          reason: permissions?.create?.PipelineRun.reason,
         },
         action: () => {
           const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
@@ -182,9 +182,9 @@ export const PipelineRunActionsMenu = ({
               name: 'Stop run',
               icon: ICONS.CANCEL,
               disabled: {
-                status: !permissions.update.PipelineRun.allowed || !isInProgress,
-                reason: !permissions.update.PipelineRun.allowed
-                  ? permissions.update.PipelineRun.reason
+                status: !permissions?.update?.PipelineRun.allowed || !isInProgress,
+                reason: !permissions?.update?.PipelineRun.allowed
+                  ? permissions?.update?.PipelineRun.reason
                   : !isInProgress
                   ? 'PipelineRun is no longer in progress'
                   : undefined,
@@ -206,8 +206,8 @@ export const PipelineRunActionsMenu = ({
         name: RESOURCE_ACTIONS.DELETE,
         icon: ICONS.BUCKET,
         disabled: {
-          status: !permissions.delete.PipelineRun.allowed,
-          reason: permissions.delete.PipelineRun.reason,
+          status: !permissions?.delete?.PipelineRun.allowed,
+          reason: permissions?.delete?.PipelineRun.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
@@ -222,12 +222,12 @@ export const PipelineRunActionsMenu = ({
     ];
   }, [
     _pipelineRun,
-    permissions.create.PipelineRun.allowed,
-    permissions.create.PipelineRun.reason,
-    permissions.update.PipelineRun.allowed,
-    permissions.update.PipelineRun.reason,
-    permissions.delete.PipelineRun.allowed,
-    permissions.delete.PipelineRun.reason,
+    permissions?.create?.PipelineRun.allowed,
+    permissions?.create?.PipelineRun.reason,
+    permissions?.update?.PipelineRun.allowed,
+    permissions?.update?.PipelineRun.reason,
+    permissions?.delete?.PipelineRun.allowed,
+    permissions?.delete?.PipelineRun.reason,
     isInProgress,
     variant,
     handleCloseResourceActionListMenu,
