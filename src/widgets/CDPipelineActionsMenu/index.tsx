@@ -31,8 +31,8 @@ export const CDPipelineActionsMenu = ({
         name: RESOURCE_ACTIONS.EDIT,
         icon: ICONS.PENCIL,
         disabled: {
-          status: !permissions.update.CDPipeline.allowed,
-          reason: permissions.update.CDPipeline.reason,
+          status: !permissions?.update?.CDPipeline.allowed,
+          reason: permissions?.update?.CDPipeline.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
@@ -45,8 +45,8 @@ export const CDPipelineActionsMenu = ({
         name: RESOURCE_ACTIONS.DELETE,
         icon: ICONS.BUCKET,
         disabled: {
-          status: !permissions.delete.CDPipeline.allowed,
-          reason: permissions.delete.CDPipeline.reason,
+          status: !permissions?.delete?.CDPipeline.allowed,
+          reason: permissions?.delete?.CDPipeline.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {

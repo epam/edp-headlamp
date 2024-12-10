@@ -57,7 +57,7 @@ export const useUpperColumns = ({
         label: '',
         render: () => (
           <ConditionalWrapper
-            condition={permissions.delete.Codebase.allowed}
+            condition={permissions?.delete?.Codebase.allowed}
             wrapper={(children) => (
               <Tooltip title={'Delete selected components'}>
                 <div>{children}</div>
@@ -72,8 +72,8 @@ export const useUpperColumns = ({
                 startIcon: <Icon icon={ICONS.BUCKET} />,
                 sx: { color: theme.palette.secondary.dark },
               }}
-              disabled={!permissions.delete.Codebase.allowed}
-              reason={permissions.delete.Codebase.reason}
+              disabled={!permissions?.delete?.Codebase.allowed}
+              reason={permissions?.delete?.Codebase.reason}
             >
               delete
             </ButtonWithPermission>
@@ -84,8 +84,8 @@ export const useUpperColumns = ({
     [
       numSelected,
       onUninstallClick,
-      permissions.delete.Codebase.allowed,
-      permissions.delete.Codebase.reason,
+      permissions?.delete?.Codebase.allowed,
+      permissions?.delete?.Codebase.reason,
       theme.palette.secondary.dark,
       theme.typography,
     ]

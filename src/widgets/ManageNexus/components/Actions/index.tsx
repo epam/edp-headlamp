@@ -33,11 +33,11 @@ export const Actions = () => {
     });
   }, [secret, setDialog]);
 
-  const canDelete = !ownerReference && permissions.delete.Secret.allowed;
+  const canDelete = !ownerReference && permissions?.delete?.Secret.allowed;
 
   const deleteDisabledTooltip = ownerReference
     ? 'You cannot delete this integration because the secret has owner references.'
-    : permissions.delete.Secret.reason;
+    : permissions?.delete?.Secret.reason;
 
   const submitDisabledTooltip = isAnyFormForbiddenToSubmit
     ? Object.values(forms).find(({ allowedToSubmit: { isAllowed } }) => !isAllowed)?.allowedToSubmit

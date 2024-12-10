@@ -24,7 +24,7 @@ export const useSecretCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: IntegrationSecretFormValues) => {
-      if (!permissions.create.Secret.allowed) {
+      if (!permissions?.create?.Secret.allowed) {
         return false;
       }
 
@@ -37,7 +37,7 @@ export const useSecretCreateForm = ({
 
       await createSecret({ secretData: secretInstance });
     },
-    [createSecret, permissions.create.Secret.allowed]
+    [createSecret, permissions?.create?.Secret.allowed]
   );
 
   return React.useMemo(
@@ -47,16 +47,16 @@ export const useSecretCreateForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: secretCreateMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions.create.Secret.allowed,
-        reason: permissions.create.Secret.reason,
+        isAllowed: permissions?.create?.Secret.allowed,
+        reason: permissions?.create?.Secret.reason,
       },
     }),
     [
       form,
       handleSubmit,
       secretCreateMutation.isLoading,
-      permissions.create.Secret.allowed,
-      permissions.create.Secret.reason,
+      permissions?.create?.Secret.allowed,
+      permissions?.create?.Secret.reason,
     ]
   );
 };

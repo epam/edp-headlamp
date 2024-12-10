@@ -146,8 +146,8 @@ export const PageView = () => {
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!jiraServerSecret,
         permission: {
-          allowed: permissions.create.Secret.allowed && permissions.create.JiraServer.allowed,
-          reason: permissions.create.Secret.reason || permissions.create.JiraServer.reason,
+          allowed: permissions?.create?.Secret.allowed && permissions?.create?.JiraServer.allowed,
+          reason: permissions?.create?.Secret.reason || permissions?.create?.JiraServer.reason,
         },
       }}
       pageDescription={pageDescription}

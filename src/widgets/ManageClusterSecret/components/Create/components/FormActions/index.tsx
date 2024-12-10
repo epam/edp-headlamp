@@ -34,7 +34,7 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageClusterSecretValues) => {
-      if (!permissions.create.Secret.allowed) {
+      if (!permissions?.create?.Secret.allowed) {
         return false;
       }
 
@@ -54,7 +54,7 @@ export const FormActions = () => {
 
       reset();
     },
-    [createSecret, permissions.create.Secret.allowed, reset]
+    [createSecret, permissions?.create?.Secret.allowed, reset]
   );
 
   return (
@@ -74,9 +74,9 @@ export const FormActions = () => {
             </Grid>
             <Grid item>
               <ConditionalWrapper
-                condition={!permissions.create.Secret.allowed}
+                condition={!permissions?.create?.Secret.allowed}
                 wrapper={(children) => (
-                  <Tooltip title={permissions.create.Secret.reason}>
+                  <Tooltip title={permissions?.create?.Secret.reason}>
                     <div>{children}</div>
                   </Tooltip>
                 )}
@@ -87,7 +87,7 @@ export const FormActions = () => {
                   component={'button'}
                   variant={'contained'}
                   color={'primary'}
-                  disabled={isLoading || !isDirty || !permissions.create.Secret.allowed}
+                  disabled={isLoading || !isDirty || !permissions?.create?.Secret.allowed}
                   onClick={handleSubmit(onSubmit)}
                 >
                   save

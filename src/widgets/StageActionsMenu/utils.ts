@@ -55,8 +55,8 @@ export const createDeleteAction = async ({
       name: RESOURCE_ACTIONS.DELETE,
       icon: ICONS.BUCKET,
       disabled: {
-        status: !permissions.delete.Stage.allowed,
-        reason: permissions.delete.Stage.reason,
+        status: !permissions?.delete?.Stage.allowed,
+        reason: permissions?.delete?.Stage.reason,
       },
       action: action,
     });

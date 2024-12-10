@@ -51,16 +51,16 @@ export const useSecretEditForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: secretEditMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions.update.Secret.allowed,
-        reason: permissions.update.Secret.reason,
+        isAllowed: permissions?.update?.Secret.allowed,
+        reason: permissions?.update?.Secret.reason,
       },
     }),
     [
       form,
       handleSubmit,
       secretEditMutation.isLoading,
-      permissions.update.Secret.allowed,
-      permissions.update.Secret.reason,
+      permissions?.update?.Secret.allowed,
+      permissions?.update?.Secret.reason,
     ]
   );
 };

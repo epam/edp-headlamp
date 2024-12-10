@@ -38,14 +38,14 @@ export const useSecretEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: IntegrationSecretFormValues) => {
-      if (!permissions.update.Secret.allowed) {
+      if (!permissions?.update?.Secret.allowed) {
         return false;
       }
       const secretInstance = createArgoCDIntegrationSecretInstance(values);
 
       await editSecret({ secretData: secretInstance });
     },
-    [editSecret, permissions.update.Secret.allowed]
+    [editSecret, permissions?.update?.Secret.allowed]
   );
 
   return React.useMemo(
@@ -55,16 +55,16 @@ export const useSecretEditForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: secretEditMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions.update.Secret.allowed,
-        reason: permissions.update.Secret.reason,
+        isAllowed: permissions?.update?.Secret.allowed,
+        reason: permissions?.update?.Secret.reason,
       },
     }),
     [
       form,
       handleSubmit,
       secretEditMutation.isLoading,
-      permissions.update.Secret.allowed,
-      permissions.update.Secret.reason,
+      permissions?.update?.Secret.allowed,
+      permissions?.update?.Secret.reason,
     ]
   );
 };

@@ -66,7 +66,7 @@ export const usePushAccountCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: PushAccountFormValues) => {
-      if (!permissions.create.Secret.allowed) {
+      if (!permissions?.create?.Secret.allowed) {
         return false;
       }
 
@@ -124,7 +124,7 @@ export const usePushAccountCreateForm = ({
           break;
       }
     },
-    [createSecret, permissions.create.Secret.allowed, sharedForm]
+    [createSecret, permissions?.create?.Secret.allowed, sharedForm]
   );
 
   return React.useMemo(
@@ -134,16 +134,16 @@ export const usePushAccountCreateForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: secretCreateMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions.create.Secret.allowed,
-        reason: permissions.create.Secret.reason,
+        isAllowed: permissions?.create?.Secret.allowed,
+        reason: permissions?.create?.Secret.reason,
       },
     }),
     [
       form,
       handleSubmit,
       secretCreateMutation.isLoading,
-      permissions.create.Secret.allowed,
-      permissions.create.Secret.reason,
+      permissions?.create?.Secret.allowed,
+      permissions?.create?.Secret.reason,
     ]
   );
 };

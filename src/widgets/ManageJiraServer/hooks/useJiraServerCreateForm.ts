@@ -33,7 +33,7 @@ export const useJiraServerCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: JiraServerFormValues) => {
-      if (!permissions.create.JiraServer.allowed) {
+      if (!permissions?.create?.JiraServer.allowed) {
         return false;
       }
 
@@ -45,7 +45,7 @@ export const useJiraServerCreateForm = ({
         onSuccess: () => handleClosePanel(),
       });
     },
-    [handleClosePanel, jiraServerCreateMutation, permissions.create.JiraServer.allowed]
+    [handleClosePanel, jiraServerCreateMutation, permissions?.create?.JiraServer.allowed]
   );
 
   return React.useMemo(
@@ -55,16 +55,16 @@ export const useJiraServerCreateForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: jiraServerCreateMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions.create.JiraServer.allowed,
-        reason: permissions.create.JiraServer.reason,
+        isAllowed: permissions?.create?.JiraServer.allowed,
+        reason: permissions?.create?.JiraServer.reason,
       },
     }),
     [
       form,
       handleSubmit,
       jiraServerCreateMutation.isLoading,
-      permissions.create.JiraServer.allowed,
-      permissions.create.JiraServer.reason,
+      permissions?.create?.JiraServer.allowed,
+      permissions?.create?.JiraServer.reason,
     ]
   );
 };

@@ -156,8 +156,8 @@ export const Applications = ({
                   ),
                   disabled: latestDeployPipelineRunIsRunning || latestCleanPipelineRunIsRunning,
                 }}
-                disabled={!permissions.create.PipelineRun.allowed}
-                reason={permissions.create.PipelineRun.reason}
+                disabled={!permissions?.create?.PipelineRun.allowed}
+                reason={permissions?.create?.PipelineRun.reason}
               >
                 Clean
               </ButtonWithPermission>
@@ -178,8 +178,8 @@ export const Applications = ({
                     latestCleanPipelineRunIsRunning ||
                     deployBtnDisabled,
                 }}
-                disabled={!permissions.create.PipelineRun.allowed}
-                reason={permissions.create.PipelineRun.reason}
+                disabled={!permissions?.create?.PipelineRun.allowed}
+                reason={permissions?.create?.PipelineRun.reason}
               >
                 {deployBtnDisabled || latestDeployPipelineRunIsRunning
                   ? 'Deploying'
@@ -208,7 +208,7 @@ export const Applications = ({
                 cancel
               </Button>
               <ConditionalWrapper
-                condition={permissions.create.PipelineRun.allowed}
+                condition={permissions?.create?.PipelineRun.allowed}
                 wrapper={(children) => (
                   <Tooltip
                     title={'Deploy selected applications with selected image stream version'}
@@ -238,8 +238,8 @@ export const Applications = ({
                     variant: 'contained',
                     color: 'primary',
                   }}
-                  disabled={!permissions.create.PipelineRun.allowed}
-                  reason={permissions.create.PipelineRun.reason}
+                  disabled={!permissions?.create?.PipelineRun.allowed}
+                  reason={permissions?.create?.PipelineRun.reason}
                 >
                   Start Deploy
                 </ButtonWithPermission>

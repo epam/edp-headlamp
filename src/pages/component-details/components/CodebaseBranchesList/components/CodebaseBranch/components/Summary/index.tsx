@@ -100,8 +100,8 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
     codebaseBranchData?.status?.status === CUSTOM_RESOURCE_STATUSES.CREATED;
 
   const buildButtonTooltip = (() => {
-    if (!permissions.create.PipelineRun.allowed) {
-      return permissions.create.PipelineRun.reason;
+    if (!permissions?.create?.PipelineRun.allowed) {
+      return permissions?.create?.PipelineRun.reason;
     }
 
     if (latestBuildIsRunning) {
@@ -210,7 +210,7 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
                 <IconButton
                   onClick={onBuildButtonClick}
                   disabled={
-                    !permissions.create.PipelineRun.allowed ||
+                    !permissions?.create?.PipelineRun.allowed ||
                     latestBuildIsRunning ||
                     !codebaseBranchStatusIsOk
                   }

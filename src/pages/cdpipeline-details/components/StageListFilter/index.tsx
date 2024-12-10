@@ -91,7 +91,6 @@ export const StageListFilter = () => {
   const permissions = useTypedPermissions();
   const { viewMode, handleChangeViewMode } = useViewModeContext();
 
-
   return (
     <Grid container spacing={2} alignItems={'center'} justifyContent={'flex-end'}>
       <Grid item flexGrow={1}>
@@ -206,8 +205,8 @@ export const StageListFilter = () => {
               );
             },
           }}
-          disabled={!permissions.create.Stage.allowed}
-          reason={permissions.create.Stage.reason}
+          disabled={!permissions?.create?.Stage.allowed}
+          reason={permissions?.create?.Stage.reason}
         >
           create environment
         </ButtonWithPermission>

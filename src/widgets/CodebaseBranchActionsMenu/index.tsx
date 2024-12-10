@@ -56,8 +56,8 @@ export const CodebaseBranchActionsMenu = ({
       createKubeAction({
         name: RESOURCE_ACTIONS.EDIT,
         disabled: {
-          status: !permissions.update.CodebaseBranch.allowed,
-          reason: permissions.update.CodebaseBranch.reason,
+          status: !permissions?.update?.CodebaseBranch.allowed,
+          reason: permissions?.update?.CodebaseBranch.reason,
         },
         icon: ICONS.PENCIL,
         action: () => {
@@ -80,10 +80,10 @@ export const CodebaseBranchActionsMenu = ({
         name: RESOURCE_ACTIONS.DELETE,
         icon: ICONS.BUCKET,
         disabled: {
-          status: isDefaultBranch ? true : !permissions.delete.CodebaseBranch.allowed,
+          status: isDefaultBranch ? true : !permissions?.delete?.CodebaseBranch.allowed,
           reason: isDefaultBranch
             ? 'You cannot delete the default branch'
-            : permissions.delete.CodebaseBranch.reason,
+            : permissions?.delete?.CodebaseBranch.reason,
         },
         action: () => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {

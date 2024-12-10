@@ -88,8 +88,8 @@ export const PageView = () => {
                       }),
                     disabled: !gitOpsCodebaseQuery.data,
                   }}
-                  disabled={!permissions.create.CDPipeline.allowed}
-                  reason={permissions.create.CDPipeline.reason}
+                  disabled={!permissions?.create?.CDPipeline.allowed}
+                  reason={permissions?.create?.CDPipeline.reason}
                 >
                   create deployment flow
                 </ButtonWithPermission>

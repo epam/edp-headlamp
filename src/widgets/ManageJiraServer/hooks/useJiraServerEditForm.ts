@@ -39,7 +39,7 @@ export const useJiraServerEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: JiraServerFormValues) => {
-      if (!permissions.update.JiraServer.allowed) {
+      if (!permissions?.update?.JiraServer.allowed) {
         return false;
       }
 
@@ -58,7 +58,7 @@ export const useJiraServerEditForm = ({
         onSuccess: () => handleClosePanel(),
       });
     },
-    [handleClosePanel, jiraServer, jiraServerEditMutation, permissions.update.JiraServer.allowed]
+    [handleClosePanel, jiraServer, jiraServerEditMutation, permissions?.update?.JiraServer.allowed]
   );
 
   return React.useMemo(
@@ -68,16 +68,16 @@ export const useJiraServerEditForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: jiraServerEditMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions.update.JiraServer.allowed,
-        reason: permissions.update.JiraServer.reason,
+        isAllowed: permissions?.update?.JiraServer.allowed,
+        reason: permissions?.update?.JiraServer.reason,
       },
     }),
     [
       form,
       handleSubmit,
       jiraServerEditMutation.isLoading,
-      permissions.update.JiraServer.allowed,
-      permissions.update.JiraServer.reason,
+      permissions?.update?.JiraServer.allowed,
+      permissions?.update?.JiraServer.reason,
     ]
   );
 };

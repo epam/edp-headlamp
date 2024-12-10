@@ -111,14 +111,14 @@ export const useConfigMapEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: ConfigMapFormValues) => {
-      if (!permissions.update.ConfigMap.allowed) {
+      if (!permissions?.update?.ConfigMap.allowed) {
         return false;
       }
 
       const updatedConfigMap = getUpdatedConfigMap(values);
       editConfigMap({ configMapData: updatedConfigMap });
     },
-    [editConfigMap, getUpdatedConfigMap, permissions.update.ConfigMap.allowed]
+    [editConfigMap, getUpdatedConfigMap, permissions?.update?.ConfigMap.allowed]
   );
 
   return React.useMemo(
@@ -128,8 +128,8 @@ export const useConfigMapEditForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: configMapEditMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions.update.ConfigMap.allowed,
-        reason: permissions.update.ConfigMap.reason,
+        isAllowed: permissions?.update?.ConfigMap.allowed,
+        reason: permissions?.update?.ConfigMap.reason,
       },
     }),
     [
@@ -137,8 +137,8 @@ export const useConfigMapEditForm = ({
       form,
       handleSubmit,
       configMapEditMutation.isLoading,
-      permissions.update.ConfigMap.allowed,
-      permissions.update.ConfigMap.reason,
+      permissions?.update?.ConfigMap.allowed,
+      permissions?.update?.ConfigMap.reason,
     ]
   );
 };
