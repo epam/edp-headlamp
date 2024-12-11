@@ -74,7 +74,7 @@ export const PageView = () => {
   }, [
     logs.isLoading,
     logs.error,
-    logs.data.all.length,
+    logs.data,
     pipelineRun.error,
     pipelineRun.isLoading,
     pipelineRunDataIsLoading,

@@ -41,8 +41,6 @@ export const PageView = () => {
 
   const resourceIsLoaded = !component.isLoading && !component.error;
 
-  console.log('permissions', permissions);
-
   const renderPageContent = React.useCallback(() => {
     if (component.error) {
       return <ErrorContent error={component.error} />;
