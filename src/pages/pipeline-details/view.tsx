@@ -40,7 +40,7 @@ export const PageView = () => {
   const theme = useTheme();
 
   const renderPageContent = React.useCallback(() => {
-    const hasReserveLogs = !logs.isLoading && (!logs.error || !logs.data.all.length);
+    const hasReserveLogs = !logs.isLoading && !logs.error && !!logs?.data?.all?.length;
 
     if (pipelineRun.error) {
       return (
@@ -54,9 +54,18 @@ export const PageView = () => {
                   fontSize={theme.typography.pxToRem(14)}
                   color="#596D80"
                 >
-                  {hasReserveLogs
-                    ? 'No pipeline runs were found for the requested resource. Logs have been retrieved from OpenSearch.'
-                    : 'No logs were found for the requested pipeline run. This might have been caused by environment cleanup. Please ensure you have checked the correct resource.'}
+                  {hasReserveLogs ? (
+                    'No pipeline runs were found for the requested resource. Logs have been retrieved from OpenSearch.'
+                  ) : (
+                    <>
+                      <p>
+                        No logs were found for the requested pipeline run. This might have been
+                        caused by environment cleanup. Please ensure you have checked the correct
+                        resource.
+                      </p>
+                      {logs.error && logs.error?.message}
+                    </>
+                  )}
                 </Typography>
               </Stack>
             </Stack>
