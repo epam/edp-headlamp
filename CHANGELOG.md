@@ -2,6 +2,50 @@
 ## [Unreleased]
 
 
+<a name="v0.18.0"></a>
+## [v0.18.0] - 2024-12-12
+### Features
+
+- Add cdpipeline compact view mode ([#511](https://github.com/epam/edp-headlamp/issues/511))
+- Set ns from token, add avatar, add namespaces metric ([#509](https://github.com/epam/edp-headlamp/issues/509))
+- Improve reserve logs ([#505](https://github.com/epam/edp-headlamp/issues/505))
+- Improve reserve logs ([#505](https://github.com/epam/edp-headlamp/issues/505))
+- Add reserve logs ([#505](https://github.com/epam/edp-headlamp/issues/505))
+- Add deployment flow RQs ([#503](https://github.com/epam/edp-headlamp/issues/503))
+- Add test attrs in variables form ([#501](https://github.com/epam/edp-headlamp/issues/501)) ([#502](https://github.com/epam/edp-headlamp/issues/502))
+- Update rq logic and notis ([#498](https://github.com/epam/edp-headlamp/issues/498))
+- Hide manual qg name field ([#496](https://github.com/epam/edp-headlamp/issues/496))
+- Handle 404 pages ([#493](https://github.com/epam/edp-headlamp/issues/493))
+- Add resource quotas widget ([#489](https://github.com/epam/edp-headlamp/issues/489))
+- Update tooltips, add task timings, fix diagram links ([#475](https://github.com/epam/edp-headlamp/issues/475))
+- Open auth in new tab ([#469](https://github.com/epam/edp-headlamp/issues/469))
+- Remove type password fields autocomplete ([#465](https://github.com/epam/edp-headlamp/issues/465)) ([#466](https://github.com/epam/edp-headlamp/issues/466))
+- Update clean deploy pipeline creation ([#463](https://github.com/epam/edp-headlamp/issues/463))
+- Add rerun with params option ([#461](https://github.com/epam/edp-headlamp/issues/461))
+
+### Bug Fixes
+
+- Release branch creation ([#519](https://github.com/epam/edp-headlamp/issues/519))
+- Try fix oidc fail token ([#515](https://github.com/epam/edp-headlamp/issues/515)) ([#518](https://github.com/epam/edp-headlamp/issues/518))
+- Try fix wrong success oidc auth ([#516](https://github.com/epam/edp-headlamp/issues/516)) ([#517](https://github.com/epam/edp-headlamp/issues/517))
+- Try fix wrong success oidc auth ([#515](https://github.com/epam/edp-headlamp/issues/515))
+- Various bugs ([#513](https://github.com/epam/edp-headlamp/issues/513))
+- Refactor notifications ([#498](https://github.com/epam/edp-headlamp/issues/498))
+- Component crash, tekton 404 pages ([#494](https://github.com/epam/edp-headlamp/issues/494))
+- Edit branch ([#487](https://github.com/epam/edp-headlamp/issues/487))
+- Bugs after latest update ([#485](https://github.com/epam/edp-headlamp/issues/485))
+- Empty variables list ([#483](https://github.com/epam/edp-headlamp/issues/483))
+- Page loadings ([#481](https://github.com/epam/edp-headlamp/issues/481)) ([#482](https://github.com/epam/edp-headlamp/issues/482))
+- Logs rerendering and getLogs fn ([#478](https://github.com/epam/edp-headlamp/issues/478))
+- Update kibana link ([#473](https://github.com/epam/edp-headlamp/issues/473))
+- Kibana link ([#473](https://github.com/epam/edp-headlamp/issues/473))
+- Stage namespace regexp ([#471](https://github.com/epam/edp-headlamp/issues/471))
+
+### Routine
+
+- Update current development version ([#458](https://github.com/epam/edp-headlamp/issues/458))
+
+
 <a name="v0.17.0"></a>
 ## [v0.17.0] - 2024-11-05
 ### Features
@@ -551,7 +595,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.17.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.18.0...HEAD
+[v0.18.0]: https://github.com/epam/edp-headlamp/compare/v0.17.0...v0.18.0
 [v0.17.0]: https://github.com/epam/edp-headlamp/compare/v0.16.0...v0.17.0
 [v0.16.0]: https://github.com/epam/edp-headlamp/compare/v0.15.0...v0.16.0
 [v0.15.0]: https://github.com/epam/edp-headlamp/compare/v0.14.0...v0.15.0
