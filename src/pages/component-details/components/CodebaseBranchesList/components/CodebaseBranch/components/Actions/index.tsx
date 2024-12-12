@@ -19,7 +19,7 @@ export const Actions = ({ codebaseBranchData }: ActionsProps) => {
     pipelines: { data: pipelines },
   } = useDynamicDataContext();
 
-  const defaultBranch = codebaseBranches?.[0];
+  const defaultBranch = codebaseBranches?.[0]?.jsonData ?? codebaseBranches?.[0];
 
   return (
     <>
