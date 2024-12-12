@@ -27,6 +27,8 @@ export const CodebaseBranchesList = () => {
     setExpandedPanel(isExpanded ? panel : null);
   };
 
+  const defaultBranch = codebaseBranches?.[0]?.jsonData ?? codebaseBranches?.[0];
+
   return (
     <Section
       title={
@@ -37,7 +39,10 @@ export const CodebaseBranchesList = () => {
             </Typography>
           </Grid>
           <Grid item style={{ marginLeft: 'auto' }}>
-            <TableHeaderActions codebase={component} defaultBranch={codebaseBranches?.[0]} />
+            <TableHeaderActions
+              codebase={component}
+              defaultBranch={defaultBranch}
+            />
           </Grid>
         </Grid>
       }
@@ -65,7 +70,7 @@ export const CodebaseBranchesList = () => {
           handleClick={() =>
             setDialog(ManageCodebaseBranchDialog, {
               codebase: component,
-              defaultBranch: codebaseBranches?.[0]?.jsonData,
+              defaultBranch,
               pipelines,
             })
           }
