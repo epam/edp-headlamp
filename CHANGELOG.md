@@ -2,32 +2,31 @@
 ## [Unreleased]
 
 
-<a name="v0.17.0"></a>
-## [v0.17.0] - 2024-11-05
+<a name="v0.18.0"></a>
+## v0.18.0 - 2024-12-12
 ### Features
 
+- Add cdpipeline compact view mode ([#511](https://github.com/epam/edp-headlamp/issues/511))
+- Set ns from token, add avatar, add namespaces metric ([#509](https://github.com/epam/edp-headlamp/issues/509))
+- Improve reserve logs ([#505](https://github.com/epam/edp-headlamp/issues/505))
+- Improve reserve logs ([#505](https://github.com/epam/edp-headlamp/issues/505))
+- Add reserve logs ([#505](https://github.com/epam/edp-headlamp/issues/505))
+- Add deployment flow RQs ([#503](https://github.com/epam/edp-headlamp/issues/503))
+- Add test attrs in variables form ([#501](https://github.com/epam/edp-headlamp/issues/501)) ([#502](https://github.com/epam/edp-headlamp/issues/502))
+- Update rq logic and notis ([#498](https://github.com/epam/edp-headlamp/issues/498))
+- Hide manual qg name field ([#496](https://github.com/epam/edp-headlamp/issues/496))
+- Handle 404 pages ([#493](https://github.com/epam/edp-headlamp/issues/493))
+- Add resource quotas widget ([#489](https://github.com/epam/edp-headlamp/issues/489))
+- Update tooltips, add task timings, fix diagram links ([#475](https://github.com/epam/edp-headlamp/issues/475))
+- Open auth in new tab ([#469](https://github.com/epam/edp-headlamp/issues/469))
+- Remove type password fields autocomplete ([#465](https://github.com/epam/edp-headlamp/issues/465)) ([#466](https://github.com/epam/edp-headlamp/issues/466))
+- Update clean deploy pipeline creation ([#463](https://github.com/epam/edp-headlamp/issues/463))
+- Add rerun with params option ([#461](https://github.com/epam/edp-headlamp/issues/461))
 - Add permission check for approve button ([#456](https://github.com/epam/edp-headlamp/issues/456))
 - Implement OIDC integration with Microsoft Entra IdP ([#454](https://github.com/epam/edp-headlamp/issues/454))
 - Show version diff marker ([#450](https://github.com/epam/edp-headlamp/issues/450))
 - Improve pods features ([#445](https://github.com/epam/edp-headlamp/issues/445))
 - Improve applications table update ([#443](https://github.com/epam/edp-headlamp/issues/443))
-
-### Bug Fixes
-
-- Pipeline run message ([#452](https://github.com/epam/edp-headlamp/issues/452))
-- Task content show ([#448](https://github.com/epam/edp-headlamp/issues/448))
-- Add validation for name field ([#441](https://github.com/epam/edp-headlamp/issues/441))
-
-### Routine
-
-- Update Pull Request Template ([#234](https://github.com/epam/edp-headlamp/issues/234))
-- Update current development version ([#439](https://github.com/epam/edp-headlamp/issues/439))
-
-
-<a name="v0.16.0"></a>
-## [v0.16.0] - 2024-10-18
-### Features
-
 - Set edp as default versioning type ([#437](https://github.com/epam/edp-headlamp/issues/437))
 - Update deployment flow promote ([#432](https://github.com/epam/edp-headlamp/issues/432)) ([#433](https://github.com/epam/edp-headlamp/issues/433))
 - Add krakend backend integration ([#427](https://github.com/epam/edp-headlamp/issues/427))
@@ -78,64 +77,6 @@
 - Update unset namespace behaviour ([#270](https://github.com/epam/edp-headlamp/issues/270)) ([#271](https://github.com/epam/edp-headlamp/issues/271))
 - Update snackbars ([#268](https://github.com/epam/edp-headlamp/issues/268)) ([#269](https://github.com/epam/edp-headlamp/issues/269))
 - Update pipeline page ([#266](https://github.com/epam/edp-headlamp/issues/266))
-
-### Bug Fixes
-
-- To promote default value ([#432](https://github.com/epam/edp-headlamp/issues/432)) ([#434](https://github.com/epam/edp-headlamp/issues/434))
-- Requests caching ([#427](https://github.com/epam/edp-headlamp/issues/427))
-- No branch crash, registry create, login redirect ([#419](https://github.com/epam/edp-headlamp/issues/419))
-- Fix pipelines ([#421](https://github.com/epam/edp-headlamp/issues/421))
-- Fix redirect after auth ([#419](https://github.com/epam/edp-headlamp/issues/419)) ([#420](https://github.com/epam/edp-headlamp/issues/420))
-- Try fix redirect after auth ([#418](https://github.com/epam/edp-headlamp/issues/418))
-- Try fix tests crash on prod ([#416](https://github.com/epam/edp-headlamp/issues/416))
-- Fix to promote default values ([#414](https://github.com/epam/edp-headlamp/issues/414))
-- Fix cdpipeline list provider [#410](https://github.com/epam/edp-headlamp/issues/410)
-- Fix multi ns errors ([#409](https://github.com/epam/edp-headlamp/issues/409))
-- Fix gitops custom value path for bitbucket ([#402](https://github.com/epam/edp-headlamp/issues/402))
-- Fix sonar metrics ([#397](https://github.com/epam/edp-headlamp/issues/397))
-- Update sanitize util ([#391](https://github.com/epam/edp-headlamp/issues/391))
-- Fix username get crash ([#372](https://github.com/epam/edp-headlamp/issues/372))
-- Fix pipeline actions ([#369](https://github.com/epam/edp-headlamp/issues/369))
-- Fix nonexistant pipeline diagram btn ([#351](https://github.com/epam/edp-headlamp/issues/351))
-- Update pipelines filter ([#337](https://github.com/epam/edp-headlamp/issues/337))
-- Sanitize CodeMie html ([#331](https://github.com/epam/edp-headlamp/issues/331))
-- Fix bugs on pipelines page ([#327](https://github.com/epam/edp-headlamp/issues/327))
-- Fix pipeline crash when no params ([#304](https://github.com/epam/edp-headlamp/issues/304))
-- Fix issues ([#302](https://github.com/epam/edp-headlamp/issues/302))
-- Fix issues after review ([#298](https://github.com/epam/edp-headlamp/issues/298))
-- Fix issues after review ([#298](https://github.com/epam/edp-headlamp/issues/298))
-- Fix multiple issues ([#297](https://github.com/epam/edp-headlamp/issues/297))
-- Update codemie chat response ([#273](https://github.com/epam/edp-headlamp/issues/273))
-- Fix values override default value ([#277](https://github.com/epam/edp-headlamp/issues/277))
-
-### Code Refactoring
-
-- Permissions provider ([#367](https://github.com/epam/edp-headlamp/issues/367))
-- Update dialog provider ([#354](https://github.com/epam/edp-headlamp/issues/354))
-
-### Routine
-
-- Add annotation to control pod seesion timeout([#435](https://github.com/epam/edp-headlamp/issues/435))
-- Update image version ([#395](https://github.com/epam/edp-headlamp/issues/395)) ([#396](https://github.com/epam/edp-headlamp/issues/396))
-- Re-structure documentation assets ([#375](https://github.com/epam/edp-headlamp/issues/375))
-- Update Dockerfile base image ([#346](https://github.com/epam/edp-headlamp/issues/346))
-- Update KubeRocketCI names and documentation links ([#325](https://github.com/epam/edp-headlamp/issues/325))
-- Update KubeRocketCI names and documentation links ([#325](https://github.com/epam/edp-headlamp/issues/325))
-- Replace hardcoded Keycloak URL prefix([#307](https://github.com/epam/edp-headlamp/issues/307))
-- Update information label for values override ([#298](https://github.com/epam/edp-headlamp/issues/298))
-- Update links to new documentation location ([#288](https://github.com/epam/edp-headlamp/issues/288))
-- Update current development version ([#263](https://github.com/epam/edp-headlamp/issues/263))
-
-### Documentation
-
-- Update changelog file for release notes ([#382](https://github.com/epam/edp-headlamp/issues/382))
-- Update CHANGELOG.md file ([#382](https://github.com/epam/edp-headlamp/issues/382))
-
-
-<a name="v0.15.0"></a>
-## [v0.15.0] - 2024-06-12
-### Features
-
 - Update stage deploy table ([#258](https://github.com/epam/edp-headlamp/issues/258))
 - Update component page ([#252](https://github.com/epam/edp-headlamp/issues/252)) ([#253](https://github.com/epam/edp-headlamp/issues/253))
 - Align chart for ingress TLS configuration([#227](https://github.com/epam/edp-headlamp/issues/227))
@@ -166,49 +107,6 @@
 - Update dockerfile, fix quicklink url field regexp ([#172](https://github.com/epam/edp-headlamp/issues/172))
 - Update favicon, update overview page ([#172](https://github.com/epam/edp-headlamp/issues/172))
 - Add possibility for components multi deletion ([#171](https://github.com/epam/edp-headlamp/issues/171))
-
-### Bug Fixes
-
-- Fix filter fields alignment ([#258](https://github.com/epam/edp-headlamp/issues/258)) ([#262](https://github.com/epam/edp-headlamp/issues/262))
-- App improvements and fixes ([#258](https://github.com/epam/edp-headlamp/issues/258))
-- Table layout fixes, fix ingress tooltip variable width ([#258](https://github.com/epam/edp-headlamp/issues/258)) ([#260](https://github.com/epam/edp-headlamp/issues/260))
-- Fix various ui ux issues ([#254](https://github.com/epam/edp-headlamp/issues/254))
-- Permission check fixes, pipeline fixes, crash fixes ([#249](https://github.com/epam/edp-headlamp/issues/249)) ([#251](https://github.com/epam/edp-headlamp/issues/251))
-- Enable deploy btn when all apps are selected ([#245](https://github.com/epam/edp-headlamp/issues/245)) ([#246](https://github.com/epam/edp-headlamp/issues/246))
-- Fix branch validation, fix integrations labels ([#240](https://github.com/epam/edp-headlamp/issues/240))
-- Fix pipelines filter, fix integration forms ([#225](https://github.com/epam/edp-headlamp/issues/225))
-- Fix multiple issues with integrations ([#223](https://github.com/epam/edp-headlamp/issues/223))
-- Fix logout, fix table pagination ([#218](https://github.com/epam/edp-headlamp/issues/218))
-- Fix gitops values yaml file link ([#198](https://github.com/epam/edp-headlamp/issues/198))
-- Fix configuration pages useGet hook ns param ([#183](https://github.com/epam/edp-headlamp/issues/183))
-- Fix configuration pages error handling ([#183](https://github.com/epam/edp-headlamp/issues/183))
-- Fix multiple selection in table ([#182](https://github.com/epam/edp-headlamp/issues/182))
-- Fix stage namespace validation, fix deploy btn disabled state ([#155](https://github.com/epam/edp-headlamp/issues/155))
-
-### Code Refactoring
-
-- Update two-cr integration forms ([#210](https://github.com/epam/edp-headlamp/issues/210))
-- Refactor registry form ([#176](https://github.com/epam/edp-headlamp/issues/176))
-- Improve multi form provider logic ([#176](https://github.com/epam/edp-headlamp/issues/176))
-- Segregate git server form into multiple ones ([#176](https://github.com/epam/edp-headlamp/issues/176))
-- Remove multiple pipeline run streams ([#170](https://github.com/epam/edp-headlamp/issues/170))
-
-### Routine
-
-- Remove status field from route ([#256](https://github.com/epam/edp-headlamp/issues/256))
-- Remove unused CI flow ([#220](https://github.com/epam/edp-headlamp/issues/220))
-- Update headlamp image tag ([#213](https://github.com/epam/edp-headlamp/issues/213))
-- Update package json file, docker img ([#203](https://github.com/epam/edp-headlamp/issues/203))
-- Add codeowners file to the repo ([#195](https://github.com/epam/edp-headlamp/issues/195))
-- Migrate headlamp from gerrit to github ([#190](https://github.com/epam/edp-headlamp/issues/190))
-- Remove internal kubernetes IP address in config endpoint ([#184](https://github.com/epam/edp-headlamp/issues/184))
-- Update current development version ([#169](https://github.com/epam/edp-headlamp/issues/169))
-
-
-<a name="v0.14.0"></a>
-## [v0.14.0] - 2024-03-12
-### Features
-
 - Add sync status, fix errors, disable to promote, hide qg ([#155](https://github.com/epam/edp-headlamp/issues/155))
 - Update configuration page menu ([#155](https://github.com/epam/edp-headlamp/issues/155))
 - Update UI, update environment page ([#155](https://github.com/epam/edp-headlamp/issues/155))
@@ -248,81 +146,8 @@
 - Add visible checkbox in edpcomponent creation ([#132](https://github.com/epam/edp-headlamp/issues/132))
 - Update create buttons in branch and stages sections ([#131](https://github.com/epam/edp-headlamp/issues/131))
 - Add namespaces unset dialog window, update notification logic ([#129](https://github.com/epam/edp-headlamp/issues/129))
-
-### Bug Fixes
-
-- Fix error on stage page, rollback to promote checkbox disabled ([#155](https://github.com/epam/edp-headlamp/issues/155))
-- Fix gitserver related issues ([#167](https://github.com/epam/edp-headlamp/issues/167))
-- Remove isBase64String check when encoding form values ([#166](https://github.com/epam/edp-headlamp/issues/166))
-- Fix uninstall button, fix deploy notification message ([#162](https://github.com/epam/edp-headlamp/issues/162))
-- Fix quicklink creation ([#157](https://github.com/epam/edp-headlamp/issues/157))
-- Fix wrong registry page doc link ([#154](https://github.com/epam/edp-headlamp/issues/154))
-- Fix wrong registry page doc link ([#154](https://github.com/epam/edp-headlamp/issues/154))
-- Fix build ([#154](https://github.com/epam/edp-headlamp/issues/154))
-- Update registry doc link, fix component list actions ([#154](https://github.com/epam/edp-headlamp/issues/154))
-- Fix jira integration form ([#150](https://github.com/epam/edp-headlamp/issues/150))
-- Edit monitoring iframe height ([#152](https://github.com/epam/edp-headlamp/issues/152))
-- Fix empty marketplace page ([#152](https://github.com/epam/edp-headlamp/issues/152))
-- Fix stages related issues ([#142](https://github.com/epam/edp-headlamp/issues/142))
-- Fix plus button on gitops page, fix isBase64 check function ([#145](https://github.com/epam/edp-headlamp/issues/145))
-- Fix jira integration plus btn, fix loading ([#145](https://github.com/epam/edp-headlamp/issues/145))
-- Show pipeline tasks from finally block ([#146](https://github.com/epam/edp-headlamp/issues/146))
-- Show pipeline run tasks from finally block ([#146](https://github.com/epam/edp-headlamp/issues/146))
-- Fix plus button on gitops page ([#145](https://github.com/epam/edp-headlamp/issues/145))
-- Fix filter search ([#144](https://github.com/epam/edp-headlamp/issues/144))
-- Fix sonar dashboard url ([#140](https://github.com/epam/edp-headlamp/issues/140))
-- Fix sonar metrics urls, update configuration pages URL field ([#140](https://github.com/epam/edp-headlamp/issues/140))
-- Fix sonar metrics api url ([#140](https://github.com/epam/edp-headlamp/issues/140))
-- Remove ability to rename edp component, fix namespace filter  ([#141](https://github.com/epam/edp-headlamp/issues/141))
-- Rename ArgoCD to Argo CD ([#135](https://github.com/epam/edp-headlamp/issues/135))
-- Fix hiding namespace notification after setting namespaces ([#129](https://github.com/epam/edp-headlamp/issues/129))
-
-### Routine
-
-- Rename trigger template to pipeline template ([#167](https://github.com/epam/edp-headlamp/issues/167))
-- Rename Trigger Template to Pipeline Template for deploy ([#165](https://github.com/epam/edp-headlamp/issues/165))
-- Remove edp from helm chart name ([#156](https://github.com/epam/edp-headlamp/issues/156))
-- Update headlamp to 0.22.0 updating mui to v5 ([#139](https://github.com/epam/edp-headlamp/issues/139))
-- Update current development version ([#136](https://github.com/epam/edp-headlamp/issues/136))
-- Add snapshot tests for registry configuration ([#130](https://github.com/epam/edp-headlamp/issues/130))
-- Update current development version ([#128](https://github.com/epam/edp-headlamp/issues/128))
-
-### Documentation
-
-- Add description for OIDC section ([#168](https://github.com/epam/edp-headlamp/issues/168))
-- Define name convention for ingress objects ([#156](https://github.com/epam/edp-headlamp/issues/156))
-- Update README md file ([#132](https://github.com/epam/edp-headlamp/issues/132))
-
-
-<a name="v0.13.1"></a>
-## [v0.13.1] - 2024-01-18
-### Features
-
-- Update GitServer management flow ([#134](https://github.com/epam/edp-headlamp/issues/134))
-
-
-<a name="v0.13.0"></a>
-## [v0.13.0] - 2024-01-03
-### Features
-
 - Update system codebase icon ([#127](https://github.com/epam/edp-headlamp/issues/127))
 - Add quality gate passed or failed status ([#125](https://github.com/epam/edp-headlamp/issues/125))
-
-### Bug Fixes
-
-- Hide codebase page controls and diagrams for system components ([#126](https://github.com/epam/edp-headlamp/issues/126))
-- Add no secret found messages into configuration page list ([#118](https://github.com/epam/edp-headlamp/issues/118))
-- Fix sonar widget loading status when there is no sonar component ([#118](https://github.com/epam/edp-headlamp/issues/118))
-
-### Routine
-
-- Update current development version ([#121](https://github.com/epam/edp-headlamp/issues/121))
-
-
-<a name="v0.12.0"></a>
-## [v0.12.0] - 2023-12-18
-### Features
-
 - Add graph for review and build pipeline on component page ([#120](https://github.com/epam/edp-headlamp/issues/120))
 - Add openshift registry flow ([#119](https://github.com/epam/edp-headlamp/issues/119))
 - Add review and build pipeline links to component details ([#118](https://github.com/epam/edp-headlamp/issues/118))
@@ -348,49 +173,6 @@
 - Update git server form, disable FormTextFieldDecodeable if toDecode is true ([#96](https://github.com/epam/edp-headlamp/issues/96))
 - Add a new textfield component with ability to decode and to encode values ([#97](https://github.com/epam/edp-headlamp/issues/97))
 - Update GitServer create, edit forms ([#86](https://github.com/epam/edp-headlamp/issues/86))
-
-### Bug Fixes
-
-- Fix image name in release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
-- Bump GO version for release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
-- Fix registry form update issues ([#118](https://github.com/epam/edp-headlamp/issues/118))
-- Fix step name overflow in pipeline graph node ([#120](https://github.com/epam/edp-headlamp/issues/120))
-- Fix pipeline name wrap, fix registry secret status showing ([#120](https://github.com/epam/edp-headlamp/issues/120))
-- Fix sonar critical ([#118](https://github.com/epam/edp-headlamp/issues/118))
-- Fix issues related to changing tekton k8s resources version to v1 ([#115](https://github.com/epam/edp-headlamp/issues/115))
-- Fix integration widgets status updating ([#29](https://github.com/epam/edp-headlamp/issues/29))
-- Fix sonar issues ([#113](https://github.com/epam/edp-headlamp/issues/113))
-- Fix filter actions different names in dev and prod modes ([#113](https://github.com/epam/edp-headlamp/issues/113))
-- Fix dependency track widget url ([#114](https://github.com/epam/edp-headlamp/issues/114))
-- Auto update field registry host value to docker.io in registry setup if registry type is dockerhub ([#107](https://github.com/epam/edp-headlamp/issues/107))
-- Fix git server creation flow ([#102](https://github.com/epam/edp-headlamp/issues/102))
-- Fix crash with ref.current.remove ([#98](https://github.com/epam/edp-headlamp/issues/98))
-- Fix bug with encoding already encoded values ([#96](https://github.com/epam/edp-headlamp/issues/96))
-- Fix git servers page issues ([#86](https://github.com/epam/edp-headlamp/issues/86))
-
-### Code Refactoring
-
-- Segregate url creation services ([#103](https://github.com/epam/edp-headlamp/issues/103))
-- Refactor textField component - restructure and segregate sub-types ([#96](https://github.com/epam/edp-headlamp/issues/96))
-- Fix sonar issues by restructuring code ([#95](https://github.com/epam/edp-headlamp/issues/95))
-- Remove Render component everywhere ([#95](https://github.com/epam/edp-headlamp/issues/95))
-- Create generic editResource function ([#94](https://github.com/epam/edp-headlamp/issues/94))
-
-### Routine
-
-- Update GH Actions ([#99](https://github.com/epam/edp-headlamp/issues/99))
-- Update headlamp to v. 0.21.0 ([#99](https://github.com/epam/edp-headlamp/issues/99))
-- Update current development version ([#93](https://github.com/epam/edp-headlamp/issues/93))
-
-### Documentation
-
-- Update documentation ([#105](https://github.com/epam/edp-headlamp/issues/105))
-
-
-<a name="v0.11.0"></a>
-## [v0.11.0] - 2023-11-03
-### Features
-
 - Add link to deeptrack in codebase branch widget ([#92](https://github.com/epam/edp-headlamp/issues/92))
 - Removes Namespace field from Stage Edit form ([#91](https://github.com/epam/edp-headlamp/issues/91))
 - Improve pipeline diagram ([#89](https://github.com/epam/edp-headlamp/issues/89))
@@ -422,65 +204,9 @@
 - Add resources graph into overview page ([#63](https://github.com/epam/edp-headlamp/issues/63))
 - Add resources graph into overview page ([#60](https://github.com/epam/edp-headlamp/issues/60))
 - Add SSO integration configuration page ([#57](https://github.com/epam/edp-headlamp/issues/57))
-
-### Bug Fixes
-
-- Fix build pipelinerun name creation ([#90](https://github.com/epam/edp-headlamp/issues/90))
-- Removes disabled save button logic when git ops edit form is not touched ([#87](https://github.com/epam/edp-headlamp/issues/87))
-- Change clone strategy credentials field type to password, fix resetting forms on submit ([#87](https://github.com/epam/edp-headlamp/issues/87))
-- Fix resetting forms on submit on configuration pages, fix closing panels on edit ([#87](https://github.com/epam/edp-headlamp/issues/87))
-- Fix codebase branch not creating ([#85](https://github.com/epam/edp-headlamp/issues/85))
-- Fix codebasebranch release branch name, fix updating default branch version ([#85](https://github.com/epam/edp-headlamp/issues/85))
-- Remove dotnet lang from application, library creation strategies ([#80](https://github.com/epam/edp-headlamp/issues/80))
-- Fix use same account checkbox logic in registry manage form, fix registry endpoint for dockerhub ([#20](https://github.com/epam/edp-headlamp/issues/20))
-- Fix ecr registry secret update ([#20](https://github.com/epam/edp-headlamp/issues/20))
-- Fix dockerhub registry edp config map creation registryHost field value ([#20](https://github.com/epam/edp-headlamp/issues/20))
-- Fix overview table status filter ([#73](https://github.com/epam/edp-headlamp/issues/73))
-- Fix sonar cognitive complexity criticals ([#20](https://github.com/epam/edp-headlamp/issues/20))
-- Fix stages by cdpipelinename query ([#72](https://github.com/epam/edp-headlamp/issues/72))
-- Fix crashes when date is not available, fix edp components query, fix codebase in progress status handling ([#66](https://github.com/epam/edp-headlamp/issues/66))
-- Fix sonar cognitive complexity critical ([#67](https://github.com/epam/edp-headlamp/issues/67))
-- Fix crash when there is no resource status, fix gitops list status handling ([#65](https://github.com/epam/edp-headlamp/issues/65))
-
-### Code Refactoring
-
-- Refactor codebase branch creation form logic, fix errors ([#85](https://github.com/epam/edp-headlamp/issues/85))
-- Refactor resource status handling, fix isDockerHub definition ([#65](https://github.com/epam/edp-headlamp/issues/65))
-
-### Routine
-
-- Update headlamp version to 0.20.0 ([#62](https://github.com/epam/edp-headlamp/issues/62))
-- Update current development version ([#61](https://github.com/epam/edp-headlamp/issues/61))
-
-### Documentation
-
-- Fix link to gitservers documentation([#63](https://github.com/epam/edp-headlamp/issues/63))
-
-
-<a name="v0.10.0"></a>
-## [v0.10.0] - 2023-09-28
-### Features
-
 - Update GitServer status handling ([#58](https://github.com/epam/edp-headlamp/issues/58))
 - Update argo application resource creation ([#56](https://github.com/epam/edp-headlamp/issues/56))
 - Add logs viewer and terminal into stage applications deploy table columns ([#55](https://github.com/epam/edp-headlamp/issues/55))
-
-### Bug Fixes
-
-- Fix terminal update ([#55](https://github.com/epam/edp-headlamp/issues/55))
-- Fix git server status error ([#58](https://github.com/epam/edp-headlamp/issues/58))
-- Fix onSuccess callback invoke when creating codebase with clone strategy ([#59](https://github.com/epam/edp-headlamp/issues/59))
-- Add terminal, logviewer files into exclusions of sonar-project.properties ([#56](https://github.com/epam/edp-headlamp/issues/56))
-
-### Routine
-
-- Update current development version ([#54](https://github.com/epam/edp-headlamp/issues/54))
-
-
-<a name="v0.9.0"></a>
-## [v0.9.0] - 2023-09-21
-### Features
-
 - Make EDP-gitops repository unique per edp tenant ([#52](https://github.com/epam/edp-headlamp/issues/52))
 - Add notification about unset namespaces ([#51](https://github.com/epam/edp-headlamp/issues/51))
 - Align button size, remove button name ([#50](https://github.com/epam/edp-headlamp/issues/50))
@@ -500,31 +226,6 @@
 - Update Application resource creation and update templates with gitops codebase custom values ([#32](https://github.com/epam/edp-headlamp/issues/32))
 - Add GitOps configuration section, enable values override functionality, align argocd application creation with custom values ([#32](https://github.com/epam/edp-headlamp/issues/32))
 - Update links to headlamp documentation ([#33](https://github.com/epam/edp-headlamp/issues/33))
-
-### Bug Fixes
-
-- Fix broken route link ([#51](https://github.com/epam/edp-headlamp/issues/51))
-- Make Name field in gitops creation disabled only on created resources ([#52](https://github.com/epam/edp-headlamp/issues/52))
-- Fix git server, GitOps issues ([#49](https://github.com/epam/edp-headlamp/issues/49))
-- Fix error when creating codebase using template with default versioning type ([#72](https://github.com/epam/edp-headlamp/issues/72))
-- Fix latest, stable image stream buttons, fix adding registry secrets ([#35](https://github.com/epam/edp-headlamp/issues/35))
-- Fix editor crash ([#34](https://github.com/epam/edp-headlamp/issues/34))
-- Fix marketplace page search function ([#27](https://github.com/epam/edp-headlamp/issues/27))
-
-### Code Refactoring
-
-- Move keycloakUrl under OIDC section ([#45](https://github.com/epam/edp-headlamp/issues/45))
-- Remove deprecated edpName parameter ([#41](https://github.com/epam/edp-headlamp/issues/41))
-
-### Routine
-
-- Update current development version ([#23](https://github.com/epam/edp-headlamp/issues/23))
-
-
-<a name="v0.8.0"></a>
-## [v0.8.0] - 2023-08-28
-### Features
-
 - Add empty result handling to DataGrid component, add search by displayname in marketplace list ([#22](https://github.com/epam/edp-headlamp/issues/22))
 - Upgrade headlamp to 0.19.1 ([#30](https://github.com/epam/edp-headlamp/issues/30))
 - Make grid mode for overview list page ([#29](https://github.com/epam/edp-headlamp/issues/29))
@@ -535,6 +236,136 @@
 
 ### Bug Fixes
 
+- Release branch creation ([#519](https://github.com/epam/edp-headlamp/issues/519))
+- Try fix oidc fail token ([#515](https://github.com/epam/edp-headlamp/issues/515)) ([#518](https://github.com/epam/edp-headlamp/issues/518))
+- Try fix wrong success oidc auth ([#516](https://github.com/epam/edp-headlamp/issues/516)) ([#517](https://github.com/epam/edp-headlamp/issues/517))
+- Try fix wrong success oidc auth ([#515](https://github.com/epam/edp-headlamp/issues/515))
+- Various bugs ([#513](https://github.com/epam/edp-headlamp/issues/513))
+- Refactor notifications ([#498](https://github.com/epam/edp-headlamp/issues/498))
+- Component crash, tekton 404 pages ([#494](https://github.com/epam/edp-headlamp/issues/494))
+- Edit branch ([#487](https://github.com/epam/edp-headlamp/issues/487))
+- Bugs after latest update ([#485](https://github.com/epam/edp-headlamp/issues/485))
+- Empty variables list ([#483](https://github.com/epam/edp-headlamp/issues/483))
+- Page loadings ([#481](https://github.com/epam/edp-headlamp/issues/481)) ([#482](https://github.com/epam/edp-headlamp/issues/482))
+- Logs rerendering and getLogs fn ([#478](https://github.com/epam/edp-headlamp/issues/478))
+- Update kibana link ([#473](https://github.com/epam/edp-headlamp/issues/473))
+- Kibana link ([#473](https://github.com/epam/edp-headlamp/issues/473))
+- Stage namespace regexp ([#471](https://github.com/epam/edp-headlamp/issues/471))
+- Pipeline run message ([#452](https://github.com/epam/edp-headlamp/issues/452))
+- Task content show ([#448](https://github.com/epam/edp-headlamp/issues/448))
+- Add validation for name field ([#441](https://github.com/epam/edp-headlamp/issues/441))
+- To promote default value ([#432](https://github.com/epam/edp-headlamp/issues/432)) ([#434](https://github.com/epam/edp-headlamp/issues/434))
+- Requests caching ([#427](https://github.com/epam/edp-headlamp/issues/427))
+- No branch crash, registry create, login redirect ([#419](https://github.com/epam/edp-headlamp/issues/419))
+- Fix pipelines ([#421](https://github.com/epam/edp-headlamp/issues/421))
+- Fix redirect after auth ([#419](https://github.com/epam/edp-headlamp/issues/419)) ([#420](https://github.com/epam/edp-headlamp/issues/420))
+- Try fix redirect after auth ([#418](https://github.com/epam/edp-headlamp/issues/418))
+- Try fix tests crash on prod ([#416](https://github.com/epam/edp-headlamp/issues/416))
+- Fix to promote default values ([#414](https://github.com/epam/edp-headlamp/issues/414))
+- Fix cdpipeline list provider [#410](https://github.com/epam/edp-headlamp/issues/410)
+- Fix multi ns errors ([#409](https://github.com/epam/edp-headlamp/issues/409))
+- Fix gitops custom value path for bitbucket ([#402](https://github.com/epam/edp-headlamp/issues/402))
+- Fix sonar metrics ([#397](https://github.com/epam/edp-headlamp/issues/397))
+- Update sanitize util ([#391](https://github.com/epam/edp-headlamp/issues/391))
+- Fix username get crash ([#372](https://github.com/epam/edp-headlamp/issues/372))
+- Fix pipeline actions ([#369](https://github.com/epam/edp-headlamp/issues/369))
+- Fix nonexistant pipeline diagram btn ([#351](https://github.com/epam/edp-headlamp/issues/351))
+- Update pipelines filter ([#337](https://github.com/epam/edp-headlamp/issues/337))
+- Sanitize CodeMie html ([#331](https://github.com/epam/edp-headlamp/issues/331))
+- Fix bugs on pipelines page ([#327](https://github.com/epam/edp-headlamp/issues/327))
+- Fix pipeline crash when no params ([#304](https://github.com/epam/edp-headlamp/issues/304))
+- Fix issues ([#302](https://github.com/epam/edp-headlamp/issues/302))
+- Fix issues after review ([#298](https://github.com/epam/edp-headlamp/issues/298))
+- Fix issues after review ([#298](https://github.com/epam/edp-headlamp/issues/298))
+- Fix multiple issues ([#297](https://github.com/epam/edp-headlamp/issues/297))
+- Update codemie chat response ([#273](https://github.com/epam/edp-headlamp/issues/273))
+- Fix values override default value ([#277](https://github.com/epam/edp-headlamp/issues/277))
+- Fix filter fields alignment ([#258](https://github.com/epam/edp-headlamp/issues/258)) ([#262](https://github.com/epam/edp-headlamp/issues/262))
+- App improvements and fixes ([#258](https://github.com/epam/edp-headlamp/issues/258))
+- Table layout fixes, fix ingress tooltip variable width ([#258](https://github.com/epam/edp-headlamp/issues/258)) ([#260](https://github.com/epam/edp-headlamp/issues/260))
+- Fix various ui ux issues ([#254](https://github.com/epam/edp-headlamp/issues/254))
+- Permission check fixes, pipeline fixes, crash fixes ([#249](https://github.com/epam/edp-headlamp/issues/249)) ([#251](https://github.com/epam/edp-headlamp/issues/251))
+- Enable deploy btn when all apps are selected ([#245](https://github.com/epam/edp-headlamp/issues/245)) ([#246](https://github.com/epam/edp-headlamp/issues/246))
+- Fix branch validation, fix integrations labels ([#240](https://github.com/epam/edp-headlamp/issues/240))
+- Fix pipelines filter, fix integration forms ([#225](https://github.com/epam/edp-headlamp/issues/225))
+- Fix multiple issues with integrations ([#223](https://github.com/epam/edp-headlamp/issues/223))
+- Fix logout, fix table pagination ([#218](https://github.com/epam/edp-headlamp/issues/218))
+- Fix gitops values yaml file link ([#198](https://github.com/epam/edp-headlamp/issues/198))
+- Fix configuration pages useGet hook ns param ([#183](https://github.com/epam/edp-headlamp/issues/183))
+- Fix configuration pages error handling ([#183](https://github.com/epam/edp-headlamp/issues/183))
+- Fix multiple selection in table ([#182](https://github.com/epam/edp-headlamp/issues/182))
+- Fix stage namespace validation, fix deploy btn disabled state ([#155](https://github.com/epam/edp-headlamp/issues/155))
+- Fix error on stage page, rollback to promote checkbox disabled ([#155](https://github.com/epam/edp-headlamp/issues/155))
+- Fix gitserver related issues ([#167](https://github.com/epam/edp-headlamp/issues/167))
+- Remove isBase64String check when encoding form values ([#166](https://github.com/epam/edp-headlamp/issues/166))
+- Fix uninstall button, fix deploy notification message ([#162](https://github.com/epam/edp-headlamp/issues/162))
+- Fix quicklink creation ([#157](https://github.com/epam/edp-headlamp/issues/157))
+- Fix wrong registry page doc link ([#154](https://github.com/epam/edp-headlamp/issues/154))
+- Fix wrong registry page doc link ([#154](https://github.com/epam/edp-headlamp/issues/154))
+- Fix build ([#154](https://github.com/epam/edp-headlamp/issues/154))
+- Update registry doc link, fix component list actions ([#154](https://github.com/epam/edp-headlamp/issues/154))
+- Fix jira integration form ([#150](https://github.com/epam/edp-headlamp/issues/150))
+- Edit monitoring iframe height ([#152](https://github.com/epam/edp-headlamp/issues/152))
+- Fix empty marketplace page ([#152](https://github.com/epam/edp-headlamp/issues/152))
+- Fix stages related issues ([#142](https://github.com/epam/edp-headlamp/issues/142))
+- Fix plus button on gitops page, fix isBase64 check function ([#145](https://github.com/epam/edp-headlamp/issues/145))
+- Fix jira integration plus btn, fix loading ([#145](https://github.com/epam/edp-headlamp/issues/145))
+- Show pipeline tasks from finally block ([#146](https://github.com/epam/edp-headlamp/issues/146))
+- Show pipeline run tasks from finally block ([#146](https://github.com/epam/edp-headlamp/issues/146))
+- Fix plus button on gitops page ([#145](https://github.com/epam/edp-headlamp/issues/145))
+- Fix filter search ([#144](https://github.com/epam/edp-headlamp/issues/144))
+- Fix sonar dashboard url ([#140](https://github.com/epam/edp-headlamp/issues/140))
+- Fix sonar metrics urls, update configuration pages URL field ([#140](https://github.com/epam/edp-headlamp/issues/140))
+- Fix sonar metrics api url ([#140](https://github.com/epam/edp-headlamp/issues/140))
+- Remove ability to rename edp component, fix namespace filter  ([#141](https://github.com/epam/edp-headlamp/issues/141))
+- Rename ArgoCD to Argo CD ([#135](https://github.com/epam/edp-headlamp/issues/135))
+- Fix hiding namespace notification after setting namespaces ([#129](https://github.com/epam/edp-headlamp/issues/129))
+- Hide codebase page controls and diagrams for system components ([#126](https://github.com/epam/edp-headlamp/issues/126))
+- Add no secret found messages into configuration page list ([#118](https://github.com/epam/edp-headlamp/issues/118))
+- Fix sonar widget loading status when there is no sonar component ([#118](https://github.com/epam/edp-headlamp/issues/118))
+- Fix image name in release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
+- Bump GO version for release workflow ([#121](https://github.com/epam/edp-headlamp/issues/121))
+- Fix registry form update issues ([#118](https://github.com/epam/edp-headlamp/issues/118))
+- Fix step name overflow in pipeline graph node ([#120](https://github.com/epam/edp-headlamp/issues/120))
+- Fix pipeline name wrap, fix registry secret status showing ([#120](https://github.com/epam/edp-headlamp/issues/120))
+- Fix sonar critical ([#118](https://github.com/epam/edp-headlamp/issues/118))
+- Fix issues related to changing tekton k8s resources version to v1 ([#115](https://github.com/epam/edp-headlamp/issues/115))
+- Fix integration widgets status updating ([#29](https://github.com/epam/edp-headlamp/issues/29))
+- Fix sonar issues ([#113](https://github.com/epam/edp-headlamp/issues/113))
+- Fix filter actions different names in dev and prod modes ([#113](https://github.com/epam/edp-headlamp/issues/113))
+- Fix dependency track widget url ([#114](https://github.com/epam/edp-headlamp/issues/114))
+- Auto update field registry host value to docker.io in registry setup if registry type is dockerhub ([#107](https://github.com/epam/edp-headlamp/issues/107))
+- Fix git server creation flow ([#102](https://github.com/epam/edp-headlamp/issues/102))
+- Fix crash with ref.current.remove ([#98](https://github.com/epam/edp-headlamp/issues/98))
+- Fix bug with encoding already encoded values ([#96](https://github.com/epam/edp-headlamp/issues/96))
+- Fix git servers page issues ([#86](https://github.com/epam/edp-headlamp/issues/86))
+- Fix build pipelinerun name creation ([#90](https://github.com/epam/edp-headlamp/issues/90))
+- Removes disabled save button logic when git ops edit form is not touched ([#87](https://github.com/epam/edp-headlamp/issues/87))
+- Change clone strategy credentials field type to password, fix resetting forms on submit ([#87](https://github.com/epam/edp-headlamp/issues/87))
+- Fix resetting forms on submit on configuration pages, fix closing panels on edit ([#87](https://github.com/epam/edp-headlamp/issues/87))
+- Fix codebase branch not creating ([#85](https://github.com/epam/edp-headlamp/issues/85))
+- Fix codebasebranch release branch name, fix updating default branch version ([#85](https://github.com/epam/edp-headlamp/issues/85))
+- Remove dotnet lang from application, library creation strategies ([#80](https://github.com/epam/edp-headlamp/issues/80))
+- Fix use same account checkbox logic in registry manage form, fix registry endpoint for dockerhub ([#20](https://github.com/epam/edp-headlamp/issues/20))
+- Fix ecr registry secret update ([#20](https://github.com/epam/edp-headlamp/issues/20))
+- Fix dockerhub registry edp config map creation registryHost field value ([#20](https://github.com/epam/edp-headlamp/issues/20))
+- Fix overview table status filter ([#73](https://github.com/epam/edp-headlamp/issues/73))
+- Fix sonar cognitive complexity criticals ([#20](https://github.com/epam/edp-headlamp/issues/20))
+- Fix stages by cdpipelinename query ([#72](https://github.com/epam/edp-headlamp/issues/72))
+- Fix crashes when date is not available, fix edp components query, fix codebase in progress status handling ([#66](https://github.com/epam/edp-headlamp/issues/66))
+- Fix sonar cognitive complexity critical ([#67](https://github.com/epam/edp-headlamp/issues/67))
+- Fix crash when there is no resource status, fix gitops list status handling ([#65](https://github.com/epam/edp-headlamp/issues/65))
+- Fix terminal update ([#55](https://github.com/epam/edp-headlamp/issues/55))
+- Fix git server status error ([#58](https://github.com/epam/edp-headlamp/issues/58))
+- Fix onSuccess callback invoke when creating codebase with clone strategy ([#59](https://github.com/epam/edp-headlamp/issues/59))
+- Add terminal, logviewer files into exclusions of sonar-project.properties ([#56](https://github.com/epam/edp-headlamp/issues/56))
+- Fix broken route link ([#51](https://github.com/epam/edp-headlamp/issues/51))
+- Make Name field in gitops creation disabled only on created resources ([#52](https://github.com/epam/edp-headlamp/issues/52))
+- Fix git server, GitOps issues ([#49](https://github.com/epam/edp-headlamp/issues/49))
+- Fix error when creating codebase using template with default versioning type ([#72](https://github.com/epam/edp-headlamp/issues/72))
+- Fix latest, stable image stream buttons, fix adding registry secrets ([#35](https://github.com/epam/edp-headlamp/issues/35))
+- Fix editor crash ([#34](https://github.com/epam/edp-headlamp/issues/34))
+- Fix marketplace page search function ([#27](https://github.com/epam/edp-headlamp/issues/27))
 - Fix sonar cognitive complexity critical ([#28](https://github.com/epam/edp-headlamp/issues/28))
 - Fix going back to previous page on resource deletion success ([#24](https://github.com/epam/edp-headlamp/issues/24))
 - Fix going back to previous page on resource deletion success, fix editor initial value data ([#25](https://github.com/epam/edp-headlamp/issues/25))
@@ -542,25 +373,75 @@
 - Fix going back to previous page on resource deletion success ([#24](https://github.com/epam/edp-headlamp/issues/24))
 - Fix empty page marketplace when there is no view mode selected ([#22](https://github.com/epam/edp-headlamp/issues/22))
 
+### Code Refactoring
+
+- Permissions provider ([#367](https://github.com/epam/edp-headlamp/issues/367))
+- Update dialog provider ([#354](https://github.com/epam/edp-headlamp/issues/354))
+- Update two-cr integration forms ([#210](https://github.com/epam/edp-headlamp/issues/210))
+- Refactor registry form ([#176](https://github.com/epam/edp-headlamp/issues/176))
+- Improve multi form provider logic ([#176](https://github.com/epam/edp-headlamp/issues/176))
+- Segregate git server form into multiple ones ([#176](https://github.com/epam/edp-headlamp/issues/176))
+- Remove multiple pipeline run streams ([#170](https://github.com/epam/edp-headlamp/issues/170))
+- Segregate url creation services ([#103](https://github.com/epam/edp-headlamp/issues/103))
+- Refactor textField component - restructure and segregate sub-types ([#96](https://github.com/epam/edp-headlamp/issues/96))
+- Fix sonar issues by restructuring code ([#95](https://github.com/epam/edp-headlamp/issues/95))
+- Remove Render component everywhere ([#95](https://github.com/epam/edp-headlamp/issues/95))
+- Create generic editResource function ([#94](https://github.com/epam/edp-headlamp/issues/94))
+- Refactor codebase branch creation form logic, fix errors ([#85](https://github.com/epam/edp-headlamp/issues/85))
+- Refactor resource status handling, fix isDockerHub definition ([#65](https://github.com/epam/edp-headlamp/issues/65))
+- Move keycloakUrl under OIDC section ([#45](https://github.com/epam/edp-headlamp/issues/45))
+- Remove deprecated edpName parameter ([#41](https://github.com/epam/edp-headlamp/issues/41))
+
 ### Routine
 
+- Update current development version ([#458](https://github.com/epam/edp-headlamp/issues/458))
+- Update Pull Request Template ([#234](https://github.com/epam/edp-headlamp/issues/234))
+- Update current development version ([#439](https://github.com/epam/edp-headlamp/issues/439))
+- Add annotation to control pod seesion timeout([#435](https://github.com/epam/edp-headlamp/issues/435))
+- Update image version ([#395](https://github.com/epam/edp-headlamp/issues/395)) ([#396](https://github.com/epam/edp-headlamp/issues/396))
+- Re-structure documentation assets ([#375](https://github.com/epam/edp-headlamp/issues/375))
+- Update Dockerfile base image ([#346](https://github.com/epam/edp-headlamp/issues/346))
+- Update KubeRocketCI names and documentation links ([#325](https://github.com/epam/edp-headlamp/issues/325))
+- Update KubeRocketCI names and documentation links ([#325](https://github.com/epam/edp-headlamp/issues/325))
+- Replace hardcoded Keycloak URL prefix([#307](https://github.com/epam/edp-headlamp/issues/307))
+- Update information label for values override ([#298](https://github.com/epam/edp-headlamp/issues/298))
+- Update links to new documentation location ([#288](https://github.com/epam/edp-headlamp/issues/288))
+- Update current development version ([#263](https://github.com/epam/edp-headlamp/issues/263))
+- Remove status field from route ([#256](https://github.com/epam/edp-headlamp/issues/256))
+- Remove unused CI flow ([#220](https://github.com/epam/edp-headlamp/issues/220))
+- Update headlamp image tag ([#213](https://github.com/epam/edp-headlamp/issues/213))
+- Update package json file, docker img ([#203](https://github.com/epam/edp-headlamp/issues/203))
+- Add codeowners file to the repo ([#195](https://github.com/epam/edp-headlamp/issues/195))
+- Migrate headlamp from gerrit to github ([#190](https://github.com/epam/edp-headlamp/issues/190))
+- Remove internal kubernetes IP address in config endpoint ([#184](https://github.com/epam/edp-headlamp/issues/184))
+- Update current development version ([#169](https://github.com/epam/edp-headlamp/issues/169))
+- Rename trigger template to pipeline template ([#167](https://github.com/epam/edp-headlamp/issues/167))
+- Rename Trigger Template to Pipeline Template for deploy ([#165](https://github.com/epam/edp-headlamp/issues/165))
+- Remove edp from helm chart name ([#156](https://github.com/epam/edp-headlamp/issues/156))
+- Update headlamp to 0.22.0 updating mui to v5 ([#139](https://github.com/epam/edp-headlamp/issues/139))
+- Update current development version ([#136](https://github.com/epam/edp-headlamp/issues/136))
+- Add snapshot tests for registry configuration ([#130](https://github.com/epam/edp-headlamp/issues/130))
+- Update current development version ([#128](https://github.com/epam/edp-headlamp/issues/128))
+- Update current development version ([#121](https://github.com/epam/edp-headlamp/issues/121))
+- Update GH Actions ([#99](https://github.com/epam/edp-headlamp/issues/99))
+- Update headlamp to v. 0.21.0 ([#99](https://github.com/epam/edp-headlamp/issues/99))
+- Update current development version ([#93](https://github.com/epam/edp-headlamp/issues/93))
+- Update headlamp version to 0.20.0 ([#62](https://github.com/epam/edp-headlamp/issues/62))
+- Update current development version ([#61](https://github.com/epam/edp-headlamp/issues/61))
+- Update current development version ([#54](https://github.com/epam/edp-headlamp/issues/54))
+- Update current development version ([#23](https://github.com/epam/edp-headlamp/issues/23))
 - Bump Headlamp base image in chart annotation ([#23](https://github.com/epam/edp-headlamp/issues/23))
 - Update current development version ([#16](https://github.com/epam/edp-headlamp/issues/16))
 
+### Documentation
 
-<a name="v0.7.0"></a>
-## [v0.7.0] - 2023-08-18
+- Update changelog file for release notes ([#382](https://github.com/epam/edp-headlamp/issues/382))
+- Update CHANGELOG.md file ([#382](https://github.com/epam/edp-headlamp/issues/382))
+- Add description for OIDC section ([#168](https://github.com/epam/edp-headlamp/issues/168))
+- Define name convention for ingress objects ([#156](https://github.com/epam/edp-headlamp/issues/156))
+- Update README md file ([#132](https://github.com/epam/edp-headlamp/issues/132))
+- Update documentation ([#105](https://github.com/epam/edp-headlamp/issues/105))
+- Fix link to gitservers documentation([#63](https://github.com/epam/edp-headlamp/issues/63))
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.17.0...HEAD
-[v0.17.0]: https://github.com/epam/edp-headlamp/compare/v0.16.0...v0.17.0
-[v0.16.0]: https://github.com/epam/edp-headlamp/compare/v0.15.0...v0.16.0
-[v0.15.0]: https://github.com/epam/edp-headlamp/compare/v0.14.0...v0.15.0
-[v0.14.0]: https://github.com/epam/edp-headlamp/compare/v0.13.1...v0.14.0
-[v0.13.1]: https://github.com/epam/edp-headlamp/compare/v0.13.0...v0.13.1
-[v0.13.0]: https://github.com/epam/edp-headlamp/compare/v0.12.0...v0.13.0
-[v0.12.0]: https://github.com/epam/edp-headlamp/compare/v0.11.0...v0.12.0
-[v0.11.0]: https://github.com/epam/edp-headlamp/compare/v0.10.0...v0.11.0
-[v0.10.0]: https://github.com/epam/edp-headlamp/compare/v0.9.0...v0.10.0
-[v0.9.0]: https://github.com/epam/edp-headlamp/compare/v0.8.0...v0.9.0
-[v0.8.0]: https://github.com/epam/edp-headlamp/compare/v0.7.0...v0.8.0
-[v0.7.0]: https://github.com/epam/edp-headlamp/compare/v0.6.0...v0.7.0
+
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.18.0...HEAD
