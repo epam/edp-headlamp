@@ -99,6 +99,10 @@ describe('testing createBuildPipelineRunInstance', () => {
               name: 'JIRA_SERVER',
               value: '$(tt.params.jiraServer)',
             },
+            {
+              name: 'gitfullrepositoryname',
+              value: '$(tt.params.gitfullrepositoryname)',
+            },
           ],
           pipelineRef: {
             name: '$(tt.params.pipelineName)',
@@ -175,6 +179,7 @@ describe('testing createBuildPipelineRunInstance', () => {
           { name: 'COMMIT_MESSAGE', value: '' },
           { name: 'JIRA_ISSUE_METADATA_PAYLOAD', value: '' },
           { name: 'JIRA_SERVER', value: '' },
+          { name: 'gitfullrepositoryname', value: 'test-git-url-path' },
         ],
         pipelineRef: { name: 'test-build-pipeline' },
         taskRunTemplate: { serviceAccountName: 'tekton' },

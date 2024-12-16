@@ -97,6 +97,11 @@ export const createBuildPipelineRunInstance = ({
       case 'JIRA_SERVER':
         param.value = codebase.spec.jiraServer ?? '';
         break;
+      case 'gitfullrepositoryname':
+        param.value = codebaseGitUrlPath.startsWith('/')
+          ? codebaseGitUrlPath.slice(1)
+          : codebaseGitUrlPath ?? '';
+        break;
       default:
         break;
     }
