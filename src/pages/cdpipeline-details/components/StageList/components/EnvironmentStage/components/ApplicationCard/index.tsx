@@ -145,6 +145,7 @@ export const ApplicationCard = ({
           cursor: viewMode === VIEW_MODES.COMPACT ? 'pointer' : 'default',
 
           '& .MuiAccordionSummary-content': {
+            minWidth: 0,
             margin: 0,
           },
           '& .MuiAccordionSummary-content.Mui-expanded': {
@@ -159,7 +160,7 @@ export const ApplicationCard = ({
           sx={{ minWidth: 0, width: '100%', pr: theme.typography.pxToRem(16) }}
           justifyContent="space-between"
         >
-          <Stack direction="row" spacing={2} alignItems="center">
+          <Stack direction="row" spacing={2} alignItems="center" sx={{ minWidth: 0 }}>
             <StatusIcon
               Title={`Health status: ${argoAppHealthStatus || 'Unknown'}`}
               icon={argoAppHealthStatusIcon}

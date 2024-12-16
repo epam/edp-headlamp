@@ -1,5 +1,4 @@
-import { Icon } from '@iconify/react';
-import { Box, Chip, Grid, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { Box, Chip, Grid, Stack, Typography } from '@mui/material';
 import clsx from 'clsx';
 import React from 'react';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
@@ -10,16 +9,12 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/stat
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { CodebaseBranchKubeObject } from '../../../../../../../../k8s/groups/EDP/CodebaseBranch';
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/PipelineRun';
-import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/constants';
-import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateBuildPipelineRun';
-import { createBuildPipelineRunInstance } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/utils/createBuildPipelineRunInstance';
-import { useTriggerTemplateByNameQuery } from '../../../../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useTriggerTemplateByNameQuery';
 import { LinkCreationService } from '../../../../../../../../services/link-creation';
 import { rem } from '../../../../../../../../utils/styling/rem';
-import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
 import { useDynamicDataContext } from '../../../../../../providers/DynamicData/hooks';
 import { isDefaultBranch } from '../../../../../../utils';
 import { Actions } from '../Actions';
+import { BuildGroup } from '../BuildGroup';
 import { useStyles } from './styles';
 import { SummaryProps } from './types';
 
@@ -28,18 +23,6 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
     component: { data: codebaseData },
     gitServerByCodebase: { data: gitServerByCodebase },
   } = useDynamicDataContext();
-
-  const permissions = useTypedPermissions();
-  const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
-
-  const { data: buildTriggerTemplate } = useTriggerTemplateByNameQuery({
-    props: {
-      name: `${gitServerByCodebase?.spec?.gitProvider}-build-template`,
-    },
-    options: {
-      enabled: !!gitServerByCodebase,
-    },
-  });
 
   const classes = useStyles();
   const status = codebaseBranchData?.status?.status;
@@ -54,66 +37,7 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
       PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun)
     );
 
-  const onBuildButtonClick = React.useCallback(
-    (e) => {
-      e.stopPropagation();
-
-      if (!gitServerByCodebase) {
-        console.error('Codebase Git server has not been found');
-        return;
-      }
-
-      const buildPipelineRunTemplate = buildTriggerTemplate.spec.resourcetemplates[0];
-
-      if (!buildPipelineRunTemplate) {
-        console.error('Build PipelineRun template has not been found');
-        return;
-      }
-
-      const buildPipelineRunTemplateCopy = JSON.parse(JSON.stringify(buildPipelineRunTemplate));
-
-      const buildPipelineRunData = createBuildPipelineRunInstance({
-        codebase: codebaseData,
-        codebaseBranch: codebaseBranchData,
-        pipelineRunTemplate: buildPipelineRunTemplateCopy,
-        gitServer: gitServerByCodebase,
-      });
-
-      createBuildPipelineRun(buildPipelineRunData);
-    },
-    [
-      buildTriggerTemplate,
-      codebaseBranchData,
-      codebaseData,
-      createBuildPipelineRun,
-      gitServerByCodebase,
-    ]
-  );
-
   const isEDPVersioning = codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP;
-
-  const latestBuildIsRunning =
-    PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun) ===
-    PIPELINE_RUN_REASON.RUNNING;
-
-  const codebaseBranchStatusIsOk =
-    codebaseBranchData?.status?.status === CUSTOM_RESOURCE_STATUSES.CREATED;
-
-  const buildButtonTooltip = (() => {
-    if (!permissions?.create?.PipelineRun.allowed) {
-      return permissions?.create?.PipelineRun.reason;
-    }
-
-    if (latestBuildIsRunning) {
-      return 'Latest build PipelineRun is running';
-    }
-
-    if (!codebaseBranchStatusIsOk) {
-      return `Codebase branch status is ${codebaseBranchData?.status?.status}`;
-    }
-
-    return 'Trigger build PipelineRun';
-  })();
 
   return (
     <Stack
@@ -145,10 +69,18 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
           {codebaseBranchData.spec.branchName}
         </Typography>
         {isDefaultBranch(codebaseData, codebaseBranchData) && (
-          <Chip label="default" className={clsx([classes.labelChip, classes.labelChipBlue])} />
+          <Chip
+            label="default"
+            size="small"
+            className={clsx([classes.labelChip, classes.labelChipBlue])}
+          />
         )}
         {codebaseBranchData.spec.release && (
-          <Chip label="release" className={clsx([classes.labelChip, classes.labelChipGreen])} />
+          <Chip
+            label="release"
+            size="small"
+            className={clsx([classes.labelChip, classes.labelChipGreen])}
+          />
         )}
         <Stack spacing={1} alignItems="center" direction="row">
           <Typography fontSize={12}>Build status</Typography>
@@ -174,22 +106,22 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
           <>
             <Stack spacing={1} alignItems="center" direction="row">
               <Typography fontSize={12}>Build:</Typography>
-              <Chip label={codebaseBranchData?.status?.build || 'N/A'} />
+              <Chip label={codebaseBranchData?.status?.build || 'N/A'} size="small" />
             </Stack>
             <Stack spacing={1} alignItems="center" direction="row">
               <Typography fontSize={12}>Successful build:</Typography>
-              <Chip label={codebaseBranchData?.status?.lastSuccessfulBuild || 'N/A'} />
+              <Chip label={codebaseBranchData?.status?.lastSuccessfulBuild || 'N/A'} size="small" />
             </Stack>
             <Stack spacing={1} alignItems="center" direction="row">
               <Typography fontSize={12}>Version:</Typography>
-              <Chip label={codebaseBranchData?.spec?.version || 'N/A'} />
+              <Chip label={codebaseBranchData?.spec?.version || 'N/A'} size="small" />
             </Stack>
           </>
         ) : null}
       </Stack>
 
       <Box sx={{ pr: rem(16) }}>
-        <Grid container spacing={1} alignItems={'center'}>
+        <Grid container spacing={3} alignItems={'center'}>
           <Grid item>
             <QuickLink
               enabledText="Open in GIT"
@@ -204,22 +136,17 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
               isTextButton
             />
           </Grid>
-          <Grid item>
-            <Tooltip title={buildButtonTooltip}>
-              <div>
-                <IconButton
-                  onClick={onBuildButtonClick}
-                  disabled={
-                    !permissions?.create?.PipelineRun.allowed ||
-                    latestBuildIsRunning ||
-                    !codebaseBranchStatusIsOk
-                  }
-                  size="medium"
-                >
-                  <Icon icon={ICONS.PLAY} />
-                </IconButton>
-              </div>
-            </Tooltip>
+          <Grid
+            item
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+          >
+            <BuildGroup
+              codebaseBranch={codebaseBranchData}
+              latestBuildPipelineRun={pipelineRuns.latestBuildPipelineRun}
+            />
           </Grid>
 
           <Grid
