@@ -7,10 +7,5 @@ import { AllLogsProps } from './types';
 export const AllLogs = ({ logs }: AllLogsProps) => {
   const { name } = useParams<PipelineRouteParams>();
 
-  return (
-    <LogViewer
-      logs={logs.all}
-      downloadName={`fallback-logs-${name}.log`}
-    />
-  );
+  return <LogViewer logs={logs.all} downloadName={`fallback-logs-${name}.log`} />;
 };
