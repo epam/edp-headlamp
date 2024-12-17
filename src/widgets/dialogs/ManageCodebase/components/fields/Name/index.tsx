@@ -21,6 +21,10 @@ export const Name = () => {
           message: nameRequirementLabel,
         },
         setValueAs: (value) => (typeof value === 'string' ? value.trim() : value),
+        maxLength: {
+          value: 30,
+          message: `Component name must be less than 30 characters long`,
+        },
       })}
       label={`Component name`}
       title={'Provide a clear and concise name for your component.'}

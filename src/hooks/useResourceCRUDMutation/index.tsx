@@ -1,5 +1,5 @@
 import { KubeObjectIface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { OptionsObject } from 'notistack';
+import { OptionsObject, VariantType } from 'notistack';
 import React from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { Snackbar } from '../../components/Snackbar';
@@ -28,6 +28,20 @@ interface Options<KubeObjectData> {
   createCustomMessages?: (item: KubeObjectData) => CustomMessages;
   showMessages?: boolean;
 }
+
+const getDefaultOptions = (variant: VariantType) => {
+  return {
+    autoHideDuration: 2000,
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'left',
+    },
+    variant,
+    content: (key, message) => (
+      <Snackbar snackbarKey={key} text={String(message)} variant={variant} />
+    ),
+  } as const;
+};
 
 export const useResourceCRUDMutation = <
   KubeObjectData extends EDPKubeObjectInterface,
@@ -91,34 +105,21 @@ export const useResourceCRUDMutation = <
           showBeforeRequestMessage(mode, {
             entityName: `${variables.kind} ${variables.metadata.name}`,
           });
-          return;
+        } else {
+          const customMessage = options?.createCustomMessages(variables)?.onMutate;
+
+          const mergedOptions: OptionsObject = {
+            ...getDefaultOptions('info'),
+            ...(customMessage?.options || {}),
+          };
+
+          showBeforeRequestMessage(mode, {
+            customMessage: {
+              message: customMessage.message,
+              options: mergedOptions,
+            },
+          });
         }
-
-        const defaultOptions = {
-          autoHideDuration: 2000,
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'left',
-          },
-          variant: 'info',
-          content: (key, message) => (
-            <Snackbar snackbarKey={key} text={String(message)} variant="info" />
-          ),
-        } as const;
-
-        const customMessage = options?.createCustomMessages(variables)?.onMutate;
-
-        const mergedOptions: OptionsObject = {
-          ...defaultOptions,
-          ...(customMessage?.options || {}),
-        };
-
-        showBeforeRequestMessage(mode, {
-          customMessage: {
-            message: customMessage.message,
-            options: mergedOptions,
-          },
-        });
       },
       onSuccess: (data, variables) => {
         if (!showMessages) {
@@ -129,34 +130,21 @@ export const useResourceCRUDMutation = <
           showRequestSuccessMessage(mode, {
             entityName: `${variables.kind} ${variables.metadata.name}`,
           });
-          return;
+        } else {
+          const customMessage = options?.createCustomMessages(variables)?.onSuccess;
+
+          const mergedOptions: OptionsObject = {
+            ...getDefaultOptions('success'),
+            ...(customMessage?.options || {}),
+          };
+
+          showRequestSuccessMessage(mode, {
+            customMessage: {
+              message: customMessage.message,
+              options: mergedOptions,
+            },
+          });
         }
-
-        const defaultOptions = {
-          autoHideDuration: 5000,
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'left',
-          },
-          variant: 'success',
-          content: (key, message) => (
-            <Snackbar snackbarKey={key} text={String(message)} variant="success" />
-          ),
-        } as const;
-
-        const customMessage = options?.createCustomMessages(variables)?.onSuccess;
-
-        const mergedOptions: OptionsObject = {
-          ...defaultOptions,
-          ...(customMessage?.options || {}),
-        };
-
-        showRequestSuccessMessage(mode, {
-          customMessage: {
-            message: customMessage.message,
-            options: mergedOptions,
-          },
-        });
       },
       onError: (error, variables) => {
         if (!showMessages) {
@@ -167,34 +155,22 @@ export const useResourceCRUDMutation = <
           showRequestErrorMessage(mode, {
             entityName: `${variables.kind} ${variables.metadata.name}`,
           });
-          return;
+        } else {
+          const customMessage = options?.createCustomMessages(variables)?.onError;
+
+          const mergedOptions: OptionsObject = {
+            ...getDefaultOptions('error'),
+            ...(customMessage?.options || {}),
+          };
+
+          showRequestErrorMessage(mode, {
+            customMessage: {
+              message: customMessage.message,
+              options: mergedOptions,
+            },
+          });
         }
 
-        const defaultOptions = {
-          autoHideDuration: 5000,
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'left',
-          },
-          variant: 'error',
-          content: (key, message) => (
-            <Snackbar snackbarKey={key} text={String(message)} variant="error" />
-          ),
-        } as const;
-
-        const customMessage = options?.createCustomMessages(variables)?.onError;
-
-        const mergedOptions: OptionsObject = {
-          ...defaultOptions,
-          ...(customMessage?.options || {}),
-        };
-
-        showRequestErrorMessage(mode, {
-          customMessage: {
-            message: customMessage.message,
-            options: mergedOptions,
-          },
-        });
         showRequestErrorDetailedMessage(error);
         console.error(error);
       },

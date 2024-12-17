@@ -1,4 +1,4 @@
-import { OptionsObject, useSnackbar } from 'notistack';
+import { OptionsObject, useSnackbar, VariantType } from 'notistack';
 import React from 'react';
 import { Snackbar } from '../../components/Snackbar';
 import { CRUD_TYPES } from '../../constants/crudTypes';
@@ -10,6 +10,20 @@ interface Options {
     options?: OptionsObject;
   };
 }
+
+const getDefaultOptions = (variant: VariantType, autoHideDuration: number = 5000) => {
+  return {
+    autoHideDuration,
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'left',
+    },
+    variant,
+    content: (key, message) => (
+      <Snackbar snackbarKey={key} text={String(message)} variant={variant} />
+    ),
+  } as const;
+};
 
 export const useRequestStatusMessages = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -26,17 +40,7 @@ export const useRequestStatusMessages = () => {
       }
     })();
 
-    const defaultOptions = {
-      autoHideDuration: 2000,
-      anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'left',
-      },
-      variant: 'info',
-      content: (key, message) => (
-        <Snackbar snackbarKey={key} text={String(message)} variant="info" />
-      ),
-    } as const;
+    const defaultOptions = getDefaultOptions('info', 2000);
 
     if (customMessage) {
       const { message, options = {} } = customMessage;
@@ -62,17 +66,7 @@ export const useRequestStatusMessages = () => {
       }
     })();
 
-    const defaultOptions = {
-      autoHideDuration: 5000,
-      anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'left',
-      },
-      variant: 'success',
-      content: (key, message) => (
-        <Snackbar snackbarKey={key} text={String(message)} variant="success" />
-      ),
-    } as const;
+    const defaultOptions = getDefaultOptions('success');
 
     if (customMessage) {
       const { message, options = {} } = customMessage;
@@ -98,17 +92,7 @@ export const useRequestStatusMessages = () => {
       }
     })();
 
-    const defaultOptions = {
-      autoHideDuration: 5000,
-      anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'left',
-      },
-      variant: 'error',
-      content: (key, message) => (
-        <Snackbar snackbarKey={key} text={String(message)} variant="error" />
-      ),
-    } as const;
+    const defaultOptions = getDefaultOptions('error');
 
     if (customMessage) {
       const { message, options = {} } = customMessage;
