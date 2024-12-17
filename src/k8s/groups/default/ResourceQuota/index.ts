@@ -16,7 +16,6 @@ export class ResourceQuotaKubeObject extends K8s.ResourceClasses.ResourceQuota {
     dataHandler,
     errorHandler,
   }: StreamListProps): () => void {
-
     const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
     return streamResults(url, dataHandler, errorHandler, {
       labelSelector: `${RESOURCE_QUOTA_LABEL_TENANT}=edp-workload-${tenantNamespace}`,

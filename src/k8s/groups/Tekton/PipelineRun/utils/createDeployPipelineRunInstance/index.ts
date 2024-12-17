@@ -1,5 +1,6 @@
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { createRandomString } from '../../../../../../utils/createRandomString';
+import { truncateName } from '../../../../../../utils/truncateName';
 import { CDPipelineKubeObjectInterface } from '../../../../EDP/CDPipeline/types';
 import { StageKubeObjectInterface } from '../../../../EDP/Stage/types';
 import {
@@ -28,11 +29,14 @@ export const createDeployPipelineRunInstance = ({
 }): PipelineRunKubeObjectInterface => {
   const base = { ...pipelineRunTemplate };
 
-  const generateName = `deploy-${CDPipeline.metadata.name}-${stage.spec.name}-`;
+  const generateName = `deploy-${CDPipeline.metadata.name}-${stage.spec.name}`;
+  const namePostfix = `-${createRandomString(4)}`;
+
+  const truncatedName = truncateName(generateName, namePostfix.length);
 
   delete base.metadata.generateName;
 
-  base.metadata.name = `${generateName}${createRandomString(4)}`;
+  base.metadata.name = `${truncatedName}${namePostfix}`;
 
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE] = CDPipeline.metadata.name;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE] = stage.metadata.name;

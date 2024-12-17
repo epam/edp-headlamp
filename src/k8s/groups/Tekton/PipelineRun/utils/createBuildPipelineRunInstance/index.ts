@@ -1,5 +1,6 @@
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { createRandomString } from '../../../../../../utils/createRandomString';
+import { truncateName } from '../../../../../../utils/truncateName';
 import { CodebaseKubeObjectInterface } from '../../../../EDP/Codebase/types';
 import { CodebaseBranchKubeObjectInterface } from '../../../../EDP/CodebaseBranch/types';
 import { GitServerKubeObjectInterface } from '../../../../EDP/GitServer/types';
@@ -37,14 +38,16 @@ export const createBuildPipelineRunInstance = ({
 
   const base = { ...pipelineRunTemplate };
 
-  const generateName = base.metadata.generateName.replace(
-    '$(tt.params.codebasebranch)',
-    codebaseBranchMetadataName
+  const pipelineRunPostfix = `-build-${createRandomString(4)}`;
+
+  const codebaseBranchNameTruncated = truncateName(
+    codebaseBranchMetadataName,
+    pipelineRunPostfix.length
   );
 
   delete base.metadata.generateName;
 
-  base.metadata.name = `${generateName}${createRandomString(4)}`;
+  base.metadata.name = `${codebaseBranchNameTruncated}${pipelineRunPostfix}`;
 
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE] = codebaseName;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH] = codebaseBranchMetadataName;

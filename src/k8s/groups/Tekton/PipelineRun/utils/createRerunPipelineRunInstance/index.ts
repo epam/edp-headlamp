@@ -1,6 +1,7 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { cloneDeep } from 'lodash';
 import { createRandomString } from '../../../../../../utils/createRandomString';
+import { truncateName } from '../../../../../../utils/truncateName';
 import { PipelineRunKubeObjectInterface } from '../../types';
 
 const rerunIdentifier = '-r-';
@@ -18,7 +19,10 @@ const getNamePrefixForRerun = (name: string) => {
   if (name.includes(rerunIdentifier)) {
     root = name.substring(0, name.lastIndexOf(rerunIdentifier));
   }
-  return `${root}${rerunIdentifier}${createRandomString()}`;
+  const pipelineRunPostfix = `${rerunIdentifier}${createRandomString()}`;
+  const truncatedName = truncateName(root, pipelineRunPostfix.length);
+
+  return `${truncatedName}${pipelineRunPostfix}`;
 };
 
 const generateNewPipelineRunPayload = ({

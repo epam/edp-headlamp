@@ -39,10 +39,7 @@ export const CodebaseBranchesList = () => {
             </Typography>
           </Grid>
           <Grid item style={{ marginLeft: 'auto' }}>
-            <TableHeaderActions
-              codebase={component}
-              defaultBranch={defaultBranch}
-            />
+            <TableHeaderActions codebase={component} defaultBranch={defaultBranch} />
           </Grid>
         </Grid>
       }

@@ -1,4 +1,4 @@
-import { Box, Chip, Grid, Stack, Typography } from '@mui/material';
+import { Box, Chip, Grid, Stack, Typography, useTheme } from '@mui/material';
 import clsx from 'clsx';
 import React from 'react';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
@@ -10,7 +10,6 @@ import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { CodebaseBranchKubeObject } from '../../../../../../../../k8s/groups/EDP/CodebaseBranch';
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/PipelineRun';
 import { LinkCreationService } from '../../../../../../../../services/link-creation';
-import { rem } from '../../../../../../../../utils/styling/rem';
 import { useDynamicDataContext } from '../../../../../../providers/DynamicData/hooks';
 import { isDefaultBranch } from '../../../../../../utils';
 import { Actions } from '../Actions';
@@ -39,6 +38,8 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
 
   const isEDPVersioning = codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP;
 
+  const theme = useTheme();
+
   return (
     <Stack
       spacing={2}
@@ -58,14 +59,26 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
                 {`Status: ${status || 'Unknown'}`}
               </Typography>
               {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
-                <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                <Typography
+                  variant={'subtitle2'}
+                  style={{ marginTop: theme.typography.pxToRem(10) }}
+                >
                   {detailedMessage}
                 </Typography>
               )}
             </>
           }
         />
-        <Typography variant={'h6'} style={{ lineHeight: 1, marginTop: rem(2) }}>
+        <Typography
+          variant={'h6'}
+          style={{
+            marginTop: theme.typography.pxToRem(2),
+            maxWidth: theme.typography.pxToRem(250),
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
           {codebaseBranchData.spec.branchName}
         </Typography>
         {isDefaultBranch(codebaseData, codebaseBranchData) && (
@@ -120,7 +133,7 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
         ) : null}
       </Stack>
 
-      <Box sx={{ pr: rem(16) }}>
+      <Box sx={{ pr: theme.typography.pxToRem(16) }}>
         <Grid container spacing={3} alignItems={'center'}>
           <Grid item>
             <QuickLink
