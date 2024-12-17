@@ -1,11 +1,14 @@
+import { Typography } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { BorderedSection } from '../../../components/BorderedSection';
 import { EmptyList } from '../../../components/EmptyList';
 import { InfoColumns } from '../../../components/InfoColumns';
+import { LearnMoreLink } from '../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../components/LoadingWrapper';
 import { TabSection } from '../../../components/TabSection';
 import { PIPELINE_TYPES } from '../../../constants/pipelineTypes';
+import { EDP_USER_GUIDE } from '../../../constants/urls';
 import { useQuickLinksURLsQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/groups/Tekton/PipelineRun/constants';
@@ -159,7 +162,16 @@ export const usePageTabs = () => {
         id: 'variables',
         component: (
           <LoadingWrapper isLoading={variablesConfigMap.isLoading && !variablesConfigMap.error}>
-            <TabSection title="Variables">
+            <TabSection
+              title={
+                <>
+                  <Typography fontSize={28} color="primary.dark" component="span">
+                    Variables
+                  </Typography>{' '}
+                  <LearnMoreLink url={EDP_USER_GUIDE.VARIABLES_INJECTION.url} />
+                </>
+              }
+            >
               {variablesConfigMap.data ? (
                 <Variables configMap={variablesConfigMap.data?.jsonData} />
               ) : (

@@ -194,6 +194,9 @@ export const EDP_USER_GUIDE = {
       },
     },
   },
+  VARIABLES_INJECTION: {
+    url: `${EDP_USER_GUIDE_ROOT_URL}/cd-pipeline-variables-injection`,
+  },
   QUALITY_GATE_CREATE: {
     url: `${EDP_USER_GUIDE_ROOT_URL}/add-quality-gate`,
     anchors: {

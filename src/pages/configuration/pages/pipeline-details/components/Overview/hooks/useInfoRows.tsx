@@ -9,9 +9,9 @@ export const useInfoRows = (pipeline: PipelineKubeObjectInterface): InfoRow[] | 
       return null;
     }
 
-    const pipelineLabels = Object.entries(pipeline.metadata.labels).map(
-      ([key, value]) => `${key}:${value}`
-    );
+    const pipelineLabels = pipeline.metadata?.labels
+      ? Object.entries(pipeline.metadata.labels).map(([key, value]) => `${key}:${value}`)
+      : [];
 
     return [
       [
@@ -24,19 +24,23 @@ export const useInfoRows = (pipeline: PipelineKubeObjectInterface): InfoRow[] | 
             minute: 'numeric',
           }),
         },
-        {
-          label: 'Labels',
-          text: (
-            <Grid container spacing={1} flexWrap="wrap">
-              {pipelineLabels.map((el) => (
-                <Grid item key={el}>
-                  <Chip label={el} size="small" />
-                </Grid>
-              ))}
-            </Grid>
-          ),
-          columnXs: 10,
-        },
+        ...(pipelineLabels.length
+          ? [
+              {
+                label: 'Labels',
+                text: (
+                  <Grid container spacing={1} flexWrap="wrap">
+                    {pipelineLabels.map((el) => (
+                      <Grid item key={el}>
+                        <Chip label={el} size="small" />
+                      </Grid>
+                    ))}
+                  </Grid>
+                ),
+                columnXs: 10,
+              },
+            ]
+          : []),
       ],
     ];
   }, [pipeline]);

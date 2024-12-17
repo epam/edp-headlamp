@@ -51,6 +51,10 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
           },
           required: 'Enter branch name',
           onChange: handleReleaseBranchNameFieldValueChange,
+          maxLength: {
+            value: 30,
+            message: `Branch name must be less than 30 characters long`,
+          },
         })}
         label={'Branch Name'}
         title={'Type the branch name that will be created in the Version Control System.'}
