@@ -75,8 +75,8 @@ describe('testing link-creation GitURLService', () => {
       GitURLService.createRepoBranchLink(
         GIT_PROVIDERS.BITBUCKET,
         'https://git.test.com/test-project/test-repo',
-        'test-branch'
+        'feature/test-branch'
       )
-    ).toEqual('https://git.test.com/test-project/test-repo/src/test-branch');
+    ).toEqual('https://git.test.com/test-project/test-repo/src/HEAD/?at=feature%2Ftest-branch');
   });
 });

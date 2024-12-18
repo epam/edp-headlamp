@@ -48,7 +48,8 @@ export const GitURLService = {
         updatedUrl.pathname += `/-/tree/${branch}`;
         break;
       case GIT_PROVIDERS.BITBUCKET:
-        updatedUrl.pathname += `/src/${branch}`;
+        updatedUrl.pathname += `/src/HEAD/`;
+        updatedUrl.search = `?at=${encodeURIComponent(branch)}`;
         break;
       default:
         throw new Error(`Unsupported git server: ${gitServer}`);
