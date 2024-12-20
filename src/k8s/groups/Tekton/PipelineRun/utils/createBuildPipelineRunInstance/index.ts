@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash';
+import { GIT_PROVIDERS } from '../../../../../../constants/gitProviders';
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { createRandomString } from '../../../../../../utils/createRandomString';
 import { truncateName } from '../../../../../../utils/truncateName';
@@ -24,7 +26,11 @@ export const createBuildPipelineRunInstance = ({
 }): PipelineRunKubeObjectInterface => {
   const {
     metadata: { name: codebaseName },
-    spec: { gitUrlPath: codebaseGitUrlPath, buildTool: codebaseBuildTool },
+    spec: {
+      gitUrlPath: codebaseGitUrlPath,
+      buildTool: codebaseBuildTool,
+      gitServer: codebaseGitServer,
+    },
   } = codebase;
 
   const {
@@ -36,7 +42,7 @@ export const createBuildPipelineRunInstance = ({
     spec: { gitUser, gitHost, sshPort },
   } = gitServer;
 
-  const base = { ...pipelineRunTemplate };
+  const base = cloneDeep(pipelineRunTemplate);
 
   const pipelineRunPostfix = `-build-${createRandomString(4)}`;
 
@@ -65,10 +71,17 @@ export const createBuildPipelineRunInstance = ({
     },
   ];
 
+  const gitUrlPathWithoutSlashAtStart = codebaseGitUrlPath.startsWith('/')
+    ? codebaseGitUrlPath.slice(1)
+    : codebaseGitUrlPath;
+
   for (const param of base.spec.params) {
     switch (param.name) {
       case 'git-source-url':
-        param.value = `ssh://${gitUser}@${gitHost}:${sshPort}${codebaseGitUrlPath}`;
+        param.value =
+          codebaseGitServer === GIT_PROVIDERS.GERRIT
+            ? `ssh://${gitUser}@${gitHost}:${sshPort}/${gitUrlPathWithoutSlashAtStart}`
+            : `${gitUser}@${gitHost}:${gitUrlPathWithoutSlashAtStart}`;
         break;
       case 'git-source-revision':
         param.value = codebaseBranchName;
@@ -101,9 +114,7 @@ export const createBuildPipelineRunInstance = ({
         param.value = codebase.spec.jiraServer ?? '';
         break;
       case 'gitfullrepositoryname':
-        param.value = codebaseGitUrlPath.startsWith('/')
-          ? codebaseGitUrlPath.slice(1)
-          : codebaseGitUrlPath ?? '';
+        param.value = gitUrlPathWithoutSlashAtStart;
         break;
       default:
         break;

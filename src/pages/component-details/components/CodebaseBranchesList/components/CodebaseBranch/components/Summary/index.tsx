@@ -1,4 +1,4 @@
-import { Box, Chip, Grid, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Chip, Grid, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import clsx from 'clsx';
 import React from 'react';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
@@ -47,6 +47,7 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
       direction="row"
       width={'100%'}
       justifyContent="space-between"
+      flexWrap="nowrap"
     >
       <Stack spacing={2} alignItems="center" direction="row">
         <StatusIcon
@@ -69,18 +70,20 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
             </>
           }
         />
-        <Typography
-          variant={'h6'}
-          style={{
-            marginTop: theme.typography.pxToRem(2),
-            maxWidth: theme.typography.pxToRem(250),
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {codebaseBranchData.spec.branchName}
-        </Typography>
+        <Tooltip title={codebaseBranchData.spec.branchName}>
+          <Typography
+            variant={'h6'}
+            style={{
+              marginTop: theme.typography.pxToRem(2),
+              maxWidth: theme.typography.pxToRem(200),
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {codebaseBranchData.spec.branchName}
+          </Typography>
+        </Tooltip>
         {isDefaultBranch(codebaseData, codebaseBranchData) && (
           <Chip
             label="default"
@@ -127,13 +130,24 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
             </Stack>
             <Stack spacing={1} alignItems="center" direction="row">
               <Typography fontSize={12}>Version:</Typography>
-              <Chip label={codebaseBranchData?.spec?.version || 'N/A'} size="small" />
+              <Tooltip title={codebaseBranchData?.spec?.version || 'N/A'}>
+                <Chip
+                  label={codebaseBranchData?.spec?.version || 'N/A'}
+                  sx={{
+                    maxWidth: theme.typography.pxToRem(200),
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                  size="small"
+                />
+              </Tooltip>
             </Stack>
           </>
         ) : null}
       </Stack>
 
-      <Box sx={{ pr: theme.typography.pxToRem(16) }}>
+      <Box sx={{ pr: theme.typography.pxToRem(16), flexShrink: 0 }}>
         <Grid container spacing={3} alignItems={'center'}>
           <Grid item>
             <QuickLink

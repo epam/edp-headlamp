@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
 import { createRandomString } from '../../../../../../utils/createRandomString';
 import { truncateName } from '../../../../../../utils/truncateName';
@@ -19,7 +20,7 @@ export const createCleanPipelineRunInstance = ({
   stage: StageKubeObjectInterface;
   pipelineRunTemplate: PipelineRunKubeObjectInterface;
 }): PipelineRunKubeObjectInterface => {
-  const base = { ...pipelineRunTemplate };
+  const base = cloneDeep(pipelineRunTemplate);
 
   const generateName = `clean-${CDPipeline.metadata.name}-${stage.spec.name}`;
   const namePostfix = `-${createRandomString(4)}`;
