@@ -11,8 +11,7 @@ export const ManageClusterSecret = ({ formData }: ManageClusterSecretProps) => {
   return (
     <Grid container spacing={2} data-testid="form">
       <Grid item xs={12}>
-        {mode === FORM_MODES.CREATE && <Create formData={formData} />}
-        {mode === FORM_MODES.EDIT && <Edit formData={formData} />}
+        {mode === FORM_MODES.CREATE ? <Create formData={formData} /> : <Edit formData={formData} />}
       </Grid>
     </Grid>
   );

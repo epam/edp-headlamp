@@ -31,8 +31,6 @@ export enum ICONS {
   GIT_BRANCH = 'ph:git-branch',
   NEW_WINDOW = 'material-symbols:open-in-new',
   ARGOCD = 'devicon:argocd',
-  GRAFANA = 'logos:grafana',
-  KIBANA = 'logos:kibana',
   KUBERNETES = 'simple-icons:kubernetes',
   SONAR = 'simple-icons:sonarsource',
   JIRA = 'fontisto:jira',
@@ -82,4 +80,6 @@ export enum ICONS {
   TIMEOUT = 'eos-icons:timeout',
   ARROW_DROPDOWN = 'material-symbols:arrow-drop-down',
   COMMENT = 'mdi:comment-text-outline',
+  OPENSEARCH = 'simple-icons:opensearch',
+  GRAFANA = 'devicon-plain:grafana',
 }

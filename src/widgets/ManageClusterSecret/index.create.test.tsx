@@ -32,6 +32,7 @@ test('renders ManageClusterSecret Create component', () => {
               },
             },
           },
+          ownerReference: undefined,
         }}
       />
     </TestWrapper>

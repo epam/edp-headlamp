@@ -10,6 +10,7 @@ import { QuickLinkExternalLinkProps } from './types';
 export const QuickLink = ({
   name,
   icon,
+  iconBase64,
   externalLink,
   enabledText = `Open in ${name.label}`,
   configurationLink,
@@ -60,6 +61,7 @@ export const QuickLink = ({
   return externalLink ? (
     <ResourceIconLink
       icon={icon}
+      iconBase64={iconBase64}
       tooltipTitle={enabledText}
       link={externalLink}
       variant={variant}
@@ -71,6 +73,7 @@ export const QuickLink = ({
     <ResourceIconLink
       disabled
       icon={icon}
+      iconBase64={iconBase64}
       tooltipTitle={renderDisabledTooltip()}
       name={name.label}
       variant={variant}

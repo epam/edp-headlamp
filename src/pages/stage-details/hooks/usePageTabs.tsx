@@ -9,7 +9,10 @@ import { LoadingWrapper } from '../../../components/LoadingWrapper';
 import { TabSection } from '../../../components/TabSection';
 import { PIPELINE_TYPES } from '../../../constants/pipelineTypes';
 import { EDP_USER_GUIDE } from '../../../constants/urls';
+import { SYSTEM_QUICK_LINKS } from '../../../k8s/groups/EDP/QuickLink/constants';
+import { useQuickLinksQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksQuery';
 import { useQuickLinksURLsQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
+import { QUICK_LINK_LABEL_SELECTOR_TYPE } from '../../../k8s/groups/EDP/QuickLink/labels';
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/groups/Tekton/PipelineRun/constants';
 import { FilterContextProvider } from '../../../providers/Filter/provider';
@@ -29,6 +32,15 @@ import { useTypedPermissions } from './useTypedPermissions';
 export const usePageTabs = () => {
   const { namespace, stageName } = useParams<EDPStageDetailsRouteParams>();
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
+  const { data: QuickLinks } = useQuickLinksQuery({
+    props: {
+      namespace,
+    },
+  });
+
+  const monitoringQuickLink =
+    QuickLinks &&
+    QuickLinks?.items?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.MONITORING);
 
   const {
     stage,
@@ -150,7 +162,8 @@ export const usePageTabs = () => {
           <LoadingWrapper isLoading={_isLoading}>
             <TabSection title="Monitoring">
               <Monitoring
-                grafanaBaseUrl={QuickLinksURLS?.grafana}
+                provider={monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE]}
+                baseUrl={QuickLinksURLS?.monitoring}
                 namespace={stage.data?.spec.namespace}
               />
             </TabSection>
@@ -183,7 +196,7 @@ export const usePageTabs = () => {
       },
     ];
   }, [
-    QuickLinksURLS?.grafana,
+    QuickLinksURLS?.monitoring,
     argoApplications.isLoading,
     enrichedApplications.isLoading,
     enrichedApplicationsWithArgoApplications,
@@ -191,6 +204,7 @@ export const usePageTabs = () => {
     isLoading,
     latestCleanPipelineRunIsRunning,
     latestDeployPipelineRunIsRunning,
+    monitoringQuickLink?.metadata?.labels,
     newPipelineRunAdded,
     permissions,
     pipelineRuns.data,

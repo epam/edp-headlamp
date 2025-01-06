@@ -1,8 +1,10 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextFieldPassword } from '../../../../../providers/Form/components/FormTextFieldPassword';
+import { useFormContext } from '../../../../../providers/Form/hooks';
+import { FORM_MODES } from '../../../../../types/forms';
 import { CLUSTER_CREATION_FORM_NAMES } from '../../../names';
-import { ManageClusterSecretValues } from '../../../types';
+import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../types';
 
 export const ClusterToken = () => {
   const {
@@ -10,6 +12,10 @@ export const ClusterToken = () => {
     control,
     formState: { errors },
   } = useReactHookFormContext<ManageClusterSecretValues>();
+
+  const {
+    formData: { mode, ownerReference },
+  } = useFormContext<ManageClusterSecretDataContext>();
 
   return (
     <FormTextFieldPassword
@@ -23,6 +29,10 @@ export const ClusterToken = () => {
       placeholder={'Enter cluster token'}
       control={control}
       errors={errors}
+      disabled={mode === FORM_MODES.EDIT && !!ownerReference}
+      TextFieldProps={{
+        helperText: ownerReference && `This field value is managed by ${ownerReference}`,
+      }}
     />
   );
 };

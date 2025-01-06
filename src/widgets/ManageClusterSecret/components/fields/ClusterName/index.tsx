@@ -14,7 +14,7 @@ export const ClusterName = () => {
   } = useReactHookFormContext<ManageClusterSecretValues>();
 
   const {
-    formData: { mode },
+    formData: { mode, ownerReference },
   } = useFormContext<ManageClusterSecretDataContext>();
 
   return (
@@ -27,7 +27,10 @@ export const ClusterName = () => {
       placeholder={'Enter cluster name'}
       control={control}
       errors={errors}
-      disabled={mode === FORM_MODES.EDIT}
+      disabled={mode === FORM_MODES.EDIT || !!ownerReference}
+      TextFieldProps={{
+        helperText: ownerReference && `This field value is managed by ${ownerReference}`,
+      }}
     />
   );
 };

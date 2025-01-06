@@ -26,6 +26,7 @@ const iconSizeByBtnSize = (btnSize: ButtonProps['size']) => {
 const DisabledResourceIconLink = ({
   tooltipTitle,
   icon,
+  iconBase64,
   withoutDisabledStyle,
   variant,
   isTextButton,
@@ -44,13 +45,26 @@ const DisabledResourceIconLink = ({
       endIcon={<Icon icon={ICONS.NEW_WINDOW} color={theme.palette.grey['500']} width={iconSize} />}
       size={size}
     >
-      Open in {name}
+      {name}
     </Button>
   ) : (
     <Tooltip title={<div>{tooltipTitle}</div>}>
       <div>
         <IconButton disabled style={!withoutDisabledStyle ? { opacity: 0.5 } : {}} size={size}>
-          <Icon icon={icon} color={theme.palette.grey['500']} width={iconSize} height={iconSize} />
+          {iconBase64 ? (
+            <img
+              src={`data:image/svg+xml;base64,${iconBase64}`}
+              style={{ width: theme.typography.pxToRem(16), height: theme.typography.pxToRem(16) }}
+              alt=""
+            />
+          ) : (
+            <Icon
+              icon={icon}
+              color={theme.palette.grey['500']}
+              width={iconSize}
+              height={iconSize}
+            />
+          )}
         </IconButton>
       </div>
     </Tooltip>
@@ -60,6 +74,7 @@ const DisabledResourceIconLink = ({
 const EnabledResourceIconLink = ({
   tooltipTitle,
   icon,
+  iconBase64,
   link,
   variant,
   isTextButton,
@@ -106,7 +121,20 @@ const EnabledResourceIconLink = ({
     >
       <span>
         <IconButton component={MuiLink} href={link} target={'_blank'} size={size}>
-          <Icon icon={icon} width={iconSize} height={iconSize} color={theme.palette.text.primary} />
+          {iconBase64 ? (
+            <img
+              src={`data:image/svg+xml;base64,${iconBase64}`}
+              style={{ width: theme.typography.pxToRem(16), height: theme.typography.pxToRem(16) }}
+              alt=""
+            />
+          ) : (
+            <Icon
+              icon={icon}
+              color={theme.palette.grey['500']}
+              width={iconSize}
+              height={iconSize}
+            />
+          )}
         </IconButton>
       </span>
     </Tooltip>
@@ -117,6 +145,7 @@ export const ResourceIconLink = ({
   disabled = false,
   tooltipTitle,
   icon,
+  iconBase64,
   link,
   withoutDisabledStyle,
   variant,
@@ -131,6 +160,7 @@ export const ResourceIconLink = ({
         <DisabledResourceIconLink
           tooltipTitle={tooltipTitle}
           icon={icon}
+          iconBase64={iconBase64}
           withoutDisabledStyle={withoutDisabledStyle}
           variant={variant}
           isTextButton={isTextButton}
@@ -141,6 +171,7 @@ export const ResourceIconLink = ({
         <EnabledResourceIconLink
           tooltipTitle={tooltipTitle}
           icon={icon}
+          iconBase64={iconBase64}
           link={link}
           variant={variant}
           isTextButton={isTextButton}
