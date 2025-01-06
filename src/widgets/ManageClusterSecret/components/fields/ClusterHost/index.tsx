@@ -2,9 +2,11 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { VALIDATED_PROTOCOLS } from '../../../../../constants/validatedProtocols';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { useFormContext } from '../../../../../providers/Form/hooks';
+import { FORM_MODES } from '../../../../../types/forms';
 import { getValidURLPattern } from '../../../../../utils/checks/getValidURLPattern';
 import { CLUSTER_CREATION_FORM_NAMES } from '../../../names';
-import { ManageClusterSecretValues } from '../../../types';
+import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../types';
 
 export const ClusterHost = () => {
   const {
@@ -12,6 +14,10 @@ export const ClusterHost = () => {
     control,
     formState: { errors },
   } = useReactHookFormContext<ManageClusterSecretValues>();
+
+  const {
+    formData: { mode, ownerReference },
+  } = useFormContext<ManageClusterSecretDataContext>();
 
   return (
     <FormTextField
@@ -34,6 +40,10 @@ export const ClusterHost = () => {
       placeholder={'Enter cluster host'}
       control={control}
       errors={errors}
+      disabled={mode === FORM_MODES.EDIT && !!ownerReference}
+      TextFieldProps={{
+        helperText: ownerReference && `This field value is managed by ${ownerReference}`,
+      }}
     />
   );
 };

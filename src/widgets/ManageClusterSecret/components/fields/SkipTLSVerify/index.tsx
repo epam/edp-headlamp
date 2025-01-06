@@ -1,22 +1,35 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormCheckbox } from '../../../../../providers/Form/components/FormCheckbox';
 import { FormControlLabelWithTooltip } from '../../../../../providers/Form/components/FormControlLabelWithTooltip';
+import { useFormContext } from '../../../../../providers/Form/hooks';
+import { FORM_MODES } from '../../../../../types/forms';
 import { CLUSTER_CREATION_FORM_NAMES } from '../../../names';
+import { ManageClusterSecretDataContext } from '../../../types';
 
 export const SkipTLSVerify = () => {
   const {
     register,
     control,
     formState: { errors },
-  } = useFormContext();
+  } = useReactHookFormContext();
+
+  const {
+    formData: { mode, ownerReference },
+  } = useFormContext<ManageClusterSecretDataContext>();
 
   return (
     <FormCheckbox
       {...register(CLUSTER_CREATION_FORM_NAMES.skipTLSVerify.name)}
-      label={<FormControlLabelWithTooltip label={'Skip TLS verification'} />}
+      label={
+        <FormControlLabelWithTooltip
+          label={'Skip TLS verification'}
+          disabled={mode === FORM_MODES.EDIT && !!ownerReference}
+        />
+      }
       control={control}
       errors={errors}
+      disabled={mode === FORM_MODES.EDIT && !!ownerReference}
     />
   );
 };

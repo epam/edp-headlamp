@@ -12,6 +12,7 @@ import {
   SYSTEM_QUICK_LINKS,
   SYSTEM_QUICK_LINKS_LABELS,
 } from '../../k8s/groups/EDP/QuickLink/constants';
+import { QUICK_LINK_LABEL_SELECTOR_TYPE } from '../../k8s/groups/EDP/QuickLink/labels';
 import { Tabs } from '../../providers/Tabs/components/Tabs';
 import { useTabsContext } from '../../providers/Tabs/hooks';
 import { LinkCreationService } from '../../services/link-creation';
@@ -33,13 +34,12 @@ export const PageView = () => {
     stage: { data: stage, isLoading: isStageLoading, error: stageError },
   } = useDynamicDataContext();
 
-  const grafanaQuickLink =
-    QuickLinks && QuickLinks.data?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.GRAFANA);
-  const kibanaQuickLink =
-    QuickLinks && QuickLinks.data?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.KIBANA);
+  const monitoringQuickLink =
+    QuickLinks && QuickLinks.data?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.MONITORING);
+  const loggingQuickLink =
+    QuickLinks && QuickLinks.data?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.LOGGING);
 
   const stageSpecName = stage?.spec.name;
-  const stageSpecNamespace = stage?.spec.namespace;
 
   const tabs = usePageTabs();
 
@@ -109,28 +109,32 @@ export const PageView = () => {
             />
             <QuickLink
               name={{
-                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.GRAFANA],
-                value: SYSTEM_QUICK_LINKS.GRAFANA,
+                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.MONITORING],
+                value: SYSTEM_QUICK_LINKS.MONITORING,
               }}
-              icon={ICONS.GRAFANA}
-              externalLink={LinkCreationService.grafana.createDashboardLink(
-                QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.GRAFANA],
-                stageSpecNamespace
+              enabledText="monitoring dashboard"
+              iconBase64={monitoringQuickLink?.spec?.icon}
+              externalLink={LinkCreationService.monitoring.createDashboardLink(
+                monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
+                QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.MONITORING],
+                stage.spec.namespace
               )}
-              QuickLinkComponent={grafanaQuickLink}
+              QuickLinkComponent={monitoringQuickLink}
               isTextButton
             />
             <QuickLink
               name={{
-                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.KIBANA],
-                value: SYSTEM_QUICK_LINKS.KIBANA,
+                label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.LOGGING],
+                value: SYSTEM_QUICK_LINKS.LOGGING,
               }}
-              icon={ICONS.KIBANA}
-              externalLink={LinkCreationService.kibana.createDashboardLink(
-                QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.KIBANA],
-                stageSpecNamespace
+              enabledText="logging dashboard"
+              iconBase64={loggingQuickLink?.spec?.icon}
+              externalLink={LinkCreationService.logging.createDashboardLink(
+                loggingQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
+                QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.LOGGING],
+                stage.spec.namespace
               )}
-              QuickLinkComponent={kibanaQuickLink}
+              QuickLinkComponent={loggingQuickLink}
               isTextButton
             />
             <Box sx={{ ml: (t) => t.typography.pxToRem(20) }}>

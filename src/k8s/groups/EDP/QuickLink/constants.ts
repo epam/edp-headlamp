@@ -4,8 +4,8 @@ export const SYSTEM_QUICK_LINKS = {
   ARGOCD: 'argocd',
   DEFECT_DOJO: 'defectdojo',
   DEPENDENCY_TRACK: 'dependency-track',
-  GRAFANA: 'grafana',
-  KIBANA: 'kibana',
+  MONITORING: 'monitoring',
+  LOGGING: 'logging',
   NEXUS: 'nexus',
   SONAR: 'sonar',
   CODEMIE: 'codemie',
@@ -13,7 +13,7 @@ export const SYSTEM_QUICK_LINKS = {
 
 export const SYSTEM_QUICK_LINKS_LABELS = {
   [SYSTEM_QUICK_LINKS.ARGOCD]: 'Argo CD',
-  [SYSTEM_QUICK_LINKS.GRAFANA]: 'Grafana',
-  [SYSTEM_QUICK_LINKS.KIBANA]: 'Kibana',
+  [SYSTEM_QUICK_LINKS.MONITORING]: 'Monitoring',
+  [SYSTEM_QUICK_LINKS.LOGGING]: 'Logging',
   [SYSTEM_QUICK_LINKS.SONAR]: 'Sonar',
 } as const;

@@ -11,6 +11,7 @@ import {
   SYSTEM_QUICK_LINKS,
   SYSTEM_QUICK_LINKS_LABELS,
 } from '../../../../../../k8s/groups/EDP/QuickLink/constants';
+import { QUICK_LINK_LABEL_SELECTOR_TYPE } from '../../../../../../k8s/groups/EDP/QuickLink/labels';
 import { StageKubeObject } from '../../../../../../k8s/groups/EDP/Stage';
 import { LinkCreationService } from '../../../../../../services/link-creation';
 import { routeArgoCD } from '../../../../../configuration/pages/argocd/route';
@@ -29,10 +30,10 @@ export const EnvironmentStage = ({
 }: EnvironmentStageProps) => {
   const theme = useTheme();
 
-  const grafanaQuickLink =
-    QuickLinks && QuickLinks?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.GRAFANA);
-  const kibanaQuickLink =
-    QuickLinks && QuickLinks?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.KIBANA);
+  const monitoringQuickLink =
+    QuickLinks && QuickLinks?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.MONITORING);
+  const loggingQuickLink =
+    QuickLinks && QuickLinks?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.LOGGING);
 
   const stageIsLoaded = stage?.status;
 
@@ -138,28 +139,34 @@ export const EnvironmentStage = ({
                     />
                     <QuickLink
                       name={{
-                        label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.GRAFANA],
-                        value: SYSTEM_QUICK_LINKS.GRAFANA,
+                        label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.MONITORING],
+                        value: SYSTEM_QUICK_LINKS.MONITORING,
                       }}
                       icon={ICONS.GRAFANA}
-                      externalLink={LinkCreationService.grafana.createDashboardLink(
-                        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.GRAFANA],
+                      iconBase64={monitoringQuickLink?.spec?.icon}
+                      enabledText="Open Metrics"
+                      externalLink={LinkCreationService.monitoring.createDashboardLink(
+                        monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
+                        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.MONITORING],
                         stage.spec.namespace
                       )}
-                      QuickLinkComponent={grafanaQuickLink}
+                      QuickLinkComponent={monitoringQuickLink}
                       size="small"
                     />
                     <QuickLink
                       name={{
-                        label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.KIBANA],
-                        value: SYSTEM_QUICK_LINKS.KIBANA,
+                        label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.LOGGING],
+                        value: SYSTEM_QUICK_LINKS.LOGGING,
                       }}
-                      icon={ICONS.KIBANA}
-                      externalLink={LinkCreationService.kibana.createDashboardLink(
-                        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.KIBANA],
+                      icon={ICONS.OPENSEARCH}
+                      iconBase64={loggingQuickLink?.spec?.icon}
+                      enabledText="Open Logs"
+                      externalLink={LinkCreationService.logging.createDashboardLink(
+                        loggingQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
+                        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.LOGGING],
                         stage.spec.namespace
                       )}
-                      QuickLinkComponent={kibanaQuickLink}
+                      QuickLinkComponent={loggingQuickLink}
                       size="small"
                     />
                   </Stack>

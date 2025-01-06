@@ -1,9 +1,9 @@
 import { ArgoCDURLService } from './argocd';
 import { DepTrackURLService } from './deptrack';
 import { GitURLService } from './git';
-import { GrafanaURLService } from './grafana';
 import { JaegerURLService } from './jaeger';
-import { KibanaURLService } from './kibana';
+import { LoggingURLService } from './logging';
+import { MonitoringURLService } from './monitoring';
 import { SonarQubeURLService } from './sonar';
 
 export const createURLObjectFromURLOrigin = (urlOrigin: string) => {
@@ -23,14 +23,14 @@ export const LinkCreationService = {
   sonar: {
     ...SonarQubeURLService,
   },
-  grafana: {
-    ...GrafanaURLService,
+  monitoring: {
+    ...MonitoringURLService,
   },
   jaeger: {
     ...JaegerURLService,
   },
-  kibana: {
-    ...KibanaURLService,
+  logging: {
+    ...LoggingURLService,
   },
   git: {
     ...GitURLService,

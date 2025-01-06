@@ -152,8 +152,8 @@ export const PageView = () => {
                     cursor: singleItem ? 'default' : 'pointer',
                   }}
                 >
-                  <Grid container spacing={3} alignItems={'center'}>
-                    <Grid item xs={12}>
+                  <Grid container spacing={1} alignItems={'center'}>
+                    <Grid item>
                       <Typography variant={'h6'} component="div">
                         {secret.metadata.name}
                       </Typography>
@@ -177,6 +177,7 @@ export const PageView = () => {
                   <ManageClusterSecret
                     formData={{
                       currentElement: secret,
+                      ownerReference,
                       mode: FORM_MODES.EDIT,
                       handleClosePlaceholder: handleCloseCreateDialog,
                       permissions,
@@ -300,6 +301,7 @@ export const PageView = () => {
         component: (
           <ManageClusterSecret
             formData={{
+              ownerReference: null,
               mode: FORM_MODES.CREATE,
               handleClosePlaceholder: handleCloseCreateDialog,
               permissions,

@@ -12,6 +12,7 @@ export interface ManageClusterSecretDataContext {
   mode: ValueOf<typeof FORM_MODES>;
   permissions: WidgetPermissions;
   currentElement?: SecretKubeObjectInterface;
+  ownerReference: string | undefined;
 }
 
 export interface ManageClusterSecretProps {

@@ -2,10 +2,12 @@ import React from 'react';
 import { LinkCreationService } from '../../../../services/link-creation';
 
 export const Monitoring = ({
-  grafanaBaseUrl,
+  provider,
+  baseUrl,
   namespace,
 }: {
-  grafanaBaseUrl: string;
+  provider: string;
+  baseUrl: string;
   namespace: string;
 }) => {
   return (
@@ -14,7 +16,7 @@ export const Monitoring = ({
       frameBorder="0"
       height="800"
       width="100%"
-      src={LinkCreationService.grafana.createDashboardLink(grafanaBaseUrl, namespace)}
+      src={LinkCreationService.monitoring.createDashboardLink(provider, baseUrl, namespace)}
     ></iframe>
   );
 };

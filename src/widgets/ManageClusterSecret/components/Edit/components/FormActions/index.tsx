@@ -17,7 +17,7 @@ import { useConflictedStage } from './hooks/useConflictedStage';
 export const FormActions = () => {
   const { setDialog } = useDialogContext();
   const {
-    formData: { currentElement, permissions },
+    formData: { currentElement, permissions, ownerReference },
   } = useFormContext<ManageClusterSecretDataContext>();
 
   const {
@@ -95,13 +95,50 @@ export const FormActions = () => {
     });
   }, [clusterName, currentElement, onBeforeSubmit, setDialog]);
 
+  const saveButtonTooltip = React.useMemo(() => {
+    if (!permissions?.update?.Secret.allowed) {
+      return permissions?.update?.Secret.reason;
+    }
+
+    if (ownerReference) {
+      return `You cannot edit this integration because the secret has owner references.`;
+    }
+
+    return '';
+  }, [ownerReference, permissions?.update?.Secret.allowed, permissions?.update?.Secret.reason]);
+
+  const deleteButtonTooltip = React.useMemo(() => {
+    if (!permissions?.delete?.Secret.allowed) {
+      return permissions?.delete?.Secret.reason;
+    }
+
+    if (ownerReference) {
+      return `You cannot delete this integration because the secret has owner references.`;
+    }
+
+    return '';
+  }, [ownerReference, permissions?.delete?.Secret.allowed, permissions?.delete?.Secret.reason]);
+
   return (
     <>
       <Grid container spacing={2} justifyContent={'space-between'}>
         <Grid item>
-          <IconButton onClick={handleClickDelete} size="large">
-            <Icon icon={ICONS.BUCKET} width="20" />
-          </IconButton>
+          <ConditionalWrapper
+            condition={!permissions?.delete?.Secret.allowed || !!ownerReference}
+            wrapper={(children) => (
+              <Tooltip title={deleteButtonTooltip}>
+                <div>{children}</div>
+              </Tooltip>
+            )}
+          >
+            <IconButton
+              onClick={handleClickDelete}
+              size="large"
+              disabled={!permissions?.delete?.Secret.allowed || !!ownerReference}
+            >
+              <Icon icon={ICONS.BUCKET} width="20" />
+            </IconButton>
+          </ConditionalWrapper>
         </Grid>
         <Grid item>
           <Grid container spacing={2} alignItems={'center'}>
@@ -112,9 +149,9 @@ export const FormActions = () => {
             </Grid>
             <Grid item>
               <ConditionalWrapper
-                condition={!permissions?.update?.Secret.allowed}
+                condition={!permissions?.update?.Secret.allowed || !!ownerReference}
                 wrapper={(children) => (
-                  <Tooltip title={permissions?.update?.Secret.reason}>
+                  <Tooltip title={saveButtonTooltip}>
                     <div>{children}</div>
                   </Tooltip>
                 )}
