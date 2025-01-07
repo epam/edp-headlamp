@@ -145,11 +145,12 @@ export const EnvironmentStage = ({
                       icon={ICONS.GRAFANA}
                       iconBase64={monitoringQuickLink?.spec?.icon}
                       enabledText="Open Metrics"
-                      externalLink={LinkCreationService.monitoring.createDashboardLink(
-                        monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
-                        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.MONITORING],
-                        stage.spec.namespace
-                      )}
+                      externalLink={LinkCreationService.monitoring.createDashboardLink({
+                        provider:
+                          monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
+                        baseURL: QuickLinksURLS?.[SYSTEM_QUICK_LINKS.MONITORING],
+                        namespace: stage.spec.namespace,
+                      })}
                       QuickLinkComponent={monitoringQuickLink}
                       size="small"
                     />

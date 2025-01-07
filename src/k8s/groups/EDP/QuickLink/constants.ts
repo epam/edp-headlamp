@@ -17,3 +17,8 @@ export const SYSTEM_QUICK_LINKS_LABELS = {
   [SYSTEM_QUICK_LINKS.LOGGING]: 'Logging',
   [SYSTEM_QUICK_LINKS.SONAR]: 'Sonar',
 } as const;
+
+export const MONITORING_PROVIDERS = {
+  GRAFANA: 'grafana',
+  DATADOG: 'datadog',
+} as const;

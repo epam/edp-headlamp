@@ -114,11 +114,11 @@ export const PageView = () => {
               }}
               enabledText="monitoring dashboard"
               iconBase64={monitoringQuickLink?.spec?.icon}
-              externalLink={LinkCreationService.monitoring.createDashboardLink(
-                monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
-                QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.MONITORING],
-                stage.spec.namespace
-              )}
+              externalLink={LinkCreationService.monitoring.createDashboardLink({
+                provider: monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
+                baseURL: QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.MONITORING],
+                namespace: stage.spec.namespace,
+              })}
               QuickLinkComponent={monitoringQuickLink}
               isTextButton
             />
