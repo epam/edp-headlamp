@@ -16,7 +16,11 @@ export const Monitoring = ({
       frameBorder="0"
       height="800"
       width="100%"
-      src={LinkCreationService.monitoring.createDashboardLink(provider, baseUrl, namespace)}
+      src={LinkCreationService.monitoring.createDashboardLink({
+        provider,
+        baseURL: baseUrl,
+        namespace,
+      })}
     ></iframe>
   );
 };

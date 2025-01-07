@@ -16,6 +16,7 @@ import { QUICK_LINK_LABEL_SELECTOR_TYPE } from '../../../k8s/groups/EDP/QuickLin
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/groups/Tekton/PipelineRun/constants';
 import { FilterContextProvider } from '../../../providers/Filter/provider';
+import { Tab } from '../../../providers/Tabs/components/Tabs/types';
 import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { PipelineRunList } from '../../../widgets/PipelineRunList';
 import { FILTER_CONTROLS, matchFunctions } from '../../../widgets/PipelineRunList/constants';
@@ -29,7 +30,7 @@ import { useEnrichedApplicationsWithArgoApplications } from './useEnrichedApplic
 import { useInfoColumns } from './useInfoColumns';
 import { useTypedPermissions } from './useTypedPermissions';
 
-export const usePageTabs = () => {
+export const usePageTabs = (): Tab[] => {
   const { namespace, stageName } = useParams<EDPStageDetailsRouteParams>();
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
   const { data: QuickLinks } = useQuickLinksQuery({
@@ -156,21 +157,6 @@ export const usePageTabs = () => {
         onClick: () => setNewPipelineRunAdded(false),
       },
       {
-        label: 'Monitoring',
-        id: 'monitoring',
-        component: (
-          <LoadingWrapper isLoading={_isLoading}>
-            <TabSection title="Monitoring">
-              <Monitoring
-                provider={monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE]}
-                baseUrl={QuickLinksURLS?.monitoring}
-                namespace={stage.data?.spec.namespace}
-              />
-            </TabSection>
-          </LoadingWrapper>
-        ),
-      },
-      {
         label: 'Variables',
         id: 'variables',
         component: (
@@ -194,6 +180,22 @@ export const usePageTabs = () => {
           </LoadingWrapper>
         ),
       },
+      {
+        label: 'Monitoring',
+        id: 'monitoring',
+        disabled: !monitoringQuickLink,
+        component: (
+          <LoadingWrapper isLoading={_isLoading}>
+            <TabSection title="Monitoring">
+              <Monitoring
+                provider={monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE]}
+                baseUrl={QuickLinksURLS?.monitoring}
+                namespace={stage.data?.spec.namespace}
+              />
+            </TabSection>
+          </LoadingWrapper>
+        ),
+      },
     ];
   }, [
     QuickLinksURLS?.monitoring,
@@ -204,7 +206,7 @@ export const usePageTabs = () => {
     isLoading,
     latestCleanPipelineRunIsRunning,
     latestDeployPipelineRunIsRunning,
-    monitoringQuickLink?.metadata?.labels,
+    monitoringQuickLink,
     newPipelineRunAdded,
     permissions,
     pipelineRuns.data,
