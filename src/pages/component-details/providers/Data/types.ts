@@ -6,6 +6,7 @@ export interface DataContextProviderValue {
   depTrackData: DataProviderValue<{
     metrics: DepTrackMetrics;
     baseUrl: string;
+    projectID: string;
   }>;
   sonarData: DataProviderValue<{
     metrics: Record<MetricKey, string>;

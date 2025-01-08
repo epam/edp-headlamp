@@ -5,10 +5,12 @@ export const Monitoring = ({
   provider,
   baseUrl,
   namespace,
+  clusterName,
 }: {
   provider: string;
   baseUrl: string;
   namespace: string;
+  clusterName;
 }) => {
   return (
     <iframe
@@ -20,6 +22,7 @@ export const Monitoring = ({
         provider,
         baseURL: baseUrl,
         namespace,
+        clusterName,
       })}
     ></iframe>
   );

@@ -1,4 +1,3 @@
-import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { MONITORING_PROVIDERS } from '../../../k8s/groups/EDP/QuickLink/constants';
 
 export const MonitoringURLService = {
@@ -6,10 +5,12 @@ export const MonitoringURLService = {
     provider,
     baseURL,
     namespace,
+    clusterName,
   }: {
     provider: string;
     baseURL: string;
     namespace: string;
+    clusterName?: string;
   }) => {
     if (!baseURL) {
       return undefined;
@@ -25,7 +26,6 @@ export const MonitoringURLService = {
         return `${baseURL}/d/85a562078cdf77779eaa1add43ccec1e/kubernetes-compute-resources-namespace-pods?orgId=1&refresh=10s&var-datasource=default&var-cluster=&var-namespace=${namespace}&theme=${theme}`;
       }
       case MONITORING_PROVIDERS.DATADOG: {
-        const clusterName = Utils.getCluster();
         return `${baseURL}/dash/integration/Kubernetes%20-%20Pods?tpl_var_cluster=${clusterName}&tpl_var_namespace=${namespace}`;
       }
       default: {

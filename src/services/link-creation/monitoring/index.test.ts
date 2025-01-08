@@ -1,4 +1,3 @@
-import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { MONITORING_PROVIDERS } from '../../../k8s/groups/EDP/QuickLink/constants';
 import { MonitoringURLService } from './index';
 
@@ -15,13 +14,12 @@ describe('testing link-creation MonitoringURLService', () => {
     );
   });
   it('should successfully create datadog url based on given baseURL and namespace params', () => {
-    jest.spyOn(Utils, 'getCluster').mockReturnValue('test-cluster-name');
-
     expect(
       MonitoringURLService.createDashboardLink({
         provider: MONITORING_PROVIDERS.DATADOG,
         baseURL: 'https://datadog-test.com',
         namespace: 'test-namespace',
+        clusterName: 'test-cluster-name',
       })
     ).toEqual(
       'https://datadog-test.com/dash/integration/Kubernetes%20-%20Pods?tpl_var_cluster=test-cluster-name&tpl_var_namespace=test-namespace'

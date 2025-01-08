@@ -14,5 +14,6 @@ export interface DeeptrackVulnerabilitiesProps {
   depTrackData: DataProviderValue<{
     metrics: DepTrackMetrics;
     baseUrl: string;
+    projectID: string;
   }>;
 }

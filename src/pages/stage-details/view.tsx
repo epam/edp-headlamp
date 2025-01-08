@@ -118,6 +118,7 @@ export const PageView = () => {
                 provider: monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
                 baseURL: QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.MONITORING],
                 namespace: stage.spec.namespace,
+                clusterName: stage.spec.clusterName,
               })}
               QuickLinkComponent={monitoringQuickLink}
               isTextButton
@@ -129,11 +130,12 @@ export const PageView = () => {
               }}
               enabledText="logging dashboard"
               iconBase64={loggingQuickLink?.spec?.icon}
-              externalLink={LinkCreationService.logging.createDashboardLink(
-                loggingQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
-                QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.LOGGING],
-                stage.spec.namespace
-              )}
+              externalLink={LinkCreationService.logging.createDashboardLink({
+                provider: loggingQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
+                baseURL: QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.LOGGING],
+                namespace: stage.spec.namespace,
+                clusterName: stage.spec.clusterName,
+              })}
               QuickLinkComponent={loggingQuickLink}
               isTextButton
             />

@@ -4,6 +4,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { NoDataWidgetWrapper } from '../../components/NoDataWidgetWrapper';
 import { routeDependencyTrack } from '../../pages/configuration/pages/dependency-track/route';
+import { LinkCreationService } from '../../services/link-creation';
 import { DeeptrackVulnerabilitiesProps } from './types';
 
 const MetricsCell = ({
@@ -61,42 +62,52 @@ export const DependencyTrackMetrics = ({ depTrackData }: DeeptrackVulnerabilitie
         </Typography>
       }
     >
-      <Stack direction="row" sx={{ borderRadius: '2px', overflow: 'hidden' }}>
-        <MetricsCell value="dependencies" />
-        {!!depTrackData.data.metrics && !depTrackData.isLoading ? (
-          <>
-            <MetricsCell value={depTrackData.data.metrics?.critical} color="#FD4C4D" />
-            <MetricsCell value={depTrackData.data.metrics?.high} color="#FF8832" />
-            <MetricsCell value={depTrackData.data.metrics?.medium} color="#FFC754" />
-            <MetricsCell value={depTrackData.data.metrics?.low} color="#18BE94" />
+      <Link
+        href={LinkCreationService.depTrack.createDashboardLink(
+          depTrackData.data.baseUrl,
+          depTrackData.data.projectID
+        )}
+        target={'_blank'}
+        color="inherit"
+        underline="none"
+      >
+        <Stack direction="row" sx={{ borderRadius: '2px', overflow: 'hidden' }}>
+          <MetricsCell value="dependencies" />
+          {!!depTrackData.data.metrics && !depTrackData.isLoading ? (
+            <>
+              <MetricsCell value={depTrackData.data.metrics?.critical} color="#FD4C4D" />
+              <MetricsCell value={depTrackData.data.metrics?.high} color="#FF8832" />
+              <MetricsCell value={depTrackData.data.metrics?.medium} color="#FFC754" />
+              <MetricsCell value={depTrackData.data.metrics?.low} color="#18BE94" />
+              <MetricsCell
+                value={depTrackData.data.metrics?.unassigned}
+                color="#E6E6F0"
+                textColor="#596D80"
+              />
+            </>
+          ) : (
             <MetricsCell
-              value={depTrackData.data.metrics?.unassigned}
+              value={
+                <Box
+                  minWidth={(t) => t.typography.pxToRem(120)}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <CircularProgress
+                    sx={{
+                      width: (t) => `${t.typography.pxToRem(14)} !important`,
+                      height: (t) => `${t.typography.pxToRem(14)} !important`,
+                    }}
+                  />
+                </Box>
+              }
               color="#E6E6F0"
               textColor="#596D80"
             />
-          </>
-        ) : (
-          <MetricsCell
-            value={
-              <Box
-                minWidth={(t) => t.typography.pxToRem(120)}
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <CircularProgress
-                  sx={{
-                    width: (t) => `${t.typography.pxToRem(14)} !important`,
-                    height: (t) => `${t.typography.pxToRem(14)} !important`,
-                  }}
-                />
-              </Box>
-            }
-            color="#E6E6F0"
-            textColor="#596D80"
-          />
-        )}
-      </Stack>
+          )}
+        </Stack>
+      </Link>
     </NoDataWidgetWrapper>
   );
 };

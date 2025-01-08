@@ -135,6 +135,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
         data: {
           metrics: depTrackProjectMetrics,
           baseUrl: QuickLinksURLS?.[SYSTEM_QUICK_LINKS.DEPENDENCY_TRACK],
+          projectID: depTrackProjectID,
         },
         error: (noApiGatewayUrlError ||
           depTrackProjectError ||
@@ -157,6 +158,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
     [
       QuickLinksURLS,
       depTrackProjectError,
+      depTrackProjectID,
       depTrackProjectMetrics,
       depTrackProjectMetricsError,
       depTrackProjectQueryStatus,
