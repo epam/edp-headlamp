@@ -5,18 +5,12 @@
 import { DepTrackURLService } from './index';
 
 describe('testing link-creation DepTrackURLService', () => {
-  it('should successfully create DepTrack project api url based on given depTrackURLOrigin, codebaseName params', () => {
+  it('should successfully create DepTrack project dashboard link', () => {
     expect(
-      DepTrackURLService.createProjectByNameApiUrl(
+      DepTrackURLService.createDashboardLink(
         'https://deptrack-test.com',
-        'test-codebase-name'
+        'test-project-name'
       )
-    ).toEqual('https://deptrack-test.com/api/v1/project?name=test-codebase-name');
-  });
-
-  it('should successfully create DepTrack metrics api url based on given depTrackURLOrigin, codebaseName params', () => {
-    expect(
-      DepTrackURLService.createProjectVulnsApiUrl('https://deptrack-test.com', 'test-uuid')
-    ).toEqual('https://deptrack-test.com/api/v1/metrics/project/test-uuid/current');
+    ).toEqual('https://deptrack-test.com/projects/test-project-name');
   });
 });

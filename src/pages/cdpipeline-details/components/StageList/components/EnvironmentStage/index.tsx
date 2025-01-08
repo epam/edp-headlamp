@@ -150,6 +150,7 @@ export const EnvironmentStage = ({
                           monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
                         baseURL: QuickLinksURLS?.[SYSTEM_QUICK_LINKS.MONITORING],
                         namespace: stage.spec.namespace,
+                        clusterName: stage.spec.clusterName,
                       })}
                       QuickLinkComponent={monitoringQuickLink}
                       size="small"
@@ -162,11 +163,13 @@ export const EnvironmentStage = ({
                       icon={ICONS.OPENSEARCH}
                       iconBase64={loggingQuickLink?.spec?.icon}
                       enabledText="Open Logs"
-                      externalLink={LinkCreationService.logging.createDashboardLink(
-                        loggingQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
-                        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.LOGGING],
-                        stage.spec.namespace
-                      )}
+                      externalLink={LinkCreationService.logging.createDashboardLink({
+                        provider:
+                          loggingQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
+                        baseURL: QuickLinksURLS?.[SYSTEM_QUICK_LINKS.LOGGING],
+                        namespace: stage.spec.namespace,
+                        clusterName: stage.spec.clusterName,
+                      })}
                       QuickLinkComponent={loggingQuickLink}
                       size="small"
                     />

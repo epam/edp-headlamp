@@ -71,6 +71,10 @@ export const PageView = () => {
       return <ErrorContent error={forbiddenError} outlined />;
     }
 
+    if (!isLoading && !gitServers?.length && !permissions?.create?.Codebase.allowed) {
+      return <EmptyList customText={permissions?.create?.Codebase.reason} />;
+    }
+
     if (!isLoading && !gitServers?.length) {
       return (
         <EmptyList
@@ -79,10 +83,6 @@ export const PageView = () => {
           handleClick={() => history.push(gitServersConfigurationPageRoute)}
         />
       );
-    }
-
-    if (!isLoading && !permissions?.create?.Codebase.allowed) {
-      return <EmptyList customText={permissions?.create?.Codebase.reason} />;
     }
 
     if (!isLoading && !gitOpsCodebase && !error) {

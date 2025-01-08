@@ -76,6 +76,18 @@ export const PageView = () => {
       return <ErrorContent error={forbiddenError} outlined />;
     }
 
+    if (codemie.error) {
+      return <ErrorContent error={codemie.error} outlined />;
+    }
+
+    if (codemieSecret.error) {
+      return <ErrorContent error={codemieSecret.error} outlined />;
+    }
+
+    if (codemieProject.error) {
+      return <ErrorContent error={codemieProject.error} outlined />;
+    }
+
     if (!codemie.isLoading && !codemie.data && !codemieSecret.isLoading && !codemieSecret.data) {
       return (
         <>
@@ -150,9 +162,16 @@ export const PageView = () => {
     );
   }, [
     error,
-    codemie,
-    codemieSecret,
-    codemieProject.data,
+    codemie.error,
+    codemie.isLoading,
+    codemie.data,
+    codemieSecret.error,
+    codemieSecret.isLoading,
+    codemieSecret.data,
+    codemieProject.error,
+    codemieProject.data?.status?.value,
+    codemieProject.data?.status?.error,
+    codemieProject.data?.metadata.name,
     isLoading,
     codemieQuickLink.data,
     permissions,
@@ -267,8 +286,12 @@ export const PageView = () => {
           >
             Project Settings
           </Typography>
-          <LoadingWrapper isLoading={codemieProjectSettings.isLoading}>
-            {codemieProjectSettings.data?.length ? (
+          <LoadingWrapper
+            isLoading={codemieProjectSettings.isLoading && !codemieProjectSettings.error}
+          >
+            {codemieProjectSettings.error ? (
+              <ErrorContent error={codemieProjectSettings.error} outlined />
+            ) : codemieProjectSettings.data?.length ? (
               <Grid container spacing={2}>
                 {codemieProjectSettings.data?.map((_setting) => {
                   const setting = _setting.jsonData;
@@ -339,8 +362,10 @@ export const PageView = () => {
           >
             Applications
           </Typography>
-          <LoadingWrapper isLoading={codemieApplications.isLoading}>
-            {codemieApplications.data?.length ? (
+          <LoadingWrapper isLoading={codemieApplications.isLoading && !codemieApplications.error}>
+            {codemieApplications.error ? (
+              <ErrorContent error={codemieApplications.error} outlined />
+            ) : codemieApplications.data?.length ? (
               <Grid container spacing={2}>
                 {codemieApplications.data?.map((_application) => {
                   const application = _application.jsonData;

@@ -191,6 +191,7 @@ export const usePageTabs = (): Tab[] => {
                 provider={monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE]}
                 baseUrl={QuickLinksURLS?.monitoring}
                 namespace={stage.data?.spec.namespace}
+                clusterName={stage.data?.spec.clusterName}
               />
             </TabSection>
           </LoadingWrapper>
