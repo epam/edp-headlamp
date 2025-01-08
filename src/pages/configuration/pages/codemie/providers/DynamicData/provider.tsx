@@ -36,8 +36,6 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     namespace: getDefaultNamespace(),
   });
 
-  const codemieSecret = codemieSecrets?.[0];
-
   const DataContextValue = React.useMemo(
     () => ({
       codemieQuickLink: {
@@ -46,12 +44,12 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         error: codemieQuickLinkError,
       },
       codemie: {
-        data: codemie,
+        data: codemie?.[0]?.jsonData,
         isLoading: codemie === null,
         error: codemieError,
       },
       codemieProject: {
-        data: codemieProject,
+        data: codemieProject?.[0]?.jsonData,
         isLoading: codemieProject === null,
         error: codemieProjectError,
       },
@@ -66,7 +64,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         error: codemieApplicationsError,
       },
       codemieSecret: {
-        data: codemieSecret,
+        data: codemieSecrets?.[0]?.jsonData,
         isLoading: codemieSecrets === null,
         error: codemieSecretsError,
       },
@@ -82,7 +80,6 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       codemieProjectSettingsError,
       codemieQuickLink,
       codemieQuickLinkError,
-      codemieSecret,
       codemieSecrets,
       codemieSecretsError,
     ]

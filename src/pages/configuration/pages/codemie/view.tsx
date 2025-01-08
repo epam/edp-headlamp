@@ -76,7 +76,7 @@ export const PageView = () => {
       return <ErrorContent error={forbiddenError} outlined />;
     }
 
-    if (!codemie && !isLoading) {
+    if (!codemie.isLoading && !codemie.data && !codemieSecret.isLoading && !codemieSecret.data) {
       return (
         <>
           <EmptyList
@@ -90,8 +90,8 @@ export const PageView = () => {
 
     const ownerReference = codemieSecret.data?.metadata?.ownerReferences?.[0]?.kind;
 
-    const status = codemieProject.data?.[0]?.status?.value;
-    const statusError = codemieProject.data?.[0]?.status?.error;
+    const status = codemieProject.data?.status?.value;
+    const statusError = codemieProject.data?.status?.error;
 
     const [icon, color] = CodemieKubeObject.getStatusIcon(status);
 
@@ -119,7 +119,7 @@ export const PageView = () => {
                     }
                   />
                 </Grid>
-                <Grid item>{codemieProject.data?.[0]?.metadata.name}</Grid>
+                <Grid item>{codemieProject.data?.metadata.name}</Grid>
                 {!!ownerReference && (
                   <Grid item>
                     <Tooltip title={`Managed by ${ownerReference}`}>
@@ -139,7 +139,7 @@ export const PageView = () => {
           <AccordionDetails>
             <ManageCodeMie
               quickLink={codemieQuickLink.data}
-              codemie={codemie.data?.[0]}
+              codemie={codemie.data}
               codemieSecret={codemieSecret.data}
               permissions={permissions}
               handleClosePanel={handleCloseCreateDialog}
@@ -151,9 +151,9 @@ export const PageView = () => {
   }, [
     error,
     codemie,
-    isLoading,
-    codemieSecret.data,
+    codemieSecret,
     codemieProject.data,
+    isLoading,
     codemieQuickLink.data,
     permissions,
   ]);
@@ -238,7 +238,7 @@ export const PageView = () => {
         component: (
           <ManageCodeMie
             quickLink={codemieQuickLink.data}
-            codemie={codemie.data?.[0]}
+            codemie={codemie.data}
             codemieSecret={codemieSecret.data}
             permissions={permissions}
             handleClosePanel={handleCloseCreateDialog}
@@ -268,59 +268,67 @@ export const PageView = () => {
             Project Settings
           </Typography>
           <LoadingWrapper isLoading={codemieProjectSettings.isLoading}>
-            <Grid container spacing={2}>
-              {codemieProjectSettings.data?.map((setting) => {
-                const status = setting?.status?.value;
-                const statusError = setting?.status?.error;
+            {codemieProjectSettings.data?.length ? (
+              <Grid container spacing={2}>
+                {codemieProjectSettings.data?.map((_setting) => {
+                  const setting = _setting.jsonData;
+                  const status = setting?.status?.value;
+                  const statusError = setting?.status?.error;
 
-                const [icon, color] = CodemieProjectSettingsKubeObject.getStatusIcon(status);
+                  const [icon, color] = CodemieProjectSettingsKubeObject.getStatusIcon(status);
 
-                return (
-                  <Grid item xs={12} key={setting.metadata.name}>
-                    <Paper
-                      sx={{ p: (t) => `${t.typography.pxToRem(10)} ${t.typography.pxToRem(20)}` }}
-                    >
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        alignItems="center"
-                        justifyContent="space-between"
+                  return (
+                    <Grid item xs={12} key={setting.metadata.name}>
+                      <Paper
+                        sx={{ p: (t) => `${t.typography.pxToRem(10)} ${t.typography.pxToRem(20)}` }}
                       >
-                        <Stack direction="row" spacing={2} alignItems="center">
-                          <StatusIcon
-                            icon={icon}
-                            color={color}
-                            Title={
-                              <>
-                                <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                                  {`Status: ${status || 'Unknown'}`}
-                                </Typography>
-                                {!!statusError && (
-                                  <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                                    {statusError}
-                                  </Typography>
-                                )}
-                              </>
-                            }
-                          />
-                          <Typography variant={'h6'}>{setting.metadata.name}</Typography>
-                        </Stack>
-                        <Button
-                          startIcon={<Icon icon={ICONS.PENCIL} />}
-                          size="small"
-                          component={'button'}
-                          style={{ flexShrink: 0 }}
-                          color="inherit"
-                          onClick={() => handleOpenEditor(setting)}
+                        <Stack
+                          direction="row"
+                          spacing={2}
+                          alignItems="center"
+                          justifyContent="space-between"
                         >
-                          Edit YAML
-                        </Button>
-                      </Stack>
-                    </Paper>
-                  </Grid>
-                );
-              })}
-            </Grid>
+                          <Stack direction="row" spacing={2} alignItems="center">
+                            <StatusIcon
+                              icon={icon}
+                              color={color}
+                              Title={
+                                <>
+                                  <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                                    {`Status: ${status || 'Unknown'}`}
+                                  </Typography>
+                                  {!!statusError && (
+                                    <Typography
+                                      variant={'subtitle2'}
+                                      style={{ marginTop: rem(10) }}
+                                    >
+                                      {statusError}
+                                    </Typography>
+                                  )}
+                                </>
+                              }
+                            />
+                            <Typography variant={'h6'}>{setting.metadata.name}</Typography>
+                          </Stack>
+                          <Button
+                            startIcon={<Icon icon={ICONS.PENCIL} />}
+                            size="small"
+                            component={'button'}
+                            style={{ flexShrink: 0 }}
+                            color="inherit"
+                            onClick={() => handleOpenEditor(setting)}
+                          >
+                            Edit YAML
+                          </Button>
+                        </Stack>
+                      </Paper>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            ) : (
+              <EmptyList customText={'No CodeMie Project Settings Found.'} />
+            )}
           </LoadingWrapper>
         </Grid>
         <Grid item xs={12} sx={{ pb: (t) => t.typography.pxToRem(40) }}>
@@ -332,66 +340,74 @@ export const PageView = () => {
             Applications
           </Typography>
           <LoadingWrapper isLoading={codemieApplications.isLoading}>
-            <Grid container spacing={2}>
-              {codemieApplications.data?.map((application) => {
-                const status = application?.status?.value;
-                const statusError = application?.status?.error;
+            {codemieApplications.data?.length ? (
+              <Grid container spacing={2}>
+                {codemieApplications.data?.map((_application) => {
+                  const application = _application.jsonData;
+                  const status = application?.status?.value;
+                  const statusError = application?.status?.error;
 
-                const [icon, color] = CodemieApplicationKubeObject.getStatusIcon(status);
+                  const [icon, color] = CodemieApplicationKubeObject.getStatusIcon(status);
 
-                return (
-                  <Grid item xs={12} key={application.metadata.name}>
-                    <Paper
-                      sx={{ p: (t) => `${t.typography.pxToRem(10)} ${t.typography.pxToRem(20)}` }}
-                    >
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        alignItems="center"
-                        justifyContent="space-between"
+                  return (
+                    <Grid item xs={12} key={application.metadata.name}>
+                      <Paper
+                        sx={{ p: (t) => `${t.typography.pxToRem(10)} ${t.typography.pxToRem(20)}` }}
                       >
-                        <Stack direction="row" spacing={2} alignItems="center">
-                          <StatusIcon
-                            icon={icon}
-                            color={color}
-                            Title={
-                              <>
-                                <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                                  {`Status: ${status || 'Unknown'}`}
-                                </Typography>
-                                {!!statusError && (
-                                  <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                                    {statusError}
-                                  </Typography>
-                                )}
-                              </>
-                            }
-                          />
-                          <Typography variant={'h6'}>{application.metadata.name}</Typography>
-                        </Stack>
-                        <Button
-                          startIcon={<Icon icon={ICONS.PENCIL} />}
-                          size="small"
-                          component={'button'}
-                          style={{ flexShrink: 0 }}
-                          color="inherit"
-                          onClick={() => handleOpenEditor(application)}
+                        <Stack
+                          direction="row"
+                          spacing={2}
+                          alignItems="center"
+                          justifyContent="space-between"
                         >
-                          Edit YAML
-                        </Button>
-                      </Stack>
-                    </Paper>
-                  </Grid>
-                );
-              })}
-            </Grid>
+                          <Stack direction="row" spacing={2} alignItems="center">
+                            <StatusIcon
+                              icon={icon}
+                              color={color}
+                              Title={
+                                <>
+                                  <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                                    {`Status: ${status || 'Unknown'}`}
+                                  </Typography>
+                                  {!!statusError && (
+                                    <Typography
+                                      variant={'subtitle2'}
+                                      style={{ marginTop: rem(10) }}
+                                    >
+                                      {statusError}
+                                    </Typography>
+                                  )}
+                                </>
+                              }
+                            />
+                            <Typography variant={'h6'}>{application.metadata.name}</Typography>
+                          </Stack>
+                          <Button
+                            startIcon={<Icon icon={ICONS.PENCIL} />}
+                            size="small"
+                            component={'button'}
+                            style={{ flexShrink: 0 }}
+                            color="inherit"
+                            onClick={() => handleOpenEditor(application)}
+                          >
+                            Edit YAML
+                          </Button>
+                        </Stack>
+                      </Paper>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            ) : (
+              <EmptyList customText={'No CodeMie Applications Found.'} />
+            )}
           </LoadingWrapper>
         </Grid>
       </Grid>
-      {editor.open && editor.data?.jsonData && (
+      {editor.open && editor.data && (
         <EditorDialog
           open={editor.open}
-          item={editor.data?.jsonData}
+          item={editor.data}
           onClose={handleCloseEditor}
           onSave={handleEditorSave}
         />

@@ -4,7 +4,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { DEFAULT_CLUSTER } from '../../../../../../constants/clusters';
 import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
-import { useClusterSecretListQuery } from '../../../../../../k8s/groups/default/Secret/hooks/useClusterSecretListQuery';
+import { EDP_CONFIG_CONFIG_MAP_NAME } from '../../../../../../k8s/groups/default/ConfigMap/constants';
+import { useEDPConfigMapQuery } from '../../../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { routeClusters } from '../../../../../../pages/configuration/pages/clusters/route';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
@@ -22,13 +23,20 @@ export const Cluster = () => {
     formState: { errors },
   } = useTypedFormContext();
 
-  const { data, isLoading } = useClusterSecretListQuery({});
+  const { data, isLoading } = useEDPConfigMapQuery({
+    props: {
+      name: EDP_CONFIG_CONFIG_MAP_NAME,
+    },
+  });
 
   const clusterOptions = React.useMemo(() => {
     if (isLoading || !data) {
       return [defaultClusterOption];
     }
-    const clusters = data?.items.map(({ metadata: { name } }) => ({
+
+    const availableClusters = data?.data?.available_clusters?.split(', ');
+
+    const clusters = availableClusters.map((name) => ({
       label: name,
       value: name,
     }));
