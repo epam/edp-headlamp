@@ -30,7 +30,7 @@ export const Cluster = () => {
   });
 
   const clusterOptions = React.useMemo(() => {
-    if (isLoading || !data) {
+    if (isLoading || !data?.data?.available_clusters) {
       return [defaultClusterOption];
     }
 
