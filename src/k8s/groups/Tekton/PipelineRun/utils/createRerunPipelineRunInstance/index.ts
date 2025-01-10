@@ -4,8 +4,6 @@ import { createRandomString } from '../../../../../../utils/createRandomString';
 import { truncateName } from '../../../../../../utils/truncateName';
 import { PipelineRunKubeObjectInterface } from '../../types';
 
-const rerunIdentifier = '-r-';
-
 const removeSystemLabels = (resource: KubeObjectInterface) => {
   Object.keys(resource.metadata.labels).forEach((label) => {
     if (label.startsWith('tekton.dev/')) {
@@ -14,15 +12,21 @@ const removeSystemLabels = (resource: KubeObjectInterface) => {
   });
 };
 
-const getNamePrefixForRerun = (name: string) => {
-  let root = name;
-  if (name.includes(rerunIdentifier)) {
-    root = name.substring(0, name.lastIndexOf(rerunIdentifier));
-  }
-  const pipelineRunPostfix = `${rerunIdentifier}${createRandomString()}`;
-  const truncatedName = truncateName(root, pipelineRunPostfix.length);
+const getNamePrefixForRerun = (_name: string) => {
+  let name = _name;
+  const rerunIdentifier = 'r-';
 
-  return `${truncatedName}${pipelineRunPostfix}`;
+  if (_name.includes(rerunIdentifier)) {
+    name = _name.substring(0, _name.lastIndexOf(rerunIdentifier));
+  }
+
+  const namePostfix = `-${createRandomString(4)}`;
+
+  const truncatedName = truncateName(name, rerunIdentifier.length + namePostfix.length);
+
+  const fullPipelineRunName = `${rerunIdentifier}${truncatedName}${namePostfix}`;
+
+  return fullPipelineRunName;
 };
 
 const generateNewPipelineRunPayload = ({

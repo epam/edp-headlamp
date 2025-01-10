@@ -28,7 +28,7 @@ const mockCodebase = {
 
 const mockCodebaseBranch = {
   metadata: {
-    name: 'test-codebase-name-test-codebase-branch-name',
+    name: 'test-codebase-name-test-codebase-branch-name-very-long-long-name',
   },
   spec: {
     branchName: 'test-codebase-branch-name',
@@ -156,10 +156,11 @@ describe('testing createBuildPipelineRunInstance', () => {
       kind: 'PipelineRun',
       metadata: {
         annotations: { 'argocd.argoproj.io/compare-options': 'IgnoreExtraneous' },
-        name: `test-codebase-name-test-codebase-branch-name-build-${MOCKED_UUID}`,
+        name: `build-test-codebase-name-test-codebase-branch-name-very-lo-${MOCKED_UUID}`,
         labels: {
           'app.edp.epam.com/codebase': 'test-codebase-name',
-          'app.edp.epam.com/codebasebranch': 'test-codebase-name-test-codebase-branch-name',
+          'app.edp.epam.com/codebasebranch':
+            'test-codebase-name-test-codebase-branch-name-very-long-long-name',
           'app.edp.epam.com/pipelinetype': 'build',
         },
       },
@@ -176,7 +177,7 @@ describe('testing createBuildPipelineRunInstance', () => {
           { name: 'CODEBASE_NAME', value: 'test-codebase-name' },
           {
             name: 'CODEBASEBRANCH_NAME',
-            value: 'test-codebase-name-test-codebase-branch-name',
+            value: 'test-codebase-name-test-codebase-branch-name-very-long-long-name',
           },
           { name: 'changeNumber', value: '1' },
           { name: 'patchsetNumber', value: '1' },
@@ -231,10 +232,11 @@ describe('testing createBuildPipelineRunInstance', () => {
         annotations: { 'argocd.argoproj.io/compare-options': 'IgnoreExtraneous' },
         labels: {
           'app.edp.epam.com/codebase': 'test-codebase-name',
-          'app.edp.epam.com/codebasebranch': 'test-codebase-name-test-codebase-branch-name',
+          'app.edp.epam.com/codebasebranch':
+            'test-codebase-name-test-codebase-branch-name-very-long-long-name',
           'app.edp.epam.com/pipelinetype': 'build',
         },
-        name: 'test-codebase-name-test-codebase-branch-name-build-1234',
+        name: `build-test-codebase-name-test-codebase-branch-name-very-lo-${MOCKED_UUID}`,
       },
       spec: {
         params: [
@@ -249,7 +251,7 @@ describe('testing createBuildPipelineRunInstance', () => {
           { name: 'CODEBASE_NAME', value: 'test-codebase-name' },
           {
             name: 'CODEBASEBRANCH_NAME',
-            value: 'test-codebase-name-test-codebase-branch-name',
+            value: 'test-codebase-name-test-codebase-branch-name-very-long-long-name',
           },
           { name: 'changeNumber', value: '1' },
           { name: 'patchsetNumber', value: '1' },
@@ -304,10 +306,11 @@ describe('testing createBuildPipelineRunInstance', () => {
         annotations: { 'argocd.argoproj.io/compare-options': 'IgnoreExtraneous' },
         labels: {
           'app.edp.epam.com/codebase': 'test-codebase-name',
-          'app.edp.epam.com/codebasebranch': 'test-codebase-name-test-codebase-branch-name',
+          'app.edp.epam.com/codebasebranch':
+            'test-codebase-name-test-codebase-branch-name-very-long-long-name',
           'app.edp.epam.com/pipelinetype': 'build',
         },
-        name: 'test-codebase-name-test-codebase-branch-name-build-1234',
+        name: `build-test-codebase-name-test-codebase-branch-name-very-lo-${MOCKED_UUID}`,
       },
       spec: {
         params: [
@@ -322,7 +325,7 @@ describe('testing createBuildPipelineRunInstance', () => {
           { name: 'CODEBASE_NAME', value: 'test-codebase-name' },
           {
             name: 'CODEBASEBRANCH_NAME',
-            value: 'test-codebase-name-test-codebase-branch-name',
+            value: 'test-codebase-name-test-codebase-branch-name-very-long-long-name',
           },
           { name: 'changeNumber', value: '1' },
           { name: 'patchsetNumber', value: '1' },
@@ -377,10 +380,11 @@ describe('testing createBuildPipelineRunInstance', () => {
         annotations: { 'argocd.argoproj.io/compare-options': 'IgnoreExtraneous' },
         labels: {
           'app.edp.epam.com/codebase': 'test-codebase-name',
-          'app.edp.epam.com/codebasebranch': 'test-codebase-name-test-codebase-branch-name',
+          'app.edp.epam.com/codebasebranch':
+            'test-codebase-name-test-codebase-branch-name-very-long-long-name',
           'app.edp.epam.com/pipelinetype': 'build',
         },
-        name: 'test-codebase-name-test-codebase-branch-name-build-1234',
+        name: `build-test-codebase-name-test-codebase-branch-name-very-lo-${MOCKED_UUID}`,
       },
       spec: {
         params: [
@@ -395,7 +399,7 @@ describe('testing createBuildPipelineRunInstance', () => {
           { name: 'CODEBASE_NAME', value: 'test-codebase-name' },
           {
             name: 'CODEBASEBRANCH_NAME',
-            value: 'test-codebase-name-test-codebase-branch-name',
+            value: 'test-codebase-name-test-codebase-branch-name-very-long-long-name',
           },
           { name: 'changeNumber', value: '1' },
           { name: 'patchsetNumber', value: '1' },

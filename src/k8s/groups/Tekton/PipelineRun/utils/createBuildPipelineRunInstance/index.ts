@@ -44,16 +44,19 @@ export const createBuildPipelineRunInstance = ({
 
   const base = cloneDeep(pipelineRunTemplate);
 
-  const pipelineRunPostfix = `-build-${createRandomString(4)}`;
+  const namePrefix = `build-`;
+  const namePostfix = `-${createRandomString(4)}`;
 
-  const codebaseBranchNameTruncated = truncateName(
+  const truncatedName = truncateName(
     codebaseBranchMetadataName,
-    pipelineRunPostfix.length
+    namePrefix.length + namePostfix.length
   );
+
+  const fullPipelineRunName = `${namePrefix}${truncatedName}${namePostfix}`;
 
   delete base.metadata.generateName;
 
-  base.metadata.name = `${codebaseBranchNameTruncated}${pipelineRunPostfix}`;
+  base.metadata.name = fullPipelineRunName;
 
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE] = codebaseName;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH] = codebaseBranchMetadataName;
