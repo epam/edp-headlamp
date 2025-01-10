@@ -60,7 +60,7 @@ describe('testing createDeployPipelineRunInstance', () => {
         kind: 'CDPipeline',
         // @ts-ignore
         metadata: {
-          name: 'test-pipe',
+          name: 'test-pipe-very-long-long-long-long-long-long-name',
           namespace: 'test-namespace',
         },
         spec: {
@@ -68,7 +68,7 @@ describe('testing createDeployPipelineRunInstance', () => {
           applicationsToPromote: ['test-app-1', 'test-app-2'],
           deploymentType: 'container',
           inputDockerStreams: ['test-app-1-main', 'test-app-2-main'],
-          name: 'test-pipe',
+          name: 'test-pipe-very-long-long-long-long-long-long-name',
         },
       },
       stage: {
@@ -76,16 +76,16 @@ describe('testing createDeployPipelineRunInstance', () => {
         kind: 'Stage',
         // @ts-ignore
         metadata: {
-          name: 'test-pipe-sit',
+          name: 'test-pipe-very-long-long-long-long-long-long-name-sit',
           namespace: 'test-namespace',
         },
         spec: {
-          cdPipeline: 'test-pipe',
+          cdPipeline: 'test-pipe-very-long-long-long-long-long-long-name',
           cleanTemplate: 'clean',
           clusterName: 'in-cluster',
           description: 'sit',
           name: 'sit',
-          namespace: 'test-namespace-test-pipe-sit',
+          namespace: 'test-namespace-test-pipe-very-long-long-long-long-long-long-name-sit',
           order: 0,
           qualityGates: [
             {
@@ -123,10 +123,10 @@ describe('testing createDeployPipelineRunInstance', () => {
       kind: 'PipelineRun',
       metadata: {
         annotations: { 'argocd.argoproj.io/compare-options': 'IgnoreExtraneous' },
-        name: `deploy-test-pipe-sit-${MOCKED_UUID}`,
+        name: `deploy-test-pipe-very-long-long-long-long-long-long-name-s-${MOCKED_UUID}`,
         labels: {
-          'app.edp.epam.com/cdpipeline': 'test-pipe',
-          'app.edp.epam.com/cdstage': 'test-pipe-sit',
+          'app.edp.epam.com/cdpipeline': 'test-pipe-very-long-long-long-long-long-long-name',
+          'app.edp.epam.com/cdstage': 'test-pipe-very-long-long-long-long-long-long-name-sit',
           'app.edp.epam.com/pipelinetype': 'deploy',
         },
       },
@@ -138,7 +138,7 @@ describe('testing createDeployPipelineRunInstance', () => {
               '{"test-app-1":{"customValues":false,"imageTag":"0.1.0-SNAPSHOT"},"test-app-2":{"customValues":false,"imageTag":"0.1.0-SNAPSHOT"}}',
           },
           { name: 'CDSTAGE', value: 'sit' },
-          { name: 'CDPIPELINE', value: 'test-pipe' },
+          { name: 'CDPIPELINE', value: 'test-pipe-very-long-long-long-long-long-long-name' },
           { name: 'KUBECONFIG_SECRET_NAME', value: 'in-cluster' },
         ],
         pipelineRef: { name: 'deploy' },

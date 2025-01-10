@@ -53,7 +53,7 @@ describe('testing createCleanPipelineRunInstance', () => {
         kind: 'CDPipeline',
         // @ts-ignore
         metadata: {
-          name: 'test-pipe',
+          name: 'test-pipe-very-long-long-long-long-long-long-name',
           namespace: 'test-namespace',
         },
         spec: {
@@ -61,7 +61,7 @@ describe('testing createCleanPipelineRunInstance', () => {
           applicationsToPromote: ['test-app-1', 'test-app-2'],
           deploymentType: 'container',
           inputDockerStreams: ['test-app-1-main', 'test-app-2-main'],
-          name: 'test-pipe',
+          name: 'test-pipe-very-long-long-long-long-long-long-name',
         },
       },
       stage: {
@@ -69,16 +69,16 @@ describe('testing createCleanPipelineRunInstance', () => {
         kind: 'Stage',
         // @ts-ignore
         metadata: {
-          name: 'test-pipe-sit',
+          name: 'test-pipe-very-long-long-long-long-long-long-name-sit',
           namespace: 'test-namespace',
         },
         spec: {
-          cdPipeline: 'test-pipe',
+          cdPipeline: 'test-pipe-very-long-long-long-long-long-long-name',
           cleanTemplate: 'clean',
           clusterName: 'in-cluster',
           description: 'sit',
           name: 'sit',
-          namespace: 'test-namespace-test-pipe-sit',
+          namespace: 'test-namespace-test-pipe-very-long-long-long-long-long-long-name-sit',
           order: 0,
           qualityGates: [
             {
@@ -106,17 +106,17 @@ describe('testing createCleanPipelineRunInstance', () => {
       kind: 'PipelineRun',
       metadata: {
         annotations: { 'argocd.argoproj.io/compare-options': 'IgnoreExtraneous' },
-        name: `clean-test-pipe-sit-${MOCKED_UUID}`,
+        name: `clean-test-pipe-very-long-long-long-long-long-long-name-si-${MOCKED_UUID}`,
         labels: {
-          'app.edp.epam.com/cdpipeline': 'test-pipe',
-          'app.edp.epam.com/cdstage': 'test-pipe-sit',
+          'app.edp.epam.com/cdpipeline': 'test-pipe-very-long-long-long-long-long-long-name',
+          'app.edp.epam.com/cdstage': 'test-pipe-very-long-long-long-long-long-long-name-sit',
           'app.edp.epam.com/pipelinetype': 'clean',
         },
       },
       spec: {
         params: [
           { name: 'CDSTAGE', value: 'sit' },
-          { name: 'CDPIPELINE', value: 'test-pipe' },
+          { name: 'CDPIPELINE', value: 'test-pipe-very-long-long-long-long-long-long-name' },
         ],
         pipelineRef: { name: 'clean' },
         taskRunTemplate: { serviceAccountName: 'tekton' },

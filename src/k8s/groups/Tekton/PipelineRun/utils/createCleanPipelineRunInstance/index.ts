@@ -22,14 +22,19 @@ export const createCleanPipelineRunInstance = ({
 }): PipelineRunKubeObjectInterface => {
   const base = cloneDeep(pipelineRunTemplate);
 
-  const generateName = `clean-${CDPipeline.metadata.name}-${stage.spec.name}`;
+  const namePrefix = `clean-`;
   const namePostfix = `-${createRandomString(4)}`;
 
-  const truncatedName = truncateName(generateName, namePostfix.length);
+  const truncatedName = truncateName(
+    `${CDPipeline.metadata.name}-${stage.spec.name}`,
+    namePrefix.length + namePostfix.length
+  );
+
+  const fullPipelineRunName = `${namePrefix}${truncatedName}${namePostfix}`;
 
   delete base.metadata.generateName;
 
-  base.metadata.name = `${truncatedName}${namePostfix}`;
+  base.metadata.name = fullPipelineRunName;
 
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE] = CDPipeline.metadata.name;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE] = stage.metadata.name;

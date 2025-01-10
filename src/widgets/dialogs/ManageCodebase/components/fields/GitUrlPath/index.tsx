@@ -38,6 +38,10 @@ export const GitUrlPath = () => {
     <FormTextField
       {...register(CODEBASE_FORM_NAMES.gitUrlPath.name, {
         required: 'Enter relative path to repository.',
+        minLength: {
+          value: 3,
+          message: 'Repository name has to be at least 3 characters long.',
+        },
         validate: (value) => validateField(value, validationRules.GIT_URL_PATH),
       })}
       label={'Repository name'}
