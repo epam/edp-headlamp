@@ -2,6 +2,29 @@
 ## [Unreleased]
 
 
+<a name="v0.19.0"></a>
+## [v0.19.0] - 2025-01-10
+### Features
+
+- Update alert noty ([#540](https://github.com/epam/edp-headlamp/issues/540))
+- Improve monitoring links ([#534](https://github.com/epam/edp-headlamp/issues/534))
+- Make abstract quick links ([#534](https://github.com/epam/edp-headlamp/issues/534))
+- Update build git-source-url ([#532](https://github.com/epam/edp-headlamp/issues/532))
+- Improve resource name validation ([#528](https://github.com/epam/edp-headlamp/issues/528))
+- Truncate pipelinerun names ([#526](https://github.com/epam/edp-headlamp/issues/526))
+- Add build with params ([#524](https://github.com/epam/edp-headlamp/issues/524))
+
+### Bug Fixes
+
+- Codemie loading, monitoring url, deptrack url ([#537](https://github.com/epam/edp-headlamp/issues/537)) ([#539](https://github.com/epam/edp-headlamp/issues/539))
+- Codemie loading, available clusters list ([#537](https://github.com/epam/edp-headlamp/issues/537))
+- Bitbucket repo branch link ([#530](https://github.com/epam/edp-headlamp/issues/530))
+
+### Routine
+
+- Update current development version ([#521](https://github.com/epam/edp-headlamp/issues/521))
+
+
 <a name="v0.18.0"></a>
 ## [v0.18.0] - 2024-12-12
 ### Features
@@ -595,7 +618,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.18.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.19.0...HEAD
+[v0.19.0]: https://github.com/epam/edp-headlamp/compare/v0.18.0...v0.19.0
 [v0.18.0]: https://github.com/epam/edp-headlamp/compare/v0.17.0...v0.18.0
 [v0.17.0]: https://github.com/epam/edp-headlamp/compare/v0.16.0...v0.17.0
 [v0.16.0]: https://github.com/epam/edp-headlamp/compare/v0.15.0...v0.16.0
