@@ -7,4 +7,5 @@ export interface DetailsProps {
     all: PipelineRunKubeObjectInterface[];
     latestBuildPipelineRun: PipelineRunKubeObjectInterface;
   };
+  error: Error;
 }

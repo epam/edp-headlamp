@@ -49,7 +49,7 @@ export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProp
         <DataGrid<TemplateKubeObjectInterface>
           data={templates.data}
           errors={templates.errors}
-          isLoading={templates.isLoading}
+          isLoading={templates.isLoading && (!templates.errors || !templates.errors.length)}
           spacing={3}
           filterFunction={filterFunction}
           emptyListComponent={

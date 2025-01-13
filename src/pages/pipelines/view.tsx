@@ -33,7 +33,9 @@ export const PageView = () => {
         >
           <PipelineRunList
             pipelineRuns={pipelineRuns.data}
-            isLoading={pipelineRuns.isLoading}
+            isLoading={
+              pipelineRuns.isLoading && (!pipelineRuns.errors || !pipelineRuns.errors.length)
+            }
             errors={pipelineRuns.errors}
             permissions={permissions}
           />

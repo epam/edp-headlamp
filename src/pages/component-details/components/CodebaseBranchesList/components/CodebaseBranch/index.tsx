@@ -30,7 +30,7 @@ export const CodebaseBranch = ({
     latestBuildPipelineRun: null,
   });
 
-  const [, setError] = React.useState<Error>(null);
+  const [error, setError] = React.useState<Error>(null);
 
   const handleStorePipelineRuns = React.useCallback(
     (socketPipelineRuns: PipelineRunKubeObjectInterface[]) => {
@@ -92,7 +92,7 @@ export const CodebaseBranch = ({
           <Summary codebaseBranchData={codebaseBranchData} pipelineRuns={pipelineRuns} />
         </AccordionSummary>
         <AccordionDetails>
-          <Details codebaseData={codebaseData} pipelineRuns={pipelineRuns} />
+          <Details codebaseData={codebaseData} pipelineRuns={pipelineRuns} error={error} />
         </AccordionDetails>
       </Accordion>
     </div>

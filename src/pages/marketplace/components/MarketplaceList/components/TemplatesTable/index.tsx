@@ -21,7 +21,7 @@ export const TemplatesTable = ({
       errors={errors}
       columns={columns}
       data={data}
-      isLoading={data === null}
+      isLoading={data === null && (!errors || !errors.length)}
       handleRowClick={
         permissions?.create?.Codebase.allowed ? (event, row) => handleTemplateClick(row) : null
       }

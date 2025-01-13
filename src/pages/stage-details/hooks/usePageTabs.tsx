@@ -139,7 +139,7 @@ export const usePageTabs = (): Tab[] => {
               >
                 <PipelineRunList
                   pipelineRuns={pipelineRuns.data}
-                  isLoading={pipelineRuns.isLoading}
+                  isLoading={pipelineRuns.isLoading && !pipelineRuns.error}
                   blockerError={pipelineRuns.error}
                   permissions={permissions}
                   pipelineRunTypes={[
@@ -214,6 +214,7 @@ export const usePageTabs = (): Tab[] => {
     pipelineRuns.error,
     pipelineRuns.isLoading,
     setNewPipelineRunAdded,
+    stage.data?.spec.clusterName,
     stage.data?.spec.namespace,
     stageName,
     variablesConfigMap.data,
