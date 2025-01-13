@@ -13,7 +13,7 @@ import {
 import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
 import { DetailsProps } from './types';
 
-export const Details = ({ pipelineRuns }: DetailsProps) => {
+export const Details = ({ pipelineRuns, error }: DetailsProps) => {
   const permissions = useTypedPermissions();
 
   return (
@@ -32,7 +32,7 @@ export const Details = ({ pipelineRuns }: DetailsProps) => {
               >
                 <PipelineRunList
                   pipelineRuns={pipelineRuns.all}
-                  isLoading={pipelineRuns.all === null}
+                  isLoading={pipelineRuns.all === null && !error}
                   permissions={permissions}
                   pipelineRunTypes={[
                     PIPELINE_TYPES.ALL,

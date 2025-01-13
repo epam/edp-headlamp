@@ -128,7 +128,7 @@ export const ComponentList = ({ noGitServers }: ComponentListProps) => {
     <>
       <Resources />
       <Table<CodebaseKubeObjectInterface>
-        isLoading={codebases.isLoading}
+        isLoading={codebases.isLoading && (!codebases.errors || !codebases.errors.length)}
         data={codebases.data}
         errors={codebases.errors}
         columns={columns}

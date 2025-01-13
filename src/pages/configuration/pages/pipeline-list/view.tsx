@@ -16,7 +16,7 @@ export const PageView = () => {
     namespace: getDefaultNamespace(),
   });
 
-  const isLoading = items === null;
+  const isLoading = items === null && !error;
 
   return (
     <PageWithSubMenu list={menu} title="Configuration">

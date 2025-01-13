@@ -9,7 +9,7 @@ export const QuickLinkList = ({ items, errors, filterFunction }: QuickLinkListPr
   return (
     <>
       <Table
-        isLoading={!items}
+        isLoading={items === null && (!errors || !errors.length)}
         data={items}
         errors={errors}
         columns={columns}
