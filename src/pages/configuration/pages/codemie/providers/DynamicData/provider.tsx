@@ -1,6 +1,5 @@
 import React from 'react';
 import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
-import { SECRET_LABEL_SECRET_TYPE } from '../../../../../../k8s/groups/default/Secret/labels';
 import { CodemieKubeObject } from '../../../../../../k8s/groups/EDP/Codemie';
 import { CodemieApplicationKubeObject } from '../../../../../../k8s/groups/EDP/CodemieApplication';
 import { CodemieProjectKubeObject } from '../../../../../../k8s/groups/EDP/CodemieProject';
@@ -11,45 +10,42 @@ import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace
 import { DynamicDataContext } from './context';
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
+  const defaultNamespace = getDefaultNamespace();
   const [codemieQuickLink, codemieQuickLinkError] = QuickLinkKubeObject.useGet(
     SYSTEM_QUICK_LINKS.CODEMIE,
-    getDefaultNamespace()
+    defaultNamespace
   );
 
-  const [codemie, codemieError] = CodemieKubeObject.useList({
-    namespace: getDefaultNamespace(),
-  });
-  const [codemieProject, codemieProjectError] = CodemieProjectKubeObject.useList({
-    namespace: getDefaultNamespace(),
-  });
+  const [codemie, codemieError] = CodemieKubeObject.useGet('codemie', defaultNamespace);
+  const [codemieProject, codemieProjectError] = CodemieProjectKubeObject.useGet(
+    defaultNamespace,
+    defaultNamespace
+  );
   const [codemieProjectSettings, codemieProjectSettingsError] =
     CodemieProjectSettingsKubeObject.useList({
-      namespace: getDefaultNamespace(),
+      namespace: defaultNamespace,
     });
 
-  const [codemieSecrets, codemieSecretsError] = SecretKubeObject.useList({
-    namespace: getDefaultNamespace(),
-    labelSelector: `${SECRET_LABEL_SECRET_TYPE}=codemie`,
-  });
+  const [codemieSecret, codemieSecretError] = SecretKubeObject.useGet('codemie', defaultNamespace);
 
   const [codemieApplications, codemieApplicationsError] = CodemieApplicationKubeObject.useList({
-    namespace: getDefaultNamespace(),
+    namespace: defaultNamespace,
   });
 
   const DataContextValue = React.useMemo(
     () => ({
       codemieQuickLink: {
-        data: codemieQuickLink,
+        data: codemieQuickLink?.jsonData,
         isLoading: codemieQuickLink === null && !codemieQuickLinkError,
         error: codemieQuickLinkError,
       },
       codemie: {
-        data: codemie?.[0]?.jsonData,
+        data: codemie?.jsonData,
         isLoading: codemie === null,
         error: codemieError,
       },
       codemieProject: {
-        data: codemieProject?.[0]?.jsonData,
+        data: codemieProject?.jsonData,
         isLoading: codemieProject === null,
         error: codemieProjectError,
       },
@@ -64,9 +60,9 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         error: codemieApplicationsError,
       },
       codemieSecret: {
-        data: codemieSecrets?.[0]?.jsonData,
-        isLoading: codemieSecrets === null,
-        error: codemieSecretsError,
+        data: codemieSecret,
+        isLoading: codemieSecret === null,
+        error: codemieSecretError,
       },
     }),
     [
@@ -80,8 +76,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       codemieProjectSettingsError,
       codemieQuickLink,
       codemieQuickLinkError,
-      codemieSecrets,
-      codemieSecretsError,
+      codemieSecret,
+      codemieSecretError,
     ]
   );
 

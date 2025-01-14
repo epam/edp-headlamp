@@ -256,6 +256,9 @@ export const EDP_USER_GUIDE = {
   CONFIGURATION: {
     url: `${EDP_USER_GUIDE_ROOT_URL}/configuration-overview`,
   },
+  ADD_AI_ASSISTANT: {
+    url: `${EDP_USER_GUIDE_ROOT_URL}/add-ai-assistant`,
+  },
 };
 
 export const EDP_OPERATOR_GUIDE = {
