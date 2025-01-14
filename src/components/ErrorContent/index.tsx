@@ -19,10 +19,12 @@ export const ErrorContent = ({
   error,
   outlined,
   orientation = 'horizontal',
+  extraInfoLink,
 }: {
   error: ApiError;
   outlined?: boolean;
   orientation?: 'vertical' | 'horizontal';
+  extraInfoLink?: string;
 }) => {
   const theme = useTheme();
 
@@ -106,7 +108,18 @@ export const ErrorContent = ({
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>More Details</DialogTitle>
         <DialogContent>
-          <Typography>{error?.message}</Typography>
+          <Stack spacing={1}>
+            <Typography>{error?.message}</Typography>
+            {extraInfoLink && (
+              <Stack spacing={1} direction="row" alignItems="center">
+                <Typography>Additional information can be found</Typography>
+                <Link href={extraInfoLink} target="_blank">
+                  here
+                </Link>
+                .
+              </Stack>
+            )}
+          </Stack>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>close</Button>

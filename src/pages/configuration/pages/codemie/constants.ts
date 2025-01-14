@@ -1,3 +1,4 @@
+import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
 import { SecretKubeObjectConfig } from '../../../../k8s/groups/default/Secret/config';
 import { CodemieKubeObject } from '../../../../k8s/groups/EDP/Codemie';
@@ -12,6 +13,7 @@ export const pageDescription: PageDescription = {
   label: 'CodeMie',
   description: 'Configure CodeMie integration.',
   routePath: routeCodemie.path,
+  docLink: EDP_USER_GUIDE.ADD_AI_ASSISTANT.url,
 };
 
 export const pagePermissionsToCheck = {
