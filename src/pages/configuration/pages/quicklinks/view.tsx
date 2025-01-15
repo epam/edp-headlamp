@@ -16,6 +16,7 @@ import { NamespaceControl } from '../../../../providers/Filter/components/Filter
 import { SearchControl } from '../../../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../../../providers/ResourceActionList/provider';
+import { getClusterSettings } from '../../../../utils/getClusterSettings';
 import { ManageQuickLinkDialog } from '../../../../widgets/dialogs/ManageQuickLink';
 import { menu } from '../../menu';
 import { QuickLinkList } from './components/ComponentList';
@@ -61,14 +62,17 @@ export const PageView = () => {
                   <Grid item flexGrow={1}>
                     <Filter
                       controls={{
-                        namespace: {
-                          gridXs: 3,
-                          component: <NamespaceControl />,
-                        },
                         search: {
                           gridXs: 3,
                           component: <SearchControl />,
                         },
+                        ...((getClusterSettings()?.allowedNamespaces || []).length > 1
+                          ? {
+                              namespace: {
+                                component: <NamespaceControl />,
+                              },
+                            }
+                          : {}),
                       }}
                     />
                   </Grid>

@@ -8,23 +8,23 @@ import { ValueOf } from '../../types/global';
 import { StageWithApplicationsData } from './providers/DynamicData/types';
 import { MatchFunctions } from './types';
 
-export const FILTER_CONTROLS = {
+export const stagesFilterControlNames = {
   APPLICATION: 'application',
   STAGES: 'stages',
   HEALTH: 'health',
-};
+} as const;
 
 export const matchFunctions: MatchFunctions = {
-  [FILTER_CONTROLS.STAGES]: (item: StageWithApplicationsData, value: string[]) => {
+  [stagesFilterControlNames.STAGES]: (item: StageWithApplicationsData, value: string[]) => {
     if (!value.length) {
       return true;
     }
 
     return value.includes(item.stage.spec.name);
   },
-  [FILTER_CONTROLS.APPLICATION]: () => true, // same applications exist in each stage
+  [stagesFilterControlNames.APPLICATION]: () => true, // same applications exist in each stage
 
-  [FILTER_CONTROLS.HEALTH]: (
+  [stagesFilterControlNames.HEALTH]: (
     item: StageWithApplicationsData,
     value: 'All' | ValueOf<typeof APPLICATION_HEALTH_STATUS>
   ) => {

@@ -35,7 +35,7 @@ export const useCreateCleanPipelineRun = ({
       onSuccess: {
         message: 'Start cleaning application(s)',
         options: {
-          persist: true,
+          autoHideDuration: 8000,
           content: (key, message) => (
             <Snackbar
               text={String(message)}

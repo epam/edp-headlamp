@@ -1,5 +1,6 @@
+import { ControlName } from '../../providers/Filter/types';
 import { ValueOf } from '../../types/global';
-import { FILTER_CONTROLS } from './constants';
+import { stagesFilterControlNames } from './constants';
 import { StageWithApplicationsData } from './providers/DynamicData/types';
 
 export interface CDPipelineRouteParams {
@@ -7,9 +8,13 @@ export interface CDPipelineRouteParams {
   namespace: string;
 }
 
-export type PageFilterExtraControls = ValueOf<typeof FILTER_CONTROLS>;
+export type StagesFilterControlNames = ValueOf<typeof stagesFilterControlNames>;
 
-export type MatchFunctions = Record<
-  PageFilterExtraControls,
-  (item: StageWithApplicationsData, value: string | string[]) => boolean
->;
+export type StagesFilterAllControlNames = ControlName<StagesFilterControlNames>;
+
+export type MatchFunctions = {
+  [key in StagesFilterAllControlNames]?: (
+    item: StageWithApplicationsData,
+    value: string | string[]
+  ) => boolean;
+};

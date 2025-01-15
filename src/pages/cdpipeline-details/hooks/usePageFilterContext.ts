@@ -1,7 +1,7 @@
 import { useFilterContext } from '../../../providers/Filter/hooks';
 import { StageWithApplicationsData } from '../providers/DynamicData/types';
-import { PageFilterExtraControls } from '../types';
+import { StagesFilterAllControlNames } from '../types';
 
 export const usePageFilterContext = () => {
-  return useFilterContext<StageWithApplicationsData, PageFilterExtraControls>();
+  return useFilterContext<StageWithApplicationsData, StagesFilterAllControlNames>();
 };

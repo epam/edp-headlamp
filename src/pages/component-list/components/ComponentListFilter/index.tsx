@@ -9,11 +9,12 @@ import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../../../providers/Filter/components/Filter/components/SearchControl';
+import { getClusterSettings } from '../../../../utils/getClusterSettings';
 import { ManageCodebaseDialog } from '../../../../widgets/dialogs/ManageCodebase';
-import { FILTER_CONTROLS } from '../../constants';
+import { codebaseListFilterControlNames } from '../../constants';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
 import { useTypedPermissions } from '../../hooks/useTypedPermissions';
-import { PageFilterExtraControls } from '../../types';
+import { ComponentListFilterAllControlNames } from '../../types';
 import { ComponentListFilterProps } from './types';
 
 export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) => {
@@ -26,14 +27,18 @@ export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) 
   return (
     <Grid container spacing={2} alignItems={'flex-end'} justifyContent={'flex-end'}>
       <Grid item flexGrow={1}>
-        <Filter<PageFilterExtraControls>
+        <Filter<ComponentListFilterAllControlNames>
           controls={{
             search: {
               component: <SearchControl />,
             },
-            namespace: {
-              component: <NamespaceControl />,
-            },
+            ...((getClusterSettings()?.allowedNamespaces || []).length > 1
+              ? {
+                  namespace: {
+                    component: <NamespaceControl />,
+                  },
+                }
+              : {}),
             codebaseType: {
               component: (
                 <FormControl fullWidth>
@@ -43,7 +48,10 @@ export const ComponentListFilter = ({ noGitServers }: ComponentListFilterProps) 
                   <Select
                     labelId="codebase-type"
                     onChange={(e) =>
-                      setFilterItem(FILTER_CONTROLS.CODEBASE_TYPE, e.target.value as CODEBASE_TYPES)
+                      setFilterItem(
+                        codebaseListFilterControlNames.CODEBASE_TYPE,
+                        e.target.value as CODEBASE_TYPES
+                      )
                     }
                     defaultValue={CODEBASE_TYPES.ALL}
                     fullWidth

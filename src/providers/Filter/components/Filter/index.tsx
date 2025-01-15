@@ -1,14 +1,14 @@
 import { Button, Grid, Tooltip } from '@mui/material';
 import React from 'react';
 import { useFilterContext } from '../../hooks';
-import { ControlComponent, DefaultControlKeys } from '../../types';
+import { ControlComponent } from '../../types';
 import { FilterProps } from './types';
 
-export const Filter = <ControlsKeys extends string = DefaultControlKeys>({
+export const Filter = <ControlNames extends string>({
   controls,
   hideFilter = true,
-}: FilterProps<ControlsKeys>) => {
-  const { filter, resetFilter } = useFilterContext<unknown, ControlsKeys>();
+}: FilterProps<ControlNames>) => {
+  const { filter, resetFilter } = useFilterContext<unknown, ControlNames>();
 
   const controlsRenderer = React.useCallback(() => {
     return Object.entries(controls).map(([, controlValue]) => {

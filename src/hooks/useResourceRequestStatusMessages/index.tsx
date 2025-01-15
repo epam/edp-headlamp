@@ -74,6 +74,7 @@ export const useRequestStatusMessages = () => {
         ...defaultOptions,
         ...options,
       };
+
       enqueueSnackbar(message, mergedOptions);
     } else {
       enqueueSnackbar(requestSuccessMessage, defaultOptions);

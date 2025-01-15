@@ -9,21 +9,20 @@ import { PIPELINE_RUN_LABEL_SELECTOR_CODEBASE } from '../../k8s/groups/Tekton/Pi
 import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { Filter } from '../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
+import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../providers/Filter/hooks';
 import { FormSelect } from '../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../types/forms';
-import { ValueOf } from '../../types/global';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
+import { getClusterSettings } from '../../utils/getClusterSettings';
 import { sortKubeObjectByCreationTimestamp } from '../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { DeletionDialog } from './components/DeleteDialog';
-import { FILTER_CONTROLS } from './constants';
+import { PipelineRunFilterAllControlNames, pipelineRunFilterControlNames } from './constants';
 import { useColumns } from './hooks/useColumns';
 import { useUpperColumns } from './hooks/useUpperColumns';
 import { PipelineRunListProps } from './types';
 
-type DefaultControls = ValueOf<typeof FILTER_CONTROLS>;
-
-export const PipelineRunList = <Controls extends DefaultControls>({
+export const PipelineRunList = ({
   pipelineRuns,
   isLoading,
   blockerError,
@@ -37,9 +36,9 @@ export const PipelineRunList = <Controls extends DefaultControls>({
     PIPELINE_TYPES.CLEAN,
   ],
   filterControls = [
-    FILTER_CONTROLS.CODEBASES,
-    FILTER_CONTROLS.STATUS,
-    FILTER_CONTROLS.PIPELINE_TYPE,
+    pipelineRunFilterControlNames.CODEBASES,
+    pipelineRunFilterControlNames.STATUS,
+    pipelineRunFilterControlNames.PIPELINE_TYPE,
   ],
 }: PipelineRunListProps) => {
   const columns = useColumns({ permissions });
@@ -118,32 +117,26 @@ export const PipelineRunList = <Controls extends DefaultControls>({
 
   const { filter, setFilterItem, filterFunction } = useFilterContext<
     PipelineRunKubeObjectInterface,
-    Controls
+    PipelineRunFilterAllControlNames
   >();
 
   const handleCodebasesChange = React.useCallback(
     (event: React.SyntheticEvent<Element, Event>, values: string[]) => {
-      // TODO: fix types
-      // @ts-ignore
-      setFilterItem(FILTER_CONTROLS.CODEBASES, values);
+      setFilterItem(pipelineRunFilterControlNames.CODEBASES, values);
     },
     [setFilterItem]
   );
 
   const handleStatusChange = React.useCallback(
     ({ target: { value } }: FieldEvent) => {
-      // TODO: fix types
-      // @ts-ignore
-      setFilterItem(FILTER_CONTROLS.STATUS, value);
+      setFilterItem(pipelineRunFilterControlNames.STATUS, value);
     },
     [setFilterItem]
   );
 
   const handleTypeChange = React.useCallback(
     ({ target: { value } }: FieldEvent) => {
-      // TODO: fix types
-      // @ts-ignore
-      setFilterItem(FILTER_CONTROLS.PIPELINE_TYPE, value);
+      setFilterItem(pipelineRunFilterControlNames.PIPELINE_TYPE, value);
     },
     [setFilterItem]
   );
@@ -152,15 +145,27 @@ export const PipelineRunList = <Controls extends DefaultControls>({
 
   const controls = React.useMemo(() => {
     return {
-      namespace: {
+      search: {
         component: (
           <div>
-            <NamespaceControl />
+            <SearchControl />
             <FormHelperText> </FormHelperText>
           </div>
         ),
       },
-      ...(filterControls.includes(FILTER_CONTROLS.PIPELINE_TYPE)
+      ...((getClusterSettings()?.allowedNamespaces || []).length > 1
+        ? {
+            namespace: {
+              component: (
+                <div>
+                  <NamespaceControl />
+                  <FormHelperText> </FormHelperText>
+                </div>
+              ),
+            },
+          }
+        : {}),
+      ...(filterControls.includes(pipelineRunFilterControlNames.PIPELINE_TYPE)
         ? {
             pipelineType: {
               gridXs: 2,
@@ -188,7 +193,7 @@ export const PipelineRunList = <Controls extends DefaultControls>({
             },
           }
         : {}),
-      ...(filterControls.includes(FILTER_CONTROLS.STATUS)
+      ...(filterControls.includes(pipelineRunFilterControlNames.STATUS)
         ? {
             status: {
               gridXs: 2,
@@ -219,7 +224,7 @@ export const PipelineRunList = <Controls extends DefaultControls>({
             },
           }
         : {}),
-      ...(filterControls.includes(FILTER_CONTROLS.CODEBASES)
+      ...(filterControls.includes(pipelineRunFilterControlNames.CODEBASES)
         ? {
             codebases: {
               gridXs: 6,
@@ -258,26 +263,26 @@ export const PipelineRunList = <Controls extends DefaultControls>({
         : {}),
     };
   }, [
+    filterControls,
+    register,
+    handleTypeChange,
     control,
     formErrors,
-    filter,
-    filterControls,
-    handleCodebasesChange,
-    handleStatusChange,
-    handleTypeChange,
-    pipelineCodebases,
     pipelineRunTypes,
-    register,
+    filter.values.pipelineType,
+    filter.values.status,
+    filter.values.codebases,
     typesLabel,
+    handleStatusChange,
+    pipelineCodebases,
+    handleCodebasesChange,
   ]);
 
   return (
     <>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          {/* TODO: fix types */}
-          {/* @ts-ignore */}
-          <Filter<Controls> hideFilter={false} controls={controls} />
+          <Filter<PipelineRunFilterAllControlNames> hideFilter={false} controls={controls} />
         </Grid>
         <Grid item xs={12}>
           <Table

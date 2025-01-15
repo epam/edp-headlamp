@@ -6,17 +6,25 @@ import {
   PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
 } from '../../k8s/groups/Tekton/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
+import { ControlName } from '../../providers/Filter/types';
 import { ValueOf } from '../../types/global';
 import { MatchFunctions } from './types';
 
-export const FILTER_CONTROLS = {
+export const pipelineRunFilterControlNames = {
   CODEBASES: 'codebases',
   STATUS: 'status',
   PIPELINE_TYPE: 'pipelineType',
 } as const;
 
-export const matchFunctions: MatchFunctions<ValueOf<typeof FILTER_CONTROLS>> = {
-  [FILTER_CONTROLS.CODEBASES]: (item: PipelineRunKubeObjectInterface, value: string[]) => {
+export type PipelineRunFilterControlNames = ValueOf<typeof pipelineRunFilterControlNames>;
+
+export type PipelineRunFilterAllControlNames = ControlName<PipelineRunFilterControlNames>;
+
+export const matchFunctions: MatchFunctions = {
+  [pipelineRunFilterControlNames.CODEBASES]: (
+    item: PipelineRunKubeObjectInterface,
+    value: string[]
+  ) => {
     if (!value || value.length === 0) return true;
 
     const pipelineType = item?.metadata.labels?.[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE];
@@ -39,14 +47,17 @@ export const matchFunctions: MatchFunctions<ValueOf<typeof FILTER_CONTROLS>> = {
 
     return value.includes(itemCodebase);
   },
-  [FILTER_CONTROLS.STATUS]: (item: PipelineRunKubeObjectInterface, value: string) => {
+  [pipelineRunFilterControlNames.STATUS]: (item: PipelineRunKubeObjectInterface, value: string) => {
     if (value === 'All') {
       return true;
     }
 
     return item?.status?.conditions?.[0]?.status?.toLowerCase() === value;
   },
-  [FILTER_CONTROLS.PIPELINE_TYPE]: (item: PipelineRunKubeObjectInterface, value: string) => {
+  [pipelineRunFilterControlNames.PIPELINE_TYPE]: (
+    item: PipelineRunKubeObjectInterface,
+    value: string
+  ) => {
     if (value === PIPELINE_TYPES.ALL) {
       return true;
     }

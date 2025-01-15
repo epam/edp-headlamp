@@ -19,6 +19,7 @@ import { NamespaceControl } from '../../providers/Filter/components/Filter/compo
 import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList/provider';
+import { getClusterSettings } from '../../utils/getClusterSettings';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { ManageCDPipelineDialog } from '../../widgets/dialogs/ManageCDPipeline';
 import { routeGitOps } from '../configuration/pages/gitops/route';
@@ -67,12 +68,16 @@ export const PageView = () => {
               <Grid item flexGrow={1}>
                 <Filter
                   controls={{
-                    namespace: {
-                      component: <NamespaceControl />,
-                    },
                     search: {
                       component: <SearchControl />,
                     },
+                    ...((getClusterSettings()?.allowedNamespaces || []).length > 1
+                      ? {
+                          namespace: {
+                            component: <NamespaceControl />,
+                          },
+                        }
+                      : {}),
                   }}
                 />
               </Grid>

@@ -1,10 +1,15 @@
-import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
+import { CodebaseKubeObjectInterface } from '../../k8s/groups/EDP/Codebase/types';
+import { ControlName } from '../../providers/Filter/types';
 import { ValueOf } from '../../types/global';
-import { FILTER_CONTROLS } from './constants';
+import { codebaseListFilterControlNames } from './constants';
 
-export type PageFilterExtraControls = ValueOf<typeof FILTER_CONTROLS>;
+export type ComponentListFilterControlNames = ValueOf<typeof codebaseListFilterControlNames>;
 
-export type MatchFunctions = Record<
-  PageFilterExtraControls,
-  (item: PipelineRunKubeObjectInterface, value: string | string[]) => boolean
->;
+export type ComponentListFilterAllControlNames = ControlName<ComponentListFilterControlNames>;
+
+export type MatchFunctions = {
+  [key in ComponentListFilterAllControlNames]?: (
+    item: CodebaseKubeObjectInterface,
+    value: string | string[]
+  ) => boolean;
+};

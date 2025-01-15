@@ -10,12 +10,14 @@ export const searchFunction = (item: KubeObjectInterface, value: string) => {
     return true;
   }
 
-  const usedMatchCriteria = [
-    item.metadata.name.toLowerCase(),
-    item?.spec?.displayName?.toLowerCase(),
-  ].filter(Boolean);
+  if (value.includes(':')) {
+    const _value = value.replaceAll(' ', '');
+    const [key, searchValue] = _value.split(':');
 
-  return usedMatchCriteria.some((item) => item.includes(value.toLowerCase()));
+    return item?.metadata.labels?.[key]?.includes(searchValue);
+  }
+
+  return item?.metadata.name.includes(value) || Object.keys(item?.metadata.labels).includes(value);
 };
 
 export const namespaceFunction = (item: KubeObjectInterface, values: string[]) =>

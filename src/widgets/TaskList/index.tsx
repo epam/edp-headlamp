@@ -2,19 +2,18 @@ import { Stack } from '@mui/material';
 import React from 'react';
 import { EmptyList } from '../../components/EmptyList';
 import { Table } from '../../components/Table';
-import { TaskKubeObjectInterface } from '../../k8s/groups/Tekton/Task/types';
 import { Filter } from '../../providers/Filter/components/Filter';
+import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../providers/Filter/hooks';
+import { getClusterSettings } from '../../utils/getClusterSettings';
 import { useColumns } from './hooks/useColumns';
 import { TaskListProps } from './types';
-
-type Controls = 'search';
 
 export const TaskList = ({ tasks, isLoading, error }: TaskListProps) => {
   const columns = useColumns();
 
-  const { filterFunction } = useFilterContext<TaskKubeObjectInterface, Controls>();
+  const { filterFunction } = useFilterContext();
 
   return (
     <Stack spacing={2}>
@@ -24,9 +23,13 @@ export const TaskList = ({ tasks, isLoading, error }: TaskListProps) => {
           search: {
             component: <SearchControl />,
           },
-          namespace: {
-            component: null,
-          },
+          ...((getClusterSettings()?.allowedNamespaces || []).length > 1
+            ? {
+                namespace: {
+                  component: <NamespaceControl />,
+                },
+              }
+            : {}),
         }}
       />
       <Table

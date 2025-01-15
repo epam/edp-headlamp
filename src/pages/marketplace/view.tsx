@@ -14,6 +14,7 @@ import { SearchControl } from '../../providers/Filter/components/Filter/componen
 import { useFilterContext } from '../../providers/Filter/hooks';
 import { useViewModeContext } from '../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../providers/ViewMode/types';
+import { getClusterSettings } from '../../utils/getClusterSettings';
 import { MarketplaceList } from './components/MarketplaceList';
 import { TemplatesWarning } from './components/MarketplaceList/components/TemplatesWarning';
 
@@ -43,12 +44,16 @@ export const PageView = () => {
             <Box flexGrow={1}>
               <Filter
                 controls={{
-                  namespace: {
-                    component: <NamespaceControl />,
-                  },
                   search: {
                     component: <SearchControl />,
                   },
+                  ...((getClusterSettings()?.allowedNamespaces || []).length > 1
+                    ? {
+                        namespace: {
+                          component: <NamespaceControl />,
+                        },
+                      }
+                    : {}),
                 }}
               />
             </Box>

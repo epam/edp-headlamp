@@ -4,12 +4,15 @@ import { CodebaseKubeObjectConfig } from '../../k8s/groups/EDP/Codebase/config';
 import { CodebaseKubeObjectInterface } from '../../k8s/groups/EDP/Codebase/types';
 import { MatchFunctions } from './types';
 
-export const FILTER_CONTROLS = {
+export const codebaseListFilterControlNames = {
   CODEBASE_TYPE: 'codebaseType',
-};
+} as const;
 
 export const matchFunctions: MatchFunctions = {
-  [FILTER_CONTROLS.CODEBASE_TYPE]: (item: CodebaseKubeObjectInterface, value: string) => {
+  [codebaseListFilterControlNames.CODEBASE_TYPE]: (
+    item: CodebaseKubeObjectInterface,
+    value: string
+  ) => {
     if (value === CODEBASE_TYPES.ALL) {
       return true;
     }
