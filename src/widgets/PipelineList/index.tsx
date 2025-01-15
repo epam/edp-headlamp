@@ -2,15 +2,14 @@ import { Stack } from '@mui/material';
 import React from 'react';
 import { EmptyList } from '../../components/EmptyList';
 import { Table } from '../../components/Table';
-import { PipelineKubeObjectInterface } from '../../k8s/groups/Tekton/Pipeline/types';
 import { Filter } from '../../providers/Filter/components/Filter';
+import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../providers/Filter/hooks';
+import { getClusterSettings } from '../../utils/getClusterSettings';
 import { sortKubeObjectByCreationTimestamp } from '../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { useColumns } from './hooks/useColumns';
 import { PipelineListProps } from './types';
-
-type Controls = 'search';
 
 export const PipelineList = ({ pipelines, isLoading, error }: PipelineListProps) => {
   const columns = useColumns();
@@ -19,7 +18,7 @@ export const PipelineList = ({ pipelines, isLoading, error }: PipelineListProps)
     return pipelines?.sort(sortKubeObjectByCreationTimestamp);
   }, [pipelines]);
 
-  const { filterFunction } = useFilterContext<PipelineKubeObjectInterface, Controls>();
+  const { filterFunction } = useFilterContext();
 
   return (
     <Stack spacing={2}>
@@ -29,9 +28,13 @@ export const PipelineList = ({ pipelines, isLoading, error }: PipelineListProps)
           search: {
             component: <SearchControl />,
           },
-          namespace: {
-            component: null,
-          },
+          ...((getClusterSettings()?.allowedNamespaces || []).length > 1
+            ? {
+                namespace: {
+                  component: <NamespaceControl />,
+                },
+              }
+            : {}),
         }}
       />
       <Table

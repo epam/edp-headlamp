@@ -1,6 +1,8 @@
-import { ControlKey, ControlValue, DefaultControlKeys } from '../../types';
+import { ControlValue } from '../../types';
 
-export interface FilterProps<ExtraControlsKeys extends string = DefaultControlKeys> {
-  controls: Record<ControlKey<ExtraControlsKeys>, ControlValue>;
+export interface FilterProps<ControlNames extends string> {
+  controls: {
+    [key in ControlNames]?: ControlValue;
+  };
   hideFilter?: boolean;
 }

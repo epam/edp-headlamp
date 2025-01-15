@@ -23,11 +23,11 @@ import { VIEW_MODES } from '../../../../providers/ViewMode/types';
 import { FieldEvent } from '../../../../types/forms';
 import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { ManageStageDialog } from '../../../../widgets/dialogs/ManageStage';
-import { FILTER_CONTROLS } from '../../constants';
+import { stagesFilterControlNames } from '../../constants';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
 import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
-import { PageFilterExtraControls } from '../../types';
+import { StagesFilterAllControlNames } from '../../types';
 
 export const StageListFilter = () => {
   const theme = useTheme();
@@ -64,21 +64,21 @@ export const StageListFilter = () => {
 
   const handleStagesChange = React.useCallback(
     (event: React.SyntheticEvent<Element, Event>, values: string[]) => {
-      setFilterItem(FILTER_CONTROLS.STAGES, values);
+      setFilterItem(stagesFilterControlNames.STAGES, values);
     },
     [setFilterItem]
   );
 
   const handleApplicationChange = React.useCallback(
     (event: React.SyntheticEvent<Element, Event>, values: string[]) => {
-      setFilterItem(FILTER_CONTROLS.APPLICATION, values);
+      setFilterItem(stagesFilterControlNames.APPLICATION, values);
     },
     [setFilterItem]
   );
 
   const handleHealthChange = React.useCallback(
     ({ target: { value } }: FieldEvent) => {
-      setFilterItem(FILTER_CONTROLS.HEALTH, value);
+      setFilterItem(stagesFilterControlNames.HEALTH, value);
     },
     [setFilterItem]
   );
@@ -94,9 +94,9 @@ export const StageListFilter = () => {
   return (
     <Grid container spacing={2} alignItems={'center'} justifyContent={'flex-end'}>
       <Grid item flexGrow={1}>
-        <Filter<PageFilterExtraControls>
+        <Filter<StagesFilterAllControlNames>
           controls={{
-            [FILTER_CONTROLS.APPLICATION]: {
+            [stagesFilterControlNames.APPLICATION]: {
               gridXs: 3,
               component: (
                 <Autocomplete
@@ -113,7 +113,7 @@ export const StageListFilter = () => {
                 />
               ),
             },
-            [FILTER_CONTROLS.STAGES]: {
+            [stagesFilterControlNames.STAGES]: {
               gridXs: 3,
               component: (
                 <Autocomplete
@@ -132,7 +132,7 @@ export const StageListFilter = () => {
                 />
               ),
             },
-            [FILTER_CONTROLS.HEALTH]: {
+            [stagesFilterControlNames.HEALTH]: {
               gridXs: 2,
               component: (
                 <FormControl fullWidth>

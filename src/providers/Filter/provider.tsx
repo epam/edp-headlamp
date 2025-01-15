@@ -3,29 +3,35 @@ import { LOCAL_STORAGE_SERVICE } from '../../services/local-storage';
 import { useAddQuery } from './components/Filter/hooks/useAddQuery';
 import { namespaceFunction, searchFunction } from './constants';
 import { FilterContext } from './context';
-import { FilterContextProviderProps, FilterState } from './types';
+import { DefaultControlNames, FilterContextProviderProps, FilterState } from './types';
 
 const LS_FILTER_KEY = 'FILTER_STATE';
-const defaultInitialFilterState: FilterState<unknown> = {
-  values: {},
+
+type DefaultFilterState = FilterState<unknown, DefaultControlNames>;
+
+const defaultInitialFilterState: DefaultFilterState = {
+  values: {
+    search: '',
+    namespace: '',
+  },
   matchFunctions: {
     search: searchFunction,
     namespace: namespaceFunction,
   },
 };
 
-export const FilterContextProvider = <Item, ExtraControlsKey extends string>({
+export const FilterContextProvider = <Item, ControlNames extends DefaultControlNames>({
   children,
   entityID,
   matchFunctions,
   saveToLocalStorage = false,
-}: FilterContextProviderProps<Item, ExtraControlsKey>) => {
+}: FilterContextProviderProps<Item, ControlNames>) => {
   const LS_FILTER_ENTITY_KEY = `${LS_FILTER_KEY}_${entityID}`;
   const lsFilterState = LOCAL_STORAGE_SERVICE.getItem(LS_FILTER_ENTITY_KEY);
 
   const addQuery = useAddQuery();
 
-  const [filter, setFilter] = React.useState<FilterState<unknown>>(() => {
+  const [filter, setFilter] = React.useState<DefaultFilterState>(() => {
     if (saveToLocalStorage && lsFilterState) {
       return {
         ...lsFilterState,

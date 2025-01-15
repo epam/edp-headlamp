@@ -2,41 +2,36 @@ import React from 'react';
 import { ValueOf } from '../../types/global';
 import { DEFAULT_CONTROLS } from './constants';
 
-export type DefaultControlKeys = ValueOf<typeof DEFAULT_CONTROLS>;
-export interface ControlComponent {
-  component: React.ReactElement;
-  gridXs?: number;
-}
-export type ControlKey<ExtraKeys> = DefaultControlKeys | ExtraKeys;
+export type DefaultControlNames = ValueOf<typeof DEFAULT_CONTROLS>;
+
+export type ControlName<ControlNames> = DefaultControlNames | ControlNames;
+
 export type ControlValue = boolean | ControlComponent;
 
-export type FilterState<Item, ExtraControlsKeys extends string = DefaultControlKeys> = {
-  values: {
-    [key in ControlKey<ExtraControlsKeys>]?: string | string[] | boolean | undefined | null;
-  };
-  matchFunctions: {
-    [key in ControlKey<ExtraControlsKeys>]?: (item: Item, value: any) => boolean;
-  };
+export type FilterState<Item, ControlNames extends string> = {
+  values: Record<ControlName<ControlNames>, string | string[] | boolean>;
+  matchFunctions: Record<ControlName<ControlNames>, (item: Item, value: any) => boolean>;
 };
 
-export interface FilterContextProviderValue<
-  Item,
-  ExtraControlsKeys extends string = DefaultControlKeys
-> {
+export interface FilterContextProviderValue<Item, ControlNames extends string> {
   showFilter: boolean;
-  filter: FilterState<Item, ExtraControlsKeys>;
-  setFilterItem: (key: ExtraControlsKeys, value: any) => void;
+  filter: FilterState<Item, ControlNames>;
+  setFilterItem: (key: ControlNames, value: any) => void;
   setShowFilter: React.Dispatch<React.SetStateAction<boolean>>;
   resetFilter: () => void;
   filterFunction: (item: Item) => boolean;
 }
 
-export interface FilterContextProviderProps<
-  Item,
-  ExtraControlsKeys extends string = DefaultControlKeys
-> {
+export interface FilterContextProviderProps<Item, ControlNames extends string> {
   children: React.ReactNode;
   entityID: string;
-  matchFunctions: Record<ExtraControlsKeys, (item: Item, value: any) => boolean>;
+  matchFunctions: {
+    [key in ControlNames]?: (item: Item, value: any) => boolean;
+  };
   saveToLocalStorage?: boolean;
+}
+
+export interface ControlComponent {
+  component: React.ReactElement;
+  gridXs?: number;
 }

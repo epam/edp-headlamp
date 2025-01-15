@@ -45,7 +45,7 @@ export const PipelineRunActionsMenu = ({
       onSuccess: {
         message: 'PipelineRun created successfully',
         options: {
-          persist: true,
+          autoHideDuration: 8000,
           content: (key, message) => (
             <Snackbar
               snackbarKey={key}

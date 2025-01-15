@@ -19,7 +19,10 @@ import { FilterContextProvider } from '../../../providers/Filter/provider';
 import { Tab } from '../../../providers/Tabs/components/Tabs/types';
 import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { PipelineRunList } from '../../../widgets/PipelineRunList';
-import { FILTER_CONTROLS, matchFunctions } from '../../../widgets/PipelineRunList/constants';
+import {
+  matchFunctions,
+  pipelineRunFilterControlNames,
+} from '../../../widgets/PipelineRunList/constants';
 import { ApplicationsWrapper } from '../components/ApplicationsWrapper';
 import { Monitoring } from '../components/Monitoring';
 import { Variables } from '../components/Variables';
@@ -147,7 +150,10 @@ export const usePageTabs = (): Tab[] => {
                     PIPELINE_TYPES.DEPLOY,
                     PIPELINE_TYPES.CLEAN,
                   ]}
-                  filterControls={[FILTER_CONTROLS.PIPELINE_TYPE, FILTER_CONTROLS.STATUS]}
+                  filterControls={[
+                    pipelineRunFilterControlNames.PIPELINE_TYPE,
+                    pipelineRunFilterControlNames.STATUS,
+                  ]}
                 />
               </FilterContextProvider>
             </TabSection>

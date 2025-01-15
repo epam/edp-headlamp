@@ -7,8 +7,8 @@ import { getDefaultNamespace } from '../../../../../../../../utils/getDefaultNam
 import { rem } from '../../../../../../../../utils/styling/rem';
 import { PipelineRunList } from '../../../../../../../../widgets/PipelineRunList';
 import {
-  FILTER_CONTROLS,
   matchFunctions,
+  pipelineRunFilterControlNames,
 } from '../../../../../../../../widgets/PipelineRunList/constants';
 import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
 import { DetailsProps } from './types';
@@ -39,7 +39,10 @@ export const Details = ({ pipelineRuns, error }: DetailsProps) => {
                     PIPELINE_TYPES.REVIEW,
                     PIPELINE_TYPES.BUILD,
                   ]}
-                  filterControls={[FILTER_CONTROLS.PIPELINE_TYPE, FILTER_CONTROLS.STATUS]}
+                  filterControls={[
+                    pipelineRunFilterControlNames.PIPELINE_TYPE,
+                    pipelineRunFilterControlNames.STATUS,
+                  ]}
                 />
               </FilterContextProvider>
             </ResourceActionListContextProvider>
