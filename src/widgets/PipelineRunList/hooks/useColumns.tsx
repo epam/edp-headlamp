@@ -5,6 +5,7 @@ import React from 'react';
 import { ResourceIconLink } from '../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { TableColumn } from '../../../components/Table/types';
+import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
@@ -65,11 +66,11 @@ export const useColumns = ({
                 namespace,
               }}
             >
-              {name}
+              <TextWithTooltip text={name} />
             </Link>
           );
         },
-        width: '30%',
+        width: '25%',
       },
       {
         id: 'pipeline',
@@ -91,11 +92,11 @@ export const useColumns = ({
                 namespace,
               }}
             >
-              {pipelineRefName}
+              <TextWithTooltip text={pipelineRefName} />
             </Link>
           );
         },
-        width: '30%',
+        width: '25%',
       },
       {
         id: 'pullRequestUrl',

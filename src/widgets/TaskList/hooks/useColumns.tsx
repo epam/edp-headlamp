@@ -1,6 +1,7 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import React from 'react';
 import { TableColumn } from '../../../components/Table/types';
+import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { TaskKubeObjectInterface } from '../../../k8s/groups/Tekton/Task/types';
 import { routeTaskDetails } from '../../../pages/configuration/pages/task-details/route';
 
@@ -19,7 +20,7 @@ export const useColumns = (): TableColumn<TaskKubeObjectInterface>[] => {
               namespace,
             }}
           >
-            {name}
+            <TextWithTooltip text={name} />
           </Link>
         ),
         width: '25%',
@@ -27,7 +28,10 @@ export const useColumns = (): TableColumn<TaskKubeObjectInterface>[] => {
       {
         id: 'description',
         label: 'Description',
-        render: ({ spec: { description } }) => description,
+        columnSortableValuePath: 'spec.description',
+        render: ({ spec: { description } }) => (
+          <TextWithTooltip text={description} maxLineAmount={3} />
+        ),
         width: '50%',
       },
       {

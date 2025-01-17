@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { ValueOf } from '../../../../../../types/global';
-import { rem } from '../../../../../../utils/styling/rem';
 import { SORT_ORDERS } from '../../../../constants';
 import { TableColumn } from '../../../../types';
 import {
@@ -113,7 +112,7 @@ export const TableRow = ({
           >
             <Stack
               direction="row"
-              spacing={1}
+              spacing={0.2}
               alignItems={'center'}
               flexWrap="nowrap"
               justifyContent={getFlexPropertyByTextAlign(textAlign)}
@@ -135,7 +134,14 @@ export const TableRow = ({
                   </SvgIcon>
                 </ButtonBase>
               )}
-              <Typography variant={'body1'} sx={{ fontWeight: 600, marginTop: rem(2) }}>
+              <Typography
+                variant={'body1'}
+                sx={{
+                  fontSize: (t) => t.typography.pxToRem(14),
+                  fontWeight: 600,
+                  marginTop: (t) => t.typography.pxToRem(2),
+                }}
+              >
                 {label}
               </Typography>
             </Stack>

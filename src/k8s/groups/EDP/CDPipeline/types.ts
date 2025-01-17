@@ -6,6 +6,7 @@ export interface CDPipelineSpec {
   deploymentType: string;
   inputDockerStreams: string[];
   name: string;
+  description?: string;
 }
 
 export interface CDPipelineStatus {

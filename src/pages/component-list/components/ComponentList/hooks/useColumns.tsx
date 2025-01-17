@@ -1,16 +1,18 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Box, Grid, Tooltip, Typography } from '@mui/material';
+import { Box, Chip, Grid, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { ConditionalWrapper } from '../../../../../components/ConditionalWrapper';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
+import { TextWithTooltip } from '../../../../../components/TextWithTooltip';
 import {
   BUILD_TOOL_ICON_MAPPING,
   FRAMEWORK_ICON_MAPPING,
   LANGUAGE_ICON_MAPPING,
 } from '../../../../../configs/icon-mappings';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { MAIN_COLOR } from '../../../../../constants/colors';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
@@ -24,6 +26,33 @@ import { rem } from '../../../../../utils/styling/rem';
 import { routeComponentDetails } from '../../../../component-details/route';
 import { useTypedPermissions } from '../../../hooks/useTypedPermissions';
 import { Actions } from '../../ComponentActions';
+
+const getColorByType = (type: string) => {
+  switch (type) {
+    case CODEBASE_TYPES.SYSTEM:
+      return MAIN_COLOR.GREY;
+    case CODEBASE_TYPES.INFRASTRUCTURE:
+      return MAIN_COLOR.DARK_PURPLE;
+    case CODEBASE_TYPES.APPLICATION:
+      return MAIN_COLOR.GREEN;
+    case CODEBASE_TYPES.AUTOTEST:
+      return MAIN_COLOR.ORANGE;
+    case CODEBASE_TYPES.LIBRARY:
+      return MAIN_COLOR.BLUE;
+    default:
+      return MAIN_COLOR.GREY;
+  }
+};
+
+const getChipSX = (type: string) => {
+  const color = getColorByType(type);
+
+  return {
+    color: (t) => t.palette.common.white,
+    backgroundColor: color,
+    borderColor: 'transparent',
+  };
+};
 
 export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectInterface>>[] => {
   const permissions = useTypedPermissions();
@@ -55,7 +84,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
 
           return <StatusIcon icon={icon} isRotating={isRotating} color={color} Title={title} />;
         },
-        width: '10%',
+        width: '5%',
         textAlign: 'left',
       },
       {
@@ -84,12 +113,26 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
                   namespace,
                 }}
               >
-                {name}
+                <TextWithTooltip text={name} />
               </Link>
             </ConditionalWrapper>
           );
         },
-        width: '30%',
+        width: '20%',
+      },
+      {
+        id: 'type',
+        label: 'Type',
+        columnSortableValuePath: 'spec.type',
+        render: ({ spec: { type } }) => (
+          <Chip
+            sx={getChipSX(type)}
+            size="small"
+            variant="outlined"
+            label={capitalizeFirstLetter(type)}
+          />
+        ),
+        width: '25%',
       },
       {
         id: 'language',
@@ -169,13 +212,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
         },
         width: '15%',
       },
-      {
-        id: 'type',
-        label: 'Type',
-        columnSortableValuePath: 'spec.type',
-        render: ({ spec: { type } }) => capitalizeFirstLetter(type),
-        width: '10%',
-      },
+
       {
         id: 'actions',
         label: 'Actions',

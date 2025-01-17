@@ -36,7 +36,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
       },
       {
         id: 'componentUrl',
-        label: 'Component URL',
+        label: 'URL',
         render: ({ spec: { url } }) => {
           const _url = !/^https?:\/\//i.test(url) ? `https://${url}` : url;
 
