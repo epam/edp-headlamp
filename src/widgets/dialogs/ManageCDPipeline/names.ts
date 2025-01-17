@@ -3,6 +3,7 @@ import { FORM_STEPS } from './constants';
 const NAMES = {
   NAME: 'name',
   NAMESPACE: 'namespace',
+  DESCRIPTION: 'description',
   DEPLOYMENT_TYPE: 'deploymentType',
   APPLICATIONS: 'applications',
   APPLICATIONS_TO_PROMOTE: 'applicationsToPromote',
@@ -24,6 +25,11 @@ export const CDPIPELINE_FORM_NAMES = {
     name: NAMES.NAMESPACE,
     formPart: FORM_STEPS.PIPELINE,
     path: ['metadata', 'namespace'],
+  },
+  [NAMES.DESCRIPTION]: {
+    name: NAMES.DESCRIPTION,
+    formPart: FORM_STEPS.PIPELINE,
+    path: ['spec', 'description'],
   },
   [NAMES.DEPLOYMENT_TYPE]: {
     name: NAMES.DEPLOYMENT_TYPE,

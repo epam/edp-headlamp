@@ -1,10 +1,23 @@
-import { Chip, darken, Grid, Stack, Tooltip } from '@mui/material';
+import { Box, Chip, ChipProps, darken, Stack, Tooltip } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
 
-const defaultChipRender = (label, key) => (
-  <Chip sx={{ backgroundColor: (t) => t.palette.secondary.main }} label={label} key={key} />
+const defaultChipRender = (label, key, size = 'small') => (
+  <Chip
+    sx={{ backgroundColor: (t) => t.palette.secondary.main }}
+    label={label}
+    size={size as ChipProps['size']}
+    key={key}
+  />
+);
+
+const defaultTooltipRender = (chipsToHide) => (
+  <Box sx={{ py: (t) => t.typography.pxToRem(6), px: (t) => t.typography.pxToRem(10) }}>
+    <Stack spacing={1.5} flexWrap="wrap" sx={{ fontWeight: 400 }}>
+      {chipsToHide.map((chip) => defaultChipRender(chip, chip))}
+    </Stack>
+  </Box>
 );
 
 const stackGap = 1;
@@ -13,14 +26,14 @@ const themeGapMultiplier = 8;
 export const ResponsiveChips = ({
   chipsData,
   renderChip = defaultChipRender,
+  renderTooltip = defaultTooltipRender,
 }: {
   chipsData: string[];
-  renderChip: (chip: string, key: string) => React.ReactElement;
+  renderChip: (chip: string, key: string, size?: string) => React.ReactElement;
+  renderTooltip: (chipsToHide: string[], chipsToShow: string[]) => React.ReactElement;
 }) => {
   const containerRef = React.useRef(null);
   const showMoreButtonRef = React.useRef(null);
-
-  const ghostContainerRef = React.useRef(null);
 
   const [data, setData] = React.useState({
     chipsToShow: [],
@@ -29,24 +42,61 @@ export const ResponsiveChips = ({
   });
 
   const calculateToFit = React.useCallback(() => {
-    const freeSpaceWidth = containerRef.current ? containerRef.current.offsetWidth : 0;
-    const buttonWidth = showMoreButtonRef.current ? showMoreButtonRef.current.offsetWidth : 0;
-    const availableWidth = freeSpaceWidth - buttonWidth;
+    const freeSpaceWidth = containerRef.current
+      ? containerRef.current.getBoundingClientRect().width
+      : 0;
+
+    const buttonWidth = showMoreButtonRef.current
+      ? showMoreButtonRef.current.getBoundingClientRect().width
+      : 0;
+
+    const margin = stackGap * themeGapMultiplier;
+    const availableWidth = freeSpaceWidth - buttonWidth - margin;
 
     let accumulatingWidth = 0;
-    const chipsToShow = [];
-    const chipsToHide = [];
+    const chipsToShow: string[] = [];
+    const chipsToHide: string[] = [];
     let overflowStarted = false;
 
-    chipsData.forEach((chip) => {
-      const ChipElement = <MemoryRouter>{renderChip(chip, chip)}</MemoryRouter>; //TODO: find a way to get rid of temporary router wrapper
-      ReactDOM.render(ChipElement, ghostContainerRef.current);
+    const shadowHost = document.createElement('div');
+    document.body.appendChild(shadowHost);
+    const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
 
-      const renderedElement = ghostContainerRef.current.firstChild;
-      if (renderedElement instanceof HTMLElement) {
-        const chipWidth = renderedElement.offsetWidth + stackGap * themeGapMultiplier;
+    const chipRenderingContainer = document.createElement('div');
+    shadowRoot.appendChild(chipRenderingContainer);
 
-        if (!overflowStarted && accumulatingWidth + chipWidth <= availableWidth) {
+    shadowHost.style.cssText = `
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: auto;
+      height: auto;
+      pointer-events: none;
+    `;
+
+    ReactDOM.render(
+      <MemoryRouter>
+        {chipsData.map((chip, index) => (
+          <div key={index} id={`chip-${index}`}>
+            {renderChip(chip, chip)}
+          </div>
+        ))}
+      </MemoryRouter>,
+      chipRenderingContainer
+    );
+
+    chipsData.forEach((chip, index) => {
+      const chipElement = chipRenderingContainer.querySelector(`#chip-${index}`);
+      if (chipElement instanceof HTMLElement) {
+        const chipWidth = chipElement.offsetWidth + stackGap * themeGapMultiplier;
+
+        const remainingSpace = availableWidth - accumulatingWidth;
+
+        if (
+          !overflowStarted &&
+          (accumulatingWidth + chipWidth <= availableWidth || remainingSpace > chipWidth - margin)
+        ) {
           accumulatingWidth += chipWidth;
           chipsToShow.push(chip);
         } else {
@@ -54,11 +104,20 @@ export const ResponsiveChips = ({
           chipsToHide.push(chip);
         }
       }
-
-      ReactDOM.unmountComponentAtNode(ghostContainerRef.current);
     });
 
-    setData({ chipsToShow, chipsToHide, occupiedWidth: accumulatingWidth });
+    ReactDOM.unmountComponentAtNode(chipRenderingContainer);
+    document.body.removeChild(shadowHost);
+
+    setData((prevData) => {
+      if (
+        JSON.stringify(prevData.chipsToShow) !== JSON.stringify(chipsToShow) ||
+        JSON.stringify(prevData.chipsToHide) !== JSON.stringify(chipsToHide)
+      ) {
+        return { chipsToShow, chipsToHide, occupiedWidth: accumulatingWidth };
+      }
+      return prevData;
+    });
   }, [chipsData, renderChip]);
 
   React.useEffect(() => {
@@ -74,24 +133,12 @@ export const ResponsiveChips = ({
 
   return (
     <>
-      <div
-        ref={ghostContainerRef}
-        style={{ visibility: 'hidden', position: 'absolute', zIndex: -1, pointerEvents: 'none' }}
-      />
       <div ref={containerRef} style={{ width: '100%' }}>
         <Stack direction="row" spacing={stackGap} alignItems="center">
           {data.chipsToShow.map((chip) => renderChip(chip, chip))}
           {data.chipsToHide.length > 0 && (
             <>
-              <Tooltip
-                title={
-                  <Grid container spacing={2} flexWrap="wrap" sx={{ fontWeight: 400 }}>
-                    {data.chipsToHide.map((chip) => (
-                      <Grid item>{renderChip(chip, chip)}</Grid>
-                    ))}
-                  </Grid>
-                }
-              >
+              <Tooltip title={renderTooltip(data.chipsToHide, data.chipsToShow)}>
                 <Chip
                   ref={showMoreButtonRef}
                   sx={{
