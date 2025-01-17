@@ -1,6 +1,4 @@
 import { Chip, Grid, Tooltip, Typography } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
-import clsx from 'clsx';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { InfoRow } from '../../../../../components/InfoColumns/types';
@@ -13,7 +11,7 @@ import {
 } from '../../../../../configs/icon-mappings';
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../../constants/codebaseVersioningTypes';
-import { STATUS_COLOR } from '../../../../../constants/colors';
+import { MAIN_COLOR } from '../../../../../constants/colors';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { CodebaseKubeObject } from '../../../../../k8s/groups/EDP/Codebase';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
@@ -22,29 +20,38 @@ import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { ComponentDetailsRouteParams } from '../../../types';
 import { Pipeline } from '../../Pipeline';
 
-const useStyles = makeStyles((theme) => ({
-  labelChip: {
-    height: theme.typography.pxToRem(24),
-    lineHeight: 1,
-    paddingTop: theme.typography.pxToRem(2),
-  },
-  labelChipBlue: {
-    backgroundColor: STATUS_COLOR.SUCCESS,
-    color: '#fff',
-  },
-  labelChipGreen: {
-    backgroundColor: STATUS_COLOR.SUCCESS,
-    color: '#fff',
-  },
-}));
+const getColorByType = (type: string) => {
+  switch (type) {
+    case CODEBASE_TYPES.SYSTEM:
+      return MAIN_COLOR.GREY;
+    case CODEBASE_TYPES.INFRASTRUCTURE:
+      return MAIN_COLOR.DARK_PURPLE;
+    case CODEBASE_TYPES.APPLICATION:
+      return MAIN_COLOR.GREEN;
+    case CODEBASE_TYPES.AUTOTEST:
+      return MAIN_COLOR.ORANGE;
+    case CODEBASE_TYPES.LIBRARY:
+      return MAIN_COLOR.BLUE;
+    default:
+      return MAIN_COLOR.GREY;
+  }
+};
+
+const getChipSX = (type: string) => {
+  const color = getColorByType(type);
+
+  return {
+    color: (t) => t.palette.common.white,
+    backgroundColor: color,
+    borderColor: 'transparent',
+  };
+};
 
 export const useInfoRows = (): InfoRow[] | null => {
   const {
     component: { data: component },
     pipelines: { data: pipelines },
   } = useDynamicDataContext();
-
-  const classes = useStyles();
 
   const { namespace } = useParams<ComponentDetailsRouteParams>();
 
@@ -115,8 +122,10 @@ export const useInfoRows = (): InfoRow[] | null => {
           text: (
             <Tooltip title={'Codebase Type'}>
               <Chip
-                label={component?.spec.type}
-                className={clsx([classes.labelChip, classes.labelChipGreen])}
+                sx={getChipSX(type)}
+                size="small"
+                variant="outlined"
+                label={capitalizeFirstLetter(type)}
               />
             </Tooltip>
           ),
@@ -191,5 +200,5 @@ export const useInfoRows = (): InfoRow[] | null => {
           : []),
       ],
     ];
-  }, [classes.labelChip, classes.labelChipGreen, component, namespace, pipelines]);
+  }, [component, namespace, pipelines]);
 };

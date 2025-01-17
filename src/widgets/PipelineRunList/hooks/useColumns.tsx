@@ -70,7 +70,7 @@ export const useColumns = ({
             </Link>
           );
         },
-        width: '25%',
+        width: '15%',
       },
       {
         id: 'pipeline',
@@ -96,7 +96,7 @@ export const useColumns = ({
             </Link>
           );
         },
-        width: '25%',
+        width: '15%',
       },
       {
         id: 'pullRequestUrl',
@@ -193,7 +193,7 @@ export const useColumns = ({
 
           return activeDuration;
         },
-        width: '10%',
+        width: '30%',
       },
       {
         id: 'diagram',

@@ -80,7 +80,7 @@ exports[`ManageCDPipelineDialog renders ManageCDPipelineDialog Edit component 1`
     tabindex="-1"
   >
     <div
-      aria-labelledby="mui-4"
+      aria-labelledby="mui-6"
       class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth css-1ntld2w-MuiPaper-root-MuiDialog-paper"
       role="dialog"
     >

@@ -1,5 +1,5 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Chip, Typography } from '@mui/material';
+import { Box, Chip, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { ResponsiveChips } from '../../../../../components/ResponsiveChips';
 import { StatusIcon } from '../../../../../components/StatusIcon';
@@ -67,7 +67,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
           );
         },
         sort: (a, b) => sortByName(a.metadata.name, b.metadata.name),
-        width: '20%',
+        width: '15%',
       },
       {
         id: 'description',
@@ -94,6 +94,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
                       backgroundColor: MAIN_COLOR.GREEN,
                       borderColor: 'transparent',
                     }}
+                    size="small"
                     label={
                       <Link
                         routeName={routeComponentDetails.path}
@@ -109,9 +110,42 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
                   />
                 );
               }}
+              renderTooltip={(chipsToHide) => {
+                return (
+                  <Box
+                    sx={{ py: (t) => t.typography.pxToRem(6), px: (t) => t.typography.pxToRem(10) }}
+                  >
+                    <Stack spacing={1.5} flexWrap="wrap" sx={{ fontWeight: 400 }}>
+                      {chipsToHide.map((label) => (
+                        <Chip
+                          key={label}
+                          sx={{
+                            backgroundColor: MAIN_COLOR.GREEN,
+                            borderColor: 'transparent',
+                          }}
+                          size="small"
+                          label={
+                            <Link
+                              routeName={routeComponentDetails.path}
+                              params={{
+                                name: label,
+                                namespace,
+                              }}
+                              style={{ color: 'white' }}
+                            >
+                              {label}
+                            </Link>
+                          }
+                        />
+                      ))}
+                    </Stack>
+                  </Box>
+                );
+              }}
             />
           );
         },
+        width: '45%',
       },
       {
         id: 'actions',

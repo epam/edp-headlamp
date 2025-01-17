@@ -9,7 +9,7 @@ import { getUsedValues } from '../../../../../../../utils/forms/getUsedValues';
 import { FORM_STEPPER, FORM_STEPPER_STEPS } from '../../../../constants';
 import { useTypedFormContext } from '../../../../hooks/useFormContext';
 import { CDPIPELINE_FORM_NAMES } from '../../../../names';
-import { Applications, PipelineName } from '../../../fields';
+import { Applications, Description, PipelineName } from '../../../fields';
 import { FormProps } from './types';
 
 export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
@@ -52,7 +52,10 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
         </Box>
         <Box sx={{ p: `${theme.typography.pxToRem(24)} ${theme.typography.pxToRem(8)}` }}>
           <TabPanel value={activeStep} index={FORM_STEPPER.PIPELINE.idx}>
-            <PipelineName />
+            <Stack spacing={2}>
+              <PipelineName />
+              <Description />
+            </Stack>
           </TabPanel>
           <TabPanel value={activeStep} index={FORM_STEPPER.APPLICATIONS.idx}>
             <Applications />
