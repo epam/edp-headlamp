@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
-import { Card, IconButton, Link as MuiLink, Stack, Typography, useTheme } from '@mui/material';
+import { Card, IconButton, Link as MuiLink, Stack, useTheme } from '@mui/material';
 import React from 'react';
+import { TextWithTooltip } from '../../../../../../components/TextWithTooltip';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObjectInterface } from '../../../../../../k8s/groups/EDP/QuickLink/types';
 import { useResourceActionListContext } from '../../../../../../providers/ResourceActionList/hooks';
@@ -28,14 +29,9 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
             <span className={classes.serviceItemIcon}>
               <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
             </span>
-            <Typography
-              fontSize="14px"
-              fontWeight={500}
-              color="primary"
-              sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
-            >
-              {name}
-            </Typography>
+            <div style={{ minWidth: 0 }}>
+              <TextWithTooltip text={name} />
+            </div>
           </Stack>
         </MuiLink>
         <IconButton

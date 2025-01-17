@@ -1,8 +1,11 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Typography } from '@mui/material';
+import { Chip, Typography } from '@mui/material';
 import React from 'react';
+import { ResponsiveChips } from '../../../../../components/ResponsiveChips';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
+import { TextWithTooltip } from '../../../../../components/TextWithTooltip';
+import { MAIN_COLOR } from '../../../../../constants/colors';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
 import { CDPipelineKubeObject } from '../../../../../k8s/groups/EDP/CDPipeline';
 import { CDPipelineKubeObjectInterface } from '../../../../../k8s/groups/EDP/CDPipeline/types';
@@ -44,7 +47,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
 
           return <StatusIcon icon={icon} color={color} isRotating={isRotating} Title={title} />;
         },
-        width: '10%',
+        width: '5%',
       },
       {
         id: 'cdPipeline',
@@ -59,11 +62,20 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
                 namespace,
               }}
             >
-              {name}
+              <TextWithTooltip text={name} />
             </Link>
           );
         },
         sort: (a, b) => sortByName(a.metadata.name, b.metadata.name),
+        width: '20%',
+      },
+      {
+        id: 'description',
+        label: 'Description',
+        columnSortableValuePath: 'spec.description',
+        render: ({ spec: { description } }) => (
+          <TextWithTooltip text={description} maxLineAmount={3} />
+        ),
         width: '30%',
       },
       {
@@ -72,34 +84,38 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
         columnSortableValuePath: 'spec.applications',
         render: ({ spec: { applications }, metadata: { namespace } }) => {
           return (
-            <>
-              {applications.map((el, idx) => {
-                const propertyId = `${el}:${idx}`;
-
+            <ResponsiveChips
+              chipsData={applications}
+              renderChip={(label, key) => {
                 return (
-                  <React.Fragment key={propertyId}>
-                    <>
-                      {idx !== 0 && <Typography component="span">, </Typography>}
+                  <Chip
+                    key={key}
+                    sx={{
+                      backgroundColor: MAIN_COLOR.GREEN,
+                      borderColor: 'transparent',
+                    }}
+                    label={
                       <Link
                         routeName={routeComponentDetails.path}
                         params={{
-                          name: el,
+                          name: label,
                           namespace,
                         }}
+                        style={{ color: 'white' }}
                       >
-                        {el}
+                        {label}
                       </Link>
-                    </>
-                  </React.Fragment>
+                    }
+                  />
                 );
-              })}
-            </>
+              }}
+            />
           );
         },
       },
       {
         id: 'actions',
-        label: '',
+        label: 'Actions',
         render: (resource) => <Actions resource={resource?.jsonData} permissions={permissions} />,
       },
     ],

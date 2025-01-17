@@ -3,6 +3,7 @@ import { Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { QuickLink } from '../../../../../../components/QuickLink';
+import { TextWithTooltip } from '../../../../../../components/TextWithTooltip';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObject } from '../../../../../../k8s/groups/ArgoCD/Application';
 import { PodKubeObject } from '../../../../../../k8s/groups/default/Pod';
@@ -181,13 +182,13 @@ export const EnvironmentStage = ({
                   <Typography variant="caption" color="primary.dark">
                     Namespace:
                   </Typography>
-                  <StyledChip label={stage.spec.namespace} />
+                  <StyledChip label={<TextWithTooltip text={stage.spec.namespace} />} />
                 </Stack>
                 <Stack spacing={1} direction="row">
                   <Typography variant="caption" color="primary.dark">
                     Trigger Type:
                   </Typography>
-                  <StyledChip label={stage.spec.triggerType} />
+                  <StyledChip label={<TextWithTooltip text={stage.spec.triggerType} />} />
                 </Stack>
               </Stack>
             </Stack>

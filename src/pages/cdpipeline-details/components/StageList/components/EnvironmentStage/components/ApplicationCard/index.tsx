@@ -15,6 +15,7 @@ import React from 'react';
 import { ConditionalWrapper } from '../../../../../../../../components/ConditionalWrapper';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
+import { TextWithTooltip } from '../../../../../../../../components/TextWithTooltip';
 import { DEFAULT_CLUSTER } from '../../../../../../../../constants/clusters';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObject } from '../../../../../../../../k8s/groups/ArgoCD/Application';
@@ -175,35 +176,21 @@ export const ApplicationCard = ({
               }}
               sx={{ minWidth: 0 }}
             >
-              <Tooltip title={application.metadata.name}>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
-                    textOverflow: 'ellipsis',
-                  }}
-                  color={theme.palette.primary.main}
-                  fontWeight={500}
-                >
-                  {application.metadata.name}
-                </Typography>
-              </Tooltip>
+              <TextWithTooltip
+                text={application.metadata.name}
+                textSX={{
+                  fontSize: theme.typography.pxToRem(16),
+                }}
+              />
             </Link>
           </Stack>
-          <Tooltip title={argoApplication?.spec.source.targetRevision}>
-            <Typography
-              variant="caption"
-              color={theme.palette.secondary.dark}
-              sx={{
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',
-              }}
-            >
-              {argoApplication ? argoApplication?.spec.source.targetRevision : 'Unknown'}
-            </Typography>
-          </Tooltip>
+          <TextWithTooltip
+            text={argoApplication ? argoApplication?.spec.source.targetRevision : 'Unknown'}
+            textSX={{
+              fontSize: theme.typography.pxToRem(12),
+              fontWeight: 300,
+            }}
+          />
         </Stack>
       </AccordionSummary>
       <AccordionDetails>

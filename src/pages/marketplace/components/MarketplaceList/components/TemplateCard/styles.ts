@@ -18,14 +18,6 @@ export const useStyles = makeStyles((theme) => ({
       borderRadius: '50%',
     },
   },
-  templateName: {
-    display: '-webkit-box',
-    '-webkit-line-clamp': 2,
-    '-webkit-box-orient': 'vertical',
-    overflow: 'hidden',
-    fontSize: '1theme.typography.pxToRem',
-    fontWeight: 600,
-  },
   templateDescription: {
     display: '-webkit-box',
     '-webkit-line-clamp': 3,

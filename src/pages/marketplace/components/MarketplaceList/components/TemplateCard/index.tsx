@@ -1,6 +1,7 @@
-import { Box, Chip, Grid, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, Chip, Grid, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
+import { TextWithTooltip } from '../../../../../../components/TextWithTooltip';
 import {
   BUILD_TOOL_ICON_MAPPING,
   FRAMEWORK_ICON_MAPPING,
@@ -41,11 +42,13 @@ export const TemplateCard = ({ template, handleTemplateClick, permissions }: Tem
               src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
               alt=""
             />
-            <Tooltip title={displayName}>
-              <Typography variant={'h6'} className={classes.templateName}>
-                {displayName}
-              </Typography>
-            </Tooltip>
+            <TextWithTooltip
+              text={displayName}
+              textSX={{
+                fontWeight: 500,
+                fontSize: (t) => t.typography.pxToRem(18),
+              }}
+            />
           </Stack>
           <Typography variant={'caption'} className={classes.templateDescription}>
             {description}

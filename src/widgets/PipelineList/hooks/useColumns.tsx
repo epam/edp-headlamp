@@ -3,6 +3,7 @@ import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { IconButton } from '@mui/material';
 import React from 'react';
 import { TableColumn } from '../../../components/Table/types';
+import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineKubeObjectInterface } from '../../../k8s/groups/Tekton/Pipeline/types';
 import { routePipelineDetails } from '../../../pages/configuration/pages/pipeline-details/route';
@@ -26,7 +27,7 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
               namespace,
             }}
           >
-            {name}
+            <TextWithTooltip text={name + name + name + name + name} />{' '}
           </Link>
         ),
         width: '25%',
@@ -34,7 +35,10 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
       {
         id: 'description',
         label: 'Description',
-        render: ({ spec: { description } }) => description,
+        columnSortableValuePath: 'spec.description',
+        render: ({ spec: { description } }) => (
+          <TextWithTooltip text={description} maxLineAmount={3} />
+        ),
         width: '50%',
       },
       {

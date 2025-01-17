@@ -52,7 +52,7 @@ export const TableRow = ({
     (hasSortableValue: boolean, textAlign: string) => ({
       display: 'flex',
       alignItems: 'center',
-      pl: hasSortableValue && textAlign !== 'center' ? theme.typography.pxToRem(18 + 8) : 0,
+      pl: hasSortableValue && textAlign !== 'center' ? theme.typography.pxToRem(18 + 1.6) : 0, // 18px is the width of the arrow icon + 1.6px is the padding between the icon and the text
     }),
     [theme]
   );
@@ -65,7 +65,7 @@ export const TableRow = ({
           scope="row"
           align="center"
           sx={{
-            p: `${theme.typography.pxToRem(5)} ${theme.typography.pxToRem(11)}`,
+            p: theme.typography.pxToRem(11),
           }}
         >
           {canBeSelected && (
@@ -85,7 +85,7 @@ export const TableRow = ({
             scope="row"
             align={textAlign || 'left'}
             sx={{
-              p: `${theme.typography.pxToRem(5)} ${theme.typography.pxToRem(11)}`,
+              p: theme.typography.pxToRem(11),
             }}
           >
             <Box
