@@ -14,7 +14,13 @@ export const InfoColumns = ({ infoRows }: InfoColumnsProps) => {
                 <React.Fragment key={`column::${index}`}>
                   {!!label && !!text && (
                     <Grid item xs={columnXs as GridSize}>
-                      <Typography fontWeight={500} fontSize={14} color="primary.dark" gutterBottom>
+                      <Typography
+                        component="div"
+                        fontWeight={500}
+                        fontSize={14}
+                        color="primary.dark"
+                        gutterBottom
+                      >
                         {label}
                       </Typography>
                       <Grid container spacing={1} alignItems={'center'}>
@@ -27,7 +33,7 @@ export const InfoColumns = ({ infoRows }: InfoColumnsProps) => {
                             )}
                           </Grid>
                         )}
-                        <Grid item>
+                        <Grid item flexGrow={1}>
                           <Typography
                             fontSize={13}
                             color="secondary.dark"

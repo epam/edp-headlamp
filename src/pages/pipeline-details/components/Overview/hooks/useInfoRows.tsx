@@ -4,6 +4,7 @@ import { InfoRow } from '../../../../../components/InfoColumns/types';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { PipelineRunKubeObject } from '../../../../../k8s/groups/Tekton/PipelineRun';
 import { humanize } from '../../../../../utils/date/humanize';
+import { PipelineRunResults } from '../../../../../widgets/PipelineRunResults';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 
 export const useInfoRows = (): InfoRow[] | null => {
@@ -111,11 +112,23 @@ export const useInfoRows = (): InfoRow[] | null => {
           columnXs: 12,
         },
       ],
+      [
+        ...(pipelineRun.data?.status?.results
+          ? [
+              {
+                label: 'Results',
+                text: <PipelineRunResults pipelineRun={pipelineRun.data} />,
+                columnXs: 6,
+              },
+            ]
+          : []),
+      ],
     ];
   }, [
     color,
     icon,
     isRotating,
+    pipelineRun.data,
     pipelineRunLabels,
     reason,
     status,
