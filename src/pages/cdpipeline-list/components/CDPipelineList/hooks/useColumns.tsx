@@ -78,7 +78,6 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
       {
         id: 'applications',
         label: 'Applications',
-        columnSortableValuePath: 'spec.applications',
         render: ({ spec: { applications }, metadata: { namespace } }) => {
           return (
             <ResponsiveChips

@@ -27,7 +27,7 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
               namespace,
             }}
           >
-            <TextWithTooltip text={name + name + name + name + name} />{' '}
+            <TextWithTooltip text={name} />
           </Link>
         ),
         width: '25%',
@@ -35,10 +35,7 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
       {
         id: 'description',
         label: 'Description',
-        columnSortableValuePath: 'spec.description',
-        render: ({ spec: { description } }) => (
-          <TextWithTooltip text={description} maxLineAmount={3} />
-        ),
+        render: ({ spec }) => <TextWithTooltip text={spec?.description} maxLineAmount={3} />,
         width: '50%',
       },
       {
