@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { CodebaseKubeObject } from '../../../../k8s/groups/EDP/Codebase';
 import { CodebaseBranchKubeObject } from '../../../../k8s/groups/EDP/CodebaseBranch';
 import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from '../../../../k8s/groups/EDP/CodebaseBranch/labels';
+import { CodebaseBranchKubeObjectInterface } from '../../../../k8s/groups/EDP/CodebaseBranch/types';
 import { useGitServerByCodebaseQuery } from '../../../../k8s/groups/EDP/GitServer/hooks/useGitServerByCodebaseQuery';
 import {
   generateBuildPipelineRef,
@@ -26,16 +27,6 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     props: { codebaseGitServer: component?.spec.gitServer },
   });
 
-  const reviewPipelineRefName = generateReviewPipelineRef({
-    gitServer: gitServerByCodebase,
-    component: component,
-  });
-
-  const buildPipelineRefName = generateBuildPipelineRef({
-    gitServer: gitServerByCodebase,
-    component: component,
-  });
-
   const [codebaseBranches, codebaseBranchesError] = CodebaseBranchKubeObject.useList({
     namespace,
     labelSelector: `${CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME}=${name}`,
@@ -46,6 +37,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       ? null
       : codebaseBranches?.sort((a) => (isDefaultBranch(component, a) ? -1 : 1));
 
+  const defaultBranch: CodebaseBranchKubeObjectInterface = sortedCodebaseBranches?.[0];
+
   const DataContextValue = React.useMemo(
     () => ({
       component: {
@@ -55,8 +48,18 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       },
       pipelines: {
         data: {
-          review: reviewPipelineRefName,
-          build: buildPipelineRefName,
+          review:
+            defaultBranch?.spec?.pipelines?.review ||
+            generateReviewPipelineRef({
+              gitServer: gitServerByCodebase,
+              component: component,
+            }),
+          build:
+            defaultBranch?.spec?.pipelines?.build ||
+            generateBuildPipelineRef({
+              gitServer: gitServerByCodebase,
+              component: component,
+            }),
         },
         error: error,
         isLoading: component === null,
@@ -73,15 +76,15 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       },
     }),
     [
-      buildPipelineRefName,
       codebaseBranches,
       codebaseBranchesError,
       component,
+      defaultBranch?.spec?.pipelines?.build,
+      defaultBranch?.spec?.pipelines?.review,
       error,
       gitServerByCodebase,
       gitServerByCodebaseError,
       gitServerByCodebaseIsLoading,
-      reviewPipelineRefName,
       sortedCodebaseBranches,
     ]
   );

@@ -62,7 +62,7 @@ export const createBuildPipelineRunInstance = ({
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH] = codebaseBranchMetadataName;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] = PIPELINE_TYPES.BUILD;
 
-  base.spec.pipelineRef.name = codebaseBranch.spec.pipelines.build;
+  base.spec.pipelineRef.name = codebaseBranch.spec?.pipelines?.build;
 
   base.spec.workspaces = [
     ...base.spec.workspaces,

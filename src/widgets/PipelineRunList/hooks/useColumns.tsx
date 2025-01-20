@@ -15,6 +15,7 @@ import { routePipelineRunDetails } from '../../../pages/pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
 import { humanize } from '../../../utils/date/humanize';
 import { PipelineRunGraphDialog } from '../../dialogs/PipelineRunGraph';
+import { PipelineRunResults } from '../../PipelineRunResults';
 import { Actions } from '../components/Actions';
 import { WidgetPermissions } from '../types';
 
@@ -99,6 +100,12 @@ export const useColumns = ({
         width: '15%',
       },
       {
+        id: 'results',
+        label: 'Results',
+        render: (resource) => <PipelineRunResults pipelineRun={resource} />,
+        width: '30%',
+      },
+      {
         id: 'pullRequestUrl',
         label: 'Pull Request',
         render: (resource) => {
@@ -117,7 +124,7 @@ export const useColumns = ({
             />
           );
         },
-        width: '10%',
+        width: '5%',
         textAlign: 'center',
       },
       {
@@ -148,8 +155,9 @@ export const useColumns = ({
 
           return startedAt;
         },
-        width: '15%',
+        width: '10%',
       },
+
       {
         id: 'time',
         label: 'Time',
@@ -193,7 +201,7 @@ export const useColumns = ({
 
           return activeDuration;
         },
-        width: '30%',
+        width: '10%',
       },
       {
         id: 'diagram',
