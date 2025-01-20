@@ -17,7 +17,10 @@ export const searchFunction = (item: KubeObjectInterface, value: string) => {
     return item?.metadata.labels?.[key]?.includes(searchValue);
   }
 
-  return item?.metadata.name.includes(value) || Object.keys(item?.metadata.labels).includes(value);
+  return (
+    item?.metadata?.name?.includes(value) ||
+    Object.keys(item?.metadata?.labels || {}).includes(value)
+  );
 };
 
 export const namespaceFunction = (item: KubeObjectInterface, values: string[]) =>
