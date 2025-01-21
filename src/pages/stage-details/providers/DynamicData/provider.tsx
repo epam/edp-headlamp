@@ -31,21 +31,6 @@ const filterByLabels = (items: KubeObjectInterface[], labels: Record<string, str
   );
 };
 
-const checkApplicationsForStatusChange = (
-  oldData: ApplicationKubeObjectInterface[],
-  newData: ApplicationKubeObjectInterface[]
-) => {
-  return oldData.some((oldApp, index) => {
-    const newApp = newData[index];
-    if (!newApp || !oldApp) return false;
-    const oldStatus = oldApp.status?.health?.status;
-    const newStatus = newApp.status?.health?.status;
-    const oldSync = oldApp.status?.sync?.status;
-    const newSync = newApp.status?.sync?.status;
-    return oldStatus !== newStatus || oldSync !== newSync;
-  });
-};
-
 const sortFn = (data: PipelineRunKubeObjectInterface[]) =>
   data.sort(sortKubeObjectByCreationTimestamp);
 
@@ -139,9 +124,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       stageSpecName,
       CDPipelineMetadataName: CDPipelineName,
       dataHandler: (newData) => {
-        if (!applicationList || checkApplicationsForStatusChange(applicationList, newData)) {
-          setApplicationList(newData);
-        }
+        setApplicationList(newData);
       },
       errorHandler: (error) => console.error(error),
     });
@@ -149,7 +132,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     return () => {
       cancelStream();
     };
-  }, [CDPipelineName, applicationList, namespace, stageSpecName]);
+  }, [CDPipelineName, namespace, stageSpecName]);
 
   const [stagePods, setStagePods] = React.useState<PodKubeObjectInterface[]>(null);
 

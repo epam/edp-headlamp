@@ -29,9 +29,16 @@ import { EDPStageDetailsRouteParams } from './types';
 export const PageView = () => {
   const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
 
-  const { CDPipeline, stages, QuickLinks, QuickLinksURLs } = useDataContext();
+  const { CDPipeline, stages, QuickLinks, QuickLinksURLs, enrichedApplications } = useDataContext();
   const {
-    stage: { data: stage, isLoading: isStageLoading, error: stageError },
+    stage,
+    pipelineRuns,
+    deployPipelineRuns,
+    cleanPipelineRuns,
+    argoApplications,
+    newPipelineRunAdded,
+    setNewPipelineRunAdded,
+    variablesConfigMap,
   } = useDynamicDataContext();
 
   const monitoringQuickLink =
@@ -39,9 +46,21 @@ export const PageView = () => {
   const loggingQuickLink =
     QuickLinks && QuickLinks.data?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.LOGGING);
 
-  const stageSpecName = stage?.spec.name;
+  const stageSpecName = stage.data?.spec.name;
 
-  const tabs = usePageTabs();
+  const tabs = usePageTabs({
+    CDPipeline,
+    stage,
+    stages,
+    pipelineRuns,
+    deployPipelineRuns,
+    cleanPipelineRuns,
+    argoApplications,
+    newPipelineRunAdded,
+    setNewPipelineRunAdded,
+    variablesConfigMap,
+    enrichedApplicationsWithItsImageStreams: enrichedApplications,
+  });
 
   const backRoute = Router.createRouteURL(routeCDPipelineDetails.path, {
     name: CDPipelineName,
@@ -55,19 +74,19 @@ export const PageView = () => {
 
   const { activeTab, handleChangeTab } = useTabsContext();
 
-  const resourceIsLoaded = !isStageLoading && !stageError;
+  const resourceIsLoaded = !stage.isLoading && !stage.error;
 
   const renderPageContent = React.useCallback(() => {
-    if (stageError) {
-      return <ErrorContent error={stageError} />;
+    if (stage.error) {
+      return <ErrorContent error={stage.error} />;
     }
 
     return (
-      <LoadingWrapper isLoading={isStageLoading}>
+      <LoadingWrapper isLoading={stage.isLoading}>
         <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
       </LoadingWrapper>
     );
-  }, [activeTab, handleChangeTab, isStageLoading, stageError, tabs]);
+  }, [activeTab, handleChangeTab, stage.error, stage.isLoading, tabs]);
 
   return (
     <PageWrapper
@@ -117,8 +136,8 @@ export const PageView = () => {
               externalLink={LinkCreationService.monitoring.createDashboardLink({
                 provider: monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
                 baseURL: QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.MONITORING],
-                namespace: stage.spec.namespace,
-                clusterName: stage.spec.clusterName,
+                namespace: stage.data?.spec.namespace,
+                clusterName: stage.data?.spec.clusterName,
               })}
               QuickLinkComponent={monitoringQuickLink}
               isTextButton
@@ -133,8 +152,8 @@ export const PageView = () => {
               externalLink={LinkCreationService.logging.createDashboardLink({
                 provider: loggingQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
                 baseURL: QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.LOGGING],
-                namespace: stage.spec.namespace,
-                clusterName: stage.spec.clusterName,
+                namespace: stage.data?.spec.namespace,
+                clusterName: stage.data?.spec.clusterName,
               })}
               QuickLinkComponent={loggingQuickLink}
               isTextButton
@@ -144,7 +163,7 @@ export const PageView = () => {
                 data={{
                   stages: stages.data,
                   CDPipelineData: CDPipeline.data,
-                  stage,
+                  stage: stage.data,
                 }}
                 permissions={permissions}
                 backRoute={backRoute}
@@ -156,7 +175,7 @@ export const PageView = () => {
       }
     >
       <Section
-        title={stage?.spec.name}
+        title={stage.data?.spec.name}
         description={
           'Manage, deploy, test, and troubleshoot your applications across distinct Environments.'
         }

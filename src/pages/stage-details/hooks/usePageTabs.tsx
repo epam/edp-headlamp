@@ -9,14 +9,21 @@ import { LoadingWrapper } from '../../../components/LoadingWrapper';
 import { TabSection } from '../../../components/TabSection';
 import { PIPELINE_TYPES } from '../../../constants/pipelineTypes';
 import { EDP_USER_GUIDE } from '../../../constants/urls';
+import { ApplicationKubeObjectInterface } from '../../../k8s/groups/ArgoCD/Application/types';
+import { ConfigMapKubeObjectInterface } from '../../../k8s/groups/default/ConfigMap/types';
+import { CDPipelineKubeObjectInterface } from '../../../k8s/groups/EDP/CDPipeline/types';
+import { EnrichedApplicationWithItsImageStreams } from '../../../k8s/groups/EDP/Codebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { SYSTEM_QUICK_LINKS } from '../../../k8s/groups/EDP/QuickLink/constants';
 import { useQuickLinksQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksQuery';
 import { useQuickLinksURLsQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { QUICK_LINK_LABEL_SELECTOR_TYPE } from '../../../k8s/groups/EDP/QuickLink/labels';
+import { StageKubeObjectInterface } from '../../../k8s/groups/EDP/Stage/types';
 import { PipelineRunKubeObject } from '../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../k8s/groups/Tekton/PipelineRun/constants';
+import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
 import { FilterContextProvider } from '../../../providers/Filter/provider';
 import { Tab } from '../../../providers/Tabs/components/Tabs/types';
+import { DataProviderValue } from '../../../types/pages';
 import { getDefaultNamespace } from '../../../utils/getDefaultNamespace';
 import { PipelineRunList } from '../../../widgets/PipelineRunList';
 import {
@@ -26,14 +33,38 @@ import {
 import { ApplicationsWrapper } from '../components/ApplicationsWrapper';
 import { Monitoring } from '../components/Monitoring';
 import { Variables } from '../components/Variables';
-import { useDataContext } from '../providers/Data/hooks';
-import { useDynamicDataContext } from '../providers/DynamicData/hooks';
 import { EDPStageDetailsRouteParams } from '../types';
 import { useEnrichedApplicationsWithArgoApplications } from './useEnrichedApplicationsWithArgoApplication';
 import { useInfoColumns } from './useInfoColumns';
 import { useTypedPermissions } from './useTypedPermissions';
 
-export const usePageTabs = (): Tab[] => {
+export const usePageTabs = ({
+  CDPipeline,
+  stage,
+  stages,
+  pipelineRuns,
+  deployPipelineRuns,
+  cleanPipelineRuns,
+  argoApplications,
+  newPipelineRunAdded,
+  setNewPipelineRunAdded,
+  variablesConfigMap,
+  enrichedApplicationsWithItsImageStreams,
+}: {
+  CDPipeline: DataProviderValue<CDPipelineKubeObjectInterface>;
+  stage: DataProviderValue<StageKubeObjectInterface>;
+  stages: DataProviderValue<StageKubeObjectInterface[]>;
+  pipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
+  deployPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
+  cleanPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
+  argoApplications: DataProviderValue<ApplicationKubeObjectInterface[]>;
+  newPipelineRunAdded: boolean;
+  setNewPipelineRunAdded: (value: boolean) => void;
+  variablesConfigMap: DataProviderValue<ConfigMapKubeObjectInterface>;
+  enrichedApplicationsWithItsImageStreams: DataProviderValue<
+    EnrichedApplicationWithItsImageStreams[]
+  >;
+}): Tab[] => {
   const { namespace, stageName } = useParams<EDPStageDetailsRouteParams>();
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
   const { data: QuickLinks } = useQuickLinksQuery({
@@ -46,23 +77,10 @@ export const usePageTabs = (): Tab[] => {
     QuickLinks &&
     QuickLinks?.items?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.MONITORING);
 
-  const {
-    stage,
-    pipelineRuns,
-    deployPipelineRuns,
-    cleanPipelineRuns,
-    argoApplications,
-    newPipelineRunAdded,
-    setNewPipelineRunAdded,
-    variablesConfigMap,
-  } = useDynamicDataContext();
-
   const isLoading = React.useMemo(
     () => stage.isLoading || deployPipelineRuns.isLoading || argoApplications.isLoading,
     [argoApplications.isLoading, deployPipelineRuns.isLoading, stage.isLoading]
   );
-
-  const { enrichedApplications } = useDataContext();
 
   const latestDeployPipelineRunIsRunning = React.useMemo(() => {
     const latestNewDeployPipelineRun = deployPipelineRuns.data?.[0];
@@ -92,13 +110,20 @@ export const usePageTabs = (): Tab[] => {
     );
   }, [cleanPipelineRuns]);
 
-  const enrichedApplicationsWithArgoApplications = useEnrichedApplicationsWithArgoApplications();
+  const enrichedApplicationsWithArgoApplications = useEnrichedApplicationsWithArgoApplications({
+    CDPipeline,
+    stages,
+    enrichedApplicationsWithItsImageStreams,
+    stage,
+    argoApplications,
+  });
 
   const permissions = useTypedPermissions();
   const infoColumns = useInfoColumns();
 
   return React.useMemo(() => {
-    const _isLoading = isLoading || enrichedApplications.isLoading || argoApplications.isLoading;
+    const _isLoading =
+      isLoading || enrichedApplicationsWithItsImageStreams.isLoading || argoApplications.isLoading;
 
     return [
       {
@@ -207,8 +232,8 @@ export const usePageTabs = (): Tab[] => {
   }, [
     QuickLinksURLS?.monitoring,
     argoApplications.isLoading,
-    enrichedApplications.isLoading,
     enrichedApplicationsWithArgoApplications,
+    enrichedApplicationsWithItsImageStreams.isLoading,
     infoColumns,
     isLoading,
     latestCleanPipelineRunIsRunning,
