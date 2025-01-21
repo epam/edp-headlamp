@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/components/common';
-import { IconButton } from '@mui/material';
+import { IconButton, Stack, Tooltip } from '@mui/material';
 import React from 'react';
 import { ResourceIconLink } from '../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../components/StatusIcon';
@@ -71,7 +71,7 @@ export const useColumns = ({
             </Link>
           );
         },
-        width: '15%',
+        width: '20%',
       },
       {
         id: 'pipeline',
@@ -97,13 +97,28 @@ export const useColumns = ({
             </Link>
           );
         },
-        width: '15%',
+        width: '20%',
       },
       {
         id: 'results',
         label: 'Results',
-        render: (resource) => <PipelineRunResults pipelineRun={resource} />,
-        width: '30%',
+        render: (resource) => {
+          const vcsTag = resource?.status?.results?.find((el) => el.name === 'VCS_TAG')?.value;
+
+          if (!vcsTag) {
+            return null;
+          }
+
+          return (
+            <Tooltip title={<PipelineRunResults pipelineRun={resource} />}>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <div>{vcsTag}</div>
+                <Icon icon={ICONS.INFO_CIRCLE} width={20} />
+              </Stack>
+            </Tooltip>
+          );
+        },
+        width: '15%',
       },
       {
         id: 'pullRequestUrl',
@@ -124,7 +139,7 @@ export const useColumns = ({
             />
           );
         },
-        width: '5%',
+        width: '10%',
         textAlign: 'center',
       },
       {

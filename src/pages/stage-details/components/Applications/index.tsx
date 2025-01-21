@@ -5,7 +5,6 @@ import { useFormContext } from 'react-hook-form';
 import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { Table } from '../../../../components/Table';
-import { TableProps } from '../../../../components/Table/types';
 import { TabSection } from '../../../../components/TabSection';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useArgoApplicationCRUD } from '../../../../k8s/groups/ArgoCD/Application/hooks/useArgoApplicationCRUD';
@@ -55,10 +54,17 @@ export const Applications = ({
   const [mode, setMode] = React.useState<ApplicationsTableMode>(APPLICATIONS_TABLE_MODE.PREVIEW);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
 
-  const toggleMode = () =>
+  const [dataSnapshot, setDataSnapshot] = React.useState<EnrichedApplicationWithArgoApplication[]>(
+    []
+  );
+
+  const toggleMode = React.useCallback(() => {
     mode === APPLICATIONS_TABLE_MODE.PREVIEW
       ? setMode(APPLICATIONS_TABLE_MODE.CONFIGURATION)
       : setMode(APPLICATIONS_TABLE_MODE.PREVIEW);
+    setDataSnapshot(enrichedApplicationsWithArgoApplications);
+  }, [mode, enrichedApplicationsWithArgoApplications]);
+
   const {
     watch,
     formState: { dirtyFields },
@@ -109,31 +115,38 @@ export const Applications = ({
     values,
   });
 
-  const _TableProps: TableProps<EnrichedApplicationWithArgoApplication> = React.useMemo(() => {
-    return {
-      data: enrichedApplicationsWithArgoApplications,
-      isLoading: enrichedApplicationsWithArgoApplications === null,
-      columns,
-      upperColumns,
-      handleSelectRowClick: mode === APPLICATIONS_TABLE_MODE.PREVIEW ? handleClickSelectRow : null,
-      handleSelectAllClick: mode === APPLICATIONS_TABLE_MODE.PREVIEW ? handleClickSelectAll : null,
-      selected,
-      isSelected: (row) => selected.indexOf(row.application.metadata.name) !== -1,
-    };
-  }, [
-    columns,
-    enrichedApplicationsWithArgoApplications,
-    handleClickSelectAll,
-    handleClickSelectRow,
-    mode,
-    selected,
-    upperColumns,
-  ]);
-
   const timer = React.useRef<number | null>(null);
   const [deployBtnDisabled, setDeployBtnDisabled] = React.useState(false);
   const { reset } = useFormContext();
   const theme = useTheme();
+
+  const isSelected = React.useCallback(
+    (row) => selected.indexOf(row.application.metadata.name) !== -1,
+    [selected]
+  );
+
+  const tableData = React.useMemo(
+    () =>
+      mode === APPLICATIONS_TABLE_MODE.PREVIEW
+        ? enrichedApplicationsWithArgoApplications
+        : dataSnapshot,
+    [mode, enrichedApplicationsWithArgoApplications, dataSnapshot]
+  );
+
+  const handleClickSelectRowMemo = React.useMemo(
+    () => (mode === APPLICATIONS_TABLE_MODE.PREVIEW ? handleClickSelectRow : null),
+    [handleClickSelectRow, mode]
+  );
+
+  const handleClickSelectAllMemo = React.useMemo(
+    () => (mode === APPLICATIONS_TABLE_MODE.PREVIEW ? handleClickSelectAll : null),
+    [handleClickSelectAll, mode]
+  );
+
+  const isTableDataLoading = React.useMemo(
+    () => enrichedApplicationsWithArgoApplications === null,
+    [enrichedApplicationsWithArgoApplications]
+  );
 
   return (
     <TabSection
@@ -249,7 +262,16 @@ export const Applications = ({
         </Stack>
       }
     >
-      <Table<EnrichedApplicationWithArgoApplication> {..._TableProps} />
+      <Table<EnrichedApplicationWithArgoApplication>
+        data={tableData}
+        columns={columns}
+        isSelected={isSelected}
+        isLoading={isTableDataLoading}
+        selected={selected}
+        upperColumns={upperColumns}
+        handleSelectRowClick={handleClickSelectRowMemo}
+        handleSelectAllClick={handleClickSelectAllMemo}
+      />
       <ApplicationsMultiDeletion
         applications={allArgoApplications}
         selected={selected}
