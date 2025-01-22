@@ -20,7 +20,7 @@ test('renders ManageGitOps Edit component', () => {
               labels: {
                 'app.edp.epam.com/codebaseType': 'system',
               },
-              name: 'edp-gitops',
+              name: 'krci-gitops',
               namespace: 'edp-delivery-vp-dev',
             },
             // @ts-ignore
@@ -33,7 +33,7 @@ test('renders ManageGitOps Edit component', () => {
               emptyProject: false,
               framework: 'gitops',
               gitServer: 'gerrit',
-              gitUrlPath: '/edp-gitops',
+              gitUrlPath: '/krci-gitops',
               jiraIssueMetadataPayload: null,
               lang: 'helm',
               strategy: 'create',

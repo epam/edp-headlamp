@@ -47,7 +47,7 @@ export const CustomActionsInlineList = ({
         <ButtonGroup variant="outlined" ref={anchorRef}>
           <ButtonWithPermission
             ButtonProps={{
-              startIcon: <Icon icon={groupActions[0].icon} width={20} height={20} />,
+              startIcon: <Icon icon={groupActions[0].icon} width={15} height={15} />,
               size: 'small',
               onClick: groupActions[0].action,
               sx: {
@@ -77,8 +77,8 @@ export const CustomActionsInlineList = ({
             <Icon
               icon={ICONS.ARROW_DROPDOWN}
               color={theme.palette.secondary.dark}
-              width={25}
-              height={25}
+              width={15}
+              height={15}
             />
           </ButtonWithPermission>
         </ButtonGroup>

@@ -55,7 +55,7 @@ export const BuildGroup = ({ codebaseBranch, latestBuildPipelineRun }: BuildGrou
     },
   });
 
-  const buildPipelineRunData = React.useMemo(() => {
+  const buildPipelineRunData = (() => {
     if (!gitServerByCodebase) {
       return;
     }
@@ -74,7 +74,7 @@ export const BuildGroup = ({ codebaseBranch, latestBuildPipelineRun }: BuildGrou
       pipelineRunTemplate: buildPipelineRunTemplateCopy,
       gitServer: gitServerByCodebase,
     });
-  }, [buildTriggerTemplate, codebaseBranch, codebaseData, gitServerByCodebase]);
+  })();
 
   const onBuildButtonClick = React.useCallback(() => {
     createBuildPipelineRun(buildPipelineRunData);
@@ -170,7 +170,7 @@ export const BuildGroup = ({ codebaseBranch, latestBuildPipelineRun }: BuildGrou
           disabled={buildButtonDisabled}
           reason={buildButtonTooltip}
         >
-          <Icon icon={ICONS.ARROW_DROPDOWN} width={25} height={25} />
+          <Icon icon={ICONS.ARROW_DROPDOWN} width={15} height={15} />
         </ButtonWithPermission>
       </ButtonGroup>
       <Popper

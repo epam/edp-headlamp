@@ -121,7 +121,7 @@ exports[`renders ManageGitOps Create component 1`] = `
                   id="mui-4"
                   name="name"
                   type="text"
-                  value="edp-gitops"
+                  value="krci-gitops"
                 />
                 <span />
                 <fieldset

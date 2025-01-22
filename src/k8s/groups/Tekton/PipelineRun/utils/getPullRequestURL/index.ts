@@ -2,6 +2,10 @@ import { GIT_PROVIDERS } from '../../../../../../constants/gitProviders';
 import { PipelineRunKubeObjectInterface } from '../../types';
 
 export const getPullRequestURL = (pipelineRun: PipelineRunKubeObjectInterface): string | null => {
+  if (!pipelineRun) {
+    return null;
+  }
+
   const hasParams = pipelineRun?.spec?.params?.length > 0;
 
   const gitSourceUrl =

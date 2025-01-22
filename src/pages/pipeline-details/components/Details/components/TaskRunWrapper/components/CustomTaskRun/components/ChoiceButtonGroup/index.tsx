@@ -63,7 +63,7 @@ export const ChoiceButtonGroup = ({
           disabled={!permissions?.update?.ApprovalTask.allowed}
           reason={permissions?.update?.ApprovalTask.reason}
         >
-          <Icon icon={ICONS.ARROW_DROPDOWN} width={25} height={25} />
+          <Icon icon={ICONS.ARROW_DROPDOWN} width={15} height={15} />
         </ButtonWithPermission>
       </ButtonGroup>
       <Popper
