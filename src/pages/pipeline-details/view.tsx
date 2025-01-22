@@ -5,7 +5,10 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
+import { ResourceIconLink } from '../../components/ResourceIconLink';
 import { Section } from '../../components/Section';
+import { ICONS } from '../../icons/iconify-icons-mapping';
+import { getPullRequestURL } from '../../k8s/groups/Tekton/PipelineRun/utils/getPullRequestURL';
 import { Tabs } from '../../providers/Tabs/components/Tabs';
 import { useTabsContext } from '../../providers/Tabs/hooks';
 import { PipelineRunActionsMenu } from '../../widgets/PipelineRunActionsMenu';
@@ -93,6 +96,8 @@ export const PageView = () => {
     theme.typography,
   ]);
 
+  const pullRequestLink = getPullRequestURL(pipelineRun.data);
+
   return (
     <PageWrapper
       breadcrumbs={[
@@ -107,7 +112,20 @@ export const PageView = () => {
         },
       ]}
       headerSlot={
-        <div>
+        <Stack direction="row" spacing={2} alignItems="center">
+          {pullRequestLink && (
+            <div>
+              <ResourceIconLink
+                tooltipTitle={'Go to the Pull Request page'}
+                link={pullRequestLink}
+                icon={ICONS.NEW_WINDOW}
+                name="pull request"
+                isTextButton
+                variant="outlined"
+                size="small"
+              />
+            </div>
+          )}
           {resourceIsLoaded && (
             <PipelineRunActionsMenu
               data={{
@@ -118,7 +136,7 @@ export const PageView = () => {
               variant="inline"
             />
           )}
-        </div>
+        </Stack>
       }
     >
       <Section title={name}>{renderPageContent()}</Section>

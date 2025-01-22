@@ -36,7 +36,7 @@ export const useUpperColumns = ({
             </Stack>
           );
         },
-        colSpan: isEmpty ? 7 : 8,
+        colSpan: isEmpty ? 7 : 9,
       },
       {
         id: 'placeholder-4',
