@@ -28,6 +28,9 @@ fullnameOverride: ""
 config:
   # -- base url path at which headlamp should run
   baseURL: ""
+  # -- Define default namespace for the portal. See https://docs.kuberocketci.io/docs/quick-start/platform-installation
+  # If not set, the namespace of the pod will be used.
+  defaultNamespace: ""
   # -- Ensure that the specified client is associated with cluster OIDC integration.
   # -- For detailed instructions, refer to: https://docs.kuberocketci.io/docs/operator-guide/auth/configure-keycloak-oidc-eks, https://docs.kuberocketci.io/docs/operator-guide/auth/ui-portal-oidc
   oidc:
