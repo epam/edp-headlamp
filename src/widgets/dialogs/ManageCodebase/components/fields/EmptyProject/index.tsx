@@ -18,7 +18,7 @@ export const EmptyProject = () => {
         <FormControlLabelWithTooltip
           label={'Empty project'}
           title={
-            'An empty project does not contain any template code. However, EDP pipelines and deployment templates will be created'
+            'An empty project does not contain any template code. However, KubeRocketCI pipelines and deployment templates will be created'
           }
         />
       }

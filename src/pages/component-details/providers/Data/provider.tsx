@@ -84,7 +84,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
   const noApiGatewayUrlError = React.useMemo(
     () =>
       !apiGatewayUrl && {
-        message: 'No API Gateway URL found in the EDP Config ConfigMap',
+        message: 'No API Gateway URL found in the KubeRocketCI Config ConfigMap',
       },
     [apiGatewayUrl]
   );
