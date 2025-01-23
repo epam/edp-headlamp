@@ -31,7 +31,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{ if .Values.config.oidc.enabled }}
+          {{- if .Values.config.oidc.enabled }}
           env:
           {{- if .Values.extraVolumeMounts }}
           - name: NODE_EXTRA_CA_CERTS
@@ -43,10 +43,19 @@ spec:
                 name: {{ .Values.config.oidc.clientSecretName }}
                 key: {{ .Values.config.oidc.clientSecretKey }}
           {{ end }}
+          - name: DEFAULT_NAMESPACE
+            {{- if .Values.config.defaultNamespace }}
+            value: {{ .Values.config.defaultNamespace }}
+            {{- else }}
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+            {{- end }}
           args:
             - "-in-cluster"
             - "-plugins-dir=/headlamp/plugins"
-            {{ if .Values.config.oidc.enabled }}
+            - "-default-namespace=$(DEFAULT_NAMESPACE)"
+            {{- if .Values.config.oidc.enabled }}
             {{- with .Values.config.oidc.clientID }}
             - "-oidc-client-id={{ . }}"
             {{- end }}
