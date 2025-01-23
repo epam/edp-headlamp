@@ -1,6 +1,7 @@
 import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { TabPanel } from '../../../../../../../../../components/TabPanel';
+import { CODEBASE_CREATION_STRATEGIES } from '../../../../../../../../../constants/creationStrategies';
 import { useCodebaseCRUD } from '../../../../../../../../../k8s/groups/EDP/Codebase/hooks/useCodebaseCRUD';
 import { CodebaseKubeObjectInterface } from '../../../../../../../../../k8s/groups/EDP/Codebase/types';
 import { createCodebaseInstance } from '../../../../../../../../../k8s/groups/EDP/Codebase/utils/createCodebaseInstance';
@@ -33,6 +34,7 @@ export const FormActions = ({ baseDefaultValues, setActiveTab }: FormActionsProp
     handleSubmit,
     watch,
     setValue,
+    getValues,
   } = useTypedFormContext();
 
   const typeFieldValue = watch(CODEBASE_FORM_NAMES.type.name);
@@ -65,17 +67,24 @@ export const FormActions = ({ baseDefaultValues, setActiveTab }: FormActionsProp
   }, [activeStep]);
 
   const handleProceed = React.useCallback(async () => {
+    const values = getValues();
+
     const activeTabFormPartNames = Object.values(CODEBASE_FORM_NAMES)
       // @ts-ignore
       .filter(({ formPart }) => formPart === activeTabFormPartName)
       .map(({ name }) => name);
+
+    if (values.strategy === CODEBASE_CREATION_STRATEGIES.CLONE && !!values.hasCodebaseAuth) {
+      activeTabFormPartNames.push(CODEBASE_FORM_NAMES.repositoryLogin.name);
+      activeTabFormPartNames.push(CODEBASE_FORM_NAMES.repositoryPasswordOrApiToken.name);
+    }
 
     const hasNoErrors = await trigger(activeTabFormPartNames);
 
     if (hasNoErrors) {
       nextStep();
     }
-  }, [activeTabFormPartName, nextStep, trigger]);
+  }, [activeTabFormPartName, getValues, nextStep, trigger]);
 
   const getFirstErrorStepName = React.useCallback((errors) => {
     const [firstErrorFieldName] = Object.keys(errors);
