@@ -47,7 +47,7 @@ export const useCodebaseCreationStrategies = () => {
       {
         value: 'import',
         label: 'Import project',
-        description: 'Onboard your existing code to the EDP platform.',
+        description: 'Onboard your existing code to the KubeRocketCI platform.',
         icon: <Icon icon={'carbon:document-import'} width={24} height={24} color="#002446" />,
         checkedIcon: (
           <Icon icon={'carbon:document-import'} width={24} height={24} color="#002446" />

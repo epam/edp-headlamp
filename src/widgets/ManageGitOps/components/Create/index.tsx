@@ -1,12 +1,44 @@
-import { Grid } from '@mui/material';
+import { Icon } from '@iconify/react';
+import { Box, Grid, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { GIT_SERVERS } from '../../../../constants/gitServers';
 import { useGitServerListQuery } from '../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
+import { MainRadioGroup } from '../../../../providers/Form/components/MainRadioGroup';
 import { CODEBASE_FORM_NAMES } from '../../names';
 import { ManageGitOpsValues } from '../../types';
 import { GitRepoPath, GitServer, Name } from '../fields';
 
+const codebaseCreationStrategies = [
+  {
+    value: 'create',
+    label: 'Create',
+    description: 'Create a new base repository.',
+    icon: (
+      <Icon
+        icon={'material-symbols:create-new-folder-outline-rounded'}
+        width={24}
+        height={24}
+        color="#002446"
+      />
+    ),
+    checkedIcon: (
+      <Icon
+        icon={'material-symbols:create-new-folder-outline-rounded'}
+        width={24}
+        height={24}
+        color="#002446"
+      />
+    ),
+  },
+  {
+    value: 'import',
+    label: 'Import',
+    description: 'Onboard your existing repository.',
+    icon: <Icon icon={'carbon:document-import'} width={24} height={24} color="#002446" />,
+    checkedIcon: <Icon icon={'carbon:document-import'} width={24} height={24} color="#002446" />,
+  },
+];
 export const Create = () => {
   const { watch } = useFormContext<ManageGitOpsValues>();
   const { data: gitServers, isFetched } = useGitServerListQuery({});
@@ -19,21 +51,39 @@ export const Create = () => {
 
   const gitServerProvider = gitServer?.spec.gitProvider;
 
+  const theme = useTheme();
+
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext();
+
   return (
-    <>
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <GitServer />
-        </Grid>
-        {gitServerProvider !== GIT_SERVERS.GERRIT && !!isFetched && (
-          <Grid item xs={5}>
-            <GitRepoPath />
+    <Stack spacing={2}>
+      <MainRadioGroup
+        {...register(CODEBASE_FORM_NAMES.strategy.name)}
+        control={control}
+        errors={errors}
+        options={codebaseCreationStrategies}
+        gridItemSize={4}
+      />
+
+      <Box sx={{ p: `${theme.typography.pxToRem(24)} ${theme.typography.pxToRem(8)}` }}>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <GitServer />
           </Grid>
-        )}
-        <Grid item xs={3}>
-          <Name />
+          {gitServerProvider !== GIT_SERVERS.GERRIT && !!isFetched && (
+            <Grid item xs={5}>
+              <GitRepoPath />
+            </Grid>
+          )}
+          <Grid item xs={3}>
+            <Name />
+          </Grid>
         </Grid>
-      </Grid>
-    </>
+      </Box>
+    </Stack>
   );
 };
