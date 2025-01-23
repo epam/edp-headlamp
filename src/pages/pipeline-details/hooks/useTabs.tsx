@@ -1,3 +1,4 @@
+import { NameValueTable } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Box } from '@mui/material';
 import React from 'react';
 import { ViewYAML } from '../../../components/Editor';
@@ -53,6 +54,24 @@ export const useTabs = () => {
             <ViewYAML item={pipelineRun.data} />
           </Box>
         ),
+      },
+      {
+        label: 'Results',
+        component: (
+          <Box
+            sx={{
+              pt: (t) => t.typography.pxToRem(24),
+            }}
+          >
+            <NameValueTable
+              rows={(pipelineRun.data?.status?.results || []).map((el) => ({
+                name: el.name,
+                value: el.value,
+              }))}
+            />
+          </Box>
+        ),
+        disabled: !pipelineRun.data?.status?.results,
       },
       {
         label: 'Diagram',
