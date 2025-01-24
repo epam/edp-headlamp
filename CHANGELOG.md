@@ -2,6 +2,38 @@
 ## [Unreleased]
 
 
+<a name="v0.20.0"></a>
+## [v0.20.0] - 2025-01-24
+### Features
+
+- Set ns from config ([#564](https://github.com/epam/edp-headlamp/issues/564))
+- Move pipeline results to separate tab ([#570](https://github.com/epam/edp-headlamp/issues/570))
+- Add import strategy for gitops create ([#566](https://github.com/epam/edp-headlamp/issues/566))
+- Allow to get default namespace from the API ([#564](https://github.com/epam/edp-headlamp/issues/564))
+- Add pr link, upd result column, upd gitops name ([#562](https://github.com/epam/edp-headlamp/issues/562))
+- Update results column, fix applications table ([#560](https://github.com/epam/edp-headlamp/issues/560))
+- Add results column into pipeline table ([#557](https://github.com/epam/edp-headlamp/issues/557))
+- Add CDPipeline description filed ([#552](https://github.com/epam/edp-headlamp/issues/552))
+- Add responsive chips and CDP description ([#552](https://github.com/epam/edp-headlamp/issues/552))
+- Update filter ([#550](https://github.com/epam/edp-headlamp/issues/550))
+- Update pipelinerun naming ([#544](https://github.com/epam/edp-headlamp/issues/544))
+
+### Bug Fixes
+
+- Clone codebase validation ([#568](https://github.com/epam/edp-headlamp/issues/568))
+- No labels crash ([#552](https://github.com/epam/edp-headlamp/issues/552))
+- Undefined description crash ([#552](https://github.com/epam/edp-headlamp/issues/552))
+- Wrong loading state with no permissions ([#546](https://github.com/epam/edp-headlamp/issues/546))
+
+### Code Refactoring
+
+- Codemie page ([#548](https://github.com/epam/edp-headlamp/issues/548))
+
+### Routine
+
+- Update current development version ([#542](https://github.com/epam/edp-headlamp/issues/542))
+
+
 <a name="v0.19.0"></a>
 ## [v0.19.0] - 2025-01-10
 ### Features
@@ -618,7 +650,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.19.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.20.0...HEAD
+[v0.20.0]: https://github.com/epam/edp-headlamp/compare/v0.19.0...v0.20.0
 [v0.19.0]: https://github.com/epam/edp-headlamp/compare/v0.18.0...v0.19.0
 [v0.18.0]: https://github.com/epam/edp-headlamp/compare/v0.17.0...v0.18.0
 [v0.17.0]: https://github.com/epam/edp-headlamp/compare/v0.16.0...v0.17.0
