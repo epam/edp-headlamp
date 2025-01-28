@@ -16,7 +16,7 @@ export const getLogsQuery = (namespace: string, name: string) => ({
         {
           range: {
             '@timestamp': {
-              gte: 'now-1d',
+              gte: 'now-10d',
               lte: 'now',
             },
           },
