@@ -137,7 +137,6 @@ export const useColumns = ({
               link={link}
               icon={ICONS.NEW_WINDOW}
               name="pull request"
-              isTextButton
             />
           );
         },
