@@ -2,7 +2,7 @@ import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { PIPELINE_TYPES } from '../../../../constants/pipelineTypes';
+import { PIPELINE_TYPE } from '../../../../constants/pipelineTypes';
 import { ApplicationKubeObject } from '../../../../k8s/groups/ArgoCD/Application';
 import { APPLICATION_LABEL_SELECTOR_APP_NAME } from '../../../../k8s/groups/ArgoCD/Application/labels';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/groups/ArgoCD/Application/types';
@@ -95,7 +95,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     return filterByLabels(pipelineRuns, {
       [PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE]: CDPipelineName,
       [PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE]: stageMetadataName,
-      [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.DEPLOY,
+      [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPE.DEPLOY,
     });
   }, [CDPipelineName, pipelineRuns, stageMetadataName]);
 
@@ -107,7 +107,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     return filterByLabels(pipelineRuns, {
       [PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE]: CDPipelineName,
       [PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE]: stageMetadataName,
-      [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPES.CLEAN,
+      [PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE]: PIPELINE_TYPE.CLEAN,
     });
   }, [CDPipelineName, pipelineRuns, stageMetadataName]);
 

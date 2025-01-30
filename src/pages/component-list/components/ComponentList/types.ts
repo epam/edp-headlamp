@@ -2,10 +2,6 @@ import { CDPipelineKubeObjectInterface } from '../../../../k8s/groups/EDP/CDPipe
 import { CodebaseKubeObjectInterface } from '../../../../k8s/groups/EDP/Codebase/types';
 import { StageKubeObjectInterface } from '../../../../k8s/groups/EDP/Stage/types';
 
-export interface ComponentListProps {
-  noGitServers: boolean;
-}
-
 export type ComponentsToDeleteConflicts = Map<
   string,
   {

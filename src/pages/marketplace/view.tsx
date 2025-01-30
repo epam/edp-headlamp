@@ -8,13 +8,9 @@ import { Section } from '../../components/Section';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { GitServerKubeObject } from '../../k8s/groups/EDP/GitServer';
-import { Filter } from '../../providers/Filter/components/Filter';
-import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
-import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
 import { useFilterContext } from '../../providers/Filter/hooks';
 import { useViewModeContext } from '../../providers/ViewMode/hooks';
 import { VIEW_MODES } from '../../providers/ViewMode/types';
-import { getClusterSettings } from '../../utils/getClusterSettings';
 import { MarketplaceList } from './components/MarketplaceList';
 import { TemplatesWarning } from './components/MarketplaceList/components/TemplatesWarning';
 
@@ -41,22 +37,7 @@ export const PageView = () => {
       >
         <Stack spacing={3}>
           <Stack direction="row" spacing={2} alignItems={'flex-end'} justifyContent={'flex-end'}>
-            <Box flexGrow={1}>
-              <Filter
-                controls={{
-                  search: {
-                    component: <SearchControl />,
-                  },
-                  ...((getClusterSettings()?.allowedNamespaces || []).length > 1
-                    ? {
-                        namespace: {
-                          component: <NamespaceControl />,
-                        },
-                      }
-                    : {}),
-                }}
-              />
-            </Box>
+            <Box flexGrow={1}></Box>
             <Stack direction="row" spacing={0} alignItems={'center'} justifyContent={'flex-end'}>
               <Tooltip title={'Block View'}>
                 <IconButton onClick={() => handleChangeViewMode(VIEW_MODES.GRID)} size="large">

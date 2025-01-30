@@ -1,4 +1,4 @@
-export enum PIPELINE_TYPES {
+export enum PIPELINE_TYPE {
   ALL = 'all',
   BUILD = 'build',
   REVIEW = 'review',

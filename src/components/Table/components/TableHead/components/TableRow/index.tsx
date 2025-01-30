@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { ValueOf } from '../../../../../../types/global';
-import { SORT_ORDERS } from '../../../../constants';
+import { SORT_ORDERS, TABLE_CELL_DEFAULTS } from '../../../../constants';
 import { TableColumn } from '../../../../types';
 import {
   createCustomSortFunction,
@@ -40,14 +40,14 @@ export const TableRow = ({
 
     setSort({
       order: newSortOrder,
-      sortFn: column.columnSortableValuePath
-        ? createSortFunction(newSortOrder, column.columnSortableValuePath)
-        : createCustomSortFunction(newSortOrder, column.customSortFn),
+      sortFn: column.data.columnSortableValuePath
+        ? createSortFunction(newSortOrder, column.data.columnSortableValuePath)
+        : createCustomSortFunction(newSortOrder, column.data.customSortFn),
       sortBy: column.id,
     });
   };
 
-  const numSelected = React.useMemo(() => selected?.length, [selected]);
+  const selectedLength = React.useMemo(() => selected?.length, [selected]);
 
   const getArrowsColors = React.useCallback(
     (activeColumnSort: boolean, sortOrder: ValueOf<typeof SORT_ORDERS>) => {
@@ -65,8 +65,6 @@ export const TableRow = ({
     [theme]
   );
 
-  const _rowCount = selectableRowCount || rowCount;
-
   return (
     <MuiTableRow>
       {!!handleSelectAllClick && (
@@ -76,25 +74,25 @@ export const TableRow = ({
           align="center"
           sx={{
             p: `${theme.typography.pxToRem(5)} ${theme.typography.pxToRem(11)}`,
+            verticalAlign: 'bottom',
           }}
         >
           <Checkbox
             color={'primary'}
-            indeterminate={numSelected > 0 && numSelected < _rowCount}
-            checked={rowCount > 0 && numSelected === _rowCount}
+            indeterminate={selectedLength > 0 && selectedLength < selectableRowCount}
+            checked={selectedLength === selectableRowCount || selectedLength === rowCount}
             onChange={handleSelectAllClick}
           />
         </TableCell>
       )}
       {columns.map((column) => {
-        const {
-          show = true,
-          id,
-          textAlign = 'left',
-          columnSortableValuePath,
-          customSortFn,
-          label,
-        } = column;
+        const { id, label, data, cell } = column;
+        const show = cell?.show ?? TABLE_CELL_DEFAULTS.SHOW;
+        const props = {
+          ...TABLE_CELL_DEFAULTS.PROPS,
+          ...cell?.props,
+        };
+
         const activeColumnSort = sort.sortBy === id;
         const { upperArrowColor, bottomArrowColor } = getArrowsColors(activeColumnSort, sort.order);
 
@@ -104,20 +102,21 @@ export const TableRow = ({
             scope="row"
             key={id}
             sortDirection={sort.sortBy === id ? sort.order : false}
-            align={textAlign}
             sx={{
               color: theme.palette.text.primary,
               p: `${theme.typography.pxToRem(16)} ${theme.typography.pxToRem(11)}`,
+              verticalAlign: 'bottom',
             }}
+            {...props}
           >
             <Stack
               direction="row"
               spacing={0.2}
               alignItems={'center'}
               flexWrap="nowrap"
-              justifyContent={getFlexPropertyByTextAlign(textAlign)}
+              justifyContent={getFlexPropertyByTextAlign(props?.align)}
             >
-              {(!!columnSortableValuePath || !!customSortFn) && (
+              {(!!data?.columnSortableValuePath || !!data?.customSortFn) && (
                 <ButtonBase onClick={() => handleRequestSort(column)} disableRipple>
                   <SvgIcon
                     viewBox={'0 0 18 18'}

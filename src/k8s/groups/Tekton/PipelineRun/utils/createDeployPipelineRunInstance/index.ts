@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash';
-import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
+import { PIPELINE_TYPE } from '../../../../../../constants/pipelineTypes';
 import { createRandomString } from '../../../../../../utils/createRandomString';
 import { truncateName } from '../../../../../../utils/truncateName';
 import { CDPipelineKubeObjectInterface } from '../../../../EDP/CDPipeline/types';
@@ -46,7 +46,7 @@ export const createDeployPipelineRunInstance = ({
 
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE] = CDPipeline.metadata.name;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE] = stage.metadata.name;
-  base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] = PIPELINE_TYPES.DEPLOY;
+  base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] = PIPELINE_TYPE.DEPLOY;
 
   for (const param of base.spec.params) {
     switch (param.name) {

@@ -182,7 +182,7 @@ function usePageURLState(
 
 export const usePagination = ({
   reflectInURL,
-  prefix,
+  prefix = '',
   initialPage,
   rowsPerPage,
   entityName = 'tables',

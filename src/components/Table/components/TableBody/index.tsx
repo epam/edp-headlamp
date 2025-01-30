@@ -19,26 +19,24 @@ export const TableBody = ({
   errors,
   isLoading,
   columns,
-  readyData,
+  data,
   handleRowClick,
-  handleSelectRowClick,
-  isSelected,
-  canBeSelected,
+  selection,
   emptyListComponent,
   page,
   rowsPerPage,
-  hasEmptyResult,
+  isEmptyFilterResult,
   blockerComponent,
 }: TableBodyProps) => {
   const renderTableBody = React.useCallback(() => {
-    const hasSelection = !!handleSelectRowClick;
+    const hasSelection = !!selection?.handleSelectRow;
     const _columnsLength = columns.length;
     const columnsLength = hasSelection ? _columnsLength + 1 : _columnsLength;
 
     if (blockerError) {
       return (
         <MuiTableRow>
-          <TableCell colSpan={columnsLength} align={'center'}>
+          <TableCell colSpan={columnsLength} align={'center'} sx={{ px: 0 }}>
             <ErrorContent error={blockerError} />
           </TableCell>
         </MuiTableRow>
@@ -48,7 +46,7 @@ export const TableBody = ({
     if (blockerComponent) {
       return (
         <MuiTableRow>
-          <TableCell colSpan={columnsLength} align={'center'}>
+          <TableCell colSpan={columnsLength} align={'center'} sx={{ px: 0 }}>
             {blockerComponent}
           </TableCell>
         </MuiTableRow>
@@ -58,14 +56,14 @@ export const TableBody = ({
     if (isLoading) {
       return (
         <MuiTableRow>
-          <TableCell colSpan={columns.length} align={'center'}>
+          <TableCell colSpan={columns.length} align={'center'} sx={{ px: 0 }}>
             <CircularProgress />
           </TableCell>
         </MuiTableRow>
       );
     }
 
-    if (readyData !== null && readyData?.length) {
+    if (data !== null && data?.length) {
       return (
         <>
           {errors && !!errors.length && (
@@ -79,21 +77,23 @@ export const TableBody = ({
               </TableCell>
             </MuiTableRow>
           )}
-          {readyData
+          {data
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row, idx: number) => {
-              const _isSelected = isSelectedRow(isSelected, row);
-              const _canBeSelected = canBeSelected ? canBeSelected(row) : true;
+              const _isSelected = isSelectedRow(selection?.isRowSelected, row);
+              const _isSelectable = selection?.isRowSelectable
+                ? selection?.isRowSelectable(row)
+                : true;
 
               return (
                 <TableRow
                   key={`table-row-${idx}`}
                   item={row}
                   columns={columns}
-                  isSelected={_isSelected}
-                  canBeSelected={_canBeSelected}
+                  isRowSelected={_isSelected}
+                  isRowSelectable={_isSelectable}
                   handleRowClick={handleRowClick}
-                  handleSelectRowClick={handleSelectRowClick}
+                  handleSelectRowClick={selection?.handleSelectRow}
                 />
               );
             })}
@@ -101,10 +101,10 @@ export const TableBody = ({
       );
     }
 
-    if (hasEmptyResult) {
+    if (isEmptyFilterResult) {
       return (
         <MuiTableRow>
-          <TableCell colSpan={columns.length} align={'center'}>
+          <TableCell colSpan={columns.length} align={'center'} sx={{ px: 0 }}>
             <EmptyList customText={'No results found!'} isSearch />
           </TableCell>
         </MuiTableRow>
@@ -113,25 +113,23 @@ export const TableBody = ({
 
     return (
       <MuiTableRow>
-        <TableCell colSpan={columns.length} align={'center'}>
+        <TableCell colSpan={columns.length} align={'center'} sx={{ px: 0 }}>
           <>{emptyListComponent}</>
         </TableCell>
       </MuiTableRow>
     );
   }, [
-    handleSelectRowClick,
+    selection,
     columns,
     blockerError,
     blockerComponent,
     isLoading,
-    readyData,
-    hasEmptyResult,
+    data,
+    isEmptyFilterResult,
     emptyListComponent,
+    errors,
     page,
     rowsPerPage,
-    errors,
-    isSelected,
-    canBeSelected,
     handleRowClick,
   ]);
 

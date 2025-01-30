@@ -1,9 +1,9 @@
-import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Box, Chip, Grid, Tooltip, Typography } from '@mui/material';
+import { Chip, Grid, Typography } from '@mui/material';
 import React from 'react';
-import { ConditionalWrapper } from '../../../../../components/ConditionalWrapper';
 import { StatusIcon } from '../../../../../components/StatusIcon';
+import { useTableSettings } from '../../../../../components/Table/components/TableSettings/hooks/useTableSettings';
+import { getSavedColumnData } from '../../../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../../../components/Table/types';
 import { TextWithTooltip } from '../../../../../components/TextWithTooltip';
 import {
@@ -14,7 +14,7 @@ import {
 import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
 import { MAIN_COLOR } from '../../../../../constants/colors';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
-import { ICONS } from '../../../../../icons/iconify-icons-mapping';
+import { TABLES } from '../../../../../constants/tables';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { CodebaseKubeObject } from '../../../../../k8s/groups/EDP/Codebase';
@@ -26,6 +26,7 @@ import { rem } from '../../../../../utils/styling/rem';
 import { routeComponentDetails } from '../../../../component-details/route';
 import { useTypedPermissions } from '../../../hooks/useTypedPermissions';
 import { Actions } from '../../ComponentActions';
+import { columnNames } from '../constants';
 
 const getColorByType = (type: string) => {
   switch (type) {
@@ -57,55 +58,60 @@ const getChipSX = (type: string) => {
 export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectInterface>>[] => {
   const permissions = useTypedPermissions();
 
+  const { loadSettings } = useTableSettings(TABLES.COMPONENT_LIST.id);
+
+  const tableSettings = loadSettings();
+
   return React.useMemo(
     () => [
       {
-        id: 'status',
+        id: columnNames.STATUS,
         label: 'Status',
-        columnSortableValuePath: 'status.status',
-        render: (codebase) => {
-          const status = codebase?.status?.status;
-          const detailedMessage = codebase?.status?.detailedMessage;
+        data: {
+          columnSortableValuePath: 'status.status',
+          render: ({ data }) => {
+            const status = data?.status?.status;
+            const detailedMessage = data?.status?.detailedMessage;
 
-          const [icon, color, isRotating] = CodebaseKubeObject.getStatusIcon(status);
+            const [icon, color, isRotating] = CodebaseKubeObject.getStatusIcon(status);
 
-          const title = (
-            <>
-              <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                {`Status: ${status || 'Unknown'}`}
-              </Typography>
-              {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
-                <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                  {detailedMessage}
+            const title = (
+              <>
+                <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                  {`Status: ${status || 'Unknown'}`}
                 </Typography>
-              )}
-            </>
-          );
+                {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
+                  <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                    {detailedMessage}
+                  </Typography>
+                )}
+              </>
+            );
 
-          return <StatusIcon icon={icon} isRotating={isRotating} color={color} Title={title} />;
+            return <StatusIcon icon={icon} isRotating={isRotating} color={color} Title={title} />;
+          },
         },
-        width: '5%',
-        textAlign: 'left',
+        cell: {
+          baseWidth: 5,
+          width: getSavedColumnData(tableSettings, columnNames.STATUS)?.width ?? 5,
+          show: getSavedColumnData(tableSettings, columnNames.STATUS)?.show ?? true,
+          isFixed: true,
+          props: {
+            align: 'left',
+          },
+        },
       },
       {
-        id: 'name',
+        id: columnNames.NAME,
         label: 'Name',
-        columnSortableValuePath: 'metadata.name',
-        render: ({ metadata: { name, namespace }, spec: { type } }) => {
-          return (
-            <ConditionalWrapper
-              condition={type === CODEBASE_TYPES.SYSTEM}
-              wrapper={(children) => (
-                <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-                  <Grid item>{children}</Grid>
-                  <Grid item>
-                    <Tooltip title={'System component'}>
-                      <Icon icon={ICONS.INFO_CIRCLE} width={18} style={{ display: 'block' }} />
-                    </Tooltip>
-                  </Grid>
-                </Grid>
-              )}
-            >
+        data: {
+          columnSortableValuePath: 'metadata.name',
+          render: ({
+            data: {
+              metadata: { name, namespace },
+            },
+          }) => {
+            return (
               <Link
                 routeName={routeComponentDetails.path}
                 params={{
@@ -115,118 +121,180 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
               >
                 <TextWithTooltip text={name} />
               </Link>
-            </ConditionalWrapper>
-          );
+            );
+          },
         },
-        width: '20%',
+        cell: {
+          customizable: false,
+          baseWidth: 20,
+          width: getSavedColumnData(tableSettings, columnNames.NAME)?.width ?? 20,
+          show: getSavedColumnData(tableSettings, columnNames.NAME)?.show ?? true,
+        },
       },
       {
-        id: 'type',
+        id: columnNames.TYPE,
         label: 'Type',
-        columnSortableValuePath: 'spec.type',
-        render: ({ spec: { type } }) => (
-          <Chip
-            sx={getChipSX(type)}
-            size="small"
-            variant="outlined"
-            label={capitalizeFirstLetter(type)}
-          />
-        ),
-        width: '25%',
+        data: {
+          columnSortableValuePath: 'spec.type',
+          render: ({
+            data: {
+              spec: { type },
+            },
+          }) => (
+            <Chip
+              sx={getChipSX(type)}
+              size="small"
+              variant="outlined"
+              label={capitalizeFirstLetter(type)}
+            />
+          ),
+        },
+        cell: {
+          baseWidth: 20,
+          width: getSavedColumnData(tableSettings, columnNames.TYPE)?.width ?? 25,
+          show: getSavedColumnData(tableSettings, columnNames.TYPE)?.show ?? true,
+        },
       },
       {
-        id: 'language',
+        id: columnNames.LANGUAGE,
         label: 'Language',
-        columnSortableValuePath: 'spec.lang',
-        render: ({ spec: { lang, type } }) => {
-          const codebaseMapping = getCodebaseMappingByCodebaseType(type);
+        data: {
+          columnSortableValuePath: 'spec.lang',
+          render: ({
+            data: {
+              spec: { lang, type },
+            },
+          }) => {
+            const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
-          return (
-            <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-              <Grid item>
-                <UseSpriteSymbol
-                  name={LANGUAGE_ICON_MAPPING?.[lang?.toLowerCase()] || RESOURCE_ICON_NAMES.OTHER}
-                  width={20}
-                  height={20}
-                />
+            return (
+              <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                <Grid item>
+                  <UseSpriteSymbol
+                    name={LANGUAGE_ICON_MAPPING?.[lang?.toLowerCase()] || RESOURCE_ICON_NAMES.OTHER}
+                    width={20}
+                    height={20}
+                  />
+                </Grid>
+                <Grid item>
+                  {codebaseMapping?.[lang]?.language?.name || capitalizeFirstLetter(lang)}
+                </Grid>
               </Grid>
-              <Grid item>
-                {codebaseMapping?.[lang]?.language?.name || capitalizeFirstLetter(lang)}
-              </Grid>
-            </Grid>
-          );
+            );
+          },
         },
-        width: '15%',
+        cell: {
+          baseWidth: 15,
+          width: getSavedColumnData(tableSettings, columnNames.LANGUAGE)?.width ?? 15,
+          show: getSavedColumnData(tableSettings, columnNames.LANGUAGE)?.show ?? true,
+        },
       },
       {
-        id: 'framework',
+        id: columnNames.FRAMEWORK,
         label: 'Framework',
-        columnSortableValuePath: 'spec.lang',
-        render: ({ spec: { lang, framework, type } }) => {
-          const codebaseMapping = getCodebaseMappingByCodebaseType(type);
+        data: {
+          columnSortableValuePath: 'spec.lang',
+          render: ({
+            data: {
+              spec: { lang, framework, type },
+            },
+          }) => {
+            const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
-          return (
-            <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-              <Grid item>
-                <UseSpriteSymbol
-                  name={
-                    FRAMEWORK_ICON_MAPPING?.[framework?.toLowerCase()] || RESOURCE_ICON_NAMES.OTHER
-                  }
-                  width={20}
-                  height={20}
-                />
+            return (
+              <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                <Grid item>
+                  <UseSpriteSymbol
+                    name={
+                      FRAMEWORK_ICON_MAPPING?.[framework?.toLowerCase()] ||
+                      RESOURCE_ICON_NAMES.OTHER
+                    }
+                    width={20}
+                    height={20}
+                  />
+                </Grid>
+                <Grid item>
+                  {codebaseMapping?.[lang]?.frameworks?.[framework]?.name ||
+                    capitalizeFirstLetter(framework)}
+                </Grid>
               </Grid>
-              <Grid item>
-                {codebaseMapping?.[lang]?.frameworks?.[framework]?.name ||
-                  capitalizeFirstLetter(framework)}
-              </Grid>
-            </Grid>
-          );
+            );
+          },
         },
-        width: '15%',
+        cell: {
+          baseWidth: 15,
+          width: getSavedColumnData(tableSettings, columnNames.FRAMEWORK)?.width ?? 15,
+          show: getSavedColumnData(tableSettings, columnNames.FRAMEWORK)?.show ?? true,
+        },
       },
       {
-        id: 'buildTool',
+        id: columnNames.BUILD_TOOL,
         label: 'Build Tool',
-        columnSortableValuePath: 'spec.buildTool',
-        render: ({ spec: { lang, buildTool, type } }) => {
-          const codebaseMapping = getCodebaseMappingByCodebaseType(type);
+        data: {
+          columnSortableValuePath: 'spec.buildTool',
+          render: ({
+            data: {
+              spec: { lang, buildTool, type },
+            },
+          }) => {
+            const codebaseMapping = getCodebaseMappingByCodebaseType(type);
 
-          return (
-            <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-              <Grid item>
-                <UseSpriteSymbol
-                  name={
-                    BUILD_TOOL_ICON_MAPPING?.[buildTool?.toLowerCase()] || RESOURCE_ICON_NAMES.OTHER
-                  }
-                  width={20}
-                  height={20}
-                />
+            return (
+              <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
+                <Grid item>
+                  <UseSpriteSymbol
+                    name={
+                      BUILD_TOOL_ICON_MAPPING?.[buildTool?.toLowerCase()] ||
+                      RESOURCE_ICON_NAMES.OTHER
+                    }
+                    width={20}
+                    height={20}
+                  />
+                </Grid>
+                <Grid item>
+                  {codebaseMapping?.[lang]?.buildTools?.[buildTool]?.name ||
+                    capitalizeFirstLetter(buildTool)}
+                </Grid>
               </Grid>
-              <Grid item>
-                {codebaseMapping?.[lang]?.buildTools?.[buildTool]?.name ||
-                  capitalizeFirstLetter(buildTool)}
-              </Grid>
-            </Grid>
-          );
+            );
+          },
         },
-        width: '15%',
+        cell: {
+          baseWidth: 15,
+          width: getSavedColumnData(tableSettings, columnNames.BUILD_TOOL)?.width ?? 15,
+          show: getSavedColumnData(tableSettings, columnNames.BUILD_TOOL)?.show ?? true,
+        },
       },
 
       {
-        id: 'actions',
+        id: columnNames.ACTIONS,
         label: 'Actions',
-        render: ({ jsonData, spec: { type } }) => {
-          if (type === CODEBASE_TYPES.SYSTEM) {
-            return <Box sx={{ height: rem(44) }} />;
-          }
-
-          return <Actions resource={jsonData} permissions={permissions} />;
+        data: {
+          render: ({ data }) => {
+            return (
+              <Actions
+                resource={data?.jsonData ?? data}
+                permissions={permissions}
+                disabled={{
+                  boolean: data.spec.type === CODEBASE_TYPES.SYSTEM,
+                  reason: 'System components cannot be managed',
+                }}
+              />
+            );
+          },
         },
-        textAlign: 'center',
-        width: '5%',
+        cell: {
+          customizable: false,
+          baseWidth: 5,
+          width: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.width ?? 5,
+          show: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.show ?? true,
+          isFixed: true,
+          props: {
+            align: 'center',
+          },
+        },
       },
     ],
-    [permissions]
+    [permissions, tableSettings]
   );
 };

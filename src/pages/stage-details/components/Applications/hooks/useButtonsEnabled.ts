@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldValues } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import {
   CODEBASE_COMMON_BUILD_TOOLS,
   CODEBASE_COMMON_FRAMEWORKS,
@@ -12,18 +12,19 @@ import { EnrichedApplicationWithArgoApplication } from '../../../types';
 import { ButtonsMap } from '../types';
 
 export const useButtonsEnabledMap = ({
-  values,
   enrichedApplicationsWithArgoApplications,
   enrichedApplicationsByApplicationName,
   latestDeployPipelineRunIsRunning,
   someArgoApplicationMutationIsLoading,
 }: {
-  values: FieldValues;
   enrichedApplicationsWithArgoApplications: EnrichedApplicationWithArgoApplication[];
   enrichedApplicationsByApplicationName: Map<string, EnrichedApplicationWithArgoApplication>;
   latestDeployPipelineRunIsRunning: boolean;
   someArgoApplicationMutationIsLoading: boolean;
 }) => {
+  const { watch } = useFormContext();
+
+  const values = watch();
   const applications = enrichedApplicationsWithArgoApplications?.map(
     ({ application }) => application.metadata.name
   );

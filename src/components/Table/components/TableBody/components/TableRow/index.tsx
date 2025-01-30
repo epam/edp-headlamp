@@ -1,5 +1,6 @@
 import { Box, Checkbox, TableCell, TableRow as MuiTableRow, useTheme } from '@mui/material';
 import React from 'react';
+import { TABLE_CELL_DEFAULTS } from '../../../../constants';
 import { TableRowProps } from './types';
 
 const getRowStyles = (isSelected: boolean) => {
@@ -27,8 +28,8 @@ export const TableRow = ({
   columns,
   handleRowClick,
   handleSelectRowClick,
-  isSelected,
-  canBeSelected,
+  isRowSelected,
+  isRowSelectable,
 }: TableRowProps) => {
   const theme = useTheme();
 
@@ -58,7 +59,7 @@ export const TableRow = ({
   );
 
   return (
-    <MuiTableRow {...selectableRowProps(item, isSelected)}>
+    <MuiTableRow {...selectableRowProps(item, isRowSelected)}>
       {!!handleSelectRowClick && (
         <TableCell
           component="td"
@@ -68,31 +69,37 @@ export const TableRow = ({
             p: theme.typography.pxToRem(11),
           }}
         >
-          {canBeSelected && (
-            <Checkbox
-              color={'primary'}
-              checked={isSelected}
-              onClick={(event) => handleSelectRowClick(event, item)}
-            />
-          )}
+          <Checkbox
+            color={'primary'}
+            checked={isRowSelected}
+            onClick={(event) => handleSelectRowClick(event, item)}
+            disabled={!isRowSelectable}
+            size="small"
+          />
         </TableCell>
       )}
-      {columns.map(({ show = true, id, textAlign = 'left', columnSortableValuePath, render }) => {
+      {columns.map(({ id, data, cell }) => {
+        const show = cell?.show ?? TABLE_CELL_DEFAULTS.SHOW;
+        const props = {
+          ...TABLE_CELL_DEFAULTS.PROPS,
+          ...cell?.props,
+        };
+
         return show ? (
           <TableCell
             key={id}
             component="td"
             scope="row"
-            align={textAlign || 'left'}
             sx={{
               p: theme.typography.pxToRem(11),
             }}
+            {...props}
           >
             <Box
-              sx={getColumnStyles(!!columnSortableValuePath, textAlign)}
-              justifyContent={getFlexPropertyByTextAlign(textAlign)}
+              sx={getColumnStyles(!!data?.columnSortableValuePath, props?.align)}
+              justifyContent={getFlexPropertyByTextAlign(props?.align)}
             >
-              {render(item)}
+              {data.render({ data: item })}
             </Box>
           </TableCell>
         ) : null;

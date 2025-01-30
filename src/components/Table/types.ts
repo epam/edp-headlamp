@@ -4,51 +4,85 @@ import React from 'react';
 import { ValueOf } from '../../types/global';
 import { SORT_ORDERS } from './constants';
 
+export interface TableColumn<DataType> {
+  id: any;
+  label: string | React.ReactElement;
+  data: {
+    render: ({
+      data,
+      meta,
+    }: {
+      data?: DataType;
+      meta?: {
+        selectionLength: number;
+      };
+    }) => React.ReactElement | string | number;
+    columnSortableValuePath?: string | string[];
+    customSortFn?: (a: DataType, b: DataType) => number;
+  };
+  cell: {
+    baseWidth: number;
+    show?: boolean;
+    width?: number;
+    isFixed?: boolean;
+    colSpan?: number;
+    props?: TableCellProps;
+    customizable?: boolean; // width
+  };
+}
+
 export interface SortState<DataType> {
   order: ValueOf<typeof SORT_ORDERS>;
   sortFn: (a: DataType, b: DataType) => number;
   sortBy: string;
 }
 
-export interface TableProps<DataType = unknown> {
-  isLoading: boolean;
-  data: DataType[];
-  columns: readonly TableColumn<DataType>[];
-  blockerComponent?: React.ReactNode;
-  upperColumns?: readonly TableColumn<DataType>[];
-  defaultSortBy?: string;
-  defaultSortOrder?: ValueOf<typeof SORT_ORDERS>;
-  emptyListComponent?: React.ReactNode;
-  handleRowClick?: (event: React.MouseEvent<HTMLTableRowElement>, row: DataType) => void;
-  handleSelectRowClick?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    row: DataType
-  ) => void;
-  blockerError?: ApiError;
-  errors?: ApiError[] | null;
-  handleSelectAllClick?: (
+export interface TableSort {
+  order: ValueOf<typeof SORT_ORDERS>;
+  sortBy: string;
+}
+
+export interface TableSelection<DataType> {
+  selected?: string[];
+  isRowSelectable?: (row: DataType) => boolean;
+  isRowSelected?: (row: DataType) => boolean;
+  handleSelectAll?: (
     event: React.ChangeEvent<HTMLInputElement>,
     paginatedItems: DataType[]
   ) => void;
-  selected?: string[];
-  canBeSelected?: (row: DataType) => boolean;
-  isSelected?: (row: DataType) => boolean;
-  filterFunction?: ((...args: DataType[]) => boolean) | null;
-  showPagination?: boolean;
-  reflectInURL?: boolean;
-  initialPage?: number;
-  rowsPerPage?: number;
+  handleSelectRow?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, row: DataType) => void;
+  renderSelectionInfo?: (selectedCount: number) => React.ReactElement;
 }
 
-export interface TableColumn<DataType> {
-  id: any;
-  label: string | React.ReactElement;
-  render: (data?: DataType) => React.ReactElement | string | number;
-  columnSortableValuePath?: string | string[];
-  customSortFn?: (a: DataType, b: DataType) => number;
+export interface TablePagination {
   show?: boolean;
-  customizable?: boolean;
-  textAlign?: TableCellProps['align'];
-  width?: string;
-  colSpan?: number;
+  rowsPerPage?: number;
+  initialPage?: number;
+  reflectInURL?: boolean;
+}
+
+export interface TableSettings {
+  show: boolean;
+  rememberSettings?: boolean;
+}
+export interface TableProps<DataType = unknown> {
+  id: string;
+  data: DataType[];
+  columns: TableColumn<DataType>[];
+  isLoading?: boolean;
+  name?: string;
+  sort?: TableSort;
+  selection?: TableSelection<DataType>;
+  pagination?: TablePagination;
+  settings?: TableSettings;
+  blockerComponent?: React.ReactNode;
+  emptyListComponent?: React.ReactNode;
+  blockerError?: ApiError;
+  errors?: ApiError[] | null;
+  filterFunction?: ((...args: DataType[]) => boolean) | null;
+  handleRowClick?: (event: React.MouseEvent<HTMLTableRowElement>, row: DataType) => void;
+  slots?: {
+    header?: React.ReactElement;
+    footer?: React.ReactElement;
+  };
 }

@@ -13,7 +13,7 @@ export interface UseDataProps<DataType> {
   error: unknown;
 }
 
-export const useReadyData = <DataType>({
+export const useFilteredData = <DataType>({
   data,
   filterFunction,
   sort,

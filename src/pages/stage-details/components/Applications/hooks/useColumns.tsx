@@ -2,6 +2,8 @@ import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import {
   Box,
+  Button,
+  ButtonGroup,
   Grid,
   IconButton,
   Link as MuiLink,
@@ -14,6 +16,7 @@ import {
   useTheme,
 } from '@mui/material';
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
@@ -40,22 +43,32 @@ import {
 } from '../../../../../k8s/groups/EDP/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
+import { FormSwitch } from '../../../../../providers/Form/components/FormSwitch';
 import { LinkCreationService } from '../../../../../services/link-creation';
 import { PodsLogViewerDialog } from '../../../../../widgets/dialogs/PodsLogViewer';
 import { PodsTerminalDialog } from '../../../../../widgets/dialogs/PodsTerminal';
 import { routeComponentDetails } from '../../../../component-details/route';
-import { APPLICATIONS_TABLE_MODE } from '../../../constants';
+import { ALL_VALUES_OVERRIDE_KEY, APPLICATIONS_TABLE_MODE } from '../../../constants';
 import { useDataContext } from '../../../providers/Data/hooks';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { EDPStageDetailsRouteParams, EnrichedApplicationWithArgoApplication } from '../../../types';
 import { ImageStreamTagsSelect } from '../components/ImageStreamTagsSelect';
 import { ValuesOverrideSwitch } from '../components/ValuesOverrideSwitch';
+import { columnNames } from '../constants';
 import { ApplicationsTableMode } from '../types';
 
 export const useColumns = ({
   mode,
+  handleClickLatest,
+  handleClickOverrideValuesAll,
+  handleClickStable,
+  buttonsHighlighted,
 }: {
   mode: ApplicationsTableMode;
+  handleClickLatest: () => void;
+  handleClickOverrideValuesAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleClickStable: () => void;
+  buttonsHighlighted: Record<string, boolean>;
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
   const theme = useTheme();
   const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
@@ -92,190 +105,248 @@ export const useColumns = ({
 
   const { setDialog } = useDialogContext();
 
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext();
+
   return React.useMemo(() => {
     if (isLoading) {
       return [];
     }
 
     const healthColumn: TableColumn<EnrichedApplicationWithArgoApplication> = {
-      id: 'health',
+      id: columnNames.HEALTH,
       label: 'Health',
-      render: ({ argoApplication }) => {
-        const health = argoApplication?.status?.health?.status;
+      data: {
+        render: ({ data: { argoApplication } }) => {
+          const health = argoApplication?.status?.health?.status;
 
-        const [icon, color, isRotating] = ApplicationKubeObject.getHealthStatusIcon(health);
+          const [icon, color, isRotating] = ApplicationKubeObject.getHealthStatusIcon(health);
 
-        return (
-          <StatusIcon
-            Title={`Health status: ${health || 'Unknown'}`}
-            icon={icon}
-            color={color}
-            isRotating={isRotating}
-          />
-        );
+          return (
+            <StatusIcon
+              Title={`Health status: ${health || 'Unknown'}`}
+              icon={icon}
+              color={color}
+              isRotating={isRotating}
+            />
+          );
+        },
       },
-      width: '5%',
-      textAlign: 'center',
+      cell: {
+        baseWidth: 5,
+        width: 5,
+        show: true,
+        props: {
+          align: 'center',
+        },
+      },
     };
 
     const syncColumn: TableColumn<EnrichedApplicationWithArgoApplication> = {
-      id: 'sync',
+      id: columnNames.SYNC,
       label: 'Sync',
-      render: ({ argoApplication }) => {
-        const sync = argoApplication?.status?.sync?.status;
+      data: {
+        render: ({ data: { argoApplication } }) => {
+          const sync = argoApplication?.status?.sync?.status;
 
-        const [icon, color, isRotating] = ApplicationKubeObject.getSyncStatusIcon(sync);
+          const [icon, color, isRotating] = ApplicationKubeObject.getSyncStatusIcon(sync);
 
-        return (
-          <StatusIcon
-            Title={`Sync status: ${sync || 'Unknown'}`}
-            icon={icon}
-            color={color}
-            isRotating={isRotating}
-          />
-        );
+          return (
+            <StatusIcon
+              Title={`Sync status: ${sync || 'Unknown'}`}
+              icon={icon}
+              color={color}
+              isRotating={isRotating}
+            />
+          );
+        },
       },
-      width: '5%',
-      textAlign: 'center',
+      cell: {
+        show: true,
+        baseWidth: 5,
+        width: 5,
+        props: {
+          align: 'center',
+        },
+      },
     };
 
     const applicationColumn: TableColumn<EnrichedApplicationWithArgoApplication> = {
-      id: 'application',
+      id: columnNames.NAME,
       label: 'Application',
-      render: ({
-        application: {
-          metadata: { name, namespace },
+      data: {
+        render: ({
+          data: {
+            application: {
+              metadata: { name, namespace },
+            },
+          },
+        }) => {
+          return (
+            <Link
+              routeName={routeComponentDetails.path}
+              params={{
+                name,
+                namespace,
+              }}
+            >
+              {name}
+            </Link>
+          );
         },
-      }) => {
-        return (
-          <Link
-            routeName={routeComponentDetails.path}
-            params={{
-              name,
-              namespace,
-            }}
-          >
-            {name}
-          </Link>
-        );
       },
-      width: '25%',
+      cell: {
+        customizable: false,
+        show: true,
+        baseWidth: 25,
+        width: 25,
+      },
     };
 
     const valuesOverrideColumn: TableColumn<EnrichedApplicationWithArgoApplication> = {
-      id: 'valuesOverride',
+      id: columnNames.VALUES_OVERRIDE,
       label: (
-        <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-          <Grid item>Values override</Grid>
-          <Grid item>
+        <Stack spacing={2}>
+          {mode === APPLICATIONS_TABLE_MODE.CONFIGURATION && (
+            <div>
+              <FormSwitch
+                label={undefined}
+                {...register(ALL_VALUES_OVERRIDE_KEY, {
+                  onChange: handleClickOverrideValuesAll,
+                })}
+                align={'flex-start'}
+                control={control}
+                errors={errors}
+                defaultValue={buttonsHighlighted.valuesOverride}
+              />
+            </div>
+          )}
+
+          <Stack direction="row" spacing={1} alignItems="center" flexWrap="nowrap">
+            <div>Values override</div>
             <Tooltip title={'Override default deployment settings with custom configurations.'}>
               <Icon icon={ICONS.INFO_CIRCLE} width={20} />
             </Tooltip>
-          </Grid>
-        </Grid>
-      ),
-      render: (enrichedApplicationWithArgoApplication) => {
-        const {
-          application: {
-            metadata: { name: appName },
-          },
-        } = enrichedApplicationWithArgoApplication;
-
-        return (
-          <Stack direction="row" alignItems="center">
-            <ValuesOverrideSwitch
-              enrichedApplicationWithArgoApplication={enrichedApplicationWithArgoApplication}
-              mode={mode}
-            />
-            <ResourceIconLink
-              tooltipTitle={'Go to the Source Code'}
-              link={LinkCreationService.git.createGitOpsValuesYamlFileLink(
-                gitOpsCodebase.data?.status.gitWebUrl,
-                CDPipelineName,
-                stage?.spec.name,
-                appName,
-                gitOpsGitServer?.spec.gitProvider as GIT_PROVIDERS
-              )}
-              icon={ICONS.NEW_WINDOW}
-              name="source code"
-            />
           </Stack>
-        );
+        </Stack>
+      ),
+      data: {
+        render: ({ data }) => {
+          const {
+            application: {
+              metadata: { name: appName },
+            },
+          } = data;
+
+          return (
+            <Stack direction="row" alignItems="center">
+              <ValuesOverrideSwitch enrichedApplicationWithArgoApplication={data} mode={mode} />
+              <ResourceIconLink
+                tooltipTitle={'Go to the Source Code'}
+                link={LinkCreationService.git.createGitOpsValuesYamlFileLink(
+                  gitOpsCodebase.data?.status.gitWebUrl,
+                  CDPipelineName,
+                  stage?.spec.name,
+                  appName,
+                  gitOpsGitServer?.spec.gitProvider as GIT_PROVIDERS
+                )}
+                icon={ICONS.NEW_WINDOW}
+                name="source code"
+              />
+            </Stack>
+          );
+        },
       },
-      width: '15%',
+      cell: {
+        show: true,
+        baseWidth: 15,
+        width: 15,
+      },
     };
 
     const podsColumn: TableColumn<EnrichedApplicationWithArgoApplication> = {
-      id: 'pods',
+      id: columnNames.PODS,
       label: 'Pods',
-      render: (enrichedApplicationWithArgoApplication) => {
-        const appName = enrichedApplicationWithArgoApplication?.application?.metadata.name;
-        const appPods = applicationPodsMap?.[appName];
-        const disabled = (() => {
-          if (!enrichedApplicationWithArgoApplication?.argoApplication) {
+      data: {
+        render: ({ data }) => {
+          const appName = data?.application?.metadata.name;
+          const appPods = applicationPodsMap?.[appName];
+          const disabled = (() => {
+            if (!data?.argoApplication) {
+              return {
+                status: true,
+                reason: 'Could not find ArgoCD Application for this application',
+              };
+            }
+
+            if (!appPods) {
+              return {
+                status: true,
+                reason: 'Could not find Pods for this application',
+              };
+            }
+
             return {
-              status: true,
-              reason: 'Could not find ArgoCD Application for this application',
+              status: false,
             };
-          }
+          })();
 
-          if (!appPods) {
-            return {
-              status: true,
-              reason: 'Could not find Pods for this application',
-            };
-          }
+          const buttonIconColor = disabled.status
+            ? theme.palette.action.disabled
+            : theme.palette.text.primary;
 
-          return {
-            status: false,
-          };
-        })();
-
-        const buttonIconColor = disabled.status
-          ? theme.palette.action.disabled
-          : theme.palette.text.primary;
-
-        return (
-          <Stack direction="row" spacing={1} alignItems={'center'} justifyContent="center">
-            <Tooltip title={disabled.status ? disabled.reason : 'Show Logs'}>
-              <div>
-                <IconButton
-                  onClick={() =>
-                    setDialog(PodsLogViewerDialog, {
-                      pods: appPods,
-                    })
-                  }
-                  disabled={disabled.status}
-                  size="large"
-                >
-                  <Icon icon="ph:file-text-bold" color={buttonIconColor} width={20} height={20} />
-                </IconButton>
-              </div>
-            </Tooltip>
-            <Tooltip title={disabled.status ? disabled.reason : 'Show Terminal'}>
-              <div>
-                <IconButton
-                  onClick={() =>
-                    setDialog(PodsTerminalDialog, {
-                      pods: appPods,
-                    })
-                  }
-                  disabled={disabled.status}
-                  size="large"
-                >
-                  <Icon icon="mdi:console" color={buttonIconColor} width={20} height={20} />
-                </IconButton>
-              </div>
-            </Tooltip>
-          </Stack>
-        );
+          return (
+            <Stack direction="row" spacing={1} alignItems={'center'} justifyContent="center">
+              <Tooltip title={disabled.status ? disabled.reason : 'Show Logs'}>
+                <div>
+                  <IconButton
+                    onClick={() =>
+                      setDialog(PodsLogViewerDialog, {
+                        pods: appPods,
+                      })
+                    }
+                    disabled={disabled.status}
+                    size="large"
+                  >
+                    <Icon icon="ph:file-text-bold" color={buttonIconColor} width={20} height={20} />
+                  </IconButton>
+                </div>
+              </Tooltip>
+              <Tooltip title={disabled.status ? disabled.reason : 'Show Terminal'}>
+                <div>
+                  <IconButton
+                    onClick={() =>
+                      setDialog(PodsTerminalDialog, {
+                        pods: appPods,
+                      })
+                    }
+                    disabled={disabled.status}
+                    size="large"
+                  >
+                    <Icon icon="mdi:console" color={buttonIconColor} width={20} height={20} />
+                  </IconButton>
+                </div>
+              </Tooltip>
+            </Stack>
+          );
+        },
       },
-      textAlign: 'center',
-      width: '10%',
+      cell: {
+        show: true,
+
+        baseWidth: 10,
+        width: 10,
+        props: {
+          align: 'center',
+        },
+      },
     };
 
     const ingressColumn: TableColumn<EnrichedApplicationWithArgoApplication> = {
-      id: 'ingress',
+      id: columnNames.INGRESS,
       label: (
         <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
           <Grid item>Ingress</Grid>
@@ -290,48 +361,57 @@ export const useColumns = ({
           </Grid>
         </Grid>
       ),
-      render: (enrichedApplicationWithArgoApplication) => {
-        const externalURLs =
-          // @ts-ignore
-          enrichedApplicationWithArgoApplication?.argoApplication?.status?.summary?.externalURLs;
+      data: {
+        render: ({ data }) => {
+          const externalURLs =
+            // @ts-ignore
+            data?.argoApplication?.status?.summary?.externalURLs;
 
-        if (!externalURLs) {
-          return null;
-        }
+          if (!externalURLs) {
+            return null;
+          }
 
-        return (
-          <Tooltip
-            title={
-              <Paper elevation={8}>
-                <MenuList>
-                  {externalURLs.map((el) => (
-                    <MenuItem
-                      key={el}
-                      component={MuiLink}
-                      href={el}
-                      target={'_blank'}
-                      sx={{ whiteSpace: 'normal', wordBreak: 'break-all' }}
-                    >
-                      {el}
-                    </MenuItem>
-                  ))}
-                </MenuList>
-              </Paper>
-            }
-            PopperProps={{
-              sx: {
-                '& .MuiTooltip-tooltip': { p: '0 !important' },
-              },
-              placement: 'top-end',
-            }}
-          >
-            <Box sx={{ lineHeight: 0, mx: (t) => t.typography.pxToRem(32) }}>
-              <Icon icon={ICONS.NEW_WINDOW} width={20} height={20} />
-            </Box>
-          </Tooltip>
-        );
+          return (
+            <Tooltip
+              title={
+                <Paper elevation={8}>
+                  <MenuList>
+                    {externalURLs.map((el) => (
+                      <MenuItem
+                        key={el}
+                        component={MuiLink}
+                        href={el}
+                        target={'_blank'}
+                        sx={{ whiteSpace: 'normal', wordBreak: 'break-all' }}
+                      >
+                        {el}
+                      </MenuItem>
+                    ))}
+                  </MenuList>
+                </Paper>
+              }
+              PopperProps={{
+                sx: {
+                  '& .MuiTooltip-tooltip': { p: '0 !important' },
+                },
+                placement: 'top-end',
+              }}
+            >
+              <Box sx={{ lineHeight: 0, mx: (t) => t.typography.pxToRem(32) }}>
+                <Icon icon={ICONS.NEW_WINDOW} width={20} height={20} />
+              </Box>
+            </Tooltip>
+          );
+        },
       },
-      textAlign: 'right',
+      cell: {
+        show: true,
+        width: 10,
+        baseWidth: 10,
+        props: {
+          align: 'center',
+        },
+      },
     };
 
     return mode === APPLICATIONS_TABLE_MODE.PREVIEW
@@ -340,58 +420,66 @@ export const useColumns = ({
           syncColumn,
           applicationColumn,
           {
-            id: 'deployedVersion',
+            id: columnNames.DEPLOYED_VERSION,
             label: 'Deployed version',
-            render: ({
-              argoApplication,
-              application: {
-                spec: { lang, framework, buildTool },
+            data: {
+              render: ({
+                data: {
+                  argoApplication,
+                  application: {
+                    spec: { lang, framework, buildTool },
+                  },
+                },
+              }) => {
+                const isHelm =
+                  lang === CODEBASE_COMMON_LANGUAGES.HELM &&
+                  framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
+                  buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
+
+                const withValuesOverride = argoApplication
+                  ? Object.hasOwn(argoApplication?.spec, 'sources')
+                  : false;
+
+                const deployedVersion = getDeployedVersion(
+                  withValuesOverride,
+                  isHelm,
+                  argoApplication
+                );
+
+                return argoApplication && deployedVersion !== 'NaN' ? (
+                  <Tooltip
+                    title={
+                      <Grid container alignItems={'center'} spacing={1}>
+                        <Grid item>
+                          Open in {SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD]}
+                        </Grid>
+                        <span> </span>
+                        <Grid item>
+                          <Icon
+                            icon={ICONS.NEW_WINDOW}
+                            color={theme.palette.grey['500']}
+                            width="15"
+                          />
+                        </Grid>
+                      </Grid>
+                    }
+                  >
+                    <Box sx={{ m: '2px 0' }}>
+                      <MuiLink href={_createArgoCDLink(argoApplication)} target={'_blank'}>
+                        {deployedVersion}
+                      </MuiLink>
+                    </Box>
+                  </Tooltip>
+                ) : (
+                  'No deploy'
+                );
               },
-            }) => {
-              const isHelm =
-                lang === CODEBASE_COMMON_LANGUAGES.HELM &&
-                framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
-                buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
-
-              const withValuesOverride = argoApplication
-                ? Object.hasOwn(argoApplication?.spec, 'sources')
-                : false;
-
-              const deployedVersion = getDeployedVersion(
-                withValuesOverride,
-                isHelm,
-                argoApplication
-              );
-
-              return argoApplication && deployedVersion !== 'NaN' ? (
-                <Tooltip
-                  title={
-                    <Grid container alignItems={'center'} spacing={1}>
-                      <Grid item>
-                        Open in {SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD]}
-                      </Grid>
-                      <span> </span>
-                      <Grid item>
-                        <Icon
-                          icon={ICONS.NEW_WINDOW}
-                          color={theme.palette.grey['500']}
-                          width="15"
-                        />
-                      </Grid>
-                    </Grid>
-                  }
-                >
-                  <Box sx={{ m: '2px 0' }}>
-                    <MuiLink href={_createArgoCDLink(argoApplication)} target={'_blank'}>
-                      {deployedVersion}
-                    </MuiLink>
-                  </Box>
-                </Tooltip>
-              ) : (
-                'No deploy'
-              );
             },
-            width: '25%',
+            cell: {
+              show: true,
+              baseWidth: 25,
+              width: 25,
+            },
           },
           valuesOverrideColumn,
           ...(isDefaultCluster
@@ -401,20 +489,50 @@ export const useColumns = ({
         ] as TableColumn<EnrichedApplicationWithArgoApplication>[])
       : ([
           {
-            id: 'empty',
+            id: columnNames.EMPTY,
             label: '',
-            render: () => <Box sx={{ width: '48px' }} />,
-            width: '64',
+            data: {
+              render: () => null,
+            },
+            cell: {
+              customizable: false,
+              show: true,
+              baseWidth: 5,
+            },
           },
           healthColumn,
           syncColumn,
           applicationColumn,
           {
-            id: 'imageStreamVersion',
+            id: columnNames.DEPLOYED_VERSION,
             label: (
-              <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-                <Grid item>Deployed version</Grid>
-                <Grid item>
+              <Stack spacing={2}>
+                <ButtonGroup>
+                  <Tooltip title={'Set selected applications latest image stream version'}>
+                    <Button
+                      onClick={handleClickLatest}
+                      variant={buttonsHighlighted.latest ? 'contained' : 'outlined'}
+                      color={'primary'}
+                      size="small"
+                      fullWidth
+                    >
+                      latest
+                    </Button>
+                  </Tooltip>
+                  <Tooltip title={'Set selected applications stable image stream version'}>
+                    <Button
+                      onClick={handleClickStable}
+                      variant={buttonsHighlighted.stable ? 'contained' : 'outlined'}
+                      color={'primary'}
+                      size="small"
+                      fullWidth
+                    >
+                      stable
+                    </Button>
+                  </Tooltip>
+                </ButtonGroup>
+                <Stack direction="row" spacing={1} alignItems="center" flexWrap="nowrap">
+                  <div>Deployed version</div>
                   <Tooltip
                     title={
                       <>
@@ -431,17 +549,21 @@ export const useColumns = ({
                   >
                     <Icon icon={ICONS.INFO_CIRCLE} width={20} />
                   </Tooltip>
-                </Grid>
-              </Grid>
+                </Stack>
+              </Stack>
             ),
-            render: (enrichedApplicationWithArgoApplication) => {
-              return (
-                <ImageStreamTagsSelect
-                  enrichedApplicationWithArgoApplication={enrichedApplicationWithArgoApplication}
-                />
-              );
+            labelString: 'Deployed Version',
+            data: {
+              render: ({ data }) => {
+                return <ImageStreamTagsSelect enrichedApplicationWithArgoApplication={data} />;
+              },
             },
-            width: '25%',
+            cell: {
+              customizable: false,
+              show: true,
+              baseWidth: 25,
+              width: 25,
+            },
           },
           valuesOverrideColumn,
           ...(isDefaultCluster
@@ -453,11 +575,20 @@ export const useColumns = ({
     CDPipelineName,
     _createArgoCDLink,
     applicationPodsMap,
+    buttonsHighlighted.latest,
+    buttonsHighlighted.stable,
+    buttonsHighlighted.valuesOverride,
+    control,
+    errors,
     gitOpsCodebase.data?.status.gitWebUrl,
     gitOpsGitServer?.spec.gitProvider,
+    handleClickLatest,
+    handleClickOverrideValuesAll,
+    handleClickStable,
     isDefaultCluster,
     isLoading,
     mode,
+    register,
     setDialog,
     stage?.spec.name,
     theme.palette.action.disabled,

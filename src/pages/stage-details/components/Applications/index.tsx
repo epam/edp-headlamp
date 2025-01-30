@@ -1,21 +1,19 @@
-import { Icon } from '@iconify/react';
-import { Button, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
-import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
-import { Table } from '../../../../components/Table';
 import { TabSection } from '../../../../components/TabSection';
-import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useArgoApplicationCRUD } from '../../../../k8s/groups/ArgoCD/Application/hooks/useArgoApplicationCRUD';
-import { APPLICATIONS_TABLE_MODE } from '../../constants';
-import { useTypedPermissions } from '../../hooks/useTypedPermissions';
+import {
+  APPLICATIONS_TABLE_MODE,
+  IMAGE_TAG_POSTFIX,
+  VALUES_OVERRIDE_POSTFIX,
+} from '../../constants';
 import { EnrichedApplicationWithArgoApplication } from '../../types';
-import { ApplicationsMultiDeletion } from '../ApplicationsMultiDeletion';
+import { ConfigurationTable } from './components/ConfigurationTable';
+import { PreviewTable } from './components/PreviewTable';
 import { useButtonsEnabledMap } from './hooks/useButtonsEnabled';
 import { useColumns } from './hooks/useColumns';
 import { useConfigurationHandlers } from './hooks/useConfigurationHandlers';
-import { useUpperColumns } from './hooks/useUpperColumns';
 import { ApplicationsProps, ApplicationsTableMode } from './types';
 
 export const Applications = ({
@@ -23,8 +21,6 @@ export const Applications = ({
   latestDeployPipelineRunIsRunning,
   latestCleanPipelineRunIsRunning,
 }: ApplicationsProps) => {
-  const permissions = useTypedPermissions();
-
   const allArgoApplications = enrichedApplicationsWithArgoApplications?.map(
     ({ argoApplication }) => argoApplication
   );
@@ -44,13 +40,6 @@ export const Applications = ({
     mutations: { argoApplicationDeleteMutation },
   } = useArgoApplicationCRUD();
 
-  const someArgoApplicationMutationIsLoading = React.useMemo(
-    () => argoApplicationDeleteMutation.isLoading,
-    [argoApplicationDeleteMutation]
-  );
-
-  const [selected, setSelected] = React.useState<string[]>([]);
-
   const [mode, setMode] = React.useState<ApplicationsTableMode>(APPLICATIONS_TABLE_MODE.PREVIEW);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
 
@@ -66,87 +55,67 @@ export const Applications = ({
   }, [mode, enrichedApplicationsWithArgoApplications]);
 
   const {
-    watch,
-    formState: { dirtyFields },
-  } = useFormContext();
-  const values = watch();
-
-  const isDirty = Object.keys(dirtyFields).length > 0;
-
-  const {
     handleClickDeploy,
     handleClickClean,
     handleClickLatest,
     handleClickOverrideValuesAll,
-    handleClickSelectAll,
-    handleClickSelectRow,
     handleClickStable,
-    handleClickUninstall,
   } = useConfigurationHandlers({
-    selected,
-    setSelected,
     enrichedApplicationsByApplicationName,
     enrichedApplicationsWithArgoApplications,
-    values,
     setDeleteDialogOpen,
   });
+
+  const { watch } = useFormContext();
+
+  const values = watch();
+
+  const buttonsHighlighted = React.useMemo(() => {
+    const valuesArray = Object.entries(values);
+    const imageTagsValues = valuesArray.filter(([key]) => key && key.includes(IMAGE_TAG_POSTFIX));
+    const valuesOverrides = valuesArray.filter(
+      ([key]) => key && key.includes(VALUES_OVERRIDE_POSTFIX)
+    );
+
+    if (!imageTagsValues.length) {
+      return {
+        latest: false,
+        stable: false,
+      };
+    }
+
+    const allVersionsAreLatest = imageTagsValues.every(([, value]) => value?.includes('latest::'));
+    const allVersionsAreStable = imageTagsValues.every(([, value]) => value?.includes('stable::'));
+    const allAppsHasValuesOverride = valuesOverrides.every(([, value]) => value === true);
+
+    return {
+      latest: allVersionsAreLatest,
+      stable: allVersionsAreStable,
+      valuesOverride: allAppsHasValuesOverride,
+    };
+  }, [values]);
+
+  const columns = useColumns({
+    mode,
+    handleClickLatest,
+    handleClickOverrideValuesAll,
+    handleClickStable,
+    buttonsHighlighted,
+  });
+
+  const [deployBtnDisabled, setDeployBtnDisabled] = React.useState(false);
+
+  const someArgoApplicationMutationIsLoading = React.useMemo(
+    () => argoApplicationDeleteMutation.isLoading,
+    [argoApplicationDeleteMutation]
+  );
 
   const buttonsEnabledMap = useButtonsEnabledMap({
     enrichedApplicationsWithArgoApplications,
     enrichedApplicationsByApplicationName,
     latestDeployPipelineRunIsRunning,
     someArgoApplicationMutationIsLoading,
-    values,
   });
-
-  const columns = useColumns({
-    mode,
-  });
-
-  const upperColumns = useUpperColumns({
-    selected,
-    buttonsEnabledMap,
-    handleClickUninstall,
-    handleClickLatest,
-    handleClickStable,
-    handleClickOverrideValuesAll,
-    permissions,
-    mode,
-    values,
-  });
-
-  const timer = React.useRef<number | null>(null);
-  const [deployBtnDisabled, setDeployBtnDisabled] = React.useState(false);
-  const { reset } = useFormContext();
-  const theme = useTheme();
-
-  const isSelected = React.useCallback(
-    (row) => selected.indexOf(row.application.metadata.name) !== -1,
-    [selected]
-  );
-
-  const tableData = React.useMemo(
-    () =>
-      mode === APPLICATIONS_TABLE_MODE.PREVIEW
-        ? enrichedApplicationsWithArgoApplications
-        : dataSnapshot,
-    [mode, enrichedApplicationsWithArgoApplications, dataSnapshot]
-  );
-
-  const handleClickSelectRowMemo = React.useMemo(
-    () => (mode === APPLICATIONS_TABLE_MODE.PREVIEW ? handleClickSelectRow : null),
-    [handleClickSelectRow, mode]
-  );
-
-  const handleClickSelectAllMemo = React.useMemo(
-    () => (mode === APPLICATIONS_TABLE_MODE.PREVIEW ? handleClickSelectAll : null),
-    [handleClickSelectAll, mode]
-  );
-
-  const isTableDataLoading = React.useMemo(
-    () => enrichedApplicationsWithArgoApplications === null,
-    [enrichedApplicationsWithArgoApplications]
-  );
 
   return (
     <TabSection
@@ -155,134 +124,41 @@ export const Applications = ({
           <Typography fontSize={28} color="primary.dark">
             Applications
           </Typography>
-          {mode === APPLICATIONS_TABLE_MODE.PREVIEW && (
-            <Stack spacing={2} alignItems="center" direction="row">
-              <ButtonWithPermission
-                ButtonProps={{
-                  variant: 'outlined',
-                  size: 'medium',
-                  onClick: handleClickClean,
-                  startIcon: latestCleanPipelineRunIsRunning ? (
-                    <Icon icon={'line-md:loading-loop'} />
-                  ) : (
-                    <Icon icon={ICONS.BUCKET} />
-                  ),
-                  disabled: latestDeployPipelineRunIsRunning || latestCleanPipelineRunIsRunning,
-                }}
-                disabled={!permissions?.create?.PipelineRun.allowed}
-                reason={permissions?.create?.PipelineRun.reason}
-              >
-                Clean
-              </ButtonWithPermission>
-              <ButtonWithPermission
-                ButtonProps={{
-                  variant: 'contained',
-                  color: 'primary',
-                  size: 'medium',
-                  onClick: toggleMode,
-                  startIcon:
-                    deployBtnDisabled || latestDeployPipelineRunIsRunning ? (
-                      <Icon icon={'line-md:loading-loop'} />
-                    ) : (
-                      <Icon icon={ICONS.PENCIL} />
-                    ),
-                  disabled:
-                    latestDeployPipelineRunIsRunning ||
-                    latestCleanPipelineRunIsRunning ||
-                    deployBtnDisabled,
-                }}
-                disabled={!permissions?.create?.PipelineRun.allowed}
-                reason={permissions?.create?.PipelineRun.reason}
-              >
-                {deployBtnDisabled || latestDeployPipelineRunIsRunning
-                  ? 'Deploying'
-                  : 'Configure deploy'}
-              </ButtonWithPermission>
-            </Stack>
-          )}
-          {mode === APPLICATIONS_TABLE_MODE.CONFIGURATION && (
-            <Stack spacing={3} alignItems="center" direction="row">
-              <Tooltip title={'Reset selected image stream versions'}>
-                <Button
-                  onClick={() => reset()}
-                  disabled={!isDirty}
-                  sx={{ color: theme.palette.secondary.dark }}
-                >
-                  undo changes
-                </Button>
-              </Tooltip>
-              <Button
-                onClick={() => {
-                  reset();
-                  setMode(APPLICATIONS_TABLE_MODE.PREVIEW);
-                }}
-                variant="outlined"
-              >
-                cancel
-              </Button>
-              <ConditionalWrapper
-                condition={permissions?.create?.PipelineRun.allowed}
-                wrapper={(children) => (
-                  <Tooltip
-                    title={'Deploy selected applications with selected image stream version'}
-                  >
-                    {children}
-                  </Tooltip>
-                )}
-              >
-                <ButtonWithPermission
-                  ButtonProps={{
-                    startIcon:
-                      deployBtnDisabled || latestDeployPipelineRunIsRunning ? (
-                        <Icon icon={'line-md:loading-loop'} />
-                      ) : (
-                        <Icon icon={ICONS.CHECK} />
-                      ),
-                    onClick: () => {
-                      handleClickDeploy();
-                      setMode(APPLICATIONS_TABLE_MODE.PREVIEW);
-                      setDeployBtnDisabled(true);
-
-                      timer.current = window.setTimeout(() => {
-                        setDeployBtnDisabled(false);
-                      }, 10000);
-                    },
-                    disabled: deployBtnDisabled || !buttonsEnabledMap.deploy,
-                    variant: 'contained',
-                    color: 'primary',
-                  }}
-                  disabled={!permissions?.create?.PipelineRun.allowed}
-                  reason={permissions?.create?.PipelineRun.reason}
-                >
-                  Start Deploy
-                </ButtonWithPermission>
-              </ConditionalWrapper>
-            </Stack>
-          )}
         </Stack>
       }
     >
-      <Table<EnrichedApplicationWithArgoApplication>
-        data={tableData}
-        columns={columns}
-        isSelected={isSelected}
-        isLoading={isTableDataLoading}
-        selected={selected}
-        upperColumns={upperColumns}
-        handleSelectRowClick={handleClickSelectRowMemo}
-        handleSelectAllClick={handleClickSelectAllMemo}
-      />
-      <ApplicationsMultiDeletion
-        applications={allArgoApplications}
-        selected={selected}
-        open={deleteDialogOpen}
-        handleClose={() => setDeleteDialogOpen(false)}
-        onDelete={() => {
-          setSelected([]);
-          setDeleteDialogOpen(false);
-        }}
-        deleteArgoApplication={deleteArgoApplication}
-      />
+      {mode === APPLICATIONS_TABLE_MODE.PREVIEW && (
+        <>
+          <PreviewTable
+            data={enrichedApplicationsWithArgoApplications}
+            columns={columns}
+            allArgoApplications={allArgoApplications}
+            deleteDialogOpen={deleteDialogOpen}
+            setDeleteDialogOpen={setDeleteDialogOpen}
+            deleteArgoApplication={deleteArgoApplication}
+            deployBtnDisabled={deployBtnDisabled}
+            latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
+            latestCleanPipelineRunIsRunning={latestCleanPipelineRunIsRunning}
+            toggleMode={toggleMode}
+            handleClickClean={handleClickClean}
+            buttonsEnabledMap={buttonsEnabledMap}
+          />
+        </>
+      )}
+
+      {mode === APPLICATIONS_TABLE_MODE.CONFIGURATION && (
+        <ConfigurationTable
+          data={dataSnapshot}
+          columns={columns}
+          setMode={setMode}
+          deployBtnDisabled={deployBtnDisabled}
+          setDeployBtnDisabled={setDeployBtnDisabled}
+          latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
+          handleClickDeploy={handleClickDeploy}
+          buttonsEnabledMap={buttonsEnabledMap}
+          buttonsHighlighted={buttonsHighlighted}
+        />
+      )}
     </TabSection>
   );
 };

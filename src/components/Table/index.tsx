@@ -1,39 +1,92 @@
-import { Paper, Table as MuiTable } from '@mui/material';
+import { Box, Paper, Stack, Table as MuiTable } from '@mui/material';
 import React from 'react';
 import { usePagination } from '../../hooks/usePagination';
 import { rem } from '../../utils/styling/rem';
 import { TableBody } from './components/TableBody';
 import { TableHead } from './components/TableHead';
 import { TablePagination } from './components/TablePagination';
-import { SORT_ORDERS } from './constants';
-import { useReadyData } from './hooks/useReadyData';
-import { SortState, TableProps } from './types';
+import { TableSettings } from './components/TableSettings';
+import {
+  PAGINATION_DEFAULTS,
+  SELECTION_DEFAULTS,
+  SORT_DEFAULTS,
+  TABLE_CELL_DEFAULTS,
+  TABLE_SETTINGS_DEFAULTS,
+} from './constants';
+import { useFilteredData } from './hooks/useFilteredData';
+import {
+  SortState,
+  TablePagination as TablePaginationType,
+  TableProps,
+  TableSelection,
+  TableSettings as TableSettingsType,
+  TableSort,
+} from './types';
 import { createSortFunction } from './utils';
 
 export const Table = <DataType extends unknown>({
+  id,
+  name,
   data,
-  columns,
-  upperColumns,
+  columns: _columns,
   isLoading = false,
   blockerError,
   errors,
-  defaultSortBy = 'name',
-  defaultSortOrder = SORT_ORDERS.DESC,
+  sort,
+  selection,
+  pagination,
   emptyListComponent,
-  handleRowClick,
-  handleSelectRowClick,
-  handleSelectAllClick,
-  isSelected,
-  canBeSelected,
   filterFunction,
-  showPagination = true,
-  reflectInURL = false,
-  initialPage = 0,
-  rowsPerPage = 15,
-  selected,
+  handleRowClick,
   blockerComponent,
+  slots,
+  settings,
 }: TableProps<DataType>) => {
-  const prefix = reflectInURL === true ? '' : reflectInURL || '';
+  const [columns, setColumns] = React.useState(_columns);
+  const paginationSettings: TablePaginationType = React.useMemo(
+    () => ({
+      show: pagination?.show ?? PAGINATION_DEFAULTS.SHOW,
+      rowsPerPage: pagination?.rowsPerPage ?? PAGINATION_DEFAULTS.ROWS_PER_PAGE,
+      initialPage: pagination?.initialPage ?? PAGINATION_DEFAULTS.INITIAL_PAGE,
+      reflectInURL: pagination?.reflectInURL ?? PAGINATION_DEFAULTS.REFLECT_IN_URL,
+    }),
+    [pagination?.initialPage, pagination?.reflectInURL, pagination?.rowsPerPage, pagination?.show]
+  );
+
+  const sortSettings: TableSort = React.useMemo(
+    () => ({
+      order: sort?.order ?? SORT_DEFAULTS.ORDER,
+      sortBy: sort?.sortBy ?? SORT_DEFAULTS.SORT_BY,
+    }),
+    [sort?.order, sort?.sortBy]
+  );
+
+  const selectionSettings: TableSelection<DataType> = React.useMemo(
+    () => ({
+      selected: selection?.selected ?? [],
+      isRowSelectable: selection?.isRowSelectable ?? SELECTION_DEFAULTS.IS_ROW_SELECTABLE,
+      isRowSelected: selection?.isRowSelected,
+      handleSelectAll: selection?.handleSelectAll,
+      handleSelectRow: selection?.handleSelectRow,
+      renderSelectionInfo: selection?.renderSelectionInfo,
+    }),
+    [
+      selection?.handleSelectAll,
+      selection?.handleSelectRow,
+      selection?.isRowSelectable,
+      selection?.isRowSelected,
+      selection?.renderSelectionInfo,
+      selection?.selected,
+    ]
+  );
+
+  const tableSettings: TableSettingsType = React.useMemo(
+    () => ({
+      show: settings?.show ?? TABLE_SETTINGS_DEFAULTS.SHOW,
+      rememberSettings: settings?.rememberSettings ?? TABLE_SETTINGS_DEFAULTS.REMEMBER_SETTINGS,
+    }),
+    [settings?.rememberSettings, settings?.show]
+  );
 
   const {
     page,
@@ -41,113 +94,152 @@ export const Table = <DataType extends unknown>({
     handleChangeRowsPerPage,
     handleChangePage,
   } = usePagination({
-    reflectInURL: reflectInURL,
-    prefix,
-    initialPage,
-    rowsPerPage,
+    reflectInURL: paginationSettings.reflectInURL,
+    initialPage: paginationSettings.initialPage,
+    rowsPerPage: paginationSettings.rowsPerPage,
   });
 
-  const [sort, setSort] = React.useState<SortState<DataType>>({
-    order: defaultSortOrder,
-    sortFn: createSortFunction(defaultSortOrder, defaultSortBy),
-    sortBy: defaultSortBy,
+  const [sortState, setSortState] = React.useState<SortState<DataType>>({
+    order: sortSettings.order,
+    sortFn: createSortFunction(sortSettings.order, sortSettings.sortBy),
+    sortBy: sortSettings.sortBy,
   });
 
-  const readyData = useReadyData<DataType>({
+  const filteredData = useFilteredData<DataType>({
     data,
     isLoading,
     error: blockerError,
     filterFunction,
-    sort,
+    sort: sortState,
   });
 
-  const isReadyDataLoading = readyData === null;
+  const isFilteredDataLoading = filteredData === null;
 
-  const hasEmptyResult = React.useMemo(() => {
-    if (isLoading && isReadyDataLoading) {
+  const isEmptyFilterResult = React.useMemo(() => {
+    if (isLoading && isFilteredDataLoading) {
       return false;
     }
 
-    return !!data?.length && !readyData?.length;
-  }, [data, isLoading, isReadyDataLoading, readyData]);
+    return !!data?.length && !filteredData?.length;
+  }, [data, isLoading, isFilteredDataLoading, filteredData]);
 
-  const activePage = readyData !== null && readyData.length < _rowsPerPage ? 0 : page;
+  const activePage = filteredData !== null && filteredData.length < _rowsPerPage ? 0 : page;
 
-  const paginatedItems = React.useMemo(() => {
-    if (!readyData) {
-      return [];
+  const paginatedData = React.useMemo(() => {
+    if (!filteredData) {
+      return {
+        items: [],
+        count: 0,
+      };
     }
 
-    return readyData.slice(page * _rowsPerPage, page * _rowsPerPage + _rowsPerPage);
-  }, [page, readyData, _rowsPerPage]);
+    const items = filteredData.slice(page * _rowsPerPage, page * _rowsPerPage + _rowsPerPage);
 
-  const selectableRowCount = canBeSelected ? paginatedItems.filter(canBeSelected).length : 0;
+    return {
+      items,
+      count: items?.length,
+    };
+  }, [page, filteredData, _rowsPerPage]);
 
-  const rowCount = paginatedItems.length;
+  const selectableRowCount = React.useMemo(
+    () => paginatedData.items.filter(selectionSettings.isRowSelectable).length,
+    [paginatedData.items, selectionSettings.isRowSelectable]
+  );
 
   const _handleSelectAllClick = React.useMemo(
     () =>
-      handleSelectAllClick && readyData?.length
+      selectionSettings.handleSelectAll && filteredData?.length
         ? (event: React.ChangeEvent<HTMLInputElement>) =>
-            handleSelectAllClick(event, paginatedItems)
+            selectionSettings.handleSelectAll(event, paginatedData.items)
         : null,
-    [handleSelectAllClick, paginatedItems, readyData?.length]
+    [paginatedData.items, filteredData?.length, selectionSettings]
   );
 
   return (
     <Paper
       variant={'outlined'}
-      style={{
+      sx={{
         maxWidth: '100%',
         overflowX: 'auto',
         backgroundColor: 'transparent',
-        border: 'none',
+        px: (t) => t.typography.pxToRem(20),
+        pt: (t) => t.typography.pxToRem(20),
       }}
     >
-      <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
-        <colgroup>
-          {handleSelectRowClick && <col key={'select-checkbox'} width={'64px'} />}
-          {columns.map(
-            (column) =>
-              column.show !== false && <col key={column.id} width={column.width || '100%'} />
+      <Stack spacing={2}>
+        <Stack spacing={2}>
+          {slots?.header || tableSettings.show ? (
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Box flexGrow={1}>{slots?.header && slots.header}</Box>
+              <Box sx={{ pl: (t) => t.typography.pxToRem(20) }}>
+                {columns && tableSettings.show && (
+                  <TableSettings
+                    id={id}
+                    name={name}
+                    rememberSettings={tableSettings.rememberSettings}
+                    originalColumns={_columns}
+                    columns={columns}
+                    setColumns={setColumns}
+                    hasSelection={!!selectionSettings.handleSelectRow}
+                  />
+                )}
+              </Box>
+            </Stack>
+          ) : null}
+          {selectionSettings.renderSelectionInfo && (
+            <Box sx={{ pl: (t) => t.typography.pxToRem(11) }}>
+              {selectionSettings.renderSelectionInfo(selectionSettings.selected.length)}
+            </Box>
           )}
-        </colgroup>
-        <TableHead
-          columns={columns}
-          upperColumns={upperColumns}
-          sort={sort}
-          setSort={setSort}
-          rowCount={rowCount}
-          selectableRowCount={selectableRowCount}
-          selected={selected}
-          handleSelectAllClick={_handleSelectAllClick}
-        />
-        <TableBody
-          columns={columns}
-          readyData={readyData}
-          blockerError={blockerError}
-          errors={errors}
-          isLoading={isLoading}
-          handleRowClick={handleRowClick}
-          handleSelectRowClick={handleSelectRowClick}
-          isSelected={isSelected}
-          canBeSelected={canBeSelected}
-          emptyListComponent={emptyListComponent}
-          page={activePage}
-          rowsPerPage={_rowsPerPage}
-          hasEmptyResult={hasEmptyResult}
-          blockerComponent={blockerComponent}
-        />
-      </MuiTable>
-      {showPagination && (
-        <TablePagination
-          dataCount={readyData && readyData.length}
-          page={activePage}
-          rowsPerPage={_rowsPerPage}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      )}
+        </Stack>
+
+        <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
+          <colgroup>
+            {selectionSettings.handleSelectRow && (
+              <col key={'select-checkbox'} width={`${TABLE_CELL_DEFAULTS.WIDTH}%`} />
+            )}
+            {columns.map(
+              (column) =>
+                column.cell.show !== false && (
+                  <col key={column.id} width={`${column.cell.width}%` || '100%'} />
+                )
+            )}
+          </colgroup>
+          <TableHead
+            columns={columns}
+            sort={sortState}
+            setSort={setSortState}
+            rowCount={paginatedData?.count}
+            selectableRowCount={selectableRowCount}
+            selected={selectionSettings.selected}
+            handleSelectAllClick={_handleSelectAllClick}
+          />
+          <TableBody
+            columns={columns}
+            data={filteredData}
+            blockerError={blockerError}
+            errors={errors}
+            isLoading={isLoading}
+            selection={selectionSettings}
+            handleRowClick={handleRowClick}
+            emptyListComponent={emptyListComponent}
+            page={activePage}
+            rowsPerPage={_rowsPerPage}
+            isEmptyFilterResult={isEmptyFilterResult}
+            blockerComponent={blockerComponent}
+          />
+        </MuiTable>
+        {paginationSettings.show && (
+          <TablePagination
+            dataCount={filteredData && filteredData.length}
+            page={activePage}
+            rowsPerPage={_rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        )}
+        {slots?.footer && slots.footer}
+      </Stack>
     </Paper>
   );
 };

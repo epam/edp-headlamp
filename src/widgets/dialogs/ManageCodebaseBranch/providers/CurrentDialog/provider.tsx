@@ -1,6 +1,6 @@
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
-import { PIPELINE_TYPES } from '../../../../../constants/pipelineTypes';
+import { PIPELINE_TYPE } from '../../../../../constants/pipelineTypes';
 import { usePipelineByTypeListQuery } from '../../../../../k8s/groups/Tekton/Pipeline/hooks/usePipelineByTypeListQuery';
 import { CurrentDialogContext } from './context';
 import { CurrentDialogContextProviderProps } from './types';
@@ -16,7 +16,7 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
     isLoading: buildPipelinesIsLoading,
   } = usePipelineByTypeListQuery({
     props: {
-      pipelineType: PIPELINE_TYPES.BUILD,
+      pipelineType: PIPELINE_TYPE.BUILD,
     },
   });
 
@@ -26,7 +26,7 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
     isLoading: reviewPipelinesIsLoading,
   } = usePipelineByTypeListQuery({
     props: {
-      pipelineType: PIPELINE_TYPES.REVIEW,
+      pipelineType: PIPELINE_TYPE.REVIEW,
     },
   });
 

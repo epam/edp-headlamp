@@ -7,4 +7,9 @@ export const DynamicDataContext = React.createContext<DynamicDataContextProvider
     isLoading: true,
     errors: null,
   },
+  gitServers: {
+    data: null,
+    isLoading: true,
+    error: null,
+  },
 });
