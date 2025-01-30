@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash';
 import { GIT_PROVIDERS } from '../../../../../../constants/gitProviders';
-import { PIPELINE_TYPES } from '../../../../../../constants/pipelineTypes';
+import { PIPELINE_TYPE } from '../../../../../../constants/pipelineTypes';
 import { createRandomString } from '../../../../../../utils/createRandomString';
 import { truncateName } from '../../../../../../utils/truncateName';
 import { CodebaseKubeObjectInterface } from '../../../../EDP/Codebase/types';
@@ -60,7 +60,7 @@ export const createBuildPipelineRunInstance = ({
 
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE] = codebaseName;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH] = codebaseBranchMetadataName;
-  base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] = PIPELINE_TYPES.BUILD;
+  base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] = PIPELINE_TYPE.BUILD;
 
   base.spec.pipelineRef.name = codebaseBranch.spec?.pipelines?.build;
 

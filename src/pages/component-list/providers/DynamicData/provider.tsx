@@ -2,6 +2,7 @@ import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { CodebaseKubeObject } from '../../../../k8s/groups/EDP/Codebase';
 import { CodebaseKubeObjectInterface } from '../../../../k8s/groups/EDP/Codebase/types';
+import { GitServerKubeObject } from '../../../../k8s/groups/EDP/GitServer';
 import { DynamicDataContext } from './context';
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
@@ -15,6 +16,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     }
   );
 
+  const [gitServers, gitServerError] = GitServerKubeObject.useList();
+
   const DataContextValue = React.useMemo(
     () => ({
       codebases: {
@@ -22,8 +25,13 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
         errors: codebasesErrors,
         isLoading: codebases === null,
       },
+      gitServers: {
+        data: gitServers,
+        isLoading: gitServers === null,
+        error: gitServerError,
+      },
     }),
-    [codebases, codebasesErrors]
+    [codebases, codebasesErrors, gitServerError, gitServers]
   );
 
   return (

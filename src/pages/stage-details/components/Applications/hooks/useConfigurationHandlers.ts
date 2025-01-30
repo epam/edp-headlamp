@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldValues, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { CRUD_TYPES } from '../../../../../constants/crudTypes';
 import { useRequestStatusMessages } from '../../../../../hooks/useResourceRequestStatusMessages';
 import { useCreateCleanPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateCleanPipelineRun';
@@ -28,16 +28,10 @@ const createApplicationPayload = (imageTag: string, customValues: boolean) => ({
 });
 
 export const useConfigurationHandlers = ({
-  values,
-  selected,
-  setSelected,
   enrichedApplicationsByApplicationName,
   enrichedApplicationsWithArgoApplications,
   setDeleteDialogOpen,
 }: {
-  values: FieldValues;
-  selected: string[];
-  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
   enrichedApplicationsByApplicationName: Map<string, EnrichedApplicationWithArgoApplication>;
   enrichedApplicationsWithArgoApplications: EnrichedApplicationWithArgoApplication[];
   setDeleteDialogOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -50,7 +44,7 @@ export const useConfigurationHandlers = ({
     cleanPipelineRunTemplate: { data: cleanPipelineRunTemplate },
   } = useDynamicDataContext();
 
-  const { setValue, resetField, trigger } = useFormContext();
+  const { setValue, resetField, trigger, getValues } = useFormContext();
 
   const { createDeployPipelineRun } = useCreateDeployPipelineRun({});
   const { createCleanPipelineRun } = useCreateCleanPipelineRun({});
@@ -141,53 +135,9 @@ export const useConfigurationHandlers = ({
     [enrichedApplicationsWithArgoApplications, setValue]
   );
 
-  const handleClickSelectAll = React.useCallback(
-    (
-      event: React.ChangeEvent<HTMLInputElement>,
-      paginatedItems: EnrichedApplicationWithArgoApplication[]
-    ) => {
-      if (event.target.checked) {
-        const newSelected = paginatedItems.map(
-          ({
-            application: {
-              metadata: { name },
-            },
-          }) => name
-        );
-        setSelected(newSelected);
-        return;
-      }
-      setSelected([]);
-    },
-    [setSelected]
-  );
-
-  const handleClickSelectRow = React.useCallback(
-    (event: React.MouseEvent<unknown>, row: EnrichedApplicationWithArgoApplication) => {
-      const name = row.application.metadata.name;
-      const selectedIndex = selected.indexOf(name);
-      let newSelected: string[] = [];
-
-      if (selectedIndex === -1) {
-        newSelected = newSelected.concat(selected, name);
-      } else if (selectedIndex === 0) {
-        newSelected = newSelected.concat(selected.slice(1));
-      } else if (selectedIndex === selected.length - 1) {
-        newSelected = newSelected.concat(selected.slice(0, -1));
-      } else if (selectedIndex > 0) {
-        newSelected = newSelected.concat(
-          selected.slice(0, selectedIndex),
-          selected.slice(selectedIndex + 1)
-        );
-      }
-
-      setSelected(newSelected);
-    },
-    [selected, setSelected]
-  );
-
   const handleClickDeploy = React.useCallback(async () => {
     const valid = await trigger();
+    const values = getValues();
 
     if (!valid) {
       return;
@@ -225,9 +175,9 @@ export const useConfigurationHandlers = ({
     createDeployPipelineRun,
     deployPipelineRunTemplate,
     enrichedApplicationsWithArgoApplications,
+    getValues,
     stage,
     trigger,
-    values,
   ]);
 
   const handleClean = React.useCallback(async () => {
@@ -274,8 +224,6 @@ export const useConfigurationHandlers = ({
     handleClickDeploy,
     handleClickClean,
     handleClickUninstall,
-    handleClickSelectRow,
-    handleClickSelectAll,
     handleClickOverrideValuesAll,
     handleClickStable,
     handleClickLatest,

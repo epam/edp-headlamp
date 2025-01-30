@@ -4,6 +4,8 @@ import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { ResourceIconLink } from '../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../components/StatusIcon';
+import { SavedTableSettings } from '../../../components/Table/components/TableSettings/types';
+import { getSavedColumnData } from '../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../components/Table/types';
 import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
@@ -17,234 +19,298 @@ import { humanize } from '../../../utils/date/humanize';
 import { PipelineRunGraphDialog } from '../../dialogs/PipelineRunGraph';
 import { PipelineRunResults } from '../../PipelineRunResults';
 import { Actions } from '../components/Actions';
+import { columnNames } from '../constants';
 import { WidgetPermissions } from '../types';
 
 export const useColumns = ({
   permissions,
+  tableSettings,
 }: {
   permissions: WidgetPermissions;
+  tableSettings: SavedTableSettings;
 }): TableColumn<PipelineRunKubeObjectInterface>[] => {
   const { setDialog } = useDialogContext();
 
   return React.useMemo(
     () => [
       {
-        id: 'status',
+        id: columnNames.STATUS,
         label: 'Status',
-        columnSortableValuePath: 'status.conditions[0].status',
-        render: (resource) => {
-          const status = PipelineRunKubeObject.parseStatus(resource);
-          const reason = PipelineRunKubeObject.parseStatusReason(resource);
+        data: {
+          columnSortableValuePath: 'status.conditions[0].status',
+          render: ({ data }) => {
+            const status = PipelineRunKubeObject.parseStatus(data);
+            const reason = PipelineRunKubeObject.parseStatusReason(data);
 
-          const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(status, reason);
+            const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(status, reason);
 
-          return (
-            <StatusIcon
-              icon={icon}
-              color={color}
-              isRotating={isRotating}
-              width={25}
-              Title={`Status: ${status}. Reason: ${reason}`}
-            />
-          );
+            return (
+              <StatusIcon
+                icon={icon}
+                color={color}
+                isRotating={isRotating}
+                width={25}
+                Title={`Status: ${status}. Reason: ${reason}`}
+              />
+            );
+          },
         },
-        width: '5%',
+        cell: {
+          isFixed: true,
+          baseWidth: 5,
+          width: getSavedColumnData(tableSettings, columnNames.STATUS)?.width ?? 5,
+          show: getSavedColumnData(tableSettings, columnNames.STATUS)?.show ?? true,
+        },
       },
       {
-        id: 'run',
+        id: columnNames.RUN,
         label: 'Run',
-        columnSortableValuePath: 'metadata.name',
-        render: (resource) => {
-          const {
-            metadata: { name, namespace },
-          } = resource;
+        data: {
+          columnSortableValuePath: 'metadata.name',
+          render: ({ data }) => {
+            const {
+              metadata: { name, namespace },
+            } = data;
 
-          return (
-            <Link
-              routeName={routePipelineRunDetails.path}
-              params={{
-                name,
-                namespace,
-              }}
-            >
-              <TextWithTooltip text={name} />
-            </Link>
-          );
+            return (
+              <Link
+                routeName={routePipelineRunDetails.path}
+                params={{
+                  name,
+                  namespace,
+                }}
+              >
+                <TextWithTooltip text={name} />
+              </Link>
+            );
+          },
         },
-        width: '20%',
+        cell: {
+          baseWidth: 20,
+          width: getSavedColumnData(tableSettings, columnNames.RUN)?.width ?? 20,
+          show: getSavedColumnData(tableSettings, columnNames.RUN)?.show ?? true,
+          customizable: false,
+        },
       },
       {
-        id: 'pipeline',
+        id: columnNames.PIPELINE,
         label: 'Pipeline',
-        columnSortableValuePath: 'spec.pipelineRef.name',
-        render: (resource) => {
-          const {
-            metadata: { namespace },
-            spec: {
-              pipelineRef: { name: pipelineRefName },
-            },
-          } = resource;
+        data: {
+          columnSortableValuePath: 'spec.pipelineRef.name',
+          render: ({ data }) => {
+            const {
+              metadata: { namespace },
+              spec: {
+                pipelineRef: { name: pipelineRefName },
+              },
+            } = data;
 
-          return (
-            <Link
-              routeName={routePipelineDetails.path}
-              params={{
-                name: pipelineRefName,
-                namespace,
-              }}
-            >
-              <TextWithTooltip text={pipelineRefName} />
-            </Link>
-          );
+            return (
+              <Link
+                routeName={routePipelineDetails.path}
+                params={{
+                  name: pipelineRefName,
+                  namespace,
+                }}
+              >
+                <TextWithTooltip text={pipelineRefName} />
+              </Link>
+            );
+          },
         },
-        width: '20%',
+        cell: {
+          baseWidth: 20,
+          width: getSavedColumnData(tableSettings, columnNames.PIPELINE)?.width ?? 20,
+          show: getSavedColumnData(tableSettings, columnNames.PIPELINE)?.show ?? true,
+        },
       },
       {
-        id: 'results',
+        id: columnNames.RESULTS,
         label: 'Results',
-        render: (resource) => {
-          const vcsTag = resource?.status?.results?.find((el) => el.name === 'VCS_TAG')?.value;
+        data: {
+          render: ({ data }) => {
+            const vcsTag = data?.status?.results?.find((el) => el.name === 'VCS_TAG')?.value;
 
-          if (!vcsTag) {
-            return null;
-          }
+            if (!vcsTag) {
+              return null;
+            }
 
-          return (
-            <Tooltip title={<PipelineRunResults pipelineRun={resource} />}>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Typography variant="body2" sx={{ borderBottom: '1px dashed black' }}>
-                  {vcsTag}
-                </Typography>
-              </Stack>
-            </Tooltip>
-          );
+            return (
+              <Tooltip title={<PipelineRunResults pipelineRun={data} />}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography variant="body2" sx={{ borderBottom: '1px dashed black' }}>
+                    {vcsTag}
+                  </Typography>
+                </Stack>
+              </Tooltip>
+            );
+          },
         },
-        width: '15%',
+        cell: {
+          baseWidth: 15,
+          width: getSavedColumnData(tableSettings, columnNames.RESULTS)?.width ?? 15,
+          show: getSavedColumnData(tableSettings, columnNames.RESULTS)?.show ?? true,
+        },
       },
       {
-        id: 'pullRequestUrl',
+        id: columnNames.PULL_REQUEST,
         label: 'Pull Request',
-        render: (resource) => {
-          const link = getPullRequestURL(resource);
+        data: {
+          render: ({ data }) => {
+            const link = getPullRequestURL(data);
 
-          if (!link) {
-            return null;
-          }
+            if (!link) {
+              return null;
+            }
 
-          return (
-            <ResourceIconLink
-              tooltipTitle={'Go to the Pull Request page'}
-              link={link}
-              icon={ICONS.NEW_WINDOW}
-              name="pull request"
-            />
-          );
+            return (
+              <ResourceIconLink
+                tooltipTitle={'Go to the Pull Request page'}
+                link={link}
+                icon={ICONS.NEW_WINDOW}
+                name="pull request"
+              />
+            );
+          },
         },
-        width: '10%',
-        textAlign: 'center',
+        cell: {
+          baseWidth: 10,
+          width: getSavedColumnData(tableSettings, columnNames.PULL_REQUEST)?.width ?? 10,
+          show: getSavedColumnData(tableSettings, columnNames.PULL_REQUEST)?.show ?? true,
+
+          props: {
+            align: 'center',
+          },
+        },
       },
       {
-        id: 'startedAt',
+        id: columnNames.STARTED_AT,
         label: 'Started at',
-        customSortFn: (a, b) => {
-          const aStartTime = a?.status?.startTime;
-          const bStartTime = b?.status?.startTime;
+        data: {
+          customSortFn: (a, b) => {
+            const aStartTime = a?.status?.startTime;
+            const bStartTime = b?.status?.startTime;
 
-          const aStartTimeDate = new Date(aStartTime).getTime();
-          const bStartTimeDate = new Date(bStartTime).getTime();
+            const aStartTimeDate = new Date(aStartTime).getTime();
+            const bStartTimeDate = new Date(bStartTime).getTime();
 
-          if (aStartTimeDate < bStartTimeDate) {
-            return -1;
-          } else if (aStartTimeDate > bStartTimeDate) {
-            return 1;
-          }
+            if (aStartTimeDate < bStartTimeDate) {
+              return -1;
+            } else if (aStartTimeDate > bStartTimeDate) {
+              return 1;
+            }
 
-          return 0;
+            return 0;
+          },
+          render: ({ data }) => {
+            const startedAt = new Date(data.status?.startTime).toLocaleString('en-mini', {
+              month: 'short',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            });
+
+            return startedAt;
+          },
         },
-        render: (resource) => {
-          const startedAt = new Date(resource.status?.startTime).toLocaleString('en-mini', {
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-          });
-
-          return startedAt;
+        cell: {
+          baseWidth: 10,
+          width: getSavedColumnData(tableSettings, columnNames.STARTED_AT)?.width ?? 10,
+          show: getSavedColumnData(tableSettings, columnNames.STARTED_AT)?.show ?? true,
         },
-        width: '10%',
       },
-
       {
-        id: 'time',
+        id: columnNames.TIME,
         label: 'Time',
-        customSortFn: (a, b) => {
-          const aStartTime = a?.status?.startTime;
-          const aCompletionTime = a?.status?.completionTime;
-          const bStartTime = b?.status?.startTime;
-          const bCompletionTime = b?.status?.completionTime;
+        data: {
+          customSortFn: (a, b) => {
+            const aStartTime = a?.status?.startTime;
+            const aCompletionTime = a?.status?.completionTime;
+            const bStartTime = b?.status?.startTime;
+            const bCompletionTime = b?.status?.completionTime;
 
-          const aDurationTime = !!aCompletionTime
-            ? new Date(aCompletionTime).getTime() - new Date(aStartTime).getTime()
-            : new Date().getTime() - new Date(aStartTime).getTime();
+            const aDurationTime = !!aCompletionTime
+              ? new Date(aCompletionTime).getTime() - new Date(aStartTime).getTime()
+              : new Date().getTime() - new Date(aStartTime).getTime();
 
-          const bDurationTime = !!bCompletionTime
-            ? new Date(bCompletionTime).getTime() - new Date(bStartTime).getTime()
-            : new Date().getTime() - new Date(bStartTime).getTime();
+            const bDurationTime = !!bCompletionTime
+              ? new Date(bCompletionTime).getTime() - new Date(bStartTime).getTime()
+              : new Date().getTime() - new Date(bStartTime).getTime();
 
-          if (aDurationTime < bDurationTime) {
-            return -1;
-          } else if (aDurationTime > bDurationTime) {
-            return 1;
-          }
+            if (aDurationTime < bDurationTime) {
+              return -1;
+            } else if (aDurationTime > bDurationTime) {
+              return 1;
+            }
 
-          return 0;
+            return 0;
+          },
+          render: ({ data }) => {
+            const completionTime = data?.status?.completionTime;
+            const durationTime = !!completionTime
+              ? new Date(completionTime).getTime() - new Date(data.status?.startTime).getTime()
+              : new Date().getTime() - new Date(data.status?.startTime).getTime();
+
+            const activeDuration = humanize(durationTime, {
+              language: 'en-mini',
+              spacer: '',
+              delimiter: ' ',
+              fallbacks: ['en'],
+              largest: 2,
+              round: true,
+              units: ['d', 'h', 'm', 's'],
+            });
+
+            return activeDuration;
+          },
         },
-        render: (resource) => {
-          const completionTime = resource?.status?.completionTime;
-          const durationTime = !!completionTime
-            ? new Date(completionTime).getTime() - new Date(resource.status?.startTime).getTime()
-            : new Date().getTime() - new Date(resource.status?.startTime).getTime();
-
-          const activeDuration = humanize(durationTime, {
-            language: 'en-mini',
-            spacer: '',
-            delimiter: ' ',
-            fallbacks: ['en'],
-            largest: 2,
-            round: true,
-            units: ['d', 'h', 'm', 's'],
-          });
-
-          return activeDuration;
+        cell: {
+          baseWidth: 5,
+          width: getSavedColumnData(tableSettings, columnNames.TIME)?.width ?? 5,
+          show: getSavedColumnData(tableSettings, columnNames.TIME)?.show ?? true,
         },
-        width: '10%',
       },
       {
-        id: 'diagram',
+        id: columnNames.DIAGRAM,
         label: 'Diagram',
-        render: (resource) => {
-          return (
-            <IconButton
-              onClick={() =>
-                setDialog(PipelineRunGraphDialog, {
-                  pipelineRun: resource,
-                })
-              }
-              size="medium"
-            >
-              <Icon icon={ICONS.DIAGRAM} />
-            </IconButton>
-          );
+        data: {
+          render: ({ data }) => {
+            return (
+              <IconButton
+                onClick={() =>
+                  setDialog(PipelineRunGraphDialog, {
+                    pipelineRun: data,
+                  })
+                }
+                size="medium"
+              >
+                <Icon icon={ICONS.DIAGRAM} />
+              </IconButton>
+            );
+          },
         },
-        width: '5%',
+        cell: {
+          baseWidth: 5,
+          width: getSavedColumnData(tableSettings, columnNames.DIAGRAM)?.width ?? 5,
+          show: getSavedColumnData(tableSettings, columnNames.DIAGRAM)?.show ?? true,
+          isFixed: true,
+        },
       },
       {
-        id: 'rerun',
+        id: columnNames.ACTIONS,
         label: 'Actions',
-        render: (resource) => <Actions resource={resource} permissions={permissions} />,
-        width: '5%',
+        data: {
+          render: ({ data }) => <Actions resource={data} permissions={permissions} />,
+        },
+        cell: {
+          baseWidth: 5,
+          width: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.width ?? 5,
+          show: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.show ?? true,
+          isFixed: true,
+          customizable: false,
+        },
       },
     ],
-    [permissions, setDialog]
+    [permissions, setDialog, tableSettings]
   );
 };

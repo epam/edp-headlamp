@@ -1,6 +1,8 @@
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
-import { PIPELINE_TYPES } from '../../../../../../../../constants/pipelineTypes';
+import { useTableSettings } from '../../../../../../../../components/Table/components/TableSettings/hooks/useTableSettings';
+import { PIPELINE_TYPE } from '../../../../../../../../constants/pipelineTypes';
+import { TABLES } from '../../../../../../../../constants/tables';
 import { FilterContextProvider } from '../../../../../../../../providers/Filter/provider';
 import { ResourceActionListContextProvider } from '../../../../../../../../providers/ResourceActionList/provider';
 import { getDefaultNamespace } from '../../../../../../../../utils/getDefaultNamespace';
@@ -15,6 +17,10 @@ import { DetailsProps } from './types';
 
 export const Details = ({ pipelineRuns, error }: DetailsProps) => {
   const permissions = useTypedPermissions();
+
+  const { loadSettings } = useTableSettings(TABLES.BRANCH_PIPELINE_RUN_LIST.id);
+
+  const tableSettings = loadSettings();
 
   return (
     <Grid container spacing={4} style={{ marginTop: rem(20) }}>
@@ -34,15 +40,14 @@ export const Details = ({ pipelineRuns, error }: DetailsProps) => {
                   pipelineRuns={pipelineRuns.all}
                   isLoading={pipelineRuns.all === null && !error}
                   permissions={permissions}
-                  pipelineRunTypes={[
-                    PIPELINE_TYPES.ALL,
-                    PIPELINE_TYPES.REVIEW,
-                    PIPELINE_TYPES.BUILD,
-                  ]}
+                  pipelineRunTypes={[PIPELINE_TYPE.ALL, PIPELINE_TYPE.REVIEW, PIPELINE_TYPE.BUILD]}
                   filterControls={[
                     pipelineRunFilterControlNames.PIPELINE_TYPE,
                     pipelineRunFilterControlNames.STATUS,
                   ]}
+                  tableId={TABLES.BRANCH_PIPELINE_RUN_LIST.id}
+                  tableName={TABLES.BRANCH_PIPELINE_RUN_LIST.name}
+                  tableSettings={tableSettings}
                 />
               </FilterContextProvider>
             </ResourceActionListContextProvider>

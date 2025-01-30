@@ -1,7 +1,7 @@
-import { Stack } from '@mui/material';
 import React from 'react';
 import { EmptyList } from '../../components/EmptyList';
 import { Table } from '../../components/Table';
+import { TABLES } from '../../constants/tables';
 import { Filter } from '../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
@@ -21,30 +21,34 @@ export const PipelineList = ({ pipelines, isLoading, error }: PipelineListProps)
   const { filterFunction } = useFilterContext();
 
   return (
-    <Stack spacing={2}>
-      <Filter
-        hideFilter={false}
-        controls={{
-          search: {
-            component: <SearchControl />,
-          },
-          ...((getClusterSettings()?.allowedNamespaces || []).length > 1
-            ? {
-                namespace: {
-                  component: <NamespaceControl />,
-                },
-              }
-            : {}),
-        }}
-      />
-      <Table
-        blockerError={error}
-        columns={columns}
-        data={sortedPipelines}
-        isLoading={isLoading}
-        filterFunction={filterFunction}
-        emptyListComponent={<EmptyList missingItemName={'pipelines'} />}
-      />
-    </Stack>
+    <Table
+      id={TABLES.PIPELINE_LIST.id}
+      name={TABLES.PIPELINE_LIST.name}
+      blockerError={error}
+      columns={columns}
+      data={sortedPipelines}
+      isLoading={isLoading}
+      filterFunction={filterFunction}
+      emptyListComponent={<EmptyList missingItemName={'pipelines'} />}
+      slots={{
+        header: (
+          <Filter
+            hideFilter={false}
+            controls={{
+              search: {
+                component: <SearchControl />,
+              },
+              ...((getClusterSettings()?.allowedNamespaces || []).length > 1
+                ? {
+                    namespace: {
+                      component: <NamespaceControl />,
+                    },
+                  }
+                : {}),
+            }}
+          />
+        ),
+      }}
+    />
   );
 };

@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import React from 'react';
 import { DataGrid } from '../../../../components/DataGrid';
 import { EmptyList } from '../../../../components/EmptyList';
@@ -11,6 +11,7 @@ import { VIEW_MODES } from '../../../../providers/ViewMode/types';
 import { CreateCodebaseFromTemplateDialog } from '../../../../widgets/dialogs/CreateCodebaseFromTemplate';
 import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
+import { TemplateFilter } from '../Filter';
 import { TemplateCard } from './components/TemplateCard';
 import { TemplatesTable } from './components/TemplatesTable';
 import { MarketplaceListProps } from './types';
@@ -46,36 +47,39 @@ export const MarketplaceList = ({ filterFunction, warning }: MarketplaceListProp
           errors={templates.errors}
         />
       ) : viewMode === VIEW_MODES.GRID ? (
-        <DataGrid<TemplateKubeObjectInterface>
-          data={templates.data}
-          errors={templates.errors}
-          isLoading={templates.isLoading && (!templates.errors || !templates.errors.length)}
-          spacing={3}
-          filterFunction={filterFunction}
-          emptyListComponent={
-            warning ? (
-              warning
-            ) : (
-              <EmptyList
-                missingItemName={'templates'}
-                icon={<Shop width={128} height={128} fill="#A2A7B7" />}
-              />
-            )
-          }
-          renderItem={(item) => {
-            const key = `marketplace-item-${item?.spec?.displayName}`;
-
-            return (
-              <Grid key={key} item xs={12} md={6} lg={4}>
-                <TemplateCard
-                  handleTemplateClick={handleTemplateClick}
-                  template={item}
-                  permissions={permissions}
+        <Stack spacing={2}>
+          <TemplateFilter />
+          <DataGrid<TemplateKubeObjectInterface>
+            data={templates.data}
+            errors={templates.errors}
+            isLoading={templates.isLoading && (!templates.errors || !templates.errors.length)}
+            spacing={3}
+            filterFunction={filterFunction}
+            emptyListComponent={
+              warning ? (
+                warning
+              ) : (
+                <EmptyList
+                  missingItemName={'templates'}
+                  icon={<Shop width={128} height={128} fill="#A2A7B7" />}
                 />
-              </Grid>
-            );
-          }}
-        />
+              )
+            }
+            renderItem={(item) => {
+              const key = `marketplace-item-${item?.spec?.displayName}`;
+
+              return (
+                <Grid key={key} item xs={12} md={6} lg={4}>
+                  <TemplateCard
+                    handleTemplateClick={handleTemplateClick}
+                    template={item}
+                    permissions={permissions}
+                  />
+                </Grid>
+              );
+            }}
+          />
+        </Stack>
       ) : null}
     </>
   );

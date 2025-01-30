@@ -1,4 +1,4 @@
-import { PIPELINE_TYPES } from '../../constants/pipelineTypes';
+import { PIPELINE_TYPE } from '../../constants/pipelineTypes';
 import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunKubeObjectConfig } from '../../k8s/groups/Tekton/PipelineRun/config';
 import {
@@ -6,8 +6,6 @@ import {
   PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
 } from '../../k8s/groups/Tekton/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
-import { ControlName } from '../../providers/Filter/types';
-import { ValueOf } from '../../types/global';
 import { MatchFunctions } from './types';
 
 export const pipelineRunFilterControlNames = {
@@ -16,9 +14,17 @@ export const pipelineRunFilterControlNames = {
   PIPELINE_TYPE: 'pipelineType',
 } as const;
 
-export type PipelineRunFilterControlNames = ValueOf<typeof pipelineRunFilterControlNames>;
-
-export type PipelineRunFilterAllControlNames = ControlName<PipelineRunFilterControlNames>;
+export const columnNames = {
+  STATUS: 'status',
+  RUN: 'run',
+  PIPELINE: 'pipeline',
+  RESULTS: 'results',
+  PULL_REQUEST: 'pullRequestUrl',
+  STARTED_AT: 'startedAt',
+  TIME: 'time',
+  DIAGRAM: 'diagram',
+  ACTIONS: 'actions',
+} as const;
 
 export const matchFunctions: MatchFunctions = {
   [pipelineRunFilterControlNames.CODEBASES]: (
@@ -29,7 +35,7 @@ export const matchFunctions: MatchFunctions = {
 
     const pipelineType = item?.metadata.labels?.[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE];
 
-    if (pipelineType === PIPELINE_TYPES.DEPLOY || pipelineType === PIPELINE_TYPES.CLEAN) {
+    if (pipelineType === PIPELINE_TYPE.DEPLOY || pipelineType === PIPELINE_TYPE.CLEAN) {
       const appPayload = item?.spec?.params?.find(
         (param: { name: string; value: string }) => param.name === 'APPLICATIONS_PAYLOAD'
       );
@@ -58,7 +64,7 @@ export const matchFunctions: MatchFunctions = {
     item: PipelineRunKubeObjectInterface,
     value: string
   ) => {
-    if (value === PIPELINE_TYPES.ALL) {
+    if (value === PIPELINE_TYPE.ALL) {
       return true;
     }
 
