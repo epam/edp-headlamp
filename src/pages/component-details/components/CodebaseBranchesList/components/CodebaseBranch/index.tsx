@@ -1,9 +1,13 @@
 import { Icon } from '@iconify/react';
 import { Accordion, AccordionDetails, AccordionSummary, alpha } from '@mui/material';
 import React from 'react';
+import { PIPELINE_TYPE } from '../../../../../../constants/pipelineTypes';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../../../../k8s/groups/Tekton/PipelineRun';
-import { PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH } from '../../../../../../k8s/groups/Tekton/PipelineRun/labels';
+import {
+  PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH,
+  PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
+} from '../../../../../../k8s/groups/Tekton/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/groups/Tekton/PipelineRun/types';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
@@ -69,7 +73,7 @@ export const CodebaseBranch = ({
 
   PipelineRunKubeObject.useApiList(handleStorePipelineRuns, handleStreamError, {
     namespace: codebaseBranchData.metadata.namespace,
-    labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH}=${normalizedCodebaseBranchName}`,
+    labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${PIPELINE_TYPE.BUILD},${PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH}=${normalizedCodebaseBranchName}`,
   });
 
   return (
