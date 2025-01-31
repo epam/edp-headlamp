@@ -1,12 +1,10 @@
 import { Icon } from '@iconify/react';
 import {
   Button,
-  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControlLabel,
   IconButton,
   Stack,
   Tooltip,
@@ -42,7 +40,6 @@ const getShownColumnIds = <DataType extends unknown>(columns: TableColumn<DataTy
 export const TableSettings = <DataType extends unknown>({
   id,
   name,
-  rememberSettings: _rememberSettings,
   originalColumns,
   columns,
   setColumns,
@@ -50,7 +47,6 @@ export const TableSettings = <DataType extends unknown>({
 }: TableSettingsProps<DataType>) => {
   const { saveSettings } = useTableSettings(id);
   const [open, setOpen] = React.useState(false);
-  const [rememberSettings, setRememberSettings] = React.useState(_rememberSettings);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -158,9 +154,7 @@ export const TableSettings = <DataType extends unknown>({
         { columns: [], settings: {} }
       );
 
-      if (rememberSettings) {
-        saveSettings(result.settings);
-      }
+      saveSettings(result.settings);
 
       return result.columns;
     });
@@ -210,17 +204,6 @@ export const TableSettings = <DataType extends unknown>({
                 show: false,
               }}
             />
-            <Stack direction="row" justifyContent="flex-end">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={rememberSettings}
-                    onChange={({ target: { checked } }) => setRememberSettings(checked)}
-                  />
-                }
-                label="Remember This Table Settings"
-              />
-            </Stack>
           </Stack>
         </DialogContent>
         <DialogActions>

@@ -34,7 +34,6 @@ export const TABLE_CELL_DEFAULTS = {
 
 export const TABLE_SETTINGS_DEFAULTS = {
   SHOW: true,
-  REMEMBER_SETTINGS: true,
 } as const;
 
 export const TABLE_DEFAULT_WIDTH = 100;
