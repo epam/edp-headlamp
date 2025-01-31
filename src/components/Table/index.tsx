@@ -83,9 +83,8 @@ export const Table = <DataType extends unknown>({
   const tableSettings: TableSettingsType = React.useMemo(
     () => ({
       show: settings?.show ?? TABLE_SETTINGS_DEFAULTS.SHOW,
-      rememberSettings: settings?.rememberSettings ?? TABLE_SETTINGS_DEFAULTS.REMEMBER_SETTINGS,
     }),
-    [settings?.rememberSettings, settings?.show]
+    [settings?.show]
   );
 
   const {
@@ -176,7 +175,6 @@ export const Table = <DataType extends unknown>({
                   <TableSettings
                     id={id}
                     name={name}
-                    rememberSettings={tableSettings.rememberSettings}
                     originalColumns={_columns}
                     columns={columns}
                     setColumns={setColumns}

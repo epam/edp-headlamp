@@ -3,7 +3,6 @@ import { TableColumn } from '../../types';
 export interface TableSettingsProps<DataType> {
   id: string;
   name?: string;
-  rememberSettings: boolean;
   originalColumns: TableColumn<DataType>[];
   columns: TableColumn<DataType>[];
   setColumns: React.Dispatch<React.SetStateAction<TableColumn<DataType>[]>>;

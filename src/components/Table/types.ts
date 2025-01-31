@@ -63,7 +63,6 @@ export interface TablePagination {
 
 export interface TableSettings {
   show: boolean;
-  rememberSettings?: boolean;
 }
 export interface TableProps<DataType = unknown> {
   id: string;
