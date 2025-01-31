@@ -48,7 +48,10 @@ export const CodebaseBranch = ({
         return;
       }
 
-      const [latestBuildPipelineRun] = sortedPipelineRuns;
+      const [latestBuildPipelineRun] = sortedPipelineRuns.filter(
+        (el) =>
+          el.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] === PIPELINE_TYPE.BUILD
+      );
 
       if (
         PipelineRunKubeObject.parseStatusReason(latestBuildPipelineRun) ===
@@ -73,7 +76,7 @@ export const CodebaseBranch = ({
 
   PipelineRunKubeObject.useApiList(handleStorePipelineRuns, handleStreamError, {
     namespace: codebaseBranchData.metadata.namespace,
-    labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE}=${PIPELINE_TYPE.BUILD},${PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH}=${normalizedCodebaseBranchName}`,
+    labelSelector: `${PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH}=${normalizedCodebaseBranchName}`,
   });
 
   return (
