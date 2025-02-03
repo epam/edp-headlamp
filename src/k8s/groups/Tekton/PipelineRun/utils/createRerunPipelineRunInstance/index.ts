@@ -12,13 +12,8 @@ const removeSystemLabels = (resource: KubeObjectInterface) => {
   });
 };
 
-const getNamePrefixForRerun = (_name: string) => {
-  let name = _name;
+const getNamePrefixForRerun = (name: string) => {
   const rerunIdentifier = 'r-';
-
-  if (_name.includes(rerunIdentifier)) {
-    name = _name.substring(0, _name.lastIndexOf(rerunIdentifier));
-  }
 
   const namePostfix = `-${createRandomString(4)}`;
 
