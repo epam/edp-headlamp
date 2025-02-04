@@ -7,9 +7,6 @@ import {
   Grid,
   IconButton,
   Link as MuiLink,
-  MenuItem,
-  MenuList,
-  Paper,
   Stack,
   Tooltip,
   Typography,
@@ -21,6 +18,7 @@ import { useParams } from 'react-router-dom';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { TableColumn } from '../../../../../components/Table/types';
+import { TooltipWithLinkList } from '../../../../../components/TooltipWithLinkList';
 import {
   CODEBASE_COMMON_BUILD_TOOLS,
   CODEBASE_COMMON_FRAMEWORKS,
@@ -373,37 +371,7 @@ export const useColumns = ({
             return null;
           }
 
-          return (
-            <Tooltip
-              title={
-                <Paper elevation={8}>
-                  <MenuList>
-                    {externalURLs.map((el) => (
-                      <MenuItem
-                        key={el}
-                        component={MuiLink}
-                        href={el}
-                        target={'_blank'}
-                        sx={{ whiteSpace: 'normal', wordBreak: 'break-all' }}
-                      >
-                        {el}
-                      </MenuItem>
-                    ))}
-                  </MenuList>
-                </Paper>
-              }
-              PopperProps={{
-                sx: {
-                  '& .MuiTooltip-tooltip': { p: '0 !important' },
-                },
-                placement: 'top-end',
-              }}
-            >
-              <Box sx={{ lineHeight: 0, mx: (t) => t.typography.pxToRem(32) }}>
-                <Icon icon={ICONS.NEW_WINDOW} width={20} height={20} />
-              </Box>
-            </Tooltip>
-          );
+          return <TooltipWithLinkList urls={externalURLs} />;
         },
       },
       cell: {

@@ -16,6 +16,7 @@ import { ConditionalWrapper } from '../../../../../../../../components/Condition
 import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
 import { TextWithTooltip } from '../../../../../../../../components/TextWithTooltip';
+import { TooltipWithLinkList } from '../../../../../../../../components/TooltipWithLinkList';
 import { DEFAULT_CLUSTER } from '../../../../../../../../constants/clusters';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObject } from '../../../../../../../../k8s/groups/ArgoCD/Application';
@@ -127,6 +128,9 @@ export const ApplicationCard = ({
     setExpanded(viewMode === VIEW_MODES.DETAILED ? 'panel1' : false);
   }, [viewMode]);
 
+  //@ts-ignore
+  const argoAppExternalURLs = argoApplication?.status?.summary?.externalURLs;
+
   return (
     <Accordion
       key={viewMode}
@@ -224,6 +228,12 @@ export const ApplicationCard = ({
               color={argoAppSyncStatusColor}
               width={16}
             />
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography variant="caption" color="primary.dark">
+              Ingresses:
+            </Typography>
+            {argoAppExternalURLs && <TooltipWithLinkList urls={argoAppExternalURLs} size="small" />}
           </Stack>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Typography variant="caption" color="primary.dark">
