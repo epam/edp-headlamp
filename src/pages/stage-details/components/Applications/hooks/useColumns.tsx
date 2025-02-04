@@ -116,6 +116,8 @@ export const useColumns = ({
       return [];
     }
 
+    const shouldShowPodsColumn = isDefaultCluster;
+
     const healthColumn: TableColumn<EnrichedApplicationWithArgoApplication> = {
       id: columnNames.HEALTH,
       label: 'Health',
@@ -414,163 +416,165 @@ export const useColumns = ({
       },
     };
 
-    return mode === APPLICATIONS_TABLE_MODE.PREVIEW
-      ? ([
-          healthColumn,
-          syncColumn,
-          applicationColumn,
-          {
-            id: columnNames.DEPLOYED_VERSION,
-            label: 'Deployed version',
-            data: {
-              render: ({
-                data: {
-                  argoApplication,
-                  application: {
-                    spec: { lang, framework, buildTool },
+    const isPreviewMode = mode === APPLICATIONS_TABLE_MODE.PREVIEW;
+    const isConfigurationMode = mode === APPLICATIONS_TABLE_MODE.CONFIGURATION;
+
+    return [
+      ...(isConfigurationMode
+        ? [
+            {
+              id: columnNames.EMPTY,
+              label: '',
+              data: {
+                render: () => null,
+              },
+              cell: {
+                customizable: false,
+                show: true,
+                baseWidth: 5,
+                width: 5,
+              },
+            } as TableColumn<EnrichedApplicationWithArgoApplication>,
+          ]
+        : []),
+      healthColumn,
+      syncColumn,
+      applicationColumn,
+      ...(isPreviewMode
+        ? [
+            {
+              id: columnNames.DEPLOYED_VERSION,
+              label: 'Deployed version',
+              data: {
+                render: ({
+                  data: {
+                    argoApplication,
+                    application: {
+                      spec: { lang, framework, buildTool },
+                    },
                   },
+                }) => {
+                  const isHelm =
+                    lang === CODEBASE_COMMON_LANGUAGES.HELM &&
+                    framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
+                    buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
+
+                  const withValuesOverride = argoApplication
+                    ? Object.hasOwn(argoApplication?.spec, 'sources')
+                    : false;
+
+                  const deployedVersion = getDeployedVersion(
+                    withValuesOverride,
+                    isHelm,
+                    argoApplication
+                  );
+
+                  return argoApplication && deployedVersion !== 'NaN' ? (
+                    <Tooltip
+                      title={
+                        <Grid container alignItems={'center'} spacing={1}>
+                          <Grid item>
+                            Open in {SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD]}
+                          </Grid>
+                          <span> </span>
+                          <Grid item>
+                            <Icon
+                              icon={ICONS.NEW_WINDOW}
+                              color={theme.palette.grey['500']}
+                              width="15"
+                            />
+                          </Grid>
+                        </Grid>
+                      }
+                    >
+                      <Box sx={{ m: '2px 0' }}>
+                        <MuiLink href={_createArgoCDLink(argoApplication)} target={'_blank'}>
+                          {deployedVersion}
+                        </MuiLink>
+                      </Box>
+                    </Tooltip>
+                  ) : (
+                    'No deploy'
+                  );
                 },
-              }) => {
-                const isHelm =
-                  lang === CODEBASE_COMMON_LANGUAGES.HELM &&
-                  framework === CODEBASE_COMMON_FRAMEWORKS.HELM &&
-                  buildTool === CODEBASE_COMMON_BUILD_TOOLS.HELM;
-
-                const withValuesOverride = argoApplication
-                  ? Object.hasOwn(argoApplication?.spec, 'sources')
-                  : false;
-
-                const deployedVersion = getDeployedVersion(
-                  withValuesOverride,
-                  isHelm,
-                  argoApplication
-                );
-
-                return argoApplication && deployedVersion !== 'NaN' ? (
-                  <Tooltip
-                    title={
-                      <Grid container alignItems={'center'} spacing={1}>
-                        <Grid item>
-                          Open in {SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.ARGOCD]}
-                        </Grid>
-                        <span> </span>
-                        <Grid item>
-                          <Icon
-                            icon={ICONS.NEW_WINDOW}
-                            color={theme.palette.grey['500']}
-                            width="15"
-                          />
-                        </Grid>
-                      </Grid>
-                    }
-                  >
-                    <Box sx={{ m: '2px 0' }}>
-                      <MuiLink href={_createArgoCDLink(argoApplication)} target={'_blank'}>
-                        {deployedVersion}
-                      </MuiLink>
-                    </Box>
-                  </Tooltip>
-                ) : (
-                  'No deploy'
-                );
               },
-            },
-            cell: {
-              show: true,
-              baseWidth: 25,
-              width: 25,
-            },
-          },
-          valuesOverrideColumn,
-          ...(isDefaultCluster
-            ? ([podsColumn] as TableColumn<EnrichedApplicationWithArgoApplication>[])
-            : []),
-          ingressColumn,
-        ] as TableColumn<EnrichedApplicationWithArgoApplication>[])
-      : ([
-          {
-            id: columnNames.EMPTY,
-            label: '',
-            data: {
-              render: () => null,
-            },
-            cell: {
-              customizable: false,
-              show: true,
-              baseWidth: 5,
-            },
-          },
-          healthColumn,
-          syncColumn,
-          applicationColumn,
-          {
-            id: columnNames.DEPLOYED_VERSION,
-            label: (
-              <Stack spacing={2}>
-                <ButtonGroup>
-                  <Tooltip title={'Set selected applications latest image stream version'}>
-                    <Button
-                      onClick={handleClickLatest}
-                      variant={buttonsHighlighted.latest ? 'contained' : 'outlined'}
-                      color={'primary'}
-                      size="small"
-                      fullWidth
+              cell: {
+                show: true,
+                baseWidth: 25,
+                width: 25,
+              },
+            } as TableColumn<EnrichedApplicationWithArgoApplication>,
+          ]
+        : [
+            {
+              id: columnNames.DEPLOYED_VERSION,
+              label: (
+                <Stack spacing={2}>
+                  <ButtonGroup>
+                    <Tooltip title={'Set selected applications latest image stream version'}>
+                      <Button
+                        onClick={handleClickLatest}
+                        variant={buttonsHighlighted.latest ? 'contained' : 'outlined'}
+                        color={'primary'}
+                        size="small"
+                        fullWidth
+                      >
+                        latest
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title={'Set selected applications stable image stream version'}>
+                      <Button
+                        onClick={handleClickStable}
+                        variant={buttonsHighlighted.stable ? 'contained' : 'outlined'}
+                        color={'primary'}
+                        size="small"
+                        fullWidth
+                      >
+                        stable
+                      </Button>
+                    </Tooltip>
+                  </ButtonGroup>
+                  <Stack direction="row" spacing={1} alignItems="center" flexWrap="nowrap">
+                    <div>Deployed version</div>
+                    <Tooltip
+                      title={
+                        <>
+                          <Typography variant="body2">
+                            Choose the application image version to deploy.
+                          </Typography>
+                          <Typography component="div" variant="body2">
+                            This field is enabled after a successful build and promotion through
+                            previous Environments, if any.
+                          </Typography>
+                        </>
+                      }
+                      sx={{ lineHeight: 1 }}
                     >
-                      latest
-                    </Button>
-                  </Tooltip>
-                  <Tooltip title={'Set selected applications stable image stream version'}>
-                    <Button
-                      onClick={handleClickStable}
-                      variant={buttonsHighlighted.stable ? 'contained' : 'outlined'}
-                      color={'primary'}
-                      size="small"
-                      fullWidth
-                    >
-                      stable
-                    </Button>
-                  </Tooltip>
-                </ButtonGroup>
-                <Stack direction="row" spacing={1} alignItems="center" flexWrap="nowrap">
-                  <div>Deployed version</div>
-                  <Tooltip
-                    title={
-                      <>
-                        <Typography variant="body2">
-                          Choose the application image version to deploy.
-                        </Typography>
-                        <Typography component="div" variant="body2">
-                          This field is enabled after a successful build and promotion through
-                          previous Environments, if any.
-                        </Typography>
-                      </>
-                    }
-                    sx={{ lineHeight: 1 }}
-                  >
-                    <Icon icon={ICONS.INFO_CIRCLE} width={20} />
-                  </Tooltip>
+                      <Icon icon={ICONS.INFO_CIRCLE} width={20} />
+                    </Tooltip>
+                  </Stack>
                 </Stack>
-              </Stack>
-            ),
-            labelString: 'Deployed Version',
-            data: {
-              render: ({ data }) => {
-                return <ImageStreamTagsSelect enrichedApplicationWithArgoApplication={data} />;
+              ),
+              labelString: 'Deployed Version',
+              data: {
+                render: ({ data }) => {
+                  return <ImageStreamTagsSelect enrichedApplicationWithArgoApplication={data} />;
+                },
               },
-            },
-            cell: {
-              customizable: false,
-              show: true,
-              baseWidth: 25,
-              width: 25,
-            },
-          },
-          valuesOverrideColumn,
-          ...(isDefaultCluster
-            ? ([podsColumn] as TableColumn<EnrichedApplicationWithArgoApplication>[])
-            : []),
-          ingressColumn,
-        ] as TableColumn<EnrichedApplicationWithArgoApplication>[]);
+              cell: {
+                customizable: false,
+                show: true,
+                baseWidth: 25,
+                width: 25,
+              },
+            } as TableColumn<EnrichedApplicationWithArgoApplication>,
+          ]),
+      valuesOverrideColumn,
+      ...(shouldShowPodsColumn
+        ? ([podsColumn] as TableColumn<EnrichedApplicationWithArgoApplication>[])
+        : []),
+      ingressColumn,
+    ];
   }, [
     CDPipelineName,
     _createArgoCDLink,

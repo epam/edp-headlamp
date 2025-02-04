@@ -90,8 +90,8 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
         cell: {
           customizable: false,
           baseWidth: 15,
-          width: getSavedColumnData(tableSettings, columnNames.STATUS)?.width ?? 15,
-          show: getSavedColumnData(tableSettings, columnNames.STATUS)?.show ?? true,
+          width: getSavedColumnData(tableSettings, columnNames.NAME)?.width ?? 15,
+          show: getSavedColumnData(tableSettings, columnNames.NAME)?.show ?? true,
         },
       },
       {
@@ -104,8 +104,8 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
         },
         cell: {
           baseWidth: 30,
-          width: getSavedColumnData(tableSettings, columnNames.STATUS)?.width ?? 30,
-          show: getSavedColumnData(tableSettings, columnNames.STATUS)?.show ?? true,
+          width: getSavedColumnData(tableSettings, columnNames.DESCRIPTION)?.width ?? 30,
+          show: getSavedColumnData(tableSettings, columnNames.DESCRIPTION)?.show ?? true,
         },
       },
       {
@@ -186,8 +186,8 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
         },
         cell: {
           baseWidth: 45,
-          width: getSavedColumnData(tableSettings, columnNames.STATUS)?.width ?? 45,
-          show: getSavedColumnData(tableSettings, columnNames.STATUS)?.show ?? true,
+          width: getSavedColumnData(tableSettings, columnNames.APPLICATIONS)?.width ?? 45,
+          show: getSavedColumnData(tableSettings, columnNames.APPLICATIONS)?.show ?? true,
         },
       },
       {
@@ -201,8 +201,8 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
         cell: {
           customizable: false,
           baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.STATUS)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.STATUS)?.show ?? true,
+          width: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.width ?? 5,
+          show: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.show ?? true,
           isFixed: true,
         },
       },
