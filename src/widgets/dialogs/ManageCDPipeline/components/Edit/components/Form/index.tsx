@@ -1,6 +1,12 @@
+import { Stack } from '@mui/material';
 import React from 'react';
-import { Applications } from '../../../fields';
+import { Applications, Description } from '../../../fields';
 
 export const Form = () => {
-  return <Applications />;
+  return (
+    <Stack spacing={5}>
+      <Description />
+      <Applications />
+    </Stack>
+  );
 };

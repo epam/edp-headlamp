@@ -10,6 +10,7 @@ export const useDefaultValues = () => {
   return React.useMemo(
     () => ({
       [CDPIPELINE_FORM_NAMES.namespace.name]: CDPipelineData?.metadata.namespace,
+      [CDPIPELINE_FORM_NAMES.description.name]: CDPipelineData?.spec.description,
       [CDPIPELINE_FORM_NAMES.applications.name]: CDPipelineData?.spec.applications,
       [CDPIPELINE_FORM_NAMES.applicationsToPromote.name]:
         CDPipelineData?.spec.applicationsToPromote,
@@ -34,6 +35,7 @@ export const useDefaultValues = () => {
       CDPipelineData?.metadata.namespace,
       CDPipelineData?.spec.applications,
       CDPipelineData?.spec.applicationsToPromote,
+      CDPipelineData?.spec.description,
       CDPipelineData?.spec.inputDockerStreams,
     ]
   );
