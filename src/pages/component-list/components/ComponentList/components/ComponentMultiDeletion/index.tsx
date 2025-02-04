@@ -149,7 +149,7 @@ const DeletionDialog = ({
       }
 
       deleteKubeObject({
-        kubeObjectData: component,
+        variables: component,
         kubeObject: CodebaseKubeObject,
       });
     });
