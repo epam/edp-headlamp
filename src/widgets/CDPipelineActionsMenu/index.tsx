@@ -59,6 +59,17 @@ export const CDPipelineActionsMenu = ({
             kubeObjectData: CDPipelineData,
             description: `Confirm the deletion of the Deployment Flow with all its environments.`,
             backRoute,
+            createCustomMessages: (item) => ({
+              onMutate: {
+                message: `${item.metadata.name} has been marked for deletion`,
+              },
+              onError: {
+                message: `Failed to initiate ${item.metadata.name}'s deletion`,
+              },
+              onSuccess: {
+                message: 'The deletion process has been started',
+              },
+            }),
           });
         },
       }),

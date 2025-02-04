@@ -34,6 +34,7 @@ export const DeleteKubeObjectDialog: React.FC<DeleteKubeObjectDialogProps> = (_p
     onBeforeSubmit,
     description,
     backRoute,
+    createCustomMessages,
   } = props;
 
   const history = useHistory();
@@ -55,6 +56,7 @@ export const DeleteKubeObjectDialog: React.FC<DeleteKubeObjectDialogProps> = (_p
   const { deleteKubeObject } = useDeleteKubeObject({
     onSuccess: onSuccess,
     onError: handleOpenPopup,
+    createCustomMessages,
   });
 
   const onSubmit = React.useCallback(
@@ -66,7 +68,7 @@ export const DeleteKubeObjectDialog: React.FC<DeleteKubeObjectDialogProps> = (_p
       handleClosePopup();
       await deleteKubeObject({
         kubeObject,
-        kubeObjectData,
+        variables: kubeObjectData,
       });
       reset();
 
