@@ -1,7 +1,19 @@
 import { KubeObject } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { OptionsObject } from 'notistack';
 import React from 'react';
 import { DialogProps } from '../../../providers/Dialog/types';
 import { EDPKubeObjectInterface } from '../../../types/k8s';
+
+interface Message {
+  message: string;
+  options?: OptionsObject;
+}
+
+type CustomMessages = {
+  onMutate?: Message;
+  onError?: Message;
+  onSuccess?: Message;
+};
 
 export interface DeleteKubeObjectDialogProps
   extends DialogProps<{
@@ -15,4 +27,5 @@ export interface DeleteKubeObjectDialogProps
     ): Promise<void>;
     backRoute?: string;
     onSuccess?: () => void;
+    createCustomMessages?: (item: EDPKubeObjectInterface) => CustomMessages;
   }> {}
