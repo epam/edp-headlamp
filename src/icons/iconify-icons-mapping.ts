@@ -82,4 +82,5 @@ export enum ICONS {
   COMMENT = 'mdi:comment-text-outline',
   OPENSEARCH = 'simple-icons:opensearch',
   GRAFANA = 'devicon-plain:grafana',
+  COPY = 'mdi:content-copy',
 }

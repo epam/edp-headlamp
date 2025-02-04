@@ -176,6 +176,7 @@ export const PageView = () => {
     >
       <Section
         title={stage.data?.spec.name}
+        enableCopyTitle
         description={
           'Manage, deploy, test, and troubleshoot your applications across distinct Environments.'
         }

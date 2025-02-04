@@ -118,6 +118,7 @@ export const PageView = () => {
     >
       <Section
         title={name}
+        enableCopyTitle
         description={'Review your codebases, monitor their status, and execute build pipelines.'}
       >
         {renderPageContent()}
