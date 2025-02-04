@@ -1,11 +1,11 @@
 import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import {
   CODEBASE_COMMON_BUILD_TOOLS,
   CODEBASE_COMMON_FRAMEWORKS,
   CODEBASE_COMMON_LANGUAGES,
 } from '../../../../configs/codebase-mappings';
 import { getDeployedVersion } from '../../../../k8s/groups/ArgoCD/Application/utils/getDeployedVersion';
-import { FormContextProvider } from '../../../../providers/Form/provider';
 import {
   ALL_VALUES_OVERRIDE_KEY,
   IMAGE_TAG_POSTFIX,
@@ -59,18 +59,17 @@ export const ApplicationsWrapper = ({
     [enrichedApplicationsWithArgoApplications]
   );
 
+  const formState = useForm({
+    defaultValues: baseDefaultValues,
+  });
+
   return (
-    <FormContextProvider
-      formSettings={{
-        defaultValues: baseDefaultValues,
-        mode: 'onBlur',
-      }}
-    >
+    <FormProvider {...formState}>
       <Applications
         enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
         latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
         latestCleanPipelineRunIsRunning={latestCleanPipelineRunIsRunning}
       />
-    </FormContextProvider>
+    </FormProvider>
   );
 };
