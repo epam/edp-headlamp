@@ -1,7 +1,7 @@
 import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { TabPanel } from '../../../../../../../components/TabPanel';
-import { useCreateCDPipeline } from '../../../../../../../k8s/groups/EDP/CDPipeline/hooks/useCreateCDPipeline';
+import { useCDPipelineCRUD } from '../../../../../../../k8s/groups/EDP/CDPipeline/hooks/useCDPIpelineCRUD';
 import { CDPipelineKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/CDPipeline/types';
 import { createCDPipelineInstance } from '../../../../../../../k8s/groups/EDP/CDPipeline/utils/createCDPipelineInstance';
 import { routeCDPipelineDetails } from '../../../../../../../pages/cdpipeline-details/route';
@@ -97,26 +97,12 @@ export const FormActions = () => {
 
   const {
     createCDPipeline,
-    mutations: {
-      CDPipelineCreateMutation,
-      CDPipelineStageCreateMutation,
-      CDPipelineDeleteMutation,
-      CDPipelineStageDeleteMutation,
-    },
-  } = useCreateCDPipeline();
+    mutations: { CDPipelineCreateMutation },
+  } = useCDPipelineCRUD();
 
   const isLoading = React.useMemo(
-    () =>
-      CDPipelineCreateMutation.isLoading ||
-      CDPipelineStageCreateMutation.isLoading ||
-      CDPipelineDeleteMutation.isLoading ||
-      CDPipelineStageDeleteMutation.isLoading,
-    [
-      CDPipelineCreateMutation.isLoading,
-      CDPipelineDeleteMutation.isLoading,
-      CDPipelineStageCreateMutation.isLoading,
-      CDPipelineStageDeleteMutation.isLoading,
-    ]
+    () => CDPipelineCreateMutation.isLoading,
+    [CDPipelineCreateMutation.isLoading]
   );
 
   const onSubmit = React.useCallback(
