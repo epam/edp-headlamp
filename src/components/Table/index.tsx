@@ -227,15 +227,17 @@ export const Table = <DataType extends unknown>({
             blockerComponent={blockerComponent}
           />
         </MuiTable>
-        {paginationSettings.show && (
-          <TablePagination
-            dataCount={filteredData && filteredData.length}
-            page={activePage}
-            rowsPerPage={_rowsPerPage}
-            handleChangePage={handleChangePage}
-            handleChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        )}
+        <Box sx={{ m: '0 !important' }}>
+          {paginationSettings.show && (
+            <TablePagination
+              dataCount={filteredData && filteredData.length}
+              page={activePage}
+              rowsPerPage={_rowsPerPage}
+              handleChangePage={handleChangePage}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          )}
+        </Box>
         {slots?.footer && slots.footer}
       </Stack>
     </Paper>
