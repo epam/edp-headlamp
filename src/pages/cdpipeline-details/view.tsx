@@ -1,5 +1,5 @@
 import { Router } from '@kinvolk/headlamp-plugin/lib';
-import { Grid, Typography, useTheme } from '@mui/material';
+import { Grid } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ErrorContent } from '../../components/ErrorContent';
@@ -24,7 +24,6 @@ import { useDynamicDataContext } from './providers/DynamicData/hooks';
 import { CDPipelineRouteParams } from './types';
 
 export const PageView = () => {
-  const theme = useTheme();
   const { name, namespace } = useParams<CDPipelineRouteParams>();
 
   const { CDPipeline } = useDynamicDataContext();
@@ -102,7 +101,8 @@ export const PageView = () => {
       }
     >
       <Section
-        title={<Typography fontSize={theme.typography.pxToRem(48)}>{name}</Typography>}
+        title={name}
+        enableCopyTitle
         description={`Defines the sequence and logic for promoting artifacts through various environments. It maps out an artifact's progression path from development to production.`}
       >
         {renderPageContent()}

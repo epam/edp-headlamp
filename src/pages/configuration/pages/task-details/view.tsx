@@ -45,7 +45,9 @@ export const PageView = () => {
         },
       ]}
     >
-      <Section title={name}>{renderPageContent()}</Section>
+      <Section title={name} enableCopyTitle>
+        {renderPageContent()}
+      </Section>
     </PageWrapper>
   );
 };
