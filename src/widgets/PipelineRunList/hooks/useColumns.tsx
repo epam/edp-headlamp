@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react';
 import { Link } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import React from 'react';
+import { CopyButton } from '../../../components/CopyButton';
 import { ResourceIconLink } from '../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { SavedTableSettings } from '../../../components/Table/components/TableSettings/types';
@@ -137,10 +138,11 @@ export const useColumns = ({
 
             return (
               <Tooltip title={<PipelineRunResults pipelineRun={data} />}>
-                <Stack direction="row" spacing={1} alignItems="center">
+                <Stack direction="row" alignItems="center">
                   <Typography variant="body2" sx={{ borderBottom: '1px dashed black' }}>
                     {vcsTag}
                   </Typography>
+                  <CopyButton text={vcsTag} size="small" />
                 </Stack>
               </Tooltip>
             );
