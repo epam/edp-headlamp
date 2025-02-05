@@ -1,8 +1,10 @@
 import { Box, Chip, Grid, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import clsx from 'clsx';
 import React from 'react';
+import { CopyButton } from '../../../../../../../../components/CopyButton';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
+import { TextWithTooltip } from '../../../../../../../../components/TextWithTooltip';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../../../../../constants/codebaseVersioningTypes';
 import { GIT_PROVIDERS } from '../../../../../../../../constants/gitProviders';
 import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/statuses';
@@ -70,20 +72,26 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
             </>
           }
         />
-        <Tooltip title={codebaseBranchData.spec.branchName}>
-          <Typography
-            variant={'h6'}
-            style={{
+
+        <Stack direction="row" alignItems="center">
+          <TextWithTooltip
+            text={codebaseBranchData.spec.branchName}
+            textSX={{
               marginTop: theme.typography.pxToRem(2),
-              maxWidth: theme.typography.pxToRem(200),
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
+              fontSize: (t) => t.typography.pxToRem(20),
+              fontWeight: 500,
+            }}
+          />
+          <Box
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
             }}
           >
-            {codebaseBranchData.spec.branchName}
-          </Typography>
-        </Tooltip>
+            <CopyButton text={codebaseBranchData.spec.branchName} size="small" />
+          </Box>
+        </Stack>
+
         {isDefaultBranch(codebaseData, codebaseBranchData) && (
           <Chip
             label="default"
