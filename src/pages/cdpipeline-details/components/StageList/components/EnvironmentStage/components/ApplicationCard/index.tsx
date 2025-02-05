@@ -229,24 +229,22 @@ export const ApplicationCard = ({
               width={16}
             />
           </Stack>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography variant="caption" color="primary.dark">
-              Ingresses:
-            </Typography>
+          <Stack direction="row" alignItems="center" spacing={2} justifyContent="space-between">
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Typography variant="caption" color="primary.dark">
+                Created:
+              </Typography>
+              <StyledChip
+                label={
+                  argoApplication
+                    ? formatDate(argoApplication?.metadata.creationTimestamp)
+                    : 'Unknown'
+                }
+              />
+            </Stack>
             {argoAppExternalURLs && <TooltipWithLinkList urls={argoAppExternalURLs} size="small" />}
           </Stack>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography variant="caption" color="primary.dark">
-              Created:
-            </Typography>
-            <StyledChip
-              label={
-                argoApplication
-                  ? formatDate(argoApplication?.metadata.creationTimestamp)
-                  : 'Unknown'
-              }
-            />
-          </Stack>
+
           {!isExternalCluster && (
             <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={1}>
               <ConditionalWrapper
