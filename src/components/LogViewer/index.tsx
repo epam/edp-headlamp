@@ -7,6 +7,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { ITerminalOptions, Terminal as XTerminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import { ISearchOptions, SearchAddon } from 'xterm-addon-search';
+import { WebLinksAddon } from 'xterm-addon-web-links';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -61,6 +62,7 @@ export function LogViewer(props: LogViewerProps) {
   const xtermRef = React.useRef<XTerminal | null>(null);
   const fitAddonRef = React.useRef<any>(null);
   const searchAddonRef = React.useRef<any>(null);
+  const linksAddonRef = React.useRef<any>(null);
   const [terminalContainerRef, setTerminalContainerRef] = React.useState<HTMLElement | null>(null);
   const [showSearch, setShowSearch] = React.useState(false);
 
@@ -97,6 +99,7 @@ export function LogViewer(props: LogViewerProps) {
 
     fitAddonRef.current = new FitAddon();
     searchAddonRef.current = new SearchAddon();
+    linksAddonRef.current = new WebLinksAddon();
 
     xtermRef.current = new XTerminal(XterminalReadonlyConfig);
 
@@ -106,6 +109,8 @@ export function LogViewer(props: LogViewerProps) {
 
     xtermRef.current.loadAddon(fitAddonRef.current);
     xtermRef.current.loadAddon(searchAddonRef.current);
+    xtermRef.current.loadAddon(linksAddonRef.current);
+
     enableCopyPasteInXterm(xtermRef.current);
 
     xtermRef.current.open(terminalContainerRef!);

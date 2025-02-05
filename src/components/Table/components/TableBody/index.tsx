@@ -29,14 +29,16 @@ export const TableBody = ({
   blockerComponent,
 }: TableBodyProps) => {
   const renderTableBody = React.useCallback(() => {
-    const hasSelection = !!selection?.handleSelectRow;
-    const _columnsLength = columns.length;
-    const columnsLength = hasSelection ? _columnsLength + 1 : _columnsLength;
+    const columnsLength = columns.length;
 
     if (blockerError) {
       return (
         <MuiTableRow>
-          <TableCell colSpan={columnsLength} align={'center'} sx={{ px: 0 }}>
+          <TableCell
+            colSpan={columnsLength}
+            align={'center'}
+            sx={{ px: 0, pb: 0, borderBottom: 0 }}
+          >
             <ErrorContent error={blockerError} />
           </TableCell>
         </MuiTableRow>
@@ -46,7 +48,11 @@ export const TableBody = ({
     if (blockerComponent) {
       return (
         <MuiTableRow>
-          <TableCell colSpan={columnsLength} align={'center'} sx={{ px: 0 }}>
+          <TableCell
+            colSpan={columnsLength}
+            align={'center'}
+            sx={{ px: 0, pb: 0, borderBottom: 0 }}
+          >
             {blockerComponent}
           </TableCell>
         </MuiTableRow>
@@ -56,7 +62,11 @@ export const TableBody = ({
     if (isLoading) {
       return (
         <MuiTableRow>
-          <TableCell colSpan={columns.length} align={'center'} sx={{ px: 0 }}>
+          <TableCell
+            colSpan={columnsLength}
+            align={'center'}
+            sx={{ px: 0, pb: 0, borderBottom: 0 }}
+          >
             <CircularProgress />
           </TableCell>
         </MuiTableRow>
@@ -68,7 +78,11 @@ export const TableBody = ({
         <>
           {errors && !!errors.length && (
             <MuiTableRow>
-              <TableCell colSpan={columns.length} align={'center'}>
+              <TableCell
+                colSpan={columnsLength}
+                align={'center'}
+                sx={{ px: 0, pb: 0, borderBottom: 0 }}
+              >
                 <Alert severity="warning">
                   {errors.map((error) => (
                     <div>{error?.message || error?.toString()}</div>
@@ -104,7 +118,11 @@ export const TableBody = ({
     if (isEmptyFilterResult) {
       return (
         <MuiTableRow>
-          <TableCell colSpan={columns.length} align={'center'} sx={{ px: 0 }}>
+          <TableCell
+            colSpan={columnsLength}
+            align={'center'}
+            sx={{ px: 0, pb: 0, borderBottom: 0 }}
+          >
             <EmptyList customText={'No results found!'} isSearch />
           </TableCell>
         </MuiTableRow>
@@ -113,7 +131,7 @@ export const TableBody = ({
 
     return (
       <MuiTableRow>
-        <TableCell colSpan={columns.length} align={'center'} sx={{ px: 0 }}>
+        <TableCell colSpan={columnsLength} align={'center'} sx={{ px: 0, pb: 0, borderBottom: 0 }}>
           <>{emptyListComponent}</>
         </TableCell>
       </MuiTableRow>

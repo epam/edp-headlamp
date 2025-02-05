@@ -4,6 +4,8 @@ import { createRandomString } from '../../../../../../utils/createRandomString';
 import { truncateName } from '../../../../../../utils/truncateName';
 import { PipelineRunKubeObjectInterface } from '../../types';
 
+const rerunIdentifier = 'r-';
+
 const removeSystemLabels = (resource: KubeObjectInterface) => {
   Object.keys(resource.metadata.labels).forEach((label) => {
     if (label.startsWith('tekton.dev/')) {
@@ -13,8 +15,6 @@ const removeSystemLabels = (resource: KubeObjectInterface) => {
 };
 
 const getNamePrefixForRerun = (name: string) => {
-  const rerunIdentifier = 'r-';
-
   const namePostfix = `-${createRandomString(4)}`;
 
   const truncatedName = truncateName(name, rerunIdentifier.length + namePostfix.length);
@@ -31,7 +31,13 @@ const generateNewPipelineRunPayload = ({
   pipelineRun: PipelineRunKubeObjectInterface;
   rerun: boolean;
 }) => {
-  const { annotations, labels, name, namespace, generateName } = pipelineRun.metadata;
+  const { annotations, labels, name: _name, namespace, generateName } = pipelineRun.metadata;
+
+  let name = _name;
+
+  if (_name.startsWith(rerunIdentifier)) {
+    name = name.slice(rerunIdentifier.length);
+  }
 
   const payload = cloneDeep(pipelineRun);
 

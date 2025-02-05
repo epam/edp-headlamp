@@ -193,7 +193,7 @@ export const Table = <DataType extends unknown>({
 
         <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
           <colgroup>
-            {selectionSettings.handleSelectRow && (
+            {selectableRowCount > 0 && selectionSettings.handleSelectRow && (
               <col key={'select-checkbox'} width={`${TABLE_CELL_DEFAULTS.WIDTH}%`} />
             )}
             {columns.map(
