@@ -65,6 +65,10 @@ export const TableRow = ({
     [theme]
   );
 
+  const totalSelectedLength = selectedLength;
+  const unselectableLength = rowCount - selectableRowCount;
+  const selectedWithoutDisabledItemsLength = totalSelectedLength - unselectableLength;
+
   return (
     <MuiTableRow>
       {!!handleSelectAllClick && (
@@ -79,8 +83,13 @@ export const TableRow = ({
         >
           <Checkbox
             color={'primary'}
-            indeterminate={selectedLength > 0 && selectedLength < selectableRowCount}
-            checked={selectedLength === selectableRowCount || selectedLength === rowCount}
+            indeterminate={
+              selectedWithoutDisabledItemsLength > 0 &&
+              selectedWithoutDisabledItemsLength < selectableRowCount
+            }
+            checked={
+              selectableRowCount > 0 && selectedWithoutDisabledItemsLength === selectableRowCount
+            }
             onChange={handleSelectAllClick}
           />
         </TableCell>

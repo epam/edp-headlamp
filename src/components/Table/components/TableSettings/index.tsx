@@ -10,7 +10,9 @@ import {
   Tooltip,
 } from '@mui/material';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { ValueOf } from '../../../../types/global';
 import { Table } from '../..';
 import {
   TABLE_CELL_DEFAULTS,
@@ -37,6 +39,10 @@ const getShownColumnIds = <DataType extends unknown>(columns: TableColumn<DataTy
   return columns.filter(({ cell: { show } }) => !!show).map(({ id }) => id);
 };
 
+const NAMES = {
+  selected: 'selected',
+} as const;
+
 export const TableSettings = <DataType extends unknown>({
   id,
   name,
@@ -45,30 +51,50 @@ export const TableSettings = <DataType extends unknown>({
   setColumns,
   hasSelection,
 }: TableSettingsProps<DataType>) => {
+  const {
+    reset,
+    setValue,
+    getValues,
+    watch,
+    formState: { isDirty },
+  } = useForm<Record<ValueOf<typeof NAMES>, any>>({
+    mode: 'onChange',
+    defaultValues: {
+      [NAMES.selected]: getShownColumnIds(columns),
+    },
+  });
+
   const { saveSettings } = useTableSettings(id);
+
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
-  const [selected, setSelected] = React.useState<string[]>(getShownColumnIds(columns));
+  const handleClose = () => {
+    setOpen(false);
+
+    const values = getValues();
+    reset(values, { keepValues: true, keepDirty: false });
+  };
 
   const handleSelectAllClick = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, items: TableSettingColumn<DataType>[]) => {
       if (event.target.checked) {
         const newSelected = items.map(({ id }) => id);
-        setSelected(newSelected);
+        setValue(NAMES.selected, newSelected, { shouldDirty: true });
         return;
       }
       const disabledItems = items.filter(({ disabled }) => disabled).map(({ id }) => id);
 
-      setSelected(disabledItems);
+      setValue(NAMES.selected, disabledItems, { shouldDirty: true });
     },
-    []
+    [setValue]
   );
 
   const handleSelectRowClick = React.useCallback(
     (event: React.MouseEvent<unknown>, row: TableSettingColumn<DataType>) => {
+      const values = getValues();
+      const selected = values.selected;
       const name = row.id;
       const selectedIndex = selected.indexOf(name);
       let newSelected: string[] = [];
@@ -86,12 +112,15 @@ export const TableSettings = <DataType extends unknown>({
         );
       }
 
-      setSelected(newSelected);
+      setValue(NAMES.selected, newSelected, { shouldDirty: true });
     },
-    [selected]
+    [getValues, setValue]
   );
 
   const handleSave = () => {
+    const values = getValues();
+    const selected = values.selected;
+
     setColumns((prev) => {
       const totalFixedVisibleWidth = prev.reduce(
         (acc, column) =>
@@ -161,6 +190,8 @@ export const TableSettings = <DataType extends unknown>({
     handleClose();
   };
 
+  const selected = watch(NAMES.selected);
+
   return (
     <>
       <Tooltip title={'Table Settings'}>
@@ -208,7 +239,9 @@ export const TableSettings = <DataType extends unknown>({
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>close</Button>
-          <Button onClick={handleSave}>save</Button>
+          <Button onClick={handleSave} disabled={!isDirty}>
+            save
+          </Button>
         </DialogActions>
       </Dialog>
     </>
