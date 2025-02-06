@@ -30,7 +30,7 @@ export const Details = () => {
         queryParams.delete('step');
       }
 
-      history.push({ search: queryParams.toString() });
+      history.replace({ search: queryParams.toString() });
     },
     [history]
   );
