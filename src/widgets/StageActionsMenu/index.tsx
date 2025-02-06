@@ -1,4 +1,3 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
@@ -7,7 +6,8 @@ import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
 import { useDialogContext } from '../../providers/Dialog/hooks';
-import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { createResourceAction } from '../../utils/actions/createResourceAction';
+import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
 import { ManageStageDialog } from '../dialogs/ManageStage';
 import { StageActionsMenuProps } from './types';
@@ -29,16 +29,16 @@ export const StageActionsMenu = ({
     }
 
     return [
-      createKubeAction({
-        item: new StageKubeObject(stage) as unknown as KubeObjectInterface,
-        actionCheckName: 'update',
-        name: RESOURCE_ACTIONS.EDIT,
+      createResourceAction({
+        item: stage,
+        type: RESOURCE_ACTIONS.EDIT,
+        label: capitalizeFirstLetter(RESOURCE_ACTIONS.EDIT),
         icon: ICONS.PENCIL,
         disabled: {
           status: !permissions?.update?.Stage.allowed,
           reason: permissions?.update?.Stage.reason,
         },
-        action: () => {
+        callback: (stage) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
@@ -54,7 +54,7 @@ export const StageActionsMenu = ({
         allStages: stages,
         currentStage: stage,
         permissions,
-        action: () => {
+        action: (stage) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }

@@ -7,7 +7,8 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObject } from '../../k8s/groups/EDP/QuickLink';
 import { isSystemQuickLink } from '../../k8s/groups/EDP/QuickLink/utils/isSystemQuickLink';
 import { useDialogContext } from '../../providers/Dialog/hooks';
-import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { createResourceAction } from '../../utils/actions/createResourceAction';
+import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
 import { ManageQuickLinkDialog } from '../dialogs/ManageQuickLink';
 import { QuickLinkActionsMenuProps } from './types';
@@ -30,14 +31,16 @@ export const QuickLinkActionsMenu = ({
     }
 
     return [
-      createKubeAction({
-        name: RESOURCE_ACTIONS.EDIT,
+      createResourceAction({
+        type: RESOURCE_ACTIONS.EDIT,
+        label: capitalizeFirstLetter(RESOURCE_ACTIONS.EDIT),
         icon: ICONS.PENCIL,
+        item: data,
         disabled: {
           status: !permissions?.update?.QuickLink.allowed,
           reason: permissions?.update?.QuickLink.reason,
         },
-        action: () => {
+        callback: (data) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
@@ -48,9 +51,11 @@ export const QuickLinkActionsMenu = ({
           });
         },
       }),
-      createKubeAction({
-        name: RESOURCE_ACTIONS.DELETE,
+      createResourceAction({
+        type: RESOURCE_ACTIONS.DELETE,
+        label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
         icon: ICONS.BUCKET,
+        item: data,
         disabled: {
           status: !permissions?.delete?.QuickLink.allowed || isSystemQuickLinkBool,
           reason: !permissions?.delete?.QuickLink.allowed
@@ -59,7 +64,7 @@ export const QuickLinkActionsMenu = ({
             ? 'System QuickLink cannot be deleted'
             : undefined,
         },
-        action: () => {
+        callback: (data) => {
           setDialog(DeleteKubeObjectDialog, {
             objectName: data?.metadata?.name,
             kubeObject: QuickLinkKubeObject,

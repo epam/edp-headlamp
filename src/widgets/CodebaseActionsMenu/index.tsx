@@ -9,7 +9,7 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { CodebaseKubeObject } from '../../k8s/groups/EDP/Codebase';
 import { routeCDPipelineDetails } from '../../pages/cdpipeline-details/route';
 import { useDialogContext } from '../../providers/Dialog/hooks';
-import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { createResourceAction } from '../../utils/actions/createResourceAction';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
 import { ManageCodebaseDialog } from '../dialogs/ManageCodebase';
@@ -77,14 +77,16 @@ export const CodebaseActionsMenu = ({
     }
 
     return [
-      createKubeAction({
-        name: RESOURCE_ACTIONS.EDIT,
+      createResourceAction({
+        type: RESOURCE_ACTIONS.EDIT,
+        label: capitalizeFirstLetter(RESOURCE_ACTIONS.EDIT),
+        item: codebaseData,
         icon: ICONS.PENCIL,
         disabled: {
           status: !permissions?.update?.Codebase.allowed,
           reason: permissions?.update?.Codebase.reason,
         },
-        action: () => {
+        callback: (codebaseData) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
@@ -92,14 +94,16 @@ export const CodebaseActionsMenu = ({
           setDialog(ManageCodebaseDialog, { codebaseData });
         },
       }),
-      createKubeAction({
-        name: RESOURCE_ACTIONS.DELETE,
+      createResourceAction({
+        type: RESOURCE_ACTIONS.DELETE,
+        label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
+        item: codebaseData,
         icon: ICONS.BUCKET,
         disabled: {
           status: !permissions?.delete?.Codebase.allowed,
           reason: permissions?.delete?.Codebase.reason,
         },
-        action: () => {
+        callback: (codebaseData) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
