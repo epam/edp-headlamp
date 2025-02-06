@@ -14,7 +14,8 @@ import { PIPELINE_RUN_REASON } from '../../k8s/groups/Tekton/PipelineRun/constan
 import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { createRerunPipelineRunInstance } from '../../k8s/groups/Tekton/PipelineRun/utils/createRerunPipelineRunInstance';
 import { routePipelineRunDetails } from '../../pages/pipeline-details/route';
-import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { createResourceAction } from '../../utils/actions/createResourceAction';
+import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { CustomActionsInlineList } from './components/CustomActionsInlineList';
 import { PipelineRunActionsMenuProps } from './types';
@@ -146,14 +147,16 @@ export const PipelineRunActionsMenu = ({
     }
 
     return [
-      createKubeAction({
-        name: 'Run again',
+      createResourceAction({
+        type: RESOURCE_ACTIONS.CREATE,
+        label: 'Run again',
         icon: ICONS.REDO,
+        item: pipelineRun,
         disabled: {
           status: !permissions?.create?.PipelineRun.allowed,
           reason: permissions?.create?.PipelineRun.reason,
         },
-        action: () => {
+        callback: (pipelineRun) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
@@ -163,14 +166,16 @@ export const PipelineRunActionsMenu = ({
           pipelineRunCreateMutation.mutate(newPipelineRun);
         },
       }),
-      createKubeAction({
-        name: 'Run with params',
+      createResourceAction({
+        type: RESOURCE_ACTIONS.CREATE,
+        label: 'Run with params',
         icon: ICONS.SETTINGS_REDO,
+        item: pipelineRun,
         disabled: {
           status: !permissions?.create?.PipelineRun.allowed,
           reason: permissions?.create?.PipelineRun.reason,
         },
-        action: () => {
+        callback: (pipelineRun) => {
           const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
           handleOpenEditor(newPipelineRun);
           handleCloseResourceActionListMenu();
@@ -178,9 +183,11 @@ export const PipelineRunActionsMenu = ({
       }),
       ...(isInProgress
         ? [
-            createKubeAction({
-              name: 'Stop run',
+            createResourceAction({
+              type: RESOURCE_ACTIONS.EDIT,
+              label: 'Stop run',
               icon: ICONS.CANCEL,
+              item: pipelineRun,
               disabled: {
                 status: !permissions?.update?.PipelineRun.allowed || !isInProgress,
                 reason: !permissions?.update?.PipelineRun.allowed
@@ -189,7 +196,7 @@ export const PipelineRunActionsMenu = ({
                   ? 'PipelineRun is no longer in progress'
                   : undefined,
               },
-              action: () => {
+              callback: (pipelineRun) => {
                 if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
                   handleCloseResourceActionListMenu();
                 }
@@ -202,14 +209,16 @@ export const PipelineRunActionsMenu = ({
             }),
           ]
         : []),
-      createKubeAction({
-        name: RESOURCE_ACTIONS.DELETE,
+      createResourceAction({
+        type: RESOURCE_ACTIONS.DELETE,
+        label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
         icon: ICONS.BUCKET,
+        item: pipelineRun,
         disabled: {
           status: !permissions?.delete?.PipelineRun.allowed,
           reason: permissions?.delete?.PipelineRun.reason,
         },
-        action: () => {
+        callback: (pipelineRun) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }

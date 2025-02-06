@@ -6,7 +6,8 @@ import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { CDPipelineKubeObject } from '../../k8s/groups/EDP/CDPipeline';
 import { useDialogContext } from '../../providers/Dialog/hooks';
-import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { createResourceAction } from '../../utils/actions/createResourceAction';
+import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
 import { ManageCDPipelineDialog } from '../dialogs/ManageCDPipeline';
 import { CDPipelineActionsMenuProps } from './types';
@@ -27,28 +28,32 @@ export const CDPipelineActionsMenu = ({
     }
 
     return [
-      createKubeAction({
-        name: RESOURCE_ACTIONS.EDIT,
+      createResourceAction({
+        type: RESOURCE_ACTIONS.EDIT,
+        label: capitalizeFirstLetter(RESOURCE_ACTIONS.EDIT),
+        item: CDPipelineData,
         icon: ICONS.PENCIL,
         disabled: {
           status: !permissions?.update?.CDPipeline.allowed,
           reason: permissions?.update?.CDPipeline.reason,
         },
-        action: () => {
+        callback: (CDPipelineData) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
           setDialog(ManageCDPipelineDialog, { CDPipelineData });
         },
       }),
-      createKubeAction({
-        name: RESOURCE_ACTIONS.DELETE,
+      createResourceAction({
+        type: RESOURCE_ACTIONS.DELETE,
+        label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
+        item: CDPipelineData,
         icon: ICONS.BUCKET,
         disabled: {
           status: !permissions?.delete?.CDPipeline.allowed,
           reason: permissions?.delete?.CDPipeline.reason,
         },
-        action: () => {
+        callback: (CDPipelineData) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }

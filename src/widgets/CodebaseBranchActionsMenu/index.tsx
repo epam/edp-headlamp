@@ -6,7 +6,8 @@ import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { CodebaseBranchKubeObject } from '../../k8s/groups/EDP/CodebaseBranch';
 import { useDialogContext as useNewDialogContext } from '../../providers/Dialog/hooks';
-import { createKubeAction } from '../../utils/actions/createKubeAction';
+import { createResourceAction } from '../../utils/actions/createResourceAction';
+import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
 import { ManageCodebaseBranchDialog } from '../dialogs/ManageCodebaseBranch';
 import { CodebaseBranchCDPipelineConflictError } from './components/CodebaseBranchCDPipelineConflictError';
@@ -53,14 +54,16 @@ export const CodebaseBranchActionsMenu = ({
     }
 
     return [
-      createKubeAction({
-        name: RESOURCE_ACTIONS.EDIT,
+      createResourceAction({
+        type: RESOURCE_ACTIONS.EDIT,
+        label: capitalizeFirstLetter(RESOURCE_ACTIONS.EDIT),
+        item: branch,
+        icon: ICONS.PENCIL,
         disabled: {
           status: !permissions?.update?.CodebaseBranch.allowed,
           reason: permissions?.update?.CodebaseBranch.reason,
         },
-        icon: ICONS.PENCIL,
-        action: () => {
+        callback: (branch) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
@@ -76,8 +79,10 @@ export const CodebaseBranchActionsMenu = ({
           });
         },
       }),
-      createKubeAction({
-        name: RESOURCE_ACTIONS.DELETE,
+      createResourceAction({
+        type: RESOURCE_ACTIONS.DELETE,
+        label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
+        item: branch,
         icon: ICONS.BUCKET,
         disabled: {
           status: isDefaultBranch ? true : !permissions?.delete?.CodebaseBranch.allowed,
@@ -85,7 +90,7 @@ export const CodebaseBranchActionsMenu = ({
             ? 'You cannot delete the default branch'
             : permissions?.delete?.CodebaseBranch.reason,
         },
-        action: () => {
+        callback: (branch) => {
           if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
