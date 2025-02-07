@@ -135,8 +135,8 @@ export const useConfigurationHandlers = ({
     [enrichedApplicationsWithArgoApplications, setValue]
   );
 
-  const handleClickDeploy = React.useCallback(async () => {
-    const valid = await trigger();
+  const handleClickDeploy = React.useCallback(() => {
+    const valid = trigger();
     const values = getValues();
 
     if (!valid) {
@@ -154,7 +154,9 @@ export const useConfigurationHandlers = ({
     >((acc, cur) => {
       const appName = cur.application.metadata.name;
       const imageTagFieldValue = values[`${appName}${IMAGE_TAG_POSTFIX}`] as string;
-      const valuesOverrideFieldValue = values[`${appName}${VALUES_OVERRIDE_POSTFIX}`] as boolean;
+      const valuesOverrideFieldValue =
+        values[`${appName}${VALUES_OVERRIDE_POSTFIX}`] === 'true' ||
+        values[`${appName}${VALUES_OVERRIDE_POSTFIX}`];
 
       const { value: tagValue } = parseTagLabelValue(imageTagFieldValue);
 
@@ -169,7 +171,7 @@ export const useConfigurationHandlers = ({
       appPayload,
     });
 
-    await createDeployPipelineRun({ deployPipelineRun: newDeployPipelineRun });
+    createDeployPipelineRun({ deployPipelineRun: newDeployPipelineRun });
   }, [
     CDPipeline.data,
     createDeployPipelineRun,
@@ -180,7 +182,7 @@ export const useConfigurationHandlers = ({
     trigger,
   ]);
 
-  const handleClean = React.useCallback(async () => {
+  const handleClean = React.useCallback(() => {
     if (!cleanPipelineRunTemplate) {
       showRequestErrorMessage(CRUD_TYPES.CREATE, {
         customMessage: {
@@ -200,7 +202,7 @@ export const useConfigurationHandlers = ({
       pipelineRunTemplate: cleanPipelineRunTemplate,
     });
 
-    await createCleanPipelineRun({ cleanPipelineRun: newCleanPipelineRun });
+    createCleanPipelineRun({ cleanPipelineRun: newCleanPipelineRun });
   }, [
     CDPipeline.data,
     cleanPipelineRunTemplate,
@@ -209,14 +211,14 @@ export const useConfigurationHandlers = ({
     stage,
   ]);
 
-  const handleClickClean = React.useCallback(async () => {
+  const handleClickClean = React.useCallback(() => {
     setDialog(ConfirmDialog, {
       text: 'Are you sure you want to clean up the environment?',
       actionCallback: () => handleClean(),
     });
   }, [handleClean, setDialog]);
 
-  const handleClickUninstall = React.useCallback(async () => {
+  const handleClickUninstall = React.useCallback(() => {
     setDeleteDialogOpen(true);
   }, [setDeleteDialogOpen]);
 
