@@ -1,7 +1,7 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import React from 'react';
 import { useTableSettings } from '../../../components/Table/components/TableSettings/hooks/useTableSettings';
-import { getSavedColumnData } from '../../../components/Table/components/TableSettings/utils';
+import { getSyncedColumnData } from '../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../components/Table/types';
 import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { TABLES } from '../../../constants/tables';
@@ -39,9 +39,7 @@ export const useColumns = (): TableColumn<TaskKubeObjectInterface>[] => {
         },
         cell: {
           customizable: false,
-          baseWidth: 25,
-          width: getSavedColumnData(tableSettings, columnNames.NAME)?.width ?? 25,
-          show: getSavedColumnData(tableSettings, columnNames.NAME)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.NAME, 25),
         },
       },
       {
@@ -53,9 +51,7 @@ export const useColumns = (): TableColumn<TaskKubeObjectInterface>[] => {
           ),
         },
         cell: {
-          baseWidth: 50,
-          width: getSavedColumnData(tableSettings, columnNames.DESCRIPTION)?.width ?? 50,
-          show: getSavedColumnData(tableSettings, columnNames.DESCRIPTION)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.DESCRIPTION, 50),
         },
       },
       {
@@ -91,9 +87,8 @@ export const useColumns = (): TableColumn<TaskKubeObjectInterface>[] => {
           },
         },
         cell: {
-          baseWidth: 25,
-          width: getSavedColumnData(tableSettings, columnNames.CREATED_AT)?.width ?? 25,
-          show: getSavedColumnData(tableSettings, columnNames.CREATED_AT)?.show ?? true,
+          isFixed: true,
+          ...getSyncedColumnData(tableSettings, columnNames.CREATED_AT, 25),
         },
       },
     ],

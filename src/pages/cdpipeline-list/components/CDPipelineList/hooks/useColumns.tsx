@@ -4,7 +4,7 @@ import React from 'react';
 import { ResponsiveChips } from '../../../../../components/ResponsiveChips';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { useTableSettings } from '../../../../../components/Table/components/TableSettings/hooks/useTableSettings';
-import { getSavedColumnData } from '../../../../../components/Table/components/TableSettings/utils';
+import { getSyncedColumnData } from '../../../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../../../components/Table/types';
 import { TextWithTooltip } from '../../../../../components/TextWithTooltip';
 import { MAIN_COLOR } from '../../../../../constants/colors';
@@ -57,10 +57,8 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
           },
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.STATUS)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.STATUS)?.show ?? true,
           isFixed: true,
+          ...getSyncedColumnData(tableSettings, columnNames.STATUS, 5),
         },
       },
       {
@@ -89,9 +87,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
         },
         cell: {
           customizable: false,
-          baseWidth: 15,
-          width: getSavedColumnData(tableSettings, columnNames.NAME)?.width ?? 15,
-          show: getSavedColumnData(tableSettings, columnNames.NAME)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.NAME, 15),
         },
       },
       {
@@ -103,9 +99,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
           ),
         },
         cell: {
-          baseWidth: 30,
-          width: getSavedColumnData(tableSettings, columnNames.DESCRIPTION)?.width ?? 30,
-          show: getSavedColumnData(tableSettings, columnNames.DESCRIPTION)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.DESCRIPTION, 30),
         },
       },
       {
@@ -185,9 +179,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
           },
         },
         cell: {
-          baseWidth: 45,
-          width: getSavedColumnData(tableSettings, columnNames.APPLICATIONS)?.width ?? 45,
-          show: getSavedColumnData(tableSettings, columnNames.APPLICATIONS)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.APPLICATIONS, 45),
         },
       },
       {
@@ -200,10 +192,8 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
         },
         cell: {
           customizable: false,
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.show ?? true,
           isFixed: true,
+          ...getSyncedColumnData(tableSettings, columnNames.ACTIONS, 5),
         },
       },
     ],

@@ -22,8 +22,8 @@ export interface TableColumn<DataType> {
   };
   cell: {
     baseWidth: number;
-    show?: boolean;
     width?: number;
+    show?: boolean;
     isFixed?: boolean;
     colSpan?: number;
     props?: TableCellProps;

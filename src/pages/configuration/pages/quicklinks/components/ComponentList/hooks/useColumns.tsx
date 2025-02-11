@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { Link as MuiLink, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { useTableSettings } from '../../../../../../../components/Table/components/TableSettings/hooks/useTableSettings';
-import { getSavedColumnData } from '../../../../../../../components/Table/components/TableSettings/utils';
+import { getSyncedColumnData } from '../../../../../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../../../../../components/Table/types';
 import { TABLES } from '../../../../../../../constants/tables';
 import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
@@ -39,10 +39,8 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
           ),
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.ICON)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.ICON)?.show ?? true,
           isFixed: true,
+          ...getSyncedColumnData(tableSettings, columnNames.ICON, 5),
         },
       },
       {
@@ -57,9 +55,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
           }) => name,
         },
         cell: {
-          baseWidth: 25,
-          width: getSavedColumnData(tableSettings, columnNames.NAME)?.width ?? 25,
-          show: getSavedColumnData(tableSettings, columnNames.NAME)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.NAME, 25),
         },
       },
       {
@@ -84,9 +80,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
           },
         },
         cell: {
-          baseWidth: 60,
-          width: getSavedColumnData(tableSettings, columnNames.URL)?.width ?? 60,
-          show: getSavedColumnData(tableSettings, columnNames.URL)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.URL, 60),
         },
       },
       {
@@ -101,9 +95,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
           }) => <Icon icon={visible ? ICONS.ACCEPT_ARROW : ICONS.CROSS} width="20" />,
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.VISIBLE)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.VISIBLE)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.VISIBLE, 5),
         },
       },
       {
@@ -117,9 +109,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
         cell: {
           isFixed: true,
           customizable: false,
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.VISIBLE)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.VISIBLE)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.ACTIONS, 5),
         },
       },
     ],

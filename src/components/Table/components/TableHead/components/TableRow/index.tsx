@@ -1,4 +1,6 @@
 import {
+  alpha,
+  Box,
   ButtonBase,
   Checkbox,
   Stack,
@@ -20,10 +22,13 @@ import {
   isAsc,
   isDesc,
 } from '../../../../utils';
+import { useTableSettings } from '../../../TableSettings/hooks/useTableSettings';
 import { TableRowProps } from './types';
 
 export const TableRow = ({
+  tableId,
   columns,
+  colGroupRef,
   sort,
   setSort,
   rowCount,
@@ -32,6 +37,10 @@ export const TableRow = ({
   selectableRowCount,
 }: TableRowProps) => {
   const theme = useTheme();
+
+  const { loadSettings, saveSettings } = useTableSettings(tableId);
+
+  const tableSettings = loadSettings();
 
   const handleRequestSort = (column: TableColumn<any>) => {
     const _isDesc = isDesc(column.id, sort.sortBy, sort.order);
@@ -69,6 +78,90 @@ export const TableRow = ({
   const unselectableLength = rowCount - selectableRowCount;
   const selectedWithoutDisabledItemsLength = totalSelectedLength - unselectableLength;
 
+  const saveNewColumnsWidth = React.useCallback(() => {
+    if (!tableSettings) return;
+    const colGroup = colGroupRef.current;
+    const cols = (colGroup ? Array.from(colGroup.children) : []) as HTMLTableColElement[];
+
+    const newSettings = columns.reduce((acc, cur) => {
+      acc[cur.id] = {
+        ...tableSettings[cur.id],
+        width: parseFloat(cols.find((col) => col.dataset.id === cur.id)?.getAttribute('width')),
+      };
+
+      return acc;
+    }, {});
+
+    saveSettings(newSettings);
+  }, [colGroupRef, columns, saveSettings, tableSettings]);
+
+  const handleMouseDown = React.useCallback(
+    (event, resizableColumnId) => {
+      event.preventDefault();
+
+      const resizerElement = event.target;
+      resizerElement.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+      document.body.style.cursor = 'col-resize';
+
+      const startX = event.clientX;
+      const colGroup = colGroupRef.current;
+      const cols = (colGroup ? Array.from(colGroup.children) : []) as HTMLTableColElement[];
+      const targetCol = cols.find((col) => col.dataset.id === resizableColumnId);
+
+      if (!targetCol) return;
+
+      let nextColIndex = cols.indexOf(targetCol) + 1;
+      let nextCol = null;
+      while (nextColIndex < cols.length) {
+        const potentialNextCol = cols[nextColIndex];
+        const nextColumnData = columns.find((col) => col.id === potentialNextCol.dataset.id);
+        if (nextColumnData && nextColumnData.cell.show !== false) {
+          nextCol = potentialNextCol;
+          break;
+        }
+        nextColIndex++;
+      }
+
+      if (!nextCol) return;
+
+      const originalWidth = targetCol.offsetWidth;
+      const nextOriginalWidth = nextCol.offsetWidth;
+      const tableWidth = colGroup.parentElement.offsetWidth;
+
+      const handleMouseMove = (moveEvent) => {
+        const deltaX = moveEvent.clientX - startX;
+
+        const column = columns.find((col) => col.id === resizableColumnId);
+        const nextColumn = columns.find((col) => col.id === nextCol.dataset.id);
+        if (!column || column.cell.isFixed || !nextColumn || nextColumn.cell.isFixed) return;
+
+        const newWidth = originalWidth + deltaX;
+        const newNextWidth = nextOriginalWidth - deltaX;
+
+        if (newWidth + newNextWidth <= tableWidth) {
+          const newTargetColWidth = `${((newWidth / tableWidth) * 100).toFixed(3)}%`;
+          const newNextColWidth = `${((newNextWidth / tableWidth) * 100).toFixed(3)}%`;
+
+          targetCol.setAttribute('width', newTargetColWidth);
+          nextCol.setAttribute('width', newNextColWidth);
+        }
+      };
+
+      const handleMouseUp = () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+
+        resizerElement.style = '';
+        document.body.style.cursor = '';
+        saveNewColumnsWidth();
+      };
+
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    },
+    [colGroupRef, columns, saveNewColumnsWidth]
+  );
+
   return (
     <MuiTableRow>
       {!!handleSelectAllClick && (
@@ -94,7 +187,8 @@ export const TableRow = ({
           />
         </TableCell>
       )}
-      {columns.map((column) => {
+      {columns.map((column, idx) => {
+        const isLast = idx === columns.length - 1;
         const { id, label, data, cell } = column;
         const show = cell?.show ?? TABLE_CELL_DEFAULTS.SHOW;
         const props = {
@@ -107,14 +201,15 @@ export const TableRow = ({
 
         return show ? (
           <TableCell
+            key={id}
             component="th"
             scope="row"
-            key={id}
             sortDirection={sort.sortBy === id ? sort.order : false}
             sx={{
               color: theme.palette.text.primary,
               p: `${theme.typography.pxToRem(16)} ${theme.typography.pxToRem(11)}`,
               verticalAlign: 'bottom',
+              position: 'relative',
             }}
             {...props}
           >
@@ -153,6 +248,28 @@ export const TableRow = ({
                 {label}
               </Typography>
             </Stack>
+            {!isLast && !column.cell.isFixed && !columns?.[idx + 1].cell.isFixed && (
+              <Box
+                sx={{
+                  margin: 0,
+                  position: 'absolute',
+                  top: 0,
+                  bottom: 0,
+                  right: 0,
+                  width: '1px',
+                  height: '100%',
+                  padding: '0 5px',
+                  translate: '50% 0',
+                  zIndex: 1,
+                  cursor: 'col-resize',
+
+                  '&:hover': {
+                    backgroundColor: (t) => alpha(t.palette.divider, 0.05),
+                  },
+                }}
+                onMouseDown={(e) => handleMouseDown(e, column.id)}
+              />
+            )}
           </TableCell>
         ) : null;
       })}

@@ -3,7 +3,7 @@ import { Chip, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { useTableSettings } from '../../../../../components/Table/components/TableSettings/hooks/useTableSettings';
-import { getSavedColumnData } from '../../../../../components/Table/components/TableSettings/utils';
+import { getSyncedColumnData } from '../../../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../../../components/Table/types';
 import { TextWithTooltip } from '../../../../../components/TextWithTooltip';
 import {
@@ -92,10 +92,8 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
           },
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.STATUS)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.STATUS)?.show ?? true,
           isFixed: true,
+          ...getSyncedColumnData(tableSettings, columnNames.STATUS, 5),
           props: {
             align: 'left',
           },
@@ -126,9 +124,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
         },
         cell: {
           customizable: false,
-          baseWidth: 20,
-          width: getSavedColumnData(tableSettings, columnNames.NAME)?.width ?? 20,
-          show: getSavedColumnData(tableSettings, columnNames.NAME)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.NAME, 20),
         },
       },
       {
@@ -150,9 +146,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
           ),
         },
         cell: {
-          baseWidth: 20,
-          width: getSavedColumnData(tableSettings, columnNames.TYPE)?.width ?? 25,
-          show: getSavedColumnData(tableSettings, columnNames.TYPE)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.TYPE, 20),
         },
       },
       {
@@ -184,9 +178,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
           },
         },
         cell: {
-          baseWidth: 15,
-          width: getSavedColumnData(tableSettings, columnNames.LANGUAGE)?.width ?? 15,
-          show: getSavedColumnData(tableSettings, columnNames.LANGUAGE)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.LANGUAGE, 15),
         },
       },
       {
@@ -222,9 +214,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
           },
         },
         cell: {
-          baseWidth: 15,
-          width: getSavedColumnData(tableSettings, columnNames.FRAMEWORK)?.width ?? 15,
-          show: getSavedColumnData(tableSettings, columnNames.FRAMEWORK)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.FRAMEWORK, 15),
         },
       },
       {
@@ -260,9 +250,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
           },
         },
         cell: {
-          baseWidth: 15,
-          width: getSavedColumnData(tableSettings, columnNames.BUILD_TOOL)?.width ?? 15,
-          show: getSavedColumnData(tableSettings, columnNames.BUILD_TOOL)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.BUILD_TOOL, 15),
         },
       },
 
@@ -285,10 +273,8 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
         },
         cell: {
           customizable: false,
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.show ?? true,
           isFixed: true,
+          ...getSyncedColumnData(tableSettings, columnNames.ACTIONS, 5),
           props: {
             align: 'center',
           },
