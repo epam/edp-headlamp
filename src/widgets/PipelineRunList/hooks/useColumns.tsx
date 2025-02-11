@@ -6,7 +6,7 @@ import { CopyButton } from '../../../components/CopyButton';
 import { ResourceIconLink } from '../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { SavedTableSettings } from '../../../components/Table/components/TableSettings/types';
-import { getSavedColumnData } from '../../../components/Table/components/TableSettings/utils';
+import { getSyncedColumnData } from '../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../components/Table/types';
 import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
@@ -58,9 +58,7 @@ export const useColumns = ({
         },
         cell: {
           isFixed: true,
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.STATUS)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.STATUS)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.STATUS, 5),
         },
       },
       {
@@ -87,10 +85,8 @@ export const useColumns = ({
           },
         },
         cell: {
-          baseWidth: 20,
-          width: getSavedColumnData(tableSettings, columnNames.RUN)?.width ?? 20,
-          show: getSavedColumnData(tableSettings, columnNames.RUN)?.show ?? true,
           customizable: false,
+          ...getSyncedColumnData(tableSettings, columnNames.RUN, 20),
         },
       },
       {
@@ -120,9 +116,7 @@ export const useColumns = ({
           },
         },
         cell: {
-          baseWidth: 20,
-          width: getSavedColumnData(tableSettings, columnNames.PIPELINE)?.width ?? 20,
-          show: getSavedColumnData(tableSettings, columnNames.PIPELINE)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.PIPELINE, 20),
         },
       },
       {
@@ -149,9 +143,7 @@ export const useColumns = ({
           },
         },
         cell: {
-          baseWidth: 15,
-          width: getSavedColumnData(tableSettings, columnNames.RESULTS)?.width ?? 15,
-          show: getSavedColumnData(tableSettings, columnNames.RESULTS)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.RESULTS, 15),
         },
       },
       {
@@ -176,9 +168,7 @@ export const useColumns = ({
           },
         },
         cell: {
-          baseWidth: 10,
-          width: getSavedColumnData(tableSettings, columnNames.PULL_REQUEST)?.width ?? 10,
-          show: getSavedColumnData(tableSettings, columnNames.PULL_REQUEST)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.PULL_REQUEST, 10),
 
           props: {
             align: 'center',
@@ -216,9 +206,7 @@ export const useColumns = ({
           },
         },
         cell: {
-          baseWidth: 10,
-          width: getSavedColumnData(tableSettings, columnNames.STARTED_AT)?.width ?? 10,
-          show: getSavedColumnData(tableSettings, columnNames.STARTED_AT)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.STARTED_AT, 10),
         },
       },
       {
@@ -267,9 +255,7 @@ export const useColumns = ({
           },
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.TIME)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.TIME)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.TIME, 5),
         },
       },
       {
@@ -292,10 +278,8 @@ export const useColumns = ({
           },
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.DIAGRAM)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.DIAGRAM)?.show ?? true,
           isFixed: true,
+          ...getSyncedColumnData(tableSettings, columnNames.DIAGRAM, 5),
         },
       },
       {
@@ -305,11 +289,9 @@ export const useColumns = ({
           render: ({ data }) => <Actions resource={data} permissions={permissions} />,
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.ACTIONS)?.show ?? true,
           isFixed: true,
           customizable: false,
+          ...getSyncedColumnData(tableSettings, columnNames.ACTIONS, 5),
         },
       },
     ],

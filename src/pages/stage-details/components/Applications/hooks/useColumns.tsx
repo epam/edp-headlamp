@@ -17,6 +17,8 @@ import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
+import { useTableSettings } from '../../../../../components/Table/components/TableSettings/hooks/useTableSettings';
+import { getSyncedColumnData } from '../../../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../../../components/Table/types';
 import { TooltipWithLinkList } from '../../../../../components/TooltipWithLinkList';
 import {
@@ -26,6 +28,7 @@ import {
 } from '../../../../../configs/codebase-mappings';
 import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
 import { GIT_PROVIDERS } from '../../../../../constants/gitProviders';
+import { TABLES } from '../../../../../constants/tables';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObject } from '../../../../../k8s/groups/ArgoCD/Application';
 import {
@@ -109,10 +112,21 @@ export const useColumns = ({
     formState: { errors },
   } = useFormContext();
 
+  const isPreviewMode = mode === APPLICATIONS_TABLE_MODE.PREVIEW;
+  const isConfigurationMode = mode === APPLICATIONS_TABLE_MODE.CONFIGURATION;
+
+  const { loadSettings } = useTableSettings(
+    isPreviewMode
+      ? TABLES.STAGE_APPLICATION_LIST_PREVIEW.id
+      : TABLES.STAGE_APPLICATION_LIST_CONFIGURATION.id
+  );
+
   return React.useMemo(() => {
     if (isLoading) {
       return [];
     }
+
+    const tableSettings = loadSettings();
 
     const shouldShowPodsColumn = isDefaultCluster;
 
@@ -136,9 +150,8 @@ export const useColumns = ({
         },
       },
       cell: {
-        baseWidth: 5,
-        width: 5,
-        show: true,
+        isFixed: true,
+        ...getSyncedColumnData(tableSettings, columnNames.HEALTH, 5),
         props: {
           align: 'center',
         },
@@ -165,9 +178,8 @@ export const useColumns = ({
         },
       },
       cell: {
-        show: true,
-        baseWidth: 5,
-        width: 5,
+        isFixed: true,
+        ...getSyncedColumnData(tableSettings, columnNames.SYNC, 5),
         props: {
           align: 'center',
         },
@@ -200,9 +212,7 @@ export const useColumns = ({
       },
       cell: {
         customizable: false,
-        show: true,
-        baseWidth: 25,
-        width: 25,
+        ...getSyncedColumnData(tableSettings, columnNames.NAME, 25),
       },
     };
 
@@ -261,9 +271,7 @@ export const useColumns = ({
         },
       },
       cell: {
-        show: true,
-        baseWidth: 15,
-        width: 15,
+        ...getSyncedColumnData(tableSettings, columnNames.VALUES_OVERRIDE, 15),
       },
     };
 
@@ -274,6 +282,7 @@ export const useColumns = ({
         render: ({ data }) => {
           const appName = data?.application?.metadata.name;
           const appPods = applicationPodsMap?.[appName];
+
           const disabled = (() => {
             if (!data?.argoApplication) {
               return {
@@ -335,10 +344,7 @@ export const useColumns = ({
         },
       },
       cell: {
-        show: true,
-
-        baseWidth: 10,
-        width: 10,
+        ...getSyncedColumnData(tableSettings, columnNames.PODS, 10),
         props: {
           align: 'center',
         },
@@ -375,17 +381,12 @@ export const useColumns = ({
         },
       },
       cell: {
-        show: true,
-        width: 10,
-        baseWidth: 10,
+        ...getSyncedColumnData(tableSettings, columnNames.INGRESS, 10),
         props: {
           align: 'center',
         },
       },
     };
-
-    const isPreviewMode = mode === APPLICATIONS_TABLE_MODE.PREVIEW;
-    const isConfigurationMode = mode === APPLICATIONS_TABLE_MODE.CONFIGURATION;
 
     return [
       ...(isConfigurationMode
@@ -467,9 +468,7 @@ export const useColumns = ({
                 },
               },
               cell: {
-                show: true,
-                baseWidth: 25,
-                width: 25,
+                ...getSyncedColumnData(tableSettings, columnNames.DEPLOYED_VERSION, 25),
               },
             } as TableColumn<EnrichedApplicationWithArgoApplication>,
           ]
@@ -531,9 +530,7 @@ export const useColumns = ({
               },
               cell: {
                 customizable: false,
-                show: true,
-                baseWidth: 25,
-                width: 25,
+                ...getSyncedColumnData(tableSettings, columnNames.DEPLOYED_VERSION, 25),
               },
             } as TableColumn<EnrichedApplicationWithArgoApplication>,
           ]),
@@ -557,8 +554,11 @@ export const useColumns = ({
     handleClickLatest,
     handleClickOverrideValuesAll,
     handleClickStable,
+    isConfigurationMode,
     isDefaultCluster,
     isLoading,
+    isPreviewMode,
+    loadSettings,
     mode,
     register,
     setDialog,

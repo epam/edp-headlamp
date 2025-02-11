@@ -73,8 +73,7 @@ export const TableSettings = <DataType extends unknown>({
   const handleClose = () => {
     setOpen(false);
 
-    const values = getValues();
-    reset(values, { keepValues: true, keepDirty: false });
+    reset();
   };
 
   const handleSelectAllClick = React.useCallback(
@@ -187,7 +186,9 @@ export const TableSettings = <DataType extends unknown>({
 
       return result.columns;
     });
-    handleClose();
+
+    setOpen(false);
+    reset(values, { keepValues: true, keepDirty: false });
   };
 
   const selected = watch(NAMES.selected);

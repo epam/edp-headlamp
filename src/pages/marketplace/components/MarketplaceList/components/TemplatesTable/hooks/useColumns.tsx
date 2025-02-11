@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { useTableSettings } from '../../../../../../../components/Table/components/TableSettings/hooks/useTableSettings';
-import { getSavedColumnData } from '../../../../../../../components/Table/components/TableSettings/utils';
+import { getSyncedColumnData } from '../../../../../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../../../../../components/Table/types';
 import { TextWithTooltip } from '../../../../../../../components/TextWithTooltip';
 import {
@@ -42,10 +42,8 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           },
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.ICON)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.ICON)?.show ?? true,
           isFixed: true,
+          ...getSyncedColumnData(tableSettings, columnNames.ICON, 5),
         },
       },
       {
@@ -61,9 +59,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
         },
         cell: {
           customizable: false,
-          baseWidth: 20,
-          width: getSavedColumnData(tableSettings, columnNames.NAME)?.width ?? 20,
-          show: getSavedColumnData(tableSettings, columnNames.NAME)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.NAME, 20),
         },
       },
       {
@@ -77,9 +73,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           }) => <TextWithTooltip text={description} maxLineAmount={3} />,
         },
         cell: {
-          baseWidth: 25,
-          width: getSavedColumnData(tableSettings, columnNames.DESCRIPTION)?.width ?? 25,
-          show: getSavedColumnData(tableSettings, columnNames.DESCRIPTION)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.DESCRIPTION, 25),
         },
       },
       {
@@ -94,9 +88,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           }) => type,
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.TYPE)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.TYPE)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.TYPE, 5),
         },
       },
       {
@@ -111,9 +103,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           }) => category,
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.CATEGORY)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.CATEGORY)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.CATEGORY, 5),
         },
       },
       {
@@ -148,9 +138,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           },
         },
         cell: {
-          baseWidth: 10,
-          width: getSavedColumnData(tableSettings, columnNames.LANGUAGE)?.width ?? 10,
-          show: getSavedColumnData(tableSettings, columnNames.LANGUAGE)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.LANGUAGE, 10),
         },
       },
       {
@@ -189,9 +177,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           },
         },
         cell: {
-          baseWidth: 10,
-          width: getSavedColumnData(tableSettings, columnNames.FRAMEWORK)?.width ?? 10,
-          show: getSavedColumnData(tableSettings, columnNames.FRAMEWORK)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.FRAMEWORK, 10),
         },
       },
       {
@@ -230,9 +216,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           },
         },
         cell: {
-          baseWidth: 10,
-          width: getSavedColumnData(tableSettings, columnNames.BUILD_TOOL)?.width ?? 10,
-          show: getSavedColumnData(tableSettings, columnNames.BUILD_TOOL)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.BUILD_TOOL, 10),
         },
       },
       {
@@ -247,9 +231,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           }) => maturity,
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.MATURITY)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.MATURITY)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.MATURITY, 5),
         },
       },
     ],

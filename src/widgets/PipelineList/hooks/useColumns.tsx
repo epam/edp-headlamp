@@ -3,7 +3,7 @@ import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { IconButton } from '@mui/material';
 import React from 'react';
 import { useTableSettings } from '../../../components/Table/components/TableSettings/hooks/useTableSettings';
-import { getSavedColumnData } from '../../../components/Table/components/TableSettings/utils';
+import { getSyncedColumnData } from '../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../components/Table/types';
 import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { TABLES } from '../../../constants/tables';
@@ -45,9 +45,7 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
         },
         cell: {
           customizable: false,
-          baseWidth: 25,
-          width: getSavedColumnData(tableSettings, columnNames.NAME)?.width ?? 25,
-          show: getSavedColumnData(tableSettings, columnNames.NAME)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.NAME, 25),
         },
       },
       {
@@ -59,9 +57,7 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
           ),
         },
         cell: {
-          baseWidth: 50,
-          width: getSavedColumnData(tableSettings, columnNames.DESCRIPTION)?.width ?? 50,
-          show: getSavedColumnData(tableSettings, columnNames.DESCRIPTION)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.DESCRIPTION, 50),
         },
       },
       {
@@ -97,9 +93,7 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
           },
         },
         cell: {
-          baseWidth: 20,
-          width: getSavedColumnData(tableSettings, columnNames.CREATED_AT)?.width ?? 20,
-          show: getSavedColumnData(tableSettings, columnNames.CREATED_AT)?.show ?? true,
+          ...getSyncedColumnData(tableSettings, columnNames.CREATED_AT, 20),
         },
       },
       {
@@ -122,9 +116,8 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
           },
         },
         cell: {
-          baseWidth: 5,
-          width: getSavedColumnData(tableSettings, columnNames.DIAGRAM)?.width ?? 5,
-          show: getSavedColumnData(tableSettings, columnNames.DIAGRAM)?.show ?? true,
+          isFixed: true,
+          ...getSyncedColumnData(tableSettings, columnNames.DIAGRAM, 5),
           props: {
             align: 'center',
           },

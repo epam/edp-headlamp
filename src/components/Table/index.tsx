@@ -154,6 +154,8 @@ export const Table = <DataType extends unknown>({
     [paginatedData.items, filteredData?.length, selectionSettings]
   );
 
+  const colGroupRef = React.useRef<HTMLTableColElement>(null);
+
   return (
     <Paper
       variant={'outlined'}
@@ -192,19 +194,25 @@ export const Table = <DataType extends unknown>({
         </Stack>
 
         <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
-          <colgroup>
+          <colgroup ref={colGroupRef}>
             {selectableRowCount > 0 && selectionSettings.handleSelectRow && (
               <col key={'select-checkbox'} width={`${TABLE_CELL_DEFAULTS.WIDTH}%`} />
             )}
             {columns.map(
               (column) =>
                 column.cell.show !== false && (
-                  <col key={column.id} width={`${column.cell.width}%` || '100%'} />
+                  <col
+                    key={column.id}
+                    data-id={column.id}
+                    width={`${column.cell.width}%` || '100%'}
+                  />
                 )
             )}
           </colgroup>
           <TableHead
+            tableId={id}
             columns={columns}
+            colGroupRef={colGroupRef}
             sort={sortState}
             setSort={setSortState}
             rowCount={paginatedData?.count}
