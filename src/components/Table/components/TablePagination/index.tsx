@@ -13,7 +13,7 @@ export const TablePagination = ({
     <MuiTablePagination
       rowsPerPageOptions={
         JSON.parse(localStorage.getItem('settings') || '{}')?.tableRowsPerPageOptions || [
-          5, 15, 25, 50,
+          10, 20, 50, 100,
         ]
       }
       component="div"

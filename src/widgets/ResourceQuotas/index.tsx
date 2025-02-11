@@ -91,7 +91,16 @@ export const ResourceQuotas = () => {
   }>(null);
 
   TenantKubeObject.useApiGet((data) => {
-    const namespacesHard = data.spec.namespaceOptions.quota;
+    const namespacesHard = data?.spec?.namespaceOptions?.quota;
+
+    if (!namespacesHard) {
+      setNamespacesQuota({
+        quotas: {},
+        highestUsedQuota: null,
+      });
+      return;
+    }
+
     const namespacesUsed = data.status.size;
 
     const usedPercentage = (namespacesUsed / namespacesHard) * 100;
@@ -167,14 +176,22 @@ export const ResourceQuotas = () => {
     return null;
   }
 
-  const highestUsedQuotaColor = getColorByLoadPercentage(theme, highestUsedQuota.usedPercentage);
+  const highestUsedQuotaColor = getColorByLoadPercentage(theme, highestUsedQuota?.usedPercentage);
+
+  if (
+    !globalRQs?.highestUsedQuota &&
+    !stageRQs?.highestUsedQuota &&
+    !namespacesQuota?.highestUsedQuota
+  ) {
+    return null;
+  }
 
   return (
     <>
       <Tooltip title="Platform Resource Usage">
         <IconButton onClick={handleClick} size="large">
           <CircleProgress
-            loadPercentage={highestUsedQuota.usedPercentage}
+            loadPercentage={highestUsedQuota?.usedPercentage}
             color={highestUsedQuotaColor}
           />
         </IconButton>

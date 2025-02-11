@@ -11,10 +11,11 @@ import React from 'react';
 import { Logo } from './Logo';
 import routes from './routes';
 import { SIDEBAR_LIST } from './routes/sidebar-list';
+import { AiChatWrapper } from './widgets/AIChat';
 import { HelpMenu } from './widgets/HelpMenu';
 import { ResourceQuotas } from './widgets/ResourceQuotas';
 
-const additionalActions = [<ResourceQuotas />, <HelpMenu />];
+const additionalActions = [<ResourceQuotas />, <AiChatWrapper />, <HelpMenu />];
 
 class EDPHeadlampPlugin extends Plugin {
   initialize() {
