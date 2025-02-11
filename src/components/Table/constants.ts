@@ -13,7 +13,7 @@ export const PAGINATION_DEFAULTS = {
   SHOW: true,
   REFLECT_IN_URL: false,
   INITIAL_PAGE: 0,
-  ROWS_PER_PAGE: 15,
+  ROWS_PER_PAGE: 10,
 } as const;
 
 export const SELECTION_DEFAULTS = {

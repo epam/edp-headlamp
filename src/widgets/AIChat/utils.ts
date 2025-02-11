@@ -27,7 +27,7 @@ export const createFetcher = (options: FetcherOptions) => {
       })
       .catch((error) => {
         // Handle network errors or exceptions thrown during fetch
-        console.error('Fetch error:', error);
+        // console.error('Fetch error:', error);
         throw error; // Rethrow so consumers can further handle the error
       });
   };

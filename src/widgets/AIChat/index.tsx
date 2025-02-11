@@ -1,9 +1,10 @@
 import { Icon } from '@iconify/react';
-import { Box, Fab, IconButton, Popover, Stack, Typography } from '@mui/material';
+import { Box, IconButton, Popover, Stack, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { v4 as uuidv4 } from 'uuid';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
+import { PageLogicWrapper } from '../../components/PageLogicWrapper';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../k8s/groups/default/Secret';
 import { SECRET_LABEL_SECRET_TYPE } from '../../k8s/groups/default/Secret/labels';
@@ -31,6 +32,7 @@ const loadConversations = () => {
 };
 
 export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecretData }) => {
+
   const newConversationID = uuidv4();
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -125,14 +127,11 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
 
   return (
     <>
-      <Fab
-        color="primary"
-        aria-label="AI Chat"
-        onClick={handleClick}
-        sx={{ position: 'fixed', bottom: '50px', right: '50px' }}
-      >
-        <Icon icon={ICONS.CHAT} width={24} height={24} />
-      </Fab>
+      <Tooltip title="AI Assistant">
+        <IconButton onClick={handleClick} size="large">
+          <Icon icon={ICONS.CHAT} />
+        </IconButton>
+      </Tooltip>
       <Popover
         id={id}
         open={open}
@@ -227,5 +226,9 @@ export const AiChatWrapper = () => {
     return dataCopy;
   }, [codemieSecret]);
 
-  return codemieSecretData && <AiChat codemieSecretData={codemieSecretData} />;
+  return codemieSecretData ? (
+    <PageLogicWrapper>
+      <AiChat codemieSecretData={codemieSecretData} />
+    </PageLogicWrapper>
+  ) : null;
 };

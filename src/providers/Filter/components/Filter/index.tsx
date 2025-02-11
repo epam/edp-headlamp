@@ -11,11 +11,11 @@ export const Filter = <ControlNames extends string>({
   const { filter, resetFilter } = useFilterContext<unknown, ControlNames>();
 
   const controlsRenderer = React.useCallback(() => {
-    return Object.entries(controls).map(([, controlValue]) => {
+    return Object.entries(controls).map(([controlKey, controlValue]) => {
       const { component, gridXs = 3 } = controlValue as ControlComponent;
 
       return (
-        <Grid item xs={gridXs}>
+        <Grid item xs={gridXs} key={controlKey}>
           {component}
         </Grid>
       );

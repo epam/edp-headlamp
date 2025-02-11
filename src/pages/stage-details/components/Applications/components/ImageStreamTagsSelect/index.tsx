@@ -35,7 +35,7 @@ export const ImageStreamTagsSelect = ({
 
   const label = React.useMemo(() => {
     if (currentDefaultValue) {
-      return `Deployed version: ${currentDefaultValue}`;
+      return `Running version: ${currentDefaultValue}`;
     }
 
     if (imageTagsLength) {
