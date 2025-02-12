@@ -29,6 +29,12 @@ export const Applications = () => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: CDPIPELINE_FORM_NAMES.applicationsFieldArray.name,
+    rules: {
+      minLength: {
+        value: 1,
+        message: 'At least one application is required.',
+      },
+    },
   });
 
   const applicationsOptions = React.useMemo(
@@ -92,6 +98,12 @@ export const Applications = () => {
       <FormAutocomplete
         {...register(CDPIPELINE_FORM_NAMES.applicationsToAddChooser.name, {
           onChange: ({ target: { value } }: FieldEvent) => handleApplicationChanges(value),
+          validate: (value) => {
+            if (value.length < 1) {
+              return 'At least one application is required.';
+            }
+            return true;
+          },
         })}
         options={applicationsOptions}
         control={control}
