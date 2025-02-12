@@ -106,10 +106,10 @@ export const FormActions = () => {
   );
 
   const onSubmit = React.useCallback(
-    async (values: ManageCDPipelineFormValues) => {
+    (values: ManageCDPipelineFormValues) => {
       const usedValues = getUsedValues(values, CDPIPELINE_FORM_NAMES);
       const CDPipelineData = createCDPipelineInstance(CDPIPELINE_FORM_NAMES, usedValues);
-      await createCDPipeline({
+      createCDPipeline({
         CDPipelineData: CDPipelineData,
         onSuccess: onSuccess,
       });
