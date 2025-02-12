@@ -78,8 +78,6 @@ export const useInfoRows = (): InfoRow[] | null => {
 
     const [icon, color, isRotating] = CodebaseKubeObject.getStatusIcon(component?.status?.status);
 
-    const isCodebaseTypeSystem = type === CODEBASE_TYPES.SYSTEM;
-
     return [
       [
         {
@@ -182,22 +180,14 @@ export const useInfoRows = (): InfoRow[] | null => {
         },
       ],
       [
-        ...(!isCodebaseTypeSystem && pipelines?.review
-          ? [
-              {
-                label: 'Review Pipeline',
-                text: <Pipeline pipelineName={pipelines?.review} namespace={namespace} />,
-              },
-            ]
-          : []),
-        ...(!isCodebaseTypeSystem && pipelines?.build
-          ? [
-              {
-                label: 'Build Pipeline',
-                text: <Pipeline pipelineName={pipelines?.build} namespace={namespace} />,
-              },
-            ]
-          : []),
+        {
+          label: 'Review Pipeline',
+          text: <Pipeline pipelineName={pipelines?.review} namespace={namespace} />,
+        },
+        {
+          label: 'Build Pipeline',
+          text: <Pipeline pipelineName={pipelines?.build} namespace={namespace} />,
+        },
       ],
     ];
   }, [component, namespace, pipelines]);
