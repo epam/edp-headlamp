@@ -189,6 +189,7 @@ export function LogViewer(props: LogViewerProps) {
         </Grid>
       </Grid>
       <Box className={classes.logBox}>
+        <textarea style={{ display: 'none' }} data-test="logs_output" value={getJointLogs()} />
         <div
           id="xterm-container"
           className={classes.terminal}
