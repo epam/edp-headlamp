@@ -1,17 +1,19 @@
 import React from 'react';
 import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { CODEBASE_VERSIONING_TYPES } from '../../../../../../constants/codebaseVersioningTypes';
-import { useGitServerListQuery } from '../../../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { CODEBASE_FORM_NAMES } from '../../../names';
+import { useCurrentDialog } from '../../../providers/CurrentDialog/hooks';
 
 const defaultEDPVersioningValue = '0.1.0-SNAPSHOT';
 const [defaultEDPVersioningVersion, defaultEDPVersioningVersionPostfix] =
   defaultEDPVersioningValue.split('-');
 
 export const useDefaultValues = () => {
-  const { data: gitServers } = useGitServerListQuery({});
+  const {
+    props: { gitServers },
+  } = useCurrentDialog();
 
-  const firstValidGitServer = gitServers?.items.find((gitServer) => gitServer.status.connected);
+  const firstValidGitServer = gitServers?.find((gitServer) => gitServer.status?.connected);
 
   return React.useMemo(
     () => ({

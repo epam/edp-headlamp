@@ -62,7 +62,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
             }),
         },
         error: error,
-        isLoading: component === null,
+        isLoading: component === null || codebaseBranches === null,
       },
       codebaseBranches: {
         data: sortedCodebaseBranches,

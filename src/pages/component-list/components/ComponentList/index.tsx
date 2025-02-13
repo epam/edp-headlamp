@@ -60,12 +60,13 @@ export const ComponentList = () => {
         customText={"Let's kickstart the application onboarding!"}
         linkText={'Click here to add a new application and integrate with the platform.'}
         handleClick={() => {
-          setDialog(ManageCodebaseDialog, { codebaseData: null });
+          setDialog(ManageCodebaseDialog, { codebaseData: null, gitServers: gitServers.data });
         }}
       />
     );
   }, [
     codebases.data,
+    gitServers.data,
     gitServersConfigurationPageRoute,
     history,
     noGitServers,
@@ -88,7 +89,8 @@ export const ComponentList = () => {
             color: 'primary',
             variant: 'contained',
             disabled: noGitServers,
-            onClick: () => setDialog(ManageCodebaseDialog, { codebaseData: null }),
+            onClick: () =>
+              setDialog(ManageCodebaseDialog, { codebaseData: null, gitServers: gitServers.data }),
           }}
           disabled={!permissions?.create?.Codebase.allowed}
           reason={permissions?.create?.Codebase.reason}
