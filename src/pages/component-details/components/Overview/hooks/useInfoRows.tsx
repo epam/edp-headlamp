@@ -2,6 +2,7 @@ import { Chip, Grid, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { InfoRow } from '../../../../../components/InfoColumns/types';
+import { LoadingWrapper } from '../../../../../components/LoadingWrapper';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import {
   BUILD_TOOL_ICON_MAPPING,
@@ -16,9 +17,9 @@ import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/name
 import { CodebaseKubeObject } from '../../../../../k8s/groups/EDP/Codebase';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
+import { Pipeline } from '../../../../../widgets/Pipeline';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { ComponentDetailsRouteParams } from '../../../types';
-import { Pipeline } from '../../Pipeline';
 
 const getColorByType = (type: string) => {
   switch (type) {
@@ -50,7 +51,7 @@ const getChipSX = (type: string) => {
 export const useInfoRows = (): InfoRow[] | null => {
   const {
     component: { data: component },
-    pipelines: { data: pipelines },
+    pipelines: { data: pipelines, isLoading: pipelinesIsLoading },
   } = useDynamicDataContext();
 
   const { namespace } = useParams<ComponentDetailsRouteParams>();
@@ -182,13 +183,21 @@ export const useInfoRows = (): InfoRow[] | null => {
       [
         {
           label: 'Review Pipeline',
-          text: <Pipeline pipelineName={pipelines?.review} namespace={namespace} />,
+          text: (
+            <LoadingWrapper isLoading={pipelinesIsLoading}>
+              <Pipeline pipelineName={pipelines?.review} namespace={namespace} />
+            </LoadingWrapper>
+          ),
         },
         {
           label: 'Build Pipeline',
-          text: <Pipeline pipelineName={pipelines?.build} namespace={namespace} />,
+          text: (
+            <LoadingWrapper isLoading={pipelinesIsLoading}>
+              <Pipeline pipelineName={pipelines?.build} namespace={namespace} />
+            </LoadingWrapper>
+          ),
         },
       ],
     ];
-  }, [component, namespace, pipelines]);
+  }, [component, namespace, pipelines?.build, pipelines?.review, pipelinesIsLoading]);
 };

@@ -9,7 +9,7 @@ import { TRIGGER_TYPES } from '../../../constants/triggerTypes';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { StageKubeObject } from '../../../k8s/groups/EDP/Stage';
 import { rem } from '../../../utils/styling/rem';
-import { Pipeline } from '../../component-details/components/Pipeline';
+import { Pipeline } from '../../../widgets/Pipeline';
 import { useDynamicDataContext } from '../providers/DynamicData/hooks';
 
 const useStyles = makeStyles((theme) => ({
