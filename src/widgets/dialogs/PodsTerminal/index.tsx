@@ -88,6 +88,8 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
   const firstPod = pods?.[0];
 
   const [activePod, setActivePod] = React.useState<PodKubeObjectInterface>(firstPod);
+  console.log(activePod, pods);
+
   const [container, setContainer] = React.useState<string>(getDefaultContainer(firstPod));
 
   const classes = useStyle();
@@ -369,7 +371,8 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
   }
 
   function handlePodChange(event: any) {
-    setActivePod(event.target.value);
+    const newPodName = event.target.value;
+    setActivePod(pods.find(({ metadata: { name } }) => name === newPodName));
   }
 
   function isSuccessfulExitError(channel: number, text: string): boolean {
