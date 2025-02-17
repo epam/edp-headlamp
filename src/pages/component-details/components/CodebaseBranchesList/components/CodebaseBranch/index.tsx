@@ -53,19 +53,12 @@ export const CodebaseBranch = ({
           el.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] === PIPELINE_TYPE.BUILD
       );
 
-      if (
-        PipelineRunKubeObject.parseStatusReason(latestBuildPipelineRun) ===
-        PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun)
-      ) {
-        return;
-      }
-
       setPipelineRuns({
         all: sortedPipelineRuns,
         latestBuildPipelineRun,
       });
     },
-    [pipelineRuns.latestBuildPipelineRun]
+    []
   );
 
   const handleStreamError = React.useCallback((error: Error) => {
