@@ -1,6 +1,4 @@
 import { Icon } from '@iconify/react';
-import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import {
   ButtonGroup,
   ClickAwayListener,
@@ -19,32 +17,30 @@ import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/stat
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/constants';
-import { useCreateBuildPipelineRun } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateBuildPipelineRun';
 import { createBuildPipelineRunInstance } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/utils/createBuildPipelineRunInstance';
 import { useTriggerTemplateByNameQuery } from '../../../../../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useTriggerTemplateByNameQuery';
 import { useTypedPermissions } from '../../../../../../hooks/useTypedPermissions';
 import { useDynamicDataContext } from '../../../../../../providers/DynamicData/hooks';
 import { BuildGroupProps } from './types';
 
-export const BuildGroup = ({ codebaseBranch, latestBuildPipelineRun }: BuildGroupProps) => {
+export const BuildGroup = ({
+  codebaseBranch,
+  latestBuildPipelineRun,
+  handleOpenEditor,
+  menuAnchorEl,
+  handleClickMenu,
+  handleCloseMenu,
+  createBuildPipelineRun,
+}: BuildGroupProps) => {
   const {
     component: { data: codebaseData },
     gitServerByCodebase: { data: gitServerByCodebase },
   } = useDynamicDataContext();
-  const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleClickMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setMenuAnchorEl(menuAnchorEl ? null : event.currentTarget);
-  };
-
-  const handleCloseMenu = () => setMenuAnchorEl(null);
 
   const open = Boolean(menuAnchorEl);
   const id = open ? 'simple-popper' : undefined;
 
   const theme = useTheme();
-
-  const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
 
   const { data: buildTriggerTemplate } = useTriggerTemplateByNameQuery({
     props: {
@@ -107,32 +103,6 @@ export const BuildGroup = ({ codebaseBranch, latestBuildPipelineRun }: BuildGrou
 
     return 'Trigger build PipelineRun';
   })();
-
-  const [editor, setEditor] = React.useState<{
-    open: boolean;
-    data: KubeObjectInterface | undefined;
-  }>({
-    open: false,
-    data: undefined,
-  });
-
-  const handleOpenEditor = (data: KubeObjectInterface) => {
-    setEditor({ open: true, data });
-  };
-
-  const handleCloseEditor = () => {
-    setEditor({ open: false, data: undefined });
-  };
-
-  const handleEditorSave = (data: KubeObjectInterface[]) => {
-    const [item] = data;
-
-    handleCloseMenu();
-
-    createBuildPipelineRun(item);
-
-    handleCloseEditor();
-  };
 
   return (
     <>
@@ -208,14 +178,6 @@ export const BuildGroup = ({ codebaseBranch, latestBuildPipelineRun }: BuildGrou
           </Grow>
         )}
       </Popper>
-      {editor.open && editor.data && (
-        <EditorDialog
-          open={editor.open}
-          item={editor.data}
-          onClose={handleCloseEditor}
-          onSave={handleEditorSave}
-        />
-      )}
     </>
   );
 };
