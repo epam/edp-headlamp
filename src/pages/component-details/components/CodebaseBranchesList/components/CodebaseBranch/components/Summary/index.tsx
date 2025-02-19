@@ -19,7 +19,15 @@ import { BuildGroup } from '../BuildGroup';
 import { useStyles } from './styles';
 import { SummaryProps } from './types';
 
-export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
+export const Summary = ({
+  codebaseBranchData,
+  pipelineRuns,
+  handleOpenEditor,
+  menuAnchorEl,
+  handleClickMenu,
+  handleCloseMenu,
+  createBuildPipelineRun,
+}: SummaryProps) => {
   const {
     component: { data: codebaseData },
     gitServerByCodebase: { data: gitServerByCodebase },
@@ -43,158 +51,162 @@ export const Summary = ({ codebaseBranchData, pipelineRuns }: SummaryProps) => {
   const theme = useTheme();
 
   return (
-    <Stack
-      spacing={2}
-      alignItems="center"
-      direction="row"
-      width={'100%'}
-      justifyContent="space-between"
-      flexWrap="nowrap"
-    >
-      <Stack spacing={2} alignItems="center" direction="row">
-        <StatusIcon
-          icon={codebaseBranchIcon}
-          color={codebaseBranchColor}
-          isRotating={codebaseBranchIsRotating}
-          Title={
-            <>
-              <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                {`Status: ${status || 'Unknown'}`}
-              </Typography>
-              {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
-                <Typography
-                  variant={'subtitle2'}
-                  style={{ marginTop: theme.typography.pxToRem(10) }}
-                >
-                  {detailedMessage}
-                </Typography>
-              )}
-            </>
-          }
-        />
-
-        <Stack direction="row" alignItems="center">
-          <TextWithTooltip
-            text={codebaseBranchData.spec.branchName}
-            textSX={{
-              marginTop: theme.typography.pxToRem(2),
-              fontSize: (t) => t.typography.pxToRem(20),
-              fontWeight: 500,
-            }}
-          />
-          <Box
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-          >
-            <CopyButton text={codebaseBranchData.spec.branchName} size="small" />
-          </Box>
-        </Stack>
-
-        {isDefaultBranch(codebaseData, codebaseBranchData) && (
-          <Chip
-            label="default"
-            size="small"
-            className={clsx([classes.labelChip, classes.labelChipBlue])}
-          />
-        )}
-        {codebaseBranchData.spec.release && (
-          <Chip
-            label="release"
-            size="small"
-            className={clsx([classes.labelChip, classes.labelChipGreen])}
-          />
-        )}
-        <Stack spacing={1} alignItems="center" direction="row">
-          <Typography fontSize={12}>Build status</Typography>
+    <>
+      <Stack
+        spacing={2}
+        alignItems="center"
+        direction="row"
+        width={'100%'}
+        justifyContent="space-between"
+        flexWrap="nowrap"
+      >
+        <Stack spacing={2} alignItems="center" direction="row">
           <StatusIcon
-            icon={lastPipelineRunIcon}
-            color={lastPipelineRunColor}
-            isRotating={lastPipelineRunIsRotating}
-            width={20}
+            icon={codebaseBranchIcon}
+            color={codebaseBranchColor}
+            isRotating={codebaseBranchIsRotating}
             Title={
               <>
                 <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                  {`Last Build PipelineRun status: ${PipelineRunKubeObject.parseStatus(
-                    pipelineRuns.latestBuildPipelineRun
-                  )}. Reason: ${PipelineRunKubeObject.parseStatusReason(
-                    pipelineRuns.latestBuildPipelineRun
-                  )}`}
+                  {`Status: ${status || 'Unknown'}`}
                 </Typography>
+                {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
+                  <Typography
+                    variant={'subtitle2'}
+                    style={{ marginTop: theme.typography.pxToRem(10) }}
+                  >
+                    {detailedMessage}
+                  </Typography>
+                )}
               </>
             }
           />
-        </Stack>
-        {isEDPVersioning ? (
-          <>
-            <Stack spacing={1} alignItems="center" direction="row">
-              <Typography fontSize={12}>Build:</Typography>
-              <Chip label={codebaseBranchData?.status?.build || 'N/A'} size="small" />
-            </Stack>
-            <Stack spacing={1} alignItems="center" direction="row">
-              <Typography fontSize={12}>Successful build:</Typography>
-              <Chip label={codebaseBranchData?.status?.lastSuccessfulBuild || 'N/A'} size="small" />
-            </Stack>
-            <Stack spacing={1} alignItems="center" direction="row">
-              <Typography fontSize={12}>Version:</Typography>
-              <Tooltip title={codebaseBranchData?.spec?.version || 'N/A'}>
+
+          <Stack direction="row" alignItems="center">
+            <TextWithTooltip
+              text={codebaseBranchData.spec.branchName}
+              textSX={{
+                marginTop: theme.typography.pxToRem(2),
+                fontSize: (t) => t.typography.pxToRem(20),
+                fontWeight: 500,
+              }}
+            />
+            <Box
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              <CopyButton text={codebaseBranchData.spec.branchName} size="small" />
+            </Box>
+          </Stack>
+
+          {isDefaultBranch(codebaseData, codebaseBranchData) && (
+            <Chip
+              label="default"
+              size="small"
+              className={clsx([classes.labelChip, classes.labelChipBlue])}
+            />
+          )}
+          {codebaseBranchData.spec.release && (
+            <Chip
+              label="release"
+              size="small"
+              className={clsx([classes.labelChip, classes.labelChipGreen])}
+            />
+          )}
+          <Stack spacing={1} alignItems="center" direction="row">
+            <Typography fontSize={12}>Build status</Typography>
+            <StatusIcon
+              icon={lastPipelineRunIcon}
+              color={lastPipelineRunColor}
+              isRotating={lastPipelineRunIsRotating}
+              width={20}
+              Title={
+                <>
+                  <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                    {`Last Build PipelineRun status: ${PipelineRunKubeObject.parseStatus(
+                      pipelineRuns.latestBuildPipelineRun
+                    )}. Reason: ${PipelineRunKubeObject.parseStatusReason(
+                      pipelineRuns.latestBuildPipelineRun
+                    )}`}
+                  </Typography>
+                </>
+              }
+            />
+          </Stack>
+          {isEDPVersioning ? (
+            <>
+              <Stack spacing={1} alignItems="center" direction="row">
+                <Typography fontSize={12}>Build:</Typography>
+                <Chip label={codebaseBranchData?.status?.build || 'N/A'} size="small" />
+              </Stack>
+              <Stack spacing={1} alignItems="center" direction="row">
+                <Typography fontSize={12}>Successful build:</Typography>
                 <Chip
-                  label={codebaseBranchData?.spec?.version || 'N/A'}
-                  sx={{
-                    maxWidth: theme.typography.pxToRem(200),
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}
+                  label={codebaseBranchData?.status?.lastSuccessfulBuild || 'N/A'}
                   size="small"
                 />
-              </Tooltip>
-            </Stack>
-          </>
-        ) : null}
+              </Stack>
+              <Stack spacing={1} alignItems="center" direction="row">
+                <Typography fontSize={12}>Version:</Typography>
+                <Tooltip title={codebaseBranchData?.spec?.version || 'N/A'}>
+                  <Chip
+                    label={codebaseBranchData?.spec?.version || 'N/A'}
+                    sx={{
+                      maxWidth: theme.typography.pxToRem(200),
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                    size="small"
+                  />
+                </Tooltip>
+              </Stack>
+            </>
+          ) : null}
+        </Stack>
+
+        <Box
+          sx={{ pr: theme.typography.pxToRem(16), flexShrink: 0 }}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+        >
+          <Grid container spacing={3} alignItems={'center'}>
+            <Grid item>
+              <QuickLink
+                enabledText="Open in GIT"
+                name={{ label: 'GIT' }}
+                icon={ICONS.NEW_WINDOW}
+                externalLink={LinkCreationService.git.createRepoBranchLink(
+                  gitServerByCodebase?.spec.gitProvider as GIT_PROVIDERS,
+                  codebaseData?.status?.gitWebUrl,
+                  codebaseBranchData?.spec.branchName
+                )}
+                variant="text"
+                isTextButton
+              />
+            </Grid>
+            <Grid item>
+              <BuildGroup
+                createBuildPipelineRun={createBuildPipelineRun}
+                menuAnchorEl={menuAnchorEl}
+                handleClickMenu={handleClickMenu}
+                handleCloseMenu={handleCloseMenu}
+                handleOpenEditor={handleOpenEditor}
+                codebaseBranch={codebaseBranchData}
+                latestBuildPipelineRun={pipelineRuns.latestBuildPipelineRun}
+              />
+            </Grid>
+
+            <Grid item>
+              <Actions codebaseBranchData={codebaseBranchData} />
+            </Grid>
+          </Grid>
+        </Box>
       </Stack>
-
-      <Box sx={{ pr: theme.typography.pxToRem(16), flexShrink: 0 }}>
-        <Grid container spacing={3} alignItems={'center'}>
-          <Grid item>
-            <QuickLink
-              enabledText="Open in GIT"
-              name={{ label: 'GIT' }}
-              icon={ICONS.NEW_WINDOW}
-              externalLink={LinkCreationService.git.createRepoBranchLink(
-                gitServerByCodebase?.spec.gitProvider as GIT_PROVIDERS,
-                codebaseData?.status?.gitWebUrl,
-                codebaseBranchData?.spec.branchName
-              )}
-              variant="text"
-              isTextButton
-            />
-          </Grid>
-          <Grid
-            item
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-          >
-            <BuildGroup
-              codebaseBranch={codebaseBranchData}
-              latestBuildPipelineRun={pipelineRuns.latestBuildPipelineRun}
-            />
-          </Grid>
-
-          <Grid
-            item
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-          >
-            <Actions codebaseBranchData={codebaseBranchData} />
-          </Grid>
-        </Grid>
-      </Box>
-    </Stack>
+    </>
   );
 };
