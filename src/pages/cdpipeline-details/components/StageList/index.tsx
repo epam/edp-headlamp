@@ -80,14 +80,7 @@ export const StageList = () => {
           <Grid container spacing={6} wrap="nowrap" sx={{ pb: theme.typography.pxToRem(50) }}>
             {filteredStages.map((stageWithApplicationsData) => {
               return (
-                <Grid
-                  item
-                  xs={12}
-                  lg={6}
-                  xl={4}
-                  flexShrink="0"
-                  key={stageWithApplicationsData.stage.spec.name}
-                >
+                <Grid item xs={6} flexShrink="0" key={stageWithApplicationsData.stage.spec.name}>
                   <EnvironmentStage
                     CDPipeline={CDPipeline.data}
                     stageWithApplicationsData={stageWithApplicationsData}
