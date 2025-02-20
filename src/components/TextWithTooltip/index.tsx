@@ -6,6 +6,15 @@ export const TextWithTooltip = ({ text, textSX, maxLineAmount = 1 }: TextWithToo
   const [isOverflowed, setIsOverflowed] = React.useState(false);
   const textRef = React.useRef<HTMLDivElement>(null);
 
+  const handleResize = () => {
+    if (textRef.current) {
+      const isOverflow =
+        textRef.current.offsetWidth < textRef.current.scrollWidth ||
+        textRef.current.offsetHeight < textRef.current.scrollHeight;
+      setIsOverflowed(isOverflow);
+    }
+  };
+
   const calculatedSX = React.useMemo(() => {
     const base: SxProps<Theme> = {
       fontSize: (t) => t.typography.pxToRem(14),
@@ -21,13 +30,12 @@ export const TextWithTooltip = ({ text, textSX, maxLineAmount = 1 }: TextWithToo
   }, [maxLineAmount, textSX]);
 
   React.useEffect(() => {
-    if (textRef.current) {
-      const isOverflow =
-        textRef.current.offsetWidth < textRef.current.scrollWidth ||
-        textRef.current.offsetHeight < textRef.current.scrollHeight;
-      setIsOverflowed(isOverflow);
-    }
-  }, [text, maxLineAmount]);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [text, maxLineAmount, textSX]);
 
   const Content = (
     <Box ref={textRef} sx={calculatedSX}>
