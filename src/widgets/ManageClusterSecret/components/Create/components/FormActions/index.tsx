@@ -3,8 +3,13 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { useSecretCRUD } from '../../../../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
-import { createClusterSecretInstance } from '../../../../../../k8s/groups/default/Secret/utils/createClusterSecretInstance';
+// import { createClusterSecretInstance } from '../../../../../../k8s/groups/default/Secret/utils/createClusterSecretInstance';
+import {
+  createBearerClusterSecretInstance,
+  createIRSAClusterSecretInstance,
+} from '../../../../../../k8s/groups/default/Secret/utils/createClusterSecretInstance';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
+import { CLUSTER_TYPE } from '../../../../constants';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../../types';
 
 export const FormActions = () => {
@@ -33,24 +38,42 @@ export const FormActions = () => {
   const isLoading = React.useMemo(() => secretCreateMutation.isLoading, [secretCreateMutation]);
 
   const onSubmit = React.useCallback(
-    async (values: ManageClusterSecretValues) => {
+    (values: ManageClusterSecretValues) => {
       if (!permissions?.create?.Secret.allowed) {
         return false;
       }
 
-      const { clusterName, clusterHost, clusterToken, clusterCertificate, skipTLSVerify } = values;
-
-      const newClusterSecretData = createClusterSecretInstance({
+      const {
+        clusterType,
         clusterName,
         clusterHost,
         clusterToken,
         clusterCertificate,
         skipTLSVerify,
-      });
+        roleARN,
+        caData,
+      } = values;
 
-      await createSecret({
-        secretData: newClusterSecretData,
-      });
+      if (clusterType === CLUSTER_TYPE.BEARER) {
+        createSecret({
+          secretData: createBearerClusterSecretInstance({
+            clusterName,
+            clusterHost,
+            clusterToken,
+            clusterCertificate,
+            skipTLSVerify,
+          }),
+        });
+      } else {
+        createSecret({
+          secretData: createIRSAClusterSecretInstance({
+            clusterName,
+            clusterHost,
+            roleARN,
+            caData,
+          }),
+        });
+      }
 
       reset();
     },

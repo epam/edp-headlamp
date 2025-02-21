@@ -32,7 +32,6 @@ const loadConversations = () => {
 };
 
 export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecretData }) => {
-
   const newConversationID = uuidv4();
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);

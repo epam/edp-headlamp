@@ -1,9 +1,9 @@
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { PermissionsConfig } from '../../providers/Permissions/types';
-import { FORM_MODES, FormValues } from '../../types/forms';
+import { FORM_MODES } from '../../types/forms';
 import { ValueOf } from '../../types/global';
 import { widgetPermissionsToCheck } from './constants';
-import { CLUSTER_CREATION_FORM_NAMES } from './names';
+import { CLUSTER_FORM_NAMES } from './names';
 
 export type WidgetPermissions = PermissionsConfig<typeof widgetPermissionsToCheck>;
 
@@ -19,4 +19,6 @@ export interface ManageClusterSecretProps {
   formData: ManageClusterSecretDataContext;
 }
 
-export type ManageClusterSecretValues = FormValues<typeof CLUSTER_CREATION_FORM_NAMES>;
+export type ManageClusterSecretValues = {
+  [key in ValueOf<typeof CLUSTER_FORM_NAMES>]: any;
+};

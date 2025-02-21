@@ -88,7 +88,6 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
   const firstPod = pods?.[0];
 
   const [activePod, setActivePod] = React.useState<PodKubeObjectInterface>(firstPod);
-  console.log(activePod, pods);
 
   const [container, setContainer] = React.useState<string>(getDefaultContainer(firstPod));
 
