@@ -41,7 +41,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageClusterSecretDa
 
       return {
         [CLUSTER_FORM_NAMES.CLUSTER_TYPE]: CLUSTER_TYPE.IRSA,
-        [CLUSTER_FORM_NAMES.CLUSTER_NAME]: currentElement.metadata.name,
+        [CLUSTER_FORM_NAMES.CLUSTER_NAME]: safeDecode(currentElement.data.name),
         [CLUSTER_FORM_NAMES.CLUSTER_HOST]: safeDecode(currentElement.data.server),
         [CLUSTER_FORM_NAMES.ROLE_ARN]: parsedData?.awsAuthConfig?.roleARN,
         [CLUSTER_FORM_NAMES.CA_DATA]: parsedData?.tlsClientConfig?.caData,
