@@ -1,14 +1,12 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { VALIDATED_PROTOCOLS } from '../../../../../constants/validatedProtocols';
-import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
+import { FormTextFieldPassword } from '../../../../../providers/Form/components/FormTextFieldPassword';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
-import { getValidURLPattern } from '../../../../../utils/checks/getValidURLPattern';
 import { CLUSTER_FORM_NAMES } from '../../../names';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../types';
 
-export const ClusterHost = () => {
+export const RoleARN = () => {
   const {
     register,
     control,
@@ -20,24 +18,12 @@ export const ClusterHost = () => {
   } = useFormContext<ManageClusterSecretDataContext>();
 
   return (
-    <FormTextField
-      {...register(CLUSTER_FORM_NAMES.CLUSTER_HOST, {
-        required: 'Enter the cluster URL assigned to the host.',
-        pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.STRICT_HTTPS),
-          message: 'Enter a valid URL with HTTPS protocol.',
-        },
+    <FormTextFieldPassword
+      {...register(CLUSTER_FORM_NAMES.ROLE_ARN, {
+        required: 'Enter Role ARN.',
       })}
-      label={'Cluster Host'}
-      //@ts-ignore
-      title={
-        <>
-          <p>
-            Enter cluster’s endpoint URL (e.g., <em>https://example-cluster-domain.com)</em>.
-          </p>
-        </>
-      }
-      placeholder={'Enter cluster host'}
+      label={'Role ARN'}
+      placeholder={'Enter Role ARN.'}
       control={control}
       errors={errors}
       disabled={mode === FORM_MODES.EDIT && !!ownerReference}

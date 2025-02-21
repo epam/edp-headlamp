@@ -3,7 +3,7 @@ import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextFieldPassword } from '../../../../../providers/Form/components/FormTextFieldPassword';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
-import { CLUSTER_CREATION_FORM_NAMES } from '../../../names';
+import { CLUSTER_FORM_NAMES } from '../../../names';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../types';
 
 export const ClusterToken = () => {
@@ -19,7 +19,7 @@ export const ClusterToken = () => {
 
   return (
     <FormTextFieldPassword
-      {...register(CLUSTER_CREATION_FORM_NAMES.clusterToken.name, {
+      {...register(CLUSTER_FORM_NAMES.CLUSTER_TOKEN, {
         required: 'Provide the cluster token.',
       })}
       label={'Cluster Token'}

@@ -3,7 +3,7 @@ import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
-import { CLUSTER_CREATION_FORM_NAMES } from '../../../names';
+import { CLUSTER_FORM_NAMES } from '../../../names';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../types';
 
 export const ClusterCertificate = () => {
@@ -19,7 +19,7 @@ export const ClusterCertificate = () => {
 
   return (
     <FormTextField
-      {...register(CLUSTER_CREATION_FORM_NAMES.clusterCertificate.name, {
+      {...register(CLUSTER_FORM_NAMES.CLUSTER_CERTIFICATE, {
         required: 'Paste the cluster certificate.',
       })}
       label={'Cluster Certificate'}

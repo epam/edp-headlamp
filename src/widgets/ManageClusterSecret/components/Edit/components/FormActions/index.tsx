@@ -6,10 +6,14 @@ import { ConditionalWrapper } from '../../../../../../components/ConditionalWrap
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
 import { useSecretCRUD } from '../../../../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
-import { createClusterSecretInstance } from '../../../../../../k8s/groups/default/Secret/utils/createClusterSecretInstance';
+import {
+  createBearerClusterSecretInstance,
+  createIRSAClusterSecretInstance,
+} from '../../../../../../k8s/groups/default/Secret/utils/createClusterSecretInstance';
 import { useDialogContext } from '../../../../../../providers/Dialog/hooks';
 import { useFormContext } from '../../../../../../providers/Form/hooks';
 import { DeleteKubeObjectDialog } from '../../../../../dialogs/DeleteKubeObject';
+import { CLUSTER_TYPE } from '../../../../constants';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../../types';
 import { ClusterCDPipelineConflictError } from './components/ClusterCDPipelineConflictError';
 import { useConflictedStage } from './hooks/useConflictedStage';
@@ -45,19 +49,38 @@ export const FormActions = () => {
         return false;
       }
 
-      const { clusterName, clusterHost, clusterToken, clusterCertificate, skipTLSVerify } = values;
-
-      const newClusterSecretData = createClusterSecretInstance({
+      const {
+        clusterType,
         clusterName,
         clusterHost,
         clusterToken,
         clusterCertificate,
         skipTLSVerify,
-      });
+        roleARN,
+        caData,
+      } = values;
 
-      await editSecret({
-        secretData: newClusterSecretData,
-      });
+      if (clusterType === CLUSTER_TYPE.BEARER) {
+        editSecret({
+          secretData: createBearerClusterSecretInstance({
+            clusterName,
+            clusterHost,
+            clusterToken,
+            clusterCertificate,
+            skipTLSVerify,
+          }),
+        });
+      } else {
+        editSecret({
+          secretData: createIRSAClusterSecretInstance({
+            isEdit: true,
+            clusterName,
+            clusterHost,
+            roleARN,
+            caData,
+          }),
+        });
+      }
     },
     [editSecret, permissions?.update?.Secret.allowed]
   );

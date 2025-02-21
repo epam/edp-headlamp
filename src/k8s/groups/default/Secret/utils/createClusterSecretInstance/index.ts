@@ -1,20 +1,27 @@
 import { safeEncode } from '../../../../../../utils/decodeEncode';
-import { SECRET_LABEL_SECRET_TYPE } from '../../labels';
+import { SECRET_LABEL_CLUSTER_TYPE, SECRET_LABEL_SECRET_TYPE } from '../../labels';
 import { SecretKubeObjectInterface } from '../../types';
 
-export const createClusterSecretInstance = ({
-  clusterName,
-  clusterHost,
-  clusterToken,
-  clusterCertificate,
-  skipTLSVerify,
-}: {
-  clusterName: string;
-  clusterHost: string;
-  clusterToken: string;
-  clusterCertificate: string;
-  skipTLSVerify: boolean;
-}): SecretKubeObjectInterface => {
+export const createBearerClusterSecretInstance = (
+  props:
+    | {
+        clusterName: string;
+        clusterHost: string;
+        clusterToken: string;
+        skipTLSVerify: true;
+      }
+    | {
+        clusterName: string;
+        clusterHost: string;
+        clusterToken: string;
+        skipTLSVerify: false;
+        clusterCertificate: string;
+      }
+): SecretKubeObjectInterface => {
+  const { clusterName, clusterHost, clusterToken, skipTLSVerify } = props;
+
+  const clusterCertificate = 'clusterCertificate' in props ? props.clusterCertificate : undefined;
+
   return {
     apiVersion: 'v1',
     kind: 'Secret',
@@ -23,6 +30,7 @@ export const createClusterSecretInstance = ({
       name: clusterName,
       labels: {
         [SECRET_LABEL_SECRET_TYPE]: 'cluster',
+        [SECRET_LABEL_CLUSTER_TYPE]: 'bearer',
       },
     },
     data: {
@@ -62,6 +70,51 @@ export const createClusterSecretInstance = ({
           ],
         })
       ),
+    },
+  };
+};
+
+export const createIRSAClusterSecretInstance = ({
+  clusterName,
+  clusterHost,
+  roleARN,
+  caData,
+  isEdit = false,
+}: {
+  clusterName: string;
+  clusterHost: string;
+  roleARN: string;
+  caData: string;
+  isEdit?: boolean;
+}): SecretKubeObjectInterface => {
+  return {
+    apiVersion: 'v1',
+    kind: 'Secret',
+    // @ts-ignore
+    metadata: {
+      name: isEdit ? clusterName : `${clusterName}-cluster`,
+      labels: {
+        [SECRET_LABEL_SECRET_TYPE]: 'cluster',
+        [SECRET_LABEL_CLUSTER_TYPE]: 'irsa',
+        'argocd.argoproj.io/secret-type': 'cluster',
+      },
+    },
+    data: {
+      config: safeEncode(
+        JSON.stringify({
+          server: clusterHost,
+          awsAuthConfig: {
+            clusterName,
+            roleARN,
+          },
+          tlsClientConfig: {
+            insecure: false,
+            caData,
+          },
+        })
+      ),
+      name: safeEncode(clusterName),
+      server: safeEncode(clusterHost),
     },
   };
 };

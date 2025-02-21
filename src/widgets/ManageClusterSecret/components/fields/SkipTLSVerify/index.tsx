@@ -4,7 +4,7 @@ import { FormCheckbox } from '../../../../../providers/Form/components/FormCheck
 import { FormControlLabelWithTooltip } from '../../../../../providers/Form/components/FormControlLabelWithTooltip';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
-import { CLUSTER_CREATION_FORM_NAMES } from '../../../names';
+import { CLUSTER_FORM_NAMES } from '../../../names';
 import { ManageClusterSecretDataContext } from '../../../types';
 
 export const SkipTLSVerify = () => {
@@ -20,7 +20,7 @@ export const SkipTLSVerify = () => {
 
   return (
     <FormCheckbox
-      {...register(CLUSTER_CREATION_FORM_NAMES.skipTLSVerify.name)}
+      {...register(CLUSTER_FORM_NAMES.SKIP_TLS_VERIFY)}
       label={
         <FormControlLabelWithTooltip
           label={'Skip TLS verification'}

@@ -6,3 +6,8 @@ export const widgetPermissionsToCheck = {
   update: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
   delete: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
 };
+
+export const CLUSTER_TYPE = {
+  BEARER: 'bearer',
+  IRSA: 'irsa',
+} as const;
