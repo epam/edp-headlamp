@@ -27,12 +27,12 @@ describe('createResourceAction', () => {
     expect(action.isTextButton).toBe(true);
   });
 
-  it('should disable the action if the resource is protected and the action is delete', () => {
+  it('should disable the action if the resource is protected for deletion', () => {
     const protectedItem = {
       ...mockItem,
       metadata: {
         labels: {
-          [RESOURCE_LABEL_SELECTOR_PROTECTED]: 'true',
+          [RESOURCE_LABEL_SELECTOR_PROTECTED]: 'delete',
         },
       },
     } as unknown as KubeObjectInterface;
@@ -48,20 +48,35 @@ describe('createResourceAction', () => {
     expect(action.disabled.reason).toBe('This resource is protected from deletion.');
   });
 
-  it('should use the provided disabled status and reason if the resource is not protected', () => {
-    const action = createResourceAction({
-      item: mockItem,
+  it('should apply protected state for multiple protections', () => {
+    const protectedItem = {
+      ...mockItem,
+      metadata: {
+        labels: {
+          [RESOURCE_LABEL_SELECTOR_PROTECTED]: 'update-delete',
+        },
+      },
+    } as unknown as KubeObjectInterface;
+
+    const actionDelete = createResourceAction({
+      item: protectedItem,
       type: RESOURCE_ACTIONS.DELETE,
       label: 'Delete',
       callback: jest.fn(),
-      disabled: {
-        status: true,
-        reason: 'Custom reason',
-      },
     });
 
-    expect(action.disabled.status).toBe(true);
-    expect(action.disabled.reason).toBe('Custom reason');
+    expect(actionDelete.disabled.status).toBe(true);
+    expect(actionDelete.disabled.reason).toBe('This resource is protected from deletion.');
+
+    const actionUpdate = createResourceAction({
+      item: protectedItem,
+      type: RESOURCE_ACTIONS.EDIT,
+      label: 'Edit',
+      callback: jest.fn(),
+    });
+
+    expect(actionUpdate.disabled.status).toBe(true);
+    expect(actionUpdate.disabled.reason).toBe('This resource is protected from updates.');
   });
 
   it('should call the callback function when the action is executed', () => {
