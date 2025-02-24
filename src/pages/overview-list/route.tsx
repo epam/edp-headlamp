@@ -2,7 +2,8 @@ import { createSidebarItemName } from '../../utils/routes/createSidebarItemName'
 
 export const routeOverviewList = {
   name: 'Overview',
-  path: '/',
+  path: '/overview',
   sidebar: createSidebarItemName('overview'),
-  exact: true,
+  useClusterURL: true,
+  noAuthRequired: false,
 };
