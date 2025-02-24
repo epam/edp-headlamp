@@ -4,6 +4,60 @@ import { RESOURCE_LABEL_SELECTOR_PROTECTED } from '../../../k8s/common/labels';
 import { KubeObjectAction } from '../../../types/actions';
 import { ValueOf } from '../../../types/global';
 
+type ProtectedAction = 'update' | 'delete';
+type ProtectedState = Record<ProtectedAction, { status: boolean; reason: string } | false>;
+type DisabledValue = { status: boolean; reason?: string };
+
+const getDisabledProtectedState = (protectedLabel: string): ProtectedState => {
+  const actions = protectedLabel.split('-');
+
+  return actions.reduce<ProtectedState>(
+    (acc, cur) => {
+      switch (cur) {
+        case 'update':
+          acc.update = {
+            status: true,
+            reason: 'This resource is protected from updates.',
+          };
+          break;
+        case 'delete':
+          acc.delete = {
+            status: true,
+            reason: 'This resource is protected from deletion.',
+          };
+          break;
+      }
+
+      return acc;
+    },
+    {
+      update: false,
+      delete: false,
+    }
+  );
+};
+
+const getDisabledState = (
+  item: KubeObjectInterface,
+  disabledDefaultValue: DisabledValue,
+  actionType: ValueOf<typeof RESOURCE_ACTIONS>
+) => {
+  const isProtected = item?.metadata?.labels?.[RESOURCE_LABEL_SELECTOR_PROTECTED];
+
+  if (!isProtected) {
+    return {
+      status: disabledDefaultValue.status,
+      reason: disabledDefaultValue.status && disabledDefaultValue.reason,
+    };
+  }
+
+  const protectedDisabledState = getDisabledProtectedState(isProtected);
+
+  const _actionType = actionType === RESOURCE_ACTIONS.EDIT ? 'update' : actionType; //because of the different naming
+
+  return protectedDisabledState[_actionType] || disabledDefaultValue;
+};
+
 export const createResourceAction = <Item extends KubeObjectInterface>({
   item,
   type,
@@ -20,30 +74,15 @@ export const createResourceAction = <Item extends KubeObjectInterface>({
   type: ValueOf<typeof RESOURCE_ACTIONS>;
   label: string;
   callback?: (item: Item) => void;
-  disabled?: {
-    status: boolean;
-    reason?: string;
-  };
+  disabled?: DisabledValue;
   icon?: string;
   isTextButton?: boolean;
 }): KubeObjectAction => {
-  const isProtected = item?.metadata?.labels?.[RESOURCE_LABEL_SELECTOR_PROTECTED] === 'true';
-  const isDeleteAction = type === RESOURCE_ACTIONS.DELETE;
-
   return {
     name: type,
     label,
     icon,
-    disabled:
-      isProtected && isDeleteAction
-        ? {
-            status: true,
-            reason: 'This resource is protected from deletion.',
-          }
-        : {
-            status: disabled.status,
-            reason: disabled.status && disabled.reason,
-          },
+    disabled: getDisabledState(item, disabled, type),
     action: (e) => {
       e.stopPropagation();
       callback(item);
