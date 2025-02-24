@@ -15,7 +15,7 @@ export const SIDEBAR_LIST: SidebarItem[] = [
     parentName: null,
     itemLabel: 'Overview',
     itemName: createSidebarItemName('overview'),
-    url: '/',
+    url: '/overview',
     opts: {
       icon: 'material-symbols:space-dashboard',
     },
