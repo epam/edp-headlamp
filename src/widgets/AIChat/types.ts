@@ -16,7 +16,8 @@ export interface ProcessedChunk {
 export interface ResponseThought {
   id_: string;
   in_progress: boolean;
-  tool_name: string;
+  author_type: string;
+  author_name: string;
   message: string;
   processedChunks?: ProcessedChunk[];
 }

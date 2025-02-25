@@ -106,6 +106,7 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
                 onClick={() =>
                   setDialog(PipelineGraphDialog, {
                     pipeline: data,
+                    pipelineName: data?.metadata.name,
                   })
                 }
                 size="medium"
