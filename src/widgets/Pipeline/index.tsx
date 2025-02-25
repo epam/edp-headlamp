@@ -37,6 +37,7 @@ export const Pipeline = ({
           onClick={() =>
             setDialog(PipelineGraphDialog, {
               pipeline: item,
+              pipelineName,
             })
           }
           size={'small'}

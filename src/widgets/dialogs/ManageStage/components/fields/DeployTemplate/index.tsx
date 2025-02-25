@@ -89,6 +89,7 @@ export const DeployTemplate = () => {
                 onClick={() => {
                   setDialog(PipelineGraphDialog, {
                     pipeline,
+                    pipelineName: pipeline?.metadata.name,
                   });
                 }}
                 disabled={!fieldValue || !pipeline}

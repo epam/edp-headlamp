@@ -152,8 +152,8 @@ export const handleThought = (thought: ResponseThought, conversation: Conversati
   );
 
   if (alreadyExistingStateThought) {
-    if (thought.tool_name)
-      alreadyExistingStateThought.message += `**Tool:** ${thought.tool_name} \n`;
+    if (thought.author_type)
+      alreadyExistingStateThought.message += `**Tool:** ${thought.author_type} \n`;
     if (thought.message) alreadyExistingStateThought.message += `${thought.message}`;
   } else {
     lastHistoryItem.response.thoughts.push(thought);

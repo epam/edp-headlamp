@@ -65,6 +65,7 @@ export const BuildPipeline = () => {
             onClick={() => {
               setDialog(PipelineGraphDialog, {
                 pipeline: currentPipeline,
+                pipelineName: currentPipeline?.metadata.name,
               });
             }}
             size={'small'}

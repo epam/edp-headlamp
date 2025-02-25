@@ -14,6 +14,7 @@ import {
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { capitalizeFirstLetter } from '../../../../utils/format/capitalizeFirstLetter';
 import { authHeaders, routeAssistantChatModel } from '../..';
 import { CHAT_ENTITY } from '../../constants';
 import { useStreaming } from '../../hooks/useStreaming';
@@ -55,7 +56,8 @@ const ChatThoughts = ({ thoughts }: { thoughts: ResponseThought[] }) => {
               expandIcon={<Icon icon={ICONS.ARROW_DOWN} width={20} height={20} />}
             >
               <Typography fontWeight={600} fontSize={14}>
-                Tool: {thought.tool_name}
+                {capitalizeFirstLetter(thought.author_type)}:{' '}
+                {capitalizeFirstLetter(thought.author_name)}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -101,6 +103,7 @@ export const Chat = ({
   requestError,
 }: ChatProps) => {
   const [_conversation, setConversation] = React.useState<ConversationItem>(conversation);
+
   const [isRequestLoading, setIsRequestLoading] = React.useState(false);
 
   const inputRef = React.useRef<HTMLInputElement>(null);

@@ -4,4 +4,5 @@ import { DialogProps } from '../../../providers/Dialog/types';
 export interface PipelineGraphDialogProps
   extends DialogProps<{
     pipeline: PipelineKubeObjectInterface;
+    pipelineName: string;
   }> {}
