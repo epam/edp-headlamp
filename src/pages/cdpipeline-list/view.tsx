@@ -14,7 +14,6 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useCodebasesByTypeLabelQuery } from '../../k8s/groups/EDP/Codebase/hooks/useCodebasesByTypeLabelQuery';
 import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../k8s/groups/EDP/Codebase/labels';
 import { useDialogContext } from '../../providers/Dialog/hooks';
-import { useFilterContext } from '../../providers/Filter/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList/provider';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { ManageCDPipelineDialog } from '../../widgets/dialogs/ManageCDPipeline';
@@ -42,8 +41,6 @@ export const PageView = () => {
   const history = useHistory();
 
   const gitOpsConfigurationPageRoute = Router.createRouteURL(routeGitOps.path);
-
-  const { filterFunction } = useFilterContext();
 
   const permissions = useTypedPermissions();
 
@@ -79,7 +76,6 @@ export const PageView = () => {
           </Stack>
           <ResourceActionListContextProvider>
             <CDPipelineList
-              filterFunction={filterFunction}
               blockerComponent={
                 gitOpsCodebaseQuery.isFetched &&
                 !gitOpsCodebaseQuery.data && (
