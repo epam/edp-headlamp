@@ -4,7 +4,7 @@ import { DialogContextProvider } from '../../providers/Dialog/provider';
 import { FilterContextProvider } from '../../providers/Filter/provider';
 import { PermissionsContextProvider } from '../../providers/Permissions/provider';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
-import { permissionsToCheckConfig } from './constants';
+import { matchFunctions, permissionsToCheckConfig } from './constants';
 import { DynamicDataContextProvider } from './providers/DynamicData/provider';
 import { PageView } from './view';
 
@@ -15,7 +15,7 @@ export default function () {
         <PermissionsContextProvider permissionConfigs={permissionsToCheckConfig}>
           <FilterContextProvider
             entityID={`ENVIRONMENT_LIST::${getDefaultNamespace()}`}
-            matchFunctions={null}
+            matchFunctions={matchFunctions}
             saveToLocalStorage
           >
             <DynamicDataContextProvider>
