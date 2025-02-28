@@ -14,7 +14,10 @@ import { ApplicationKubeObjectInterface } from '../../../k8s/groups/ArgoCD/Appli
 import { ConfigMapKubeObjectInterface } from '../../../k8s/groups/default/ConfigMap/types';
 import { CDPipelineKubeObjectInterface } from '../../../k8s/groups/EDP/CDPipeline/types';
 import { EnrichedApplicationWithItsImageStreams } from '../../../k8s/groups/EDP/Codebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
-import { SYSTEM_QUICK_LINKS } from '../../../k8s/groups/EDP/QuickLink/constants';
+import {
+  MONITORING_PROVIDERS,
+  SYSTEM_QUICK_LINKS,
+} from '../../../k8s/groups/EDP/QuickLink/constants';
 import { useQuickLinksQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksQuery';
 import { useQuickLinksURLsQuery } from '../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { QUICK_LINK_LABEL_SELECTOR_TYPE } from '../../../k8s/groups/EDP/QuickLink/labels';
@@ -213,7 +216,10 @@ export const usePageTabs = ({
       {
         label: 'Monitoring',
         id: 'monitoring',
-        disabled: !monitoringQuickLink,
+        disabled:
+          !monitoringQuickLink ||
+          monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE] !==
+            MONITORING_PROVIDERS.GRAFANA,
         component: (
           <LoadingWrapper isLoading={_isLoading}>
             <TabSection title="Monitoring">
