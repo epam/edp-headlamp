@@ -33,7 +33,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
         [CODEBASE_FORM_NAMES.description.name]: 'Custom values for deploy applications',
         [CODEBASE_FORM_NAMES.strategy.name]: CODEBASE_CREATION_STRATEGIES.CREATE,
         [CODEBASE_FORM_NAMES.type.name]: CODEBASE_TYPES.SYSTEM,
-        [CODEBASE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPES.EDP,
+        [CODEBASE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPES.SEMVER,
         [CODEBASE_FORM_NAMES.versioningStartFrom.name]: '0.1.0-SNAPSHOT',
         [CODEBASE_FORM_NAMES.systemTypeLabel.name]: 'gitops',
       };

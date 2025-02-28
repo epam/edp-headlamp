@@ -47,7 +47,7 @@ export const CodebaseVersioning = () => {
   const handleVersioningTypeChange = React.useCallback(
     ({ target: { value } }: FieldEvent): void => {
       if (
-        value === CODEBASE_VERSIONING_TYPES.EDP &&
+        (value === CODEBASE_VERSIONING_TYPES.EDP || value === CODEBASE_VERSIONING_TYPES.SEMVER) &&
         !versioningStartFromVersionFieldValue &&
         !versioningStartFromSnapshotFieldValue
       ) {
