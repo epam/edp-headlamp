@@ -35,7 +35,8 @@ export const Form = ({ editorOpen, setEditorOpen, editorData }: FormProps) => {
 
   const canCreateReleaseBranch = React.useMemo(
     () =>
-      codebase.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP &&
+      (codebase.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP ||
+        codebase.spec.versioning.type === CODEBASE_VERSIONING_TYPES.SEMVER) &&
       defaultBranch &&
       defaultBranch.status.status === CUSTOM_RESOURCE_STATUSES.CREATED,
     [codebase.spec.versioning.type, defaultBranch]

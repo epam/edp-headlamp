@@ -25,7 +25,10 @@ export const useDefaultValues = () => {
       return base;
     }
 
-    if (versioningType !== CODEBASE_VERSIONING_TYPES.EDP) {
+    if (
+      versioningType !== CODEBASE_VERSIONING_TYPES.EDP &&
+      versioningType !== CODEBASE_VERSIONING_TYPES.SEMVER
+    ) {
       return base;
     }
 

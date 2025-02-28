@@ -155,7 +155,8 @@ export const useInfoRows = (): InfoRow[] | null => {
           label: 'Versioning Type',
           text: versioningType,
         },
-        ...(versioningType === CODEBASE_VERSIONING_TYPES.EDP
+        ...(versioningType === CODEBASE_VERSIONING_TYPES.EDP ||
+        versioningType === CODEBASE_VERSIONING_TYPES.SEMVER
           ? [
               {
                 label: 'Versioning Start From',

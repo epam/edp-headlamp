@@ -13,7 +13,8 @@ export const useUpdateVersioningFields = () => {
 
   React.useEffect(() => {
     if (
-      versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.EDP &&
+      (versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.EDP ||
+        versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.SEMVER) &&
       !versioningStartFromFieldValue
     ) {
       setValue(CODEBASE_FORM_NAMES.versioningStartFrom.name, defaultEDPVersioningValue, {

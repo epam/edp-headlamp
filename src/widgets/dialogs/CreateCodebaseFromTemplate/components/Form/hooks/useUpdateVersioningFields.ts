@@ -14,7 +14,8 @@ export const useUpdateVersioningFields = (): void => {
 
   React.useEffect(() => {
     if (
-      versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.EDP &&
+      (versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.EDP ||
+        versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.SEMVER) &&
       !versioningStartFromFieldValue
     ) {
       setValue(

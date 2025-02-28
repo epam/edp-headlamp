@@ -46,7 +46,9 @@ export const Summary = ({
       PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun)
     );
 
-  const isEDPVersioning = codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP;
+  const isEDPVersioning =
+    codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP ||
+    codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES.SEMVER;
 
   const theme = useTheme();
 
