@@ -53,6 +53,9 @@ describe('testing ManageGitServer Edit', () => {
               Secret: {
                 allowed: true,
               },
+              GitServer: {
+                allowed: true,
+              },
             },
           }}
         />
@@ -92,6 +95,9 @@ describe('testing ManageGitServer Edit', () => {
             },
             delete: {
               Secret: {
+                allowed: true,
+              },
+              GitServer: {
                 allowed: true,
               },
             },
@@ -137,6 +143,9 @@ describe('testing ManageGitServer Edit', () => {
               Secret: {
                 allowed: true,
               },
+              GitServer: {
+                allowed: true,
+              },
             },
           }}
         />
@@ -178,6 +187,9 @@ describe('testing ManageGitServer Edit', () => {
               Secret: {
                 allowed: true,
               },
+              GitServer: {
+                allowed: true,
+              },
             },
           }}
         />
@@ -217,6 +229,9 @@ describe('testing ManageGitServer Edit', () => {
             },
             delete: {
               Secret: {
+                allowed: true,
+              },
+              GitServer: {
                 allowed: true,
               },
             },

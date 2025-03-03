@@ -28,8 +28,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                 <label
                   class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                   data-shrink="true"
-                  for="mui-38"
-                  id="mui-38-label"
+                  for="mui-40"
+                  id="mui-40-label"
                 >
                   Name
                 </label>
@@ -40,7 +40,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                     aria-invalid="false"
                     class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                     disabled=""
-                    id="mui-38"
+                    id="mui-40"
                     name="name"
                     placeholder="my-github"
                     type="text"
@@ -1827,8 +1827,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-41"
-                      id="mui-41-label"
+                      for="mui-43"
+                      id="mui-43-label"
                     >
                       Host
                     </label>
@@ -1838,7 +1838,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-41"
+                        id="mui-43"
                         name="gitHost"
                         placeholder="host-name.com"
                         type="text"
@@ -1877,8 +1877,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-43"
-                      id="mui-43-label"
+                      for="mui-45"
+                      id="mui-45-label"
                     >
                       User
                     </label>
@@ -1889,7 +1889,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-43"
+                        id="mui-45"
                         name="gitUser"
                         placeholder="git"
                         type="text"
@@ -1958,8 +1958,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-45"
-                      id="mui-45-label"
+                      for="mui-47"
+                      id="mui-47-label"
                     >
                       SSH port
                     </label>
@@ -1969,7 +1969,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-45"
+                        id="mui-47"
                         name="sshPort"
                         placeholder="Enter SSH port"
                         type="number"
@@ -2008,8 +2008,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-47"
-                      id="mui-47-label"
+                      for="mui-49"
+                      id="mui-49-label"
                     >
                       HTTPS port
                     </label>
@@ -2019,7 +2019,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-47"
+                        id="mui-49"
                         name="httpsPort"
                         placeholder="Enter HTTPS port"
                         type="number"
@@ -2126,8 +2126,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-50"
-                      id="mui-50-label"
+                      for="mui-52"
+                      id="mui-52-label"
                     >
                       Webhook URL
                     </label>
@@ -2138,7 +2138,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-50"
+                        id="mui-52"
                         name="webhookURL"
                         placeholder="https://example.com"
                         type="text"
@@ -2278,8 +2278,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-53"
-                      id="mui-53-label"
+                      for="mui-55"
+                      id="mui-55-label"
                     >
                       Private SSH key
                     </label>
@@ -2290,7 +2290,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputMultiline MuiInputBase-inputAdornedEnd css-mixo3p-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-53"
+                        id="mui-55"
                         placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
 "
                         style="height: 0px; overflow: hidden;"
@@ -2359,8 +2359,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="false"
-                      for="mui-54"
-                      id="mui-54-label"
+                      for="mui-56"
+                      id="mui-56-label"
                     >
                       Access token
                     </label>
@@ -2371,7 +2371,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
                         aria-invalid="false"
                         autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-54"
+                        id="mui-56"
                         name="token"
                         type="password"
                         value=""
@@ -2419,10 +2419,20 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Bit
       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
     >
       <div
-        class="MuiStack-root css-11jnun4-MuiStack-root"
+        class="MuiStack-root css-1a41st4-MuiStack-root"
       >
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <span />
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-pdf1aj-MuiButtonBase-root-MuiButton-root"
           disabled=""
           tabindex="-1"
           type="button"
@@ -2471,8 +2481,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                 <label
                   class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                   data-shrink="true"
-                  for="mui-56"
-                  id="mui-56-label"
+                  for="mui-59"
+                  id="mui-59-label"
                 >
                   Name
                 </label>
@@ -2483,7 +2493,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     aria-invalid="false"
                     class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                     disabled=""
-                    id="mui-56"
+                    id="mui-59"
                     name="name"
                     placeholder="my-github"
                     type="text"
@@ -4270,8 +4280,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-59"
-                      id="mui-59-label"
+                      for="mui-62"
+                      id="mui-62-label"
                     >
                       Host
                     </label>
@@ -4281,7 +4291,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-59"
+                        id="mui-62"
                         name="gitHost"
                         placeholder="host-name.com"
                         type="text"
@@ -4320,8 +4330,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-61"
-                      id="mui-61-label"
+                      for="mui-64"
+                      id="mui-64-label"
                     >
                       User
                     </label>
@@ -4332,7 +4342,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-61"
+                        id="mui-64"
                         name="gitUser"
                         placeholder="git"
                         type="text"
@@ -4401,8 +4411,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-63"
-                      id="mui-63-label"
+                      for="mui-66"
+                      id="mui-66-label"
                     >
                       SSH port
                     </label>
@@ -4412,7 +4422,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-63"
+                        id="mui-66"
                         name="sshPort"
                         placeholder="Enter SSH port"
                         type="number"
@@ -4451,8 +4461,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-65"
-                      id="mui-65-label"
+                      for="mui-68"
+                      id="mui-68-label"
                     >
                       HTTPS port
                     </label>
@@ -4462,7 +4472,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-65"
+                        id="mui-68"
                         name="httpsPort"
                         placeholder="Enter HTTPS port"
                         type="number"
@@ -4569,8 +4579,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-68"
-                      id="mui-68-label"
+                      for="mui-71"
+                      id="mui-71-label"
                     >
                       Webhook URL
                     </label>
@@ -4581,7 +4591,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-68"
+                        id="mui-71"
                         name="webhookURL"
                         placeholder="https://example.com"
                         type="text"
@@ -4721,8 +4731,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-71"
-                      id="mui-71-label"
+                      for="mui-74"
+                      id="mui-74-label"
                     >
                       Private SSH key
                     </label>
@@ -4733,7 +4743,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputMultiline MuiInputBase-inputAdornedEnd css-mixo3p-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-71"
+                        id="mui-74"
                         placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
 "
                         style="height: 0px; overflow: hidden;"
@@ -4802,8 +4812,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="false"
-                      for="mui-73"
-                      id="mui-73-label"
+                      for="mui-76"
+                      id="mui-76-label"
                     >
                       Public SSH key
                     </label>
@@ -4814,7 +4824,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                         aria-invalid="false"
                         autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-73"
+                        id="mui-76"
                         name="sshPublicKey"
                         placeholder="ssh-rsa PUBLIC KEY"
                         type="password"
@@ -4868,10 +4878,20 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
     >
       <div
-        class="MuiStack-root css-11jnun4-MuiStack-root"
+        class="MuiStack-root css-1a41st4-MuiStack-root"
       >
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <span />
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-pdf1aj-MuiButtonBase-root-MuiButton-root"
           disabled=""
           tabindex="-1"
           type="button"
@@ -4920,8 +4940,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                 <label
                   class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                   data-shrink="true"
-                  for="mui-75"
-                  id="mui-75-label"
+                  for="mui-79"
+                  id="mui-79-label"
                 >
                   Name
                 </label>
@@ -4932,7 +4952,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     aria-invalid="false"
                     class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                     disabled=""
-                    id="mui-75"
+                    id="mui-79"
                     name="name"
                     placeholder="my-github"
                     type="text"
@@ -6719,8 +6739,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-78"
-                      id="mui-78-label"
+                      for="mui-82"
+                      id="mui-82-label"
                     >
                       Host
                     </label>
@@ -6730,7 +6750,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-78"
+                        id="mui-82"
                         name="gitHost"
                         placeholder="host-name.com"
                         type="text"
@@ -6769,8 +6789,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-80"
-                      id="mui-80-label"
+                      for="mui-84"
+                      id="mui-84-label"
                     >
                       User
                     </label>
@@ -6781,7 +6801,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-80"
+                        id="mui-84"
                         name="gitUser"
                         placeholder="git"
                         type="text"
@@ -6850,8 +6870,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-82"
-                      id="mui-82-label"
+                      for="mui-86"
+                      id="mui-86-label"
                     >
                       SSH port
                     </label>
@@ -6861,7 +6881,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-82"
+                        id="mui-86"
                         name="sshPort"
                         placeholder="Enter SSH port"
                         type="number"
@@ -6900,8 +6920,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-84"
-                      id="mui-84-label"
+                      for="mui-88"
+                      id="mui-88-label"
                     >
                       HTTPS port
                     </label>
@@ -6911,7 +6931,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-84"
+                        id="mui-88"
                         name="httpsPort"
                         placeholder="Enter HTTPS port"
                         type="number"
@@ -7018,8 +7038,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-87"
-                      id="mui-87-label"
+                      for="mui-91"
+                      id="mui-91-label"
                     >
                       Webhook URL
                     </label>
@@ -7030,7 +7050,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-87"
+                        id="mui-91"
                         name="webhookURL"
                         placeholder="https://example.com"
                         type="text"
@@ -7170,8 +7190,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-90"
-                      id="mui-90-label"
+                      for="mui-94"
+                      id="mui-94-label"
                     >
                       Private SSH key
                     </label>
@@ -7182,7 +7202,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputMultiline MuiInputBase-inputAdornedEnd css-mixo3p-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-90"
+                        id="mui-94"
                         placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
 "
                         style="height: 0px; overflow: hidden;"
@@ -7251,8 +7271,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="false"
-                      for="mui-92"
-                      id="mui-92-label"
+                      for="mui-96"
+                      id="mui-96-label"
                     >
                       Public SSH key
                     </label>
@@ -7263,7 +7283,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
                         aria-invalid="false"
                         autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-92"
+                        id="mui-96"
                         name="sshPublicKey"
                         placeholder="ssh-rsa PUBLIC KEY"
                         type="password"
@@ -7317,10 +7337,20 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Ger
       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
     >
       <div
-        class="MuiStack-root css-11jnun4-MuiStack-root"
+        class="MuiStack-root css-1a41st4-MuiStack-root"
       >
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <span />
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-pdf1aj-MuiButtonBase-root-MuiButton-root"
           disabled=""
           tabindex="-1"
           type="button"
@@ -9760,10 +9790,20 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
     >
       <div
-        class="MuiStack-root css-11jnun4-MuiStack-root"
+        class="MuiStack-root css-1a41st4-MuiStack-root"
       >
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <span />
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-pdf1aj-MuiButtonBase-root-MuiButton-root"
           disabled=""
           tabindex="-1"
           type="button"
@@ -9812,8 +9852,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                 <label
                   class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                   data-shrink="true"
-                  for="mui-20"
-                  id="mui-20-label"
+                  for="mui-21"
+                  id="mui-21-label"
                 >
                   Name
                 </label>
@@ -9824,7 +9864,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                     aria-invalid="false"
                     class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                     disabled=""
-                    id="mui-20"
+                    id="mui-21"
                     name="name"
                     placeholder="my-github"
                     type="text"
@@ -11611,8 +11651,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-23"
-                      id="mui-23-label"
+                      for="mui-24"
+                      id="mui-24-label"
                     >
                       Host
                     </label>
@@ -11622,7 +11662,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-23"
+                        id="mui-24"
                         name="gitHost"
                         placeholder="host-name.com"
                         type="text"
@@ -11661,8 +11701,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-25"
-                      id="mui-25-label"
+                      for="mui-26"
+                      id="mui-26-label"
                     >
                       User
                     </label>
@@ -11673,7 +11713,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-25"
+                        id="mui-26"
                         name="gitUser"
                         placeholder="git"
                         type="text"
@@ -11742,8 +11782,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-27"
-                      id="mui-27-label"
+                      for="mui-28"
+                      id="mui-28-label"
                     >
                       SSH port
                     </label>
@@ -11753,7 +11793,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-27"
+                        id="mui-28"
                         name="sshPort"
                         placeholder="Enter SSH port"
                         type="number"
@@ -11792,8 +11832,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-29"
-                      id="mui-29-label"
+                      for="mui-30"
+                      id="mui-30-label"
                     >
                       HTTPS port
                     </label>
@@ -11803,7 +11843,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                       <input
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-29"
+                        id="mui-30"
                         name="httpsPort"
                         placeholder="Enter HTTPS port"
                         type="number"
@@ -11910,8 +11950,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-32"
-                      id="mui-32-label"
+                      for="mui-33"
+                      id="mui-33-label"
                     >
                       Webhook URL
                     </label>
@@ -11922,7 +11962,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-32"
+                        id="mui-33"
                         name="webhookURL"
                         placeholder="https://example.com"
                         type="text"
@@ -12062,8 +12102,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-disabled MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="true"
-                      for="mui-35"
-                      id="mui-35-label"
+                      for="mui-36"
+                      id="mui-36-label"
                     >
                       Private SSH key
                     </label>
@@ -12074,7 +12114,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                         aria-invalid="false"
                         class="MuiInputBase-input MuiOutlinedInput-input Mui-disabled MuiInputBase-inputMultiline MuiInputBase-inputAdornedEnd css-mixo3p-MuiInputBase-input-MuiOutlinedInput-input"
                         disabled=""
-                        id="mui-35"
+                        id="mui-36"
                         placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
 "
                         style="height: 0px; overflow: hidden;"
@@ -12143,8 +12183,8 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                     <label
                       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
                       data-shrink="false"
-                      for="mui-36"
-                      id="mui-36-label"
+                      for="mui-37"
+                      id="mui-37-label"
                     >
                       Access token
                     </label>
@@ -12155,7 +12195,7 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
                         aria-invalid="false"
                         autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-36"
+                        id="mui-37"
                         name="token"
                         type="password"
                         value=""
@@ -12203,10 +12243,20 @@ exports[`testing ManageGitServer Edit renders ManageGitServer component with Git
       class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
     >
       <div
-        class="MuiStack-root css-11jnun4-MuiStack-root"
+        class="MuiStack-root css-1a41st4-MuiStack-root"
       >
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-1llbb2a-MuiButtonBase-root-MuiButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <span />
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary Mui-disabled MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorPrimary css-pdf1aj-MuiButtonBase-root-MuiButton-root"
           disabled=""
           tabindex="-1"
           type="button"

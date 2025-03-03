@@ -25,5 +25,8 @@ export const widgetPermissionsToCheck = {
     { instance: SecretKubeObject, config: SecretKubeObjectConfig },
     { instance: GitServerKubeObject, config: GitServerKubeObjectConfig },
   ],
-  delete: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
+  delete: [
+    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
+    { instance: GitServerKubeObject, config: GitServerKubeObjectConfig },
+  ],
 };
