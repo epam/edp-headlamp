@@ -3,6 +3,7 @@ import { CI_TOOLS } from '../../../../../../constants/ciTools';
 import { FormNameObject } from '../../../../../../types/forms';
 import { DeepPartial } from '../../../../../../types/global';
 import { CodebaseKubeObjectConfig } from '../../config';
+import { CODEBASE_LABEL_SELECTOR_GIT_SERVER } from '../../labels';
 import { CodebaseKubeObjectInterface } from '../../types';
 
 const { kind, group, version } = CodebaseKubeObjectConfig;
@@ -24,6 +25,9 @@ export const createCodebaseInstance = (
     kind,
     metadata: {
       name: name || 'your codebase name',
+      labels: {
+        [CODEBASE_LABEL_SELECTOR_GIT_SERVER]: formValues.gitServer,
+      },
     },
     spec: {
       ciTool: CI_TOOLS.TEKTON,

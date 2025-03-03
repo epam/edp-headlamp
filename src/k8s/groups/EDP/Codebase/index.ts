@@ -6,7 +6,10 @@ import { KubeObjectListInterface } from '../../../../types/k8s';
 import { streamResult } from '../../../common/streamResult';
 import { CodebaseKubeObjectConfig } from './config';
 import { EDP_CODEBASE_STATUS } from './constants';
-import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE } from './labels';
+import {
+  CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE,
+  CODEBASE_LABEL_SELECTOR_GIT_SERVER,
+} from './labels';
 import {
   CodebaseKubeObjectInterface,
   CodebaseSpecInterface,
@@ -66,6 +69,14 @@ export class CodebaseKubeObject extends K8s.cluster.makeKubeObject<CodebaseKubeO
     codebaseType: CODEBASE_TYPES
   ): Promise<KubeObjectListInterface<CodebaseKubeObjectInterface>> {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${codebaseType}`;
+    return ApiProxy.request(url);
+  }
+
+  static getListByGitServerLabel(
+    namespace: string,
+    codebaseGitServer: string
+  ): Promise<KubeObjectListInterface<CodebaseKubeObjectInterface>> {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${CODEBASE_LABEL_SELECTOR_GIT_SERVER}=${codebaseGitServer}`;
     return ApiProxy.request(url);
   }
 
