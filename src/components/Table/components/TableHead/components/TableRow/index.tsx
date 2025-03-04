@@ -74,10 +74,6 @@ export const TableRow = ({
     [theme]
   );
 
-  const totalSelectedLength = selectedLength;
-  const unselectableLength = rowCount - selectableRowCount;
-  const selectedWithoutDisabledItemsLength = totalSelectedLength - unselectableLength;
-
   const saveNewColumnsWidth = React.useCallback(() => {
     if (!tableSettings) return;
     const colGroup = colGroupRef.current;
@@ -162,6 +158,9 @@ export const TableRow = ({
     [colGroupRef, columns, saveNewColumnsWidth]
   );
 
+  const selectedAllIndeterminate = selectedLength > 0 && selectedLength < rowCount;
+  const selectAllChecked = selectedLength === selectableRowCount || selectedLength === rowCount;
+
   return (
     <MuiTableRow>
       {!!handleSelectAllClick && (
@@ -176,13 +175,8 @@ export const TableRow = ({
         >
           <Checkbox
             color={'primary'}
-            indeterminate={
-              selectedWithoutDisabledItemsLength > 0 &&
-              selectedWithoutDisabledItemsLength < selectableRowCount
-            }
-            checked={
-              selectableRowCount > 0 && selectedWithoutDisabledItemsLength === selectableRowCount
-            }
+            indeterminate={selectedAllIndeterminate}
+            checked={selectAllChecked}
             onChange={handleSelectAllClick}
           />
         </TableCell>
